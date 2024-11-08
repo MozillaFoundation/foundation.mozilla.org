@@ -3,7 +3,7 @@
 {% if banner.background_image %}
     {% image banner.background_image fill-1920x1080 as background_image %}
 {% endif %}
-{% with btn_class="tw-btn-pop tw-py-7 tw-px-16 tw-text-white tw-border-black tw-shadow-black tw-shadow-[6px_6px] tw-w-full small:tw-w-[300px] tw-text-[20px] small:tw-text-[24px] !tw-leading-[1]" %}
+{% with btn_class="tw-btn-pop tw-py-7 tw-pr-16 tw-pl-32 tw-text-white tw-border-black tw-shadow-black tw-shadow-[6px_6px] tw-w-full small:tw-w-[300px] tw-text-[20px] small:tw-text-[24px] !tw-leading-[1]" %}
 
     <div class="donate-banner {{ banner.background_color }} tw-py-8 tw-pb-12 medium:tw-py-16 medium:tw-pb-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
          {% if banner.background_image %}
@@ -28,8 +28,7 @@
                         <p class="tw-h1-heading large:tw-text-4xl tw-text-[20px] small:tw-text-[24px] medium:tw-text-[28px] xlarge:tw-text-[40px] tw-mb-0 {{ banner.text_color }} tw-font-semibold">
                             {{ banner.title }}
                         </p>
-                        <p class="tw-body-large tw-text-[12px] small:tw-text-[16px] medium:tw-text-[18px] tw-mt-4 tw-mb-8 small:tw-my-6 {{ banner.text_color }} tw-leading-normal">
-
+                        <p class="tw-body-large tw-text-[12px] small:tw-text-[16px] medium:tw-text-[18px] tw-mt-4 tw-mb-8 small:tw-mt-6 small:tw-mb-10 {{ banner.text_color }} tw-leading-normal tw-font-normal xlarge:tw-text-[20px]">
                             {{ banner.subtitle }}
                         </p>
                         <div class="tw-w-full">
