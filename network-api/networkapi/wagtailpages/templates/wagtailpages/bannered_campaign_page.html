@@ -60,8 +60,7 @@ An extra check has been added so as to not show the fixed "Take action" button o
                     <div class="mt-5 mt-md-0">
                         {% cta page %}
 
-                        {% if page.signup %}
-                            {% with localized_signup=page.signup.localized %}
+                        {% if localized_signup %}
                                 <div
                                     class="newsletter-signup-module tw-mb-24"
                                     data-module-type="default"
@@ -75,7 +74,6 @@ An extra check has been added so as to not show the fixed "Take action" button o
                                     data-ask-name="{{ localized_signup.ask_name }}"
                                     data-cta-privacy-notice="{{ localized_signup.privacy_notice|escape }}">
                                 </div>
-                            {% endwith %}
                         {% endif %}
                     </div>
                 </div>
