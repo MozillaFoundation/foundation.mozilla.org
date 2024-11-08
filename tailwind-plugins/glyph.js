@@ -65,6 +65,14 @@ module.exports = [
           ...hoverGlyph("linkedin-hover"),
           "&:before": {
             width: "16px",
+            height: "18px",
+          },
+        },
+        ".tiktok-glyph": {
+          ...glyph("tiktok"),
+          ...hoverGlyph("tiktok-hover"),
+          "&:before": {
+            width: "16px",
             height: "16px",
           },
         },
@@ -118,6 +126,22 @@ module.exports = [
           "& .github-glyph": {
             ...glyph("github-dark-theme"),
             ...hoverGlyph("github-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
+          },
+          "& .linkedin-glyph": {
+            ...glyph("linkedin-dark-theme"),
+            ...hoverGlyph("linkedin-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "18px",
+            },
+          },
+          "& .tiktok-glyph": {
+            ...glyph("tiktok-dark-theme"),
+            ...hoverGlyph("tiktok-dark-theme-hover"),
             "&:before": {
               width: "16px",
               height: "16px",
