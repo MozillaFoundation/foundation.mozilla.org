@@ -31,7 +31,7 @@ a.topic {
   position: relative;
 
   .rich-text {
-    h3 {
+    h2, h3 {
       a {
         @apply tw-text-blue-80;
         &:hover {
