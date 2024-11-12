@@ -20,8 +20,8 @@ from networkapi.redirects import foundation_redirects
 from networkapi.views import (
     EnvVariablesView,
     apple_pay_domain_association_view,
+    donation_test_view,
     review_app_help_view,
-    donation_test_view
 )
 from networkapi.wagtailcustomization.image_url_tag_urls import (
     urlpatterns as image_url_tag_urls,
