@@ -210,7 +210,7 @@ scipy==1.10.0
     # via wagtail-ab-testing
 scout-apm==3.2.1
     # via -r requirements.in
-sentry-sdk==2.17.0
+sentry-sdk==2.18.0
     # via -r requirements.in
 six==1.16.0
     # via
