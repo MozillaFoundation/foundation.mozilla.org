@@ -62,4 +62,5 @@ def apple_pay_domain_association_view(request):
 
 @require_GET
 def donation_test_view(request):
+    # This is a test view to render full Action Kit page
     return render(request, "mozilla-donation-page.html")
