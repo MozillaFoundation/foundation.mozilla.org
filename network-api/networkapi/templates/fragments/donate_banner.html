@@ -5,7 +5,7 @@
 {% endif %}
 {% with btn_class="tw-btn-pop tw-py-7 tw-px-16 tw-text-white tw-border-black tw-shadow-black tw-shadow-[6px_6px] tw-w-full small:tw-w-[300px] tw-text-[20px] small:tw-text-[24px] !tw-leading-[1]" %}
 
-    <div class="donate-banner {{ banner.background_color }} tw-py-8 tw-pb-12 medium:tw-py-16 medium:tw-pb-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
+    <div data-banner-id="{{ banner.id }}" data-banner-title="{{ banner.title }}" class="donate-banner {{ banner.background_color }} tw-py-8 tw-pb-12 medium:tw-py-16 medium:tw-pb-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
          {% if banner.background_image %}
              style="background-image: url('{{ background_image.url }}'); background-size: cover; background-position: center;"
          {% endif %}>
@@ -32,7 +32,7 @@
                             {{ banner.subtitle }}
                         </p>
                         <div class="tw-w-full tw-pr-3">
-                            <a class="{{ btn_class }} {{ banner.button_color }}" href="{{ banner.cta_link }}">
+                            <a id="banner-cta-button" class="{{ btn_class }} {{ banner.button_color }}" href="{{ banner.cta_link }}">
                                 {{ banner.cta_button_text }}
                             </a>
                         </div>

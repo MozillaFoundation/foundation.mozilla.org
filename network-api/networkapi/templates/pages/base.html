@@ -110,8 +110,8 @@
         {% endif %}
 
         {% block donate_banner %}
-            {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
-                {% include "fragments/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+            {% if donate_banner %}
+                {% include "fragments/donate_banner.html" with banner=donate_banner %}
             {% endif %}
         {% endblock %}
 
