@@ -52,7 +52,10 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
 
         # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
         if not active_ab_test or dnt_enabled:
-            return donate_banner_page.donate_banner.localized
+            donate_banner = donate_banner_page.donate_banner.localized
+            donate_banner.variant_version = "N/A"
+            donate_banner.active_ab_test = "N/A"
+            return donate_banner
 
         # Check for the cookie related to this A/B test.
         # In wagtail-ab-testing, the cookie name follows the format:
@@ -78,11 +81,13 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
 
         # Return the appropriate donate banner
         if is_variant:
-            donate_banner = active_ab_test.variant_revision.as_object().donate_banner
+            donate_banner = active_ab_test.variant_revision.as_object().donate_banner.localized
         else:
-            donate_banner = donate_banner_page.donate_banner
+            donate_banner = donate_banner_page.donate_banner.localized
 
-        return donate_banner.localized
+        donate_banner.variant_version = test_version
+        donate_banner.active_ab_test = active_ab_test.name
+        return donate_banner
 
     def get_context(self, request):
         context = super().get_context(request)
