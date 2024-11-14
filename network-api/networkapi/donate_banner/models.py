@@ -106,7 +106,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
 
     panels = [
-        HelpPanel(content="To enable banner on site, go to Settings > Donate Banner."),
+        HelpPanel(content="To enable banner on site, visit the DonateBannerPage that is a child of the Homepage."),
         FieldPanel("name"),
         FieldPanel("title"),
         FieldPanel("subtitle"),
