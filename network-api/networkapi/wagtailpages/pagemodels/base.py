@@ -52,7 +52,7 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
 
         # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
         if not active_ab_test or dnt_enabled:
-            return donate_banner_page.donate_banner
+            return donate_banner_page.donate_banner.localized
 
         # Check for the cookie related to this A/B test.
         # In wagtail-ab-testing, the cookie name follows the format:
