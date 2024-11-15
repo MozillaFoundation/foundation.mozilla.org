@@ -491,7 +491,7 @@ class BanneredCampaignPage(PrimaryPage):
     def get_context(self, request):
         context = super().get_context(request)
         context["related_posts"] = get_content_related_by_tag(self)
-        context["signup_localized"] = self.get_localized_signup()
+        context["localized_signup"] = self.get_localized_signup()
         return get_page_tree_information(self, context)
 
     class Meta:
