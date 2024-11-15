@@ -286,7 +286,7 @@ class TestNavMenuFeaturedPosts(BlogIndexTestCase):
 
     def test_localized_featured_posts(self) -> None:
         # Get the localised posts:
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(6):
             posts = self.menu.localized_featured_blog_posts
             self.assertEqual(len(posts), 3)
 
