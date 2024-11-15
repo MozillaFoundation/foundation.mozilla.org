@@ -10,6 +10,8 @@ const DonateBanner = {
     const closeButton = hideBanner
       ? undefined
       : banner?.querySelector(`a.banner-close`);
+    const ctaButton = banner?.querySelector(`#banner-cta-button`);
+
 
     // skip the banner if it got dismissed by the user today already
     if (hideBanner) {
@@ -22,6 +24,13 @@ const DonateBanner = {
     if (!hideBanner && banner) {
       banner.classList.remove(`tw-hidden`);
     }
+
+    if (window.wagtailAbTesting) {
+      ctaButton?.addEventListener(`click`, (e) => {
+          wagtailAbTesting.triggerEvent('donate-banner-link-click');
+      });
+  }
+
 
     closeButton?.addEventListener(`click`, (e) => {
       e.preventDefault();
