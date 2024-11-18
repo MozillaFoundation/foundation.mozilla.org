@@ -41,7 +41,8 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         default_locale = Locale.get_default()
         donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
 
-        if not donate_banner_page:
+        # If there is no DonateBannerPage or no donate_banner is set, return None.
+        if not donate_banner_page or not donate_banner_page.donate_banner:
             return None
 
         # Check if the user has Do Not Track enabled by inspecting the DNT header.
