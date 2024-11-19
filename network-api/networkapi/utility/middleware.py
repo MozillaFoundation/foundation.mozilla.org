@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.http.response import HttpResponseRedirectBase
+from django.shortcuts import redirect
+from django.utils.deprecation import MiddlewareMixin
 
 hostnames = settings.TARGET_DOMAINS
 
@@ -52,3 +54,19 @@ class TargetDomainRedirectMiddleware:
                 return HttpResponseTemporaryRedirect(redirect_url)
 
         return self.get_response(request)
+
+
+# Middleware to normalize the pt-br key errors in URLs by redirecting to pt-BR
+class NormalizeLocaleMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        # Split the path into segments
+        path_segments = request.path_info.strip("/").split("/")
+
+        # Check if the first segment is 'pt-br'
+        if len(path_segments) > 0 and path_segments[0] == "pt-br":
+            # Change only the country code to uppercase and reconstruct the path
+            path_segments[0] = "pt-BR"
+            new_path = "/" + "/".join(path_segments)
+            return redirect(new_path)
+
+        return None
