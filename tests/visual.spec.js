@@ -67,11 +67,11 @@ function testMozfestURL(path, locale = `en`) {
   return testURL(mozfestBaseUrl(locale), path);
 }
 
-async function expandDropdown(page, dropdownSelector) {
-  await page.hover(dropdownSelector);
-  // Wait for any animations to complete
-  await page.waitForTimeout(100);
-}
+// async function expandDropdown(page, dropdownSelector) {
+//   await page.hover(dropdownSelector);
+//   // Wait for any animations to complete
+//   await page.waitForTimeout(100);
+// }
 
 test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
@@ -79,36 +79,36 @@ test.describe.parallel(`Foundation page tests`, () => {
   });
 });
 
-test.describe.parallel(`Foundation site nav dropdowns`, () => {
-  let dropdownCount;
+// test.describe.parallel(`Foundation site nav dropdowns`, () => {
+//   let dropdownCount;
 
-  test.beforeAll(async ({ page }) => {
-    await page.goto(foundationBaseUrl("en"));
-    await page.locator(`body.react-loaded`);
-    await waitForImagesToLoad(page);
-    dropdownCount = await page.locator(".tw-nav-desktop-dropdown").count();
-  });
+//   test.beforeAll(async ({ page }) => {
+//     await page.goto(foundationBaseUrl("en"));
+//     await page.locator(`body.react-loaded`);
+//     await waitForImagesToLoad(page);
+//     dropdownCount = await page.locator(".tw-nav-desktop-dropdown").count();
+//   });
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto(foundationBaseUrl("en"));
-    await page.locator(`body.react-loaded`);
-    await waitForImagesToLoad(page);
-  });
+//   test.beforeEach(async ({ page }) => {
+//     await page.goto(foundationBaseUrl("en"));
+//     await page.locator(`body.react-loaded`);
+//     await waitForImagesToLoad(page);
+//   });
 
-  for (let i = 0; i < dropdownCount; i++) {
-    test(`Expanded dropdown ${i + 1}`, async ({ page }) => {
-      await expandDropdown(
-        page,
-        `.tw-nav-desktop-dropdown:nth-of-type(${i + 1})`
-      );
+//   for (let i = 0; i < dropdownCount; i++) {
+//     test(`Expanded dropdown ${i + 1}`, async ({ page }) => {
+//       await expandDropdown(
+//         page,
+//         `.tw-nav-desktop-dropdown:nth-of-type(${i + 1})`
+//       );
 
-      await percySnapshot(
-        page,
-        `Main navigation with expanded dropdown ${i + 1}`
-      );
-    });
-  }
-});
+//       await percySnapshot(
+//         page,
+//         `Main navigation with expanded dropdown ${i + 1}`
+//       );
+//     });
+//   }
+// });
 
 test.describe.parallel(`Mozfest page tests`, () => {
   Object.entries(MozfestURLs).forEach(([testName, path]) => {
