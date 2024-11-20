@@ -19,16 +19,19 @@ function testURL(baseUrl, path) {
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(`\n\n Go to ${url}`);
 
-    let gotoOption = {};
-
     // homepage takes longer to load
     if (path == "") {
-      gotoOption = {
-        waitUntil: "networkidle",
-      };
+      await page.goto(url, { waitUntil: "load" });
+      await page.waitForLoadState("networkidle");
+    } else {
+      await page.goto(url);
     }
 
-    await page.goto(url, gotoOption);
+    // logging network reuqests so we can identify delays or errors
+    page.on("request", (request) => console.log(`Request: ${request.url()}`));
+    page.on("response", (response) =>
+      console.log(`Response: ${response.url()} (${response.status()})`)
+    );
 
     // Gets set once React has finished loading
     await page.locator(`body.react-loaded`);
