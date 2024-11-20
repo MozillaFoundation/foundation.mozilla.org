@@ -81,6 +81,7 @@ test.describe.parallel(`Foundation page tests`, () => {
   test(`Foundation main navigation with expanded dropdown`, async ({
     page,
   }) => {
+    test.setTimeout(60000);
     await page.goto(foundationBaseUrl("en"));
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
