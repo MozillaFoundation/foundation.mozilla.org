@@ -19,6 +19,29 @@ function testURL(baseUrl, path) {
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(`\n\n Go to ${url}`);
 
+    // block unnecessary resources to speed tests up
+    await page.route("**/*", (route) => {
+      const url = route.request().url();
+
+      // Define blocked domains and resource types
+      const blockedDomains = [
+        "fundraiseup.com",
+        "google-analytics.com",
+        "cdn.cookielaw.org",
+      ];
+      const blockedExtensions = [".js", ".woff2", ".ttf"];
+
+      if (
+        blockedDomains.some((domain) => url.includes(domain)) ||
+        blockedExtensions.some((ext) => url.endsWith(ext))
+      ) {
+        console.log(`Blocking request to: ${url}`);
+        return route.abort(); // block the request
+      }
+
+      return route.continue(); // allow other requests
+    });
+
     // logging network reuqests so we can identify delays or errors
     page.on("console", (msg) => {
       if (msg.type() == "error") {
