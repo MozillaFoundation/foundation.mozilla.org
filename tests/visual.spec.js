@@ -49,7 +49,7 @@ function testURL(baseUrl, path) {
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
-    await percySnapshot(page, testInfo.title, { waitForTimeout: 60000 });
+    await percySnapshot(page, testInfo.title);
     await page.screenshot({
       path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
       fullPage: true,
@@ -85,7 +85,7 @@ test.describe.parallel(`Foundation page tests`, () => {
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
 
-    const dropdowns = await page.$$(".tw-nav-desktop-dropdown");
+    const dropdowns = await page.locator(".tw-nav-desktop-dropdown");
 
     for (let i = 0; i < dropdowns.length; i++) {
       await expandDropdown(
@@ -94,8 +94,7 @@ test.describe.parallel(`Foundation page tests`, () => {
       );
       await percySnapshot(
         page,
-        `Main navigation with expanded dropdown ${i + 1}`,
-        { waitForTimeout: 60000 }
+        `Main navigation with expanded dropdown ${i + 1}`
       );
       // Reset the page state for the next dropdown
       if (i < dropdowns.length - 1) {
