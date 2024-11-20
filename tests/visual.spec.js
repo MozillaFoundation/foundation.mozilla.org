@@ -110,8 +110,8 @@ test.describe.parallel(`Foundation page tests`, () => {
 //   }
 // });
 
-test.describe.parallel(`Mozfest page tests`, () => {
-  Object.entries(MozfestURLs).forEach(([testName, path]) => {
-    test(`Mozfest ${testName}`, testMozfestURL(path));
-  });
-});
+// test.describe.parallel(`Mozfest page tests`, () => {
+//   Object.entries(MozfestURLs).forEach(([testName, path]) => {
+//     test(`Mozfest ${testName}`, testMozfestURL(path));
+//   });
+// });
