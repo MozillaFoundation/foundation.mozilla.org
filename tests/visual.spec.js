@@ -77,34 +77,37 @@ test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
     test(`Foundation ${testName}`, testFoundationURL(path));
   });
+});
 
-  test(`Foundation main navigation with expanded dropdown`, async ({
-    page,
-  }) => {
-    test.setTimeout(60000);
+test.describe.parallel(`Foundation site nav dropdowns`, () => {
+  let dropdownCount;
+
+  test.beforeAll(async ({ page }) => {
     await page.goto(foundationBaseUrl("en"));
     await page.locator(`body.react-loaded`);
     await waitForImagesToLoad(page);
+    dropdownCount = await page.locator(".tw-nav-desktop-dropdown").count();
+  });
 
-    const dropdowns = await page.locator(".tw-nav-desktop-dropdown");
+  test.beforeEach(async ({ page }) => {
+    await page.goto(foundationBaseUrl("en"));
+    await page.locator(`body.react-loaded`);
+    await waitForImagesToLoad(page);
+  });
 
-    for (let i = 0; i < dropdowns.length; i++) {
+  for (let i = 0; i < dropdownCount; i++) {
+    test(`Expanded dropdown ${i + 1}`, async ({ page }) => {
       await expandDropdown(
         page,
         `.tw-nav-desktop-dropdown:nth-of-type(${i + 1})`
       );
+
       await percySnapshot(
         page,
         `Main navigation with expanded dropdown ${i + 1}`
       );
-      // Reset the page state for the next dropdown
-      if (i < dropdowns.length - 1) {
-        await page.goto(foundationBaseUrl("en"));
-        await page.locator(`body.react-loaded`);
-        await waitForImagesToLoad(page);
-      }
-    }
-  });
+    });
+  }
 });
 
 test.describe.parallel(`Mozfest page tests`, () => {
