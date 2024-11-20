@@ -17,8 +17,18 @@ function testURL(baseUrl, path) {
   return async ({ page }, testInfo) => {
     // append trailing slash to URL only if it doesn't contain query string
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
-    console.log(url);
-    await page.goto(url);
+    console.log(`\n\n Go to ${url}`);
+
+    let gotoOption = {};
+
+    // homepage takes longer to load
+    if (path == "") {
+      gotoOption = {
+        waitUntil: "networkidle",
+      };
+    }
+
+    await page.goto(url, gotoOption);
 
     // Gets set once React has finished loading
     await page.locator(`body.react-loaded`);
