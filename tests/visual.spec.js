@@ -49,7 +49,7 @@ function testURL(baseUrl, path) {
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
-    await percySnapshot(page, testInfo.title);
+    await percySnapshot(page, testInfo.title, { waitForTimeout: 60000 });
     await page.screenshot({
       path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
       fullPage: true,
@@ -94,7 +94,8 @@ test.describe.parallel(`Foundation page tests`, () => {
       );
       await percySnapshot(
         page,
-        `Main navigation with expanded dropdown ${i + 1}`
+        `Main navigation with expanded dropdown ${i + 1}`,
+        { waitForTimeout: 60000 }
       );
       // Reset the page state for the next dropdown
       if (i < dropdowns.length - 1) {
