@@ -5,7 +5,7 @@
  * @returns resolve() once all images are done, or reject() if after 20 tries images still haven't finished.
  */
 module.exports = async function waitForImagesToLoad(page) {
-  // page.on(`console`, console.log);
+  page.on(`console`, console.log);
 
   const images = page.locator("img");
 

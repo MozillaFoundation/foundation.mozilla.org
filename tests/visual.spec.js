@@ -19,19 +19,24 @@ function testURL(baseUrl, path) {
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(`\n\n Go to ${url}`);
 
-    // homepage takes longer to load
-    if (path == "") {
-      await page.goto(url, { waitUntil: "load" });
-      await page.waitForLoadState("networkidle");
-    } else {
-      await page.goto(url);
-    }
-
     // logging network reuqests so we can identify delays or errors
+    page.on("console", (msg) => {
+      if (msg.type() == "error") {
+        console.log(`[Browser ${msg.type()}]: ${msg.text()}`);
+      }
+    });
     page.on("request", (request) => console.log(`Request: ${request.url()}`));
     page.on("response", (response) =>
       console.log(`Response: ${response.url()} (${response.status()})`)
     );
+
+    // homepage takes longer to load
+    if (path == "") {
+      await page.goto(url, { waitUntil: "load" });
+      await page.waitForLoadState("networkidle", { timeout: 60000 });
+    } else {
+      await page.goto(url);
+    }
 
     // Gets set once React has finished loading
     await page.locator(`body.react-loaded`);
@@ -88,6 +93,10 @@ function testMozfestURL(path, locale = `en`) {
 
 test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
+    if (path === "") {
+      test.setTimeout(60000); // set timeout to 60 seconds because homepage takes longer to load
+    }
+
     test(`Foundation ${testName}`, testFoundationURL(path));
   });
 });
