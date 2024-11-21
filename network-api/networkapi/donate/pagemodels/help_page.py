@@ -54,7 +54,7 @@ class DonateHelpPage(BaseDonationPage):
         context["thank_you_url"] = self.get_thank_you_url(request)
         context["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
         return context
- 
+
     def get_localized_notice(self):
         """Returns the localized notice if it exists, otherwise None."""
         if self.notice:
