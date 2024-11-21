@@ -1,5 +1,5 @@
 const config = {
-  workers: 1,
+  workers: 2,
   use: {
     headless: true,
     viewport: { width: 1280, height: 720 },
