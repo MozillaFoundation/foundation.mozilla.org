@@ -85,6 +85,7 @@ jobs:
         run: npm run percy
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_CLIENT_ERROR_LOGS: false
           PERCY_NETWORK_IDLE_WAIT_TIMEOUT: 60000
           PERCY_PAGE_LOAD_TIMEOUT: 60000
           PERCY_LOGLEVEL: debug

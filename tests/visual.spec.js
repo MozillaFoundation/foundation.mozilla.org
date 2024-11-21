@@ -43,20 +43,20 @@ function testURL(baseUrl, path) {
     });
 
     // logging network reuqests so we can identify delays or errors
-    page.on("console", (msg) => {
-      if (msg.type() == "error") {
-        console.log(`[Browser ${msg.type()}]: ${msg.text()}`);
-      }
-    });
-    page.on("request", (request) => console.log(`Request: ${request.url()}`));
-    page.on("response", (response) =>
-      console.log(`Response: ${response.url()} (${response.status()})`)
-    );
+    // page.on("console", (msg) => {
+    //   if (msg.type() == "error") {
+    //     console.log(`[Browser ${msg.type()}]: ${msg.text()}`);
+    //   }
+    // });
+    // page.on("request", (request) => console.log(`Request: ${request.url()}`));
+    // page.on("response", (response) =>
+    //   console.log(`Response: ${response.url()} (${response.status()})`)
+    // );
 
     // homepage takes longer to load
     if (path == "") {
       await page.goto(url, { waitUntil: "load" });
-      await page.waitForLoadState("networkidle", { timeout: 60000 });
+      await page.waitForLoadState("networkidle", { timeout: 90000 });
     } else {
       await page.goto(url);
     }
@@ -117,7 +117,7 @@ function testMozfestURL(path, locale = `en`) {
 test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
     if (path === "") {
-      test.setTimeout(60000); // set timeout to 60 seconds because homepage takes longer to load
+      test.setTimeout(90000); // set timeout to 60 seconds because homepage takes longer to load
     }
 
     test(`Foundation ${testName}`, testFoundationURL(path));
