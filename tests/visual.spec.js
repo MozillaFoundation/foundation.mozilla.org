@@ -34,12 +34,8 @@ function testURL(baseUrl, path) {
         "google-analytics.com",
         "cdn.cookielaw.org",
       ];
-      const blockedExtensions = [".js", ".woff2", ".ttf"];
 
-      if (
-        blockedDomains.some((domain) => url.includes(domain)) ||
-        blockedExtensions.some((ext) => url.endsWith(ext))
-      ) {
+      if (blockedDomains.some((domain) => url.includes(domain))) {
         console.log(`Blocking request to: ${url}`);
         return route.abort(); // block the request
       }
