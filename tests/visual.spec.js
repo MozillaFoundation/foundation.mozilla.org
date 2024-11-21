@@ -6,6 +6,11 @@ const MozfestURLs = require("./mozfest-urls.js");
 const { foundationBaseUrl, mozfestBaseUrl } = require("./base-urls.js");
 
 const runTime = Date.now();
+const percyConfig = {
+  waitForTimeout: 90000,
+  pageLoadTimeout: 90000,
+};
+
 /**
  * Screenshot task runner
  *
@@ -90,7 +95,7 @@ function testURL(baseUrl, path) {
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
-    await percySnapshot(page, testInfo.title);
+    await percySnapshot(page, testInfo.title, percyConfig);
     await page.screenshot({
       path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
       fullPage: true,
