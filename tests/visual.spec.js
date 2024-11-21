@@ -60,7 +60,7 @@ function testURL(baseUrl, path) {
 
     // homepage takes longer to load
     if (path == "") {
-      await page.goto(url, { waitUntil: "load" });
+      await page.goto(url, { waitUntil: "load" }, { timeout: 90000 });
       // await page.waitForLoadState("networkidle", { timeout: 90000 });
     } else {
       await page.goto(url);
