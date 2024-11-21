@@ -6,10 +6,6 @@ const MozfestURLs = require("./mozfest-urls.js");
 const { foundationBaseUrl, mozfestBaseUrl } = require("./base-urls.js");
 
 const runTime = Date.now();
-const percyConfig = {
-  waitForTimeout: 90000,
-  pageLoadTimeout: 90000,
-};
 
 /**
  * Screenshot task runner
@@ -57,7 +53,7 @@ function testURL(baseUrl, path) {
     // homepage takes longer to load
     if (path == "") {
       await page.goto(url, { waitUntil: "load" }, { timeout: 90000 });
-      // await page.waitForLoadState("networkidle", { timeout: 90000 });
+      await page.waitForLoadState("networkidle");
     } else {
       await page.goto(url);
     }
@@ -91,7 +87,7 @@ function testURL(baseUrl, path) {
     // we don't want to screenshot before images are done.
     await waitForImagesToLoad(page);
 
-    await percySnapshot(page, testInfo.title, percyConfig);
+    await percySnapshot(page, testInfo.title);
     await page.screenshot({
       path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
       fullPage: true,
@@ -117,10 +113,6 @@ function testMozfestURL(path, locale = `en`) {
 
 test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
-    if (path === "") {
-      test.setTimeout(90000); // set timeout to 60 seconds because homepage takes longer to load
-    }
-
     test(`Foundation ${testName}`, testFoundationURL(path));
   });
 });
