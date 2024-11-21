@@ -11,8 +11,8 @@
     <div class="tw-container tw-py-12 medium:tw-py-24">
         <div class="cms donate-help-page-content">
             <h1 class="tw-h1-heading"> {{ page.title }} </h1>
-            {% if page.notice %}
-                {% include "../fragments/help_page_notice.html" with notice=page.notice %}
+            {% if localized_notice %}
+                {% include "../fragments/help_page_notice.html" with notice=localized_notice%}
             {% endif %}
             <p>
                 {% blocktrans with link="?form=donor-care-intake" trimmed %}
