@@ -39,17 +39,6 @@ function testURL(baseUrl, path) {
       return route.continue(); // allow other requests
     });
 
-    // logging network reuqests so we can identify delays or errors
-    // page.on("console", (msg) => {
-    //   if (msg.type() == "error") {
-    //     console.log(`[Browser ${msg.type()}]: ${msg.text()}`);
-    //   }
-    // });
-    // page.on("request", (request) => console.log(`Request: ${request.url()}`));
-    // page.on("response", (response) =>
-    //   console.log(`Response: ${response.url()} (${response.status()})`)
-    // );
-
     // homepage takes longer to load
     if (path == "") {
       await page.goto(url, { waitUntil: "load" }, { timeout: 90000 });
@@ -105,11 +94,11 @@ function testMozfestURL(path, locale = `en`) {
   return testURL(mozfestBaseUrl(locale), path);
 }
 
-// async function expandDropdown(page, dropdownSelector) {
-//   await page.hover(dropdownSelector);
-//   // Wait for any animations to complete
-//   await page.waitForTimeout(100);
-// }
+async function expandDropdown(page, dropdownSelector) {
+  await page.hover(dropdownSelector);
+  // Wait for any animations to complete
+  await page.waitForTimeout(100);
+}
 
 test.describe.parallel(`Foundation page tests`, () => {
   Object.entries(FoundationURLs).forEach(async ([testName, path]) => {
@@ -117,39 +106,39 @@ test.describe.parallel(`Foundation page tests`, () => {
   });
 });
 
-// test.describe.parallel(`Foundation site nav dropdowns`, () => {
-//   let dropdownCount;
+test.describe.parallel(`Foundation site nav dropdowns`, () => {
+  let dropdownCount;
 
-//   test.beforeAll(async ({ page }) => {
-//     await page.goto(foundationBaseUrl("en"));
-//     await page.locator(`body.react-loaded`);
-//     await waitForImagesToLoad(page);
-//     dropdownCount = await page.locator(".tw-nav-desktop-dropdown").count();
-//   });
+  test.beforeAll(async ({ page }) => {
+    await page.goto(foundationBaseUrl("en"));
+    await page.locator(`body.react-loaded`);
+    await waitForImagesToLoad(page);
+    dropdownCount = await page.locator(".tw-nav-desktop-dropdown").count();
+  });
 
-//   test.beforeEach(async ({ page }) => {
-//     await page.goto(foundationBaseUrl("en"));
-//     await page.locator(`body.react-loaded`);
-//     await waitForImagesToLoad(page);
-//   });
+  test.beforeEach(async ({ page }) => {
+    await page.goto(foundationBaseUrl("en"));
+    await page.locator(`body.react-loaded`);
+    await waitForImagesToLoad(page);
+  });
 
-//   for (let i = 0; i < dropdownCount; i++) {
-//     test(`Expanded dropdown ${i + 1}`, async ({ page }) => {
-//       await expandDropdown(
-//         page,
-//         `.tw-nav-desktop-dropdown:nth-of-type(${i + 1})`
-//       );
+  for (let i = 0; i < dropdownCount; i++) {
+    test(`Expanded dropdown ${i + 1}`, async ({ page }) => {
+      await expandDropdown(
+        page,
+        `.tw-nav-desktop-dropdown:nth-of-type(${i + 1})`
+      );
 
-//       await percySnapshot(
-//         page,
-//         `Main navigation with expanded dropdown ${i + 1}`
-//       );
-//     });
-//   }
-// });
+      await percySnapshot(
+        page,
+        `Main navigation with expanded dropdown ${i + 1}`
+      );
+    });
+  }
+});
 
-// test.describe.parallel(`Mozfest page tests`, () => {
-//   Object.entries(MozfestURLs).forEach(([testName, path]) => {
-//     test(`Mozfest ${testName}`, testMozfestURL(path));
-//   });
-// });
+test.describe.parallel(`Mozfest page tests`, () => {
+  Object.entries(MozfestURLs).forEach(([testName, path]) => {
+    test(`Mozfest ${testName}`, testMozfestURL(path));
+  });
+});
