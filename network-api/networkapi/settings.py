@@ -221,7 +221,6 @@ INSTALLED_APPS = list(
             "wagtail.images",
             "wagtail.search",
             "wagtail.admin",
-            "wagtail.contrib.legacy.richtext",
             "wagtail",
             "wagtail.contrib.forms",
             "wagtail.contrib.redirects",
