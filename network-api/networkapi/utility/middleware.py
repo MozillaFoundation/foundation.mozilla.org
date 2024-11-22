@@ -56,17 +56,28 @@ class TargetDomainRedirectMiddleware:
         return self.get_response(request)
 
 
-# Middleware to normalize the pt-br key errors in URLs by redirecting to pt-BR
+# Middleware to normalize the pt-br and fy-nl key errors in URLs by redirecting to their capitalized regions (pt-BR and fy-NL)
 class NormalizeLocaleMiddleware(MiddlewareMixin):
+    # Dictionary mapping incorrect locale keys to their normalized forms
+    locales_to_normalize = {"pt-br": "pt-BR", "fy-nl": "fy-NL"}
+
     def process_request(self, request):
         # Split the path into segments
         path_segments = request.path_info.strip("/").split("/")
 
-        # Check if the first segment is 'pt-br'
-        if len(path_segments) > 0 and path_segments[0] == "pt-br":
-            # Change only the country code to uppercase and reconstruct the path
-            path_segments[0] = "pt-BR"
-            new_path = "/" + "/".join(path_segments)
-            return redirect(new_path)
+        # Check if the first segment is a locale that needs to be normalized
+        if len(path_segments) > 0 and path_segments[0] in self.locales_to_normalize:
+            normalized_locale = self.locales_to_normalize[path_segments[0]]
+            # Only redirect if the current locale is not already in the correct form
+            if path_segments[0] != normalized_locale:
+                path_segments[0] = normalized_locale
+                new_path = "/" + "/".join(path_segments) + "/"  # Ensure trailing slash
+
+                # Preserve query parameters if they exist
+                query_string = request.META.get("QUERY_STRING")
+                if query_string:
+                    new_path += f"?{query_string}"
+
+                return redirect(new_path, permanent=False)  # Using temporary redirects
 
         return None
