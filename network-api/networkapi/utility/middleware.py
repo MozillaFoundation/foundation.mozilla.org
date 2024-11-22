@@ -56,7 +56,7 @@ class TargetDomainRedirectMiddleware:
         return self.get_response(request)
 
 
-# Middleware to normalize the pt-br and fy-nl key errors in URLs by redirecting to their capitalized regions (pt-BR and fy-NL)
+# Middleware to normalize the pt-br and fy-nl locales to their capitalized regions (pt-BR and fy-NL)
 class NormalizeLocaleMiddleware(MiddlewareMixin):
     # Dictionary mapping incorrect locale keys to their normalized forms
     locales_to_normalize = {"pt-br": "pt-BR", "fy-nl": "fy-NL"}
