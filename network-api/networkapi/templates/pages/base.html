@@ -100,7 +100,7 @@
     </head>
     <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
         {% if user.is_authenticated %}
-            {% wagtailuserbar 'bottom-left' %}
+            {% wagtailuserbar 'bottom-right' %}
         {% endif %}
 
         {% if page.live == False %}
@@ -110,8 +110,8 @@
         {% endif %}
 
         {% block donate_banner %}
-            {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
-                {% include "fragments/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+            {% if donate_banner %}
+                {% include "fragments/donate_banner.html" with banner=donate_banner %}
             {% endif %}
         {% endblock %}
 

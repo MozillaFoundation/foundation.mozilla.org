@@ -32,43 +32,44 @@ export class Utils {
   /**
    * Update page header to the category passed in the argument
    *
-   * @param {*} category
-   * @param {*} parent
-   *
-   * @todo Improve the implementation to increase code readibility
+   * @param {String} category name of the category
+   * @param {String} parent name of the parent category
    */
   static updateHeader(category, parent) {
-    const headerText = document.querySelector(".category-header");
+    const datasetName =
+      parent || (category === "None" ? ALL_CATEGORY_LABEL : category);
+    const headerText =
+      category === "None" ? ALL_CATEGORY_LABEL : parent || category;
 
-    if (parent) {
-      document.querySelector(".category-header").dataset.name = parent;
-      headerText.textContent = parent;
-      if (document.querySelector(`#multipage-nav a[data-name="${parent}"]`)) {
-        document.querySelector(".category-header").href =
-          document.querySelector(
-            `#multipage-nav a[data-name="${parent}"]`
-          ).href;
-      }
-      document.querySelector(
-        `#pni-mobile-category-nav .active-link-label`
-      ).textContent = parent;
-    } else {
-      const header = category === "None" ? ALL_CATEGORY_LABEL : category;
-      headerText.textContent = header;
-      document.querySelector(".category-header").dataset.name = category;
-      if (document.querySelector(`#multipage-nav a[data-name="${category}"]`)) {
-        document.querySelector(".category-header").href =
-          document.querySelector(
-            `#multipage-nav a[data-name="${category}"]`
-          ).href;
-      }
-      document.querySelector(
-        `#pni-mobile-category-nav .active-link-label`
-      ).textContent =
-        category === "None"
-          ? document.querySelector(`#multipage-nav a[data-name="None"]`)
-              .textContent
-          : category;
+    this.setCategoryHeader(datasetName, headerText);
+  }
+
+  /**
+   * Set category header text in the DOM
+   *
+   * @param {String} datasetName The name to set in the header's data attribute
+   * @param {String} headerText The text content to show as the category header
+   */
+  static setCategoryHeader(datasetName, headerText) {
+    const categoryHeader = document.querySelector(".category-header");
+    const navLink = document.querySelector(
+      `#multipage-nav a[data-name="${headerText}"]`
+    );
+    const mobileActiveLink = document.querySelector(
+      `#pni-mobile-category-nav .active-link-label`
+    );
+
+    if (!categoryHeader) return;
+
+    categoryHeader.dataset.name = datasetName;
+    categoryHeader.textContent = headerText;
+
+    if (navLink) {
+      categoryHeader.href = navLink.href;
+    }
+
+    if (mobileActiveLink) {
+      mobileActiveLink.textContent = datasetName;
     }
   }
 
@@ -137,13 +138,11 @@ export class Utils {
    * Toggle products' visibility based on search text
    *
    * @param {String} text search text
-   *
-   * @todo Rename to "filterProductsBySearchText"
    */
-  static toggleProducts(text) {
+  static filterProductsBySearchText(text) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
-      if (this.test(product, text)) {
+      if (this.productContainsSearchText(product, text)) {
         product.classList.remove(`d-none`);
         product.classList.add(`d-flex`);
       } else {
@@ -216,10 +215,8 @@ export class Utils {
    * Toggle products' visibility based on category
    *
    * @param {String} category category name
-   *
-   * @todo Rename to "filterProductsByCategory"
    */
-  static showProductsForCategory(category) {
+  static filterProductsByCategory(category) {
     gsap.set(ALL_PRODUCTS, { opacity: 1, y: 0 });
     ALL_PRODUCTS.forEach((product) => {
       if (this.testCategories(product, category)) {
@@ -257,10 +254,8 @@ export class Utils {
    * @param {Element} product DOM element of the product
    * @param {String} text search text
    * @returns {Boolean} Whether the product contains the search text
-   *
-   * @todo Rename to "doesProductContainSearchText"
    */
-  static test(product, text) {
+  static productContainsSearchText(product, text) {
     // Note that the following is absolutely not true for all
     // languages, but it's true for the ones we use.
     text = text.toLowerCase();
@@ -335,10 +330,9 @@ export class Utils {
 
   /**
    * Toggle the visibility of "no results" notice
-   *
-   * @todo Rename to "toggleNoResultsNotice"
+   * based on the number of products displayed
    */
-  static checkForEmptyNotice() {
+  static toggleNoResultsNotice() {
     let qs = `figure.product-box:not(.d-none)`;
 
     if (document.body.classList.contains(`show-ding-only`)) {
@@ -357,11 +351,9 @@ export class Utils {
   }
 
   /**
-   * Toggle the visibility of the creepy face and speech
-   *
-   * @todo Rename to "toggleCreepyFace"
+   * Toggle the visibility of the creepy face and speech bubble
    */
-  static moveCreepyFace() {
+  static toggleCreepyFace() {
     const CREEPINESS_FACE = document.querySelector(
       ".creep-o-meter-information"
     );

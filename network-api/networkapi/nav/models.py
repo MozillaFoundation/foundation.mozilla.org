@@ -190,7 +190,7 @@ class NavMenu(
     def localized_featured_blog_posts(self):
         default_locale = settings.LANGUAGE_CODE
         posts = BlogPage.objects.filter(
-            featured_pages_relationship__isnull=False, locale__language_code=default_locale
+            featured_pages_relationship__page=self.blog_index_page, locale__language_code=default_locale
         ).order_by("featured_pages_relationship__sort_order")
         posts = localize_queryset(posts, preserve_order=True).prefetch_related("topics")
         return posts[:3]
