@@ -3,9 +3,7 @@ import { getText } from "../../petition/locales";
 import PropTypes from "prop-types";
 
 const PrivacyNotice = ({ content, classes }) => {
-  //[TODO] Investigate removing the legacy richtext template which renders an empty rich-text div wrapper
-  // Jira TP1-601 / Github Issue #12285 https://github.com/MozillaFoundation/foundation.mozilla.org/issues/12285
-  if (!content || content == "<div class='rich-text'></div>") {
+  if (!content) {
     content = getText(
       `I'm okay with Mozilla handling my info as explained in this Privacy Notice`
     );
