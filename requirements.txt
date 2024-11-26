@@ -39,7 +39,7 @@ cffi==1.16.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==42.0.4
+cryptography==43.0.1
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==4.2.15
+django==4.2.16
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -87,7 +87,7 @@ django-filter==23.5
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.19.0
+django-htmx==1.21.0
     # via -r requirements.in
 django-modelcluster==6.2.1
     # via wagtail
@@ -208,9 +208,9 @@ s3transfer==0.10.0
     # via boto3
 scipy==1.10.0
     # via wagtail-ab-testing
-scout-apm==3.0.2
+scout-apm==3.2.1
     # via -r requirements.in
-sentry-sdk==2.17.0
+sentry-sdk==2.18.0
     # via -r requirements.in
 six==1.16.0
     # via
@@ -285,7 +285,7 @@ wagtailmedia==0.14.5
     # via -r requirements.in
 webencodings==0.5.1
     # via html5lib
-whitenoise==6.6.0
+whitenoise==6.8.2
     # via -r requirements.in
 willow[heif]==1.6.3
     # via

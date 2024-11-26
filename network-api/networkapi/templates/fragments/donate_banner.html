@@ -1,32 +1,43 @@
 {% load settings_value i18n static wagtailimages_tags %}
-{% image banner.background_image fill-1305x720 as background_image %}
+{% image banner.foreground_image fill-1305x720 as foreground_image %}
+{% if banner.background_image %}
+    {% image banner.background_image fill-1920x1080 as background_image %}
+{% endif %}
+{% with btn_class="tw-btn-pop tw-py-7 tw-px-16 tw-text-white tw-border-black tw-shadow-black tw-shadow-[6px_6px] tw-w-full small:tw-w-[300px] tw-text-[20px] small:tw-text-[24px] !tw-leading-[1]" %}
 
-{% with btn_class="tw-btn-pop tw-py-7 tw-px-16 tw-text-white tw-border-black tw-bg-blue-40 tw-shadow-black tw-shadow-[4px_4px] tw-w-full small:tw-w-auto hover:tw-bg-blue-80" %}
-    <div class="donate-banner tw-bg-red-40 tw-py-8 tw-pb-12 medium:tw-py-16 medium:tw-pb-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden">
+    <div data-banner-id="{{ banner.id }}"
+         data-banner-title="{{ banner.title }}"
+         data-banner-name="{{ banner.name }}"
+         data-banner-variant-version="{{ banner.variant_version }}"
+         data-banner-active-ab-test="{{ banner.active_ab_test }}"
+         class="donate-banner {{ banner.background_color }} tw-py-8 tw-pb-12 medium:tw-py-16 medium:tw-pb-20 tw-relative tw-z-20 tw-w-full tw-hidden print:tw-hidden"
+         {% if banner.background_image %}
+             style="background-image: url('{{ background_image.url }}'); background-size: cover; background-position: center;"
+         {% endif %}>
 
         <a href="#" class="tw-p-8 tw-box-content banner-close tw-cursor-pointer tw-absolute tw-right-0 tw-top-0 tw-group" aria-label="{% trans " Close Banner" %}">
-            <img src="{% static "_images/x.svg" %}" width="24" height="23" alt="{% trans " Close Banner" %}" class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter">
+            <img src="{% static "_images/x.svg" %}" width="24" height="23" alt="{% trans " Close Banner" %}" class="tw-w-8 tw-h-8 tw-transition-transform tw-duration-100 tw-ease-in-out tw-transform group-hover:tw-scale-110 tw-filter {% if banner.text_color == 'tw-text-black' %}tw-invert{% endif %}">
         </a>
 
         <div class="tw-container">
-            <div class="tw-row tw-px-6">
+            <div class="tw-row tw-px-6 xlarge:tw-items-center">
 
                 {% block left_banner_column %}
                     <div class="tw-w-[32%] tw-m-auto xlarge:tw-mr-auto medium:tw-mr-0 medium:tw-order-2 tw-mb-4 medium:tw-mb-auto">
-                        <img src="{{ background_image.url }}" alt="" width="{{ background_image.width }}" height="{{ background_image.height }}">
+                        <img src="{{ foreground_image.url }}" alt="" width="{{ foreground_image.width }}" height="{{ foreground_image.height }}">
                     </div>
                 {% endblock left_banner_column %}
 
                 {% block right_banner_column %}
-                    <div class="xlarge:tw-w-7/12 large:tw-w-[64%] medium:tw-w-[62%] medium:tw-order-1">
-                        <p class="tw-h1-heading large:tw-text-4xl tw-text-[20px] small:tw-text-[24px] medium:tw-text-[28px] xlarge:tw-text-[40px] tw-mb-0 tw-text-white tw-font-semibold">
+                    <div class="tw-w-full xlarge:tw-w-7/12 large:tw-w-[64%] medium:tw-w-[62%] medium:tw-order-1">
+                        <p class="tw-h1-heading large:tw-text-4xl tw-text-[20px] small:tw-text-[24px] medium:tw-text-[28px] xlarge:tw-text-[40px] tw-mb-0 {{ banner.text_color }} tw-font-semibold">
                             {{ banner.title }}
                         </p>
-                        <p class="tw-body-large tw-text-[12px] small:tw-text-[16px] medium:tw-text-[18px] tw-mt-4 tw-mb-8 small:tw-my-6 tw-text-white tw-leading-normal">
+                        <p class="tw-body-large tw-text-[12px] small:tw-text-[16px] medium:tw-text-[18px] tw-mt-4 tw-mb-8 small:tw-mt-6 small:tw-mb-10 {{ banner.text_color }} tw-leading-normal tw-font-normal xlarge:tw-text-[20px]">
                             {{ banner.subtitle }}
                         </p>
-                        <div class="tw-w-full">
-                            <a class="{{ btn_class }}" href="{{ banner.cta_link }}">
+                        <div class="tw-w-full tw-pr-3">
+                            <a id="banner-cta-button" class="{{ btn_class }} {{ banner.button_color }}" href="{{ banner.cta_link }}">
                                 {{ banner.cta_button_text }}
                             </a>
                         </div>

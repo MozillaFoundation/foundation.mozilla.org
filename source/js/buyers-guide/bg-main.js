@@ -17,6 +17,7 @@ import injectMultipageNav from "../multipage-nav.js";
 
 import primaryNav from "../primary-nav.js";
 
+import DonateBanner from "../donate-banner.js"
 import HomepageSlider from "./template-js-handler/homepage-c-slider.js";
 import NewsletterBox from "./template-js-handler/newsletter-box.js";
 import PNIMobileCategoryNav from "./template-js-handler/mobile-category-nav.js";
@@ -74,6 +75,7 @@ let main = {
       this.injectReactComponents();
       this.bindHandlers();
       NewsletterBox.toggleVisibilityClasses();
+      DonateBanner.init();
       initializePrimaryNav(networkSiteURL, primaryNav);
       injectMultipageNav();
 
