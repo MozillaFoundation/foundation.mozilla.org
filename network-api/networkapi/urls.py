@@ -20,6 +20,7 @@ from networkapi.redirects import foundation_redirects
 from networkapi.views import (
     EnvVariablesView,
     apple_pay_domain_association_view,
+    donation_test_view,
     review_app_help_view,
 )
 from networkapi.wagtailcustomization.image_url_tag_urls import (
@@ -83,6 +84,7 @@ urlpatterns = list(
                 ),
                 name="googled2a9d510ca850787.html",
             ),
+            path("donation-form-test", donation_test_view),
             # Apple Pay domain association
             path(".well-known/apple-developer-merchantid-domain-association", apple_pay_domain_association_view),
             # social-sign-on routes so that Google auth works
