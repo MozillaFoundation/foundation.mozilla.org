@@ -24,7 +24,7 @@ pygit2==1.14.0
 python-slugify
 requests
 social-auth-app-django
-wagtail==5.2.6
+wagtail==6.3.1
 wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories
