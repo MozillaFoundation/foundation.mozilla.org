@@ -28,7 +28,7 @@ django-debug-toolbar==4.4.6
     # via -r dev-requirements.in
 djhtml==3.0.7
     # via -r dev-requirements.in
-djlint==1.19.16
+djlint==1.36.3
     # via -r dev-requirements.in
 editorconfig==0.12.3
     # via
@@ -40,10 +40,6 @@ flake8==7.1.1
     # via -r dev-requirements.in
 honcho==1.1.0
     # via -r dev-requirements.in
-html-tag-names==0.1.2
-    # via djlint
-html-void-elements==0.1.0
-    # via djlint
 iniconfig==2.0.0
     # via pytest
 isort==5.13.2
@@ -52,6 +48,8 @@ jsbeautifier==1.14.7
     # via
     #   cssbeautifier
     #   djlint
+json5==0.10.0
+    # via djlint
 mccabe==0.7.0
     # via flake8
 mypy==1.10.1
@@ -66,7 +64,7 @@ packaging==23.1
     #   black
     #   pytest
     #   pytest-sugar
-pathspec==0.11.1
+pathspec==0.12.1
     # via
     #   black
     #   djlint
@@ -99,7 +97,7 @@ pyyaml==6.0.1
     # via
     #   -c requirements.txt
     #   djlint
-regex==2022.10.31
+regex==2024.11.6
     # via djlint
 six==1.16.0
     # via
