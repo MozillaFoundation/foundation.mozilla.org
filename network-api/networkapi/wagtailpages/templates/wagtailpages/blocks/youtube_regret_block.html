@@ -1,8 +1,0 @@
-
-{% load wagtailcore_tags wagtailimages_tags %}
-
-<div class="youtube-regret">
-    {% image value.image original class="mb-4" alt=value.imageAltText %}
-    <h2 class="mb-4">{{ index|stringformat:"02d" }}: {{ value.headline }}</h2>
-    {{ value.story|linebreaks }}
-</div>

@@ -1,5 +1,0 @@
-{% load i18n homepage_tags %}
-
-{% get_page_authors blog_page as authors %}
-
-{% include "fragments/byline.html" with authors=authors publication_date=blog_page.first_published_at %}

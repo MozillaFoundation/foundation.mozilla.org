@@ -1,5 +1,0 @@
-{% load wagtailcore_tags %}
-
-{% for block in page.body %}
-    {% include_block block with parent_page=page %}
-{% endfor %}

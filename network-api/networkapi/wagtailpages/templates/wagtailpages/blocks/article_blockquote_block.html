@@ -1,8 +1,0 @@
-{% extends "./base_streamfield_block.html" %}
-{% load wagtailcore_tags %}
-
-{% block block_content %}
-    <div class="article-blockquote-block tw-py-8 tw-px-12 medium:tw-py-12 medium:tw-px-16 tw-text-lg tw-leading-normal tw-bg-gray-05 tw-w-full medium:tw-w-[calc(80%+60px)] tw-mx-auto tw-my-12 {% if self|length > 230 %}article-blockquote-block--small{% endif %}">
-        {{ self | richtext }}
-    </div>
-{% endblock %}
