@@ -6,3 +6,7 @@
 
 # Start dev server without re-building
 1) `python manage.py runserver`
+
+# Login to admin dashboard
+1) `http://localhost:8000/admin/`
+2) `Credentials: admin/admin`
