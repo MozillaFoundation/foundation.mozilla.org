@@ -25,6 +25,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     "foundation_cms.base",
+    "foundation_cms.blog",
     "foundation_cms.search",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
