@@ -3,7 +3,9 @@ Clone and checkout this branch to a directory separate from your working foundat
 
 ## To Build / Re-build
 1) Run `./clean_install.sh`
+2) This should remove your old env, create a new one, and start the server
 
+## Misc. Commands
 ### To enter environment to run commands
 1) Run `source env/bin/activate`
 
