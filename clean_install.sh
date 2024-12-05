@@ -20,15 +20,12 @@ kill_runserver() {
 
 # Remove existing environment and project if they exist
 echo "Cleaning up previous environment..."
-rm -rf foundation_cms/env
+rm -rf ./env/
 
 # Create a new virtual environment inside the project directory
 echo "Creating virtual environment..."
-python -m venv ./foundation_cms/env
-source ./foundation_cms/env/bin/activate
-
-# Change into the project directory
-cd foundation_cms
+python -m venv ./env/
+source ./env/bin/activate
 
 # Install project dependencies
 echo "Installing dependencies..."
