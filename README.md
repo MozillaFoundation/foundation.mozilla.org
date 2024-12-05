@@ -1,12 +1,15 @@
-### Build / Re-build
-1) `./clean_install.sh`
+# New Mozilla Foundation Website Prototype
+Clone and checkout this branch to a directory separate from your working foundation.mozilla.org environment.
 
-### Enter environment to run commands
-1) `source env/bin/activate`
+## To Build / Re-build
+1) Run `./clean_install.sh`
 
-### Start dev server without re-building
-1) `python manage.py runserver`
+### To enter environment to run commands
+1) Run `source env/bin/activate`
 
-### Login to admin dashboard
-1) `http://localhost:8000/admin/`
-2) `Credentials: admin/admin`
+### To start dev server without re-building
+1) Run `python manage.py runserver`
+
+### To login to admin dashboard
+1) Go to `http://localhost:8000/admin/`
+2) Enter for user/pass: `admin/admin`
