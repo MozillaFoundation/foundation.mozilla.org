@@ -11,6 +11,7 @@ const DonateBanner = {
       ? undefined
       : banner?.querySelector(`a.banner-close`);
     const ctaButton = banner?.querySelector(`#banner-cta-button`);
+    const wrapper = document.querySelector(`.wrapper`) || document.querySelector(`.primary-nav-container-wrapper`);
 
 
     // skip the banner if it got dismissed by the user today already
@@ -45,7 +46,7 @@ const DonateBanner = {
         easing: "ease-in",
       };
 
-      document.querySelector(`.wrapper`).animate(
+      wrapper.animate(
         [
           // keyframes
           {
