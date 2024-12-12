@@ -1,11 +1,6 @@
-from wagtail.models import Page
-
-from networkapi.wagtailpages.models import FoundationMetadataPageMixin
-from networkapi.wagtailpages.pagemodels.mixin.foundation_navigation import (
-    FoundationNavigationPageMixin,
-)
+from networkapi.wagtailpages.pagemodels.base import BasePage
 
 
-class BaseDonationPage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
+class BaseDonationPage(BasePage):
     class Meta:
         abstract = True
