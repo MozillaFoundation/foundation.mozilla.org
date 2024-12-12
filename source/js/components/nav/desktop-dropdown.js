@@ -79,6 +79,8 @@ class NavDesktopDropdown extends Accordion {
         sibling.classList.remove("tw-highlighted");
       }
     });
+
+    document.addEventListener("scroll", this.handleScroll);
   }
 
   closeSiblings() {
@@ -115,7 +117,24 @@ class NavDesktopDropdown extends Accordion {
 
     this.closeAccordion(this.accordion, this.titleButton, this.content);
     this.closeSiblings();
+
+    document.removeEventListener("scroll", this.handleScroll);
   }
+
+  scrollListener() {
+    console.log("scrollListener");
+    const newTopOffset = document
+      .querySelector(".wide-screen-menu-container")
+      .getBoundingClientRect().bottom;
+    const currentTopOffset = parseFloat(
+      this.content.style.top.replace("px", "")
+    );
+    if (currentTopOffset !== newTopOffset) {
+      this.close();
+    }
+  }
+
+  handleScroll = this.scrollListener.bind(this);
 }
 
 export default NavDesktopDropdown;
