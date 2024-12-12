@@ -48,6 +48,9 @@ module.exports = [
             position: "relative",
             top: "2px",
           },
+          "&:hover::before": {
+            filter: "brightness(0) invert(100%)",
+          }
         },
         ".donate": {
           ...glyph("donate"),

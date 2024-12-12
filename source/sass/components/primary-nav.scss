@@ -298,14 +298,6 @@
       }
     }
   }
-
-  a.tw-btn-secondary.tw-heart-glyph {
-    @include hover-focus-active {
-      &:before {
-        filter: brightness(0) invert(100%);
-      }
-    }
-  }
 }
 
 // Newsletter
