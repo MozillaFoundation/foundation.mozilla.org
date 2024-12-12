@@ -12,6 +12,9 @@
 // Non-React Components
 @import "../components/primary-nav";
 
+// Site-wide
+@import "../resets";
+
 // Misc
 @import "../cms";
 
@@ -46,10 +49,6 @@ main,
 nav,
 section {
   display: block;
-}
-
-img {
-  max-width: 100%;
 }
 
 #view-landing .intro .rich-text {
