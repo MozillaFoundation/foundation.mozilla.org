@@ -60,22 +60,20 @@ An extra check has been added so as to not show the fixed "Take action" button o
                     <div class="mt-5 mt-md-0">
                         {% cta page %}
 
-                        {% if page.signup %}
-                            {% with localized_signup=page.signup.localized %}
-                                <div
-                                    class="newsletter-signup-module tw-mb-24"
-                                    data-module-type="default"
-                                    data-form-style="bannered-campaign-body"
-                                    data-show-country-field-by-default="true"
-                                    data-show-language-field-by-default="true"
-                                    data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
-                                    data-signup-id="{{ localized_signup.id }}"
-                                    data-cta-header="{{ localized_signup.header | escape }}"
-                                    data-cta-description="{{ localized_signup.description | escape }}"
-                                    data-ask-name="{{ localized_signup.ask_name }}"
-                                    data-cta-privacy-notice="{{ localized_signup.privacy_notice|escape }}">
-                                </div>
-                            {% endwith %}
+                        {% if localized_signup %}
+                            <div
+                                class="newsletter-signup-module tw-mb-24"
+                                data-module-type="default"
+                                data-form-style="bannered-campaign-body"
+                                data-show-country-field-by-default="true"
+                                data-show-language-field-by-default="true"
+                                data-button-text="{% trans "Sign up" context "Submit button for newsletter signup form" %}"
+                                data-signup-id="{{ localized_signup.id }}"
+                                data-cta-header="{{ localized_signup.header | escape }}"
+                                data-cta-description="{{ localized_signup.description | escape }}"
+                                data-ask-name="{{ localized_signup.ask_name }}"
+                                data-cta-privacy-notice="{{ localized_signup.privacy_notice|escape }}">
+                            </div>
                         {% endif %}
                     </div>
                 </div>
