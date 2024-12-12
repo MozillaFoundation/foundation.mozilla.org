@@ -122,7 +122,6 @@ class NavDesktopDropdown extends Accordion {
   }
 
   scrollListener() {
-    console.log("scrollListener");
     const newTopOffset = document
       .querySelector(".wide-screen-menu-container")
       .getBoundingClientRect().bottom;
