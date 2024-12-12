@@ -129,7 +129,7 @@ class NavDesktopDropdown extends Accordion {
       this.content.style.top.replace("px", "")
     );
     if (currentTopOffset !== newTopOffset) {
-      this.close();
+      this.content.style.top = `${newTopOffset}px`;
     }
   }
 
