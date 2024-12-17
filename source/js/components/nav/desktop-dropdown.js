@@ -79,6 +79,8 @@ class NavDesktopDropdown extends Accordion {
         sibling.classList.remove("tw-highlighted");
       }
     });
+
+    document.addEventListener("scroll", this.handleScroll);
   }
 
   closeSiblings() {
@@ -115,7 +117,25 @@ class NavDesktopDropdown extends Accordion {
 
     this.closeAccordion(this.accordion, this.titleButton, this.content);
     this.closeSiblings();
+
+    document.removeEventListener("scroll", this.handleScroll);
   }
+
+  scrollListener() {
+    const wideScreenMenuContainer = document.querySelector(".wide-screen-menu-container");
+    if (!wideScreenMenuContainer) {
+      return;
+    }
+    const newTopOffset = wideScreenMenuContainer.getBoundingClientRect().bottom;
+    const currentTopOffset = parseFloat(
+      this.content.style.top.replace("px", "")
+    );
+    if (currentTopOffset !== newTopOffset) {
+      this.content.style.top = `${newTopOffset}px`;
+    }
+  }
+
+  handleScroll = this.scrollListener.bind(this);
 }
 
 export default NavDesktopDropdown;
