@@ -1,8 +1,6 @@
 from django.db import models
-from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images.models import Image
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 
@@ -31,7 +29,6 @@ class Profile(models.Model):
         ],
         block_counts={
             "researcher": {"max_num": 1},
-            "blog_author": {"max_num": 1},
             "blog_author": {"max_num": 1},
         },
         blank=True,
