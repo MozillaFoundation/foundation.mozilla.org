@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from foundation_cms.base.models import HomePage
 
 

@@ -1,0 +1,22 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: ["prototype"]
+    paths-ignore:
+      - maintenance/**/*.*
+  pull_request:
+    paths-ignore:
+      - maintenance/**/*.*
+
+jobs:
+  test_backend:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Install Python Dependencies
+      run: pip install -r requirements.txt -r dev-requirements.txt
+    - name: Run linting
+      run: |
+        flake8 .
+        isort . --check-only
+        black . --check

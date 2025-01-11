@@ -1,5 +1,6 @@
 from django.test import TestCase
 from wagtail.test.utils import WagtailPageTestCase
+
 from foundation_cms.profiles.models import Profile, ProfilePage
 
 

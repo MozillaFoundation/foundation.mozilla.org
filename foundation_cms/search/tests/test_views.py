@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import Client, TestCase
 from wagtail.models import Page
 
 
@@ -22,4 +22,3 @@ class SearchViewTestCase(TestCase):
         response = self.client.get("/admin/pages/search/", {"query": "Page One"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Page One")
-

@@ -29,7 +29,7 @@ source ./env/bin/activate
 
 # Install project dependencies
 echo "Installing dependencies..."
-pip install -r requirements.txt
+pip install -r requirements.txt -r dev-requirements.txt
 
 # Remove the existing SQLite database (if any)
 echo "Removing existing database..."

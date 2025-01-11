@@ -1,6 +1,5 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
-
 from wagtail.models import Page
 
 # To enable logging of search queries for use with the "Promoted search results" module

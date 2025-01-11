@@ -1,5 +1,6 @@
 from wagtail.test.utils import WagtailPageTestCase
-from foundation_cms.blog.models import BlogPage, BlogIndexPage
+
+from foundation_cms.blog.models import BlogIndexPage, BlogPage
 from foundation_cms.profiles.models import Profile
 
 
@@ -10,7 +11,10 @@ class BlogPageTestCase(WagtailPageTestCase):
         )
         self.profile = Profile.objects.create(title="John Doe")
         self.blog_page = BlogPage.objects.create(
-            title="Sample Blog", body="This is a sample blog body.", author=self.profile, parent=self.blog_index
+            title="Sample Blog",
+            body="This is a sample blog body.",
+            author=self.profile,
+            parent=self.blog_index,
         )
 
     def test_default_route(self):
@@ -44,4 +48,3 @@ class BlogIndexPageTestCase(WagtailPageTestCase):
         context = self.blog_index.get_context(request)
         self.assertEqual(len(context["blogs"]), 2)
         self.assertEqual(context["blogs"][0].title, "Blog 2")
-
