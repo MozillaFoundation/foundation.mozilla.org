@@ -34,26 +34,15 @@
     {# Basic breadcrumbs for dev navigation #}
     {% with self as page %}
         <nav aria-label="Breadcrumb">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/">Home</a>
-                </li>
-                {% for ancestor in page.get_ancestors %}
-                    {% if ancestor.depth > 1 %}
-                    <li class="breadcrumb-item">
-                        <a href="{{ ancestor.url }}">{{ ancestor.title }}</a>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-                <li class="breadcrumb-item active" aria-current="page">
-                    {{ page.title }}
-                </li>
-            </ul>
+
         </nav>
     {% endwith %}
 
     <body class="{% block body_class %}{% endblock %}">
+        {% include "base/primary_nav.html" %}
         {% wagtailuserbar %}
+
+        {% block primary_nav %}{% endblock %}
 
         {% block content %}{% endblock %}
 
