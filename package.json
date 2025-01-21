@@ -1,0 +1,19 @@
+{
+  "name": "foundation-2025-prototype",
+  "version": "0.0.1",
+  "description": "Clone and checkout this branch to a directory separate from your working foundation.mozilla.org environment.",
+  "scripts": {
+    "test": "npm test",
+    "fix:js": "npm run lint:js:eslint -- --fix",
+    "lint:js:eslint": "eslint --config ./eslint.config.mjs \"foundation_cms/static/js/**/*.js\""
+  },
+  "author": "Mozilla Foundation",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^15.14.0"
+  }
+}
