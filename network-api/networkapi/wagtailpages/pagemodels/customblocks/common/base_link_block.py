@@ -22,12 +22,34 @@ class BaseLinkValue(blocks.StructValue):
     def get_relative_url_link(self):
         return self.get("relative_url")
 
+    def get_phone_link(self):
+        return self.get("phone")
+
+    def get_email_link(self):
+        return self.get("email")
+
+    def get_file_link(self):
+        return self.get("file")
+
+    # TODO: Make link_to set on translated pages so no fallback needed
     @property
     def url(self):
+        # If link_to is set, dynamically call the corresponding method
         link_to = self.get("link_to")
+        if link_to:
+            method = getattr(self, f"get_{link_to}_link", None)
+            if method:
+                return method()
 
-        method = getattr(self, f"get_{link_to}_link")
-        return method()
+        # Missing link_to field fallback (i.e. translated pages)
+        # If link_to not found try to find the value
+        # Since self is in memory, this should be efficient.
+        for link_type in ["page", "external_url", "relative_url", "phone", "email", "file"]:
+            method = getattr(self, f"get_{link_type}_link", None)
+            if method:
+                result = method()  # Call the method
+                if result:  # Return the first valid result
+                    return result
 
     def get_link_to(self):
         """

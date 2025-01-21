@@ -1,6 +1,6 @@
 {% load static wagtailcore_tags wagtailadmin_tags nav_tags %}
 
-{% fragment as content_base_styles %}tw-overflow-y-auto tw-transition-all tw-duration-500 tw-bg-white xlarge:tw-bg-transparent xlarge:tw-max-w-[1200px]{% endfragment %}
+{% fragment as content_base_styles %}tw-overflow-y-auto tw-transition-all tw-duration-500 tw-bg-white xlarge:tw-bg-transparent xlarge:tw-max-w-[1200px] xlarge:tw-transition-none xlarge:tw-duration-0{% endfragment %}
 {% fragment as dropdown_selector_base %}tw-container tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-gap-4{% endfragment %}
 
 {% fragment as content_desktop %}xlarge:tw-px-0 xlarge:tw-hidden{% endfragment %}

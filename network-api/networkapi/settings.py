@@ -221,7 +221,6 @@ INSTALLED_APPS = list(
             "wagtail.images",
             "wagtail.search",
             "wagtail.admin",
-            "wagtail.contrib.legacy.richtext",
             "wagtail",
             "wagtail.contrib.forms",
             "wagtail.contrib.redirects",
@@ -288,6 +287,7 @@ MIDDLEWARE = list(
             "whitenoise.middleware.WhiteNoiseMiddleware",
             "django.middleware.gzip.GZipMiddleware",
             "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG_TOOLBAR_ENABLED else None,
+            "networkapi.utility.middleware.NormalizeLocaleMiddleware",
             "networkapi.utility.middleware.TargetDomainRedirectMiddleware",
             "django.contrib.sessions.middleware.SessionMiddleware",
             #
