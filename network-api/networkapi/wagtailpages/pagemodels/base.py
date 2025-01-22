@@ -503,6 +503,8 @@ class ParticipatePage2(PrimaryPage):
 
 
 class Styleguide(PrimaryPage):
+    max_count = 1
+
     template = "pages/styleguide.html"
 
     emoji_image = models.ForeignKey(
