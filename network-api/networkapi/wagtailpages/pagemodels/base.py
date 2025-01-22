@@ -311,6 +311,9 @@ class InitiativesPage(PrimaryPage):
 
 
 class ParticipatePage2(PrimaryPage):
+
+    max_count = 1
+
     template = "wagtailpages/static/participate_page2.html"
 
     ctaHero = models.ForeignKey(
