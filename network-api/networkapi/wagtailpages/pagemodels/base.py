@@ -1060,6 +1060,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "BanneredCampaignPage",
         "BlogIndexPage",
         "CampaignIndexPage",
+        "CampaignPage",
         "MiniSiteNameSpace",
         "OpportunityPage",
         "ParticipatePage2",
