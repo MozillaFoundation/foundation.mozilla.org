@@ -88,6 +88,7 @@ class BlogIndexPage(IndexPage):
     The blog index is specifically for blog pages,
     with additional logic to explore topics.
     """
+
     max_count = 1
     base_form_class = BlogIndexPageForm
 

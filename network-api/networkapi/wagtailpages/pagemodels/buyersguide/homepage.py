@@ -47,6 +47,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
     Note: We'll likely be converting the "about" pages to Wagtail Pages.
     When that happens, we should remove the RoutablePageMixin and @routes
     """
+
     max_count = 1
 
     template = "pages/buyersguide/home.html"
