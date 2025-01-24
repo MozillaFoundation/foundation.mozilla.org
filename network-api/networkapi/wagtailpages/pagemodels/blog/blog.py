@@ -248,7 +248,7 @@ class BlogPage(BasePage):
         index.SearchField(field_name="body", boost=1),
     ]
 
-    subpage_types = []
+    subpage_types: list = []
 
     def get_context(self, request):
         context = super().get_context(request)

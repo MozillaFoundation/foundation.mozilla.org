@@ -42,7 +42,7 @@ class PublicationPage(BasePage):
     An Article can only belong to one Chapter/Publication Page
     """
 
-    subpage_types = []
+    subpage_types: list = []
     template = "pages/publication_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
