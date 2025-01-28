@@ -519,6 +519,8 @@ class Styleguide(PrimaryPage):
         FieldPanel("emoji_image"),
     ]
 
+    subpage_types: list = []
+
 
 class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
