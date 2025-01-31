@@ -89,6 +89,7 @@ class BlogIndexPage(IndexPage):
     with additional logic to explore topics.
     """
 
+    max_count = 1
     base_form_class = BlogIndexPageForm
 
     related_topics = ParentalManyToManyField(

@@ -26,6 +26,7 @@ class BuyersGuideEditorialContentIndexPage(
     routable_models.RoutablePageMixin,
     BasePage,
 ):
+    max_count = 1
     parent_page_types = ["wagtailpages.BuyersGuidePage"]
     subpage_types = [
         "wagtailpages.BuyersGuideArticlePage",

@@ -394,8 +394,13 @@ class CampaignPage(MiniSiteNameSpace):
 
     subpage_types = [
         "CampaignPage",
+        "BanneredCampaignPage",
         "PublicationPage",
         "ArticlePage",
+        "DearInternetPage",
+        "YoutubeRegretsPage",
+        "YoutubeRegretsReporterPage",
+        "OpportunityPage",
     ]
 
 

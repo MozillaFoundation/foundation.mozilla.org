@@ -311,6 +311,9 @@ class InitiativesPage(PrimaryPage):
 
 
 class ParticipatePage2(PrimaryPage):
+
+    max_count = 1
+
     template = "wagtailpages/static/participate_page2.html"
 
     ctaHero = models.ForeignKey(
@@ -500,6 +503,8 @@ class ParticipatePage2(PrimaryPage):
 
 
 class Styleguide(PrimaryPage):
+    max_count = 1
+
     template = "pages/styleguide.html"
 
     emoji_image = models.ForeignKey(
@@ -513,6 +518,8 @@ class Styleguide(PrimaryPage):
     content_panels = PrimaryPage.content_panels + [
         FieldPanel("emoji_image"),
     ]
+
+    subpage_types: list = []
 
 
 class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
@@ -1055,7 +1062,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "BanneredCampaignPage",
         "BlogIndexPage",
         "CampaignIndexPage",
-        "InitiativesPage",
+        "CampaignPage",
         "MiniSiteNameSpace",
         "OpportunityPage",
         "ParticipatePage2",
@@ -1064,7 +1071,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ResearchLandingPage",
         "RCCLandingPage",
         "Styleguide",
-        "ProductPage",
         "BuyersGuidePage",
         "ArticlePage",
         "donate.DonateLandingPage",
