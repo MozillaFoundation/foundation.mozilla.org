@@ -83,7 +83,7 @@
     "countup.js": "^2.8.0",
     "cssnano": "^7.0.6",
     "esbuild": "^0.24.0",
-    "gsap": "^3.12.5",
+    "gsap": "^3.12.7",
     "htmx.org": "^1.9.12",
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.4",
