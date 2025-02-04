@@ -28,7 +28,6 @@ wagtail==5.2.6
 wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories
-wagtail-footnotes==0.11.0
 wagtail-localize==1.7
 wagtail-localize-git
 wagtail-inventory
@@ -37,4 +36,5 @@ wagtail-metadata
 whitenoise
 psycopg2-binary
 sentry-sdk
+git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
 scout-apm

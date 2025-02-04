@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
         ("wagtailcore", "0066_collection_management_permissions"),
         ("wagtailinventory", "0002_pageblock_unique_constraint"),
         ("wagtailforms", "0004_add_verbose_name_plural"),
-        # ("wagtail_footnotes", "0004_footnote_translatable_mixin_migration"),
+        ("wagtail_footnotes", "0004_footnote_translatable_mixin_migration"),
         ("wagtailredirects", "0007_add_autocreate_fields"),
         ("wagtailpages", "0009_auto_20220325_1735"),
     ]
