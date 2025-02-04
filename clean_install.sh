@@ -51,6 +51,15 @@ if not User.objects.filter(username="$SUPERUSER_USERNAME").exists():
     )
 EOF
 
+# Build the initial data using factories
+echo "Building initial data using factories..."
+python manage.py shell <<EOF
+from foundation_cms.blog.factories import create_blog_with_posts
+
+# Generate BlogIndexPage and BlogPages
+create_blog_with_posts()
+EOF
+
 # Start the development server
 echo "Starting development server..."
 python manage.py runserver
