@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        #("wagtail_footnotes", "0004_footnote_translatable_mixin_migration"),
+        # ("wagtail_footnotes", "0004_footnote_translatable_mixin_migration"),
         ("wagtailcore", "0078_referenceindex"),
         ("wagtailinventory", "0003_pageblock_id_bigautofield"),
         ("wagtailredirects", "0008_add_verbose_name_plural"),
