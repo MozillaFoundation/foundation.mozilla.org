@@ -33,7 +33,7 @@ certifi==2024.7.4
     #   requests
     #   scout-apm
     #   sentry-sdk
-cffi==1.16.0
+cffi==1.17.1
     # via
     #   cryptography
     #   pygit2
@@ -171,7 +171,7 @@ psycopg2-binary==2.9.9
     # via -r requirements.in
 pycparser==2.21
     # via cffi
-pygit2==1.14.0
+pygit2==1.17.0
     # via
     #   -r requirements.in
     #   wagtail-localize-git
