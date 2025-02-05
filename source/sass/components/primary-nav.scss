@@ -79,10 +79,9 @@
       // Mixin for setting bottom padding on primary nav link
       @mixin padding-bottom($bp: sm) {
         padding-bottom: calc(
-          #{map-get($menu-container-padding, $bp)} + #{map-get(
-              $primary-nav-link-padding,
-              $bp
-            )} - #{$border-thickness} / 2
+          #{map-get($menu-container-padding, $bp)} +
+            #{map-get($primary-nav-link-padding, $bp)} - #{$border-thickness} /
+            2
         );
       }
 
