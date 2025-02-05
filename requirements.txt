@@ -251,7 +251,7 @@ urllib3==1.26.19
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==6.3.1
+wagtail==6.3.2
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
