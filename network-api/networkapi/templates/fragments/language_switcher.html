@@ -3,7 +3,6 @@
 {% get_current_language as current_language %}
 {% get_local_language_names as languages %}
 
-
 <div class="tw-flex tw-flex-col medium:tw-flex-row tw-items-start medium:tw-items-center tw-w-full tw-gap-8 tw-relative">
     <label class="tw-h5-heading tw-mb-0 tw-globe-glyph tw-flex tw-items-center" for="language-switcher">
         {% trans "Language" %}
@@ -18,6 +17,7 @@
                         {{ language_name|capfirst }}
                     </span>
                 {% else %}
+                    <!-- djlint:ignore D018 -->
                     <a href="/{{ language_code }}/"
                        class="tw-block tw-px-4 tw-py-2 tw-text-white hover:tw-bg-gray-80 hover:tw-no-underline">
                         {{ language_name|capfirst }}
