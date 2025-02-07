@@ -3,27 +3,59 @@
 {% get_current_language as current_language %}
 {% get_local_language_names as languages %}
 
-<form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
-    <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}">
-    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-md-0">
-        <label class="tw-h5-heading mb-0 d-flex align-items-center tw-globe-glyph" for="language-switcher">{% trans "Language" %}</label>
-        <select name="language" id="language-switcher" class="mt-3 mt-md-0 ml-md-3 w-100 tw-form-control">
+
+<div class="tw-flex tw-flex-col medium:tw-flex-row tw-items-start medium:tw-items-center tw-w-full tw-gap-8 tw-relative">
+    <label class="tw-h5-heading tw-mb-0 tw-globe-glyph tw-flex tw-items-center" for="language-switcher">
+        {% trans "Language" %}
+    </label>
+
+    <div class="tw-relative tw-w-full medium:tw-w-auto tw-flex-grow">
+        <nav id="language-dropdown-menu"
+             class="tw-absolute tw-z-50 tw-left-0 tw-bottom-full tw-mb-2 tw-w-full tw-rounded-md tw-shadow-lg tw-hidden tw-border tw-bg-black tw-text-white tw-overflow-hidden">
             {% for language_code, language_name in languages %}
-                <option value="{{ language_code }}"{% if language_code == current_language %} selected{% endif %}>
-                    {{ language_name | capfirst }}
-                </option>
+                {% if language_code == current_language %}
+                    <span class="tw-block tw-px-4 tw-py-2 tw-font-bold tw-bg-blue-40 tw-text-white tw-cursor-default">
+                        {{ language_name|capfirst }}
+                    </span>
+                {% else %}
+                    <a href="/{{ language_code }}/"
+                       class="tw-block tw-px-4 tw-py-2 tw-text-white hover:tw-bg-gray-80 hover:tw-no-underline">
+                        {{ language_name|capfirst }}
+                    </a>
+                {% endif %}
             {% endfor %}
-        </select>
+        </nav>
+
+        <button id="language-dropdown-button"
+                class="tw-bg-transparent tw-border tw-border-white tw-text-white tw-py-2 tw-form-control
+                       tw-bg-[url('../_images/glyphs/down-chevron-dark-theme.svg')] tw-bg-no-repeat tw-bg-[right_0.75rem_center] tw-bg-[length:24px]
+                       tw-w-full tw-text-left tw-pl-6 tw-pr-24 focus:tw-outline-none">
+            {% for language_code, language_name in languages %}
+                {% if language_code == current_language %}
+                    <span>{{ language_name|capfirst }}</span>
+                {% endif %}
+            {% endfor %}
+        </button>
     </div>
-</form>
-
-
+</div>
 
 <script nonce="{{ request.csp_nonce }}">
-    const form = document.getElementById('language-switcher-form')
-    const languageSelector = document.getElementById('language-switcher')
-    languageSelector.addEventListener(`change`, (e) => {
-        e.preventDefault();
-        form.submit()
+    const dropdownButton = document.getElementById('language-dropdown-button');
+    const dropdownMenu = document.getElementById('language-dropdown-menu');
+
+    dropdownButton.addEventListener('click', function(e) {
+        dropdownMenu.classList.toggle('tw-hidden');
+    });
+
+  // Hide dropdown if clicking outside
+    document.addEventListener('click', function(e) {
+        if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.add('tw-hidden');
+        }
+    });
+
+  // Ensure dropdown closes on resize
+    window.addEventListener('resize', function() {
+        dropdownMenu.classList.add('tw-hidden');
     });
 </script>
