@@ -48,6 +48,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
     When that happens, we should remove the RoutablePageMixin and @routes
     """
 
+    max_count = 1
+
     template = "pages/buyersguide/home.html"
     subpage_types = [
         "wagtailpages.GeneralProductPage",
