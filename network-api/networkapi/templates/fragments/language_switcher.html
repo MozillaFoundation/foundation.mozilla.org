@@ -9,8 +9,20 @@
     </label>
 
     <div class="tw-relative tw-w-full medium:tw-w-auto tw-flex-grow">
+        <button id="language-dropdown-button"
+                class="tw-bg-transparent tw-border tw-border-white tw-text-white tw-py-2 tw-form-control
+                       tw-bg-[url('../_images/glyphs/down-chevron-dark-theme.svg')] tw-bg-no-repeat tw-bg-[right_0.75rem_center] tw-bg-[length:24px]
+                       tw-w-full tw-text-left tw-pl-6 tw-pr-24 focus:tw-outline-none" aria-haspopup="true" aria-expanded="false">
+            {% for language_code, language_name in languages %}
+                {% if language_code == current_language %}
+                    <span>{{ language_name|capfirst }}</span>
+                {% endif %}
+            {% endfor %}
+        </button>
+
         <nav id="language-dropdown-menu"
-             class="tw-absolute tw-z-50 tw-left-0 tw-bottom-full tw-mb-2 tw-w-full tw-rounded-md tw-shadow-lg tw-hidden tw-border tw-bg-black tw-text-white tw-overflow-hidden">
+             class="tw-absolute tw-z-50 tw-left-0 tw-bottom-full tw-mb-2 tw-w-full tw-rounded-md tw-shadow-lg tw-hidden tw-border tw-bg-black tw-text-white tw-overflow-hidden"
+             role="menu" aria-labelledby="language-dropdown-button">
             {% for language_code, language_name in languages %}
                 {% if language_code == current_language %}
                     <span class="tw-block tw-px-4 tw-py-2 tw-font-bold tw-bg-blue-40 tw-text-white tw-cursor-default">
@@ -24,17 +36,6 @@
                 {% endif %}
             {% endfor %}
         </nav>
-
-        <button id="language-dropdown-button"
-                class="tw-bg-transparent tw-border tw-border-white tw-text-white tw-py-2 tw-form-control
-                       tw-bg-[url('../_images/glyphs/down-chevron-dark-theme.svg')] tw-bg-no-repeat tw-bg-[right_0.75rem_center] tw-bg-[length:24px]
-                       tw-w-full tw-text-left tw-pl-6 tw-pr-24 focus:tw-outline-none">
-            {% for language_code, language_name in languages %}
-                {% if language_code == current_language %}
-                    <span>{{ language_name|capfirst }}</span>
-                {% endif %}
-            {% endfor %}
-        </button>
     </div>
 </div>
 
