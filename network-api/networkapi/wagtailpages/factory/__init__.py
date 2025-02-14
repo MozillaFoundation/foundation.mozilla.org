@@ -1,5 +1,5 @@
 from networkapi.wagtailpages.factory.libraries import rcc, research_hub
-
+from .upload_test_images import upload_test_images
 from . import (
     app_install_page,
     bannered_campaign_page,
@@ -24,6 +24,8 @@ from . import (
     youtube_regrets_page,
 )
 
+# Upload test images once
+upload_test_images()
 
 def generate(seed):
     # these are not, and should not be, alphabetically ordered.

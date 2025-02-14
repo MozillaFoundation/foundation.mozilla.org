@@ -15,7 +15,6 @@ import networkapi.nav.factories as nav_factory
 import networkapi.news.factory as news_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
 from networkapi.utility.faker.helpers import reseed
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.utils import create_wagtail_image
 
 
@@ -56,13 +55,6 @@ class Command(BaseCommand):
 
         reseed(seed)
 
-        print("Generating Images")
-        images = [
-            ImageFactory.create(file__width=1080, file__height=720, file__color=faker.safe_color_name())
-            for i in range(20)
-        ]
-        social_share_tag, created = Tag.objects.get_or_create(name="social share image")
-        images[0].tags.add(social_share_tag)
 
         # Create one PNI product for every image we have in our media folder
         product_images = [

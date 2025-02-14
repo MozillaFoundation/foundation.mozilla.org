@@ -1,3 +1,5 @@
+import factory
+
 from django.conf import settings
 from factory import Faker, SubFactory
 from wagtail.images.models import Image
@@ -10,6 +12,7 @@ from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import FocusArea, Homepage
 
 from .primary_page import PrimaryPageFactory
+from .get_deterministic_image import get_deterministic_image
 
 if settings.HEROKU_APP_NAME:
     REVIEW_APP_NAME = settings.HEROKU_APP_NAME
@@ -23,20 +26,33 @@ class WagtailHomepageFactory(PageFactory):
     hero_headline = Faker("text", max_nb_chars=80)
     hero_button_text = Faker("text", max_nb_chars=50)
     hero_button_url = Faker("url")
-    hero_image = SubFactory(ImageFactory)
     cause_statement = Faker("text", max_nb_chars=150)
     # cause_statement_link_text and cause_statement_link_page are created at a later state
     hero_intro_heading = Faker("text", max_nb_chars=60)
     hero_intro_body = Faker("text", max_nb_chars=250)
     hero_intro_link = Faker("streamfield", fields=["homepage_hero_intro_link"])
-    quote_image = SubFactory(ImageFactory)
     quote_text = Faker("text", max_nb_chars=300)
     quote_source_name = Faker("text", max_nb_chars=30)
     quote_source_job_title = Faker("text", max_nb_chars=50)
-    partner_background_image = SubFactory(ImageFactory)
     partner_intro_text = Faker("text", max_nb_chars=80)
     ideas_headline = Faker("text", max_nb_chars=100)
-    ideas_image = SubFactory(ImageFactory)
+
+    @factory.lazy_attribute
+    def hero_image(self):
+        return get_deterministic_image(self.hero_headline)
+
+    @factory.lazy_attribute
+    def quote_image(self):
+        return get_deterministic_image(self.quote_text)
+
+    @factory.lazy_attribute
+    def partner_background_image(self):
+        return get_deterministic_image(self.partner_intro_text)
+
+    @factory.lazy_attribute
+    def ideas_image(self):
+        return get_deterministic_image(self.ideas_headline)
+
 
 
 def generate(seed):
@@ -53,8 +69,6 @@ def generate(seed):
             parent=site_root,
             title="Homepage",
             slug=None,
-            hero_image__file__width=1080,
-            hero_image__file__height=720,
         )
 
     reseed(seed)
@@ -93,7 +107,7 @@ def generate(seed):
 
     print("Assigning images to areas of focus")
     for area in FocusArea.objects.all():
-        area.interest_icon = Image.objects.first()
+        area.interest_icon = get_deterministic_image(area.name)
         area.save()
 
     reseed(seed)

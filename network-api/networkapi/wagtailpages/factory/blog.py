@@ -1,3 +1,5 @@
+import factory
+
 from datetime import timezone
 from random import choice
 
@@ -20,9 +22,11 @@ from networkapi.wagtailpages.pagemodels.blog import blog_index
 
 from .index_page import IndexPageFactory
 from .tagging import add_tags
+from .get_deterministic_image import get_deterministic_image
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
+
 blog_body_streamfield_fields = [
     "paragraph",
     "blog_newsletter_signup",
@@ -98,6 +102,10 @@ class BlogPageFactory(PageFactory):
 
     # Lazy Values
     title_text = Faker("sentence", nb_words=3, variable_nb_words=False)
+
+    @factory.lazy_attribute
+    def search_image(self):
+        return get_deterministic_image(self.title)
 
 
 class FeaturedBlogPagesFactory(DjangoModelFactory):
