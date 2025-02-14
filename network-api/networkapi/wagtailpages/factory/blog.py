@@ -1,8 +1,7 @@
-import factory
-
 from datetime import timezone
 from random import choice
 
+import factory
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
@@ -20,9 +19,9 @@ from networkapi.wagtailpages.models import (
 )
 from networkapi.wagtailpages.pagemodels.blog import blog_index
 
+from .get_deterministic_image import get_deterministic_image
 from .index_page import IndexPageFactory
 from .tagging import add_tags
-from .get_deterministic_image import get_deterministic_image
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING

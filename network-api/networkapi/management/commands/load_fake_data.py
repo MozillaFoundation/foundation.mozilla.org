@@ -55,7 +55,6 @@ class Command(BaseCommand):
 
         reseed(seed)
 
-
         # Create one PNI product for every image we have in our media folder
         product_images = [
             "babymonitor.jpg",

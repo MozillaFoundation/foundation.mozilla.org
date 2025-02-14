@@ -1,4 +1,5 @@
 import os
+
 from django.conf import settings
 from django.core.files import File
 from wagtail.images import get_image_model
@@ -26,7 +27,6 @@ def get_or_create_collection(name=COLLECTION_NAME):
     return collection
 
 
-
 def upload_test_images():
     """Uploads all images from TEST_IMAGE_DIR to a specific Wagtail Collection."""
     Image = get_image_model()
@@ -42,11 +42,10 @@ def upload_test_images():
             if not Image.objects.filter(title=image_file, collection=collection).exists():
                 with open(image_path, "rb") as img_file:
                     image_instance = Image.objects.create(
-                        title=image_file,
-                        file=File(img_file, name=image_file),
-                        collection=collection
+                        title=image_file, file=File(img_file, name=image_file), collection=collection
                     )
                     print(f"Uploaded: {image_instance.title} to {collection.name}")
+
 
 # Run only when executed directly
 if __name__ == "__main__":

@@ -1,7 +1,9 @@
 import random
+
 from wagtail.images.models import Image
 
 COLLECTION_NAME = "Review App Images"
+
 
 def get_deterministic_image(reference_value, collection_name=COLLECTION_NAME):
     """

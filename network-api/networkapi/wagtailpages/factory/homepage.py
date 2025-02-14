@@ -1,5 +1,4 @@
 import factory
-
 from django.conf import settings
 from factory import Faker, SubFactory
 from wagtail.images.models import Image
@@ -11,8 +10,8 @@ from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import FocusArea, Homepage
 
-from .primary_page import PrimaryPageFactory
 from .get_deterministic_image import get_deterministic_image
+from .primary_page import PrimaryPageFactory
 
 if settings.HEROKU_APP_NAME:
     REVIEW_APP_NAME = settings.HEROKU_APP_NAME
@@ -52,7 +51,6 @@ class WagtailHomepageFactory(PageFactory):
     @factory.lazy_attribute
     def ideas_image(self):
         return get_deterministic_image(self.ideas_headline)
-
 
 
 def generate(seed):
