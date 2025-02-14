@@ -1,13 +1,11 @@
 import factory
 from django.conf import settings
-from factory import Faker, SubFactory
-from wagtail.images.models import Image
+from factory import Faker
 from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import FocusArea, Homepage
 
 from .get_deterministic_image import get_deterministic_image

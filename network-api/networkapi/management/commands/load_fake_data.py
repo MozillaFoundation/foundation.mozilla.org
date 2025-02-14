@@ -1,11 +1,9 @@
 import random
 from os.path import abspath, dirname, join
 
-import factory
 from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-from taggit.models import Tag
 
 # Factories
 import networkapi.donate.factory as donate_factory
@@ -40,8 +38,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if options["delete"]:
             call_command("flush_models")
-
-        faker = factory.faker.Faker._get_faker(locale="en-US")
 
         # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million
         if options["seed"]:
