@@ -25,4 +25,4 @@ jobs:
         flake8 .
         isort . --check-only
         black . --check
-        djlint ./foundation_cms/templates/ --check
+        djlint . --check
