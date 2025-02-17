@@ -1,5 +1,7 @@
 import factory
-from foundation_cms.profiles.models import Profile
+import wagtail_factories
+
+from foundation_cms.profiles.models import Profile, ProfilePage
 
 
 class ProfileFactory(factory.django.DjangoModelFactory):
@@ -10,3 +12,13 @@ class ProfileFactory(factory.django.DjangoModelFactory):
         model = Profile
 
     title = factory.Faker("name")
+
+
+class ProfilePageFactory(wagtail_factories.PageFactory):
+    """
+    Factory for the Profile model
+    """
+    class Meta:
+        model = ProfilePage
+
+    bio = factory.Faker("paragraph")
