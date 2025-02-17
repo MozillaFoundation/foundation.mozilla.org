@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
-from wagtail.models import Page
+from django.contrib.auth.models import User
+from wagtail.models import Page, Site
 
 
 class SearchViewTestCase(TestCase):
@@ -7,18 +8,34 @@ class SearchViewTestCase(TestCase):
         # Set up the client for making requests
         self.client = Client()
 
+        self.user = User.objects.create_superuser(
+            username="admin", email="admin@example.com", password="password"
+        )
+
+        # Log in as the superuser
+        self.client.login(username="admin", password="password")
+
         # Create sample pages
-        self.page1 = Page.objects.create(title="Page One", slug="page-one")
-        self.page2 = Page.objects.create(title="Page Two", slug="page-two")
+        self.root_page = Page.get_first_root_node()
+        site = Site.objects.get(is_default_site=True)
 
-    def test_search_return_none(self):
-        # Test the view when no query is provided
-        response = self.client.get("/admin/pages/search/")
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Sorry, no pages match")
+        self.page1 = self.root_page.add_child(
+            instance=Page(title="Page One", slug="page-one")
+        )
 
-    def test_search_with_query(self):
-        # Test the view when a valid query is provided
-        response = self.client.get("/admin/pages/search/", {"query": "Page One"})
+        # Add another child page under the root (depth=2)
+        self.page2 = self.root_page.add_child(
+            instance=Page(title="Page Two", slug="page-two")
+        )
+        site.save()
+
+    def test_search_returns_multiple_pages(self):
+        # Perform a search that should match multiple pages
+        response = self.client.get("/admin/pages/search/", {"query": "Page"})
+
+        # Confirm the response is successful
         self.assertEqual(response.status_code, 200)
+
+        # Ensure both pages appear in the search results
         self.assertContains(response, "Page One")
+        self.assertContains(response, "Page Two")
