@@ -20,14 +20,15 @@ jobs:
         cache: "pip"
     - name: Install Python Dependencies
       run: pip install -r requirements.txt -r dev-requirements.txt
+    - name: Run Unittests
+      run: |
+        python3 manage.py test .
     - name: Run linting
       run: |
         flake8 .
         isort . --check-only
         black . --check
         djlint . --check
-    - name: Run Unittests
-      run: |
-        python3 manage.py test .
+    
 
 
