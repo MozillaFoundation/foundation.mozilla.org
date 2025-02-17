@@ -26,3 +26,8 @@ jobs:
         isort . --check-only
         black . --check
         djlint . --check
+    - name: Run Unittests
+      run: |
+        python3 manage.py test .
+
+
