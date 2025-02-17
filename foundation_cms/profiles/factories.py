@@ -22,3 +22,4 @@ class ProfilePageFactory(wagtail_factories.PageFactory):
         model = ProfilePage
 
     bio = factory.Faker("paragraph")
+    profile = factory.SubFactory(ProfileFactory)

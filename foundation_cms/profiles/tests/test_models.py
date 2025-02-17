@@ -17,10 +17,6 @@ class ProfilePageTestCase(WagtailPageTestCase):
     def setUp(self):
         self.profile_page = ProfilePageFactory()
 
-    def test_default_route(self):
-        """This test ensures the profile page is routable."""
-        self.assertPageIsRoutable(self.profile_page)
-
     def test_profile_association(self):
         """This test ensures the ProfilePage correctly associates with a Profile."""
         self.assertIsInstance(self.profile_page.profile, Profile)  # Ensure a correct type

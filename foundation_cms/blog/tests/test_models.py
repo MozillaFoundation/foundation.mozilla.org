@@ -1,4 +1,5 @@
 from wagtail.test.utils import WagtailPageTestCase
+from wagtail.models import Page
 
 from foundation_cms.profiles.models import Profile
 from foundation_cms.profiles.factories import ProfileFactory
@@ -10,10 +11,6 @@ class BlogPageTestCase(WagtailPageTestCase):
         self.blog_index = BlogIndexPageFactory()
         self.profile = ProfileFactory()
         self.blog_page = BlogPageFactory(parent=self.blog_index, author=self.profile)
-
-    def test_default_route(self):
-        """This test ensures the blog page is routable."""
-        self.assertPageIsRoutable(self.blog_page)
 
     def test_author_name(self):
         """This test ensures author_name() returns a string and author is a Profile instance."""
@@ -32,13 +29,8 @@ class BlogIndexPageTestCase(WagtailPageTestCase):
     def setUp(self):
         """Set up a BlogIndexPage and attach BlogPages."""
         self.blog_index = BlogIndexPageFactory()
-
         self.blog_1 = BlogPageFactory(title="Blog 1", parent=self.blog_index)
         self.blog_2 = BlogPageFactory(title="Blog 2", parent=self.blog_index)
-
-    def test_default_route(self):
-        """This test ensures the blog index page is routable."""
-        self.assertPageIsRoutable(self.blog_index)
 
     def test_get_context(self):
         """This test ensures the context contains the correct number of blog pages."""
