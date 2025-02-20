@@ -105,9 +105,7 @@
       <div class="tw-px-8 tw-w-full large:tw-w-1/2 tw-mb-16">
         <div class="person-card tw-border-t tw-border-black medium:tw-relative medium:tw-min-h-[160px]">
           <div class="tw-float-left medium:tw-absolute">
-            <a href="https://www.mozillapulse.org/profile/${
-              profile.profile_id
-            }" class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-7 tw-mb-7 medium:tw-w-80 medium:tw-h-80 medium:tw-mr-0 medium:tw-mb-0">
+            <div class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-7 tw-mb-7 medium:tw-w-80 medium:tw-h-80 medium:tw-mr-0 medium:tw-mb-0">
               <img
                 src="${
                   profile.thumbnail
@@ -116,16 +114,13 @@
                 }"
                 class="tw-object-cover tw-w-full tw-h-full tw-object-center"
                 alt="Headshot">
-            </a>
+            </div>
           </div>
 
           <div class="short-meta-wrapper tw-pt-5 medium:tw-ml-[174px]">
-            <a class="tw-h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block"
-                href="https://www.mozillapulse.org/profile/${
-                  profile.profile_id
-                }">
-                  ${profile.name}
-            </a>
+            <div class="tw-h5-heading medium:tw-w-[calc(100%-70px)] tw-mb-0 tw-block">
+              ${profile.name}
+            </div>
             ${
               profile.location &&
               `<p class="tw-flex tw-items-center meta-block-location tw-body-small tw-my-4">${profile.location}</p>`
