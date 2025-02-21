@@ -49,8 +49,15 @@ function testURL(baseUrl, path) {
         'iframe[title="reCAPTCHA"]',
         { visible: true }
       );
+
       await iframeHandle.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(3000);
+
+      // Wait for the reCAPTCHA iframe's internal document to fully load
+      const frame = await iframeHandle.contentFrame();
+      await frame.waitForLoadState("load"); // Ensures iframe content is fully loaded
+
+      // Ensure all network requests are complete before snapshot
+      await page.waitForLoadState("networkidle");
     }
 
     await percySnapshot(page, testInfo.title);
