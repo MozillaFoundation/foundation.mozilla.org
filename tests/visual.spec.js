@@ -6,6 +6,15 @@ const MozfestURLs = require("./mozfest-urls.js");
 const { foundationBaseUrl, mozfestBaseUrl } = require("./base-urls.js");
 
 const runTime = Date.now();
+
+async function waitForReactAndImagesToLoad(page) {
+  // Wait until React has fully loaded and applied the "react-loaded" class to <body>
+  await page.waitForFunction(() =>
+    document.body.classList.contains("react-loaded")
+  );
+  await waitForImagesToLoad(page);
+}
+
 /**
  * Screenshot task runner
  *
@@ -19,9 +28,7 @@ function testURL(baseUrl, path) {
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(url);
     await page.goto(url);
-
-    // Gets set once React has finished loading
-    await page.locator(`body.react-loaded`);
+    await waitForReactAndImagesToLoad(page);
 
     // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
     if (
@@ -46,9 +53,6 @@ function testURL(baseUrl, path) {
       await page.waitForTimeout(3000);
     }
 
-    // we don't want to screenshot before images are done.
-    await waitForImagesToLoad(page);
-
     await percySnapshot(page, testInfo.title);
     await page.screenshot({
       path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
@@ -69,8 +73,7 @@ function testMozfestURL(path, locale = `en`) {
 
 async function expandDropdown(page, dropdownSelector) {
   await page.hover(dropdownSelector);
-  // Wait for any animations to complete
-  await page.waitForTimeout(100);
+  await page.waitForSelector(dropdownSelector, { state: "visible" });
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
@@ -82,8 +85,7 @@ test.describe.parallel(`Foundation page tests`, () => {
     page,
   }) => {
     await page.goto(foundationBaseUrl("en"));
-    await page.locator(`body.react-loaded`);
-    await waitForImagesToLoad(page);
+    await waitForReactAndImagesToLoad(page);
 
     const dropdowns = await page.$$(".tw-nav-desktop-dropdown");
 
@@ -99,8 +101,7 @@ test.describe.parallel(`Foundation page tests`, () => {
       // Reset the page state for the next dropdown
       if (i < dropdowns.length - 1) {
         await page.goto(foundationBaseUrl("en"));
-        await page.locator(`body.react-loaded`);
-        await waitForImagesToLoad(page);
+        await waitForReactAndImagesToLoad(page);
       }
     }
   });
