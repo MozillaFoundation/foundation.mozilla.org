@@ -15,6 +15,47 @@ async function waitForReactAndImagesToLoad(page) {
   await waitForImagesToLoad(page);
 }
 
+async function waitForCookieBanner(page) {
+  // Wait for OneTrust banner to be visible
+  await page.waitForSelector("#onetrust-banner-sdk", {
+    state: "visible",
+    timeout: 5000,
+  });
+
+  // Wait for button texts to stop getting updated
+  // See the "onetrust_script" block in network-api/networkapi/templates/pages/base.html for more selector info
+  await page.waitForFunction(() => {
+    const getText = (id) => document.getElementById(id)?.textContent.trim();
+
+    const acceptBtnText = getText("onetrust-accept-btn-handler");
+    const declineBtnText = getText("onetrust-reject-all-handler");
+    const settingsBtnText = getText("onetrust-pc-btn-handler");
+
+    // Store texts for comparison
+    return new Promise((resolve) => {
+      const previousText = {
+        accept: acceptBtnText,
+        decline: declineBtnText,
+        settings: settingsBtnText,
+      };
+      setTimeout(() => {
+        const newAcceptText = getText("onetrust-accept-btn-handler");
+        const newDeclineText = getText("onetrust-reject-all-handler");
+        const newSettingsText = getText("onetrust-pc-btn-handler");
+
+        resolve(
+          newAcceptText === previousText.accept &&
+            newDeclineText === previousText.decline &&
+            newSettingsText === previousText.settings
+        );
+      }, 500); // Adjust delay as needed
+    });
+  });
+
+  // Ensure all network requests are complete before snapshot
+  await page.waitForLoadState("networkidle");
+}
+
 /**
  * Screenshot task runner
  *
@@ -29,6 +70,7 @@ function testURL(baseUrl, path) {
     console.log(url);
     await page.goto(url);
     await waitForReactAndImagesToLoad(page);
+    await waitForCookieBanner(page);
 
     // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
     if (
