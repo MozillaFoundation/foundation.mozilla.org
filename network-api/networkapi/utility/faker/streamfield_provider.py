@@ -358,7 +358,6 @@ def generate_pulse_listing_field():
             "size": 6,
             "search_terms": "",
             "newest_first": True,
-            "direct_link": False,
         },
     )
 

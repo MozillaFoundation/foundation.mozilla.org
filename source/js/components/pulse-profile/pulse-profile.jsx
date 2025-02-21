@@ -2,14 +2,10 @@ import React from "react";
 import { getText } from "../petition/locales";
 
 const PulseProfile = ({ profile }) => {
-  const profileUrl = "https://www.mozillapulse.org/profile/";
   return (
     <div className="tw-grid tw-grid-cols-4 tw-gap-x-6 tw-gap-y-4 tw-border-t tw-border-black">
       {/* Image */}
-      <a
-        href={`https://www.mozillapulse.org/profile/${profile.profile_id}`}
-        className="tw-block tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-full tw-w-full tw-overflow-hidden"
-      >
+      <div className="tw-block tw-col-span-1 tw-relative tw-min-h-[160px] tw-h-full tw-w-full tw-overflow-hidden">
         <img
           src={
             profile.thumbnail
@@ -19,18 +15,15 @@ const PulseProfile = ({ profile }) => {
           className="tw-w-auto tw-h-full tw-absolute tw-left-50 tw-top-50 tw-min-w-full tw-object-cover"
           alt="Headshot"
         />
-      </a>
+      </div>
 
       {/* Right card  */}
       <div className="tw-col-start-2 tw-col-span-3 tw-flex tw-flex-col">
         {/* Card top */}
         <div className="tw-flex tw-flex-row tw-justify-between tw-items-start tw-mt-4">
-          <a
-            className="tw-text-lg tw-mb-2 tw-font-sans tw-font-normal tw-text-black"
-            href={`${profileUrl}${profile.profile_id}`}
-          >
+          <div className="tw-text-lg tw-mb-2 tw-font-sans tw-font-normal tw-text-black">
             {profile.name}
-          </a>
+          </div>
 
           {/* Social Icons */}
           <div className="tw-flex tw-flex-row tw-space-x-4 tw-mt-[7px]">

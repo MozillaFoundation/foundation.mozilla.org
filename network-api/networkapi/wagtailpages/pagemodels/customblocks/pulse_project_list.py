@@ -87,13 +87,6 @@ class PulseProjectList(blocks.StructBlock):
         label="Type of help needed",
     )
 
-    direct_link = blocks.BooleanBlock(
-        default=False,
-        label="Direct link",
-        help_text="Checked: user goes to project link. Unchecked: user goes to pulse entry",
-        required=False,
-    )
-
     class Meta:
         template = "wagtailpages/blocks/pulse_project_list.html"
         icon = "site"

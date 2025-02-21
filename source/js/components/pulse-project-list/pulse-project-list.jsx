@@ -84,7 +84,8 @@ class PulseProjectList extends Component {
   render() {
     let projectList = this.state.projects.map((project, index) => {
       let byline = null;
-      let url;
+      let url = project.content_url;
+      const Wrapper = url ? "a" : "div";
 
       if (project.related_creators.length) {
         byline = `By ${project.related_creators
@@ -92,22 +93,18 @@ class PulseProjectList extends Component {
           .join(`, `)}`;
       }
 
-      if (this.props.directLink) {
-        url = project.content_url;
-      } else {
-        url = `${this.props.env.PULSE_DOMAIN}/entry/${project.id}`;
-      }
-
       return (
         <div
           className="pulse-project-wrapper col-6 col-md-4 my-4 d-print-inline-block"
           key={`pulse-project-${index}`}
         >
-          <a
+          <Wrapper
             className="pulse-project"
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
+            {...(url && {
+              href: url,
+              target: "_blank",
+              rel: "noopener noreferrer",
+            })}
           >
             <div className="thumbnail">
               <div className="img-container">
@@ -127,7 +124,7 @@ class PulseProjectList extends Component {
             <h5 className="project-title tw-h5-heading my-2">
               {project.title}
             </h5>
-          </a>
+          </Wrapper>
           {byline && <p className="tw-body-small my-1">{byline}</p>}
         </div>
       );
@@ -140,7 +137,6 @@ class PulseProjectList extends Component {
 PulseProjectList.propTypes = {
   env: PropTypes.object.isRequired,
   featured: PropTypes.bool,
-  directLink: PropTypes.bool,
   help: PropTypes.string,
   issues: PropTypes.string,
   max: PropTypes.number,
