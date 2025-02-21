@@ -6,6 +6,56 @@ const MozfestURLs = require("./mozfest-urls.js");
 const { foundationBaseUrl, mozfestBaseUrl } = require("./base-urls.js");
 
 const runTime = Date.now();
+
+async function waitForReactAndImagesToLoad(page) {
+  // Wait until React has fully loaded and applied the "react-loaded" class to <body>
+  await page.waitForFunction(() =>
+    document.body.classList.contains("react-loaded")
+  );
+  await waitForImagesToLoad(page);
+}
+
+async function waitForCookieBanner(page) {
+  // Wait for OneTrust banner to be visible
+  await page.waitForSelector("#onetrust-banner-sdk", {
+    state: "visible",
+    timeout: 5000,
+  });
+
+  // Wait for button texts to stop getting updated
+  // See the "onetrust_script" block in network-api/networkapi/templates/pages/base.html for more selector info
+  await page.waitForFunction(() => {
+    const getText = (id) => document.getElementById(id)?.textContent.trim();
+
+    const acceptBtnText = getText("onetrust-accept-btn-handler");
+    const declineBtnText = getText("onetrust-reject-all-handler");
+    const settingsBtnText = getText("onetrust-pc-btn-handler");
+
+    // Store texts for comparison
+    return new Promise((resolve) => {
+      const previousText = {
+        accept: acceptBtnText,
+        decline: declineBtnText,
+        settings: settingsBtnText,
+      };
+      setTimeout(() => {
+        const newAcceptText = getText("onetrust-accept-btn-handler");
+        const newDeclineText = getText("onetrust-reject-all-handler");
+        const newSettingsText = getText("onetrust-pc-btn-handler");
+
+        resolve(
+          newAcceptText === previousText.accept &&
+            newDeclineText === previousText.decline &&
+            newSettingsText === previousText.settings
+        );
+      }, 500); // Adjust delay as needed
+    });
+  });
+
+  // Ensure all network requests are complete before snapshot
+  await page.waitForLoadState("networkidle");
+}
+
 /**
  * Screenshot task runner
  *
@@ -19,9 +69,8 @@ function testURL(baseUrl, path) {
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(url);
     await page.goto(url);
-
-    // Gets set once React has finished loading
-    await page.locator(`body.react-loaded`);
+    await waitForReactAndImagesToLoad(page);
+    await waitForCookieBanner(page);
 
     // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
     if (
@@ -42,12 +91,16 @@ function testURL(baseUrl, path) {
         'iframe[title="reCAPTCHA"]',
         { visible: true }
       );
-      await iframeHandle.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(3000);
-    }
 
-    // we don't want to screenshot before images are done.
-    await waitForImagesToLoad(page);
+      await iframeHandle.scrollIntoViewIfNeeded();
+
+      // Wait for the reCAPTCHA iframe's internal document to fully load
+      const frame = await iframeHandle.contentFrame();
+      await frame.waitForLoadState("load"); // Ensures iframe content is fully loaded
+
+      // Ensure all network requests are complete before snapshot
+      await page.waitForLoadState("networkidle");
+    }
 
     await percySnapshot(page, testInfo.title);
     await page.screenshot({
@@ -69,8 +122,7 @@ function testMozfestURL(path, locale = `en`) {
 
 async function expandDropdown(page, dropdownSelector) {
   await page.hover(dropdownSelector);
-  // Wait for any animations to complete
-  await page.waitForTimeout(100);
+  await page.waitForSelector(dropdownSelector, { state: "visible" });
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
@@ -82,8 +134,7 @@ test.describe.parallel(`Foundation page tests`, () => {
     page,
   }) => {
     await page.goto(foundationBaseUrl("en"));
-    await page.locator(`body.react-loaded`);
-    await waitForImagesToLoad(page);
+    await waitForReactAndImagesToLoad(page);
 
     const dropdowns = await page.$$(".tw-nav-desktop-dropdown");
 
@@ -99,8 +150,7 @@ test.describe.parallel(`Foundation page tests`, () => {
       // Reset the page state for the next dropdown
       if (i < dropdowns.length - 1) {
         await page.goto(foundationBaseUrl("en"));
-        await page.locator(`body.react-loaded`);
-        await waitForImagesToLoad(page);
+        await waitForReactAndImagesToLoad(page);
       }
     }
   });
