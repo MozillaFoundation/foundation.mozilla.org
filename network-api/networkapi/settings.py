@@ -231,8 +231,6 @@ INSTALLED_APPS = list(
             "wagtail.contrib.settings",
             "wagtail_color_panel",
             "wagtailmedia",
-            "dal",
-            "dal_select2",
             "wagtailinventory",
             "wagtail_footnotes",
             "modelcluster",
