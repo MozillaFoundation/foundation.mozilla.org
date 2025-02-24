@@ -62,7 +62,7 @@ test.describe("Donation modal", () => {
     expect(page.url()).toContain(`form=donate`);
 
     // test if FRU iframe is visible
-    const widgetIframe = page.locator(`iframe[title="Donation Widget"]`);
+    const widgetIframe = page.locator(`iframe[title="Donation Form"]`);
     await widgetIframe.waitFor({ state: "visible" });
     expect(await widgetIframe.count()).toBe(1);
   });

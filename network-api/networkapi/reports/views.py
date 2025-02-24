@@ -88,7 +88,7 @@ class PageTypesReportView(ReportView):
         queryset = ContentType.objects.filter(model__in=self.page_models)
         self.queryset = queryset
 
-        self.filters, queryset = self.filter_queryset(queryset)
+        queryset = self.filter_queryset(queryset)
 
         # 'updated_at' is handled at the filter level, since ContentType itself does not
         # have a locale to filter on

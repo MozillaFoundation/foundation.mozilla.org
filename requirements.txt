@@ -101,7 +101,7 @@ django-redis==5.4.0
     # via -r requirements.in
 django-storages==1.14.4
     # via -r requirements.in
-django-taggit==3.0.0
+django-taggit==6.1.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
@@ -251,7 +251,7 @@ urllib3==1.26.19
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==5.2.6
+wagtail==6.3.2
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
@@ -265,13 +265,13 @@ wagtail==5.2.6
     #   wagtailmedia
 wagtail-ab-testing==0.11.1
     # via -r requirements.in
-wagtail-color-panel==1.5.0
+wagtail-color-panel==1.6.0
     # via -r requirements.in
 wagtail-factories==4.1.0
     # via -r requirements.in
-wagtail-footnotes @ git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
+wagtail-footnotes==0.13.0
     # via -r requirements.in
-wagtail-inventory==2.5
+wagtail-inventory==3.1
     # via -r requirements.in
 wagtail-localize==1.7
     # via
@@ -287,7 +287,7 @@ webencodings==0.5.1
     # via html5lib
 whitenoise==6.8.2
     # via -r requirements.in
-willow[heif]==1.6.3
+willow[heif]==1.8.0
     # via
     #   wagtail
     #   willow

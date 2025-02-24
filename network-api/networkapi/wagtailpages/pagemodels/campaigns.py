@@ -394,8 +394,13 @@ class CampaignPage(MiniSiteNameSpace):
 
     subpage_types = [
         "CampaignPage",
+        "BanneredCampaignPage",
         "PublicationPage",
         "ArticlePage",
+        "DearInternetPage",
+        "YoutubeRegretsPage",
+        "YoutubeRegretsReporterPage",
+        "OpportunityPage",
     ]
 
 
@@ -482,9 +487,16 @@ class BanneredCampaignPage(PrimaryPage):
 
     show_in_menus_default = True
 
+    def get_localized_signup(self):
+        """Returns the localized signup if it exists, otherwise None."""
+        if self.signup:
+            return self.signup.localized
+        return None
+
     def get_context(self, request):
         context = super().get_context(request)
         context["related_posts"] = get_content_related_by_tag(self)
+        context["localized_signup"] = self.get_localized_signup()
         return get_page_tree_information(self, context)
 
     class Meta:
