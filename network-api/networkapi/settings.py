@@ -800,4 +800,3 @@ EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
 
 # Notification emails are sent to moderators and superusers by default.
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = True
-
