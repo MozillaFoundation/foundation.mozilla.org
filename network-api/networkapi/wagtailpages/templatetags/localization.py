@@ -31,7 +31,7 @@ DEFAULT_LOCALE_STRING = mappings.get(DEFAULT_LOCALE_CODE)
 def to_opengraph_locale(value):
     try:
         return mappings[value]
-    except AttributeError:
+    except (KeyError, AttributeError):
         return DEFAULT_LOCALE_STRING
 
 
