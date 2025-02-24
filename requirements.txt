@@ -208,7 +208,7 @@ s3transfer==0.10.0
     # via boto3
 scipy==1.10.0
     # via wagtail-ab-testing
-scout-apm==3.2.1
+scout-apm==3.3.0
     # via -r requirements.in
 sentry-sdk==2.18.0
     # via -r requirements.in
@@ -243,7 +243,7 @@ typing-extensions==4.4.0
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
-urllib3==1.26.19
+urllib3==2.2.3
     # via
     #   botocore
     #   requests
