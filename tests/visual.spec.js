@@ -63,14 +63,16 @@ async function waitForCookieBanner(page) {
  * @param {String} path path may or may not contain query string
  * @returns
  */
-function testURL(baseUrl, path) {
+function testURL(baseUrl, path, hasCookieBanner = true) {
   return async ({ page }, testInfo) => {
     // append trailing slash to URL only if it doesn't contain query string
     const url = `${baseUrl}${path}${path.includes("?") ? "" : "/"}`;
     console.log(url);
     await page.goto(url);
     await waitForReactAndImagesToLoad(page);
-    await waitForCookieBanner(page);
+    if (hasCookieBanner) {
+      await waitForCookieBanner(page);
+    }
 
     // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
     if (
@@ -112,12 +114,12 @@ function testURL(baseUrl, path) {
 
 // fall-through call for foundation URLs
 function testFoundationURL(path, locale = `en`) {
-  return testURL(foundationBaseUrl(locale), path);
+  return testURL(foundationBaseUrl(locale), path, true);
 }
 
 // fall-through call for mozfest URLs
 function testMozfestURL(path, locale = `en`) {
-  return testURL(mozfestBaseUrl(locale), path);
+  return testURL(mozfestBaseUrl(locale), path, false);
 }
 
 async function expandDropdown(page, dropdownSelector) {
