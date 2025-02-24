@@ -46,7 +46,7 @@ html-void-elements==0.1.0
     # via djlint
 iniconfig==2.0.0
     # via pytest
-isort==5.13.2
+isort==6.0.0
     # via -r dev-requirements.in
 jsbeautifier==1.14.7
     # via
