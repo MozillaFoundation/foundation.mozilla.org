@@ -21,14 +21,15 @@ def onetrust_data_domain():
     Get the OneTrust cookie "data-domain-script" script attribute.
 
     Data domain is taken from the data-domain-script script attribute via
-    OneTrust's cookie script integration. While the test / production data
-    domain id currently only differ by a suffix, this may change in the future
+    OneTrust's cookie script integration. We have two scripts & properties set up
+    in OneTrust. One for production (foundation.mozilla.org) and one for
+    dev/staging (foundation.mofostaging.net).
     """
-    data_domain = "0191beda-31c8-76ff-9093-4055176ccf8c"
+
     if get_app_environment() == "Production":
-        return data_domain
+        return "0191beda-31c8-76ff-9093-4055176ccf8c"
     else:
-        return data_domain + "-test"
+        return "0190e65a-dbec-7548-89af-4b67155ee70a-test"
 
 
 def get_app_environment():
