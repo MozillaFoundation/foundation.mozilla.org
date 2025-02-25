@@ -80,6 +80,14 @@ module.exports = [
             height: "16px",
           },
         },
+        ".bluesky-glyph": {
+          ...glyph("bluesky"),
+          ...hoverGlyph("bluesky-hover"),
+          "&:before": {
+            width: "16px",
+            height: "16px",
+          },
+        },
         ".form-error-glyph": {
           ...glyph("form-error"),
           display: "flex",
@@ -146,6 +154,14 @@ module.exports = [
           "& .tiktok-glyph": {
             ...glyph("tiktok-dark-theme"),
             ...hoverGlyph("tiktok-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
+          },
+          "& .bluesky-glyph": {
+            ...glyph("bluesky-dark-theme"),
+            ...hoverGlyph("bluesky-dark-theme-hover"),
             "&:before": {
               width: "16px",
               height: "16px",
