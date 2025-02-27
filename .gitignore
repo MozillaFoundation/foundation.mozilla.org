@@ -109,7 +109,7 @@ dockerpythonvenv/
 foundation_cms/staticfiles/
 
 # Storage for user generated files
-#foundation_cms/media/
+foundation_cms/media/
 
 # Databases for local development
 **/*.sqlite3
