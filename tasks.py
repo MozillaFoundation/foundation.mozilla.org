@@ -6,7 +6,7 @@ from sys import platform
 from invoke import exceptions, task
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
-LOCALE_DIR = os.path.realpath(os.path.abspath("network-api/locale"))
+LOCALE_DIR = os.path.realpath(os.path.abspath("foundation_cms/locale"))
 
 # Python commands's outputs are not rendering properly. Setting pty for *Nix system and
 # "PYTHONUNBUFFERED" env var for Windows at True.
@@ -23,9 +23,9 @@ locale_abstraction_instructions = " ".join(
         "--all",
         "--keep-pot",
         "--no-wrap",
-        "--ignore=network-api/legacy_cms/wagtailcustomization/*",
-        "--ignore=network-api/legacy_cms/settings.py",
-        "--ignore=network-api/legacy_cms/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
+        "--ignore=foundation_cms/legacy_cms/wagtailcustomization/*",
+        "--ignore=foundation_cms/legacy_cms/settings.py",
+        "--ignore=foundation_cms/legacy_cms/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
         "--ignore=dockerpythonvenv/*",
     ]
 )
@@ -40,7 +40,7 @@ locale_abstraction_instructions_js = " ".join(
         "--no-wrap",
         "--ignore=node_modules",
         "--ignore=dockerpythonvenv/*",
-        "--ignore=network-api",
+        "--ignore=foundation_cms",
         "--ignore=cypress",
     ]
 )
@@ -264,7 +264,7 @@ def manage(ctx, command, stop=False):
 
     To stop the containers after the command has been run, pass the `--stop` flag.
     """
-    command = f"python network-api/manage.py {command}"
+    command = f"python foundation_cms/manage.py {command}"
     pyrun(ctx, command, stop=stop)
 
 
@@ -334,7 +334,7 @@ def test_python(ctx, file="", n="auto", verbose=False):
     parallel = f"-n {n}" if n != "1" else ""
     v = "-v" if verbose else ""
     # Don't run coverage if a file is specified
-    cov = "" if file else "--cov=network-api/legacy_cms --cov-report=term-missing"
+    cov = "" if file else "--cov=foundation_cms/legacy_cms --cov-report=term-missing"
     command = f"pytest {v} {parallel} {file} --reuse-db {cov}"
     pyrun(ctx, command)
 
@@ -447,13 +447,13 @@ def djhtml(ctx, args=None):
 @task
 def djhtml_check(ctx):
     """Run djhtml code indenter in check mode."""
-    djhtml(ctx, args="-c maintenance/ network-api/")
+    djhtml(ctx, args="-c maintenance/ foundation_cms/")
 
 
 @task
 def djhtml_format(ctx):
     """Run djhtml code indenter in formatting mode."""
-    djhtml(ctx, args="maintenance/ network-api/")
+    djhtml(ctx, args="maintenance/ foundation_cms/")
 
 
 @task(help={"args": "Override the arguments passed to djlint."})
@@ -503,7 +503,7 @@ def isort_check(ctx):
 @task(help={"args": "Override the arguments passed to mypy."})
 def mypy(ctx, args=None):
     """Run mypy type checking on the project."""
-    args = args or "network-api"
+    args = args or "foundation_cms"
     pyrun(ctx, command=f"mypy {args}")
 
 
@@ -581,7 +581,7 @@ def compilemessages(ctx):
     """Compile the latest translations"""
     with ctx.cd(ROOT):
         ctx.run(
-            "docker-compose run --rm -w /app/network-api backend "
+            "docker-compose run --rm -w /app/foundation_cms backend "
             "../dockerpythonvenv/bin/python manage.py compilemessages",
             **PLATFORM_ARG,
         )

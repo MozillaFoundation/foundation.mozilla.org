@@ -33,7 +33,7 @@ command="$1"
 # Read path to local string repository from .env file
 L10N_REPO=$(grep LOCAL_PATH_TO_L10N_REPO .env | cut -d '=' -f2)
 L10N_REPO+="foundation/translations/"
-CODE_REPO="network-api/"
+CODE_REPO="foundation_cms/"
 
 FOLDERS=(
   "locale/"

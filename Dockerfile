@@ -12,10 +12,10 @@ COPY package.json package-lock.json tailwind.config.js esbuild.config.js contrib
 COPY ./tailwind-plugins/ ./tailwind-plugins/
 RUN npm ci --no-optional --no-audit --progress=false
 
-# Compile static files from static source at ./source to ./network-api/legacy_cms/frontend
-# This will create a `network-api/legacy_cms/frontend` directory.
+# Compile static files from static source at ./source to ./foundation_cms/legacy_cms/frontend
+# This will create a `foundation_cms/legacy_cms/frontend` directory.
 COPY ./source/ ./source/
-COPY ./network-api/legacy_cms/ ./network-api/legacy_cms/
+COPY ./foundation_cms/legacy_cms/ ./foundation_cms/legacy_cms/
 RUN npm run build
 
 
@@ -97,18 +97,18 @@ RUN pip-sync requirements.txt dev-requirements.txt
 COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
-# This will later be obscured by the `network-api` bind mount in docker-compose.yml, and
+# This will later be obscured by the `foundation_cms` bind mount in docker-compose.yml, and
 # will need to be recreated by `npm run build`.
-COPY --chown=mozilla --from=frontend /app/network-api/legacy_cms/frontend ./network-api/legacy_cms/frontend
+COPY --chown=mozilla --from=frontend /app/foundation_cms/legacy_cms/frontend ./foundation_cms/legacy_cms/frontend
 
 # Run collectstatic to move static files from application directories and
-# compiled static directory (network-api/legacy_cms/frontend) to the site's static
-# directory in /app/network-api/staticfiles that will be served by the WSGI server.
+# compiled static directory (foundation_cms/legacy_cms/frontend) to the site's static
+# directory in /app/foundation_cms/staticfiles that will be served by the WSGI server.
 #
 # Note: this is only used where DEBUG=False, and so is not needed on dev builds.
-# The network-api/staticfiles will not be visible after mounting the
-# network-api directory.
-RUN SECRET_KEY=none python ./network-api/manage.py collectstatic --noinput --clear
+# The foundation_cms/staticfiles will not be visible after mounting the
+# foundation_cms directory.
+RUN SECRET_KEY=none python ./foundation_cms/manage.py collectstatic --noinput --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.

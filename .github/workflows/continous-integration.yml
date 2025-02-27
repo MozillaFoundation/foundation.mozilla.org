@@ -83,12 +83,12 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py check
-          python network-api/manage.py makemigrations --check --dry-run
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py compilemessages
+          python foundation_cms/manage.py collectstatic --no-input --verbosity 0
+          python foundation_cms/manage.py check
+          python foundation_cms/manage.py makemigrations --check --dry-run
+          python foundation_cms/manage.py migrate --no-input
+          python foundation_cms/manage.py block_inventory
+          python foundation_cms/manage.py compilemessages
       - name: Run linting
         run: |
           flake8 .
@@ -101,11 +101,11 @@ jobs:
           # djlint . --check
           #
           # Using djhtml indent check in the meantime.
-          djhtml -c maintenance/ network-api/
+          djhtml -c maintenance/ foundation_cms/
       - name: Run type checks
-        run: mypy network-api
+        run: mypy foundation_cms
       - name: Run Tests
-        run: cd network-api && pytest -n auto -v --ds=legacy_cms.settings -cov=network-api/legacy_cms --cov-report=term-missing
+        run: cd foundation_cms && pytest -n auto -v --ds=legacy_cms.settings -cov=foundation_cms/legacy_cms --cov-report=term-missing
 
   test_integration:
     name: Integration testing
@@ -171,9 +171,9 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py load_fake_data
+          python foundation_cms/manage.py collectstatic --no-input --verbosity 0
+          python foundation_cms/manage.py migrate --no-input
+          python foundation_cms/manage.py block_inventory
+          python foundation_cms/manage.py load_fake_data
       - name: Integration Tests
         run: npm run playwright:ci

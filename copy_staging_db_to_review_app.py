@@ -88,7 +88,7 @@ def main(ctx, review_app_name):
         log_step_completed("Cleanup SQL script execution")
 
         log_step("Running migrations")
-        execute_command(ctx, f"heroku run -a {review_app_name} -- python network-api/manage.py migrate --no-input")
+        execute_command(ctx, f"heroku run -a {review_app_name} -- python foundation_cms/manage.py migrate --no-input")
         log_step_completed("Migrations running")
 
     except Exception as e:

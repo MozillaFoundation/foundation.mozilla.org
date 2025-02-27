@@ -15,9 +15,9 @@ docs/
 /venv/
 /tmp/
 /npm-debug.log
-network-api/legacy_cms/frontend/
-network-api/media/
-network-api/staticfiles/
+foundation_cms/legacy_cms/frontend/
+foundation_cms/media/
+foundation_cms/staticfiles/
 **/node_modules/
 **/dist
 .coverage

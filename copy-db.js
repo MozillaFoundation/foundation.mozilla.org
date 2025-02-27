@@ -133,7 +133,7 @@ run(`inv createsuperuser`, true, silent);
 
 console.log(`Migrating database to match current branch migrations...`);
 run(
-  `docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python network-api/manage.py migrate`
+  `docker exec ${IMAGE_NAMES.BACKEND} ./dockerpythonvenv/bin/python foundation_cms/manage.py migrate`
 );
 
 console.log(`Stopping docker images...`);
