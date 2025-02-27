@@ -49,7 +49,7 @@
     }
   ],
   "scripts": {
-    "postdeploy": "python network-api/manage.py load_fake_data && python network-api/manage.py review_app_setup create && python network-api/manage.py review_app_admin && python network-api/manage.py sync_locale_trees",
-    "pr-predestroy": "python network-api/manage.py review_app_setup teardown"
+    "postdeploy": "python foundation_cms/manage.py load_fake_data && python foundation_cms/manage.py review_app_setup create && python foundation_cms/manage.py review_app_admin && python foundation_cms/manage.py sync_locale_trees",
+    "pr-predestroy": "python foundation_cms/manage.py review_app_setup teardown"
   }
 }

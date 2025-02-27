@@ -28,7 +28,7 @@ services:
       - ./.env:/app/.env
       - ./.coveragerc:/app/.coveragerc
       - ./.flake8:/app/.flake8
-      - ./network-api:/app/network-api
+      - ./foundation_cms:/app/foundation_cms
       - ./copy-db.js:/app/copy-db.js
       - ./test:/app/test
       - ./tests:/app/tests

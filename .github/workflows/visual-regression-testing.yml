@@ -77,10 +77,10 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py load_fake_data
+          python foundation_cms/manage.py collectstatic --no-input --verbosity 0
+          python foundation_cms/manage.py migrate --no-input
+          python foundation_cms/manage.py block_inventory
+          python foundation_cms/manage.py load_fake_data
       - name: Percy Test
         run: npm run percy
         env:
