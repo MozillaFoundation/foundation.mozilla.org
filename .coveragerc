@@ -1,5 +1,5 @@
 [coverage:run]
-source = netwrok-api/legacy_cms
+source = foundation_cms/legacy_cms
 omit =
    *migrations*
    *settings.py*
