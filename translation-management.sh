@@ -37,11 +37,11 @@ CODE_REPO="network-api/"
 
 FOLDERS=(
   "locale/"
-  "networkapi/templates/pages/buyersguide/about/locale/"
-  "networkapi/wagtailpages/templates/wagtailpages/pages/locale/"
-  "networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
-  "networkapi/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
-  "networkapi/mozfest/locale/"
+  "legacy_cms/templates/pages/buyersguide/about/locale/"
+  "legacy_cms/wagtailpages/templates/wagtailpages/pages/locale/"
+  "legacy_cms/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
+  "legacy_cms/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
+  "legacy_cms/mozfest/locale/"
 )
 
 # Array of locale codes in ab-CD format that need to be converted into ab_CD for Django

@@ -86,7 +86,7 @@ All assets are stored on S3.
 /
 ├── dest <- Compiled code generated from source. Don't edit!
 ├── network-api <- Django site code
-│   ├── networkapi <- Django apps live within this directory
+│   ├── legacy_cms <- Django apps live within this directory
         └── wagtailpages <- most of the pages using wagtail are here
 │   └── templates <- page templates and overrides
 ├── locales <- Localized strings (Java .properties syntax)
@@ -101,7 +101,7 @@ All assets are stored on S3.
 ```
 
 The templates are very scattered at the moment.
-We are trying to localize all tempaltes to the location `network-api/networkapi/templates`.
+We are trying to localize all tempaltes to the location `network-api/legacy_cms/templates`.
 When ever you touch or create a template, please move it to / create it in this location and place it in the appropriate sub-directory, `pages` or `fragments`.
 Create sub-directories under `pages` or `fragments` only when necessary and you have more than one template that needs to be grouped.
 

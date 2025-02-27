@@ -116,8 +116,8 @@ network-api/media/
 *.psql
 
 # Compiled Frontend
-network-api/networkapi/frontend/
-network-api/networkapi/temp/frontend/
+network-api/legacy_cms/frontend/
+network-api/legacy_cms/temp/frontend/
 
 # PyCharm
 .idea/

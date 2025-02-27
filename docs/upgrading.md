@@ -14,15 +14,15 @@ When upgrading Wagtail, please check if there are changes to [`wagtail.admin.vie
 
 ### Page types report
 
-A pages types usage report has been added on `networkapi.reports.views`, which will be incorporated as [part of core on v6.0](https://github.com/wagtail/wagtail/pull/10850). Once that is added, the custom report should be removed.
+A pages types usage report has been added on `legacy_cms.reports.views`, which will be incorporated as [part of core on v6.0](https://github.com/wagtail/wagtail/pull/10850). Once that is added, the custom report should be removed.
 
 ### Localisation utility
 
-The `localize_queryset` utility function on `networkapi.wagtailpages.utils` has been incorporated [into core](https://github.com/wagtail/wagtail/pull/11274). Once that has been released, the implementation here should be removed in favour of the core one.
+The `localize_queryset` utility function on `legacy_cms.wagtailpages.utils` has been incorporated [into core](https://github.com/wagtail/wagtail/pull/11274). Once that has been released, the implementation here should be removed in favour of the core one.
 
 
 ## wagtail-ab-testing
 
 In order to make `wagtail-ab-testing` compatible with our CSP, the main script and template tag had to be overwritten. The script on `templates/wagtail_ab_testing/script.html` was modified to pass values through a `json_script` tag (as [Django recommends](https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#json-script)) and a `nonce` was added to the scripts.
 
-The `wagtail_ab_testing_script` template tag was rewritten at `networkapi.wagtailcustomization.templatetags.wagtailcustom_tags` to pass the request to the script so that it can pick up the `nonce` value from `request` (`request.csp_nonce`).
+The `wagtail_ab_testing_script` template tag was rewritten at `legacy_cms.wagtailcustomization.templatetags.wagtailcustom_tags` to pass the request to the script so that it can pick up the `nonce` value from `request` (`request.csp_nonce`).

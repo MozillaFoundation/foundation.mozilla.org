@@ -12,10 +12,10 @@ COPY package.json package-lock.json tailwind.config.js esbuild.config.js contrib
 COPY ./tailwind-plugins/ ./tailwind-plugins/
 RUN npm ci --no-optional --no-audit --progress=false
 
-# Compile static files from static source at ./source to ./network-api/networkapi/frontend
-# This will create a `network-api/networkapi/frontend` directory.
+# Compile static files from static source at ./source to ./network-api/legacy_cms/frontend
+# This will create a `network-api/legacy_cms/frontend` directory.
 COPY ./source/ ./source/
-COPY ./network-api/networkapi/ ./network-api/networkapi/
+COPY ./network-api/legacy_cms/ ./network-api/legacy_cms/
 RUN npm run build
 
 
@@ -54,7 +54,7 @@ WORKDIR /app
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    DJANGO_SETTINGS_MODULE=networkapi.settings \
+    DJANGO_SETTINGS_MODULE=legacy_cms.settings \
     PORT=8000 \
     WEB_CONCURRENCY=3 \
     GUNICORN_CMD_ARGS="-c gunicorn-conf.py --max-requests 1200 --max-requests-jitter 50 --access-logfile - --timeout 25"
@@ -99,10 +99,10 @@ COPY --chown=mozilla . .
 # Copy compiled assets from the frontend build stage for collectstatic to work.
 # This will later be obscured by the `network-api` bind mount in docker-compose.yml, and
 # will need to be recreated by `npm run build`.
-COPY --chown=mozilla --from=frontend /app/network-api/networkapi/frontend ./network-api/networkapi/frontend
+COPY --chown=mozilla --from=frontend /app/network-api/legacy_cms/frontend ./network-api/legacy_cms/frontend
 
 # Run collectstatic to move static files from application directories and
-# compiled static directory (network-api/networkapi/frontend) to the site's static
+# compiled static directory (network-api/legacy_cms/frontend) to the site's static
 # directory in /app/network-api/staticfiles that will be served by the WSGI server.
 #
 # Note: this is only used where DEBUG=False, and so is not needed on dev builds.
@@ -113,7 +113,7 @@ RUN SECRET_KEY=none python ./network-api/manage.py collectstatic --noinput --cle
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
 # Note: this will be overridden by other commands below for dev builds.
-CMD gunicorn networkapi.wsgi:application
+CMD gunicorn legacy_cms.wsgi:application
 
 # Below is used for local dev builds only
 FROM base as dev

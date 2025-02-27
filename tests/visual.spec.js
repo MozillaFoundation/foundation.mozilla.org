@@ -23,7 +23,7 @@ async function waitForCookieBanner(page) {
   });
 
   // Wait for button texts to stop getting updated
-  // See the "onetrust_script" block in network-api/networkapi/templates/pages/base.html for more selector info
+  // See the "onetrust_script" block in network-api/legacy_cms/templates/pages/base.html for more selector info
   await page.waitForFunction(() => {
     const getText = (id) => document.getElementById(id)?.textContent.trim();
 

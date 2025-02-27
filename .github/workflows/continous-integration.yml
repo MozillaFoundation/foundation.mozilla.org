@@ -105,7 +105,7 @@ jobs:
       - name: Run type checks
         run: mypy network-api
       - name: Run Tests
-        run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
+        run: cd network-api && pytest -n auto -v --ds=legacy_cms.settings -cov=network-api/legacy_cms --cov-report=term-missing
 
   test_integration:
     name: Integration testing
