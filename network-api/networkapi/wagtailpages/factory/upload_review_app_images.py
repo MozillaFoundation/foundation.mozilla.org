@@ -5,7 +5,14 @@ from django.core.files import File
 from wagtail.images import get_image_model
 from wagtail.models import Collection
 
-IMAGE_DIR = os.path.join(settings.STATICFILES_DIRS[0], "_images", "review_app_images")
+if os.getenv("DOCKER_ENV"):
+    IMAGE_DIR = "/app/network-api/networkapi/frontend/_images/review_app_images"
+else:
+    IMAGE_DIR = os.path.join(settings.BASE_DIR, "networkapi/frontend/_images/review_app_images")
+
+print(f"📂 Using IMAGE_DIR: {IMAGE_DIR}")
+
+
 COLLECTION_NAME = "Review App Images"
 
 
