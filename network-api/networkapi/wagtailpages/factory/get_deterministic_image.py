@@ -1,6 +1,7 @@
 import random
 
 from wagtail.images.models import Image
+from wagtail.models import Collection
 
 from networkapi.wagtailpages.factory.upload_review_app_images import (
     upload_review_app_images,
@@ -19,13 +20,17 @@ def get_deterministic_image(reference_value, collection_name=COLLECTION_NAME):
     :return: A Wagtail Image instance.
     """
 
+    print(f">>> !!!!!!!!!! Available collections in CI: {list(Collection.objects.all().values_list('name', flat=True))}")
+
     # When reference_value is None, hash(reference_value) will return different values between runs
     if reference_value is None:
         raise ValueError("reference_value cannot be None")
 
     # Ensure images exist before selecting
     if not Image.objects.exists():
+        print(">>> Running upload_review_app_images() to populate images...")
         upload_review_app_images()
+        print(f">>> After upload: {Image.objects.count()} images exist in Wagtail.")
 
     if not collection_name:
         raise ValueError(">>>> collection_name is empty or None before filtering images!")

@@ -32,9 +32,6 @@ def upload_review_app_images():
     """Uploads all images from IMAGE_DIR to a specific Wagtail Collection."""
     Image = get_image_model()
 
-    # Ensure collection is created correctly under the root collection
-    collection = get_or_create_collection(COLLECTION_NAME)
-
     print(f"📂 Checking IMAGE_DIR: {IMAGE_DIR}")
 
     # for debugging...
@@ -56,6 +53,9 @@ def upload_review_app_images():
     if not image_files:
         print(">>> No image files found in IMAGE_DIR. Exiting.")
         return
+
+    # Ensure collection is created correctly under the root collection
+    collection = get_or_create_collection(COLLECTION_NAME)
 
     uploaded_count = 0
 
