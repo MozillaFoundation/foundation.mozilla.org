@@ -126,6 +126,20 @@ jobs:
           Collection.objects.filter(name="Review App Images").first() or root.add_child(name="Review App Images")
           print("✅ Collection 'Review App Images' is ready!")
           EOF
+      - name: Upload Test Images to Wagtail
+        run: |
+          python network-api/manage.py shell <<EOF
+          from networkapi.wagtailpages.factory.upload_review_app_images import upload_review_app_images
+          upload_review_app_images()
+          print("✅ Test images uploaded to Wagtail.")
+          EOF
+      - name: Debug Database State Before Tests
+        run: |
+          python network-api/manage.py showmigrations
+          python network-api/manage.py shell <<EOF
+          from wagtail.images.models import Image
+          print(f"🔍 All images in Wagtail BEFORE tests: {list(Image.objects.all().values_list('title', 'collection__name'))}")
+          EOF
       - name: Run Tests
         run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
 
