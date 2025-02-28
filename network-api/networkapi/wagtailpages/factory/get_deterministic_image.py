@@ -2,7 +2,9 @@ import random
 
 from wagtail.images.models import Image
 
-from networkapi.wagtailpages.factory.upload_test_images import upload_test_images
+from networkapi.wagtailpages.factory.upload_review_app_images import (
+    upload_review_app_images,
+)
 
 COLLECTION_NAME = "Review App Images"
 
@@ -17,9 +19,16 @@ def get_deterministic_image(reference_value, collection_name=COLLECTION_NAME):
     :return: A Wagtail Image instance.
     """
 
-    # ✅ Ensure images exist before selecting
+    # When reference_value is None, hash(reference_value) will return different values between runs
+    if reference_value is None:
+        raise ValueError("reference_value cannot be None")
+
+    # Ensure images exist before selecting
     if not Image.objects.exists():
-        upload_test_images()
+        upload_review_app_images()
+
+    if not collection_name:
+        raise ValueError(">>>> collection_name is empty or None before filtering images!")
 
     images = Image.objects.all()
     if collection_name:
@@ -27,7 +36,7 @@ def get_deterministic_image(reference_value, collection_name=COLLECTION_NAME):
 
     images = list(images)
     if not images:
-        raise ValueError(f"No images found in collection {collection_name} after uploading!")
+        raise ValueError(f'No images found in collection "{collection_name}" ')
 
     # Use a deterministic random selection based on `reference_value`
     stable_random = random.Random(hash(reference_value))

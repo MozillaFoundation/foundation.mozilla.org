@@ -1,5 +1,7 @@
 from networkapi.wagtailpages.factory.libraries import rcc, research_hub
-from networkapi.wagtailpages.factory.upload_test_images import upload_test_images
+from networkapi.wagtailpages.factory.upload_review_app_images import (
+    upload_review_app_images,
+)
 
 from . import (
     app_install_page,
@@ -28,7 +30,7 @@ from . import (
 
 def generate(seed):
     # Ensure test images exist before page creation
-    upload_test_images()
+    upload_review_app_images()
 
     # these are not, and should not be, alphabetically ordered.
     locale.generate(seed)
