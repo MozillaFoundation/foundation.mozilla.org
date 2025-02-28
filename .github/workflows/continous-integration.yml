@@ -108,11 +108,13 @@ jobs:
         run: docker ps -a
       - name: Check If Image Directory Exists
         run: |
-          if [ -d "/app/network-api/networkapi/frontend/_images/review_app_images" ]; then
-            echo "✅ IMAGE_DIR exists."
+          IMAGE_DIR=${IMAGE_DIR:-network-api/networkapi/frontend/_images/review_app_images}
+
+          if [ -d "$IMAGE_DIR" ]; then
+            echo "✅ IMAGE_DIR exists: $IMAGE_DIR"
+            ls -lah "$IMAGE_DIR"
           else
             echo "❌ IMAGE_DIR is missing!"
-            ls -lah /app/network-api/networkapi/frontend/_images/
           fi
       - name: Run Tests
         run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
