@@ -116,6 +116,16 @@ jobs:
           else
             echo "❌ IMAGE_DIR is missing!"
           fi
+      - name: Ensure Wagtail Collections Exist
+        run: |
+          python network-api/manage.py shell <<EOF
+          from wagtail.models import Collection
+          root = Collection.get_first_root_node()
+          if not root:
+            root = Collection.add_root(name="Root")
+          Collection.objects.filter(name="Review App Images").first() or root.add_child(name="Review App Images")
+          print("✅ Collection 'Review App Images' is ready!")
+          EOF
       - name: Run Tests
         run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
 
