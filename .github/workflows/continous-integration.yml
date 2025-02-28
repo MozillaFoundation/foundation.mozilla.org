@@ -104,6 +104,8 @@ jobs:
           djhtml -c maintenance/ network-api/
       - name: Run type checks
         run: mypy network-api
+      - name: Debug Docker Environment
+        run: docker ps -a
       - name: Check If Image Directory Exists
         run: |
           if [ -d "/app/network-api/networkapi/frontend/_images/review_app_images" ]; then
