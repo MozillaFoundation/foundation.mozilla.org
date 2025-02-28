@@ -20,7 +20,9 @@ def get_deterministic_image(reference_value, collection_name=COLLECTION_NAME):
     :return: A Wagtail Image instance.
     """
 
-    print(f">>> !!!!!!!!!! Available collections in CI: {list(Collection.objects.all().values_list('name', flat=True))}")
+    print(
+        f">>> !!!!!!!!!! Available collections in CI: {list(Collection.objects.all().values_list('name', flat=True))}"
+    )
 
     # When reference_value is None, hash(reference_value) will return different values between runs
     if reference_value is None:
