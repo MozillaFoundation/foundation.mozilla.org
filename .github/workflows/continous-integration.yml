@@ -104,6 +104,42 @@ jobs:
           djhtml -c maintenance/ network-api/
       - name: Run type checks
         run: mypy network-api
+      - name: Debug Docker Environment
+        run: docker ps -a
+      - name: Check If Image Directory Exists
+        run: |
+          IMAGE_DIR=${IMAGE_DIR:-network-api/networkapi/frontend/_images/review_app_images}
+
+          if [ -d "$IMAGE_DIR" ]; then
+            echo "✅ IMAGE_DIR exists: $IMAGE_DIR"
+            ls -lah "$IMAGE_DIR"
+          else
+            echo "❌ IMAGE_DIR is missing!"
+          fi
+      - name: Ensure Wagtail Collections Exist
+        run: |
+          python network-api/manage.py shell <<EOF
+          from wagtail.models import Collection
+          root = Collection.get_first_root_node()
+          if not root:
+            root = Collection.add_root(name="Root")
+          Collection.objects.filter(name="Review App Images").first() or root.add_child(name="Review App Images")
+          print("✅ Collection 'Review App Images' is ready!")
+          EOF
+      - name: Upload Test Images to Wagtail
+        run: |
+          python network-api/manage.py shell <<EOF
+          from networkapi.wagtailpages.factory.upload_review_app_images import upload_review_app_images
+          upload_review_app_images()
+          print("✅ Test images uploaded to Wagtail.")
+          EOF
+      - name: Debug Database State Before Tests
+        run: |
+          python network-api/manage.py showmigrations
+          python network-api/manage.py shell <<EOF
+          from wagtail.images.models import Image
+          print(f"🔍 All images in Wagtail BEFORE tests: {list(Image.objects.all().values_list('title', 'collection__name'))}")
+          EOF
       - name: Run Tests
         run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
 

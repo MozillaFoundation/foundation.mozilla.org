@@ -1,11 +1,9 @@
 import random
 from os.path import abspath, dirname, join
 
-import factory
 from django.conf import settings
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-from taggit.models import Tag
 
 # Factories
 import networkapi.donate.factory as donate_factory
@@ -15,7 +13,6 @@ import networkapi.nav.factories as nav_factory
 import networkapi.news.factory as news_factory
 import networkapi.wagtailpages.factory as wagtailpages_factory
 from networkapi.utility.faker.helpers import reseed
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.utils import create_wagtail_image
 
 
@@ -42,8 +39,6 @@ class Command(BaseCommand):
         if options["delete"]:
             call_command("flush_models")
 
-        faker = factory.faker.Faker._get_faker(locale="en-US")
-
         # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million
         if options["seed"]:
             seed = options["seed"]
@@ -55,14 +50,6 @@ class Command(BaseCommand):
         print(f"Seeding random numbers with: {seed}")
 
         reseed(seed)
-
-        print("Generating Images")
-        images = [
-            ImageFactory.create(file__width=1080, file__height=720, file__color=faker.safe_color_name())
-            for i in range(20)
-        ]
-        social_share_tag, created = Tag.objects.get_or_create(name="social share image")
-        images[0].tags.add(social_share_tag)
 
         # Create one PNI product for every image we have in our media folder
         product_images = [
