@@ -11,7 +11,9 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_cms.wagtailpages import utils
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import constants as base_constants
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
+    constants as base_constants,
+)
 
 if typing.TYPE_CHECKING:
     from typing import List

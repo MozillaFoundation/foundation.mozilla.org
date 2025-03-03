@@ -16,7 +16,9 @@ from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 import foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic
 import foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles
 import foundation_cms.legacy_cms.wagtailpages.validators
-from foundation_cms.legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
+from foundation_cms.legacy_cms.utility.migration.operations import (
+    AlterStreamChildBlockDataOperation,
+)
 
 # Regex pattern for detecting URLs (including those without protocol)
 url_pattern = re.compile(r"^(http://|https://|www\.|[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+)")
@@ -849,7 +851,9 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 (
@@ -859,7 +863,9 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -2746,7 +2752,9 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 (
@@ -2756,7 +2764,9 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -3823,7 +3833,9 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 (
@@ -3833,7 +3845,9 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -5720,7 +5734,9 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                        ],
                                     ),
                                 ),
                                 (
@@ -5730,7 +5746,9 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),

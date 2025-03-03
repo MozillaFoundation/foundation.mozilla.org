@@ -24,9 +24,15 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_cms.utility import orderables
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide import utils as bg_utils
-from foundation_cms.legacy_cms.wagtailpages.templatetags.bg_nav_tags import bg_categories_in_subnav
-from foundation_cms.legacy_cms.wagtailpages.templatetags.localization import relocalize_url
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide import (
+    utils as bg_utils,
+)
+from foundation_cms.legacy_cms.wagtailpages.templatetags.bg_nav_tags import (
+    bg_categories_in_subnav,
+)
+from foundation_cms.legacy_cms.wagtailpages.templatetags.localization import (
+    relocalize_url,
+)
 from foundation_cms.legacy_cms.wagtailpages.utils import (
     get_language_from_request,
     get_locale_from_request,

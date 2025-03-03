@@ -8,7 +8,9 @@ from wagtail.rich_text import RichText
 from foundation_cms.legacy_cms.nav import blocks as nav_blocks
 from foundation_cms.legacy_cms.nav import models as nav_models
 from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
-from foundation_cms.legacy_cms.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
+from foundation_cms.legacy_cms.wagtailcustomization.factories.blocks import (
+    ExtendedStructBlockFactory,
+)
 from foundation_cms.legacy_cms.wagtailpages.models import BlogPageTopic
 
 

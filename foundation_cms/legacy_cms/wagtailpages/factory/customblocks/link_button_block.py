@@ -1,6 +1,8 @@
 import factory
 
-from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.link_block import LinkBlockFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.link_block import (
+    LinkBlockFactory,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 

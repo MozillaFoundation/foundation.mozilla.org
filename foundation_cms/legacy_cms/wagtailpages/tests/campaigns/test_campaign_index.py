@@ -1,4 +1,6 @@
-from foundation_cms.legacy_cms.wagtailpages.factory import campaign_page as campaign_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    campaign_page as campaign_factories,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 

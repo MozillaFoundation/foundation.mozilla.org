@@ -1,7 +1,9 @@
 from django.test.utils import override_settings
 from wagtail.contrib.redirects.models import Redirect
 
-from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    buyersguide as buyersguide_factories,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 

@@ -1,6 +1,8 @@
 import http
 
-from foundation_cms.legacy_cms.wagtailpages.factory import publication as publication_factory
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    publication as publication_factory,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.publications import publication
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 

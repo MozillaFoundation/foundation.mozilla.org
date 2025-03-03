@@ -3013,7 +3013,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "signup_requires_third_party_account",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="third-party account"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="third-party account"
+                    ),
                 ),
                 (
                     "signup_requirement_explanation",
@@ -3090,7 +3092,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "manage_vulnerabilities",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="manages security vulnerabilities"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="manages security vulnerabilities"
+                    ),
                 ),
                 (
                     "manage_vulnerabilities_helptext",
@@ -3319,7 +3323,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "microphone_device",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="microphone: Device"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="microphone: Device"
+                    ),
                 ),
                 (
                     "microphone_app",
@@ -3327,11 +3333,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "location_device",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="tracks location: Device"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="tracks location: Device"
+                    ),
                 ),
                 (
                     "location_app",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="tracks location: App"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="tracks location: App"
+                    ),
                 ),
                 (
                     "personal_data_collected",
@@ -3399,7 +3409,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uses_ai",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="does the product use AI?"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="does the product use AI?"
+                    ),
                 ),
                 (
                     "ai_helptext",
@@ -3411,7 +3423,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "ai_is_untrustworthy",
-                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="is this AI untrustworthy?"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                        verbose_name="is this AI untrustworthy?"
+                    ),
                 ),
                 (
                     "ai_is_untrustworthy_ding",

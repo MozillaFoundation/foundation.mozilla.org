@@ -5,10 +5,20 @@ from django.conf import settings
 from factory import Faker, SubFactory, post_generation
 from wagtail_factories import ImageFactory, PageFactory
 
-from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, get_random_date, reseed
+from foundation_cms.legacy_cms.utility.faker.helpers import (
+    get_homepage,
+    get_random_date,
+    reseed,
+)
 from foundation_cms.legacy_cms.wagtailpages.factory.documents import DocumentFactory
-from foundation_cms.legacy_cms.wagtailpages.models import ArticlePage, Profile, PublicationPage
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.publications.article import ArticleAuthors
+from foundation_cms.legacy_cms.wagtailpages.models import (
+    ArticlePage,
+    Profile,
+    PublicationPage,
+)
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.publications.article import (
+    ArticleAuthors,
+)
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING

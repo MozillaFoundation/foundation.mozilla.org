@@ -672,7 +672,9 @@ def generate_profiles_field():
 
 
 def generate_newsletter_signup_with_background_field():
-    from foundation_cms.legacy_cms.mozfest.factory import NewsletterSignupWithBackgroundSnippetFactory
+    from foundation_cms.legacy_cms.mozfest.factory import (
+        NewsletterSignupWithBackgroundSnippetFactory,
+    )
 
     newsletter_snippet = NewsletterSignupWithBackgroundSnippetFactory.create()
 

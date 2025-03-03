@@ -40,7 +40,10 @@ from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.utils import 
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from foundation_cms.legacy_cms.wagtailpages.utils import insert_panels_after, localize_queryset
+from foundation_cms.legacy_cms.wagtailpages.utils import (
+    insert_panels_after,
+    localize_queryset,
+)
 
 if typing.TYPE_CHECKING:
     from foundation_cms.legacy_cms.wagtailpages.models import BuyersGuideArticlePage

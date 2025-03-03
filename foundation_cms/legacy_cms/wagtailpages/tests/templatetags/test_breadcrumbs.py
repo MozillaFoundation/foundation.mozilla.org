@@ -11,7 +11,9 @@ from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub impor
 from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as rh_relations_factory,
 )
-from foundation_cms.legacy_cms.wagtailpages.templatetags import breadcrumbs as breadcrumbs_tags
+from foundation_cms.legacy_cms.wagtailpages.templatetags import (
+    breadcrumbs as breadcrumbs_tags,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc.base import RCCTestCase
 from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub.base import (
     ResearchHubTestCase,

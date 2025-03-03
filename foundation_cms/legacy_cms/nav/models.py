@@ -15,7 +15,11 @@ from foundation_cms.legacy_cms.nav import blocks as nav_blocks
 from foundation_cms.legacy_cms.nav import utils as nav_utils
 from foundation_cms.legacy_cms.nav.forms import NavMenuForm
 from foundation_cms.legacy_cms.utility.images import SVGImageFormatValidator
-from foundation_cms.legacy_cms.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
+from foundation_cms.legacy_cms.wagtailpages.models import (
+    BlogIndexPage,
+    BlogPage,
+    BlogPageTopic,
+)
 from foundation_cms.legacy_cms.wagtailpages.utils import localize_queryset
 
 

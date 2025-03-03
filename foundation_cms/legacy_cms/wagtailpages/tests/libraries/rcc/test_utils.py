@@ -3,9 +3,13 @@ from django.test import TestCase
 from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     detail_page as detail_page_factory,
 )
-from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
+    relations as relations_factory,
+)
 from foundation_cms.legacy_cms.wagtailpages.factory.profiles import ProfileFactory
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+    utils as rcc_utils,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 

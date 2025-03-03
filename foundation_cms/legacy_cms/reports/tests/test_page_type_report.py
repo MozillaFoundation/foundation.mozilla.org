@@ -5,8 +5,13 @@ from django.test import RequestFactory, override_settings
 from django.urls import reverse
 from wagtail.models import ContentType
 
-from foundation_cms.legacy_cms.reports.views import PageTypesReportView, _get_locale_choices
-from foundation_cms.legacy_cms.wagtailpages.factory.buyersguide import ProductPageFactory
+from foundation_cms.legacy_cms.reports.views import (
+    PageTypesReportView,
+    _get_locale_choices,
+)
+from foundation_cms.legacy_cms.wagtailpages.factory.buyersguide import (
+    ProductPageFactory,
+)
 from foundation_cms.legacy_cms.wagtailpages.factory.profiles import ProfileFactory
 from foundation_cms.legacy_cms.wagtailpages.models import Homepage, ProductPage, Profile
 from foundation_cms.legacy_cms.wagtailpages.tests.base import WagtailpagesTestCase

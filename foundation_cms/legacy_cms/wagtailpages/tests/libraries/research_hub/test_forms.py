@@ -12,7 +12,9 @@ from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub impor
 from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import forms
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+    forms,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub.forms import (
     ResearchLibraryPageFilterForm,
 )

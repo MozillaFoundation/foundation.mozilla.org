@@ -1,8 +1,12 @@
 from wagtail import blocks
 from wagtail.images import blocks as image_blocks
 
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks import listing as listing_blocks
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks import (
+    listing as listing_blocks,
+)
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkBlock,
+)
 
 
 class VideoBlock(blocks.StructBlock):

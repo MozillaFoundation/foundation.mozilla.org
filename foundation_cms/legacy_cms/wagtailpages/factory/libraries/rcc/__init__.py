@@ -12,11 +12,15 @@ from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
 from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     library_page as library_page_factory,
 )
-from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
+    relations as relations_factory,
+)
 from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     taxonomies as taxonomies_factory,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+    utils as rcc_utils,
+)
 
 
 def generate(seed):

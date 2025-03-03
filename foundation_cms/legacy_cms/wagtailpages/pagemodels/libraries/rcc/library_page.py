@@ -6,8 +6,13 @@ from wagtail import models as wagtail_models
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     library_page as base_library_page,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import detail_page, taxonomies
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+    detail_page,
+    taxonomies,
+)
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+    utils as rcc_utils,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc.forms import (
     RCCLibraryPageFilterForm,
 )

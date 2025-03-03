@@ -7,9 +7,13 @@ from wagtail.blocks import StreamBlockValidationError
 from foundation_cms.legacy_cms.nav import factories as nav_factories
 from foundation_cms.legacy_cms.nav import models as nav_models
 from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factories
-from foundation_cms.legacy_cms.wagtailpages.factory import image_factory as image_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    image_factory as image_factories,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
-from foundation_cms.legacy_cms.wagtailpages.tests.blog.test_blog_index import BlogIndexTestCase
+from foundation_cms.legacy_cms.wagtailpages.tests.blog.test_blog_index import (
+    BlogIndexTestCase,
+)
 
 
 class NavMenuTests(TestCase):

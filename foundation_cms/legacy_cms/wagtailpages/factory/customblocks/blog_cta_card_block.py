@@ -1,7 +1,9 @@
 import factory
 import wagtail_factories
 
-from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.image_block import ImageBlockFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.image_block import (
+    ImageBlockFactory,
+)
 from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.link_button_block import (
     LinkButtonBlockFactory,
 )

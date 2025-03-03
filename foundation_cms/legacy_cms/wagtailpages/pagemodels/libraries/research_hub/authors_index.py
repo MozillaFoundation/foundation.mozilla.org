@@ -7,7 +7,9 @@ from foundation_cms.legacy_cms.wagtailpages import utils
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     authors_index as base_authors_index_page,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import library_page
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+    library_page,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     utils as research_utils,
 )

@@ -345,7 +345,9 @@ class Migration(migrations.Migration):
                                         help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -1694,7 +1696,9 @@ class Migration(migrations.Migration):
                                         help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
-                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[
+                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                        ],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),

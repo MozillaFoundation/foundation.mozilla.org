@@ -6,7 +6,9 @@ from wagtail_localize import fields as localize_fields
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     landing_page as base_landing_page,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import authors_index
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+    authors_index,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page as rcc_detail_page,
 )

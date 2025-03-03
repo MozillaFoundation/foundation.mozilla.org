@@ -8,7 +8,9 @@ from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     authors_index as base_authors_index_page,
 )
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import library_page
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+    utils as rcc_utils,
+)
 
 if typing.TYPE_CHECKING:
     from django import http

@@ -5,7 +5,9 @@ import wagtail_factories
 
 from foundation_cms.legacy_cms.utility.faker import helpers as faker_helpers
 from foundation_cms.legacy_cms.wagtailpages import models as wagtailpage_models
-from foundation_cms.legacy_cms.wagtailpages.factory import documents as documents_factory
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    documents as documents_factory,
+)
 from foundation_cms.legacy_cms.wagtailpages.factory import image_factory
 
 

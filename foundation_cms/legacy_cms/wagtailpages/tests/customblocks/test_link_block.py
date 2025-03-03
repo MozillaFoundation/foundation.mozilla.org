@@ -3,8 +3,12 @@ from wagtail.blocks import StreamBlockValidationError
 from wagtail.documents.models import Document
 from wagtail.models import Locale, Page
 
-from foundation_cms.legacy_cms.wagtailpages.factory import customblocks as customblock_factories
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    customblocks as customblock_factories,
+)
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkBlock,
+)
 
 
 class TestLinkBlock(TestCase):

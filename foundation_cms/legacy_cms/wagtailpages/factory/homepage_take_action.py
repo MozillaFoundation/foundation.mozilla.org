@@ -5,7 +5,9 @@ from wagtail.images.models import Image
 from wagtail.models import Page
 
 from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import HomepageTakeActionCards
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import (
+    HomepageTakeActionCards,
+)
 
 faker = Faker()
 

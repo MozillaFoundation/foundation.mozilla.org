@@ -1,4 +1,6 @@
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks import single_quote_block
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks import (
+    single_quote_block,
+)
 
 
 class DarkSingleQuoteBlock(single_quote_block.SingleQuoteBlock):

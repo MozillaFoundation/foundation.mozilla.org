@@ -1,6 +1,8 @@
 from wagtail import blocks
 
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkBlock,
+)
 
 
 class CTABlock(LinkBlock):

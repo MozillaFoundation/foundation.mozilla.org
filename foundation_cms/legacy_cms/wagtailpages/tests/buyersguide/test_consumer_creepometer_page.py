@@ -1,5 +1,7 @@
 from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
-from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    buyersguide as buyersguide_factories,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 

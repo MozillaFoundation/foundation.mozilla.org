@@ -3,7 +3,9 @@ from os.path import abspath, join
 from django.conf import settings
 from django.test.utils import override_settings
 
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import (
+    BuyersGuidePage,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     ProductPage,
     ProductPageEvaluation,

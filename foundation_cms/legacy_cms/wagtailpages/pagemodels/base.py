@@ -12,7 +12,9 @@ from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_cms.donate_banner.models import DonateBannerPage
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkBlock,
+)
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401

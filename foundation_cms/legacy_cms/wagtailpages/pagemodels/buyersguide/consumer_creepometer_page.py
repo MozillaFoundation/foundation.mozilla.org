@@ -7,7 +7,9 @@ from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import (
+    BuyersGuidePage,
+)
 
 
 class ConsumerCreepometerPage(BasePage):

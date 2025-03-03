@@ -14,8 +14,13 @@ from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.publications.publication import PublicationPage
-from foundation_cms.legacy_cms.wagtailpages.utils import CharCountWidget, get_plaintext_titles
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.publications.publication import (
+    PublicationPage,
+)
+from foundation_cms.legacy_cms.wagtailpages.utils import (
+    CharCountWidget,
+    get_plaintext_titles,
+)
 
 from ..article_fields import article_fields
 from ..base import BasePage

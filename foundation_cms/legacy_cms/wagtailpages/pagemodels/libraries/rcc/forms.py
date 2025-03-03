@@ -3,7 +3,9 @@ from django.utils.translation import pgettext_lazy
 
 from foundation_cms.legacy_cms.wagtailpages import utils
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import taxonomies
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import utils as rcc_utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+    utils as rcc_utils,
+)
 
 
 def _get_author_options():

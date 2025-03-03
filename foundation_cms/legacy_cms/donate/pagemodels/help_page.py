@@ -8,7 +8,9 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_cms.donate.models import BaseDonationPage
 from foundation_cms.legacy_cms.donate.snippets.help_page_notice import HelpPageNotice
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_fields import base_fields
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_fields import (
+    base_fields,
+)
 
 
 class DonateHelpPage(BaseDonationPage):

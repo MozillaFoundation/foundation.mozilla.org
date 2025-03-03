@@ -15,7 +15,10 @@ from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.forms import 
 )
 
 if typing.TYPE_CHECKING:
-    from foundation_cms.legacy_cms.wagtailpages.models import BuyersGuideContentCategory, Profile
+    from foundation_cms.legacy_cms.wagtailpages.models import (
+        BuyersGuideContentCategory,
+        Profile,
+    )
 
 
 class BuyersGuideArticlePage(BasePage):

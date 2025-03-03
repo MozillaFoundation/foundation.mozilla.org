@@ -13,7 +13,9 @@ from foundation_cms.legacy_cms.wagtailpages.models import (
     PublicationPage,
     ResearchDetailPage,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import authors_index
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+    authors_index,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import (
     base as research_test_base,
 )

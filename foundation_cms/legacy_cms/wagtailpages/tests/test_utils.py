@@ -22,7 +22,10 @@ from foundation_cms.legacy_cms.wagtailpages.override_utils import (
     parse_accept_lang_header,
     to_language,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog import BlogAuthors, BlogPage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog import (
+    BlogAuthors,
+    BlogPage,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 from foundation_cms.legacy_cms.wagtailpages.tests.base import WagtailpagesTestCase
 from foundation_cms.legacy_cms.wagtailpages.utils import (

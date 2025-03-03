@@ -1,6 +1,8 @@
 from http import HTTPStatus
 
-from foundation_cms.legacy_cms.donate.factory import landing_page as landing_page_factories
+from foundation_cms.legacy_cms.donate.factory import (
+    landing_page as landing_page_factories,
+)
 from foundation_cms.legacy_cms.donate.models import DonateHelpPage, DonateLandingPage
 from foundation_cms.legacy_cms.wagtailpages.models import Homepage, OpportunityPage
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base

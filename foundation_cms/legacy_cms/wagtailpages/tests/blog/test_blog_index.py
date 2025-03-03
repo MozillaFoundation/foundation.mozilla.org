@@ -10,7 +10,10 @@ from wagtail import rich_text
 from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factories
 from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profile_factories
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import blog as blog_models
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import blog_index, blog_topic
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import (
+    blog_index,
+    blog_topic,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 from foundation_cms.legacy_cms.wagtailpages.utils import titlecase
 

@@ -2,8 +2,12 @@ from django.test import TestCase
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.rich_text import RichText
 
-from foundation_cms.legacy_cms.wagtailpages.factory import customblocks as customblock_factories
-from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks as customblock_models
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    customblocks as customblock_factories,
+)
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import (
+    customblocks as customblock_models,
+)
 
 
 class TestBlogCTACardWithTextBlock(TestCase):

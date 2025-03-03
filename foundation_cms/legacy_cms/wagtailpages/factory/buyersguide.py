@@ -161,7 +161,9 @@ class ProductPageFactory(PageFactory):
     def with_random_categories(self, create, extracted, **kwargs):
         if extracted:
             # late import to prevent circular dependency
-            from foundation_cms.legacy_cms.wagtailpages.models import ProductPageCategory
+            from foundation_cms.legacy_cms.wagtailpages.models import (
+                ProductPageCategory,
+            )
 
             ceiling = 1.0
             while True:
@@ -409,7 +411,9 @@ class ProductPageCategoryFactory(DjangoModelFactory):
         model = pagemodels.ProductPageCategory
 
     product = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.ProductPageFactory")
-    category = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideProductCategoryFactory")
+    category = SubFactory(
+        "foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideProductCategoryFactory"
+    )
 
 
 def generate(seed):

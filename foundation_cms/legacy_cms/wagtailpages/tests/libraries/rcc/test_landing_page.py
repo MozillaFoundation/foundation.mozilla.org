@@ -1,4 +1,6 @@
-from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
+    relations as relations_factory,
+)
 from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc import base
 
 

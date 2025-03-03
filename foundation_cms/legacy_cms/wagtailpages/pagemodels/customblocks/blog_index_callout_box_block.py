@@ -2,11 +2,15 @@ from wagtail import blocks
 from wagtail.snippets import blocks as snippet_blocks
 from wagtailmedia.blocks import AudioChooserBlock
 
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic import BlogPageTopic
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic import (
+    BlogPageTopic,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+    LinkBlock,
+)
 
 
 class BlogIndexCalloutBoxBlock(blocks.StructBlock):

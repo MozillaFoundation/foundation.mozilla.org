@@ -40,8 +40,12 @@ from foundation_cms.legacy_cms.wagtailcustomization.views.snippet_chooser import
     DefaultLocaleSnippetChooserViewSet,
 )
 from foundation_cms.legacy_cms.wagtailpages import models as wagtailpages_models
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import ProductPage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import (
+    BuyersGuidePage,
+)
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+    ProductPage,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.campaigns import Callpower
 from foundation_cms.legacy_cms.wagtailpages.utils import get_locale_from_request
 

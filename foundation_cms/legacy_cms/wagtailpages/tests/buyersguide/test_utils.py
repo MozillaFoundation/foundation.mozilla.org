@@ -1,4 +1,6 @@
-from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import (
+    buyersguide as buyersguide_factories,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPage,
@@ -9,7 +11,9 @@ from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.utils import 
     get_buyersguide_featured_cta,
 )
 from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
-from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide import base as bg_test_base
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide import (
+    base as bg_test_base,
+)
 
 
 class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):

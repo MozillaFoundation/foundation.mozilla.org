@@ -13,7 +13,9 @@ from foundation_cms.legacy_cms.wagtailpages.models import (
     FoundationMetadataPageMixin,
     Signup,
 )
-from foundation_cms.legacy_cms.wagtailpages.pagemodels import campaigns as campaign_models
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import (
+    campaigns as campaign_models,
+)
 from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import (
     full_content_rich_text_options,
