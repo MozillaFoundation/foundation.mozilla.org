@@ -251,7 +251,6 @@ INSTALLED_APPS = list(
             "querystring_tag",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             # the network site
-            "foundation_cms.legacy_cms",
             "foundation_cms.legacy_cms.s3_file_storage" if USE_S3 else None,
             "foundation_cms.legacy_cms.wagtailcustomization",
             "foundation_cms.legacy_cms.campaign",
@@ -590,7 +589,7 @@ if USE_S3:
 
 else:
     # Otherwise use the default filesystem storage
-    MEDIA_ROOT = root("foundation_cms/media/")
+    MEDIA_ROOT = root("media/")
     MEDIA_URL = "/media/"
 
 # CORS
