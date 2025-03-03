@@ -1,9 +1,9 @@
 from http import HTTPStatus
 
-from legacy_cms.donate.factory import landing_page as landing_page_factories
-from legacy_cms.donate.models import DonateHelpPage, DonateLandingPage
-from legacy_cms.wagtailpages.models import Homepage, OpportunityPage
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.donate.factory import landing_page as landing_page_factories
+from foundation_cms.legacy_cms.donate.models import DonateHelpPage, DonateLandingPage
+from foundation_cms.legacy_cms.wagtailpages.models import Homepage, OpportunityPage
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class FactoriesTest(test_base.WagtailpagesTestCase):

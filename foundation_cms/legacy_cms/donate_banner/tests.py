@@ -6,8 +6,8 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
 
-from legacy_cms.donate_banner.factory import DonateBannerFactory
-from legacy_cms.donate_banner.models import DonateBanner
+from foundation_cms.legacy_cms.donate_banner.factory import DonateBannerFactory
+from foundation_cms.legacy_cms.donate_banner.models import DonateBanner
 
 
 class TestDonateBannerSnippetChooser(WagtailTestUtils, TestCase):

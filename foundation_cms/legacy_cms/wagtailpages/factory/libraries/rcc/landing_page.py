@@ -1,9 +1,9 @@
 import factory
 import wagtail_factories
 
-from legacy_cms.wagtailpages import models as wagtailpage_models
-from legacy_cms.wagtailpages.factory import image_factory
-from legacy_cms.wagtailpages.factory.customblocks import cta_aside_block
+from foundation_cms.legacy_cms.wagtailpages import models as wagtailpage_models
+from foundation_cms.legacy_cms.wagtailpages.factory import image_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.customblocks import cta_aside_block
 
 
 class RCCLandingPageFactory(wagtail_factories.PageFactory):

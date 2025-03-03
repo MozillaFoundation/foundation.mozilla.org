@@ -2,11 +2,11 @@ from django.conf import settings
 from factory import Faker, SubFactory
 from wagtail_factories import PageFactory
 
-from legacy_cms.donate.models import DonateLandingPage
-from legacy_cms.utility.faker import StreamfieldProvider
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
-from legacy_cms.wagtailpages.models import Homepage
+from foundation_cms.legacy_cms.donate.models import DonateLandingPage
+from foundation_cms.legacy_cms.utility.faker import StreamfieldProvider
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.wagtailpages.models import Homepage
 
 description_faker = Faker("paragraphs", nb=2)
 

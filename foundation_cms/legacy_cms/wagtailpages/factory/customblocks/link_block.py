@@ -2,7 +2,7 @@ import factory
 import wagtail_factories
 from wagtail import models as wagtail_models
 
-from legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
     LinkBlock,
     LinkValue,
 )

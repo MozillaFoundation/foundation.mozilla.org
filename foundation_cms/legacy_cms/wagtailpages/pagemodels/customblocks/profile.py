@@ -1,7 +1,7 @@
 from wagtail import blocks
 from wagtail.snippets import blocks as snippet_blocks
 
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 
 class ProfileCard(blocks.StructBlock):

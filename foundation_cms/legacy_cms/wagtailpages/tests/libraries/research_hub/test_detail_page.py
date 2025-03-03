@@ -2,22 +2,22 @@ import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
 
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as relations_factory,
 )
-from legacy_cms.wagtailpages.models import (
+from foundation_cms.legacy_cms.wagtailpages.models import (
     ArticlePage,
     PublicationPage,
     ResearchDetailPage,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import authors_index
-from legacy_cms.wagtailpages.tests.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import authors_index
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import (
     base as research_test_base,
 )
-from legacy_cms.wagtailpages.tests.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import (
     utils as research_test_utils,
 )
 

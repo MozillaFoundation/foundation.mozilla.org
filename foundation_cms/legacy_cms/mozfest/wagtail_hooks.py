@@ -1,8 +1,8 @@
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
-from legacy_cms.events.models import TitoEvent
-from legacy_cms.mozfest.models import NewsletterSignupWithBackground, Ticket
+from foundation_cms.legacy_cms.events.models import TitoEvent
+from foundation_cms.legacy_cms.mozfest.models import NewsletterSignupWithBackground, Ticket
 
 
 class TitoEventSnippetViewSet(SnippetViewSet):

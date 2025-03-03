@@ -3,7 +3,7 @@ from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
-from legacy_cms.wagtailpages.models import CTA
+from foundation_cms.legacy_cms.wagtailpages.models import CTA
 
 from ..utils import get_mini_side_nav_data
 

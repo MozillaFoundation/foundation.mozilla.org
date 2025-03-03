@@ -5,7 +5,7 @@ import wagtail.fields
 import wagtail.images.blocks
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.customblocks.video_block
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.video_block
 
 
 class Migration(migrations.Migration):
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 [
                     (
                         "CMS_video",
-                        legacy_cms.wagtailpages.pagemodels.customblocks.video_block.WagtailVideoChooserBlock(),
+                        foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.video_block.WagtailVideoChooserBlock(),
                     ),
                     (
                         "external_video",

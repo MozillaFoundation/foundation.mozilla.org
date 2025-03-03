@@ -1,10 +1,10 @@
 import json
 from http import HTTPStatus
 
-from legacy_cms.wagtailpages import models as pagemodels
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.factory.donation import DonationModalFactory
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.factory.donation import DonationModalFactory
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class FactoriesTest(test_base.WagtailpagesTestCase):

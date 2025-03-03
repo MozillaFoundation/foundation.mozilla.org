@@ -1,4 +1,4 @@
-from legacy_cms.wagtailpages.factory.libraries import rcc, research_hub
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries import rcc, research_hub
 
 from . import (
     app_install_page,

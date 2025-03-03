@@ -6,7 +6,7 @@ from faker import Faker
 from faker.providers import BaseProvider
 from wagtail.images.models import Image
 
-from legacy_cms.wagtailpages.models import BlogPage, BlogPageTopic
+from foundation_cms.legacy_cms.wagtailpages.models import BlogPage, BlogPageTopic
 
 seed = randint(0, 5000000)
 if settings.RANDOM_SEED is not None:
@@ -524,10 +524,10 @@ def generate_blog_index_callout_box_field():
 
 
 def generate_blog_newsletter_signup_field():
-    from legacy_cms.wagtailpages.factory.customblocks.newsletter_signup_block import (
+    from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.newsletter_signup_block import (
         BlogNewsletterSignupBlockFactory,
     )
-    from legacy_cms.wagtailpages.pagemodels.customblocks.newsletter_signup_block import (
+    from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.newsletter_signup_block import (
         BlogNewsletterSignupBlock,
     )
 
@@ -619,7 +619,7 @@ def generate_cta_field():
 def generate_tickets_block_field():
     heading = fake.sentence(nb_words=10, variable_nb_words=True)
     tickets = []
-    from legacy_cms.mozfest.factory import TicketSnippetFactory
+    from foundation_cms.legacy_cms.mozfest.factory import TicketSnippetFactory
 
     for n in range(3):
         ticket_snippet = TicketSnippetFactory.create()
@@ -662,7 +662,7 @@ def generate_session_slider_field():
 
 def generate_profiles_field():
     profiles = []
-    from legacy_cms.wagtailpages.factory.profiles import ProfileFactory
+    from foundation_cms.legacy_cms.wagtailpages.factory.profiles import ProfileFactory
 
     for n in range(9):
         profile_snippet = ProfileFactory.create()
@@ -672,7 +672,7 @@ def generate_profiles_field():
 
 
 def generate_newsletter_signup_with_background_field():
-    from legacy_cms.mozfest.factory import NewsletterSignupWithBackgroundSnippetFactory
+    from foundation_cms.legacy_cms.mozfest.factory import NewsletterSignupWithBackgroundSnippetFactory
 
     newsletter_snippet = NewsletterSignupWithBackgroundSnippetFactory.create()
 
@@ -765,7 +765,7 @@ class StreamfieldProvider(BaseProvider):
     A custom Faker Provider for relative image urls, for use with factory_boy
 
     >>> from factory import Faker
-    >>> from legacy_cms.utility.faker import StreamfieldProvider
+    >>> from foundation_cms.legacy_cms.utility.faker import StreamfieldProvider
     >>> fake = Faker()
     >>> Faker.add_provider(StreamfieldProvider)
     """

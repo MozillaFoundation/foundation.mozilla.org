@@ -1,7 +1,7 @@
 import factory
 from django.utils import text as text_utils
 
-from legacy_cms.wagtailpages import models as wagtailpage_models
+from foundation_cms.legacy_cms.wagtailpages import models as wagtailpage_models
 
 
 class ResearchRegionFactory(factory.django.DjangoModelFactory):

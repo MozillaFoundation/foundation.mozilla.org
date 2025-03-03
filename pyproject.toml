@@ -241,6 +241,6 @@ known_first_party = ["legacy_cms"]
 overwrite_in_place = true
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "legacy_cms.settings"
+DJANGO_SETTINGS_MODULE = "foundation_cms.settings.base"
 pythonpath = "foundation_cms foundation_cms/legacy_cms"
 python_files = "tests.py test_*.py *_tests.py"

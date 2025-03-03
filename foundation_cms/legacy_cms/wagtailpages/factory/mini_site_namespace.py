@@ -1,6 +1,6 @@
 from wagtail_factories import PageFactory
 
-from legacy_cms.wagtailpages.models import MiniSiteNameSpace
+from foundation_cms.legacy_cms.wagtailpages.models import MiniSiteNameSpace
 
 
 class MiniSiteNamespaceFactory(PageFactory):

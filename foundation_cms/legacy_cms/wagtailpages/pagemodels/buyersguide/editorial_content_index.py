@@ -10,16 +10,16 @@ from wagtail.contrib.routable_page import models as routable_models
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.utility import orderables
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.utils import (
+from foundation_cms.legacy_cms.utility import orderables
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
 )
 
 if TYPE_CHECKING:
     from django import http
 
-    from legacy_cms.wagtailpages import models as pagemodels
+    from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
 
 
 class BuyersGuideEditorialContentIndexPage(

@@ -1,7 +1,7 @@
-from legacy_cms.mozfest.factory import MozfestPrimaryPageFactory
-from legacy_cms.mozfest.tests.base import MozfestBaseTests
-from legacy_cms.wagtailpages.factory.signup import SignupFactory
-from legacy_cms.wagtailpages.models import Signup
+from foundation_cms.legacy_cms.mozfest.factory import MozfestPrimaryPageFactory
+from foundation_cms.legacy_cms.mozfest.tests.base import MozfestBaseTests
+from foundation_cms.legacy_cms.wagtailpages.factory.signup import SignupFactory
+from foundation_cms.legacy_cms.wagtailpages.models import Signup
 
 
 class MozfestPrimaryPageTests(MozfestBaseTests):

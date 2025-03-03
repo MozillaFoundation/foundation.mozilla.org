@@ -1,7 +1,7 @@
 from django import test
 
-from legacy_cms.wagtailpages.factory import blog as blog_factories
-from legacy_cms.wagtailpages.pagemodels.blog import blog as blog_models
+from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import blog as blog_models
 
 
 class TestBlogPageTopics(test.TestCase):

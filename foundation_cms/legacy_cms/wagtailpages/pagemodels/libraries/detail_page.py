@@ -11,8 +11,8 @@ from wagtail.admin import panels as wagtail_panels
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
 

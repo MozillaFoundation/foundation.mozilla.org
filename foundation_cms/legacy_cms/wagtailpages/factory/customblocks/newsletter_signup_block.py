@@ -1,15 +1,15 @@
 import factory
 import wagtail_factories
 
-from legacy_cms.wagtailcustomization.factories.snippets import (
+from foundation_cms.legacy_cms.wagtailcustomization.factories.snippets import (
     SnippetChooserBlockFactory,
 )
-from legacy_cms.wagtailpages.models import BlogSignup, Signup
-from legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.models import BlogSignup, Signup
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 
 class SignupChooserBlockFactory(SnippetChooserBlockFactory):
-    snippet = factory.SubFactory("legacy_cms.wagtailpages.factory.signup.SignupFactory")
+    snippet = factory.SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.signup.SignupFactory")
 
     class Meta:
         model = Signup
@@ -23,7 +23,7 @@ class NewsletterSignupBlockFactory(wagtail_factories.StructBlockFactory):
 
 
 class BlogSignupChooserBlockFactory(SnippetChooserBlockFactory):
-    snippet = factory.SubFactory("legacy_cms.wagtailpages.factory.signup.BlogSignupFactory")
+    snippet = factory.SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.signup.BlogSignupFactory")
 
     class Meta:
         model = BlogSignup

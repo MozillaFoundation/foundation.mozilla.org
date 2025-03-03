@@ -3,23 +3,23 @@ from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from wagtail.models import Locale, Page, Site
 
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.factory.homepage import WagtailHomepageFactory
-from legacy_cms.wagtailpages.pagemodels.base import Homepage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.article_page import (
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.factory.homepage import WagtailHomepageFactory
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import Homepage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.article_page import (
     BuyersGuideArticlePage,
 )
-from legacy_cms.wagtailpages.pagemodels.buyersguide.campaign_page import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.campaign_page import (
     BuyersGuideCampaignPage,
 )
-from legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPage,
     ProductPageCategory,
 )
-from legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestFactories(TestCase):

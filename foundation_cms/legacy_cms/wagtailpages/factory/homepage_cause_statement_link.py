@@ -2,7 +2,7 @@ from random import choice
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
 
 faker = Faker()
 

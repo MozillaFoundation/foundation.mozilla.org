@@ -1,7 +1,7 @@
 from django import forms
 from wagtail import blocks
 
-from legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
     LinkWithoutLabelBlock,
 )
 

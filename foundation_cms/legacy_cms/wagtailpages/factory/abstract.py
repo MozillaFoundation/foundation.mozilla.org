@@ -2,7 +2,7 @@ from factory import Faker, LazyAttribute
 from factory.django import DjangoModelFactory
 from wagtail_factories import PageFactory
 
-from legacy_cms.utility.faker import StreamfieldProvider
+from foundation_cms.legacy_cms.utility.faker import StreamfieldProvider
 
 streamfield_fields = ["header", "paragraph", "image", "spacer", "image_text", "quote"]
 

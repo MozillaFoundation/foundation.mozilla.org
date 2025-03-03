@@ -2,9 +2,9 @@ from django.test import TestCase
 from wagtail.admin.panels import get_form_for_model
 from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfield
 
-from legacy_cms.wagtailpages import models as pagemodels
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
-from legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
+from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
 

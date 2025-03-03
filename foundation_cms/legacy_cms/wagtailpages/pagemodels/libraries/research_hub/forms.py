@@ -1,12 +1,12 @@
 from django import forms
 from django.utils.translation import pgettext_lazy
 
-from legacy_cms.wagtailpages import utils
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages import utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page,
     taxonomies,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     utils as research_utils,
 )
 

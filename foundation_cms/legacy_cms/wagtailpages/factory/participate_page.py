@@ -2,9 +2,9 @@ from factory import Faker, SubFactory
 from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
-from legacy_cms.wagtailpages.models import ParticipatePage2
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.wagtailpages.models import ParticipatePage2
 
 
 class ParticipatePage2Factory(PageFactory):

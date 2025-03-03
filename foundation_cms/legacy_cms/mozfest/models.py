@@ -7,18 +7,18 @@ from wagtail.models import Locale, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.mozfest import blocks as mozfest_blocks
-from legacy_cms.wagtailpages.models import (
+from foundation_cms.legacy_cms.mozfest import blocks as mozfest_blocks
+from foundation_cms.legacy_cms.wagtailpages.models import (
     FoundationBannerInheritanceMixin,
     FoundationMetadataPageMixin,
     Signup,
 )
-from legacy_cms.wagtailpages.pagemodels import campaigns as campaign_models
-from legacy_cms.wagtailpages.pagemodels import customblocks
-from legacy_cms.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import campaigns as campaign_models
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import (
     full_content_rich_text_options,
 )
-from legacy_cms.wagtailpages.utils import (
+from foundation_cms.legacy_cms.wagtailpages.utils import (
     get_page_tree_information,
     set_main_site_nav_information,
 )

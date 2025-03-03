@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from django.test import TestCase
 
-from legacy_cms.highlights.factory import HighlightFactory
+from foundation_cms.legacy_cms.highlights.factory import HighlightFactory
 
 
 class TestHighlightFactory(TestCase):

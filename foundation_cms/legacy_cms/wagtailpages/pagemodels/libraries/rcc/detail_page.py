@@ -6,11 +6,11 @@ from wagtail.admin import panels as wagtail_panels
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
-from legacy_cms.utility import orderables
-from legacy_cms.wagtailpages import utils as wagtailpages_utils
-from legacy_cms.wagtailpages.pagemodels import profiles
-from legacy_cms.wagtailpages.pagemodels.libraries import detail_page as base_detail_page
-from legacy_cms.wagtailpages.pagemodels.libraries.rcc import authors_index
+from foundation_cms.legacy_cms.utility import orderables
+from foundation_cms.legacy_cms.wagtailpages import utils as wagtailpages_utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import profiles
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import detail_page as base_detail_page
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import authors_index
 
 
 class RCCDetailPage(base_detail_page.LibraryDetailPage):

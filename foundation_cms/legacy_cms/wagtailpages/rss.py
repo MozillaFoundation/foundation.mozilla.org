@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.utils.feedgenerator import Atom1Feed
 from wagtail.models import Locale
 
-from legacy_cms.wagtailpages.utils import get_locale_from_request
+from foundation_cms.legacy_cms.wagtailpages.utils import get_locale_from_request
 
 from .models import BlogIndexPage, IndexPage
 

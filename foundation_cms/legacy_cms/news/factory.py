@@ -5,9 +5,9 @@ from django.conf import settings
 from factory import Faker, LazyAttribute, Trait, post_generation
 from factory.django import DjangoModelFactory
 
-from legacy_cms.news.models import News
-from legacy_cms.utility.faker import generate_fake_data
-from legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.news.models import News
+from foundation_cms.legacy_cms.utility.faker import generate_fake_data
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING

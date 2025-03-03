@@ -1,10 +1,10 @@
 from factory import Faker, SubFactory
 from wagtail_factories import PageFactory
 
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages import models as pagemodels
-from legacy_cms.wagtailpages.factory import image_factory
-from legacy_cms.wagtailpages.models import AppInstallPage
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
+from foundation_cms.legacy_cms.wagtailpages.factory import image_factory
+from foundation_cms.legacy_cms.wagtailpages.models import AppInstallPage
 
 from .petition import PetitionFactory
 

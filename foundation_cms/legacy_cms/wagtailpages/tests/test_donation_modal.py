@@ -2,7 +2,7 @@ from django.test import TestCase
 from wagtail.admin.panels import get_edit_handler
 from wagtail.test.utils.form_data import rich_text
 
-from legacy_cms.wagtailpages.donation_modal import DonationModal
+from foundation_cms.legacy_cms.wagtailpages.donation_modal import DonationModal
 
 
 class DonationModalTest(TestCase):

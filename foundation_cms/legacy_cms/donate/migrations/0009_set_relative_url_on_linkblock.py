@@ -2,7 +2,7 @@
 from django.db import migrations
 from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
-from legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
+from foundation_cms.legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
 
 
 def migrate_linkbuttonblock(source_block):

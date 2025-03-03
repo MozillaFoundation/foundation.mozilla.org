@@ -8,9 +8,9 @@ import bs4
 from django import test
 from django.utils import timezone
 
-from legacy_cms.wagtailpages import models as pagemodels
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 if TYPE_CHECKING:
     from django.core.handlers import wsgi
@@ -76,7 +76,7 @@ class BuyersGuideEditorialContentIndexPageTest(test_base.WagtailpagesTestCase):
         self.items_on_last_page = self.items_per_page - 1
         total_items = (pages - 1) * self.items_per_page + self.items_on_last_page
         with mock.patch(
-            "legacy_cms.wagtailpages.models.BuyersGuideEditorialContentIndexPage.items_per_page",
+            "foundation_cms.legacy_cms.wagtailpages.models.BuyersGuideEditorialContentIndexPage.items_per_page",
             3,
         ):
             self.content_index.items_per_page = self.items_per_page

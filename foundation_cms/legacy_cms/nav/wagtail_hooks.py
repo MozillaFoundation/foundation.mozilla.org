@@ -2,8 +2,8 @@ from wagtail import hooks
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
-from legacy_cms.nav.models import NavMenu
-from legacy_cms.wagtailcustomization.views.snippet_chooser import (
+from foundation_cms.legacy_cms.nav.models import NavMenu
+from foundation_cms.legacy_cms.wagtailcustomization.views.snippet_chooser import (
     DefaultLocaleSnippetChooserViewSet,
 )
 

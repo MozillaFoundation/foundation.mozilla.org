@@ -1,8 +1,8 @@
 from django.test import SimpleTestCase
 from wagtail.admin.panels.base import get_form_for_model
 
-from legacy_cms.nav.forms import NavMenuForm
-from legacy_cms.nav.models import NavMenu
+from foundation_cms.legacy_cms.nav.forms import NavMenuForm
+from foundation_cms.legacy_cms.nav.models import NavMenu
 
 
 class NavMenuFormTests(SimpleTestCase):

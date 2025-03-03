@@ -10,22 +10,22 @@ from taggit import models as tag_models
 from wagtail.images.models import Image
 from wagtail.models import Collection, Locale
 
-from legacy_cms.wagtailpages.factory import blog as blog_factories
-from legacy_cms.wagtailpages.factory.blog import (
+from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factories
+from foundation_cms.legacy_cms.wagtailpages.factory.blog import (
     BlogIndexPageFactory,
     BlogPageFactory,
     FeaturedBlogPagesFactory,
 )
-from legacy_cms.wagtailpages.factory.profiles import ProfileFactory
-from legacy_cms.wagtailpages.override_utils import (
+from foundation_cms.legacy_cms.wagtailpages.factory.profiles import ProfileFactory
+from foundation_cms.legacy_cms.wagtailpages.override_utils import (
     language_code_to_iso_3166,
     parse_accept_lang_header,
     to_language,
 )
-from legacy_cms.wagtailpages.pagemodels.blog.blog import BlogAuthors, BlogPage
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
-from legacy_cms.wagtailpages.tests.base import WagtailpagesTestCase
-from legacy_cms.wagtailpages.utils import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog import BlogAuthors, BlogPage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.tests.base import WagtailpagesTestCase
+from foundation_cms.legacy_cms.wagtailpages.utils import (
     create_wagtail_image,
     get_blog_authors,
     get_content_related_by_tag,

@@ -11,12 +11,12 @@ from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.nav import blocks as nav_blocks
-from legacy_cms.nav import utils as nav_utils
-from legacy_cms.nav.forms import NavMenuForm
-from legacy_cms.utility.images import SVGImageFormatValidator
-from legacy_cms.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
-from legacy_cms.wagtailpages.utils import localize_queryset
+from foundation_cms.legacy_cms.nav import blocks as nav_blocks
+from foundation_cms.legacy_cms.nav import utils as nav_utils
+from foundation_cms.legacy_cms.nav.forms import NavMenuForm
+from foundation_cms.legacy_cms.utility.images import SVGImageFormatValidator
+from foundation_cms.legacy_cms.wagtailpages.models import BlogIndexPage, BlogPage, BlogPageTopic
+from foundation_cms.legacy_cms.wagtailpages.utils import localize_queryset
 
 
 class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wagtail_models.Orderable):

@@ -2,8 +2,8 @@ from factory import Faker, LazyFunction, SubFactory
 from factory.django import DjangoModelFactory
 from wagtail.models import Locale
 
-from legacy_cms.donate_banner.models import DonateBanner
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.donate_banner.models import DonateBanner
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
 
 
 class DonateBannerFactory(DjangoModelFactory):

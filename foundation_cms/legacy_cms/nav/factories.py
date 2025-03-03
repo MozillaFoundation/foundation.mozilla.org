@@ -5,11 +5,11 @@ from wagtail import models as wagtail_models
 from wagtail.images.tests import utils as wagtail_images_utils
 from wagtail.rich_text import RichText
 
-from legacy_cms.nav import blocks as nav_blocks
-from legacy_cms.nav import models as nav_models
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
-from legacy_cms.wagtailpages.models import BlogPageTopic
+from foundation_cms.legacy_cms.nav import blocks as nav_blocks
+from foundation_cms.legacy_cms.nav import models as nav_models
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailcustomization.factories.blocks import ExtendedStructBlockFactory
+from foundation_cms.legacy_cms.wagtailpages.models import BlogPageTopic
 
 
 class NavItemFactory(ExtendedStructBlockFactory):
@@ -265,8 +265,8 @@ class NavMenuFeaturedBlogTopicRelationshipFactory(DjangoModelFactory):
         wagtail_factories.ImageChooserBlockFactory, image__file=wagtail_images_utils.get_test_image_file_svg()
     )
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
-    menu = factory.SubFactory("legacy_cms.nav.factories.NavMenuFactory")
-    topic = factory.SubFactory("legacy_cms.wagtailpages.factory.blog.BlogPageTopicFactory")
+    menu = factory.SubFactory("foundation_cms.legacy_cms.nav.factories.NavMenuFactory")
+    topic = factory.SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.blog.BlogPageTopicFactory")
 
 
 # Build "Who We Are" dropdown

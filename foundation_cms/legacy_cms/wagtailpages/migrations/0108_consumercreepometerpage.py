@@ -4,7 +4,7 @@ import django.db.models.deletion
 import wagtailmetadata.models
 from django.db import migrations, models
 
-import legacy_cms.wagtailpages.pagemodels.mixin.foundation_navigation
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.foundation_navigation
 
 
 class Migration(migrations.Migration):
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                legacy_cms.wagtailpages.pagemodels.mixin.foundation_navigation.FoundationNavigationPageMixin,
+                foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.foundation_navigation.FoundationNavigationPageMixin,
                 "wagtailcore.page",
                 models.Model,
             ),

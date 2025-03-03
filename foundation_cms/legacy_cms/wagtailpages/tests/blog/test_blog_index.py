@@ -7,12 +7,12 @@ from django.core import management
 from taggit import models as tag_models
 from wagtail import rich_text
 
-from legacy_cms.wagtailpages.factory import blog as blog_factories
-from legacy_cms.wagtailpages.factory import profiles as profile_factories
-from legacy_cms.wagtailpages.pagemodels.blog import blog as blog_models
-from legacy_cms.wagtailpages.pagemodels.blog import blog_index, blog_topic
-from legacy_cms.wagtailpages.tests import base as test_base
-from legacy_cms.wagtailpages.utils import titlecase
+from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profile_factories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import blog as blog_models
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import blog_index, blog_topic
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.utils import titlecase
 
 
 # To make sure we can control the data setup for each test, we need to deactivate the

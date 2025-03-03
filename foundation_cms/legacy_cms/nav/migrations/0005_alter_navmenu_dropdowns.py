@@ -4,7 +4,7 @@ import wagtail.blocks
 import wagtail.fields
 from django.db import migrations
 
-import legacy_cms.nav.blocks
+import foundation_cms.legacy_cms.nav.blocks
 
 
 class Migration(migrations.Migration):
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "nav_items",
                                                     wagtail.blocks.ListBlock(
-                                                        legacy_cms.nav.blocks.NavItem,
+                                                        foundation_cms.legacy_cms.nav.blocks.NavItem,
                                                         default=[],
                                                         label="Items",
                                                         max_num=4,
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "button",
                                                     wagtail.blocks.ListBlock(
-                                                        legacy_cms.nav.blocks.NavButton,
+                                                        foundation_cms.legacy_cms.nav.blocks.NavButton,
                                                         default=[],
                                                         help_text="Adds a CTA button to the bottom of the nav column.",
                                                         label="Column Button",
@@ -98,7 +98,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "nav_items",
                                                     wagtail.blocks.ListBlock(
-                                                        legacy_cms.nav.blocks.NavFeaturedItem,
+                                                        foundation_cms.legacy_cms.nav.blocks.NavFeaturedItem,
                                                         default=[],
                                                         label="Items",
                                                         max_num=4,
@@ -118,7 +118,7 @@ class Migration(migrations.Migration):
                                 (
                                     "button",
                                     wagtail.blocks.ListBlock(
-                                        legacy_cms.nav.blocks.NavButton,
+                                        foundation_cms.legacy_cms.nav.blocks.NavButton,
                                         default=[],
                                         help_text="Use it to add a CTA to link to the contents of the dropdown menu. If an overview is added, the button will be placed at the overview's column.",
                                         label="Dropdown Button",

@@ -1,5 +1,5 @@
-from legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
-from legacy_cms.wagtailpages.tests.libraries.rcc import base
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc import base
 
 
 class RCCLandingPageTestCase(base.RCCTestCase):

@@ -1,7 +1,7 @@
 import factory
 import wagtail_factories
 
-from legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 
 class CTAAsideBlockFactory(wagtail_factories.StructBlockFactory):
@@ -11,6 +11,6 @@ class CTAAsideBlockFactory(wagtail_factories.StructBlockFactory):
     title = factory.Faker("sentence", nb_words=4)
     body = factory.Faker("sentence", nb_words=10)
     button = factory.SubFactory(
-        "legacy_cms.wagtailpages.factory.customblocks.link_button_block.LinkButtonBlockFactory",
+        "foundation_cms.legacy_cms.wagtailpages.factory.customblocks.link_button_block.LinkButtonBlockFactory",
         styling="btn-secondary",
     )

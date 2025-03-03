@@ -30,7 +30,7 @@ from sentry_sdk import capture_exception
 from wagtail.images.models import Image
 from wagtail.models import Collection, Locale
 
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 
 def titlecase(s):

@@ -1,15 +1,15 @@
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPage,
 )
-from legacy_cms.wagtailpages.pagemodels.buyersguide.utils import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.utils import (
     _localize_category_parent,
     annotate_product_categories_local_names,
     get_buyersguide_featured_cta,
 )
-from legacy_cms.wagtailpages.tests import base as test_base
-from legacy_cms.wagtailpages.tests.buyersguide import base as bg_test_base
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide import base as bg_test_base
 
 
 class TestGetFeaturedCallToActionFunction(test_base.WagtailpagesTestCase):

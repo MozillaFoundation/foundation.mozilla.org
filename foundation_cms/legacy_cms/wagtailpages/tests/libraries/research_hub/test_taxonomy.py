@@ -1,9 +1,9 @@
 from django.db.utils import IntegrityError
 
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
-from legacy_cms.wagtailpages.tests.libraries.research_hub import base
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import base
 
 
 class ResearchTaxonomyTestCase(base.ResearchHubTestCase):

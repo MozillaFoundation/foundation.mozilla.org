@@ -1,6 +1,6 @@
 from wagtail_factories import PageFactory
 
-from legacy_cms.wagtailpages.models import IndexPage
+from foundation_cms.legacy_cms.wagtailpages.models import IndexPage
 
 
 class IndexPageFactory(PageFactory):

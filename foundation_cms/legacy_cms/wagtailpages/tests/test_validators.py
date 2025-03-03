@@ -3,7 +3,7 @@ from unittest import TestCase
 from django.core.exceptions import ValidationError
 from faker import Faker
 
-from legacy_cms.wagtailpages import validators
+from foundation_cms.legacy_cms.wagtailpages import validators
 
 
 class RelativeURLValidatorTests(TestCase):

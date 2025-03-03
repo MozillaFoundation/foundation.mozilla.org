@@ -4,7 +4,7 @@ from django.utils.functional import cached_property
 from wagtail import blocks
 from wagtail.blocks.struct_block import StructBlockAdapter
 
-from legacy_cms.wagtailpages.validators import RelativeURLValidator
+from foundation_cms.legacy_cms.wagtailpages.validators import RelativeURLValidator
 
 
 class BaseLinkValue(blocks.StructValue):
@@ -130,7 +130,7 @@ class BaseLinkBlockAdapter(StructBlockAdapter):
     See: https://docs.wagtail.org/en/stable/advanced_topics/customisation/streamfield_blocks.html#additional-javascript-on-structblock-forms  # noqa: E501
     """
 
-    js_constructor = "legacy_cms.wagtailpages.customblocks.BaseLinkBlock"
+    js_constructor = "foundation_cms.legacy_cms.wagtailpages.customblocks.BaseLinkBlock"
 
     @cached_property
     def media(self):

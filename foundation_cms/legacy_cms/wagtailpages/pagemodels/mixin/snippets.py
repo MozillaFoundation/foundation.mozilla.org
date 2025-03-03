@@ -1,4 +1,4 @@
-from legacy_cms.wagtailpages.utils import get_default_locale
+from foundation_cms.legacy_cms.wagtailpages.utils import get_default_locale
 
 
 class LocalizedSnippet:

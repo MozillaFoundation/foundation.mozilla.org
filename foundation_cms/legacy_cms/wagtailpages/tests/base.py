@@ -4,7 +4,7 @@ from wagtail import models as wagtail_models
 from wagtail.test import utils as wagtail_test
 from wagtail_localize import synctree
 
-from legacy_cms.wagtailpages.factory import homepage as home_factory
+from foundation_cms.legacy_cms.wagtailpages.factory import homepage as home_factory
 
 
 class WagtailpagesTestCase(wagtail_test.WagtailPageTestCase):

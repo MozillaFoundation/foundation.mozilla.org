@@ -8,8 +8,8 @@ import wagtail.images.blocks
 import wagtail.snippets.blocks
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.blog.blog_topic
-import legacy_cms.wagtailpages.pagemodels.profiles
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
@@ -550,7 +550,7 @@ class Migration(migrations.Migration):
                                 (
                                     "topic_filter",
                                     wagtail.blocks.ChoiceBlock(
-                                        choices=legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
+                                        choices=foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
                                         help_text="Test this filter at foundation.mozilla.org/blog/topic/",
                                         label="Filter by Topic",
                                         required=False,
@@ -715,7 +715,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "profile",
                                                     wagtail.snippets.blocks.SnippetChooserBlock(
-                                                        legacy_cms.wagtailpages.pagemodels.profiles.Profile
+                                                        foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles.Profile
                                                     ),
                                                 )
                                             ]
@@ -1670,7 +1670,7 @@ class Migration(migrations.Migration):
                                 (
                                     "topic_filter",
                                     wagtail.blocks.ChoiceBlock(
-                                        choices=legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
+                                        choices=foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
                                         help_text="Test this filter at foundation.mozilla.org/blog/topic/",
                                         label="Filter by Topic",
                                         required=False,
@@ -1835,7 +1835,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "profile",
                                                     wagtail.snippets.blocks.SnippetChooserBlock(
-                                                        legacy_cms.wagtailpages.pagemodels.profiles.Profile
+                                                        foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles.Profile
                                                     ),
                                                 )
                                             ]

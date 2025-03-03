@@ -3,8 +3,8 @@ from random import choice
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
 from wagtail.images.models import Image
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailpages.models import PartnerLogos
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailpages.models import PartnerLogos
 
 faker = Faker()
 

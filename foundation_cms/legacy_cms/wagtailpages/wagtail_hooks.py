@@ -34,16 +34,16 @@ from wagtail_localize.models import (
     sync_trees_on_locale_sync_save,
 )
 
-from legacy_cms.highlights.models import Highlight
-from legacy_cms.news.models import News
-from legacy_cms.wagtailcustomization.views.snippet_chooser import (
+from foundation_cms.legacy_cms.highlights.models import Highlight
+from foundation_cms.legacy_cms.news.models import News
+from foundation_cms.legacy_cms.wagtailcustomization.views.snippet_chooser import (
     DefaultLocaleSnippetChooserViewSet,
 )
-from legacy_cms.wagtailpages import models as wagtailpages_models
-from legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import ProductPage
-from legacy_cms.wagtailpages.pagemodels.campaigns import Callpower
-from legacy_cms.wagtailpages.utils import get_locale_from_request
+from foundation_cms.legacy_cms.wagtailpages import models as wagtailpages_models
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import ProductPage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.campaigns import Callpower
+from foundation_cms.legacy_cms.wagtailpages.utils import get_locale_from_request
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
 

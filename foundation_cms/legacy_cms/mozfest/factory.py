@@ -7,12 +7,12 @@ from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
 
-from legacy_cms.events import factory as events_factory
-from legacy_cms.mozfest import models as mozfest_models
-from legacy_cms.utility.faker import StreamfieldProvider
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
-from legacy_cms.wagtailpages.factory.signup import SignupFactory
+from foundation_cms.legacy_cms.events import factory as events_factory
+from foundation_cms.legacy_cms.mozfest import models as mozfest_models
+from foundation_cms.legacy_cms.utility.faker import StreamfieldProvider
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.signup import SignupFactory
 
 streamfield_fields = [
     "paragraph",

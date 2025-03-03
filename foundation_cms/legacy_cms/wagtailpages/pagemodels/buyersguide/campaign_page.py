@@ -8,8 +8,8 @@ from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.pagemodels import customblocks
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
 
 from ..customblocks.full_content_rich_text_options import full_content_rich_text_options
 

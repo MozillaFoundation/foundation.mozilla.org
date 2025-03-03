@@ -27,23 +27,23 @@ from wagtail.models import Orderable, Page, PageManager, PageQuerySet, Translata
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.utility import orderables
-from legacy_cms.wagtailpages.fields import ExtendedYesNoField
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.categories import (
+from foundation_cms.legacy_cms.utility import orderables
+from foundation_cms.legacy_cms.wagtailpages.fields import ExtendedYesNoField
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.categories import (
     BuyersGuideProductCategory,
 )
-from legacy_cms.wagtailpages.pagemodels.buyersguide.utils import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.utils import (
     get_buyersguide_featured_cta,
     localize_categories,
 )
-from legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from legacy_cms.wagtailpages.utils import insert_panels_after, localize_queryset
+from foundation_cms.legacy_cms.wagtailpages.utils import insert_panels_after, localize_queryset
 
 if typing.TYPE_CHECKING:
-    from legacy_cms.wagtailpages.models import BuyersGuideArticlePage
+    from foundation_cms.legacy_cms.wagtailpages.models import BuyersGuideArticlePage
 
 
 TRACK_RECORD_CHOICES = [

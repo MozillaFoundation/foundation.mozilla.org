@@ -3,8 +3,8 @@ import json
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
-from legacy_cms.news.factory import NewsFactory
-from legacy_cms.news.views import NewsListView, NewsView
+from foundation_cms.legacy_cms.news.factory import NewsFactory
+from foundation_cms.legacy_cms.news.views import NewsListView, NewsView
 
 
 class TestNewsView(TestCase):

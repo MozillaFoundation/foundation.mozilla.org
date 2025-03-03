@@ -16,14 +16,14 @@ from wagtail.models import Orderable, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.utility import orderables
-from legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
+from foundation_cms.legacy_cms.utility import orderables
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideProductCategoryForm,
 )
-from legacy_cms.wagtailpages.utils import CharCountWidget
+from foundation_cms.legacy_cms.wagtailpages.utils import CharCountWidget
 
 if typing.TYPE_CHECKING:
-    from legacy_cms.wagtailpages.models import BuyersGuideArticlePage
+    from foundation_cms.legacy_cms.wagtailpages.models import BuyersGuideArticlePage
 
 
 class BuyersGuideProductCategoryQuerySet(models.QuerySet):

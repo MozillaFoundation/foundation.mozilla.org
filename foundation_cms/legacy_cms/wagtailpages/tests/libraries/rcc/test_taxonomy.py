@@ -1,9 +1,9 @@
 from django.db.utils import IntegrityError
 
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     taxonomies as taxonomies_factory,
 )
-from legacy_cms.wagtailpages.tests.libraries.rcc import base
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc import base
 
 
 class RCCTaxonomyTestCase(base.RCCTestCase):

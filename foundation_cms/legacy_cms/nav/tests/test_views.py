@@ -6,8 +6,8 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
 
-from legacy_cms.nav import factories as nav_factories
-from legacy_cms.nav import models as nav_models
+from foundation_cms.legacy_cms.nav import factories as nav_factories
+from foundation_cms.legacy_cms.nav import models as nav_models
 
 
 class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):

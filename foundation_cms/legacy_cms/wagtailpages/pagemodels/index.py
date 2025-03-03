@@ -12,7 +12,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.utils import (
+from foundation_cms.legacy_cms.wagtailpages.utils import (
     get_default_locale,
     get_locale_from_request,
     get_page_tree_information,

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from legacy_cms.wagtailpages.models import BlogPage
+from foundation_cms.legacy_cms.wagtailpages.models import BlogPage
 
 
 class Command(BaseCommand):

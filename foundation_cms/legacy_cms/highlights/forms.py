@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.admin.widgets import AdminSplitDateTime
 from django.utils import timezone
 
-from legacy_cms.highlights.models import Highlight
+from foundation_cms.legacy_cms.highlights.models import Highlight
 
 
 class HighlightAdminForm(forms.ModelForm):

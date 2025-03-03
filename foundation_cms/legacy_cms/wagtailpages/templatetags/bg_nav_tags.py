@@ -4,7 +4,7 @@ from django import template
 from django.apps import apps
 from django.conf import settings
 
-from legacy_cms.wagtailpages.pagemodels.buyersguide.utils import localize_categories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.utils import localize_categories
 
 register = template.Library()
 

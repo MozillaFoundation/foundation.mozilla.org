@@ -11,10 +11,10 @@ import wagtailmedia.blocks
 from django.db import migrations
 from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
-import legacy_cms.wagtailpages.pagemodels.blog.blog_topic
-import legacy_cms.wagtailpages.pagemodels.profiles
-import legacy_cms.wagtailpages.validators
-from legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles
+import foundation_cms.legacy_cms.wagtailpages.validators
+from foundation_cms.legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
 
 
 def migrate_image_block(source_block):
@@ -169,7 +169,7 @@ class Migration(migrations.Migration):
                                                         max_length=300,
                                                         required=False,
                                                         validators=[
-                                                            legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                                            foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
                                                         ],
                                                     ),
                                                 ),
@@ -181,7 +181,7 @@ class Migration(migrations.Migration):
                                                         max_length=300,
                                                         required=False,
                                                         validators=[
-                                                            legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
                                                         ],
                                                     ),
                                                 ),
@@ -438,7 +438,7 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
                                     ),
                                 ),
                                 (
@@ -448,7 +448,7 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -575,7 +575,7 @@ class Migration(migrations.Migration):
                                 (
                                     "topic_filter",
                                     wagtail.blocks.ChoiceBlock(
-                                        choices=legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
+                                        choices=foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
                                         help_text="Test this filter at foundation.mozilla.org/blog/topic/",
                                         label="Filter by Topic",
                                         required=False,
@@ -713,7 +713,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "profile",
                                                     wagtail.snippets.blocks.SnippetChooserBlock(
-                                                        legacy_cms.wagtailpages.pagemodels.profiles.Profile
+                                                        foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles.Profile
                                                     ),
                                                 )
                                             ]
@@ -1061,7 +1061,7 @@ class Migration(migrations.Migration):
                                                                 max_length=300,
                                                                 required=False,
                                                                 validators=[
-                                                                    legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                                                    foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
                                                                 ],
                                                             ),
                                                         ),
@@ -1073,7 +1073,7 @@ class Migration(migrations.Migration):
                                                                 max_length=300,
                                                                 required=False,
                                                                 validators=[
-                                                                    legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                                                    foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
                                                                 ],
                                                             ),
                                                         ),
@@ -1770,7 +1770,7 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
                                     ),
                                 ),
                                 (
@@ -1780,7 +1780,7 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -2043,7 +2043,7 @@ class Migration(migrations.Migration):
                                                         max_length=300,
                                                         required=False,
                                                         validators=[
-                                                            legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                                            foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
                                                         ],
                                                     ),
                                                 ),
@@ -2055,7 +2055,7 @@ class Migration(migrations.Migration):
                                                         max_length=300,
                                                         required=False,
                                                         validators=[
-                                                            legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                                            foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
                                                         ],
                                                     ),
                                                 ),
@@ -2312,7 +2312,7 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
                                     ),
                                 ),
                                 (
@@ -2322,7 +2322,7 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),
@@ -2449,7 +2449,7 @@ class Migration(migrations.Migration):
                                 (
                                     "topic_filter",
                                     wagtail.blocks.ChoiceBlock(
-                                        choices=legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
+                                        choices=foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
                                         help_text="Test this filter at foundation.mozilla.org/blog/topic/",
                                         label="Filter by Topic",
                                         required=False,
@@ -2587,7 +2587,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "profile",
                                                     wagtail.snippets.blocks.SnippetChooserBlock(
-                                                        legacy_cms.wagtailpages.pagemodels.profiles.Profile
+                                                        foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles.Profile
                                                     ),
                                                 )
                                             ]
@@ -2935,7 +2935,7 @@ class Migration(migrations.Migration):
                                                                 max_length=300,
                                                                 required=False,
                                                                 validators=[
-                                                                    legacy_cms.wagtailpages.validators.RelativeURLValidator()
+                                                                    foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()
                                                                 ],
                                                             ),
                                                         ),
@@ -2947,7 +2947,7 @@ class Migration(migrations.Migration):
                                                                 max_length=300,
                                                                 required=False,
                                                                 validators=[
-                                                                    legacy_cms.wagtailpages.validators.AnchorLinkValidator()
+                                                                    foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()
                                                                 ],
                                                             ),
                                                         ),
@@ -3644,7 +3644,7 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
                                     ),
                                 ),
                                 (
@@ -3654,7 +3654,7 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),

@@ -6,7 +6,7 @@ from typing import Union
 import factory
 from django.db import models
 
-from legacy_cms.wagtailpages.models import Homepage
+from foundation_cms.legacy_cms.wagtailpages.models import Homepage
 
 
 def powerset(iterable):

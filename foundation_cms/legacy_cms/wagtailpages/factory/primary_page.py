@@ -1,4 +1,4 @@
-from legacy_cms.wagtailpages.models import PrimaryPage
+from foundation_cms.legacy_cms.wagtailpages.models import PrimaryPage
 
 from .abstract import CMSPageFactory
 

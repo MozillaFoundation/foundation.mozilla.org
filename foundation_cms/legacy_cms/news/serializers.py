@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from legacy_cms.news.models import News
+from foundation_cms.legacy_cms.news.models import News
 
 
 class NewsSerializer(serializers.ModelSerializer):

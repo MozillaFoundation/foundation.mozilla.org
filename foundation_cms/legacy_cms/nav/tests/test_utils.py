@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from unittest import TestCase
 
-from legacy_cms.nav import utils
+from foundation_cms.legacy_cms.nav import utils
 
 
 class TestUtils(TestCase):

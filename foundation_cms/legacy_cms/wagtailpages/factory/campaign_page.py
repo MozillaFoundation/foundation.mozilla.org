@@ -2,9 +2,9 @@ from factory import SubFactory, Trait
 from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailpages.donation_modal import DonationModals
-from legacy_cms.wagtailpages.models import (
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailpages.donation_modal import DonationModals
+from foundation_cms.legacy_cms.wagtailpages.models import (
     CampaignIndexPage,
     CampaignPage,
     FeaturedCampaignPageRelation,

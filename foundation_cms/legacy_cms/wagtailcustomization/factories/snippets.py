@@ -8,7 +8,7 @@ class SnippetChooserBlockFactory(ChooserBlockFactory):
     with a subfactory pointing to the snippet factory:
         ```
         class SignupChooserBlockFactory(SnippetChooserBlockFactory):
-            snippet = factory.SubFactory("legacy_cms.wagtailpages.factory.Signup")
+            snippet = factory.SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.Signup")
 
             class Meta:
                 model = Signup

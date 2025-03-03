@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from legacy_cms.highlights.models import Highlight
+from foundation_cms.legacy_cms.highlights.models import Highlight
 
 
 class WagtailImageSerializer(serializers.Serializer):

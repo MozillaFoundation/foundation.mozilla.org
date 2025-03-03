@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from rest_framework import status
 
-from legacy_cms.wagtailpages.models import Signup
+from foundation_cms.legacy_cms.wagtailpages.models import Signup
 
 
 def process_lang_code(lang):

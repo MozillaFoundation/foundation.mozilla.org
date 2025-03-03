@@ -1,7 +1,7 @@
 import factory
 import wagtail_factories
 
-from legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 
 class ImageBlockFactory(wagtail_factories.StructBlockFactory):

@@ -3,15 +3,15 @@ import wagtail_factories
 from django.core import exceptions
 from django.utils import translation
 
-from legacy_cms.wagtailpages.factory import profiles as profiles_factory
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profiles_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
-from legacy_cms.wagtailpages.models import ArticlePage, PublicationPage, RCCDetailPage
-from legacy_cms.wagtailpages.pagemodels.libraries.rcc import authors_index
-from legacy_cms.wagtailpages.tests.libraries.rcc import base as rcc_test_base
-from legacy_cms.wagtailpages.tests.libraries.rcc import utils as rcc_test_utils
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import relations as relations_factory
+from foundation_cms.legacy_cms.wagtailpages.models import ArticlePage, PublicationPage, RCCDetailPage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import authors_index
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc import base as rcc_test_base
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc import utils as rcc_test_utils
 
 
 class TestRCCLibraryDetailPage(rcc_test_base.RCCTestCase):

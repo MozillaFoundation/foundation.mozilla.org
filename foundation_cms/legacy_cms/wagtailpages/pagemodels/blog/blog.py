@@ -21,8 +21,8 @@ from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.forms import BlogPageForm
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.forms import BlogPageForm
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 from ...utils import CharCountWidget, get_content_related_by_tag
 from .. import customblocks

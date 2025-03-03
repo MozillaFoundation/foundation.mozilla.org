@@ -8,7 +8,7 @@ class ImageProvider(BaseProvider):
     A custom Faker Provider for relative image urls, for use with factory_boy
 
     >>> from factory import Faker
-    >>> from legacy_cms.utility.faker import ImageProvider
+    >>> from foundation_cms.legacy_cms.utility.faker import ImageProvider
     >>> fake = Faker()
     >>> Faker.add_provider(ImageProvider)
     """

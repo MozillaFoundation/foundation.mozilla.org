@@ -1,4 +1,4 @@
-from legacy_cms.wagtailpages.models import BlogSignup, Signup
+from foundation_cms.legacy_cms.wagtailpages.models import BlogSignup, Signup
 
 from .abstract import CTAFactory
 

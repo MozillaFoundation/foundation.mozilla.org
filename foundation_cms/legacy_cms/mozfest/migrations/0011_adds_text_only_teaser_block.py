@@ -10,7 +10,7 @@ import wagtail.snippets.blocks
 import wagtailmedia.blocks
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.profiles
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles
 
 
 class Migration(migrations.Migration):
@@ -815,7 +815,7 @@ class Migration(migrations.Migration):
                                                 (
                                                     "profile",
                                                     wagtail.snippets.blocks.SnippetChooserBlock(
-                                                        legacy_cms.wagtailpages.pagemodels.profiles.Profile
+                                                        foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles.Profile
                                                     ),
                                                 )
                                             ]

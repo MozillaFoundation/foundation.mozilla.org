@@ -3,7 +3,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import legacy_cms.people.models
+import foundation_cms.legacy_cms.people.models
 
 
 class Migration(migrations.Migration):
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                     models.FileField(
                         help_text="Profile image of the person",
                         max_length=2048,
-                        upload_to=legacy_cms.people.models.get_people_image_upload_path,
+                        upload_to=foundation_cms.legacy_cms.people.models.get_people_image_upload_path,
                     ),
                 ),
                 (
@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
                         help_text="Affiliated Organization's logo",
                         max_length=2048,
                         null=True,
-                        upload_to=legacy_cms.people.models.get_people_partnership_logo_upload_path,
+                        upload_to=foundation_cms.legacy_cms.people.models.get_people_partnership_logo_upload_path,
                     ),
                 ),
                 (

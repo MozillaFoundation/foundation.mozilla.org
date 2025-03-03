@@ -1,11 +1,11 @@
 from http import HTTPStatus
 
-from legacy_cms.donate import models as pagemodels
-from legacy_cms.donate.factory import help_page as help_page_factories
-from legacy_cms.donate.factory.snippets import (
+from foundation_cms.legacy_cms.donate import models as pagemodels
+from foundation_cms.legacy_cms.donate.factory import help_page as help_page_factories
+from foundation_cms.legacy_cms.donate.factory.snippets import (
     help_page_notice as help_page_notice_factories,
 )
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class FactoriesTest(test_base.WagtailpagesTestCase):

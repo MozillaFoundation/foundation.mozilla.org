@@ -7,8 +7,8 @@ from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 from wagtail_factories import PageFactory
 
-from legacy_cms.utility.faker.helpers import get_homepage, get_random_objects, reseed
-from legacy_cms.wagtailpages.models import (
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, get_random_objects, reseed
+from foundation_cms.legacy_cms.wagtailpages.models import (
     BlogAuthors,
     BlogIndexPage,
     BlogPage,
@@ -16,7 +16,7 @@ from legacy_cms.wagtailpages.models import (
     Profile,
     RelatedBlogPosts,
 )
-from legacy_cms.wagtailpages.pagemodels.blog import blog_index
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.blog import blog_index
 
 from .index_page import IndexPageFactory
 from .tagging import add_tags
@@ -77,8 +77,8 @@ class RelatedBlogPostsFactory(DjangoModelFactory):
     class Meta:
         model = RelatedBlogPosts
 
-    page = SubFactory("legacy_cms.wagtailpages.factory.blog.BlogPageFactory")
-    related_post = SubFactory("legacy_cms.wagtailpages.factory.blog.BlogPageFactory")
+    page = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.blog.BlogPageFactory")
+    related_post = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.blog.BlogPageFactory")
 
 
 class BlogPageFactory(PageFactory):

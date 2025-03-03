@@ -1,14 +1,14 @@
 import factory
 
-from legacy_cms.wagtailpages import models as wagtailpage_models
-from legacy_cms.wagtailpages.factory import profiles as profiles_factory
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages import models as wagtailpage_models
+from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profiles_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     landing_page as landing_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     taxonomies as taxonomies_factory,
 )
 

@@ -7,7 +7,7 @@ import wagtail.fields
 import wagtail.search.index
 from django.db import migrations, models
 
-import legacy_cms.wagtailpages.pagemodels.mixin.snippets
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.snippets
 
 
 class Migration(migrations.Migration):
@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtail.search.index.Indexed,
-                legacy_cms.wagtailpages.pagemodels.mixin.snippets.LocalizedSnippet,
+                foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.snippets.LocalizedSnippet,
                 models.Model,
             ),
         ),

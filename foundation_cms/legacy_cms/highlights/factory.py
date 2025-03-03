@@ -4,9 +4,9 @@ from factory import Faker, LazyAttribute, Trait, post_generation
 from factory.django import DjangoModelFactory
 from wagtail_factories import ImageFactory
 
-from legacy_cms.highlights.models import Highlight
-from legacy_cms.utility.faker import generate_fake_data
-from legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.highlights.models import Highlight
+from foundation_cms.legacy_cms.utility.faker import generate_fake_data
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
 
 
 class HighlightFactory(DjangoModelFactory):

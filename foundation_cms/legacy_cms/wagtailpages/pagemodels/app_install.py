@@ -3,7 +3,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.utils import CharCountWidget
+from foundation_cms.legacy_cms.wagtailpages.utils import CharCountWidget
 
 from .campaigns import CampaignPage
 from .customblocks.app_install_download_button_block import (

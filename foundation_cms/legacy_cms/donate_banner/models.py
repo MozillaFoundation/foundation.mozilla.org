@@ -10,7 +10,7 @@ from wagtail.models import Page, PreviewableMixin, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.constants import url_or_query_regex
+from foundation_cms.legacy_cms.wagtailpages.constants import url_or_query_regex
 
 
 class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):

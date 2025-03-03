@@ -5,9 +5,9 @@ from wagtail.images.models import Image
 from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 
-from legacy_cms.highlights.models import Highlight
-from legacy_cms.news.models import News
-from legacy_cms.wagtailpages.models import CTA
+from foundation_cms.legacy_cms.highlights.models import Highlight
+from foundation_cms.legacy_cms.news.models import News
+from foundation_cms.legacy_cms.wagtailpages.models import CTA
 
 
 class Command(BaseCommand):

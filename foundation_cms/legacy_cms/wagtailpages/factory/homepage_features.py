@@ -1,7 +1,7 @@
 from random import choice
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailpages.models import (
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailpages.models import (
     BlogPage,
     FocusArea,
     HomepageFocusAreas,

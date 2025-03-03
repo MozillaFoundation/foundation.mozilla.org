@@ -31,6 +31,6 @@ class BaseLinkBlockDefinition extends window.wagtailStreamField.blocks
   }
 }
 window.telepath.register(
-  "legacy_cms.wagtailpages.customblocks.BaseLinkBlock",
+  "foundation_cms.legacy_cms.wagtailpages.customblocks.BaseLinkBlock",
   BaseLinkBlockDefinition
 );

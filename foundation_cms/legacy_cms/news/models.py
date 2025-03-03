@@ -4,7 +4,7 @@ from django.utils import timezone
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
-from legacy_cms.utility.images import get_image_upload_path
+from foundation_cms.legacy_cms.utility.images import get_image_upload_path
 
 
 def get_thumbnail_upload_path(instance, filename):

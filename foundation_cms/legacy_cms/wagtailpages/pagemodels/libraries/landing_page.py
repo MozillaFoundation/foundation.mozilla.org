@@ -4,9 +4,9 @@ from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail_localize import fields as localize_fields
 
-from legacy_cms.wagtailpages.pagemodels import customblocks
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.libraries import constants
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import constants
 
 
 class BaseLandingPage(BasePage):

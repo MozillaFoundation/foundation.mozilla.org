@@ -3,9 +3,9 @@
 import wagtail.fields
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.blog.blog_topic
-import legacy_cms.wagtailpages.pagemodels.profiles
-import legacy_cms.wagtailpages.validators
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles
+import foundation_cms.legacy_cms.wagtailpages.validators
 
 
 class Migration(migrations.Migration):
@@ -116,7 +116,7 @@ class Migration(migrations.Migration):
                             "label": "Relative URL",
                             "max_length": 300,
                             "required": False,
-                            "validators": [legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                            "validators": [foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
                         },
                     ),
                     10: (
@@ -127,7 +127,7 @@ class Migration(migrations.Migration):
                             "label": "#",
                             "max_length": 300,
                             "required": False,
-                            "validators": [legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                            "validators": [foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                         },
                     ),
                     11: ("wagtail.blocks.EmailBlock", (), {"required": False}),
@@ -579,7 +579,7 @@ class Migration(migrations.Migration):
                         "wagtail.blocks.ChoiceBlock",
                         [],
                         {
-                            "choices": legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
+                            "choices": foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic.get_topics,
                             "help_text": "Test this filter at foundation.mozilla.org/blog/topic/",
                             "label": "Filter by Topic",
                             "required": False,
@@ -687,7 +687,7 @@ class Migration(migrations.Migration):
                     92: ("wagtail.blocks.StructBlock", [[("heading", 84), ("cards", 90), ("cards_per_row", 91)]], {}),
                     93: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
-                        (legacy_cms.wagtailpages.pagemodels.profiles.Profile,),
+                        (foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles.Profile,),
                         {},
                     ),
                     94: ("wagtail.blocks.StructBlock", [[("profile", 93)]], {}),

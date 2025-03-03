@@ -3,8 +3,8 @@ from wagtail import models as wagtail_models
 from wagtail.test import utils as wagtail_test
 from wagtail_localize import synctree
 
-from legacy_cms.mozfest.factory import MozfestHomepageFactory
-from legacy_cms.wagtailpages.models import Signup
+from foundation_cms.legacy_cms.mozfest.factory import MozfestHomepageFactory
+from foundation_cms.legacy_cms.wagtailpages.models import Signup
 
 
 class MozfestBaseTests(wagtail_test.WagtailPageTestCase):

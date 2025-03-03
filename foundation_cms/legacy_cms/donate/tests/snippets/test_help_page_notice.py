@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from legacy_cms.donate.factory.snippets.help_page_notice import HelpPageNoticeFactory
-from legacy_cms.donate.snippets.help_page_notice import HelpPageNotice
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.donate.factory.snippets.help_page_notice import HelpPageNoticeFactory
+from foundation_cms.legacy_cms.donate.snippets.help_page_notice import HelpPageNotice
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
 
 
 class HelpPageNoticeTest(TestCase):

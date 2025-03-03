@@ -54,7 +54,7 @@ WORKDIR /app
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    DJANGO_SETTINGS_MODULE=legacy_cms.settings \
+    DJANGO_SETTINGS_MODULE=foundation_cms.settings.base \
     PORT=8000 \
     WEB_CONCURRENCY=3 \
     GUNICORN_CMD_ARGS="-c gunicorn-conf.py --max-requests 1200 --max-requests-jitter 50 --access-logfile - --timeout 25"
@@ -108,12 +108,12 @@ COPY --chown=mozilla --from=frontend /app/foundation_cms/legacy_cms/frontend ./f
 # Note: this is only used where DEBUG=False, and so is not needed on dev builds.
 # The foundation_cms/staticfiles will not be visible after mounting the
 # foundation_cms directory.
-RUN SECRET_KEY=none python ./foundation_cms/manage.py collectstatic --noinput --clear
+RUN SECRET_KEY=none python ./manage.py collectstatic --noinput --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
 # Note: this will be overridden by other commands below for dev builds.
-CMD gunicorn legacy_cms.wsgi:application
+CMD gunicorn foundation_cms/legacy_cms.wsgi:application
 
 # Below is used for local dev builds only
 FROM base as dev

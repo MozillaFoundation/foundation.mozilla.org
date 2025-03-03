@@ -1,19 +1,19 @@
-from legacy_cms.wagtailpages.factory import profiles as profiles_factory
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profiles_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     detail_page as rcc_detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     relations as rcc_relations_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     detail_page as rh_detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as rh_relations_factory,
 )
-from legacy_cms.wagtailpages.templatetags import breadcrumbs as breadcrumbs_tags
-from legacy_cms.wagtailpages.tests.libraries.rcc.base import RCCTestCase
-from legacy_cms.wagtailpages.tests.libraries.research_hub.base import (
+from foundation_cms.legacy_cms.wagtailpages.templatetags import breadcrumbs as breadcrumbs_tags
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc.base import RCCTestCase
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub.base import (
     ResearchHubTestCase,
 )
 

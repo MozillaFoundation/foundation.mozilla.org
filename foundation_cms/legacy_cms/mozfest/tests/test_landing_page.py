@@ -1,5 +1,5 @@
-from legacy_cms.mozfest import factory as mozfest_factories
-from legacy_cms.mozfest.tests import base as mozfest_tests
+from foundation_cms.legacy_cms.mozfest import factory as mozfest_factories
+from foundation_cms.legacy_cms.mozfest.tests import base as mozfest_tests
 
 
 class MozfestLandingPageTests(mozfest_tests.MozfestBaseTests):

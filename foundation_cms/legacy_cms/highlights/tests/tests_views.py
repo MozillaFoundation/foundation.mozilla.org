@@ -3,8 +3,8 @@ import json
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
-from legacy_cms.highlights.factory import HighlightFactory
-from legacy_cms.highlights.views import HighlightListView, HighlightView
+from foundation_cms.legacy_cms.highlights.factory import HighlightFactory
+from foundation_cms.legacy_cms.highlights.views import HighlightListView, HighlightView
 
 
 class TestHighlightView(TestCase):

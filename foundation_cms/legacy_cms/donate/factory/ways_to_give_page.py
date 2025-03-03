@@ -1,10 +1,10 @@
 from factory import Faker
 from wagtail_factories import PageFactory
 
-from legacy_cms.donate.models import DonateLandingPage
-from legacy_cms.utility.faker import StreamfieldProvider
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.models import OpportunityPage
+from foundation_cms.legacy_cms.donate.models import DonateLandingPage
+from foundation_cms.legacy_cms.utility.faker import StreamfieldProvider
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.models import OpportunityPage
 
 Faker.add_provider(StreamfieldProvider)
 

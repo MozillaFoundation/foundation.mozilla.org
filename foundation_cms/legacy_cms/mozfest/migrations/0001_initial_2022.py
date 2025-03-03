@@ -12,8 +12,8 @@ import wagtailmedia.blocks
 import wagtailmetadata.models
 from django.db import migrations, models
 
-import legacy_cms.wagtailpages.pagemodels.customblocks.video_block
-import legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.video_block
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance
 
 
 class Migration(migrations.Migration):
@@ -1357,7 +1357,7 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance.FoundationBannerInheritanceMixin,
+                foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance.FoundationBannerInheritanceMixin,
                 "wagtailcore.page",
                 models.Model,
             ),
@@ -1459,7 +1459,7 @@ class Migration(migrations.Migration):
                         [
                             (
                                 "CMS_video",
-                                legacy_cms.wagtailpages.pagemodels.customblocks.video_block.WagtailVideoChooserBlock(),
+                                foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.video_block.WagtailVideoChooserBlock(),
                             ),
                             (
                                 "external_video",

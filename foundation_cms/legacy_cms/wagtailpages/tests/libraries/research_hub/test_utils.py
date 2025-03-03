@@ -1,16 +1,16 @@
 from django.test import TestCase
 
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as relations_factory,
 )
-from legacy_cms.wagtailpages.factory.profiles import ProfileFactory
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.profiles import ProfileFactory
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     utils as research_utils,
 )
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 
 class TestGetResearchAuthors(TestCase):

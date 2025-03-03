@@ -1,7 +1,7 @@
 from django.core import exceptions
 
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 TEST_CATEGORY_TITLE = "Test category"
 

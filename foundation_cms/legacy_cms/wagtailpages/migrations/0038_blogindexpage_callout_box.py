@@ -6,7 +6,7 @@ import wagtail.snippets.blocks
 import wagtailmedia.blocks
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.blog.blog_topic
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic
 
 
 class Migration(migrations.Migration):
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                                     "related_topics",
                                     wagtail.blocks.ListBlock(
                                         wagtail.snippets.blocks.SnippetChooserBlock(
-                                            legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic
+                                            foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog_topic.BlogPageTopic
                                         ),
                                         help_text="Optional topics to display at the top of the callout box.",
                                         max_num=2,

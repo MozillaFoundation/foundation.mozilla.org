@@ -1,8 +1,8 @@
 import http
 
-from legacy_cms.wagtailpages.factory import publication as publication_factory
-from legacy_cms.wagtailpages.pagemodels.publications import publication
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.factory import publication as publication_factory
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.publications import publication
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class PublicationPageTests(test_base.WagtailpagesTestCase):

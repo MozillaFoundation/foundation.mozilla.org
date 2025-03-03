@@ -10,7 +10,7 @@ import wagtail.fields
 import wagtail.images.blocks
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.customblocks.articles
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
@@ -207,7 +207,7 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "content",
-                        legacy_cms.wagtailpages.pagemodels.customblocks.articles.ArticleRichText(
+                        foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.articles.ArticleRichText(
                             features=[
                                 "bold",
                                 "italic",
@@ -467,7 +467,7 @@ class Migration(migrations.Migration):
                                         max_length=300,
                                         required=False,
                                         validators=[
-                                            legacy_cms.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
+                                            foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.common.base_link_block.RelativeURLValidator()
                                         ],
                                     ),
                                 ),
@@ -478,7 +478,7 @@ class Migration(migrations.Migration):
                                         help_text='An id attribute of an element on the current page. For example, "#section-1"',
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),

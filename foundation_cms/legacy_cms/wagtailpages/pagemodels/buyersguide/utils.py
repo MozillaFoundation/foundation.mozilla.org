@@ -1,6 +1,6 @@
 from django.apps import apps
 
-from legacy_cms.wagtailpages.utils import localize_queryset
+from foundation_cms.legacy_cms.wagtailpages.utils import localize_queryset
 
 
 def get_buyersguide_featured_cta(page):

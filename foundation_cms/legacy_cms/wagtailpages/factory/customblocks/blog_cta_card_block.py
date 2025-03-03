@@ -1,11 +1,11 @@
 import factory
 import wagtail_factories
 
-from legacy_cms.wagtailpages.factory.customblocks.image_block import ImageBlockFactory
-from legacy_cms.wagtailpages.factory.customblocks.link_button_block import (
+from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.image_block import ImageBlockFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.link_button_block import (
     LinkButtonBlockFactory,
 )
-from legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 
 class BlogCTACardBlockFactory(wagtail_factories.StructBlockFactory):

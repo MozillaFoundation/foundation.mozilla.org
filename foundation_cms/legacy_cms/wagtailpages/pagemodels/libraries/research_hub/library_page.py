@@ -4,17 +4,17 @@ from typing import Optional
 
 from wagtail import models as wagtail_models
 
-from legacy_cms.wagtailpages.pagemodels.libraries import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     library_page as base_library_page,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     detail_page,
     taxonomies,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     utils as research_utils,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub.forms import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub.forms import (
     ResearchLibraryPageFilterForm,
 )
 

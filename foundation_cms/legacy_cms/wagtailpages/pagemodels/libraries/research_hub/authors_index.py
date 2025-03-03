@@ -3,12 +3,12 @@ from functools import cached_property
 
 from wagtail.contrib.routable_page import models as routable_models
 
-from legacy_cms.wagtailpages import utils
-from legacy_cms.wagtailpages.pagemodels.libraries import (
+from foundation_cms.legacy_cms.wagtailpages import utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     authors_index as base_authors_index_page,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import library_page
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import library_page
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     utils as research_utils,
 )
 

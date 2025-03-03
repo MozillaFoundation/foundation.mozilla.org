@@ -9,9 +9,9 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page import models as routable_models
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages import utils
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.libraries import constants as base_constants
+from foundation_cms.legacy_cms.wagtailpages import utils
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import constants as base_constants
 
 if typing.TYPE_CHECKING:
     from typing import List

@@ -1,8 +1,8 @@
 from django.test.utils import override_settings
 from wagtail.contrib.redirects.models import Redirect
 
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 # Safeguard against the fact that static assets and views might be hosted remotely,

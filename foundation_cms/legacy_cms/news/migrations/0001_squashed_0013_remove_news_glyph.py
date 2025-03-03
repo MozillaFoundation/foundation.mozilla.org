@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import legacy_cms.news.models
+import foundation_cms.legacy_cms.news.models
 
 
 class Migration(migrations.Migration):
@@ -107,7 +107,7 @@ class Migration(migrations.Migration):
                         help_text="Thumbnail image associated with the news piece. Unsure of what to use? Leave blank and ask a designer",
                         max_length=2048,
                         null=True,
-                        upload_to=legacy_cms.news.models.get_thumbnail_upload_path,
+                        upload_to=foundation_cms.legacy_cms.news.models.get_thumbnail_upload_path,
                     ),
                 ),
             ],

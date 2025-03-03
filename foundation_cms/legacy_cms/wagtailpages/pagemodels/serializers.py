@@ -3,8 +3,8 @@ import datetime
 from rest_framework import serializers
 from wagtail_airtable.serializers import AirtableSerializer
 
-from legacy_cms.wagtailpages.fields import ExtendedYesNoField
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import TRACK_RECORD_CHOICES
+from foundation_cms.legacy_cms.wagtailpages.fields import ExtendedYesNoField
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import TRACK_RECORD_CHOICES
 
 
 class TrackRecordChoicesSerializer(serializers.RelatedField):

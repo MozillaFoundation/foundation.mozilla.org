@@ -2,10 +2,10 @@ from typing import Any
 
 import wagtail_factories
 
-from legacy_cms.nav import factories as nav_factories
-from legacy_cms.nav.templatetags import nav_tags
-from legacy_cms.wagtailpages.factory import blog as blog_factories
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.nav import factories as nav_factories
+from foundation_cms.legacy_cms.nav.templatetags import nav_tags
+from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factories
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class TestGetDropdownId(test_base.WagtailpagesTestCase):

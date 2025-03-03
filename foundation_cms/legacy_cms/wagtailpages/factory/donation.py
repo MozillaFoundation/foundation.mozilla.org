@@ -1,7 +1,7 @@
 from factory import Faker, SubFactory
 from factory.django import DjangoModelFactory
 
-from legacy_cms.wagtailpages.donation_modal import DonationModal, DonationModals
+from foundation_cms.legacy_cms.wagtailpages.donation_modal import DonationModal, DonationModals
 
 
 class DonationModalFactory(DjangoModelFactory):

@@ -1,8 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from legacy_cms.utility.images import SVGImageFormatValidator
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.utility.images import SVGImageFormatValidator
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
 
 
 class SVGImageFormatValidatorTests(TestCase):

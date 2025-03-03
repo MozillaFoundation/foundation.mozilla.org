@@ -16,10 +16,10 @@ from wagtail.models import Locale
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.forms import BlogIndexPageForm
-from legacy_cms.wagtailpages.pagemodels import customblocks
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
-from legacy_cms.wagtailpages.utils import (
+from foundation_cms.legacy_cms.wagtailpages.forms import BlogIndexPageForm
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.utils import (
     get_blog_authors,
     get_default_locale,
     get_locale_from_request,

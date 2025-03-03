@@ -1,8 +1,8 @@
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
 )
-from legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestIsBeingUsedProperty(BuyersGuideTestCase):

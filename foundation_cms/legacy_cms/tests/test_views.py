@@ -2,9 +2,9 @@ from django.conf import settings
 from django.test import TestCase
 from wagtail.models import Site
 
-from legacy_cms.mozfest.factory import MozfestHomepageFactory
-from legacy_cms.wagtailpages.factory.blog import BlogPageFactory
-from legacy_cms.wagtailpages.factory.homepage import WagtailHomepageFactory
+from foundation_cms.legacy_cms.mozfest.factory import MozfestHomepageFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.blog import BlogPageFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.homepage import WagtailHomepageFactory
 
 
 class TestApplePayDomainAssociationView(TestCase):

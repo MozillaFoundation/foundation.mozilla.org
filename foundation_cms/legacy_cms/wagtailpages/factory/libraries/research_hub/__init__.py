@@ -1,27 +1,27 @@
-from legacy_cms.utility.faker import helpers as faker_helpers
-from legacy_cms.wagtailpages import models as wagtailpage_models
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.utility.faker import helpers as faker_helpers
+from foundation_cms.legacy_cms.wagtailpages import models as wagtailpage_models
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     author_index as author_index_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     landing_page as landing_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     library_page as library_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as relations_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import (
     utils as research_hub_utils,
 )
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 
 def create_detail_page_for_visual_regression_tests(seed, research_library_page):

@@ -5,7 +5,7 @@ import wagtail.documents.blocks
 import wagtail.fields
 from django.db import migrations
 
-import legacy_cms.wagtailpages.validators
+import foundation_cms.legacy_cms.wagtailpages.validators
 
 
 def migrate_cta_button(apps, schema_editor):
@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
                                         label="Relative URL",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.RelativeURLValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.RelativeURLValidator()],
                                     ),
                                 ),
                                 (
@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
                                         label="#",
                                         max_length=300,
                                         required=False,
-                                        validators=[legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
+                                        validators=[foundation_cms.legacy_cms.wagtailpages.validators.AnchorLinkValidator()],
                                     ),
                                 ),
                                 ("email", wagtail.blocks.EmailBlock(required=False)),

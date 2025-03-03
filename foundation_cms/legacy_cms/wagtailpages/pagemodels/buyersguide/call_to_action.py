@@ -5,8 +5,8 @@ from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.pagemodels.customblocks import LinkBlock
-from legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks import LinkBlock
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
 

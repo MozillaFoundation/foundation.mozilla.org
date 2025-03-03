@@ -1,10 +1,10 @@
 import factory
 import wagtail_factories
 
-from legacy_cms.wagtailpages.factory.customblocks.blog_cta_card_block import (
+from foundation_cms.legacy_cms.wagtailpages.factory.customblocks.blog_cta_card_block import (
     BlogCTACardBlockFactory,
 )
-from legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 
 class BlogCTACardWithTextBlockFactory(wagtail_factories.StructBlockFactory):

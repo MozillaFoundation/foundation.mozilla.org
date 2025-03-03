@@ -1,17 +1,17 @@
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     author_index as author_index_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     landing_page as landing_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     library_page as library_page_factory,
 )
-from legacy_cms.wagtailpages.tests import base as test_base
-from legacy_cms.wagtailpages.tests.libraries.research_hub import utils
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import utils
 
 
 class ResearchHubTestCase(test_base.WagtailpagesTestCase):

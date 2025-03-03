@@ -1,7 +1,7 @@
 from wagtail import blocks
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from legacy_cms.wagtailpages import utils
+from foundation_cms.legacy_cms.wagtailpages import utils
 
 
 class TicketsBlock(blocks.StructBlock):

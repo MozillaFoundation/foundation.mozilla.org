@@ -5,10 +5,10 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from wagtail.models import Page, Site
 
-from legacy_cms.events.factory import TitoEventFactory
-from legacy_cms.events.utils import sign_tito_request
-from legacy_cms.events.views import tito_ticket_completed
-from legacy_cms.mozfest.factory import MozfestHomepageFactory
+from foundation_cms.legacy_cms.events.factory import TitoEventFactory
+from foundation_cms.legacy_cms.events.utils import sign_tito_request
+from foundation_cms.legacy_cms.events.views import tito_ticket_completed
+from foundation_cms.legacy_cms.mozfest.factory import MozfestHomepageFactory
 
 
 class TitoTicketCompletedTest(TestCase):
@@ -51,7 +51,7 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.content.decode(), "Payload verification failed")
 
-    @mock.patch("legacy_cms.events.views.basket")
+    @mock.patch("foundation_cms.legacy_cms.events.views.basket")
     def test_calls_basket_api(self, mock_basket):
         secret = bytes(self.tito_event.security_token, "utf-8")
         data = {
@@ -102,7 +102,7 @@ class TitoTicketCompletedTest(TestCase):
         )
         request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
 
-        with self.assertLogs(logger="legacy_cms.events.views", level="ERROR") as cm:
+        with self.assertLogs(logger="foundation_cms.legacy_cms.events.views", level="ERROR") as cm:
             response = tito_ticket_completed(request)
             self.assertEqual(response.status_code, 202)
             self.assertIn("Basket subscription from Tito webhook failed", cm.output[0])

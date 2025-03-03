@@ -5,7 +5,7 @@ from django.contrib.admin.widgets import AdminSplitDateTime
 from django.forms.widgets import SelectDateWidget
 from django.utils import timezone
 
-from legacy_cms.news.models import News
+from foundation_cms.legacy_cms.news.models import News
 
 
 class NewsAdminForm(forms.ModelForm):

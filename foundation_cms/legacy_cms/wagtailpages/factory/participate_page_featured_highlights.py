@@ -2,9 +2,9 @@ from factory import SubFactory
 from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
 
-from legacy_cms.highlights.factory import HighlightFactory
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.models import (
+from foundation_cms.legacy_cms.highlights.factory import HighlightFactory
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.models import (
     ParticipateHighlights,
     ParticipateHighlights2,
     ParticipatePage2,
@@ -42,7 +42,7 @@ def generate(seed):
     except WagtailPage.DoesNotExist:
         print(
             "Participate page must exist. Ensure that "
-            + "legacy_cms.wagtailpages.factory.participage_page is executing first"
+            + "foundation_cms.legacy_cms.wagtailpages.factory.participage_page is executing first"
         )
 
     reseed(seed)

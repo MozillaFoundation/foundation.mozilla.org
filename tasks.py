@@ -24,7 +24,7 @@ locale_abstraction_instructions = " ".join(
         "--keep-pot",
         "--no-wrap",
         "--ignore=foundation_cms/legacy_cms/wagtailcustomization/*",
-        "--ignore=foundation_cms/legacy_cms/settings.py",
+        "--ignore=foundation_cms/settings/base.py",
         "--ignore=foundation_cms/legacy_cms/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
         "--ignore=dockerpythonvenv/*",
     ]
@@ -264,7 +264,7 @@ def manage(ctx, command, stop=False):
 
     To stop the containers after the command has been run, pass the `--stop` flag.
     """
-    command = f"python foundation_cms/manage.py {command}"
+    command = f"python ./manage.py {command}"
     pyrun(ctx, command, stop=stop)
 
 

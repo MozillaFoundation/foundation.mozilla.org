@@ -1,8 +1,8 @@
 from factory import SubFactory
 from factory.django import DjangoModelFactory
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailpages.models import BlogPage, HomepageHighlights
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailpages.models import BlogPage, HomepageHighlights
 
 from .blog import BlogPageFactory
 from .homepage import WagtailHomepageFactory

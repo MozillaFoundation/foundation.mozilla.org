@@ -3,13 +3,13 @@ from os.path import abspath, join
 from django.conf import settings
 from django.test.utils import override_settings
 
-from legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     ProductPage,
     ProductPageEvaluation,
 )
-from legacy_cms.wagtailpages.tests import base as test_base
-from legacy_cms.wagtailpages.utils import create_wagtail_image
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.utils import create_wagtail_image
 
 
 @override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})

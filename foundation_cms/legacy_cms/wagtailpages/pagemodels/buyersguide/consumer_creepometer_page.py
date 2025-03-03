@@ -3,11 +3,11 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.models import Locale
 from wagtail_localize.fields import SynchronizedField
 
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
-from legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
 
 
 class ConsumerCreepometerPage(BasePage):

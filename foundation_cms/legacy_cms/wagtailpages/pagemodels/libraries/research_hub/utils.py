@@ -1,6 +1,6 @@
 import typing
 
-from legacy_cms.wagtailpages.pagemodels.profiles import Profile
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.profiles import Profile
 
 if typing.TYPE_CHECKING:
     from django.db.models.query import QuerySet

@@ -4,7 +4,7 @@ from django.template.defaultfilters import slugify
 from wagtail import blocks
 from wagtail.blocks import StructBlockValidationError
 
-from legacy_cms.wagtailpages.utils import get_locale_from_request
+from foundation_cms.legacy_cms.wagtailpages.utils import get_locale_from_request
 
 from ..blog.blog_topic import BlogPageTopic
 

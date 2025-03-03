@@ -3,12 +3,12 @@ from django.urls import reverse
 from factory import Faker
 from wagtailinventory.helpers import create_page_inventory, delete_page_inventory
 
-from legacy_cms.reports.views import BlockTypesReportView
-from legacy_cms.utility.faker import StreamfieldProvider
-from legacy_cms.wagtailpages.factory.campaign_page import CampaignPageFactory
-from legacy_cms.wagtailpages.factory.opportunity import OpportunityPageFactory
-from legacy_cms.wagtailpages.factory.primary_page import PrimaryPageFactory
-from legacy_cms.wagtailpages.tests.base import WagtailpagesTestCase
+from foundation_cms.legacy_cms.reports.views import BlockTypesReportView
+from foundation_cms.legacy_cms.utility.faker import StreamfieldProvider
+from foundation_cms.legacy_cms.wagtailpages.factory.campaign_page import CampaignPageFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.opportunity import OpportunityPageFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.primary_page import PrimaryPageFactory
+from foundation_cms.legacy_cms.wagtailpages.tests.base import WagtailpagesTestCase
 
 Faker.add_provider(StreamfieldProvider)
 
@@ -65,7 +65,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # Two pages have created AnnotatedImageBlocks
         block = object_list[1]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
         )
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Custom")
@@ -75,7 +75,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # RadioSelectBlock is used in AnnotatedImageBlock
         block = object_list[2]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
         )
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Custom")
@@ -85,7 +85,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # LinkBlockWithoutLabel is used in AnnotatedImageBlock
         block = object_list[3]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
         )
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Custom")
@@ -200,7 +200,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # The campaign page is using an AnnotatedImageBlock
         block = object_list[1]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -210,7 +210,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # RadioSelectBlock is used in AnnotatedImageBlock
         block = object_list[2]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -220,7 +220,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # LinkBlockWithoutLabel is used in AnnotatedImageBlock
         block = object_list[3]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -338,7 +338,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # The campaign page is using an AnnotatedImageBlock
         block = object_list[1]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock"
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -348,7 +348,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # RadioSelectBlock is used in AnnotatedImageBlock
         block = object_list[2]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock"
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -358,7 +358,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         # LinkBlockWithoutLabel is used in AnnotatedImageBlock
         block = object_list[3]
         self.assertEqual(
-            block["block"], "legacy_cms.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
+            block["block"], "foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock"
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")

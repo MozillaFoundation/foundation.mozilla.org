@@ -4,7 +4,7 @@ from django.test import RequestFactory, TestCase
 from wagtail.models import Site
 from wagtail_factories import SiteFactory
 
-from legacy_cms.utility.redirects import redirect_to_default_cms_site
+from foundation_cms.legacy_cms.utility.redirects import redirect_to_default_cms_site
 
 
 class RedirectDefaultSiteDecoratorTests(TestCase):

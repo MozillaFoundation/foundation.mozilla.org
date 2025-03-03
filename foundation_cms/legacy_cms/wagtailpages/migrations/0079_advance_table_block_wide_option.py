@@ -9,7 +9,7 @@ import wagtail.fields
 import wagtail.images.blocks
 from django.db import migrations
 
-import legacy_cms.wagtailpages.pagemodels.customblocks.articles
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.articles
 
 
 class Migration(migrations.Migration):
@@ -169,7 +169,7 @@ class Migration(migrations.Migration):
                     ),
                     (
                         "content",
-                        legacy_cms.wagtailpages.pagemodels.customblocks.articles.ArticleRichText(
+                        foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.articles.ArticleRichText(
                             features=[
                                 "bold",
                                 "italic",

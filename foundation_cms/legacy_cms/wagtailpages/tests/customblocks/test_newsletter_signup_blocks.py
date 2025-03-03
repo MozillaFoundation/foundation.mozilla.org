@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from legacy_cms.wagtailpages.factory import customblocks as customblock_factories
-from legacy_cms.wagtailpages.models import BlogSignup, Signup
+from foundation_cms.legacy_cms.wagtailpages.factory import customblocks as customblock_factories
+from foundation_cms.legacy_cms.wagtailpages.models import BlogSignup, Signup
 
 
 class TestNewsletterSignupBlock(TestCase):

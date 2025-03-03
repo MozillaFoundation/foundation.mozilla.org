@@ -1,7 +1,7 @@
 from wagtail.models.i18n import Locale
 from wagtail_localize.models import LocaleSynchronization
 
-from legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
 
 
 def generate(seed):

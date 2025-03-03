@@ -1,7 +1,7 @@
 from django import template
 
-from legacy_cms.wagtailpages.pagemodels.libraries.rcc.landing_page import RCCLandingPage
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub.landing_page import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc.landing_page import RCCLandingPage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub.landing_page import (
     ResearchLandingPage,
 )
 

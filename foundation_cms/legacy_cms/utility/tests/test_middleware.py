@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 from django.test import TestCase
 
-from legacy_cms.utility.middleware import XRobotsTagMiddleware
+from foundation_cms.legacy_cms.utility.middleware import XRobotsTagMiddleware
 
 
 class XRobotsTagMiddlewareTest(TestCase):

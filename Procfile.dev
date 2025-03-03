@@ -2,4 +2,4 @@
 # watches frontend files and compiles them when they change.
 
 frontend-watch: npm run watch
-web: /app/dockerpythonvenv/bin/python foundation_cms/manage.py runserver 0.0.0.0:8000
+web: /app/dockerpythonvenv/bin/python ./manage.py runserver 0.0.0.0:8000

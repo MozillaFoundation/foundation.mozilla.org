@@ -1,4 +1,4 @@
-from legacy_cms.utility.images import get_image_upload_path
+from foundation_cms.legacy_cms.utility.images import get_image_upload_path
 
 
 def get_people_image_upload_path(instance, filename):

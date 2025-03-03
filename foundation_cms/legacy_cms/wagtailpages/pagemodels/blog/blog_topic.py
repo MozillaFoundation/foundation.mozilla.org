@@ -5,10 +5,10 @@ from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
-from legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
-from legacy_cms.wagtailpages.utils import get_default_locale
+from foundation_cms.legacy_cms.wagtailpages.utils import get_default_locale
 
 
 class BlogPageTopic(TranslatableMixin, models.Model):

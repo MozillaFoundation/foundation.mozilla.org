@@ -7,15 +7,15 @@ from wagtail import models as wagtail_models
 from wagtail.admin import panels as panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.utility import orderables
-from legacy_cms.wagtailpages.pagemodels import customblocks
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
+from foundation_cms.legacy_cms.utility import orderables
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )
 
 if typing.TYPE_CHECKING:
-    from legacy_cms.wagtailpages.models import BuyersGuideContentCategory, Profile
+    from foundation_cms.legacy_cms.wagtailpages.models import BuyersGuideContentCategory, Profile
 
 
 class BuyersGuideArticlePage(BasePage):

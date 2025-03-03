@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from legacy_cms.highlights.views import HighlightListView, HighlightView
+from foundation_cms.legacy_cms.highlights.views import HighlightListView, HighlightView
 
 urlpatterns = [
     path("", HighlightListView.as_view(), name="highlight-list"),

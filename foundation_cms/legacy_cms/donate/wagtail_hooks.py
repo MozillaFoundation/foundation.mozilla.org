@@ -3,12 +3,12 @@ from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
-from legacy_cms.donate.snippets.help_page_notice import HelpPageNotice
-from legacy_cms.donate_banner.models import DonateBanner
-from legacy_cms.wagtailcustomization.views.snippet_chooser import (
+from foundation_cms.legacy_cms.donate.snippets.help_page_notice import HelpPageNotice
+from foundation_cms.legacy_cms.donate_banner.models import DonateBanner
+from foundation_cms.legacy_cms.wagtailcustomization.views.snippet_chooser import (
     DefaultLocaleSnippetChooserViewSet,
 )
-from legacy_cms.wagtailpages.donation_modal import DonationModal
+from foundation_cms.legacy_cms.wagtailpages.donation_modal import DonationModal
 
 
 # Customise DonateBanner Snippet admin listing to show extra columns.

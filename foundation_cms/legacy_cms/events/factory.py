@@ -1,7 +1,7 @@
 from factory import Faker
 from factory.django import DjangoModelFactory
 
-from legacy_cms.events.models import TitoEvent
+from foundation_cms.legacy_cms.events.models import TitoEvent
 
 
 class TitoEventFactory(DjangoModelFactory):

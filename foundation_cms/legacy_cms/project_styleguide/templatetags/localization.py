@@ -1,6 +1,6 @@
 from pattern_library.monkey_utils import override_tag
 
-from legacy_cms.wagtailpages.templatetags.localization import register
+from foundation_cms.legacy_cms.wagtailpages.templatetags.localization import register
 
 # Override the localization tags with a fake implementation to return dummy URLs.
 # The fake implementation will only be used when viewing the pattern library.

@@ -8,15 +8,15 @@ from django.core.management.base import BaseCommand
 from taggit.models import Tag
 
 # Factories
-import legacy_cms.donate.factory as donate_factory
-import legacy_cms.highlights.factory as highlights_factory
-import legacy_cms.mozfest.factory as mozfest_factory
-import legacy_cms.nav.factories as nav_factory
-import legacy_cms.news.factory as news_factory
-import legacy_cms.wagtailpages.factory as wagtailpages_factory
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
-from legacy_cms.wagtailpages.utils import create_wagtail_image
+import foundation_cms.legacy_cms.donate.factory as donate_factory
+import foundation_cms.legacy_cms.highlights.factory as highlights_factory
+import foundation_cms.legacy_cms.mozfest.factory as mozfest_factory
+import foundation_cms.legacy_cms.nav.factories as nav_factory
+import foundation_cms.legacy_cms.news.factory as news_factory
+import foundation_cms.legacy_cms.wagtailpages.factory as wagtailpages_factory
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.wagtailpages.utils import create_wagtail_image
 
 
 class Command(BaseCommand):

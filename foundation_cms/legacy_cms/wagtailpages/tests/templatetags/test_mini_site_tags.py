@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from faker import Faker
 
-from legacy_cms.wagtailpages.templatetags import mini_site_tags
+from foundation_cms.legacy_cms.wagtailpages.templatetags import mini_site_tags
 
 
 class GenerateThankYouURLTests(TestCase):

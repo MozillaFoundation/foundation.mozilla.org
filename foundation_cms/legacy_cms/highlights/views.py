@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from legacy_cms.highlights.models import Highlight
-from legacy_cms.highlights.serializers import HighlightSerializer
+from foundation_cms.legacy_cms.highlights.models import Highlight
+from foundation_cms.legacy_cms.highlights.serializers import HighlightSerializer
 
 
 class HighlightListView(ListAPIView):

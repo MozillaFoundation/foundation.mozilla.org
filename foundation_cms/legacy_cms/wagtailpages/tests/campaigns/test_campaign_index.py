@@ -1,5 +1,5 @@
-from legacy_cms.wagtailpages.factory import campaign_page as campaign_factories
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.factory import campaign_page as campaign_factories
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class CampaignIndexTestCase(test_base.WagtailpagesTestCase):

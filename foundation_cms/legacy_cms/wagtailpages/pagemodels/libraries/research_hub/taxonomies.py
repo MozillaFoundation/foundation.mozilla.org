@@ -1,7 +1,7 @@
 from django.db import models
 from wagtail.admin import panels as wagtail_panels
 
-from legacy_cms.wagtailpages.pagemodels.taxonomy import BaseTaxonomy
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.taxonomy import BaseTaxonomy
 
 
 class ResearchRegion(BaseTaxonomy):

@@ -2,8 +2,8 @@ import random
 
 import factory
 
-from legacy_cms.wagtailpages import models as wagtailpage_models
-from legacy_cms.wagtailpages.factory.libraries import (
+from foundation_cms.legacy_cms.wagtailpages import models as wagtailpage_models
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries import (
     detail_page as library_detail_page_factories,
 )
 
@@ -13,34 +13,34 @@ class RCCDetailPageFactory(library_detail_page_factories.LibraryDetailPageAbstra
         model = wagtailpage_models.RCCDetailPage
 
     links = factory.RelatedFactoryList(
-        factory="legacy_cms.wagtailpages.factory.libraries.rcc.detail_page.RCCDetailLinkFactory",
+        factory="foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc.detail_page.RCCDetailLinkFactory",
         factory_related_name="detail_page",
         size=lambda: random.randint(1, 2),
         with_url=True,
     )
 
     authors = factory.RelatedFactoryList(
-        factory="legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCAuthorRelationFactory",
+        factory="foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCAuthorRelationFactory",
         factory_related_name="detail_page",
         size=1,
     )
 
     related_content_types = factory.RelatedFactoryList(
-        factory="legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCContentTypeRelationFactory",
+        factory="foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCContentTypeRelationFactory",
         factory_related_name="detail_page",
         size=1,
     )
 
     related_curricular_areas = factory.RelatedFactoryList(
         factory=(
-            "legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCCurricularAreaRelationFactory"
+            "foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCCurricularAreaRelationFactory"
         ),
         factory_related_name="detail_page",
         size=1,
     )
 
     related_topics = factory.RelatedFactoryList(
-        factory="legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCTopicRelationFactory",
+        factory="foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc.relations.RCCDetailPageRCCTopicRelationFactory",
         factory_related_name="detail_page",
         size=1,
     )

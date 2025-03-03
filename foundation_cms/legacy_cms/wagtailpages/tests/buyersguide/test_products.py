@@ -7,12 +7,12 @@ from rest_framework.test import APITestCase
 from wagtail.admin.panels import get_edit_handler
 from wagtail.test.utils import form_data
 
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     BuyersGuideProductCategory,
     ProductPageCategory,
 )
-from legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestProductPage(BuyersGuideTestCase):

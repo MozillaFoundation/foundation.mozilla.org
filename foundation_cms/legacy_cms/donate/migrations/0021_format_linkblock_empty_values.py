@@ -2,7 +2,7 @@
 from django.db import migrations
 from wagtail.blocks.migrations.migrate_operation import MigrateStreamData
 
-from legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
+from foundation_cms.legacy_cms.utility.migration.operations import AlterStreamChildBlockDataOperation
 
 
 def format_image_grid_block_items_empty_values(source_block):

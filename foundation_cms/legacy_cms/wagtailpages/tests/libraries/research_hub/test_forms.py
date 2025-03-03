@@ -2,24 +2,24 @@ import datetime
 
 from django.utils import timezone, translation
 
-from legacy_cms.wagtailpages.factory import profiles as profiles_factory
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profiles_factory
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as relations_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     taxonomies as taxonomies_factory,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub import forms
-from legacy_cms.wagtailpages.pagemodels.libraries.research_hub.forms import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub import forms
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.research_hub.forms import (
     ResearchLibraryPageFilterForm,
 )
-from legacy_cms.wagtailpages.tests.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import (
     base as research_test_base,
 )
-from legacy_cms.wagtailpages.tests.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import (
     utils as research_test_utils,
 )
 

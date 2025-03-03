@@ -2,8 +2,8 @@ from datetime import datetime, timezone
 
 from django.test import TestCase
 
-from legacy_cms.news.factory import NewsFactory
-from legacy_cms.news.models import News
+from foundation_cms.legacy_cms.news.factory import NewsFactory
+from foundation_cms.legacy_cms.news.models import News
 
 
 class TestNewsFactory(TestCase):

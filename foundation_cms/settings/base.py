@@ -199,7 +199,6 @@ INSTALLED_APPS = list(
         [
             "scout_apm.django",
             "whitenoise.runserver_nostatic",
-            "legacy_cms.s3_file_storage" if USE_S3 else None,
             "social_django" if SOCIAL_SIGNIN else None,
             "django.contrib.admin",
             "django.contrib.auth",
@@ -211,7 +210,6 @@ INSTALLED_APPS = list(
             "django.contrib.redirects",
             "django.contrib.sitemaps",
             "django.contrib.humanize",
-            "legacy_cms.wagtailcustomization",
             "wagtailmetadata",
             "wagtail.embeds",
             "wagtail.sites",
@@ -251,24 +249,26 @@ INSTALLED_APPS = list(
             "storages",
             "adminsortable",
             "querystring_tag",
-            # the network site
-            "legacy_cms",
-            "legacy_cms.campaign",
-            "legacy_cms.events",
-            "legacy_cms.news",
-            "legacy_cms.people",
-            "legacy_cms.utility",
-            # possibly still used?
-            "legacy_cms.highlights",
-            # wagtail-specific app prefixed so that it can be localised
-            "legacy_cms.wagtailpages",
-            "legacy_cms.mozfest",
-            "legacy_cms.donate",
-            "legacy_cms.donate_banner",
-            "legacy_cms.reports",
-            "legacy_cms.nav",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
-            "legacy_cms.project_styleguide",
+            # the network site
+            "foundation_cms.legacy_cms",
+            "foundation_cms.legacy_cms.s3_file_storage" if USE_S3 else None,
+            "foundation_cms.legacy_cms.wagtailcustomization",
+            "foundation_cms.legacy_cms.campaign",
+            "foundation_cms.legacy_cms.events",
+            "foundation_cms.legacy_cms.news",
+            "foundation_cms.legacy_cms.people",
+            "foundation_cms.legacy_cms.utility",
+            # possibly still used?
+            "foundation_cms.legacy_cms.highlights",
+            # wagtail-specific app prefixed so that it can be localised
+            "foundation_cms.legacy_cms.wagtailpages",
+            "foundation_cms.legacy_cms.mozfest",
+            "foundation_cms.legacy_cms.donate",
+            "foundation_cms.legacy_cms.donate_banner",
+            "foundation_cms.legacy_cms.reports",
+            "foundation_cms.legacy_cms.nav",
+            "foundation_cms.legacy_cms.project_styleguide",
         ],
     )
 )
@@ -281,12 +281,12 @@ MIDDLEWARE = list(
             "corsheaders.middleware.CorsMiddleware",
             "django.middleware.security.SecurityMiddleware",
             "django.middleware.clickjacking.XFrameOptionsMiddleware",
-            "legacy_cms.utility.middleware.XRobotsTagMiddleware" if XROBOTSTAG_ENABLED else None,
+            "foundation_cms.legacy_cms.utility.middleware.XRobotsTagMiddleware" if XROBOTSTAG_ENABLED else None,
             "whitenoise.middleware.WhiteNoiseMiddleware",
             "django.middleware.gzip.GZipMiddleware",
             "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG_TOOLBAR_ENABLED else None,
-            "legacy_cms.utility.middleware.NormalizeLocaleMiddleware",
-            "legacy_cms.utility.middleware.TargetDomainRedirectMiddleware",
+            "foundation_cms.legacy_cms.utility.middleware.NormalizeLocaleMiddleware",
+            "foundation_cms.legacy_cms.utility.middleware.TargetDomainRedirectMiddleware",
             "django.contrib.sessions.middleware.SessionMiddleware",
             #
             # should be after SessionMiddleware and before CommonMiddleware
@@ -296,10 +296,10 @@ MIDDLEWARE = list(
             "django.contrib.messages.middleware.MessageMiddleware",
             #
             # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
-            "legacy_cms.wagtailcustomization.redirects.middleware.RedirectMiddleware",
+            "foundation_cms.legacy_cms.wagtailcustomization.redirects.middleware.RedirectMiddleware",
             #
             # instead of 'django.middleware.csrf.CsrfViewMiddleware':
-            "legacy_cms.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware",
+            "foundation_cms.legacy_cms.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware",
             #
             "django_htmx.middleware.HtmxMiddleware",
         ],
@@ -327,7 +327,7 @@ if SOCIAL_SIGNIN:
         "social_core.pipeline.user.user_details",
     )
 
-ROOT_URLCONF = "legacy_cms.urls"
+ROOT_URLCONF = "foundation_cms.urls"
 
 TEMPLATES = [
     {
@@ -348,29 +348,29 @@ TEMPLATES = [
                         "django.template.context_processors.static",
                         "django.contrib.auth.context_processors.auth",
                         "django.contrib.messages.context_processors.messages",
-                        "legacy_cms.context_processor.review_app",
-                        "legacy_cms.context_processor.canonical_path",
-                        "legacy_cms.context_processor.canonical_site_url",
+                        "foundation_cms.context_processor.review_app",
+                        "foundation_cms.context_processor.canonical_path",
+                        "foundation_cms.context_processor.canonical_site_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
             ),
             "libraries": {
-                "bg_nav_tags": "legacy_cms.wagtailpages.templatetags.bg_nav_tags",
-                "blog_tags": "legacy_cms.wagtailpages.templatetags.blog_tags",
-                "card_tags": "legacy_cms.wagtailpages.templatetags.card_tags",
-                "class_tags": "legacy_cms.wagtailpages.templatetags.class_tags",
-                "debug_tags": "legacy_cms.wagtailpages.templatetags.debug_tags",
-                "formassembly_helper": "legacy_cms.utility.templatetags.formassembly_helper",
-                "mofo_common": "legacy_cms.utility.templatetags.mofo_common",
-                "homepage_tags": "legacy_cms.wagtailpages.templatetags.homepage_tags",
-                "localization": "legacy_cms.wagtailpages.templatetags.localization",
-                "mini_site_tags": "legacy_cms.wagtailpages.templatetags.mini_site_tags",
-                "custom_image_tags": "legacy_cms.wagtailpages.templatetags.custom_image_tags",
-                "nav_tags": "legacy_cms.nav.templatetags.nav_tags",
-                "primary_page_tags": "legacy_cms.wagtailpages.templatetags.primary_page_tags",
-                "settings_value": "legacy_cms.utility.templatetags.settings_value",
-                "wagtailcustom_tags": "legacy_cms.wagtailcustomization.templatetags.wagtailcustom_tags",
+                "bg_nav_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.bg_nav_tags",
+                "blog_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.blog_tags",
+                "card_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.card_tags",
+                "class_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.class_tags",
+                "debug_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.debug_tags",
+                "formassembly_helper": "foundation_cms.legacy_cms.utility.templatetags.formassembly_helper",
+                "mofo_common": "foundation_cms.legacy_cms.utility.templatetags.mofo_common",
+                "homepage_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.homepage_tags",
+                "localization": "foundation_cms.legacy_cms.wagtailpages.templatetags.localization",
+                "mini_site_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.mini_site_tags",
+                "custom_image_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.custom_image_tags",
+                "nav_tags": "foundation_cms.legacy_cms.nav.templatetags.nav_tags",
+                "primary_page_tags": "foundation_cms.legacy_cms.wagtailpages.templatetags.primary_page_tags",
+                "settings_value": "foundation_cms.legacy_cms.utility.templatetags.settings_value",
+                "wagtailcustom_tags": "foundation_cms.legacy_cms.wagtailcustomization.templatetags.wagtailcustom_tags",
             },
             "builtins": ["pattern_library.loader_tags"],
         },
@@ -409,7 +409,7 @@ DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 # network asset domain used in templates
 ASSET_DOMAIN = env("ASSET_DOMAIN")
 
-WSGI_APPLICATION = "legacy_cms.wsgi.application"
+WSGI_APPLICATION = "foundation_cms.wsgi.application"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -483,15 +483,15 @@ USE_TZ = True
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, "locale"),
-    os.path.join(BASE_DIR, "legacy_cms/templates/pages/buyersguide/about/locale"),
-    os.path.join(BASE_DIR, "legacy_cms/wagtailpages/templates/wagtailpages/pages/locale"),
+    os.path.join(BASE_DIR, "foundation_cms.legacy_cms/templates/pages/buyersguide/about/locale"),
+    os.path.join(BASE_DIR, "foundation_cms.legacy_cms/wagtailpages/templates/wagtailpages/pages/locale"),
     os.path.join(
         BASE_DIR,
-        "legacy_cms/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale",
+        "foundation_cms.legacy_cms/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale",
     ),
     os.path.join(
         BASE_DIR,
-        "legacy_cms/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale",
+        "foundation_cms.legacy_cms/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale",
     ),
 )
 
@@ -506,8 +506,8 @@ WHITENOISE_INDEX_FILE = True
 STATIC_HOST = env("STATIC_HOST") if not DEBUG and not REVIEW_APP else ""
 
 STATIC_URL = STATIC_HOST + "/static/"
-STATIC_ROOT = root("staticfiles")
-STATICFILES_DIRS = [app("frontend")]
+STATIC_ROOT = root("../legacy_cms/staticfiles/")
+STATICFILES_DIRS = [app("../legacy_cms/frontend")]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -576,7 +576,7 @@ REST_FRAMEWORK = {
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
-    DEFAULT_FILE_STORAGE = "legacy_cms.s3_file_storage.storage.S3MediaStorage"
+    DEFAULT_FILE_STORAGE = "foundation_cms.legacy_cms.s3_file_storage.storage.S3MediaStorage"
     AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
     AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
@@ -590,7 +590,7 @@ if USE_S3:
 
 else:
     # Otherwise use the default filesystem storage
-    MEDIA_ROOT = root("media/")
+    MEDIA_ROOT = root("foundation_cms/media/")
     MEDIA_URL = "/media/"
 
 # CORS
@@ -679,7 +679,7 @@ LOGGING = {
         "django.template": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.db.backends": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.utils.autoreload": {"handlers": ["debug-error"], "level": "ERROR"},
-        "legacy_cms": {
+        "foundation_cms.legacy_cms": {
             "handlers": ["info"],
             "level": "INFO",
         },

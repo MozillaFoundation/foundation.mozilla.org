@@ -5,9 +5,9 @@ from django.urls import reverse
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.models import Locale
 
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.factory import publication as publication_factory
-from legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import publication as publication_factory
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
 
 
 class PageRedirectTest(test_base.WagtailpagesTestCase):

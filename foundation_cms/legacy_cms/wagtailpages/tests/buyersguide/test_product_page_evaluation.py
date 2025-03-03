@@ -5,14 +5,14 @@ from django.utils.translation import gettext
 from faker import Faker
 from wagtail import hooks
 
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
-from legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.homepage import BuyersGuidePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.buyersguide.products import (
     ProductPage,
     ProductPageEvaluation,
     reset_product_page_votes,
 )
-from legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestProductPageEvaluation(BuyersGuideTestCase):

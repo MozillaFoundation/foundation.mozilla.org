@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-import legacy_cms.highlights.models
+import foundation_cms.legacy_cms.highlights.models
 
 
 class Migration(migrations.Migration):
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             field=models.FileField(
                 help_text="Image representing this highlight",
                 max_length=2048,
-                upload_to=legacy_cms.highlights.models.get_highlights_image_upload_path,
+                upload_to=foundation_cms.legacy_cms.highlights.models.get_highlights_image_upload_path,
             ),
         ),
     ]

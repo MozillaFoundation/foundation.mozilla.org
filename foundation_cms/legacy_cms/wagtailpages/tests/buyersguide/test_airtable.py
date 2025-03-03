@@ -2,11 +2,11 @@ from datetime import date, datetime, timezone
 
 from django.test import TestCase
 
-from legacy_cms.wagtailpages.factory.buyersguide import (
+from foundation_cms.legacy_cms.wagtailpages.factory.buyersguide import (
     BuyersGuidePageFactory,
     GeneralProductPageFactory,
 )
-from legacy_cms.wagtailpages.pagemodels.base import Homepage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import Homepage
 
 
 class TestPNIAirtableConnections(TestCase):

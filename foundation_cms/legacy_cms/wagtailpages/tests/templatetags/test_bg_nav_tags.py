@@ -1,8 +1,8 @@
 from wagtail.models import Locale
 
-from legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
-from legacy_cms.wagtailpages.templatetags.bg_nav_tags import bg_categories_in_subnav
-from legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
+from foundation_cms.legacy_cms.wagtailpages.factory import buyersguide as buyersguide_factories
+from foundation_cms.legacy_cms.wagtailpages.templatetags.bg_nav_tags import bg_categories_in_subnav
+from foundation_cms.legacy_cms.wagtailpages.tests.buyersguide.base import BuyersGuideTestCase
 
 
 class TestBgCategoriesInSubnav(BuyersGuideTestCase):

@@ -9,13 +9,13 @@ from wagtail.images.models import Image
 from wagtail.models import Locale
 from wagtail_factories import PageFactory
 
-from legacy_cms.utility.faker import ImageProvider, generate_fake_data
-from legacy_cms.utility.faker.helpers import get_random_objects, reseed
-from legacy_cms.wagtailpages import models as pagemodels
-from legacy_cms.wagtailpages.factory import profiles as profile_factories
-from legacy_cms.wagtailpages.factory.donation import DonationModalFactory
-from legacy_cms.wagtailpages.factory.image_factory import ImageFactory
-from legacy_cms.wagtailpages.factory.petition import PetitionFactory
+from foundation_cms.legacy_cms.utility.faker import ImageProvider, generate_fake_data
+from foundation_cms.legacy_cms.utility.faker.helpers import get_random_objects, reseed
+from foundation_cms.legacy_cms.wagtailpages import models as pagemodels
+from foundation_cms.legacy_cms.wagtailpages.factory import profiles as profile_factories
+from foundation_cms.legacy_cms.wagtailpages.factory.donation import DonationModalFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_cms.wagtailpages.factory.petition import PetitionFactory
 
 Faker.add_provider(ImageProvider)
 
@@ -101,7 +101,7 @@ class BuyersGuidePageHeroSupportingPageRelationFactory(DjangoModelFactory):
 
     page = SubFactory(BuyersGuidePageFactory)
     supporting_page = SubFactory(
-        "legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory",
+        "foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory",
     )
 
 
@@ -111,7 +111,7 @@ class BuyersGuidePageFeaturedArticleRelationFactory(DjangoModelFactory):
 
     page = SubFactory(BuyersGuidePageFactory)
     article = SubFactory(
-        "legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory",
+        "foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideArticlePageFactory",
     )
 
 
@@ -121,7 +121,7 @@ class BuyersGuidePageFeaturedUpdateRelationFactory(DjangoModelFactory):
 
     page = SubFactory(BuyersGuidePageFactory)
     update = SubFactory(
-        "legacy_cms.wagtailpages.factory.buyersguide.ProductUpdateFactory",
+        "foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.ProductUpdateFactory",
     )
 
 
@@ -134,7 +134,7 @@ class ProductVoteFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.ProductVote
 
-    evaluation = SubFactory("legacy_cms.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
+    evaluation = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
     value = Faker("random_int", min=0, max=100)
 
 
@@ -154,14 +154,14 @@ class ProductPageFactory(PageFactory):
     worst_case = Faker("sentence")
     first_published_at = Faker("past_datetime", start_date="-2d", tzinfo=timezone.utc)
     last_published_at = Faker("past_datetime", start_date="-1d", tzinfo=timezone.utc)
-    evaluation = SubFactory("legacy_cms.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
+    evaluation = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.ProductPageEvaluationFactory")
     locale = LazyFunction(lambda: Locale.get_default())
 
     @post_generation
     def with_random_categories(self, create, extracted, **kwargs):
         if extracted:
             # late import to prevent circular dependency
-            from legacy_cms.wagtailpages.models import ProductPageCategory
+            from foundation_cms.legacy_cms.wagtailpages.models import ProductPageCategory
 
             ceiling = 1.0
             while True:
@@ -408,8 +408,8 @@ class ProductPageCategoryFactory(DjangoModelFactory):
     class Meta:
         model = pagemodels.ProductPageCategory
 
-    product = SubFactory("legacy_cms.wagtailpages.factory.buyersguide.ProductPageFactory")
-    category = SubFactory("legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideProductCategoryFactory")
+    product = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.ProductPageFactory")
+    category = SubFactory("foundation_cms.legacy_cms.wagtailpages.factory.buyersguide.BuyersGuideProductCategoryFactory")
 
 
 def generate(seed):

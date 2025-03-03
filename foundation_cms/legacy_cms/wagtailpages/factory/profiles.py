@@ -1,10 +1,10 @@
 from factory import Faker, SubFactory
 from factory.django import DjangoModelFactory
 
-from legacy_cms.utility.faker import generate_fake_data
-from legacy_cms.utility.faker.helpers import reseed
-from legacy_cms.wagtailpages.factory import image_factory
-from legacy_cms.wagtailpages.models import Profile
+from foundation_cms.legacy_cms.utility.faker import generate_fake_data
+from foundation_cms.legacy_cms.utility.faker.helpers import reseed
+from foundation_cms.legacy_cms.wagtailpages.factory import image_factory
+from foundation_cms.legacy_cms.wagtailpages.models import Profile
 
 NUM_PROFILES = 10
 

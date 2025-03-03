@@ -2,12 +2,12 @@ from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.telepath import register
 
-from legacy_cms.wagtailpages.pagemodels.customblocks.common.base_link_block import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.common.base_link_block import (
     BaseLinkBlock,
     BaseLinkBlockAdapter,
     BaseLinkValue,
 )
-from legacy_cms.wagtailpages.validators import AnchorLinkValidator
+from foundation_cms.legacy_cms.wagtailpages.validators import AnchorLinkValidator
 
 
 class LinkValue(BaseLinkValue):

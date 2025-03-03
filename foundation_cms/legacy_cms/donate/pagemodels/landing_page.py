@@ -4,7 +4,7 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.donate.models import BaseDonationPage
+from foundation_cms.legacy_cms.donate.models import BaseDonationPage
 
 
 class DonateLandingPage(BaseDonationPage):

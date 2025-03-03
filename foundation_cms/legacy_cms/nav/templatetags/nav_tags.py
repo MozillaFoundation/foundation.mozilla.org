@@ -1,6 +1,6 @@
 from django import template
 
-from legacy_cms.wagtailpages.models import BlogIndexPage, BlogPage, Homepage
+from foundation_cms.legacy_cms.wagtailpages.models import BlogIndexPage, BlogPage, Homepage
 
 register = template.Library()
 

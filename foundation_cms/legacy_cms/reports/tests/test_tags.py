@@ -3,7 +3,7 @@ from django.test import SimpleTestCase
 from django.urls import reverse
 from django.utils.html import format_html, mark_safe
 
-from legacy_cms.reports.templatetags import report_tags
+from foundation_cms.legacy_cms.reports.templatetags import report_tags
 
 
 class RenderContentTypeTagTests(SimpleTestCase):

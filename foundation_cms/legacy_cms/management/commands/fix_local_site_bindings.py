@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
 from wagtail.models import Site
 
-from legacy_cms.donate.models import DonateLandingPage
-from legacy_cms.mozfest.models import MozfestHomepage
-from legacy_cms.wagtailpages.models import Homepage
+from foundation_cms.legacy_cms.donate.models import DonateLandingPage
+from foundation_cms.legacy_cms.mozfest.models import MozfestHomepage
+from foundation_cms.legacy_cms.wagtailpages.models import Homepage
 
 
 class Command(BaseCommand):

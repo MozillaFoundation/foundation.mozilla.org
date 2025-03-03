@@ -3,7 +3,7 @@ from django.utils import text as text_utils
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
-from legacy_cms.wagtailpages.pagemodels.customblocks.link_button_block import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_button_block import (
     LinkButtonBlock,
 )
 

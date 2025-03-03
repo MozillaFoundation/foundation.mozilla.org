@@ -1,7 +1,7 @@
-from legacy_cms.wagtailpages.factory.libraries.research_hub import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.research_hub import (
     relations as relations_factory,
 )
-from legacy_cms.wagtailpages.tests.libraries.research_hub import base
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.research_hub import base
 
 
 class ResearchLandingPageTestCase(base.ResearchHubTestCase):

@@ -1,7 +1,7 @@
 from wagtail import blocks
 from wagtail.snippets.blocks import SnippetChooserBlock
 
-from legacy_cms.wagtailpages.utils import (
+from foundation_cms.legacy_cms.wagtailpages.utils import (
     get_language_from_request,
     map_language_code_to_tito_supported_language_code,
 )

@@ -7,9 +7,9 @@ from django.core import exceptions
 from taggit import models as tag_models
 from wagtail import models as wagtail_models
 
-from legacy_cms.wagtailpages.factory import blog as blog_factory
-from legacy_cms.wagtailpages.factory import homepage as home_factory
-from legacy_cms.wagtailpages.pagemodels.mixin import foundation_metadata
+from foundation_cms.legacy_cms.wagtailpages.factory import blog as blog_factory
+from foundation_cms.legacy_cms.wagtailpages.factory import homepage as home_factory
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 class TestBlogPage(test.TestCase):
@@ -55,7 +55,7 @@ class TestBlogPage(test.TestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
 
-    @mock.patch("legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
+    @mock.patch("foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
     def test_get_context_with_no_related_posts_no_tag_related_posts_not_preview(self, mock_get_missing_related_posts):
         request = self.create_get_request(self.blog_page.url)
 
@@ -64,7 +64,7 @@ class TestBlogPage(test.TestCase):
         self.assertListEqual(result["related_posts"], [])
         self.assertEqual(mock_get_missing_related_posts.call_count, 0)
 
-    @mock.patch("legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
+    @mock.patch("foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
     def test_get_context_with_no_related_posts_no_tag_related_posts_when_preview(self, mock_get_missing_related_posts):
         request = self.create_get_request(self.blog_page.url)
         request.is_preview = True
@@ -161,7 +161,7 @@ class TestBlogPage(test.TestCase):
         # We have more directly related posts than the limit, so we don't get any tag related posts.
         self.assertEqual(len(result), 0)
 
-    @mock.patch("legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
+    @mock.patch("foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.get_missing_related_posts")
     def test_ensure_related_posts_calls_get_missing_related_posts(self, mock_get_missing_related_posts):
         self.assertEqual(self.blog_page.related_posts.count(), 0)
 
@@ -185,7 +185,7 @@ class TestBlogPage(test.TestCase):
 
         self.assertEqual(self.blog_page.related_posts.count(), 2)
 
-    @mock.patch("legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.ensure_related_posts")
+    @mock.patch("foundation_cms.legacy_cms.wagtailpages.pagemodels.blog.blog.BlogPage.ensure_related_posts")
     def test_clean_calls_ensure_related_posts(self, mock_ensure_related_posts):
         self.blog_page.clean()
 

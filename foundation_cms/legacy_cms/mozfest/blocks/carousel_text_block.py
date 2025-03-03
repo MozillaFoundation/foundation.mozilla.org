@@ -1,6 +1,6 @@
 from wagtail import blocks
 
-from legacy_cms.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_cms.wagtailpages.pagemodels import customblocks
 
 
 class CarouselTextBlock(blocks.StructBlock):

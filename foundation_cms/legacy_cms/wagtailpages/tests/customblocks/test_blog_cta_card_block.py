@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from legacy_cms.wagtailpages.factory import customblocks as customblock_factories
+from foundation_cms.legacy_cms.wagtailpages.factory import customblocks as customblock_factories
 
 
 class TestBlogCTACardBlock(TestCase):

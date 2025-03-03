@@ -3,7 +3,7 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailmedia import blocks as wagtailmedia_blocks
 
-from legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.link_block import (
     LinkWithoutLabelBlock,
 )
 

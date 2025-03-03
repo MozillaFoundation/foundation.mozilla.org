@@ -4,8 +4,8 @@ from faker import Faker  # note: NOT from factory, but from faker. Different Fak
 from wagtail.images.models import Image
 from wagtail.models import Page
 
-from legacy_cms.utility.faker.helpers import get_homepage, reseed
-from legacy_cms.wagtailpages.pagemodels.base import HomepageTakeActionCards
+from foundation_cms.legacy_cms.utility.faker.helpers import get_homepage, reseed
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import HomepageTakeActionCards
 
 faker = Faker()
 

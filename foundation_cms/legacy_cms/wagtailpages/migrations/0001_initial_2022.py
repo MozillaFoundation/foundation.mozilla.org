@@ -21,10 +21,10 @@ import wagtailmedia.blocks
 import wagtailmetadata.models
 from django.db import migrations, models
 
-import legacy_cms.wagtailpages.fields
-import legacy_cms.wagtailpages.pagemodels.customblocks.articles
-import legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance
-import legacy_cms.wagtailpages.pagemodels.mixin.snippets
+import foundation_cms.legacy_cms.wagtailpages.fields
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.articles
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance
+import foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.snippets
 
 
 class Migration(migrations.Migration):
@@ -824,7 +824,7 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtail.search.index.Indexed,
-                legacy_cms.wagtailpages.pagemodels.mixin.snippets.LocalizedSnippet,
+                foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.snippets.LocalizedSnippet,
                 models.Model,
             ),
         ),
@@ -2924,7 +2924,7 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance.FoundationBannerInheritanceMixin,
+                foundation_cms.legacy_cms.wagtailpages.pagemodels.mixin.foundation_banner_inheritance.FoundationBannerInheritanceMixin,
                 "wagtailcore.page",
                 models.Model,
             ),
@@ -3005,15 +3005,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "signup_requires_email",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="email"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="email"),
                 ),
                 (
                     "signup_requires_phone",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="phone"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="phone"),
                 ),
                 (
                     "signup_requires_third_party_account",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="third-party account"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="third-party account"),
                 ),
                 (
                     "signup_requirement_explanation",
@@ -3037,7 +3037,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "user_friendly_privacy_policy",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
                         verbose_name="user-friendly privacy information?"
                     ),
                 ),
@@ -3066,7 +3066,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uses_encryption",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="encryption"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="encryption"),
                 ),
                 (
                     "uses_encryption_helptext",
@@ -3074,7 +3074,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "security_updates",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(),
                 ),
                 (
                     "security_updates_helptext",
@@ -3082,7 +3082,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "strong_password",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(),
                 ),
                 (
                     "strong_password_helptext",
@@ -3090,13 +3090,13 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "manage_vulnerabilities",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="manages security vulnerabilities"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="manages security vulnerabilities"),
                 ),
                 (
                     "manage_vulnerabilities_helptext",
                     wagtail.fields.RichTextField(blank=True, max_length=5000),
                 ),
-                ("privacy_policy", legacy_cms.wagtailpages.fields.ExtendedYesNoField()),
+                ("privacy_policy", foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField()),
                 (
                     "privacy_policy_helptext",
                     models.TextField(blank=True, max_length=5000, verbose_name="description"),
@@ -3311,27 +3311,27 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "camera_device",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="camera: Device"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="camera: Device"),
                 ),
                 (
                     "camera_app",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="camera: App"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="camera: App"),
                 ),
                 (
                     "microphone_device",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="microphone: Device"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="microphone: Device"),
                 ),
                 (
                     "microphone_app",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="microphone: App"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="microphone: App"),
                 ),
                 (
                     "location_device",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="tracks location: Device"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="tracks location: Device"),
                 ),
                 (
                     "location_app",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="tracks location: App"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="tracks location: App"),
                 ),
                 (
                     "personal_data_collected",
@@ -3385,7 +3385,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "offline_capable",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
                         verbose_name="can this product be used offline?"
                     ),
                 ),
@@ -3399,7 +3399,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "uses_ai",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="does the product use AI?"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="does the product use AI?"),
                 ),
                 (
                     "ai_helptext",
@@ -3411,7 +3411,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "ai_is_untrustworthy",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="is this AI untrustworthy?"),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(verbose_name="is this AI untrustworthy?"),
                 ),
                 (
                     "ai_is_untrustworthy_ding",
@@ -3426,7 +3426,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "ai_is_transparent",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
                         verbose_name="is the company transparent about how the AI works?"
                     ),
                 ),
@@ -3440,7 +3440,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "ai_can_user_control",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(
                         verbose_name="does the user have control over the AI features?"
                     ),
                 ),
@@ -3518,7 +3518,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "recording_alert",
-                    legacy_cms.wagtailpages.fields.ExtendedYesNoField(null=True),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedYesNoField(null=True),
                 ),
                 (
                     "recording_alert_helptext",
@@ -3526,7 +3526,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "medical_privacy_compliant",
-                    legacy_cms.wagtailpages.fields.ExtendedBoolean(),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedBoolean(),
                 ),
                 (
                     "medical_privacy_compliant_helptext",
@@ -3535,7 +3535,7 @@ class Migration(migrations.Migration):
                 ("host_controls", models.TextField(blank=True, max_length=5000)),
                 (
                     "easy_to_learn_and_use",
-                    legacy_cms.wagtailpages.fields.ExtendedBoolean(),
+                    foundation_cms.legacy_cms.wagtailpages.fields.ExtendedBoolean(),
                 ),
                 (
                     "easy_to_learn_and_use_helptext",
@@ -4523,7 +4523,7 @@ class Migration(migrations.Migration):
                             ),
                             (
                                 "content",
-                                legacy_cms.wagtailpages.pagemodels.customblocks.articles.ArticleRichText(
+                                foundation_cms.legacy_cms.wagtailpages.pagemodels.customblocks.articles.ArticleRichText(
                                     features=[
                                         "bold",
                                         "italic",

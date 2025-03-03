@@ -1,4 +1,4 @@
-from legacy_cms.wagtailpages import utils
+from foundation_cms.legacy_cms.wagtailpages import utils
 
 
 class FoundationNavigationPageMixin:

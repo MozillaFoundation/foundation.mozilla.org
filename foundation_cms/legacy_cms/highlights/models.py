@@ -8,7 +8,7 @@ from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
 
-from legacy_cms.utility.images import get_image_upload_path
+from foundation_cms.legacy_cms.utility.images import get_image_upload_path
 
 
 def get_highlights_image_upload_path(instance, filename):

@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from legacy_cms.wagtailpages.models import Petition
+from foundation_cms.legacy_cms.wagtailpages.models import Petition
 
 from .abstract import CTAFactory
 

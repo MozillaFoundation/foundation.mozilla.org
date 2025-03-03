@@ -3,14 +3,14 @@ from functools import cached_property
 from wagtail.admin import panels
 from wagtail_localize import fields as localize_fields
 
-from legacy_cms.wagtailpages.pagemodels.libraries import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import (
     landing_page as base_landing_page,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.rcc import authors_index
-from legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import authors_index
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
     detail_page as rcc_detail_page,
 )
-from legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries.rcc import (
     library_page as rcc_library_page,
 )
 

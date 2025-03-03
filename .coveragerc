@@ -2,7 +2,7 @@
 source = foundation_cms/legacy_cms
 omit =
    *migrations*
-   *settings.py*
+   *base.py*
    *test_*
 branch = true
 

@@ -1,6 +1,6 @@
 from django.test import RequestFactory, SimpleTestCase
 
-from legacy_cms.wagtailpages.views import localized_redirect
+from foundation_cms.legacy_cms.wagtailpages.views import localized_redirect
 
 
 class LocalizedRedirectTests(SimpleTestCase):

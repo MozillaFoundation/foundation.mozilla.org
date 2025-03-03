@@ -1,17 +1,17 @@
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     author_index as author_index_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     detail_page as detail_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     landing_page as landing_page_factory,
 )
-from legacy_cms.wagtailpages.factory.libraries.rcc import (
+from foundation_cms.legacy_cms.wagtailpages.factory.libraries.rcc import (
     library_page as library_page_factory,
 )
-from legacy_cms.wagtailpages.tests import base as test_base
-from legacy_cms.wagtailpages.tests.libraries.rcc import utils
+from foundation_cms.legacy_cms.wagtailpages.tests import base as test_base
+from foundation_cms.legacy_cms.wagtailpages.tests.libraries.rcc import utils
 
 
 class RCCTestCase(test_base.WagtailpagesTestCase):

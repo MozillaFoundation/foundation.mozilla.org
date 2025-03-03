@@ -8,8 +8,8 @@ from wagtail import images as wagtail_images
 from wagtail.admin import panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from legacy_cms.wagtailpages.pagemodels.base import BasePage
-from legacy_cms.wagtailpages.pagemodels.libraries import constants
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.base import BasePage
+from foundation_cms.legacy_cms.wagtailpages.pagemodels.libraries import constants
 
 if typing.TYPE_CHECKING:
     from django import forms, http
