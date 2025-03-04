@@ -10,7 +10,7 @@ const PulseProfile = ({ profile }) => {
           src={
             profile.thumbnail
               ? profile.thumbnail
-              : "/static/_images/fellowships/headshot/placeholder.jpg"
+              : "/static/legacy/_images/fellowships/headshot/placeholder.jpg"
           }
           className="tw-w-auto tw-h-full tw-absolute tw-left-50 tw-top-50 tw-min-w-full tw-object-cover"
           alt="Headshot"
@@ -45,7 +45,7 @@ const PulseProfile = ({ profile }) => {
           <p className="tw-flex-row tw-flex tw-items-center tw-justify-start tw-text-sm tw-my-0">
             <img
               className="tw-w-6 tw-h-6 tw-block tw-mr-2 tw-body-small"
-              src="/static/_images/glyphs/map-marker-icon-dark.svg"
+              src="/static/legacy/_images/glyphs/map-marker-icon-dark.svg"
               alt=""
             />
             {profile.location}

@@ -9,7 +9,7 @@
             {% if author_profile.image %}
                 {% image author_profile.image fill-182x182 class=profile_image_classes alt=author_profile.name %}
             {% else %}
-                <img src="{% static '_images/author_profile-placeholder.jpg' %}" width="100" height="100" alt="Bemidji State University" class="{{ profile_image_classes }}">
+                <img src="{% static 'legacy/_images/author_profile-placeholder.jpg' %}" width="100" height="100" alt="Bemidji State University" class="{{ profile_image_classes }}">
             {% endif %}
         {% endwith %}
     </div>

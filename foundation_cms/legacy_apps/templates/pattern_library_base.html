@@ -16,9 +16,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {% block stylesheets %}
-            <link rel="stylesheet" href="{% static "_css/main.compiled.css" %}">
-            <link rel="stylesheet" href="{% static "_fonts/css/base.min.css" %}">
-            {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
+            <link rel="stylesheet" href="{% static "legacy/_css/main.compiled.css" %}">
+            <link rel="stylesheet" href="{% static "legacy/_fonts/css/base.min.css" %}">
+            {% if debug %}<link rel="stylesheet" href="{% static "legacy/_css/tailwind.compiled.css" %}">{% endif %}
         {% endblock %}
     </head>
     <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
@@ -37,7 +37,7 @@
 
         {% block script_bundle %}
             <script src="{% url "javascript-catalog" %}"></script>
-            <script src="{% static "_js/main.compiled.js" %}"></script>
+            <script src="{% static "legacy/_js/main.compiled.js" %}"></script>
         {% endblock %}
 
         {% block extra_scripts %}{% endblock %}

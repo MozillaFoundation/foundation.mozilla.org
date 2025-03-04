@@ -115,7 +115,7 @@ class PulseProjectList extends Component {
                   src={
                     project.thumbnail
                       ? project.thumbnail
-                      : `/static/_images/proportional-spacer.png`
+                      : `/static/legacy/_images/proportional-spacer.png`
                   }
                   alt=""
                 />

@@ -7,7 +7,7 @@
             {% image page.banner_image original as hero_img %}
             <div class="{{ hero_image_classes }}" style="background-image: url('{{ hero_img.url }}')"></div>
         {% else %}
-            <div  class="{{ hero_image_classes }}" style="background-image: url('{% static "_images/banner-black-white-marble.jpg" %}')"></div>
+            <div  class="{{ hero_image_classes }}" style="background-image: url('{% static "legacy/_images/banner-black-white-marble.jpg" %}')"></div>
         {% endif %}
     {% endwith %}
 {% endblock hero_guts %}

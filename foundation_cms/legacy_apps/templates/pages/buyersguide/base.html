@@ -37,9 +37,9 @@
 
 
 {% block stylesheets %}
-    {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
-    <link rel="stylesheet" href="{% static "_css/buyers-guide.compiled.css" %}">
-    <link rel="stylesheet" href="{% static "_fonts/css/base.min.css" %}">
+    {% if debug %}<link rel="stylesheet" href="{% static "legacy/_css/tailwind.compiled.css" %}">{% endif %}
+    <link rel="stylesheet" href="{% static "legacy/_css/buyers-guide.compiled.css" %}">
+    <link rel="stylesheet" href="{% static "legacy/_fonts/css/base.min.css" %}">
 {% endblock %}
 
 {% block extended_head %}{% endblock %}
@@ -63,7 +63,7 @@
         if ( !modernBrowser ) {
             var scriptElement = document.createElement('script');
             scriptElement.async = false;
-            scriptElement.src = '{% static "_js/polyfills.compiled.js" %}';
+            scriptElement.src = '{% static "legacy/_js/polyfills.compiled.js" %}';
             document.head.appendChild(scriptElement);
         }
     </script>
@@ -75,7 +75,7 @@
 
 {% block script_bundle %}
     <script src="{% url "javascript-catalog" %}"></script>
-    <script src="{% static "_js/bg-main.compiled.js" %}" async defer></script>
+    <script src="{% static "legacy/_js/bg-main.compiled.js" %}" async defer></script>
 {% endblock %}
 
 

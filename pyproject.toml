@@ -232,7 +232,7 @@ ignore="H017"
 
 [tool.isort]
 profile = "black"
-extend_skip = ["foundation_cms/media", "foundation_cms/staticfiles", "dockerpythonvenv"]
+extend_skip = ["foundation_cms/media", "/staticfiles", "dockerpythonvenv"]
 skip_gitignore = true
 known_first_party = ["legacy_apps"]
 # Though overwrite_in_place comes at a performance and memory usage penalty,

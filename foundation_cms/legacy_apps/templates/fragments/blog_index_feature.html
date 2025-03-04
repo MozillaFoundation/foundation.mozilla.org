@@ -7,7 +7,7 @@
             <div class="tw-flex tw-flex-wrap">
                 {% include "wagtailpages/fragments/blog_topics.html" with topics=blog_page.topics.all video_post=True published_date=blog_page.first_published_at %}
                 {% if video_url %}
-                    <img src="{% static "_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
+                    <img src="{% static "legacy/_images/video-icon.svg" %}" alt="{% trans "video" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-mr-4 tw-my-2">
                 {% endif %}
                 <span class="tw-h6-heading tw-text-gray-40 tw-py-2 tw-mb-0">{{ blog_page.first_published_at|date:"DATE_FORMAT" }}</span>
             </div>
@@ -28,7 +28,7 @@
                         <source src="{{ video_url }}" type="video/mp4">
                     </video>
                     <div class="tw-absolute tw-top-0 tw-left-0 tw-min-h-full tw-min-w-full tw-flex tw-justify-center tw-place-items-center">
-                        <img class="play-button tw-h-32 tw-w-32 tw-opacity-75 hover:tw-opacity-100" src="{% static "_images/video_play_button.svg" %}" alt="{% trans "Play Button" context "icon description for screen readers" %}">
+                        <img class="play-button tw-h-32 tw-w-32 tw-opacity-75 hover:tw-opacity-100" src="{% static "legacy/_images/video_play_button.svg" %}" alt="{% trans "Play Button" context "icon description for screen readers" %}">
                     </div>
                 </div>
             {% else %}

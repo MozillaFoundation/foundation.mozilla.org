@@ -12,8 +12,8 @@ COPY package.json package-lock.json tailwind.config.js esbuild.config.js contrib
 COPY ./tailwind-plugins/ ./tailwind-plugins/
 RUN npm ci --no-optional --no-audit --progress=false
 
-# Compile static files from static source at ./frontend/legacy_source to ./frontend/legacy_compiled
-# This will create a `frontend/legacy_compiled` directory.
+# Compile static files from static source at ./frontend/legacy_source to ./frontend/compiled/legacy
+# This will create a `frontend/compiled/legacy` directory.
 COPY ./frontend/legacy_source/ ./frontend/legacy_source/
 COPY ./foundation_cms/legacy_apps/ ./foundation_cms/legacy_apps/
 RUN npm run build
@@ -99,14 +99,14 @@ COPY --chown=mozilla . .
 # Copy compiled assets from the frontend build stage for collectstatic to work.
 # This will later be obscured by the `foundation_cms` bind mount in docker-compose.yml, and
 # will need to be recreated by `npm run build`.
-COPY --chown=mozilla --from=frontend /app/frontend/legacy_compiled ./frontend/legacy_compiled
+COPY --chown=mozilla --from=frontend /app/frontend/compiled/legacy ./frontend/compiled/legacy
 
 # Run collectstatic to move static files from application directories and
-# compiled static directory (frontend/legacy_compiled) to the site's static
-# directory in /app/foundation_cms/staticfiles that will be served by the WSGI server.
+# compiled static directory (frontend/compiled/legacy) to the site's static
+# directory in /app//staticfiles that will be served by the WSGI server.
 #
 # Note: this is only used where DEBUG=False, and so is not needed on dev builds.
-# The foundation_cms/staticfiles will not be visible after mounting the
+# The /staticfiles will not be visible after mounting the
 # foundation_cms directory.
 RUN SECRET_KEY=none python ./manage.py collectstatic --noinput --clear
 

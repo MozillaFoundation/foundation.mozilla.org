@@ -4,9 +4,9 @@
 {% block html_class %} tw-bg-black tw-scroll-smooth {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{% static "_css/donate.compiled.css" %}">
-    <link rel="stylesheet" href="{% static "_fonts/css/base.min.css" %}">
-    {% if debug %}<link rel="stylesheet" href="{% static "_css/tailwind.compiled.css" %}">{% endif %}
+    <link rel="stylesheet" href="{% static "legacy/_css/donate.compiled.css" %}">
+    <link rel="stylesheet" href="{% static "legacy/_fonts/css/base.min.css" %}">
+    {% if debug %}<link rel="stylesheet" href="{% static "legacy/_css/tailwind.compiled.css" %}">{% endif %}
 {% endblock %}
 
 {% block extended_head %}{% endblock %}
@@ -35,6 +35,6 @@
 
 {% block script_bundle %}
     <script src="{% url "javascript-catalog" %}"></script>
-    <script src="{% static "_js/main.compiled.js" %}"></script>
+    <script src="{% static "legacy/_js/main.compiled.js" %}"></script>
 {% endblock %}
 

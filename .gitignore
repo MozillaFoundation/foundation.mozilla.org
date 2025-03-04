@@ -106,7 +106,7 @@ dockerpythonvenv/
 **/.DS_Store
 
 # Static files from python manage.py collectstatic
-foundation_cms/staticfiles/
+/staticfiles/
 
 # Storage for user generated files
 foundation_cms/media/
@@ -116,8 +116,9 @@ foundation_cms/media/
 *.psql
 
 # Compiled Frontend
-frontend/legacy_compiled/
-frontend/temp/legacy_compiled/
+frontend/compiled/
+frontend/compiled/legacy/
+frontend/temp/compiled/legacy/
 
 # PyCharm
 .idea/
