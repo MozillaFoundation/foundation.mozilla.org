@@ -12,7 +12,7 @@ on:
 jobs:
   test_node:
     name: Node CI
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,7 +30,7 @@ jobs:
 
   test_wagtail:
     name: Wagtail CI
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     services:
       postgres:
         image: postgres:15
@@ -107,7 +107,7 @@ jobs:
 
   test_integration:
     name: Integration testing
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     services:
       postgres:
         image: postgres:15
