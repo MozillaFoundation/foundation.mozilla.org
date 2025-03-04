@@ -17,7 +17,10 @@ class PulseProjectQueryValue(blocks.StructValue):
 
 class PulseProjectList(blocks.StructBlock):
     search_terms = blocks.CharBlock(
-        help_text="Test your search at mozillapulse.org/search",
+        help_text=(
+            "Test your search at https://api.mozillapulse.org/api/pulse/v2/entries/ "
+            "(e.g., https://api.mozillapulse.org/api/pulse/v2/entries/?search=mozfest)"
+        ),
         label="Search",
         required=False,
     )
