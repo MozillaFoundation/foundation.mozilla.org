@@ -332,7 +332,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            app("templates"),
+            root("legacy_cms/templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -505,8 +505,8 @@ WHITENOISE_INDEX_FILE = True
 STATIC_HOST = env("STATIC_HOST") if not DEBUG and not REVIEW_APP else ""
 
 STATIC_URL = STATIC_HOST + "/static/"
-STATIC_ROOT = root("../legacy_cms/staticfiles/")
-STATICFILES_DIRS = [app("../legacy_cms/frontend")]
+STATIC_ROOT = root("staticfiles/")
+STATICFILES_DIRS = [root("legacy_cms/frontend")]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
