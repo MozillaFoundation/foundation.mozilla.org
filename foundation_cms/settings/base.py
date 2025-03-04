@@ -508,7 +508,7 @@ STATIC_HOST = env("STATIC_HOST") if not DEBUG and not REVIEW_APP else ""
 
 STATIC_URL = STATIC_HOST + "/static/"
 STATIC_ROOT = root("staticfiles/")
-STATICFILES_DIRS = [root("legacy_apps/frontend")]
+STATICFILES_DIRS = [root("../frontend/legacy_compiled")]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 

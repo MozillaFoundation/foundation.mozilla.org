@@ -50,7 +50,7 @@ services:
       - ./translation-management.sh:/app/translation-management.sh
 
       # Frontend config
-      - ./source:/app/source
+      - ./frontend:/app/frontend
       - ./eslint.config.a11y.js:/app/eslint.config.a11y.js
       - ./eslint.config.js:/app/eslint.config.js
       - ./.editorconfig:/app/.editorconfig
