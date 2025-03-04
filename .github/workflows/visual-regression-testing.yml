@@ -12,7 +12,7 @@ jobs:
   visual_regression_tests:
     name: Percy CI
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.event.label.name == 'run visual regression tests') || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     services:
       postgres:
         image: postgres:13.2
