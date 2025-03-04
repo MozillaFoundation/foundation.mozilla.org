@@ -17,7 +17,6 @@ jobs:
       ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
-      PULSE_DOMAIN: https://www.mozillapulse.org
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -55,7 +54,6 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
-      PULSE_DOMAIN: https://www.mozillapulse.org
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
@@ -132,7 +130,6 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
-      PULSE_DOMAIN: https://www.mozillapulse.org
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
