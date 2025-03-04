@@ -5,5 +5,5 @@
 {% block block_content %}
     <script src='https://js.tito.io/v2' async></script>
 
-    <tito-button event="{{ value.event.event_id }}" save-metadata-parameters="utm_*" locale="{{ tito_widget_lang_code }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="tw-{{ value.styling }} link-button tw-my-8">{{ value.button_label }}</tito-button>
+    <tito-button event="{{ value.event.event_id }}{% if value.source %}?source={{ value.source }}{% endif %}" save-metadata-parameters="utm_*" locale="{{ tito_widget_lang_code }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="tw-{{ value.styling }} link-button tw-my-8">{{ value.button_label }}</tito-button>
 {% endblock %}
