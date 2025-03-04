@@ -20,7 +20,9 @@ class RCCDetailPageFactory(library_detail_page_factories.LibraryDetailPageAbstra
     )
 
     authors = factory.RelatedFactoryList(
-        factory=("foundation_cms.legacy_apps.wagtailpages.factory.libraries" ".rcc.relations.RCCAuthorRelationFactory"),
+        factory=(
+            "foundation_cms.legacy_apps.wagtailpages.factory.libraries" ".rcc.relations.RCCAuthorRelationFactory"
+        ),
         factory_related_name="detail_page",
         size=1,
     )

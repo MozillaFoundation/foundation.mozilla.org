@@ -369,7 +369,9 @@ TEMPLATES = [
                 "nav_tags": "foundation_cms.legacy_apps.nav.templatetags.nav_tags",
                 "primary_page_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
-                "wagtailcustom_tags": "foundation_cms.legacy_apps.wagtailcustomization.templatetags.wagtailcustom_tags",
+                "wagtailcustom_tags": (
+                    "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
+                ),
             },
             "builtins": ["pattern_library.loader_tags"],
         },

@@ -13,7 +13,11 @@ from foundation_cms.legacy_apps.wagtailpages.factory.buyersguide import (
     ProductPageFactory,
 )
 from foundation_cms.legacy_apps.wagtailpages.factory.profiles import ProfileFactory
-from foundation_cms.legacy_apps.wagtailpages.models import Homepage, ProductPage, Profile
+from foundation_cms.legacy_apps.wagtailpages.models import (
+    Homepage,
+    ProductPage,
+    Profile,
+)
 from foundation_cms.legacy_apps.wagtailpages.tests.base import WagtailpagesTestCase
 
 

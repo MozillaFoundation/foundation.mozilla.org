@@ -8,7 +8,9 @@ from taggit import models as tag_models
 from wagtail import rich_text
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
-from foundation_cms.legacy_apps.wagtailpages.factory import profiles as profile_factories
+from foundation_cms.legacy_apps.wagtailpages.factory import (
+    profiles as profile_factories,
+)
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import blog as blog_models
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import (
     blog_index,

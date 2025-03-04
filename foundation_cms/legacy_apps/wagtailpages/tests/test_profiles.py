@@ -1,6 +1,8 @@
 from django import test
 
-from foundation_cms.legacy_apps.wagtailpages.factory import profiles as profile_factories
+from foundation_cms.legacy_apps.wagtailpages.factory import (
+    profiles as profile_factories,
+)
 
 
 class ProfileTest(test.TestCase):

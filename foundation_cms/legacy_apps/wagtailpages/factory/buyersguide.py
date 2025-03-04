@@ -12,8 +12,12 @@ from wagtail_factories import PageFactory
 from foundation_cms.legacy_apps.utility.faker import ImageProvider, generate_fake_data
 from foundation_cms.legacy_apps.utility.faker.helpers import get_random_objects, reseed
 from foundation_cms.legacy_apps.wagtailpages import models as pagemodels
-from foundation_cms.legacy_apps.wagtailpages.factory import profiles as profile_factories
-from foundation_cms.legacy_apps.wagtailpages.factory.donation import DonationModalFactory
+from foundation_cms.legacy_apps.wagtailpages.factory import (
+    profiles as profile_factories,
+)
+from foundation_cms.legacy_apps.wagtailpages.factory.donation import (
+    DonationModalFactory,
+)
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.factory.petition import PetitionFactory
 

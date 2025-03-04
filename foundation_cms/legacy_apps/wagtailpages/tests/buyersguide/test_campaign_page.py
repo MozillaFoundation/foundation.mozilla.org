@@ -5,7 +5,9 @@ from foundation_cms.legacy_apps.wagtailpages import models as pagemodels
 from foundation_cms.legacy_apps.wagtailpages.factory import (
     buyersguide as buyersguide_factories,
 )
-from foundation_cms.legacy_apps.wagtailpages.factory.donation import DonationModalFactory
+from foundation_cms.legacy_apps.wagtailpages.factory.donation import (
+    DonationModalFactory,
+)
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 
 

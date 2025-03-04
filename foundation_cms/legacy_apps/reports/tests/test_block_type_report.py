@@ -72,7 +72,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[1]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock",
+            (
+                "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks"
+                ".annotated_image_block.AnnotatedImageBlock"
+            ),
         )
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Custom")
@@ -83,7 +86,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[2]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock",
+            (
+                "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks"
+                ".annotated_image_block.RadioSelectBlock"
+            ),
         )
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Custom")
@@ -94,7 +100,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[3]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock",
+            ("foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks" ".link_block.LinkWithoutLabelBlock"),
         )
         self.assertEqual(block["count"], 2)
         self.assertEqual(block["type_label"], "Custom")
@@ -210,7 +216,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[1]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock",
+            (
+                "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks"
+                ".annotated_image_block.AnnotatedImageBlock"
+            ),
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -221,7 +230,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[2]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock",
+            (
+                "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks"
+                ".annotated_image_block.RadioSelectBlock"
+            ),
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -232,7 +244,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[3]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock",
+            ("foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks" ".link_block.LinkWithoutLabelBlock"),
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -351,7 +363,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[1]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.annotated_image_block.AnnotatedImageBlock",
+            (
+                "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks"
+                ".annotated_image_block.AnnotatedImageBlock"
+            ),
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -362,7 +377,10 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[2]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.annotated_image_block.RadioSelectBlock",
+            (
+                "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks"
+                ".annotated_image_block.RadioSelectBlock"
+            ),
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
@@ -373,7 +391,7 @@ class BlockTypesReportViewTest(WagtailpagesTestCase):
         block = object_list[3]
         self.assertEqual(
             block["block"],
-            "foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.link_block.LinkWithoutLabelBlock",
+            ("foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks" ".link_block.LinkWithoutLabelBlock"),
         )
         self.assertEqual(block["count"], 1)
         self.assertEqual(block["type_label"], "Custom")
