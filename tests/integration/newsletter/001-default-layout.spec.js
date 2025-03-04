@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 const waitForImagesToLoad = require("../../wait-for-images.js");
 const {
   LANGUAGE_OPTIONS,
-} = require("../../../frontend/legacy_source/js/components/newsletter-signup/data/language-options.js");
+} = require("../../../frontend/source/legacy/js/components/newsletter-signup/data/language-options.js");
 const { foundationBaseUrl } = require("../../base-urls.js");
 
 const locales = LANGUAGE_OPTIONS.map((language) => language.value);

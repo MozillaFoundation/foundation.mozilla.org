@@ -11,7 +11,7 @@ This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), wh
 ## CSS
 
 CSS is currently in a state of transition.
-We are using custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `frontend/legacy_source/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
+We are using custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `frontend/source/legacy/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
 Reason for the transition to Tailwind is that it allows us to sync the design tokens defined by the design team with the available CSS utilities, which makes it easier for our implementation to stay true to the design system.
 The following epic should give a better picture as to where we stand in this transition: https://app.zenhub.com/workspaces/mofo-engagement-585335eab729771d0736378d/issues/mozilla/foundation.mozilla.org/6989
 
@@ -28,7 +28,7 @@ We are also using `tailwind-plugins/components.js` to define Tailwind equivalent
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
 
-To add a React component, you can target a container element from `/frontend/legacy_source/js/main.js` and inject it.
+To add a React component, you can target a container element from `/frontend/source/legacy/js/main.js` and inject it.
 
 ## HTMX
 

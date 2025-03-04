@@ -40,7 +40,7 @@ class StyleguideFactory(PageFactory):
     emoji_image = factory.SubFactory(
         ImageFactory,
         file=factory.django.ImageField(
-            from_path=settings.BASE_DIR + "/../frontend/legacy_source/images/buyers-guide/heart-emoji.png"
+            from_path=settings.BASE_DIR + "/../frontend/source/legacy/images/buyers-guide/heart-emoji.png"
         ),
     )
 

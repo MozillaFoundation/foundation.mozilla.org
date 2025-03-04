@@ -18,7 +18,7 @@ const inProduction = mode === `production`;
 
 console.log(`ESBuild running in production mode?`, inProduction);
 
-const inDir = `./frontend/legacy_source/js/`;
+const inDir = `./frontend/source/legacy/js/`;
 const outDir = `./frontend/compiled/legacy/_js/`;
 
 const sources = {

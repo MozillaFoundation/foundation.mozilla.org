@@ -12,9 +12,9 @@ COPY package.json package-lock.json tailwind.config.js esbuild.config.js contrib
 COPY ./tailwind-plugins/ ./tailwind-plugins/
 RUN npm ci --no-optional --no-audit --progress=false
 
-# Compile static files from static source at ./frontend/legacy_source to ./frontend/compiled/legacy
+# Compile static files from static source at ./frontend/source/legacy to ./frontend/compiled/legacy
 # This will create a `frontend/compiled/legacy` directory.
-COPY ./frontend/legacy_source/ ./frontend/legacy_source/
+COPY ./frontend/source/legacy/ ./frontend/source/legacy/
 COPY ./foundation_cms/legacy_apps/ ./foundation_cms/legacy_apps/
 RUN npm run build
 
