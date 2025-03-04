@@ -5,8 +5,8 @@ from django.views import View
 from django.views.decorators.http import require_GET
 from wagtail.models import Site
 
-from foundation_cms.legacy_cms.mozfest.models import MozfestHomepage
-from foundation_cms.legacy_cms.wagtailpages.models import Homepage
+from foundation_cms.legacy_apps.mozfest.models import MozfestHomepage
+from foundation_cms.legacy_apps.wagtailpages.models import Homepage
 
 
 class EnvVariablesView(View):

@@ -116,8 +116,8 @@ foundation_cms/media/
 *.psql
 
 # Compiled Frontend
-foundation_cms/legacy_cms/frontend/
-foundation_cms/legacy_cms/temp/frontend/
+foundation_cms/legacy_apps/frontend/
+foundation_cms/legacy_apps/temp/frontend/
 
 # PyCharm
 .idea/

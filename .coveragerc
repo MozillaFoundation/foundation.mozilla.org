@@ -1,5 +1,5 @@
 [coverage:run]
-source = foundation_cms/legacy_cms
+source = foundation_cms/legacy_apps
 omit =
    *migrations*
    *base.py*

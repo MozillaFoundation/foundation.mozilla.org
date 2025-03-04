@@ -15,7 +15,7 @@ docs/
 /venv/
 /tmp/
 /npm-debug.log
-foundation_cms/legacy_cms/frontend/
+foundation_cms/legacy_apps/frontend/
 foundation_cms/media/
 foundation_cms/staticfiles/
 **/node_modules/

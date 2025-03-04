@@ -23,9 +23,9 @@ locale_abstraction_instructions = " ".join(
         "--all",
         "--keep-pot",
         "--no-wrap",
-        "--ignore=foundation_cms/legacy_cms/wagtailcustomization/*",
+        "--ignore=foundation_cms/legacy_apps/wagtailcustomization/*",
         "--ignore=foundation_cms/settings/base.py",
-        "--ignore=foundation_cms/legacy_cms/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
+        "--ignore=foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
         "--ignore=dockerpythonvenv/*",
     ]
 )
@@ -334,7 +334,7 @@ def test_python(ctx, file="", n="auto", verbose=False):
     parallel = f"-n {n}" if n != "1" else ""
     v = "-v" if verbose else ""
     # Don't run coverage if a file is specified
-    cov = "" if file else "--cov=foundation_cms/legacy_cms --cov-report=term-missing"
+    cov = "" if file else "--cov=foundation_cms/legacy_apps --cov-report=term-missing"
     command = f"pytest {v} {parallel} {file} --reuse-db {cov}"
     pyrun(ctx, command)
 

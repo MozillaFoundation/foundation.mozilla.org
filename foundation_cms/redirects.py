@@ -1,6 +1,6 @@
 from django.urls import re_path
 
-from foundation_cms.legacy_cms.wagtailpages.views import localized_redirect
+from foundation_cms.legacy_apps.wagtailpages.views import localized_redirect
 
 
 def foundation_redirects():

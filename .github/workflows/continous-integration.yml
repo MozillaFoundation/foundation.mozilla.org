@@ -105,7 +105,7 @@ jobs:
       - name: Run type checks
         run: mypy foundation_cms
       - name: Run Tests
-        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base -cov=foundation_cms/legacy_cms --cov-report=term-missing
+        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base -cov=foundation_cms/legacy_apps --cov-report=term-missing
 
   test_integration:
     name: Integration testing

@@ -1,6 +1,6 @@
 {
   "include": [
-    "foundation_cms/legacy_cms"
+    "foundation_cms/legacy_apps"
   ],
   "exclude": [
     "**/node_modules",

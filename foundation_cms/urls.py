@@ -16,11 +16,11 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail_ab_testing import urls as ab_testing_urls
 from wagtail_footnotes import urls as footnotes_urls
 
-from foundation_cms.legacy_cms.utility import watail_core_url_override as wagtail_urls
-from foundation_cms.legacy_cms.wagtailcustomization.image_url_tag_urls import (
+from foundation_cms.legacy_apps.utility import watail_core_url_override as wagtail_urls
+from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
     urlpatterns as image_url_tag_urls,
 )
-from foundation_cms.legacy_cms.wagtailpages.rss import AtomFeed, RSSFeed
+from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
 
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -90,12 +90,12 @@ urlpatterns = list(
             # CSRF endpoint
             re_path(r"^api/csrf/", csrf_response),
             # network API routes:
-            path("api/campaign/", include("foundation_cms.legacy_cms.campaign.urls")),
-            path("api/highlights/", include("foundation_cms.legacy_cms.highlights.urls")),
-            path("api/news/", include("foundation_cms.legacy_cms.news.urls")),
+            path("api/campaign/", include("foundation_cms.legacy_apps.campaign.urls")),
+            path("api/highlights/", include("foundation_cms.legacy_apps.highlights.urls")),
+            path("api/news/", include("foundation_cms.legacy_apps.news.urls")),
             re_path(r"^environment.json", EnvVariablesView.as_view()),
             re_path(r"^help/", review_app_help_view, name="Review app help"),
-            path("tito/", include("foundation_cms.legacy_cms.events.urls")),
+            path("tito/", include("foundation_cms.legacy_apps.events.urls")),
             # Wagtail CMS routes
             re_path(
                 r"^how-do-i-wagtail/",
@@ -169,9 +169,9 @@ urlpatterns += [path("sitemap.xml", sitemap_index)]
 
 # Use a custom 404 handler so that we can serve distinct 404
 # pages for each "site" that wagtail services.
-handler404 = "foundation_cms.legacy_cms.wagtailpages.views.custom404_view"
+handler404 = "foundation_cms.legacy_apps.wagtailpages.views.custom404_view"
 
 # Use a custom 500 handler if and only if Django refuses to give any stack
 # traces for server error 500... And even then, do not use this on prod.
 if settings.FORCE_500_STACK_TRACES is True:
-    handler500 = "foundation_cms.legacy_cms.utility.custom_url_handlers.server_error_500_handler"
+    handler500 = "foundation_cms.legacy_apps.utility.custom_url_handlers.server_error_500_handler"
