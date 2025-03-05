@@ -77,7 +77,7 @@ class Command(BaseCommand):
             image_path = abspath(
                 join(
                     dirname(__file__),
-                    f"../../../../media/images/placeholders/products/{image}",
+                    f"../../../../../media/images/placeholders/products/{image}",
                 )
             )
             create_wagtail_image(image_path, collection_name="pni products")

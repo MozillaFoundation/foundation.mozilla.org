@@ -46,7 +46,7 @@ class BuyersGuideTestCase(test_base.WagtailpagesTestCase):
             image_path = abspath(
                 join(
                     settings.BASE_DIR,
-                    "media/images/placeholders/products/babymonitor.jpg",
+                    "../media/images/placeholders/products/babymonitor.jpg",
                 )
             )
             wagtail_image = create_wagtail_image(image_path, collection_name="pni products")
