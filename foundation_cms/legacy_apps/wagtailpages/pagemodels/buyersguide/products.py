@@ -683,7 +683,7 @@ class ProductPage(BasePage):
         try:
             return (self.search_image or self.image).get_rendition("original").url
         except Exception:
-            return static("_images/buyers-guide/evergreen-social.png")
+            return static("legacy/_images/buyers-guide/evergreen-social.png")
 
     def get_preview_template(self, request, mode_name):
         return "previews/buyersguide/product_page.html"
