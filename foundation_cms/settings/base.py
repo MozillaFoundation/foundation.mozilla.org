@@ -590,7 +590,7 @@ if USE_S3:
 
 else:
     # Otherwise use the default filesystem storage
-    MEDIA_ROOT = root("media/")
+    MEDIA_ROOT = root("../media/")
     MEDIA_URL = "/media/"
 
 # CORS
