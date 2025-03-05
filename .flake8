@@ -1,4 +1,4 @@
 [flake8]
-extend-exclude=*migrations*,dockerpythonvenv/*,foundation_cms/media/*,/staticfiles/*,node_modules/*
+extend-exclude=*migrations*,dockerpythonvenv/*,/media/*,/staticfiles/*,node_modules/*
 extend-ignore = E203
 max-line-length=119

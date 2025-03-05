@@ -16,7 +16,7 @@ docs/
 /tmp/
 /npm-debug.log
 frontend/compiled/legacy/
-foundation_cms/media/
+/media/
 /staticfiles/
 **/node_modules/
 **/dist
