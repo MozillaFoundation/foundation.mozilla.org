@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-cd foundation_cms
-
 # Django Migrations
 python ./manage.py migrate --no-input
 
