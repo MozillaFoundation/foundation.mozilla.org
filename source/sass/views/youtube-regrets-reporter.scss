@@ -321,7 +321,8 @@
           );
 
           width: calc(
-            #{$totoal-num-items} * #{$item-width} + #{$padding-left} + #{$padding-right}
+            #{$totoal-num-items} * #{$item-width} + #{$padding-left} +
+              #{$padding-right}
           );
 
           li {

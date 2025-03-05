@@ -59,7 +59,6 @@ env = environ.Env(
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ""),
-    PULSE_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
@@ -231,8 +230,6 @@ INSTALLED_APPS = list(
             "wagtail.contrib.settings",
             "wagtail_color_panel",
             "wagtailmedia",
-            "dal",
-            "dal_select2",
             "wagtailinventory",
             "wagtail_footnotes",
             "modelcluster",
@@ -693,7 +690,6 @@ logging.config.dictConfig(LOGGING)
 # Frontend
 FRONTEND = {
     "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
-    "PULSE_DOMAIN": env("PULSE_DOMAIN"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),

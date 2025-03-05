@@ -12,7 +12,7 @@ jobs:
   visual_regression_tests:
     name: Percy CI
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.event.label.name == 'run visual regression tests') || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     services:
       postgres:
         image: postgres:13.2
@@ -45,7 +45,6 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PIPENV_VERBOSITY: -1
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
-      PULSE_DOMAIN: https://www.mozillapulse.org
       RANDOM_SEED: 530910203
       SECURE_CROSS_ORIGIN_OPENER_POLICY: "same-origin-allow-popups"
       SET_HSTS: False
