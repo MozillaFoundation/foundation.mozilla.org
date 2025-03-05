@@ -26,7 +26,7 @@ article_fields = [
             features=full_content_rich_text_options + ["large", "image", "footnotes"],
         ),
     ),
-    ("image", customblocks.ArticleImageBlock()),
+    ("image", customblocks.GeneralImageBlock()),
     ("image_grid", customblocks.ImageGridBlock()),
     ("image_text", customblocks.ImageTextBlock()),
     ("double_image", customblocks.ArticleDoubleImageBlock()),
