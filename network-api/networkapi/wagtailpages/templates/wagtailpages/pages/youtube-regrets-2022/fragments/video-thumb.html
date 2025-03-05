@@ -1,7 +1,0 @@
-{% load i18n l10n static %}
-<div class="tw-relative video-thumb {% if size %} video-thumb--{{ size }} {% endif %} {{ class }}" data-scroll data-scroll-speed="{{ speed|unlocalize }}">
-    <div class="tw-flex tw-flex-col video-thumb__inner">
-        <img class="timeline__scene-image" src="{% static '_images/youtube-regrets/regrets-reporter/2022-timeline/' %}{{ image }}" alt="">
-        <p class="tw-text-[0.75rem] tw-text-sm tw-font-bold tw-mt-4">{{ text }}</p>
-    </div>
-</div>

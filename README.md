@@ -171,7 +171,7 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 
 Latest translations are uploaded to S3. To get them, run:
 - `curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar`
-- `tar -C network-api -xvf translations.tar`
+- `tar -C foundation_cms -xvf translations.tar`
 
 You don't need to run `compilemessages` and it works for both pipenv or docker workflows.
 

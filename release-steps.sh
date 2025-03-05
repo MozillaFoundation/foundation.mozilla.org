@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-cd network-api
-
 # Django Migrations
 python ./manage.py migrate --no-input
 

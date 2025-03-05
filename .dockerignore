@@ -15,9 +15,9 @@ docs/
 /venv/
 /tmp/
 /npm-debug.log
-network-api/networkapi/frontend/
-network-api/media/
-network-api/staticfiles/
+frontend/compiled/legacy/
+/media/
+/staticfiles/
 **/node_modules/
 **/dist
 .coverage
