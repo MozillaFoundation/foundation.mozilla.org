@@ -28,7 +28,7 @@
     "build:legacy:css:file:formassembly": "sass frontend/source/legacy/sass/formassembly-override.scss frontend/temp/compiled/legacy/_css/formassembly-override.compiled.css",
     "fix": "run-s fix:*",
     "fix:js": "run-p lint:legacy:js:eslint -- --fix",
-    "fix:css": "run-p lint:legacy:scss -- --fix",
+    "fix:css": "run-p lint:legacy:css:scss -- --fix",
     "fix:scss": "run-p fix:css",
     "heroku-postbuild": "npm run build",
     "lint": "run-p lint:legacy",

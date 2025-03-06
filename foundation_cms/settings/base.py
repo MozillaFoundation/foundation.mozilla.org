@@ -249,7 +249,7 @@ INSTALLED_APPS = list(
             "adminsortable",
             "querystring_tag",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
-            # the network site
+            # Legacy Site Apps
             "foundation_cms.legacy_apps.s3_file_storage" if USE_S3 else None,
             "foundation_cms.legacy_apps.wagtailcustomization",
             "foundation_cms.legacy_apps.campaign",
@@ -267,6 +267,10 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.reports",
             "foundation_cms.legacy_apps.nav",
             "foundation_cms.legacy_apps.project_styleguide",
+            # Redesign Site Apps
+            "foundation_cms.base",
+            "foundation_cms.blog",
+            "foundation_cms.profiles",
         ],
     )
 )
@@ -332,6 +336,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             root("legacy_apps/templates"),
+            root("templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
