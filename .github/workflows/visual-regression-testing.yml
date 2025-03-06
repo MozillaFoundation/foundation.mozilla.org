@@ -79,7 +79,7 @@ jobs:
           python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
-          python ./manage.py load_fake_data
+          python ./manage.py legacy_load_fake_data
       - name: Percy Test
         run: npm run percy
         env:

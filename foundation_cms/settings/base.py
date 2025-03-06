@@ -701,7 +701,7 @@ FRONTEND = {
 GITHUB_TOKEN = env("GITHUB_TOKEN")
 SLACK_WEBHOOK_RA = env("SLACK_WEBHOOK_RA")
 
-# Used by load_fake_data to ensure we have petitions that actually work
+# Used by legacy_load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env("PETITION_TEST_CAMPAIGN_ID")
 
 # Buyers Guide Rate Limit Setting

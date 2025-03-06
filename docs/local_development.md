@@ -54,7 +54,7 @@ For instance, you can run also run common Django commands via invoke, such as `i
 
 **A few examples:**
 
-- `invoke manage load_fake_data`: add more fake data to your project,
+- `invoke manage legacy_load_fake_data`: add more fake data to your project,
 - `invoke npm "install gsap"`: install gsap, add it to your `package.json` and lock it.
 
 ### Docker and docker-compose CLIs

@@ -46,7 +46,7 @@ def get_homepage(will_generate=False):
         return Homepage.objects.get(title="Homepage")
     except Homepage.DoesNotExist as ex:
         # In some cases, we will want to catch this exception and generate a homepage,
-        # and in others we'll want to bail out on the load_fake_data task with an error.
+        # and in others we'll want to bail out on the legacy_load_fake_data task with an error.
         raise ex
 
 
