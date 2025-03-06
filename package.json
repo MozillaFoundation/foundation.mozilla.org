@@ -88,7 +88,7 @@
     "autoprefixer": "^10.4.20",
     "axe-core": "^4.10.2",
     "bootstrap": "^4.6.0",
-    "chart.js": "4.4.6",
+    "chart.js": "4.4.8",
     "classnames": "2.5.1",
     "countup.js": "^2.8.0",
     "cssnano": "^7.0.6",
@@ -108,7 +108,7 @@
     "react-ga": "3.3.1",
     "sass": "^1.59.3",
     "shx": "^0.3.4",
-    "swiper": "^11.2.2",
+    "swiper": "^11.2.5",
     "tailwindcss": "^3.4.15",
     "uuid": "^10.0.0",
     "whatwg-fetch": "^3.6.20"
