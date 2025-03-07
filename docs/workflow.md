@@ -63,9 +63,10 @@ The review app slack bot will post a message in the `foundation-site` with links
 
 #### Environment variables
 
-- `REVIEW_APP`: set to True on review app.
+- `REVIEW_APP`: Set to `True` on review app.
 - `GITHUB_TOKEN`: GITHUB API authentication,
 - `SLACK_WEBHOOK_RA`: Webhook to `mofo-ra-foundation`
+- `DEBUG_TOOLBAR_ENABLED`: Set to `True` when developing locally to enable the Django Debug Toolbar (DDT). Ensure that `DEBUG` is also set to `True`
 
 Non-secret envs can be added to the `app.json` file. Secrets must be set on Heroku in the `Review Apps` (pipelines' `settings` tab).
 
