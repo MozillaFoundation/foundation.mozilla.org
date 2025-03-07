@@ -114,7 +114,7 @@ class ProductQuiz extends Component {
             htmlFor={id}
             className="
               tw-cursor-pointer tw-flex tw-items-center tw-mb-0 tw-h-full tw-w-full tw-rounded-lg tw-bg-[#F4F4F4] tw-box-border tw-border-2 tw-border-transparent tw-transition-all tw-duration-300 hover:tw-ease-in-out hover:tw-border-blue-20
-              peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
+              peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/legacy_apps/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
           >
             <div className="tw-w-[48px] tw-h-[48px] tw-m-6">
               <img
@@ -334,7 +334,7 @@ class ProductQuiz extends Component {
         </div>
         <div className="tw-text-center medium:tw-text-right tw-mt-12 medium:tw-mt-0">
           <button
-            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto before:tw-content-[''] before:tw-inline-block before:tw-relative before:tw-w-8 before:tw-h-8 before:tw-mr-4 before:tw-top-[2px] before:tw-bg-no-repeat before:tw-bg-contain before:tw-bg-center before:tw-bg-[url('../_images/buyers-guide/consumer-creepometer/rotate-ccw.svg')] before:tw-brightness-100 hover:before:tw-brightness-0 before:tw-transition before:tw-duration-200 before:tw-ease-in-out"
+            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto before:tw-content-[''] before:tw-inline-block before:tw-relative before:tw-w-8 before:tw-h-8 before:tw-mr-4 before:tw-top-[2px] before:tw-bg-no-repeat before:tw-bg-contain before:tw-bg-center before:tw-bg-[url('../legacy_apps/_images/buyers-guide/consumer-creepometer/rotate-ccw.svg')] before:tw-brightness-100 hover:before:tw-brightness-0 before:tw-transition before:tw-duration-200 before:tw-ease-in-out"
             onClick={(e) => this.resetQuiz(e)}
           >
             Retake Quiz

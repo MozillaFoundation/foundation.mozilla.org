@@ -1,6 +1,6 @@
 #creepiness-score {
   display: flex;
-  border-image: url(../_images/buyers-guide/gradient-bar.svg) 7/0px 6px 6px;
+  border-image: url(../legacy_apps/_images/buyers-guide/gradient-bar.svg) 7/0px 6px 6px;
   border-style: solid;
 
   tbody {
@@ -52,7 +52,7 @@
 
   //Show a different creep-face in each bar of the graph
   .creep-face {
-    background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
+    background-image: url(../legacy_apps/_images/buyers-guide/faces/sprite-resized-64-colors.png);
     background-position: center 0;
     background-size: 35px auto;
     background-color: transparent;
