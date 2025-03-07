@@ -34,7 +34,7 @@ body {
       margin-right: 4px;
       height: var(--clear-icon-size);
       width: var(--clear-icon-size);
-      background: url(../legacy_apps/_images/buyers-guide/filter/clear-icon-blue.svg);
+      background: url(../_images/buyers-guide/filter/clear-icon-blue.svg);
       background-size: 100% 100%;
     }
 
@@ -55,7 +55,7 @@ body {
       display: inline-block;
       height: var(--pni-icon-size);
       width: var(--pni-icon-size);
-      background: url(../legacy_apps/_images/buyers-guide/icon-privacy-ding-mini.svg);
+      background: url(../_images/buyers-guide/icon-privacy-ding-mini.svg);
       background-size: 100% 100%;
       vertical-align: middle;
     }
@@ -215,7 +215,7 @@ body {
 
         &::after {
           content: "";
-          background-image: url(../legacy_apps/_images/buyers-guide/icon-bubble-hook.svg);
+          background-image: url(../_images/buyers-guide/icon-bubble-hook.svg);
           background-repeat: no-repeat;
           background-size: contain;
           background-position: right 60%;
@@ -243,7 +243,7 @@ body {
       }
 
       flex: 0 0 $face-dimension;
-      background-image: url(../legacy_apps/_images/buyers-guide/faces/sprite-resized-64-colors.png);
+      background-image: url(../_images/buyers-guide/faces/sprite-resized-64-colors.png);
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;
