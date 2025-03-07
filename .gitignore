@@ -116,9 +116,9 @@ dockerpythonvenv/
 *.psql
 
 # Compiled Frontend
-frontend/compiled/
-frontend/compiled/legacy/
-frontend/temp/compiled/legacy/
+foundation_cms/static/compiled
+foundation_cms/legacy_apps/static/temp/
+foundation_cms/legacy_apps/static/compiled/
 
 # PyCharm
 .idea/

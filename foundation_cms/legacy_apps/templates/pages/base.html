@@ -77,8 +77,8 @@
         {% block commento_meta %}{% endblock %}
 
         {% block stylesheets %}
-            <link rel="stylesheet" href="{% static "legacy/_css/main.compiled.css" %}">
-            <link rel="stylesheet" href="{% static "legacy/_fonts/css/base.min.css" %}">
+            <link rel="stylesheet" href="{% static "legacy_apps/_css/main.compiled.css" %}">
+            <link rel="stylesheet" href="{% static "legacy_apps/_fonts/css/base.min.css" %}">
         {% endblock %}
 
         {% block extended_head %}{% endblock %}
@@ -151,7 +151,7 @@
 
         {% block script_bundle %}
             <script src="{% url "javascript-catalog" %}"></script>
-            <script src="{% static "legacy/_js/main.compiled.js" %}"></script>
+            <script src="{% static "legacy_apps/_js/main.compiled.js" %}"></script>
         {% endblock %}
 
         {% block extra_scripts %}{% endblock %}

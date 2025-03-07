@@ -489,9 +489,9 @@ def create_wagtail_image(
     will be created.
 
     Examples:
-        create_wagtail_image('/app/frontend/source/legacy/images/myimage.jpg')
-        create_wagtail_image('/app/frontend/source/legacy/images/myimage.jpg', image_name='Same Image.jpg')
-        create_wagtail_image('/app/frontend/source/legacy/images/myimage.jpg', collection_name='Dev test collection')
+        create_wagtail_image('/app/foundation_cms/legacy_apps/static/images/myimage.jpg')
+        create_wagtail_image('/app/foundation_cms/legacy_apps/static/images/myimage.jpg', image_name='Same Image.jpg')
+        create_wagtail_image('/app/foundation_cms/legacy_apps/static/images/myimage.jpg', collection_name='Test')
     """
 
     mime = MimeTypes()
