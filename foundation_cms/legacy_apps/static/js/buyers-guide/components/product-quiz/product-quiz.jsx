@@ -114,7 +114,7 @@ class ProductQuiz extends Component {
             htmlFor={id}
             className="
               tw-cursor-pointer tw-flex tw-items-center tw-mb-0 tw-h-full tw-w-full tw-rounded-lg tw-bg-[#F4F4F4] tw-box-border tw-border-2 tw-border-transparent tw-transition-all tw-duration-300 hover:tw-ease-in-out hover:tw-border-blue-20
-              peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/legacy/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
+              peer-checked:tw-border-blue-40 peer-checked:after:tw-text-white peer-checked:after:tw-text-center peer-checked:after:tw-bg-[url('/static/legacy_apps/_images/buyers-guide/consumer-creepometer/checkmark.svg')] peer-checked:after:tw-bg-center peer-checked:after:tw-bg-no-repeat peer-checked:after:tw-content-[''] peer-checked:after:tw-absolute peer-checked:after:tw-bg-blue-40 peer-checked:after:tw-rounded-bl-lg peer-checked:after:tw-rounded-tr-lg peer-checked:after:tw-w-[30px] peer-checked:after:tw-h-[25px] peer-checked:after:tw-top-0 peer-checked:after:tw-right-0"
           >
             <div className="tw-w-[48px] tw-h-[48px] tw-m-6">
               <img
@@ -246,7 +246,7 @@ class ProductQuiz extends Component {
               width="100%"
               height="100%"
               className="tw-max-w-full tw-max-h-full tw-object-contain"
-              src="/static/legacy/_images/buyers-guide/consumer-creepometer/confetti-flipped.png"
+              src="/static/legacy_apps/_images/buyers-guide/consumer-creepometer/confetti-flipped.png"
               alt=""
             />
           </div>

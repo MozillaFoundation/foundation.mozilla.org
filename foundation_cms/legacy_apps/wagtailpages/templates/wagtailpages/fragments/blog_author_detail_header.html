@@ -12,7 +12,7 @@
                             {% image author.image fill-240x240 as img_2x %}
                             <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="{{ profile_image_classes }}">
                         {% else %}
-                            <img src="{% static 'legacy/_images/author-placeholder.jpg' %}" width="58px" height="58px" alt="{{ author.name }}" class="{{ profile_image_classes }}">
+                            <img src="{% static 'legacy_apps/_images/author-placeholder.jpg' %}" width="58px" height="58px" alt="{{ author.name }}" class="{{ profile_image_classes }}">
                         {% endif %}
                     {% endwith %}
                 </div>

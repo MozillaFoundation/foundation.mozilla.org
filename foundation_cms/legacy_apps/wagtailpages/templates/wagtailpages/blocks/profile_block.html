@@ -1,6 +1,6 @@
 {% load static %}
 
-{# NOTE: any changes to this file will also require updating directory-listing-filters.js in frontend/source/legacy/js/foundation/pages #}
+{# NOTE: any changes to this file will also require updating directory-listing-filters.js in foundation_cms/legacy_apps/static/js/foundation/pages #}
 
 <div class="tw-px-8 tw-w-full large:tw-w-1/2 tw-mb-16">
     <div class="person-card tw-border-t tw-border-black medium:tw-relative medium:tw-min-h-[160px]">
@@ -8,7 +8,7 @@
             <div class="tw-block headshot-container tw-w-[92px] tw-h-[92px] tw-mr-7 tw-mb-7 medium:tw-w-80 medium:tw-h-80 medium:tw-mr-0 medium:tw-mb-0">
                 <img
                     class="tw-object-cover tw-w-full tw-h-full tw-object-center"
-                    src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "legacy/_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
+                    src="{% if profile.thumbnail %}{{ profile.thumbnail }}{% else %}{% static "legacy_apps/_images/fellowships/headshot/placeholder.jpg" %}{% endif %}"
                     alt="Headshot">
             </div>
         </div>

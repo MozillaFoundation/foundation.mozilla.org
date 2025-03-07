@@ -8,7 +8,7 @@
             {% if author_profile.image %}
                 {% image author_profile.image fill-182x182 class=profile_image_classes alt=author_profile.name %}
             {% else %}
-                <img src="{% static 'legacy/_images/author-placeholder.jpg' %}" width="100" height="100" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}">
+                <img src="{% static 'legacy_apps/_images/author-placeholder.jpg' %}" width="100" height="100" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}">
             {% endif %}
         {% endwith %}
     </div>

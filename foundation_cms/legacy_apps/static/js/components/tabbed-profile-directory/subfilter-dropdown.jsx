@@ -54,7 +54,7 @@ const SubfilterDropdown = ({
             className={`tw-w-8 tw-h-8 tw-ml-4 ${
               dropdownExpanded ? "tw-rotate-180" : ""
             }`}
-            src="/static/legacy/_images/glyphs/down-chevron.svg"
+            src="/static/legacy_apps/_images/glyphs/down-chevron.svg"
             alt=""
           />
         </button>

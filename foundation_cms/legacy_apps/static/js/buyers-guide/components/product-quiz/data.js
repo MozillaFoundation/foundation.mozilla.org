@@ -1,4 +1,4 @@
-const IMG_DIR = "/static/legacy/_images/buyers-guide/consumer-creepometer";
+const IMG_DIR = "/static/legacy_apps/_images/buyers-guide/consumer-creepometer";
 
 export const POINTS = {
   good: 0,

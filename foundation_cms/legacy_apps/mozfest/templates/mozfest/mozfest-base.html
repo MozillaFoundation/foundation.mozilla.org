@@ -73,6 +73,6 @@
 {% block script_bundle %}
     <script src="{% url "javascript-catalog" %}"></script>
     {# This uses the mofo main.js for now, to make sure "things work" until we (maybe never?) create a separate bundle #}
-    <script src="{% static "legacy/_js/main.compiled.js" %}"></script>
-    <script src="{% static "legacy/_js/mozfest.compiled.js" %}"></script>
+    <script src="{% static "legacy_apps/_js/main.compiled.js" %}"></script>
+    <script src="{% static "legacy_apps/_js/mozfest.compiled.js" %}"></script>
 {% endblock %}

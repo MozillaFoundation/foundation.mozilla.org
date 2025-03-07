@@ -80,7 +80,7 @@
             <a class="tw-inline-flex tw-group {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} tw-btn-primary  {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} tw-btn-secondary {% else %} {{ tertiary_btn_class }} {% endif %}"
                href="{{ download_file.url }}" download>
                 <img
-                    src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static 'legacy/_images/glyphs/download-file.svg' %} {% endif %}"
+                    src=" {% if page.download_button_icon %} {{ page.download_button_icon.url }} {% else %} {% static 'legacy_apps/_images/glyphs/download-file.svg' %} {% endif %}"
                     class='tw-h-9 tw-w-9 tw-mr-6 tw-mt-[1px] tw-brightness-0 {% if btn_setting == page.HERO_BTN_STYLE_PRIMARY %} {{ primary_icon_class }} {% elif btn_setting == page.HERO_BTN_STYLE_SECONDARY %} {{ secondary_icon_class }} {% else %} {{ tertiary_icon_class }} {% endif %}'>
                 {% trans "Download PDF" %}
                 {% if download_file.file_size %}
