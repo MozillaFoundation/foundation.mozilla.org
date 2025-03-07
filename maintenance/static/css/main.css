@@ -8122,7 +8122,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   background-color: #333333; }
   @media (min-width: 768px) {
     .donate-modal {
-      background-image: url(../legacy_apps/_images/buyers-guide/earth.jpg);
+      background-image: url(../_images/buyers-guide/earth.jpg);
       background-size: contain;
       background-position: center center;
       background-repeat: no-repeat; } }

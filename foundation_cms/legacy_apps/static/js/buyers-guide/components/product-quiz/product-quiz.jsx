@@ -334,7 +334,7 @@ class ProductQuiz extends Component {
         </div>
         <div className="tw-text-center medium:tw-text-right tw-mt-12 medium:tw-mt-0">
           <button
-            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto before:tw-content-[''] before:tw-inline-block before:tw-relative before:tw-w-8 before:tw-h-8 before:tw-mr-4 before:tw-top-[2px] before:tw-bg-no-repeat before:tw-bg-contain before:tw-bg-center before:tw-bg-[url('../legacy_apps/_images/buyers-guide/consumer-creepometer/rotate-ccw.svg')] before:tw-brightness-100 hover:before:tw-brightness-0 before:tw-transition before:tw-duration-200 before:tw-ease-in-out"
+            className="tw-btn tw-btn-secondary tw-w-full medium:tw-w-auto before:tw-content-[''] before:tw-inline-block before:tw-relative before:tw-w-8 before:tw-h-8 before:tw-mr-4 before:tw-top-[2px] before:tw-bg-no-repeat before:tw-bg-contain before:tw-bg-center before:tw-bg-[url('../_images/buyers-guide/consumer-creepometer/rotate-ccw.svg')] before:tw-brightness-100 hover:before:tw-brightness-0 before:tw-transition before:tw-duration-200 before:tw-ease-in-out"
             onClick={(e) => this.resetQuiz(e)}
           >
             Retake Quiz
