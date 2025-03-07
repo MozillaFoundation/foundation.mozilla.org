@@ -42,6 +42,8 @@ class Command(BaseCommand):
         if options["delete"]:
             call_command("flush_models")
 
+        print("Start Loading Legacy Data...")
+
         faker = factory.faker.Faker._get_faker(locale="en-US")
 
         # Seed Faker with the provided seed value or a pseudorandom int between 0 and five million

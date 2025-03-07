@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <div style="margin-left: 200px; margin-top: 50px;">
+    <h1>{{ page.hero_headline }}</h1>
+  </div>
+
+  <div style="margin-left: 200px; margin-top: 50px;">
+    <img src="{{ page.hero_image.file.url }}" width="571" height="285">
+  </div>
+
+  <div style="margin-left: 200px; margin-top: 50px;">
+    <h2>{{ page.hero_intro_heading }}</h2>
+  </div>
+
+  <div style="margin-left: 200px; margin-top: 30px;">
+    <h4>{{ page.hero_intro_body }}</h4>
+  </div>
+
+  <div style="margin-left: 200px; margin-top: 30px;">
+    <h2> The Latest </h2>
+    <ul>
+      {% for blog in blogs %}
+        <li style="margin-left: 30px; margin-top: 10px;"><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock content %}

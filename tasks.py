@@ -105,6 +105,9 @@ def initialize_database(ctx, slow=False):
     migrate(ctx, stop=slow)
 
     print("* Creating fake data")
+    manage(ctx, "load_fake_data", stop=slow)
+
+    print("* Creating fake legacy data")
     manage(ctx, "legacy_load_fake_data", stop=slow)
 
     print("* Sync locales")

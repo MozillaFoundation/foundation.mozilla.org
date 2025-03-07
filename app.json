@@ -46,7 +46,7 @@
     }
   ],
   "scripts": {
-    "postdeploy": "python ./manage.py legacy_load_fake_data && python ./manage.py review_app_setup create && python ./manage.py review_app_admin && python ./manage.py sync_locale_trees",
+    "postdeploy": "python ./manage.py load_fake_data && python ./manage.py legacy_load_fake_data && python ./manage.py review_app_setup create && python ./manage.py review_app_admin && python ./manage.py sync_locale_trees",
     "pr-predestroy": "python ./manage.py review_app_setup teardown"
   }
 }
