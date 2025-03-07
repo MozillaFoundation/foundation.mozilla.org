@@ -1,8 +1,0 @@
-{% extends "./base_streamfield_block.html" %}
-{% load l10n wagtailcore_tags %}
-
-{% block block_content %}
-    <script async defer src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script><iframe
-        class="airtable-embed mb-4 airtable-dynamic-height" src="{{ value.url }}" width="100%"
-        height="{{ value.height|unlocalize }}"></iframe>
-{% endblock %}
