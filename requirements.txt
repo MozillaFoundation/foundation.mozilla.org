@@ -121,7 +121,7 @@ faker==26.3.0
     #   factory-boy
 filetype==1.2.0
     # via willow
-future==0.18.3
+future==1.0.0
     # via -r requirements.in
 gitdb==4.0.9
     # via gitpython
