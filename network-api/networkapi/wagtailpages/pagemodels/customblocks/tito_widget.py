@@ -22,9 +22,7 @@ class TitoWidgetBlock(blocks.StructBlock):
         help_text='Comma-separated list of ticket/release IDs to limit to, e.g. "3elajg6qcxu,6qiiw4socs4"',
     )
     source = blocks.CharBlock(
-        required=False,
-        max_length=255,
-        help_text="Enter a source to track where events come from."
+        required=False, max_length=255, help_text="Enter a source to track where events come from."
     )
 
     class Meta:
