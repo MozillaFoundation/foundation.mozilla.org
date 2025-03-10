@@ -1,0 +1,29 @@
+{
+  "name": "Mozilla Foundation",
+  "description": "Website for the Mozilla Foundation",
+  "repository": {
+    "url": "https://github.com/mozilla/foundation.mozilla.org",
+    "license": "MPL2"
+  },
+  "participate": {
+    "home": "https://github.com/mozilla/foundation.mozilla.org/",
+    "docs": "https://github.com/mozilla/foundation.mozilla.org/#contributing"
+  },
+  "bugs": {
+    "list": "https://github.com/mozilla/foundation.mozilla.org/issues",
+    "report": "https://github.com/mozilla/foundation.mozilla.org/issues/new"
+  },
+  "urls": {
+    "prod": "https://foundation.mozilla.org",
+    "staging": "https://foundation.mofostaging.net/",
+    "dev": "localhost:8000"
+  },
+  "keywords": [
+    "JavaScript",
+    "HTML",
+    "NodeJS",
+    "CSS",
+    "Sass",
+    "ReactJS"
+  ]
+}
