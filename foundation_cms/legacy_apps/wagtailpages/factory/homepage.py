@@ -59,35 +59,24 @@ def generate(seed):
 
     reseed(seed)
 
-    try:
-        default_site = WagtailSite.objects.get(is_default_site=True)
-        default_site.root_page = home_page
-        if settings.HEROKU_APP_NAME:
-            hostname = REVIEW_APP_HOSTNAME
-            port = 80
-        else:
-            hostname = "localhost"
-            port = 8000
-        default_site.hostname = hostname
-        default_site.port = port
-        default_site.site_name = "Foundation Home Page"
-        default_site.save()
-        print("Updated the default Site")
-    except WagtailSite.DoesNotExist:
-        print("Generating a default Site")
-        if settings.HEROKU_APP_NAME:
-            hostname = REVIEW_APP_HOSTNAME
-            port = 80
-        else:
-            hostname = "localhost"
-            port = 8000
-        WagtailSite.objects.create(
-            hostname=hostname,
-            port=port,
-            root_page=home_page,
-            site_name="Foundation Home Page",
-            is_default_site=True,
-        )
+    print("Creating a legacy site record in Wagtail")
+    tds = settings.TARGET_DOMAINS
+    if tds and len(tds) > 1:
+        # Assume that tds[0] is the main mofo domain, and tds[1] is the legacy domain
+        hostname = tds[1]
+        port = 80
+    else:
+        # use a localhost domain (must be set in /etc/hosts)
+        hostname = "legacy.localhost"
+        port = 8000
+
+    WagtailSite.objects.create(
+        hostname=hostname,
+        port=port,
+        root_page=home_page,
+        site_name="Legacy Site",
+        is_default_site=False,
+    )
 
     reseed(seed)
 
