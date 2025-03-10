@@ -40,7 +40,6 @@ class BlogPage(Page):
     body = RichTextField(blank=True, help_text="Main content of the blog")
 
     parent_page_types = ["blog.BlogIndexPage"]  # Restrict parent to BlogIndexPage only
-    subpage_types = []  # Prevent creating child pages under BlogPage
 
     content_panels = Page.content_panels + [
         FieldPanel("author"),
