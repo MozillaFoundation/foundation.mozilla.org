@@ -14,7 +14,7 @@ jobs:
     name: Node CI
     runs-on: ubuntu-22.04
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
     steps:
@@ -42,7 +42,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
       BASKET_URL: https://basket-dev.allizom.org
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
@@ -119,7 +119,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: 127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: legacy.localhost,127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
       BASKET_URL: https://basket-dev.allizom.org
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
