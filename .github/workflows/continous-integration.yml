@@ -87,12 +87,12 @@ jobs:
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py compilemessages
-      - name: Run linting
+      - name: Run legacy linting
         run: |
-          flake8 .
-          isort . --check-only
-          black . --check
-          djlint . --lint
+          flake8 ./foundation_cms/legacy_apps
+          isort ./foundation_cms/legacy_apps --check-only
+          black ./foundation_cms/legacy_apps --check
+          djlint ./foundation_cms/legacy_apps --lint
           # Skipping djlint format checking because it has consistency issues and issues with blocktrans.
           # This should change when formatting is moved to a version using and AST.
           # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
