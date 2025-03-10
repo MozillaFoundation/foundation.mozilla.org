@@ -165,7 +165,7 @@ polib==1.1.1
     # via wagtail-localize
 psutil==5.9.0
     # via scout-apm
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
     # via -r requirements.in
 pycparser==2.21
     # via cffi
