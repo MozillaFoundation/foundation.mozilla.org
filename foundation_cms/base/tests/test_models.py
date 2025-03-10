@@ -1,11 +1,10 @@
 from django.test import TestCase
 
-from foundation_cms.base.models import HomePage
-
+from foundation_cms.base import factories
 
 class HomePageTestCase(TestCase):
     def setUp(self):
-        self.home_page = HomePage()
+        self.home_page = factories.create_homepage()
 
     def test_get_absolute_url(self):
-        self.assertEqual(self.home_page, "/en/")
+        self.assertEqual(self.home_page.url, "/en/")

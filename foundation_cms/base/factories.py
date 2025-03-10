@@ -70,3 +70,5 @@ def create_homepage():
             site_name="Foundation Home Page",
             is_default_site=True,
         )
+
+    return home_page
