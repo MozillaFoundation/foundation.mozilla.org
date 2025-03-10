@@ -217,7 +217,7 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.4.2
+social-auth-app-django==5.4.3
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
