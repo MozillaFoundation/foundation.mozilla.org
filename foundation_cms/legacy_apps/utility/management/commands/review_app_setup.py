@@ -96,6 +96,7 @@ class Command(BaseCommand):
         for hostname, target in mapping.items():
             cloudflare.create_record(zone=CLOUDFLARE_ZONE_ID, hostname=hostname, type="CNAME", content=target)
 
+    # @FIXME This doesn't seem to work.
     def remove_dns_records(self):
         """Prepare records to be removed for each review app Site"""
         app_name = os.environ.get("HEROKU_APP_NAME")
