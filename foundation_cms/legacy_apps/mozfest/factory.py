@@ -122,6 +122,7 @@ def generate(seed):
 
     print("Creating MozFest Site record in Wagtail")
     tds = settings.TARGET_DOMAINS
+    # @TODO Need a more future-proof check that doesn't require incrementing as we add sites.
     if tds and len(tds) > 2:
         # Assume that tds[0] is the main mofo domain, tds[1] is the legacy domain, and tds[2] is the Mozfest domain
         hostname = tds[2]

@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from foundation_cms.base import factories
 
+
 class HomePageTestCase(TestCase):
     def setUp(self):
         self.home_page = factories.create_homepage()

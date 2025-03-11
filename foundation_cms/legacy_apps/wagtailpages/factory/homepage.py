@@ -61,6 +61,7 @@ def generate(seed):
 
     print("Creating a legacy site record in Wagtail")
     tds = settings.TARGET_DOMAINS
+    # @TODO Need a more future-proof check that doesn't require incrementing as we add sites.
     if tds and len(tds) > 1:
         # Assume that tds[0] is the main mofo domain, and tds[1] is the legacy domain
         hostname = tds[1]
