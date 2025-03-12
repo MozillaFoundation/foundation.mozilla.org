@@ -29,7 +29,7 @@ def onetrust_data_domain(context):
     # TODO this can get cleaned up to use the mozfest site id
     # but depends on re-design if the site id will remain the same. Use domains for now.
     mozfest_domains = {
-        "mozillafestival.org",
+        "www.mozillafestival.org",
         "mozillafestival.mofostaging.net",
         "mozfest.localhost:8000",
     }
