@@ -38,7 +38,7 @@ execnet==1.9.0
     # via pytest-xdist
 flake8==7.1.2
     # via -r dev-requirements.in
-honcho==1.1.0
+honcho==2.0.0
     # via -r dev-requirements.in
 html-tag-names==0.1.2
     # via djlint
