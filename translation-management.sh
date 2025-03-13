@@ -33,10 +33,10 @@ command="$1"
 # Read path to local string repository from .env file
 L10N_REPO=$(grep LOCAL_PATH_TO_L10N_REPO .env | cut -d '=' -f2)
 L10N_REPO+="foundation/translations/"
-CODE_REPO="foundation_cms/"
+CODE_REPO="./"
 
 FOLDERS=(
-  "locale/"
+  "foundation_cms/locale/"
   "foundation_cms/legacy_apps/templates/pages/buyersguide/about/locale/"
   "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/locale/"
   "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
