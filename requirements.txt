@@ -277,7 +277,7 @@ wagtail-localize-git==0.15.0
     # via -r requirements.in
 wagtail-metadata==5.0.0
     # via -r requirements.in
-wagtailmedia==0.14.5
+wagtailmedia==0.15.2
     # via -r requirements.in
 whitenoise==6.8.2
     # via -r requirements.in
