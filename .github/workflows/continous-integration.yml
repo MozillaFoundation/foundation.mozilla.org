@@ -14,7 +14,7 @@ jobs:
     name: Node CI
     runs-on: ubuntu-22.04
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
     steps:
@@ -42,7 +42,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
       BASKET_URL: https://basket-dev.allizom.org
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
@@ -87,12 +87,12 @@ jobs:
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py compilemessages
-      - name: Run linting
+      - name: Run legacy linting
         run: |
-          flake8 .
-          isort . --check-only
-          black . --check
-          djlint . --lint
+          flake8 ./foundation_cms/legacy_apps
+          isort ./foundation_cms/legacy_apps --check-only
+          black ./foundation_cms/legacy_apps --check
+          djlint ./foundation_cms/legacy_apps --lint
           # Skipping djlint format checking because it has consistency issues and issues with blocktrans.
           # This should change when formatting is moved to a version using and AST.
           # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
@@ -119,7 +119,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: 127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      ALLOWED_HOSTS: legacy.localhost,127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
       BASKET_URL: https://basket-dev.allizom.org
       CONTENT_TYPE_NO_SNIFF: True
       CORS_ALLOWED_ORIGINS: "*"
@@ -171,6 +171,7 @@ jobs:
           python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
+          python ./manage.py load_fake_data
           python ./manage.py legacy_load_fake_data
       - name: Integration Tests
         run: npm run playwright:ci

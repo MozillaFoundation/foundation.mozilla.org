@@ -1079,6 +1079,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "donate_banner.DonateBannerPage",
     ]
 
+    page_ptr = models.OneToOneField(
+        Page,
+        on_delete=models.CASCADE,
+        parent_link=True,
+        related_name="legacy_homepage",  # Unique related_name to avoid name clash
+    )
+
     def get_localized_take_action_cards(self):
         # Loop through take_action_cards and localize internal_link
         localized_cards = []
