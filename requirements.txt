@@ -85,7 +85,7 @@ django-filter==23.5
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.21.0
+django-htmx==1.22.0
     # via -r requirements.in
 django-modelcluster==6.2.1
     # via wagtail
@@ -208,7 +208,7 @@ scipy==1.10.0
     # via wagtail-ab-testing
 scout-apm==3.2.1
     # via -r requirements.in
-sentry-sdk==2.18.0
+sentry-sdk==2.22.0
     # via -r requirements.in
 six==1.16.0
     # via
@@ -217,7 +217,7 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
-social-auth-app-django==5.4.2
+social-auth-app-django==5.4.3
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
@@ -277,7 +277,7 @@ wagtail-localize-git==0.15.0
     # via -r requirements.in
 wagtail-metadata==5.0.0
     # via -r requirements.in
-wagtailmedia==0.14.5
+wagtailmedia==0.15.2
     # via -r requirements.in
 whitenoise==6.8.2
     # via -r requirements.in

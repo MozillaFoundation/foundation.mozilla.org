@@ -24,7 +24,7 @@ django==4.2.20
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
-django-debug-toolbar==4.4.6
+django-debug-toolbar==5.0.1
     # via -r dev-requirements.in
 djhtml==3.0.7
     # via -r dev-requirements.in
@@ -36,9 +36,9 @@ editorconfig==0.12.3
     #   jsbeautifier
 execnet==1.9.0
     # via pytest-xdist
-flake8==7.1.1
+flake8==7.1.2
     # via -r dev-requirements.in
-honcho==1.1.0
+honcho==2.0.0
     # via -r dev-requirements.in
 html-tag-names==0.1.2
     # via djlint
@@ -80,7 +80,7 @@ pycodestyle==2.12.1
     # via flake8
 pyflakes==3.2.0
     # via flake8
-pytest==8.2.2
+pytest==8.3.5
     # via
     #   -r dev-requirements.in
     #   pytest-cov
