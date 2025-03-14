@@ -58,7 +58,7 @@ coverage.xml
 *.po
 *.pot
 *.ftl
-!network-api/locale/messages.ftl
+!foundation_cms/locale/messages.ftl
 
 # Django stuff:
 *.log
@@ -106,18 +106,19 @@ dockerpythonvenv/
 **/.DS_Store
 
 # Static files from python manage.py collectstatic
-network-api/staticfiles/
+/staticfiles/
 
 # Storage for user generated files
-network-api/media/
+/media/
 
 # Databases for local development
 **/*.sqlite3
 *.psql
 
 # Compiled Frontend
-network-api/networkapi/frontend/
-network-api/networkapi/temp/frontend/
+foundation_cms/static/compiled
+foundation_cms/legacy_apps/static/temp/
+foundation_cms/legacy_apps/static/compiled/
 
 # PyCharm
 .idea/
