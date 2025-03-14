@@ -34,7 +34,7 @@ editorconfig==0.12.3
     # via
     #   cssbeautifier
     #   jsbeautifier
-execnet==1.9.0
+execnet==2.1.1
     # via pytest-xdist
 flake8==7.1.2
     # via -r dev-requirements.in
@@ -93,7 +93,7 @@ pytest-django==4.8.0
     # via -r dev-requirements.in
 pytest-sugar==1.0.0
     # via -r dev-requirements.in
-pytest-xdist==3.5.0
+pytest-xdist==3.6.1
     # via -r dev-requirements.in
 pyyaml==6.0.1
     # via
