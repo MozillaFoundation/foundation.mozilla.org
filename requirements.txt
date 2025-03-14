@@ -89,7 +89,7 @@ django-htmx==1.22.0
     # via -r requirements.in
 django-modelcluster==6.2.1
     # via wagtail
-django-pattern-library==1.2.0
+django-pattern-library==1.3.0
     # via -r requirements.in
 django-permissionedforms==0.1
     # via wagtail
