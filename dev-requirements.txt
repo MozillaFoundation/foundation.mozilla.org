@@ -4,9 +4,9 @@
 #
 #    pip-compile dev-requirements.in
 #
-asgiref==3.7.2
+asgiref==3.8.1
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   django
 black==25.1.0
     # via -r dev-requirements.in
@@ -20,9 +20,9 @@ coverage[toml]==7.4.1
     # via pytest-cov
 cssbeautifier==1.14.7
     # via djlint
-django==4.2.20
+django==5.1.7
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   django-debug-toolbar
 django-debug-toolbar==5.0.1
     # via -r dev-requirements.in
@@ -62,7 +62,7 @@ mypy-extensions==1.0.0
     #   mypy
 packaging==23.1
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   black
     #   pytest
     #   pytest-sugar
@@ -97,25 +97,25 @@ pytest-xdist==3.5.0
     # via -r dev-requirements.in
 pyyaml==6.0.1
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   djlint
 regex==2022.10.31
     # via djlint
 six==1.16.0
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   cssbeautifier
     #   jsbeautifier
 sqlparse==0.5.0
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   django
     #   django-debug-toolbar
 termcolor==2.3.0
     # via pytest-sugar
 tqdm==4.63.0
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   djlint
 types-python-slugify==8.0.2.20240310
     # via -r dev-requirements.in
@@ -125,5 +125,5 @@ types-urllib3==1.26.16
     # via types-requests
 typing-extensions==4.4.0
     # via
-    #   -c requirements.txt
+    #   -c /home/dependabot/dependabot-updater/tmp/20250314-1474-sw2b11/dependabot_20250314-1474-ubxd38/requirements.txt
     #   mypy

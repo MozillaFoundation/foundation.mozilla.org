@@ -6,7 +6,7 @@
 #
 anyascii==0.3.0
     # via wagtail
-asgiref==3.7.2
+asgiref==3.8.1
     # via
     #   django
     #   django-cors-headers
@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==4.2.20
+django==5.1.7
     # via
     #   -r requirements.in
     #   dj-database-url
