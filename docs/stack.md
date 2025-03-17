@@ -11,7 +11,7 @@ This site has a [styleguide](https://foundation.mozilla.org/en/style-guide/), wh
 ## CSS
 
 CSS is currently in a state of transition.
-We are using custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `source/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
+We are using custom [Sass](http://sass-lang.com/), mixed with the mofo-bootstrap theme found under `foundation_cms/legacy_apps/static/sass/mofo-bootstrap` while we also trying to move away from Bootstrap to [Tailwind CSS](https://tailwindcss.com/).
 Reason for the transition to Tailwind is that it allows us to sync the design tokens defined by the design team with the available CSS utilities, which makes it easier for our implementation to stay true to the design system.
 The following epic should give a better picture as to where we stand in this transition: https://app.zenhub.com/workspaces/mofo-engagement-585335eab729771d0736378d/issues/mozilla/foundation.mozilla.org/6989
 
@@ -28,7 +28,7 @@ We are also using `tailwind-plugins/components.js` to define Tailwind equivalent
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
 
-To add a React component, you can target a container element from `/source/js/main.js` and inject it.
+To add a React component, you can target a container element from `/foundation_cms/legacy_apps/static/js/main.js` and inject it.
 
 ## HTMX
 
@@ -85,8 +85,8 @@ All assets are stored on S3.
 ```
 /
 ├── dest <- Compiled code generated from source. Don't edit!
-├── network-api <- Django site code
-│   ├── networkapi <- Django apps live within this directory
+├── foundation_cms <- Django site code
+│   ├── legacy_apps <- Django apps live within this directory
         └── wagtailpages <- most of the pages using wagtail are here
 │   └── templates <- page templates and overrides
 ├── locales <- Localized strings (Java .properties syntax)
@@ -101,7 +101,7 @@ All assets are stored on S3.
 ```
 
 The templates are very scattered at the moment.
-We are trying to localize all tempaltes to the location `network-api/networkapi/templates`.
+We are trying to localize all tempaltes to the location `foundation_cms/legacy_apps/templates`.
 When ever you touch or create a template, please move it to / create it in this location and place it in the appropriate sub-directory, `pages` or `fragments`.
 Create sub-directories under `pages` or `fragments` only when necessary and you have more than one template that needs to be grouped.
 

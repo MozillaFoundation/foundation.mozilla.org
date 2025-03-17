@@ -10,7 +10,7 @@ const siteNavPlugins = require("./tailwind-plugins/site-nav");
 const wagtailPlugins = require("./tailwind-plugins/wagtail");
 
 module.exports = {
-  content: ["./source/js/**/*.{js,jsx}", "./network-api/networkapi/**/*.html"],
+  content: ["./foundation_cms/legacy_apps/static/js/**/*.{js,jsx}", "./foundation_cms/legacy_apps/**/*.html"],
   darkMode: "class", // use tw-dark
   important: true,
   corePlugins: {
