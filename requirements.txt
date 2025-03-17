@@ -85,7 +85,7 @@ django-filter==23.5
     # via
     #   -r requirements.in
     #   wagtail
-django-htmx==1.22.0
+django-htmx==1.23.0
     # via -r requirements.in
 django-modelcluster==6.2.1
     # via wagtail
