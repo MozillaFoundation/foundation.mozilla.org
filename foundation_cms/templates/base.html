@@ -21,11 +21,7 @@
         {# Force all links in the live preview panel to be opened in a new tab #}
         {% if request.in_preview_panel %}<base target="_blank">{% endif %}
         {# Global stylesheets #}
-        {% block extra_css %}{# Override this in templates to add extra stylesheets #}
-
-        {% endblock %}
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="{% static 'foundation_cms/css/base.css' %}">
+        {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock %}
 
 
     </head>

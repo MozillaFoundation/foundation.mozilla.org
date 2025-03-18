@@ -146,7 +146,6 @@ path("search/", search_views.search, name="search"),
     # wagtail-managed data
     path("", include(wagtail_urls)),
     path("sitemap.xml", cache_page(86400)(sitemap)),
-
 )
 
 if settings.USE_S3 is not True:
