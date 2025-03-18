@@ -22,8 +22,6 @@
         {% if request.in_preview_panel %}<base target="_blank">{% endif %}
         {# Global stylesheets #}
         {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock %}
-
-
     </head>
     {# Basic breadcrumbs for dev navigation #}
     {% with self as page %}
@@ -37,6 +35,5 @@
         {% block content %}{% endblock %}
         {# Global javascript #}
         {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock %}
-
     </body>
 </html>
