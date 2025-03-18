@@ -61,7 +61,7 @@
 {% block extra_js %}
     <script nonce="{{ request.csp_nonce }}" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
     <script nonce="{{ request.csp_nonce }}" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script>
+    <script nonce="{{ request.csp_nonce }}">
         $(document).ready(function() {
             $("#search-input").autocomplete({
                 source: function(request, response) {
