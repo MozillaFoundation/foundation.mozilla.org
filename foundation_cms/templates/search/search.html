@@ -3,7 +3,7 @@
 {% block body_class %}template-searchresults{% endblock %}
 {% block title %}Search{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet"
+    <link nonce="{{ request.csp_nonce }}" rel="stylesheet"
           href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
   .ui-autocomplete {
@@ -59,8 +59,8 @@
     {% endif %}
 {% endblock %}
 {% block extra_js %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script nonce="{{ request.csp_nonce }}" src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script nonce="{{ request.csp_nonce }}" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#search-input").autocomplete({
