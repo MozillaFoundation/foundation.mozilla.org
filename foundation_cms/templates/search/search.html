@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block title %}Search{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <style>
+  .ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 5px 0;
+    background: white;
+    border: 1px solid #ddd;
+}
+.ui-menu-item {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.ui-menu-item:hover {
+    background: #f5f5f5;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>Search</h1>
+
+    <form action="{% url 'search' %}" method="get" class="search-form">
+        <input
+            type="text"
+            name="query"
+            id="search-input"
+            {% if search_query %}
+                value="{{ search_query }}"
+            {% endif %}
+            placeholder="Search..."
+            autocomplete="off"
+        >
+        <input type="submit" value="Search" class="button">
+    </form>
+
+    {% if search_results %}
+        <ul class="search-results">
+            {% for result in search_results %}
+                <li>
+                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if search_results.paginator.num_pages > 1 %}
+            <div class="pagination">
+                {% if search_results.has_previous %}
+                    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ search_results.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                {% if search_results.has_next %}
+                    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ search_results.next_page_number }}">Next</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% elif search_query %}
+        <p>No results found for "{{ search_query }}"</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#search-input").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "{% url 'search_autocomplete' %}",
+                        dataType: "json",
+                        data: {
+                            query: request.term
+                        },
+                        success: function(data) {
+                            response($.map(data.results, function(item) {
+                                return {
+                                    label: item.title,
+                                    value: item.title,
+                                    url: item.url
+                                };
+                            }));
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function(event, ui) {
+                    window.location.href = ui.item.url;
+                    return false;
+                }
+            });
+        });
+    </script>
+{% endblock %}
