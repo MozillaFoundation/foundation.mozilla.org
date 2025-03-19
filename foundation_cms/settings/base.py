@@ -335,8 +335,8 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            root("legacy_apps/templates"),
             root("templates"),
+            root("legacy_apps/templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -513,7 +513,7 @@ STATIC_HOST = env("STATIC_HOST") if not DEBUG and not REVIEW_APP else ""
 STATIC_URL = STATIC_HOST + "/static/"
 STATIC_ROOT = root("../staticfiles/")
 STATICFILES_DIRS = [
-    ("foundation_cms", root("static/compiled")),
+    # ("foundation_cms", root("static/compiled")),
     ("legacy_apps", root("legacy_apps/static/compiled")),
 ]
 
@@ -777,16 +777,17 @@ PATTERN_LIBRARY = {
     "SECTIONS": (
         # Add additional sections here. This will appear as the left-hand nav in /pattern-library/
         # e.g. ("Component name", ["path_to/component_name"]),
-        ("Pages", ["pages"]),
-        ("Fragments", ["fragments"]),
-        ("Wagtailpages", ["wagtailpages"]),
+        ("Buttons", ["patterns/buttons"]),
     ),
     # Configure which files to detect as templates.
     "TEMPLATE_SUFFIX": ".html",
     # Set which template components should be rendered inside of,
     # so they may use page-level component dependencies like CSS.
-    "PATTERN_BASE_TEMPLATE_NAME": "pattern_library_base.html",
+    "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",
     # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
-    "BASE_TEMPLATE_NAMES": ["pages/base.html"],
+    "BASE_TEMPLATE_NAMES": ["base.html"],
+     "CONTEXT": {
+        "request": None,
+    }
 }
