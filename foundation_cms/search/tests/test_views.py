@@ -31,7 +31,7 @@ class SearchViewTestCase(TestCase):
 
     def test_search_returns_multiple_pages(self):
         # Perform a search that should match multiple pages
-        response = self.client.get("/admin/pages/search/", {"query": "Page"})
+        response = self.client.get("/cms/pages/search/", {"query": "Page"})
 
         # Confirm the response is successful
         self.assertEqual(response.status_code, 200)
