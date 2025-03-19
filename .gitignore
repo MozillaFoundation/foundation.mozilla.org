@@ -139,3 +139,5 @@ wagtail-localize-key*
 
 # Database copies
 *.db.archive
+
+*storybook.log
