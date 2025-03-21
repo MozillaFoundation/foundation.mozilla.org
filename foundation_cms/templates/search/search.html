@@ -60,37 +60,86 @@
     {% endif %}
 {% endblock %}
 {% block extra_js %}
-    <script nonce="{{ request.csp_nonce }}"
-            src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script nonce="{{ request.csp_nonce }}"
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script nonce="{{ request.csp_nonce }}">
-        $(document).ready(function() {
-            $("#search-input").autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: "{% url 'search_autocomplete' %}",
-                        dataType: "json",
-                        data: {
-                            query: request.term
-                        },
-                        success: function(data) {
-                            response($.map(data.results, function(item) {
-                                return {
-                                    label: item.title,
-                                    value: item.title,
-                                    url: item.url
-                                };
-                            }));
-                        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const autocompleteContainer = document.getElementById('autocomplete-container');
+            let activeIndex = -1;
+
+            searchInput.addEventListener('input', async function() {
+                const query = searchInput.value.trim();
+                if (query.length < 2) {
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+                    return;
+                }
+
+                try {
+                    const response = await fetch("{% url 'search_autocomplete' %}?query=" + encodeURIComponent(query));
+                    if (!response.ok) {
+                        console.error('Error fetching autocomplete results');
+                        return;
+                    }
+
+                    const data = await response.json();
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+
+                    data.results.forEach(item => {
+                        const suggestion = document.createElement('div');
+                        suggestion.className = 'autocomplete-suggestion';
+                        suggestion.textContent = item.title;
+                        suggestion.addEventListener('click', () => {
+                            window.location.href = item.url;
+                        });
+                        autocompleteContainer.appendChild(suggestion);
                     });
-                },
-                minLength: 2,
-                select: function(event, ui) {
-                    window.location.href = ui.item.url;
-                    return false;
+                } catch (error) {
+                    console.error('Error:', error);
                 }
             });
+
+            searchInput.addEventListener('keydown', function(event) {
+                const suggestions = autocompleteContainer.querySelectorAll('.autocomplete-suggestion');
+                if (suggestions.length === 0) return;
+
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    activeIndex = (activeIndex + 1) % suggestions.length;
+                    updateActiveSuggestion(suggestions);
+                } else if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    activeIndex = (activeIndex - 1 + suggestions.length) % suggestions.length;
+                    updateActiveSuggestion(suggestions);
+                } else if (event.key === 'Enter') {
+                    event.preventDefault();
+                    if (activeIndex >= 0 && activeIndex < suggestions.length) {
+                        const activeSuggestion = suggestions[activeIndex];
+                        window.location.href = activeSuggestion.dataset.url;
+                    }
+                } else if (event.key === 'Escape') {
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!autocompleteContainer.contains(event.target) && event.target !== searchInput) {
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+                }
+            });
+
+            function updateActiveSuggestion(suggestions) {
+                suggestions.forEach((suggestion, index) => {
+                    if (index === activeIndex) {
+                        suggestion.classList.add('active');
+                        suggestion.scrollIntoView({ block: 'nearest' });
+                    } else {
+                        suggestion.classList.remove('active');
+                    }
+                });
+            }
         });
     </script>
 {% endblock %}
