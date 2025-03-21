@@ -21,6 +21,7 @@ from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
     urlpatterns as image_url_tag_urls,
 )
 from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
+from foundation_cms.search import views as search_views
 
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -135,6 +136,8 @@ urlpatterns = list(
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
+path("search/", search_views.search, name="search"),
+    path('search/autocomplete/', search_views.search_autocomplete, name='search_autocomplete'),
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
     path("blog/atom/", AtomFeed()),

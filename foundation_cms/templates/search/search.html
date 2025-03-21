@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+{% block body_class %}template-searchresults{% endblock %}
+{% block title %}Search{% endblock %}
+{% block extra_css %}
+    <style>
+        .autocomplete-suggestions {
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: white;
+            border: 1px solid #ddd;
+            position: absolute;
+            z-index: 1000;
+            width: 30em;
+        }
+        .autocomplete-suggestions:empty {
+            display: none;
+        }
+        .autocomplete-suggestion {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestion:hover, .autocomplete-suggestion.active {
+            background: #ccc;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Search</h1>
+    <form action="{% url 'search' %}" method="get" class="search-form">
+        <input type="text"
+               name="query"
+               id="search-input"
+               {% if search_query %}value="{{ search_query }}"{% endif %}
+               placeholder="Search..."
+               autocomplete="off">
+        <input type="submit" value="Search" class="button">
+        <div id="autocomplete-container" class="autocomplete-suggestions"></div>
+    </form>
+    {% if search_results %}
+        <ul class="search-results">
+            {% for result in search_results %}
+                <li>
+                    <h4>
+                        <a href="{% pageurl result %}">{{ result }}</a>
+                    </h4>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if search_results.paginator.num_pages > 1 %}
+            <div class="pagination">
+                {% if search_results.has_previous %}
+                    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ search_results.previous_page_number }}">Previous</a>
+                {% endif %}
+                {% if search_results.has_next %}
+                    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ search_results.next_page_number }}">Next</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% elif search_query %}
+        <p>No results found for "{{ search_query }}"</p>
+    {% endif %}
+{% endblock %}
+{% block extra_js %}
+    <script nonce="{{ request.csp_nonce }}">
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const autocompleteContainer = document.getElementById('autocomplete-container');
+            let activeIndex = -1;
+
+            searchInput.addEventListener('input', async function() {
+                const query = searchInput.value.trim();
+                if (query.length < 2) {
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+                    return;
+                }
+
+                try {
+                    const response = await fetch("{% url 'search_autocomplete' %}?query=" + encodeURIComponent(query));
+                    if (!response.ok) {
+                        console.error('Error fetching autocomplete results');
+                        return;
+                    }
+
+                    const data = await response.json();
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+
+                    data.results.forEach(item => {
+                        const suggestion = document.createElement('div');
+                        suggestion.className = 'autocomplete-suggestion';
+                        suggestion.textContent = item.title;
+                        suggestion.addEventListener('click', () => {
+                            window.location.href = item.url;
+                        });
+                        autocompleteContainer.appendChild(suggestion);
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            searchInput.addEventListener('keydown', function(event) {
+                const suggestions = autocompleteContainer.querySelectorAll('.autocomplete-suggestion');
+                if (suggestions.length === 0) return;
+
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    activeIndex = (activeIndex + 1) % suggestions.length;
+                    updateActiveSuggestion(suggestions);
+                } else if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    activeIndex = (activeIndex - 1 + suggestions.length) % suggestions.length;
+                    updateActiveSuggestion(suggestions);
+                } else if (event.key === 'Enter') {
+                    event.preventDefault();
+                    if (activeIndex >= 0 && activeIndex < suggestions.length) {
+                        const activeSuggestion = suggestions[activeIndex];
+                        window.location.href = activeSuggestion.dataset.url;
+                    }
+                } else if (event.key === 'Escape') {
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!autocompleteContainer.contains(event.target) && event.target !== searchInput) {
+                    autocompleteContainer.innerHTML = '';
+                    activeIndex = -1;
+                }
+            });
+
+            function updateActiveSuggestion(suggestions) {
+                suggestions.forEach((suggestion, index) => {
+                    if (index === activeIndex) {
+                        suggestion.classList.add('active');
+                        suggestion.scrollIntoView({ block: 'nearest' });
+                    } else {
+                        suggestion.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
