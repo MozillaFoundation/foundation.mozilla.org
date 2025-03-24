@@ -115,7 +115,7 @@ factory-boy==3.3.1
     # via
     #   -r requirements.in
     #   wagtail-factories
-faker==26.3.0
+faker==37.0.2
     # via
     #   -r requirements.in
     #   factory-boy
@@ -178,7 +178,6 @@ pyjwt==2.4.0
 python-dateutil==2.8.2
     # via
     #   botocore
-    #   faker
     #   heroku3
 python-slugify==8.0.4
     # via -r requirements.in
@@ -237,6 +236,8 @@ typing-extensions==4.4.0
     # via
     #   dj-database-url
     #   wagtail-localize
+tzdata==2025.2
+    # via faker
 ua-parser==0.18.0
     # via user-agents
 urllib3==1.26.19
