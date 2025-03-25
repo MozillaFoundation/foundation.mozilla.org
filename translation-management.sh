@@ -33,15 +33,16 @@ command="$1"
 # Read path to local string repository from .env file
 L10N_REPO=$(grep LOCAL_PATH_TO_L10N_REPO .env | cut -d '=' -f2)
 L10N_REPO+="foundation/translations/"
-CODE_REPO="./"
+CODE_REPO="foundation_cms/"
 
 FOLDERS=(
-  "foundation_cms/locale/"
-  "foundation_cms/legacy_apps/templates/pages/buyersguide/about/locale/"
-  "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/locale/"
-  "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
-  "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
-  "foundation_cms/legacy_apps/mozfest/locale/"
+  "locale/"
+  "legacy_apps/locale/"
+  "legacy_apps/templates/pages/buyersguide/about/locale/"
+  "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale/"
+  "legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
+  "legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
+  "legacy_apps/mozfest/locale/"
 )
 
 # Array of locale codes in ab-CD format that need to be converted into ab_CD for Django
