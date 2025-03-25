@@ -1,0 +1,386 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags static wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n %}
+
+
+{% block body_id %}home{% endblock %}
+
+
+{% block hero_guts %}
+
+<div id="hero">
+    <div class="banner tw-bg-black">
+        {% with banner=page.specific.get_banner %}
+            {% if banner %}
+                <picture>
+                    <source media="(min-width: 1200px)" srcset="{% image_url banner "fill-4032x480" %}">
+                    <source media="(min-width: 992px)" srcset="{% image_url banner "fill-2400x480" %}">
+                    <source media="(min-width: 768px)" srcset="{% image_url banner "fill-1984x480" %}">
+                    <source media="(min-width: 576px)" srcset="{% image_url banner "fill-1536x390" %}">
+                    {# Fallback Image #}
+                    <img src="{% image_url banner "fill-1536x390" %}" alt="" width="1536" height="390">
+                </picture>
+            {% else %}
+                <img src="https://foundation.mofostaging.net/images/gxkoh9oircHVkTV8zh0ozrEFDq4=/11056/fill-4032x480/Shaping-the-Future-Hero2x-20.jpg" alt="" width="" height="">
+            {% endif %}
+        {% endwith %}
+
+        <div class="container tw-dark tw-pt-40 banner-content">
+            <div class="row">
+                <div class="col-12 col-md-9 col-xl-8 mt-3 d-flex flex-column justify-content-end">
+                    <h1 class="tw-h1-heading">A healthy internet is one in which privacy, openness, and inclusion are the norms.</h1>
+                    <p> Donate now to help create safer, more transparent online experiences for everyone.</p>
+                        <div>
+                            <a href="#XZNHBLJU" style="display: none"></a>
+                                                </div>
+                                                
+                    <p class="tw-pt-18 "> <b> 1,717 </b> people have already donated this month.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+{% endblock %}
+
+
+{% block footer_block %}
+<!-- Container -->
+ 
+<div class="tw-container tw-mx-auto tw-px-4 tw-py-16 tw-text-center tw-relative tw-mt-[-50px] tw-bg-white">
+
+    <!-- Centered Heading -->
+    <h1 class="tw-text-4xl tw-font-bold tw-mb-4">Serving the world's greatest needs</h1>
+  
+    <!-- Paragraph -->
+    <p class="tw-text-lg tw-text-gray-700 tw-mb-12">
+        100% of what you give goes toward programs.
+    </p>
+  
+    <!-- Button Grid -->
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-6">
+  
+      <!-- Button 1 -->
+      <a href="?form=donate">
+      <button class="tw-border-[5px] tw-w-full tw-border-gray-400 tw-p-6 tw-text-left tw-rounded-lg tw-bg-white hover:tw-border-blue-40 tw-transition">
+        <i class="fas fa-water tw-text-blue-500 tw-text-2xl tw-mb-2"></i>
+        <h2 class="tw-text-xl tw-font-semibold">Water Access</h2>
+        <p class="tw-text-sm tw-text-gray-600">Clean water solutions for everyone.</p>
+      </button>
+
+      <!-- Button 2 -->
+      <a href="?form=donate">
+      <button href="?form=donate" class="tw-border-[5px] tw-w-full tw-border-gray-400 tw-p-6 tw-text-left tw-rounded-lg tw-bg-white hover:tw-border-blue-40 tw-transition">
+        <i class="fas fa-leaf tw-text-green-500 tw-text-2xl tw-mb-2"></i>
+        <i class="fa-solid fa-salad" aria-hidden="true"></i>
+        <h2 class="tw-text-xl tw-font-semibold">Sustainability</h2>
+        <p class="tw-text-sm tw-text-gray-600">Eco-friendly projects for the future.</p>
+      </button>
+    </a>
+
+  
+      <!-- Button 3 -->
+      <a href="?form=donate">
+      <button href="?form=donate" class="tw-border-[5px] tw-w-full tw-border-gray-400 tw-p-6 tw-text-left tw-rounded-lg tw-bg-white hover:tw-border-blue-40 tw-transition">        <i class="fas fa-heart tw-text-red-500 tw-text-2xl tw-mb-2"></i>
+        <h2 class="tw-text-xl tw-font-semibold">Health & Wellness</h2>
+        <p class="tw-text-sm tw-text-gray-600">Improving lives through care and action.</p>
+      </button>
+      </a>
+  
+      <!-- Button 4 -->
+      <a href="?form=donate">
+        <button href="?form=donate" class="tw-border-[5px] tw-w-full tw-border-gray-400 tw-p-6 tw-text-left tw-rounded-lg tw-bg-white hover:tw-border-blue-40 tw-transition">
+        <i class="fas fa-book tw-text-yellow-500 tw-text-2xl tw-mb-2"></i>
+        <h2 class="tw-text-xl tw-font-semibold">Education</h2>
+        <p class="tw-text-sm tw-text-gray-600">Empowering communities through learning.</p>
+      </button>
+  </a>
+    </div>
+  </div>
+
+  <div class="tw-mx-auto tw-px-4 small:tw-px-6 large:tw-p-16 tw-py-16 tw-bg-gray-05">
+    <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-24 tw-items-center">
+  
+      <!-- Left Column: Image -->
+      <div>
+        <img 
+          src="https://assets.mofoprod.net/network/images/53019847450_c2ac44d399_3k.original.jpg" 
+          alt="Two women carrying jugs of water on their heads"
+          title="Two women carrying jugs of water on their heads"
+          class="tw-w-full tw-h-auto tw-shadow-md"
+          loading="lazy"
+        />
+      </div>
+  
+      <!-- Right Column: Heading -->
+      <div>
+        <h1 class="tw-text-4xl tw-font-bold">Provide Clean Drinking water for <p class="tw-text-4xl tw-font-bold tw-text-blue-40 tw-h1-heading"> 500 people </p> </h1>
+        <p>
+        500 people are currently without access to clean drinking water, leading to the spread of water-borne diseases that have left many sick. Act now by donating to support the drilling and installation of a fresh water well.
+         </p>
+         <a href="#XLCHFDTV" style="display: none"></a>
+      </div>
+  
+    </div>
+</div>
+
+<div
+  class="tw-my-28"
+>
+  <div class="tw-container tw-mx-auto tw-text-center tw-bg-cover tw-bg-center tw-bg-no-repeat tw-py-28 tw-px-6" style="background-image: url('https://assets.mofoprod.net/network/images/Shaping-the-Future-Hero2x-20.2e16d0ba.fill-4032x480.jpg');"
+  >
+    <h2 class="tw-text-4xl tw-text-white tw-font-bold tw-mb-4">Making a Difference Together</h2>
+    <p class="tw-text-lg tw-text-white">
+      Your support empowers communities with clean water, education, and a healthier future. Every donation counts.
+    </p>
+    <a href="#XTHWHHHB" style="display: none"></a>
+  </div>
+</div>
+<div class="tw-mx-auto ">
+    <div class="tw-container tw-px-0">
+    <div class="tw-h-4 tw-bg-gray-05 tw-my-10 tw-mb-10"> </div>
+    </div>
+</div>
+
+
+<div class="tw-mx-auto tw-px-4 small:tw-px-6 large:tw-p-16 tw-py-16">
+    <div class="tw-container tw-px-0">
+        <h1 class="tw-text-4xl tw-font-bold">Support our campaigns </h1>
+        <p>
+        Support one of our campaigns that you are passionate about and help us continue our fight for a safe internet.
+            </p>
+    <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-3 tw-gap-24 tw-items-center">
+ 
+        <!-- Left Column: Image -->
+
+        <div class="tw-flex tw-justify-center tw-items-center">
+            <a href="#XFFCXLQN" style="display: none"></a>
+    </div>
+
+    <div class="tw-flex tw-justify-center tw-items-center">
+        <a href="#XRYRRJBA" style="display: none"></a>
+    </div>
+
+    
+        <!-- Right Column: Heading -->  
+        <div class="tw-flex tw-justify-center tw-items-center">
+                <a href="#XFFCXLQN" style="display: none"></a>
+        </div>
+    
+    </div>
+</div>
+</div>
+
+<div
+  class="tw-my-12 tw-bg-cover tw-bg-center tw-bg-no-repeat tw-text-white tw-py-112 tw-px-6 tw-text-center"
+  style="background-image: url('https://assets.mofoprod.net/network/images/Header_9Tl6Rin.original.png');"
+>
+
+</div>
+
+
+<div class="tw-mx-auto tw-px-4 small:tw-px-6">
+    <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-24 tw-pb-32 tw-pt-24 tw-items-center">
+    
+        <!-- Left Column: Image -->
+        <div>
+        <h1 class="tw-text-4xl tw-font-bold">Help stop the refugee crisis. </h1>
+        <p>
+            More than 150,000 people have been displaced from their homes because of the refugee crisis. They are in desperate need of a place to go and essential care. Donate now to help stop the crisis, provide hope, and ensure care for those in need.
+        </p>
+        <a href="#XMABJFWS" style="display: none"></a>
+        </div>
+    
+        <!-- Right Column: Heading -->  
+        <div class="tw-flex medium:tw-justify-end medium:tw-items-end tw-justify-center tw-items-center">
+            <a href="#XFJLGDNG" class="tw-hidden"></a>
+        </div>
+    
+    </div>
+    <div class="tw-container tw-grid-cols-3 tw-gap-24 tw-pt-24 tw-pb-48 tw-items-center tw-hidden large:tw-grid">
+    
+
+  <!-- Image 1 -->
+  <div>
+    <img 
+    src="https://assets.mofoprod.net/network/images/ReclaimingPower.original.jpg" 
+    alt="Person walking in desert" 
+      class="tw-w-full tw-h-auto tw-shadow-md"
+    />
+  </div>
+
+  <!-- Image 2 -->
+  <div class="tw-flex tw-justify-center tw-items-center">
+    <img 
+      src="https://assets.mofoprod.net/network/images/WeArePlanet.original.jpg" 
+      alt="Water well in village" 
+      class="tw-w-full tw-h-auto tw-shadow-md"
+    />
+  </div>
+
+  <!-- Image 3 -->
+  <div>
+    <img 
+    src="https://assets.mofoprod.net/network/images/SongsOfTheLiving.original.jpg" 
+    alt="Child drinking water" 
+    class="tw-w-full tw-h-auto tw-shadow-md"
+    />
+  </div>
+    </div>
+</div>
+
+
+<div class="tw-mx-auto tw-px-4 tw-pb-20 small:tw-px-6 large:tw-p-16 tw-py-16 tw-bg-gray-05">
+    <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-24 tw-items-center tw-pb-40">
+    
+        <!-- Left Column: Image -->
+        <div>
+        <h1 class="tw-text-4xl tw-font-bold">Provide Clean Drinking water for <p class="tw-text-4xl tw-font-bold tw-text-blue-40 tw-h1-heading"> 500 people </p> </h1>
+        <p>
+        500 people are currently without access to clean drinking water, leading to the spread of water-borne diseases that have left many sick. Act now by donating to support the drilling and installation of a fresh water well.
+            </p>
+        <img 
+            src="https://assets.mofoprod.net/network/images/quote-image.width-1080.jpg" 
+            alt="Two women carrying jugs of water on their heads"
+            title="Two women carrying jugs of water on their heads"
+            class="tw-w-full tw-h-auto"
+            loading="lazy"
+        />
+        </div>
+    
+        <!-- Right Column: Heading -->  
+        <div class="tw-flex tw-justify-center tw-items-center">
+            <a href="#XVUUTWWM" style="display: none"></a>
+        </div>
+    
+    </div>
+</div>
+
+
+
+<div
+  class=" tw-bg-cover tw-bg-center tw-bg-no-repeat tw-text-white tw-py-112 tw-px-6 tw-text-center"
+  style="background-image: url('https://assets.mofoprod.net/network/images/Header_9Tl6Rin.original.png');"
+>
+
+</div>
+
+<div class="tw-container tw-mx-auto tw-px-4 tw-py-16 tw-text-center tw-relative tw-mt-[-200px] tw-bg-white">
+
+    <!-- Centered Heading -->
+    <h1 class="tw-text-4xl tw-font-bold tw-mb-12">Support earthquake victims</h1>
+  
+    <!-- Paragraph -->
+    <p class="tw-text-lg tw-text-gray-700 tw-mb-12">
+        A devastating 8.0 magnitude earthquake has left hundreds of thousands of people without shelter, food, water, and electricity.
+    </p>
+
+    <p class="tw-text-lg tw-text-gray-700 tw-mb-12">
+        <b>        Your support is desperately needed to provide essential services and medical aid.
+        </b>
+
+        </p>
+
+        <div class="tw-container tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-12 tw-pt-24 tw-pb-48 tw-items-center tw-grid">
+    
+
+            <!-- Image 1 -->
+            <div>
+                <a href="#XAPEHFES" style="display: none"></a>
+            </div>
+          
+            <!-- Image 2 -->
+            <div class="tw-flex tw-justify-center tw-items-center">
+                <a href="#XAPEHFES" style="display: none"></a>
+            </div>
+          
+            <!-- Image 3 -->
+            <div>
+                <a href="#XAPEHFES" style="display: none"></a>
+              </div>
+  
+ 
+</div>
+</div>
+
+
+
+<div class="tw-mx-auto tw-px-4 tw-pb-20 small:tw-px-6 large:tw-p-16 tw-py-16 tw-bg-gray-05">
+    <div class="tw-container tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-24 tw-items-center tw-pb">
+    
+        <!-- Left Column: Image -->
+        <div>
+            <h1 class="tw-text-4xl tw-font-bold">Our donors come from <p class="tw-text-4xl tw-font-bold tw-text-blue-40 tw-h1-heading"> all over the world. </p> </h1>
+            <p> Take a look at some of our donations from North America, and beyond. </p>
+
+        </div>
+    
+        <!-- Right Column: Heading -->  
+        <div class="r">
+            <a href="#XHTWCXUR" style="display: none"></a>
+            <p class="tw-text-sm" > Click and drag to explore. </p>
+        </div>
+    
+    </div>
+
+    <div class="tw-container tw-grid-cols-1 medium:tw-grid-cols-2 large:tw-grid-cols-3 tw-gap-24 tw-pt-24 tw-pb-48 tw-items-center tw-grid">
+    
+
+        <!-- Image 1 -->
+        <div>
+            <a href="#XGYJATSQ" style="display: none"></a>
+        </div>
+      
+        <!-- Image 2 -->
+        <div>
+            <a href="#XPBQRWQE" style="display: none"></a>       
+         </div>
+      
+        <!-- Image 3 -->
+        <div class="tw-pt-[54px]">
+            <a href="#XYVYCKGV" style="display: none"></a>
+        </div>
+      </div>
+      
+</div>
+
+
+
+<div class="tw-bg-blue-40 tw-dark print:tw-hidden tw-py-24">
+    
+    <div class="tw-container tw-mx-auto tw-px-4 small:tw-px-6 large:tw-p-16 tw-py-16">
+        <div class="tw-grid tw-grid-cols-1 medium:tw-grid-cols-2 tw-gap-24 tw-items-center">
+      
+          <!-- Left Column: Image -->
+
+      
+          <!-- Right Column: Heading -->
+          <div>
+            <h1 class="tw-text-4xl tw-font-bold">Have your phone with you?</h1>
+            <p>
+                Scan the QR code to donate from your phone using Venmo, Apple Pay, Google Pay, or PayPal.
+             </p>
+          </div>
+
+          <div class="tw-flex tw-justify-center tw-items-center tw-h-[200px]">
+            <a href="#XWCTNDXR" class="tw-block">
+              <!-- External script likely replaces this <a> with an iframe -->
+            </a>
+          </div>
+      
+        </div>
+      </div>
+
+      
+</div>
+{% include "fragments/footer.html" with skip_donate=True %}
+
+{% endblock %}

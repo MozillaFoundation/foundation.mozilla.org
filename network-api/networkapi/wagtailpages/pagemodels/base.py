@@ -96,6 +96,10 @@ class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page)
         return context
 
 
+class FundraiseUpDemoPage(BasePage):
+    template = "pages/fundraiseup_demo_page.html"
+
+
 class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
     """
     Basically a straight copy of modular page, but with
@@ -1075,6 +1079,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ArticlePage",
         "donate.DonateLandingPage",
         "donate_banner.DonateBannerPage",
+        "FundraiseUpDemoPage",
     ]
 
     def get_localized_take_action_cards(self):

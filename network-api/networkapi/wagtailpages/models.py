@@ -118,3 +118,4 @@ from .pagemodels.youtube import (
     YoutubeRegretsPage,
     YoutubeRegretsReporterPage,
 )
+from .pagemodels.base import FundraiseUpDemoPage
