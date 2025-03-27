@@ -7,7 +7,6 @@ from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import ParticipatePage2
 
 
-
 class ParticipatePage2Factory(PageFactory):
     class Meta:
         model = ParticipatePage2

@@ -5,7 +5,6 @@ from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-
 from networkapi.wagtailpages.models import Styleguide
 
 styleguide_streamfield_fields = [

@@ -3,11 +3,11 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 

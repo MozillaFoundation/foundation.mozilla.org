@@ -9,7 +9,6 @@ from networkapi.wagtailpages.factory import documents as documents_factory
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 
-
 class LibraryDetailPageAbstractFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.LibraryDetailPage

@@ -1,7 +1,7 @@
+import logging
 import os
 import subprocess
 import tempfile
-import logging
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -26,8 +26,10 @@ def get_custom_webp_spec(spec_str):
     """
     Appends '-webp' to the filter spec for internal tracking and cache uniqueness.
     """
-    return "original-webp" if spec_str == "original" else (
-        f"{spec_str}-webp" if not spec_str.endswith("-webp") else spec_str
+    return (
+        "original-webp"
+        if spec_str == "original"
+        else (f"{spec_str}-webp" if not spec_str.endswith("-webp") else spec_str)
     )
 
 
@@ -39,10 +41,10 @@ def get_or_create_rendition(image, spec_str, file, width, height):
         filter_spec=spec_str,
         focal_point_key=image.get_focal_point_key(),
         defaults={
-            'file': file,
-            'width': width,
-            'height': height,
-        }
+            "file": file,
+            "width": width,
+            "height": height,
+        },
     )[0]
 
 
@@ -52,9 +54,7 @@ def cache_rendition(image, rendition, spec_str):
     """
     filter_obj = Filter(spec=spec_str.replace("-webp", ""))
     Rendition = image.get_rendition_model()
-    cache_key = Rendition.construct_cache_key(
-        image, filter_obj.get_cache_key(image), spec_str
-    )
+    cache_key = Rendition.construct_cache_key(image, filter_obj.get_cache_key(image), spec_str)
     Rendition.cache_backend.set(cache_key, rendition)
 
 
@@ -82,7 +82,7 @@ def _convert_to_webp_via_ffmpeg(source_file, output_path=None, input_suffix=".we
         temp_out_path = output_path or tempfile.NamedTemporaryFile(delete=False, suffix=".webp").name
 
         subprocess.run(
-            ['ffmpeg', '-y', '-i', temp_in_path, '-loop', '0', '-f', 'webp', temp_out_path],
+            ["ffmpeg", "-y", "-i", temp_in_path, "-loop", "0", "-f", "webp", temp_out_path],
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -113,20 +113,23 @@ def generate_webp_rendition(image, source_file, spec_str, width, height):
             temp_out_path = temp_in.name.replace(".gif", f"-{width}x{height}.webp")
 
         aspect_ratio = width / height
-        vf_filter = (
-            f"crop='min(in_w,in_h*{aspect_ratio})':'min(in_h,in_w/{aspect_ratio})',"
-            f"scale={width}:{height}"
-        )
+        vf_filter = f"crop='min(in_w,in_h*{aspect_ratio})':'min(in_h,in_w/{aspect_ratio})'," f"scale={width}:{height}"
 
         subprocess.run(
             [
-                "ffmpeg", "-y",
-                "-i", temp_in.name,
-                "-vf", vf_filter,
-                "-loop", "0",
-                "-f", "webp",
-                "-c:v", "libwebp_anim",
-                temp_out_path
+                "ffmpeg",
+                "-y",
+                "-i",
+                temp_in.name,
+                "-vf",
+                vf_filter,
+                "-loop",
+                "0",
+                "-f",
+                "webp",
+                "-c:v",
+                "libwebp_anim",
+                temp_out_path,
             ],
             check=True,
             stdout=subprocess.PIPE,

@@ -6,6 +6,7 @@ register = template.Library()
 
 Image = get_image_model()
 
+
 @register.inclusion_tag("wagtailpages/tags/card.html")
 def card(image, title, description, link_url, link_label):
     parsedDescription = BeautifulSoup(description, "html.parser")

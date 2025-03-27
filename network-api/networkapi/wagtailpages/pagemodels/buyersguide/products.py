@@ -23,10 +23,10 @@ from modelcluster.fields import ParentalKey
 from wagtail import hooks
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.fields import ExtendedYesNoField

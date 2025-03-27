@@ -8,9 +8,9 @@ from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav import utils as nav_utils

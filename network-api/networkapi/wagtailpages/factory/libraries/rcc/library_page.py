@@ -5,7 +5,6 @@ from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 
-
 class RCCLibraryPageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = wagtailpage_models.RCCLibraryPage

@@ -8,9 +8,9 @@ from wagtail import fields as wagtail_fields
 from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as wagtail_panels
+from wagtail.images import get_image_model_string
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
-from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (

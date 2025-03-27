@@ -3,10 +3,11 @@ from django.db.models import F, Value
 from django.db.models.functions import Concat
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
+from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
+
 
 class Profile(index.Indexed, TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)

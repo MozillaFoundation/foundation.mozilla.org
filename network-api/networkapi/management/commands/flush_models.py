@@ -10,11 +10,13 @@ from networkapi.news.models import News
 from networkapi.wagtailpages.models import CTA
 
 Image = get_image_model()
+
+
 class Command(BaseCommand):
     help = "Flush the models from the database"
 
     def handle(self, *args, **options):
-        
+
         self.stdout.write("Flushing models from the database...")
 
         self.stdout.write("Dropping Image objects...")

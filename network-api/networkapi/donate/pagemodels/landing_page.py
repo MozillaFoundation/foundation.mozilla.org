@@ -1,11 +1,11 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate.models import BaseDonationPage
-from wagtail.images import get_image_model_string
 
 
 class DonateLandingPage(BaseDonationPage):

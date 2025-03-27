@@ -5,8 +5,8 @@ from modelcluster import fields as cluster_fields
 from wagtail import blocks, fields, images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as panels
-from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.images import get_image_model_string
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks

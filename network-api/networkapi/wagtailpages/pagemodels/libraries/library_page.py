@@ -6,8 +6,8 @@ from django.core import paginator
 from django.db import models
 from wagtail import images as wagtail_images
 from wagtail.admin import panels
-from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.images import get_image_model_string
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.libraries import constants

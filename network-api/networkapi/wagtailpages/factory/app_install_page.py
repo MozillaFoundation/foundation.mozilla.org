@@ -9,7 +9,6 @@ from networkapi.wagtailpages.models import AppInstallPage
 from .petition import PetitionFactory
 
 
-
 class AppInstallPageFactory(PageFactory):
     class Meta:
         model = AppInstallPage

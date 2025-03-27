@@ -33,6 +33,8 @@ from networkapi.wagtailpages.utils import (
 )
 
 Image = get_image_model()
+
+
 class TestGetContentRelatedByTag(TestCase):
     def test_single_page_has_same_tag(self):
         # Not using the factories here because that was throwing errors due to missing images for some reason.

@@ -6,11 +6,10 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.safestring import mark_safe
 from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
+from wagtail.images import get_image_model_string
 from wagtail.models import Page, PreviewableMixin, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
-
 
 from networkapi.wagtailpages.constants import url_or_query_regex
 

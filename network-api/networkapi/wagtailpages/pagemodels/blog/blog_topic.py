@@ -2,9 +2,9 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
-from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,

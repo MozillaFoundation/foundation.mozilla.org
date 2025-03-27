@@ -1,9 +1,9 @@
 import factory
 from factory import Faker, LazyAttribute
 from wagtail.rich_text import RichText
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 from networkapi.donate.snippets.help_page_notice import HelpPageNotice
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 notice_text_contents = Faker("paragraph", nb_sentences=3, variable_nb_sentences=False)
 

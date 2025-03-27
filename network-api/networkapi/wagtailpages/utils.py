@@ -34,6 +34,7 @@ from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 Image = get_image_model()
 
+
 def titlecase(s):
     """
     See https://docs.python.org/3.7/library/stdtypes.html#str.title

@@ -2,8 +2,8 @@ from django.db import models
 from wagtail import fields
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
-from wagtail_localize import fields as localize_fields
 from wagtail.images import get_image_model_string
+from wagtail_localize import fields as localize_fields
 
 from networkapi.wagtailpages.pagemodels import customblocks
 from networkapi.wagtailpages.pagemodels.base import BasePage

@@ -14,7 +14,6 @@ from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.signup import SignupFactory
 
-
 streamfield_fields = [
     "paragraph",
     "image",

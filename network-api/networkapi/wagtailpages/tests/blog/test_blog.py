@@ -9,9 +9,8 @@ from wagtail import models as wagtail_models
 
 from networkapi.wagtailpages.factory import blog as blog_factory
 from networkapi.wagtailpages.factory import homepage as home_factory
-from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
-
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 class TestBlogPage(test.TestCase):

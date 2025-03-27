@@ -12,7 +12,6 @@ from networkapi.wagtailpages.tests import base as test_base
 from networkapi.wagtailpages.tests.blog.test_blog_index import BlogIndexTestCase
 
 
-
 class NavMenuTests(TestCase):
     def test_default_factory(self):
         """Test that the default factory creates a NavMenu with 4 dropdowns."""

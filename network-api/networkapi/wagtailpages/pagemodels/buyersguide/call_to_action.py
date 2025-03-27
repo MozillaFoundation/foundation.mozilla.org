@@ -1,10 +1,10 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.customblocks import LinkBlock
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (

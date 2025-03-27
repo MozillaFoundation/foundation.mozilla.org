@@ -8,6 +8,7 @@ from wagtail.admin.panels import (
     TitleFieldPanel,
 )
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
@@ -16,7 +17,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 from networkapi.wagtailpages.utils import CharCountWidget, get_plaintext_titles
-from wagtail.images import get_image_model_string
 
 from ..article_fields import article_fields
 from ..base import BasePage

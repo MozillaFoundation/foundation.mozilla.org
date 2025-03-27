@@ -16,11 +16,11 @@ from wagtail.admin.panels import (
     TitleFieldPanel,
 )
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.forms import BlogPageForm
 from networkapi.wagtailpages.pagemodels.profiles import Profile

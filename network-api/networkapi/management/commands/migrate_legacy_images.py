@@ -1,11 +1,12 @@
 from django.core.management.base import BaseCommand
-from wagtail.images.models import Image as LegacyImage
-from networkapi.images.models import FoundationCustomImage
 from django.db import connection, transaction
+from wagtail.images.models import Image as LegacyImage
+
+from networkapi.images.models import FoundationCustomImage
 
 
 class Command(BaseCommand):
-    
+
     help = "Migrate legacy wagtailimages.Image objects to FoundationCustomImage (DB-only, no file access)"
 
     def handle(self, *args, **options):
@@ -44,7 +45,6 @@ class Command(BaseCommand):
             migrated += 1
             self.stdout.write(f"✅ Migrated: {legacy.title}")
 
-
         with connection.cursor() as cursor:
             cursor.execute(
                 """
@@ -56,6 +56,4 @@ class Command(BaseCommand):
             )
         self.stdout.write(self.style.SUCCESS("🔧 ID sequence reset for FoundationCustomImage."))
 
-        self.stdout.write(self.style.SUCCESS(
-            f"\n🎉 Migration complete! {migrated} migrated, {skipped} skipped.\n"
-        ))
+        self.stdout.write(self.style.SUCCESS(f"\n🎉 Migration complete! {migrated} migrated, {skipped} skipped.\n"))

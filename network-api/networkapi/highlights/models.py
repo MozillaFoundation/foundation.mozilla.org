@@ -4,12 +4,12 @@ from django.db.models import Q
 from django.utils import timezone
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
 
 from networkapi.utility.images import get_image_upload_path
-from wagtail.images import get_image_model_string
 
 
 def get_highlights_image_upload_path(instance, filename):

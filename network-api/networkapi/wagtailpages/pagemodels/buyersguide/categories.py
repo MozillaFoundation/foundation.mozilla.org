@@ -12,10 +12,10 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseGenericSetting
+from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail.images import get_image_model_string
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (

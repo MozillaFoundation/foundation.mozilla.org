@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.utils import CharCountWidget
@@ -9,7 +10,6 @@ from .campaigns import CampaignPage
 from .customblocks.app_install_download_button_block import (
     AppInstallDownloadButtonBlock,
 )
-from wagtail.images import get_image_model_string
 
 
 class AppInstallPage(CampaignPage):

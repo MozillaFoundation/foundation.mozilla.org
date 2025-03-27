@@ -17,7 +17,6 @@ from networkapi.wagtailpages.factory.donation import DonationModalFactory
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.petition import PetitionFactory
 
-
 Faker.add_provider(ImageProvider)
 
 

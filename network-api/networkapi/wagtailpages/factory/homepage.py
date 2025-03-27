@@ -9,7 +9,6 @@ from networkapi.utility.faker.helpers import get_homepage, reseed
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import FocusArea, Homepage
 
-
 from .primary_page import PrimaryPageFactory
 
 if settings.HEROKU_APP_NAME:
@@ -42,7 +41,7 @@ class WagtailHomepageFactory(PageFactory):
 
 def generate(seed):
     Image = get_image_model()
-    
+
     reseed(seed)
 
     print("Generating blank Homepage")

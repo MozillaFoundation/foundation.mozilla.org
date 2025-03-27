@@ -7,8 +7,8 @@ from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page import models as routable_models
-from wagtail_localize.fields import SynchronizedField, TranslatableField
 from wagtail.images import get_image_model_string
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages import utils
 from networkapi.wagtailpages.pagemodels.base import BasePage

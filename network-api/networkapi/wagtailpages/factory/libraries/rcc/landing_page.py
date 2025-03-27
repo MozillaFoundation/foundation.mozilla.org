@@ -2,9 +2,8 @@ import factory
 import wagtail_factories
 
 from networkapi.wagtailpages import models as wagtailpage_models
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.customblocks import cta_aside_block
-
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 
 class RCCLandingPageFactory(wagtail_factories.PageFactory):

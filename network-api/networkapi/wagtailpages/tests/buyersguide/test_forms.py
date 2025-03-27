@@ -4,7 +4,6 @@ from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfiel
 
 from networkapi.wagtailpages import models as pagemodels
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
-
 from networkapi.wagtailpages.pagemodels.buyersguide.forms import (
     BuyersGuideArticlePageForm,
 )

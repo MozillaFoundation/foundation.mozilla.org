@@ -3,6 +3,8 @@ from wagtail.images import get_image_model
 from wagtail.models import Collection
 
 Image = get_image_model()
+
+
 class Command(BaseCommand):
     help = "Remove unused Collections with a depth of 1, and move respective images to the root collection"
 
