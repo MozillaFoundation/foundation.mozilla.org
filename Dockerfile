@@ -74,6 +74,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     curl \
     git \
     gettext \
+    libmagickwand-dev \
+    ffmpeg \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # Don't use the root user as it's an anti-pattern and Heroku does not run
@@ -121,7 +123,7 @@ FROM base as dev
 # Swap user, so the following tasks can be run as root
 USER root
 
-# Install `psql`, useful for `manage.py dbshell`, and dependencies for installing nodejs
+# Install `psql`, useful for `manage.py dbshell`, dependencies for installing nodejs
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     postgresql-client \
     ca-certificates \
