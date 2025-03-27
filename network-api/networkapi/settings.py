@@ -252,6 +252,7 @@ INSTALLED_APPS = list(
             "querystring_tag",
             # the network site
             "networkapi",
+            "networkapi.images",
             "networkapi.campaign",
             "networkapi.events",
             "networkapi.news",
@@ -517,6 +518,7 @@ WAGTAIL_USAGE_COUNT_ENABLED = True
 WAGTAIL_I18N_ENABLED = True
 
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
+WAGTAILIMAGES_IMAGE_MODEL = 'images.FoundationCustomImage'
 
 # Wagtail Frontend Cache Invalidator Settings
 
