@@ -2,23 +2,32 @@ import os
 import re
 import hashlib
 from django.core.files.base import ContentFile
+from django.utils.functional import cached_property
 from django.db import models
-from django.db.models.signals import pre_delete
-from django.dispatch.dispatcher import receiver
 from wagtail.images.models import Image, AbstractImage, AbstractRendition, Filter
 from wagtail.images import get_image_model_string
 from wagtail.images.models import Filter, SourceImageIOError
 from .webp import utils as webp_utils
+
+from django.db.models.signals import pre_delete, post_save
+from django.dispatch import receiver
 
 # The custom image model for the Foundation site
 class FoundationCustomImage(AbstractImage):
 
     # Add an animated_webp field to the Image model, where webp versions of
     # .gif files are stored and linked to the image.
-    animated_webp = models.FileField(upload_to='images/webp/', blank=True, null=True)
+    animated_webp = models.FileField(upload_to='images/converted_webp/', blank=True, null=True)
 
     admin_form_fields = Image.admin_form_fields + ('animated_webp',)
 
+    @cached_property
+    def animated_webp_ready(self):
+        if not self.animated_webp and self.file.name.lower().endswith(".webp"):
+            if webp_utils.is_animated_webp(self.file):
+                self.animated_webp = self.file
+                self.save(update_fields=["animated_webp"])
+        return self.animated_webp
     class Meta:
         app_label = 'images'
 
@@ -27,13 +36,14 @@ class FoundationCustomImage(AbstractImage):
         Save the image the wagtail way then extend to generate a .webp file if the
         image is a gif.
         """
-        # A temporary flag for migrate_legacy_images.py to skip the webp conversion
-        skip_webp = getattr(self, '_skip_webp', False)
 
         super().save(*args, **kwargs)
 
-        # Enter custom webp workflow if it's a gif and doesn't have an animated_webp.
-        if not skip_webp and self.file.name.lower().endswith('.gif') and not self.animated_webp:
+        # A temporary flag for migrate_legacy_images.py to skip the webp conversion
+        skip_webp = getattr(self, '_skip_webp', False)
+
+        # If it's a .gif, convert a copy to .webp and save that to animated_webp.
+        if not skip_webp and self.file.name.lower().endswith(('.gif')) and not self.animated_webp:
             webp_path = webp_utils.convert_gif_to_webp(self.file)
             if webp_path:
                 with open(webp_path, "rb") as f:
@@ -59,8 +69,8 @@ class FoundationCustomImage(AbstractImage):
         # Cases to use webp = if file gif, if it has an animated_web, and not in a
         # format string like format-jpeg, but allow format-webp
         use_webp = (
-            self.file.name.lower().endswith('.gif') and
-            self.animated_webp and
+            self.file.name.lower().endswith(('.gif', '.webp')) and
+            self.animated_webp_ready and
             not re.search(r"format-(?!webp)", spec_str)
         )
 
@@ -124,6 +134,17 @@ class NullRendition:
         return f'<img src="{self.url}" width="{self.width}" height="{self.height}" alt="{self.alt}" {attr_str}>'
     
 
+
+
+@receiver(post_save, sender=FoundationCustomImage)
+def set_animated_webp_after_upload(sender, instance, created, **kwargs):
+    if instance.animated_webp:
+        return
+
+    if instance.file.name.lower().endswith(".webp") and webp_utils.is_animated_webp(instance.file):
+        instance.animated_webp = instance.file
+        instance.save(update_fields=["animated_webp"])
+
 # Receive the pre_delete signal and delete the file associated with the model instance.
 @receiver(pre_delete, sender=FoundationCustomImage)
 def image_delete(sender, instance, **kwargs):
@@ -135,4 +156,4 @@ def image_delete(sender, instance, **kwargs):
 @receiver(pre_delete, sender=FoundationCustomRendition)
 def rendition_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
-    instance.file.delete(False)
+    instance.file.delete(False)    

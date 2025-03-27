@@ -4,6 +4,7 @@ import tempfile
 import logging
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from PIL import Image as PILImage
 from wagtail.images.models import Filter, SourceImageIOError
 
 logger = logging.getLogger("networkapi")
@@ -136,3 +137,14 @@ def get_or_create_rendition(image, spec_str, file, width, height):
             'height': height,
         }
     )[0]
+
+def is_animated_webp(file):
+    """
+    Will check if the webp is animated. If it is then we can consider it as the
+    raw animated_webp file.
+    """
+    try:
+        with PILImage.open(file) as im:
+            return im.format == "WEBP" and getattr(im, "is_animated", False)
+    except Exception:
+        return False
