@@ -7,7 +7,6 @@ from wagtail_factories import ImageFactory, PageFactory
 
 from networkapi.utility.faker.helpers import get_homepage, get_random_date, reseed
 from networkapi.wagtailpages.factory.documents import DocumentFactory
-from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import ArticlePage, Profile, PublicationPage
 from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
 

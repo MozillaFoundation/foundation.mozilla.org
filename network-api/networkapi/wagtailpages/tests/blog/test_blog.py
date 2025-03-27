@@ -1,7 +1,6 @@
 import http
 from unittest import mock
 
-import wagtail_factories
 from django import test
 from django.core import exceptions
 from taggit import models as tag_models

@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from django.db import connection, transaction
+from django.db import connection
 from wagtail.images.models import Image as LegacyImage
 
 from networkapi.images.models import FoundationCustomImage

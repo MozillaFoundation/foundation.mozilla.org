@@ -5,7 +5,6 @@ from django.core import exceptions
 from django.db import models
 from wagtail import documents as wagtail_docs
 from wagtail import fields as wagtail_fields
-from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as wagtail_panels
 from wagtail.images import get_image_model_string

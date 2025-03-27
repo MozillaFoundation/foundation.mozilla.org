@@ -3,7 +3,6 @@ from functools import cached_property
 
 from django import shortcuts
 from django.db import models
-from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page import models as routable_models
