@@ -9,7 +9,7 @@ from wagtail.images import get_image_model_string
 from wagtail.images.models import Filter, SourceImageIOError
 from .webp import utils as webp_utils
 
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 # The custom image model for the Foundation site
@@ -23,6 +23,8 @@ class FoundationCustomImage(AbstractImage):
 
     @cached_property
     def animated_webp_ready(self):
+        if not self.pk:
+            return None  # Not yet saved, can't safely assign
         if not self.animated_webp and self.file.name.lower().endswith(".webp"):
             if webp_utils.is_animated_webp(self.file):
                 self.animated_webp = self.file
@@ -77,7 +79,7 @@ class FoundationCustomImage(AbstractImage):
         # enter the webp utils
         if use_webp:
             # Normalize the spec string for webp caching
-            spec_str = webp_utils.get_webp_spec(spec_str)
+            spec_str = webp_utils.get_custom_webp_spec(spec_str)
 
             # try to match fills and create renditions from that
             match = re.match(r'^fill-(\d+)x(\d+)', spec_str)
@@ -119,8 +121,11 @@ class FoundationCustomRendition(AbstractRendition):
             ('image', 'filter_spec', 'focal_point_key'),
         )
 
-# Create a null rendition of a missing image to gracefully exit 500 errors
 class NullRendition:
+    """
+    A dummy rendition returned when the actual image file is missing.
+    Prevents Wagtail from crashing on {% image %} tags.
+    """
     def __init__(self, image):
         self.image = image
         self.url = image.file.url if image.file else ""
@@ -133,17 +138,6 @@ class NullRendition:
         attr_str = " ".join(f'{key}="{value}"' for key, value in attrs.items())
         return f'<img src="{self.url}" width="{self.width}" height="{self.height}" alt="{self.alt}" {attr_str}>'
     
-
-
-
-@receiver(post_save, sender=FoundationCustomImage)
-def set_animated_webp_after_upload(sender, instance, created, **kwargs):
-    if instance.animated_webp:
-        return
-
-    if instance.file.name.lower().endswith(".webp") and webp_utils.is_animated_webp(instance.file):
-        instance.animated_webp = instance.file
-        instance.save(update_fields=["animated_webp"])
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
 @receiver(pre_delete, sender=FoundationCustomImage)
