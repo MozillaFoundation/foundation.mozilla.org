@@ -1,7 +1,7 @@
 import factory
 from factory import Faker, LazyAttribute
 from wagtail.rich_text import RichText
-from wagtail_factories import ImageFactory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 
 from networkapi.donate.snippets.help_page_notice import HelpPageNotice
 

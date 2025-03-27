@@ -10,6 +10,7 @@ from wagtail import models as wagtail_models
 from wagtail.admin import panels as wagtail_panels
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
+from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
@@ -41,7 +42,7 @@ class LibraryDetailPage(BasePage):
     subpage_types = ["ArticlePage", "PublicationPage"]
 
     cover_image = models.ForeignKey(
-        wagtail_images.get_image_model_string(),
+        get_image_model_string(),
         null=True,
         blank=False,
         on_delete=models.SET_NULL,

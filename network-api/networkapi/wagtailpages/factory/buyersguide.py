@@ -5,7 +5,7 @@ from random import choice, randint, random, randrange
 from django.utils import text as text_utils
 from factory import Faker, LazyAttribute, LazyFunction, SubFactory, post_generation
 from factory.django import DjangoModelFactory
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtail.models import Locale
 from wagtail_factories import PageFactory
 
@@ -16,6 +16,7 @@ from networkapi.wagtailpages.factory import profiles as profile_factories
 from networkapi.wagtailpages.factory.donation import DonationModalFactory
 from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.factory.petition import PetitionFactory
+
 
 Faker.add_provider(ImageProvider)
 
@@ -413,6 +414,7 @@ class ProductPageCategoryFactory(DjangoModelFactory):
 
 
 def generate(seed):
+    Image = get_image_model()
     reseed(seed)
 
     print("Generating PNI Homepage")

@@ -10,6 +10,7 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.images import get_image_model_string
 
 from networkapi.nav import blocks as nav_blocks
 from networkapi.nav import utils as nav_utils
@@ -33,7 +34,7 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
         verbose_name="Featured Blog Topic",
     )
     icon = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         related_name="+",
         on_delete=models.PROTECT,
         verbose_name="Icon",

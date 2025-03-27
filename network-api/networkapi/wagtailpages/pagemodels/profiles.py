@@ -6,13 +6,13 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
+from wagtail.images import get_image_model_string
 
 class Profile(index.Indexed, TranslatableMixin, models.Model):
     name = models.CharField(max_length=70, blank=False)
 
     image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

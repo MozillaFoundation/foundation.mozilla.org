@@ -1,10 +1,10 @@
 from taggit.models import Tag
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtailmetadata.models import MetadataPageMixin
 
 default_social_share_tag = None
 default_social_share_image = None
-
+Image = get_image_model()
 
 # Override the MetadataPageMixin to allow for a default
 # description and image in page metadata for all Pages on the site

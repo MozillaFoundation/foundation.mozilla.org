@@ -6,6 +6,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Locale, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.images import get_image_model_string
 
 from networkapi.mozfest import blocks as mozfest_blocks
 from networkapi.wagtailpages.models import (
@@ -70,7 +71,7 @@ class Ticket(TranslatableMixin):
 
 class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
     background_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -96,7 +97,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     header = models.CharField(max_length=250, blank=True)
 
     banner = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

@@ -4,6 +4,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
+from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
@@ -30,7 +31,7 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         'If not set, will default to "intro" text.',
     )
     share_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

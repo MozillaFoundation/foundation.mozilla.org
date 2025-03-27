@@ -10,6 +10,9 @@ from networkapi.wagtailpages.factory.documents import DocumentFactory
 from networkapi.wagtailpages.models import ArticlePage, Profile, PublicationPage
 from networkapi.wagtailpages.pagemodels.publications.article import ArticleAuthors
 
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+
+
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
 article_body_streamfield_fields = [

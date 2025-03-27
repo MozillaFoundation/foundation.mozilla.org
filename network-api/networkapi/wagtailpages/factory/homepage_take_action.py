@@ -1,7 +1,7 @@
 from random import choice
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtail.models import Page
 
 from networkapi.utility.faker.helpers import get_homepage, reseed
@@ -11,6 +11,7 @@ faker = Faker()
 
 
 def generate(seed):
+    Image = get_image_model()
     print("Generating Homepage Take Actions")
 
     home_page = get_homepage()

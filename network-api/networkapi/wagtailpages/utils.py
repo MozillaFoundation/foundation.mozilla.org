@@ -27,11 +27,12 @@ from django.utils.translation.trans_real import (
 )
 from PIL import Image as PILImage
 from sentry_sdk import capture_exception
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtail.models import Collection, Locale
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
+Image = get_image_model()
 
 def titlecase(s):
     """

@@ -9,6 +9,7 @@ from .campaigns import CampaignPage
 from .customblocks.app_install_download_button_block import (
     AppInstallDownloadButtonBlock,
 )
+from wagtail.images import get_image_model_string
 
 
 class AppInstallPage(CampaignPage):
@@ -23,7 +24,7 @@ class AppInstallPage(CampaignPage):
         help_text="Hero story subheadline",
     )
     hero_background = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         on_delete=models.PROTECT,
         related_name="+",
         help_text="Background image for the hero section",

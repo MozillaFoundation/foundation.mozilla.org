@@ -7,6 +7,7 @@ from django.db import models
 from wagtail import images as wagtail_images
 from wagtail.admin import panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.base import BasePage
 from networkapi.wagtailpages.pagemodels.libraries import constants
@@ -39,7 +40,7 @@ class BaseLibraryPage(BasePage):
     SORT_CHOICES = constants.SORT_CHOICES
 
     banner_image = models.ForeignKey(
-        wagtail_images.get_image_model_string(),
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

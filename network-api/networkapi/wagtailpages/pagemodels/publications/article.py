@@ -16,6 +16,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 from networkapi.wagtailpages.pagemodels.publications.publication import PublicationPage
 from networkapi.wagtailpages.utils import CharCountWidget, get_plaintext_titles
+from wagtail.images import get_image_model_string
 
 from ..article_fields import article_fields
 from ..base import BasePage
@@ -50,7 +51,7 @@ class ArticlePage(BasePage):
     template = "pages/article_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -60,7 +61,7 @@ class ArticlePage(BasePage):
     )
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

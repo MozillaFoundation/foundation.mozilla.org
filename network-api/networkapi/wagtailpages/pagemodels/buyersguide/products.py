@@ -26,6 +26,7 @@ from wagtail.fields import RichTextField
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.images import get_image_model_string
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.fields import ExtendedYesNoField
@@ -479,7 +480,7 @@ class ProductPage(BasePage):
         blank=True,
     )
     image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

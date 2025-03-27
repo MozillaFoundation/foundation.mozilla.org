@@ -6,7 +6,8 @@ import wagtail_factories
 from networkapi.utility.faker import helpers as faker_helpers
 from networkapi.wagtailpages import models as wagtailpage_models
 from networkapi.wagtailpages.factory import documents as documents_factory
-from networkapi.wagtailpages.factory import image_factory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+
 
 
 class LibraryDetailPageAbstractFactory(wagtail_factories.PageFactory):
@@ -15,7 +16,7 @@ class LibraryDetailPageAbstractFactory(wagtail_factories.PageFactory):
         abstract = True
 
     title = factory.Faker("text", max_nb_chars=50)
-    cover_image = factory.SubFactory(image_factory.ImageFactory)
+    cover_image = factory.SubFactory(ImageFactory)
 
     original_publication_date = factory.Faker("date_object")
     introduction = factory.Faker("text", max_nb_chars=300)

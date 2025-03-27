@@ -3,10 +3,11 @@ from wagtail_factories import PageFactory
 
 from networkapi.utility.faker.helpers import reseed
 from networkapi.wagtailpages import models as pagemodels
-from networkapi.wagtailpages.factory import image_factory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import AppInstallPage
 
 from .petition import PetitionFactory
+
 
 
 class AppInstallPageFactory(PageFactory):
@@ -22,7 +23,7 @@ class AppInstallPageFactory(PageFactory):
     slug = "regretsreporter"
     hero_heading = Faker("text", max_nb_chars=50)
     hero_subheading = Faker("text", max_nb_chars=50)
-    hero_background = SubFactory(image_factory.ImageFactory)
+    hero_background = SubFactory(ImageFactory)
     download_buttons = Faker("streamfield", fields=["app_install_download_button"] * 2)
     cta = SubFactory(PetitionFactory)
     body = Faker("streamfield", fields=["header", "paragraph", "image", "spacer", "image_text", "quote"])

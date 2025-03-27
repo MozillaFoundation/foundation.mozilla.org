@@ -113,7 +113,7 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
     header = models.CharField(max_length=250, blank=True)
 
     banner = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -189,7 +189,7 @@ class InitiativeSection(TranslatableMixin, models.Model):
     )
 
     sectionImage = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -257,7 +257,7 @@ class InitiativesPage(PrimaryPage):
     ]
 
     primaryHero = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -317,7 +317,7 @@ class ParticipatePage2(PrimaryPage):
     template = "wagtailpages/static/participate_page2.html"
 
     ctaHero = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -346,7 +346,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHero2 = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -375,7 +375,7 @@ class ParticipatePage2(PrimaryPage):
     )
 
     ctaHero3 = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -580,7 +580,7 @@ class InitiativesHighlights(TranslatableMixin, WagtailOrderable, models.Model):
 
 class CTABase(WagtailOrderable, models.Model):
     hero = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -667,7 +667,7 @@ class ParticipateHighlights2(ParticipateHighlightsBase):
 
 class FocusArea(TranslatableMixin, models.Model):
     interest_icon = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         on_delete=models.SET_NULL,
         related_name="interest_icon",
@@ -731,7 +731,7 @@ class HomepageTakeActionCards(TranslatableMixin, WagtailOrderable):
         related_name="take_action_cards",
     )
     image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=False,
         on_delete=models.SET_NULL,
@@ -772,7 +772,7 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
     )
     link = models.URLField(blank=True)
     logo = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         blank=False,
         null=True,
         on_delete=models.SET_NULL,
@@ -819,7 +819,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     )
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -847,7 +847,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     ideas_title = models.CharField(default="Ideas", max_length=50)
 
     ideas_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -880,7 +880,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
     )
 
     quote_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -914,7 +914,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         related_name="partner_internal_link",
     )
     partner_background_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         blank=False,
         null=True,
         on_delete=models.SET_NULL,

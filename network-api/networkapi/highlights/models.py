@@ -9,6 +9,7 @@ from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
 
 from networkapi.utility.images import get_image_upload_path
+from wagtail.images import get_image_model_string
 
 
 def get_highlights_image_upload_path(instance, filename):
@@ -57,7 +58,7 @@ class Highlight(TranslatableMixin, SortableMixin):
         help_text="Link to this highlight's details page",
     )
     image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         on_delete=models.SET_NULL,
         blank=False,
         null=True,

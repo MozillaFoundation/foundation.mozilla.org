@@ -5,6 +5,7 @@ from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.donate.models import BaseDonationPage
+from wagtail.images import get_image_model_string
 
 
 class DonateLandingPage(BaseDonationPage):
@@ -16,7 +17,7 @@ class DonateLandingPage(BaseDonationPage):
     subpage_types: list = ["DonateHelpPage", "wagtailpages.OpportunityPage"]
 
     featured_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         models.PROTECT,
         related_name="+",
     )

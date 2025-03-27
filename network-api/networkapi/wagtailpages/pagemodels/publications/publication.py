@@ -7,6 +7,7 @@ from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.images import get_image_model_string
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
@@ -47,7 +48,7 @@ class PublicationPage(BasePage):
     template = "pages/publication_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -57,7 +58,7 @@ class PublicationPage(BasePage):
     )
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

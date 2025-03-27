@@ -8,6 +8,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from networkapi.wagtailpages.pagemodels.customblocks.base_rich_text_options import (
     base_rich_text_options,
 )
+from wagtail.images import get_image_model_string
 
 
 class HelpPageNotice(TranslatableMixin, models.Model):
@@ -18,7 +19,7 @@ class HelpPageNotice(TranslatableMixin, models.Model):
         blank=False,
     )
     notice_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

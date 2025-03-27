@@ -11,6 +11,8 @@ from networkapi.wagtailpages.factory import blog as blog_factory
 from networkapi.wagtailpages.factory import homepage as home_factory
 from networkapi.wagtailpages.pagemodels.mixin import foundation_metadata
 
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+
 
 class TestBlogPage(test.TestCase):
     @classmethod
@@ -192,14 +194,14 @@ class TestBlogPage(test.TestCase):
         self.assertEqual(mock_ensure_related_posts.call_count, 1)
 
     def test_clean_when_hero_image_and_hero_video_set(self):
-        self.blog_page.hero_image = wagtail_factories.ImageFactory()
+        self.blog_page.hero_image = ImageFactory()
         self.blog_page.hero_video = "https://example.com/video.mp4"
 
         with self.assertRaises(exceptions.ValidationError):
             self.blog_page.clean()
 
     def test_clean_when_hero_image_but_not_hero_video_set(self):
-        self.blog_page.hero_image = wagtail_factories.ImageFactory()
+        self.blog_page.hero_image = ImageFactory()
         self.blog_page.hero_video = ""
 
         result = self.blog_page.clean()

@@ -6,6 +6,7 @@ from wagtail import blocks, fields, images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as panels
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail.images import get_image_model_string
 
 from networkapi.utility import orderables
 from networkapi.wagtailpages.pagemodels import customblocks
@@ -26,7 +27,7 @@ class BuyersGuideArticlePage(BasePage):
     base_form_class = BuyersGuideArticlePageForm
 
     hero_image = models.ForeignKey(
-        images.get_image_model_string(),
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

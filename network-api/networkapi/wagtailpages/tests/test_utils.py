@@ -7,7 +7,7 @@ from django.utils.translation.trans_real import (
 )
 from django.utils.translation.trans_real import to_language as django_to_language
 from taggit import models as tag_models
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtail.models import Collection, Locale
 
 from networkapi.wagtailpages.factory import blog as blog_factories
@@ -32,7 +32,7 @@ from networkapi.wagtailpages.utils import (
     localize_queryset,
 )
 
-
+Image = get_image_model()
 class TestGetContentRelatedByTag(TestCase):
     def test_single_page_has_same_tag(self):
         # Not using the factories here because that was throwing errors due to missing images for some reason.

@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 
 # Models
 from wagtail.models import Page as WagtailPage
@@ -9,11 +9,12 @@ from networkapi.highlights.models import Highlight
 from networkapi.news.models import News
 from networkapi.wagtailpages.models import CTA
 
-
+Image = get_image_model()
 class Command(BaseCommand):
     help = "Flush the models from the database"
 
     def handle(self, *args, **options):
+        
         self.stdout.write("Flushing models from the database...")
 
         self.stdout.write("Dropping Image objects...")
