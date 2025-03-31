@@ -104,10 +104,6 @@ $input-font-size: 1.25rem !important;
     .inputWrapper {
       width: 100% !important;
 
-      input {
-        border: 1px solid #949494 !important;
-      }
-
       input[type="text"],
       input[type="text"].validate-email,
       input[type="password"],
@@ -118,6 +114,7 @@ $input-font-size: 1.25rem !important;
         width: 100%;
         padding: 1rem 0.75rem;
         height: auto;
+        border: 1px solid #949494 !important;
         font-size: $input-font-size;
       }
 
