@@ -55,10 +55,12 @@ case $command in
   "import")
     echogreen "Importing latest translation files from fomo-l10n repository"
     for FOLDER in "${FOLDERS[@]}"; do
+      mkdir -p "${CODE_REPO}${FOLDER}" # For currently empty redesign dirs
       cp -r "${L10N_REPO}${FOLDER}" "${CODE_REPO}${FOLDER}"
 
       # Django >=3.2 stopped processing locale codes containing hyphens, we need to move the files between the two folders
       for HYPHEN_LOCALE in "${LOCALES[@]}"; do
+        mkdir -p "${L10N_REPO}${FOLDER}${HYPHEN_LOCALE}/" # For currently empty redesign dirs
         cp -r "${L10N_REPO}${FOLDER}${HYPHEN_LOCALE}/" "${CODE_REPO}${FOLDER}${HYPHEN_LOCALE//-/_}/"
       done
     done

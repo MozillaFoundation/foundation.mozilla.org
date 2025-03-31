@@ -575,6 +575,30 @@ def makemessages(ctx):
     manage(ctx, locale_abstraction_instructions_js)
     ctx.run("./translation-management.sh export")
 
+# Translation
+@task(aliases=["docker-msgmerge"])
+def msgmerge(ctx):
+    """Extract all template messages in .po files for localization"""
+    ctx.run("./translation-management.sh import")
+    manage(ctx, locale_abstraction_instructions)
+    manage(ctx, locale_abstraction_instructions_js)
+
+    pot_path = "foundation_cms/legacy_apps/locale/django.pot"
+    locales = ["en", "de", "es", "fr", "fy_NL", "nl", "pl", "pt_BR", "sw"]
+
+    if not os.path.exists(pot_path):
+        print(f"No .pot file found at {pot_path}. Skipping msgmerge/msginit steps.")
+    else:
+        for locale in locales:
+            po_path = f"foundation_cms/locale/{locale}/LC_MESSAGES/django.po"
+            try:
+                pyrun(ctx, f"msgmerge --update {po_path} {pot_path}")
+            except Exception:
+                print(f"PO file for '{locale}' not found, initializing...")
+                pyrun(ctx, f"mkdir -p foundation_cms/locale/{locale}/LC_MESSAGES")
+                pyrun(ctx, f"msginit --input={pot_path} --locale={locale} --output-file={po_path} --no-translator")
+
+    ctx.run("./translation-management.sh export")
 
 @task(aliases=["docker-compilemessages"])
 def compilemessages(ctx):
