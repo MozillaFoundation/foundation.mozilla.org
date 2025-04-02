@@ -72,6 +72,7 @@ env = environ.Env(
     SOCIAL_AUTH_AUTH0_DOMAIN=(str, None),
     SOCIAL_AUTH_AUTH0_KEY=(str, None),
     SOCIAL_AUTH_AUTH0_SECRET=(str, None),
+    SOCIAL_AUTH_RAISE_EXCEPTIONS = (bool, False),
     SSL_REDIRECT=bool,
     STATIC_HOST=(str, ""),
     TARGET_DOMAINS=(list, []),
@@ -317,6 +318,8 @@ if SOCIAL_SIGNIN:
 
     SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
 
+    SOCIAL_AUTH_RAISE_EXCEPTIONS = env("SOCIAL_AUTH_RAISE_EXCEPTIONS")
+
     AUTHENTICATION_BACKENDS = [
         "social_core.backends.auth0.Auth0OAuth2",
         "django.contrib.auth.backends.ModelBackend",
@@ -328,6 +331,7 @@ if SOCIAL_SIGNIN:
         "social_core.pipeline.social_auth.social_uid",
         "social_core.pipeline.social_auth.auth_allowed",
         "social_core.pipeline.social_auth.social_user",
+        "networkapi.pipeline.force_username_from_nickname",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
         "social_core.pipeline.social_auth.associate_user",
