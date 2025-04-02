@@ -315,7 +315,7 @@ MIDDLEWARE = list(
 if SOCIAL_SIGNIN:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = env("SOCIAL_AUTH_LOGIN_REDIRECT_URL", None)
 
-    SOCIAL_AUTH_AUTH0_SCOPE = ['openid', 'profile', 'email']
+    SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
 
     AUTHENTICATION_BACKENDS = [
         "social_core.backends.auth0.Auth0OAuth2",
