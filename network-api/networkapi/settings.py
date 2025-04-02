@@ -175,12 +175,10 @@ if HEROKU_APP_NAME:
 SITE_ID = 1
 
 SOCIAL_AUTH_AUTH0_DOMAIN = env("SOCIAL_AUTH_AUTH0_DOMAIN")
-
-# Use social authentication if there are key/secret values defined
-
-
 SOCIAL_AUTH_AUTH0_KEY = env("SOCIAL_AUTH_AUTH0_KEY")
 SOCIAL_AUTH_AUTH0_SECRET = env("SOCIAL_AUTH_AUTH0_SECRET")
+
+# Use social authentication if there are key/secret values defined
 SOCIAL_SIGNIN = SOCIAL_AUTH_AUTH0_KEY is not None and SOCIAL_AUTH_AUTH0_SECRET is not None
 
 USE_S3 = env("USE_S3")
