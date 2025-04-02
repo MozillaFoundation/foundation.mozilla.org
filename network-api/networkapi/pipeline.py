@@ -1,4 +1,4 @@
-# @TODO Migrate users to default FirstnameLastname usernames and get rid of this?
+# @TODO Migrate users to auth0's default FirstnameLastname usernames and get rid of this?
 
 def force_username_from_nickname(backend, details, response, *args, **kwargs):
     """
