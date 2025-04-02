@@ -3,6 +3,7 @@ from social_core.exceptions import AuthForbidden
 
 User = get_user_model()
 
+
 def associate_by_email(backend, details, uid, user=None, *args, **kwargs):
     """
     Associates users by email address to prevent duplicate user creation
