@@ -69,6 +69,9 @@ env = environ.Env(
     SLACK_WEBHOOK_RA=(str, ""),
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
+    SOCIAL_AUTH_AUTH0_DOMAIN=(str, None),
+    SOCIAL_AUTH_AUTH0_KEY=(str, None),
+    SOCIAL_AUTH_AUTH0_SECRET=(str, None),
     SSL_REDIRECT=bool,
     STATIC_HOST=(str, ""),
     TARGET_DOMAINS=(list, []),
@@ -172,10 +175,14 @@ if HEROKU_APP_NAME:
 
 SITE_ID = 1
 
+SOCIAL_AUTH_AUTH0_DOMAIN = env("SOCIAL_AUTH_AUTH0_DOMAIN")
+
 # Use social authentication if there are key/secret values defined
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
-SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
+
+
+SOCIAL_AUTH_AUTH0_KEY = env("SOCIAL_AUTH_AUTH0_KEY")
+SOCIAL_AUTH_AUTH0_SECRET = env("SOCIAL_AUTH_AUTH0_SECRET")
+SOCIAL_SIGNIN = SOCIAL_AUTH_AUTH0_KEY is not None and SOCIAL_AUTH_AUTH0_SECRET is not None
 
 USE_S3 = env("USE_S3")
 
@@ -309,7 +316,7 @@ if SOCIAL_SIGNIN:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = env("SOCIAL_AUTH_LOGIN_REDIRECT_URL", None)
 
     AUTHENTICATION_BACKENDS = [
-        "social_core.backends.google.GoogleOAuth2",
+        "social_core.backends.auth0.Auth0OAuth2",
         "django.contrib.auth.backends.ModelBackend",
     ]
 
