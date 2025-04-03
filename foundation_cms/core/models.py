@@ -1,9 +1,10 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
+
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 
-#from foundation_cms.blog.models import BlogPage
+# from foundation_cms.blog.models import BlogPage
 
 hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms."
 hero_intro_body_default_text = (
@@ -47,5 +48,5 @@ class HomePage(AbstractHomePage):
     def get_context(self, request):
         context = super().get_context(request)
         # Add live blog pages to the context
-        #context["blogs"] = BlogPage.objects.live().order_by("-first_published_at")
-        #return context
+        # context["blogs"] = BlogPage.objects.live().order_by("-first_published_at")
+        return context

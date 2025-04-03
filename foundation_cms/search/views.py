@@ -1,9 +1,8 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
-from wagtail.models import Page, Locale
+from wagtail.models import Locale, Page
 from wagtail.search.query import PlainText
-
 
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
@@ -19,9 +18,7 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Page.objects.live().filter(
-            locale=Locale.get_active()
-        ).search(search_query)
+        search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
 
         # To log this query for use with the "Promoted search results" module:
 
@@ -51,16 +48,12 @@ def search(request):
 
 
 def search_autocomplete(request):
-    search_query = request.GET.get('query', '').strip()
+    search_query = request.GET.get("query", "").strip()
     if search_query:
-        results = Page.objects.live().filter(
-            locale=Locale.get_active()
-        ).autocomplete(
-            PlainText(search_query),
-            fields=['title'],
-            operator='or'
-        )[:5]  # Limit to 5 suggestions
-        return JsonResponse({
-            'results': [{'title': page.title, 'url': page.url} for page in results]
-        })
-    return JsonResponse({'results': []})
+        results = (
+            Page.objects.live()
+            .filter(locale=Locale.get_active())
+            .autocomplete(PlainText(search_query), fields=["title"], operator="or")[:5]
+        )  # Limit to 5 suggestions
+        return JsonResponse({"results": [{"title": page.title, "url": page.url} for page in results]})
+    return JsonResponse({"results": []})

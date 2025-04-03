@@ -270,8 +270,8 @@ INSTALLED_APPS = list(
             # Redesign Site Apps
             "foundation_cms.base",
             "foundation_cms.core",
-            #"foundation_cms.blog",
-            #"foundation_cms.profiles",
+            # "foundation_cms.blog",
+            # "foundation_cms.profiles",
         ],
     )
 )

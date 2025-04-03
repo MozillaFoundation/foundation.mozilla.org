@@ -1,12 +1,13 @@
 from django.db import models
 
+
 class ThemedPageMixin:
     theme = models.CharField(
         max_length=50,
         blank=True,
         null=True,
         choices=[("default", "Default"), ("magazine", "Magazine")],
-        help_text="Optional. If unset, theme will be inherited from section root."
+        help_text="Optional. If unset, theme will be inherited from section root.",
     )
 
     def get_theme(self):

@@ -1,7 +1,8 @@
 from django.core.management.base import BaseCommand
 
 import foundation_cms.core.factories as core_factory
-#import foundation_cms.blog.factories as blog_factory
+
+# import foundation_cms.blog.factories as blog_factory
 
 
 class Command(BaseCommand):
@@ -13,8 +14,8 @@ class Command(BaseCommand):
         print("Create a homepage.")
         core_factory.create_homepage()
 
-        #print("Create a blog with blog posts.")
-        #blog_factory.create_blog_with_posts()
+        # print("Create a blog with blog posts.")
+        # blog_factory.create_blog_with_posts()
 
     def handle(self, **options):
         self.create_pages()
