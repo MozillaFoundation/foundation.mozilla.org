@@ -269,8 +269,9 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.project_styleguide",
             # Redesign Site Apps
             "foundation_cms.base",
-            "foundation_cms.blog",
-            "foundation_cms.profiles",
+            "foundation_cms.core",
+            #"foundation_cms.blog",
+            #"foundation_cms.profiles",
         ],
     )
 )
