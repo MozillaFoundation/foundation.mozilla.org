@@ -29,7 +29,7 @@
         </nav>
     {% endwith %}
     <body class="{% block body_class %}{% endblock %}">
-        {% include "base/primary_nav.html" %}
+        {% include "patterns/components/primary_nav.html" %}
         {% wagtailuserbar %}
         {% block primary_nav %}{% endblock %}
         {% block content %}{% endblock %}

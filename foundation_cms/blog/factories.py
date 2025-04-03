@@ -2,7 +2,7 @@ import factory
 import wagtail_factories
 from wagtail.models import Locale
 
-from foundation_cms.base.models import HomePage
+from foundation_cms.core.models import HomePage
 from foundation_cms.profiles.factories import ProfileFactory
 
 from .models import BlogIndexPage, BlogPage

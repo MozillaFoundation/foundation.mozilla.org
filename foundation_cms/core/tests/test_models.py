@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from foundation_cms.base import factories
+from foundation_cms.core import factories
 
 
 class HomePageTestCase(TestCase):

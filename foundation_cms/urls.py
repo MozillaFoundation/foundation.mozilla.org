@@ -136,8 +136,8 @@ urlpatterns = list(
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
-path("search/", search_views.search, name="search"),
-    path('search/autocomplete/', search_views.search_autocomplete, name='search_autocomplete'),
+    path("search/", search_views.search, name="search"),
+    path("search/autocomplete/", search_views.search_autocomplete, name="search_autocomplete"),
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
     path("blog/atom/", AtomFeed()),
