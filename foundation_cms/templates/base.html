@@ -21,6 +21,7 @@
         {# Force all links in the live preview panel to be opened in a new tab #}
         {% if request.in_preview_panel %}<base target="_blank">{% endif %}
         {# Global stylesheets #}
+        <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
         {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock %}
     </head>
     {# Basic breadcrumbs for dev navigation #}
