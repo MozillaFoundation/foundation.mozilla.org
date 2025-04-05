@@ -18,7 +18,6 @@ class GeneralPage(AbstractGeneralPage):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="cta_hero",
         verbose_name="Hero Image",
     )
 
