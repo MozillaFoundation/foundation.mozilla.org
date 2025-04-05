@@ -1,3 +1,6 @@
-<button class="btn btn-secondary">
-    {{ text|default:"Secondary Button" }}
+<button
+  class="btn btn-secondary {% if disabled %}is-disabled{% endif %}"
+  {% if disabled %}disabled{% endif %}
+>
+  {{ label|default:"Default Text" }}
 </button>

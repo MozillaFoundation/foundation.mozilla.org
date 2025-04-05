@@ -1,12 +1,15 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Pattern Library{% endblock %}</title>
-</head>
-<body>
-    {% block content %}
-        {{ pattern_library_rendered_pattern }}
-    {% endblock %}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Pattern Library</title>
+        <link rel="stylesheet" href="{% static 'base/css/design_system_test.css' %}">
+    </head>
+    <body>
+        {% block content %}
+            {{ pattern_library_rendered_pattern }}
+        {% endblock %}
+    </body>
 </html>

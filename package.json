@@ -76,7 +76,8 @@
     "watch:legacy:images": "chokidar \"foundation_cms/legacy_apps/static/images/**/*\" -c \"npm run build:legacy:images\"",
     "watch:legacy:scss": "chokidar \"foundation_cms/legacy_apps/static/**/*.scss\" -c \"npm run build:legacy:css\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "fetch-dpl": "node scripts/fetch-dpl.mjs",
+    "build-storybook": "npm run fetch-dpl && storybook build"
   },
   "browserslist": [
     "> 1%",
@@ -127,6 +128,7 @@
     "@storybook/addon-interactions": "^8.6.7",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
     "@storybook/addon-webpack5-compiler-swc": "^3.0.0",
+    "@storybook/addons": "^7.6.17",
     "@storybook/blocks": "^8.6.7",
     "@storybook/core-server": "^8.6.7",
     "@storybook/html": "^8.6.7",
@@ -142,6 +144,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-storybook": "^0.11.6",
+    "jsdom": "^26.0.0",
     "node-fetch": "^3.3.2",
     "optipng-bin": "^9.0.0",
     "prettier": "^3.5.3",

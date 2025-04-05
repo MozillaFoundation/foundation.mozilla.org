@@ -1,0 +1,5 @@
+name: Primary Button
+
+context:
+    label: "Button Text Set by primary.yml"
+    disabled: false
