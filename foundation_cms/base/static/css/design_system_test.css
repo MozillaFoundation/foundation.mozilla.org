@@ -1,0 +1,59 @@
+button, select {
+  text-transform: none;
+}
+button, input {
+  overflow: visible;
+}
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+button {
+  border-radius: 0;
+}
+
+.btn {
+  background-color: #595cf3;
+  border: 2px solid #595cf3;
+    border-top-color: rgb(89, 92, 243);
+    border-right-color: rgb(89, 92, 243);
+    border-bottom-color: rgb(89, 92, 243);
+    border-left-color: rgb(89, 92, 243);
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-family: Nunito Sans;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.22;
+  padding: .5rem 1rem;
+  text-align: center;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #0060df;
+  color: white;
+  border: none;
+}
+
+.btn-primary.is-disabled,
+.btn-secondary.is-disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: salmon;
+  color: white;
+  border: none;
+}
