@@ -6,7 +6,6 @@ from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 
 
 class GeneralPage(AbstractGeneralPage):
-
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
@@ -36,7 +35,7 @@ class GeneralPage(AbstractGeneralPage):
         blank=True,
     )
 
-    panels = AbstractGeneralPage.content_panels + [
+    content_panels = AbstractGeneralPage.content_panels + [
         FieldPanel('hero_headline'),
         FieldPanel('hero_image'),
         FieldPanel("header"),
@@ -50,7 +49,9 @@ class GeneralPage(AbstractGeneralPage):
         TranslatableField("button_title"),
     ]
 
+    class Meta:
+        verbose_name = "General Page (new)"
+
     def get_context(self, request):
         context = super().get_context(request)
         return context
-

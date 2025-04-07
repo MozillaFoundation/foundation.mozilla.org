@@ -48,7 +48,7 @@ class HomePage(AbstractHomePage):
     template = "patterns/pages/core/home_page.html"
 
     class Meta:
-        verbose_name = "Home Page"
+        verbose_name = "Home Page (new)"
 
     def get_context(self, request):
         context = super().get_context(request)
