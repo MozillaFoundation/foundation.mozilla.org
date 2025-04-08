@@ -33,6 +33,7 @@
         {% wagtailuserbar %}
         {% block primary_nav %}{% endblock %}
         {% block content %}{% endblock %}
+        {% include "patterns/components/footer.html" %}
         {# Global javascript #}
         {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock %}
     </body>

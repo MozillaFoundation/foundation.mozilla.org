@@ -1,4 +1,4 @@
-<nav>
+<nav id="primary-nav">
   <ul>
     <li><a href="/who-we-are/">Who We Are</a></li>
     <li><a href="/what-we-do/">What We Do</a></li>
@@ -24,12 +24,12 @@
     box-sizing: border-box;
   }
 
-  nav {
+  nav#primary-nav {
     margin-left: 200px;
   }
 
   /* Existing navbar styles */
-  nav ul {
+  nav#primary-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -37,16 +37,16 @@
     gap: 20px;
   }
 
-  nav ul li {
+  nav#primary-nav ul li {
     position: relative;
   }
 
-  nav ul li a {
+  nav#primary-nav ul li a {
     text-decoration: none;
     color: black;
   }
 
-  nav ul li ul {
+  nav#primary-nav ul li ul {
     display: none;
     position: absolute;
     top: 100%;
@@ -58,15 +58,15 @@
     border: 1px solid #ddd;
   }
 
-  nav ul li:hover ul {
+  nav#primary-nav ul li:hover ul {
     display: block;
   }
 
-  nav ul li ul li {
+  nav#primary-nav ul li ul li {
     padding: 5px 10px;
   }
 
-  nav ul li ul li a {
+  nav#primary-nav ul li ul li a {
     color: black;
   }
 
