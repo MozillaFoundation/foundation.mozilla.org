@@ -84,7 +84,7 @@ class IndexPage(RoutablePageMixin, BasePage):
         return context
 
     def get_cache_key(self, locale):
-        return f"index_items_{self.slug}_{locale}"
+        return f"index_items_{self.slug}_{locale.language_code}"
 
     def clear_index_page_cache(self, locale):
         cache.delete(self.get_cache_key(locale))
@@ -93,6 +93,12 @@ class IndexPage(RoutablePageMixin, BasePage):
         """
         Get all (live) child entries, ordered "newest first",
         ideally from cache, or "anew" if the cache expired.
+
+        NOTE:
+        If the cache is not cleared when a child page is published or restricted,
+        stale content (e.g., private pages) may still appear.
+
+        For more context and fix details: https://mozilla-hub.atlassian.net/browse/TP1-128
         """
         cache_key = self.get_cache_key(locale)
         child_set = cache.get(cache_key)

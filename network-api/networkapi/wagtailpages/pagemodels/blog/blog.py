@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.dispatch import receiver
 from django.forms import CheckboxSelectMultiple
 from django.template.defaultfilters import truncatechars
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -16,9 +17,16 @@ from wagtail.admin.panels import (
     TitleFieldPanel,
 )
 from wagtail.fields import StreamField
-from wagtail.models import Locale, Orderable, Page, TranslatableMixin
+from wagtail.models import (
+    Locale,
+    Orderable,
+    Page,
+    PageViewRestriction,
+    TranslatableMixin,
+)
 from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
+from wagtail.signals import page_published
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from networkapi.wagtailpages.forms import BlogPageForm
@@ -336,3 +344,36 @@ class BlogPage(BasePage):
                 return truncatechars(text, 153)
 
         return super().get_meta_description()
+
+
+@receiver(page_published, sender=BlogPage)
+def clear_index_cache_on_publish(sender, instance, **kwargs):
+    """
+    This signal syncs view restrictions across all locales when a page is published.
+    It also clears the blog index page cache in all available locales to avoid
+    showing stale content, for example, showing a newly restricted page that was
+    cached as public.
+
+    For more details, see: https://mozilla-hub.atlassian.net/browse/TP1-128
+    """
+
+    if instance.locale.is_default:
+        blog_index_page = instance.get_parent().specific
+        blog_index_page.clear_index_page_cache(instance.locale)
+
+        view_restrictions = instance.view_restrictions.all()
+        translations = instance.get_translations(inclusive=False)
+
+        for translation in translations:
+            translation.view_restrictions.all().delete()
+            for restriction in view_restrictions:
+                new_restriction = PageViewRestriction.objects.create(
+                    page=translation,
+                    restriction_type=restriction.restriction_type,
+                    password=restriction.password,
+                )
+                new_restriction.groups.set(restriction.groups.all())
+
+            # Clear the index page cache for this translation's locale.
+            translated_index_page = translation.get_parent().specific
+            translated_index_page.clear_index_page_cache(translation.locale)
