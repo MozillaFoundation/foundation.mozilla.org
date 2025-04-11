@@ -29,4 +29,16 @@ a.topic {
 .blog-body {
   z-index: 3;
   position: relative;
+
+  .rich-text {
+    h2,
+    h3 {
+      a {
+        @apply tw-text-blue-80;
+        &:hover {
+          @apply tw-underline;
+        }
+      }
+    }
+  }
 }

@@ -15,22 +15,35 @@ def environment_prefix(context):
     return env_prefix
 
 
-@register.simple_tag()
-def onetrust_data_domain():
+@register.simple_tag(takes_context=True)
+def onetrust_data_domain(context):
     """
     Get the OneTrust cookie "data-domain-script" script attribute.
 
     Data domain is taken from the data-domain-script script attribute via
-    OneTrust's cookie script integration. We have two scripts & properties set up
-    in OneTrust. One for production (foundation.mozilla.org) and one for
-    dev/staging (foundation.mofostaging.net).
+    OneTrust's cookie script integration. While the test / production data
+    domain id currently only differ by a suffix, this may change in the future
     """
+    
+    request = context.get("request")
 
-    if get_app_environment() == "Production":
-        return "0191beda-31c8-76ff-9093-4055176ccf8c"
+    # TODO this can get cleaned up to use the mozfest site id
+    # but depends on re-design if the site id will remain the same. Use domains for now.
+    mozfest_domains = {
+        "www.mozillafestival.org",
+        "mozillafestival.mofostaging.net",
+        "mozfest.localhost:8000",
+    }
+
+    if request.get_host().lower() in mozfest_domains:
+        data_domain = "0193d09a-b154-785d-9623-61f75caff27f"
     else:
-        return "0190e65a-dbec-7548-89af-4b67155ee70a-test"
+        data_domain = "0191beda-31c8-76ff-9093-4055176ccf8c"
 
+    if get_app_environment() != "Production":
+        data_domain = "0190e65a-dbec-7548-89af-4b67155ee70a-test"
+
+    return data_domain
 
 def get_app_environment():
     return settings.APP_ENVIRONMENT

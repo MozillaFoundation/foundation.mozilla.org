@@ -135,7 +135,8 @@
 
   .section-with-regrets-reporter {
     @media screen and (min-width: $bp-lg) {
-      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-eye-purple.svg),
+      background-image:
+        url(../_images/youtube-regrets/regrets-reporter/icon-eye-purple.svg),
         url(../_images/youtube-regrets/regrets-reporter/icon-play-purple.svg);
       background-position:
         102% top,
@@ -151,7 +152,8 @@
 
   .section-newsletter {
     @media screen and (min-width: $bp-lg) {
-      background-image: url(../_images/youtube-regrets/regrets-reporter/icon-ff-purple.svg),
+      background-image:
+        url(../_images/youtube-regrets/regrets-reporter/icon-ff-purple.svg),
         url(../_images/youtube-regrets/regrets-reporter/icon-sound-purple.svg);
       background-position:
         90% 19%,
@@ -321,7 +323,8 @@
           );
 
           width: calc(
-            #{$totoal-num-items} * #{$item-width} + #{$padding-left} + #{$padding-right}
+            #{$totoal-num-items} * #{$item-width} + #{$padding-left} +
+              #{$padding-right}
           );
 
           li {

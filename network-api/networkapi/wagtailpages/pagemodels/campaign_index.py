@@ -33,6 +33,8 @@ class CampaignIndexPage(IndexPage):
     The campaign index is specifically for campaign-related pages
     """
 
+    max_count = 1
+
     subpage_types = [
         "BanneredCampaignPage",
         "CampaignPage",

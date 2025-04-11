@@ -1,4 +1,9 @@
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "React" }] */
+
+// Importing Sentry first is key
+// See https://docs.sentry.io/platforms/javascript/guides/node/#use
+import initializeSentry from "./common/sentry-config.js";
+
 import React from "react";
 import ReactDOM from "react-dom";
 import {
@@ -22,7 +27,6 @@ import DonateBanner from "./donate-banner";
 import MozfestCarousels from "./components/carousel/carousel.js";
 import FoundationCarousels from "./components/foundation-carousel/foundation-carousel.js";
 import MozfestHeroCarousels from "./components/mozfest-hero-carousel/mozfest-hero-carousel";
-import initializeSentry from "./common/sentry-config.js";
 import YouTubeRegretsTunnel from "./foundation/pages/youtube-regrets/intro-tunnel";
 import YouTubeRegretsBrowserExtension from "./foundation/pages/youtube-regrets/browser-extension";
 import RegretsReporterUtmButtons from "./foundation/pages/youtube-regrets/regrets-reporter/utm-buttons";
@@ -39,6 +43,7 @@ import { initYouTubeRegretsRecommendationsPieChart } from "./foundation/pages/yo
 import { initYoutubeRegretsCarousel } from "./foundation/pages/youtube-regrets/carousel";
 import { initYoutubeRegretsLocomotiveScroll } from "./foundation/pages/youtube-regrets/locomotive-scroll";
 import SiteNav from "./common/template-js-handles/site-nav.js";
+import ExternalLinks from "./common/template-js-handles/external-links.js";
 
 // Initializing component a11y browser console logging
 if (process.env.NODE_ENV === "development") {
@@ -63,6 +68,7 @@ let main = {
     Dropdowns.init();
     FoundationCarousels.init();
     SiteNav.init();
+    ExternalLinks.init();
 
     this.fetchEnv((envData) => {
       env = envData;

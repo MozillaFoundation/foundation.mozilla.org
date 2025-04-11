@@ -1,8 +1,8 @@
 basket-client
 beautifulsoup4
 boto3
-cached_property==1.5.2
-Django==4.2.15
+cached_property==2.0.1
+Django==4.2.20
 dj-database-url
 djangorestframework
 django-admin-sortable==2.3
@@ -15,6 +15,7 @@ django-pattern-library
 django-redis
 django-storages
 django-querystring-tag
+python-jose>=3.3.0
 factory_boy
 Faker
 future
@@ -24,11 +25,12 @@ pygit2==1.14.0
 python-slugify
 requests
 social-auth-app-django
-wagtail==5.2.6
+wagtail==6.3.2
 wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories
-wagtail-localize==1.7
+wagtail-footnotes
+wagtail-localize==1.11.3
 wagtail-localize-git
 wagtail-inventory
 wagtailmedia
@@ -36,5 +38,4 @@ wagtail-metadata
 whitenoise
 psycopg2-binary
 sentry-sdk
-git+https://github.com/MozillaFoundation/wagtail-footnotes.git@localized-footnotes
 scout-apm

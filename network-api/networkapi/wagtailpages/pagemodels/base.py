@@ -4,11 +4,14 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
+from wagtail.models import Locale
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
+from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from networkapi.donate_banner.models import DonateBannerPage
 from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
@@ -32,6 +35,65 @@ hero_intro_body_default_text = (
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
     class Meta:
         abstract = True
+
+    def get_donate_banner(self, request):
+        # Check if there's a DonateBannerPage.
+        default_locale = Locale.get_default()
+        donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
+
+        # If there is no DonateBannerPage or no donate_banner is set, return None.
+        if not donate_banner_page or not donate_banner_page.donate_banner:
+            return None
+
+        # Check if the user has Do Not Track enabled by inspecting the DNT header.
+        dnt_enabled = request.headers.get("DNT") == "1"
+
+        # Check if there's an active A/B test for the DonateBannerPage.
+        active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
+
+        # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
+        if not active_ab_test or dnt_enabled:
+            donate_banner = donate_banner_page.donate_banner.localized
+            donate_banner.variant_version = "N/A"
+            donate_banner.active_ab_test = "N/A"
+            return donate_banner
+
+        # Check for the cookie related to this A/B test.
+        # In wagtail-ab-testing, the cookie name follows the format:
+        # "wagtail-ab-testing_{ab_test.id}_version".
+        # For details, see the source code here:
+        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
+        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+        test_version = request.COOKIES.get(test_cookie_name)
+
+        # If no version cookie is found, grab a test version for the current user.
+        if not test_version:
+            test_version = active_ab_test.get_new_participant_version()
+
+        if test_version == "variant":
+            is_variant = True
+        else:
+            is_variant = False
+
+        # Attach active test and variant flag to request for {% wagtail_ab_testing_script %} template tag.
+        # This allows wagtail-ab-testing to track events for this test, and set the version cookie if needed.
+        request.wagtail_ab_testing_test = active_ab_test
+        request.wagtail_ab_testing_serving_variant = is_variant
+
+        # Return the appropriate donate banner
+        if is_variant:
+            donate_banner = active_ab_test.variant_revision.as_object().donate_banner.localized
+        else:
+            donate_banner = donate_banner_page.donate_banner.localized
+
+        donate_banner.variant_version = test_version
+        donate_banner.active_ab_test = active_ab_test.name
+        return donate_banner
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["donate_banner"] = self.get_donate_banner(request)
+        return context
 
 
 class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
@@ -249,6 +311,9 @@ class InitiativesPage(PrimaryPage):
 
 
 class ParticipatePage2(PrimaryPage):
+
+    max_count = 1
+
     template = "wagtailpages/static/participate_page2.html"
 
     ctaHero = models.ForeignKey(
@@ -438,6 +503,8 @@ class ParticipatePage2(PrimaryPage):
 
 
 class Styleguide(PrimaryPage):
+    max_count = 1
+
     template = "pages/styleguide.html"
 
     emoji_image = models.ForeignKey(
@@ -451,6 +518,8 @@ class Styleguide(PrimaryPage):
     content_panels = PrimaryPage.content_panels + [
         FieldPanel("emoji_image"),
     ]
+
+    subpage_types: list = []
 
 
 class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
@@ -742,6 +811,7 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
+
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
@@ -992,7 +1062,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "BanneredCampaignPage",
         "BlogIndexPage",
         "CampaignIndexPage",
-        "InitiativesPage",
+        "CampaignPage",
         "MiniSiteNameSpace",
         "OpportunityPage",
         "ParticipatePage2",
@@ -1001,11 +1071,19 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ResearchLandingPage",
         "RCCLandingPage",
         "Styleguide",
-        "ProductPage",
         "BuyersGuidePage",
         "ArticlePage",
         "donate.DonateLandingPage",
+        "donate_banner.DonateBannerPage",
     ]
+
+    def get_localized_take_action_cards(self):
+        # Loop through take_action_cards and localize internal_link
+        localized_cards = []
+        for card in self.take_action_cards.all():
+            card.internal_link = card.internal_link.localized
+            localized_cards.append(card)
+        return localized_cards
 
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
@@ -1014,6 +1092,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        context["donate_banner"] = BasePage.get_donate_banner(self, request)
+        context["localized_take_action_cards"] = self.get_localized_take_action_cards()
         if self.partner_page:
             context["localized_partner_page"] = self.partner_page.localized
         return context

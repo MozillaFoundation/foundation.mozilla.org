@@ -48,6 +48,10 @@ module.exports = [
             position: "relative",
             top: "2px",
           },
+          // Hover and active before
+          "&:hover::before, &:focus::before": {
+            filter: "brightness(0) invert(100%)",
+          }
         },
         ".donate": {
           ...glyph("donate"),
@@ -63,6 +67,22 @@ module.exports = [
         ".linkedin-glyph": {
           ...glyph("linkedin"),
           ...hoverGlyph("linkedin-hover"),
+          "&:before": {
+            width: "16px",
+            height: "18px",
+          },
+        },
+        ".tiktok-glyph": {
+          ...glyph("tiktok"),
+          ...hoverGlyph("tiktok-hover"),
+          "&:before": {
+            width: "16px",
+            height: "16px",
+          },
+        },
+        ".bluesky-glyph": {
+          ...glyph("bluesky"),
+          ...hoverGlyph("bluesky-hover"),
           "&:before": {
             width: "16px",
             height: "16px",
@@ -118,6 +138,30 @@ module.exports = [
           "& .github-glyph": {
             ...glyph("github-dark-theme"),
             ...hoverGlyph("github-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
+          },
+          "& .linkedin-glyph": {
+            ...glyph("linkedin-dark-theme"),
+            ...hoverGlyph("linkedin-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "18px",
+            },
+          },
+          "& .tiktok-glyph": {
+            ...glyph("tiktok-dark-theme"),
+            ...hoverGlyph("tiktok-dark-theme-hover"),
+            "&:before": {
+              width: "16px",
+              height: "16px",
+            },
+          },
+          "& .bluesky-glyph": {
+            ...glyph("bluesky-dark-theme"),
+            ...hoverGlyph("bluesky-dark-theme-hover"),
             "&:before": {
               width: "16px",
               height: "16px",
