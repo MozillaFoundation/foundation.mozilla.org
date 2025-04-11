@@ -18,30 +18,30 @@ def environment_prefix(context):
 @register.simple_tag(takes_context=True)
 def onetrust_data_domain(context):
     """
-    Get the OneTrust cookie "data-domain-script" script attribute.
-
-    Data domain is taken from the data-domain-script script attribute via
-    OneTrust's cookie script integration. While the test / production data
-    domain id currently only differ by a suffix, this may change in the future
+    Returns the appropriate OneTrust data-domain-script value based on the current domain.
+    Falls back to test domain in non-production or unknown domains.
     """
-
     request = context.get("request")
+    host = request.get_host().lower()
 
-    # TODO this can get cleaned up to use the mozfest site id
-    # but depends on re-design if the site id will remain the same. Use domains for now.
-    mozfest_domains = {
-        "www.mozillafestival.org",
-        "mozillafestival.mofostaging.net",
-        "mozfest.localhost:8000",
+    # Mapping of domains to their OneTrust data-domain-script values
+    domain_map = {
+        "mozillafoundation.org": "01962092-7c56-70c5-851b-fb18cb7e7080",
+        "prod.mozillafoundation.org": "01962091-75d4-77b1-ac68-ce829d931ae7",
+        "foundation.mozilla.org": "0191beda-31c8-76ff-9093-4055176ccf8c",
+        # MozFest domains
+        "www.mozillafestival.org": "0193d09a-b154-785d-9623-61f75caff27f",
+        "mozfest.mofostaging.net": "0193d09a-b154-785d-9623-61f75caff27f-test",
+        "mozfest.localhost:8000": "0193d09a-b154-785d-9623-61f75caff27f-test",
     }
 
-    if request.get_host().lower() in mozfest_domains:
-        data_domain = "0193d09a-b154-785d-9623-61f75caff27f"
-    else:
-        data_domain = "0191beda-31c8-76ff-9093-4055176ccf8c"
+    env = get_app_environment()
+    data_domain = domain_map.get(host)
 
-    if get_app_environment() != "Production":
-        data_domain = "0190e65a-dbec-7548-89af-4b67155ee70a-test"
+    # Fallback for unknown domains or non-production environments
+    if not data_domain:
+        if env != "Production":
+            return "01962092-7c56-70c5-851b-fb18cb7e7080-test"
 
     return data_domain
 
