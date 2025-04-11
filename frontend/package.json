@@ -7,10 +7,10 @@
   "repository": "https://github.com/MozillaFoundation/foundation.mozilla.org",
   "author": "Mozilla Foundation",
   "scripts": {
-    "build:css:sass": "sass scss/redesign_main.scss ../foundation_cms/static/temp/redesign_main.unprocessed.css --style=compressed",
+    "build:css:sass": "sass ../foundation_cms/static/scss/redesign_main.scss ../foundation_cms/static/temp/redesign_main.unprocessed.css --style=compressed",
     "build:css:postcss": "postcss ../foundation_cms/static/temp/redesign_main.unprocessed.css -o ../foundation_cms/static/compiled/redesign_main.css --config ./postcss.config.js",
     "build:css": "run-s build:css:sass build:css:postcss",
-    "watch:css:sass": "chokidar 'scss/**/*.scss' -c 'yarn build:css:sass'",
+    "watch:css:sass": "chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css:sass'",
     "watch:css:postcss": "chokidar '../foundation_cms/static/temp/**/*.css' -c 'yarn build:css:postcss'",
     "watch:css": "run-p watch:css:sass watch:css:postcss",
     "build": "yarn build:css",

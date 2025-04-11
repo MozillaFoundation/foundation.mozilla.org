@@ -34,7 +34,6 @@ WORKDIR /app/frontend
 COPY ./frontend/package.json ./package.json
 COPY ./frontend/yarn.lock ./yarn.lock
 COPY ./frontend/postcss.config.js ./postcss.config.js
-COPY ./frontend/scss ./scss
 RUN yarn install --frozen-lockfile
 
 # Compile static files from source at ./foundation_cms/static to ./foundation_cms/static/compiled
@@ -175,6 +174,7 @@ USER mozilla
 # We can't mount this as the empty directory in the host will obscure our the installed content.
 # See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
+COPY --chown=mozilla --from=frontend /app/frontend/node_modules ./frontend/node_modules
 
 # To avoid isort `fatal: detected dubious ownership in repository at '/app'` error
 RUN git config --global --add safe.directory /app
