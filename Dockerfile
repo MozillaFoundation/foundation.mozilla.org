@@ -4,6 +4,10 @@ FROM node:20-bookworm-slim as frontend
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
+# ----------------------------------------
+# Legacy frontend setup (npm-based)
+# ----------------------------------------
+
 WORKDIR /app
 
 # Install front-end dependencies.
@@ -18,6 +22,26 @@ COPY ./foundation_cms/legacy_apps/static/ ./foundation_cms/legacy_apps/static/
 COPY ./foundation_cms/legacy_apps/ ./foundation_cms/legacy_apps/
 RUN npm run build
 
+# ----------------------------------------
+# Redesign frontend setup (yarn-based)
+# ----------------------------------------
+
+# Use /app/frontend as the redesign app working directory
+WORKDIR /app/frontend
+
+# Install redesign front-end dependencies.
+# This will create a `node_modules` directory in /app/frontend.
+COPY ./frontend/package.json ./package.json
+COPY ./frontend/yarn.lock ./yarn.lock
+COPY ./frontend/postcss.config.js ./postcss.config.js
+COPY ./frontend/scss ./scss
+RUN yarn install --frozen-lockfile
+
+# Compile static files from source at ./foundation_cms/static to ./foundation_cms/static/compiled
+# This will create a `foundation_cms/static/compiled` directory containing redesign frontend CSS.
+COPY ./foundation_cms/static/ /app/foundation_cms/static/
+RUN mkdir -p /app/foundation_cms/static/compiled
+RUN yarn build
 
 # We use Debian images because they are considered more stable than the alpine
 # ones because they use a different C compiler. Debian images also come with
@@ -100,6 +124,7 @@ COPY --chown=mozilla . .
 # This will later be obscured by the `foundation_cms` bind mount in docker-compose.yml, and
 # will need to be recreated by `npm run build`.
 COPY --chown=mozilla --from=frontend /app/foundation_cms/legacy_apps/static/compiled ./foundation_cms/legacy_apps/static/compiled
+COPY --chown=mozilla --from=frontend /app/foundation_cms/static/compiled ./foundation_cms/static/compiled
 
 # Run collectstatic to move static files from application directories and
 # compiled static directory (foundation_cms/legacy_apps/static) to the site's static
@@ -138,6 +163,9 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 # Update and install Node.js
 RUN apt-get update && apt-get install nodejs -y \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+
+# Activate Corepack and install stable Yarn version (avoids global npm install)
+RUN corepack enable && corepack prepare yarn@stable --activate
 
 # Restore user
 USER mozilla
