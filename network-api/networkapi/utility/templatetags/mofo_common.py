@@ -24,7 +24,7 @@ def onetrust_data_domain(context):
     OneTrust's cookie script integration. While the test / production data
     domain id currently only differ by a suffix, this may change in the future
     """
-    
+
     request = context.get("request")
 
     # TODO this can get cleaned up to use the mozfest site id
@@ -44,6 +44,7 @@ def onetrust_data_domain(context):
         data_domain = "0190e65a-dbec-7548-89af-4b67155ee70a-test"
 
     return data_domain
+
 
 def get_app_environment():
     return settings.APP_ENVIRONMENT
