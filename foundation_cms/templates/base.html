@@ -24,12 +24,12 @@
         <link rel="stylesheet" href="{% static 'foundation_cms/redesign_main.css' %}">
         {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock %}
     </head>
-    {# Basic breadcrumbs for dev navigation #}
-    {% with self as page %}
-        <nav aria-label="Breadcrumb">
-        </nav>
-    {% endwith %}
     <body class="{% block body_class %}{% endblock %}">
+        {# Basic breadcrumbs for dev navigation #}
+        {% with self as page %}
+            <nav aria-label="Breadcrumb">
+            </nav>
+        {% endwith %}
         {% include "patterns/components/primary_nav.html" %}
         {% wagtailuserbar %}
         {% block primary_nav %}{% endblock %}
