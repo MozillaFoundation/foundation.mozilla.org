@@ -208,82 +208,82 @@ class TestBlogIndex(BlogIndexTestCase):
         self.assertEqual(len(entries_with_topic), 8)
 
 
-def test_private_blog_page_is_not_in_entries(self):
+    def test_private_blog_page_is_not_in_entries(self):
 
-    blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
-    url = self.blog_index.get_url()
+        blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
+        url = self.blog_index.get_url()
 
-    # Check for page in entries
-    response_before = self.client.get(path=url)
-    self.assertEqual(response_before.status_code, HTTPStatus.OK)
-    self.assertIn(blog_page, response_before.context["entries"])
+        # Check for page in entries
+        response_before = self.client.get(path=url)
+        self.assertEqual(response_before.status_code, HTTPStatus.OK)
+        self.assertIn(blog_page, response_before.context["entries"])
 
-    # Add a login restriction
-    PageViewRestriction.objects.create(
-        page=blog_page,
-        restriction_type=PageViewRestriction.LOGIN,
-    )
+        # Add a login restriction
+        PageViewRestriction.objects.create(
+            page=blog_page,
+            restriction_type=PageViewRestriction.LOGIN,
+        )
 
-    # Page should no longer appear in entries
-    response_after = self.client.get(path=url)
-    self.assertEqual(response_after.status_code, HTTPStatus.OK)
-    self.assertNotIn(blog_page, response_after.context["entries"])
-
-
-def test_removing_view_restriction_makes_blog_page_visible_again(self):
-
-    blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
-
-    # Initially restrict the page
-    restriction = PageViewRestriction.objects.create(
-        page=blog_page,
-        restriction_type=PageViewRestriction.LOGIN,
-    )
-
-    # Confirm it's hidden
-    response = self.client.get(self.blog_index.get_url())
-    self.assertNotIn(
-        blog_page,
-    )
-
-    # Now remove the restriction
-    restriction.delete()
-
-    # Re-check — it should now be visible again
-    response = self.client.get(self.blog_index.get_url())
-    self.assertIn(blog_page, response.context["entries"])
+        # Page should no longer appear in entries
+        response_after = self.client.get(path=url)
+        self.assertEqual(response_after.status_code, HTTPStatus.OK)
+        self.assertNotIn(blog_page, response_after.context["entries"])
 
 
-def test_translated_index_excludes_private_blog_page(self):
+    def test_removing_view_restriction_makes_blog_page_visible_again(self):
 
-    # Set up French version of the blog index
-    index_fr = self.translate_page(self.blog_index, self.fr_locale)
+        blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
 
-    # Create a blog post in EN
-    blog_page_en = blog_factories.BlogPageFactory(parent=self.blog_index)
+        # Initially restrict the page
+        restriction = PageViewRestriction.objects.create(
+            page=blog_page,
+            restriction_type=PageViewRestriction.LOGIN,
+        )
 
-    # Translate page to French
-    self.translate_page(blog_page_en, self.fr_locale)
+        # Confirm it's hidden
+        response = self.client.get(self.blog_index.get_url())
+        self.assertNotIn(
+            blog_page,
+        )
 
-    # Get the translated blog post
-    blog_page_fr = blog_page_en.get_translation(self.fr_locale)
+        # Now remove the restriction
+        restriction.delete()
 
-    # Add a view restriction to the EN version (should sync to FR)
-    PageViewRestriction.objects.create(
-        page=blog_page_en,
-        restriction_type=PageViewRestriction.LOGIN,
-    )
+        # Re-check — it should now be visible again
+        response = self.client.get(self.blog_index.get_url())
+        self.assertIn(blog_page, response.context["entries"])
 
-    # French Blog post should not show up in French index
-    fr_response = self.client.get(index_fr.get_url())
-    self.assertNotIn(blog_page_fr, fr_response.context["entries"])
 
-    # Now remove the restriction from EN page
-    blog_page_en.view_restrictions.all().delete()
+    def test_translated_index_excludes_private_blog_page(self):
 
-    # French Blog post should now show up in French index
-    fr_response_after_update = self.client.get(index_fr.get_url())
-    self.assertIn(blog_page_fr, fr_response_after_update.context["entries"])
+        # Set up French version of the blog index
+        index_fr = self.translate_page(self.blog_index, self.fr_locale)
+
+        # Create a blog post in EN
+        blog_page_en = blog_factories.BlogPageFactory(parent=self.blog_index)
+
+        # Translate page to French
+        self.translate_page(blog_page_en, self.fr_locale)
+
+        # Get the translated blog post
+        blog_page_fr = blog_page_en.get_translation(self.fr_locale)
+
+        # Add a view restriction to the EN version (should sync to FR)
+        PageViewRestriction.objects.create(
+            page=blog_page_en,
+            restriction_type=PageViewRestriction.LOGIN,
+        )
+
+        # French Blog post should not show up in French index
+        fr_response = self.client.get(index_fr.get_url())
+        self.assertNotIn(blog_page_fr, fr_response.context["entries"])
+
+        # Now remove the restriction from EN page
+        blog_page_en.view_restrictions.all().delete()
+
+        # French Blog post should now show up in French index
+        fr_response_after_update = self.client.get(index_fr.get_url())
+        self.assertIn(blog_page_fr, fr_response_after_update.context["entries"])
 
 
 class TestBlogIndexTopic(BlogIndexTestCase):
