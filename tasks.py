@@ -584,7 +584,7 @@ def msgmerge(ctx):
     manage(ctx, locale_abstraction_instructions_js)
 
     pot_path = "foundation_cms/legacy_apps/locale/django.pot"
-    locales = ["en", "de", "es", "fr", "fy_NL", "nl", "pl", "pt_BR", "sw"]
+    locales = ["en", "de", "es", "fr", "fy-NL", "nl", "pl", "pt-BR", "sw"]
 
     if not os.path.exists(pot_path):
         print(f"No .pot file found at {pot_path}. Skipping msgmerge/msginit steps.")
@@ -592,7 +592,7 @@ def msgmerge(ctx):
         for locale in locales:
             po_path = f"foundation_cms/locale/{locale}/LC_MESSAGES/django.po"
             try:
-                pyrun(ctx, f"msgmerge --update {po_path} {pot_path}")
+                pyrun(ctx, f"msgmerge --update --no-wrap --no-fuzzy-matching {po_path} {pot_path}")
             except Exception:
                 print(f"PO file for '{locale}' not found, initializing...")
                 pyrun(ctx, f"mkdir -p foundation_cms/locale/{locale}/LC_MESSAGES")
