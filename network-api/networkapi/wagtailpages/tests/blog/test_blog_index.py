@@ -207,7 +207,6 @@ class TestBlogIndex(BlogIndexTestCase):
         self.assertEqual(len(entries_without_topic), 8)
         self.assertEqual(len(entries_with_topic), 8)
 
-
     def test_private_blog_page_is_not_in_entries(self):
 
         blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
@@ -228,7 +227,6 @@ class TestBlogIndex(BlogIndexTestCase):
         response_after = self.client.get(path=url)
         self.assertEqual(response_after.status_code, HTTPStatus.OK)
         self.assertNotIn(blog_page, response_after.context["entries"])
-
 
     def test_removing_view_restriction_makes_blog_page_visible_again(self):
 
@@ -252,7 +250,6 @@ class TestBlogIndex(BlogIndexTestCase):
         # Re-check — it should now be visible again
         response = self.client.get(self.blog_index.get_url())
         self.assertIn(blog_page, response.context["entries"])
-
 
     def test_translated_index_excludes_private_blog_page(self):
 
