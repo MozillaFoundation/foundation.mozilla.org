@@ -26,7 +26,7 @@ def onetrust_data_domain(context):
 
     # Mapping of domains to their OneTrust data-domain-script values
     domain_map = {
-        "mozillafoundation.org": "01962092-7c56-70c5-851b-fb18cb7e7080",
+        "www.mozillafoundation.org": "01962092-7c56-70c5-851b-fb18cb7e7080",
         "prod.mozillafoundation.org": "01962091-75d4-77b1-ac68-ce829d931ae7",
         "foundation.mozilla.org": "0191beda-31c8-76ff-9093-4055176ccf8c",
         # MozFest domains
