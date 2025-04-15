@@ -11,7 +11,7 @@ class ArticleAdviceColumn(AbstractArticlePage):
     ]
 
     parent_page_types = ['core.HomePage']
-    subpage_types = []
+    subpage_types: list[str] = []
 
     class Meta:
         verbose_name = "Article Advice Column"
