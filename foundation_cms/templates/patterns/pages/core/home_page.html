@@ -7,29 +7,45 @@
 {% block extra_css %}{% endblock extra_css %}
 
 {% block content %}
-  <div style="margin-left: 200px; margin-top: 50px;">
-    <h1>{{ page.hero_headline }}</h1>
-  </div>
 
-  <div style="margin-left: 200px; margin-top: 50px;">
-    <img src="{{ page.hero_image.file.url }}" width="571" height="285">
-  </div>
+  <!-- Full Bleed Hero -->
+  <section class="wireframe-box" style="min-height: 300px;">
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x align-middle">
+        <div class="cell large-12">
+          <p>Full Bleed Hero</p>
+          <h1>{{ page.hero_headline }}</h1>
+          <img src="{{ page.hero_image.file.url }}" width="300" height="300">
+          <h2>{{ page.hero_intro_heading }}</h2>
+          <p>{{ page.hero_intro_body }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div style="margin-left: 200px; margin-top: 50px;">
-    <h2>{{ page.hero_intro_heading }}</h2>
-  </div>
-
-  <div style="margin-left: 200px; margin-top: 30px;">
-    <h4>{{ page.hero_intro_body }}</h4>
-  </div>
-
-  <div style="margin-left: 200px; margin-top: 30px;">
-    <h2> The Latest </h2>
-    <ul>
-      {% for blog in blogs %}
-        <li style="margin-left: 30px; margin-top: 10px;"><a href="{{ blog.url }}">{{ blog.title }}</a></li>
-      {% endfor %}
-    </ul>
-  </div>
+  <!-- Main Content -->
+  <main>
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-12 wireframe-box">
+          <h2>Timely Activations</h2>
+          <p>Content content content content content content content content content content content content content.</p>
+        </div>
+        <div class="cell large-12 wireframe-box">
+          <h2>Nothing Personal Releases</h2>
+          <p>Content content content content content content content content content content content content content.</p>
+          <ul>
+            {% for blog in blogs %}
+              <li style="margin-left: 30px; margin-top: 10px;"><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="cell large-12 wireframe-box">
+          <h2>Community Spotlight</h2>
+          <p>Content content content content content content content content content content content content content.</p>
+        </div>
+      </div>
+    </div>
+  </main>
 
 {% endblock content %}
