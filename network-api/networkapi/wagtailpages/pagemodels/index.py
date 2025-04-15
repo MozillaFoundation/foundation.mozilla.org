@@ -95,10 +95,10 @@ class IndexPage(RoutablePageMixin, BasePage):
         ideally from cache, or "anew" if the cache expired.
 
         NOTE:
-        If the cache is not cleared when a child page is published or restricted,
-        stale content (e.g., private pages) may still appear.
+        Cache is cleared when a child page’s view restrictions change (see `wagtail_hooks.py`)
+        to prevent stale entries (e.g., pages that should be hidden or newly visible).
 
-        For more context and fix details: https://mozilla-hub.atlassian.net/browse/TP1-128
+        See https://mozilla-hub.atlassian.net/browse/TP1-128 for more details.
         """
         cache_key = self.get_cache_key(locale)
         child_set = cache.get(cache_key)
