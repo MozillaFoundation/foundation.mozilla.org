@@ -5,7 +5,7 @@ const utility = require("./utility.js");
 test.describe("Donate Help Form", () => {
   let thankYouUrlInputValue = "";
 
-  // locales we support on foundation.mozilla.org
+  // locales we support on www.mozillafoundation.org
   let foundationSupportedLocales = [
     "en",
     "de",
