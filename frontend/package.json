@@ -22,7 +22,7 @@
     "dev": "run-p watch:css watch:js"
   },
   "dependencies": {
-    "esbuild": "^0.20.x",
+    "esbuild": "^0.25.2",
     "foundation-sites": "^6.9.0",
     "sass": "^1.86.3"
   },
