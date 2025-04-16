@@ -84,7 +84,7 @@ class IndexPage(RoutablePageMixin, BasePage):
         return context
 
     def get_cache_key(self, locale):
-        return f"index_items_{self.slug}_{locale}"
+        return f"index_items_{self.slug}_{locale.language_code}"
 
     def clear_index_page_cache(self, locale):
         cache.delete(self.get_cache_key(locale))
@@ -93,6 +93,12 @@ class IndexPage(RoutablePageMixin, BasePage):
         """
         Get all (live) child entries, ordered "newest first",
         ideally from cache, or "anew" if the cache expired.
+
+        NOTE:
+        Cache is cleared when a child page’s view restrictions change (see `wagtail_hooks.py`)
+        to prevent stale entries (e.g., pages that should be hidden or newly visible).
+
+        See https://mozilla-hub.atlassian.net/browse/TP1-128 for more details.
         """
         cache_key = self.get_cache_key(locale)
         child_set = cache.get(cache_key)
