@@ -34,6 +34,7 @@ WORKDIR /app/frontend
 COPY ./frontend/package.json ./package.json
 COPY ./frontend/yarn.lock ./yarn.lock
 COPY ./frontend/postcss.config.js ./postcss.config.js
+COPY ./frontend/esbuild.config.js ./esbuild.config.js
 RUN yarn install --frozen-lockfile
 
 # Compile static files from source at ./foundation_cms/static to ./foundation_cms/static/compiled

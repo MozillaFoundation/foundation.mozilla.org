@@ -7,17 +7,22 @@
   "repository": "https://github.com/MozillaFoundation/foundation.mozilla.org",
   "author": "Mozilla Foundation",
   "scripts": {
+    "clean:css": "shx rm -rf ../foundation_cms/static/temp/* ../foundation_cms/static/compiled/_css/*",
+    "clean:js": "shx rm -rf ../foundation_cms/static/compiled/_js/*",
+    "clean": "run-p clean:css clean:js",
     "build:css:sass": "sass ../foundation_cms/static/scss/redesign_main.scss ../foundation_cms/static/temp/redesign_main.unprocessed.css --style=compressed",
-    "build:css:postcss": "postcss ../foundation_cms/static/temp/redesign_main.unprocessed.css -o ../foundation_cms/static/compiled/redesign_main.css --config ./postcss.config.js",
+    "build:css:postcss": "postcss ../foundation_cms/static/temp/redesign_main.unprocessed.css -o ../foundation_cms/static/compiled/_css/redesign_main.compiled.css --config ./postcss.config.js",
     "build:css": "run-s build:css:sass build:css:postcss",
     "watch:css:sass": "chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css:sass'",
     "watch:css:postcss": "chokidar '../foundation_cms/static/temp/**/*.css' -c 'yarn build:css:postcss'",
     "watch:css": "run-p watch:css:sass watch:css:postcss",
-    "build": "yarn build:css",
-    "dev": "yarn watch:css"
+    "build:js": "node esbuild.config.js --node-env production",
+    "watch:js": "node esbuild.config.js --node-env development",
+    "build": "run-s clean build:css build:js",
+    "dev": "run-p watch:css watch:js"
   },
   "dependencies": {
-    "esbuild": "^0.25.2",
+    "esbuild": "^0.20.x",
     "foundation-sites": "^6.9.0",
     "sass": "^1.86.3"
   },

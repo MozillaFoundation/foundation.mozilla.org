@@ -50,7 +50,7 @@ services:
       - ./release-steps.sh:/app/release-steps.sh
       - ./translation-management.sh:/app/translation-management.sh
 
-      # Frontend config
+      # Frontend config for legacy site
       - ./eslint.config.a11y.js:/app/eslint.config.a11y.js
       - ./eslint.config.js:/app/eslint.config.js
       - ./.editorconfig:/app/.editorconfig
@@ -66,6 +66,12 @@ services:
       - ./tailwind.config.js:/app/tailwind.config.js
       - ./package-lock.json:/app/package-lock.json
       - ./package.json:/app/package.json
+
+      # Frontend config for the "redesign" site
+      - ./frontend/package.json:/app/frontend/package.json
+      - ./frontend/yarn.lock:/app/frontend/yarn.lock
+      - ./frontend/postcss.config.js:/app/frontend/postcss.config.js
+      - ./frontend/esbuild.config.js:/app/frontend/esbuild.config.js
     depends_on:
       - postgres
 
