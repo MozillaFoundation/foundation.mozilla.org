@@ -1,0 +1,14 @@
+@use "../../../frontend/node_modules/foundation-sites/scss/foundation" as *;
+@use "../scss/components/primary_nav.scss";
+
+@include foundation-everything;
+
+body {
+  font-family: system-ui;
+}
+
+.wireframe-box {
+  background: #e3f9f2;
+  border: 1px solid #555;
+  margin-bottom: 50px;
+}

@@ -1,73 +1,14 @@
-<nav id="primary-nav">
-  <ul>
-    <li><a href="/who-we-are/">Who We Are</a></li>
-    <li><a href="/what-we-do/">What We Do</a></li>
-    <li><a href="/what-you-can-do/">What You Can Do</a></li>
-    <li><a href="/what-we-fund/">What We Fund</a></li>
-    <li>
-      <a href="/blog/">Blog</a>
-      <ul>
-        {% for blog in blogs %}
-          <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </li>
-  </ul>
+<nav role="navigation" class="primary-nav">
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <div class="cell large-12">
+        <ul class="menu">
+          <li><a href="/nav-1/">Nav Iteam 1</a></li>
+          <li><a href="/nav-2/">Nav Iteam 2</a></li>
+          <li><a href="/nav-3/">Nav Iteam 3</a></li>
+          <li><a href="/nav-4/">Nav Iteam 4</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </nav>
-
-
-<style>
-
-  body {
-    margin: 20px;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  nav#primary-nav {
-    margin-left: 200px;
-  }
-
-  /* Existing navbar styles */
-  nav#primary-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 20px;
-  }
-
-  nav#primary-nav ul li {
-    position: relative;
-  }
-
-  nav#primary-nav ul li a {
-    text-decoration: none;
-    color: black;
-  }
-
-  nav#primary-nav ul li ul {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-  }
-
-  nav#primary-nav ul li:hover ul {
-    display: block;
-  }
-
-  nav#primary-nav ul li ul li {
-    padding: 5px 10px;
-  }
-
-  nav#primary-nav ul li ul li a {
-    color: black;
-  }
-
-</style>
