@@ -2,7 +2,10 @@ const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
-const entries = ["redesign_main"];
+const entries = [
+  // Base names of .scss files located in inDir (exclude the .scss extension)
+  "redesign_main",
+];
 
 const inDir = "../foundation_cms/static/scss";
 const tempDir = "../foundation_cms/static/temp";
