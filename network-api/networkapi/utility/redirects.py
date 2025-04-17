@@ -3,7 +3,7 @@ from wagtail.models import Site
 
 
 # Redirect to the same page, but using the default CMS site.
-# Ex: PNI should only be accessible on foundation.mozilla.org
+# Ex: PNI should only be accessible on www.mozillafoundation.org
 def redirect_to_default_cms_site(func):
     def wrapper(request, *args, **kwargs):
         wagtail_sites = Site.objects.values("hostname", "is_default_site")

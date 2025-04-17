@@ -104,7 +104,7 @@ module.exports = [
           "&:focus, &.focus": {
             boxShadow: "0 0 0 0.2rem rgb(130 138 145 / 50%)",
           },
-          '&[href*="//"]:not([href*="foundation.mozilla.org"]):not([href*="donate.mozilla.org"])':
+          '&[href*="//"]:not([href*="www.mozillafoundation.org"]):not([href*="donate.mozilla.org"])':
             {
               display: "inline-flex",
               alignItems: "center",
@@ -141,7 +141,7 @@ module.exports = [
                 backgroundColor: "#595cf3",
                 borderColor: "transparent",
               },
-            '&[href*="//"]:not([href*="foundation.mozilla.org"]):not([href*="donate.mozilla.org"])':
+            '&[href*="//"]:not([href*="www.mozillafoundation.org"]):not([href*="donate.mozilla.org"])':
               {
                 "&::after": {
                   filter: "brightness(1)",

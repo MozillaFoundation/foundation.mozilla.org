@@ -57,7 +57,7 @@ jobs:
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
-      TARGET_DOMAINS: foundation.mozilla.org
+      TARGET_DOMAINS: localhost
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
@@ -133,7 +133,7 @@ jobs:
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
-      TARGET_DOMAINS: foundation.mozilla.org
+      TARGET_DOMAINS: localhost
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True

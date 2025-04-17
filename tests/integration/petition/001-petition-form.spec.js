@@ -5,7 +5,7 @@ const utility = require("./utility.js");
 test.describe("FormAssembly petition form", () => {
   const TIMESTAMP = Date.now();
   let thankYouUrlInputValue = "";
-  // locales we support on foundation.mozilla.org
+  // locales we support on www.mozillafoundation.org
   let supportedLocales = [
     "en",
     "de",
