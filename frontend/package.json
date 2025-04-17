@@ -10,10 +10,10 @@
     "clean:js": "shx rm -rf ../foundation_cms/static/compiled/_js/*",
     "clean": "run-p clean:css clean:js",
     "build:css": "node build-css.js",
-    "watch:css": "run-s build:css && chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css'",
     "build:js": "node esbuild.config.js --node-env production",
-    "watch:js": "node esbuild.config.js --node-env development",
     "build": "run-s clean build:css build:js",
+    "watch:css": "run-s build:css && chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css'",
+    "watch:js": "node esbuild.config.js --node-env development",
     "predev": "yarn clean",
     "dev": "run-p watch:css watch:js"
   },
