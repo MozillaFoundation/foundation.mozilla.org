@@ -1,7 +1,6 @@
 {
-  "name": "foundation.mozilla.org",
+  "name": "mozillafoundation.org",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MPL-2.0",
   "description": "Foundation Framework-based frontend for new Mozilla Foundation site, using Yarn and esbuild. Independent from npm build tasks for the legacy site",
   "repository": "https://github.com/MozillaFoundation/foundation.mozilla.org",
@@ -10,15 +9,12 @@
     "clean:css": "shx rm -rf ../foundation_cms/static/temp/* ../foundation_cms/static/compiled/_css/*",
     "clean:js": "shx rm -rf ../foundation_cms/static/compiled/_js/*",
     "clean": "run-p clean:css clean:js",
-    "build:css:sass": "sass ../foundation_cms/static/scss/redesign_main.scss ../foundation_cms/static/temp/redesign_main.unprocessed.css --style=compressed",
-    "build:css:postcss": "postcss ../foundation_cms/static/temp/redesign_main.unprocessed.css -o ../foundation_cms/static/compiled/_css/redesign_main.compiled.css --config ./postcss.config.js",
-    "build:css": "run-s build:css:sass build:css:postcss",
-    "watch:css:sass": "chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css:sass'",
-    "watch:css:postcss": "chokidar '../foundation_cms/static/temp/**/*.css' -c 'yarn build:css:postcss'",
-    "watch:css": "run-p watch:css:sass watch:css:postcss",
+    "build:css": "node build-css.js",
+    "watch:css": "run-s build:css && chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css'",
     "build:js": "node esbuild.config.js --node-env production",
     "watch:js": "node esbuild.config.js --node-env development",
     "build": "run-s clean build:css build:js",
+    "predev": "yarn clean",
     "dev": "run-p watch:css watch:js"
   },
   "dependencies": {

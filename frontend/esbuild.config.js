@@ -8,7 +8,7 @@ const inProduction = mode === "production";
 
 console.log("ESBuild running in production mode?", inProduction);
 
-const inDir = "../foundation_cms/static/js/";
+const inDir = "../foundation_cms/static/js";
 const outDir = "../foundation_cms/static/compiled/_js";
 
 const sources = {
@@ -38,7 +38,7 @@ async function runBuilds() {
   for (const [name, config] of Object.entries(sources)) {
     const opts = {
       ...base,
-      entryPoints: [path.join(inDir, config.source)],
+      entryPoints: [path.join(inDir, "/", config.source)],
       outfile: path.join(outDir, `${name}.compiled.js`),
       bundle: config.bundle,
     };

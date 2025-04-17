@@ -72,6 +72,7 @@ services:
       - ./frontend/yarn.lock:/app/frontend/yarn.lock
       - ./frontend/postcss.config.js:/app/frontend/postcss.config.js
       - ./frontend/esbuild.config.js:/app/frontend/esbuild.config.js
+      - ./frontend/build-css.js:/app/frontend/esbuild-css.js
     depends_on:
       - postgres
 
