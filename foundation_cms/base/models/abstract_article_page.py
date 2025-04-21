@@ -14,7 +14,10 @@ class AbstractArticlePage(AbstractBasePage):
         blank=True,
     )
 
-    content_panels = AbstractBasePage.content_panels + [FieldPanel("body")]
+    content_panels = AbstractBasePage.content_panels + [
+        FieldPanel("body"),
+        FieldPanel("tags", classname="collapse"),
+        ]
 
     class Meta:
         abstract = True
