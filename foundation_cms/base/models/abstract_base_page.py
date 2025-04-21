@@ -37,21 +37,11 @@ class PageTag(TagBase):
 
     class Meta:
         verbose_name = "Page Tag (new)"
-
-
-class TaggedPage(ItemBase):
-    tag = models.ForeignKey(
-        PageTag, related_name="tagged_pages", on_delete=models.CASCADE
-    )
-    content_object = ParentalKey(
-        to='AbstractBasePage',
-        on_delete=models.CASCADE,
-        related_name='tagged_items'
-    )
+        verbose_name_plural = "Page Tags (new)"
 
 
 class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
-    tags = ClusterTaggableManager(through='TaggedPage', blank=True)
+    tags = ClusterTaggableManager(through='base.TaggedPage', blank=True)
     author = models.ForeignKey(
         "base.Author",
         null=True,
@@ -71,3 +61,14 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
 
     class Meta:
         abstract = True
+
+
+class TaggedPage(ItemBase):
+    tag = models.ForeignKey(
+        PageTag, related_name="tagged_pages", on_delete=models.CASCADE
+    )
+    content_object = ParentalKey(
+        to='wagtailcore.Page',
+        on_delete=models.CASCADE,
+        related_name='base_tagged_items'
+    )
