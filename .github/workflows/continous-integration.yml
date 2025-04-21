@@ -80,8 +80,8 @@ jobs:
           sudo apt-get install -y gettext
       - name: Reset database
         run: |
-          dropdb --if-exists network
-          createdb network
+          dropdb --if-exists -h localhost -p 5432 -U postgres network
+          createdb -h localhost -p 5432 -U postgres network
       - name: Preroll
         run: |
           npm run build
@@ -171,8 +171,8 @@ jobs:
         run: npm run playwright:install
       - name: Reset database
         run: |
-          dropdb --if-exists network
-          createdb network
+          dropdb --if-exists -h localhost -p 5432 -U postgres network
+          createdb -h localhost -p 5432 -U postgres network
       - name: Preroll
         run: |
           npm run build
