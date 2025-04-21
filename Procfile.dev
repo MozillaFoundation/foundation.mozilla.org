@@ -1,5 +1,6 @@
-# This starts up 2 processes, one for webserver and one for frontend that 
+# This starts up 3 processes, one for webserver and two for frontend that
 # watches frontend files and compiles them when they change.
 
-frontend-watch: npm run watch
+legacy-frontend-watch: npm run watch
+redesign-frontend-watch: cd frontend && yarn dev
 web: /app/dockerpythonvenv/bin/python ./manage.py runserver 0.0.0.0:8000

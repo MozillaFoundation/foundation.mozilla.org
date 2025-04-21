@@ -119,6 +119,7 @@ dockerpythonvenv/
 foundation_cms/static/compiled
 foundation_cms/legacy_apps/static/temp/
 foundation_cms/legacy_apps/static/compiled/
+foundation_cms/static/temp/
 
 # PyCharm
 .idea/
