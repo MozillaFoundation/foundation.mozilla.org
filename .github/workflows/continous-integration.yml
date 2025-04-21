@@ -84,6 +84,7 @@ jobs:
           python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py check
           python ./manage.py makemigrations --check --dry-run
+          python ./manage.py flush --no-input
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py compilemessages
@@ -169,6 +170,7 @@ jobs:
         run: |
           npm run build
           python ./manage.py collectstatic --no-input --verbosity 0
+          python ./manage.py flush --no-input
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py load_fake_data
