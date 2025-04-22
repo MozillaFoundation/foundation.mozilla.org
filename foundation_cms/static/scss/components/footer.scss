@@ -1,0 +1,22 @@
+footer.site-footer {
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+        color: #333;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    padding-bottom: 40px
+}
