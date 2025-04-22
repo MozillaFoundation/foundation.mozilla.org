@@ -18,10 +18,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          clean: true
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 20
@@ -65,10 +62,7 @@ jobs:
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          clean: true
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: 3.11
@@ -151,10 +145,7 @@ jobs:
       CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://platform.twitter.com https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       SECURE_CROSS_ORIGIN_OPENER_POLICY: "same-origin-allow-popups"
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          clean: true
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: 3.11
