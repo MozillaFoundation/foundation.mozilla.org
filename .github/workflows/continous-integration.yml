@@ -78,12 +78,19 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gettext
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Reset database
+        run: |
+          export PGPASSWORD=postgres
+          dropdb --if-exists -h localhost -p 5432 -U postgres network
+          createdb -h localhost -p 5432 -U postgres network
       - name: Preroll
         run: |
           npm run build
           python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py check
-          python ./manage.py migrate zero --no-input
           python ./manage.py makemigrations --check --dry-run
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
@@ -166,11 +173,15 @@ jobs:
           sudo apt-get install -y gettext libgconf-2-4
       - name: Install Playwright
         run: npm run playwright:install
+      - name: Reset database
+        run: |
+          export PGPASSWORD=postgres
+          dropdb --if-exists -h localhost -p 5432 -U postgres network
+          createdb -h localhost -p 5432 -U postgres network
       - name: Preroll
         run: |
           npm run build
           python ./manage.py collectstatic --no-input --verbosity 0
-          python ./manage.py migrate zero --no-input
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py load_fake_data
