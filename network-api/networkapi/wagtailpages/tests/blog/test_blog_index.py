@@ -4,6 +4,7 @@ from http import HTTPStatus
 
 from django import http, test
 from django.core import management
+from django.utils import timezone
 from taggit import models as tag_models
 from wagtail import rich_text
 from wagtail.models import PageViewRestriction
@@ -254,6 +255,107 @@ class TestBlogIndex(BlogIndexTestCase):
         entries_after = [e.specific for e in response_after.context["entries"]]
         self.assertEqual(response_after.status_code, HTTPStatus.OK)
         self.assertIn(blog_page, entries_after)
+
+    def test_blog_page_privacy_change_is_synced_across_locales(self):
+        # Create EN Blog Page
+        blog_page_en = blog_factories.BlogPageFactory(parent=self.blog_index)
+
+        self.synchronize_tree()
+        blog_index_url_fr = self.blog_index.get_translation(self.fr_locale).url
+        blog_page_fr = blog_page_en.get_translation(self.fr_locale)
+
+        # Check for page in FR entries
+        response_before = self.client.get(path=blog_index_url_fr)
+        entries_before = [e.specific for e in response_before.context["entries"]]
+        self.assertEqual(response_before.status_code, HTTPStatus.OK)
+        self.assertIn(blog_page_fr, entries_before)
+
+        # Add a login restriction to default locale (EN)
+        PageViewRestriction.objects.create(
+            page=blog_page_en,
+            restriction_type=PageViewRestriction.LOGIN,
+        )
+
+        # Page should no longer appear in FR entries
+        response_after = self.client.get(path=blog_index_url_fr)
+        entries_after = [e.specific for e in response_after.context["entries"]]
+        self.assertEqual(response_after.status_code, HTTPStatus.OK)
+        self.assertNotIn(blog_page_fr, entries_after)
+
+    def test_scheduled_future_blog_page_is_not_in_entries(self):
+        future_time = timezone.now() + timezone.timedelta(days=1)
+
+        # Create a blog page with a future go_live_at
+        blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            live=True,
+            go_live_at=future_time,
+        )
+
+        response = self.client.get(self.blog_index.get_url())
+        entries = [e.specific for e in response.context["entries"]]
+
+        # Page should not appear in entries (it is scheduled for the future)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertNotIn(blog_page, entries)
+
+    def test_blog_page_with_past_go_live_date_is_in_entries(self):
+        past_time = timezone.now() - timezone.timedelta(days=1)
+
+        blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            live=True,
+            go_live_at=past_time,
+        )
+
+        response = self.client.get(self.blog_index.get_url())
+        entries = [e.specific for e in response.context["entries"]]
+
+        # Page should appear in entries (it's go live date has passed)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertIn(blog_page, entries)
+
+    def test_blog_page_without_go_live_date_is_in_entries(self):
+        blog_page = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            live=True,
+            go_live_at=None,  # explicitly
+        )
+
+        response = self.client.get(self.blog_index.get_url())
+        entries = [e.specific for e in response.context["entries"]]
+
+        # Page should appear in entries (it is already live)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertIn(blog_page, entries)
+
+    def test_scheduled_future_blog_page_is_not_in_french_entries(self):
+        future_time = timezone.now() + timezone.timedelta(days=1)
+
+        blog_page_en = blog_factories.BlogPageFactory(
+            parent=self.blog_index,
+            live=False,
+            go_live_at=future_time,
+        )
+
+        response_en = self.client.get(self.blog_index.url)
+        entries_en = [e.specific for e in response_en.context["entries"]]
+
+        # Page should not appear in EN entries
+        self.assertEqual(response_en.status_code, HTTPStatus.OK)
+        self.assertNotIn(blog_page_en, entries_en)
+
+        # Request the French blog index
+        self.synchronize_tree()
+        blog_index_url_fr = self.blog_index.get_translation(self.fr_locale).url
+        blog_page_fr = blog_page_en.get_translation(self.fr_locale)
+
+        response_fr = self.client.get(blog_index_url_fr)
+        entries_fr = [e.specific for e in response_fr.context["entries"]]
+
+        # Page should not appear in FR entries either
+        self.assertEqual(response_fr.status_code, HTTPStatus.OK)
+        self.assertNotIn(blog_page_fr, entries_fr)
 
 
 class TestBlogIndexTopic(BlogIndexTestCase):
