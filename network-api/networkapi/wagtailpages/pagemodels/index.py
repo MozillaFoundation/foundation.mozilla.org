@@ -4,8 +4,10 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.db import models
+from django.db.models import Q
 from django.http import JsonResponse
 from django.template import loader
+from django.utils.timezone import now
 from taggit.models import Tag
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -104,7 +106,13 @@ class IndexPage(RoutablePageMixin, BasePage):
         child_set = cache.get(cache_key)
 
         if child_set is None:
-            child_set = self.get_children().live().public().order_by("-first_published_at", "title")
+            child_set = (
+                self.get_children()
+                .live()
+                .public()
+                .filter(Q(go_live_at__isnull=True) | Q(go_live_at__lte=now()))
+                .order_by("-first_published_at", "title")
+            )
             cache.set(cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
 
         return child_set
