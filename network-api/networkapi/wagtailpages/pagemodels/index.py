@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.db import models
-from django.db.models import Q
 from django.http import JsonResponse
 from django.template import loader
 from django.utils.timezone import now
@@ -106,13 +105,16 @@ class IndexPage(RoutablePageMixin, BasePage):
         child_set = cache.get(cache_key)
 
         if child_set is None:
-            child_set = (
-                self.get_children()
-                .live()
-                .public()
-                .filter(Q(go_live_at__isnull=True) | Q(go_live_at__lte=now()))
-                .order_by("-first_published_at", "title")
-            )
+            # Grab all child pages
+            base_qs = self.get_children().live().public().order_by("-first_published_at", "title")
+
+            # Determine IDs of pages scheduled in the future
+            now_time = now()
+            scheduled_ids = [page.pk for page in base_qs if page.go_live_at and page.go_live_at > now_time]
+
+            # Exclude scheduled pages from original queryset
+            child_set = base_qs.exclude(pk__in=scheduled_ids)
+
             cache.set(cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
 
         return child_set
