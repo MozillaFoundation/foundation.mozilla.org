@@ -141,7 +141,7 @@ module.exports = [
                 backgroundColor: "#595cf3",
                 borderColor: "transparent",
               },
-            '&[href*="//"]:not([href*="www.mozillafoundation.org"]):not([href*="donate.mozilla.org"])':
+            '&[href*="//"]:not([href*="mozillafoundation.org"]):not([href*="donate.mozilla.org"])':
               {
                 "&::after": {
                   filter: "brightness(1)",
