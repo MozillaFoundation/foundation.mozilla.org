@@ -104,7 +104,7 @@ module.exports = [
           "&:focus, &.focus": {
             boxShadow: "0 0 0 0.2rem rgb(130 138 145 / 50%)",
           },
-          '&[href*="//"]:not([href*="www.mozillafoundation.org"]):not([href*="donate.mozilla.org"])':
+          '&[href*="//"]:not([href*="mozillafoundation.org"]):not([href*="donate.mozilla.org"])':
             {
               display: "inline-flex",
               alignItems: "center",
