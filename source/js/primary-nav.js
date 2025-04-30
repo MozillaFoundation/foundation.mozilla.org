@@ -1,5 +1,3 @@
-import { ReactGA } from "./common";
-
 let primaryNav = {
   init: function () {
     let elBurger = document.querySelector(`.burger`);
@@ -35,13 +33,15 @@ let primaryNav = {
 
     function trackMenuState(openMenu) {
       if (openMenu) {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: `show_navigation_menu`,
           category: `navigation`,
           action: `show menu`,
           label: `Show navigation menu`,
         });
       } else {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: `hide_navigation_menu`,
           category: `navigation`,
           action: `hide menu`,
           label: `Hide navigation menu`,
@@ -61,10 +61,26 @@ let primaryNav = {
     }
 
     function setMenuState(openMenu) {
+      toggleDonateBanner(openMenu);
       setNarrowMenuState(openMenu);
       setBurgerState(openMenu);
       trackMenuState(openMenu);
       setBodyHeight(openMenu);
+    }
+
+    // temporarily hide the donate banner when the menu is open
+    function toggleDonateBanner(hideDonateBanner) {
+      const donateBanner = document.querySelector(`.donate-banner`);
+
+      if (!donateBanner) {
+        return;
+      }
+
+      if (hideDonateBanner) {
+        donateBanner.classList.add(`tw-hidden`);
+      } else {
+        donateBanner.classList.remove(`tw-hidden`);
+      }
     }
 
     document.addEventListener(`keyup`, (e) => {

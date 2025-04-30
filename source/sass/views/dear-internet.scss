@@ -325,7 +325,8 @@
 
   .letters {
     @media (min-width: $breakpoint) {
-      background-image: url(../_images/dear-internet/Envelope-Left-Group-Extended.svg),
+      background-image:
+        url(../_images/dear-internet/Envelope-Left-Group-Extended.svg),
         url(../_images/dear-internet/Envelope-Right-Group-Extended.svg);
       background-repeat: no-repeat;
       background-position:
@@ -356,7 +357,8 @@
     --envelope-width: 75px;
 
     padding: calc(var(--padding-y) * 2) 0;
-    background-image: url(../_images/dear-internet/Donate-Area-Graphic.svg),
+    background-image:
+      url(../_images/dear-internet/Donate-Area-Graphic.svg),
       url(../_images/dear-internet/Envelope-Blue1.svg),
       url(../_images/dear-internet/Envelope-Red1.svg),
       url(../_images/dear-internet/Envelope-Blue2.svg);

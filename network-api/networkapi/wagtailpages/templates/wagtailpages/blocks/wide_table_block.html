@@ -1,0 +1,59 @@
+{% extends "./base_streamfield_block.html" %}
+{% load wagtailcore_tags table_block_tags %}
+
+{% block block_content %}
+    {% with self.table as table %}
+        <div class="article-table-block table-responsive{% if not self.wide %} large:tw-mx-auto large:tw-max-w-[80%]{% endif %}">
+            {% comment %}
+            Modified table template comes from "table_block/blocks/table.html"
+            {% endcomment %}
+            <table class="table">
+                {% if table.table_caption %}
+                    <caption>{{ table.table_caption }}</caption>
+                {% endif %}
+                {% if table.first_row_is_table_header %}
+                    <thead>
+                        <tr>
+                            {% for column in table.data.0 %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                {% endif %}
+                <tbody>
+                    {% for row in table_body %}
+                        {% with forloop.counter0 as row_index %}
+                            <tr>
+                                {% for column in row %}
+                                    {% with forloop.counter0 as col_index %}
+                                        {% if table.first_col_is_header and forloop.first %}
+                                            <th scope="row" class="{% if table.first_col_is_header and forloop.first %}highlighted{% endif %}" {% cell_classname row_index col_index table_header %}>
+                                                {% if column.strip %}
+                                                    {% if html_renderer %}
+                                                        {{ column.strip|safe|linebreaksbr }}
+                                                    {% else %}
+                                                        {{ column.strip|linebreaksbr }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </th>
+                                        {% else %}
+                                            <td class="{% if table.first_col_is_header and forloop.first %}highlighted{% endif %}" {% cell_classname row_index col_index table_header %}>
+                                                {% if column.strip %}
+                                                    {% if html_renderer %}
+                                                        {{ column.strip|safe|linebreaksbr }}
+                                                    {% else %}
+                                                        {{ column.strip|linebreaksbr }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endwith %}
+{% endblock block_content %}

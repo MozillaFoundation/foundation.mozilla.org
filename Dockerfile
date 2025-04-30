@@ -1,5 +1,5 @@
 # (Keep the version in sync with the node install below)
-FROM node:20-bullseye-slim as frontend
+FROM node:20-bookworm-slim as frontend
 
 # Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
@@ -27,7 +27,7 @@ RUN npm run build
 # Note: This stage builds the base image for production. Presently we are not
 # using this on the production site, but only use it as base for the dev build.
 # Pin "bullseye" as it matches Ubuntu 20.04 -- Heroku 20 stack currently used in production.
-FROM python:3.11-slim-bullseye as base
+FROM python:3.11-slim-bookworm as base
 
 # Install dependencies in a virtualenv
 ENV VIRTUAL_ENV=/app/dockerpythonvenv
@@ -44,7 +44,7 @@ WORKDIR /app
 #    https://docs.python.org/3.11/using/cmdline.html#envvar-PYTHONUNBUFFERED
 #    https://docs.python.org/3.11/using/cmdline.html#cmdoption-u
 #  * DJANGO_SETTINGS_MODULE - default settings used in the container.
-#  * PORT - default port used. 
+#  * PORT - default port used.
 #    Heroku will ignore EXPOSE and only set PORT variable. PORT variable is
 #    read/used by Gunicorn.
 #  * WEB_CONCURRENCY - number of workers used by Gunicorn. The variable is
@@ -71,6 +71,10 @@ EXPOSE 8000
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
+    python3-dev \
+    libffi-dev \
+    python3-setuptools \
+    python3-wheel \
     curl \
     git \
     gettext \
@@ -83,12 +87,12 @@ USER mozilla
 
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
-RUN pip install -U pip==23.3.2 && pip install pip-tools
-# Normally we won't install dev dependencies in production, but we do it here to optimise 
+ENV PATH=$VIRTUAL_ENV/bin:$PATH
+RUN pip install -U pip==23.3.2 && pip install pip-tools setuptools wheel
+# Normally we won't install dev dependencies in production, but we do it here to optimise
 # docker build cache for local build
 COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
-# We use pip-tools instead of pip install. This will installing, upgrading, or uninstalling 
-# all dependencies necessary to match the contents of the requirements files. 
+# Pre-install wheel before syncing, even though it's in dev-requirements.in
 RUN pip-sync requirements.txt dev-requirements.txt
 
 # Copy application code.
@@ -97,16 +101,16 @@ RUN pip-sync requirements.txt dev-requirements.txt
 COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
-# This will later be obscured by the `network-api` bind mount in docker-compose.yml, and 
+# This will later be obscured by the `network-api` bind mount in docker-compose.yml, and
 # will need to be recreated by `npm run build`.
 COPY --chown=mozilla --from=frontend /app/network-api/networkapi/frontend ./network-api/networkapi/frontend
 
-# Run collectstatic to move static files from application directories and 
-# compiled static directory (network-api/networkapi/frontend) to the site's static 
+# Run collectstatic to move static files from application directories and
+# compiled static directory (network-api/networkapi/frontend) to the site's static
 # directory in /app/network-api/staticfiles that will be served by the WSGI server.
-# 
+#
 # Note: this is only used where DEBUG=False, and so is not needed on dev builds.
-# The network-api/staticfiles will not be visible after mounting the 
+# The network-api/staticfiles will not be visible after mounting the
 # network-api directory.
 RUN SECRET_KEY=none python ./network-api/manage.py collectstatic --noinput --clear
 

@@ -1,5 +1,3 @@
-import { ReactGA } from "../../common";
-
 /**
  * Bind click handler to "#view-participate .card-cta .btn[href*="donate.mozilla.org"]"
  * (the Donate CTA button on participate page)
@@ -11,7 +9,8 @@ export default () => {
 
   if (participateDonateBtn) {
     participateDonateBtn.addEventListener(`click`, () => {
-      ReactGA.event({
+      window.dataLayer.push({
+        event: `donate_button_tap_participate_page`,
         category: `donate`,
         action: `donate button tap`,
         label: document.title,

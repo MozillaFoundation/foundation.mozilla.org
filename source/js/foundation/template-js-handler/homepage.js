@@ -1,5 +1,3 @@
-import { ReactGA } from "../../common";
-
 /**
  * Bind click handler for call to action links
  */
@@ -9,7 +7,8 @@ export default () => {
   let bindCtaGA = (element, eventAction) => {
     if (element) {
       element.addEventListener(`click`, () => {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: eventAction.replace(" ", "_"),
           category: `CTA read more`,
           action: eventAction,
           label: `${DOC_TITLE} - ${element.innerText}`,
@@ -46,7 +45,8 @@ export default () => {
   let donateBannerCta = document.querySelector("#donate-banner-cta");
   if (donateBannerCta) {
     donateBannerCta.addEventListener(`click`, () => {
-      ReactGA.event({
+      window.dataLayer.push({
+        event: `donate_button_tap_banner`,
         category: `donate`,
         action: `donate button tap banner`,
         label: `${DOC_TITLE} banner`,

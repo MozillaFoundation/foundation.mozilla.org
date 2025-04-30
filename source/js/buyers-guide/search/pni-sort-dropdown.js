@@ -4,6 +4,9 @@ const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
 const ESCAPE_KEY_CODE = 27;
 
+/**
+ * Dropdown component for sorting products on PNI
+ */
 export class PNISortDropdown {
   constructor(searchFilter) {
     this.searchFilter = searchFilter;
@@ -81,6 +84,11 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Sets the selected list item and updates the dropdown button content.
+   * @param {Event} e - The event (e.g., click, keydown)
+   * @param {boolean} [pushUpdate=true] - Whether to push the update to the history state.
+   */
   setSelectedListItem(e, pushUpdate = true) {
     this.listItems.forEach((item) => {
       const itemDiv = item.querySelector("div");
@@ -99,12 +107,20 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Closes the dropdown list.
+   */
   closeList() {
     this.listContainer.classList.add("tw-hidden");
     this.dropdownButton.setAttribute("aria-expanded", false);
     this.dropdownButtonArrow.classList.remove("tw-rotate-180");
   }
 
+  /**
+   * Opens the dropdown list.
+   *
+   * @param {boolean} [withFocus=false] - Whether to focus on the first list item.
+   */
   openList(withFocus = false) {
     this.listContainer.classList.remove("tw-hidden");
     this.dropdownButton.setAttribute("aria-expanded", true);
@@ -118,6 +134,11 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Toggle the visibility of the dropdown list
+   *
+   * @param {Event} e The event (e.g., click, keydown)
+   */
   toggleListVisibility(e) {
     const isExpanded =
       this.dropdownButton.getAttribute("aria-expanded") === "true";
@@ -140,24 +161,58 @@ export class PNISortDropdown {
     }
   }
 
+  /**
+   * Focus on the next list item based on the given direction.
+   *
+   * @param {number} direction The key code of the direction to move the focus (e.g., key code for up arrow / down arrow)
+   */
   focusNextListItem(direction) {
     const activeElementId = document.activeElement.id;
-    const currentActiveElementIndex = this.listItemIds.indexOf(activeElementId);
+    const currentIndex = this.listItemIds.indexOf(activeElementId);
+
+    // return early if active element is not in the list
+    if (currentIndex < 0) return;
+
+    // handle focus based on direction
     if (direction === DOWN_ARROW_KEY_CODE) {
-      const currentActiveElementIsNotLastItem =
-        currentActiveElementIndex < this.listItemIds.length - 1;
-      if (currentActiveElementIsNotLastItem) {
-        const nextListItemId = this.listItemIds[currentActiveElementIndex + 1];
-        document.querySelector(`#${nextListItemId}`).focus();
-      }
+      this.focusNextItem(currentIndex);
     } else if (direction === UP_ARROW_KEY_CODE) {
-      const currentActiveElementIsNotFirstItem = currentActiveElementIndex > 0;
-      if (currentActiveElementIsNotFirstItem) {
-        const nextListItemId = this.listItemIds[currentActiveElementIndex - 1];
-        document.querySelector(`#${nextListItemId}`).focus();
-      } else {
-        this.dropdownButton.focus();
-      }
+      this.focusPreviousItem(currentIndex);
     }
+  }
+
+  /**
+   * Focus the next list item if it's not the last one.
+   *
+   * @param {number} currentIndex The index of the current active element in the list
+   */
+  focusNextItem(currentIndex) {
+    const isNotLastItem = currentIndex < this.listItemIds.length - 1;
+    if (isNotLastItem) {
+      this.focusItem(currentIndex + 1);
+    }
+  }
+
+  /**
+   * Focus the previous list item if it's not the first, or focus the dropdown button.
+   *
+   * @param {number} currentIndex The index of the current active element in the list
+   */
+  focusPreviousItem(currentIndex) {
+    if (currentIndex > 0) {
+      this.focusItem(currentIndex - 1);
+    } else {
+      this.dropdownButton.focus();
+    }
+  }
+
+  /**
+   * Focus the list item at the specified index.
+   *
+   * @param {number} index The index of the item to focus
+   */
+  focusItem(index) {
+    const nextListItemId = this.listItemIds[index];
+    document.querySelector(`#${nextListItemId}`).focus();
   }
 }

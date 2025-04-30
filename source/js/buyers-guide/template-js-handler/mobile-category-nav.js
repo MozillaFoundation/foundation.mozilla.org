@@ -3,7 +3,7 @@
  * If the navigation menu button is clicked, open the navigation panel.
  */
 
-const PNIMobileNav = {
+const PNIMobileCategoryNav = {
   init: () => {
     const mobileNav = document.querySelector("#pni-mobile-category-nav");
 
@@ -17,4 +17,4 @@ const PNIMobileNav = {
   },
 };
 
-export default PNIMobileNav;
+export default PNIMobileCategoryNav;

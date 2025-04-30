@@ -1,8 +1,6 @@
 /**
- * mouse/touch scroll functionality for the category area
- * @param {*} event
+ * Mouse/touch scroll functionality for the sub category area on mobile
  */
-
 const subcategories = document.querySelectorAll(`.subcategories`);
 const subContainer = document.querySelector(`.subcategory-header`);
 const subClasses = subContainer.classList;
@@ -14,6 +12,11 @@ function stop(evt) {
   evt.stopImmediatePropagation();
 }
 
+/**
+ * A event handler that initiate the scroll functionality on the sub category area
+ *
+ * @param {Event} event The event that triggered the function
+ */
 export function markScrollStart(event) {
   stop(event);
   subClasses.add("cursor-grabbing", "select-none");
@@ -27,6 +30,11 @@ export function markScrollStart(event) {
   document.addEventListener(`mouseup`, markScrollEnd);
 }
 
+/**
+ * A event handler for moving the scorll on the sub category area
+ *
+ * @param {Event} event The event that triggered the function
+ */
 function markScrollMove(event) {
   subcategories.forEach((subcategory) => {
     subcategory.classList.add("pointer-events-none");
@@ -35,6 +43,11 @@ function markScrollMove(event) {
   subContainer.scrollLeft = pos.left - dx;
 }
 
+/**
+ * A event handler for stopping the scorll on the sub category area
+ *
+ * @param {Event} event The event that triggered the function
+ */
 function markScrollEnd(event) {
   stop(event);
 

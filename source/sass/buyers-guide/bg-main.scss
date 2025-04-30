@@ -54,11 +54,22 @@ html {
 // Misc
 
 @import "../global";
+
 // Header
 
 @import "./components/header.scss";
 
+// Cookie Banner
+
+@import "../onetrust-override.scss";
+
 // Utilities
+
+body.pni .primary-nav-container .wrapper-burger .narrow-screen-menu {
+  @media screen and (min-width: $bp-lg) {
+    top: 94px;
+  }
+}
 
 .bg-product-image {
   background: $pni-product-image-background;

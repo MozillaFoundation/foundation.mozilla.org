@@ -32,7 +32,13 @@ class CampaignPageFactory(CMSPageFactory):
         no_cta = Trait(cta=None)
         cta_show_all_fields = Trait(
             cta=SubFactory(
-                PetitionFactory, show_country_field=True, show_postal_code_field=True, show_comment_field=True
+                PetitionFactory,
+                show_country_field=True,
+                show_postal_code_field=True,
+                show_comment_field=True,
+                share_facebook="sp_111111",  # a fake ShareProgress ID for testing
+                share_twitter="sp_222222",  # a fake ShareProgress ID for testing
+                share_email="sp_333333",  # a fake ShareProgress ID for testing
             )
         )
 

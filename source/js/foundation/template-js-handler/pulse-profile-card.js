@@ -1,5 +1,3 @@
-import { ReactGA } from "../../common";
-
 /**
  * Bind handlers to elements in ".profiles .person-card"
  */
@@ -13,8 +11,8 @@ export default () => {
   ) {
     if (socialTwitter) {
       socialTwitter.addEventListener(`click`, () => {
-        ReactGA.event({
-          category: `profiles`,
+        window.dataLayer.push({
+          category: `profiles_tap_twitter`,
           action: `profile tap`,
           label: `${document.title} ${profileName} twitter`,
           transport: `beacon`,
@@ -24,8 +22,8 @@ export default () => {
 
     if (socialLinkedIn) {
       socialLinkedIn.addEventListener(`click`, () => {
-        ReactGA.event({
-          category: `profiles`,
+        window.dataLayer.push({
+          category: `profiles_tap_linkedin`,
           action: `profile tap`,
           label: `${document.title} ${profileName} linkedin`,
           transport: `beacon`,
@@ -40,7 +38,8 @@ export default () => {
     // event listener & GA
     let bindAnalytics = (element, profileName) => {
       element.addEventListener(`click`, () => {
-        ReactGA.event({
+        window.dataLayer.push({
+          event: `profiles_tap_pulse_profile`,
           category: `profiles`,
           action: `profile tap`,
           label: `${document.title} ${profileName} pulse profile`,

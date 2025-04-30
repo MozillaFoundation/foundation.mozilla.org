@@ -4,10 +4,15 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
+from wagtail.models import Locale
 from wagtail.models import Orderable as WagtailOrderable
 from wagtail.models import Page, TranslatableMixin
 from wagtail.search import index
+from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+
+from networkapi.donate_banner.models import DonateBannerPage
+from networkapi.wagtailpages.pagemodels.customblocks.link_block import LinkBlock
 
 # TODO:  https://github.com/mozilla/foundation.mozilla.org/issues/2362
 from ..donation_modal import DonationModals  # noqa: F401
@@ -18,10 +23,77 @@ from .mixin.foundation_banner_inheritance import FoundationBannerInheritanceMixi
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .mixin.foundation_navigation import FoundationNavigationPageMixin
 
+hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms."
+hero_intro_body_default_text = (
+    "Mozilla empowers consumers to demand better online privacy, trustworthy AI, "
+    "and safe online experiences from Big Tech and governments. We work across "
+    "borders, disciplines, and technologies to uphold principles like privacy, "
+    "inclusion and decentralization online."
+)
+
 
 class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
     class Meta:
         abstract = True
+
+    def get_donate_banner(self, request):
+        # Check if there's a DonateBannerPage.
+        default_locale = Locale.get_default()
+        donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
+
+        # If there is no DonateBannerPage or no donate_banner is set, return None.
+        if not donate_banner_page or not donate_banner_page.donate_banner:
+            return None
+
+        # Check if the user has Do Not Track enabled by inspecting the DNT header.
+        dnt_enabled = request.headers.get("DNT") == "1"
+
+        # Check if there's an active A/B test for the DonateBannerPage.
+        active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
+
+        # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
+        if not active_ab_test or dnt_enabled:
+            donate_banner = donate_banner_page.donate_banner.localized
+            donate_banner.variant_version = "N/A"
+            donate_banner.active_ab_test = "N/A"
+            return donate_banner
+
+        # Check for the cookie related to this A/B test.
+        # In wagtail-ab-testing, the cookie name follows the format:
+        # "wagtail-ab-testing_{ab_test.id}_version".
+        # For details, see the source code here:
+        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
+        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+        test_version = request.COOKIES.get(test_cookie_name)
+
+        # If no version cookie is found, grab a test version for the current user.
+        if not test_version:
+            test_version = active_ab_test.get_new_participant_version()
+
+        if test_version == "variant":
+            is_variant = True
+        else:
+            is_variant = False
+
+        # Attach active test and variant flag to request for {% wagtail_ab_testing_script %} template tag.
+        # This allows wagtail-ab-testing to track events for this test, and set the version cookie if needed.
+        request.wagtail_ab_testing_test = active_ab_test
+        request.wagtail_ab_testing_serving_variant = is_variant
+
+        # Return the appropriate donate banner
+        if is_variant:
+            donate_banner = active_ab_test.variant_revision.as_object().donate_banner.localized
+        else:
+            donate_banner = donate_banner_page.donate_banner.localized
+
+        donate_banner.variant_version = test_version
+        donate_banner.active_ab_test = active_ab_test.name
+        return donate_banner
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["donate_banner"] = self.get_donate_banner(request)
+        return context
 
 
 class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
@@ -239,6 +311,9 @@ class InitiativesPage(PrimaryPage):
 
 
 class ParticipatePage2(PrimaryPage):
+
+    max_count = 1
+
     template = "wagtailpages/static/participate_page2.html"
 
     ctaHero = models.ForeignKey(
@@ -428,6 +503,8 @@ class ParticipatePage2(PrimaryPage):
 
 
 class Styleguide(PrimaryPage):
+    max_count = 1
+
     template = "pages/styleguide.html"
 
     emoji_image = models.ForeignKey(
@@ -442,15 +519,19 @@ class Styleguide(PrimaryPage):
         FieldPanel("emoji_image"),
     ]
 
+    subpage_types: list = []
 
-class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
+
+class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         "wagtailpages.Homepage",
-        related_name="spotlight_posts",
+        related_name="ideas_posts",
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
+    cta = models.CharField(max_length=50, default="Read more")
     panels = [
         FieldPanel("blog"),
+        FieldPanel("cta", heading="CTA Link Text"),
     ]
 
     class Meta(TranslatableMixin.Meta, WagtailOrderable.Meta):
@@ -461,10 +542,10 @@ class HomepageSpotlightPosts(TranslatableMixin, WagtailOrderable):
         return self.page.title + "->" + self.blog.title
 
 
-class HomepageNewsYouCanUse(TranslatableMixin, WagtailOrderable):
+class HomepageHighlights(TranslatableMixin, WagtailOrderable):
     page = ParentalKey(
         "wagtailpages.Homepage",
-        related_name="news_you_can_use",
+        related_name="highlights",
     )
     blog = models.ForeignKey("BlogPage", on_delete=models.CASCADE, related_name="+")
     panels = [
@@ -602,19 +683,10 @@ class FocusArea(TranslatableMixin, models.Model):
         help_text="Description of this area of focus. Max. 300 characters.",
     )
 
-    page = models.ForeignKey(
-        "wagtailcore.Page",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
     panels = [
         FieldPanel("interest_icon"),
         FieldPanel("name"),
         FieldPanel("description"),
-        FieldPanel("page"),
     ]
 
     translatable_fields = [
@@ -739,6 +811,7 @@ class PartnerLogos(TranslatableMixin, WagtailOrderable):
 
 
 class Homepage(FoundationMetadataPageMixin, Page):
+
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
@@ -762,17 +835,27 @@ class Homepage(FoundationMetadataPageMixin, Page):
 
     hero_button_url = models.URLField(blank=True)
 
-    spotlight_image = models.ForeignKey(
+    hero_intro_heading = models.CharField(max_length=100, blank=True, default=hero_intro_heading_default_text)
+    hero_intro_body = models.TextField(max_length=300, blank=True, default=hero_intro_body_default_text)
+    hero_intro_link = StreamField(
+        [("link", LinkBlock())],
+        use_json_field=True,
+        blank=True,
+        max_num=1,
+    )
+
+    ideas_title = models.CharField(default="Ideas", max_length=50)
+
+    ideas_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="spotlight_image",
+        related_name="ideas_image",
     )
 
-    spotlight_headline = models.CharField(
+    ideas_headline = models.CharField(
         max_length=140,
-        help_text="Spotlight headline",
         blank=True,
     )
 
@@ -836,6 +919,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         null=True,
         on_delete=models.SET_NULL,
     )
+
+    highlights_title = models.CharField(default="The Highlights", max_length=50)
+
     # Take Action Section
     take_action_title = models.CharField(default="Take action", max_length=50)
 
@@ -866,6 +952,15 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel("hero_intro_heading"),
+                FieldPanel("hero_intro_body"),
+                FieldPanel("hero_intro_link"),
+            ],
+            heading="Hero Intro Box",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
                 InlinePanel("focus_areas", min_num=3, max_num=3),
             ],
             heading="Areas of focus",
@@ -873,18 +968,20 @@ class Homepage(FoundationMetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel("news_you_can_use", min_num=4, max_num=4),
+                FieldPanel("highlights_title"),
+                InlinePanel("highlights", min_num=4, max_num=4),
             ],
-            heading="News you can use",
+            heading="The Highlights",
             classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel("spotlight_image"),
-                FieldPanel("spotlight_headline"),
-                InlinePanel("spotlight_posts", label="Posts", min_num=3, max_num=3),
+                FieldPanel("ideas_title"),
+                FieldPanel("ideas_image"),
+                FieldPanel("ideas_headline"),
+                InlinePanel("ideas_posts", label="Posts", min_num=3, max_num=3),
             ],
-            heading="spotlight",
+            heading="Ideas",
             classname="collapsible",
         ),
         MultiFieldPanel(
@@ -932,8 +1029,13 @@ class Homepage(FoundationMetadataPageMixin, Page):
         SynchronizedField("hero_image"),
         TranslatableField("hero_button_text"),
         SynchronizedField("hero_button_url"),
-        SynchronizedField("spotlight_image"),
-        TranslatableField("spotlight_headline"),
+        TranslatableField("hero_intro_heading"),
+        TranslatableField("hero_intro_body"),
+        TranslatableField("hero_intro_link"),
+        TranslatableField("ideas_title"),
+        SynchronizedField("ideas_image"),
+        TranslatableField("ideas_headline"),
+        SynchronizedField("show_cause_statement"),
         TranslatableField("cause_statement"),
         TranslatableField("cause_statement_link_text"),
         TranslatableField("cause_statement_link_page"),
@@ -950,8 +1052,9 @@ class Homepage(FoundationMetadataPageMixin, Page):
         TranslatableField("focus_areas"),
         TranslatableField("take_action_cards"),
         TranslatableField("partner_logos"),
-        TranslatableField("spotlight_posts"),
-        TranslatableField("news_you_can_use"),
+        TranslatableField("ideas_posts"),
+        TranslatableField("highlights"),
+        TranslatableField("highlights_title"),
     ]
 
     subpage_types = [
@@ -959,7 +1062,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "BanneredCampaignPage",
         "BlogIndexPage",
         "CampaignIndexPage",
-        "InitiativesPage",
+        "CampaignPage",
         "MiniSiteNameSpace",
         "OpportunityPage",
         "ParticipatePage2",
@@ -968,11 +1071,19 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ResearchLandingPage",
         "RCCLandingPage",
         "Styleguide",
-        "ProductPage",
         "BuyersGuidePage",
         "ArticlePage",
         "donate.DonateLandingPage",
+        "donate_banner.DonateBannerPage",
     ]
+
+    def get_localized_take_action_cards(self):
+        # Loop through take_action_cards and localize internal_link
+        localized_cards = []
+        for card in self.take_action_cards.all():
+            card.internal_link = card.internal_link.localized
+            localized_cards.append(card)
+        return localized_cards
 
     def get_context(self, request):
         # We need to expose MEDIA_URL so that the s3 images will show up properly
@@ -981,4 +1092,8 @@ class Homepage(FoundationMetadataPageMixin, Page):
         context["MEDIA_URL"] = settings.MEDIA_URL
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
+        context["donate_banner"] = BasePage.get_donate_banner(self, request)
+        context["localized_take_action_cards"] = self.get_localized_take_action_cards()
+        if self.partner_page:
+            context["localized_partner_page"] = self.partner_page.localized
         return context

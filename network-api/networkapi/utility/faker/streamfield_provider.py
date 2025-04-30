@@ -358,7 +358,6 @@ def generate_pulse_listing_field():
             "size": 6,
             "search_terms": "",
             "newest_first": True,
-            "direct_link": False,
         },
     )
 
@@ -393,7 +392,9 @@ def generate_typeform_field():
 
 
 def generate_datawrapper_field():
-    return generate_field("datawrapper", "https://datawrapper.dwcdn.net/0rmUn/3/")
+    return generate_field(
+        "datawrapper", {"datawrapper": "https://datawrapper.dwcdn.net/0rmUn/3/", "wide": fake.boolean()}
+    )
 
 
 def generate_dear_internet_letter_field():
@@ -731,6 +732,34 @@ def generate_app_install_download_button_field():
     )
 
 
+def generate_bg_cta_link_field():
+    link_value = {
+        "link_to": "external_url",
+        "external_url": fake.url(schemes=["https"]),
+        "label": " ".join(fake.words(nb=2)),
+        "new_window": True,
+    }
+
+    return generate_field("link", link_value)
+
+
+def generate_homepage_hero_intro_link():
+    link_value = {
+        "link_to": "external_url",
+        "external_url": fake.url(schemes=["https"]),
+        "label": " ".join(fake.words(nb=3)),
+        "new_window": True,
+        "page": None,
+        "relative_url": "",
+        "anchor": "",
+        "email": "",
+        "file": None,
+        "phone": "",
+    }
+
+    return generate_field("link", link_value)
+
+
 class StreamfieldProvider(BaseProvider):
     """
     A custom Faker Provider for relative image urls, for use with factory_boy
@@ -792,6 +821,8 @@ class StreamfieldProvider(BaseProvider):
             "newsletter_signup": generate_newsletter_signup_with_background_field,
             "mixed_content": generate_mixed_content_field,
             "app_install_download_button": generate_app_install_download_button_field,
+            "buyersguide_call_to_action_link": generate_bg_cta_link_field,
+            "homepage_hero_intro_link": generate_homepage_hero_intro_link,
         }
 
         streamfield_data = []

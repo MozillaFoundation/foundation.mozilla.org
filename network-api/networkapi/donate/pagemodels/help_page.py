@@ -44,15 +44,22 @@ class DonateHelpPage(BaseDonationPage):
         SynchronizedField("search_image"),
         # Content tab fields
         TranslatableField("title"),
-        TranslatableField("notice"),
+        SynchronizedField("notice"),
         TranslatableField("body"),
     ]
 
     def get_context(self, request):
         context = super().get_context(request)
+        context["localized_notice"] = self.get_localized_notice()
         context["thank_you_url"] = self.get_thank_you_url(request)
         context["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
         return context
+
+    def get_localized_notice(self):
+        """Returns the localized notice if it exists, otherwise None."""
+        if self.notice:
+            return self.notice.localized
+        return None
 
     def get_thank_you_url(self, request):
         base_url = self.get_full_url()

@@ -10,11 +10,28 @@ const DonateBanner = {
     const closeButton = hideBanner
       ? undefined
       : banner?.querySelector(`a.banner-close`);
+    const ctaButton = banner?.querySelector(`#banner-cta-button`);
+    const wrapper = document.querySelector(`.wrapper`) || document.querySelector(`.primary-nav-container-wrapper`);
+
 
     // skip the banner if it got dismissed by the user today already
+    if (hideBanner) {
+      // remove the banner from the DOM to prevent it
+      // from creating unexpected behavior due to its absolute positioning.
+      banner.remove();
+      return;
+    }
+
     if (!hideBanner && banner) {
       banner.classList.remove(`tw-hidden`);
     }
+
+    if (window.wagtailAbTesting) {
+      ctaButton?.addEventListener(`click`, (e) => {
+          wagtailAbTesting.triggerEvent('donate-banner-link-click');
+      });
+  }
+
 
     closeButton?.addEventListener(`click`, (e) => {
       e.preventDefault();
@@ -29,7 +46,7 @@ const DonateBanner = {
         easing: "ease-in",
       };
 
-      document.querySelector(`.wrapper`).animate(
+      wrapper.animate(
         [
           // keyframes
           {
@@ -57,8 +74,12 @@ const DonateBanner = {
       );
 
       closeAnimation.onfinish = () => {
-        banner.classList.add(`tw-hidden`);
         this.setDismissDate();
+
+        // The banner will not reappear after the user has dismissed it until the next day.
+        // We might as well remove it from the DOM to prevent it
+        // from creating unexpected behavior due to its absolute positioning.
+        banner.remove();
       };
     });
   },

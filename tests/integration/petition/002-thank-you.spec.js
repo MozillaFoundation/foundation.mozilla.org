@@ -15,6 +15,14 @@ test.describe("Donation modal", () => {
     await modalContent.waitFor({ state: "visible" });
   });
 
+  test("ShareProgress script is included in the DOM", async ({ page }) => {
+    const spScriptUrl = "https://c.shpg.org/352/sp.js";
+
+    // Check if the ShareProgress script is present in the DOM
+    const scriptElement = await page.$(`script[src="${spScriptUrl}"]`);
+    expect(scriptElement).not.toBeNull();
+  });
+
   test("Donation modal can be closed using the 'x' button", async ({
     page,
   }) => {
@@ -54,7 +62,7 @@ test.describe("Donation modal", () => {
     expect(page.url()).toContain(`form=donate`);
 
     // test if FRU iframe is visible
-    const widgetIframe = page.locator(`iframe[title="Donation Widget"]`);
+    const widgetIframe = page.locator(`iframe[title="Donation Form"]`);
     await widgetIframe.waitFor({ state: "visible" });
     expect(await widgetIframe.count()).toBe(1);
   });
@@ -79,6 +87,33 @@ test.describe("Share buttons", () => {
     expect(await closeButton.count()).toBe(1);
     await closeButton.click();
     expect(await page.locator(`.modal-content`).isVisible()).toBe(false);
+
+    // test if Share section is visible
+    let shareSection = page.locator(`.formassembly-petition-thank-you`);
+    await shareSection.waitFor({ state: "visible" });
+  });
+
+  test("Facebook share button (linked with ShareProgress)", async ({
+    page,
+  }) => {
+    // Because it's mostly ShareProgress's script doing the magic,
+    // we can only test if an anchor element has been injected by ShareProgress
+    const facebookButton = page.locator("#share-progress-fb a");
+    expect(await facebookButton.count()).toBe(1);
+  });
+
+  test("Twitter share button (linked with ShareProgress)", async ({ page }) => {
+    // Because it's mostly ShareProgress's script doing the magic,
+    // we can only test if an anchor element has been injected by ShareProgress
+    const twitterButton = page.locator("#share-progress-tw a");
+    expect(await twitterButton.count()).toBe(1);
+  });
+
+  test("Email share button (linked with ShareProgress)", async ({ page }) => {
+    // Because it's mostly ShareProgress's script doing the magic,
+    // we can only test if an anchor element has been injected by ShareProgress
+    const twitterButton = page.locator("#share-progress-em a");
+    expect(await twitterButton.count()).toBe(1);
   });
 
   test("Copy button", async ({ page }) => {

@@ -1,4 +1,3 @@
-import { ReactGA } from "../../common";
 import copyToClipboard from "../../copy-to-clipboard";
 
 export default () => {
@@ -11,7 +10,8 @@ export default () => {
   }
 
   let bindGaEvent = (type = ``) => {
-    ReactGA.event({
+    window.dataLayer.push({
+      event: `social_share_tap`,
       category: `social`,
       action: `${type} share tap`,
       label: `${type} share`,

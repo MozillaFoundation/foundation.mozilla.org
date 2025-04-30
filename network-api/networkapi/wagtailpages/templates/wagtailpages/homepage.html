@@ -16,15 +16,15 @@
             "@context" : "http://schema.org",
             "@type" : "Organization",
             "legalName" : "Mozilla Foundation",
-            "url" : "https://foundation.mozilla.org",
-            "logo" : "https://foundation.mozilla.org/_images/mozlogo.jpg"
+            "url" : "https://www.mozillafoundation.org",
+            "logo" : "https://www.mozillafoundation.org/_images/mozlogo.jpg"
         }
     </script>
 {% endblock %}
 
 
 {% block hero_guts %}
-    {% include "./fragments/primary_heroguts.html" with root=root page=page homepage=True %}
+    {% include "./fragments/homepage_heroguts.html" with root=root page=page homepage=True %}
 {% endblock %}
 
 
@@ -33,17 +33,20 @@
         {% if page.show_cause_statement %}
             {% include "./fragments/cause_statement.html" %}
         {% endif %}
+    </div>
+    <div class="tw-flex tw-flex-col large:tw-flex-row large:tw-gap-40 large:tw-container">
+        {% include "./fragments/hero_intro_box.html" %}
         {% include "./fragments/focus_areas.html" %}
     </div>
 
     <div class="tw-bg-gray-05">
         <div class="container">
-            {% include "./fragments/news_you_can_use.html" %}
+            {% include "./fragments/highlights.html" %}
         </div>
     </div>
 
     <div class="container">
-        {% include "./fragments/spotlight_posts.html" %}
+        {% include "./fragments/ideas_posts.html" %}
     </div>
 
     <div class="tw-bg-gray-05">

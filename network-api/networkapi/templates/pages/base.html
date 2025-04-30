@@ -39,13 +39,14 @@
 
         {% block ga_identifier %}
             <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
-            <meta name="ga-identifier" content="UA-87658599-6">
-            <meta name="gtm-identifier" content="GTM-MD3XGZ4">
+        <!-- The current GTM ID replaced an unkown GTM container with no clear access -->
+            <meta name="gtm-identifier" content="GTM-PQQ8H6PM">
+            <script nonce="{{ request.csp_nonce }}">window.dataLayer = window.dataLayer || [];</script>
             <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                                                           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-MD3XGZ4');</script>
+            })(window,document,'script','dataLayer','GTM-PQQ8H6PM');</script>
         {% endblock %}
 
         {% block fundraiseup_script %}
@@ -56,6 +57,19 @@
                 t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
+        {% endblock %}
+
+        {% block onetrust_script %}
+            <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="{% onetrust_data_domain %}" ></script>
+            <script nonce="{{ request.csp_nonce }}">function OptanonWrapper() {
+                if (document.getElementById('onetrust-banner-sdk')) {
+                    var acceptBtn = document.getElementById("onetrust-accept-btn-handler");
+                    var declineBtn = document.getElementById("onetrust-reject-all-handler");
+                    var cookieSettingsBtn = document.getElementById("onetrust-pc-btn-handler");
+                    var btnContainer = document.getElementById("onetrust-button-group");
+                    btnContainer.append(acceptBtn, declineBtn, cookieSettingsBtn);
+                }
+            };</script>
         {% endblock %}
 
         {% wagtail_ab_testing_script %}
@@ -86,7 +100,7 @@
     </head>
     <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
         {% if user.is_authenticated %}
-            {% wagtailuserbar 'bottom-left' %}
+            {% wagtailuserbar 'bottom-right' %}
         {% endif %}
 
         {% if page.live == False %}
@@ -96,8 +110,8 @@
         {% endif %}
 
         {% block donate_banner %}
-            {% if settings.donate_banner.SiteDonateBanner.active_donate_banner %}
-                {% include "fragments/donate_banner.html" with banner=settings.donate_banner.SiteDonateBanner.active_donate_banner.localized %}
+            {% if donate_banner %}
+                {% include "fragments/donate_banner.html" with banner=donate_banner %}
             {% endif %}
         {% endblock %}
 

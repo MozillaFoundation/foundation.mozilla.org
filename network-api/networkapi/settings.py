@@ -56,11 +56,9 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
-    NETWORK_SITE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PULSE_API_DOMAIN=(str, ""),
-    PULSE_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
@@ -69,8 +67,10 @@ env = environ.Env(
     SENTRY_ENVIRONMENT=(str, None),
     SET_HSTS=bool,
     SLACK_WEBHOOK_RA=(str, ""),
-    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
-    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
+    SOCIAL_AUTH_AUTH0_DOMAIN=(str, None),
+    SOCIAL_AUTH_AUTH0_KEY=(str, None),
+    SOCIAL_AUTH_AUTH0_SECRET=(str, None),
+    SOCIAL_AUTH_RAISE_EXCEPTIONS=(bool, False),
     SSL_REDIRECT=bool,
     STATIC_HOST=(str, ""),
     TARGET_DOMAINS=(list, []),
@@ -174,10 +174,12 @@ if HEROKU_APP_NAME:
 
 SITE_ID = 1
 
+SOCIAL_AUTH_AUTH0_DOMAIN = env("SOCIAL_AUTH_AUTH0_DOMAIN")
+SOCIAL_AUTH_AUTH0_KEY = env("SOCIAL_AUTH_AUTH0_KEY")
+SOCIAL_AUTH_AUTH0_SECRET = env("SOCIAL_AUTH_AUTH0_SECRET")
+
 # Use social authentication if there are key/secret values defined
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
-SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
+SOCIAL_SIGNIN = SOCIAL_AUTH_AUTH0_KEY is not None and SOCIAL_AUTH_AUTH0_SECRET is not None
 
 USE_S3 = env("USE_S3")
 
@@ -222,7 +224,6 @@ INSTALLED_APPS = list(
             "wagtail.images",
             "wagtail.search",
             "wagtail.admin",
-            "wagtail.contrib.legacy.richtext",
             "wagtail",
             "wagtail.contrib.forms",
             "wagtail.contrib.redirects",
@@ -233,8 +234,6 @@ INSTALLED_APPS = list(
             "wagtail.contrib.settings",
             "wagtail_color_panel",
             "wagtailmedia",
-            "dal",
-            "dal_select2",
             "wagtailinventory",
             "wagtail_footnotes",
             "modelcluster",
@@ -289,6 +288,7 @@ MIDDLEWARE = list(
             "whitenoise.middleware.WhiteNoiseMiddleware",
             "django.middleware.gzip.GZipMiddleware",
             "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG_TOOLBAR_ENABLED else None,
+            "networkapi.utility.middleware.NormalizeLocaleMiddleware",
             "networkapi.utility.middleware.TargetDomainRedirectMiddleware",
             "django.contrib.sessions.middleware.SessionMiddleware",
             #
@@ -312,8 +312,12 @@ MIDDLEWARE = list(
 if SOCIAL_SIGNIN:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = env("SOCIAL_AUTH_LOGIN_REDIRECT_URL", None)
 
+    SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
+
+    SOCIAL_AUTH_RAISE_EXCEPTIONS = env("SOCIAL_AUTH_RAISE_EXCEPTIONS")
+
     AUTHENTICATION_BACKENDS = [
-        "social_core.backends.google.GoogleOAuth2",
+        "social_core.backends.auth0.Auth0OAuth2",
         "django.contrib.auth.backends.ModelBackend",
     ]
 
@@ -323,6 +327,7 @@ if SOCIAL_SIGNIN:
         "social_core.pipeline.social_auth.social_uid",
         "social_core.pipeline.social_auth.auth_allowed",
         "social_core.pipeline.social_auth.social_user",
+        "networkapi.pipeline.associate_by_email",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
         "social_core.pipeline.social_auth.associate_user",
@@ -694,8 +699,6 @@ logging.config.dictConfig(LOGGING)
 # Frontend
 FRONTEND = {
     "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
-    "PULSE_DOMAIN": env("PULSE_DOMAIN"),
-    "NETWORK_SITE_URL": env("NETWORK_SITE_URL"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),
@@ -717,9 +720,6 @@ USE_COMMENTO = env("USE_COMMENTO")
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
-
-# Use network_url to check if we're running prod or not
-NETWORK_SITE_URL = env("NETWORK_SITE_URL")
 
 # Blog/Campaign index cache setting
 INDEX_PAGE_CACHE_TIMEOUT = env("INDEX_PAGE_CACHE_TIMEOUT")

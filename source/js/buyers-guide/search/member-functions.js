@@ -5,7 +5,8 @@ const parentTitle = document.querySelector(`.parent-title`);
 const subcategories = document.querySelectorAll(`.subcategories`);
 
 /**
- * ...
+ * Attach event listeners to the nav links and subcategory links
+ *
  * @param {*} instance
  */
 export function setupNavLinks(instance) {
@@ -116,7 +117,8 @@ export function setupNavLinks(instance) {
 }
 
 /**
- * ...
+ * Attach event listeners to "go back to all" link
+ *
  * @param {*} instance
  */
 export function setupGoBackToAll(instance) {
@@ -153,43 +155,51 @@ export function setupGoBackToAll(instance) {
 }
 
 /**
- * ...
- * @param {*} instance
+ * Attach event listeners to the Product Review nav links
  */
-export function setupReviewLinks(instance) {
+export function setupReviewLinks() {
   const navLinks = document.querySelectorAll(`.product-review-link`);
 
   if (!navLinks) return;
 
   for (const nav of navLinks) {
     nav.addEventListener("click", (evt) => {
-      const editorialContent = document.querySelector(".editorial-content");
+      evt.preventDefault();
+      evt.stopPropagation();
+
       const burger = document.querySelector(".burger");
-      if (editorialContent) {
-        evt.preventDefault();
-        evt.stopPropagation();
-        nav.classList.add("active");
-        location.hash = "product-review";
-        editorialContent.classList.add("tw-hidden");
-        if (burger && burger.classList.contains("menu-open")) {
-          document.querySelector(".burger").click();
-        }
+      const hash = nav.hash;
+
+      location.hash = hash;
+      showProductReviewView();
+
+      // on mobile, clicking the .product-review-link link should also close the menu screen
+      if (burger && burger.classList.contains("menu-open")) {
+        document.querySelector(".burger").click();
       }
     });
   }
 }
 
-export function toggleProductReviewView() {
+/**
+ * Show the Product Review view
+ */
+export function showProductReviewView() {
   const editorialContent = document.querySelector(".editorial-content");
   const navLinks = document.querySelectorAll(`.product-review-link`);
+
   if (editorialContent) {
     editorialContent.classList.add("tw-hidden");
   }
+
   for (const nav of navLinks) {
     nav.classList.add("active");
   }
 }
 
+/**
+ * Toggle the category related articles section
+ */
 export function toggleCategoryRelatedArticles(category) {
   const relatedArticles = document.querySelectorAll("[data-show-for-category]");
 

@@ -57,7 +57,7 @@ base_fields = [
     ("slider", customblocks.FoundationSliderBlock()),
     ("spacer", customblocks.BootstrapSpacerBlock()),
     ("airtable", customblocks.AirTableBlock()),
-    ("datawrapper", customblocks.DatawrapperBlock()),
+    ("datawrapper", customblocks.DatawrapperContainerBlock()),
     ("newsletter_signup", customblocks.BlogNewsletterSignupBlock()),
 ]
 
@@ -117,7 +117,7 @@ class BlogPage(BasePage):
 
     body = StreamField(
         base_fields,
-        block_counts={"typeform": {"max_num": 1}, "newsletter_signup": {"max_num": 1}},
+        block_counts={"newsletter_signup": {"max_num": 1}},
         use_json_field=True,
     )
 
@@ -248,7 +248,7 @@ class BlogPage(BasePage):
         index.SearchField(field_name="body", boost=1),
     ]
 
-    subpage_types = ["ArticlePage"]
+    subpage_types: list = []
 
     def get_context(self, request):
         context = super().get_context(request)

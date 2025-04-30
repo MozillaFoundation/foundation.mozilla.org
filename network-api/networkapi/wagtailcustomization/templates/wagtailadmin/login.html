@@ -4,5 +4,5 @@
 
 {% block submit_buttons %}
     {{ block.super }}
-    <a href="{% url "social:begin" "google-oauth2" %}?next=/cms"><button type="button" class="button w-mt-4" tabindex="4">{% trans 'Log in with Google' %}</button></a>
+    <a href="{% url "social:begin" "auth0" %}?next=/cms"><button type="button" class="button w-mt-4" tabindex="4">{% trans 'Log in with Mozilla SSO' %}</button></a>
 {% endblock %}

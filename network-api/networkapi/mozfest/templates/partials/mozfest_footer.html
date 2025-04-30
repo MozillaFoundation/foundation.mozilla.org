@@ -8,7 +8,7 @@
 
 {% block left_footer_column %}
     <div class="col-md-5 col-lg-6 d-flex flex-column justify-content-between">
-        {% with localized_footer_signup=mozfest_footer.localized %}
+        {% with localized_footer_signup=mozfest_footer %}
             <div
                 class="newsletter-signup-module"
                 data-module-type="default"
@@ -24,7 +24,7 @@
         {% endwith %}
 
 
-        <a class="logo d-block my-5 my-md-0" href="https://foundation.mozilla.org"><img src="{% static "_images/mozilla-block-white.svg" %}" width="96"></a>
+        <a class="logo d-block my-5 my-md-0" href="https://www.mozillafoundation.org"><img src="{% static "_images/mozilla-block-white.svg" %}" width="96"></a>
     </div>
 {% endblock %}
 

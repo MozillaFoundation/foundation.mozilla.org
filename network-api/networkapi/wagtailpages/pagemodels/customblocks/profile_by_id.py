@@ -9,7 +9,7 @@ class ProfileById(blocks.StructBlock):
     ids = blocks.CharBlock(
         label="Profile by ID",
         help_text="Show profiles for pulse users with specific profile ids"
-        " (mozillapulse.org/profile/[##]). For multiple profiles"
+        " (https://api.mozillapulse.org/api/pulse/v2/profiles/[##]). For multiple profiles"
         ", specify a comma separated list (e.g. 85,105,332).",
     )
 

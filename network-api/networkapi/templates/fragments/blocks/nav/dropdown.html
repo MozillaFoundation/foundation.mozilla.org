@@ -1,12 +1,12 @@
 {% load static wagtailcore_tags wagtailadmin_tags nav_tags %}
 
-{% fragment as content_base_styles %}tw-overflow-y-auto tw-transition-all tw-duration-500 tw-bg-white xlarge:tw-bg-transparent xlarge:tw-max-w-[1200px]{% endfragment %}
+{% fragment as content_base_styles %}tw-overflow-y-auto tw-transition-all tw-duration-500 tw-bg-white xlarge:tw-bg-transparent xlarge:tw-max-w-[1200px] xlarge:tw-transition-none xlarge:tw-duration-0{% endfragment %}
 {% fragment as dropdown_selector_base %}tw-container tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-gap-4{% endfragment %}
 
 {% fragment as content_desktop %}xlarge:tw-px-0 xlarge:tw-hidden{% endfragment %}
 {% fragment as content_desktop_border %}xlarge:tw-border xlarge:tw-border-gray-20{% endfragment %}
 {% comment %} 40 (5rem) is the height of the navbar {% endcomment %}
-{% fragment as content_desktop_positioning %}xlarge:tw-fixed xlarge:tw-top-40 xlarge:tw-left-0 xlarge:tw-right-0 xlarge:tw-mx-auto{% endfragment %}
+{% fragment as content_desktop_positioning %}xlarge:tw-fixed xlarge:tw-left-0 xlarge:tw-right-0 xlarge:tw-mx-auto{% endfragment %}
 
 {% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-text-black{% endfragment %}
 {% fragment as title_desktop_typography %}xlarge:tw-text-lg{% endfragment %}
@@ -33,7 +33,7 @@
 
     <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }} {{ alignment_class }}" data-accordion-content>
         <div class="tw-container xlarge:tw-max-w-[1200px] xlarge:tw-px-0">
-            <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }}">
+            <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }} tw-pb-32">
                 <div class="tw-nav-accordion-content-inner {% block grid_columns %} xlarge:tw-grid-cols-{{ value.ncols }} {% if value.has_featured_column %}tw-has-featured-column{% endif %}{% endblock grid_columns %}">
                     {% block content %}
                         {% if value.has_overview %}
