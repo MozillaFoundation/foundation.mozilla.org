@@ -1,5 +1,7 @@
 from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField, StreamField
+from wagtail.fields import StreamField
+from wagtail.blocks import RichTextBlock
+
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 
@@ -8,7 +10,7 @@ class AbstractArticlePage(AbstractBasePage):
     body = StreamField(
         [
             # Placeholder for real blocks
-            ("rich_text", RichTextField()),
+            ("rich_text", RichTextBlock()),
         ],
         use_json_field=True,
         blank=True,
