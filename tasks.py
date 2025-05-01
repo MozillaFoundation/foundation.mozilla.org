@@ -38,10 +38,6 @@ locale_abstraction_instructions_js = " ".join(
         "--extension js,jsx",
         "--keep-pot",
         "--no-wrap",
-        "--ignore=node_modules",
-        "--ignore=dockerpythonvenv/*",
-        "--ignore=foundation_cms",
-        "--ignore=cypress",
     ]
 )
 
@@ -575,6 +571,7 @@ def makemessages(ctx):
     manage(ctx, locale_abstraction_instructions_js)
     ctx.run("./translation-management.sh export")
 
+
 # Translation
 @task(aliases=["docker-msgmerge"])
 def msgmerge(ctx):
@@ -584,21 +581,32 @@ def msgmerge(ctx):
     manage(ctx, locale_abstraction_instructions_js)
 
     pot_path = "foundation_cms/legacy_apps/locale/django.pot"
+    js_pot_path = "foundation_cms/legacy_apps/locale/djangojs.pot"
+
     locales = ["en", "de", "es", "fr", "fy-NL", "nl", "pl", "pt-BR", "sw"]
 
     if not os.path.exists(pot_path):
         print(f"No .pot file found at {pot_path}. Skipping msgmerge/msginit steps.")
     else:
         for locale in locales:
-            po_path = f"foundation_cms/locale/{locale}/LC_MESSAGES/django.po"
+            locale_dir = locale.replace("-", "_")
+            po_path = f"foundation_cms/legacy_apps/locale/{locale_dir}/LC_MESSAGES/django.po"
             try:
-                pyrun(ctx, f"msgmerge --update --no-wrap --no-fuzzy-matching {po_path} {pot_path}")
+                pyrun(ctx, f"msgmerge --update --no-wrap --no-fuzzy-matching --backup=none {po_path} {pot_path}")
             except Exception:
-                print(f"PO file for '{locale}' not found, initializing...")
-                pyrun(ctx, f"mkdir -p foundation_cms/locale/{locale}/LC_MESSAGES")
-                pyrun(ctx, f"msginit --input={pot_path} --locale={locale} --output-file={po_path} --no-translator")
+                print(f"PO file for '{locale}' not found.")
+
+    if os.path.exists(js_pot_path):
+        for locale in locales:
+            locale_dir = locale.replace("-", "_")
+            js_po_path = f"foundation_cms/legacy_apps/locale/{locale_dir}/LC_MESSAGES/djangojs.po"
+            try:
+                pyrun(ctx, f"msgmerge --update --no-wrap --no-fuzzy-matching --backup=none {js_po_path} {js_pot_path}")
+            except Exception:
+                print(f"JS PO file for '{locale}' not found.")
 
     ctx.run("./translation-management.sh export")
+
 
 @task(aliases=["docker-compilemessages"])
 def compilemessages(ctx):
