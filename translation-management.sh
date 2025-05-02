@@ -74,6 +74,14 @@ case $command in
       # Step 4: Copy hyphenated → underscore for Django
       for HYPHEN_LOCALE in "${LOCALES[@]}"; do
         cp -r "${L10N_REPO}${FOLDER}${HYPHEN_LOCALE}/" "${CODE_REPO}${FOLDER}${HYPHEN_LOCALE//-/_}/"
+
+        # Step 5: Remove hyphenated l10n dirs since not needed in Django repo (i.e. pt-BR)
+        HYPHEN_LOCALE_PATH="${CODE_REPO}${FOLDER}${HYPHEN_LOCALE}"
+        if [[ -e "$HYPHEN_LOCALE_PATH" ]]; then
+          echoyellow "  Removing hyphen locale from code repo: $HYPHEN_LOCALE_PATH"
+          rm -rf "$HYPHEN_LOCALE_PATH"
+        fi
+
       done
     done
     ;;
