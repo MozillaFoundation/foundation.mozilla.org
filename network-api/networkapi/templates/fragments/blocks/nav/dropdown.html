@@ -33,7 +33,7 @@
 
     <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }} {{ alignment_class }}" data-accordion-content>
         <div class="tw-container xlarge:tw-max-w-[1200px] xlarge:tw-px-0">
-            <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }}">
+            <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }} tw-pb-32">
                 <div class="tw-nav-accordion-content-inner {% block grid_columns %} xlarge:tw-grid-cols-{{ value.ncols }} {% if value.has_featured_column %}tw-has-featured-column{% endif %}{% endblock grid_columns %}">
                     {% block content %}
                         {% if value.has_overview %}

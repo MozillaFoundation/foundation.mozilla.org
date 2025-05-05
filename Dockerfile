@@ -71,6 +71,10 @@ EXPOSE 8000
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
     libpq-dev \
+    python3-dev \
+    libffi-dev \
+    python3-setuptools \
+    python3-wheel \
     curl \
     git \
     gettext \
@@ -85,12 +89,12 @@ USER mozilla
 
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
-RUN pip install -U pip==23.3.2 && pip install pip-tools
+ENV PATH=$VIRTUAL_ENV/bin:$PATH
+RUN pip install -U pip==23.3.2 && pip install pip-tools setuptools wheel
 # Normally we won't install dev dependencies in production, but we do it here to optimise
 # docker build cache for local build
 COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
-# We use pip-tools instead of pip install. This will installing, upgrading, or uninstalling
-# all dependencies necessary to match the contents of the requirements files.
+# Pre-install wheel before syncing, even though it's in dev-requirements.in
 RUN pip-sync requirements.txt dev-requirements.txt
 
 # Copy application code.

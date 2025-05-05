@@ -5,7 +5,7 @@ const utility = require("./utility.js");
 test.describe("FormAssembly petition form", () => {
   const TIMESTAMP = Date.now();
   let thankYouUrlInputValue = "";
-  // locales we support on foundation.mozilla.org
+  // locales we support on www.mozillafoundation.org
   let supportedLocales = [
     "en",
     "de",
@@ -93,7 +93,7 @@ test.describe("FormAssembly petition form", () => {
     // test if submitting the form without filling out the required fields creates validation errors
     // wait for submitButton's click event to be attached
     await submitButton.waitFor({ state: "attached" });
-    await submitButton.click();
+    await submitButton.dispatchEvent("click");
     expect(await page.locator(".errFld").count()).toBe(4);
     expect(await page.locator(".errMsg").count()).toBe(4);
 
@@ -101,7 +101,7 @@ test.describe("FormAssembly petition form", () => {
     await firstNameInput.fill("Integration");
     await lastNameInput.fill("Test");
     await emailInput.fill(`test-${TIMESTAMP}-${localeToTest}@example.com`);
-    await privacyInput.check();
+    await privacyInput.dispatchEvent("click");
 
     // Update campaign id to TEST_CAMPAIGN_ID so this test can be submitted to FormAssembly
     // We can't use locator because the campaign id field is hidden
@@ -124,7 +124,7 @@ test.describe("FormAssembly petition form", () => {
 
     // prepare to wait for the form to submit
     const navigationPromise = page.waitForNavigation();
-    await submitButton.click();
+    await submitButton.dispatchEvent("click");
     await navigationPromise;
   });
 

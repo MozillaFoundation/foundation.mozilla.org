@@ -28,7 +28,7 @@ from django.utils.translation.trans_real import (
 from PIL import Image as PILImage
 from sentry_sdk import capture_exception
 from wagtail.images import get_image_model
-from wagtail.models import Collection, Locale
+from wagtail.models import Collection, Locale, PageViewRestriction
 
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
@@ -564,3 +564,37 @@ def get_default_locale():
 def get_blog_authors(profiles: "QuerySet[Profile]") -> "QuerySet[Profile]":
     """Filter a queryset of profiles to only those who are blog authors."""
     return profiles.filter(blogauthors__isnull=False).distinct()
+
+
+def sync_view_restriction_change(sender, instance, **kwargs):
+    """
+    Syncs a page's view restriction changes to all locales.
+    """
+    page = instance.page.specific
+    all_pages = [page]
+
+    # Only sync view restriction changes from the default locale.
+    if page.locale.is_default:
+        view_restrictions = page.view_restrictions.all()
+        translations = page.get_translations(inclusive=False)
+
+        for translation in translations:
+            translation.view_restrictions.all().delete()
+            for restriction in view_restrictions:
+                new_restriction = PageViewRestriction.objects.create(
+                    page=translation,
+                    restriction_type=restriction.restriction_type,
+                    password=restriction.password,
+                )
+                new_restriction.groups.set(restriction.groups.all())
+
+            # Add translation to list in case we need to clear index cache later
+            all_pages.append(translation)
+
+    parent = page.get_parent().specific
+    # If this page lives under a cacheable index page, clear its cache for all locales.
+    # This ensures index listings reflect the current visibility of all pages.
+    if hasattr(parent, "clear_index_page_cache"):
+        for p in all_pages:
+            index_page = p.get_parent().specific
+            index_page.clear_index_page_cache(p.locale)
