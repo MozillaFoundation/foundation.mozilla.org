@@ -54,6 +54,7 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel("author"),
+                FieldPanel("tags"),
             ],
             heading="Additional Metadata",
         )
