@@ -1,7 +1,11 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from wagtail.fields import RichTextField
 from wagtail.models import Page
+from wagtail.snippets.models import register_snippet
+from taggit.models import TagBase, ItemBase
+from modelcluster.fields import ParentalKey
 
 from foundation_cms.profiles.models import Profile
 
@@ -24,6 +28,7 @@ class BlogIndexPage(Page):
 
         # Update template context
         context = super().get_context(request)
+
         context["blogs"] = blogs
         return context
 
@@ -35,7 +40,6 @@ class BlogPage(Page):
     """
     BlogPage represents individual blog entries.
     """
-
     author = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL, related_name="blogs")
     body = RichTextField(blank=True, help_text="Main content of the blog")
 
