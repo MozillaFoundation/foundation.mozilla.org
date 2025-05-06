@@ -55,8 +55,8 @@ coverage.xml
 
 # Translations
 *.mo
-#*.po
-#*.pot
+*.po
+*.pot
 *.ftl
 !foundation_cms/locale/messages.ftl
 

@@ -38,6 +38,10 @@ locale_abstraction_instructions_js = " ".join(
         "--extension js,jsx",
         "--keep-pot",
         "--no-wrap",
+        "--ignore=node_modules",
+        "--ignore=dockerpythonvenv/*",
+        "--ignore=foundation_cms/legacy_apps/static/compiled",
+        "--ignore=cypress",
     ]
 )
 
@@ -572,29 +576,39 @@ def makemessages(ctx):
     ctx.run("./translation-management.sh export")
 
 
-# Translation
+# Translation Alternative Command
+LOCALE_FOLDERS = [
+    "legacy_apps/locale/",
+    "legacy_apps/templates/pages/buyersguide/about/locale/",
+    "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale/",
+    "legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/",
+    "legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/",
+    "legacy_apps/mozfest/locale/",
+]
+
 @task(aliases=["docker-msgmerge"])
 def msgmerge(ctx):
-    """Extract all template messages in .po files for localization"""
+    """Run msgmerge for all .pot/.po files found in FOLDERS across all locales."""
     ctx.run("./translation-management.sh import")
     manage(ctx, locale_abstraction_instructions)
     manage(ctx, locale_abstraction_instructions_js)
 
-    pot_path = "foundation_cms/legacy_apps/locale/django.pot"
+    locales = ["en", "de", "es", "fr", "fy-NL", "nl", "pl", "pt-BR", "sw"]
     js_pot_path = "foundation_cms/legacy_apps/locale/djangojs.pot"
 
-    locales = ["en", "de", "es", "fr", "fy-NL", "nl", "pl", "pt-BR", "sw"]
+    for folder in LOCALE_FOLDERS:
+        pot_path = f"foundation_cms/{folder}django.pot"
+        if not os.path.exists(pot_path):
+            print(f"Skipping: no .pot at {pot_path}")
+            continue
 
-    if not os.path.exists(pot_path):
-        print(f"No .pot file found at {pot_path}. Skipping msgmerge/msginit steps.")
-    else:
         for locale in locales:
             locale_dir = locale.replace("-", "_")
-            po_path = f"foundation_cms/legacy_apps/locale/{locale_dir}/LC_MESSAGES/django.po"
+            po_path = f"foundation_cms/{folder}{locale_dir}/LC_MESSAGES/django.po"
             try:
                 pyrun(ctx, f"msgmerge --update --no-wrap --no-fuzzy-matching --backup=none {po_path} {pot_path}")
             except Exception:
-                print(f"PO file for '{locale}' not found.")
+                print(f"PO file for '{locale}' not found in {folder}. Consider initializing.")
 
     if os.path.exists(js_pot_path):
         for locale in locales:
