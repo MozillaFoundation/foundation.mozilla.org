@@ -115,7 +115,7 @@
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.5",
-    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react": "^7.37.5",
     "optipng-bin": "^9.0.0",
     "prettier": "^3.5.3",
     "stylelint": "^16.17.0",
