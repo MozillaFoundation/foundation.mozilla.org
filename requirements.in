@@ -1,7 +1,7 @@
 basket-client
 beautifulsoup4
 boto3
-cached_property==1.5.2
+cached_property==2.0.1
 Django==4.2.20
 dj-database-url
 djangorestframework
@@ -15,6 +15,7 @@ django-pattern-library
 django-redis
 django-storages
 django-querystring-tag
+python-jose>=3.3.0
 factory_boy
 Faker
 future
