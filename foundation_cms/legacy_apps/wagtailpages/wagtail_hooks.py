@@ -24,6 +24,7 @@ from wagtail.admin.ui.tables import BooleanColumn
 from wagtail.contrib.settings.models import register_setting
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.coreutils import find_available_slug
+from wagtail.models import PageViewRestriction
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
@@ -47,9 +48,15 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.buyersguide.products imp
     ProductPage,
 )
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.campaigns import Callpower
-from foundation_cms.legacy_apps.wagtailpages.utils import get_locale_from_request
+from foundation_cms.legacy_apps.wagtailpages.utils import (
+    get_locale_from_request,
+    sync_view_restriction_change,
+)
 
 post_save.disconnect(sync_trees_on_locale_sync_save, sender=LocaleSynchronization)
+
+# Signal to sync updates to page view restrictions across locales.
+post_save.connect(sync_view_restriction_change, sender=PageViewRestriction)
 
 
 # Extended rich text features for our site
