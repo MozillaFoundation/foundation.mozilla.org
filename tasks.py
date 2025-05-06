@@ -586,6 +586,7 @@ LOCALE_FOLDERS = [
     "legacy_apps/mozfest/locale/",
 ]
 
+
 @task(aliases=["docker-msgmerge"])
 def msgmerge(ctx):
     """Run msgmerge for all .pot/.po files found in FOLDERS across all locales."""
