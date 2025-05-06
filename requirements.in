@@ -21,7 +21,7 @@ Faker
 future
 gunicorn
 heroku3
-pygit2==1.14.0
+pygit2==1.18.0
 python-slugify
 requests
 social-auth-app-django
