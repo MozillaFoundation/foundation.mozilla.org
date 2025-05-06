@@ -28,6 +28,7 @@ from .datawrapper_block import DatawrapperContainerBlock, DatawrapperEmbedBlock
 from .dear_internet_letter_block import DearInternetLetterBlock
 from .foundation_slider_block import FoundationSliderBlock
 from .full_content_rich_text_options import full_content_rich_text_options
+from .general_image_block import GeneralImageBlock
 from .group_listing import GroupListingBlock
 from .iframe_block import iFrameBlock
 from .image_block import ImageBlock
