@@ -1,13 +1,16 @@
 from datetime import timezone
 from random import choice
 
+import factory
 from django.conf import settings
 from factory import Faker, LazyAttribute, SubFactory
 from factory.django import DjangoModelFactory
 from wagtail.models import Page as WagtailPage
-from wagtail_factories import PageFactory
+from wagtail_factories import PageFactory, StreamFieldFactory
 
 from networkapi.utility.faker.helpers import get_homepage, get_random_objects, reseed
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
+from networkapi.wagtailpages.factory.signup import BlogSignupFactory
 from networkapi.wagtailpages.models import (
     BlogAuthors,
     BlogIndexPage,
@@ -23,18 +26,6 @@ from .tagging import add_tags
 
 RANDOM_SEED = settings.RANDOM_SEED
 TESTING = settings.TESTING
-blog_body_streamfield_fields = [
-    "paragraph",
-    "blog_newsletter_signup",
-    "paragraph",
-    "image",
-    "image_text",
-    "image_text_mini",
-    "video",
-    "linkbutton",
-    "spacer",
-    "quote",
-]
 
 
 def add_topic(post):
@@ -87,7 +78,20 @@ class BlogPageFactory(PageFactory):
         exclude = ("title_text",)
 
     title = LazyAttribute(lambda o: o.title_text.rstrip("."))
-    body = Faker("streamfield", fields=blog_body_streamfield_fields)
+    body = StreamFieldFactory(
+        {
+            "paragraph": Faker("sentence"),
+            "blog_newsletter_signup": factory.SubFactory(BlogSignupFactory),
+            "image": factory.SubFactory(ImageFactory),
+            "image_text": factory.SubFactory(ImageFactory),
+            "image_text_mini": factory.SubFactory(ImageFactory),
+            "video": factory.Faker("url"),
+            "linkbutton": factory.Faker("url"),
+            "spacer": Faker("text"),
+            "quote": Faker("sentence"),
+        }
+    )
+
     first_published_at = (
         Faker("date_time", tzinfo=timezone.utc)
         if RANDOM_SEED and not TESTING
