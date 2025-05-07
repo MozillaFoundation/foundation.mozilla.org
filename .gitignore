@@ -111,8 +111,6 @@ network-api/staticfiles/
 # Storage for user generated files
 network-api/media/
 
-media/
-
 # Databases for local development
 **/*.sqlite3
 *.psql
