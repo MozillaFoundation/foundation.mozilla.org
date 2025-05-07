@@ -3,8 +3,8 @@ from random import randint, random, shuffle
 
 from django.conf import settings
 from factory import Faker, SubFactory, post_generation
-from wagtail_factories import ImageFactory, PageFactory
-
+from wagtail_factories import PageFactory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.utility.faker.helpers import get_homepage, get_random_date, reseed
 from networkapi.wagtailpages.factory.documents import DocumentFactory
 from networkapi.wagtailpages.models import ArticlePage, Profile, PublicationPage
