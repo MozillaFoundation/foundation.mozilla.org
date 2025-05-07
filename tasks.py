@@ -628,11 +628,10 @@ def compilemessages(ctx):
     """Compile the latest translations"""
     with ctx.cd(ROOT):
         ctx.run(
-            "docker-compose run --rm -w /app/foundation_cms backend "
-            "../dockerpythonvenv/bin/python manage.py compilemessages",
+            "docker-compose run --rm -w /app backend "
+            "./dockerpythonvenv/bin/python manage.py compilemessages",
             **PLATFORM_ARG,
         )
-
 
 @task(aliases=["staging-to-review-app"])
 def staging_db_to_review_app(ctx, review_app_name):
