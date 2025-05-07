@@ -98,7 +98,7 @@ class Command(BaseCommand):
                 except FoundationCustomImage.DoesNotExist:
                     self.stdout.write(f"Skipped tagging for image ID {legacy.id} — not found.")
 
-        self.stdout.write(self.style.SUCCESS(f"\nTop tags:"))
+        self.stdout.write(self.style.SUCCESS("\nTop tags:"))
         for tag, count in tag_counter.most_common(10):
             self.stdout.write(f"   {tag}: {count}")
 
