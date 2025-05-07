@@ -30,6 +30,7 @@ from sentry_sdk import capture_exception
 from wagtail.images import get_image_model
 from wagtail.models import Collection, Locale, PageViewRestriction
 
+from networkapi.images.models import FoundationCustomImage
 from networkapi.wagtailpages.pagemodels.profiles import Profile
 
 Image = get_image_model()
@@ -482,7 +483,7 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
 
 def create_wagtail_image(
     img_src: str, image_name: Optional[str] = None, collection_name: Optional[str] = None
-) -> Optional[Image]:
+) -> Optional[FoundationCustomImage]:
     """
     Create a Wagtail Image from a given source. It takes an optional file name
     and collection name.
