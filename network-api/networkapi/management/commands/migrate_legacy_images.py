@@ -1,26 +1,48 @@
+from collections import Counter
+
 from django.core.management.base import BaseCommand
 from django.db import connection
 from wagtail.images.models import Image as LegacyImage
 
 from networkapi.images.models import FoundationCustomImage
 
+BATCH_SIZE = 1000
+
 
 class Command(BaseCommand):
-
     help = "Migrate legacy wagtailimages.Image objects to FoundationCustomImage (DB-only, no file access)"
 
     def handle(self, *args, **options):
+        self.stdout.write("Starting image migration...")
+
         migrated = 0
         skipped = 0
+        tagged = 0
+        tag_counter = Counter()
 
-        for legacy in LegacyImage.objects.all():
-            # Skip if already exists (by file path)
-            if FoundationCustomImage.objects.filter(file=legacy.file).exists():
-                self.stdout.write(f"⏩ Skipping duplicate: {legacy.title}")
+        existing_files = set(FoundationCustomImage.objects.values_list("file", flat=True))
+
+        legacy_qs = LegacyImage.objects.select_related("collection").only(
+            "id",
+            "title",
+            "file",
+            "width",
+            "height",
+            "collection",
+            "created_at",
+            "focal_point_x",
+            "focal_point_y",
+            "focal_point_width",
+            "focal_point_height",
+        )
+
+        buffer = []
+
+        for legacy in legacy_qs.iterator(chunk_size=500):
+            if legacy.file in existing_files:
                 skipped += 1
                 continue
 
-            # Create the new image (no .save() call to avoid triggering convert_gif_to_webp)
             new_img = FoundationCustomImage(
                 id=legacy.id,
                 title=legacy.title,
@@ -34,17 +56,21 @@ class Command(BaseCommand):
                 focal_point_width=getattr(legacy, "focal_point_width", None),
                 focal_point_height=getattr(legacy, "focal_point_height", None),
             )
-            # temporarily skip webp conversion
             new_img._skip_webp = True
-            new_img.save()
+            buffer.append(new_img)
 
-            # Copy tags if they exist
-            if hasattr(legacy, "tags"):
-                new_img.tags.set(legacy.tags.names())
+            if len(buffer) >= BATCH_SIZE:
+                FoundationCustomImage.objects.bulk_create(buffer)
+                migrated += len(buffer)
+                self.stdout.write(f"Migrated batch — total migrated: {migrated}")
+                buffer = []
 
-            migrated += 1
-            self.stdout.write(f"✅ Migrated: {legacy.title}")
+        if buffer:
+            FoundationCustomImage.objects.bulk_create(buffer)
+            migrated += len(buffer)
+            self.stdout.write(f"Migrated final batch — total migrated: {migrated}")
 
+        # Reset sequence
         with connection.cursor() as cursor:
             cursor.execute(
                 """
@@ -52,8 +78,30 @@ class Command(BaseCommand):
                     pg_get_serial_sequence('"images_foundationcustomimage"', 'id'),
                     (SELECT MAX(id) FROM "images_foundationcustomimage")
                 );
-                """
+            """
             )
-        self.stdout.write(self.style.SUCCESS("🔧 ID sequence reset for FoundationCustomImage."))
+        self.stdout.write("ID sequence reset.")
 
-        self.stdout.write(self.style.SUCCESS(f"\n🎉 Migration complete! {migrated} migrated, {skipped} skipped.\n"))
+        # Tag migration
+        self.stdout.write("Copying tags...")
+        legacy_ids = FoundationCustomImage.objects.values_list("id", flat=True)
+
+        for legacy in LegacyImage.objects.filter(id__in=legacy_ids).iterator():
+            if hasattr(legacy, "tags") and legacy.tags.exists():
+                try:
+                    new_img = FoundationCustomImage.objects.get(id=legacy.id)
+                    tag_names = legacy.tags.names()
+                    new_img.tags.set(tag_names)
+                    tag_counter.update(tag_names)
+                    tagged += 1
+                    self.stdout.write(f"Tagged {new_img.title} with {len(tag_names)} tag(s).")
+                except FoundationCustomImage.DoesNotExist:
+                    self.stdout.write(f"Skipped tagging for image ID {legacy.id} — not found.")
+
+        self.stdout.write(self.style.SUCCESS(f"\nTop tags:"))
+        for tag, count in tag_counter.most_common(10):
+            self.stdout.write(f"   {tag}: {count}")
+
+        self.stdout.write(
+            self.style.SUCCESS(f"\nMigration complete! {migrated} migrated, {skipped} skipped, {tagged} tagged.\n")
+        )
