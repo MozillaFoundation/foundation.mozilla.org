@@ -1,39 +1,38 @@
 from collections import Counter
 
 from django.core.management.base import BaseCommand
-from django.db import connection
+from django.db import connection, transaction
 from wagtail.images.models import Image as LegacyImage
-
 from networkapi.images.models import FoundationCustomImage
 
 BATCH_SIZE = 1000
 
 
 class Command(BaseCommand):
-    help = "Migrate legacy wagtailimages.Image objects to FoundationCustomImage (DB-only, no file access)"
+    help = "Migrate legacy wagtailimages.Image objects to FoundationCustomImage (with tags + timestamp fix)"
 
     def handle(self, *args, **options):
-        self.stdout.write("Starting image migration...")
+        self.stdout.write("Starting full image migration...")
 
         migrated = 0
         skipped = 0
         tagged = 0
+        updated_ts = 0
+        missing_ts = 0
         tag_counter = Counter()
+        timestamp_updates = []
 
+        # Step 1: Build lookup for legacy timestamps
+        legacy_timestamps = dict(
+            LegacyImage.objects.values_list("id", "created_at")
+        )
+
+        # Step 2: Migrate images
         existing_files = set(FoundationCustomImage.objects.values_list("file", flat=True))
-
         legacy_qs = LegacyImage.objects.select_related("collection").only(
-            "id",
-            "title",
-            "file",
-            "width",
-            "height",
-            "collection",
-            "created_at",
-            "focal_point_x",
-            "focal_point_y",
-            "focal_point_width",
-            "focal_point_height",
+            "id", "title", "file", "width", "height",
+            "collection", "created_at",
+            "focal_point_x", "focal_point_y", "focal_point_width", "focal_point_height",
         )
 
         buffer = []
@@ -43,21 +42,25 @@ class Command(BaseCommand):
                 skipped += 1
                 continue
 
-            new_img = FoundationCustomImage(
+            created_at = legacy_timestamps.get(legacy.id)
+            if not created_at:
+                missing_ts += 1
+
+            img = FoundationCustomImage(
                 id=legacy.id,
                 title=legacy.title,
                 file=legacy.file,
                 width=legacy.width,
                 height=legacy.height,
                 collection=legacy.collection,
-                created_at=legacy.created_at,
+                created_at=created_at,
                 focal_point_x=getattr(legacy, "focal_point_x", None),
                 focal_point_y=getattr(legacy, "focal_point_y", None),
                 focal_point_width=getattr(legacy, "focal_point_width", None),
                 focal_point_height=getattr(legacy, "focal_point_height", None),
             )
-            new_img._skip_webp = True
-            buffer.append(new_img)
+            img._skip_webp = True
+            buffer.append(img)
 
             if len(buffer) >= BATCH_SIZE:
                 FoundationCustomImage.objects.bulk_create(buffer)
@@ -68,9 +71,9 @@ class Command(BaseCommand):
         if buffer:
             FoundationCustomImage.objects.bulk_create(buffer)
             migrated += len(buffer)
-            self.stdout.write(f"Migrated final batch — total migrated: {migrated}")
+            self.stdout.write(f"Final batch migrated — total migrated: {migrated}")
 
-        # Reset sequence
+        # Step 3: Reset ID sequence
         with connection.cursor() as cursor:
             cursor.execute(
                 """
@@ -78,11 +81,11 @@ class Command(BaseCommand):
                     pg_get_serial_sequence('"images_foundationcustomimage"', 'id'),
                     (SELECT MAX(id) FROM "images_foundationcustomimage")
                 );
-            """
+                """
             )
         self.stdout.write("ID sequence reset.")
 
-        # Tag migration
+        # Step 4: Tag migration
         self.stdout.write("Copying tags...")
         legacy_ids = FoundationCustomImage.objects.values_list("id", flat=True)
 
@@ -102,6 +105,30 @@ class Command(BaseCommand):
         for tag, count in tag_counter.most_common(10):
             self.stdout.write(f"   {tag}: {count}")
 
-        self.stdout.write(
-            self.style.SUCCESS(f"\nMigration complete! {migrated} migrated, {skipped} skipped, {tagged} tagged.\n")
-        )
+        # Step 5: Timestamp repair (recheck in case bulk_create didn't persist it)
+        self.stdout.write("Backfilling timestamps if needed...")
+
+        for img in FoundationCustomImage.objects.only("id", "created_at").iterator(chunk_size=500):
+            if not img.created_at:
+                ts = legacy_timestamps.get(img.id)
+                if ts:
+                    img.created_at = ts
+                    timestamp_updates.append(img)
+                    updated_ts += 1
+
+            if len(timestamp_updates) >= BATCH_SIZE:
+                self._bulk_update_timestamps(timestamp_updates)
+                self.stdout.write(f"Timestamp batch update — total updated: {updated_ts}")
+                timestamp_updates = []
+
+        if timestamp_updates:
+            self._bulk_update_timestamps(timestamp_updates)
+            self.stdout.write(f"Final timestamp batch updated: {len(timestamp_updates)}")
+
+        self.stdout.write(self.style.SUCCESS(
+            f"\nDone! {migrated} migrated, {skipped} skipped, {tagged} tagged, {updated_ts} timestamps updated, {missing_ts} missing timestamps."
+        ))
+
+    def _bulk_update_timestamps(self, objs):
+        with transaction.atomic():
+            FoundationCustomImage.objects.bulk_update(objs, ["created_at"])
