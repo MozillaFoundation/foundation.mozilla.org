@@ -633,6 +633,7 @@ def compilemessages(ctx):
             **PLATFORM_ARG,
         )
 
+
 @task(aliases=["staging-to-review-app"])
 def staging_db_to_review_app(ctx, review_app_name):
     """
