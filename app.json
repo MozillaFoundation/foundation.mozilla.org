@@ -42,6 +42,9 @@
       "url": "heroku/nodejs"
     },
     {
+      "url": "https://github.com/heroku/heroku-buildpack-activestorage-preview"
+    },
+    {
       "url": "heroku/python"
     }
   ],
