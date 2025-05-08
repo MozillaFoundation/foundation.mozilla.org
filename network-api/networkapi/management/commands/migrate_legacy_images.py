@@ -134,7 +134,10 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"\nMigration complete! {migrated} migrated, {skipped} skipped, {tagged} tagged. {updated} timestamps updated.\n"
+                (
+                    f"\nMigration complete! {migrated} migrated, {skipped} skipped, {tagged} tagged. "
+                    f"{updated} timestamps updated.\n"
+                )
             )
         )
 
