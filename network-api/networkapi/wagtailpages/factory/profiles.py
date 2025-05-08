@@ -3,7 +3,7 @@ from factory.django import DjangoModelFactory
 
 from networkapi.utility.faker import generate_fake_data
 from networkapi.utility.faker.helpers import reseed
-from networkapi.wagtailpages.factory import image_factory
+from networkapi.wagtailpages.factory.image_factory import ImageFactory
 from networkapi.wagtailpages.models import Profile
 
 NUM_PROFILES = 10
@@ -16,7 +16,7 @@ class ProfileFactory(DjangoModelFactory):
     name = Faker("name")
     tagline = Faker("text", max_nb_chars=50)
     introduction = Faker("paragraph")
-    image = SubFactory(image_factory.ImageFactory)
+    image = SubFactory(ImageFactory)
 
 
 def generate(seed):
