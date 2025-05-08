@@ -3,6 +3,7 @@ from collections import Counter
 from django.core.management.base import BaseCommand
 from django.db import connection, transaction
 from wagtail.images.models import Image as LegacyImage
+
 from networkapi.images.models import FoundationCustomImage
 
 BATCH_SIZE = 1000
@@ -23,16 +24,22 @@ class Command(BaseCommand):
         timestamp_updates = []
 
         # Step 1: Build lookup for legacy timestamps
-        legacy_timestamps = dict(
-            LegacyImage.objects.values_list("id", "created_at")
-        )
+        legacy_timestamps = dict(LegacyImage.objects.values_list("id", "created_at"))
 
         # Step 2: Migrate images
         existing_files = set(FoundationCustomImage.objects.values_list("file", flat=True))
         legacy_qs = LegacyImage.objects.select_related("collection").only(
-            "id", "title", "file", "width", "height",
-            "collection", "created_at",
-            "focal_point_x", "focal_point_y", "focal_point_width", "focal_point_height",
+            "id",
+            "title",
+            "file",
+            "width",
+            "height",
+            "collection",
+            "created_at",
+            "focal_point_x",
+            "focal_point_y",
+            "focal_point_width",
+            "focal_point_height",
         )
 
         buffer = []
@@ -125,9 +132,11 @@ class Command(BaseCommand):
             self._bulk_update_timestamps(timestamp_updates)
             self.stdout.write(f"Final timestamp batch updated: {len(timestamp_updates)}")
 
-        self.stdout.write(self.style.SUCCESS(
-            f"\nDone! {migrated} migrated, {skipped} skipped, {tagged} tagged, {updated_ts} timestamps updated, {missing_ts} missing timestamps."
-        ))
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"\nDone! {migrated} migrated, {skipped} skipped, {tagged} tagged, {updated_ts} timestamps updated, {missing_ts} missing timestamps."
+            )
+        )
 
     def _bulk_update_timestamps(self, objs):
         with transaction.atomic():
