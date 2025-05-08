@@ -629,7 +629,7 @@ def compilemessages(ctx):
     with ctx.cd(ROOT):
         ctx.run(
             "docker-compose run --rm -w /app backend "
-            "./dockerpythonvenv/bin/python manage.py compilemessages",
+            "./dockerpythonvenv/bin/python manage.py compilemessages --ignore=dockerpythonvenv/*",
             **PLATFORM_ARG,
         )
 
