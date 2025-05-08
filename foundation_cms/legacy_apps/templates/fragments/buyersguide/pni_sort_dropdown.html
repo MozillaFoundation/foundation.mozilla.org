@@ -1,0 +1,87 @@
+{% load static i18n %}
+
+<div
+    data-pni-sort-dropdown
+    class="tw-bg-white medium:tw-ml-auto medium:tw-flex tw-items-center tw-shrink-0 tw-w-full medium:tw-w-auto"
+>
+    <span class="tw-text-gray-80 tw-mr-2 tw-font-sans tw-text-xs tw-w-max tw-shrink-0">
+        {% trans "Sort by " %}
+    </span>
+
+    <div class="tw-relative tw-min-w-[250px]">
+        <button
+            id="pni-sort-button"
+            data-pni-sort-dropdown-button
+            class="tw-bg-white tw-border tw-border-gray-20 tw-w-full tw-flex tw-items-center tw-m-0 tw-p-6"
+            tabindex="0"
+            aria-haspopup="true"
+            aria-controls="pni-sort-list"
+            aria-expanded="false"
+            aria-label="{% trans "Sort by creepiness" %}"
+        >
+            <span
+                data-pni-sort-dropdown-button-content
+                aria-hidden="true"
+                class="tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-black tw-font-sans tw-mr-auto">
+                <img src="{% static "legacy_apps/_images/buyers-guide/cry-face.svg" %}" class="tw-mr-4 tw-w-[20px]" alt="">
+                {% trans "Creepiness: Least – Most" %}
+            </span>
+
+            <svg data-pni-sort-dropdown-button-arrow aria-hidden="true" focusable="false" width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="tw-ml-4 tw-origin-center tw-shrink-0">
+                <path d="M1 1L5.02504 5.02504L9.05007 1" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <ul
+            id="pni-sort-list"
+            data-pni-sort-dropdown-list-container
+            aria-labelledby="pni-sort-button"
+            aria-activedescendant="option-1"
+            role="menu"
+            class="tw-absolute tw-insert-auto tw-w-full tw-z-50 tw-bg-white tw-border tw-border-gray-20 tw-pb-2 tw-px-0 tw-hidden"
+        >
+            <li
+                data-pni-sort-dropdown-list-item
+                aria-label="{% trans "Creepiness least to most" %}"
+                data-value="ASCENDING"
+                role="menuitem"
+                class="tw-cursor-pointer tw-p-6 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center"
+                tabindex="0"
+                id="option-1"
+            >
+                <div class="tw-pr-4 tw-w-full tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
+                    <img src="{% static "legacy_apps/_images/buyers-guide/cry-face.svg" %}" class="tw-mr-4" alt="">
+                    {% trans "Creepiness: Least – Most" %}
+                </div>
+            </li>
+            <li
+                data-pni-sort-dropdown-list-item
+                aria-label="{% trans "Creepiness most to least" %}"
+                data-value="DESCENDING"
+                role="menuitem"
+                class="tw-cursor-pointer tw-p-6 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center"
+                tabindex="0"
+                id="option-2"
+            >
+                <div class="tw-pr-4 tw-w-full tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none">
+                    <img src="{% static "legacy_apps/_images/buyers-guide/shock-face.svg" %}" class="tw-mr-4" alt="">
+                    {% trans "Creepiness: Most – Least" %}
+                </div>
+            </li>
+            <li
+                data-pni-sort-dropdown-list-item
+                aria-label="{% trans "Alphabetical (ascending)" %}"
+                data-value="ALPHA"
+                role="menuitem"
+                class="tw-cursor-pointer tw-p-6 tw-text-sm tw-font-bold tw-group tw-font-sans tw-flex tw-items-center"
+                tabindex="0"
+                id="option-3"
+            >
+                <div class="tw-pr-4 tw-w-full tw-flex tw-items-center tw-text-sm tw-font-bold tw-text-gray-40 group-hover:tw-text-black tw-font-sans tw-pointer-events-none mr-auto">
+                    <img src="{% static "legacy_apps/_images/buyers-guide/alpha-emoji.png" %}" class="tw-mr-4" alt="">
+                    {% trans "Alphabetical" %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
