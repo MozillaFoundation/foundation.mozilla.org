@@ -78,6 +78,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     curl \
     git \
     gettext \
+    libmagickwand-dev \
+    ffmpeg \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # Don't use the root user as it's an anti-pattern and Heroku does not run

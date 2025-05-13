@@ -290,6 +290,8 @@ wagtail-metadata==5.0.0
     # via -r requirements.in
 wagtailmedia==0.15.2
     # via -r requirements.in
+wand==0.6.13
+    # via -r requirements.in
 whitenoise==6.9.0
     # via -r requirements.in
 willow[heif]==1.8.0

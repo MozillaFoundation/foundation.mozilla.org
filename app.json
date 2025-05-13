@@ -39,6 +39,9 @@
   },
   "buildpacks": [
     {
+      "url": "https://github.com/MozillaFoundation/heroku-ffmpeg-buildpack"
+    },
+    {
       "url": "heroku/nodejs"
     },
     {
