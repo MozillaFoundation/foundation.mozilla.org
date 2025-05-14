@@ -6,6 +6,9 @@
   "repository": "https://github.com/MozillaFoundation/foundation.mozilla.org",
   "author": "Mozilla Foundation",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "copy-fonts": "shx mkdir -p ../foundation_cms/static/compiled/fonts && shx cp -r ../foundation_cms/static/fonts/* ../foundation_cms/static/compiled/fonts/",
     "clean:css": "shx rm -rf ../foundation_cms/static/temp/* ../foundation_cms/static/compiled/_css/*",
