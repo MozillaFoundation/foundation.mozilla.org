@@ -10,3 +10,12 @@
 
 - SCSS files are located in `./foundation_cms/static/scss`.
 - These are automatically compiled into `.css` files as part of the build process.
+
+## Linting
+
+### JavaScript
+
+In `./frontend`,
+
+- Run `yarn lint:js` to check JavaScript files for linting errors.
+- Run `yarn fix:js` to automatically fix fixable linting issues using ESLint.
