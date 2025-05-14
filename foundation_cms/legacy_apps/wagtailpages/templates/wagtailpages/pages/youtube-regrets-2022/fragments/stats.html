@@ -1,0 +1,25 @@
+{% load static i18n l10n humanize %}
+
+<div class="container tw-dark tw-my-12 medium:tw-my-24">
+    {% with participants=22722 videos_analyzed=567880195 people_surveyed=2758 %}
+        <div class="tw-flex tw-gap-16 tw-flex-col medium:tw-flex-wrap medium:tw-flex-row tw-justify-evenly tw-mb-12">
+            <div class="stat tw-text-white" >
+                <p class="stat__number" id="participants-count" data-stat="{{ participants|unlocalize }}">{{ participants|intcomma }}</p>
+                <p class="stat__label">{% trans "Participants" %}</p>
+            </div>
+            <div class="stat tw-text-white">
+                <p class="stat__number" id="videos-analyzed-count" data-stat="{{ videos_analyzed|unlocalize }}" data-stat-delay="250">{{ videos_analyzed|intcomma }}</p>
+                <p class="stat__label">{% trans "Videos Analyzed" %}</p>
+            </div>
+            <div class="stat tw-text-white">
+                <p class="stat__number" id="people-surveyed-count" data-stat="{{ people_surveyed|unlocalize }}" data-stat-delay="500">{{ people_surveyed|intcomma }}</p>
+                <p class="stat__label">{% trans "People Surveyed" %}</p>
+            </div>
+        </div>
+    {% endwith %}
+
+    {# mobile only image #}
+    <div class="w-full large:tw-hidden">
+        <img class="tw-pt-8 tw-pb-[115px]" src="{% static "legacy_apps/_images/youtube-regrets/regrets-reporter/2022/our-research-mobile-bottom.png" %}" alt="">
+    </div>
+</div>

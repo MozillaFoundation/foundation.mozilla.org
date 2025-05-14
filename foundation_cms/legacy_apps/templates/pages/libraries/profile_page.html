@@ -1,0 +1,60 @@
+{% extends "pages/libraries/base.html" %}
+{% load i18n l10n static wagtailcore_tags wagtailimages_tags breadcrumbs %}
+
+{% block library_content %}
+    <div
+        id="info"
+        class="
+               tw-gap-8
+               tw-grid
+               tw-grid-cols-1
+               medium:tw-gap-x-24
+               medium:tw-grid-cols-[13rem_1fr]
+               large:tw-grid-cols-[16rem_1fr]
+              "
+    >
+        <div class="medium:tw-col-start-2">
+            {% block breadcrumbs %}{% endblock breadcrumbs %}
+        </div>
+        <div id="image-container" class="tw-place-self-center medium:tw-place-self-start">
+            {% with profile_image_classes="tw-rounded-full tw-w-104 large:tw-w-128" %}
+                {% if author_profile.image %}
+                    {% image author_profile.image fill-256x256 as img_1x %}
+                    {% image author_profile.image fill-512x512 as img_2x %}
+                    <img srcset="{{ img_1x.url }}, {{ img_2x.url }} 2x" src="{{ img_2x.url }}" width="{{ img_2x.width|unlocalize }}" height="{{ img_2x.height|unlocalize }}"  alt="{{ img_2x.alt }}" class="{{ profile_image_classes }}">
+                {% else %}
+                    <img src="{% static 'legacy_apps/_images/author-placeholder.svg' %}" width="100" height="100" alt="{{ author_profile.name }}" class="{{ profile_image_classes }}">
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div id="bio">
+            <h1 class="tw-mb-8">{{ author_profile.name }}</h1>
+            <div class="tw-mb-8 tw-text-lg tw-text-gray-60">
+                {{ author_profile.tagline }}
+            </div>
+            <p class="tw-text-lg">
+                {{ author_profile.introduction }}
+            </p>
+        </div>
+        <div
+            id="latest-articles"
+            class="
+                   tw-border-t
+                   tw-min-w-0
+                   tw-mt-16
+                   tw-pt-12
+                   medium:tw-col-span-2
+                   large:tw-col-span-1
+                   large:tw-col-start-2
+                  "
+        >
+            <h2>{% block latest_articles_label %}{% endblock latest_articles_label %}</h2>
+            <ul class="tw-list-none px-0">
+                {% block detail_cards %}{% endblock detail_cards %}
+            </ul>
+            {% if author_article_count > 3 %}
+                <a href="{% pageurl library_page %}?authors={{ author_profile.id|unlocalize }}" class="tw-btn-secondary tw-mt-12 small:tw-mt-16 tw-w-full small:tw-w-auto">{% translate "Browse all projects" context "Button to see more than the latest three articles from an author" %} ({{ author_article_count }})</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock library_content %}

@@ -1,0 +1,60 @@
+{% load static i18n wagtailcore_tags wagtailimages_tags l10n %}
+
+<figure
+    class="
+           product-box
+           {% if matched == False %}d-none{% else %}d-flex{% endif %}
+           tw-flex-col
+           tw-justify-between
+           tw-m-0
+
+           {% if product.draft %}draft-product{% endif %}
+           {% if product.adult_content %}adult-content{% endif %}
+           {% if product.privacy_ding %}privacy-ding{% endif %}
+          "
+    data-creepiness="{{ product.creepiness|unlocalize }}"
+>
+    <div class="top-left-badge-container">
+        {% if product.privacy_ding %}
+            <img
+                src="{% static "legacy_apps/_images/buyers-guide/icon-privacy-ding-mini.svg" %}"
+                title="{% trans "*Privacy Not Included with this product" %}"
+                alt="{% trans "*Privacy Not Included with this product" %}"
+                width="24"
+            >
+        {% endif %}
+    </div>
+
+    {% include "fragments/buyersguide/adult_content_badge.html" with product=product %}
+
+    <a class="product-image text-center mt-4 h-100 d-flex flex-column justify-content-between" href="{% pageurl product %}">
+        <picture class="product-thumbnail">
+            <source
+                {% image product.image fill-360x360 as img_1x %}
+                {% image product.image fill-720x720 as img_2x %}
+                srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
+            >
+            <img
+                class="product-thumbnail tw-w-full"
+                {% image product.image fill-600x600 as img %}
+                loading="lazy"
+                src="{{ img.url }}"
+                width="600"
+                height="600"
+                alt="{% blocktrans with product=product.title %}link to {{ product }}{% endblocktrans %}"
+            >
+        </picture>
+    </a>
+
+    <figcaption class="d-block mt-md-2 text-left">
+        <a class="product-links" href="{% pageurl product %}">
+            <div class="product-company tw-body-small">{{ product.company }}</div>
+            <div class="product-name tw-body">{{ product.title }}</div>
+        </a>
+        <input type="hidden" class="product-blurb" value="{{ product.blurb }}">
+        <input type="hidden" class="product-worst-case" value="{{ product.worst_case }}">
+        {% for category_name in product.local_category_names %}
+            <input type="hidden" class="product-categories" value="{{ category_name }}">
+        {% endfor %}
+    </figcaption>
+</figure>

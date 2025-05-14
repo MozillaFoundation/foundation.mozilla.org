@@ -1,0 +1,53 @@
+{% extends "fragments/primary_nav.html" %}
+
+{% load bg_nav_tags i18n wagtailcore_tags static %}
+
+{% block wrapper_classes %} tw-border-0 {% endblock %}
+
+{% block menu_container_classes %} tw-pb-0 {% endblock %}
+
+{% block nav_logo %}
+    <div class="tw-flex tw-flex-col logo-section tw-mx-auto large:tw-mx-0">
+        <p class="mb-0 tw-h3-heading tw-max-w-none flex-wrap">
+            <a class="link-back tw-flex" href="{% pageurl home_page %}">
+                <img
+                    class="tw-mr-2 tw-w-6 tw-h-6 large:tw-w-8 large:tw-h-8"
+                    src="{% static "legacy_apps/_images/buyers-guide/asterisk-mini.svg" %}"
+                    alt=""
+                    width="11"
+                    height="10"
+                >
+                <span class="tw-font-semibold tw-text-base tw-leading-4 large:tw-text-[32px] large:tw-leading-[28px]">{% trans "Privacy Not Included" context 'Buyer’s guide name. This can be localized. This is a reference to the “*batteries not included” mention on toys.' %}</span>
+            </a>
+        </p>
+        <a href="/" class="moz-logo mb-0 mr-3 large:tw-mt-4 tw-ml-8 large:tw-ml-10"><span class="sr-only">Mozilla</span></a>
+    </div>
+{% endblock %}
+
+{% block narrow_screen_nav_links %}
+    {% include "fragments/buyersguide/pni_nav_links.html" with class="tw-block tw-w-fit" pre="<div>" post="</div>" %}
+{% endblock %}
+
+{% block wide_screen_menu %}
+{% endblock %}
+
+{% block donate_and_newsletter %}
+    <div class="d-flex align-items-center">
+        {% include "fragments/buyersguide/pni_nav_links.html" with class="primary-nav-special-link pni-nav-link tw-hidden large:tw-block" %}
+        <label for="mobile-search" class="large:tw-hidden tw-cursor-pointer tw-mb-0">
+            <input id="mobile-search" type="checkbox"
+                   class="tw-appearance-none
+                          tw-w-12
+                          tw-h-12
+                          tw-cursor-pointer
+                          tw-bg-[url('../_images/buyers-guide/pni-search.svg')]
+                          checked:tw-bg-[url('../_images/buyers-guide/pni-search-close.svg')]
+                          checked:tw-bg-8
+                          tw-bg-no-repeat
+                          tw-bg-center
+                         "
+                   aria-label="Search input toggle"
+            >
+        </label>
+    </div>
+{% endblock %}

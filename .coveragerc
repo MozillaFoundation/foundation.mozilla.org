@@ -1,8 +1,8 @@
 [coverage:run]
-source = netwrok-api/networkapi
+source = foundation_cms/legacy_apps
 omit =
    *migrations*
-   *settings.py*
+   *base.py*
    *test_*
 branch = true
 

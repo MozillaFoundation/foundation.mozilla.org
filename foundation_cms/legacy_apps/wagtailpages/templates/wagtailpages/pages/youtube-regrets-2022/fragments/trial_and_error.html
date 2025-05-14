@@ -1,0 +1,21 @@
+{% load i18n static %}
+<section class="tw-dark tw-flex tw-flex-col tw-justify-center tw-items-center tw-mb-24">
+    <img class="tw-hidden large:tw-block" src="{% static "legacy_apps/_images/youtube-regrets/regrets-reporter/2022/our-research-desktop.png" %}" alt="">
+    <img class="large:tw-hidden" src="{% static "legacy_apps/_images/youtube-regrets/regrets-reporter/2022/our-research-mobile.png" %}" alt="">
+    <div class="container tw-max-w-3xl tw-mx-auto tw-mt-12 medium:tw-mt-24 tw-space-y-12">
+        <h2 class="tw-text-4xl medium:tw-text-[3.25rem] tw-leading-none">{% trans "People take a trial-and-error approach to controlling their recommendations." %}</h2>
+        <p>
+            {% blocktrans trimmed %}
+                In the qualitative portion of our study, we learned that people do not feel in control of their experience on YouTube, nor do they have clear information about how to curate their recommendations. Many people take a trial-and-error
+                approach to controlling their recommendations using YouTube’s hodgepodge of options, like “Dislike,” “Not Interested,” and other buttons. It doesn’t seem to work. Said one person:
+            {% endblocktrans %}
+        </p>
+        <blockquote class="tw-text-white tw-font-zilla tw-text-[1.625rem] medium:tw-text-[1.75rem] tw-leading-8 tw-font-normal">
+            {% blocktrans trimmed %}
+                “Nothing changed. Sometimes I would report things as misleading and spam and the next day it was back in. It
+                almost feels like the more negative feedback I provide to their suggestions the higher bulls**t mountain gets. <span class="tw-text-youtube-regrets-red">Even when you block certain sources they eventually return.</span>”
+            {% endblocktrans %}
+        </blockquote>
+        <p class="tw-text-xl tw-font-bold tw-font-changa">{% trans "When YouTube’s own controls fail, people take matters into their own hands, relying on privacy tools or even changing how they watch videos on YouTube." %}</p>
+    </div>
+</section>
