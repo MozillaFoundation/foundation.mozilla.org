@@ -92,7 +92,7 @@
     "classnames": "2.5.1",
     "countup.js": "^2.8.2",
     "cssnano": "^7.0.6",
-    "esbuild": "^0.25.2",
+    "esbuild": "^0.25.4",
     "gsap": "^3.12.7",
     "htmx.org": "^1.9.12",
     "locomotive-scroll": "^4.1.4",
