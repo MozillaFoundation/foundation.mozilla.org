@@ -39,13 +39,13 @@
   },
   "buildpacks": [
     {
-      "url": "https://github.com/MozillaFoundation/heroku-ffmpeg-buildpack"
-    },
-    {
       "url": "heroku/nodejs"
     },
     {
       "url": "heroku/python"
+    },
+    {
+      "url": "https://github.com/MozillaFoundation/heroku-ffmpeg-buildpack.git#ffmpeg-v6.1-latest"
     }
   ],
   "scripts": {
