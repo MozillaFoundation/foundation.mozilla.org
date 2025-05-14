@@ -17,10 +17,11 @@ const eslintConfigPath = path.join(rootPath, "frontend/eslint.config.js");
   // Create an instance of ESLint using our flat config file in /frontend
   const eslint = new ESLint({
     overrideConfigFile: eslintConfigPath,
-    ignore: false, // By default, ESLint ignores files outside the current working directory
+    // By default, ESLint ignores files outside the current working directory
     // and respects .eslintignore or default rules (like ignoring node_modules).
     // Setting ignore: false disables that behavior, allowing us to lint files
     // outside /frontend (e.g., in ../foundation_cms) via the Node API.
+    ignore: false,
     cwd: rootPath,
     fix: process.argv.includes("--fix"),
   });
