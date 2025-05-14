@@ -75,7 +75,7 @@ django==4.2.20
     #   wagtailmedia
 django-admin-sortable==2.3
     # via -r requirements.in
-django-cors-headers==4.3.1
+django-cors-headers==4.7.0
     # via -r requirements.in
 django-csp==3.8
     # via -r requirements.in
