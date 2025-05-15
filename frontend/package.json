@@ -23,12 +23,13 @@
     "predev": "yarn clean",
     "dev": "run-p watch:css watch:js",
     "fix": "run-s fix:js",
+    "fix:scss": "stylelint \"../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs --fix",
     "fix:js": "run-p fix:js:*",
     "fix:js:eslint": "node ./lint-js.js --fix",
-    "lint": "run-s lint:js lint:css",
+    "lint": "run-s lint:js lint:scss",
+    "lint:scss": "stylelint \"../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs",
     "lint:js": "run-p lint:js:*",
-    "lint:js:eslint": "node ./lint-js.js",
-    "lint:css": ""
+    "lint:js:eslint": "node ./lint-js.js"
   },
   "dependencies": {
     "esbuild": "^0.25.2",
@@ -43,7 +44,12 @@
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
-    "shx": "^0.4.0"
+    "postcss-scss": "^4.0.9",
+    "shx": "^0.4.0",
+    "stylelint": "15.10.3",
+    "stylelint-config-recommended-scss": "14.0.0",
+    "stylelint-config-standard-scss": "10.0.0",
+    "stylelint-scss": "5.2.1"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

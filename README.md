@@ -19,3 +19,10 @@ In `./frontend`,
 
 - Run `yarn lint:js` to check JavaScript files for linting errors.
 - Run `yarn fix:js` to automatically fix fixable linting issues using ESLint.
+
+### SCSS
+
+In `./frontend`,
+
+- Run `yarn lint:scss` to check SCSS files using Stylelint.
+- Run `yarn fix:scss` to automatically fix SCSS linting issues.
