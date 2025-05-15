@@ -29,7 +29,10 @@
     "lint": "run-s lint:js lint:scss",
     "lint:scss": "stylelint \"../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs",
     "lint:js": "run-p lint:js:*",
-    "lint:js:eslint": "node ./lint-js.js"
+    "lint:js:eslint": "node ./lint-js.js",
+    "format": "run-s format:js format:scss",
+    "format:js": "prettier \"../foundation_cms/static/js/**/*.js\" --write",
+    "format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --write"
   },
   "dependencies": {
     "esbuild": "^0.25.2",
@@ -45,6 +48,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-scss": "^4.0.9",
+    "prettier": "^3.5.3",
     "shx": "^0.4.0",
     "stylelint": "15.10.3",
     "stylelint-config-recommended-scss": "14.0.0",
