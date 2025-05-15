@@ -213,6 +213,7 @@ INSTALLED_APPS = list(
             "django.contrib.redirects",
             "django.contrib.sitemaps",
             "django.contrib.humanize",
+            "foundation_cms.legacy_apps.wagtailcustomization",
             "wagtailmetadata",
             "wagtail.embeds",
             "wagtail.sites",
@@ -255,7 +256,6 @@ INSTALLED_APPS = list(
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             # the network site
             "foundation_cms.legacy_apps.s3_file_storage" if USE_S3 else None,
-            "foundation_cms.legacy_apps.wagtailcustomization",
             "foundation_cms.legacy_apps.campaign",
             "foundation_cms.legacy_apps.events",
             "foundation_cms.legacy_apps.news",
