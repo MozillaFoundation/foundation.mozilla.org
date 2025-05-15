@@ -1,0 +1,63 @@
+{% extends "pages/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags homepage_tags card_tags wagtailmetadata_tags custom_image_tags i18n %}
+
+
+{% block rss_metadata %}
+    <link rel="alternate" type="application/rss+xml" href="{% url 'rss-feed' %}" />
+{% endblock %}
+
+
+{% block body_id %}home{% endblock %}
+
+
+{% block org_schema %}
+    <script type="application/ld+json">
+        {
+            "@context" : "http://schema.org",
+            "@type" : "Organization",
+            "legalName" : "Mozilla Foundation",
+            "url" : "https://www.mozillafoundation.org",
+            "logo" : "https://www.mozillafoundation.org/_images/mozlogo.jpg"
+        }
+    </script>
+{% endblock %}
+
+
+{% block hero_guts %}
+    {% include "./fragments/homepage_heroguts.html" with root=root page=page homepage=True %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        {% if page.show_cause_statement %}
+            {% include "./fragments/cause_statement.html" %}
+        {% endif %}
+    </div>
+    <div class="tw-flex tw-flex-col large:tw-flex-row large:tw-gap-40 large:tw-container">
+        {% include "./fragments/hero_intro_box.html" %}
+        {% include "./fragments/focus_areas.html" %}
+    </div>
+
+    <div class="tw-bg-gray-05">
+        <div class="container">
+            {% include "./fragments/highlights.html" %}
+        </div>
+    </div>
+
+    <div class="container">
+        {% include "./fragments/ideas_posts.html" %}
+    </div>
+
+    <div class="tw-bg-gray-05">
+        <div class="tw-container">
+            {% include "./fragments/take_action.html" %}
+        </div>
+    </div>
+
+    <div class="container">
+        {% include "fragments/quote.html" %}
+    </div>
+
+    {% include "./fragments/partner.html" %}
+{% endblock %}

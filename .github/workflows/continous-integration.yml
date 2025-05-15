@@ -57,7 +57,7 @@ jobs:
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
-      TARGET_DOMAINS: foundation.mozilla.org
+      TARGET_DOMAINS: localhost
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
@@ -83,12 +83,12 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py check
-          python network-api/manage.py makemigrations --check --dry-run
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py compilemessages
+          python ./manage.py collectstatic --no-input --verbosity 0
+          python ./manage.py check
+          python ./manage.py makemigrations --check --dry-run
+          python ./manage.py migrate --no-input
+          python ./manage.py block_inventory
+          python ./manage.py compilemessages
       - name: Run linting
         run: |
           flake8 .
@@ -101,11 +101,11 @@ jobs:
           # djlint . --check
           #
           # Using djhtml indent check in the meantime.
-          djhtml -c maintenance/ network-api/
+          djhtml -c maintenance/ foundation_cms/
       - name: Run type checks
-        run: mypy network-api
+        run: mypy foundation_cms
       - name: Run Tests
-        run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
+        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base -cov=foundation_cms/legacy_apps --cov-report=term-missing
 
   test_integration:
     name: Integration testing
@@ -135,7 +135,7 @@ jobs:
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
-      TARGET_DOMAINS: foundation.mozilla.org
+      TARGET_DOMAINS: localhost
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
@@ -172,9 +172,9 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py load_fake_data
+          python ./manage.py collectstatic --no-input --verbosity 0
+          python ./manage.py migrate --no-input
+          python ./manage.py block_inventory
+          python ./manage.py legacy_load_fake_data
       - name: Integration Tests
         run: npm run playwright:ci

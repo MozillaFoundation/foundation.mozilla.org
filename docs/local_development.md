@@ -54,7 +54,7 @@ For instance, you can run also run common Django commands via invoke, such as `i
 
 **A few examples:**
 
-- `invoke manage load_fake_data`: add more fake data to your project,
+- `invoke manage legacy_load_fake_data`: add more fake data to your project,
 - `invoke npm "install gsap"`: install gsap, add it to your `package.json` and lock it.
 
 ### Docker and docker-compose CLIs
@@ -224,7 +224,7 @@ Within the `backend` container, [Honcho](https://honcho.readthedocs.io/en/latest
 
 There is also a `docker-compose-lean.yml` file which starts the container with just the `backend` service without running the frontend watch process. This is to provide an option for a faster start up, as the frontend watch process can take a while to rebuild the static assets. 
 
-Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes, or the frontend assets can be missing if the container is new and `npm run build` has not been run to create `network-api/networkapi/frontend` yet.
+Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes, or the frontend assets can be missing if the container is new and `npm run build` has not been run to create `foundation_cms/legacy_apps/static` yet.
 
 To start up the dev container normally, use `inv start` or `docker-compose up`. To start it as a lean container without frontend build, use `inv start-lean` or `docker-compose -f docker-compose.yml -f docker-compose-lean.yml up`.
 
@@ -243,7 +243,7 @@ Activate the python environment:
 `source dockerpythonvenv/bin/activate`
 
 Then you can do Django stuff like:
-`cd network-api/ && python manage.py makemigrations --merge`
+`cd foundation_cms/ && python manage.py makemigrations --merge`
 or run Django shell, etc.
 
 ---
@@ -260,7 +260,7 @@ Let's do a quick overview of all the tools you're currently using to run the fou
 
 - `npm`: use to manage javascript dependencies (`packages.json`, `packages-lock.json`). Also used to launch commands like `npm run start`.
 - `pip-tools`: use to manage python dependencies (`(dev-)requirements.in` and `(dev-)requirements.txt`).
-- `invoke`/`inv`: use as a cli tool to provide shortcuts for most used commands. ex: `inv migrate` is a shortcut for `docker-compose run --rm backend ./dockerpythonvenv/bin/python network-api/manage.py migrate`.
+- `invoke`/`inv`: use as a cli tool to provide shortcuts for most used commands. ex: `inv migrate` is a shortcut for `docker-compose run --rm backend ./dockerpythonvenv/bin/python ./manage.py migrate`.
 
 We still use all those tools with Docker. The major difference is that `npm` and `python` are now running inside a container, while invoke continues to run outside of it.
 

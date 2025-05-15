@@ -1,0 +1,176 @@
+{% extends "pages/buyersguide/about.html" %}
+
+{% load i18n %}
+
+{% block main_about_class %}why-we-made{% endblock %}
+
+{% block about_guts %}
+    <h1 class="tw-h2-heading">
+        {% trans "Why We Made This Guide" %}
+    </h1>
+
+    <div class="why-we-made-intro mb-4">
+        <p class="tw-body">
+            {% blocktrans with link_args='href="https://www.mozillafoundation.org/" target="_blank"' trimmed %}
+                Welcome to  <a {{ link_args }}>Mozilla’s</a> <em>*Privacy Not Included</em> buyer’s guide.
+                Our goal is to help you shop smart—and safe—for products that connect to the internet.
+            {% endblocktrans %}
+        </p>
+
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                In 2017, when we first started <em>*Privacy Not Included</em>, we didn’t know if people would be interested in a guide
+                about the privacy and security of connected toys, gadgets, and smart home products. Turns out, they were. And it wasn’t
+                just people who were interested. We discovered some companies were too. We’re happy to see both consumers and companies
+                increasingly value connected products that are safe, secure, and private.
+
+            {% endblocktrans %}
+        </p>
+
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                Unfortunately, It is often difficult for consumers to get clear, concrete information from companies about the security
+                and privacy of their connected products. Is your personal data shared or sold in ways you may not have expected? What is
+                the company’s known track record for protecting the personal information they collect on you? How does the company
+                regularly test for and fix security vulnerabilities?
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                With this guide, we hope to help you navigate this landscape by understanding what questions you should ask and what
+                answers you should expect before buying a connected tech product.
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                The way we approach our research here at <em>*Privacy Not Included</em> is from the viewpoint of you, the consumer. We just have
+                a bit more time and expertise to read privacy policies and delve into company’s security practices. We don’t purchase
+                the products and test them in a lab. Consumers can’t do that. Instead, we look at all the information we can find that
+                is publicly available to consumers before they purchase a product to try and understand the privacy and security
+                concerns you should be aware of. We seek a future in which hours of research like this aren’t required to buy safe,
+                responsible products. Unfortunately, it seems we have a long way to go. In the meantime, we’ll read those boring privacy
+                policies so you don’t have to.
+            {% endblocktrans %}
+        </p>
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                What can you expect in our guide to help you shop safely for those connected products? Quite a few things.
+            {% endblocktrans %}
+        </p>
+
+    </div>
+
+
+    <section aria-labelledby="warning-label">
+        <p id="warning-label"><strong>{% trans "Our *Privacy Not Included warning label" %}</strong></p>
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                We’re very excited our <em>*Privacy Not Included</em> buyer’s guide comes with <em>*Privacy Not Included</em> warning labels on products
+                we think consumers should think twice about before buying. It’s no small thing to assign such a label to a product, so
+                we set ourselves some strict standards. Where we have concerns, we aim to be as specific as possible about what could
+                happen so you can buy products that meet your standards.
+
+            {% endblocktrans %}
+        </p>
+    </section>
+
+    <section aria-labelledby="best-of-category">
+        <p id="best-of-category"><strong>{% trans "Our Best Of category" %}</strong></p>
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                It’s one thing to call out products that are bad. We also want to help consumers know what products are good. Check out
+                our Best Of category to see which products and companies we think are doing privacy and security right.
+
+            {% endblocktrans %}
+        </p>
+    </section>
+
+    <section aria-labelledby="creep-o-meter">
+        <p id="creep-o-meter"><strong>{% trans "There is a Creep-O-Meter" %}</strong></p>
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                We want you to be able to share your opinion too. It’s important for companies and other consumers to see which products
+                people think are safe, and which products people feel are a bit creepy. So we created our Creep-O-Meter—a user rating on
+                each product—to let you share your opinion. Companies are paying attention, so let them know if you think their product
+                is creepy or not!
+
+            {% endblocktrans %}
+        </p>
+    </section>
+
+    <section aria-labelledby="minimum-security">
+        <p id="minimum-security"><strong>{% trans "Our Minimum Security Standards" %}</strong></p>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.mozillafoundation.org/privacynotincluded/about/methodology" trimmed %}
+                We realize people want to <i>just know</i> which products are safe and which aren’t. We used our technical expertise here at
+                Mozilla to create a set of Minimum Security Standards we think all products should meet in order to be sold in stores.
+                Those standards include using encryption, automatic security updates, requiring strong passwords, having a system to
+                manage vulnerabilities, and having an accessible privacy policy. Read more about our Minimum Security Standards on our
+                <a href={{ url }}>Methodology page</a>.
+            {% endblocktrans %}
+        </p>
+    </section>
+
+    <section aria-labelledby="tons-of-research">
+        <p id="tons-of-research"><strong>{% trans "Tons of Research" %}</strong></p>
+        <p class="tw-body">
+            {% blocktrans with url="https://www.mozillafoundation.org/privacynotincluded/about/" trimmed %}
+                You’ll notice a lot of research went into this guide. We even include the hours we spent researching a product on every
+                page. Fortunately, we have great researchers and expertise here at Mozilla to dig into this so you don’t have to. We
+                don’t buy and test products. Instead we look at what we can find that is publicly available. Our researchers comb
+                through privacy policies, reach out to companies with questions about encryption and bug bounty programs, sift through
+                product and app specifications, and read the research and news articles written about the products in the past three
+                years. We do our best to then make your access to all this information accessible and easy to understand. We’ve even put
+                together a <a href={{ url }}>How to Use This Guide page</a> to help you understand all the information we share here on <em>*Privacy Not Included</em>.
+            {% endblocktrans %}
+        </p>
+
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                We hope you use this guide to help you think about, shop for, and buy products from companies that show they value
+                privacy and security. Then share it with your friends and family to help them shop safe too. We as consumers need to
+                demand that privacy and security as a value from the people who build our products. It’s how we’ll start to make the
+                internet, and our lives, a bit safer in this digital world. That is our goal every day here at Mozilla.
+
+            {% endblocktrans %}
+        </p>
+    </section>
+
+    <div class="why-we-made-outro">
+        <p class="tw-body">
+            {% blocktrans trimmed %}
+                We hope you use and enjoy this guide to help you think about, shop for, and buy products from
+                companies that show they value privacy and security. We as consumers need to demand that value
+                from the people who build our products. It’s how we’ll start to make the internet, and our
+                lives, a bit safer in this digital world. That is our goal every day here at Mozilla.
+            {% endblocktrans %}
+        </p>
+
+        <p class="tw-body mb-4 pb-2">
+            {% trans "Thank you!" %}<br>
+            {% trans "The *Privacy Not Included Team" %}
+        </p>
+
+        <p class="tw-body">
+            <em>
+                {% blocktrans with mofo_url='href="https://www.mozillafoundation.org" target="_blank"' donate_url='href="?form=donate"' mozilla_url='href="https://www.mozilla.org/" target="_blank"' trimmed %}
+                    Mozilla fights daily for a healthier internet as a non-profit tech company that puts people
+                    before profit. This guide was created by the <a {{ mofo_url }}>Mozilla Foundation</a> which
+                    relies on <a {{ donate_url }}>donations</a> from people like you to do our work. You can also
+                    visit <a {{ mozilla_url }}>Mozilla.org</a> to learn more about our purpose driven products
+                    like Firefox and Common Voice.
+                {% endblocktrans %}
+            </em>
+        </p>
+
+        <p class="tw-body">
+            <em>
+                {% blocktrans with email="jen@mozillafoundation.org" trimmed %}
+                    For any questions about the guide or to offer constructive feedback, please
+                    email <a href="mailto:{{ email}}">{{email }}</a>
+                {% endblocktrans %}
+            </em>
+        </p>
+    </div>
+
+{% endblock %}

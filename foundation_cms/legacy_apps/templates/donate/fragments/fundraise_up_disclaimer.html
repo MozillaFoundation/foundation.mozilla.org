@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<p class="tw-text-xs">
+    {% blocktrans with stripe_url='https://stripe.com/en-ca/legal/privacy-center' paypal_url='https://www.paypal.com/us/webapps/mpp/ua/privacy-full' privacy_url="https://www.mozilla.org/privacy/websites/" trimmed %}
+        Mozilla is committed to your privacy; please read our <a href="{{ privacy_url }}">privacy policy here</a>. Your payment details will be processed by <a href="{{ stripe_url }}">Stripe</a>, or <a href="{{ paypal_url }}">PayPal</a>, and a record of your donation will be stored by Mozilla.
+    {% endblocktrans %}
+</p>
+<p class="tw-text-xs">
+    {% blocktrans with ways_to_give_url='/donate/ways-to-give' trimmed %}
+        <b>Other ways to give:  <a href="{{ ways_to_give_url }}">Check, Bank Transfer, Stocks</a></b>
+    {% endblocktrans %}
+</p>
+<p class="tw-text-xs">
+    {% blocktrans with faq_url='/donate/help/#frequently-asked-questions' trimmed %}
+        <b>Question donating?</b> Visit our <a href="{{ faq_url }}">FAQ</a> for answers to most common questions.
+    {% endblocktrans %}
+</p>
+<p class="tw-text-xs">
+    {% blocktrans with help_url='/donate/help/' trimmed %}
+        <b>Need to reach us about your donation?</b> <a href="{{ help_url }}">Contact us</a>.
+    {% endblocktrans %}
+</p>
+<p class="tw-text-xs">
+    {% blocktrans with mozilla_url='https://www.mozillafoundation.org/who-we-are/' trimmed %}
+        Contributions go to the <a href="{{ mozilla_url }}">Mozilla Foundation</a>, a 501(c)(3) organization based in San Francisco, California, to be used in its discretion for its charitable purposes. They are tax-deductible in the U.S. to the fullest extent permitted by law.
+    {% endblocktrans %}
+</p>

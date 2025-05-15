@@ -1,0 +1,27 @@
+{% load static %}
+<div class="{{ wrapper_class }} tw-container">
+  <div class="tw-row tw-px-8 tw-justify-center tw-text-center">
+    <div class="tw-relative tw-mx-auto tw-mb-10 tw-mt-[-100px] tw-w-[130px] tw-h-[130px] medium:tw-mb-0 medium:tw-mt-[-200px] medium:tw-w-[235px] medium:tw-h-[235px]">
+      <img width="100%" height="100%" alt="" src="{% static "legacy_apps/_images/buyers-guide/consumer-creepometer/face-3.svg" %}">
+      {% include "../consumer_creepometer_page_2023/animated-eyes.html" with eye_base_class="tw-w-[20%] tw-h-[20%]" left_eye_class="tw-top-[37%] tw-left-[24%]" right_eye_class="tw-top-[37%] tw-left-[56%]" %}
+    </div>
+    <h2 class="{{ h2_class }} tw-w-5/6 tw-mb-12 medium:tw-mb-20">Mozilla’s Annual Consumer Creep-O-Meter distills what’s good, what’s bad, and what’s just plain creepy in the world of consumer tech.</h2>
+    <div class="tw-w-full medium:tw-w-4/6 tw-mb-20 medium:tw-mb-24">
+      <p class="medium:tw-text-[20px] medium:tw-leading-[30px] tw-font-light tw-mb-12">Since 2017, Mozilla has published 15 editions of <a class="tw-text-black tw-underline hover:tw-text-black hover:tw-underline" href="https://www.mozillafoundation.org/privacynotincluded/" target="_blank">*Privacy Not Included</a>, our consumer tech buyers guide. We’ve reviewed over 500 gadgets, apps, cars, and more, assessing their security features, what data they collect, and who they share that data with.</p>
+      <p class="medium:tw-text-[20px] medium:tw-leading-[30px] tw-font-light">In 2023, we compared our most recent findings with those of the past five years. It quickly became clear that products and companies are collecting more personal data than ever before — and then using that information in shady ways.</p>
+    </div>
+    <nav role="navigation" class="tw-flex tw-flex-col large:tw-flex-row">
+      {% with link_wrapper_class="tw-self-center tw-inline-block tw-box-border tw-relative tw-my-4 medium:tw-mx-8 after:tw-content-[''] after:tw-absolute after:tw-top-0 after:tw-left-0 after:tw-w-full after:tw-h-full after:tw-border-2 after:tw-rounded-[80px] after:tw-z-[-1]" link_class="tw-inline-block tw-box-border tw-relative tw-text-black tw-text-center tw-font-sans tw-font-light tw-text-[20px] tw-leading-[30px] tw-px-[27px] tw-py-[5px] tw-border-2 tw-rounded-[80px] tw-uppercase tw-transition-transform tw-duration-200 tw-ease-in-out hover:tw-translate-y-[-5px] hover:tw-no-underline" %}
+        <div class="{{ link_wrapper_class }} after:tw-border-pni-yellow">
+          <a href="#big-picture-trends" class="{{ link_class }}  tw-border-pni-yellow  tw-bg-yellow-05">Big Picture Trends</a>
+        </div>
+        <div class="{{ link_wrapper_class }} after:tw-border-red-10">
+          <a href="#best-and-worst-products" class="{{ link_class }} tw-border-red-10  tw-bg-pink-05">Best & Worst Products</a>
+        </div>
+        <div class="{{ link_wrapper_class }} after:tw-border-blue-20">
+          <a href="#by-the-numbers" class="{{ link_class }} tw-border-blue-20 tw-bg-blue-05">By the Numbers</a>
+        </div>
+      {% endwith %}
+    </nav>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 {
   "include": [
-    "network-api/networkapi"
+    "foundation_cms/legacy_apps"
   ],
   "exclude": [
     "**/node_modules",

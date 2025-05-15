@@ -1,0 +1,31 @@
+// Card Related SCSS
+// Example usage: https://www.mozillafoundation.org/en/blog/
+
+.card-regular {
+  position: relative;
+
+  .key-item {
+    .rich-text {
+      flex: 1;
+    }
+  }
+}
+
+.card-cta {
+  @apply tw-my-24 tw-mx-0;
+  background: $gray-05;
+
+  .wrapper {
+    display: flex;
+    margin: -24px 0;
+    height: calc(100% + 48px);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 300px;
+  }
+}
+
+.card {
+  border-bottom: 4px solid $black;
+}

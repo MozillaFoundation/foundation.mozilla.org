@@ -1,0 +1,64 @@
+{% load static wagtailcore_tags wagtailadmin_tags nav_tags %}
+
+{% fragment as content_base_styles %}tw-overflow-y-auto tw-transition-all tw-duration-500 tw-bg-white xlarge:tw-bg-transparent xlarge:tw-max-w-[1200px] xlarge:tw-transition-none xlarge:tw-duration-0{% endfragment %}
+{% fragment as dropdown_selector_base %}tw-container tw-flex tw-flex-row tw-items-center tw-justify-between tw-w-full tw-gap-4{% endfragment %}
+
+{% fragment as content_desktop %}xlarge:tw-px-0 xlarge:tw-hidden{% endfragment %}
+{% fragment as content_desktop_border %}xlarge:tw-border xlarge:tw-border-gray-20{% endfragment %}
+{% comment %} 40 (5rem) is the height of the navbar {% endcomment %}
+{% fragment as content_desktop_positioning %}xlarge:tw-fixed xlarge:tw-left-0 xlarge:tw-right-0 xlarge:tw-mx-auto{% endfragment %}
+
+{% fragment as title_base_typography %}tw-font-sans tw-font-bold tw-text-xl tw-text-black{% endfragment %}
+{% fragment as title_desktop_typography %}xlarge:tw-text-lg{% endfragment %}
+{% comment %} 2.5rem for half the navbar's height, 14px for half the title's line height, 6px for the title bottom border and 1 px for the dropdown border:{% endcomment %}
+{% fragment as title_underline %}xlarge:tw-h-full xlarge:tw-pt-[calc(2.5rem-14px)] xlarge:tw-pb-[calc(2.5rem-14px-6px+1px)]{% endfragment %}
+
+{% get_dropdown_id menu=menu idx=forloop.counter0 as dropdown_id %}
+{% if dropdown_id %}
+    {% check_if_dropdown_can_be_active dropdown_id as can_dropdown_be_active %}
+{% endif %}
+
+<div class="tw-nav-{{ style }}-dropdown tw-flex tw-flex-col"
+     {% block data_class_attribute %}data-{{ style }}-dropdown{% endblock data_class_attribute %}
+     data-dropdown-id="{{ dropdown_id }}"
+     data-can-wayfinding-be-active="{% block can_wayfinding_be_active %}{% if can_dropdown_be_active %}true{% else %}false{% endif %}{% endblock can_wayfinding_be_active %}"
+     data-should-wayfinding-be-active="false"
+>
+    <button class="tw-btn {{ dropdown_selector_base }} tw-py-12 xlarge:tw-py-0 xlarge:tw-items-center xlarge:tw-h-full" data-accordion-button>
+        <span class="xlarge:tw-py-12 tw-h5-heading tw-m-0 {{ title_base_typography }} {{ title_desktop_typography }} {{ title_underline }}">
+            {% block title %}{{ value.title }}{% endblock title %}
+        </span>
+        <img src="{% static "legacy_apps/_images/chevron.svg" %}" height="18" width="18" alt="" class="tw-w-8 tw-h-auto tw-rotate-180 tw-transition-transform xlarge:tw-hidden">
+    </button>
+
+    <div class="{{ content_base_styles }} {{ content_desktop_positioning }} {{ content_desktop }} {{ alignment_class }}" data-accordion-content>
+        <div class="tw-container xlarge:tw-max-w-[1200px] xlarge:tw-px-0">
+            <div class="{% block content_width %} xlarge:tw-w-{{ value.ncols }}/4 {% endblock content_width %} {{ content_desktop_border }} tw-pb-32">
+                <div class="tw-nav-accordion-content-inner {% block grid_columns %} xlarge:tw-grid-cols-{{ value.ncols }} {% if value.has_featured_column %}tw-has-featured-column{% endif %}{% endblock grid_columns %}">
+                    {% block content %}
+                        {% if value.has_overview %}
+                            {% include_block value.overview_value with button=value.button %}
+                        {% endif %}
+                        {% for column in value.columns %}
+                            {% include_block column with link_hover_padding=link_hover_padding %}
+                        {% endfor %}
+                        {% if value.has_featured_column %}
+                            {% include_block value.featured_column_value with link_hover_padding=link_hover_padding %}
+                        {% endif %}
+                    {% endblock content %}
+                </div>
+                {% block full_span_button %}
+                    {% comment %}
+                    If there is a button but no overview, we want to render the button at the bottom
+                    of the dropdown. Otherwise it will be rendered together with the overview.
+                    {% endcomment %}
+                    {% if value.button and not value.has_overview %}
+                        <div class="tw-w-full">
+                            {% include_block value.button with style="primary-full-width" %}
+                        </div>
+                    {% endif %}
+                {% endblock full_span_button %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,891 @@
+{% extends "wagtailpages/primary_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags card_tags %}
+{% load i18n static %}
+
+{% block body_id %}style-guide{% endblock %}
+
+{% block content %}
+    <div class="tw-container tw-mt-24">
+        <div class="tw-row">
+            <div class="tw-w-full tw-px-8 tw-pb-24">
+                <h2 class="tw-h1-heading tw-group" id="colors">
+                    <span>Colors</span>
+                    <a href="#colors" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="site-palette">
+                    <span>Site-wide Palette</span>
+                    <a href="#site-palette" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-white" name="White ($white)" hex="#ffffff" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-02" name="Gray 02" hex="#fafafa" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-05" name="Gray 05 ($gray-05)" hex="#f2f2f2" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-20" name="Gray 20 ($gray-20)" hex="#cccccc" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-40" name="Gray 40 ($gray-40)" hex="#999999" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-60" name="Gray 60 ($gray-60)" hex="#666666" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gray-80" name="Gray 80 ($gray-80)" hex="#333333" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-black" name="Black ($black)" hex="#000000" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-05" name="Red 05" hex="#ffe6e8" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-10" name="Red 10" hex="#ffb4ba" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-20" name="Red 20" hex="#ff818c" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-40" name="Red 40" hex="#ff4f5e" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-60" name="Red 60" hex="#e62434" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-80" name="Red 80" hex="#cc0011" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-red-100" name="Red 100" hex="#9a000e" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-03" name="Blue 03" hex="#f5f5fd" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-05" name="Blue 05" hex="#e7e7fc" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-10" name="Blue 10" hex="#d3d5fc" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-20" name="Blue 20" hex="#b7b9fa" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-40" name="Blue 40" hex="#595cf3" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-60" name="Blue 60" hex="#3032d9" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-80" name="Blue 80" hex="#0d10bf" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-blue-100" name="Blue 100" hex="#0003a6" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-05" name="Cyan 05" hex="#e6ffff" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-10" name="Cyan 10" hex="#acffff" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-20" name="Cyan 20" hex="#73ffff" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-40" name="Cyan 40" hex="#00ffff" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-60" name="Cyan 60" hex="#00c9c9" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-80" name="Cyan 80" hex="#009494" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-cyan-100" name="Cyan 100" hex="#005e5e" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-05" name="Green 05" hex="#d8fff0" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-10" name="Green 10" hex="#acffe0" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-20" name="Green 20" hex="#80ffce" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-40" name="Green 40" hex="#54ffbd" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-60" name="Green 60" hex="#2cc98e" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-80" name="Green 80" hex="#109462" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-green-100" name="Green 100" hex="#005e3a" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-05" name="Yellow 05" hex="#fffcd9" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-10" name="Yellow 10" hex="#fff9ab" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-20" name="Yellow 20" hex="#fff67d" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-40" name="Yellow 40" hex="#fff44f" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-60" name="Yellow 60" hex="#e5d92f" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-80" name="Yellow 80" hex="#ccbf15" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-yellow-100" name="Yellow 100" hex="#b2a600" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-05" name="Purple 05" hex="#ecd8fe" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-10" name="Purple 10" hex="#deb8fe" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-20" name="Purple 20" hex="#cd97fd" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-40" name="Purple 40" hex="#8f14fb" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-60" name="Purple 60" hex="#760bd4" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-80" name="Purple 80" hex="#5e05ac" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-purple-100" name="Purple 100" hex="#470085" %}
+                </div>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-05" name="Pink 05" hex="#ecd8fe" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-10" name="Pink 10" hex="#deb8fe" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-20" name="Pink 20" hex="#cd97fd" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-40" name="Pink 40" hex="#8f14fb" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-60" name="Pink 60" hex="#760bd4" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-80" name="Pink 80" hex="#5e05ac" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pink-100" name="Pink 100" hex="#470085" %}
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="pni-palette">
+                    <span>Privacy Not Included Palette</span>
+                    <a href="#pni-palette" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue" name="PNI Blue ($pni-blue)" hex="#1808f2" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-blue-purple" name="PNI Blue Purple ($pni-blue-purple)" hex="#4a17d4" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple" name="PNI Purple ($pni-purple)" hex="#7f28b7" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-purple-pink" name="PNI Purple Pink ($pni-purple-pink)" hex="#b0379b" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-pni-pink" name="PNI Pink ($pni-pink)" hex="#e4487d" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-pni-blue tw-to-pni-pink" name="PNI Gradient ($pni-gradient)" hex="linear-gradient(to right, #1808f2 0%, #e4487d 100%)" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-yellow-10 tw-to-purple-05" name="PNI CTA Gradient" hex="" %}
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="festival-palette">
+                    <span>Festival Palette</span>
+                    <a href="#festival-palette" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-row">
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-festival-blue" name="Festival Dark Blue ($festival-dark-blue)" hex="#0e11bf" %}
+
+                    {% include "wagtailpages/fragments/styleguide_color_block.html" with classname="tw-bg-gradient-to-r tw-from-festival-blue tw-to-purple-40" name="Festival Gradient ($festival-gradient)" hex="linear-gradient(120deg, #0e11bf 0%, #8f14fb 100%)" %}
+                </div>
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="spacing">
+                    <span>Spacing</span>
+                    <a href="#spacing" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                {% include "wagtailpages/fragments/styleguide_spacing_table.html" %}
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="grid">
+                    <span>Grid</span>
+                    <a href="#grid" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="breakpoints">
+                    <span>Breakpoints</span>
+                    <a href="#breakpoints" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-row">
+                    <div class="tw-w-full tw-px-8">
+                        <table class="tw-table tw-w-full tw-border tw-border-table tw-overflow-x-auto">
+                            <thead>
+                                <tr>
+                                    <th class="tw-p-6 tw-border tw-border-table"></th>
+                                    <th class="tw-p-6 tw-border tw-border-table">Extra small</th>
+                                    <th class="tw-p-6 tw-border tw-border-table">Small</th>
+                                    <th class="tw-p-6 tw-border tw-border-table">Medium</th>
+                                    <th class="tw-p-6 tw-border tw-border-table">Large</th>
+                                    <th class="tw-p-6 tw-border tw-border-table">Extra large</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="tw-bg-black tw-bg-opacity-5">
+                                    <th class="tw-whitespace-nowrap tw-p-6 tw-border tw-border-table" scope="row">Breakpoint</th>
+                                    <td class="tw-p-6 tw-border tw-border-table">None</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">576px</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">768px</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">992px</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">1200px</td>
+                                </tr>
+                                <tr>
+                                    <th class="tw-whitespace-nowrap tw-p-6 tw-border tw-border-table" scope="row">Max container width</th>
+                                    <td class="tw-p-6 tw-border tw-border-table">None (auto)</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">540px</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">720px</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">960px</td>
+                                    <td class="tw-p-6 tw-border tw-border-table">1140px</td>
+                                </tr>
+                                <tr class="tw-bg-black tw-bg-opacity-5">
+                                    <th class="tw-whitespace-nowrap tw-p-6 tw-border tw-border-table" scope="row">Design alias</th>
+                                    <td class="tw-p-6 tw-border tw-border-table"><code>mobile (potrait)</code></td>
+                                    <td class="tw-p-6 tw-border tw-border-table"><code>mobile (landscape)</code></td>
+                                    <td class="tw-p-6 tw-border tw-border-table"><code>tablet</code></td>
+                                    <td class="tw-p-6 tw-border tw-border-table"><code>desktop</code></td>
+                                    <td class="tw-p-6 tw-border tw-border-table"><code>wide desktop</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="columns">
+                    <span>Columns</span>
+                    <a href="#columns" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-w-1/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-w-2/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                    <div class="tw-w-2/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                    <div class="tw-w-2/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                    <div class="tw-w-2/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                    <div class="tw-w-2/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                    <div class="tw-w-2/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-w-3/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">3</p></div>
+                    <div class="tw-w-3/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">3</p></div>
+                    <div class="tw-w-3/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">3</p></div>
+                    <div class="tw-w-3/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">3</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-w-4/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">4</p></div>
+                    <div class="tw-w-4/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">4</p></div>
+                    <div class="tw-w-4/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">4</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-w-6/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">6</p></div>
+                    <div class="tw-w-6/12 tw-px-8"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">6</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-px-8 tw-w-5/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">5</p></div>
+                    <div class="tw-px-8 tw-w-7/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">7</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-px-8 tw-w-4/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">4</p></div>
+                    <div class="tw-px-8 tw-w-8/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">8</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-px-8 tw-w-3/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">3</p></div>
+                    <div class="tw-px-8 tw-w-9/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">9</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-px-8 tw-w-2/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">2</p></div>
+                    <div class="tw-px-8 tw-w-10/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">10</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-px-8 tw-w-1/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">1</p></div>
+                    <div class="tw-px-8 tw-w-11/12"><p class="tw-body-large tw-bg-black tw-text-center tw-mb-4">11</p></div>
+                </div>
+
+                <div class="tw-row tw-dark">
+                    <div class="tw-px-8 tw-w-full"><p class="tw-body-large tw-bg-black tw-text-center tw-m-0">12</p></div>
+                </div>
+
+                <hr>
+
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="typography">
+                    <span>Typography</span>
+                    <a href="#typography" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="headers">
+                    <span>Headers</span>
+                    <a href="#headers" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-py-4">
+                    <h1 class="tw-h1-heading">.tw-h1-heading</h1>
+                </div>
+                <div class="tw-py-4">
+                    <h2 class="tw-h2-heading">.tw-h2-heading</h2>
+                </div>
+                <div class="tw-py-4">
+                    <h3 class="tw-h3-heading">.tw-h3-heading</h3>
+                </div>
+                <div class="tw-py-4">
+                    <h4 class="tw-h4-heading">.tw-h4-heading</h4>
+                </div>
+                <div class="tw-py-4">
+                    <h5 class="tw-h5-heading">.tw-h5-heading</h5>
+                </div>
+                <div class="tw-py-4">
+                    <h6 class="tw-h6-heading">.tw-h6-heading</h6>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="headers-links">
+                    <span>Headers with links</span>
+                    <a href="#headers-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-py-4">
+                    <h1 class="tw-h1-heading">.tw-h1-heading with <a href="">link</a></h1>
+                </div>
+                <div class="tw-py-4">
+                    <h2 class="tw-h2-heading">.tw-h2-heading with <a href="">link</a></h2>
+                </div>
+                <div class="tw-py-4">
+                    <h3 class="tw-h3-heading">.tw-h3-heading with <a href="">link</a></h3>
+                </div>
+                <div class="tw-py-4">
+                    <h4 class="tw-h4-heading">.tw-h4-heading with <a href="">link</a></h4>
+                </div>
+                <div class="tw-py-4">
+                    <h5 class="tw-h5-heading">.tw-h5-heading with <a href="">link</a></h5>
+                </div>
+                <div class="tw-py-4">
+                    <h6 class="tw-h6-heading">.tw-h6-heading with <a href="">link</a></h6>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="paragraphs">
+                    <span>Paragraphs</span>
+                    <a href="#paragraphs" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-py-4">
+                    <p class="tw-body-large">.tw-body-large with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
+                </div>
+                <div class="tw-py-4">
+                    <p class="tw-body">.tw-body with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
+                </div>
+                <div class="tw-py-4">
+                    <p class="tw-body-small">.tw-body-small with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
+                </div>
+                <div class="tw-py-4">
+                    <p class="tw-quote">.tw-quote</p>
+                </div>
+                <div class="tw-py-4">
+                    <h2 class="tw-type-accent">.tw-type-accent</h2>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="paragraphs-links">
+                    <span>Paragraphs with links</span>
+                    <a href="#paragraphs-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-py-4">
+                    <p class="tw-body-large">.tw-body-large with <a href="">link</a></p>
+                </div>
+                <div class="tw-py-4">
+                    <p class="tw-body">.tw-body with <a href="">link</a></p>
+                </div>
+                <div class="tw-py-4">
+                    <p class="tw-body-small">.tw-body-small with <a href="">link</a></p>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="lists">
+                    <span>Lists</span>
+                    <a href="#lists" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+
+                <hr>
+                <div class="tw-py-4">
+                    <h4>Default <code class="tw-inline">&lt;ol&gt;</code> style</h4>
+                    <ol>
+                        <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style </li>
+                        <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style with a <a href="https://example.com">link</a></li>
+                    </ol>
+                </div>
+                <div class="tw-py-4">
+                    <h4>Default <code class="tw-inline">&lt;ul&gt;</code> style</h4>
+                    <ul>
+                        <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style </li>
+                        <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style with a <a href="https://example.com">link</a></li>
+                    </ul>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="anchors">
+                    <span>Anchors</span>
+                    <a href="#anchors" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-py-4"><a class="tw-cta-link" href="https://example.com">.tw-cta-link</a></div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dark-headers">
+                    <span>Dark Theme Headers</span>
+                    <a href="#dark-headers" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-dark tw-bg-black">
+                    <div class="tw-py-4">
+                        <h1 class="tw-h1-heading">.tw-h1-heading</h1>
+                    </div>
+                    <div class="tw-py-4">
+                        <h2 class="tw-h2-heading">.tw-h2-heading</h2>
+                    </div>
+                    <div class="tw-py-4">
+                        <h3 class="tw-h3-heading">.tw-h3-heading</h3>
+                    </div>
+                    <div class="tw-py-4">
+                        <h4 class="tw-h4-heading">.tw-h4-heading</h4>
+                    </div>
+                    <div class="tw-py-4">
+                        <h5 class="tw-h5-heading">.tw-h5-heading</h5>
+                    </div>
+                    <div class="tw-py-4">
+                        <h6 class="tw-h6-heading">.tw-h6-heading</h6>
+                    </div>
+                </div>
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dark-headers-links">
+                    <span>Dark Theme Headers with links</span>
+                    <a href="#dark-headers-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-dark tw-bg-black">
+                    <div class="tw-py-4">
+                        <h1 class="tw-h1-heading">.tw-h1-heading with <a href="">link</a></h1>
+                    </div>
+                    <div class="tw-py-4">
+                        <h2 class="tw-h2-heading">.tw-h2-heading with <a href="">link</a></h2>
+                    </div>
+                    <div class="tw-py-4">
+                        <h3 class="tw-h3-heading">.tw-h3-heading with <a href="">link</a></h3>
+                    </div>
+                    <div class="tw-py-4">
+                        <h4 class="tw-h4-heading">.tw-h4-heading with <a href="">link</a></h4>
+                    </div>
+                    <div class="tw-py-4">
+                        <h5 class="tw-h5-heading">.tw-h5-heading with <a href="">link</a></h5>
+                    </div>
+                    <div class="tw-py-4">
+                        <h6 class="tw-h6-heading">.tw-h6-heading with <a href="">link</a></h6>
+                    </div>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dark-para">
+                    <span>Dark Theme Paragraphs</span>
+                    <a href="#dark-para" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-dark tw-bg-black">
+                    <div class="tw-py-4">
+                        <p class="tw-body-large">.tw-body-large with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
+                    </div>
+                    <div class="tw-py-4">
+                        <p class="tw-body">.tw-body with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
+                    </div>
+                    <div class="tw-py-4">
+                        <p class="tw-body-small">.tw-body-small with <b>bold</b> and <strong>strong</strong> and <i>italic</i> text</p>
+                    </div>
+                    <div class="tw-py-4">
+                        <p class="tw-quote">.tw-quote</p>
+                    </div>
+                    <div class="tw-py-4">
+                        <h2 class="tw-type-accent">.tw-type-accent</h2>
+                    </div>
+
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dark-para-links">
+                    <span>Dark Theme Paragraphs with links</span>
+                    <a href="#dark-para-links" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-dark tw-bg-black">
+                    <div class="tw-py-4">
+                        <p class="tw-body">.tw-body with <a href="">link</a></p>
+                    </div>
+                    <div class="tw-py-4">
+                        <p class="tw-body-large">.tw-body-large with <a href="">link</a></p>
+                    </div>
+                    <div class="tw-py-4">
+                        <p class="tw-body-small">.tw-body-small with <a href="">link</a></p>
+                    </div>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dark-lists">
+                    <span>Dark Theme Lists</span>
+                    <a href="#dark-lists" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-dark tw-bg-black">
+                    <div class="tw-py-4">
+                        <h4>Default <code class="tw-inline">&lt;ol&gt;</code> style</h4>
+                        <ol>
+                            <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style </li>
+                            <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style with a <a href="https://example.com">link</a></li>
+                        </ol>
+                    </div>
+                    <div class="tw-py-4">
+                        <h4>Default <code class="tw-inline">&lt;ul&gt;</code> style</h4>
+                        <ul>
+                            <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style </li>
+                            <li>I'm a list item <code class="tw-inline">&lt;li&gt;</code> style with a <a href="https://example.com">link</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dark-anchors">
+                    <span>Dark Theme Anchors</span>
+                    <a href="#dark-anchors" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-dark tw-bg-black">
+                    <a class="tw-cta-link" href="">.tw-cta-link</a>
+                </div>
+                <div class="tw-dark tw-bg-black">
+                    <a href="">link</a>
+                </div>
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="buttons">
+                    <span>Buttons</span>
+                    <a href="#buttons" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="button-tailwind">
+                    <span>Default (Tailwind)</span>
+                    <a href="#button-tailwind" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-mb-24">
+                    <div class="tw-my-4">
+                        <button class="tw-btn-primary">.tw-btn-primary on <code class="tw-inline">&lt;button&gt;</code></button>
+                        <button class="tw-btn-primary" disabled>disabled .tw-btn-primary on <code class="tw-inline">&lt;button&gt;</code></button>
+                    </div>
+                    <div class="tw-my-4">
+                        <a class="tw-btn-primary" href="">.tw-btn-primary on <code class="tw-inline">&lt;a&gt;</code></a>
+                        <a class="tw-btn-primary" aria-disabled="true" href="">aria-disabled="true" .tw-btn-primary on <code class="tw-inline">&lt;a&gt;</code></a>
+                    </div>
+                </div>
+
+                <div class="tw-mb-24">
+                    <div class="tw-my-4">
+                        <button class="tw-btn-secondary">.tw-btn-secondary on <code class="tw-inline">&lt;button&gt;</code></button>
+                        <button class="tw-btn-secondary" disabled>disabled .tw-btn-secondary on <code class="tw-inline">&lt;button&gt;</code></button>
+                    </div>
+                    <div class="tw-my-4">
+                        <a class="tw-btn-secondary" href="">.tw-btn-secondary on <code class="tw-inline">&lt;a&gt;</code></a>
+                        <a class="tw-btn-secondary" aria-disabled="true" href=""> aria-disabled="true" .tw-btn-secondary on <code class="tw-inline">&lt;a&gt;</code></a>
+                    </div>
+                    <div class="tw-my-4">
+                        <a class="tw-btn-secondary" href="https://example.com">.tw-btn-secondary on <code class="tw-inline tw-my-0 tw-mx-2">&lt;a&gt;</code> with external link</a>
+                        <a class="tw-btn-secondary" aria-disabled="true" href="https://example.com">aria-disabled="true" .tw-btn-secondary on <code class="tw-inline tw-my-0 tw-mx-2">&lt;a&gt;</code> with external link</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="tw-my-4">
+                        <button class="tw-btn-pop">.tw-btn-pop on <code class="tw-inline">&lt;button&gt;</code></button>
+                        <button class="tw-btn-pop" disabled>disabled .tw-btn-pop on <code class="tw-inline">&lt;button&gt;</code></button>
+                    </div>
+                    <div class="tw-my-4">
+                        <a class="tw-btn-pop" href="">.tw-btn-pop on <code class="tw-inline">&lt;a&gt;</code></a>
+                        <a class="tw-btn-pop" href="" aria-disabled="true"> aria-disabled="true" .tw-btn-pop on <code class="tw-inline">&lt;a&gt;</code></a>
+                    </div>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="button-dark">
+                    <span>Dark Theme</span>
+                    <a href="#button-dark" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-p-8 tw-dark tw-bg-black">
+                    <div class="tw-mb-24">
+                        <div class="tw-my-4">
+                            <button class="tw-btn-primary">.tw-btn-primary on <code class="tw-inline">&lt;button&gt;</code></button>
+                            <button class="tw-btn-primary" disabled>disabled .tw-btn-primary on <code class="tw-inline">&lt;button&gt;</code></button>
+                        </div>
+                        <div class="tw-my-4">
+                            <a class="tw-btn-primary" href="">.tw-btn-primary on <code class="tw-inline">&lt;a&gt;</code></a>
+                            <a class="tw-btn-primary" href="" aria-disabled="true">aria-disabled="true" .tw-btn-primary on <code class="tw-inline">&lt;a&gt;</code></a>
+                        </div>
+                    </div>
+
+                    <div class="tw-mb-24">
+                        <div class="tw-my-4">
+                            <button class="tw-btn-secondary">.tw-btn-secondary on <code class="tw-inline">&lt;button&gt;</code></button>
+                            <button class="tw-btn-secondary" disabled>disabled .tw-btn-secondary on <code class="tw-inline">&lt;button&gt;</code></button>
+                        </div>
+                        <div class="tw-my-4">
+                            <a class="tw-btn-secondary" href="">.tw-btn-secondary on <code class="tw-inline">&lt;a&gt;</code></a>
+                            <a class="tw-btn-secondary" aria-disabled="true" href="">aria-disabled="true" .tw-btn-secondary on <code class="tw-inline">&lt;a&gt;</code></a>
+                        </div>
+                        <div class="tw-my-4">
+                            <a class="tw-btn-secondary" href="https://example.com">.tw-btn-secondary on <code class="tw-inline tw-my-0 tw-mx-2">&lt;a&gt;</code> with external link</a>
+                            <a class="tw-btn-secondary" aria-disabled="true" href="https://example.com">aria-disabled="true" .tw-btn-secondary on <code class="tw-inline tw-my-0 tw-mx-2">&lt;a&gt;</code> with external link</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="tw-my-4">
+                            <button class="tw-btn-pop">.tw-btn-pop on <code class="tw-inline">&lt;button&gt;</code></button>
+                            <button class="tw-btn-pop" disabled>disabled .tw-btn-pop on <code class="tw-inline">&lt;button&gt;</code></button>
+                        </div>
+                        <div class="tw-my-4">
+                            <a class="tw-btn-pop" href="">.tw-btn-pop on <code class="tw-inline">&lt;a&gt;</code></a>
+                            <a class="tw-btn-pop" href="" aria-disabled="true">aria-disabled="true" .tw-btn-pop on <code class="tw-inline">&lt;a&gt;</code></a>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="button-share">
+                    <span>Share Button Group</span>
+                    <a href="#button-share" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="button-full">
+                    <span>Full version</span>
+                    <a href="#button-full" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-mb-24">
+                    {% include "fragments/share-buttons.html" with page=page %}
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="full-stacked">
+                    <span>Full Version & Stacked</span>
+                    <a href="#full-stacked" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-mb-24">
+                    {% include "fragments/share-buttons.html" with page=page layout="stacked" %}
+                </div>
+
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="button-mini">
+                    <span>Full Version & Stacked</span>
+                    <a href="#button-mini" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-mb-24">
+                    {% include "fragments/share-buttons.html" with version="mini" page=page %}
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="mini-stacked">
+                    <span>Mini Version & Stacked</span>
+                    <a href="#mini-stacked" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-mb-24">
+                    {% include "fragments/share-buttons.html" with version="mini" layout="stacked" page=page %}
+                </div>
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="dropdown">
+                    <span>Dropdown Field</span>
+                    <a href="#dropdown" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dropdown-tailwind">
+                    <span>Default</span>
+                    <a href="#dropdown-tailwind" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+
+                <div class="tw-mb-24">
+                    <h4>Regular</h4>
+                    <select class="tw-form-control">
+                        <option value="">Option 1</option>
+                        <option value="">Option 2</option>
+                        <option value="">Option 3</option>
+                        <option value="">Option 4</option>
+                    </select>
+                </div>
+
+                <div class="tw-mb-24">
+                    <h4>Large</h4>
+                    <select class="tw-form-control-lg">
+                        <option value="">Option 1</option>
+                        <option value="">Option 2</option>
+                        <option value="">Option 3</option>
+                        <option value="">Option 4</option>
+                    </select>
+                </div>
+
+                <h3 class="tw-h2-heading tw-mt-24 tw-group" id="dropdown-dark">
+                    <span>Dark Theme</span>
+                    <a href="#dropdown-dark" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h3>
+                <hr>
+                <div class="tw-p-8 tw-dark tw-bg-black">
+                    <div class="tw-mb-24">
+                        <h4>Regular</h4>
+                        <select class="tw-form-control">
+                            <option value="">Option 1</option>
+                            <option value="">Option 2</option>
+                            <option value="">Option 3</option>
+                            <option value="">Option 4</option>
+                        </select>
+                    </div>
+
+                    <div class="">
+                        <h4>Large</h4>
+                        <select class="tw-form-control-lg">
+                            <option value="">Option 1</option>
+                            <option value="">Option 2</option>
+                            <option value="">Option 3</option>
+                            <option value="">Option 4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h2 class="tw-h1-heading tw-mt-24 tw-group" id="icons">
+                    <span>Icons</span>
+                    <a href="#icons" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+                <hr class="hr-emphasis">
+
+                <div class="tw-row">
+                    <div class="tw-w-full tw-px-8 tw-flex tw-space-x-16 tw-space-y-8 tw-flex-wrap">
+                        <img src="{% static "legacy_apps/_images/mozilla-block-white.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+                        <img src="{% static "legacy_apps/_images/mozilla-m.svg" %}" class="tw-w-1/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/mozilla.svg" %}" class="tw-w-3/12 tw-h-auto tw-bg-black">
+                        <img src="{% static "legacy_apps/_images/mozlogo.jpg" %}" class="tw-w-1/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/x.svg" %}" class="tw-w-1/12 tw-h-auto tw-bg-black">
+                        <img src="{% static "legacy_apps/_images/mozilla-on-black.svg" %}" class="tw-w-1/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/video_play_button.svg" %}" class="tw-w-1/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/video_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/left-chevron.svg" %}" class="tw-w-2/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/icon-IH.svg" %}" class="tw-w-1/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/double-quote-glyph.svg" %}" class="tw-w-2/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/chevron.svg" %}" class="tw-w-3/12 tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/burst2.svg" %}" class="tw-w-auto tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/burst1.svg" %}" class="tw-w-auto tw-h-auto ">
+                        <img src="{% static "legacy_apps/_images/audio_play_button.svg" %}" class="tw-w-1/12 tw-h-auto">
+                        <img src="{% static "legacy_apps/_images/audio_pause_button.svg" %}" class="tw-w-1/12 tw-h-auto">
+                        <img src="{% static "legacy_apps/_images/404.svg" %}" class="tw-w-1/12 tw-h-auto">
+                    </div>
+                </div>
+
+                <section>
+                    <h2 class="tw-h1-heading tw-mt-24 tw-group" id="buyersguide">
+                        <span>Buyer's Guide</span>
+                        <a href="#buyersguide" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                    </h2>
+
+                    <hr class="hr-emphasis">
+
+                    <p>The compnent will fill 100% of the parent width. Control the size through the parent.</p>
+                    <p>There is a variation for "large" use cases with more padding and the image does not overlap. However, the large variant does not change the component size itself.</p>
+
+                    <div>
+                        <h3>Normal variant</h3>
+
+                        <div class="tw-max-w-sm">
+                            {% include "fragments/buyersguide/call_to_action_box.html" with icon=page.emoji_image heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+                        </div>
+
+                        <div class="tw-my-16"></div>
+
+                        <div class="tw-max-w-sm">
+                            {% include "fragments/buyersguide/call_to_action_box.html" with heading="Without an icon should also work." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" %}
+                        </div>
+                    </div>
+
+                    <div class="tw-my-24"></div>
+
+                    <div>
+                        <h3>Large variant</h3>
+
+                        <div class="tw-max-w-xl">
+                            {% include "fragments/buyersguide/call_to_action_box.html" with icon=page.emoji_image heading="We all love the web. Join Mozilla in defending it." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com" large=True %}
+                        </div>
+
+                        <div class="tw-my-16"></div>
+
+                        <div class="tw-max-w-xl">
+                            {% include "fragments/buyersguide/call_to_action_box.html" with heading="Without an icon should also work." body="<p>We are proudly non-profit, non-corporate and non-compromised.</p>" link_text="Donate today" link_href="https://example.com"  large=True %}
+                        </div>
+                    </div>
+                </section>
+
+
+                {% if page.body|length != 0 %}
+                    <h2 class="tw-h1-heading tw-mt-24 tw-group" id="streamblock">
+                        <span>Streamblocks</span>
+                        <a href="#streamblock" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                    </h2>
+                    <hr class="hr-emphasis">
+                {% endif %}
+
+                <h2 class="tw-h2-heading tw-mt-24 tw-group" id="callout">
+                    <span class="tw-capitalize">Callout Block</span>
+                    <a href="#callout" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                </h2>
+
+                <div class="tw-mb-24">
+                    <div class="article-blockquote-block tw-py-8 tw-px-12 medium:tw-py-12 medium:tw-px-16 tw-text-lg tw-leading-normal tw-bg-gray-05 tw-w-full medium:tw-w-[calc(80%+60px)] tw-mx-auto tw-my-12 article-blockquote-block--small">
+                        <span>
+                            This is a callout block, used on Article pages.
+                        </span>
+                    </div>
+                </div>
+
+                {% for block in page.body %}
+                    <h2 class="tw-h2-heading tw-mt-24 tw-group" id="{{ block.block_type }}">
+                        <span class="tw-capitalize">{{ block.block_type }}</span>
+                        <a href="#{{ block.block_type }}" aria-label="Anchor" class="after:tw-hash tw-opacity-0 group-hover:tw-opacity-100 tw-text-gray-40"></a>
+                    </h2>
+                    <hr>
+                    {% if block.block_type == 'video' or block.block_type == 'image_text_mini' or block.block_type == 'image_text' or block.block_type == 'image' or block.block_type == 'datawrapper' %}
+                        <div class="cms blog-body">
+                            {% include_block block with parent_page=page %}
+                        </div>
+                    {% else %}
+                        <div class="cms">
+                            {% include_block block with parent_page=page %}
+                        </div>
+                    {% endif %}
+                    {% if block.block_type == 'datawrapper' %}
+                        <p>To learn more about the datawrapper component visit <a href="https://www.mozillafoundation.org/en/docs/how-do-i-wagtail/datawrapper/">here</a></p>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

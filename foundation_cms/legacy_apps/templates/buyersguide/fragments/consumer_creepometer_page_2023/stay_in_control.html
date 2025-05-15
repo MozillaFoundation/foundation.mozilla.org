@@ -1,0 +1,30 @@
+{% load static %}
+
+<div class="tw-container tw-relative {{ wrapper_class }}">
+  <div class="tw-absolute tw-left-1/2 -tw-translate-x-1/2 -tw-translate-y-[120px] tw-w-[120px] tw-h-[120px] medium:tw-w-[260px] medium:tw-h-[260px] large:tw-w-[305px] large:tw-h-[305px] tw-top-48 medium:-tw-top-48 medium:-tw-left-64 medium:tw-translate-x-0 medium:tw-translate-y-0">
+    <img width="100%" height="auto" alt="" src="{% static "legacy_apps/_images/buyers-guide/consumer-creepometer/face-6.svg" %}">
+    {% include "../consumer_creepometer_page_2023/animated-eyes.html" with eye_base_class="tw-w-[14%] tw-h-[14%]" left_eye_class="tw-top-[41%] tw-left-[37%]" right_eye_class="tw-top-[41%] tw-left-[56%]" %}
+  </div>
+  <div class="tw-row tw-px-8 tw-mt-28 medium:tw-mt-0">
+    <div class="tw-w-full tw-mx-auto tw-text-center">
+      <h2 class="{{ h1_class }} tw-font-normal medium:tw-font-semibold tw-mb-4">Stay in Control</h2>
+      <p class="{{ body_large_class }} tw-font-light tw-mb-20 tw-w-full tw-mx-auto">Consumers still have agency in the consumer tech space. Here’s what you can do:</p>
+    </div>
+  </div>
+  {% with item_class="tw-rounded-2xl tw-p-14 medium:tw-p-16 tw-flex tw-flex-col tw-justify-end tw-self-stretch tw-bg-purple-05 tw-bg-no-repeat tw-bg-origin-content" heading_class="tw-font-light medium:tw-font-normal tw-font-zilla tw-text-[28px] tw-leading-[32px] medium:tw-text-[48px] medium:tw-leading-[56px] tw-mb-8" description_class="tw-text-[18px] tw-leading-[27px] tw-mb-0" %}
+    <div class="tw-grid tw-grid-cols-1 large:tw-grid-cols-2 tw-gap-8">
+      <div class="{{ item_class }} large:tw-row-span-2 tw-bg-right-top large:tw-bg-left-top tw-bg-[64px_auto] large:tw-bg-[155px_auto] tw-bg-[url('../_images/buyers-guide/consumer-creepometer/shield.png')]">
+        <h4 class="{{ heading_class }} tw-w-3/4 small:tw-w-full tw-mt-4 small:tw-mt-12">Maximize Your Security</h4>
+        <p class="{{ description_class }} tw-mb-0">Consumers should enable every security feature that’s available to them. That means choosing unique, strong passwords, and always turning on two-factor authentication.</p>
+      </div>
+      <div class="{{ item_class }} tw-bg-right-top tw-bg-[76px_auto] large:tw-bg-[98px_auto] tw-bg-[url('../_images/buyers-guide/consumer-creepometer/opt-out.png')]">
+        <h4 class="{{ heading_class }} tw-mt-16 large:tw-mt-12">Opt Out</h4>
+        <p class="{{ description_class }} tw-mb-0">Many products automatically opt you into data collection and sharing. But if you poke around in the settings, you can often scale back what’s being collected and shared. You can also opt to disable features like Amazon Alexa, further minimizing data collection.</p>
+      </div>
+      <div class="{{ item_class }} tw-bg-right-top large:tw-bg-left-top tw-bg-[64px_auto] large:tw-bg-[98px_auto] tw-bg-[url('../_images/buyers-guide/consumer-creepometer/money.png')]">
+        <h4 class="{{ heading_class }} tw-w-3/4 small:tw-w-full large:tw-mt-64 tw-mt-4 small:tw-mt-12 ">Wield Your Pocketbook</h4>
+        <p class="{{ description_class }} tw-mb-0">If you’re not comfortable with a product’s privacy, don’t buy it. And, speak up. Over the years, we’ve seen companies respond to consumer demand for privacy, like when <a class="tw-underline tw-text-gray-80" href="https://www.mozillafoundation.org/blog/applause-for-apples-idfa-decision/" target="_blank">Apple</a> reformed app tracking and <a class="tw-underline tw-text-gray-80" href="https://www.mozillafoundation.org/blog/zoom-makes-right-call-encryption/" target="_blank">Zoom</a> made end-to-end encryption a free feature.</p>
+      </div>
+    </div>
+  {% endwith %}
+</div>
