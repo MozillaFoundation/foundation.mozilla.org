@@ -17,9 +17,16 @@ console.log("ESBuild running in production mode?", inProduction);
 const inDir = "../foundation_cms/static/js";
 const outDir = "../foundation_cms/static/compiled/_js";
 
+// JS entry points for ESBuild.
+// `source` paths are relative to `inDir`. Output preserves directory structure.
 const sources = {
   redesign_main: {
     source: "redesign_main.js",
+    jsx: false,
+    bundle: true,
+  },
+  home_page: {
+    source: "pages/home_page.js",
     jsx: false,
     bundle: true,
   },
@@ -39,10 +46,14 @@ const base = {
 
 async function runBuilds() {
   for (const [name, config] of Object.entries(sources)) {
+    const sourcePath = path.join(inDir, config.source);
+    const compiledFilename = config.source.replace(/\.js$/, ".compiled.js");
+    const outputPath = path.join(outDir, compiledFilename);
+
     const opts = {
       ...base,
-      entryPoints: [path.join(__dirname, inDir, config.source)],
-      outfile: path.join(__dirname, outDir, `${name}.compiled.js`),
+      entryPoints: [path.join(__dirname, sourcePath)],
+      outfile: path.join(__dirname, outputPath),
       bundle: config.bundle,
     };
 
@@ -52,11 +63,11 @@ async function runBuilds() {
 
     if (inProduction) {
       await build(opts);
-      console.log(`Built ${name}`);
+      console.log(`Built ${compiledFilename}`);
     } else {
       const ctx = await context(opts);
       await ctx.watch();
-      console.log(`Watching ${name}...`);
+      console.log(`Watching ${compiledFilename}...`);
     }
   }
 }
