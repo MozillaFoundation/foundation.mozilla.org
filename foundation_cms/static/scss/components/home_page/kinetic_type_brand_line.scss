@@ -1,0 +1,43 @@
+.kinetic-brand-line {
+  $line-height: 1.03;
+  --line-height-multiplier: #{$line-height};
+
+  $animation-duration-in-ms: 600;
+  --animation-duration-in-ms: #{$animation-duration-in-ms};
+
+  line-height: $line-height;
+  margin-bottom: 0;
+
+  &__full-text {
+    display: flex;
+    align-items: center;
+  }
+
+  &__phrase-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    height: calc(1em * var(--line-height-multiplier));
+    vertical-align: bottom;
+  }
+
+  &__phrase-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform var(--animation-duration-in-ms) ms ease-in-out;
+    will-change: transform;
+  }
+
+  &__phrase {
+    height: calc(1em * var(--line-height-multiplier));
+    line-height: calc(1em * var(--line-height-multiplier));
+    font-weight: bold;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__phrase-list {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+}

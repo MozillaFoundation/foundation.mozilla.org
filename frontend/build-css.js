@@ -7,8 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const entries = [
-  // Base names of .scss files located in inDir (exclude the .scss extension)
+  // List of base .scss file names located in `inDir` (omit the .scss extension)
   "redesign_main",
+  "pages/home_page",
 ];
 
 const inDir = "../foundation_cms/static/scss";
