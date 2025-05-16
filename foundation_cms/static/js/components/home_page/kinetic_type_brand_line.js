@@ -1,37 +1,61 @@
+/**
+ * CSS variable names used to control animation and layout behavior.
+ */
 const CSS_VARS = {
   lineHeightMultiplier: "--line-height-multiplier",
   animationDuration: "--animation-duration-in-ms",
 };
 
+/**
+ * Fallback values used if CSS variables are missing or invalid.
+ */
 const FALLBACKS = {
   lineHeight: 1,
   animationDurationMs: 1000,
   pauseDurationMs: 3000,
 };
 
+/**
+ * CSS selectors used to locate key DOM elements in the component.
+ */
 const SELECTORS = {
   phraseList: ".kinetic-brand-line__phrase-list",
   phraseWrapper: ".kinetic-brand-line__phrase-wrapper",
   root: ".kinetic-brand-line",
 };
 
+/**
+ * Safely retrieves a float value from a CSS variable.
+ * Logs a warning and returns a fallback if the variable is missing or invalid.
+ *
+ * @param {Element} element - The element to read the variable from.
+ * @param {string} varName - The CSS variable name (e.g., "--line-height-multiplier").
+ * @param {number} fallback - Fallback value if variable is not found or invalid.
+ * @returns {number}
+ */
 const getCssVarFloat = (element, varName, fallback) => {
   const value = parseFloat(getComputedStyle(element).getPropertyValue(varName));
   if (isNaN(value)) {
     console.warn(
-      `CSS variable ${varName} is missing or invalid. Using fallback: ${fallback}`,
+      `CSS variable ${varName} is missing or invalid. Using fallback: ${fallback}`
     );
     return fallback;
   }
   return value;
 };
 
+/**
+ * Initializes a single rolling phrase list component.
+ * Duplicates phrases for looping, applies transforms, and handles animation.
+ *
+ * @param {HTMLElement} phraseList - The element containing the list of phrases.
+ */
 export function initRollingPhrases(phraseList) {
   if (phraseList.dataset.initialized === "true") return;
   phraseList.dataset.initialized = "true";
 
   const phrases = Array.from(phraseList.children).filter(
-    (el) => el.nodeType === Node.ELEMENT_NODE,
+    (el) => el.nodeType === Node.ELEMENT_NODE
   );
   if (!phrases.length) return;
 
@@ -41,13 +65,13 @@ export function initRollingPhrases(phraseList) {
   const lineHeightMultiplier = getCssVarFloat(
     root,
     CSS_VARS.lineHeightMultiplier,
-    FALLBACKS.lineHeight,
+    FALLBACKS.lineHeight
   );
 
   const transitionDurationMs = getCssVarFloat(
     root,
     CSS_VARS.animationDuration,
-    FALLBACKS.animationDurationMs,
+    FALLBACKS.animationDurationMs
   );
 
   const pauseDurationMs = FALLBACKS.pauseDurationMs;
@@ -60,6 +84,12 @@ export function initRollingPhrases(phraseList) {
   const total = phrases.length;
   let index = 0;
 
+  /**
+   * Dynamically adjusts the wrapper width to match the current phrase.
+   * Prevents layout shifts by locking the width after measurement.
+   *
+   * @param {HTMLElement} phrase - The currently visible phrase.
+   */
   function updateWrapperWidth(phrase) {
     const phraseWrapper = phrase.closest(SELECTORS.phraseWrapper);
     if (!phraseWrapper) return;
@@ -78,6 +108,9 @@ export function initRollingPhrases(phraseList) {
     });
   }
 
+  /**
+   * Core animation loop that scrolls through phrases and triggers width updates.
+   */
   function rollLoop() {
     index += 1;
 
@@ -100,11 +133,15 @@ export function initRollingPhrases(phraseList) {
     }, transitionDurationMs + 100);
   }
 
+  // Respect user motion preferences
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     setTimeout(rollLoop, pauseDurationMs);
   }
 }
 
+/**
+ * Initializes all rolling phrase components on the page.
+ */
 export function initAllRollingPhrases() {
   document
     .querySelectorAll(`${SELECTORS.root} ${SELECTORS.phraseList}`)
