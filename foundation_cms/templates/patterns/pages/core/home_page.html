@@ -18,7 +18,7 @@
             <ul>
               {% for tag in page.tags.all %}
                 <li>
-                  <a href="{% url 'core:listing_page' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
+                  <a href="{% url 'listing_page' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
                 </li>
               {% endfor %}
             </ul>
