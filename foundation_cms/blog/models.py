@@ -55,3 +55,4 @@ class BlogPage(Page):
 
     class Meta:
         verbose_name = "Blog Page (new)"
+        

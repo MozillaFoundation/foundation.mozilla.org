@@ -41,7 +41,11 @@ class PageTag(TagBase):
 
 
 class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
-    tags = ClusterTaggableManager(through='base.TaggedPage', blank=True)
+    tags = ClusterTaggableManager(
+        through='base.TaggedPage',
+        blank=True,
+        verbose_name="Tags"
+    )
     author = models.ForeignKey(
         "base.Author",
         null=True,

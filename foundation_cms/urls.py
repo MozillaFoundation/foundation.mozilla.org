@@ -22,6 +22,7 @@ from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
 )
 from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
 from foundation_cms.search import views as search_views
+from foundation_cms.core import views as core_views
 
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -137,6 +138,7 @@ urlpatterns = list(
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
     path("search/", search_views.search, name="search"),
+    path("listing_page/", core_views.listing_page, name="listing_page"),
     path("search/autocomplete/", search_views.search_autocomplete, name="search_autocomplete"),
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
