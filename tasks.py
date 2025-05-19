@@ -393,6 +393,7 @@ def format(ctx):
     format_css(ctx)
     format_js(ctx)
     format_python(ctx)
+    djlint_check(ctx)
 
 
 @task
