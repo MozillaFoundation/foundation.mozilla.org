@@ -1,6 +1,3 @@
-from django.db import models
-from wagtail.admin.panels import FieldPanel
-
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 
 
@@ -10,7 +7,7 @@ class ArticleProductReview(AbstractArticlePage):
         # Placeholder for ArticleAdviceColumn blocks
     ]
 
-    parent_page_types = ['core.HomePage']
+    parent_page_types = ["core.HomePage"]
     subpage_types: list[str] = []
 
     class Meta:

@@ -1,12 +1,12 @@
 from django.db import models
-from modelcluster.fields import ParentalManyToManyField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
-from taggit.models import TagBase, ItemBase
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
+
 from foundation_cms.base.mixins.theme_mixin import ThemedPageMixin
 
 
@@ -41,7 +41,7 @@ class PageTag(TagBase):
 
 
 class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
-    tags = ClusterTaggableManager(through='base.TaggedPage', blank=True)
+    tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
     author = models.ForeignKey(
         "base.Author",
         null=True,
@@ -65,11 +65,5 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
 
 
 class TaggedPage(ItemBase):
-    tag = models.ForeignKey(
-        PageTag, related_name="tagged_pages", on_delete=models.CASCADE
-    )
-    content_object = ParentalKey(
-        to='wagtailcore.Page',
-        on_delete=models.CASCADE,
-        related_name='base_tagged_items'
-    )
+    tag = models.ForeignKey(PageTag, related_name="tagged_pages", on_delete=models.CASCADE)
+    content_object = ParentalKey(to="wagtailcore.Page", on_delete=models.CASCADE, related_name="base_tagged_items")
