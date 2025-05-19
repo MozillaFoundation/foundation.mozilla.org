@@ -2,20 +2,20 @@
 {% load static %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block body_class %}template-homepage{% endblock body_class %}
 
 {% block extra_css %}{% endblock extra_css %}
 
 {% block content %}
 
   <!-- Full Bleed Hero -->
-  <section class="wireframe-box" style="min-height: 300px;">
+  <section class="wireframe-box">
     <div class="grid-container">
       <div class="grid-x grid-padding-x align-middle">
         <div class="cell large-12">
           <p>Full Bleed Hero</p>
           <h1>{{ page.hero_headline }}</h1>
-          <img src="{{ page.hero_image.file.url }}" width="300" height="300">
+          <img alt="hero image" src="{{ page.hero_image.file.url }}" width="300" height="300">
           <h2>{{ page.hero_intro_heading }}</h2>
           <p>{{ page.hero_intro_body }}</p>
         </div>
@@ -36,7 +36,7 @@
           <p>Content content content content content content content content content content content content content.</p>
           <ul>
             {% for blog in blogs %}
-              <li style="margin-left: 30px; margin-top: 10px;"><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+              <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
