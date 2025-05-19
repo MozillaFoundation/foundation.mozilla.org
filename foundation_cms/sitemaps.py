@@ -26,6 +26,6 @@ def sitemap(request, **kwargs):
 def sitemap_index(request):
     context = {}
     context["languages"] = [lang[0] for lang in settings.LANGUAGES]
-    context["domain"] = "https://foundation.mozilla.org"
+    context["domain"] = "https://www.mozillafoundation.org"
 
     return render(request, "sitemap-index.xml", context, content_type="text/xml")

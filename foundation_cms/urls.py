@@ -45,7 +45,7 @@ def get_robots_content():
     """
     Do not allow indexing of any content, except on the live site.
     """
-    if settings.ASSET_DOMAIN != "foundation.mozilla.org":
+    if settings.ASSET_DOMAIN != "www.mozillafoundation.org":
         return """
 User-Agent: *
 Disallow: /
