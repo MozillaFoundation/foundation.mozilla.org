@@ -51,6 +51,7 @@ services:
       - ./translation-management.sh:/app/translation-management.sh
 
       # Frontend config for legacy site
+      - ./frontend:/app/frontend
       - ./eslint.config.a11y.js:/app/eslint.config.a11y.js
       - ./eslint.config.js:/app/eslint.config.js
       - ./.editorconfig:/app/.editorconfig

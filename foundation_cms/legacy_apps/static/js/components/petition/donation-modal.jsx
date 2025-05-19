@@ -10,7 +10,7 @@ import classNames from "classnames";
  *
  * Supported plain props:
  *
- *   - slug, the petition slug on foundation.mozilla.org
+ *   - slug, the petition slug on www.mozillafoundation.org
  *   - campaignId, the petition's salesforce campaign ID.
  *   - name, the donate modal id
  *   - heading, the modal header

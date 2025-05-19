@@ -6,6 +6,7 @@ from django.core.cache import cache
 from django.db import models
 from django.http import JsonResponse
 from django.template import loader
+from django.utils.timezone import now
 from taggit.models import Tag
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -84,7 +85,7 @@ class IndexPage(RoutablePageMixin, BasePage):
         return context
 
     def get_cache_key(self, locale):
-        return f"index_items_{self.slug}_{locale}"
+        return f"index_items_{self.slug}_{locale.language_code}"
 
     def clear_index_page_cache(self, locale):
         cache.delete(self.get_cache_key(locale))
@@ -93,12 +94,27 @@ class IndexPage(RoutablePageMixin, BasePage):
         """
         Get all (live) child entries, ordered "newest first",
         ideally from cache, or "anew" if the cache expired.
+
+        NOTE:
+        Cache is cleared when a child page’s view restrictions change (see `wagtail_hooks.py`)
+        to prevent stale entries (e.g., pages that should be hidden or newly visible).
+
+        See https://mozilla-hub.atlassian.net/browse/TP1-128 for more details.
         """
         cache_key = self.get_cache_key(locale)
         child_set = cache.get(cache_key)
 
         if child_set is None:
-            child_set = self.get_children().live().public().order_by("-first_published_at", "title")
+            # Grab all child pages
+            base_qs = self.get_children().live().public().order_by("-first_published_at", "title")
+
+            # Determine IDs of pages scheduled in the future
+            now_time = now()
+            scheduled_ids = [page.pk for page in base_qs if page.go_live_at and page.go_live_at > now_time]
+
+            # Exclude scheduled pages from original queryset
+            child_set = base_qs.exclude(pk__in=scheduled_ids)
+
             cache.set(cache_key, child_set, settings.INDEX_PAGE_CACHE_TIMEOUT)
 
         return child_set

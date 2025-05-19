@@ -1,3 +1,8 @@
+# Ensure wheel is available in virtualenv
+# Required to avoid "invalid command 'bdist_wheel'" when pip-sync builds packages like psutil or django-admin-sortable.
+# Safe to include — has no effect on runtime and helps Docker builds work reliably.
+wheel
+
 -c requirements.txt
 black
 django-debug-toolbar

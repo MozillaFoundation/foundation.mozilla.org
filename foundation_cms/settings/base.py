@@ -67,8 +67,10 @@ env = environ.Env(
     SENTRY_ENVIRONMENT=(str, None),
     SET_HSTS=bool,
     SLACK_WEBHOOK_RA=(str, ""),
-    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=(str, None),
-    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=(str, None),
+    SOCIAL_AUTH_AUTH0_DOMAIN=(str, None),
+    SOCIAL_AUTH_AUTH0_KEY=(str, None),
+    SOCIAL_AUTH_AUTH0_SECRET=(str, None),
+    SOCIAL_AUTH_RAISE_EXCEPTIONS=(bool, False),
     SSL_REDIRECT=bool,
     STATIC_HOST=(str, ""),
     TARGET_DOMAINS=(list, []),
@@ -172,10 +174,12 @@ if HEROKU_APP_NAME:
 
 SITE_ID = 1
 
+SOCIAL_AUTH_AUTH0_DOMAIN = env("SOCIAL_AUTH_AUTH0_DOMAIN")
+SOCIAL_AUTH_AUTH0_KEY = env("SOCIAL_AUTH_AUTH0_KEY")
+SOCIAL_AUTH_AUTH0_SECRET = env("SOCIAL_AUTH_AUTH0_SECRET")
+
 # Use social authentication if there are key/secret values defined
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
-SOCIAL_SIGNIN = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY is not None and SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET is not None
+SOCIAL_SIGNIN = SOCIAL_AUTH_AUTH0_KEY is not None and SOCIAL_AUTH_AUTH0_SECRET is not None
 
 USE_S3 = env("USE_S3")
 
@@ -209,6 +213,7 @@ INSTALLED_APPS = list(
             "django.contrib.redirects",
             "django.contrib.sitemaps",
             "django.contrib.humanize",
+            "foundation_cms.legacy_apps.wagtailcustomization",
             "wagtailmetadata",
             "wagtail.embeds",
             "wagtail.sites",
@@ -251,7 +256,6 @@ INSTALLED_APPS = list(
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             # Legacy Site Apps
             "foundation_cms.legacy_apps.s3_file_storage" if USE_S3 else None,
-            "foundation_cms.legacy_apps.wagtailcustomization",
             "foundation_cms.legacy_apps.campaign",
             "foundation_cms.legacy_apps.events",
             "foundation_cms.legacy_apps.news",
@@ -313,8 +317,12 @@ MIDDLEWARE = list(
 if SOCIAL_SIGNIN:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = env("SOCIAL_AUTH_LOGIN_REDIRECT_URL", None)
 
+    SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
+
+    SOCIAL_AUTH_RAISE_EXCEPTIONS = env("SOCIAL_AUTH_RAISE_EXCEPTIONS")
+
     AUTHENTICATION_BACKENDS = [
-        "social_core.backends.google.GoogleOAuth2",
+        "social_core.backends.auth0.Auth0OAuth2",
         "django.contrib.auth.backends.ModelBackend",
     ]
 
@@ -324,6 +332,7 @@ if SOCIAL_SIGNIN:
         "social_core.pipeline.social_auth.social_uid",
         "social_core.pipeline.social_auth.auth_allowed",
         "social_core.pipeline.social_auth.social_user",
+        "foundation_cms.pipeline.associate_by_email",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
         "social_core.pipeline.social_auth.associate_user",
@@ -489,7 +498,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, "locale"),
+    os.path.join(BASE_DIR, "legacy_apps/locale"),
     os.path.join(BASE_DIR, "legacy_apps/templates/pages/buyersguide/about/locale"),
     os.path.join(BASE_DIR, "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale"),
     os.path.join(
