@@ -1,8 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
-
-{% include "patterns/components/listing_header.html" with items=pages active_tag=active_tag %}
-
+    {% include "patterns/components/listing_header.html" with items=pages active_tag=active_tag %}
 {% endblock %}
-
