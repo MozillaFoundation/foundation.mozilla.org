@@ -37,6 +37,7 @@ class HomePage(AbstractHomePage):
         FieldPanel("hero_image"),
         FieldPanel("hero_intro_heading"),
         FieldPanel("hero_intro_body"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [

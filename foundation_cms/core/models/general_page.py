@@ -41,6 +41,7 @@ class GeneralPage(AbstractGeneralPage):
         FieldPanel("header"),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [

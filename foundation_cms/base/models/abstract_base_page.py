@@ -8,6 +8,8 @@ from taggit.models import TagBase, ItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from foundation_cms.base.mixins.theme_mixin import ThemedPageMixin
+from wagtail.fields import StreamField
+from wagtail.blocks import RichTextBlock
 
 
 @register_snippet
@@ -41,6 +43,10 @@ class PageTag(TagBase):
 
 
 class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
+    body = StreamField([
+        ('rich_text', RichTextBlock()),
+    ], use_json_field=True, blank=True)
+        
     tags = ClusterTaggableManager(through='base.TaggedPage', blank=True)
     author = models.ForeignKey(
         "base.Author",
