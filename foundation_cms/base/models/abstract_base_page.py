@@ -1,15 +1,15 @@
 from django.db import models
-from modelcluster.fields import ParentalManyToManyField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.blocks import RichTextBlock
+from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
-from taggit.models import TagBase, ItemBase
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
+
 from foundation_cms.base.mixins.theme_mixin import ThemedPageMixin
-from wagtail.fields import StreamField
-from wagtail.blocks import RichTextBlock
 
 
 @register_snippet
@@ -43,11 +43,15 @@ class PageTag(TagBase):
 
 
 class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
-    body = StreamField([
-        ('rich_text', RichTextBlock()),
-    ], use_json_field=True, blank=True)
-        
-    tags = ClusterTaggableManager(through='base.TaggedPage', blank=True)
+    body = StreamField(
+        [
+            ("rich_text", RichTextBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
     author = models.ForeignKey(
         "base.Author",
         null=True,
@@ -71,11 +75,5 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
 
 
 class TaggedPage(ItemBase):
-    tag = models.ForeignKey(
-        PageTag, related_name="tagged_pages", on_delete=models.CASCADE
-    )
-    content_object = ParentalKey(
-        to='wagtailcore.Page',
-        on_delete=models.CASCADE,
-        related_name='base_tagged_items'
-    )
+    tag = models.ForeignKey(PageTag, related_name="tagged_pages", on_delete=models.CASCADE)
+    content_object = ParentalKey(to="wagtailcore.Page", on_delete=models.CASCADE, related_name="base_tagged_items")
