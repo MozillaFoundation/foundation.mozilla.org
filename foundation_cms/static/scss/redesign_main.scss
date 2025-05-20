@@ -5,6 +5,8 @@
 
 @include foundation-everything;
 
+@include foundation-prototype-classes;
+
 /* Base font styles */
 body {
   font-family: 'Mozilla Text', sans-serif;
@@ -20,6 +22,10 @@ h5,
 h6 {
   font-family: 'Mozilla Headline', sans-serif;
   color: #000;
+}
+
+.font-headline {
+  font-family: 'Mozilla Headline', sans-serif !important;
 }
 
 .wireframe-box {

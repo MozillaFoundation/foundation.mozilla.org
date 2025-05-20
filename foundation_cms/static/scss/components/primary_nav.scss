@@ -1,4 +1,16 @@
 .primary-nav {
-    background: #e0e0e0;
-    padding: 10px 0;
+  .logo-small {
+    font-weight: bolder;
+  }
+  .menu {
+    li {
+      a {
+        color: black;
+      }
+    }
+  }
+  .donate-button {
+    color: black !important;
+    border-color: black !important;
+  }
 }
