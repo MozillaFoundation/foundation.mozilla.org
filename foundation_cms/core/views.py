@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from wagtail.pages import Locale, Page
+from wagtail.models import Page, Locale
+
 
 def listing_page(request):
     # Get the tag from the query parameters
     tag = request.GET.get('tag')
-    
+
     # Get the current locale
     locale = Locale.get_active()
 
