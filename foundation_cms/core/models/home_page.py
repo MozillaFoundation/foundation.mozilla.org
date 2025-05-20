@@ -47,6 +47,15 @@ class HomePage(AbstractHomePage):
 
     template = "patterns/pages/core/home_page.html"
 
+    subpage_types = [
+        "GeneralPage",
+        "articles.ArticleAdviceColumn",
+        "articles.ArticleCollectionPage",
+        "articles.ArticleEditorialFeature",
+        "articles.ArticleProductReview",
+
+    ]
+
     class Meta:
         verbose_name = "Home Page (new)"
 
