@@ -1,22 +1,24 @@
 from django.shortcuts import render
-from foundation_cms.base.models import AbstractArticlePage
-
+from wagtail.pages import Locale, Page
 
 def listing_page(request):
     # Get the tag from the query parameters
     tag = request.GET.get('tag')
+    
+    # Get the current locale
+    locale = Locale.get_active()
 
-    # Get all pages
-    pages = AbstractArticlePage.objects.live().public()
+    # Get all pages for the current locale
+    pages = Page.objects.live().public().filter(locale=locale)
 
     # Filter by tag if provided
     if tag:
-        articles = pages.filter(base_tagged_items__tag__slug=tag)
+        pages = pages.filter(base_tagged_items__tag__slug=tag)
     else:
-        articles = pages.all()
+        pages = pages.all()
 
     context = {
-        'articles': articles,
+        'pages': pages,
         'active_tag': tag if tag else 'Latest Posts'
     }
 
