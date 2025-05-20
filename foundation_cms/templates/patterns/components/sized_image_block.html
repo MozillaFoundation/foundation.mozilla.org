@@ -1,0 +1,29 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+<div class="sized-image-blocks">
+  {% for block in images %}
+    {% if block.block_type == 'sized_image' %}
+      <div class="sized-image-block sized-image-block--{{ block.value.size }}">
+        
+        <div class="">
+          {% if block.value.size == 'potrait' %}
+            {% image block.value.image original as img %}
+            <img src="{{ img.url }}" alt="{{ block.value.title }}" class="" width="200" height="auto">
+          {% elif block.value.size == 'landscape' %}
+            {% image block.value.image original as img %}
+            <img src="{{ img.url }}" alt="{{ block.value.title }}" class="" width="400" height="auto">
+          {% elif block.value.size == 'mixed' %}
+            {% image block.value.image original as img %}
+            <img src="{{ img.url }}" alt="{{ block.value.title }}" class="" width="600" height="auto">
+          {% elif block.value.size == 'double' %}
+            {% image block.value.image original as img %}
+            <img src="{{ img.url }}" alt="{{ block.value.title }}" class="" width="1200" height="auto">
+          {% endif %}
+        </div>
+        {% if block.value.title %}
+          <p class="sized-image-block__title">{{ block.value.title }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div> 

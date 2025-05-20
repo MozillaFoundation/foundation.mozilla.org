@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="general-page">
+
+    <div class="general-page__body">
+        <div class="container">
+            {% if page.sized_images %}
+                {% include "patterns/components/sized_image_block.html" with images=page.sized_images %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
