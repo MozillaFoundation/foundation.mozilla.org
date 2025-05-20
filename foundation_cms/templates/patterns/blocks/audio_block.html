@@ -1,0 +1,15 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+
+    <div class="player-and-caption tw-my-8">
+            <h3> AUDIO PLAYER </h3>
+            <p>Current Theme: {{ theme }}</p>
+            <p>Audio URL: {{ self.audio.url }}</p>
+            <p>Audio Title: {{ self.title }}</p>
+            <p>Audio Description: {{ self.description }}</p>
+            <p>Audio Image: {{ self.image }}</p>
+            <p>Audio Image Alt Text: {{ self.image_alt_text }}</p>
+    </div>
+{% endblock %}
+    
