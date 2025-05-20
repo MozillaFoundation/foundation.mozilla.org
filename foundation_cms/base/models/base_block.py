@@ -1,4 +1,6 @@
 from wagtail import blocks
+from django.template.loader import get_template
+from django.template import TemplateDoesNotExist
 
 
 class BaseBlock(blocks.StructBlock):
@@ -10,7 +12,16 @@ class BaseBlock(blocks.StructBlock):
 
     def get_template(self, context=None):
         theme = self.get_theme(context or {})
-        return f"patterns/blocks/{theme}/{self.meta.template_name}"
+        template_name = self.meta.template_name
+        themed_path = f"patterns/blocks/{theme}/{template_name}"
+
+        # Check if the themed template exists.
+        try:
+            get_template(themed_path)
+            return themed_path
+        # If not, return the default template.
+        except TemplateDoesNotExist:
+            return f"patterns/blocks/{template_name}"
 
     class Meta:
         abstract = True
