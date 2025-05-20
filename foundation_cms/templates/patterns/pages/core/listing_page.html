@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    {% include "patterns/components/listing_header.html" with items=pages active_tag=active_tag %}
+    <div class="listing-links">
+        {% for page in pages %}
+            <p>
+                <a href="{{ page.url }}">{{ page.title }}</a>
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

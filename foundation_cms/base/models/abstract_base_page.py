@@ -1,6 +1,10 @@
 from django.db import models
-from modelcluster.fields import ParentalManyToManyField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.blocks import RichTextBlock
+from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
@@ -86,11 +90,5 @@ class AbstractBasePage(MetadataPageMixin, Page):
 
 
 class TaggedPage(ItemBase):
-    tag = models.ForeignKey(
-        PageTag, related_name="tagged_pages", on_delete=models.CASCADE
-    )
-    content_object = ParentalKey(
-        to='wagtailcore.Page',
-        on_delete=models.CASCADE,
-        related_name='base_tagged_items'
-    )
+    tag = models.ForeignKey(PageTag, related_name="tagged_pages", on_delete=models.CASCADE)
+    content_object = ParentalKey(to="wagtailcore.Page", on_delete=models.CASCADE, related_name="base_tagged_items")
