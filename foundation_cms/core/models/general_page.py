@@ -36,11 +36,12 @@ class GeneralPage(AbstractGeneralPage):
     )
 
     content_panels = AbstractGeneralPage.content_panels + [
-        FieldPanel('hero_headline'),
-        FieldPanel('hero_image'),
+        FieldPanel("hero_headline"),
+        FieldPanel("hero_image"),
         FieldPanel("header"),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [

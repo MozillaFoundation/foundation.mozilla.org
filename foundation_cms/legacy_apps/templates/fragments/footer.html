@@ -24,7 +24,7 @@
                                  data-cta-privacy-notice=""
                             >
                             </div>
-                            <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://foundation.mozilla.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "legacy_apps/_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
+                            <a class="logo tw-block tw-my-24 medium:tw-my-0" href="https://www.mozillafoundation.org" aria-label="{% trans 'Return to Homepage' %}"><img src="{% static "legacy_apps/_images/mozilla-block-white.svg" %}" alt="{% trans 'Mozilla Foundation' %}" width="96"></a>
                         </div>
                     {% endblock %}
 
@@ -53,7 +53,7 @@
                                                 <li class="tw-mb-4"><a href="https://www.mozilla.org/privacy/websites/#cookies" class="{{ footer_link_classes }}">{% trans "Cookies" %}</a></li>
                                                 <li class="tw-mb-4"><a href="https://www.mozilla.org/about/legal/terms/mozilla/" class="{{ footer_link_classes }}">{% trans "Legal" %}</a></li>
                                                 <li class="tw-mb-4"><a href="https://www.mozilla.org/about/governance/policies/participation/" class="{{ footer_link_classes }}">{% trans "Participation Guidelines" %}</a></li>
-                                                <li class="tw-mb-4"><a href="https://foundation.mozilla.org/en/press-center/" class="{{ footer_link_classes }}">{% trans "Press Center" %}</a></li>
+                                                <li class="tw-mb-4"><a href="https://www.mozillafoundation.org/en/press-center/" class="{{ footer_link_classes }}">{% trans "Press Center" %}</a></li>
                                                 <li ><a href="https://mozilla.org/privacy/websites/" class="{{ footer_link_classes }}">{% trans "Privacy" %}</a></li>
                                             {% endwith %}
                                         {% endblock %}
@@ -63,7 +63,7 @@
                             <div class='tw-mt-12'>
                                 <p class="tw-h5-heading tw-mt-12 tw-mb-0">{% trans "This website supports Web Monetization." %}</p>
                                 <p class="tw-body tw-mb-0">
-                                    {% blocktrans with url="https://foundation.mozilla.org/campaigns/web-monetization/" trimmed %}
+                                    {% blocktrans with url="https://www.mozillafoundation.org/campaigns/web-monetization/" trimmed %}
                                         <a href="{{ url }}">Read more</a> about our implementation
                                     {% endblocktrans %}
                                 </p>
@@ -81,7 +81,7 @@
                                 <div class="tw-w-full tw-px-8">
                                     <hr class="tw-mt-24 tw-mb-8">
                                     <p class="tw-dark tw-body-small tw-mb-0">
-                                        {% blocktrans with foundation_website_url='https://foundation.mozilla.org' foundation_website='foundation.mozilla.org' cc_website_url='https://foundation.mozilla.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{ foundation_website_url }}">{{ foundation_website }}</a>. Most content available under a <a href="{{ cc_website_url }}">Creative Commons license</a>.{% endblocktrans %}
+                                        {% blocktrans with foundation_website_url='https://www.mozillafoundation.org' foundation_website='mozillafoundation.org' cc_website_url='https://www.mozillafoundation.org/about/website-licensing/' %}Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good. Visit us at <a href="{{ foundation_website_url }}">{{ foundation_website }}</a>. Most content available under a <a href="{{ cc_website_url }}">Creative Commons license</a>.{% endblocktrans %}
                                     </p>
                                 </div>
                             </div>
