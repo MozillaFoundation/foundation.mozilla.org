@@ -48,6 +48,13 @@ class AbstractBasePage(MetadataPageMixin, Page):
         choices=[("default", "Default"), ("magazine", "Magazine")],
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
+    body = StreamField(
+        [
+            ("rich_text", RichTextBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
     tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
     author = models.ForeignKey(
         "base.Author",
