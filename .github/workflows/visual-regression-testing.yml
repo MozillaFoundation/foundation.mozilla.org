@@ -53,6 +53,8 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
+      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
