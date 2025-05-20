@@ -24,3 +24,7 @@ def listing_page(request):
     }
 
     return render(request, "patterns/pages/core/listing_page.html", context)
+
+def general_page(request):
+    
+    return render(request, "patterns/pages/core/general_page.html")

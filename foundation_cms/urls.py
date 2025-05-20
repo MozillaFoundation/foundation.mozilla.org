@@ -139,6 +139,7 @@ urlpatterns = list(
 urlpatterns += i18n_patterns(
     path("search/", search_views.search, name="search"),
     path("listing_page/", core_views.listing_page, name="listing_page"),
+    path("general_page/", core_views.general_page, name="general_page"),
     path("search/autocomplete/", search_views.search_autocomplete, name="search_autocomplete"),
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),

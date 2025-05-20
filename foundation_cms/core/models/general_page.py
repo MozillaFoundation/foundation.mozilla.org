@@ -6,6 +6,9 @@ from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 
 
 class GeneralPage(AbstractGeneralPage):
+    # Specify the correct template path
+    template = "patterns/pages/core/general_page.html"
+    
     hero_headline = models.CharField(
         max_length=120,
         help_text="Hero story headline",
