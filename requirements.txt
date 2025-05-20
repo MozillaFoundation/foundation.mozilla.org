@@ -97,7 +97,7 @@ django-querystring-tag==1.0.3
     # via -r requirements.in
 django-redis==5.4.0
     # via -r requirements.in
-django-storages==1.14.5
+django-storages==1.14.6
     # via -r requirements.in
 django-taggit==6.1.0
     # via wagtail
