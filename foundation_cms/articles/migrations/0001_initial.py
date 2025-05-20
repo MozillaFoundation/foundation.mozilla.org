@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import foundation_cms.base.mixins.theme_mixin
 import modelcluster.contrib.taggit
 import wagtail.fields
 import wagtailmetadata.models
@@ -76,7 +75,6 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                foundation_cms.base.mixins.theme_mixin.ThemedPageMixin,
                 "wagtailcore.page",
                 models.Model,
             ),
@@ -138,7 +136,6 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                foundation_cms.base.mixins.theme_mixin.ThemedPageMixin,
                 "wagtailcore.page",
                 models.Model,
             ),
@@ -200,7 +197,6 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                foundation_cms.base.mixins.theme_mixin.ThemedPageMixin,
                 "wagtailcore.page",
                 models.Model,
             ),
@@ -262,7 +258,6 @@ class Migration(migrations.Migration):
             },
             bases=(
                 wagtailmetadata.models.WagtailImageMetadataMixin,
-                foundation_cms.base.mixins.theme_mixin.ThemedPageMixin,
                 "wagtailcore.page",
                 models.Model,
             ),
