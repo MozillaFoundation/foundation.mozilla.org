@@ -10,7 +10,7 @@ from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
 from foundation_cms.base.mixins.theme_mixin import ThemedPageMixin
-
+from foundation_cms.blocks import TabbedContentContainerBlock
 
 @register_snippet
 class Author(models.Model):
@@ -46,6 +46,7 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock()),
+            ('tabbed_content', TabbedContentContainerBlock())
         ],
         use_json_field=True,
         blank=True,
