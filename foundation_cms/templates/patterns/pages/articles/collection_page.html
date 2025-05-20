@@ -1,24 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
-
 {% block body_class %}template-article-collection-page{% endblock %}
-
-{% block extra_css %}{% endblock extra_css %}
-
+{% block extra_css %}
+{% endblock extra_css %}
 {% block content %}
-  <!-- Main Content -->
-  <main>
-    <div> 
-    <h1> Collection Page Title: {{ page.title }} </h1> 
-    </div>
-
-    <div>
-        <h2> Page Body: </h2>
-        {% for block in page.body %}
-            {% include_block block with parent_page=page %}
-        {% endfor %}
-    </div>
-  </main>
-
+    <!-- Main Content -->
+    <main>
+        <div>
+            <h1>Collection Page Title: {{ page.title }}</h1>
+        </div>
+        <div>
+            <h2>Page Body:</h2>
+            {% for block in page.body %}
+                {% include_block block with parent_page=page %}
+            {% endfor %}
+        </div>
+    </main>
 {% endblock content %}

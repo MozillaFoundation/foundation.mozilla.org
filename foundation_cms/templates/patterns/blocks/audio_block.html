@@ -1,8 +1,7 @@
 {% load wagtailcore_tags %}
-
 {% block block_content %}
     <div>
-        <h3> Audio Block </h3>
+        <h3>Audio Block</h3>
         <p>Audio URL: {{ self.audio.url }}</p>
         <p>Audio Title: {{ self.title }}</p>
         <p>Audio Description: {{ self.description }}</p>
@@ -10,4 +9,3 @@
         <p>Audio Image Alt Text: {{ self.image_alt_text }}</p>
     </div>
 {% endblock %}
-    
