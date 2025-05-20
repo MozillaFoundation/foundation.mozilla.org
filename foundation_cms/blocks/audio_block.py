@@ -1,7 +1,8 @@
 from wagtail import blocks
-from wagtailmedia.blocks import AudioChooserBlock
-from foundation_cms.base.models.base_block import BaseBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtailmedia.blocks import AudioChooserBlock
+
+from foundation_cms.base.models.base_block import BaseBlock
 
 
 class AudioBlock(BaseBlock):

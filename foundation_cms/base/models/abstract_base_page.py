@@ -8,9 +8,6 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
-from taggit.models import TagBase, ItemBase
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
 
 
 @register_snippet
@@ -51,7 +48,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
         choices=[("default", "Default"), ("magazine", "Magazine")],
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
-    tags = ClusterTaggableManager(through='base.TaggedPage', blank=True)
+    tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
     author = models.ForeignKey(
         "base.Author",
         null=True,

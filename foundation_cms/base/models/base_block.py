@@ -1,6 +1,6 @@
-from wagtail import blocks
-from django.template.loader import get_template
 from django.template import TemplateDoesNotExist
+from django.template.loader import get_template
+from wagtail import blocks
 
 
 class BaseBlock(blocks.StructBlock):
