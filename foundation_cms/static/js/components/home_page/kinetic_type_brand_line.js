@@ -37,7 +37,7 @@ const getCssVarFloat = (element, varName, fallback) => {
   const value = parseFloat(getComputedStyle(element).getPropertyValue(varName));
   if (isNaN(value)) {
     console.warn(
-      `CSS variable ${varName} is missing or invalid. Using fallback: ${fallback}`
+      `CSS variable ${varName} is missing or invalid. Using fallback: ${fallback}`,
     );
     return fallback;
   }
@@ -73,20 +73,20 @@ export class KineticTypeBrandLine {
     this.phraseList.dataset.initialized = "true";
 
     this.phrases = Array.from(this.phraseList.children).filter(
-      (el) => el.nodeType === Node.ELEMENT_NODE
+      (el) => el.nodeType === Node.ELEMENT_NODE,
     );
     if (!this.phrases.length) return;
 
     this.lineHeightMultiplier = getCssVarFloat(
       this.root,
       CSS_VARS.lineHeightMultiplier,
-      FALLBACKS.lineHeight
+      FALLBACKS.lineHeight,
     );
 
     this.transitionDurationMs = getCssVarFloat(
       this.root,
       CSS_VARS.animationDuration,
-      FALLBACKS.animationDurationMs
+      FALLBACKS.animationDurationMs,
     );
 
     this.pauseDurationMs = FALLBACKS.pauseDurationMs;
