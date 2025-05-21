@@ -9,8 +9,6 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.base.mixins.theme_mixin import ThemedPageMixin
-
 
 @register_snippet
 class Author(models.Model):
@@ -42,7 +40,14 @@ class PageTag(TagBase):
         verbose_name_plural = "Page Tags (new)"
 
 
-class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
+class AbstractBasePage(MetadataPageMixin, Page):
+    theme = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        choices=[("default", "Default"), ("magazine", "Magazine")],
+        help_text="Optional. If unset, theme will be inherited from section root.",
+    )
     body = StreamField(
         [
             ("rich_text", RichTextBlock()),
@@ -50,7 +55,6 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
         use_json_field=True,
         blank=True,
     )
-
     tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
     author = models.ForeignKey(
         "base.Author",
@@ -70,8 +74,23 @@ class AbstractBasePage(MetadataPageMixin, ThemedPageMixin, Page):
         )
     ]
 
+    settings_panels = Page.settings_panels + [
+        FieldPanel("theme"),
+    ]
+
     class Meta:
         abstract = True
+
+    def get_theme(self):
+        if self.theme:
+            return self.theme
+
+        # Traverse ancestors to find a page with an explicitly set theme
+        for ancestor in reversed(self.get_ancestors(inclusive=False).live()):
+            if hasattr(ancestor, "theme") and ancestor.theme:
+                return ancestor.theme
+
+        return "default"
 
 
 class TaggedPage(ItemBase):
