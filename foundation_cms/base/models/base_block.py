@@ -13,7 +13,7 @@ class BaseBlock(blocks.StructBlock):
     def get_template(self, context=None):
         theme = self.get_theme(context or {})
         template_name = self.meta.template_name
-        themed_path = f"patterns/blocks/{theme}/{template_name}"
+        themed_path = f"patterns/blocks/themes/{theme}/{template_name}"
 
         # Check if the themed template exists.
         try:
@@ -21,7 +21,7 @@ class BaseBlock(blocks.StructBlock):
             return themed_path
         # If not, return the default template.
         except TemplateDoesNotExist:
-            return f"patterns/blocks/{template_name}"
+            return f"patterns/blocks/themes/default/{template_name}"
 
     class Meta:
         abstract = True
