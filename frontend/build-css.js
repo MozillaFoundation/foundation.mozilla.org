@@ -18,12 +18,20 @@ const outDir = "../foundation_cms/static/compiled/_css";
 
 for (const entry of entries) {
   const input = path.resolve(__dirname, `${inDir}/${entry}.scss`);
-  const tempOutput = path.resolve(__dirname, `${tempDir}/${entry}.unprocessed.css`);
-  const finalOutput = path.resolve(__dirname, `${outDir}/${entry}.compiled.css`);
+  const tempOutput = path.resolve(
+    __dirname,
+    `${tempDir}/${entry}.unprocessed.css`
+  );
+  const finalOutput = path.resolve(
+    __dirname,
+    `${outDir}/${entry}.compiled.css`
+  );
 
   try {
     // Compile SCSS to unprocessed CSS
-    execSync(`sass ${input} ${tempOutput} --style=compressed`, { stdio: "inherit" });
+    execSync(`sass ${input} ${tempOutput} --style=compressed`, {
+      stdio: "inherit",
+    });
 
     // Process with PostCSS
     execSync(
