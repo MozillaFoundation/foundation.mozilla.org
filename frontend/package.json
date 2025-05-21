@@ -22,7 +22,7 @@
     "watch:js": "node esbuild.config.js --node-env development",
     "predev": "yarn clean",
     "dev": "run-p watch:css watch:js",
-    "fix": "run-s fix:js",
+    "fix": "run-s fix:js fix:scss",
     "fix:scss": "stylelint \"../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs --fix",
     "fix:js": "run-p fix:js:*",
     "fix:js:eslint": "node ./lint-js.js --fix",
