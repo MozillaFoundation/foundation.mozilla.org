@@ -11,7 +11,7 @@
 - SCSS files are located in `./foundation_cms/static/scss`.
 - These are automatically compiled into `.css` files as part of the build process.
 
-## Linting
+## Check Linting Error
 
 From the `./frontend` directory:
 
@@ -33,7 +33,20 @@ To fix them separately:
 - Run `yarn fix:js` to automatically fix fixable linting issues using ESLint.
 - Run `yarn fix:scss` to automatically fix SCSS linting issues.
 
-## Code Formatting
+## Check Code Formatting
+
+We use [Prettier](https://prettier.io) to enforce consistent code formatting.
+
+From the `./frontend` directory:
+
+- Run `yarn check-format` to check whether JavaScript and SCSS files are correctly formatted.
+
+To check them separately:
+
+- Run `yarn format:js` to check whether JavaScript files are correctly formatted.
+- Run `yarn format:scss` to check whether SCSS files are correctly formatted.
+
+## Fix Code Formatting
 
 We use [Prettier](https://prettier.io) to enforce consistent code formatting.
 
