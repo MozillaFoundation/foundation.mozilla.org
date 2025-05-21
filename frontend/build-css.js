@@ -1,6 +1,10 @@
-const { execSync } = require("child_process");
-const path = require("path");
-const fs = require("fs");
+import { execSync } from "child_process";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// __dirname replacement in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const entries = [
   // Base names of .scss files located in inDir (exclude the .scss extension)
@@ -11,7 +15,7 @@ const inDir = "../foundation_cms/static/scss";
 const tempDir = "../foundation_cms/static/temp";
 const outDir = "../foundation_cms/static/compiled/_css";
 
-entries.forEach((entry) => {
+for (const entry of entries) {
   const input = path.resolve(__dirname, `${inDir}/${entry}.scss`);
   const tempOutput = path.resolve(
     __dirname,
@@ -33,9 +37,10 @@ entries.forEach((entry) => {
       `postcss ${tempOutput} -o ${finalOutput} --config ./postcss.config.js`,
       { stdio: "inherit" }
     );
+
     console.log(`Built CSS: ${entry}`);
   } catch (err) {
     console.error(`Failed to build CSS for ${entry}:`, err.message);
     process.exit(1);
   }
-});
+}

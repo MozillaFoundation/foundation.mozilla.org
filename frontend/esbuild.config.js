@@ -1,6 +1,12 @@
-const { context, build } = require("esbuild");
-const path = require("path");
+import { context, build } from "esbuild";
+import path from "path";
+import { fileURLToPath } from "url";
 
+// __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Get build mode from CLI arg or env var
 const arg = process.argv.indexOf("--node-env");
 const mode =
   arg > 0 ? process.argv[arg + 1] : process.env.NODE_ENV || "development";
@@ -31,15 +37,12 @@ const base = {
   },
 };
 
-// We use a for...of loop instead of forEach because forEach doesn't handle async/await properly.
-// forEach won't wait for the async function to finish before moving to the next item,
-// which can cause unexpected behavior in sequential build tasks like this.
 async function runBuilds() {
   for (const [name, config] of Object.entries(sources)) {
     const opts = {
       ...base,
-      entryPoints: [path.join(inDir, "/", config.source)],
-      outfile: path.join(outDir, `${name}.compiled.js`),
+      entryPoints: [path.join(__dirname, inDir, config.source)],
+      outfile: path.join(__dirname, outDir, `${name}.compiled.js`),
       bundle: config.bundle,
     };
 
