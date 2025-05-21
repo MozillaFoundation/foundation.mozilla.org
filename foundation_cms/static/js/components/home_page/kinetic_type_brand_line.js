@@ -19,9 +19,9 @@ const FALLBACKS = {
  * CSS selectors used to locate key DOM elements in the component.
  */
 const SELECTORS = {
-  phraseList: ".kinetic-brand-line__phrase-list",
-  phraseWrapper: ".kinetic-brand-line__phrase-wrapper",
-  root: ".kinetic-brand-line",
+  root: ".kinetic-type-brand-line",
+  phraseList: ".kinetic-type-brand-line__phrase-list",
+  phraseWrapper: ".kinetic-type-brand-line__phrase-wrapper",
 };
 
 /**
@@ -45,44 +45,66 @@ const getCssVarFloat = (element, varName, fallback) => {
 };
 
 /**
- * Initializes a single rolling phrase list component.
- * Duplicates phrases for looping, applies transforms, and handles animation.
- *
- * @param {HTMLElement} phraseList - The element containing the list of phrases.
+ * Animates a vertically rolling sequence of short phrases inside a heading,
+ * using CSS transforms and dynamic resizing to fit the text.
  */
-export function initRollingPhrases(phraseList) {
-  if (phraseList.dataset.initialized === "true") return;
-  phraseList.dataset.initialized = "true";
+export class KineticTypeBrandLine {
+  /**
+   * @param {HTMLElement} root - The root element of the rolling phrase component.
+   */
+  constructor(root) {
+    this.root = root;
+    this.phraseList = root.querySelector(SELECTORS.phraseList);
+    this.index = 0;
+    this.timer = null;
+    this.initialized = false;
+  }
 
-  const phrases = Array.from(phraseList.children).filter(
-    (el) => el.nodeType === Node.ELEMENT_NODE
-  );
-  if (!phrases.length) return;
+  /**
+   * Initializes the component, sets up phrases, clones, and starts the loop.
+   */
+  init() {
+    if (
+      !this.root ||
+      !this.phraseList ||
+      this.phraseList.dataset.initialized === "true"
+    )
+      return;
+    this.phraseList.dataset.initialized = "true";
 
-  const root = phraseList.closest(SELECTORS.root);
-  if (!root) return;
+    this.phrases = Array.from(this.phraseList.children).filter(
+      (el) => el.nodeType === Node.ELEMENT_NODE
+    );
+    if (!this.phrases.length) return;
 
-  const lineHeightMultiplier = getCssVarFloat(
-    root,
-    CSS_VARS.lineHeightMultiplier,
-    FALLBACKS.lineHeight
-  );
+    this.lineHeightMultiplier = getCssVarFloat(
+      this.root,
+      CSS_VARS.lineHeightMultiplier,
+      FALLBACKS.lineHeight
+    );
 
-  const transitionDurationMs = getCssVarFloat(
-    root,
-    CSS_VARS.animationDuration,
-    FALLBACKS.animationDurationMs
-  );
+    this.transitionDurationMs = getCssVarFloat(
+      this.root,
+      CSS_VARS.animationDuration,
+      FALLBACKS.animationDurationMs
+    );
 
-  const pauseDurationMs = FALLBACKS.pauseDurationMs;
+    this.pauseDurationMs = FALLBACKS.pauseDurationMs;
+    this.styleType = this.root.dataset.styleType;
 
-  phrases.forEach((phrase) => {
-    const clone = phrase.cloneNode(true);
-    phraseList.appendChild(clone);
-  });
+    // Duplicate phrases for looping
+    this.phrases.forEach((phrase) => {
+      const clone = phrase.cloneNode(true);
+      this.phraseList.appendChild(clone);
+    });
 
-  const total = phrases.length;
-  let index = 0;
+    this.total = this.phrases.length;
+
+    // Respect user motion preferences
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      this.timer = setTimeout(() => this.rollLoop(), this.pauseDurationMs);
+    }
+  }
 
   /**
    * Dynamically adjusts the wrapper width to match the current phrase.
@@ -90,7 +112,7 @@ export function initRollingPhrases(phraseList) {
    *
    * @param {HTMLElement} phrase - The currently visible phrase.
    */
-  function updateWrapperWidth(phrase) {
+  updateWrapperWidth(phrase) {
     const phraseWrapper = phrase.closest(SELECTORS.phraseWrapper);
     if (!phraseWrapper) return;
 
@@ -111,31 +133,36 @@ export function initRollingPhrases(phraseList) {
   /**
    * Core animation loop that scrolls through phrases and triggers width updates.
    */
-  function rollLoop() {
-    index += 1;
+  rollLoop() {
+    this.index += 1;
 
-    phraseList.style.transition = `transform ${transitionDurationMs}ms ease-in-out`;
-    phraseList.style.transform = `translateY(-${index * lineHeightMultiplier}em)`;
+    this.phraseList.style.transition = `transform ${this.transitionDurationMs}ms ease-in-out`;
+    this.phraseList.style.transform = `translateY(-${this.index * this.lineHeightMultiplier}em)`;
 
-    if (root.dataset.styleType === "3") {
-      const visiblePhraseIndex = index % phrases.length;
-      updateWrapperWidth(phrases[visiblePhraseIndex]);
+    if (this.styleType === "3") {
+      const visiblePhraseIndex = this.index % this.phrases.length;
+      this.updateWrapperWidth(this.phrases[visiblePhraseIndex]);
     }
 
     setTimeout(() => {
-      if (index >= total) {
-        phraseList.style.transition = "none";
-        phraseList.style.transform = "translateY(0)";
-        index = 0;
+      if (this.index >= this.total) {
+        this.phraseList.style.transition = "none";
+        this.phraseList.style.transform = "translateY(0)";
+        this.index = 0;
       }
 
-      setTimeout(rollLoop, pauseDurationMs);
-    }, transitionDurationMs + 100);
+      this.timer = setTimeout(() => this.rollLoop(), this.pauseDurationMs);
+    }, this.transitionDurationMs + 100);
   }
 
-  // Respect user motion preferences
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    setTimeout(rollLoop, pauseDurationMs);
+  /**
+   * Cleans up animation loop and state.
+   */
+  destroy() {
+    clearTimeout(this.timer);
+    if (this.phraseList) {
+      this.phraseList.dataset.initialized = "false";
+    }
   }
 }
 
@@ -144,6 +171,6 @@ export function initRollingPhrases(phraseList) {
  */
 export function initAllRollingPhrases() {
   document
-    .querySelectorAll(`${SELECTORS.root} ${SELECTORS.phraseList}`)
-    .forEach(initRollingPhrases);
+    .querySelectorAll(SELECTORS.root)
+    .forEach((el) => new RollingPhrases(el).init());
 }

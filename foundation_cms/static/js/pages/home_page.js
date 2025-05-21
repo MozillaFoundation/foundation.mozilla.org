@@ -1,3 +1,5 @@
-import { initAllRollingPhrases } from "../components/home_page/kinetic_type_brand_line.js";
+import { KineticTypeBrandLine } from "../components/home_page/kinetic_type_brand_line.js";
 
-initAllRollingPhrases();
+document
+  .querySelectorAll(".kinetic-type-brand-line")
+  .forEach((el) => new KineticTypeBrandLine(el).init());
