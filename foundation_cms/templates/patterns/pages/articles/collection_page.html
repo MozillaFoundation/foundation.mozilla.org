@@ -7,10 +7,10 @@
 {% block content %}
     <!-- Main Content -->
     <main>
-        <div>
+        <div class="grid-container">
             <h1>Collection Page Title: {{ page.title }}</h1>
         </div>
-        <div>
+        <div class="grid-container">
             <h2>Page Body:</h2>
             {% for block in page.body %}
                 {% include_block block with parent_page=page %}
