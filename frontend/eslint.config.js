@@ -1,5 +1,3 @@
-import eslintPluginPrettier from "eslint-plugin-prettier";
-
 /** @type {import("eslint/use-at-your-own-risk").FlatConfig[]} */
 export default [
   {
