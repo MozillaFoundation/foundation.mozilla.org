@@ -4,9 +4,6 @@ import eslintPluginPrettier from "eslint-plugin-prettier";
 export default [
   {
     files: ["**/*.js"],
-    plugins: {
-      prettier: eslintPluginPrettier,
-    },
     languageOptions: {
       globals: {
         es6: "writable",
