@@ -8,7 +8,7 @@ from django.utils.translation.trans_real import (
 from django.utils.translation.trans_real import to_language as django_to_language
 from taggit import models as tag_models
 from wagtail.images.models import Image
-from wagtail.models import Collection, Locale
+from wagtail.models import Collection, Locale, PageViewRestriction
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
 from foundation_cms.legacy_apps.wagtailpages.factory.blog import (
@@ -412,3 +412,43 @@ class TestGetBlogAuthors(TestCase):
 
         self.assertIn(author_profile, blog_author_profiles)
         self.assertNotIn(not_blog_author_profile, blog_author_profiles)
+
+
+class TestViewRestrictionSync(WagtailpagesTestCase):
+    def setUp(self):
+        super().setUp()
+        self.login()
+
+        self.en_locale = Locale.objects.get(language_code="en")
+        self.fr_locale = Locale.objects.get(language_code="fr")
+
+        self.index_en = BlogIndexPageFactory(locale=self.en_locale, parent=self.homepage)
+
+        # Set up a BlogPage in EN
+        self.page_en = BlogPageFactory(locale=self.en_locale, parent=self.index_en)
+        # Create a FR translation of the page
+        self.translate_page(self.page_en, self.fr_locale)
+        self.page_fr = self.page_en.get_translation(self.fr_locale)
+
+    def test_view_restriction_is_synced_to_translation(self):
+        # Add a restriction to the EN version
+        PageViewRestriction.objects.create(
+            page=self.page_en,
+            restriction_type=PageViewRestriction.LOGIN,
+        )
+
+        # Check the restriction was synced
+        restrictions = self.page_fr.view_restrictions.all()
+        self.assertEqual(restrictions.count(), 1)
+        self.assertEqual(restrictions.first().restriction_type, PageViewRestriction.LOGIN)
+
+    def test_view_restriction_removal_is_synced_to_translation(self):
+        # Remove a restriction from the EN version
+        PageViewRestriction.objects.filter(
+            page=self.page_en,
+            restriction_type=PageViewRestriction.LOGIN,
+        ).delete()
+
+        # Check the restriction removal was synced
+        restrictions = self.page_fr.view_restrictions.all()
+        self.assertEqual(restrictions.count(), 0)

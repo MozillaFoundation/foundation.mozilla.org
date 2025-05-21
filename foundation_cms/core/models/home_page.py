@@ -4,7 +4,6 @@ from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 
-
 hero_intro_heading_default_text = "A healthy internet is one in which privacy, openness, and inclusion are the norms."
 hero_intro_body_default_text = (
     "Mozilla empowers consumers to demand better online privacy, trustworthy AI, "
@@ -37,6 +36,7 @@ class HomePage(AbstractHomePage):
         FieldPanel("hero_image"),
         FieldPanel("hero_intro_heading"),
         FieldPanel("hero_intro_body"),
+        FieldPanel("body"),
     ]
 
     translatable_fields = [
