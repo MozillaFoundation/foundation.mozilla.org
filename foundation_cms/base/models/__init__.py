@@ -4,7 +4,7 @@ from .abstract_collection_page import AbstractCollectionPage
 from .abstract_general_page import AbstractGeneralPage
 from .abstract_home_page import AbstractHomePage
 from .base_block import BaseBlock
-from .image_blocks import SizedImageBlock
+from .image_blocks import SingleImageBlock, DoubleImageBlock
 
 
 # Add "unused" import to _all_ for flake8 linting
@@ -16,5 +16,6 @@ __all__ = [
     "AbstractHomePage",
     "BaseBlock",
     "Author",
-    "SizedImageBlock",
+    "SingleImageBlock",
+    "DoubleImageBlock",
 ]

@@ -3,11 +3,12 @@
 
 {% block content %}
 <div class="general-page">
-
     <div class="general-page__body">
         <div class="container">
             {% if page.sized_images %}
-                {% include "patterns/components/sized_image_block.html" with images=page.sized_images %}
+                <div class="general-page__images">
+                    {{ page.sized_images }}
+                </div>
             {% endif %}
         </div>
     </div>
