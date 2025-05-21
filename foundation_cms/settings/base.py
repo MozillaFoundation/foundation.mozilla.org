@@ -801,3 +801,18 @@ PATTERN_LIBRARY = {
     # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
     "BASE_TEMPLATE_NAMES": ["pages/base.html"],
 }
+
+# Email backend settings
+# This config is set to allow wagtail to send email notifications when a user
+# submits content for moderation that requires approval from admins or Strat Comms team.
+WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = env("WAGTAIL_NOTIFICATION_EMAIL")
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env("WAGTAIL_NOTIFICATION_EMAIL")
+EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
+
+# Notification emails are sent to moderators and superusers by default.
+WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = True
