@@ -1,16 +1,16 @@
 from wagtail.admin.panels import FieldPanel
-from wagtail.fields import StreamField
 from wagtail.blocks import RichTextBlock
-
+from wagtail.fields import StreamField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 from foundation_cms.base.models.image_blocks import SingleImageBlock, DoubleImageBlock
+from foundation_cms.blocks.audio_block import AudioBlock
 
 
 class AbstractArticlePage(AbstractBasePage):
     body = StreamField(
         [
-            # Placeholder for real blocks
+            ("audio", AudioBlock()),
             ("rich_text", RichTextBlock()),
         ],
         use_json_field=True,
@@ -31,7 +31,7 @@ class AbstractArticlePage(AbstractBasePage):
     content_panels = AbstractBasePage.content_panels + [
         FieldPanel("body"),
         FieldPanel("sized_images"),
-        ]
+    ]
 
     class Meta:
         abstract = True
