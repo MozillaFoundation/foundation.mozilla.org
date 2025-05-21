@@ -8,16 +8,16 @@
     {% if page.author %}
         <div class="author-info">
             {% if page.author.image %}
-            <div class="author-image">
-                <img src="{{ page.author.image.url }}" alt="{{ page.author.name }}">
-            </div>
+                <div class="author-image">
+                    <img src="{{ page.author.image.url }}" alt="{{ page.author.name }}">
+                </div>
             {% endif %}
 
             <div class="author-details">
-            <h4 class="author-name">{{ page.author.name }}</h4>
-            {% if page.author.bio %}
-                <p class="author-bio">{{ page.author.bio }}</p>
-            {% endif %}
+                <h4 class="author-name">{{ page.author.name }}</h4>
+                {% if page.author.bio %}
+                    <p class="author-bio">{{ page.author.bio }}</p>
+                {% endif %}
             </div>
         </div>
     {% endif %}
