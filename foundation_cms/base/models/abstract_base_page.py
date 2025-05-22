@@ -9,7 +9,18 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock
+from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock, ImpactNumberBlock
+
+
+# Shared StreamField block types for use across pages that inherit from AbstractBasePage.
+# Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
+base_page_block_options = [
+    ("rich_text", RichTextBlock()),
+    ('tabbed_content', TabbedContentContainerBlock()),
+    ("two_column_container_block", TwoColumnContainerBlock()),
+    ("impact_numbers", ImpactNumberBlock()),
+]
+
 
 @register_snippet
 class Author(models.Model):
@@ -50,11 +61,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
     body = StreamField(
-        [
-            ("rich_text", RichTextBlock()),
-            ('tabbed_content', TabbedContentContainerBlock()),
-            ("two_column_container_block", TwoColumnContainerBlock()),
-        ],
+        base_page_block_options,
         use_json_field=True,
         blank=True,
     )

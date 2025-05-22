@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+<section class="impact-numbers py-12">
+  <div class="container mx-auto px-4">
+    <ul class="space-y-4">
+      {% for stat in self.stats %}
+        <li>
+          <strong>Stat Number:</strong> {{ stat.stat_number }}<br>
+          <strong>Stat Description:</strong> {{ stat.stat_description }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
