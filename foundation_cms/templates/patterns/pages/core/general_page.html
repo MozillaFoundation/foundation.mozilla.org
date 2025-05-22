@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
-
 {% block content %}
-<div class="general-page">
-    <div class="general-page__body">
-        <div class="container">
-            {% if page.sized_images %}
-                <div class="general-page__images">
-                    {{ page.sized_images }}
-                </div>
-            {% endif %}
+    <div class="general-page">
+        <div class="general-page__body">
+            <div class="container">
+                {% if page.sized_images %}<div class="general-page__images">{{ page.sized_images }}</div>{% endif %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
