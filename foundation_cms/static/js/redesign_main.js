@@ -1,5 +1,5 @@
-import $ from 'jquery';
-import 'foundation-sites';
+import $ from "jquery";
+import "foundation-sites";
 
 window.$ = $;
 window.jQuery = $;
