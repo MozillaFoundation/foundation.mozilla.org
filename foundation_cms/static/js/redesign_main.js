@@ -1,9 +1,6 @@
 import $ from "jquery";
 import "foundation-sites";
 
-window.$ = $;
-window.jQuery = $;
-
 $(document).foundation();
 
 console.log(
