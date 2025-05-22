@@ -16,6 +16,8 @@ class ArticleEditorialFeature(AbstractArticlePage):
     class Meta:
         verbose_name = "Article Editorial Feature"
 
+    template = "patterns/pages/articles/article_editorial_feature.html"
+
     def get_context(self, request):
         context = super().get_context(request)
         return context

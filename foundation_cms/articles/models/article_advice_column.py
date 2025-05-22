@@ -16,6 +16,8 @@ class ArticleAdviceColumn(AbstractArticlePage):
     class Meta:
         verbose_name = "Article Advice Column"
 
+    template = "patterns/pages/articles/article_advice_column.html"
+
     def get_context(self, request):
         context = super().get_context(request)
         return context
