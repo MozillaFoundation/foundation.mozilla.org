@@ -1,0 +1,132 @@
+#wordmark-svg {
+  $base-delay: 1s;
+  $base-animation-duration: 1.5s;
+
+  // "z" and left fill of "a"
+  .cls-1 {
+    fill: transparent;
+    animation: fill1 $base-animation-duration ease forwards;
+    animation-delay: $base-delay;
+  }
+
+  // middle fill of "m" and right fill of "a"
+  .cls-2 {
+    fill: #f07424;
+    // fill: transparent;
+    // animation: fill2 $base-animation-duration ease forwards;
+    // animation-delay: $base-delay + 0.5s;
+  }
+
+  // right fill of "m"
+  .cls-3 {
+    fill: transparent;
+    animation: fill3 $base-animation-duration ease forwards;
+    animation-delay: $base-delay + 0.9s;
+  }
+
+  // left fill of "m"
+  .cls-4 {
+    fill: transparent;
+    animation: fill4 $base-animation-duration ease forwards;
+    animation-delay: $base-delay + 1.4s;
+  }
+
+  // between "ll"
+  .cls-5 {
+    // fill: transparent;
+    fill: #23a5df;
+    animation: fill5 $base-animation-duration ease forwards;
+    animation-delay: $base-delay + 1.9s;
+  }
+
+  // inner fill of "o"
+  .cls-6 {
+    // fill: transparent;
+    fill: #37e9ad;
+    // animation: fill6 $base-animation-duration ease forwards;
+    // animation-delay: $base-delay + 2.3s;
+  }
+
+  // "z" and left fill of "a"
+  @keyframes fill1 {
+    to {
+      fill: #f7b210;
+    }
+  }
+
+  @keyframes fill2 {
+    to {
+      fill: #f07424;
+    }
+  }
+
+  @keyframes fill3 {
+    to {
+      fill: #ffff42;
+    }
+  }
+
+  @keyframes fill4 {
+    to {
+      fill: #91daf6;
+    }
+  }
+
+  @keyframes fill5 {
+    to {
+      fill: #23a5df;
+    }
+  }
+
+  @keyframes fill6 {
+    to {
+      fill: #37e9ad;
+    }
+  }
+
+
+  // for .cls-2
+  // right fill of "a"
+  #a-fill-2 {
+    clip-path: inset(0 100% 0 0); // hidden from right
+    animation: wipeReveal 1s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+
+  // for .cls-2
+  #m-fill-2 {
+    clip-path: inset(100% 0 0 0);
+    animation: wipeReveal 1s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+
+  // for .cls-5
+  #_11-fill {
+    clip-path: inset(100% 0 0 0);
+    animation: wipeReveal 0.5s ease-out forwards;
+    animation-delay: 2.5s;
+  }
+
+  @keyframes wipeReveal {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  // inner fill of "o"
+  // for .cls-6
+  .cls-6,
+  .radial-reveal {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0);
+    animation: growMask 0.7s ease-out forwards;
+    animation-delay: 1.5s;
+  }
+
+  @keyframes growMask {
+    to {
+      transform: scale(1);
+    }
+  }
+}
