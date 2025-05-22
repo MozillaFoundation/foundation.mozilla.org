@@ -45,7 +45,7 @@ const getCssVarFloat = (element, varName, fallback) => {
 };
 
 /**
- * Animates a vertically rolling sequence of short phrases inside a heading,
+ * Animates a vertically rolling sequence of short phrases,
  * using CSS transforms and dynamic resizing to fit the text.
  */
 export class KineticTypeBrandLine {
