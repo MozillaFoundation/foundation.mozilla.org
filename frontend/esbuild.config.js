@@ -1,6 +1,9 @@
 import { context, build } from "esbuild";
 import path from "path";
 import { fileURLToPath } from "url";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 
 // __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -37,6 +40,29 @@ const base = {
   },
 };
 
+// Automatically resolve module imports like `import 'foundation-sites';`
+// to their actual entry points using Node's resolution logic.
+// This is necessary because the entryPoints (e.g., "../foundation_cms/static/js")
+// live outside the directory that contains node_modules (/frontend/node_modules).
+
+const aliasPlugin = {
+  name: 'auto-alias-plugin',
+
+  setup(build) {
+    build.onResolve({ filter: /^[^./].*/ }, (args) => {
+      try {
+        const resolvedPath = require.resolve(args.path);
+        return { path: resolvedPath };
+      } catch (e) {
+        return;
+      }
+    });
+  },
+};
+
+// We use a for...of loop instead of forEach because forEach doesn't handle async/await properly.
+// forEach won't wait for the async function to finish before moving to the next item,
+// which can cause unexpected behavior in sequential build tasks like this.
 async function runBuilds() {
   for (const [name, config] of Object.entries(sources)) {
     const opts = {
@@ -44,6 +70,7 @@ async function runBuilds() {
       entryPoints: [path.join(__dirname, inDir, config.source)],
       outfile: path.join(__dirname, outDir, `${name}.compiled.js`),
       bundle: config.bundle,
+      plugins: [aliasPlugin],
     };
 
     if (config.jsx) {
