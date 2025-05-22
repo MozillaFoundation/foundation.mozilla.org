@@ -9,7 +9,7 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.blocks import TabbedContentContainerBlock
+from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock
 
 @register_snippet
 class Author(models.Model):
@@ -52,7 +52,8 @@ class AbstractBasePage(MetadataPageMixin, Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock()),
-            ('tabbed_content', TabbedContentContainerBlock())
+            ('tabbed_content', TabbedContentContainerBlock()),
+            ("two_column_container_block", TwoColumnContainerBlock()),
         ],
         use_json_field=True,
         blank=True,

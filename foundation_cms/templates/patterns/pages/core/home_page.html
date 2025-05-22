@@ -56,11 +56,9 @@
         </div>
       </div>
     </div>
-    <div class="body">
-      {% for block in page.body %}
-        {% include_block block %}
-      {% endfor %}
-    </div>
+    {% if page.body %}
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
   </main>
 
 {% endblock content %}
