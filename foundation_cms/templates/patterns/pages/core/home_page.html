@@ -65,6 +65,11 @@
         </div>
       </div>
     </div>
+    <div class="body">
+      {% for block in page.body %}
+        {% include_block block %}
+      {% endfor %}
+    </div>
   </main>
 
 {% endblock content %}
