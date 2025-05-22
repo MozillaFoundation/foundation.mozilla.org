@@ -90,7 +90,6 @@ export class KineticTypeBrandLine {
     );
 
     this.pauseDurationMs = FALLBACKS.pauseDurationMs;
-    this.styleType = this.root.dataset.styleType;
 
     // Duplicate phrases for looping
     this.phrases.forEach((phrase) => {
@@ -107,30 +106,6 @@ export class KineticTypeBrandLine {
   }
 
   /**
-   * Dynamically adjusts the wrapper width to match the current phrase.
-   * Prevents layout shifts by locking the width after measurement.
-   *
-   * @param {HTMLElement} phrase - The currently visible phrase.
-   */
-  updateWrapperWidth(phrase) {
-    const phraseWrapper = phrase.closest(SELECTORS.phraseWrapper);
-    if (!phraseWrapper) return;
-
-    // Use requestAnimationFrame to safely read and write layout in the same frame.
-    // Step-by-step:
-    // 1. Temporarily reset the wrapper width to "auto" so we can measure the natural width of the current phrase.
-    // 2. Measure the actual width of the phrase using offsetWidth (a layout read).
-    // 3. Set the wrapper’s width explicitly to that measured value (a layout write).
-    // This avoids layout thrashing by ensuring the read and write operations are batched
-    // together at the start of the next animation frame, keeping animations smooth and performant.
-    requestAnimationFrame(() => {
-      phraseWrapper.style.width = "auto";
-      const width = phrase.offsetWidth;
-      phraseWrapper.style.width = `${width}px`;
-    });
-  }
-
-  /**
    * Core animation loop that scrolls through phrases and triggers width updates.
    */
   rollLoop() {
@@ -138,11 +113,6 @@ export class KineticTypeBrandLine {
 
     this.phraseList.style.transition = `transform ${this.transitionDurationMs}ms ease-in-out`;
     this.phraseList.style.transform = `translateY(-${this.index * this.lineHeightMultiplier}em)`;
-
-    if (this.styleType === "3") {
-      const visiblePhraseIndex = this.index % this.phrases.length;
-      this.updateWrapperWidth(this.phrases[visiblePhraseIndex]);
-    }
 
     setTimeout(() => {
       if (this.index >= this.total) {
