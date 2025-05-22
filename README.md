@@ -1,4 +1,4 @@
-# Frontend Workflow for the "Redesign Site"
+## Frontend Workflow for the "Redesign Site"
 
 ### Development Mode
 
@@ -10,6 +10,54 @@
 
 - SCSS files are located in `./foundation_cms/static/scss`.
 - These are automatically compiled into `.css` files as part of the build process.
+
+## Check Linting Error
+
+From the `./frontend` directory:
+
+- Run `yarn lint` to check JavaScript and SCSS files for linting errors.
+
+To lint separately:
+
+- Run `yarn lint:js` to check JavaScript files for linting errors.
+- Run `yarn lint:scss` to check SCSS files using Stylelint.
+
+## Fix Linting Error
+
+From the `./frontend` directory:
+
+- Run `yarn fix` to automatically fix JavaScript and SCSS linting errors.
+
+To fix them separately:
+
+- Run `yarn fix:js` to automatically fix fixable linting issues using ESLint.
+- Run `yarn fix:scss` to automatically fix SCSS linting issues.
+
+## Check Code Formatting
+
+We use [Prettier](https://prettier.io) to enforce consistent code formatting.
+
+From the `./frontend` directory:
+
+- Run `yarn check-format` to check whether JavaScript and SCSS files are correctly formatted.
+
+To check them separately:
+
+- Run `yarn format:js` to check whether JavaScript files are correctly formatted.
+- Run `yarn format:scss` to check whether SCSS files are correctly formatted.
+
+## Fix Code Formatting
+
+We use [Prettier](https://prettier.io) to enforce consistent code formatting.
+
+From the `./frontend` directory:
+
+- Run `yarn format` to automatically format JavaScript and SCSS files.
+
+To format them separately:
+
+- Run `yarn format:js` to automatically format JS code
+- Run `yarn format:scss` to automatically format SCSS code
 
 ## Donate Site
 
@@ -48,7 +96,7 @@ The latest source strings are regularly exposed to Pontoon by a Localization PM 
 
 Latest translations are uploaded to S3. To get them, run:
 - `curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar`
-- `tar -C network-api -xvf translations.tar`
+- `tar -C foundation_cms -xvf translations.tar`
 
 You don't need to run `compilemessages` and it works for both pipenv or docker workflows.
 

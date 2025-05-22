@@ -2,12 +2,11 @@
 @use "../scss/fonts.scss";
 @use "../scss/components/primary_nav.scss";
 @use "../scss/components/footer.scss";
-
 @include foundation-everything;
 
 /* Base font styles */
 body {
-  font-family: 'Mozilla Text', sans-serif;
+  font-family: "Mozilla Text", sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -18,7 +17,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Mozilla Headline', sans-serif;
+  font-family: "Mozilla Headline", sans-serif;
   color: #000;
 }
 
@@ -38,4 +37,3 @@ h6 {
     gap: 10px;
   }
 }
-

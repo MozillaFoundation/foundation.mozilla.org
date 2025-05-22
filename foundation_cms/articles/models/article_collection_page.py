@@ -21,3 +21,5 @@ class ArticleCollectionPage(AbstractArticlePage):
     def get_context(self, request):
         context = super().get_context(request)
         return context
+
+    template = "patterns/pages/articles/collection_page.html"
