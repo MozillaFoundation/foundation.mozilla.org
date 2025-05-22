@@ -5,6 +5,10 @@
   "description": "Foundation Framework-based frontend for new Mozilla Foundation site, using Yarn and esbuild. Independent from npm build tasks for the legacy site",
   "repository": "https://github.com/MozillaFoundation/foundation.mozilla.org",
   "author": "Mozilla Foundation",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "copy-fonts": "shx mkdir -p ../foundation_cms/static/compiled/fonts && shx cp -r ../foundation_cms/static/fonts/* ../foundation_cms/static/compiled/fonts/",
     "clean:css": "shx rm -rf ../foundation_cms/static/temp/* ../foundation_cms/static/compiled/_css/*",
@@ -17,7 +21,21 @@
     "watch:css": "run-s build:css && chokidar '../foundation_cms/static/scss/**/*.scss' -c 'yarn build:css'",
     "watch:js": "node esbuild.config.js --node-env development",
     "predev": "yarn clean",
-    "dev": "run-p watch:css watch:js"
+    "dev": "run-p watch:css watch:js",
+    "fix": "run-s fix:js fix:scss",
+    "fix:scss": "stylelint \"../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs --fix",
+    "fix:js": "run-p fix:js:*",
+    "fix:js:eslint": "node ./lint-js.js --fix",
+    "lint": "run-s lint:js lint:scss",
+    "lint:scss": "stylelint \"../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs",
+    "lint:js": "run-p lint:js:*",
+    "lint:js:eslint": "node ./lint-js.js",
+    "check-format": "run-s check-format:js check-format:scss",
+    "check-format:js": "prettier \"../foundation_cms/static/js/**/*.js\" --check",
+    "check-format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --check",
+    "format": "run-s format:js format:scss",
+    "format:js": "prettier \"../foundation_cms/static/js/**/*.js\" --write",
+    "format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --write"
   },
   "dependencies": {
     "esbuild": "^0.25.2",
@@ -28,11 +46,18 @@
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "chokidar-cli": "^3.0.0",
+    "eslint": "^9.26.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
-    "shx": "^0.4.0"
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.5.3",
+    "shx": "^0.4.0",
+    "stylelint": "15.10.3",
+    "stylelint-config-recommended-scss": "14.0.0",
+    "stylelint-config-standard-scss": "10.0.0",
+    "stylelint-scss": "5.2.1"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

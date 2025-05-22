@@ -1,6 +1,15 @@
-const { context, build } = require("esbuild");
-const path = require("path");
+import { context, build } from "esbuild";
+import path from "path";
+import { fileURLToPath } from "url";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
+
+// __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Get build mode from CLI arg or env var
 const arg = process.argv.indexOf("--node-env");
 const mode =
   arg > 0 ? process.argv[arg + 1] : process.env.NODE_ENV || "development";
@@ -40,15 +49,11 @@ const aliasPlugin = {
   name: 'auto-alias-plugin',
 
   setup(build) {
-    // Match module imports (e.g., 'foundation-sites', but not './file.js')
     build.onResolve({ filter: /^[^./].*/ }, (args) => {
       try {
-        const resolvedPath = require.resolve(args.path, {
-          paths: [__dirname], // Resolve relative to the esbuild.config.js location
-        });
+        const resolvedPath = require.resolve(args.path);
         return { path: resolvedPath };
       } catch (e) {
-        // If the module can’t be resolved, allow ESBuild to handle it normally
         return;
       }
     });
@@ -62,8 +67,8 @@ async function runBuilds() {
   for (const [name, config] of Object.entries(sources)) {
     const opts = {
       ...base,
-      entryPoints: [path.join(inDir, "/", config.source)],
-      outfile: path.join(outDir, `${name}.compiled.js`),
+      entryPoints: [path.join(__dirname, inDir, config.source)],
+      outfile: path.join(__dirname, outDir, `${name}.compiled.js`),
       bundle: config.bundle,
       plugins: [aliasPlugin],
     };

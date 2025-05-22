@@ -16,6 +16,10 @@ class ArticleCollectionPage(AbstractArticlePage):
     class Meta:
         verbose_name = "Article Collection Page"
 
+    template = "patterns/pages/articles/article_collection_page.html"
+
     def get_context(self, request):
         context = super().get_context(request)
         return context
+
+    template = "patterns/pages/articles/collection_page.html"

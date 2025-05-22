@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+{% block block_content %}
+    <div class="grid-container" style="border:5px solid black;">
+        <h3>Audio Block</h3>
+        <p>Audio Image: {{ self.image }}</p>
+        <p>Audio Image Alt Text: {{ self.image_alt_text }}</p>
+        <p>Audio Title: {{ self.title }}</p>
+        <p>Audio Description: {{ self.description }}</p>
+        <p>Audio Simplecast Embed: {{ self.simplecast_embed_code|safe }}</p>
+    </div>
+{% endblock %}
