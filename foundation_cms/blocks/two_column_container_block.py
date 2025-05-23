@@ -1,9 +1,11 @@
 from wagtail.blocks import StructBlock, StreamBlock, RichTextBlock, CharBlock
 from .audio_block import AudioBlock # Just as an example second block
+from .image_block import CustomImageBlock
 
 class ColumnStreamBlock(StreamBlock):
     rich_text = RichTextBlock()
     audio = AudioBlock()
+    image = CustomImageBlock()
 
 class TwoColumnContainerBlock(StructBlock):
     title = CharBlock(required=False, help_text="Optional title for the block")

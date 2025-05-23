@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+    <div class="general-page">
+        <div class="general-page__body">
+            <div class="container">
+                {{ page.body }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

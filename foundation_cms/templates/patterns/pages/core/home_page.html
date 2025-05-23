@@ -4,9 +4,18 @@
 
 {% block body_class %}template-homepage{% endblock %}
 
-{% block extra_css %}{% endblock extra_css %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/home_page.compiled.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-12">
+        {% include "patterns/components/home_page/kinetic_type_brand_line.html" %}
+      </div>
+    </div>
+  </div>
 
   <!-- Full Bleed Hero -->
   <section class="wireframe-box" style="min-height: 300px;">
@@ -62,3 +71,7 @@
   </main>
 
 {% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'foundation_cms/_js/pages/home_page.compiled.js' %}"></script>
+{% endblock %}
