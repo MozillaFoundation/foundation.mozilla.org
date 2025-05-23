@@ -32,10 +32,10 @@
     "lint:js:eslint": "node ./lint-js.js",
     "check-format": "run-s check-format:js check-format:scss",
     "check-format:js": "prettier \"../foundation_cms/static/js/**/*.js\" --check",
-    "check-format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --check",
+    "check-format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --check --ignore-path .prettierignore",
     "format": "run-s format:js format:scss",
     "format:js": "prettier \"../foundation_cms/static/js/**/*.js\" --write",
-    "format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --write"
+    "format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --write --ignore-path .prettierignore"
   },
   "dependencies": {
     "esbuild": "^0.25.2",
