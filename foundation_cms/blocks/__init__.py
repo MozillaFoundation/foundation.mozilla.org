@@ -1,3 +1,4 @@
+from .impact_number_block import ImpactNumberBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -11,4 +12,5 @@ __all__ = [
     "TwoColumnContainerBlock",
     "CustomImageBlock",
     "AudioBlock",
+    "ImpactNumberBlock"
 ]
