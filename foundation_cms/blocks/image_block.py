@@ -1,7 +1,7 @@
 from wagtail.blocks import StructBlock, CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
 
-class ImageBlock(StructBlock):
+class CustomImageBlock(StructBlock):
     """
     A reusable image block with title and orientation options
     """

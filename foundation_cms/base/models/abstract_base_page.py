@@ -10,7 +10,7 @@ from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
 from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock
-from foundation_cms.blocks.image_block import ImageBlock
+from foundation_cms.blocks.image_block import CustomImageBlock
 from foundation_cms.blocks.audio_block import AudioBlock
 
 @register_snippet
@@ -54,7 +54,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock()),
-            ("image", ImageBlock()),
+            ("image", CustomImageBlock()),
             ("audio", AudioBlock()),
             ('tabbed_content', TabbedContentContainerBlock()),
             ("two_column_container_block", TwoColumnContainerBlock()),
