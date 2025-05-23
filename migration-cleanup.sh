@@ -56,14 +56,12 @@ if $STASHED && git stash list | grep -q "WIP on $ORIGINAL_BRANCH"; then
   git stash pop || echo "Nothing to pop or stash already applied."
 fi
 
-# Ensure new env is starting
-echo "Starting up new env..."
-inv start
-
 # Delete unapplied migration files
 echo "Removing unapplied migration files..."
-inv manage showmigrations --plan | grep '^\[ \]' | awk '{print $2, $3}' | while read app mig; do
-  file="${app}/migrations/${mig}.py"
+inv manage "showmigrations --plan" | grep '\[ \]' | awk '{print $3}' | while read migration; do
+  app=$(echo "$migration" | cut -d. -f1)
+  mig=$(echo "$migration" | cut -d. -f2)
+  file="foundation_cms/${app}/migrations/${mig}.py"
   if [ -f "$file" ]; then
     echo "  Deleting $file"
     rm "$file"
