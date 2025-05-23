@@ -12,6 +12,8 @@ NC='\033[0m'
 ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo "Current branch: $ORIGINAL_BRANCH"
 
+STASHED=false
+
 # Check for uncommitted changes
 if ! git diff-index --quiet HEAD -- || [ -n "$(git ls-files --others --exclude-standard)" ]; then
   echo
@@ -23,9 +25,9 @@ if ! git diff-index --quiet HEAD -- || [ -n "$(git ls-files --others --exclude-s
     exit 1
   fi
 
-  # Stash changes
   echo "Stashing changes (including untracked files)..."
   git stash --include-untracked || echo "Nothing to stash."
+  STASHED=true
 else
   echo "No uncommitted changes detected."
 fi
@@ -45,7 +47,7 @@ echo "Switching back to $ORIGINAL_BRANCH..."
 git checkout "$ORIGINAL_BRANCH"
 
 # Reapply stashed changes if any
-if git stash list | grep -q "WIP on $ORIGINAL_BRANCH"; then
+if $STASHED && git stash list | grep -q "WIP on $ORIGINAL_BRANCH"; then
   echo "Reapplying stashed changes..."
   git stash pop || echo "Nothing to pop or stash already applied."
 fi
