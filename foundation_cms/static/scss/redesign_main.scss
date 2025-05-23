@@ -1,8 +1,16 @@
-@use "../../../frontend/node_modules/foundation-sites/scss/foundation" as *;
-@use "../scss/fonts.scss";
-@use "../scss/components/primary_nav.scss";
-@use "../scss/components/footer.scss";
-@include foundation-everything;
+@import "../scss/settings/customized-settings";
+@import "../../../frontend/node_modules/foundation-sites/scss/foundation";
+
+// Foundation Modules
+@include foundation-global-styles;
+@include foundation-forms;
+@include foundation-typography;
+@include foundation-xy-grid-classes;
+@include foundation-button;
+
+@import "../scss/fonts.scss";
+@import "../scss/components/primary_nav.scss";
+@import "../scss/components/footer.scss";
 
 /* Base font styles */
 body {
