@@ -17,26 +17,6 @@
     </div>
   </div>
 
-  <!-- Full Bleed Hero -->
-  <section class="wireframe-box" style="min-height: 300px;">
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x align-middle">
-        <div class="cell large-12">
-          <div class="tags-list">
-            <h2>Browse by Topic</h2>
-            <ul>
-              {% for tag in page.tags.all %}
-                <li>
-                  <a href="{% url 'listing_page' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Main Content -->
   <main>
     <div class="grid-container">
