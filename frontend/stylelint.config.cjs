@@ -5,6 +5,10 @@
 module.exports = {
   customSyntax: "postcss-scss",
   extends: "stylelint-config-standard-scss",
+  ignoreFiles: [
+    "../foundation_cms/static/scss/settings/customized-settings.scss",
+    "../foundation_cms/static/scss/settings/foundation-framework-defaults.scss",
+  ],
   rules: {
     "block-no-empty": true,
   },

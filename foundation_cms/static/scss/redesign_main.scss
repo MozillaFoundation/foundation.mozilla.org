@@ -1,9 +1,13 @@
-@use "../../../frontend/node_modules/foundation-sites/scss/foundation" as *;
-@use "../scss/fonts.scss";
-@use "../scss/components/primary_nav.scss";
-@use "../scss/components/footer.scss";
+@import "../scss/settings/customized-settings";
+@import "../../../frontend/node_modules/foundation-sites/scss/foundation";
+@import "../scss/fonts";
+@import "../scss/components/primary_nav";
+@import "../scss/components/footer";
 @use "../scss/components/images.scss";
-@include foundation-everything;
+
+// Foundation Modules
+@include foundation-global-styles;
+@include foundation-xy-grid-classes;
 
 /* Base font styles */
 body {
