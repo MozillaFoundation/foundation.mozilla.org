@@ -12,7 +12,6 @@ class AbstractArticlePage(AbstractBasePage):
 
     content_panels = AbstractBasePage.content_panels + [
         FieldPanel("lede_text"),
-        FieldPanel("body"),
     ]
 
     class Meta:
