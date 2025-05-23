@@ -12,7 +12,7 @@
 
   &__full-text {
     display: flex;
-    align-items: center;
+    flex-direction: column;
   }
 
   &__phrase-wrapper {
@@ -40,6 +40,13 @@
     &__phrase-list {
       transition: none !important;
       transform: none !important;
+    }
+  }
+
+  @include breakpoint(medium up) {
+    &__full-text {
+      align-items: center;
+      flex-direction: row;
     }
   }
 }
