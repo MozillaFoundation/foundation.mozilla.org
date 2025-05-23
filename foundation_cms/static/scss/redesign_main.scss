@@ -3,7 +3,7 @@
 @import "../scss/fonts";
 @import "../scss/components/primary_nav";
 @import "../scss/components/footer";
-@use "../scss/components/images.scss";
+@import "../scss/components/images.scss";
 
 // Foundation Modules
 @include foundation-global-styles;
