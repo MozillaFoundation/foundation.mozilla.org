@@ -14,6 +14,10 @@ echo "Current branch: $ORIGINAL_BRANCH"
 
 STASHED=false
 
+# Stop current env if running
+echo "Shutting down env..."
+docker-compose down
+
 # Check for uncommitted changes
 if ! git diff-index --quiet HEAD -- || [ -n "$(git ls-files --others --exclude-standard)" ]; then
   echo
@@ -52,9 +56,13 @@ if $STASHED && git stash list | grep -q "WIP on $ORIGINAL_BRANCH"; then
   git stash pop || echo "Nothing to pop or stash already applied."
 fi
 
+# Ensure new env is starting
+echo "Starting up new env..."
+inv start
+
 # Delete unapplied migration files
 echo "Removing unapplied migration files..."
-python manage.py showmigrations --plan | grep '^\[ \]' | awk '{print $2, $3}' | while read app mig; do
+inv manage showmigrations --plan | grep '^\[ \]' | awk '{print $2, $3}' | while read app mig; do
   file="${app}/migrations/${mig}.py"
   if [ -f "$file" ]; then
     echo "  Deleting $file"
