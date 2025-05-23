@@ -1,7 +1,8 @@
-from wagtail.blocks import StructBlock, CharBlock, ChoiceBlock
+from wagtail.blocks import CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
+from foundation_cms.base.models.base_block import BaseBlock
 
-class CustomImageBlock(StructBlock):
+class CustomImageBlock(BaseBlock):
     """
     A reusable image block with title and orientation options
     """
