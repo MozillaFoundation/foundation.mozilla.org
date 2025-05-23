@@ -14,36 +14,11 @@ hero_intro_body_default_text = (
 
 
 class HomePage(AbstractHomePage):
-    hero_headline = models.CharField(
-        max_length=120,
-        help_text="Hero story headline",
-        blank=True,
-    )
-
-    hero_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    hero_intro_heading = models.CharField(max_length=100, blank=True, default=hero_intro_heading_default_text)
-
-    hero_intro_body = models.TextField(max_length=300, blank=True, default=hero_intro_body_default_text)
-
     content_panels = AbstractHomePage.content_panels + [
-        FieldPanel("hero_headline"),
-        FieldPanel("hero_image"),
-        FieldPanel("hero_intro_heading"),
-        FieldPanel("hero_intro_body"),
         FieldPanel("body"),
     ]
 
-    translatable_fields = [
-        TranslatableField("hero_headline"),
-        TranslatableField("hero_intro_heading"),
-        TranslatableField("hero_intro_body"),
-    ]
+    translatable_fields = []
 
     template = "patterns/pages/core/home_page.html"
 
