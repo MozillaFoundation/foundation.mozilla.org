@@ -20,8 +20,6 @@ class HomePage(AbstractHomePage):
         FieldPanel("body"),
     ]
 
-    translatable_fields = []
-
     template = "patterns/pages/core/home_page.html"
 
     class Meta:
