@@ -1,13 +1,12 @@
 import re
+
+from django.core.exceptions import ValidationError
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
-from django.core.exceptions import ValidationError
 
 
 class VideoPanelBlock(blocks.StructBlock):
-    VIMEO_HELP_TEXT = (
-        "Please enter a valid Vimeo URL (e.g. https://vimeo.com/123456789 or https://player.vimeo.com/video/123456789)."
-    )
+    VIMEO_HELP_TEXT = "Please enter a valid Vimeo URL (e.g. https://vimeo.com/123456789 or https://player.vimeo.com/video/123456789)."
 
     label = blocks.CharBlock(required=True)
     heading = blocks.CharBlock(required=False)
@@ -22,12 +21,9 @@ class VideoPanelBlock(blocks.StructBlock):
         vimeo_pattern = r"^https?://(www\.)?(vimeo\.com|player\.vimeo\.com/video)/\d+"
 
         if not re.match(vimeo_pattern, url):
-            raise ValidationError({
-                "video_url": self.VIMEO_HELP_TEXT
-            })
+            raise ValidationError({"video_url": self.VIMEO_HELP_TEXT})
 
         return cleaned
-
 
     class Meta:
         icon = "media"
