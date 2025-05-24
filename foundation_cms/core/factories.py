@@ -16,10 +16,6 @@ class HomePageFactory(PageFactory):
         model = HomePage
 
     title = factory.Faker("sentence", nb_words=4)
-    hero_headline = factory.Faker("sentence", nb_words=6)
-    hero_image = factory.SubFactory(ImageFactory)
-    hero_intro_heading = factory.Faker("sentence", nb_words=5)
-    hero_intro_body = factory.Faker("text", max_nb_chars=300)
 
 
 # Helper function to handle image setup
