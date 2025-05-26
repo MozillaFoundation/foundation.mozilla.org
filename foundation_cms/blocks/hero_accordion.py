@@ -9,19 +9,23 @@ class VideoPanelBlock(blocks.StructBlock):
     VIMEO_HELP_TEXT = "Please enter a valid Vimeo URL (e.g. https://vimeo.com/123456789 or https://player.vimeo.com/video/123456789)."
 
     label = blocks.CharBlock(required=True)
-    heading = blocks.CharBlock(required=False)
+    heading = blocks.CharBlock(required=False, max_length=40)
     thumbnail = ImageChooserBlock(required=True)
     video_url = blocks.URLBlock(required=True, help_text=VIMEO_HELP_TEXT)
 
     def clean(self, value):
         cleaned = super().clean(value)
         url = cleaned.get("video_url", "")
+        errors = {}
 
         # Allow regular and embed Vimeo formats
         vimeo_pattern = r"^https?://(www\.)?(vimeo\.com|player\.vimeo\.com/video)/\d+"
 
         if not re.match(vimeo_pattern, url):
-            raise ValidationError({"video_url": self.VIMEO_HELP_TEXT})
+            errors["video_url"] = self.VIMEO_HELP_TEXT
+
+        if errors:
+            raise ValidationError(errors)
 
         return cleaned
 
@@ -32,11 +36,24 @@ class VideoPanelBlock(blocks.StructBlock):
 
 class ImageTextPanelBlock(blocks.StructBlock):
     label = blocks.CharBlock(required=True)
-    heading = blocks.CharBlock(required=True)
+    heading = blocks.CharBlock(required=True, max_length=40)
     image = ImageChooserBlock(required=True)
     cta_text = blocks.CharBlock(required=True)
     cta_link = blocks.URLBlock(required=True)
-    description = blocks.TextBlock(required=False)
+    description = blocks.TextBlock(required=False, max_length=100)
+
+    def clean(self, value):
+        cleaned = super().clean(value)
+        cta_text = cleaned.get("cta_text", "")
+        errors = {}
+
+        if len(cta_text.split()) > 4:
+            errors["cta_text"] = "CTA text must be fewer than 4 words."
+
+        if errors:
+            raise ValidationError(errors)
+
+        return cleaned
 
     class Meta:
         icon = "image"
