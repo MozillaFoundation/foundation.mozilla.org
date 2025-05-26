@@ -1,14 +1,40 @@
 {% load wagtailcore_tags %}
 
-<section class="impact-numbers py-12">
-  <div class="container mx-auto px-4">
-    <ul class="space-y-4">
+<div class="impact-number-block grid-container">
+  <div class="grid-x ">
+    {% with stat_count=self.stats|length %}
       {% for stat in self.stats %}
-        <li>
-          <strong>Stat Number:</strong> {{ stat.stat_number }}<br>
-          <strong>Stat Description:</strong> {{ stat.stat_description }}
-        </li>
+        {% if stat_count == 1 %}
+          <div class="impact-stat cell small-12 medium-6">
+        {% elif stat_count == 2 %}
+          <div class="impact-stat cell small-12 medium-6">
+        {% elif stat_count == 3 %}
+          <div class="impact-stat cell small-12 medium-4">
+        {% endif %}
+
+        <div class="impact-stat__content grid-x align-middle">
+            <!-- Animated Number -->
+          <div
+            class="impact-stat__value-wrapper cell shrink"
+            data-number="{{ stat.stat_number }}"
+            aria-label="{{ stat.stat_prefix }}{{ stat.stat_number }}{{ stat.stat_suffix }}"
+          >
+            <b class="impact-stat__value" aria-hidden="true">
+              <span class="impact-stat__prefix">{{ stat.stat_prefix }}</span>
+              <span class="impact-stat__animated-value"></span>
+              <span class="impact-stat__suffix">{{ stat.stat_suffix }}</span>
+            </b>
+          </div>
+
+            <!-- Description -->
+          <div class="impact-stat__description cell auto">
+            <div>
+              {{ stat.stat_description }}
+            </div>
+          </div>
+        </div>
+        </div>
       {% endfor %}
-    </ul>
+    {% endwith %}
   </div>
-</section>
+</div>
