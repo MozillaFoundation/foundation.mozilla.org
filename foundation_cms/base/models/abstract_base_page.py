@@ -9,11 +9,7 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock
-from foundation_cms.blocks.audio_block import AudioBlock
-from foundation_cms.blocks.image_block import CustomImageBlock
-from foundation_cms.blocks.link_button_block import LinkButtonBlock
-
+from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock, CustomImageBlock, AudioBlock, LinkButtonBlock
 
 @register_snippet
 class Author(models.Model):
@@ -57,7 +53,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
         [
             ("rich_text", RichTextBlock()),
             ("image", CustomImageBlock()),
-            ("audio", AudioBlock()),
+            ("audio_block", AudioBlock()),
             ("tabbed_content", TabbedContentContainerBlock()),
             ("two_column_container_block", TwoColumnContainerBlock()),
             ("link_button_block", LinkButtonBlock()),
