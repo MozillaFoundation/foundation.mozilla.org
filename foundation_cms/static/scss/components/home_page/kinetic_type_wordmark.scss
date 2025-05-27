@@ -9,90 +9,81 @@
     $color-fill-between-ll: #23a5df;
     $color-fill-o-inner: #37e9ad;
 
-    #wordmark-horizontal,
-    .horizontal {
+    display: block;
+    max-width: 80vw;
+
+    &--horizontal {
       display: none;
     }
 
     @include breakpoint(medium up) {
-      #wordmark-stacked,
-      .stacked {
+        max-width: 100%;
+
+      &--stacked {
         display: none;
       }
 
-      #wordmark-horizontal,
-      .horizontal {
-        display: inline-block;
+      &--horizontal {
+        display: block;
       }
     }
 
     // "z" and left fill of "a"
-    .fill-a-left.stacked,
-    .fill-a-left.horizontal,
-    .fill-z-left.stacked,
-    .fill-z-left.horizontal {
+    .fill-a-left,
+    .fill-z-left {
       fill: transparent;
       animation: fillZALeft $base-animation-duration ease forwards;
       animation-delay: $base-delay;
     }
 
     // middle fill of "m" and right fill of "a"
-    .fill-m-middle.stacked,
-    .fill-m-middle.horizontal,
-    .fill-a-right.stacked,
-    .fill-a-right.horizontal {
+    .fill-m-middle,
+    .fill-a-right {
       fill: $color-fill-m-middle-a-right;
     }
 
     // right fill of "m"
-    .fill-m-right.stacked,
-    .fill-m-right.horizontal {
+    .fill-m-right {
       fill: transparent;
       animation: fillMRight $base-animation-duration ease forwards;
       animation-delay: $base-delay + 0.9s;
     }
 
     // left fill of "m"
-    .fill-m-left.stacked,
-    .fill-m-left.horizontal {
+    .fill-m-left {
       fill: transparent;
       animation: fillMLeft $base-animation-duration ease forwards;
       animation-delay: $base-delay + 1.4s;
     }
 
     // between "ll"
-    .fill-between-ll.stacked,
-    .fill-between-ll.horizontal {
+    .fill-between-ll {
       fill: $color-fill-between-ll;
       animation: fillBetweenLL $base-animation-duration ease forwards;
       animation-delay: $base-delay + 1.9s;
     }
 
     // inner fill of "o"
-    .fill-o-inner.stacked,
-    .fill-o-inner.horizontal {
+    .fill-o-inner {
       fill: $color-fill-o-inner;
     }
 
     // right fill of "a"
-    #a-right-fill {
+    .fill-a-right {
       clip-path: inset(0 100% 0 0); // hidden from right
       animation: wipeReveal 1s ease-out forwards;
       animation-delay: 0.5s;
     }
 
-    .fill-m-middle.stacked,
-    .fill-m-middle.horizontal,
-    .fill-a-right.stacked,
-    .fill-a-right.horizontal {
+    .fill-m-middle,
+    .fill-a-right {
       clip-path: inset(100% 0 0 0);
       animation: wipeReveal 1s ease-out forwards;
       animation-delay: 0.5s;
     }
 
     // for .fill-between-ll
-    .fill-between-ll.stacked,
-    .fill-between-ll.horizontal {
+    .fill-between-ll {
       clip-path: inset(100% 0 0 0);
       animation: wipeReveal 0.5s ease-out forwards;
       animation-delay: 2.5s;
