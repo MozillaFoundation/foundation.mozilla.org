@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("articles", "0006_remove_articleadvicecolumn_sized_images_and_more"),
+        ("articles", "0007_alter_articleadvicecolumn_body_and_more"),
     ]
 
     operations = [

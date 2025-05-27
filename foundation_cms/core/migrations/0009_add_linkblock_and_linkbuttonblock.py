@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0007_remove_generalpage_sized_images_and_more"),
+        ("core", "0008_alter_generalpage_body_alter_homepage_body"),
     ]
 
     operations = [
