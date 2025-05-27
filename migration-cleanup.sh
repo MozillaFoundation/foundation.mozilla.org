@@ -58,10 +58,11 @@ fi
 
 # Delete unapplied migration files
 echo "Removing unapplied migration files..."
-inv manage "showmigrations --plan" | grep '\[ \]' | awk '{print $3}' | while read migration; do
+inv manage "showmigrations --plan" | grep '\[ \]' | awk '{print $3}' | tr -d '\r' | while read migration; do
   app=$(echo "$migration" | cut -d. -f1)
   mig=$(echo "$migration" | cut -d. -f2)
   file="foundation_cms/${app}/migrations/${mig}.py"
+  echo "$file"
   if [ -f "$file" ]; then
     echo "  Deleting $file"
     rm "$file"
