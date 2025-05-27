@@ -2,8 +2,9 @@
 set -e
 
 # This script can help automate migration conflicts and local environment
-# It simply stashes your changes, pulls / checks out redesign branch
-# makes a clean db, rechecks out your branch / stash and makes new migrations
+# It stashes your changes, pulls / checks out redesign branch makes a clean db, 
+# rechecks out your branch / stash, detects any migrations that haven't run
+# (and deletes them because these are probably just conflicting) and then regenerates them
 
 YELLOW='\033[1;33m'
 NC='\033[0m'
