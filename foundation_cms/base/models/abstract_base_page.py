@@ -9,7 +9,14 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock, CustomImageBlock, AudioBlock, LinkButtonBlock
+from foundation_cms.blocks import (
+    AudioBlock,
+    CustomImageBlock,
+    LinkButtonBlock,
+    TabbedContentContainerBlock,
+    TwoColumnContainerBlock,
+)
+
 
 @register_snippet
 class Author(models.Model):
