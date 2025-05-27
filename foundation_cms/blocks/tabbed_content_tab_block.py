@@ -1,7 +1,7 @@
 from wagtail import blocks
 from foundation_cms.base.models.base_block import BaseBlock
 
-class TabbedContentTabBlock(blocks.StructBlock):
+class TabbedContentTabBlock(BaseBlock):
     title = blocks.CharBlock(required=True, help_text="Title shown on the tab button")
     subtitle = blocks.CharBlock(required=False, help_text="Subtitle shown under the title on the tab")
     content = blocks.StreamBlock(
