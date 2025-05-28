@@ -1,0 +1,14 @@
+{% load wagtailimages_tags %}
+
+<div class="tab-card-set">
+    <div class="tab-card-set__image">
+        {% image value.image original as img %}
+        <img src="{{ img.url }}" alt="{{ value.title }}">
+    </div>
+    <div class="tab-card-set__title">
+        {{ value.title }}
+    </div>
+    <div class="tab-card-set__subtitle">
+        {{ value.subtitle }}
+    </div>
+</div>

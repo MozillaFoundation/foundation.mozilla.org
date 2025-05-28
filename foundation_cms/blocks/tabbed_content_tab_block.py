@@ -1,14 +1,6 @@
 from wagtail import blocks
-from foundation_cms.base.models.base_block import BaseBlock
-from wagtail.images.blocks import ImageBlock
-
-
-class TabImageBlock(blocks.StructBlock):
-    image = ImageBlock(required=True)
-
-    class Meta:
-        icon = "image"
-        template = "patterns/blocks/image_block.html"
+from .text_image_block import TextImageBlock
+from .tab_card_set_block import TabCardSetBlock
 
 
 class TabbedContentTabBlock(blocks.StructBlock):
@@ -17,8 +9,8 @@ class TabbedContentTabBlock(blocks.StructBlock):
     content = blocks.StreamBlock(
         [
             ("rich_text", blocks.RichTextBlock()),
-            ("image", TabImageBlock()),
-            # TODO add other blocks as they're built
+            ("text_image", TextImageBlock()),
+            ("tab_card_set", TabCardSetBlock()),
         ],
         required=True,
         min_num=1,

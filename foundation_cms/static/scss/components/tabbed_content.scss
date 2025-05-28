@@ -51,6 +51,13 @@
       align-items: left;
       padding: 2rem;
 
+      // When no image is present, text takes full width
+      &:only-child {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+      }
+
       // Center text content
       p,
       h1,
