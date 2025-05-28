@@ -1,10 +1,11 @@
 from wagtail import blocks
+from wagtail.images.blocks import ImageBlock
 
 
 class TabCardSetBlock(blocks.StructBlock):
-    
+
     title = blocks.CharBlock()
-    image = blocks.ImageBlock()
+    image = ImageBlock()
     subtitle = blocks.CharBlock()
 
     class Meta:

@@ -1,6 +1,7 @@
 from wagtail import blocks
 from .text_image_block import TextImageBlock
 from .tab_card_set_block import TabCardSetBlock
+from foundation_cms.base.models.base_block import BaseBlock
 
 
 class TabbedContentTabBlock(BaseBlock):
