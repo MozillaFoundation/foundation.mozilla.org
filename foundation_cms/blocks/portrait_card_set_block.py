@@ -12,7 +12,9 @@ class PortraitCardSetBlock(BaseBlock):
         PortraitCardBlock(), label="Portrait Cards", min_num=3, max_num=3, help_text="Exactly 3 cards required."
     )
 
-    cta_link = OptionalLinkBlock(required=False, label="Call to Action Link", help_text="Optional link below the cards.")
+    cta_link = OptionalLinkBlock(
+        required=False, label="Call to Action Link", help_text="Optional link below the cards."
+    )
 
     class Meta:
         label = "Portrait Card Set"

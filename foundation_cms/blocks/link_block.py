@@ -74,11 +74,14 @@ class LinkWithoutLabelBlock(LinkBlock):
         self.child_blocks = self.base_blocks.copy()
         self.child_blocks.pop("label")
 
+
 class OptionalLinkBlock(blocks.StreamBlock):
     link = LinkBlock()
+
     class Meta:
         min_num = 0
         max_num = 1
         required = False
+
 
 register(BaseLinkBlockAdapter(), LinkWithoutLabelBlock)
