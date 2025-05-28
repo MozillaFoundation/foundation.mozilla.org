@@ -25,14 +25,14 @@
       </div>
     {% endfor %}
 
-    {% with link=self.cta_link %}
-      {% if link and link.link_to %}
+    {% with link=self.cta_link.0.value %}
+    {% if link and link.link_to %}
         <div class="cell">
-          <div class="portrait-card-set__cta">
-            {% include './link_button_block.html' with value=link only %}
-          </div>
+            <div class="portrait-card-set__cta">
+                {% include './link_button_block.html' with value=link only %}
+            </div>
         </div>
-      {% endif %}
+    {% endif %}
     {% endwith %}
 
   </div>
