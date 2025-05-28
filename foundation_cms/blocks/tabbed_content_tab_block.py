@@ -3,7 +3,7 @@ from .text_image_block import TextImageBlock
 from .tab_card_set_block import TabCardSetBlock
 
 
-class TabbedContentTabBlock(blocks.StructBlock):
+class TabbedContentTabBlock(BaseBlock):
     title = blocks.CharBlock(required=True, help_text="Title shown on the tab button")
     subtitle = blocks.CharBlock(required=False, help_text="Subtitle shown under the title on the tab")
     content = blocks.StreamBlock(

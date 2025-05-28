@@ -95,6 +95,7 @@ EXPOSE 8000
 # Install operating system dependencies.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
+    gcc \
     libpq-dev \
     python3-dev \
     libffi-dev \
@@ -153,9 +154,10 @@ USER root
 
 # Install `psql`, useful for `manage.py dbshell`, and dependencies for installing nodejs
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    gnupg \
     postgresql-client \
-    ca-certificates \
-    gnupg
+    ca-certificates
+
 
 # Install node (Keep the version in sync with the node container above)
 # Download and import the Nodesource GPG key
