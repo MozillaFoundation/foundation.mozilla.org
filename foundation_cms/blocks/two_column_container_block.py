@@ -1,4 +1,4 @@
-from wagtail.blocks import CharBlock, RichTextBlock, StreamBlock, StructBlock
+from wagtail.blocks import CharBlock, RichTextBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
