@@ -1,0 +1,39 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="portrait-card-set grid-container">
+  <div class="grid-x grid-margin-x">
+
+    {% if self.headline %}
+      <div class="cell">
+        <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
+      </div>
+    {% endif %}
+
+    {% for card in self.cards %}
+      <div class="cell small-12 medium-4">
+        <div class="portrait-card">
+          <div class="portrait-card__text">
+            <p class="portrait-card__label">{{ card.label }}</p>
+            <h3 class="portrait-card__headline">{{ card.headline }}</h3>
+          </div>
+          {% if card.image %}
+            <div class="portrait-card__image">
+              {% image card.image fill-400x600 %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+
+    {% with link=self.cta_link %}
+      {% if link and link.link_to %}
+        <div class="cell">
+          <div class="portrait-card-set__cta">
+            {% include './link_button_block.html' with value=link only %}
+          </div>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+  </div>
+</div>
