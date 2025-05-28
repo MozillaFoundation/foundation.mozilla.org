@@ -10,7 +10,7 @@ class ArticleEditorialFeature(AbstractArticlePage):
         # Placeholder for ArticleAdviceColumn blocks
     ]
 
-    parent_page_types = ['core.HomePage']
+    parent_page_types = ["core.HomePage"]
     subpage_types: list[str] = []
 
     class Meta:
@@ -21,4 +21,3 @@ class ArticleEditorialFeature(AbstractArticlePage):
     def get_context(self, request):
         context = super().get_context(request)
         return context
-

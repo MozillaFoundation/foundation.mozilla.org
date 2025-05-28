@@ -10,7 +10,7 @@ class ArticleCollectionPage(AbstractArticlePage):
         # Placeholder for ArticleAdviceColumn blocks
     ]
 
-    parent_page_types = ['core.HomePage']
+    parent_page_types = ["core.HomePage"]
     subpage_types: list[str] = []
 
     class Meta:
