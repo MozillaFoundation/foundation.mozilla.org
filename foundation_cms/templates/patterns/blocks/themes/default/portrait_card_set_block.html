@@ -25,7 +25,7 @@
       </div>
     {% endfor %}
 
-    {% with link=self.cta_link.0.value %}
+    {% with link=self.cta_link.0 %}
       {% if link and link.link_to %}
         <div class="cell">
           <div class="portrait-card-set__cta">
