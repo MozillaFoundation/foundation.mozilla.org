@@ -1,4 +1,3 @@
-from modelcluster.contrib.taggit import ClusterTaggableManager
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
