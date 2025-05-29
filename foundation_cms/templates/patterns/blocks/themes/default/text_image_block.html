@@ -1,16 +1,34 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailcore_tags %}
 
-{% if value.image.orientation %}
-  <div class="image-block image-block-{{ value.image.orientation }}">
-    <div class="image-block-container">
+<div class="grid-x grid-margin-x text-image-block">
+
+  {# Left: Subtitle, Title, Text, and Link (1/3) #}
+  <div class="cell small-12 medium-4 text-image-block__text">
+    {% if value.subtitle %}
+      <p class="text-image-block__subtitle">{{ value.subtitle }}</p>
+    {% endif %}
+    {% if value.title %}
+      <h2 class="text-image-block__title">{{ value.title }}</h2>
+    {% endif %}
+    {% if value.text %}
+      <div class="text-image-block__body">
+        {{ value.text|richtext }}
+      </div>
+    {% endif %}
+
+    {% if value.link %}
+      <div class="text-image-block__link">
+        {% include_block value.link %}
+      </div>
+    {% endif %}
+  </div>
+
+  {# Right: Image (2/3) #}
+  <div class="cell small-12 medium-8 text-image-block__image">
+    {% if value.image and value.image.image %}
       {% image value.image.image original as img %}
-      <img src="{{ img.url }}" alt="{{ value.title }}" class="image-block-image">
-    </div>
-    {% if value.title %}<p class="image-block-title">{{ value.title }}</p>{% endif %}
+      <img src="{{ img.url }}" alt="{{ value.title }}" class="responsive-img">
+    {% endif %}
   </div>
-{% else %}
-  <div class="tab-image-block">
-    {% image value.image.image original as img %}
-    <img src="{{ img.url }}" class="tab-image-block__image" alt="">
-  </div>
-{% endif %}
+
+</div>

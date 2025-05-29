@@ -8,12 +8,12 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 class TextImageBlock(BaseBlock):
 
     title = blocks.CharBlock(required=False)
+    subtitle = blocks.CharBlock(required=False)
     text = blocks.RichTextBlock(required=False)
     image = CustomImageBlock(required=False)
     link = LinkBlock()
-    tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
-
 
     class Meta:
         icon = "image"
+        label = "Text & Image"
         template_name = "text_image_block.html"
