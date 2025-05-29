@@ -27,7 +27,7 @@
   <div class="cell small-12 medium-8 text-image-block__image">
     {% if value.image and value.image.image %}
       {% image value.image.image original as img %}
-      <img src="{{ img.url }}" alt="{{ value.title }}" class="responsive-img">
+      <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}" class="responsive-img">
     {% endif %}
   </div>
 
