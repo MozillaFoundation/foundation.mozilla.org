@@ -2,7 +2,7 @@ import re
 
 from django.core.exceptions import ValidationError
 from wagtail import blocks
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock
 
 
 class VideoPanelBlock(blocks.StructBlock):
@@ -10,7 +10,7 @@ class VideoPanelBlock(blocks.StructBlock):
 
     label = blocks.CharBlock(required=True)
     heading = blocks.CharBlock(required=False, max_length=40)
-    thumbnail = ImageChooserBlock(required=True)
+    thumbnail = ImageBlock(required=True)
     video_url = blocks.URLBlock(required=True, help_text=VIMEO_HELP_TEXT)
 
     def clean(self, value):
@@ -37,7 +37,7 @@ class VideoPanelBlock(blocks.StructBlock):
 class ImageTextPanelBlock(blocks.StructBlock):
     label = blocks.CharBlock(required=True)
     heading = blocks.CharBlock(required=True, max_length=40)
-    image = ImageChooserBlock(required=True)
+    image = ImageBlock(required=True)
     cta_text = blocks.CharBlock(required=True)
     cta_link = blocks.URLBlock(required=True)
     description = blocks.TextBlock(required=False, max_length=100)
