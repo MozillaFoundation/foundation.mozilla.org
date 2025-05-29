@@ -1,18 +1,20 @@
 from wagtail import blocks
+
 from foundation_cms.base.models.base_block import BaseBlock
+
 from .image_block import CustomImageBlock
-from modelcluster.contrib.taggit import ClusterTaggableManager
+from .link_block import LinkBlock
 
 
 class TextImageBlock(BaseBlock):
 
-    title = blocks.CharBlock()
-    text = blocks.RichTextBlock()
+    title = blocks.CharBlock(required=False)
+    subtitle = blocks.CharBlock(required=False)
+    text = blocks.RichTextBlock(required=False)
     image = CustomImageBlock(required=False)
-    link = blocks.URLBlock()
-    tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
-
+    link = LinkBlock()
 
     class Meta:
         icon = "image"
-        template = "patterns/blocks/image_block.html"
+        label = "Text & Image"
+        template_name = "text_image_block.html"

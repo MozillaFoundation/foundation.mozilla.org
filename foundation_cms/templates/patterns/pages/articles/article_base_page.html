@@ -9,7 +9,7 @@
         <div class="author-info">
             {% if page.author.image %}
                 <div class="author-image">
-                    <img src="{{ page.author.image.url }}" alt="{{ page.author.name }}">
+                    <img src="{{ page.author.image.url }}" height="{{ page.author.image.height }}" width="{{ page.author.image.width }}" alt="{{ page.author.name }}">
                 </div>
             {% endif %}
 

@@ -1,8 +1,10 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageBlock
 
+from foundation_cms.base.models.base_block import BaseBlock
 
-class TabCardSetBlock(blocks.StructBlock):
+
+class TabbedContentCardSetBlock(BaseBlock):
 
     title = blocks.CharBlock()
     image = ImageBlock()
@@ -10,5 +12,5 @@ class TabCardSetBlock(blocks.StructBlock):
 
     class Meta:
         icon = "form"
-        template = "patterns/blocks/tab_card_set_block.html"
+        template_name = "tabbed_content_card_set_block.html"
         label = "Tab Card Set"

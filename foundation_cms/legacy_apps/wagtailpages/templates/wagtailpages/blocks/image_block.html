@@ -3,5 +3,5 @@
 
 {% block block_content %}
     {% image value.image original as img %}
-    <img src="{{ img.url }}" alt="{{ value.altText }}" class="{{ value.size }} tw-my-4" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
-{% endblock %}
+    <img src="{{ img.url }}" alt="{{ value.altText }}" height="{{ img.height }}" width="{{ img.width }}" class="{{ value.size }} tw-my-4" width="{{ img.width|unlocalize }}" height="{{ img.height|unlocalize }}">
+{% endblock block_content %}
