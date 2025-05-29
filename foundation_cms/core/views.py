@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from wagtail.models import Page, Locale
+from wagtail.models import Locale, Page
 
 
 def listing_page(request):
     # Get the tag from the query parameters
-    tag = request.GET.get('tag')
+    tag = request.GET.get("tag")
 
     # Get the current locale
     locale = Locale.get_active()
@@ -18,9 +18,6 @@ def listing_page(request):
     else:
         pages = pages.all()
 
-    context = {
-        'pages': pages,
-        'active_tag': tag if tag else 'Latest Posts'
-    }
+    context = {"pages": pages, "active_tag": tag if tag else "Latest Posts"}
 
     return render(request, "patterns/pages/core/listing_page.html", context)

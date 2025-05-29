@@ -1,12 +1,16 @@
-from wagtail.blocks import StructBlock, StreamBlock, RichTextBlock, CharBlock
+from wagtail.blocks import CharBlock, RichTextBlock, StreamBlock
+
 from foundation_cms.base.models.base_block import BaseBlock
-from .audio_block import AudioBlock # Just as an example second block
+
+from .audio_block import AudioBlock  # Just as an example second block
 from .image_block import CustomImageBlock
+
 
 class ColumnStreamBlock(StreamBlock):
     rich_text = RichTextBlock()
     audio = AudioBlock()
     image = CustomImageBlock()
+
 
 class TwoColumnContainerBlock(BaseBlock):
     title = CharBlock(required=False, help_text="Optional title for the block")

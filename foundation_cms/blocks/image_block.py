@@ -1,5 +1,6 @@
 from wagtail.blocks import CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
+
 from foundation_cms.base.models.base_block import BaseBlock
 
 
@@ -11,11 +12,11 @@ class CustomImageBlock(BaseBlock):
     image = ImageBlock(required=True)
     orientation = ChoiceBlock(
         choices=[
-            ('portrait', 'Portrait'),
-            ('landscape', 'Landscape'),
+            ("portrait", "Portrait"),
+            ("landscape", "Landscape"),
         ],
-        default='landscape',
-        help_text='Select the orientation of this image'
+        default="landscape",
+        help_text="Select the orientation of this image",
     )
 
     def get_template(self, context=None):
