@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags %}
-{% block body_class %}template-searchresults{% endblock %}
-{% block title %}Search{% endblock %}
+{% block body_class %}template-searchresults{% endblock body_class %}
+{% block title %}Search{% endblock title %}
 {% block extra_css %}
     <style>
         .autocomplete-suggestions {
@@ -25,7 +25,7 @@
             background: #ccc;
         }
     </style>
-{% endblock %}
+{% endblock extra_css %}
 {% block content %}
     <h1>Search</h1>
     <form action="{% url 'search' %}" method="get" class="search-form">
@@ -61,7 +61,7 @@
     {% elif search_query %}
         <p>No results found for "{{ search_query }}"</p>
     {% endif %}
-{% endblock %}
+{% endblock content %}
 {% block extra_js %}
     <script nonce="{{ request.csp_nonce }}">
         document.addEventListener('DOMContentLoaded', function() {
@@ -145,4 +145,4 @@
             }
         });
     </script>
-{% endblock %}
+{% endblock extra_js %}

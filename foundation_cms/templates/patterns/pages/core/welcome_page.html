@@ -24,7 +24,9 @@
     </div>
     <div class="main-text">
         <h1>{% trans "Welcome to your new Wagtail site!" %}</h1>
-        <p>{% trans 'Please feel free to <a href="https://github.com/wagtail/wagtail/wiki/Slack">join our community on Slack</a>, or get started with one of the links below.' %}</p>
+        {% blocktrans %}
+            Please feel free to <a href="https://github.com/wagtail/wagtail/wiki/Slack">join our community on Slack</a>, or get started with one of the links below.
+        {% endblocktrans %}
     </div>
 </main>
 <footer class="footer" role="contentinfo">
