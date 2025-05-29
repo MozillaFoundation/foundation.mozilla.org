@@ -13,6 +13,7 @@ from foundation_cms.blocks import (
     AudioBlock,
     CustomImageBlock,
     LinkButtonBlock,
+    PortraitCardSetBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
 )
@@ -64,6 +65,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
             ("tabbed_content", TabbedContentContainerBlock()),
             ("two_column_container_block", TwoColumnContainerBlock()),
             ("link_button_block", LinkButtonBlock()),
+            ("portrait_card_set_block", PortraitCardSetBlock()),
         ],
         use_json_field=True,
         blank=True,
