@@ -9,7 +9,7 @@ class CustomImageBlock(BaseBlock):
     A reusable image block with title and orientation options
     """
 
-    title = CharBlock(required=True, help_text="Title/caption for this image")
+    title = CharBlock(required=False, help_text="Title/caption for this image")
     image = ImageBlock(required=True)
     orientation = ChoiceBlock(
         choices=[
@@ -22,5 +22,5 @@ class CustomImageBlock(BaseBlock):
 
     class Meta:
         icon = "image"
-        template = "patterns/blocks/image_block.html"
+        template_name = "image_block.html"
         label = "Image"
