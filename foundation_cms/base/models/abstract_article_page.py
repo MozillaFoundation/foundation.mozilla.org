@@ -1,10 +1,8 @@
 from django.db import models
-
 from wagtail.admin.panels import FieldPanel
-from wagtail.blocks import RichTextBlock
-from wagtail.fields import StreamField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
+
 
 class AbstractArticlePage(AbstractBasePage):
 

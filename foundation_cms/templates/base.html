@@ -11,11 +11,11 @@
                 {% else %}
                     {{ page.title }}
                 {% endif %}
-            {% endblock %}
+            {% endblock title %}
             {% block title_suffix %}
                 {% wagtail_site as current_site %}
                 {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
-            {% endblock %}
+            {% endblock title_suffix %}
         </title>
         {% if page.search_description %}
             <meta name="description" content="{{ page.search_description }}" />{% endif %}
@@ -25,7 +25,7 @@
             <base target="_blank">{% endif %}
     {# Global stylesheets #}
         <link rel="stylesheet" href="{% static 'foundation_cms/_css/redesign_main.compiled.css' %}">
-        {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock %}
+        {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock extra_css %}
 
     {# Global third-party scripts #}
         {% block fundraiseup_script %}
@@ -36,10 +36,10 @@
                 t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
-        {% endblock %}
+        {% endblock fundraiseup_script %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="{% block body_class %}{% endblock body_class %}">
     {# Basic breadcrumbs for dev navigation #}
         {% with self as page %}
             <nav aria-label="Breadcrumb">
@@ -47,11 +47,11 @@
         {% endwith %}
         {% include "patterns/components/primary_nav.html" %}
         {% wagtailuserbar %}
-        {% block primary_nav %}{% endblock %}
-        {% block content %}{% endblock %}
+        {% block primary_nav %}{% endblock primary_nav %}
+        {% block content %}{% endblock content %}
         {% include "patterns/components/footer.html" %}
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
-        {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock %}
+        {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock extra_js %}
     </body>
 
 </html>

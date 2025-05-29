@@ -3,6 +3,8 @@
     <div class="image-block-container">
         {% image value.image original as img %}
         <img src="{{ img.url }}"
+             height="{{ img.height }}"
+             width="{{ img.width }}"
              alt="{{ value.title }}"
              class="image-block-image">
     </div>
