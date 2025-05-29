@@ -840,6 +840,11 @@ define-properties@^1.2.1:
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
 
+delicious-hamburgers@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/delicious-hamburgers/-/delicious-hamburgers-1.2.3.tgz#053a8b6b7d58ce7c058f7fdbef945e0e4119db7e"
+  integrity sha512-+lk95s3zBjonCJRqiuJi8jzjAdc316w5hIvztXXJUAQ33i32BObgczfZYNFogcsQ5t55vwhdX00fyJPC9L+njA==
+
 dependency-graph@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-1.0.0.tgz#bb5e85aec1310bc13b22dbd76e3196c4ee4c10d2"

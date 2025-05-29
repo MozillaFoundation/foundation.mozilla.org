@@ -1,14 +1,54 @@
 <nav role="navigation" class="primary-nav">
   <div class="grid-container">
-    <div class="grid-x grid-padding-x">
-      <div class="cell large-12">
-        <ul class="menu">
-          <li><a href="/nav-1/">Nav Iteam 1</a></li>
-          <li><a href="/nav-2/">Nav Iteam 2</a></li>
-          <li><a href="/nav-3/">Nav Iteam 3</a></li>
-          <li><a href="/nav-4/">Nav Iteam 4</a></li>
-        </ul>
+    <div class="primary-nav__grid">
+
+      <!-- Hamburguer Menu -->
+      <div class="primary-nav__grid-cell primary-nav__grid-cell__hamburger">
+        <button class="hamburger hamburger--collapse" type="button">
+          <div class="inner">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Wordmark -->
+      <div class="primary-nav__grid-cell primary-nav__grid-cell__wordmark">
+        <div class="primary-nav__wordmark">
+          <h1>Mozilla Foundation</h1>
+        </div>
+      </div>
+
+      <!-- Donate Buton -->
+      <div class="primary-nav__grid-cell primary-nav__grid-cell__donate">
+        <a href="#" class="button button--donate">
+          <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.0555 1.41702C18.7229 1.69358 19.3294 2.09894 19.8401 2.60993C20.3511 3.12069 20.7565 3.72712 21.033 4.39458C21.3096 5.06204 21.4519 5.77745 21.4519 6.49993C21.4519 7.22242 21.3096 7.93783 21.033 8.60529C20.7565 9.27275 20.3511 9.87918 19.8401 10.3899L18.7801 11.4499L11.0001 19.2299L3.22012 11.4499L2.16012 10.3899C1.12843 9.35824 0.548828 7.95897 0.548828 6.49993C0.548828 5.0409 1.12843 3.64163 2.16012 2.60993C3.19181 1.57824 4.59109 0.998643 6.05012 0.998643C7.50915 0.998643 8.90843 1.57824 9.94012 2.60993L11.0001 3.66993L12.0601 2.60993C12.5709 2.09894 13.1773 1.69358 13.8448 1.41702C14.5122 1.14046 15.2276 0.998108 15.9501 0.998108C16.6726 0.998108 17.388 1.14046 18.0555 1.41702Z" stroke="#141414" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <span>Donate</span>
+        </a>
+      </div>
+
+      <!-- Menu, accordion for mobile, dropdown for desktop -->
+      <div class="primary-nav__grid-cell primary-nav__grid-cell__menu-wrapper">
+        <div class="primary-nav__menu">
+
+          <div class="primary-nav__menu-item">
+            <a href="#">Mobilize Ideas</a>
+          </div>
+          <div>
+            <a href="#" class="nav-link">Imagine with Us</a>
+          </div>
+          <div>
+            <a href="#" class="nav-link">Nothing Personal</a>
+          </div>
+          <div>
+            <a href="#" class="nav-link">Meet Mozilla</a>
+          </div>
+
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>

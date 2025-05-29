@@ -1,4 +1,66 @@
+$hamburger-bar-spacing: 0.8rem;
+
+@import "../../../../frontend/node_modules/delicious-hamburgers/scss/base";
+@import "../../../../frontend/node_modules/delicious-hamburgers/scss/animations/collapse";
+
+body.has-primary-nav {
+  padding-top: 7.5rem;
+}
+
 .primary-nav {
-  background: #e0e0e0;
-  padding: 10px 0;
+  $background-color: #fff;
+  $text-primary: #141414;
+  $text-brand-tertiary: #e15715;
+  $border-color: $text-brand-tertiary;
+
+  position: fixed;
+  top: 0;
+  z-index: 10;
+
+  background-color: $background-color;
+  border-bottom: 1px solid $border-color;
+
+  height: 5rem;
+  overflow: hidden;
+  will-change: height;
+  transition: height 0.3s ease-in-out;
+
+  &__grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__grid-cell {
+    &__wordmark {
+      flex: 1;
+    }
+    &__menu {
+      width: 100%;
+    }
+  }
+
+  &__wordmark {
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      width: 6em;
+      font-weight: bold;
+      line-height: 0.82;
+    }
+  }
+
+  .button--donate {
+    display: flex;
+    gap: 0.5rem;
+    cursor: pointer;
+    align-items: center;
+    color: $text-primary;
+  }
+
+  &.open {
+    height: 100%;
+  }
 }
