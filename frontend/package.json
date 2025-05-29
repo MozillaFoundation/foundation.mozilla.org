@@ -35,7 +35,8 @@
     "check-format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --check --ignore-path .prettierignore",
     "format": "run-s format:js format:scss",
     "format:js": "prettier \"../foundation_cms/static/js/**/*.js\" --write",
-    "format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --write --ignore-path .prettierignore"
+    "format:scss": "prettier \"../foundation_cms/static/scss/**/*.scss\" --write --ignore-path .prettierignore",
+    "postinstall": "cp yarn.lock ../yarn.lock"
   },
   "dependencies": {
     "esbuild": "^0.25.2",
