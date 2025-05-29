@@ -2,9 +2,9 @@
 
 import wagtail.fields
 from django.db import migrations
+
 import foundation_cms.legacy_apps.wagtailpages.validators
 import foundation_cms.validators
-import wagtail.fields
 
 
 class Migration(migrations.Migration):

@@ -1,6 +1,8 @@
 from wagtail import blocks
-from .text_image_block import TextImageBlock
+
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
+from .text_image_block import TextImageBlock
+
 
 class TabbedContentTabBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text="Title shown on the tab button")
@@ -13,7 +15,7 @@ class TabbedContentTabBlock(blocks.StructBlock):
         ],
         required=True,
         min_num=1,
-        help_text="Add one or more content blocks to the tab."
+        help_text="Add one or more content blocks to the tab.",
     )
 
     class Meta:

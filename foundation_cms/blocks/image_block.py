@@ -8,6 +8,7 @@ class CustomImageBlock(BaseBlock):
     """
     A reusable image block with title and orientation options
     """
+
     title = CharBlock(required=False, help_text="Title/caption for this image")
     image = ImageBlock(required=True)
     orientation = ChoiceBlock(
