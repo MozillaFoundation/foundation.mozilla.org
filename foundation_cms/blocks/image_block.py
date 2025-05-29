@@ -1,7 +1,9 @@
 from wagtail.blocks import CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
 
+
 from foundation_cms.base.models.base_block import BaseBlock
+
 
 
 class CustomImageBlock(BaseBlock):
