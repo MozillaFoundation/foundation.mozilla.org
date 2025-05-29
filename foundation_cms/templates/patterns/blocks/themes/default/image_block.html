@@ -5,6 +5,8 @@
             {% image value.image original as img %}
             <img src="{{ img.url }}"
                  alt="{{ value.title }}"
+                 height="{{ img.height }}"
+                 width="{{ img.width }}"
                  class="image-block-image">
         </div>
         {% if value.title %}<p class="image-block-title">{{ value.title }}</p>{% endif %}
