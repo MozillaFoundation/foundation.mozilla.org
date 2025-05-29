@@ -1,6 +1,6 @@
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
@@ -9,9 +9,14 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock
-from foundation_cms.blocks.image_block import CustomImageBlock
-from foundation_cms.blocks.audio_block import AudioBlock
+from foundation_cms.blocks import (
+    AudioBlock,
+    CustomImageBlock,
+    LinkButtonBlock,
+    TabbedContentContainerBlock,
+    TwoColumnContainerBlock,
+)
+
 
 @register_snippet
 class Author(models.Model):
@@ -55,9 +60,10 @@ class AbstractBasePage(MetadataPageMixin, Page):
         [
             ("rich_text", RichTextBlock()),
             ("image", CustomImageBlock()),
-            ("audio", AudioBlock()),
-            ('tabbed_content', TabbedContentContainerBlock()),
+            ("audio_block", AudioBlock()),
+            ("tabbed_content", TabbedContentContainerBlock()),
             ("two_column_container_block", TwoColumnContainerBlock()),
+            ("link_button_block", LinkButtonBlock()),
         ],
         use_json_field=True,
         blank=True,

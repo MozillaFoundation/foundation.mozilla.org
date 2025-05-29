@@ -1,16 +1,24 @@
 from .audio_block import AudioBlock
 from .hero_accordion import HeroAccordionBlock
 from .image_block import CustomImageBlock
+from .link_block import LinkBlock
+from .link_button_block import LinkButtonBlock
+from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
+from .text_image_block import TextImageBlock
 from .two_column_container_block import TwoColumnContainerBlock
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
     "TabbedContentContainerBlock",
+    "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",
     "TwoColumnContainerBlock",
     "CustomImageBlock",
     "AudioBlock",
     "HeroAccordionBlock",
+    "TextImageBlock",
+    "LinkBlock",
+    "LinkButtonBlock",
 ]

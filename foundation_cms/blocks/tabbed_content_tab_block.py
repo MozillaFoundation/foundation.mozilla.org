@@ -1,5 +1,8 @@
 from wagtail import blocks
-from foundation_cms.base.models.base_block import BaseBlock
+
+from .tabbed_content_card_set_block import TabbedContentCardSetBlock
+from .text_image_block import TextImageBlock
+
 
 class TabbedContentTabBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text="Title shown on the tab button")
@@ -7,12 +10,12 @@ class TabbedContentTabBlock(blocks.StructBlock):
     content = blocks.StreamBlock(
         [
             ("rich_text", blocks.RichTextBlock()),
-            # TODO add other blocks as they're built
+            ("text_image", TextImageBlock()),
+            ("tab_card_set", TabbedContentCardSetBlock()),
         ],
         required=True,
         min_num=1,
-        max_num=1,
-        help_text="Only one content block per tab."
+        help_text="Add one or more content blocks to the tab.",
     )
 
     class Meta:
