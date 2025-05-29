@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+
+{% if value.image.orientation %}
+  <div class="image-block image-block-{{ value.image.orientation }}">
+    <div class="image-block-container">
+      {% image value.image.image original as img %}
+      <img src="{{ img.url }}" alt="{{ value.title }}" class="image-block-image">
+    </div>
+    {% if value.title %}<p class="image-block-title">{{ value.title }}</p>{% endif %}
+  </div>
+{% else %}
+  <div class="tab-image-block">
+    {% image value.image.image original as img %}
+    <img src="{{ img.url }}" class="tab-image-block__image" alt="">
+  </div>
+{% endif %}

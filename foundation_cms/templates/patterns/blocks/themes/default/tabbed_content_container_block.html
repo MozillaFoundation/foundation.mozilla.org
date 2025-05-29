@@ -1,0 +1,31 @@
+{% load wagtailcore_tags %}
+
+{% if self.tabs %}
+  <div class="tabs-container">
+
+    {# Tab Navigation #}
+    <ul class="tabs grid-x" data-tabs id="tabbed-content-{{ forloop.counter }}">
+      {% for tab in self.tabs %}
+        <li class="tabs-title cell small-12 medium-auto {% if forloop.first %}is-active{% endif %}">
+          <a href="#panel{{ forloop.counter }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+            <strong>{{ tab.title }}</strong>
+            {% if tab.subtitle %}
+              <br><small>{{ tab.subtitle }}</small>
+            {% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {# Tab Panels #}
+    <div class="tabs-content" data-tabs-content="tabbed-content-{{ forloop.counter }}">
+      {% for tab in self.tabs %}
+        <div class="tabs-panel {% if forloop.first %}is-active{% endif %}" id="panel{{ forloop.counter }}">
+          {% for block in tab.content %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

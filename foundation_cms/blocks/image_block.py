@@ -19,9 +19,6 @@ class CustomImageBlock(BaseBlock):
         help_text="Select the orientation of this image",
     )
 
-    def get_template(self, context=None):
-        return "patterns/blocks/image_block.html"
-
     class Meta:
         icon = "image"
         template_name = "image_block.html"
