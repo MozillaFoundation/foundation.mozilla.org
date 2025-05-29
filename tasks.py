@@ -487,7 +487,7 @@ def djlint_lint(ctx):
 @task
 def flake8(ctx):
     """Run flake8."""
-    pyrun(ctx, "flake8 .")
+    pyrun(ctx, "flake8 ./foundation_cms")
 
 
 @task(help={"args": "Override the arguments passed to isort."})

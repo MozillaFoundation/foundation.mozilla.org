@@ -7,7 +7,7 @@ class AbstractGeneralPage(AbstractBasePage):
 
     content_panels = AbstractBasePage.content_panels + [
         FieldPanel("body"),
-        ]
+    ]
 
     class Meta:
         abstract = True
