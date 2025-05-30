@@ -18,8 +18,8 @@ const inProduction = mode === `production`;
 
 console.log(`ESBuild running in production mode?`, inProduction);
 
-const inDir = `./foundation_cms/legacy_apps/static/js/`;
-const outDir = `./foundation_cms/legacy_apps/static/compiled/_js/`;
+const inDir = `../../foundation_cms/legacy_apps/static/js/`;
+const outDir = `../../foundation_cms/legacy_apps/static/compiled/_js/`;
 
 const sources = {
   main: {
