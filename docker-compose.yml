@@ -31,8 +31,6 @@ services:
       - ./foundation_cms:/app/foundation_cms
       - ./copy-db.js:/app/copy-db.js
       - ./media:/app/media
-      - ./test:/app/test
-      - ./tests:/app/tests
       - ./Procfile.dev:/app/Procfile.dev
       - ./Procfile.dev-lean:/app/Procfile.dev-lean
       - ./pyproject.toml:/app/pyproject.toml
