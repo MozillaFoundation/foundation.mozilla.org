@@ -1,6 +1,6 @@
 import $ from "jquery";
 import "foundation-sites";
-import { initImpactStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
+import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
 
 $(document).foundation();
 
@@ -9,5 +9,5 @@ console.log(
 );
 
 document.addEventListener("DOMContentLoaded", () => {
-  initImpactStatAnimationsOnScroll();
+  initImpactNumberStatAnimationsOnScroll();
 });

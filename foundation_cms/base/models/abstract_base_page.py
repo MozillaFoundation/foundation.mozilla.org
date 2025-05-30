@@ -12,13 +12,12 @@ from wagtailmetadata.models import MetadataPageMixin
 from foundation_cms.blocks import (
     AudioBlock,
     CustomImageBlock,
+    ImpactNumberBlock,
     LinkButtonBlock,
     PortraitCardSetBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
-    ImpactNumberBlock
 )
-
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
@@ -30,6 +29,7 @@ base_page_block_options = [
     ("two_column_container_block", TwoColumnContainerBlock()),
     ("link_button_block", LinkButtonBlock()),
     ("portrait_card_set_block", PortraitCardSetBlock()),
+    ("impact_numbers", ImpactNumberBlock()),
 ]
 
 

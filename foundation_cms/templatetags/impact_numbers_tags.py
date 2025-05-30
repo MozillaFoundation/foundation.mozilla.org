@@ -12,7 +12,7 @@ def random_digits(length=10):
 
 @register.filter
 def render_animated_number(value):
-    """Render HTML digit spans with animation-ready attributes."""
+    """Render HTML digits with animation-ready attributes."""
     output = []
     digit_index = 1
 
@@ -20,16 +20,16 @@ def render_animated_number(value):
         if char.isdigit():
             data_fake = random_digits()
             digit_html = f"""
-                <div class="numbers__window is-animated">
-                    <div class="numbers__window__digit numbers__window__digit--{digit_index}" data-fake="{data_fake}">{char}</div>
+                <div class="impact-stat__digit-window impact-stat__digit-window--animated" aria-hidden="true">
+                    <div class="impact-stat__digit impact-stat__digit--{ digit_index }" data-fake="{data_fake}">{char}</div>
                 </div>
             """
             digit_index += 1
         else:
-            # Handle non-digit characters like '.' or ','
+            # Handle non-digit characters (Ex: #, $, K, M, ',' , '.' )
             digit_html = f"""
-                <div class="numbers__window">
-                    <div class="numbers__window__digit">{char}</div>
+                <div class="impact-stat__digit-window" aria-hidden="true">
+                    <div class="impact-stat__digit">{char}</div>
                 </div>
             """
         output.append(digit_html.strip())
