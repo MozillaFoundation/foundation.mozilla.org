@@ -16,6 +16,7 @@ from foundation_cms.blocks import (
     PortraitCardSetBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
+    TimelyActivationsCardsBlock,
 )
 
 
@@ -66,6 +67,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
             ("two_column_container_block", TwoColumnContainerBlock()),
             ("link_button_block", LinkButtonBlock()),
             ("portrait_card_set_block", PortraitCardSetBlock()),
+            ("timely_activations_cards", TimelyActivationsCardsBlock()),
         ],
         use_json_field=True,
         blank=True,

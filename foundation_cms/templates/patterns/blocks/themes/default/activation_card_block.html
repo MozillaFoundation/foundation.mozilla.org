@@ -1,0 +1,32 @@
+{% load wagtailimages_tags %}
+
+<div class="activation-card">
+    {% if self.image %}
+    <div class="activation-card__image-container orientation-{{ self.image.orientation }}">
+        <img src="{{ self.image.image.file.url }}" alt="{{ self.image.title }}" class="activation-card__image">
+    </div>
+    {% endif %}
+    
+    <div class="activation-card__content">
+        {% if self.topic %}
+        <span class="activation-card__topic">{{ self.topic }}</span>
+        {% endif %}
+        
+        {% if self.category %}
+        <div class="activation-card__category">{{ self.category }}</div>
+        {% endif %}
+        
+        <h3 class="activation-card__title">{{ self.title }}</h3>
+        
+        {% if self.text %}
+        <div class="activation-card__text">{{ self.text }}</div>
+        {% endif %}
+        
+        {% if self.link %}
+        <a href="{{ self.link.url }}" class="activation-card__cta">
+            {{ self.link.text }}
+            <span class="arrow">→</span>
+        </a>
+        {% endif %}
+    </div>
+</div> 
