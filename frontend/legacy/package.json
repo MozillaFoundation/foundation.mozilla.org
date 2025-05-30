@@ -4,7 +4,6 @@
   "repository": "https://github.com/mozilla/foundation.mozilla.org",
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
-  "type": "module",
   "engines": {
     "node": "20.x"
   },
@@ -30,7 +29,7 @@
     "build:legacy:css:file:formassembly": "sass ../../foundation_cms/legacy_apps/static/sass/formassembly-override.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/formassembly-override.compiled.css",
     "build:redesign": "cd frontend && yarn install --frozen-lockfile && yarn build",
     "fix": "run-s fix:*",
-    "fix:js": "run-p lint:legacy:js:eslint -- --fix",
+    "fix:js": "node ./lint-js.js --fix",
     "fix:css": "run-p lint:legacy:css:scss -- --fix",
     "fix:scss": "run-p fix:css",
     "heroku-postbuild": "npm run build:legacy && npm run build:redesign",
@@ -38,7 +37,7 @@
     "lint:legacy": "run-s lint:legacy:*",
     "lint:legacy:procfile": "node test/test-procfile.js",
     "lint:legacy:js": "run-s lint:legacy:js:*",
-    "lint:legacy:js:eslint": "eslint --config ./eslint.config.js \"../../foundation_cms/legacy_apps/static/js/**/*.jsx\" \"../../foundation_cms/legacy_apps/wagtailcustomization/**/*.js\" \"tests/**/*.js\" \"./*.js\"",
+    "lint:legacy:js:eslint": "node ./lint-js.js",
     "lint:css": "run-p lint:legacy:css",
     "lint:legacy:css": "run-s lint:legacy:css:*",
     "lint:legacy:css:scss": "stylelint \"../../foundation_cms/legacy_apps/static/sass/**/*.scss\" \"../../foundation_cms/legacy_apps/static/js/**/*.scss\" --custom-syntax postcss-scss",

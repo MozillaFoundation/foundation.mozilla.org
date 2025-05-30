@@ -8,13 +8,9 @@
  * "production" or "development" so that process.env.NODE_ENV in our
  * code gets interpreted correctly.
  */
-import { context, build } from "esbuild";
-import path from "path";
-import { fileURLToPath } from "url";
 
-// __dirname and __filename emulation for ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const { context, build } = require("esbuild");
+const path = require("path");
 
 const arg = process.argv.indexOf("--node-env");
 const mode =
@@ -23,8 +19,14 @@ const inProduction = mode === "production";
 
 console.log("ESBuild running in production mode?", inProduction);
 
-const inDir = path.resolve(__dirname, "../../foundation_cms/legacy_apps/static/js/");
-const outDir = path.resolve(__dirname, "../../foundation_cms/legacy_apps/static/compiled/_js/");
+const inDir = path.resolve(
+  __dirname,
+  "../../foundation_cms/legacy_apps/static/js/"
+);
+const outDir = path.resolve(
+  __dirname,
+  "../../foundation_cms/legacy_apps/static/compiled/_js/"
+);
 
 const sources = {
   main: {

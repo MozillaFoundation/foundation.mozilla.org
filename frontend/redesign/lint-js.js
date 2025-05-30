@@ -10,7 +10,7 @@ import { ESLint } from "eslint";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // These paths need to be in absolute format
 const rootPath = path.resolve(__dirname, "../../");
-const eslintConfigPath = path.join(rootPath, "frontend/eslint.config.js");
+const eslintConfigPath = path.join(rootPath, "frontend/redesign/eslint.config.js");
 
 // Wrap in async IIFE to use await at top level in environments that don't support top-level await
 (async () => {
