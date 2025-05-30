@@ -8,56 +8,61 @@
  * "production" or "development" so that process.env.NODE_ENV in our
  * code gets interpreted correctly.
  */
-const { context, build } = require(`esbuild`);
-const path = require(`path`);
+import { context, build } from "esbuild";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const arg = process.argv.indexOf(`--node-env`);
+// __dirname and __filename emulation for ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const arg = process.argv.indexOf("--node-env");
 const mode =
-  arg > 0 ? process.argv[arg + 1] : process.env.NODE_ENV || `development`;
-const inProduction = mode === `production`;
+  arg > 0 ? process.argv[arg + 1] : process.env.NODE_ENV || "development";
+const inProduction = mode === "production";
 
-console.log(`ESBuild running in production mode?`, inProduction);
+console.log("ESBuild running in production mode?", inProduction);
 
-const inDir = `../../foundation_cms/legacy_apps/static/js/`;
-const outDir = `../../foundation_cms/legacy_apps/static/compiled/_js/`;
+const inDir = path.resolve(__dirname, "../../foundation_cms/legacy_apps/static/js/");
+const outDir = path.resolve(__dirname, "../../foundation_cms/legacy_apps/static/compiled/_js/");
 
 const sources = {
   main: {
-    source: `main.js`,
+    source: "main.js",
     jsx: "automatic",
     bundle: true,
   },
   mozfest: {
-    source: `foundation/pages/mozfest/index.js`,
+    source: "foundation/pages/mozfest/index.js",
     jsx: "automatic",
     bundle: true,
   },
   callpower: {
-    source: `foundation/pages/callpower.js`,
+    source: "foundation/pages/callpower.js",
     bundle: true,
   },
   "directory-listing-filters": {
-    source: `foundation/pages/directory-listing-filters.js`,
+    source: "foundation/pages/directory-listing-filters.js",
   },
   "bg-main": {
-    source: `buyers-guide/bg-main.js`,
+    source: "buyers-guide/bg-main.js",
     jsx: "automatic",
     bundle: true,
   },
   "bg-search": {
-    source: `buyers-guide/search.js`,
+    source: "buyers-guide/search.js",
     bundle: true,
   },
   "bg-editorial-content-index": {
-    source: `buyers-guide/editorial-content-index.js`,
+    source: "buyers-guide/editorial-content-index.js",
     bundle: true,
   },
   "libraries-library-page": {
-    source: `foundation/pages/libraries-library-page.js`,
+    source: "foundation/pages/libraries-library-page.js",
     bundle: true,
   },
   polyfills: {
-    source: `polyfills.js`,
+    source: "polyfills.js",
   },
 };
 
@@ -73,22 +78,31 @@ const base = {
   },
 };
 
-const opts = Object.assign({}, base);
+async function run() {
+  for (const [name, { source, jsx, bundle }] of Object.entries(sources)) {
+    const opts = {
+      ...base,
+      entryPoints: [path.join(inDir, source)],
+      outfile: path.join(outDir, `${name}.compiled.js`),
+      bundle: !!bundle,
+    };
 
-Object.entries(sources).forEach(async ([name, { source, jsx, bundle }]) => {
-  if (jsx) {
-    opts.jsx = jsx;
-  }
-  if (bundle) {
-    opts.bundle = true;
-  }
-  opts.entryPoints = [path.join(inDir, source)];
-  opts.outfile = `${path.join(outDir, name)}.compiled.js`;
+    if (jsx) {
+      opts.jsx = jsx;
+    }
 
-  if (inProduction) {
-    return build(opts);
-  } else {
-    let ctx = await context(opts);
-    await ctx.watch();
+    if (inProduction) {
+      await build(opts);
+      console.log(`Built ${name}.compiled.js`);
+    } else {
+      const ctx = await context(opts);
+      await ctx.watch();
+      console.log(`Watching ${name}.compiled.js...`);
+    }
   }
+}
+
+run().catch((err) => {
+  console.error("Build failed:", err);
+  process.exit(1);
 });
