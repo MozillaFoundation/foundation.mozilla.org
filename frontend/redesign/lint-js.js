@@ -28,7 +28,7 @@ const eslintConfigPath = path.join(rootPath, "frontend/redesign/eslint.config.js
 
   const results = await eslint.lintFiles([
     "foundation_cms/static/js/**/*.js",
-    "frontend/**/*.js",
+    "frontend/redesign/**/*.js",
   ]);
 
   // Write fixes to disk if any
