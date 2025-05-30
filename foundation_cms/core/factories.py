@@ -2,7 +2,7 @@ import factory
 from django.conf import settings
 from wagtail.images.models import Image
 from wagtail.models import Page, Site
-from wagtail_factories import ImageFactory, PageFactory
+from wagtail_factories import PageFactory
 
 from .models import HomePage
 

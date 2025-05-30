@@ -6,7 +6,10 @@ from wagtail.images.blocks import ImageBlock
 
 
 class VideoPanelBlock(blocks.StructBlock):
-    VIMEO_HELP_TEXT = "Please enter a valid Vimeo URL (e.g. https://vimeo.com/123456789 or https://player.vimeo.com/video/123456789)."
+    VIMEO_HELP_TEXT = (
+        "Please enter a valid Vimeo URL (e.g. https://vimeo.com/123456789 or "
+        "https://player.vimeo.com/video/123456789)."
+    )
 
     label = blocks.CharBlock(required=True)
     heading = blocks.CharBlock(required=False, max_length=40)
