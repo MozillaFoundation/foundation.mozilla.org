@@ -2,7 +2,7 @@
 {% load static %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block body_class %}template-homepage{% endblock body_class %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/home_page.compiled.css' %}">
@@ -10,37 +10,18 @@
 
 {% block content %}
   <div class="grid-container">
-    <div class="grid-x grid-margin-x">
+    <div class="grid-xy grid-margin-xy">
+      <div class="cell small-12">
+        {% include "patterns/components/home_page/kinetic_type_wordmark.html" %}
+      </div>
       <div class="cell small-12">
         {% include "patterns/components/home_page/kinetic_type_brand_line.html" %}
       </div>
     </div>
   </div>
 
-  <!-- Full Bleed Hero -->
-  <section class="wireframe-box" style="min-height: 300px;">
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x align-middle">
-        <div class="cell large-12">
-          <div class="tags-list">
-            <h2>Browse by Topic</h2>
-            <ul>
-              {% for tag in page.tags.all %}
-                <li>
-                  <a href="{% url 'listing_page' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-          <p>Full Bleed Hero</p>
-          <h1>{{ page.hero_headline }}</h1>
-          <img src="{{ page.hero_image.file.url }}" width="300" height="300">
-          <h2>{{ page.hero_intro_heading }}</h2>
-          <p>{{ page.hero_intro_body }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Full Bleed Hero Accordion -->
+  {% include "patterns/components/home_page/hero_accordion.html" %}
 
   <!-- Main Content -->
   <main>
@@ -55,7 +36,7 @@
           <p>Content content content content content content content content content content content content content.</p>
           <ul>
             {% for blog in blogs %}
-              <li style="margin-left: 30px; margin-top: 10px;"><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+              <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
@@ -74,4 +55,4 @@
 
 {% block extra_js %}
   <script src="{% static 'foundation_cms/_js/pages/home_page.compiled.js' %}"></script>
-{% endblock %}
+{% endblock extra_js %}

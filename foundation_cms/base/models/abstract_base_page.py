@@ -1,6 +1,6 @@
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
@@ -9,19 +9,27 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataPageMixin
 
-from foundation_cms.blocks import TabbedContentContainerBlock, TwoColumnContainerBlock, ImpactNumberBlock
-from foundation_cms.blocks.image_block import CustomImageBlock
-from foundation_cms.blocks.audio_block import AudioBlock
+from foundation_cms.blocks import (
+    AudioBlock,
+    CustomImageBlock,
+    LinkButtonBlock,
+    PortraitCardSetBlock,
+    TabbedContentContainerBlock,
+    TwoColumnContainerBlock,
+    ImpactNumberBlock
+)
+
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
 base_page_block_options = [
     ("rich_text", RichTextBlock()),
     ("image", CustomImageBlock()),
-    ("audio", AudioBlock()),
-    ('tabbed_content', TabbedContentContainerBlock()),
+    ("audio_block", AudioBlock()),
+    ("tabbed_content", TabbedContentContainerBlock()),
     ("two_column_container_block", TwoColumnContainerBlock()),
-    ("impact_numbers", ImpactNumberBlock()),
+    ("link_button_block", LinkButtonBlock()),
+    ("portrait_card_set_block", PortraitCardSetBlock()),
 ]
 
 
