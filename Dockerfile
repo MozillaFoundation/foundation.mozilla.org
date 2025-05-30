@@ -21,6 +21,11 @@ RUN yarn install --frozen-lockfile
 # Copy only static asset source files (build context should handle all needed files)
 COPY foundation_cms/ ./foundation_cms/
 
+# Copy other files
+COPY contribute.json ./
+
+RUN ls -al ./foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css
+
 # Run build scripts defined in root package.json (calls workspace:legacy and workspace:redesign builds)
 RUN yarn build
 
