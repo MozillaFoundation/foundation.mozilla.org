@@ -1,6 +1,5 @@
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
-from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import HeroAccordionBlock
