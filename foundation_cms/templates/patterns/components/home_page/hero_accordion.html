@@ -8,7 +8,7 @@
         <div>
           [Thumbnail]
           {% image block.value.thumbnail original as img %}
-          <img src="{{ img.url }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
+          <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
         </div>
         {% if block.value.heading %}
           <p>[Optional Heading] {{ block.value.heading }}</p>
@@ -33,7 +33,7 @@
         <div>
           [Image]
           {% image block.value.image original as img %}
-          <img src="{{ img.url }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
+          <img src="{{ img.url }}"  width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
         </div>
         <p>[Heading] {{ block.value.heading }}</p>
         {% if block.value.description %}
