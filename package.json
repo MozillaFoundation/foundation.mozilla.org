@@ -1,4 +1,12 @@
 {
+  "name": "www.mozillafoundation.org",
+  "version": "1.0.0",
+  "repository": "https://github.com/mozilla/foundation.mozilla.org",
+  "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
+  "description": "Mozilla Foundation site. Entrypoint for yarn workspaces",
+  "engines": {
+    "node": "20.x"
+  },
   "private": true,
   "workspaces": [
     "frontend/*"
