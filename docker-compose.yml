@@ -63,10 +63,10 @@ services:
       - ./tailwind.config.js:/app/tailwind.config.js
 
       # Yarn workspace: legacy
-      - ./frontend/packages/legacy:/app/frontend/packages/legacy
+      - ./frontend/legacy:/app/frontend/legacy
 
       # Yarn workspace: redesign
-      - ./frontend/packages/redesign:/app/frontend/packages/redesign
+      - ./frontend/redesign:/app/frontend/redesign
 
       # Optional: root Yarn workspace config
       - ./yarn.lock:/app/yarn.lock
