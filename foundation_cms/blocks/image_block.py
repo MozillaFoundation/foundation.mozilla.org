@@ -1,23 +1,26 @@
 from wagtail.blocks import CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
+
 from foundation_cms.base.models.base_block import BaseBlock
+
 
 class CustomImageBlock(BaseBlock):
     """
     A reusable image block with title and orientation options
     """
-    title = CharBlock(required=True, help_text="Title/caption for this image")
+
+    title = CharBlock(required=False, help_text="Title/caption for this image")
     image = ImageBlock(required=True)
     orientation = ChoiceBlock(
         choices=[
-            ('portrait', 'Portrait'),
-            ('landscape', 'Landscape'),
+            ("portrait", "Portrait"),
+            ("landscape", "Landscape"),
         ],
-        default='landscape',
-        help_text='Select the orientation of this image'
+        default="landscape",
+        help_text="Select the orientation of this image",
     )
-    
+
     class Meta:
         icon = "image"
-        template = "patterns/blocks/image_block.html"
-        label = "Image" 
+        template_name = "image_block.html"
+        label = "Image"
