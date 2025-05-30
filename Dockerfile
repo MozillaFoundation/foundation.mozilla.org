@@ -158,7 +158,7 @@ RUN corepack enable && corepack prepare yarn@stable --activate
 # Restore user
 USER mozilla
 
-# Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
+# Pull in the node modules from the frontend build stage so we don't have to run yarn install --frozen-lockfile again.
 # This is just a copy in the container, and is not visible to the host machine.
 # We can't mount this as the empty directory in the host will obscure our the installed content.
 # See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container

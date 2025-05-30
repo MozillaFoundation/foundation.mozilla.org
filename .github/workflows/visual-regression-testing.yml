@@ -68,7 +68,7 @@ jobs:
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Install Node Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
       - name: Install additional tooling
         run: |
           sudo apt-get update
