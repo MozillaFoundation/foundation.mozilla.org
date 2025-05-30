@@ -1,4 +1,5 @@
 from .audio_block import AudioBlock
+from .hero_accordion import HeroAccordionBlock
 from .image_block import CustomImageBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
@@ -18,6 +19,7 @@ __all__ = [
     "TwoColumnContainerBlock",
     "CustomImageBlock",
     "AudioBlock",
+    "HeroAccordionBlock",
     "TextImageBlock",
     "LinkBlock",
     "OptionalLinkBlock",

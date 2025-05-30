@@ -20,30 +20,8 @@
     </div>
   </div>
 
-  <!-- Full Bleed Hero -->
-  <section class="wireframe-box">
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x align-middle">
-        <div class="cell large-12">
-          <div class="tags-list">
-            <h2>Browse by Topic</h2>
-            <ul>
-              {% for tag in page.tags.all %}
-                <li>
-                  <a href="{% url 'listing_page' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-          <p>Full Bleed Hero</p>
-          <h1>{{ page.hero_headline }}</h1>
-          <img src="{{ page.hero_image.file.url }}" width="300" height="300">
-          <h2>{{ page.hero_intro_heading }}</h2>
-          <p>{{ page.hero_intro_body }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Full Bleed Hero Accordion -->
+  {% include "patterns/components/home_page/hero_accordion.html" %}
 
   <!-- Main Content -->
   <main>
