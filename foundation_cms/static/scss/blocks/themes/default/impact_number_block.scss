@@ -1,5 +1,4 @@
-$digitHeight: 2em;
-
+$digit-height: 2em;
 .impact-stat {
 
   &__content {
@@ -18,9 +17,9 @@ $digitHeight: 2em;
   
 
   &__digit-window {
-    font-size: $digitHeight;
-    line-height: $digitHeight;
-    height: $digitHeight;
+    font-size: $digit-height;
+    line-height: $digit-height;
+    height: $digit-height;
     display: inline-block;
 
     &--animated{
@@ -54,6 +53,6 @@ $digitHeight: 2em;
 
 @keyframes counting {
   100% {
-    transform: translate3d(0, -($digitHeight * 10), 0);
+    transform: translate3d(0, -($digit-height * 10), 0);
   }
 }
