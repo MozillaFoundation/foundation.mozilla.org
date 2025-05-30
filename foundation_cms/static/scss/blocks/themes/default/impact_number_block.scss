@@ -1,0 +1,78 @@
+$digitHeight: 2em;
+
+
+
+.numbers {
+  &__window {
+    font-size: $digitHeight;
+    line-height: $digitHeight;
+    font-weight: 300;
+    text-align: center;
+    
+  &.is-animated {
+    overflow: hidden;
+  }
+    
+    display: inline-block;
+    
+    height: $digitHeight;
+    
+    &__digit {
+      
+      font: inherit;
+      word-break: break-all;
+      
+      display: block;
+      width: min-content;
+      padding: 0;   
+      animation-play-state: paused;
+
+      &.animate {
+        animation-play-state: running;
+      }
+      
+      &::before {
+        content: attr(data-fake);
+        display: inline-block;
+      }
+      
+      @for $i from 1 through 10 {
+        &--#{$i} {
+          overflow: hidden;
+          animation: counting 0.4s steps(10) forwards;
+          animation-iteration-count: $i * 2;
+          animation-play-state: paused;
+      
+          &.animate {
+            animation-play-state: running;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes counting {
+    100% { transform: translate3d(0, -($digitHeight * 10), 0) }
+}
+
+.impact-stat__content{
+  align-items: center;
+}
+
+.impact-stat__description {
+  font-size:11px
+}
+.impact-stat__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem; // spacing between number and description
+}
+
+.impact-stat__number {
+  display: flex;
+}
+
+.impact-number-block{
+  margin-bottom:2em;
+}

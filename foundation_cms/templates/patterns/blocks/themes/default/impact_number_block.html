@@ -1,39 +1,40 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags impact_numbers_tags %}
 
-<div class="impact-number-block grid-container">
-  <div class="grid-x ">
+<div class="wireframe-box impact-number-block grid-container">
+  <div class="grid-x grid-padding-x">
     {% with stat_count=self.stats|length %}
       {% for stat in self.stats %}
-        {% if stat_count == 1 %}
+        {% if stat_count == 3 %}
+          <div class="impact-stat cell small-12 large-4">
+        {% else %}
           <div class="impact-stat cell small-12 medium-6">
-        {% elif stat_count == 2 %}
-          <div class="impact-stat cell small-12 medium-6">
-        {% elif stat_count == 3 %}
-          <div class="impact-stat cell small-12 medium-4">
         {% endif %}
-
-        <div class="impact-stat__content grid-x align-middle">
-            <!-- Animated Number -->
+        <div class="impact-stat__item grid-x align-middle">
+          <!-- Number -->
           <div
-            class="impact-stat__value-wrapper cell shrink"
+            class="impact-stat__number cell shrink"
             data-number="{{ stat.stat_number }}"
             aria-label="{{ stat.stat_prefix }}{{ stat.stat_number }}{{ stat.stat_suffix }}"
           >
-            <b class="impact-stat__value" aria-hidden="true">
-              <span class="impact-stat__prefix">{{ stat.stat_prefix }}</span>
-              <span class="impact-stat__animated-value"></span>
-              <span class="impact-stat__suffix">{{ stat.stat_suffix }}</span>
-            </b>
+            <div class="numbers__window">
+              <div class="numbers__window__digit">{{stat.stat_prefix}}</div>
+            </div>
+            {{ stat.stat_number|render_animated_number }}
+            <div class="numbers__window">
+              <div class="numbers__window__digit">{{stat.stat_suffix}}</div>
+            </div>
+
           </div>
 
-            <!-- Description -->
+          <!-- Description -->
           <div class="impact-stat__description cell auto">
-            <div>
+            <p>
               {{ stat.stat_description }}
-            </div>
+            </p>
           </div>
         </div>
         </div>
+
       {% endfor %}
     {% endwith %}
   </div>
