@@ -1,12 +1,12 @@
 {% load wagtailcore_tags %}
 
 <section class="timely-activations">
-    <h2 class="timely-activations__title">{{ self.title }}</h2>
+    <h2 class="timely-activations-title">{{ self.title }}</h2>
 
-    <div class="timely-activations__cards-container card-count-{{ self.card_count }}">
+    <div class="timely-activations-cards-container card-count-{{ self.card_count }}">
         {% for card_item in self.cards %}
             {% if forloop.counter <= self.card_count|add:"0" %}
-                <div class="timely-activations__card-wrapper">
+                <div class="timely-activations-card-wrapper">
                     {% include_block card_item %}
                 </div>
             {% endif %}
