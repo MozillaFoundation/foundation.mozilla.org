@@ -15,6 +15,7 @@ from foundation_cms.blocks import (
     ImpactNumberBlock,
     LinkButtonBlock,
     PortraitCardSetBlock,
+    SpacerBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
 )
@@ -29,6 +30,7 @@ base_page_block_options = [
     ("two_column_container_block", TwoColumnContainerBlock()),
     ("link_button_block", LinkButtonBlock()),
     ("portrait_card_set_block", PortraitCardSetBlock()),
+    ("spacer_block", SpacerBlock()),
     ("impact_numbers", ImpactNumberBlock()),
 ]
 
