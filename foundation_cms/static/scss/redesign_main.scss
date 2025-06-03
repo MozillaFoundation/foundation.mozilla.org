@@ -6,6 +6,7 @@
 @import "../scss/components/footer";
 @import "../scss/components/images";
 @import "../scss/components/tabbed_content";
+@import "../scss/components/spacer_block";
 
 // Foundation Modules
 @include foundation-global-styles;
@@ -33,15 +34,4 @@ h6 {
   background: #e6e6e6;
   border: 1px solid #555;
   margin-bottom: 50px;
-}
-
-.tags-list {
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
 }
