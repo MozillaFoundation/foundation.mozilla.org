@@ -47,7 +47,6 @@ services:
       - ./README.md:/app/README.md
       - ./release-steps.sh:/app/release-steps.sh
       - ./translation-management.sh:/app/translation-management.sh
-
       # Frontend config for legacy site
       - ./.editorconfig:/app/.editorconfig
       - ./.prettierignore:/app/.prettierignore
@@ -55,15 +54,11 @@ services:
       - ./.stylelintrc:/app/.stylelintrc
       - ./.stylelintrc-colors.js:/app/.stylelintrc-colors.js
       - ./pyrightconfig.json:/app/pyrightconfig.json
-      - ./playwright.config.js:/app/playwright.config.js
-
       # Yarn workspace: legacy
       - ./frontend/legacy:/app/frontend/legacy
-
       # Yarn workspace: redesign
       - ./frontend/redesign:/app/frontend/redesign
-
-      # Optional: root Yarn workspace config
+      # Root Yarn workspace config
       - ./yarn.lock:/app/yarn.lock
       - ./package.json:/app/package.json
     depends_on:
