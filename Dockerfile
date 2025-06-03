@@ -108,7 +108,7 @@ COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
 # This will later be obscured by the `foundation_cms` bind mount in docker-compose.yml, and
-# will need to be recreated by `npm run build`.
+# will need to be recreated by `yarn build`.
 COPY --chown=mozilla --from=frontend /app/foundation_cms/legacy_apps/static/compiled ./foundation_cms/legacy_apps/static/compiled
 COPY --chown=mozilla --from=frontend /app/foundation_cms/static/compiled ./foundation_cms/static/compiled
 
@@ -152,7 +152,7 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN apt-get update && apt-get install nodejs -y \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
-# Activate Corepack and install stable Yarn version (avoids global npm install)
+# Activate Corepack and install stable Yarn version (avoids global yarn install)
 RUN corepack enable && corepack prepare yarn@stable --activate
 
 # Restore user

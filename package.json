@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "repository": "https://github.com/mozilla/foundation.mozilla.org",
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
-  "description": "Mozilla Foundation site. Entrypoint for yarn workspaces",
+  "description": "Mozilla Foundation site. Entrypoint for yarn workspaces. Contains global scripts run from root.",
   "engines": {
     "node": "20.x"
   },
@@ -12,7 +12,12 @@
     "frontend/*"
   ],
   "scripts": {
-    "build": "yarn workspace legacy build && yarn workspace redesign build"
+    "build": "yarn workspace legacy build && yarn workspace redesign build",
+    "fix:css": "yarn workspace legacy fix:css && yarn workspace redesign fix:scss",
+    "fix:js": "yarn workspace legacy fix:js && yarn workspace redesign fix:js",
+    "lint": "yarn workspace legacy lint && yarn workspace redesign lint",
+    "lint:js": "yarn workspace legacy lint:legacy:js && yarn workspace redesign lint:js",
+    "lint:css": "yarn workspace legacy lint:css && yarn workspace redesign lint:scss"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
