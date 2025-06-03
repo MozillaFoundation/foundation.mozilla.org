@@ -12,12 +12,27 @@ from wagtailmetadata.models import MetadataPageMixin
 from foundation_cms.blocks import (
     AudioBlock,
     CustomImageBlock,
+    ImpactNumberBlock,
     LinkButtonBlock,
     PortraitCardSetBlock,
     SpacerBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
 )
+
+# Shared StreamField block types for use across pages that inherit from AbstractBasePage.
+# Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
+base_page_block_options = [
+    ("rich_text", RichTextBlock()),
+    ("image", CustomImageBlock()),
+    ("audio_block", AudioBlock()),
+    ("tabbed_content", TabbedContentContainerBlock()),
+    ("two_column_container_block", TwoColumnContainerBlock()),
+    ("link_button_block", LinkButtonBlock()),
+    ("portrait_card_set_block", PortraitCardSetBlock()),
+    ("spacer_block", SpacerBlock()),
+    ("impact_numbers", ImpactNumberBlock()),
+]
 
 
 @register_snippet
@@ -59,16 +74,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
     body = StreamField(
-        [
-            ("rich_text", RichTextBlock()),
-            ("image", CustomImageBlock()),
-            ("audio_block", AudioBlock()),
-            ("tabbed_content", TabbedContentContainerBlock()),
-            ("two_column_container_block", TwoColumnContainerBlock()),
-            ("link_button_block", LinkButtonBlock()),
-            ("portrait_card_set_block", PortraitCardSetBlock()),
-            ("spacer_block", SpacerBlock()),
-        ],
+        base_page_block_options,
         use_json_field=True,
         blank=True,
     )
