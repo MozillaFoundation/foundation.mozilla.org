@@ -38,7 +38,7 @@ $digit-height: 2em;
     @for $i from 1 through 10 {
       &--#{$i} {
         animation: counting 0.4s steps(10) forwards;
-        animation-iteration-count: $i * 2;
+        animation-iteration-count: #{$i * 2};
         animation-play-state: paused;
 
         &.animate {
@@ -51,6 +51,6 @@ $digit-height: 2em;
 
 @keyframes counting {
   100% {
-    transform: translate3d(0, -($digit-height * 10), 0);
+    transform: translate3d(0, -#{$digit-height * 10}, 0);
   }
 }
