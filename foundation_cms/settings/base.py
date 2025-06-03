@@ -384,6 +384,7 @@ TEMPLATES = [
                 "nav_tags": "foundation_cms.legacy_apps.nav.templatetags.nav_tags",
                 "primary_page_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
+                "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
