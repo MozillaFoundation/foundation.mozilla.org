@@ -6,7 +6,7 @@ class SpacerBlock(BaseBlock):
     """
     A simple spacer block that can be used to create visual breaks in content with three size options.
     """
-    
+
     size = ChoiceBlock(
         choices=[
             ("small", "Small"),
