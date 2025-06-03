@@ -9,7 +9,7 @@ import wagtail.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0010_alter_generalpage_body_alter_homepage_body"),
+        ("core", "0011_remove_homepage_hero_headline_and_more"),
     ]
 
     operations = [
