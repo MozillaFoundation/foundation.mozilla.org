@@ -14,7 +14,6 @@ $digit-height: 2em;
   &__description {
     font-size: 11px;
   }
-  
 
   &__digit-window {
     font-size: $digit-height;
@@ -22,7 +21,7 @@ $digit-height: 2em;
     height: $digit-height;
     display: inline-block;
 
-    &--animated{
+    &--animated {
       overflow: hidden;
     }
   }
@@ -31,7 +30,6 @@ $digit-height: 2em;
     word-break: break-all;
     display: block;
     width: min-content;
-
 
     &::before {
       content: attr(data-fake);
