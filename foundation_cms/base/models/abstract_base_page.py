@@ -16,8 +16,8 @@ from foundation_cms.blocks import (
     PortraitCardSetBlock,
     SpacerBlock,
     TabbedContentContainerBlock,
-    TwoColumnContainerBlock,
     TimelyActivationsCardsBlock,
+    TwoColumnContainerBlock,
 )
 
 

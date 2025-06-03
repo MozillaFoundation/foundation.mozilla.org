@@ -1,7 +1,9 @@
 from wagtail import blocks
+
 from foundation_cms.base.models.base_block import BaseBlock
-from .link_block import LinkBlock
+
 from .image_block import CustomImageBlock
+from .link_block import LinkBlock
 
 
 class ActivationCardBlock(BaseBlock):
