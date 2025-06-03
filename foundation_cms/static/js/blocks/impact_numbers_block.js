@@ -1,10 +1,16 @@
 /**
  * Initializes counting animation when an ImpactNumberBlock's "stat number" enters the viewport.
  */
+
+const SELECTORS = {
+  statContainer: ".impact-stat__number",
+  digit: ".impact-stat__digit",
+};
+
 export function initImpactNumberStatAnimationsOnScroll() {
   // Select all elements that contain animated number digits
   const impactStatNumberContainers = document.querySelectorAll(
-    ".impact-stat__number",
+    SELECTORS.statContainer,
   );
 
   const handleImpactNumberStatInView = (entries, observer) => {
@@ -13,9 +19,7 @@ export function initImpactNumberStatAnimationsOnScroll() {
         const statContainer = entry.target;
 
         // Find all animated digits inside this stat number
-        const digitElements = statContainer.querySelectorAll(
-          ".impact-stat__digit",
-        );
+        const digitElements = statContainer.querySelectorAll(SELECTORS.digit);
 
         // Trigger the CSS animation by adding the `.animate` class
         digitElements.forEach((digitEl) => {
