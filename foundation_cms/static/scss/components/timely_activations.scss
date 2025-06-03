@@ -7,15 +7,15 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    
+
     &.orientation-portrait {
       padding-bottom: 110%;
     }
-    
+
     &.orientation-landscape {
       padding-bottom: 56.25%;
     }
-    
+
     &.orientation-square {
       padding-bottom: 80%;
     }
@@ -27,7 +27,7 @@
     height: 100%;
     object-fit: cover;
   }
-  
+
   &-topic {
     position: absolute;
     top: 10px;
@@ -50,13 +50,13 @@
 
       .activation-card {
         flex-direction: row;
-        
+
         &-image-container {
-          width: 60%; 
+          width: 60%;
           padding-bottom: 0 !important;
           height: 350px !important;
         }
-        
+
         &-content {
           width: 40%;
           text-align: center;
@@ -73,4 +73,4 @@
       width: calc(33.333% - 0.667rem);
     }
   }
-} 
+}
