@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0011_remove_homepage_hero_headline_and_more"),
+        ("core", "0010_alter_generalpage_body_alter_homepage_body"),
     ]
 
     operations = [
