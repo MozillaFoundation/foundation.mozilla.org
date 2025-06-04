@@ -1,0 +1,37 @@
+name: Check for FFmpeg Version Bump
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # Mondays at 7:00 UTC
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Fetch latest FFmpeg version
+        id: latest
+        run: |
+          latest=$(curl -s https://ffmpeg.org/releases/ | grep -oP 'ffmpeg-\K[0-9]+\.[0-9]+\.[0-9]+(?=\.tar\.xz)' | sort -Vr | head -n1)
+          echo "Latest upstream FFmpeg version: $latest"
+          echo "version=$latest" >> $GITHUB_OUTPUT
+
+      - name: Define current version
+        run: echo "CURRENT_VERSION=6.1.2" >> $GITHUB_ENV
+
+      - name: Compare full version
+        run: |
+          CURRENT="$CURRENT_VERSION"
+          LATEST="${{ steps.latest.outputs.version }}"
+
+          echo "Current: $CURRENT"
+          echo "Latest:  $LATEST"
+
+          if [ "$CURRENT" != "$LATEST" ]; then
+            echo "FFmpeg version has changed: $CURRENT → $LATEST"
+            echo "Please upload the new version ($LATEST) to https://github.com/MozillaFoundation/heroku-ffmpeg-static-builds and follow the README steps to regenerate the tarball and release."
+            exit 1
+          else
+            echo "FFmpeg version is up to date."
+          fi
