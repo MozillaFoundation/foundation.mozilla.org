@@ -33,6 +33,7 @@ base_page_block_options = [
     ("portrait_card_set_block", PortraitCardSetBlock()),
     ("spacer_block", SpacerBlock()),
     ("impact_numbers", ImpactNumberBlock()),
+    ("timely_activations_cards", TimelyActivationsCardsBlock()),
 ]
 
 
@@ -75,17 +76,6 @@ class AbstractBasePage(MetadataPageMixin, Page):
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
     body = StreamField(
-        [
-            ("rich_text", RichTextBlock()),
-            ("image", CustomImageBlock()),
-            ("audio_block", AudioBlock()),
-            ("tabbed_content", TabbedContentContainerBlock()),
-            ("two_column_container_block", TwoColumnContainerBlock()),
-            ("link_button_block", LinkButtonBlock()),
-            ("portrait_card_set_block", PortraitCardSetBlock()),
-            ("timely_activations_cards", TimelyActivationsCardsBlock()),
-            ("spacer_block", SpacerBlock()),
-        ],
         base_page_block_options,
         use_json_field=True,
         blank=True,
