@@ -1,0 +1,35 @@
+{% load bg_nav_tags i18n static wagtailcore_tags wagtailroutablepage_tags wagtailmetadata_tags %}
+
+<nav id="multipage-nav" class="pni-category-nav text-center d-none d-md-block tw-no-scrollbar tw-border-b tw-border-blue-10" title="{% trans "site navigation" context "Tooltip on menu items" %}">
+    <div class="container tw-py-4" id="product-review">
+        <div class="row">
+            <div class="col">
+                <div id="pni-category-wrapper" class="tw-flex tw-items-center ">
+                    <div id="buyersguide-category-link-container" class="tw-flex tw-items-center tw-w-full large:tw-w-4/5 tw-overflow-x-auto tw-mr-8">
+                        <a class="multipage-link tw-block {% if show_all_reviews_as_active_category %} active {% endif %}" data-name="None" data-mobile="{% trans "All Categories" %}" href="{% pageurl home_page %}">{% trans "All Reviews" %}</a>
+                        {% for cat in categories %}
+                            {% if cat.parent == None %}
+                                {% if cat.is_being_used %}
+                                    {% routablepageurl home_page 'category-view' cat.slug as cat_url %}
+                                    <a class="multipage-link tw-block {% check_active_category current_category cat %}{% if cat.featured is True %} featured{% endif %}" href="{{ cat_url }}" data-name="{{ cat.name }}">{{ cat.name }}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% include "fragments/buyersguide/category_dropdown.html" %}
+
+                    <div id="product-filter-search" tabindex="0" class="tw-hidden large:tw-inline-flex tw-px-4 tw-items-center tw-bg-blue-05 tw-border-4 tw-border-blue-05 tw-w-[250px] tw-mr-4">
+                        <img
+                            class="tw-w-8 tw-h-8 tw-mr-4"
+                            src="{% static "legacy_apps/_images/buyers-guide/pni-search.svg" %}"
+                            alt=""
+                        >
+                        <input type="text" role="searchbox" id="product-filter-search-input" placeholder="{% trans "Search all products" %}" value=""
+                               class="tw-bg-blue-05 tw-outline-none tw-py-4 tw-text-base tw-text-blue-60 tw-min-w-0 placeholder:tw-text-blue-60 placeholder:tw-text-[14px] tw-w-full">
+                        <label for="product-filter-search-input" class="clear-icon">&nbsp;</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

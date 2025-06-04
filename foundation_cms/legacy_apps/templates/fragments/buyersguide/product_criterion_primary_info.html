@@ -1,0 +1,21 @@
+{% load i18n static wagtailcore_tags bg_selector_tags %}
+
+<div class="primary-info">
+    <h3 class="tw-mb-8 tw-font-zilla tw-text-2xl tw-leading-7 tw-flex tw-items-center tw-flex-wrap">
+        {{ label }}
+        {% if info != None and info != "" %}
+            <a href="{{ info }}">
+                <img src="{% static "legacy_apps/_images/buyers-guide/icon-info-circle.svg" %}" alt="{% trans "information" context "icon description for screen readers" %}" class="tw-h-8 tw-w-8 tw-ml-4 tw-mb-2">
+            </a>
+        {% endif %}
+    </h3>
+    {% if rich_text_value %}
+        <div class="criterion-richtext-value mb-0 rating">
+            {{ value|richtext }}
+        </div>
+    {% else %}
+        <p class="rating pni-product-smaller-body mb-0">
+            {% trans value|extended_yes_no context value|extended_yes_no %}
+        </p>
+    {% endif %}
+</div>

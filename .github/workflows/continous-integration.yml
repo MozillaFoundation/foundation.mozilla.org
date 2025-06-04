@@ -61,6 +61,8 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
+      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -81,12 +83,12 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py check
-          python network-api/manage.py makemigrations --check --dry-run
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py compilemessages
+          python ./manage.py collectstatic --no-input --verbosity 0
+          python ./manage.py check
+          python ./manage.py makemigrations --check --dry-run
+          python ./manage.py migrate --no-input
+          python ./manage.py block_inventory
+          python ./manage.py compilemessages
       - name: Run linting
         run: |
           flake8 .
@@ -99,11 +101,11 @@ jobs:
           # djlint . --check
           #
           # Using djhtml indent check in the meantime.
-          djhtml -c maintenance/ network-api/
+          djhtml -c maintenance/ foundation_cms/
       - name: Run type checks
-        run: mypy network-api
+        run: mypy foundation_cms
       - name: Run Tests
-        run: cd network-api && pytest -n auto -v --ds=networkapi.settings -cov=network-api/networkapi --cov-report=term-missing
+        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base -cov=foundation_cms/legacy_apps --cov-report=term-missing
 
   test_integration:
     name: Integration testing
@@ -144,6 +146,8 @@ jobs:
       CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js https://*.googletagmanager.com https://*.fundraiseup.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval' https://*.stripe.com https://m.stripe.network https://*.paypal.com https://*.paypalobjects.com https://pay.google.com https://cdn.cookielaw.org"
       CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://platform.twitter.com https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       SECURE_CROSS_ORIGIN_OPENER_POLICY: "same-origin-allow-popups"
+      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -168,9 +172,9 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py load_fake_data
+          python ./manage.py collectstatic --no-input --verbosity 0
+          python ./manage.py migrate --no-input
+          python ./manage.py block_inventory
+          python ./manage.py legacy_load_fake_data
       - name: Integration Tests
         run: npm run playwright:ci

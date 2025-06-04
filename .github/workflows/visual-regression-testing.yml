@@ -53,6 +53,8 @@ jobs:
       USE_S3: False
       X_FRAME_OPTIONS: DENY
       XSS_PROTECTION: True
+      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -76,10 +78,10 @@ jobs:
       - name: Preroll
         run: |
           npm run build
-          python network-api/manage.py collectstatic --no-input --verbosity 0
-          python network-api/manage.py migrate --no-input
-          python network-api/manage.py block_inventory
-          python network-api/manage.py load_fake_data
+          python ./manage.py collectstatic --no-input --verbosity 0
+          python ./manage.py migrate --no-input
+          python ./manage.py block_inventory
+          python ./manage.py legacy_load_fake_data
       - name: Percy Test
         run: npm run percy
         env:

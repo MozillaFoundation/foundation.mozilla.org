@@ -12,10 +12,10 @@ COPY package.json package-lock.json tailwind.config.js esbuild.config.js contrib
 COPY ./tailwind-plugins/ ./tailwind-plugins/
 RUN npm ci --no-optional --no-audit --progress=false
 
-# Compile static files from static source at ./source to ./network-api/networkapi/frontend
-# This will create a `network-api/networkapi/frontend` directory.
-COPY ./source/ ./source/
-COPY ./network-api/networkapi/ ./network-api/networkapi/
+# Compile static files from static source at ./foundation_cms/legacy_apps/static to ./foundation_cms/legacy_apps/static/compiled
+# This will create a `foundation_cms/legacy_apps/static` directory.
+COPY ./foundation_cms/legacy_apps/static/ ./foundation_cms/legacy_apps/static/
+COPY ./foundation_cms/legacy_apps/ ./foundation_cms/legacy_apps/
 RUN npm run build
 
 
@@ -54,7 +54,7 @@ WORKDIR /app
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    DJANGO_SETTINGS_MODULE=networkapi.settings \
+    DJANGO_SETTINGS_MODULE=foundation_cms.settings.base \
     PORT=8000 \
     WEB_CONCURRENCY=3 \
     GUNICORN_CMD_ARGS="-c gunicorn-conf.py --max-requests 1200 --max-requests-jitter 50 --access-logfile - --timeout 25"
@@ -103,23 +103,23 @@ RUN pip-sync requirements.txt dev-requirements.txt
 COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
-# This will later be obscured by the `network-api` bind mount in docker-compose.yml, and
+# This will later be obscured by the `foundation_cms` bind mount in docker-compose.yml, and
 # will need to be recreated by `npm run build`.
-COPY --chown=mozilla --from=frontend /app/network-api/networkapi/frontend ./network-api/networkapi/frontend
+COPY --chown=mozilla --from=frontend /app/foundation_cms/legacy_apps/static/compiled ./foundation_cms/legacy_apps/static/compiled
 
 # Run collectstatic to move static files from application directories and
-# compiled static directory (network-api/networkapi/frontend) to the site's static
-# directory in /app/network-api/staticfiles that will be served by the WSGI server.
+# compiled static directory (foundation_cms/legacy_apps/static) to the site's static
+# directory in /app/staticfiles that will be served by the WSGI server.
 #
 # Note: this is only used where DEBUG=False, and so is not needed on dev builds.
-# The network-api/staticfiles will not be visible after mounting the
-# network-api directory.
-RUN SECRET_KEY=none python ./network-api/manage.py collectstatic --noinput --clear
+# The /staticfiles will not be visible after mounting the
+# foundation_cms directory.
+RUN SECRET_KEY=none python ./manage.py collectstatic --noinput --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
 # Note: this will be overridden by other commands below for dev builds.
-CMD gunicorn networkapi.wsgi:application
+CMD gunicorn foundation_cms/legacy_apps.wsgi:application
 
 # Below is used for local dev builds only
 FROM base as dev

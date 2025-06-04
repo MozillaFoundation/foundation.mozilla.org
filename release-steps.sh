@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-cd network-api
-
 # Temporary Step 1 for migrating to custom image model: migrate images app
 python ./manage.py migrate images
 

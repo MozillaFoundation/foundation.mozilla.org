@@ -1,0 +1,40 @@
+{% extends "../pages/base.html" %}
+{% load static i18n l10n wagtailcore_tags wagtailimages_tags %}
+
+{% block body_id %}help{% endblock body_id %}
+
+{% block extended_head %}
+    {% include "../fragments/formassembly_head.html" %}
+{% endblock extended_head %}
+
+{% block content %}
+    <div class="tw-container tw-py-12 medium:tw-py-24">
+        <div class="cms donate-help-page-content">
+            <h1 class="tw-h1-heading"> {{ page.title }} </h1>
+            {% if localized_notice %}
+                {% include "../fragments/help_page_notice.html" with notice=localized_notice %}
+            {% endif %}
+            <p>
+                {% blocktrans with link="?form=donor-care-intake" trimmed %}
+                    If you need help with a <a href="{{ link }}">donation</a> to the Mozilla Foundation, please select the reason for your inquiry from the drop down and a donor care representative will get back to you as soon as possible.
+                {% endblocktrans %}
+            </p>
+            <div class="tw-border-t tw-border-b tw-py-10 tw-mt-28 tw-mb-10 tw-border-gray-20">
+                <p id="contact-us" class="tw-h3-heading">{% trans "Contact Us" %}</p>
+                {% if show_formassembly_thank_you %}
+                    <div id="thank-you" class="tw-py-22">
+                        <p class="tw-h4-heading">{% trans "Thank you for contacting us." %}</p>
+                        <p class="tw-body-large">{% trans "A case has been created for your issue and we will be in touch shortly." %}</p>
+                    </div>
+                {% else %}
+                    {% include "../fragments/formassembly_body.html" %}
+                    <link rel="stylesheet" href="{% static "legacy_apps/_css/formassembly-override.compiled.css" %}">
+                {% endif %}
+            </div>
+            {% for block in page.body %}
+                {% include_block block with parent_page=page %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+

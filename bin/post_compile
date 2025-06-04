@@ -8,4 +8,4 @@ cd ${BUILD_DIR}
 curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/translations.tar
 
 # Untar the archive
-tar -C network-api -xvf translations.tar
+tar -C foundation_cms -xvf translations.tar

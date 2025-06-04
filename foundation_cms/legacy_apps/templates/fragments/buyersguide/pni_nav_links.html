@@ -1,0 +1,21 @@
+{% load bg_nav_tags i18n wagtailroutablepage_tags wagtailcore_tags static %}
+
+{{ pre }}
+{% with home_page.get_editorial_content_index as editorial_content_index %}
+    <a class="{{ class }} product-review-link" href="{% pageurl home_page %}#product-review">{% trans "Product Reviews" %}</a>
+    <img
+        class="tw-mr-8 tw-hidden large:tw-block {{ class }}"
+        src="{% static "legacy_apps/_images/buyers-guide/asterisk-mini.svg" %}"
+        alt=""
+        width="11"
+        height="10"
+    >
+    {% if editorial_content_index %}
+        <a class="{{ class }} {% bg_active_nav request.get_full_path editorial_content_index.url 'primary_nav' %} " href="{% pageurl editorial_content_index %}">{{ editorial_content_index }}</a>
+    {% endif %}
+{% endwith %}
+{% routablepageurl home_page 'how-to-use-view' as how_to_use_url %}
+
+<a class="{{ class }} {% bg_active_nav request.get_full_path how_to_use_url 'primary_nav' %}" href="{{ how_to_use_url }}">{% trans "About" %}</a>
+<a data-donate-header-button class="{{ class }}" href="?form=privacy-not-included">{% trans "Donate" %}</a>
+{{ post }}
