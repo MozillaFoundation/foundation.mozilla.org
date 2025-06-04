@@ -8,9 +8,8 @@ from wagtail import models as wagtail_models
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
 from foundation_cms.legacy_apps.wagtailpages.factory import homepage as home_factory
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin import foundation_metadata
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
-
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
 class TestBlogPage(test.TestCase):

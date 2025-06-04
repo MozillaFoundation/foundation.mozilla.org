@@ -8,7 +8,7 @@ from django.core.files.storage import default_storage
 from PIL import Image as PILImage
 from wagtail.images.models import Filter, SourceImageIOError
 
-logger = logging.getLogger("networkapi")
+logger = logging.getLogger(__name__)
 
 
 def is_animated_webp(file):

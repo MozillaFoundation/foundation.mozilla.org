@@ -10,8 +10,8 @@ from foundation_cms.legacy_apps.utility.faker.helpers import (
     get_random_date,
     reseed,
 )
-from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.factory.documents import DocumentFactory
+from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.models import (
     ArticlePage,
     Profile,

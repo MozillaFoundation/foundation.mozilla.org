@@ -30,8 +30,8 @@ from sentry_sdk import capture_exception
 from wagtail.images import get_image_model
 from wagtail.models import Collection, Locale, PageViewRestriction
 
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.profiles import Profile
 from foundation_cms.legacy_apps.images.models import FoundationCustomImage
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.profiles import Profile
 
 Image = get_image_model()
 
