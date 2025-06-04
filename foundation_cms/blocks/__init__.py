@@ -1,6 +1,7 @@
 from .audio_block import AudioBlock
 from .hero_accordion import HeroAccordionBlock
 from .image_block import CustomImageBlock
+from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .portrait_card_block import PortraitCardBlock
@@ -29,5 +30,6 @@ __all__ = [
     "PortraitCardSetBlock",
     "LinkButtonBlock",
     "TimelyActivationsCardsBlock",
+    "ImpactNumberBlock",
     "SpacerBlock",
 ]

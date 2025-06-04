@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0010_alter_generalpage_body_alter_homepage_body"),
+        ("core", "0011_alter_generalpage_body_alter_homepage_body"),
     ]
 
     operations = [
