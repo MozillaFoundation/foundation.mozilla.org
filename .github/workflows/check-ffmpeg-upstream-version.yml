@@ -2,7 +2,7 @@ name: Check for FFmpeg Version Bump
 
 on:
   schedule:
-    - cron: "0 7 * * 1" # Mondays at 7:00 UTC
+    - cron: "0 0 * * 0" # Sundays at 12:00 a.m. UTC
   workflow_dispatch:
 
 jobs:
