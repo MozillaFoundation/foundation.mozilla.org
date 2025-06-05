@@ -15,7 +15,7 @@ class ActivationCardBlock(BaseBlock):
     title = blocks.CharBlock(required=True, help_text="Title for the card")
     text = blocks.RichTextBlock(required=False, help_text="Optional description text")
     image = CustomImageBlock(required=True)
-    link = LinkBlock(required=False)
+    link = LinkBlock()
 
     class Meta:
         icon = "image"
