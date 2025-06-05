@@ -255,7 +255,6 @@ INSTALLED_APPS = list(
             "querystring_tag",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             # the network site
-            "foundation_cms.legacy_apps.images",
             "foundation_cms.legacy_apps.s3_file_storage" if USE_S3 else None,
             "foundation_cms.legacy_apps.campaign",
             "foundation_cms.legacy_apps.events",
@@ -272,6 +271,7 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.reports",
             "foundation_cms.legacy_apps.nav",
             "foundation_cms.legacy_apps.project_styleguide",
+            "foundation_cms.images",
         ],
     )
 )

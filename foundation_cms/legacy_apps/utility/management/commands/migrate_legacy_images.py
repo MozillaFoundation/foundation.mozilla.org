@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.db import connection, transaction
 from wagtail.images.models import Image as LegacyImage
 
-from foundation_cms.legacy_apps.images.models import FoundationCustomImage
+from foundation_cms.images.models import FoundationCustomImage
 
 BATCH_SIZE = 1000
 
