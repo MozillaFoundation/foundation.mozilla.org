@@ -4,7 +4,7 @@
     {% if self.image %}
     <div class="activation-card-image-container orientation-{{ self.image.orientation }}">
         {# noqa: H006 - Width and height are controlled by SCSS #}
-        <img src="{{ self.image.image.file.url }}" alt="{{ self.image.title }}" class="activation-card-image">
+        <img src="{{ self.image.image.file.url }}" alt="{{ self.image.title }}" class="activation-card-image" width="100%" height="100%">
         {% if self.topic %}
         <span class="activation-card-topic">{{ self.topic }}</span>
         {% endif %}
