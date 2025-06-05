@@ -14,6 +14,7 @@ body.has-primary-nav {
   $border-color: $text-brand-tertiary;
 
   position: fixed;
+  width: 100%;
   top: 0;
   z-index: 10;
 
@@ -37,7 +38,7 @@ body.has-primary-nav {
     &__wordmark {
       flex: 1;
     }
-    &__menu {
+    &__menu-wrapper {
       width: 100%;
     }
   }
@@ -49,6 +50,67 @@ body.has-primary-nav {
       width: 6em;
       font-weight: bold;
       line-height: 0.82;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+
+    &-item {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      > a {
+        display: flex;
+        flex: 1;
+        width: 100%;
+        font-family: "Mozilla Headline", sans-serif;
+        color: $text-primary;
+        font-size: 1.8rem;
+        font-weight: 400;
+        padding: 1.8rem 0;
+      }
+
+      &__dropdown {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        will-change: max-height;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+
+        & > a {
+          display: block;
+          width: 100%;
+          margin: 0.5rem 2rem;
+          color: $text-primary;
+          font-family: "Mozilla Headline", sans-serif;
+          font-size: 1.2rem;
+        }
+      }
+
+      &__dropdown-toggle {
+        width: 2.5rem;
+        background-image: url("data:image/svg+xml,%3Csvg width='26' height='14' viewBox='0 0 26 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L13 13L25 1' stroke='%23141414' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+        background-size: 1.6rem auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      &.open {
+        & .primary-nav__menu-item__dropdown-toggle {
+          transform: rotate(180deg);
+        }
+
+        // & .primary-nav__menu-item__dropdown {
+        //   // height: auto;
+        // }
+      }
     }
   }
 
