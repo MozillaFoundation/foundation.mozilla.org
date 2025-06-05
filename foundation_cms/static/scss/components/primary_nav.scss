@@ -17,35 +17,70 @@ body.has-primary-nav {
   width: 100%;
   top: 0;
   z-index: 10;
-
   background-color: $background-color;
   border-bottom: 1px solid $border-color;
-
   height: 5rem;
   overflow: hidden;
   will-change: height;
   transition: height 0.3s ease-in-out;
 
-  &__grid {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  @include breakpoint(large up) {
+    overflow: visible;
   }
 
-  &__menu-wrapper {
-    width: 100%;
+  &__grid {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 1rem;
+
+    @include breakpoint(large up) {
+      gap: 3rem;
+    }
+  }
+
+  &__hamburger {
+    @include breakpoint(large up) {
+      display: none;
+    }
   }
 
   &__wordmark {
     flex: 1;
+
+    @include breakpoint(large up) {
+      flex: 0;
+      width: fit-content;
+    }
+
     h1 {
       font-size: 1.7rem;
-      font-weight: 700;
       width: 6em;
       font-weight: bold;
       line-height: 0.82;
+
+      @include breakpoint(large up) {
+        width: 9em;
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__donate {
+    @include breakpoint(large up) {
+      order: 2;
+    }
+  }
+
+  &__menu-wrapper {
+    width: 100%;
+
+    @include breakpoint(large up) {
+      width: auto;
+      flex: 1;
+      order: 1;
+      display: flex;
+      flex-direction: row;
     }
   }
 
@@ -53,10 +88,23 @@ body.has-primary-nav {
     display: flex;
     flex-direction: column;
 
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: flex-start;
+      width: auto;
+      gap: 2rem;
+    }
+
     &-item {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
+      position: relative;
+
+      @include breakpoint(large up) {
+        flex-wrap: nowrap;
+        flex: 0 0 auto;
+        gap: 0.5rem;
+      }
 
       > a {
         display: flex;
@@ -67,9 +115,29 @@ body.has-primary-nav {
         font-size: 1.8rem;
         font-weight: 400;
         padding: 1.8rem 0;
+
+        @include breakpoint(large up) {
+          width: auto;
+          font-size: 1rem;
+          padding: 1.8rem 0;
+          flex: none;
+          font-family: "Mozilla Text", sans-serif;
+          text-decoration: none;
+        }
       }
 
       &.open {
+        > a {
+          color: $text-brand-tertiary;
+          text-decoration: underline;
+        }
+
+        & .primary-nav__dropdown {
+          @include breakpoint(large up) {
+            opacity: 1;
+          }
+        }
+
         & .primary-nav__dropdown-toggle {
           transform: rotate(180deg);
         }
@@ -86,6 +154,18 @@ body.has-primary-nav {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
 
+    @include breakpoint(large up) {
+      width: auto;
+      position: absolute;
+      top: calc(100% + 1rem);
+      left: -2rem;
+      background: $background-color;
+      border: 1px solid $border-color;
+      border-radius: 1rem;
+      opacity: 0;
+      padding: 1rem 0;
+    }
+
     & > a {
       display: block;
       width: 100%;
@@ -93,6 +173,14 @@ body.has-primary-nav {
       color: $text-primary;
       font-family: "Mozilla Headline", sans-serif;
       font-size: 1.2rem;
+
+      @include breakpoint(large up) {
+        margin: 0;
+        padding: 0.5rem 4rem 0.5rem 2rem;
+        text-decoration: none;
+        font-family: "Mozilla Text", sans-serif;
+        font-size: 1rem;
+      }
     }
   }
 
@@ -104,6 +192,11 @@ body.has-primary-nav {
     background-position: center;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+
+    @include breakpoint(large up) {
+      width: 1.5rem;
+      background-size: 0.9rem auto;
+    }
   }
 
   .button--donate {
