@@ -27,7 +27,7 @@ class TimelyActivationsCardsBlock(BaseBlock):
     """
     Block for displaying timely activations cards with customizable number of cards (1, 2, or 3)
     """
-    title = blocks.CharBlock(required=True, help_text="Title for the activations section")
+    title = blocks.CharBlock(required=False, help_text="Title for the activations section")
 
     # Display count selection
     card_count = blocks.ChoiceBlock(
