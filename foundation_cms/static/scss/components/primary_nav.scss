@@ -128,8 +128,10 @@ body.has-primary-nav {
 
       &.open {
         > a {
-          color: $text-brand-tertiary;
-          text-decoration: underline;
+          @include breakpoint(large up) {
+            color: $text-brand-tertiary;
+            text-decoration: underline;
+          }
         }
 
         & .primary-nav__dropdown {

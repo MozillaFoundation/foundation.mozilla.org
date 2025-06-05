@@ -23,12 +23,16 @@ export function initPrimaryNav() {
     hamburger.classList.toggle("active");
   });
 
+  // Menu dropdowns
   dropdowns.forEach((dropdown) => {
     const toggle = document.createElement("div");
     const menu = dropdown.parentElement;
 
     toggle.classList.add(SELECTORS.toggle.replace(".", ""));
     toggle.addEventListener("click", (event) => {
+      if (window.innerWidth >= 1024) {
+        return;
+      }
       const openMenus = document.querySelectorAll(`${SELECTORS.menuItem}.open`);
       openMenus.forEach((openMenu) => {
         if (openMenu === menu) return;
@@ -46,5 +50,21 @@ export function initPrimaryNav() {
     });
 
     menu.insertBefore(toggle, dropdown);
+
+    // Menu mouse enter/leave events
+    menu.addEventListener("mouseenter", () => {
+      if (window.innerWidth <= 1024) {
+        return;
+      }
+      menu.classList.add("open");
+      dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+    });
+    menu.addEventListener("mouseleave", () => {
+      if (window.innerWidth <= 1024) {
+        return;
+      }
+      menu.classList.remove("open");
+      dropdown.style.maxHeight = null;
+    });
   });
 }
