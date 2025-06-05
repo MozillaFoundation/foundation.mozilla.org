@@ -29,13 +29,11 @@ export function initPrimaryNav() {
 
     toggle.classList.add(SELECTORS.toggle.replace(".", ""));
     toggle.addEventListener("click", (event) => {
-      // Close all other open dropdown menus
       const openMenus = document.querySelectorAll(`${SELECTORS.menuItem}.open`);
       openMenus.forEach((openMenu) => {
-        if (openMenu !== menu) {
-          openMenu.classList.remove("open");
-          openMenu.querySelector(SELECTORS.dropdown).style.maxHeight = null;
-        }
+        if (openMenu === menu) return
+        openMenu.classList.remove("open");
+        openMenu.querySelector(SELECTORS.dropdown).style.maxHeight = null;
       });
 
       if (menu.classList.contains("open")) {
