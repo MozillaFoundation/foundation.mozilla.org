@@ -34,16 +34,12 @@ body.has-primary-nav {
     flex-wrap: wrap;
   }
 
-  &__grid-cell {
-    &__wordmark {
-      flex: 1;
-    }
-    &__menu-wrapper {
-      width: 100%;
-    }
+  &__menu-wrapper {
+    width: 100%;
   }
 
   &__wordmark {
+    flex: 1;
     h1 {
       font-size: 1.7rem;
       font-weight: 700;
@@ -73,41 +69,41 @@ body.has-primary-nav {
         padding: 1.8rem 0;
       }
 
-      &__dropdown {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        max-height: 0;
-        will-change: max-height;
-        overflow: hidden;
-        transition: all 0.3s ease-in-out;
-
-        & > a {
-          display: block;
-          width: 100%;
-          margin: 0.5rem 2rem;
-          color: $text-primary;
-          font-family: "Mozilla Headline", sans-serif;
-          font-size: 1.2rem;
-        }
-      }
-
-      &__dropdown-toggle {
-        width: 2.5rem;
-        background-image: url("data:image/svg+xml,%3Csvg width='26' height='14' viewBox='0 0 26 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L13 13L25 1' stroke='%23141414' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-        background-size: 1.6rem auto;
-        background-repeat: no-repeat;
-        background-position: center;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-      }
-
       &.open {
-        & .primary-nav__menu-item__dropdown-toggle {
+        & .primary-nav__dropdown-toggle {
           transform: rotate(180deg);
         }
       }
     }
+  }
+
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    will-change: max-height;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+
+    & > a {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 2rem;
+      color: $text-primary;
+      font-family: "Mozilla Headline", sans-serif;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__dropdown-toggle {
+    width: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg width='26' height='14' viewBox='0 0 26 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L13 13L25 1' stroke='%23141414' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-size: 1.6rem auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
   }
 
   .button--donate {

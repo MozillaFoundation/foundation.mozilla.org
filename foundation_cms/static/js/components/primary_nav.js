@@ -2,8 +2,8 @@ const SELECTORS = {
   primaryNav: ".primary-nav",
   hamburger: ".primary-nav .hamburger",
   menuItem: ".primary-nav__menu-item",
-  dropdown: ".primary-nav__menu-item__dropdown",
-  toggle: ".primary-nav__menu-item__dropdown-toggle",
+  dropdown: ".primary-nav__dropdown",
+  toggle: ".primary-nav__dropdown-toggle",
 };
 
 export function initPrimaryNav() {
@@ -31,7 +31,7 @@ export function initPrimaryNav() {
     toggle.addEventListener("click", (event) => {
       const openMenus = document.querySelectorAll(`${SELECTORS.menuItem}.open`);
       openMenus.forEach((openMenu) => {
-        if (openMenu === menu) return
+        if (openMenu === menu) return;
         openMenu.classList.remove("open");
         openMenu.querySelector(SELECTORS.dropdown).style.maxHeight = null;
       });
