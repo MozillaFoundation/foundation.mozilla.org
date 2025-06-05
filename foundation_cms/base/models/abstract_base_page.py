@@ -15,10 +15,10 @@ from foundation_cms.blocks import (
     ImpactNumberBlock,
     LinkButtonBlock,
     PortraitCardSetBlock,
+    QuoteBlock,
     SpacerBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
-    QuoteBlock,
 )
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.

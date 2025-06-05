@@ -6,13 +6,13 @@ from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
+from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock
 from .two_column_container_block import TwoColumnContainerBlock
-from .quote_block import QuoteBlock
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
