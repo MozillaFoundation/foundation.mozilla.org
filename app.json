@@ -45,7 +45,7 @@
       "url": "heroku/python"
     },
     {
-      "url": "https://github.com/MozillaFoundation/heroku-ffmpeg-buildpack.git#ffmpeg-v6.1-latest"
+      "url": "https://github.com/MozillaFoundation/heroku-ffmpeg-buildpack.git#ffmpeg-v6.1.2-31"
     }
   ],
   "scripts": {
