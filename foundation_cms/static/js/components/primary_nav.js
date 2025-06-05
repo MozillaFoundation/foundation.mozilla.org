@@ -53,14 +53,14 @@ export function initPrimaryNav() {
 
     // Menu mouse enter/leave events
     menu.addEventListener("mouseenter", () => {
-      if (window.innerWidth <= 1024) {
+      if (window.innerWidth < 1024) {
         return;
       }
       menu.classList.add("open");
       dropdown.style.maxHeight = dropdown.scrollHeight + "px";
     });
     menu.addEventListener("mouseleave", () => {
-      if (window.innerWidth <= 1024) {
+      if (window.innerWidth < 1024) {
         return;
       }
       menu.classList.remove("open");
