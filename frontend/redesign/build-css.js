@@ -12,9 +12,9 @@ const entries = [
   "pages/home_page",
 ];
 
-const inDir = "../foundation_cms/static/scss";
-const tempDir = "../foundation_cms/static/temp";
-const outDir = "../foundation_cms/static/compiled/_css";
+const inDir = "../../foundation_cms/static/scss";
+const tempDir = "../../foundation_cms/static/temp";
+const outDir = "../../foundation_cms/static/compiled/_css";
 
 for (const entry of entries) {
   const input = path.resolve(__dirname, `${inDir}/${entry}.scss`);

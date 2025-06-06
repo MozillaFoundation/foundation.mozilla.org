@@ -1,57 +1,35 @@
 # (Keep the version in sync with the node install below)
 FROM node:20-bookworm-slim as frontend
 
-# Make build & post-install scripts behave as if we were in a CI environment (e.g. for logging verbosity purposes).
 ARG CI=true
 
 # ----------------------------------------
-# Legacy frontend setup (npm-based)
+# Install frontend dependencies (Yarn workspaces)
 # ----------------------------------------
 
 WORKDIR /app
 
-# Install front-end dependencies.
-# This will create a `node_modules` directory in the current directory.
-COPY package.json package-lock.json tailwind.config.js esbuild.config.js contribute.json ./
-COPY ./tailwind-plugins/ ./tailwind-plugins/
-RUN npm ci --no-optional --no-audit --progress=false
+# Copy root workspace definitions
+COPY package.json yarn.lock .
 
-# Compile static files from static source at ./foundation_cms/legacy_apps/static to ./foundation_cms/legacy_apps/static/compiled
-# This will create a `foundation_cms/legacy_apps/static` directory.
-COPY ./foundation_cms/legacy_apps/static/ ./foundation_cms/legacy_apps/static/
-COPY ./foundation_cms/legacy_apps/ ./foundation_cms/legacy_apps/
-RUN npm run build
+# Copy all workspace packages
+COPY frontend/ ./frontend/
 
-# ----------------------------------------
-# Redesign frontend setup (yarn-based)
-# ----------------------------------------
-
-# Use /app/frontend as the redesign app working directory
-WORKDIR /app/frontend
-
-# Install redesign front-end dependencies.
-# This will create a `node_modules` directory in /app/frontend.
-COPY ./frontend/package.json ./package.json
-COPY ./frontend/yarn.lock ./yarn.lock
-COPY ./frontend/postcss.config.js ./postcss.config.js
-COPY ./frontend/esbuild.config.js ./esbuild.config.js
-COPY ./frontend/build-css.js ./build-css.js
+# Install dependencies across all workspaces
 RUN yarn install --frozen-lockfile
 
-# Compile static files from source at ./foundation_cms/static to ./foundation_cms/static/compiled
-# This will create a `foundation_cms/static/compiled` directory containing redesign frontend CSS.
-COPY ./foundation_cms/static/ /app/foundation_cms/static/
-RUN mkdir -p /app/foundation_cms/static/compiled
+# Copy only static asset source files (build context should handle all needed files)
+COPY foundation_cms/ ./foundation_cms/
+
+# Copy other files
+COPY contribute.json ./
+
+# Run build scripts defined in root package.json (calls workspace:legacy and workspace:redesign builds)
 RUN yarn build
 
-# We use Debian images because they are considered more stable than the alpine
-# ones because they use a different C compiler. Debian images also come with
-# all useful packages required for image manipulation out of the box. They
-# however weight a lot, approx. up to 1.5GiB per built image.
-#
-# Note: This stage builds the base image for production. Presently we are not
-# using this on the production site, but only use it as base for the dev build.
-# Pin "bullseye" as it matches Ubuntu 20.04 -- Heroku 20 stack currently used in production.
+# ----------------------------------------
+# Python runtime image for Django app
+# ----------------------------------------
 FROM python:3.11-slim-bookworm as base
 
 # Install dependencies in a virtualenv
@@ -113,8 +91,8 @@ USER mozilla
 
 # Install your app's Python requirements.
 RUN python -m venv $VIRTUAL_ENV
-ENV PATH=$VIRTUAL_ENV/bin:$PATH
 RUN pip install -U pip==23.3.2 && pip install pip-tools setuptools wheel
+
 # Normally we won't install dev dependencies in production, but we do it here to optimise
 # docker build cache for local build
 COPY --chown=mozilla ./requirements.txt ./dev-requirements.txt ./
@@ -128,7 +106,7 @@ COPY --chown=mozilla . .
 
 # Copy compiled assets from the frontend build stage for collectstatic to work.
 # This will later be obscured by the `foundation_cms` bind mount in docker-compose.yml, and
-# will need to be recreated by `npm run build`.
+# will need to be recreated by `yarn build`.
 COPY --chown=mozilla --from=frontend /app/foundation_cms/legacy_apps/static/compiled ./foundation_cms/legacy_apps/static/compiled
 COPY --chown=mozilla --from=frontend /app/foundation_cms/static/compiled ./foundation_cms/static/compiled
 
@@ -146,7 +124,9 @@ RUN SECRET_KEY=none python ./manage.py collectstatic --noinput --clear
 # Note: this will be overridden by other commands below for dev builds.
 CMD gunicorn foundation_cms/legacy_apps.wsgi:application
 
-# Below is used for local dev builds only
+# ----------------------------------------
+# Dev-only image (includes Node, Yarn, etc.)
+# ----------------------------------------
 FROM base as dev
 
 # Swap user, so the following tasks can be run as root
@@ -157,7 +137,6 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     gnupg \
     postgresql-client \
     ca-certificates
-
 
 # Install node (Keep the version in sync with the node container above)
 # Download and import the Nodesource GPG key
@@ -171,18 +150,19 @@ RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesourc
 RUN apt-get update && apt-get install nodejs -y \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
-# Activate Corepack and install stable Yarn version (avoids global npm install)
+# Activate Corepack and install stable Yarn version (avoids global yarn install)
 RUN corepack enable && corepack prepare yarn@stable --activate
 
 # Restore user
 USER mozilla
 
-# Pull in the node modules from the frontend build stage so we don't have to run npm ci again.
+# Pull in the node modules from the frontend build stage so we don't have to run yarn install --frozen-lockfile again.
 # This is just a copy in the container, and is not visible to the host machine.
 # We can't mount this as the empty directory in the host will obscure our the installed content.
 # See https://docs.docker.com/storage/bind-mounts/#mount-into-a-non-empty-directory-on-the-container
 COPY --chown=mozilla --from=frontend /app/node_modules ./node_modules
-COPY --chown=mozilla --from=frontend /app/frontend/node_modules ./frontend/node_modules
+COPY --chown=mozilla --from=frontend /app/frontend/legacy/node_modules ./frontend/legacy/node_modules
+COPY --chown=mozilla --from=frontend /app/frontend/redesign/node_modules ./frontend/redesign/node_modules
 
 # To avoid isort `fatal: detected dubious ownership in repository at '/app'` error
 RUN git config --global --add safe.directory /app

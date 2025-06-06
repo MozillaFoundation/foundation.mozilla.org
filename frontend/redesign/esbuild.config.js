@@ -17,8 +17,8 @@ const inProduction = mode === "production";
 
 console.log("ESBuild running in production mode?", inProduction);
 
-const inDir = "../foundation_cms/static/js";
-const outDir = "../foundation_cms/static/compiled/_js";
+const inDir = "../../foundation_cms/static/js";
+const outDir = "../../foundation_cms/static/compiled/_js";
 
 // JS entry points for ESBuild.
 // `source` paths are relative to `inDir`. Output preserves directory structure.
@@ -50,7 +50,7 @@ const base = {
 // Automatically resolve module imports like `import 'foundation-sites';`
 // to their actual entry points using Node's resolution logic.
 // This is necessary because the entryPoints (e.g., "../foundation_cms/static/js")
-// live outside the directory that contains node_modules (/frontend/node_modules).
+// live outside the directory that contains node_modules (/frontend/redesign/node_modules).
 
 const aliasPlugin = {
   name: 'auto-alias-plugin',

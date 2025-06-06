@@ -35,8 +35,8 @@ To get a list of invoke commands available, run `invoke -l`:
   copy-stage-db                                     Overwrite your local docker postgres DB with a copy of the staging database
   copy-prod-db                                      Overwrite your local docker postgres DB with a copy of the production database
   new-env (docker-new-env)                          Get a new dev environment and a new database with fake data
-  npm (docker-npm)                                  Shorthand to npm. inv docker-npm "[COMMAND] [ARG]"
-  npm-install (docker-npm-install)                  Install Node dependencies
+  yarn (docker-yarn)                                  Shorthand to yarn. inv docker-yarn "[COMMAND] [ARG]"
+  yarn-install (docker-yarn-install)                  Install Node dependencies
   pip-compile (docker-pip-compile)                  Shorthand to pip-tools. inv pip-compile "[filename]" "[COMMAND] [ARG]"
   pip-compile-lock (docker-pip-compile-lock)        Lock prod and dev dependencies
   pip-sync (docker-pip-sync)                        Sync your python virtualenv
@@ -55,7 +55,7 @@ For instance, you can run also run common Django commands via invoke, such as `i
 **A few examples:**
 
 - `invoke manage legacy_load_fake_data`: add more fake data to your project,
-- `invoke npm "install gsap"`: install gsap, add it to your `package.json` and lock it.
+- `invoke yarn "install gsap"`: install gsap, add it to your `package.json` and lock it.
 
 ### Docker and docker-compose CLIs
 
@@ -105,11 +105,11 @@ When it's done, run `inv pip-sync`.
 
 **Install packages:**
 
-Use `invoke npm "install [PACKAGE]"`.
+Use `invoke yarn "install [PACKAGE]"`.
 
 **Update packages:**
 
-Use `invoke npm update` or `invoke npm "update [PACKAGE](==x.x.x)"`.
+Use `invoke yarn update` or `invoke yarn "update [PACKAGE](==x.x.x)"`.
 
 ### Using a copy of the staging database for critical testing
 
