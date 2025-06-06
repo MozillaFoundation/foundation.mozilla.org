@@ -13,20 +13,6 @@ const SELECTORS = {
 };
 
 /**
- * Helpers.
- */
-function throttle(fn, limit) {
-  let lastCall = 0;
-  return function (...args) {
-    const now = Date.now();
-    if (now - lastCall >= limit) {
-      lastCall = now;
-      fn.apply(this, args);
-    }
-  };
-}
-
-/**
  * Initializes the primary navigation component.
  * Sets up mobile and desktop navigation behaviors, including dropdowns and hamburger menu.
  */
