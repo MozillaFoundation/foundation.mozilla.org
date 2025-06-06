@@ -31,8 +31,6 @@ services:
       - ./foundation_cms:/app/foundation_cms
       - ./copy-db.js:/app/copy-db.js
       - ./media:/app/media
-      - ./test:/app/test
-      - ./tests:/app/tests
       - ./Procfile.dev:/app/Procfile.dev
       - ./Procfile.dev-lean:/app/Procfile.dev-lean
       - ./pyproject.toml:/app/pyproject.toml
@@ -49,30 +47,20 @@ services:
       - ./README.md:/app/README.md
       - ./release-steps.sh:/app/release-steps.sh
       - ./translation-management.sh:/app/translation-management.sh
-
       # Frontend config for legacy site
-      - ./eslint.config.a11y.js:/app/eslint.config.a11y.js
-      - ./eslint.config.js:/app/eslint.config.js
       - ./.editorconfig:/app/.editorconfig
       - ./.prettierignore:/app/.prettierignore
       - ./.prettierrc:/app/.prettierrc
       - ./.stylelintrc:/app/.stylelintrc
       - ./.stylelintrc-colors.js:/app/.stylelintrc-colors.js
-      - ./esbuild.config.js:/app/esbuild.config.js
       - ./pyrightconfig.json:/app/pyrightconfig.json
-      - ./playwright.config.js:/app/playwright.config.js
-      - ./postcss.config.js:/app/postcss.config.js
-      - ./tailwind-plugins:/app/tailwind-plugins
-      - ./tailwind.config.js:/app/tailwind.config.js
-      - ./package-lock.json:/app/package-lock.json
+      # Yarn workspace: legacy
+      - ./frontend/legacy:/app/frontend/legacy
+      # Yarn workspace: redesign
+      - ./frontend/redesign:/app/frontend/redesign
+      # Root Yarn workspace config
+      - ./yarn.lock:/app/yarn.lock
       - ./package.json:/app/package.json
-
-      # Frontend config for the "redesign" site
-      - ./frontend/package.json:/app/frontend/package.json
-      - ./frontend/yarn.lock:/app/frontend/yarn.lock
-      - ./frontend/postcss.config.js:/app/frontend/postcss.config.js
-      - ./frontend/esbuild.config.js:/app/frontend/esbuild.config.js
-      - ./frontend/build-css.js:/app/frontend/build-css.js
     depends_on:
       - postgres
 

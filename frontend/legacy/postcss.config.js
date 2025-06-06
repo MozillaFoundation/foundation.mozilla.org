@@ -1,7 +1,7 @@
-import postcssImport from "postcss-import";
-import tailwindcss from "tailwindcss";
-import autoprefixer from "autoprefixer";
-import cssnano from "cssnano";
+const postcssImport = require("postcss-import");
+const tailwindcss = require("tailwindcss");
+const autoprefixer = require("autoprefixer");
+const cssnano = require("cssnano");
 
 const commonPlugins = [postcssImport, tailwindcss, autoprefixer];
 
@@ -18,7 +18,7 @@ const prodPlugins = [
   }),
 ];
 
-export default {
+module.exports = {
   plugins:
     process.env.NODE_ENV === "production"
       ? [...commonPlugins, ...prodPlugins]

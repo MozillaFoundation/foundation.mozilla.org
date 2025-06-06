@@ -122,7 +122,9 @@ class NavDesktopDropdown extends Accordion {
   }
 
   scrollListener() {
-    const wideScreenMenuContainer = document.querySelector(".wide-screen-menu-container");
+    const wideScreenMenuContainer = document.querySelector(
+      ".wide-screen-menu-container"
+    );
     if (!wideScreenMenuContainer) {
       return;
     }
