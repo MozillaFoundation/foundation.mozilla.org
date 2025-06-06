@@ -39,12 +39,6 @@
       position: relative;
       overflow: hidden;
 
-      &:not(.active) {
-        .hero-accordion__panel--video-video-wrapper-overlay-play-button {
-          display: none;
-        }
-      }
-
       &-video-wrapper {
         position: relative;
         width: 100%;
@@ -117,6 +111,12 @@
 
         &.hidden {
           transform: translateY(100%);
+        }
+      }
+
+      &:not(.active) {
+        .hero-accordion__panel--video-video-wrapper-overlay-play-button {
+          display: none;
         }
       }
     }
