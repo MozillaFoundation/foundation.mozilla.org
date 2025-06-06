@@ -28,6 +28,7 @@ export function initPrimaryNav() {
     const toggle = document.createElement("div");
     const menu = dropdown.parentElement;
 
+    // Mobile toggle
     toggle.classList.add(SELECTORS.toggle.replace(".", ""));
     toggle.addEventListener("click", (event) => {
       if (window.innerWidth >= 1024) {
@@ -51,7 +52,7 @@ export function initPrimaryNav() {
 
     menu.insertBefore(toggle, dropdown);
 
-    // Menu mouse enter/leave events
+    // Desktop nav mouse enter/leave events
     menu.addEventListener("mouseenter", () => {
       if (window.innerWidth < 1024) {
         return;

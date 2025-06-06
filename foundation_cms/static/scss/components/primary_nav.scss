@@ -47,21 +47,28 @@ body.has-primary-nav {
 
   &__wordmark {
     flex: 1;
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
 
     @include breakpoint(large up) {
       flex: 0;
       width: fit-content;
     }
 
-    h1 {
-      font-size: 1.7rem;
-      width: 6em;
-      font-weight: bold;
-      line-height: 0.82;
+    svg[data-name="logo"] {
+      display: none;
 
       @include breakpoint(large up) {
-        width: 9em;
-        font-size: 2rem;
+        display: block;
+      }
+    }
+
+    svg[data-name="symbol"] {
+      display: block;
+
+      @include breakpoint(large up) {
+        display: none;
       }
     }
   }
@@ -135,9 +142,7 @@ body.has-primary-nav {
         }
 
         & .primary-nav__dropdown {
-          @include breakpoint(large up) {
-            opacity: 1;
-          }
+          opacity: 1;
         }
 
         & .primary-nav__dropdown-toggle {
@@ -155,6 +160,7 @@ body.has-primary-nav {
     will-change: max-height;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
+    opacity: 0;
 
     @include breakpoint(large up) {
       width: auto;
@@ -164,7 +170,6 @@ body.has-primary-nav {
       background: $background-color;
       border: 1px solid $border-color;
       border-radius: 1rem;
-      opacity: 0;
       padding: 1rem 0;
     }
 
@@ -193,7 +198,7 @@ body.has-primary-nav {
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 
     @include breakpoint(large up) {
       width: 1.5rem;
