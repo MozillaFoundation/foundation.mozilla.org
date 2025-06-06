@@ -3,32 +3,30 @@
 <div class="hero-accordion">
   {% for block in page.hero_accordion %}
     {% if block.block_type == 'video_panel' %}
-      <div class="hero-accordion__panel hero-accordion__panel--video">
-        <p>[Label] {{ block.value.label }}</p>
-        <div>
-          [Thumbnail]
+      <div class="hero-accordion__panel hero-accordion__panel--video {% if forloop.first %}active{% endif %}">
+        <div class="hero-accordion__panel--video-video-wrapper">
+          <div
+            class="hero-accordion__panel--video-video-wrapper-overlay"
+            data-video-url="{{ block.value.video_url }}"
+          >
           {% image block.value.thumbnail original as img %}
-          <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
+          <img class="hero-accordion__panel--video-video-wrapper-overlay-preview-image" src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
+            <button
+              class="hero-accordion__panel--video-video-wrapper-overlay-play-button"
+              aria-label="Play {{ block.value.label }} video"
+            ></button>
+          </div>
+
         </div>
-        {% if block.value.heading %}
-          <p>[Optional Heading] {{ block.value.heading }}</p>
-        {% endif %}
-        <div>
-          [Video]
-          {% if "vimeo.com" in block.value.video_url %}
-            {% with video_id=block.value.video_url|cut:"https://vimeo.com/" %}
-              <iframe
-                src="https://player.vimeo.com/video/{{ video_id }}"
-                width="640" height="360" frameborder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowfullscreen>
-              </iframe>
-            {% endwith %}
+        <div class="hero-accordion__panel--video-text-wrapper">
+          <p>[Label] {{ block.value.label }}</p>
+          {% if block.value.heading %}
+            <p>[Optional Heading] {{ block.value.heading }}</p>
           {% endif %}
         </div>
       </div>
     {% elif block.block_type == 'image_text_panel' %}
-      <div class="hero-accordion__panel hero-accordion__panel--image-text">
+      <div class="hero-accordion__panel hero-accordion__panel--image-text {% if forloop.first %}active{% endif %}">
         <p>[Label] {{ block.value.label }}</p>
         <div>
           [Image]
