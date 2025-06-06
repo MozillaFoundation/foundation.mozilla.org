@@ -71,6 +71,10 @@ body.has-primary-nav {
 
     svg {
       transition: all 0.3s ease-in-out;
+
+      @include breakpoint(large up) {
+        transition-delay: .15s;
+      }
     }
 
     svg[data-name="logo"] {
@@ -92,6 +96,10 @@ body.has-primary-nav {
     &.hidden {
       svg {
         transform: translateY(120%);
+
+        @include breakpoint(large up) {
+          transition-delay: 0ms;
+        }
       }
     }
   }
