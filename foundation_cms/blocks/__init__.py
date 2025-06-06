@@ -12,6 +12,7 @@ from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock
+from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .two_column_container_block import TwoColumnContainerBlock
 
 # Add "unused" import to _all_ for flake8 linting
@@ -29,6 +30,7 @@ __all__ = [
     "PortraitCardBlock",
     "PortraitCardSetBlock",
     "LinkButtonBlock",
+    "TimelyActivationsCardsBlock",
     "ImpactNumberBlock",
     "SpacerBlock",
     "QuoteBlock",
