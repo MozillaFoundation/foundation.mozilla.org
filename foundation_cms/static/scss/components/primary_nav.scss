@@ -10,6 +10,7 @@ body.has-primary-nav {
 .primary-nav {
   $background-color: #fff;
   $text-primary: #141414;
+  $text-primary_on-brand: #fff;
   $text-brand-tertiary: #e15715;
   $border-color: $text-brand-tertiary;
 
@@ -208,10 +209,13 @@ body.has-primary-nav {
 
   .button--donate {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     cursor: pointer;
     align-items: center;
-    color: $text-primary;
+    color: $text-primary_on-brand;
+    background: $text-primary;
+    text-decoration: none;
+    padding: .9rem 1.5rem;
   }
 
   &.open {
