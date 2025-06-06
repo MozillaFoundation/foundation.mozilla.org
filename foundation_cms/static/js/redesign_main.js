@@ -1,7 +1,10 @@
 import $ from "jquery";
 import "foundation-sites";
 import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
-import { initPrimaryNav } from "./components/primary_nav";
+import {
+  initPrimaryNav,
+  initWordmarkVisibilityOnScroll,
+} from "./components/primary_nav";
 
 $(document).foundation();
 
@@ -11,3 +14,4 @@ console.log(
 
 initPrimaryNav();
 initImpactNumberStatAnimationsOnScroll();
+initWordmarkVisibilityOnScroll();

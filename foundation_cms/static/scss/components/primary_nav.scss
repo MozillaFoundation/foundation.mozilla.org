@@ -34,9 +34,15 @@ body.has-primary-nav {
     flex-flow: row wrap;
     align-items: center;
     gap: 1rem;
+    position: relative;
+    transition: all 0.3s ease-in-out;
 
     @include breakpoint(large up) {
       gap: 3rem;
+
+      &:not(.hidden-wordmark) {
+        padding-left: calc(229px + 3rem);
+      }
     }
   }
 
@@ -48,13 +54,23 @@ body.has-primary-nav {
 
   &__wordmark {
     flex: 1;
-    min-height: 5rem;
+    height: 2rem;
+    margin: 1.5rem 0;
     display: flex;
     align-items: center;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
 
     @include breakpoint(large up) {
       flex: 0;
-      width: fit-content;
+      position: absolute;
+      left: 0;
+      width: 229px;
+      height: 48px;
+    }
+
+    svg {
+      transition: all 0.3s ease-in-out;
     }
 
     svg[data-name="logo"] {
@@ -70,6 +86,12 @@ body.has-primary-nav {
 
       @include breakpoint(large up) {
         display: none;
+      }
+    }
+
+    &.hidden {
+      svg {
+        transform: translateY(120%);
       }
     }
   }
@@ -215,7 +237,7 @@ body.has-primary-nav {
     color: $text-primary_on-brand;
     background: $text-primary;
     text-decoration: none;
-    padding: .9rem 1.5rem;
+    padding: 0.9rem 1.5rem;
   }
 
   &.open {
