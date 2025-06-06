@@ -3,25 +3,24 @@
 <div class="activation-card">
     {% if self.image %}
     <div class="activation-card-image-container orientation-{{ self.image.orientation }}">
-        {# noqa: H006 - Width and height are controlled by SCSS #}
         <img src="{{ self.image.image.file.url }}" alt="{{ self.image.title }}" class="activation-card-image" width="100%" height="100%">
         {% if self.topic %}
         <span class="activation-card-topic">{{ self.topic }}</span>
         {% endif %}
     </div>
     {% endif %}
-    
+
     <div class="activation-card-content">
         {% if self.category %}
         <div class="activation-card-category">{{ self.category }}</div>
         {% endif %}
-        
+
         <h3 class="activation-card-title">{{ self.title }}</h3>
-        
+
         {% if self.text %}
         <div class="activation-card-text">{{ self.text }}</div>
         {% endif %}
-        
+
         {% if self.link %}
         <a href="{{ self.link.url }}" class="activation-card-cta">
             {{ self.link.label }}
@@ -29,4 +28,4 @@
         </a>
         {% endif %}
     </div>
-</div> 
+</div>
