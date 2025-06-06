@@ -6,6 +6,7 @@ from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
+from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
@@ -30,4 +31,5 @@ __all__ = [
     "LinkButtonBlock",
     "ImpactNumberBlock",
     "SpacerBlock",
+    "QuoteBlock",
 ]
