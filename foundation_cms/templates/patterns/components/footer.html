@@ -1,6 +1,5 @@
 {% load wagtailsettings_tags %}
 
-
 <footer class="site-footer-ns">
   <div class="grid-container">
     <div class="site-footer-ns__grid">
@@ -9,12 +8,11 @@
           Mozilla Foundation
         </div>
         <form class="site-footer-ns__newsletter-form">
-          <p> {{ settings.snippets.FooterNewsletterSignup.newsletter_signup.cta_text }}</p>
-          <p> {{ settings.snippets.FooterNewsletterSignup.newsletter_signup.button_text }} </p>
-          <div class="footer-newsletter">
-          </div>
+          {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+            {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
+          {% endwith %}
 
-        </form>
+          
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__links">
         <ul class="internal">
@@ -113,3 +111,5 @@
     </div>
   </div>
 </footer>
+
+
