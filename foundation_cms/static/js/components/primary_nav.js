@@ -112,45 +112,28 @@ export function initWordmarkVisibilityOnScroll() {
 
   if (!grid || !wordmark) return;
 
-  // Pages with no kineticTypeWordmark should always show the navigation wordmark
+  // If kineticTypeWordmark is not present, always show the wordmark
   if (!kineticTypeWordmark) {
     wordmark.classList.remove("hidden");
     grid.classList.remove("hidden-wordmark");
     return;
   }
 
-  // Detect if kineticTypeWordmark is visible on viewport
-  const isVisible = () => {
-    const rect = kineticTypeWordmark.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
-  // Initial check
-  if (isVisible()) {
-    wordmark.classList.add("hidden");
-    grid.classList.add("hidden-wordmark");
-  } else {
-    wordmark.classList.remove("hidden");
-    grid.classList.remove("hidden-wordmark");
-  }
-
-  // Scroll event listener with throttle
-  window.addEventListener(
-    "scroll",
-    throttle(() => {
-      if (isVisible()) {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
         wordmark.classList.add("hidden");
         grid.classList.add("hidden-wordmark");
       } else {
         wordmark.classList.remove("hidden");
         grid.classList.remove("hidden-wordmark");
       }
-    }, 200),
+    },
+    {
+      root: null, // viewport
+      threshold: 0.01, // as soon as even 1% is visible/invisible
+    },
   );
+
+  observer.observe(kineticTypeWordmark);
 }
