@@ -12,6 +12,7 @@ from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock
 from .two_column_container_block import TwoColumnContainerBlock
+from .newsletter_signup_block import NewsletterSignupBlock
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
@@ -30,4 +31,5 @@ __all__ = [
     "LinkButtonBlock",
     "ImpactNumberBlock",
     "SpacerBlock",
+    "NewsletterSignupBlock",
 ]

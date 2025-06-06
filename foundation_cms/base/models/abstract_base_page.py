@@ -18,6 +18,7 @@ from foundation_cms.blocks import (
     SpacerBlock,
     TabbedContentContainerBlock,
     TwoColumnContainerBlock,
+    NewsletterSignupBlock,
 )
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
@@ -32,6 +33,7 @@ base_page_block_options = [
     ("portrait_card_set_block", PortraitCardSetBlock()),
     ("spacer_block", SpacerBlock()),
     ("impact_numbers", ImpactNumberBlock()),
+    ("newsletter_signup", NewsletterSignupBlock()),
 ]
 
 
