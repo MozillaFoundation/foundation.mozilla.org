@@ -10,7 +10,7 @@ body.has-primary-nav {
 .primary-nav {
   $background-color: #fff;
   $text-primary: #141414;
-  $text-primary_on-brand: #fff;
+  $text-primary-on-brand: #fff;
   $text-brand-tertiary: #e15715;
   $border-color: $text-brand-tertiary;
 
@@ -73,7 +73,7 @@ body.has-primary-nav {
       transition: all 0.3s ease-in-out;
 
       @include breakpoint(large up) {
-        transition-delay: .15s;
+        transition-delay: 0.15s;
       }
     }
 
@@ -242,7 +242,7 @@ body.has-primary-nav {
     gap: 1rem;
     cursor: pointer;
     align-items: center;
-    color: $text-primary_on-brand;
+    color: $text-primary-on-brand;
     background: $text-primary;
     text-decoration: none;
     padding: 0.9rem 1.5rem;
