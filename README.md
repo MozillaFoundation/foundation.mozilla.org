@@ -11,9 +11,17 @@
 - SCSS files are located in `./foundation_cms/static/scss`.
 - These are automatically compiled into `.css` files as part of the build process.
 
+## Frontend commands
+
+- The frontend is composed of two yarn workspaces defined in a root `package.json` file. The two workspaces are
+located in `frontend/legacy` and `frontend/redesign`. Running `yarn` commands from the root will trigger
+the root scripts defined in the root `package.json` and are helper scripts defined to run for all workspaces.
+To run `yarn` commands from an individual workspace, you can `cd` into the workspace, or you can use workspace
+syntax from the root directory (for exapmle: `yarn workspace redesign lint`)
+
 ## Check Linting Error
 
-From the `./frontend` directory:
+From the `./frontend/redesign` directory:
 
 - Run `yarn lint` to check JavaScript and SCSS files for linting errors.
 
@@ -24,7 +32,7 @@ To lint separately:
 
 ## Fix Linting Error
 
-From the `./frontend` directory:
+From the `./frontend/redesign` directory:
 
 - Run `yarn fix` to automatically fix JavaScript and SCSS linting errors.
 
@@ -37,7 +45,7 @@ To fix them separately:
 
 We use [Prettier](https://prettier.io) to enforce consistent code formatting.
 
-From the `./frontend` directory:
+From the `./frontend/redesign` directory:
 
 - Run `yarn check-format` to check whether JavaScript and SCSS files are correctly formatted.
 
@@ -50,7 +58,7 @@ To check them separately:
 
 We use [Prettier](https://prettier.io) to enforce consistent code formatting.
 
-From the `./frontend` directory:
+From the `./frontend/redesign` directory:
 
 - Run `yarn format` to automatically format JavaScript and SCSS files.
 

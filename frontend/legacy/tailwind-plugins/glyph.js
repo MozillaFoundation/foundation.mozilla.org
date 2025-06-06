@@ -51,7 +51,7 @@ module.exports = [
           // Hover and active before
           "&:hover::before, &:focus::before": {
             filter: "brightness(0) invert(100%)",
-          }
+          },
         },
         ".donate": {
           ...glyph("donate"),

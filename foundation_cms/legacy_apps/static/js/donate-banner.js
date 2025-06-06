@@ -11,8 +11,9 @@ const DonateBanner = {
       ? undefined
       : banner?.querySelector(`a.banner-close`);
     const ctaButton = banner?.querySelector(`#banner-cta-button`);
-    const wrapper = document.querySelector(`.wrapper`) || document.querySelector(`.primary-nav-container-wrapper`);
-
+    const wrapper =
+      document.querySelector(`.wrapper`) ||
+      document.querySelector(`.primary-nav-container-wrapper`);
 
     // skip the banner if it got dismissed by the user today already
     if (hideBanner) {
@@ -28,10 +29,9 @@ const DonateBanner = {
 
     if (window.wagtailAbTesting) {
       ctaButton?.addEventListener(`click`, (e) => {
-          wagtailAbTesting.triggerEvent('donate-banner-link-click');
+        wagtailAbTesting.triggerEvent("donate-banner-link-click");
       });
-  }
-
+    }
 
     closeButton?.addEventListener(`click`, (e) => {
       e.preventDefault();

@@ -129,6 +129,7 @@ foundation_cms/static/temp/
 
 # Playwright testing
 tests/screenshots
+frontend/legacy/test-results
 
 # Translations
 translations.tar
