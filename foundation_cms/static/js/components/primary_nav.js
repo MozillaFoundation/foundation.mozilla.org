@@ -1,3 +1,6 @@
+/**
+ * Css selectors for primary navigation elements.
+ */
 const SELECTORS = {
   primaryNav: ".primary-nav",
   primaryNavGrid: ".primary-nav__grid",
@@ -9,6 +12,24 @@ const SELECTORS = {
   kineticTypeWordmark: ".kinetic-type-wordmark",
 };
 
+/**
+ * Helpers.
+ */
+function throttle(fn, limit) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      fn.apply(this, args);
+    }
+  };
+}
+
+/**
+ * Initializes the primary navigation component.
+ * Sets up mobile and desktop navigation behaviors, including dropdowns and hamburger menu.
+ */
 export function initPrimaryNav() {
   console.log("Initializing primary navigation...");
 
@@ -55,24 +76,33 @@ export function initPrimaryNav() {
 
     menu.insertBefore(toggle, dropdown);
 
-    // Desktop nav mouse enter/leave events
+    // Desktop nav mouse enter/leave events with debounce
+    let showTimeout, hideTimeout;
+
     menu.addEventListener("mouseenter", () => {
-      if (window.innerWidth < 1024) {
-        return;
-      }
-      menu.classList.add("open");
-      dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+      if (window.innerWidth < 1024) return;
+      clearTimeout(hideTimeout);
+      showTimeout = setTimeout(() => {
+        menu.classList.add("open");
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+      }, 200);
     });
+
     menu.addEventListener("mouseleave", () => {
-      if (window.innerWidth < 1024) {
-        return;
-      }
-      menu.classList.remove("open");
-      dropdown.style.maxHeight = null;
+      if (window.innerWidth < 1024) return;
+      clearTimeout(showTimeout);
+      hideTimeout = setTimeout(() => {
+        menu.classList.remove("open");
+        dropdown.style.maxHeight = null;
+      }, 200);
     });
   });
 }
 
+/**
+ * Initializes the visibility of the wordmark based on scroll position.
+ * Hides the navigation wordmark when the kinetic type wordmark is visible in the viewport.
+ */
 export function initWordmarkVisibilityOnScroll() {
   const grid = document.querySelector(SELECTORS.primaryNavGrid);
   const wordmark = document.querySelector(SELECTORS.wordmark);
@@ -82,6 +112,7 @@ export function initWordmarkVisibilityOnScroll() {
 
   if (!grid || !wordmark) return;
 
+  // Pages with no kineticTypeWordmark should always show the navigation wordmark
   if (!kineticTypeWordmark) {
     wordmark.classList.remove("hidden");
     grid.classList.remove("hidden-wordmark");
@@ -109,14 +140,17 @@ export function initWordmarkVisibilityOnScroll() {
     grid.classList.remove("hidden-wordmark");
   }
 
-  // Scroll event listener
-  window.addEventListener("scroll", () => {
-    if (isVisible()) {
-      wordmark.classList.add("hidden");
-      grid.classList.add("hidden-wordmark");
-    } else {
-      wordmark.classList.remove("hidden");
-      grid.classList.remove("hidden-wordmark");
-    }
-  });
+  // Scroll event listener with throttle
+  window.addEventListener(
+    "scroll",
+    throttle(() => {
+      if (isVisible()) {
+        wordmark.classList.add("hidden");
+        grid.classList.add("hidden-wordmark");
+      } else {
+        wordmark.classList.remove("hidden");
+        grid.classList.remove("hidden-wordmark");
+      }
+    }, 200),
+  );
 }
