@@ -15,6 +15,7 @@ class CustomImageBlock(BaseBlock):
         choices=[
             ("portrait", "Portrait"),
             ("landscape", "Landscape"),
+            ("square", "Square"),
         ],
         default="landscape",
         help_text="Select the orientation of this image",
