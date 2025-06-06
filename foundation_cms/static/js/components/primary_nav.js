@@ -84,6 +84,7 @@ export function initWordmarkVisibilityOnScroll() {
 
   if (!kineticTypeWordmark) {
     wordmark.classList.remove("hidden");
+    grid.classList.remove("hidden-wordmark");
     return;
   }
 
