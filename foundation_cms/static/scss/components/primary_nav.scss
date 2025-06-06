@@ -1,7 +1,7 @@
 $hamburger-bar-spacing: 0.8rem;
 
-@import "../../../../frontend/node_modules/delicious-hamburgers/scss/base";
-@import "../../../../frontend/node_modules/delicious-hamburgers/scss/animations/collapse";
+@import "../../../../node_modules/delicious-hamburgers/scss/base";
+@import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
 
 body.has-primary-nav {
   padding-top: 7.5rem;
