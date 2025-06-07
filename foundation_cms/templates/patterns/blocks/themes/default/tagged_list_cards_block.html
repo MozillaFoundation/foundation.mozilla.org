@@ -1,0 +1,44 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="listing-cards">
+    <h2 class="listing-cards-heading">{{ self.heading }}</h2>
+    
+    <div class="listing-cards-grid">
+        {% if self.cards %}
+            {% for page in self.cards %}
+                <div class="listing-card">
+                    <div class="listing-card-image-container">
+                        {% if page.specific.featured_image %}
+                            {% image page.specific.featured_image fill-400x225 class="listing-card-image" %}
+                        {% else %}
+                            <div class="listing-card-image"></div>
+                        {% endif %}
+                    </div>
+                    <div class="listing-card-content">
+                        {% if page.specific.category %}
+                            <p class="listing-card-meta">{{ page.specific.category|upper }}</p>
+                        {% endif %}
+                        <h3 class="listing-card-title">{{ page.title }}</h3>
+                        {% if page.search_description %}
+                            <p class="listing-card-text">{{ page.search_description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            {# Placeholder cards for preview #}
+            {% for i in "1234" %}
+            <div class="listing-card">
+                <div class="listing-card-image-container">
+                    <div class="listing-card-image"></div>
+                </div>
+                <div class="listing-card-content">
+                    <p class="listing-card-meta">CONTENT TITLE</p>
+                    <h3 class="listing-card-title">Content Title</h3>
+                    <p class="listing-card-text">This template for content takes a piece where you read their just-posted opinions. It's a method for contextualization among the things themselves worth exploring. Specific keywords trigger specific content. The original location of a...</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div> 

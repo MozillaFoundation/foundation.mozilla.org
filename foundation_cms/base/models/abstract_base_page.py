@@ -15,6 +15,7 @@ from foundation_cms.blocks import (
     ImpactNumberBlock,
     LinkButtonBlock,
     PortraitCardSetBlock,
+    TaggedListCardsBlock,
     QuoteBlock,
     SpacerBlock,
     TabbedContentContainerBlock,
@@ -34,6 +35,7 @@ base_page_block_options = [
     ("spacer_block", SpacerBlock()),
     ("impact_numbers", ImpactNumberBlock()),
     ("quote", QuoteBlock()),
+    ("tagged_list_cards", TaggedListCardsBlock()),
 ]
 
 
