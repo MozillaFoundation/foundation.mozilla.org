@@ -197,36 +197,36 @@ def sh(c, service="backend"):
 
 
 # Javascript shorthands
-@task(aliases=["docker-npm"])
-def npm(ctx, command):
-    """Shorthand to npm. inv docker-npm \"[COMMAND] [ARG]\" """
+@task(aliases=["docker-yarn"])
+def yarn(ctx, command):
+    """Shorthand to yarn. inv docker-yarn \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
-        # Tell user to use npm_install instead if command includes 'install' or 'ci'
+        # Tell user to use yarn_install instead if command includes 'install' or 'ci'
         if "install" in command or "ci" in command:
-            print("Please use 'inv npm-install' instead.")
+            print("Please use 'inv yarn-install' instead.")
             return
 
-        ctx.run(f"docker-compose run --rm backend npm {command}")
+        ctx.run(f"docker-compose run --rm backend yarn {command}")
 
 
-@task(aliases=["docker-npm-exec"])
-def npm_exec(ctx, command):
-    """Run npm in running container, e.g for npm install."""
+@task(aliases=["docker-yarn-exec"])
+def yarn_exec(ctx, command):
+    """Run yarn in running container, e.g for yarn install."""
     with ctx.cd(ROOT):
         # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
         # To make this persistent, use 'exec' to run in the running container.
         try:
-            ctx.run(f"docker-compose exec --user=root backend npm {command}")
+            ctx.run(f"docker-compose exec --user=root backend yarn {command}")
         except exceptions.UnexpectedExit:
             print("This command requires a running container.\n")
             print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
 
 
-@task(aliases=["docker-npm-install"])
-def npm_install(ctx):
+@task(aliases=["docker-yarn-install"])
+def yarn_install(ctx):
     """Install Node dependencies"""
     with ctx.cd(ROOT):
-        npm_exec(ctx, "ci")
+        yarn_exec(ctx, "install")
 
 
 @task(aliases=["copy-stage-db"])
@@ -368,13 +368,13 @@ def lint_html(ctx):
 @task
 def lint_css(ctx):
     """Run CSS linting."""
-    npm(ctx, "run lint:css")
+    yarn(ctx, "run lint:css")
 
 
 @task
 def lint_js(ctx):
     """Run JavaScript linting."""
-    npm(ctx, "run lint:js")
+    yarn(ctx, "run lint:js")
 
 
 @task
@@ -410,13 +410,13 @@ def format_html(ctx):
 @task
 def format_css(ctx):
     """Run css formatting."""
-    npm(ctx, "run fix:css")
+    yarn(ctx, "run fix:css")
 
 
 @task
 def format_js(ctx):
     """Run javascript formatting."""
-    npm(ctx, "run fix:js")
+    yarn(ctx, "run fix:js")
 
 
 @task

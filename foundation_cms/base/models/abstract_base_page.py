@@ -19,6 +19,7 @@ from foundation_cms.blocks import (
     QuoteBlock,
     SpacerBlock,
     TabbedContentContainerBlock,
+    TimelyActivationsCardsBlock,
     TwoColumnContainerBlock,
 )
 
@@ -34,6 +35,7 @@ base_page_block_options = [
     ("portrait_card_set_block", PortraitCardSetBlock()),
     ("spacer_block", SpacerBlock()),
     ("impact_numbers", ImpactNumberBlock()),
+    ("timely_activations_cards", TimelyActivationsCardsBlock()),
     ("quote", QuoteBlock()),
     ("tagged_list_cards", TaggedListCardsBlock()),
 ]

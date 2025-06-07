@@ -9,8 +9,8 @@ import { ESLint } from "eslint";
 // Get the current directory of this script (i.e., /frontend)
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // These paths need to be in absolute format
-const rootPath = path.resolve(__dirname, "..");
-const eslintConfigPath = path.join(rootPath, "frontend/eslint.config.js");
+const rootPath = path.resolve(__dirname, "../../");
+const eslintConfigPath = path.join(rootPath, "frontend/redesign/eslint.config.js");
 
 // Wrap in async IIFE to use await at top level in environments that don't support top-level await
 (async () => {
@@ -28,7 +28,7 @@ const eslintConfigPath = path.join(rootPath, "frontend/eslint.config.js");
 
   const results = await eslint.lintFiles([
     "foundation_cms/static/js/**/*.js",
-    "frontend/**/*.js",
+    "frontend/redesign/**/*.js",
   ]);
 
   // Write fixes to disk if any
