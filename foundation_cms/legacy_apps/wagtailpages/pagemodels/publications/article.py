@@ -8,6 +8,7 @@ from wagtail.admin.panels import (
     TitleFieldPanel,
 )
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
@@ -55,7 +56,7 @@ class ArticlePage(BasePage):
     template = "pages/article_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -65,7 +66,7 @@ class ArticlePage(BasePage):
     )
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
