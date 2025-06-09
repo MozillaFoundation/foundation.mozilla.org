@@ -90,7 +90,7 @@
     "bootstrap": "^4.6.0",
     "chart.js": "4.4.9",
     "classnames": "2.5.1",
-    "countup.js": "^2.8.2",
+    "countup.js": "^2.9.0",
     "cssnano": "^7.0.6",
     "esbuild": "^0.25.2",
     "gsap": "^3.12.7",
