@@ -6,6 +6,7 @@ from .audio_block import AudioBlock  # Just as an example second block
 from .image_block import CustomImageBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 
+
 class ColumnStreamBlock(StreamBlock):
     rich_text = RichTextBlock()
     audio = AudioBlock()

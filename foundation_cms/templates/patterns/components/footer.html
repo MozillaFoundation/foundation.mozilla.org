@@ -7,10 +7,11 @@
         <div class="site-footer-ns__logo">
           Mozilla Foundation
         </div>
-        <form class="site-footer-ns__newsletter-form">
+        <div class="site-footer-ns__newsletter-form">
           {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
             {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
           {% endwith %}
+        </div>
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__links">
         <ul class="internal">
@@ -109,5 +110,3 @@
     </div>
   </div>
 </footer>
-
-

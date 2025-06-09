@@ -1,6 +1,5 @@
-from wagtail import blocks
 from wagtail.snippets.blocks import SnippetChooserBlock
-from foundation_cms.snippets.models.newsletter_signup import NewsletterSignup  
+
 from foundation_cms.base.models.base_block import BaseBlock
 
 

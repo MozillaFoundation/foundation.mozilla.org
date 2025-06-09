@@ -1,25 +1,33 @@
 from django.db import models
-from wagtail.snippets.models import register_snippet
 from wagtail.admin.panels import FieldPanel
-from django.db import models
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.snippets.models import register_snippet
 
 
 @register_snippet
 class NewsletterSignup(models.Model):
-    cta_text = models.CharField(
-        max_length=255,
-        default="Stay updated with our latest news and updates."
+    cta_text = models.CharField(max_length=255, default="Stay updated with our latest news and updates.")
+    button_text = models.CharField(max_length=50, default="Sign Up", help_text="Text to display on the signup button.")
+    newsletter = models.CharField(
+        max_length=100,
+        help_text="The (pre-existing) newsletter to sign up for",
+        default="mozilla-foundation",
     )
-    button_text = models.CharField(
-        max_length=50,
-        default="Sign Up",
-        help_text="Text to display on the signup button."
+    layout = models.CharField(
+        max_length=20,
+        choices=[
+            ("expanded", "Expanded"),
+            ("expand_on_focus", "Expand On Focus"),
+        ],
+        default="expanded",
+        help_text="Controls how the form is displayed",
     )
 
     panels = [
         FieldPanel("cta_text"),
         FieldPanel("button_text"),
+        FieldPanel("newsletter"),
+        FieldPanel("layout"),
     ]
 
     def __str__(self):
@@ -37,7 +45,7 @@ class FooterNewsletterSignup(BaseSiteSetting):
         on_delete=models.SET_NULL,
         related_name="+",
         verbose_name="Footer Newsletter Signup",
-        help_text="Select a newsletter signup to appear in the footer."
+        help_text="Select a newsletter signup to appear in the footer.",
     )
 
     content_panels = [
@@ -45,5 +53,5 @@ class FooterNewsletterSignup(BaseSiteSetting):
     ]
 
     class Meta:
-        verbose_name = "Newsletter Signup"
-        verbose_name_plural = "Newsletter Signups"
+        verbose_name = "Footer Newsletter Signup (New)"
+        verbose_name_plural = "Footer Newsletter Signups (New)"

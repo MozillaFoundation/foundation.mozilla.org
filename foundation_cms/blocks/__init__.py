@@ -4,6 +4,7 @@ from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
+from .newsletter_signup_block import NewsletterSignupBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .spacer_block import SpacerBlock
@@ -12,7 +13,6 @@ from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock
 from .two_column_container_block import TwoColumnContainerBlock
-from .newsletter_signup_block import NewsletterSignupBlock
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
