@@ -420,9 +420,7 @@
     }
 
     @at-root .hero-accordion__panel--video_panel:not(.active) & {
-      .hero-accordion__video-play-button {
-        display: none;
-      }
+      display: none;
     }
   }
 }

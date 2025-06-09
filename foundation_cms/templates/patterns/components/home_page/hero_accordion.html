@@ -12,7 +12,7 @@
           {% image block.value.thumbnail original as img %}
           <img class="hero-accordion__video-thumbnail" src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
             <button
-              class="hero-accordion__panel--video-video-wrapper-overlay-play-button hero-accordion__video-play-button"
+              class="hero-accordion__video-play-button"
               aria-label="Play {{ block.value.label }} video"
             ></button>
           </div>
