@@ -34,7 +34,7 @@ hero_intro_body_default_text = (
 )
 
 
-class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
+class BasePage(FoundationMetadataPageMixin, Page):
     class Meta:
         abstract = True
 

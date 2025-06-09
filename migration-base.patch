@@ -1,0 +1,68 @@
+diff --git a/foundation_cms/legacy_apps/templates/fragments/nav/blog/blog-dropdown.html b/foundation_cms/legacy_apps/templates/fragments/nav/blog/blog-dropdown.html
+index 21a96e035..fe1bb23a8 100644
+--- a/foundation_cms/legacy_apps/templates/fragments/nav/blog/blog-dropdown.html
++++ b/foundation_cms/legacy_apps/templates/fragments/nav/blog/blog-dropdown.html
+@@ -14,7 +14,6 @@
+ 
+ {% block content %}
+     {% include "./featured-posts.html" with posts=menu.localized_featured_blog_posts %}
+-    {% include "./featured-topics.html" with relationships=menu.localized_featured_blog_topics %}
+ {% endblock content %}
+ 
+ {% block full_span_button %}
+diff --git a/foundation_cms/legacy_apps/templates/pages/base.html b/foundation_cms/legacy_apps/templates/pages/base.html
+index fdf9db89b..90a843ce8 100644
+--- a/foundation_cms/legacy_apps/templates/pages/base.html
++++ b/foundation_cms/legacy_apps/templates/pages/base.html
+@@ -119,13 +119,7 @@
+             <div class="wrapper">
+                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
+                     {% block primary_nav %}
+-                        {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
+-                            {% if nav_menu %}
+-                                {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
+-                            {% else %}
+-                                {% include "fragments/primary_nav.html" with background="simple-background" %}
+-                            {% endif %}
+-                        {% endwith %}
++                        {% include "patterns/components/primary_nav.html" %}
+                     {% endblock %}
+                 </div>
+ 
+@@ -144,7 +138,7 @@
+                 {% block prefooter %}{% endblock %}
+ 
+                 {% block footer_block %}
+-                    {% include "fragments/footer.html" %}
++                    {% include "patterns/components/footer.html" %}
+                 {% endblock %}
+             </div>
+         {% endblock %}
+diff --git a/foundation_cms/legacy_apps/wagtailpages/pagemodels/base.py b/foundation_cms/legacy_apps/wagtailpages/pagemodels/base.py
+index 00783fed1..6b6127267 100644
+--- a/foundation_cms/legacy_apps/wagtailpages/pagemodels/base.py
++++ b/foundation_cms/legacy_apps/wagtailpages/pagemodels/base.py
+@@ -34,7 +34,7 @@ hero_intro_body_default_text = (
+ )
+ 
+ 
+-class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
++class BasePage(FoundationMetadataPageMixin, Page):
+     class Meta:
+         abstract = True
+ 
+diff --git a/foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/fragments/blog_topics.html b/foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/fragments/blog_topics.html
+index ff5812b5d..2e9b60cc0 100644
+--- a/foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/fragments/blog_topics.html
++++ b/foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/fragments/blog_topics.html
+@@ -6,9 +6,6 @@
+     {# If we have a "root" context variable, we know this card is generated on an index page (or index page subroute) #}
+ 
+     {% with classes="tw-h6-heading tw-text-blue-80 tw-mr-4 tw-py-2 tw-mb-0" %}
+-        <a class="{{ classes }} {{ extra_classes }}" href="{% routablepageurl parent_page "entries_by_topic" topic.slug %}">{{ localized_topic }}</a>
+-        {% if not forloop.last %}
+-            <span class="{{ classes }} {{ extra_classes }}">/</span>
+-        {% endif %}
++        
+     {% endwith %}
+ {% endfor %}
