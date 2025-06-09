@@ -12,7 +12,7 @@
     "frontend/*"
   ],
   "scripts": {
-    "build": "yarn workspace legacy build && yarn workspace redesign build",
+    "build": "yarn workspace redesign build",
     "fix:css": "yarn workspace legacy fix:css && yarn workspace redesign fix:scss",
     "fix:js": "yarn workspace legacy fix:js && yarn workspace redesign fix:js",
     "lint": "yarn workspace legacy lint && yarn workspace redesign lint",

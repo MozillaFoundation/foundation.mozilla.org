@@ -1,44 +1,54 @@
 {% load wagtailimages_tags %}
 
-<div class="hero-accordion">
+<div class="hero-accordion" style="--total-panels: {{ page.hero_accordion|length }}">
   {% for block in page.hero_accordion %}
+    <div class="hero-accordion__panel hero-accordion__panel--{{ block.block_type }} {% if forloop.counter == 2 %}active{% endif %}">
     {% if block.block_type == 'video_panel' %}
-      <div class="hero-accordion__panel hero-accordion__panel--video {% if forloop.first %}active{% endif %}">
-        <div class="hero-accordion__panel--video-video-wrapper">
+        <div class="hero-accordion__video-wrapper">
           <div
-            class="hero-accordion__panel--video-video-wrapper-overlay"
+            class="hero-accordion__video-overlay"
             data-video-url="{{ block.value.video_url }}"
           >
           {% image block.value.thumbnail original as img %}
-          <img class="hero-accordion__panel--video-video-wrapper-overlay-preview-image" src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
+          <img class="hero-accordion__video-thumbnail" src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
             <button
-              class="hero-accordion__panel--video-video-wrapper-overlay-play-button"
+              class="hero-accordion__panel--video-video-wrapper-overlay-play-button hero-accordion__video-play-button"
               aria-label="Play {{ block.value.label }} video"
             ></button>
           </div>
-
         </div>
-        <div class="hero-accordion__panel--video-text-wrapper">
-          <p>[Label] {{ block.value.label }}</p>
+        <div class="hero-accordion__details">
+          <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
           {% if block.value.heading %}
-            <p>[Optional Heading] {{ block.value.heading }}</p>
+            <p class="hero-accordion__heading">[Optional Heading] {{ block.value.heading }}</p>
           {% endif %}
         </div>
-      </div>
     {% elif block.block_type == 'image_text_panel' %}
-      <div class="hero-accordion__panel hero-accordion__panel--image-text {% if forloop.first %}active{% endif %}">
-        <p>[Label] {{ block.value.label }}</p>
-        <div>
-          [Image]
-          {% image block.value.image original as img %}
-          <img src="{{ img.url }}"  width="{{ img.width }}" height="{{ img.height }}" alt="(FIXME:TODO: check with designers how they plan to use the image. This will determine if we need to include alt text.)">
+        <div class="hero-accordion__details">
+          <div class="hero-accordion__details-inner">
+            <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
+            <p class="hero-accordion__heading">[Heading] {{ block.value.heading }}</p>
+            {% if block.value.description %}
+              <p>[Optional Description] {{ block.value.description }}</p>
+            {% endif %}
+            <a class="hero-accordion__cta" href="{{ block.value.cta_link }}">{{ block.value.cta_text }}</a>
+          </div>
         </div>
-        <p>[Heading] {{ block.value.heading }}</p>
-        {% if block.value.description %}
-          <p>[Optional Description] {{ block.value.description }}</p>
-        {% endif %}
-        <a href="{{ block.value.cta_link }}">{{ block.value.cta_text }}</a>
-      </div>
+        <div class="hero-accordion__image-box">
+          {% image block.value.image fill-2000x2000 as img %}
+          <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
+          <div class="hero-accordion__image" style="background-image: url('{{ img.url }}');"></div>
+          {% if image.alt %}
+          <img
+            class="show-for-sr"
+            src="{{ image.url }}"
+            alt="{{ image.alt }}"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+          />
+          {% endif %}
+        </div>
     {% endif %}
+    </div>
   {% endfor %}
 </div>

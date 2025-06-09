@@ -4,9 +4,10 @@
 const SELECTORS = {
   root: ".hero-accordion",
   panel: ".hero-accordion__panel",
-  videoWrapper: ".hero-accordion__panel--video-video-wrapper",
-  videoOverlay: ".hero-accordion__panel--video-video-wrapper-overlay",
-  videoTextWrapper: ".hero-accordion__panel--video-text-wrapper",
+  videoWrapper: ".hero-accordion__video-wrapper",
+  videoOverlay: ".hero-accordion__video-overlay",
+  videoTextWrapper:
+    ".hero-accordion__panel--video_panel .hero-accordion__details",
 };
 
 /**
@@ -27,6 +28,12 @@ export class HorizontalAccordion {
   constructor(root) {
     this.root = root;
     this.panels = root.querySelectorAll(SELECTORS.panel);
+    this.totalPanels =
+      parseFloat(this._getCssVariableValue("--total-panels")) || 0;
+    this.openMultiplier =
+      parseFloat(this._getCssVariableValue("--open-multiplier")) || 0;
+    this.totalUnits = this.totalPanels - 1 + this.openMultiplier;
+    this._setCssVariableValue("--total-units", this.totalUnits);
   }
 
   /**
@@ -35,6 +42,9 @@ export class HorizontalAccordion {
   init() {
     if (!this.root || this.root.dataset.initialized === "true") return;
     this.root.dataset.initialized = "true";
+    this._setWidth();
+
+    console.log(this.totalPanels, this.openMultiplier, this.totalUnits);
 
     this.panels.forEach((panel) => {
       // Ensure every panel has the correct ARIA and tabindex attributes
@@ -43,6 +53,8 @@ export class HorizontalAccordion {
       panel.setAttribute("aria-expanded", "false");
 
       panel.addEventListener("click", () => {
+        this._setWidth();
+
         if (!panel.classList.contains(CLASS_NAMES.active)) {
           this._deactivateAll();
           this._activate(panel);
@@ -64,6 +76,40 @@ export class HorizontalAccordion {
     if (active) {
       active.setAttribute("aria-expanded", "true");
     }
+  }
+
+  _getCssVariableValue(name) {
+    return getComputedStyle(this.root).getPropertyValue(name).trim();
+  }
+
+  _setCssVariableValue(name, value) {
+    this.root.style.setProperty(name, value);
+  }
+
+  _calculateBaseWidth() {
+    let pageWidth = document.documentElement.clientWidth;
+
+    return pageWidth / this.totalUnits; // in px
+  }
+
+  _setWidth() {
+    let pageWidth = document.documentElement.clientWidth;
+    // let basePanelWidth = pageWidth / this.totalUnits; // in px
+    let scrollBarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+    let basePanelWidth = `(100vw - ${scrollBarWidth}px) / ${this.totalUnits}`;
+
+    // this._setCssVariableValue(`--open-panel-width`, `${basePanelWidth * this.openMultiplier}px`);
+    // this._setCssVariableValue(`--closed-panel-width`, `${basePanelWidth}px`);
+
+    this._setCssVariableValue(
+      `--open-panel-width`,
+      `calc(${basePanelWidth} * ${this.openMultiplier})`,
+    );
+    this._setCssVariableValue(
+      `--closed-panel-width`,
+      `calc(${basePanelWidth})`,
+    );
   }
 
   /**
@@ -180,7 +226,7 @@ function initVideoOverlays() {
       const iframe = document.createElement("iframe");
       iframe.setAttribute(
         "src",
-        "https://player.vimeo.com/video/" + videoId + "?autoplay=1",
+        "https://player.vimeo.com/video/" + videoId + "?autoplay=1&muted=1",
       );
       iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
       iframe.setAttribute("allowfullscreen", "");
