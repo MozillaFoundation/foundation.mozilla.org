@@ -13,6 +13,14 @@
     large: 600px,
   );
 
+  $panel-colors: (
+    1: #f88539,
+    2: #eeb500,
+    3: #eed800,
+  );
+
+  $video-aspect-ratio: 56.25%; // 16:9 aspect ratio
+
   --open-multiplier: 5; // How many “flex units” the open panel gets
   --total-panels: 3; // This is the fallback value. This will be inline-overriden in Dango template
   --closed-panel-width: 100% / 3; // fallback value. Will be overriden by JS
@@ -52,15 +60,15 @@
     }
 
     &:nth-child(3n + 1) {
-      background-color: #f88539;
+      background-color: map.get($panel-colors, 1);
     }
 
     &:nth-child(3n + 2) {
-      background-color: #eeb500;
+      background-color: map.get($panel-colors, 2);
     }
 
     &:nth-child(3n + 3) {
-      background-color: #eed800;
+      background-color: map.get($panel-colors, 3);
     }
 
     &--video_panel {
@@ -72,7 +80,7 @@
         position: absolute;
         bottom: 0;
         width: 100%;
-        background: #f88539;
+        background-color: map.get($panel-colors, 1);
         color: black;
         transition: transform map.get($panel-transition, duration)
           map.get($panel-transition, timing-function);
@@ -354,7 +362,7 @@
   &__video-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; // 16:9 aspect ratio
+    padding-top: $video-aspect-ratio;
     overflow: hidden;
 
     iframe {
