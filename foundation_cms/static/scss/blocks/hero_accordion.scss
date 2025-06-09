@@ -64,6 +64,7 @@
     }
 
     &--video_panel {
+      flex-direction: column;
       position: relative;
       overflow: hidden;
 
@@ -248,15 +249,24 @@
         transition: width map.get($panel-transition, duration)
           map.get($panel-transition, timing-function);
 
+        .hero-accordion__label {
+          display: block;
+        }
+
         .hero-accordion__image {
-          width: 100%;
-          height: 100%;
+          width: var(--closed-panel-width);
+          height: var(--closed-panel-width);
           aspect-ratio: 1 / 1;
           overflow: hidden;
           background-repeat: no-repeat;
           background-size: var(--closed-panel-width) var(--closed-panel-width);
-          transition: background-size map.get($panel-transition, duration)
-            map.get($panel-transition, timing-function);
+          transition:
+            width map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function),
+            height map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function),
+            background-size map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function);
         }
       }
 
@@ -271,21 +281,25 @@
           }
 
           .hero-accordion__image {
-            // transform: scale(var(--open-multiplier));
+            width: var(--open-panel-width);
+            height: map.get($panel-height, small);
             background-size: map.get($panel-height, small)
               map.get($panel-height, small);
 
             @include breakpoint(small up) {
+              height: map.get($panel-height, small);
               background-size: map.get($panel-height, small)
                 map.get($panel-height, small);
             }
 
             @include breakpoint(medium up) {
+              height: map.get($panel-height, medium);
               background-size: map.get($panel-height, medium)
                 map.get($panel-height, medium);
             }
 
             @include breakpoint(large up) {
+              height: map.get($panel-height, large);
               background-size: map.get($panel-height, large)
                 map.get($panel-height, large);
             }
@@ -301,8 +315,25 @@
         }
       }
 
+      &.transitioning-to-inactive {
+        .hero-accordion__image-box {
+          .hero-accordion__label {
+            display: none; // Stay hidden during transition
+          }
+        }
+      }
+
+      &:not(.active):not(.transitioning-to-inactive) {
+        .hero-accordion__image-box {
+          .hero-accordion__label {
+            display: block;
+          }
+        }
+      }
+
       &:nth-child(even) .hero-accordion__image-box {
         flex-direction: column;
+        justify-content: end;
 
         .hero-accordion__image {
           background-position: right bottom;
@@ -311,6 +342,7 @@
 
       &:nth-child(odd) .hero-accordion__image-box {
         flex-direction: column-reverse;
+        justify-content: start;
 
         .hero-accordion__image {
           background-position: right top;

@@ -16,6 +16,7 @@ const SELECTORS = {
 const CLASS_NAMES = {
   active: "active",
   hidden: "hidden",
+  transitioningToInactive: "transitioning-to-inactive",
 };
 
 /**
@@ -120,6 +121,17 @@ export class HorizontalAccordion {
   _deactivateAll() {
     this.panels.forEach((panel) => {
       if (panel.classList.contains(CLASS_NAMES.active)) {
+        panel.classList.add(CLASS_NAMES.transitioningToInactive);
+
+        // Listen for transition end on the panel width
+        const handleTransitionEnd = (e) => {
+          if (e.propertyName === "width" && e.target === panel) {
+            panel.classList.remove(CLASS_NAMES.transitioningToInactive);
+            panel.removeEventListener("transitionend", handleTransitionEnd);
+          }
+        };
+        panel.addEventListener("transitionend", handleTransitionEnd);
+
         this._revertVideoPanel(panel);
       }
       panel.classList.remove(CLASS_NAMES.active);
