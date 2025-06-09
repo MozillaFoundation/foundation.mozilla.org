@@ -1,0 +1,38 @@
+.take-action {
+  padding: 1.5rem 0;
+  
+  &-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  &-description {
+    margin-bottom: 1.5rem;
+  }
+  
+  &-items {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &-item {
+    border-top: 1px solid #e5e5e5;
+    padding: 1rem 0;
+    
+    &:last-child {
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+  
+  &-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .arrow {
+      font-size: 1.2rem;
+      margin-left: 0.5rem;
+    }
+  }
+}

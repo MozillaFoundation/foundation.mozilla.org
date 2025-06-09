@@ -20,6 +20,7 @@ from foundation_cms.blocks import (
     TabbedContentContainerBlock,
     TimelyActivationsCardsBlock,
     TwoColumnContainerBlock,
+    ListBlock,
 )
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
@@ -36,6 +37,7 @@ base_page_block_options = [
     ("impact_numbers", ImpactNumberBlock()),
     ("timely_activations_cards", TimelyActivationsCardsBlock()),
     ("quote", QuoteBlock()),
+    ("list_block", ListBlock()),
 ]
 
 

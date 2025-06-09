@@ -1,0 +1,20 @@
+{% load wagtailcore_tags %}
+
+<section class="take-action">
+    <h2 class="take-action-title">{{ value.title }}</h2>
+
+    {% if value.description %}
+    <p class="take-action-description">{{ value.description }}</p>
+    {% endif %}
+
+    <div class="take-action-items">
+        {% for item in value.items %}
+            <div class="take-action-item">
+                <a href="{% pageurl item %}" class="take-action-link">
+                    {{ item.title }}
+                    <span class="arrow">link</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>

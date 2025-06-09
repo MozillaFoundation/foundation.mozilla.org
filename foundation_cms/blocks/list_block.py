@@ -8,12 +8,12 @@ class ListBlock(blocks.StructBlock):
     title = blocks.CharBlock(help_text="Heading displayed above the list")
     description = blocks.TextBlock(help_text="Description displayed above the list")
     items = blocks.ListBlock(
-       blocks.PageChooserBlock(), 
-        min_num=1, 
+       blocks.PageChooserBlock(),
+        min_num=1,
         max_num=4,
     )
-    
+
     class Meta:
         template_name = "list_block.html"
         icon = "list-ul"
-        label = "List" 
+        label = "List Block"
