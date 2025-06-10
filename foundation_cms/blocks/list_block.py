@@ -1,7 +1,9 @@
 from wagtail import blocks
 
+from foundation_cms.base.models.base_block import BaseBlock
 
-class ListBlock(blocks.StructBlock):
+
+class ListBlock(BaseBlock):
     """
     A block for rendering a list of items.
     """
@@ -15,6 +17,6 @@ class ListBlock(blocks.StructBlock):
     )
 
     class Meta:
-        template_name = "list_block.html"
         icon = "list-ul"
+        template_name = "list_block.html"
         label = "List Block"
