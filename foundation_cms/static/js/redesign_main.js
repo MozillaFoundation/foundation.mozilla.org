@@ -5,7 +5,6 @@ import injectNewsletterSignups from "./components/newsletter-signup/newsletter_s
 
 let networkSiteURL = window.location.origin;
 
-
 $(document).foundation();
 
 console.log(
