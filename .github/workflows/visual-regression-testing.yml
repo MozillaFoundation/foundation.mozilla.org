@@ -68,22 +68,22 @@ jobs:
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Install Node Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
       - name: Install additional tooling
         run: |
           sudo apt-get update
           sudo apt-get install -y gettext libgconf-2-4
       - name: Install Playwright
-        run: npm run playwright:install
+        run: yarn workspace legacy playwright:install
       - name: Preroll
         run: |
-          npm run build
+          yarn build
           python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py load_fake_data
           python ./manage.py legacy_load_fake_data
       - name: Percy Test
-        run: npm run percy
+        run: yarn workspace legacy percy
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

@@ -1,12 +1,13 @@
 @import "../scss/settings/customized-settings";
-@import "../../../frontend/node_modules/foundation-sites/scss/foundation";
-@import "../../../frontend/node_modules/foundation-sites/scss/components/visibility";
+@import "../../../node_modules/foundation-sites/scss/foundation";
+@import "../../../node_modules/foundation-sites/scss/components/visibility";
 @import "../scss/fonts";
 @import "../scss/components/primary_nav";
 @import "../scss/components/footer";
 @import "../scss/components/images";
 @import "../scss/blocks/themes/default/impact_number_block";
 @import "../scss/components/tabbed_content";
+@import "../scss/components/timely_activations";
 @import "../scss/components/spacer_block";
 @import "../scss/components/newsletter_signup/newsletter_signup_form";
 
