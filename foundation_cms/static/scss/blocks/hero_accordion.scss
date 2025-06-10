@@ -386,6 +386,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+    transition: border-radius map.get($panel-transition, duration)
+      map.get($panel-transition, timing-function);
+
+    @at-root .hero-accordion__panel--video_panel.active & {
+      border-radius: 6rem 6rem 0 0;
+    }
   }
 
   &__video-thumbnail {
