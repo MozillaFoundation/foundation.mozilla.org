@@ -3,10 +3,6 @@ $hamburger-bar-spacing: 0.8rem;
 @import "../../../../node_modules/delicious-hamburgers/scss/base";
 @import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
 
-body.has-primary-nav {
-  padding-top: 7.5rem;
-}
-
 .primary-nav {
   $background-color: #fff;
   $text-primary: #141414;
@@ -14,8 +10,9 @@ body.has-primary-nav {
   $text-brand-tertiary: #e15715;
   $border-color: $text-brand-tertiary;
 
-  position: fixed;
+  position: sticky;
   width: 100%;
+  margin-bottom: 3rem;
   max-width: 100vw;
   top: 0;
   z-index: 10;
