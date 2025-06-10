@@ -114,6 +114,7 @@ body.has-primary-nav {
 
   &__donate {
     order: 1;
+
     @include breakpoint(large up) {
       order: 2;
     }
