@@ -33,34 +33,82 @@ export function initPrimaryNav() {
     hamburger.classList.toggle("active");
   });
 
+  // Dropdown control helpers
+  function openDropdown(menu, dropdown, toggle) {
+    menu.classList.add("open");
+    dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+    dropdown.setAttribute("aria-hidden", "false");
+    dropdown.removeAttribute("inert");
+    toggle.setAttribute("aria-expanded", "true");
+  }
+
+  function closeDropdown(menu, dropdown, toggle) {
+    menu.classList.remove("open");
+    dropdown.style.maxHeight = null;
+    dropdown.setAttribute("aria-hidden", "true");
+    dropdown.setAttribute("inert", "");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  function closeAllOtherDropdowns(currentMenu) {
+    document
+      .querySelectorAll(`${SELECTORS.menuItem}.open`)
+      .forEach((openMenu) => {
+        if (openMenu === currentMenu) return;
+        const openDropdown = openMenu.querySelector(SELECTORS.dropdown);
+        const openToggle = openMenu.querySelector(SELECTORS.toggle);
+        if (openDropdown && openToggle) {
+          closeDropdown(openMenu, openDropdown, openToggle);
+        }
+      });
+  }
+
   // Menu dropdowns
   dropdowns.forEach((dropdown) => {
     const toggle = document.createElement("div");
     const menu = dropdown.parentElement;
 
+    const dropdownId =
+      dropdown.id || `dropdown-${Math.random().toString(36).slice(2, 8)}`;
+    dropdown.id = dropdownId;
+
     // Mobile toggle
     toggle.classList.add(SELECTORS.toggle.replace(".", ""));
-    toggle.addEventListener("click", (event) => {
-      if (window.innerWidth >= 1024) {
-        return;
-      }
-      const openMenus = document.querySelectorAll(`${SELECTORS.menuItem}.open`);
-      openMenus.forEach((openMenu) => {
-        if (openMenu === menu) return;
-        openMenu.classList.remove("open");
-        openMenu.querySelector(SELECTORS.dropdown).style.maxHeight = null;
-      });
 
-      if (menu.classList.contains("open")) {
-        menu.classList.remove("open");
-        dropdown.style.maxHeight = null;
+    toggle.setAttribute("role", "button");
+    toggle.setAttribute("tabindex", "0");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", dropdownId);
+    dropdown.setAttribute("aria-hidden", "true");
+    dropdown.setAttribute("inert", "");
+
+    menu.insertBefore(toggle, dropdown);
+
+    toggle.addEventListener("click", () => {
+      if (window.innerWidth >= 1024) return;
+
+      const isOpen = menu.classList.contains("open");
+
+      if (isOpen) {
+        closeDropdown(menu, dropdown, toggle);
       } else {
-        menu.classList.add("open");
-        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        closeAllOtherDropdowns(menu);
+        openDropdown(menu, dropdown, toggle);
       }
     });
 
-    menu.insertBefore(toggle, dropdown);
+    toggle.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      const isOpen = menu.classList.contains("open");
+
+      if (isOpen) {
+        closeDropdown(menu, dropdown, toggle);
+      } else {
+        closeAllOtherDropdowns(menu);
+        openDropdown(menu, dropdown, toggle);
+      }
+    });
 
     // Desktop nav mouse enter/leave events with debounce
     let showTimeout, hideTimeout;
@@ -69,8 +117,7 @@ export function initPrimaryNav() {
       if (window.innerWidth < 1024) return;
       clearTimeout(hideTimeout);
       showTimeout = setTimeout(() => {
-        menu.classList.add("open");
-        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        openDropdown(menu, dropdown, toggle);
       }, 200);
     });
 
@@ -78,10 +125,16 @@ export function initPrimaryNav() {
       if (window.innerWidth < 1024) return;
       clearTimeout(showTimeout);
       hideTimeout = setTimeout(() => {
-        menu.classList.remove("open");
-        dropdown.style.maxHeight = null;
+        closeDropdown(menu, dropdown, toggle);
       }, 200);
     });
+  });
+
+  // Esc key closes all menus
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeAllOtherDropdowns(null);
+    }
   });
 }
 
