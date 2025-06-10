@@ -67,6 +67,7 @@ export function initPrimaryNav() {
   dropdowns.forEach((dropdown) => {
     const toggle = document.createElement("div");
     const menu = dropdown.parentElement;
+    const anchor = menu.querySelector("a");
 
     const dropdownId =
       dropdown.id || `dropdown-${Math.random().toString(36).slice(2, 8)}`;
@@ -82,7 +83,7 @@ export function initPrimaryNav() {
     dropdown.setAttribute("aria-hidden", "true");
     dropdown.setAttribute("inert", "");
 
-    menu.insertBefore(toggle, dropdown);
+    anchor.insertAdjacentElement("afterend", toggle);
 
     toggle.addEventListener("click", () => {
       if (window.innerWidth >= 1024) return;
