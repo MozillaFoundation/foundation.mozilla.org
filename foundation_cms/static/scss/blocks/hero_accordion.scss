@@ -257,9 +257,11 @@
 
       .hero-accordion__video-wrapper {
         display: flex;
+        align-items: center;
 
         @include breakpoint(medium up) {
           flex-direction: column;
+          align-items: normal;
         }
 
         .hero-accordion__label {
@@ -269,6 +271,10 @@
             flex: initial;
             margin: map.get($text-side-padding, medium);
           }
+        }
+
+        p:last-child {
+          margin-bottom: 0;
         }
       }
 
@@ -500,8 +506,6 @@
         }
 
         .hero-accordion__details {
-          display: block;
-
           @include breakpoint(medium up) {
             display: block;
             pointer-events: none;
@@ -513,7 +517,7 @@
         justify-content: flex-end;
 
         .hero-accordion__details {
-          display: block;
+          display: none;
 
           @include breakpoint(medium up) {
             transform: translateX(-(map.get($panel-height, medium)));
@@ -545,7 +549,7 @@
         justify-content: flex-end; // Keep everything pushed to the right
 
         .hero-accordion__details {
-          display: block;
+          display: none;
 
           @include breakpoint(medium up) {
             transform: translateX(0);
@@ -593,13 +597,19 @@
         width: 100%;
         background-color: map.get($panel-colors, 1);
         color: black;
+        padding: map.get($details-section-padding, small);
 
         @include breakpoint(medium up) {
           position: absolute;
           bottom: 0;
+          padding: map.get($details-section-padding, medium);
           transform: translateY(0);
           transition: transform map.get($panel-transition, duration)
             map.get($panel-transition, timing-function);
+        }
+
+        p:last-child {
+          margin-bottom: 0;
         }
 
         &.hidden {
