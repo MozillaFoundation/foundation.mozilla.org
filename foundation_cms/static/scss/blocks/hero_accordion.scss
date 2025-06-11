@@ -1,6 +1,10 @@
 @use "sass:map";
 
 .hero-accordion {
+  // ===================================
+  // Variables
+  // ===================================
+
   $panel-transition: (
     duration: 0.5s,
     // timing-function: cubic-bezier(0.7, 0, 0.15, 1)
@@ -31,10 +35,38 @@
 
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
 
+  $play-button-size: 4rem;
+  $play-button-arrow: (
+    width: 30px,
+    height: 18px
+  );
+
   --open-multiplier: 5; // How many “flex units” the open panel gets
   --total-panels: 3; // This is the fallback value. This will be inline-overriden in Dango template
   --closed-panel-width: 100% / 3; // fallback value. Will be overriden by JS
   --open-panel-width: 100% / 3; // fallback value. Will be overriden by JS
+
+  // ===================================
+  // Mixins
+  // ===================================
+
+  @mixin text-details-position-even($size) {
+    $height: map.get($panel-height, $size);
+
+    transform: translateX(
+      calc(var(--open-panel-width) - 2 * #{$height})
+    );
+    width: calc(var(--open-panel-width) - #{$height});
+  }
+
+  @mixin text-details-position-odd($size) {
+    $height: map.get($panel-height, $size);
+
+    transform: translateX(
+      calc(-1 * (var(--open-panel-width) - 2 * #{$height}))
+    );
+    width: calc(var(--open-panel-width) - #{$height});
+  }
 
   display: flex;
   flex-direction: column;
@@ -86,6 +118,10 @@
     &:nth-child(3n + 3) {
       background-color: map.get($panel-colors, 3);
     }
+
+    // ===================================
+    // Video Panel
+    // ===================================
 
     &--video_panel {
       flex-direction: column;
@@ -150,6 +186,10 @@
       }
     }
 
+    // ===================================
+    // Image Text Panel
+    // ===================================
+
     &--image_text_panel {
       display: flex;
       height: 100%;
@@ -195,15 +235,6 @@
             );
           }
 
-          @mixin text-details-position-even($size) {
-            $height: map.get($panel-height, $size);
-
-            transform: translateX(
-              calc(var(--open-panel-width) - 2 * #{$height})
-            );
-            width: calc(var(--open-panel-width) - #{$height});
-          }
-
           @each $size in medium, xlarge {
             @include breakpoint(#{$size} up) {
               @include text-details-position-even($size);
@@ -233,15 +264,6 @@
             left: 0;
             right: auto;
             width: calc(var(--open-panel-width) - map.get($panel-height, small));
-          }
-
-          @mixin text-details-position-odd($size) {
-            $height: map.get($panel-height, $size);
-
-            transform: translateX(
-              calc(-1 * (var(--open-panel-width) - 2 * #{$height}))
-            );
-            width: calc(var(--open-panel-width) - #{$height});
           }
 
           @each $size in medium, xlarge {
@@ -484,8 +506,8 @@
 
   &__video-play-button {
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: $play-button-size;
+    height: $play-button-size;
     background: transparent;
     border: none;
     pointer-events: none;
@@ -498,15 +520,19 @@
       transform: translate(-50%, -50%);
       width: 0;
       height: 0;
-      border-left: 30px solid white;
-      border-top: 18px solid transparent;
-      border-bottom: 18px solid transparent;
+      border-left: map.get($play-button-arrow, width) solid white;
+      border-top: map.get($play-button-arrow, height) solid transparent;
+      border-bottom: map.get($play-button-arrow, height) solid transparent;
     }
 
     @at-root .hero-accordion__panel--video_panel:not(.active) & {
       display: none;
     }
   }
+
+  // ===================================
+  // Text Elements
+  // ===================================
 
   &__label {
     margin-top: 0;
