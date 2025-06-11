@@ -12,32 +12,11 @@
     <div class="carousel-track js-carousel-track">
       {% for card in self.cards %}
         <div class="carousel-card" tabindex="0">
-          <div class="portrait-card">
-            <div class="portrait-card__text">
-              <p class="portrait-card__label">{{ card.label }}</p>
-              <h3 class="portrait-card__headline">{{ card.headline }}</h3>
-            </div>
-            {% if card.image %}
-              <div class="portrait-card__image">
-                {% image card.image fill-400x600 %}
-              </div>
-            {% endif %}
-          </div>
+          {% include "patterns/components/portrait_card.html" %}
         </div>
       {% endfor %}
     </div>
-    <div class="carousel-controls">
-      <button aria-label="Previous" class="carousel-arrow left js-carousel-prev">
-        <svg aria-hidden="true" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-        </svg>
-      </button>
-      <button aria-label="Next" class="carousel-arrow right js-carousel-next">
-        <svg aria-hidden="true" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-        </svg>
-      </button>
-    </div>
+    {% include "patterns/components/carousel_controls.html" %}
   </div>
 
   {% with link=self.cta_link.0 %}
