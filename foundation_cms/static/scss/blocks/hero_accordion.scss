@@ -116,6 +116,103 @@
     height: map.get($panel-height, xlarge);
   }
 
+  // ===================================
+  // Global Elements - Text
+  // ===================================
+
+  &__label {
+    margin-top: 0;
+    padding: 0 map.get($text-side-padding, small);
+
+    @include breakpoint(medium up) {
+      padding: 0 map.get($text-side-padding, medium);
+    }
+  }
+
+  &__heading,
+  &__description,
+  &__cta {
+    padding: 0 map.get($text-side-padding, small);
+
+    @include breakpoint(medium up) {
+      padding: 0 map.get($text-side-padding, medium);
+    }
+  }
+
+  // ===================================
+  // Global Elements - Video
+  // ===================================
+
+  &__video-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: $video-aspect-ratio;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+
+  &__video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+    transition: border-radius map.get($panel-transition, duration)
+      map.get($panel-transition, timing-function);
+  }
+
+  &__video-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: brightness(70%);
+  }
+
+  &__video-play-button {
+    position: relative;
+    width: $play-button-size;
+    height: $play-button-size;
+    background: transparent;
+    border: none;
+    pointer-events: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border-left: map.get($play-button-arrow, width) solid white;
+      border-top: map.get($play-button-arrow, height) solid transparent;
+      border-bottom: map.get($play-button-arrow, height) solid transparent;
+    }
+  }
+
+  // ===================================
+  // Panel Base Styles
+  // ===================================
+
   &__panel {
     flex: none;
     display: flex;
@@ -146,17 +243,13 @@
     }
 
     // ===================================
-    // Video Panel
+    // Video Panel - Base Structure
     // ===================================
 
     &--video_panel {
       flex-direction: column;
       position: relative;
       overflow: hidden;
-
-      // ===================================
-      // Video Panel - Child Elements
-      // ===================================
 
       .hero-accordion__video-wrapper {
         display: flex;
@@ -178,10 +271,6 @@
       .hero-accordion__details {
         display: none;
       }
-
-      // ===================================
-      // Video Panel - Active State Rules
-      // ===================================
 
       &.active {
         :not(.hero-accordion__details) .hero-accordion__label {
@@ -212,7 +301,7 @@
     }
 
     // ===================================
-    // Image Text Panel
+    // Image Text Panel - Base Structure
     // ===================================
 
     &--image_text_panel {
@@ -281,6 +370,7 @@
         }
       }
 
+      // Position modifiers
       &:nth-child(even) {
         justify-content: flex-end;
 
@@ -373,7 +463,7 @@
         }
       }
 
-      // Active states (most specific)
+      // Active states
       &.active {
         flex-direction: column-reverse;
 
@@ -459,101 +549,18 @@
       }
     }
   }
+}
 
-  // ===================================
-  // Global Elements (outside of panels)
-  // ===================================
+// ===================================
+// @at-root Styles
+// ===================================
 
-  &__video-box {
-    position: relative;
-    width: 100%;
-    aspect-ratio: $video-aspect-ratio;
-    overflow: hidden;
-
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+@at-root {
+  .hero-accordion__panel--video_panel.active .hero-accordion__video-overlay {
+    border-radius: 6rem 6rem 0 0;
   }
 
-  &__video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem 1rem 0 0;
-    overflow: hidden;
-    transition: border-radius map.get($panel-transition, duration)
-      map.get($panel-transition, timing-function);
-
-    @at-root .hero-accordion__panel--video_panel.active & {
-      border-radius: 6rem 6rem 0 0;
-    }
-  }
-
-  &__video-thumbnail {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: brightness(70%);
-  }
-
-  &__video-play-button {
-    position: relative;
-    width: $play-button-size;
-    height: $play-button-size;
-    background: transparent;
-    border: none;
-    pointer-events: none;
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 0;
-      height: 0;
-      border-left: map.get($play-button-arrow, width) solid white;
-      border-top: map.get($play-button-arrow, height) solid transparent;
-      border-bottom: map.get($play-button-arrow, height) solid transparent;
-    }
-
-    @at-root .hero-accordion__panel--video_panel:not(.active) & {
-      display: none;
-    }
-  }
-
-  // ===================================
-  // Text Elements
-  // ===================================
-
-  &__label {
-    margin-top: 0;
-  }
-
-  &__label,
-  &__heading,
-  &__description,
-  &__cta {
-    padding: 0 map.get($text-side-padding, small);
-
-    @include breakpoint(medium up) {
-      padding: 0 map.get($text-side-padding, medium);
-    }
+  .hero-accordion__panel--video_panel:not(.active) .hero-accordion__video-play-button {
+    display: none;
   }
 }
