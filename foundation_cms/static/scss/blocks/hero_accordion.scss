@@ -271,33 +271,6 @@
       .hero-accordion__details {
         display: none;
       }
-
-      &.active {
-        :not(.hero-accordion__details) .hero-accordion__label {
-          display: none;
-        }
-
-        .hero-accordion__details {
-          display: block;
-          width: 100%;
-          background-color: map.get($panel-colors, 1);
-          color: black;
-
-          @include breakpoint(medium up) {
-            position: absolute;
-            bottom: 0;
-            transform: translateY(0);
-            transition: transform map.get($panel-transition, duration)
-              map.get($panel-transition, timing-function);
-          }
-
-          &.hidden {
-            @include breakpoint(medium up) {
-              transform: translateY(100%);
-            }
-          }
-        }
-      }
     }
 
     // ===================================
@@ -463,74 +436,6 @@
         }
       }
 
-      // Active states
-      &.active {
-        flex-direction: column-reverse;
-
-        @include breakpoint(medium up) {
-          flex-direction: row;
-        }
-
-        .hero-accordion__image-box {
-          @include active-panel-width;
-
-          .hero-accordion__label {
-            display: none;
-          }
-
-          .hero-accordion__image {
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-
-            @include breakpoint(medium up) {
-              width: var(--open-panel-width);
-              height: map.get($panel-height, medium);
-              background-size: map.get($panel-height, medium)
-                map.get($panel-height, medium);
-            }
-
-            @include breakpoint(xlarge up) {
-              height: map.get($panel-height, xlarge);
-              background-size: map.get($panel-height, xlarge)
-                map.get($panel-height, xlarge);
-            }
-          }
-        }
-
-        .hero-accordion__details-inner {
-          @include breakpoint(medium up) {
-            padding-top: 0;
-            padding-bottom: 0;
-            transform: translateX(0);
-          }
-        }
-      }
-
-      &:nth-child(even).active {
-        .hero-accordion__details {
-          @include active-details-visible;
-
-          @include breakpoint(medium up) {
-            transform: translateX(-(map.get($panel-height, medium)));
-          }
-
-          @include breakpoint(xlarge up) {
-            transform: translateX(-(map.get($panel-height, xlarge)));
-          }
-        }
-      }
-
-      &:nth-child(odd).active {
-        .hero-accordion__details {
-          @include active-details-visible;
-
-          @include breakpoint(medium up) {
-            transform: translateX(0);
-          }
-        }
-      }
-
       // Transitioning states
       &.transitioning-to-inactive {
         .hero-accordion__image-box {
@@ -548,19 +453,115 @@
         }
       }
     }
-  }
-}
 
-// ===================================
-// @at-root Styles
-// ===================================
+    // ===================================
+    // Active States for Video Panel
+    // ===================================
 
-@at-root {
-  .hero-accordion__panel--video_panel.active .hero-accordion__video-overlay {
-    border-radius: 6rem 6rem 0 0;
-  }
+    &--video_panel.active {
+      :not(.hero-accordion__details) .hero-accordion__label {
+        display: none;
+      }
 
-  .hero-accordion__panel--video_panel:not(.active) .hero-accordion__video-play-button {
-    display: none;
+      .hero-accordion__details {
+        display: block;
+        width: 100%;
+        background-color: map.get($panel-colors, 1);
+        color: black;
+
+        @include breakpoint(medium up) {
+          position: absolute;
+          bottom: 0;
+          transform: translateY(0);
+          transition: transform map.get($panel-transition, duration)
+            map.get($panel-transition, timing-function);
+        }
+
+        &.hidden {
+          @include breakpoint(medium up) {
+            transform: translateY(100%);
+          }
+        }
+      }
+
+      .hero-accordion__video-overlay {
+        border-radius: 6rem 6rem 0 0;
+      }
+    }
+
+    &--video_panel:not(.active) .hero-accordion__video-play-button {
+      display: none;
+    }
+
+    // ===================================
+    // Active States for Image Text Panel (More Specific)
+    // ===================================
+
+    &--image_text_panel.active {
+      flex-direction: column-reverse;
+
+      @include breakpoint(medium up) {
+        flex-direction: row;
+      }
+
+      .hero-accordion__image-box {
+        @include active-panel-width;
+
+        .hero-accordion__label {
+          display: none;
+        }
+
+        .hero-accordion__image {
+          width: 100%;
+          height: 100%;
+          background-size: contain;
+
+          @include breakpoint(medium up) {
+            width: var(--open-panel-width);
+            height: map.get($panel-height, medium);
+            background-size: map.get($panel-height, medium)
+              map.get($panel-height, medium);
+          }
+
+          @include breakpoint(xlarge up) {
+            height: map.get($panel-height, xlarge);
+            background-size: map.get($panel-height, xlarge)
+              map.get($panel-height, xlarge);
+          }
+        }
+      }
+
+      .hero-accordion__details-inner {
+        @include breakpoint(medium up) {
+          padding-top: 0;
+          padding-bottom: 0;
+          transform: translateX(0);
+        }
+      }
+    }
+
+    &--image_text_panel:nth-child(even).active {
+      .hero-accordion__details {
+        @include active-details-visible;
+
+        @include breakpoint(medium up) {
+          transform: translateX(-(map.get($panel-height, medium)));
+        }
+
+        @include breakpoint(xlarge up) {
+          transform: translateX(-(map.get($panel-height, xlarge)));
+        }
+      }
+    }
+
+    &--image_text_panel:nth-child(odd).active {
+      .hero-accordion__details {
+        @include active-details-visible;
+
+        @include breakpoint(medium up) {
+          transform: translateX(0);
+        }
+      }
+    }
   }
 }
