@@ -9,7 +9,10 @@ class PortraitCardSetBlock(BaseBlock):
     headline = blocks.CharBlock(required=False, label="Headline", help_text="Main heading for the card set.")
 
     cards = blocks.ListBlock(
-        PortraitCardBlock(), label="Portrait Cards", min_num=3, max_num=3, help_text="Exactly 3 cards required."
+        PortraitCardBlock(),
+        label="Portrait Cards",
+        min_num=3,
+        help_text="Minimum of 3 cards required. More than 3 will turn element into a carousel.",
     )
 
     cta_link = OptionalLinkBlock(
