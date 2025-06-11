@@ -26,7 +26,7 @@ class PortraitCardSetBlock(BaseBlock):
         layout = "portrait_card_set_block_carousel.html" if card_count > 3 else "portrait_card_set_block_grid.html"
         context["card_set_template"] = f"patterns/blocks/themes/{theme}/{layout}"
         return context
-    
+
     class Meta:
         label = "Portrait Card Set"
         icon = "form"
