@@ -40,7 +40,7 @@
         <div class="hero-accordion__image-box">
           {% image block.value.image fill-2000x2000 as img %}
           <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
-          <div class="hero-accordion__image" style="background-image: url('{{ img.url }}');"></div>
+          <div class="hero-accordion__image" style="--bg-img:url('{{ img.url }}');"></div>
           {% if image.alt %}
           <img
             class="show-for-sr"

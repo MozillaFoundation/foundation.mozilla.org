@@ -35,6 +35,10 @@
     width: 30px,
     height: 18px,
   );
+  $square-image-corner-radius: (
+    small: 1.75rem,
+    medium: 4.25rem,
+  );
 
   --open-multiplier: 5; // How many "flex units" the open panel gets
   --total-panels: 3; // This is the fallback value. This will be inline-overriden in Dango template
@@ -288,8 +292,7 @@
         padding: map.get($details-section-padding, small);
         transition:
           opacity map.get($panel-transition, duration)
-            map.get($panel-transition, timing-function)
-            calc(map.get($panel-transition, duration) * 1 / 3),
+            map.get($panel-transition, timing-function),
           transform map.get($panel-transition, duration)
             map.get($panel-transition, timing-function);
 
@@ -333,8 +336,10 @@
           height: var(--closed-panel-width);
           aspect-ratio: 1 / 1;
           overflow: hidden;
-          background-repeat: no-repeat;
-          background-size: var(--closed-panel-width) var(--closed-panel-width);
+          position: relative;
+
+          // background-repeat: no-repeat;
+          // background-size: var(--closed-panel-width) var(--closed-panel-width);
           transition:
             width map.get($panel-transition, duration)
               map.get($panel-transition, timing-function),
@@ -342,12 +347,30 @@
               map.get($panel-transition, timing-function),
             background-size map.get($panel-transition, duration)
               map.get($panel-transition, timing-function);
+
+          &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--bg-img) no-repeat right center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            z-index: -1;
+            transition:
+              background-size map.get($panel-transition, duration) map.get($panel-transition, timing-function),
+              background-position map.get($panel-transition, duration) map.get($panel-transition, timing-function);
+          }
         }
       }
 
       // Position modifiers
       &:nth-child(even) {
+        flex-direction: column-reverse;
         justify-content: flex-end;
+
+        @include breakpoint(medium up) {
+          flex-direction: row;
+        }
 
         .hero-accordion__details {
           @include breakpoint(medium up) {
@@ -389,13 +412,25 @@
           }
 
           .hero-accordion__image {
-            background-position: right bottom;
+            &::before {
+              clip-path: inset(
+                0 0 0 0 round map.get($square-image-corner-radius, small) 0 0
+                  map.get($square-image-corner-radius, small)
+              );
+
+              @include breakpoint(medium up) {
+                clip-path: inset(
+                  0 0 0 0 round map.get($square-image-corner-radius, medium) 0 0
+                    map.get($square-image-corner-radius, medium)
+                );
+              }
+            }
           }
         }
       }
 
       &:nth-child(odd) {
-        justify-content: flex-start;
+        justify-content: flex-end;
 
         .hero-accordion__details {
           @include breakpoint(medium up) {
@@ -433,16 +468,104 @@
           }
 
           .hero-accordion__image {
-            background-position: right top;
+            &::before {
+              clip-path: inset(
+                0 0 0 0 round 0 map.get($square-image-corner-radius, small) 0
+                  map.get($square-image-corner-radius, small)
+              );
+
+              @include breakpoint(medium up) {
+                clip-path: inset(
+                  0 0 0 0 round 0 map.get($square-image-corner-radius, medium) 0
+                    map.get($square-image-corner-radius, medium)
+                );
+              }
+            }
           }
         }
       }
 
       // Transitioning states
       &.transitioning-to-inactive {
+        flex-direction: column-reverse;
+
+        @include breakpoint(medium up) {
+          flex-direction: row;
+        }
+
         .hero-accordion__image-box {
           .hero-accordion__label {
             display: none; // Stay hidden during transition
+          }
+        }
+
+        .hero-accordion__details {
+          display: block;
+
+          @include breakpoint(medium up) {
+            display: block;
+            pointer-events: none;
+          }
+        }
+      }
+
+      &:nth-child(even).transitioning-to-inactive {
+        justify-content: flex-end;
+
+        .hero-accordion__details {
+          display: block;
+
+          @include breakpoint(medium up) {
+            transform: translateX(-(map.get($panel-height, medium)));
+          }
+
+          @include breakpoint(xlarge up) {
+            transform: translateX(-(map.get($panel-height, xlarge)));
+          }
+        }
+
+        .hero-accordion__image-box {
+          // maintain the same flex arrangement as active state
+          flex-direction: row;
+          justify-content: end;
+
+          @include breakpoint(medium up) {
+            flex-direction: column;
+          }
+
+          .hero-accordion__image {
+            &::before {
+              background-position: right bottom;
+            }
+          }
+        }
+      }
+
+      &:nth-child(odd).transitioning-to-inactive {
+        justify-content: flex-end; // Keep everything pushed to the right
+
+        .hero-accordion__details {
+          display: block;
+
+          @include breakpoint(medium up) {
+            transform: translateX(0);
+          }
+        }
+
+        .hero-accordion__image-box {
+          // maintain the same flex arrangement as active state
+          flex-direction: row-reverse;
+          justify-content: start;
+
+          @include breakpoint(medium up) {
+            flex-direction: column-reverse;
+            justify-content: start;
+          }
+
+          .hero-accordion__image {
+            &::before {
+              background-position: right top;
+            }
           }
         }
       }
@@ -515,7 +638,15 @@
       }
 
       .hero-accordion__image-box {
-        @include active-panel-width;
+        width: 100%;
+
+        @include breakpoint(medium up) {
+          width: map.get($panel-height, medium);
+        }
+
+        @include breakpoint(xlarge up) {
+          width: map.get($panel-height, xlarge);
+        }
 
         .hero-accordion__label {
           display: none;
@@ -524,19 +655,27 @@
         .hero-accordion__image {
           width: 100%;
           height: 100%;
-          background-size: contain;
 
           @include breakpoint(medium up) {
-            width: var(--open-panel-width);
+            width: map.get($panel-height, medium);
             height: map.get($panel-height, medium);
-            background-size: map.get($panel-height, medium)
-              map.get($panel-height, medium);
           }
 
           @include breakpoint(xlarge up) {
+            width: map.get($panel-height, xlarge);
             height: map.get($panel-height, xlarge);
-            background-size: map.get($panel-height, xlarge)
-              map.get($panel-height, xlarge);
+          }
+
+          &::before {
+            @include breakpoint(medium up) {
+              background-size: map.get($panel-height, medium)
+                map.get($panel-height, medium);
+            }
+
+            @include breakpoint(xlarge up) {
+              background-size: map.get($panel-height, xlarge)
+                map.get($panel-height, xlarge);
+            }
           }
         }
       }
