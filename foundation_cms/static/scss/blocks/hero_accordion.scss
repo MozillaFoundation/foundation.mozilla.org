@@ -80,6 +80,27 @@
     width: calc-panel-width($height);
   }
 
+  @mixin active-details-visible {
+    display: block;
+    opacity: 1;
+  }
+
+  @mixin active-panel-width {
+    width: 100%;
+
+    @include breakpoint(medium up) {
+      width: var(--open-panel-width);
+    }
+  }
+
+  @mixin closed-panel-width {
+    width: 100%;
+
+    @include breakpoint(medium up) {
+      width: var(--closed-panel-width);
+    }
+  }
+
   // ===================================
   // Accordion Base Styling
   // ===================================
@@ -101,7 +122,6 @@
 
   &__panel {
     flex: none;
-    width: 100%;
     display: flex;
     position: relative;
     background-color: #eee;
@@ -111,16 +131,10 @@
       map.get($panel-transition, timing-function);
     overflow: hidden;
 
-    @include breakpoint(medium up) {
-      width: var(--closed-panel-width);
-    }
+    @include closed-panel-width;
 
     &.active {
-      width: 100%;
-
-      @include breakpoint(medium up) {
-        width: var(--open-panel-width);
-      }
+      @include active-panel-width;
     }
 
     &:nth-child(3n + 1) {
@@ -294,8 +308,7 @@
 
       &:nth-child(even).active {
         .hero-accordion__details {
-          display: block;
-          opacity: 1;
+          @include active-details-visible;
 
           @include breakpoint(medium up) {
             transform: translateX(-(map.get($panel-height, medium)));
@@ -309,8 +322,7 @@
 
       &:nth-child(odd).active {
         .hero-accordion__details {
-          display: block;
-          opacity: 1;
+          @include active-details-visible;
 
           @include breakpoint(medium up) {
             transform: translateX(0);
@@ -330,12 +342,11 @@
         display: flex;
         align-items: center;
         z-index: 2;
-        width: 100%;
         transition: width map.get($panel-transition, duration)
           map.get($panel-transition, timing-function);
 
+        @include closed-panel-width;
         @include breakpoint(medium up) {
-          width: var(--closed-panel-width);
           flex-direction: column;
           align-items: stretch;
         }
@@ -374,9 +385,7 @@
         }
 
         .hero-accordion__image-box {
-          @include breakpoint(medium up) {
-            width: var(--open-panel-width);
-          }
+          @include active-panel-width;
 
           .hero-accordion__label {
             display: none;
