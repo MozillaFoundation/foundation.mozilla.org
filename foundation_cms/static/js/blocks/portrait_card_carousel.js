@@ -1,43 +1,43 @@
 /**
- * Initializes carousel behavior for the PortraitCardSetBlock.
- * Adds left/right scroll buttons and keyboard navigation.
+ * Initializes all portrait card carousels on the page.
+ *  * Adds left/right scroll buttons and keyboard navigation.
  */
-
 const SELECTORS = {
-  track: "#carousel-track",
-  next: "#carousel-next",
-  prev: "#carousel-prev",
+  container: ".js-portrait-card-carousel",
+  track: ".js-carousel-track",
+  next: ".js-carousel-next",
+  prev: ".js-carousel-prev",
   card: ".carousel-card",
 };
 
-export function initPortraitCardSetCarousel() {
-  const track = document.querySelector(SELECTORS.track);
-  const prevBtn = document.querySelector(SELECTORS.prev);
-  const nextBtn = document.querySelector(SELECTORS.next);
+export function initPortraitCardSetCarousels() {
+  const carousels = document.querySelectorAll(SELECTORS.container);
+  if (!carousels.length) return;
 
-  if (!track || !prevBtn || !nextBtn) return;
+  carousels.forEach((carousel) => {
+    const track = carousel.querySelector(SELECTORS.track);
+    const nextBtn = carousel.querySelector(SELECTORS.next);
+    const prevBtn = carousel.querySelector(SELECTORS.prev);
+    const card = track?.querySelector(SELECTORS.card);
 
-  const card = track.querySelector(SELECTORS.card);
-  if (!card) return;
+    if (!track || !card || !nextBtn || !prevBtn) return;
 
-  const cardWidth = card.getBoundingClientRect().width;
+    const cardWidth = card.getBoundingClientRect().width;
 
-  const scrollNext = () => {
-    track.scrollBy({ left: cardWidth, behavior: "smooth" });
-  };
+    const scrollNext = () => {
+      track.scrollBy({ left: cardWidth, behavior: "smooth" });
+    };
 
-  const scrollPrev = () => {
-    track.scrollBy({ left: -cardWidth, behavior: "smooth" });
-  };
+    const scrollPrev = () => {
+      track.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    };
 
-  nextBtn.addEventListener("click", scrollNext);
-  prevBtn.addEventListener("click", scrollPrev);
+    nextBtn.addEventListener("click", scrollNext);
+    prevBtn.addEventListener("click", scrollPrev);
 
-  track.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") {
-      scrollNext();
-    } else if (e.key === "ArrowLeft") {
-      scrollPrev();
-    }
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") scrollNext();
+      else if (e.key === "ArrowLeft") scrollPrev();
+    });
   });
 }

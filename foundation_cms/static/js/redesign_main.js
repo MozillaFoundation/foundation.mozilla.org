@@ -1,7 +1,7 @@
 import $ from "jquery";
 import "foundation-sites";
 import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
-import { initPortraitCardSetCarousel } from "./blocks/portrait_card_carousel.js";
+import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
 
 $(document).foundation();
 
@@ -10,4 +10,4 @@ console.log(
 );
 
 initImpactNumberStatAnimationsOnScroll();
-initPortraitCardSetCarousel();
+initPortraitCardSetCarousels();
