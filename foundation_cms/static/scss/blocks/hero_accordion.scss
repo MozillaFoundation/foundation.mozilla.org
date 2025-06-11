@@ -92,9 +92,41 @@
       position: relative;
       overflow: hidden;
 
-      &.active :not(.hero-accordion__details) .hero-accordion__label {
-        display: none;
+      // ===================================
+      // Video Panel - Active State Rules
+      // ===================================
+
+      &.active {
+        :not(.hero-accordion__details) .hero-accordion__label {
+          display: none;
+        }
+
+        .hero-accordion__details {
+          display: block;
+          width: 100%;
+          background-color: map.get($panel-colors, 1);
+          color: black;
+
+          @include breakpoint(medium up) {
+            position: absolute;
+            bottom: 0;
+            transform: translateY(0);
+            transition: transform map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function);
+          }
+
+          &.hidden {
+            @include breakpoint(medium up) {
+              transform: translateY(100%);
+            }
+          }
+        }
       }
+
+      // ===================================
+      // Video Panel - Child Elements
+      // ===================================
+
 
       .hero-accordion__video-wrapper {
         display: flex;
@@ -115,27 +147,6 @@
 
       .hero-accordion__details {
         display: none;
-      }
-
-      &.active .hero-accordion__details {
-        display: block;
-        width: 100%;
-        background-color: map.get($panel-colors, 1);
-        color: black;
-
-        @include breakpoint(medium up) {
-          position: absolute;
-          bottom: 0;
-          transform: translateY(0);
-          transition: transform map.get($panel-transition, duration)
-            map.get($panel-transition, timing-function);
-        }
-
-        &.hidden {
-          @include breakpoint(medium up) {
-            transform: translateY(100%);
-          }
-        }
       }
     }
 
