@@ -1,9 +1,3 @@
-{% with theme=page.get_theme|default:"default" %}
-  {% with theme_path="patterns/blocks/themes/"|add:theme|add:"/" %}
-    {% if self.cards|length > 3 %}
-      {% include theme_path|add:"portrait_card_set_block_carousel.html" %}
-    {% else %}
-      {% include theme_path|add:"portrait_card_set_block_grid.html" %}
-    {% endif %}
-  {% endwith %}
-{% endwith %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% include card_set_template %}
