@@ -15,6 +15,7 @@ from foundation_cms.blocks import (
     ImpactNumberBlock,
     LinkButtonBlock,
     NewsletterSignupBlock,
+    ListBlock,
     PortraitCardSetBlock,
     QuoteBlock,
     SpacerBlock,
@@ -38,6 +39,7 @@ base_page_block_options = [
     ("newsletter_signup", NewsletterSignupBlock()),
     ("timely_activations_cards", TimelyActivationsCardsBlock()),
     ("quote", QuoteBlock()),
+    ("list_block", ListBlock()),
 ]
 
 
