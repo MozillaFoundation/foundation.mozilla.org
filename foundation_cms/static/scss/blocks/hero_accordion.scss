@@ -220,13 +220,6 @@
         justify-content: flex-end;
 
         .hero-accordion__details {
-          transition:
-            opacity map.get($panel-transition, duration)
-              map.get($panel-transition, timing-function)
-              calc(map.get($panel-transition, duration) * 1 / 3),
-            transform map.get($panel-transition, duration)
-              map.get($panel-transition, timing-function);
-
           @include breakpoint(medium up) {
             right: 0;
             width: calc(var(--open-panel-width) - map.get($panel-height, small));
@@ -301,18 +294,9 @@
       &:nth-child(odd).active {
         .hero-accordion__details {
           display: block;
-          transform: translateX(0);
           opacity: 1;
 
-          @include breakpoint(small up) {
-            transform: translateX(0);
-          }
-
           @include breakpoint(medium up) {
-            transform: translateX(0);
-          }
-
-          @include breakpoint(xlarge up) {
             transform: translateX(0);
           }
         }
@@ -400,14 +384,6 @@
                 map.get($panel-height, xlarge);
             }
           }
-        }
-
-        &:nth-child(even) .hero-accordion__image {
-          background-position: right bottom;
-        }
-
-        &:nth-child(odd) .hero-accordion__image {
-          background-position: right top;
         }
       }
 
