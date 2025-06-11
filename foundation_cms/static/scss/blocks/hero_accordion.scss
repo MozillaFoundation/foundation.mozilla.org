@@ -10,29 +10,24 @@
     // timing-function: cubic-bezier(0.7, 0, 0.15, 1)
     timing-function: ease,
   );
-
   $panel-height: (
     small: 400px,
     medium: 400px,
     xlarge: 600px,
   );
-
   $panel-colors: (
     1: #f88539,
     2: #eeb500,
     3: #eed800,
   );
-
   $text-side-padding: (
     small: 1rem,
     medium: 0.875rem,
   );
-
   $details-section-padding: (
     small: 1.5rem 2rem,
     medium: 2rem,
   );
-
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
 
   $play-button-size: 4rem;
@@ -41,7 +36,7 @@
     height: 18px,
   );
 
-  --open-multiplier: 5; // How many “flex units” the open panel gets
+  --open-multiplier: 5; // How many "flex units" the open panel gets
   --total-panels: 3; // This is the fallback value. This will be inline-overriden in Dango template
   --closed-panel-width: 100% / 3; // fallback value. Will be overriden by JS
   --open-panel-width: 100% / 3; // fallback value. Will be overriden by JS
@@ -52,7 +47,6 @@
 
   // Calculates the horizontal offset for panel details animation
   // Used to position the details section off-screen before it slides in
-  //
   // @param {Number} $height - The panel height at current breakpoint
   // @param {Number} $direction - Direction multiplier: 1 for right (even panels), -1 for left (odd panels)
   // @return {Calc} - CSS calc() expression for translateX offset
@@ -70,12 +64,14 @@
 
   @mixin text-details-position-even($size) {
     $height: map.get($panel-height, $size);
+
     transform: translateX(calc-panel-offset($height));
     width: calc-panel-width($height);
   }
 
   @mixin text-details-position-odd($size) {
     $height: map.get($panel-height, $size);
+
     transform: translateX(calc-panel-offset($height, -1));
     width: calc-panel-width($height);
   }
@@ -159,6 +155,31 @@
       overflow: hidden;
 
       // ===================================
+      // Video Panel - Child Elements
+      // ===================================
+
+      .hero-accordion__video-wrapper {
+        display: flex;
+
+        @include breakpoint(medium up) {
+          flex-direction: column;
+        }
+
+        .hero-accordion__label {
+          flex: 0 0 65%;
+
+          @include breakpoint(medium up) {
+            flex: initial;
+            margin: map.get($text-side-padding, medium);
+          }
+        }
+      }
+
+      .hero-accordion__details {
+        display: none;
+      }
+
+      // ===================================
       // Video Panel - Active State Rules
       // ===================================
 
@@ -187,31 +208,6 @@
             }
           }
         }
-      }
-
-      // ===================================
-      // Video Panel - Child Elements
-      // ===================================
-
-      .hero-accordion__video-wrapper {
-        display: flex;
-
-        @include breakpoint(medium up) {
-          flex-direction: column;
-        }
-
-        .hero-accordion__label {
-          flex: 0 0 65%;
-
-          @include breakpoint(medium up) {
-            flex: initial;
-            margin: map.get($text-side-padding, medium);
-          }
-        }
-      }
-
-      .hero-accordion__details {
-        display: none;
       }
     }
 
@@ -242,6 +238,46 @@
           opacity: 0;
           height: 100%;
           padding: map.get($details-section-padding, medium);
+        }
+      }
+
+      .hero-accordion__image-box {
+        display: flex;
+        align-items: center;
+        z-index: 2;
+        transition: width map.get($panel-transition, duration)
+          map.get($panel-transition, timing-function);
+
+        @include closed-panel-width;
+
+        @include breakpoint(medium up) {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .hero-accordion__label {
+          display: block;
+          margin-bottom: 0;
+
+          @include breakpoint(medium up) {
+            margin: map.get($text-side-padding, medium);
+          }
+        }
+
+        .hero-accordion__image {
+          width: var(--closed-panel-width);
+          height: var(--closed-panel-width);
+          aspect-ratio: 1 / 1;
+          overflow: hidden;
+          background-repeat: no-repeat;
+          background-size: var(--closed-panel-width) var(--closed-panel-width);
+          transition:
+            width map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function),
+            height map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function),
+            background-size map.get($panel-transition, duration)
+              map.get($panel-transition, timing-function);
         }
       }
 
@@ -278,6 +314,19 @@
             }
           }
         }
+
+        .hero-accordion__image-box {
+          flex-direction: row;
+          justify-content: end;
+
+          @include breakpoint(medium up) {
+            flex-direction: column;
+          }
+
+          .hero-accordion__image {
+            background-position: right bottom;
+          }
+        }
       }
 
       &:nth-child(odd) {
@@ -302,84 +351,29 @@
             @include breakpoint(medium up) {
               transform: translateX(map.get($panel-height, medium));
             }
+
             @include breakpoint(xlarge up) {
               transform: translateX(map.get($panel-height, xlarge));
             }
           }
         }
-      }
 
-      &:nth-child(even).active {
-        .hero-accordion__details {
-          @include active-details-visible;
-
-          @include breakpoint(medium up) {
-            transform: translateX(-(map.get($panel-height, medium)));
-          }
-
-          @include breakpoint(xlarge up) {
-            transform: translateX(-(map.get($panel-height, xlarge)));
-          }
-        }
-      }
-
-      &:nth-child(odd).active {
-        .hero-accordion__details {
-          @include active-details-visible;
+        .hero-accordion__image-box {
+          flex-direction: row-reverse;
+          justify-content: start;
 
           @include breakpoint(medium up) {
-            transform: translateX(0);
+            flex-direction: column-reverse;
+            justify-content: start;
+          }
+
+          .hero-accordion__image {
+            background-position: right top;
           }
         }
       }
 
-      @at-root &.active .hero-accordion__details-inner {
-        @include breakpoint(medium up) {
-          padding-top: 0;
-          padding-bottom: 0;
-          transform: translateX(0);
-        }
-      }
-
-      .hero-accordion__image-box {
-        display: flex;
-        align-items: center;
-        z-index: 2;
-        transition: width map.get($panel-transition, duration)
-          map.get($panel-transition, timing-function);
-
-        @include closed-panel-width;
-        @include breakpoint(medium up) {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        .hero-accordion__label {
-          display: block;
-          margin-bottom: 0;
-
-          @include breakpoint(medium up) {
-            margin: map.get($text-side-padding, medium);
-          }
-        }
-
-        .hero-accordion__image {
-          width: var(--closed-panel-width);
-          height: var(--closed-panel-width);
-          aspect-ratio: 1 / 1;
-          overflow: hidden;
-          background-repeat: no-repeat;
-          background-size: var(--closed-panel-width) var(--closed-panel-width);
-          transition:
-            width map.get($panel-transition, duration)
-              map.get($panel-transition, timing-function),
-            height map.get($panel-transition, duration)
-              map.get($panel-transition, timing-function),
-            background-size map.get($panel-transition, duration)
-              map.get($panel-transition, timing-function);
-        }
-      }
-
+      // Active states (most specific)
       &.active {
         flex-direction: column-reverse;
 
@@ -413,8 +407,41 @@
             }
           }
         }
+
+        .hero-accordion__details-inner {
+          @include breakpoint(medium up) {
+            padding-top: 0;
+            padding-bottom: 0;
+            transform: translateX(0);
+          }
+        }
       }
 
+      &:nth-child(even).active {
+        .hero-accordion__details {
+          @include active-details-visible;
+
+          @include breakpoint(medium up) {
+            transform: translateX(-(map.get($panel-height, medium)));
+          }
+
+          @include breakpoint(xlarge up) {
+            transform: translateX(-(map.get($panel-height, xlarge)));
+          }
+        }
+      }
+
+      &:nth-child(odd).active {
+        .hero-accordion__details {
+          @include active-details-visible;
+
+          @include breakpoint(medium up) {
+            transform: translateX(0);
+          }
+        }
+      }
+
+      // Transitioning states
       &.transitioning-to-inactive {
         .hero-accordion__image-box {
           .hero-accordion__label {
@@ -423,42 +450,19 @@
         }
       }
 
-      &:not(.active):not(.transitioning-to-inactive) {
+      &:not(.active, .transitioning-to-inactive) {
         .hero-accordion__image-box {
           .hero-accordion__label {
             display: block;
           }
         }
       }
-
-      &:nth-child(even) .hero-accordion__image-box {
-        flex-direction: row;
-        justify-content: end;
-
-        @include breakpoint(medium up) {
-          flex-direction: column;
-        }
-
-        .hero-accordion__image {
-          background-position: right bottom;
-        }
-      }
-
-      &:nth-child(odd) .hero-accordion__image-box {
-        flex-direction: row-reverse;
-        justify-content: start;
-
-        @include breakpoint(medium up) {
-          flex-direction: column-reverse;
-          justify-content: start;
-        }
-
-        .hero-accordion__image {
-          background-position: right top;
-        }
-      }
     }
   }
+
+  // ===================================
+  // Global Elements (outside of panels)
+  // ===================================
 
   &__video-box {
     position: relative;
