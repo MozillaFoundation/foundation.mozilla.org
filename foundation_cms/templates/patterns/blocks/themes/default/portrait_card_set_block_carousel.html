@@ -16,18 +16,8 @@
         </div>
       {% endfor %}
     </div>
+    {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
+
     {% include "patterns/components/carousel_controls.html" %}
   </div>
-
-  {% with link=self.cta_link.0 %}
-    {% if link and link.link_to %}
-      <div class="grid-x">
-        <div class="cell">
-          <div class="portrait-card-set__cta">
-            {% include "./link_button_block.html" with value=link only %}
-          </div>
-        </div>
-      </div>
-    {% endif %}
-  {% endwith %}
 </div>

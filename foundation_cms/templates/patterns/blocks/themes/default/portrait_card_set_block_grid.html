@@ -11,29 +11,11 @@
 
     {% for card in self.cards %}
       <div class="cell small-12 medium-4">
-        <div class="portrait-card">
-          <div class="portrait-card__text">
-            <p class="portrait-card__label">{{ card.label }}</p>
-            <h3 class="portrait-card__headline">{{ card.headline }}</h3>
-          </div>
-          {% if card.image %}
-            <div class="portrait-card__image">
-              {% image card.image fill-400x600 %}
-            </div>
-          {% endif %}
-        </div>
+        {% include "patterns/components/portrait_card.html" %}
       </div>
     {% endfor %}
 
-    {% with link=self.cta_link.0 %}
-      {% if link and link.link_to %}
-        <div class="cell">
-          <div class="portrait-card-set__cta">
-            {% include "./link_button_block.html" with value=link only %}
-          </div>
-        </div>
-      {% endif %}
-    {% endwith %}
+    {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
 
   </div>
 </div>
