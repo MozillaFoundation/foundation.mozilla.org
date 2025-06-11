@@ -6,11 +6,16 @@ from wagtail.snippets.models import register_snippet
 
 @register_snippet
 class NewsletterSignup(models.Model):
+    name = models.CharField(
+        default="",
+        max_length=100,
+        help_text="The name of this newsletter signup form.",
+    )
     cta_text = models.CharField(max_length=255, default="Stay updated with our latest news and updates.")
     button_text = models.CharField(max_length=50, default="Sign Up", help_text="Text to display on the signup button.")
     newsletter = models.CharField(
         max_length=100,
-        help_text="The (pre-existing) newsletter to sign up for",
+        help_text="The (pre-existing) newsletter to sign up for.",
         default="mozilla-foundation",
     )
     layout = models.CharField(
@@ -20,10 +25,11 @@ class NewsletterSignup(models.Model):
             ("expand_on_focus", "Expand On Focus"),
         ],
         default="expanded",
-        help_text="Controls how the form is displayed",
+        help_text="Controls how the form is displayed.",
     )
 
     panels = [
+        FieldPanel("name"),
         FieldPanel("cta_text"),
         FieldPanel("button_text"),
         FieldPanel("newsletter"),
@@ -31,7 +37,7 @@ class NewsletterSignup(models.Model):
     ]
 
     def __str__(self):
-        return self.cta_text
+        return self.name
 
 
 @register_setting(icon="mail")
