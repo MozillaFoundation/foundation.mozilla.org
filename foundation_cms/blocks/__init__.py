@@ -4,8 +4,8 @@ from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
-from .newsletter_signup_block import NewsletterSignupBlock
 from .list_block import ListBlock
+from .newsletter_signup_block import NewsletterSignupBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .quote_block import QuoteBlock
