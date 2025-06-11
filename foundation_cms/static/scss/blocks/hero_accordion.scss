@@ -47,26 +47,42 @@
   --open-panel-width: 100% / 3; // fallback value. Will be overriden by JS
 
   // ===================================
+  // Functions
+  // ===================================
+
+  // Calculates the horizontal offset for panel details animation
+  // Used to position the details section off-screen before it slides in
+  //
+  // @param {Number} $height - The panel height at current breakpoint
+  // @param {Number} $direction - Direction multiplier: 1 for right (even panels), -1 for left (odd panels)
+  // @return {Calc} - CSS calc() expression for translateX offset
+  @function calc-panel-offset($height, $direction: 1) {
+    @return calc(#{$direction} * (var(--open-panel-width) - 2 * #{$height}));
+  }
+
+  @function calc-panel-width($height) {
+    @return calc(var(--open-panel-width) - #{$height});
+  }
+
+  // ===================================
   // Mixins
   // ===================================
 
   @mixin text-details-position-even($size) {
     $height: map.get($panel-height, $size);
-
-    transform: translateX(
-      calc(var(--open-panel-width) - 2 * #{$height})
-    );
-    width: calc(var(--open-panel-width) - #{$height});
+    transform: translateX(calc-panel-offset($height));
+    width: calc-panel-width($height);
   }
 
   @mixin text-details-position-odd($size) {
     $height: map.get($panel-height, $size);
-
-    transform: translateX(
-      calc(-1 * (var(--open-panel-width) - 2 * #{$height}))
-    );
-    width: calc(var(--open-panel-width) - #{$height});
+    transform: translateX(calc-panel-offset($height, -1));
+    width: calc-panel-width($height);
   }
+
+  // ===================================
+  // Accordion Base Styling
+  // ===================================
 
   display: flex;
   flex-direction: column;
