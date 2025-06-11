@@ -25,12 +25,12 @@
 
   $text-side-padding: (
     small: 1rem,
-    medium: 0.875rem
+    medium: 0.875rem,
   );
 
   $details-section-padding: (
     small: 1.5rem 2rem,
-    medium: 2rem
+    medium: 2rem,
   );
 
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
@@ -38,7 +38,7 @@
   $play-button-size: 4rem;
   $play-button-arrow: (
     width: 30px,
-    height: 18px
+    height: 18px,
   );
 
   --open-multiplier: 5; // How many “flex units” the open panel gets
@@ -193,7 +193,6 @@
       // Video Panel - Child Elements
       // ===================================
 
-
       .hero-accordion__video-wrapper {
         display: flex;
 
@@ -252,7 +251,9 @@
         .hero-accordion__details {
           @include breakpoint(medium up) {
             right: 0;
-            width: calc(var(--open-panel-width) - map.get($panel-height, small));
+            width: calc(
+              var(--open-panel-width) - map.get($panel-height, small)
+            );
             transform: translateX(
               calc(var(--open-panel-width) - 2 * map.get($panel-height, small))
             );
@@ -286,7 +287,9 @@
           @include breakpoint(medium up) {
             left: 0;
             right: auto;
-            width: calc(var(--open-panel-width) - map.get($panel-height, small));
+            width: calc(
+              var(--open-panel-width) - map.get($panel-height, small)
+            );
           }
 
           @each $size in medium, xlarge {

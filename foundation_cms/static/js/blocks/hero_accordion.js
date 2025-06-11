@@ -129,7 +129,7 @@ export class HorizontalAccordion {
           () => {
             panel.classList.remove(CLASS_NAMES.transitioningToInactive);
           },
-          { once: true }
+          { once: true },
         );
 
         this._revertVideoPanel(panel);
