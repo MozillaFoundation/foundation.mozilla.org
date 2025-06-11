@@ -294,12 +294,14 @@
             map.get($panel-transition, timing-function);
 
         @include breakpoint(medium up) {
+          display: block;
           position: absolute;
           top: 0;
           overflow: hidden;
           opacity: 0;
           height: 100%;
           padding: map.get($details-section-padding, medium);
+          pointer-events: none;
         }
       }
 
@@ -502,6 +504,14 @@
 
       @include breakpoint(medium up) {
         flex-direction: row;
+      }
+
+      .hero-accordion__details {
+        display: block;
+
+        @include breakpoint(medium up) {
+          pointer-events: auto;
+        }
       }
 
       .hero-accordion__image-box {
