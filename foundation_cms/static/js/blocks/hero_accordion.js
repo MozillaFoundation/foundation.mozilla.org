@@ -4,7 +4,7 @@
 const SELECTORS = {
   root: ".hero-accordion",
   panel: ".hero-accordion__panel",
-  videoWrapper: ".hero-accordion__video-wrapper",
+  videoBox: ".hero-accordion__video-box",
   videoOverlay: ".hero-accordion__video-overlay",
   videoTextWrapper:
     ".hero-accordion__panel--video_panel .hero-accordion__details",
@@ -123,14 +123,14 @@ export class HorizontalAccordion {
       if (panel.classList.contains(CLASS_NAMES.active)) {
         panel.classList.add(CLASS_NAMES.transitioningToInactive);
 
-        // Listen for transition end on the panel width
-        const handleTransitionEnd = (e) => {
-          if (e.propertyName === "width" && e.target === panel) {
+        // Listen for the next transitionend on this panel, whatever the property
+        panel.addEventListener(
+          "transitionend",
+          () => {
             panel.classList.remove(CLASS_NAMES.transitioningToInactive);
-            panel.removeEventListener("transitionend", handleTransitionEnd);
-          }
-        };
-        panel.addEventListener("transitionend", handleTransitionEnd);
+          },
+          { once: true }
+        );
 
         this._revertVideoPanel(panel);
       }
@@ -156,8 +156,8 @@ export class HorizontalAccordion {
    * @private
    */
   _revertVideoPanel(panel) {
-    // Find the video-wrapper inside this panel
-    const wrapper = panel.querySelector(SELECTORS.videoWrapper);
+    // Find the video-box inside this panel
+    const wrapper = panel.querySelector(SELECTORS.videoBox);
     if (!wrapper) return;
 
     // Remove the <iframe> if one exists
@@ -210,8 +210,8 @@ function extractVimeoId(vimeoUrl) {
 function initVideoOverlays() {
   document.querySelectorAll(SELECTORS.videoOverlay).forEach((overlay) => {
     overlay.addEventListener("click", () => {
-      // Find the closest video-wrapper
-      const wrapper = overlay.closest(SELECTORS.videoWrapper);
+      // Find the closest video-box
+      const wrapper = overlay.closest(SELECTORS.videoBox);
       if (!wrapper) return;
 
       // Read the Vimeo URL from data attribute and extract ID
