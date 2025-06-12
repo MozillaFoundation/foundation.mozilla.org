@@ -6,9 +6,11 @@
 @import "../scss/components/footer";
 @import "../scss/components/images";
 @import "../scss/blocks/themes/default/impact_number_block";
+@import "../scss/blocks/themes/default/portrait_card_carousel";
 @import "../scss/components/tabbed_content";
 @import "../scss/components/timely_activations";
 @import "../scss/components/spacer_block";
+@import "../scss/components/list_block";
 
 // Foundation Modules
 @include foundation-global-styles;
