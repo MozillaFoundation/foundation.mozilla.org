@@ -253,9 +253,11 @@ h6,
 // ===================================
 
 .quote-text-large {
+  font-style: italic;
   @include mofo-text-style($quote-text-styles, "large");
 }
 
 .quote-text-regular {
+  font-style: italic;
   @include mofo-text-style($quote-text-styles, "regular");
 }
