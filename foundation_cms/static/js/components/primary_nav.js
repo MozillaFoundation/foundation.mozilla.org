@@ -35,7 +35,9 @@ export function initPrimaryNav() {
     if (nav.classList.contains("open")) {
       document.body.classList.add("primary-nav-open");
     } else {
-      document.body.classList.remove("primary-nav-open");
+      setTimeout(() => {
+        document.body.classList.remove("primary-nav-open");
+      }, 300); // Allow time for transition
     }
   });
 
