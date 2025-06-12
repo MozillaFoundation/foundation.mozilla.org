@@ -31,6 +31,12 @@ export function initPrimaryNav() {
   hamburger.addEventListener("click", () => {
     nav.classList.toggle("open");
     hamburger.classList.toggle("active");
+
+    if (nav.classList.contains("open")) {
+      document.body.classList.add("primary-nav-open");
+    } else {
+      document.body.classList.remove("primary-nav-open");
+    }
   });
 
   // Dropdown control helpers

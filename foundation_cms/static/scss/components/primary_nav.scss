@@ -279,3 +279,13 @@ $hamburger-bar-spacing: 0.8rem;
     }
   }
 }
+
+body.primary-nav-open {
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 8rem;
+
+  .primary-nav {
+    position: fixed;
+  }
+}
