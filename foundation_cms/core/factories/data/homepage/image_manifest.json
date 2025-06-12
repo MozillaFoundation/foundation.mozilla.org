@@ -11,24 +11,24 @@
     "filename": "hero_accordion__3.jpg",
     "alt_text": "Our global community at MozFest"
   },
-  "tabbed_content__tools_image": {
-    "filename": "placeholder.jpg",
+  "tabbed_content__tab_2": {
+    "filename": "placeholder__1.jpg",
     "alt_text": "Diagram of tools"
   },
-  "tabbed_content__card_image": {
-    "filename": "placeholder.jpg",
+  "tabbed_content__tab_3": {
+    "filename": "placeholder__2.jpg",
     "alt_text": "Photo of a Mozilla contributor"
   },
   "portrait_card__1": {
-    "filename": "placeholder.jpg",
+    "filename": "placeholder__1.jpg",
     "alt_text": "First Card"
   },
   "portrait_card__2": {
-    "filename": "placeholder.jpg",
+    "filename": "placeholder__2.jpg",
     "alt_text": "Second Card"
   },
   "portrait_card__3": {
-    "filename": "placeholder.jpg",
+    "filename": "placeholder__1.jpg",
     "alt_text": "Third Card"
   }
 }

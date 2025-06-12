@@ -43,6 +43,7 @@ This file defines the structure of the page. It references content **partials** 
   "slug": "redesign-home",
   "hero_accordion": "hero_accordion.json",
   "body": [
+    { "type": "portait_card_set_bock", "value": "body/portrait_card_set.json" },
     { "type": "rich_text", "value": "body/rich_text.html" },
     { "type": "tabbed_content", "value": "body/tabbed_content.json" },
     { "type": "rich_text", "value": "body/cta.html" }
@@ -75,6 +76,8 @@ This tells the loader to:
 2. Read its contents as a raw string
 3. Use that string as the value for a `rich_text` StreamField block
 
+Note: The `type` key must be available and match the StreamField block's `key` or you'll get a key error.
+
 ### Example Partial: `body/intro.html`
 
 ```html
@@ -93,13 +96,21 @@ This file defines image keys, the corresponding files, and alt text for accessib
 
 ```json
 {
-  "hero": {
-    "filename": "hero.jpg",
-    "alt_text": "A heroic visual opening"
+  "hero_accordion__1": {
+    "filename": "hero_accordion__2.jpg",
+    "alt_text": "A visual opening"
   },
-  "tabbed_content__card_image": {
-    "filename": "card.jpg",
-    "alt_text": "Team member profile"
+  "hero_accordion__2": {
+    "filename": "hero_accordion__2.jpg",
+    "alt_text": "Another image"
+  },
+  "tabbed_content__tab_1": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "Some relavent alt text"
+  },
+  "tabbed_content__tab_2": {
+    "filename": "placeholder__2.jpg",
+    "alt_text": "Other relavent alt text"
   }
 }
 ```
@@ -109,7 +120,7 @@ These keys are referenced in content JSON as:
 "image": "tabbed_content__card_image"
 ```
 
-and automatically resolved to the correct uploaded image ID.
+and automatically resolved to the correct uploaded image ID. 
 
 ## Helper Functions
 

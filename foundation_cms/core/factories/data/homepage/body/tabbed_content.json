@@ -12,7 +12,7 @@
     },
     {
       "title": "More Info",
-      "subtitle": "First tab details",
+      "subtitle": "Second tab details",
       "content": [
         {
           "type": "tab_card_set",
@@ -20,7 +20,7 @@
             "title": "Card Title",
             "image": {
               "title": "Optional caption",
-              "image": "tabbed_content__card_image",
+              "image": "tabbed_content__tab_2",
               "alt_text": "Test",
               "orientation": "landscape"
             },
@@ -31,7 +31,7 @@
     },
     {
       "title": "More Info",
-      "subtitle": "Second tab details",
+      "subtitle": "Third tab details",
       "content": [
         {
           "type": "tab_card_set",
@@ -39,7 +39,7 @@
             "title": "Card Title",
             "image": {
               "title": "Optional caption",
-              "image": "tabbed_content__card_image",
+              "image": "tabbed_content__tab_3",
               "alt_text": "Test",
               "orientation": "landscape"
             },
