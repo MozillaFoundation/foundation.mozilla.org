@@ -1,0 +1,21 @@
+<div class="hero__wrapper">
+  <div class="grid-container">
+
+    <div class="hero hero--text-media-{{ page.hero_variant }}">
+
+      <div class="hero__text">
+        <h1 class="hero__title">{{ page.hero_title }}</h1>
+        {% if page.hero_description %}
+          <p class="hero__description">{{ page.hero_description }}</p>
+        {% endif %}
+      </div>
+
+      {% if page.hero_image %}
+        <div class="hero__media">
+          <img src="{{ page.hero_image.url }}" alt="{{ page.hero_image.title }}" class="hero__media-image">
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>

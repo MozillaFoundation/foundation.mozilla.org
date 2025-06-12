@@ -1,0 +1,75 @@
+.hero__wrapper {
+  background-color: #f9f9f9; // Wrapper background color
+  padding: 2rem 0; // Add spacing around the hero section
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__text {
+      flex: 1;
+      text-align: left;
+    }
+
+    &__title {
+      font-size: 5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    &__description {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    &__media {
+      flex: 1;
+      aspect-ratio: 1 / 1;
+
+      &-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffe9f5;
+        height: 100%;
+        border: 1px dashed #ccc;
+        color: #333;
+      }
+    }
+
+    // Variant: Text and media side by side
+    &--text-media-side-by-side {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      &__text {
+        flex: 1;
+        padding-right: 1rem;
+      }
+
+      &__media {
+        flex: 1;
+        padding-left: 1rem;
+      }
+    }
+
+    // Variant: Text on top of media
+    &--text-media-top-to-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &__text {
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      &__media {
+        width: 100%;
+      }
+    }
+  }
+}
