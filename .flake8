@@ -2,3 +2,5 @@
 extend-exclude=*migrations*,dockerpythonvenv/*,/media/*,/staticfiles/*,node_modules/*,foundation_cms/**/factories/data/**
 extend-ignore = E203
 max-line-length=119
+per-file-ignores =
+  foundation_cms/**/factories/data/**/*.html: H015
