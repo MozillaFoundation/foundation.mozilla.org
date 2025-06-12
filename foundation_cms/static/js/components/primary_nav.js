@@ -13,6 +13,22 @@ const SELECTORS = {
 };
 
 /**
+ * Class names used for toggling state.
+ */
+const CLASSNAMES = {
+  navOpen: "primary-nav-open",
+  hidden: "hidden",
+  hiddenWordmark: "hidden-wordmark",
+};
+
+/**
+ * Configuration constants for behavior.
+ */
+const TRANSITION_DURATION = 300;
+const DROPDOWN_DELAY = 200;
+const DESKTOP_BREAKPOINT = 1024;
+
+/**
  * Initializes the primary navigation component.
  * Sets up mobile and desktop navigation behaviors, including dropdowns and hamburger menu.
  */
@@ -25,19 +41,17 @@ export function initPrimaryNav() {
 
   if (!nav || !hamburger) return;
 
-  document.body.classList.add("has-primary-nav");
-
   // Mobile nav
   hamburger.addEventListener("click", () => {
     nav.classList.toggle("open");
     hamburger.classList.toggle("active");
 
     if (nav.classList.contains("open")) {
-      document.body.classList.add("primary-nav-open");
+      document.body.classList.add(CLASSNAMES.navOpen);
     } else {
       setTimeout(() => {
-        document.body.classList.remove("primary-nav-open");
-      }, 300); // Allow time for transition
+        document.body.classList.remove(CLASSNAMES.navOpen);
+      }, TRANSITION_DURATION); // Allow time for transition
     }
   });
 
@@ -77,6 +91,7 @@ export function initPrimaryNav() {
     const menu = dropdown.parentElement;
     const anchor = menu.querySelector("a");
 
+    // Assign a pseudo random id to the dropdown in order to link it with the toggle via aria-controls.
     const dropdownId =
       dropdown.id || `dropdown-${Math.random().toString(36).slice(2, 8)}`;
     dropdown.id = dropdownId;
@@ -94,7 +109,7 @@ export function initPrimaryNav() {
     anchor.insertAdjacentElement("afterend", toggle);
 
     toggle.addEventListener("click", () => {
-      if (window.innerWidth >= 1024) return;
+      if (window.innerWidth >= DESKTOP_BREAKPOINT) return;
 
       const isOpen = menu.classList.contains("open");
 
@@ -123,19 +138,19 @@ export function initPrimaryNav() {
     let showTimeout, hideTimeout;
 
     menu.addEventListener("mouseenter", () => {
-      if (window.innerWidth < 1024) return;
+      if (window.innerWidth < DESKTOP_BREAKPOINT) return;
       clearTimeout(hideTimeout);
       showTimeout = setTimeout(() => {
         openDropdown(menu, dropdown, toggle);
-      }, 200);
+      }, DROPDOWN_DELAY);
     });
 
     menu.addEventListener("mouseleave", () => {
-      if (window.innerWidth < 1024) return;
+      if (window.innerWidth < DESKTOP_BREAKPOINT) return;
       clearTimeout(showTimeout);
       hideTimeout = setTimeout(() => {
         closeDropdown(menu, dropdown, toggle);
-      }, 200);
+      }, DROPDOWN_DELAY);
     });
   });
 
@@ -162,19 +177,19 @@ export function initWordmarkVisibilityOnScroll() {
 
   // If kineticTypeWordmark is not present, always show the wordmark
   if (!kineticTypeWordmark) {
-    wordmark.classList.remove("hidden");
-    grid.classList.remove("hidden-wordmark");
+    wordmark.classList.remove(CLASSNAMES.hidden);
+    grid.classList.remove(CLASSNAMES.hiddenWordmark);
     return;
   }
 
   const observer = new IntersectionObserver(
     ([entry]) => {
       if (entry.isIntersecting) {
-        wordmark.classList.add("hidden");
-        grid.classList.add("hidden-wordmark");
+        wordmark.classList.add(CLASSNAMES.hidden);
+        grid.classList.add(CLASSNAMES.hiddenWordmark);
       } else {
-        wordmark.classList.remove("hidden");
-        grid.classList.remove("hidden-wordmark");
+        wordmark.classList.remove(CLASSNAMES.hidden);
+        grid.classList.remove(CLASSNAMES.hiddenWordmark);
       }
     },
     {

@@ -27,13 +27,6 @@ $hamburger-bar-spacing: 0.8rem;
     overflow: visible;
   }
 
-  a:focus-visible,
-  button:focus-visible,
-  [tabindex]:focus-visible {
-    outline: 2px solid $text-brand-tertiary;
-    outline-offset: 2px;
-  }
-
   &__grid {
     display: flex;
     flex-flow: row wrap;
@@ -129,68 +122,6 @@ $hamburger-bar-spacing: 0.8rem;
     }
   }
 
-  &__menu {
-    display: flex;
-    flex-direction: column;
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      justify-content: flex-start;
-      width: auto;
-      gap: 2rem;
-    }
-
-    &-item {
-      display: flex;
-      flex-flow: row wrap;
-      position: relative;
-
-      @include breakpoint(large up) {
-        flex-wrap: nowrap;
-        flex: 0 0 auto;
-        gap: 0.5rem;
-      }
-
-      > a {
-        display: flex;
-        flex: 1;
-        width: 100%;
-        font-family: "Mozilla Headline", sans-serif;
-        color: $text-primary;
-        font-size: 1.8rem;
-        font-weight: 400;
-        padding: 1.8rem 0;
-
-        @include breakpoint(large up) {
-          width: auto;
-          font-size: 1rem;
-          padding: 1rem 0;
-          margin: 0.7rem 0;
-          flex: none;
-          font-family: "Mozilla Text", sans-serif;
-          text-decoration: none;
-        }
-      }
-
-      &.open {
-        > a {
-          @include breakpoint(large up) {
-            color: $text-brand-tertiary;
-            text-decoration: underline;
-          }
-        }
-
-        & .primary-nav__dropdown {
-          opacity: 1;
-        }
-
-        & .primary-nav__dropdown-toggle::after {
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
-
   &__dropdown {
     display: flex;
     flex-direction: column;
@@ -260,6 +191,68 @@ $hamburger-bar-spacing: 0.8rem;
     }
   }
 
+  &__menu {
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: flex-start;
+      width: auto;
+      gap: 2rem;
+    }
+
+    &-item {
+      display: flex;
+      flex-flow: row wrap;
+      position: relative;
+
+      @include breakpoint(large up) {
+        flex-wrap: nowrap;
+        flex: 0 0 auto;
+        gap: 0.5rem;
+      }
+
+      > a {
+        display: flex;
+        flex: 1;
+        width: 100%;
+        font-family: "Mozilla Headline", sans-serif;
+        color: $text-primary;
+        font-size: 1.8rem;
+        font-weight: 400;
+        padding: 1.8rem 0;
+
+        @include breakpoint(large up) {
+          width: auto;
+          font-size: 1rem;
+          padding: 1rem 0;
+          margin: 0.7rem 0;
+          flex: none;
+          font-family: "Mozilla Text", sans-serif;
+          text-decoration: none;
+        }
+      }
+
+      &.open {
+        > a {
+          @include breakpoint(large up) {
+            color: $text-brand-tertiary;
+            text-decoration: underline;
+          }
+        }
+
+        & .primary-nav__dropdown {
+          opacity: 1;
+        }
+
+        & .primary-nav__dropdown-toggle::after {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
   .button--donate {
     display: flex;
     gap: 1rem;
@@ -269,6 +262,13 @@ $hamburger-bar-spacing: 0.8rem;
     background: $text-primary;
     text-decoration: none;
     padding: 0.9rem 1.5rem;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid $text-brand-tertiary;
+    outline-offset: 2px;
   }
 
   &.open {
