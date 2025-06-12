@@ -158,7 +158,14 @@ The following helper functions support this system and are available in `foundat
 - Validate content structure before loading with `validate_streamfield_blocks()`
 - Join multiple HTML fragments via arrays or `.html` partials
 
-## Example Command
+## Example Command to Load Data
+
+- This is the command to load in redesign data it does the following:
+
+1. Checks if the homepage already exists and if there's a --force flag. Will delete and continue to create new if so. Great for rapid destruction and creation.
+2. Create the homepage from json
+3. Devs will add other page factories here.
+4. Create the wagtail site, and assign the homepage to the root.
 
 ```
 python manage.py load_redesign_data --force
