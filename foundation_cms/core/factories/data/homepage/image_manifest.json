@@ -18,5 +18,17 @@
   "tabbed_content__card_image": {
     "filename": "hero.jpg",
     "alt_text": "Photo of a Mozilla contributor"
+  },
+  "portrait_card__1": {
+    "filename": "hero.jpg",
+    "alt_text": "First Card"
+  },
+  "portrait_card__2": {
+    "filename": "hero.jpg",
+    "alt_text": "Second Card"
+  },
+  "portrait_card__3": {
+    "filename": "hero.jpg",
+    "alt_text": "Third Card"
   }
 }

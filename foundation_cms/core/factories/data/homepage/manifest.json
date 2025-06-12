@@ -3,6 +3,7 @@
   "slug": "redesign-home",
   "hero_accordion": "hero_accordion.json",
   "body": [
+    { "type": "portrait_card_set_block", "value": "body/portrait_card_set.json" },
     { "type": "rich_text", "value": "body/richtext.html" },
     { "type": "tabbed_content", "value": "body/tabbed_content.json" },
     { "type": "rich_text", "value": "body/richtext.json" }
