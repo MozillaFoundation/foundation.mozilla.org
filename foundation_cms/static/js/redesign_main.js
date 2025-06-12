@@ -1,6 +1,7 @@
 import $ from "jquery";
 import "foundation-sites";
 import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
+import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
@@ -14,4 +15,5 @@ console.log(
 
 initPrimaryNav();
 initImpactNumberStatAnimationsOnScroll();
+initPortraitCardSetCarousels();
 initWordmarkVisibilityOnScroll();
