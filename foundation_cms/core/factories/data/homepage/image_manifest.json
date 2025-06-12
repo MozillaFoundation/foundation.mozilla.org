@@ -1,0 +1,22 @@
+{
+  "hero_accordion__video_thumb": {
+    "filename": "hero.jpg",
+    "alt_text": "Intro video thumbnail image"
+  },
+  "hero_accordion__festival_image": {
+    "filename": "hero.jpg",
+    "alt_text": "Mozilla Festival 2025 visual"
+  },
+  "hero_accordion__community_image": {
+    "filename": "hero.jpg",
+    "alt_text": "Our global community at MozFest"
+  },
+  "tabbed_content__tools_image": {
+    "filename": "hero.jpg",
+    "alt_text": "Diagram of tools"
+  },
+  "tabbed_content__card_image": {
+    "filename": "hero.jpg",
+    "alt_text": "Photo of a Mozilla contributor"
+  }
+}

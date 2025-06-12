@@ -48,7 +48,7 @@ def create_homepage():
             port = 8000
         default_site.hostname = hostname
         default_site.port = port
-        default_site.site_name = "Foundation Home Page"
+        default_site.site_name = "Redesign Home Page"
         default_site.save()
         print("Updated the default Site")
     except Site.DoesNotExist:
@@ -63,7 +63,7 @@ def create_homepage():
             hostname=hostname,
             port=port,
             root_page=home_page,
-            site_name="Foundation Home Page",
+            site_name="Redesign Home Page",
             is_default_site=True,
         )
 

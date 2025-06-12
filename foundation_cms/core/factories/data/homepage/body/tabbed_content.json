@@ -1,0 +1,52 @@
+{
+  "tabs": [
+    {
+      "title": "Overview",
+      "subtitle": "Learn more",
+      "content": [
+        {
+          "type": "rich_text",
+          "value": "<p>This is rich text content in the first tab.</p>"
+        }
+      ]
+    },
+    {
+      "title": "More Info",
+      "subtitle": "First tab details",
+      "content": [
+        {
+          "type": "tab_card_set",
+          "value": {
+            "title": "Card Title",
+            "image": {
+              "title": "Optional caption",
+              "image": "tabbed_content__card_image",
+              "alt_text": "Test",
+              "orientation": "landscape"
+            },
+            "subtitle": "Card subtitle here"
+          }
+        }
+      ]
+    },
+    {
+      "title": "More Info",
+      "subtitle": "Second tab details",
+      "content": [
+        {
+          "type": "tab_card_set",
+          "value": {
+            "title": "Card Title",
+            "image": {
+              "title": "Optional caption",
+              "image": "tabbed_content__card_image",
+              "alt_text": "Test",
+              "orientation": "landscape"
+            },
+            "subtitle": "Card subtitle here"
+          }
+        }
+      ]
+    }
+  ]
+}
