@@ -122,7 +122,7 @@ These keys are referenced in content JSON as:
 
 and automatically resolved to the correct uploaded image ID. 
 
-## Helper Functions
+## Factory Helper Functions
 
 The following helper functions support this system and are available in `foundation_cms/base/utils/helpers.py`.
 
@@ -148,8 +148,8 @@ The following helper functions support this system and are available in `foundat
 1. Create a folder in `factories/data/` with the desired name.
 2. Create a `manifest.json` file and any needed partials into the root or subfolders (e.g. `body/`).
 3. Define an `image_manifest.json` and place all image files under `images/`.
-4. Reference this folder and manifest path in your loader or factory code.
-5. Use the `load_redesign_data.py` pattern or a custom management command to inject, validate, and publish the page.
+4. Reference this folder and manifest path in your factory code.
+5. Use the `load_redesign_data.py` pattern to run factory code inject, validate, and publish the page.
 
 ## Development Tips
 

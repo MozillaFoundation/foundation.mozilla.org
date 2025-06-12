@@ -1,4 +1,4 @@
-#@TODO Remove file if json factories ends up sufficient
+# @TODO Remove file if json factories ends up sufficient
 
 # import factory
 # from django.conf import settings

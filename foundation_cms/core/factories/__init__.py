@@ -1,3 +1,3 @@
-from .home_factory import HomePageFactory
+from .homepage import HomePageFactory
 
 __all__ = ["HomePageFactory"]
