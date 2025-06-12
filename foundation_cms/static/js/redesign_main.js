@@ -4,6 +4,7 @@ import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_
 import injectNewsletterSignups from "./components/newsletter-signup/newsletter_signup.js";
 
 let networkSiteURL = window.location.origin;
+import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
 
 $(document).foundation();
 
@@ -14,3 +15,4 @@ console.log(
 initImpactNumberStatAnimationsOnScroll();
 
 injectNewsletterSignups(networkSiteURL);
+initPortraitCardSetCarousels();
