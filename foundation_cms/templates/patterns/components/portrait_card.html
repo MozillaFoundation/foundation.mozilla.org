@@ -1,0 +1,12 @@
+{% load wagtailimages_tags %}
+<div class="portrait-card">
+    <div class="portrait-card__text">
+        <p class="portrait-card__label">{{ card.label }}</p>
+        <h3 class="portrait-card__headline">{{ card.headline }}</h3>
+    </div>
+    {% if card.image %}
+        <div class="portrait-card__image">
+            {% image card.image fill-400x600 %}
+        </div>
+    {% endif %}
+</div>
