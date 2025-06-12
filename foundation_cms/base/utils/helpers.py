@@ -115,12 +115,6 @@ def load_manifest_with_partials(manifest_path: Path) -> dict:
             else:
                 return {k: resolve(v) for k, v in value.items()}
 
-        elif isinstance(value, list):
-            resolved = [resolve(v) for v in value]
-            if all(isinstance(item, str) for item in resolved):
-                return "".join(resolved)
-            return resolved
-
         return value
 
     return {k: resolve(v) for k, v in manifest.items()}
