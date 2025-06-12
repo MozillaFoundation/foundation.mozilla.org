@@ -1,0 +1,49 @@
+@mixin heading-style($level) {
+  font-size: map-get(map-get($header-styles, small), $level, "font-size");
+  line-height: map-get(map-get($header-styles, small), $level, "line-height");
+  font-weight: map-get(map-get($header-styles, small), $level, "font-weight");
+
+  @include breakpoint(large) {
+    font-size: map-get(map-get($header-styles, large), $level, "font-size");
+    line-height: map-get(
+      map-get($header-styles, large),
+      $level,
+      "line-height"
+    );
+    font-weight: map-get(
+      map-get($header-styles, large),
+      $level,
+      "font-weight"
+    );
+  }
+}
+
+h1,
+.h1-style {
+  @include heading-style("h1");
+}
+
+h2,
+.h2-style {
+  @include heading-style("h2");
+}
+
+h3,
+.h3-style {
+  @include heading-style("h3");
+}
+
+h4,
+.h4-style {
+  @include heading-style("h4");
+}
+
+h5,
+.h5-style {
+  @include heading-style("h5");
+}
+
+h6,
+.h6-style {
+  @include heading-style("h6");
+}
