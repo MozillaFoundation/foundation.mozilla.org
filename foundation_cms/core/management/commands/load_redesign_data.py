@@ -15,7 +15,7 @@ from foundation_cms.core.models.home_page import HomePage
 
 BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"
 HOMEPAGE_DIR = BASE_DIR / "homepage"
-IMAGE_DIR = HOMEPAGE_DIR / "images"  # ✅ New location under homepage
+IMAGE_DIR = HOMEPAGE_DIR / "images"
 
 
 class Command(BaseCommand):
