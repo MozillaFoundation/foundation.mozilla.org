@@ -1,43 +1,261 @@
 @use "sass:map";
 
-@mixin heading-style($level) {
-  font-size: map.get(map.get($header-styles, small), $level, "font-size");
-  line-height: map.get(map.get($header-styles, small), $level, "line-height");
-  font-weight: map.get(map.get($header-styles, small), $level, "font-weight");
+// ===================================
+// Variables
+// ===================================
+
+$display-text-font-family: "Mozilla Headline Extended", "Helvetica Neue", Arial, X-LocaleSpecific, sans-serif;
+$display-text-styles: (
+  small: (
+    "1": (
+      "font-size": rem-calc(40),
+      "line-height": 0.95,
+      "font-weight": 700,
+    ),
+    "2": (
+      "font-size": rem-calc(32),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "3": (
+      "font-size": rem-calc(28),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "4": (
+      "font-size": rem-calc(24),
+      "line-height": 1.1,
+      "font-weight": 700,
+    ),
+  ),
+  large: (
+    "1": (
+      "font-size": rem-calc(92),
+      "line-height": 0.95,
+      "font-weight": 700,
+    ),
+    "2": (
+      "font-size": rem-calc(68),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "3": (
+      "font-size": rem-calc(52),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "4": (
+      "font-size": rem-calc(40),
+      "line-height": 1.1,
+      "font-weight": 700,
+    ),
+  ),
+);
+
+$body-text-styles: (
+  small: (
+    "xlarge": (
+      "font-size": rem-calc(20),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "large": (
+      "font-size": rem-calc(18),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(16),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "small": (
+      "font-size": rem-calc(14),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "xsmall": (
+      "font-size": rem-calc(12),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+  ),
+  large: (
+    "xlarge": (
+      "font-size": rem-calc(20),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "large": (
+      "font-size": rem-calc(18),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(16),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "small": (
+      "font-size": rem-calc(14),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "xsmall": (
+      "font-size": rem-calc(12),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+  ),
+);
+
+$quote-text-styles: (
+  small: (
+    "large": (
+      "font-size": rem-calc(32),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(24),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+  ),
+  large: (
+    "large": (
+      "font-size": rem-calc(52),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(40),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+  ),
+);
+
+// ===================================
+// Mixins
+// ===================================
+
+@mixin mofo-text-style($map-name, $key, $font-family: $body-font-family) {
+  font-family: $font-family;
+  font-size: map.get(map.get($map-name, small), $key, "font-size");
+  line-height: map.get(map.get($map-name, small), $key, "line-height");
+  font-weight: map.get(map.get($map-name, small), $key, "font-weight");
 
   @include breakpoint(large) {
-    font-size: map.get(map.get($header-styles, large), $level, "font-size");
-    line-height: map.get(map.get($header-styles, large), $level, "line-height");
-    font-weight: map.get(map.get($header-styles, large), $level, "font-weight");
+    font-size: map.get(map.get($map-name, large), $key, "font-size");
+    line-height: map.get(map.get($map-name, large), $key, "line-height");
+    font-weight: map.get(map.get($map-name, large), $key, "font-weight");
   }
 }
 
+// ===================================
+// Display Text
+// ===================================
+
+.display-text-1 {
+  @include mofo-text-style($display-text-styles, "1", $display-text-font-family);
+}
+
+.display-text-2 {
+  @include mofo-text-style($display-text-styles, "2", $display-text-font-family);
+}
+
+.display-text-3 {
+  @include mofo-text-style($display-text-styles, "3", $display-text-font-family);
+}
+
+.display-text-4 {
+  @include mofo-text-style($display-text-styles, "4", $display-text-font-family);;
+}
+
+// ===================================
+// Heading
+// ===================================
+
 h1,
 .h1-style {
-  @include heading-style("h1");
+  @include mofo-text-style($header-styles, "h1", $header-font-family);
 }
 
 h2,
 .h2-style {
-  @include heading-style("h2");
+  @include mofo-text-style($header-styles, "h2", $header-font-family);
 }
 
 h3,
 .h3-style {
-  @include heading-style("h3");
+  @include mofo-text-style($header-styles, "h3", $header-font-family);
 }
 
 h4,
 .h4-style {
-  @include heading-style("h4");
+  @include mofo-text-style($header-styles, "h4", $header-font-family);
 }
 
 h5,
 .h5-style {
-  @include heading-style("h5");
+  @include mofo-text-style($header-styles, "h5", $header-font-family);
 }
 
 h6,
 .h6-style {
-  @include heading-style("h6");
+  @include mofo-text-style($header-styles, "h6", $header-font-family);
+}
+
+// ===================================
+// Lede Text
+// ===================================
+
+.lede-text {
+  font-family: $body-font-family;
+  font-size: rem-calc(20);
+  line-height: 1.5;
+  font-weight: 400;
+
+  @include breakpoint(large) {
+    font-size: rem-calc(20);
+    line-height: 400;
+    line-height: 1.5;
+  }
+}
+
+// ===================================
+// Body Text
+// ===================================
+
+.body-text-xlarge {
+  @include mofo-text-style($body-text-styles, "xlarge");
+}
+
+.body-text-large {
+  @include mofo-text-style($body-text-styles, "large");
+}
+
+.body-text-regular {
+  @include mofo-text-style($body-text-styles, "regular");
+}
+
+.body-text-small {
+  @include mofo-text-style($body-text-styles, "small");
+}
+
+.body-text-xsmall {
+  @include mofo-text-style($body-text-styles, "xsmall");
+}
+
+// ===================================
+// Quote Text
+// ===================================
+
+.quote-text-large {
+  @include mofo-text-style($quote-text-styles, "large");
+}
+
+.quote-text-regular {
+  @include mofo-text-style($quote-text-styles, "regular");
 }
