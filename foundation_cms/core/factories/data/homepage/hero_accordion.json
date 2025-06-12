@@ -6,7 +6,7 @@
       "heading": "Stand up for a better internet",
       "thumbnail": {
         "title": "Optional caption",
-        "image": "hero_accordion__video_thumb",
+        "image": "hero_accordion__1",
         "alt_text": "Test",
         "orientation": "landscape"
       },
@@ -21,12 +21,12 @@
       "heading": "Mozilla Festival 2025",
       "image": {
         "title": "Optional caption",
-        "image": "hero_accordion__festival_image",
+        "image": "hero_accordion__2",
         "alt_text": "Test",
         "orientation": "landscape"
       },
       "cta_text": "Try it now",
-      "cta_link": "https://example.com/features",
+      "cta_link": "https://example.com/",
       "description": "Learn how our tools support your mission."
     }
   },
@@ -37,12 +37,12 @@
       "heading": "Our Community",
       "image": {
         "title": "Optional caption",
-        "image": "hero_accordion__community_image",
+        "image": "hero_accordion__3",
         "alt_text": "Test",
         "orientation": "landscape"
       },
-      "cta_text": "View jobs",
-      "cta_link": "https://example.com/careers",
+      "cta_text": "View link",
+      "cta_link": "https://example.com/",
       "description": "Help build the future of the open web."
     }
   }

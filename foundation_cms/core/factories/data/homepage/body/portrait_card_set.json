@@ -21,7 +21,7 @@
     {
       "link_to": "external_url",
       "external_url": "https://example.com/team",
-      "label": "Meet our team",
+      "label": "Test Link",
       "new_window": true
     }
   ]
