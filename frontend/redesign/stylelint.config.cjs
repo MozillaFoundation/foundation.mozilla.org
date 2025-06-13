@@ -17,5 +17,7 @@ module.exports = {
   ],
   rules: {
     "block-no-empty": true,
+    // Disable this rule to avoid conflict with Prettier line breaks
+    "scss/dollar-variable-colon-space-after": null,
   },
 };
