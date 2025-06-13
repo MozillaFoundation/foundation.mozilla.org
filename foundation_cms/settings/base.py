@@ -271,7 +271,6 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.reports",
             "foundation_cms.legacy_apps.nav",
             "foundation_cms.legacy_apps.project_styleguide",
-            "foundation_cms.images",
         ],
     )
 )
@@ -531,7 +530,6 @@ WAGTAIL_USAGE_COUNT_ENABLED = True
 WAGTAIL_I18N_ENABLED = True
 
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
-WAGTAILIMAGES_IMAGE_MODEL = "images.FoundationCustomImage"
 
 # Wagtail Frontend Cache Invalidator Settings
 

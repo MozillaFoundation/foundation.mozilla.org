@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -19,7 +18,7 @@ class HelpPageNotice(TranslatableMixin, models.Model):
         blank=False,
     )
     notice_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

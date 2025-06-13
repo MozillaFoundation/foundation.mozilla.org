@@ -2,11 +2,11 @@ from datetime import timezone
 
 from factory import Faker, LazyAttribute, Trait, post_generation
 from factory.django import DjangoModelFactory
+from wagtail_factories import ImageFactory
 
 from foundation_cms.legacy_apps.highlights.models import Highlight
 from foundation_cms.legacy_apps.utility.faker import generate_fake_data
 from foundation_cms.legacy_apps.utility.faker.helpers import reseed
-from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 
 
 class HighlightFactory(DjangoModelFactory):

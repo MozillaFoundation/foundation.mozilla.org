@@ -2,7 +2,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
@@ -31,7 +30,7 @@ class BlogPageTopic(TranslatableMixin, models.Model):
         'If not set, will default to "intro" text.',
     )
     share_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

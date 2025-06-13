@@ -1,6 +1,7 @@
 import http
 from unittest import mock
 
+import wagtail_factories
 from django import test
 from django.core import exceptions
 from taggit import models as tag_models
@@ -8,7 +9,6 @@ from wagtail import models as wagtail_models
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
 from foundation_cms.legacy_apps.wagtailpages.factory import homepage as home_factory
-from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin import foundation_metadata
 
 
@@ -192,14 +192,14 @@ class TestBlogPage(test.TestCase):
         self.assertEqual(mock_ensure_related_posts.call_count, 1)
 
     def test_clean_when_hero_image_and_hero_video_set(self):
-        self.blog_page.hero_image = ImageFactory()
+        self.blog_page.hero_image = wagtail_factories.ImageFactory()
         self.blog_page.hero_video = "https://example.com/video.mp4"
 
         with self.assertRaises(exceptions.ValidationError):
             self.blog_page.clean()
 
     def test_clean_when_hero_image_but_not_hero_video_set(self):
-        self.blog_page.hero_image = ImageFactory()
+        self.blog_page.hero_image = wagtail_factories.ImageFactory()
         self.blog_page.hero_video = ""
 
         result = self.blog_page.clean()

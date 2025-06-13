@@ -1,9 +1,6 @@
 import os
 import re
-import shutil
 import subprocess
-import tarfile
-from pathlib import Path
 from sys import platform
 
 from invoke import exceptions, task
@@ -645,61 +642,3 @@ def staging_db_to_review_app(ctx, review_app_name):
     from copy_staging_db_to_review_app import main
 
     main(ctx, review_app_name)
-
-
-@task(name="get-ffmpeg")
-def compile_ffmpeg(ctx, output_dir="compiled-ffmpeg"):
-    """
-    Copy ffmpeg and ffprobe from a running dev container and archive it.
-    If ../heroku-ffmpeg-static-builds exists, copy the tarball there too.
-    Version is inferred from the built binary.
-    Afterward, cleanup local copies of binaries and archive.
-    """
-    root = Path(__file__).resolve().parent
-    output_path = root / output_dir
-    output_path.mkdir(parents=True, exist_ok=True)
-    static_builds_dir = root.parent / "heroku-ffmpeg-static-builds"
-
-    print("Copying ffmpeg and ffprobe from running dev container...")
-    try:
-        container_id = subprocess.check_output(["docker-compose", "ps", "-q", "backend"], text=True).strip()
-        if not container_id:
-            print("No running 'backend' container found. Please run 'inv start' first.")
-            return
-    except subprocess.CalledProcessError:
-        print("Failed to find Docker container. Is Docker running?")
-        return
-
-    for binary in ("ffmpeg", "ffprobe"):
-        subprocess.run(["docker", "cp", f"{container_id}:/usr/bin/{binary}", str(output_path / binary)], check=True)
-
-    version_output = subprocess.check_output(
-        ["docker", "exec", container_id, "/usr/bin/ffmpeg", "-version"], text=True
-    )
-    version = version_output.splitlines()[0].split()[2] if version_output else "unknown"
-    print(f"Detected FFmpeg version: {version}")
-
-    archive_path = output_path / f"ffmpeg-{version}-webp.tar.xz"
-    print("Creating tarball...")
-    with tarfile.open(archive_path, "w:xz") as tar:
-        for binary in ("ffmpeg", "ffprobe"):
-            tar.add(output_path / binary, arcname=binary)
-
-    if static_builds_dir.exists():
-        shutil.copy2(archive_path, static_builds_dir / archive_path.name)
-        print(f"Copied tarball to: {static_builds_dir / archive_path.name}")
-    else:
-        print("Skipped copying: ../heroku-ffmpeg-static-builds does not exist.")
-        print("Clone it from https://github.com/MozillaFoundation/heroku-ffmpeg-static-builds")
-
-    print("Cleaning up local files...")
-    for file in [output_path / "ffmpeg", output_path / "ffprobe", archive_path]:
-        try:
-            file.unlink()
-            print(f"Deleted {file}")
-        except FileNotFoundError:
-            print(f"File already removed: {file}")
-        except Exception as e:
-            print(f"Error deleting {file}: {e}")
-
-    print("Done.")

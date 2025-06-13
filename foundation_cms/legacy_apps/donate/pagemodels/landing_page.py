@@ -1,7 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images import get_image_model_string
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -17,7 +16,7 @@ class DonateLandingPage(BaseDonationPage):
     subpage_types: list = ["DonateHelpPage", "wagtailpages.OpportunityPage"]
 
     featured_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         models.PROTECT,
         related_name="+",
     )
