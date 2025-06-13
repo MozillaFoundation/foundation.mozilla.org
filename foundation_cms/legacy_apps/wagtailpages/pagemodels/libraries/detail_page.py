@@ -5,9 +5,9 @@ from django.core import exceptions
 from django.db import models
 from wagtail import documents as wagtail_docs
 from wagtail import fields as wagtail_fields
-from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as wagtail_panels
+from wagtail.images import get_image_model_string
 from wagtail.search import index
 from wagtail_localize import fields as localize_fields
 
@@ -41,7 +41,7 @@ class LibraryDetailPage(BasePage):
     subpage_types = ["ArticlePage", "PublicationPage"]
 
     cover_image = models.ForeignKey(
-        wagtail_images.get_image_model_string(),
+        get_image_model_string(),
         null=True,
         blank=False,
         on_delete=models.SET_NULL,
