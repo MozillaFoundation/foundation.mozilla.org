@@ -27,13 +27,10 @@ from django.utils.translation.trans_real import (
 )
 from PIL import Image as PILImage
 from sentry_sdk import capture_exception
-from wagtail.images import get_image_model
+from wagtail.images.models import Image
 from wagtail.models import Collection, Locale, PageViewRestriction
 
-from foundation_cms.images.models import FoundationCustomImage
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.profiles import Profile
-
-Image = get_image_model()
 
 
 def titlecase(s):
@@ -483,7 +480,7 @@ def get_plaintext_titles(request, stream_data, stream_block_name):
 
 def create_wagtail_image(
     img_src: str, image_name: Optional[str] = None, collection_name: Optional[str] = None
-) -> Optional[FoundationCustomImage]:
+) -> Optional[Image]:
     """
     Create a Wagtail Image from a given source. It takes an optional file name
     and collection name.

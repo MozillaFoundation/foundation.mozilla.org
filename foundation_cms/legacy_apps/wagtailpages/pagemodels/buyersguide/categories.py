@@ -12,7 +12,6 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseGenericSetting
-from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -86,7 +85,7 @@ class BuyersGuideProductCategory(
     )
 
     share_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

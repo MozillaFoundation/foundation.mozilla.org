@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from wagtail.images import get_image_model
+from wagtail.images.models import Image
 
 # Models
 from wagtail.models import Page as WagtailPage
@@ -9,14 +9,11 @@ from foundation_cms.legacy_apps.highlights.models import Highlight
 from foundation_cms.legacy_apps.news.models import News
 from foundation_cms.legacy_apps.wagtailpages.models import CTA
 
-Image = get_image_model()
-
 
 class Command(BaseCommand):
     help = "Flush the models from the database"
 
     def handle(self, *args, **options):
-
         self.stdout.write("Flushing models from the database...")
 
         self.stdout.write("Dropping Image objects...")

@@ -3,7 +3,6 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
@@ -48,7 +47,7 @@ class PublicationPage(BasePage):
     template = "pages/publication_page.html"
 
     toc_thumbnail_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -58,7 +57,7 @@ class PublicationPage(BasePage):
     )
 
     hero_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
