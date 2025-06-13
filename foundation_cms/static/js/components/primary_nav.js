@@ -63,7 +63,6 @@ export function initPrimaryNav() {
     dropdown.setAttribute("aria-hidden", "false");
     dropdown.removeAttribute("inert");
     toggle.setAttribute("aria-expanded", "true");
-    console.log("Dropdown opened:", dropdown);
   }
 
   function closeDropdown(menu, dropdown, toggle) {
