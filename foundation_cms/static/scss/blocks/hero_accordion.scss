@@ -28,8 +28,11 @@
     small: 1.5rem 2rem,
     medium: 2rem,
   );
+  $details-subsection-gap: (
+    small: 0,
+    medium: 4rem
+  );
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
-
   $play-button-size: 4rem;
   $play-button-arrow: (
     width: 30px,
@@ -118,6 +121,17 @@
 
   @include breakpoint(xlarge up) {
     height: map.get($panel-height, xlarge);
+  }
+
+  // ===================================
+  // Text Elements
+  // ===================================
+
+  &__label,
+  &__heading,
+  &__description {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   // ===================================
@@ -288,6 +302,16 @@
           height: 100%;
           padding: map.get($details-section-padding, medium);
           pointer-events: none;
+        }
+      }
+
+      .hero-accordion__details-inner {
+        display: flex;
+        flex-direction: column;
+        gap: map.get($details-subsection-gap, small);
+
+        @include breakpoint(medium up) {
+          gap: map.get($details-subsection-gap, medium);
         }
       }
 
@@ -581,14 +605,6 @@
       }
 
       .hero-accordion__details-inner {
-        > :first-child {
-          margin-top: 0;
-        }
-
-        > :last-child {
-          margin-bottom: 0;
-        }
-
         @include breakpoint(medium up) {
           padding-top: 0;
           padding-bottom: 0;

@@ -30,10 +30,12 @@
         <div class="hero-accordion__details">
           <div class="hero-accordion__details-inner">
             <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
-            <p class="hero-accordion__heading">[Heading] {{ block.value.heading }}</p>
-            {% if block.value.description %}
-              <p class="hero-accordion__heading">[Optional Description] {{ block.value.description }}</p>
-            {% endif %}
+            <div>
+              <p class="hero-accordion__heading">[Heading] {{ block.value.heading }}</p>
+              {% if block.value.description %}
+                <p class="hero-accordion__description">[Optional Description] {{ block.value.description }}</p>
+              {% endif %}
+            </div>
             <a class="hero-accordion__cta" href="{{ block.value.cta_link }}">{{ block.value.cta_text }}</a>
           </div>
         </div>
