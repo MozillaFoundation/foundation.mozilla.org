@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+
+{% block block_content %}
+    <div class="video-block">
+        <div class="video-block__container">
+
+            <video class="video-block__video" preload="metadata">
+                <source src="{{ self.video_url }}" type="video/mp4">
+            </video>
+
+            <div class="video-block__overlay">
+                <!-- TODO: UPDATE TO USE REDESIGN STATIC DIR -->
+                <img
+                    class="video-block__play-button"
+                    src="{% static 'legacy_apps/_images/video_play_button.svg' %}"
+                    alt="{% trans 'Play Button' context 'icon description for screen readers' %}"
+                >
+            </div>
+        </div>
+
+        {% if self.caption %}
+            <p class="video-block__caption">
+                {% if self.caption_url %}
+                    <a href="{{ self.caption_url.get_url }}" target="_blank" rel="noopener noreferrer">
+                        {{ self.caption }}
+                    </a>
+                {% else %}
+                    {{ self.caption }}
+                {% endif %}
+            </p>
+        {% endif %}
+    </div>
+{% endblock block_content %}
