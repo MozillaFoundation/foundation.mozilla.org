@@ -5,7 +5,7 @@ set -eo pipefail
 python ./manage.py migrate images
 
 # Temporary Step 2 for migrating to custom image model: data migration for images
-python ./manage.py migrate_legacy_images
+# python ./manage.py migrate_legacy_images
 
 # Django Migrations
 python ./manage.py migrate --no-input
