@@ -3,10 +3,10 @@ from functools import cached_property
 
 from django import shortcuts
 from django.db import models
+from wagtail import images as wagtail_images
 from wagtail import models as wagtail_models
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page import models as routable_models
-from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.wagtailpages import utils
@@ -32,7 +32,7 @@ class BaseAuthorsIndexPage(
     template = "pages/libraries/authors_index_page.html"
 
     banner_image = models.ForeignKey(
-        get_image_model_string(),
+        wagtail_images.get_image_model_string(),
         null=True,
         blank=False,
         on_delete=models.SET_NULL,

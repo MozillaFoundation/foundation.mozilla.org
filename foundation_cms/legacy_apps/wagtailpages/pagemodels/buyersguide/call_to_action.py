@@ -1,7 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -19,7 +18,7 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
     """
 
     sticker_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

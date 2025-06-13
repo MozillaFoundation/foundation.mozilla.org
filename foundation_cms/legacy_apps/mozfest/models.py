@@ -3,7 +3,6 @@ from django.db import models
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -73,7 +72,7 @@ class Ticket(TranslatableMixin):
 
 class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
     background_image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -99,7 +98,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     header = models.CharField(max_length=250, blank=True)
 
     banner = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

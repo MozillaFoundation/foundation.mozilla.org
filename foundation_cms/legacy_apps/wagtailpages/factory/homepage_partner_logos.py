@@ -1,7 +1,7 @@
 from random import choice
 
 from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
-from wagtail.images import get_image_model
+from wagtail.images.models import Image
 
 from foundation_cms.legacy_apps.utility.faker.helpers import get_homepage, reseed
 from foundation_cms.legacy_apps.wagtailpages.models import PartnerLogos
@@ -10,8 +10,6 @@ faker = Faker()
 
 
 def generate(seed):
-    Image = get_image_model()
-
     print("Generating Partner Logos")
 
     home_page = get_homepage()

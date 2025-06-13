@@ -4,7 +4,6 @@ from django.db.models import Q
 from django.utils import timezone
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images import get_image_model_string
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
@@ -58,7 +57,7 @@ class Highlight(TranslatableMixin, SortableMixin):
         help_text="Link to this highlight's details page",
     )
     image = models.ForeignKey(
-        get_image_model_string(),
+        "wagtailimages.Image",
         on_delete=models.SET_NULL,
         blank=False,
         null=True,

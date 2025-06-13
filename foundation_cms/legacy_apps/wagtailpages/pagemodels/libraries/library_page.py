@@ -4,8 +4,8 @@ from typing import Optional
 
 from django.core import paginator
 from django.db import models
+from wagtail import images as wagtail_images
 from wagtail.admin import panels
-from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.base import BasePage
@@ -39,7 +39,7 @@ class BaseLibraryPage(BasePage):
     SORT_CHOICES = constants.SORT_CHOICES
 
     banner_image = models.ForeignKey(
-        get_image_model_string(),
+        wagtail_images.get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

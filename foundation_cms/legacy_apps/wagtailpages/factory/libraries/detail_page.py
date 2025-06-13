@@ -8,7 +8,7 @@ from foundation_cms.legacy_apps.wagtailpages import models as wagtailpage_models
 from foundation_cms.legacy_apps.wagtailpages.factory import (
     documents as documents_factory,
 )
-from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
+from foundation_cms.legacy_apps.wagtailpages.factory import image_factory
 
 
 class LibraryDetailPageAbstractFactory(wagtail_factories.PageFactory):
@@ -17,7 +17,7 @@ class LibraryDetailPageAbstractFactory(wagtail_factories.PageFactory):
         abstract = True
 
     title = factory.Faker("text", max_nb_chars=50)
-    cover_image = factory.SubFactory(ImageFactory)
+    cover_image = factory.SubFactory(image_factory.ImageFactory)
 
     original_publication_date = factory.Faker("date_object")
     introduction = factory.Faker("text", max_nb_chars=300)
