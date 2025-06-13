@@ -114,12 +114,12 @@ $quote-text-styles: (
     "large": (
       "font-size": rem-calc(32),
       "line-height": 1.5,
-      "font-weight": 400,
+      "font-weight": 300,
     ),
     "regular": (
       "font-size": rem-calc(24),
       "line-height": 1.5,
-      "font-weight": 400,
+      "font-weight": 300,
     ),
   ),
   large: (
@@ -234,7 +234,7 @@ h6,
   font-weight: 400;
 
   @include breakpoint(large) {
-    font-size: rem-calc(20);
+    font-size: rem-calc(24);
     line-height: 1.5;
     font-weight: 400;
   }
