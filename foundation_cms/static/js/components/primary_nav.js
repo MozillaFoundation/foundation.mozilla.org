@@ -57,14 +57,17 @@ export function initPrimaryNav() {
 
   // Dropdown control helpers
   function openDropdown(menu, dropdown, toggle) {
+    if (menu.classList.contains("open")) return;
     menu.classList.add("open");
     dropdown.style.maxHeight = dropdown.scrollHeight + "px";
     dropdown.setAttribute("aria-hidden", "false");
     dropdown.removeAttribute("inert");
     toggle.setAttribute("aria-expanded", "true");
+    console.log("Dropdown opened:", dropdown);
   }
 
   function closeDropdown(menu, dropdown, toggle) {
+    if (!menu.classList.contains("open")) return;
     menu.classList.remove("open");
     dropdown.style.maxHeight = null;
     dropdown.setAttribute("aria-hidden", "true");
@@ -109,8 +112,6 @@ export function initPrimaryNav() {
     anchor.insertAdjacentElement("afterend", toggle);
 
     toggle.addEventListener("click", () => {
-      if (window.innerWidth >= DESKTOP_BREAKPOINT) return;
-
       const isOpen = menu.classList.contains("open");
 
       if (isOpen) {

@@ -18,6 +18,5 @@ module.exports = {
           "Expected class selector to be kebab-case or BEM (block__element--modifier)",
       },
     ],
-    "no-descending-specificity": true,
   },
 };
