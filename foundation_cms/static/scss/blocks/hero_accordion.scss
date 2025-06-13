@@ -490,97 +490,6 @@
           }
         }
       }
-
-      // Transitioning states
-      &.transitioning-to-inactive {
-        flex-direction: column-reverse;
-
-        @include breakpoint(medium up) {
-          flex-direction: row;
-        }
-
-        .hero-accordion__image-box {
-          .hero-accordion__label {
-            display: none; // Stay hidden during transition
-          }
-        }
-
-        .hero-accordion__details {
-          @include breakpoint(medium up) {
-            display: block;
-            pointer-events: none;
-          }
-        }
-      }
-
-      &:nth-child(even).transitioning-to-inactive {
-        justify-content: flex-end;
-
-        .hero-accordion__details {
-          display: none;
-
-          @include breakpoint(medium up) {
-            transform: translateX(-(map.get($panel-height, medium)));
-          }
-
-          @include breakpoint(xlarge up) {
-            transform: translateX(-(map.get($panel-height, xlarge)));
-          }
-        }
-
-        .hero-accordion__image-box {
-          // maintain the same flex arrangement as active state
-          flex-direction: row;
-          justify-content: end;
-
-          @include breakpoint(medium up) {
-            flex-direction: column;
-          }
-
-          .hero-accordion__image {
-            &::before {
-              background-position: right bottom;
-            }
-          }
-        }
-      }
-
-      &:nth-child(odd).transitioning-to-inactive {
-        justify-content: flex-end; // Keep everything pushed to the right
-
-        .hero-accordion__details {
-          display: none;
-
-          @include breakpoint(medium up) {
-            transform: translateX(0);
-          }
-        }
-
-        .hero-accordion__image-box {
-          // maintain the same flex arrangement as active state
-          flex-direction: row-reverse;
-          justify-content: start;
-
-          @include breakpoint(medium up) {
-            flex-direction: column-reverse;
-            justify-content: start;
-          }
-
-          .hero-accordion__image {
-            &::before {
-              background-position: right top;
-            }
-          }
-        }
-      }
-
-      &:not(.active, .transitioning-to-inactive) {
-        .hero-accordion__image-box {
-          .hero-accordion__label {
-            display: block;
-          }
-        }
-      }
     }
 
     // ===================================
@@ -629,7 +538,7 @@
     }
 
     // ===================================
-    // Active States for Image Text Panel (More Specific)
+    // Different States for Image Text Panel
     // ===================================
 
     &--image_text_panel.active {
@@ -699,6 +608,43 @@
       }
     }
 
+    &--image_text_panel.transitioning-to-inactive {
+      flex-direction: column-reverse;
+
+      @include breakpoint(medium up) {
+        flex-direction: row;
+      }
+
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          display: none; // Stay hidden during transition
+        }
+      }
+
+      .hero-accordion__details {
+        @include breakpoint(medium up) {
+          display: block;
+          pointer-events: none;
+        }
+      }
+    }
+
+    // ===================================
+    // Other States for Image Text Panel
+    // ===================================
+
+    &--image_text_panel:not(.active, .transitioning-to-inactive) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          display: block;
+        }
+      }
+    }
+
+    // ===================================
+    // Different States for Even-Posistioned Image Text Panel
+    // ===================================
+
     &--image_text_panel:nth-child(even).active {
       .hero-accordion__details {
         @include active-details-visible;
@@ -713,12 +659,77 @@
       }
     }
 
+    &--image_text_panel:nth-child(even).transitioning-to-inactive {
+      justify-content: flex-end;
+
+      .hero-accordion__details {
+        display: none;
+
+        @include breakpoint(medium up) {
+          transform: translateX(-(map.get($panel-height, medium)));
+        }
+
+        @include breakpoint(xlarge up) {
+          transform: translateX(-(map.get($panel-height, xlarge)));
+        }
+      }
+
+      .hero-accordion__image-box {
+        // maintain the same flex arrangement as active state
+        flex-direction: row;
+        justify-content: end;
+
+        @include breakpoint(medium up) {
+          flex-direction: column;
+        }
+
+        .hero-accordion__image {
+          &::before {
+            background-position: right bottom;
+          }
+        }
+      }
+    }
+
+    // ===================================
+    // Different States for Odd-Posistioned Image Text Panel
+    // ===================================
+
     &--image_text_panel:nth-child(odd).active {
       .hero-accordion__details {
         @include active-details-visible;
 
         @include breakpoint(medium up) {
           transform: translateX(0);
+        }
+      }
+    }
+
+    &--image_text_panel:nth-child(odd).transitioning-to-inactive {
+      justify-content: flex-end; // Keep everything pushed to the right
+
+      .hero-accordion__details {
+        display: none;
+
+        @include breakpoint(medium up) {
+          transform: translateX(0);
+        }
+      }
+
+      .hero-accordion__image-box {
+        // maintain the same flex arrangement as active state
+        flex-direction: row-reverse;
+        justify-content: start;
+
+        @include breakpoint(medium up) {
+          flex-direction: column-reverse;
+          justify-content: start;
+        }
+
+        .hero-accordion__image {
+          &::before {
+            background-position: right top;
+          }
         }
       }
     }
