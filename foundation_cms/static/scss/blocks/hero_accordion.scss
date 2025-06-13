@@ -264,15 +264,12 @@
 
         .hero-accordion__label {
           flex: 0 0 65%;
+          margin: map.get($text-side-margin, small);
 
           @include breakpoint(large up) {
             flex: initial;
             margin: map.get($text-side-margin, large);
           }
-        }
-
-        p:last-child {
-          margin-bottom: 0;
         }
       }
 

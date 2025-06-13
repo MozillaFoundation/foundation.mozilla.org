@@ -18,10 +18,10 @@
             ></button>
             </div>
           </div>
-          <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
+          <p class="hero-accordion__label h5-style">[Label] {{ block.value.label }}</p>
         </div>
         <div class="hero-accordion__details">
-          <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
+          <p class="hero-accordion__label h5-style">[Label] {{ block.value.label }}</p>
           {% if block.value.heading %}
             <p class="hero-accordion__heading">[Optional Heading] {{ block.value.heading }}</p>
           {% endif %}
@@ -29,9 +29,9 @@
     {% elif block.block_type == 'image_text_panel' %}
         <div class="hero-accordion__details">
           <div class="hero-accordion__details-inner">
-            <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
+            <p class="hero-accordion__label h5-style">[Label] {{ block.value.label }}</p>
             <div>
-              <p class="hero-accordion__heading">[Heading] {{ block.value.heading }}</p>
+              <p class="hero-accordion__heading display-text-4">[Heading] {{ block.value.heading }}</p>
               {% if block.value.description %}
                 <p class="hero-accordion__description">[Optional Description] {{ block.value.description }}</p>
               {% endif %}
@@ -41,7 +41,7 @@
         </div>
         <div class="hero-accordion__image-box">
           {% image block.value.image fill-2000x2000 as img %}
-          <p class="hero-accordion__label">[Label] {{ block.value.label }}</p>
+          <p class="hero-accordion__label h5-style">[Label] {{ block.value.label }}</p>
           <div class="hero-accordion__image" style="--bg-img:url('{{ img.url }}');"></div>
           {% if image.alt %}
           <img
