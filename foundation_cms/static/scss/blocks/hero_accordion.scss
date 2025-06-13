@@ -20,7 +20,7 @@
     2: #eeb500,
     3: #eed800,
   );
-  $text-side-padding: (
+  $text-side-margin: (
     small: 1rem,
     medium: 0.875rem,
   );
@@ -118,29 +118,6 @@
 
   @include breakpoint(xlarge up) {
     height: map.get($panel-height, xlarge);
-  }
-
-  // ===================================
-  // Global Elements - Text
-  // ===================================
-
-  &__label {
-    margin-top: 0;
-    padding: 0 map.get($text-side-padding, small);
-
-    @include breakpoint(medium up) {
-      padding: 0 map.get($text-side-padding, medium);
-    }
-  }
-
-  &__heading,
-  &__description,
-  &__cta {
-    padding: 0 map.get($text-side-padding, small);
-
-    @include breakpoint(medium up) {
-      padding: 0 map.get($text-side-padding, medium);
-    }
   }
 
   // ===================================
@@ -269,7 +246,7 @@
 
           @include breakpoint(medium up) {
             flex: initial;
-            margin: map.get($text-side-padding, medium);
+            margin: map.get($text-side-margin, medium);
           }
         }
 
@@ -330,10 +307,10 @@
 
         .hero-accordion__label {
           display: block;
-          margin-bottom: 0;
+          margin: map.get($text-side-margin, small);
 
           @include breakpoint(medium up) {
-            margin: map.get($text-side-padding, medium);
+            margin: map.get($text-side-margin, medium);
           }
         }
 
@@ -517,7 +494,11 @@
             map.get($panel-transition, timing-function);
         }
 
-        p:last-child {
+        > :first-child {
+          margin-top: 0;
+        }
+
+        > :last-child {
           margin-bottom: 0;
         }
 
@@ -600,6 +581,14 @@
       }
 
       .hero-accordion__details-inner {
+        > :first-child {
+          margin-top: 0;
+        }
+
+        > :last-child {
+          margin-bottom: 0;
+        }
+
         @include breakpoint(medium up) {
           padding-top: 0;
           padding-bottom: 0;
