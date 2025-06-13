@@ -8,7 +8,7 @@ python ./manage.py migrate images
 # python ./manage.py migrate_legacy_images
 
 # Django Migrations
-python ./manage.py migrate --no-input
+# python ./manage.py migrate --no-input
 
 # Clear cache for BuyersGuide
-python ./manage.py clear_cache
+# python ./manage.py clear_cache
