@@ -17,7 +17,6 @@ module.exports = {
   ],
   rules: {
     "block-no-empty": true,
-<<<<<<< TP1-2579-hero-accordion
     // Allow kebab-case or BEM (block__element--modifier) class names:
     "selector-class-pattern": [
       // 1) block: lowercase + optional -words
@@ -29,9 +28,7 @@ module.exports = {
           "Class selectors must be kebab-case (e.g. foo-bar) or BEM (e.g. foo-bar__element--modifier).",
       },
     ],
-=======
     // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
->>>>>>> redesign
   },
 };
