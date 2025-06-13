@@ -12,7 +12,8 @@
   );
   $panel-height: (
     small: 400px,
-    medium: 400px,
+    medium: 500px,
+    large: 500px,
     xlarge: 600px,
   );
   $panel-colors: (
@@ -22,15 +23,15 @@
   );
   $text-side-margin: (
     small: 1rem,
-    medium: 0.875rem,
+    large: 0.875rem,
   );
   $details-section-padding: (
     small: 1.5rem 2rem,
-    medium: 2rem,
+    large: 2rem,
   );
   $details-subsection-gap: (
     small: 0,
-    medium: 4rem
+    large: 4rem
   );
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
   $play-button-size: 4rem;
@@ -40,7 +41,7 @@
   );
   $square-image-corner-radius: (
     small: 1.75rem,
-    medium: 4.25rem,
+    large: 4.25rem,
   );
 
   --open-multiplier: 5; // How many "flex units" the open panel gets
@@ -91,7 +92,7 @@
   @mixin active-panel-width {
     width: 100%;
 
-    @include breakpoint(medium up) {
+    @include breakpoint(large up) {
       width: var(--open-panel-width);
     }
   }
@@ -99,7 +100,7 @@
   @mixin closed-panel-width {
     width: 100%;
 
-    @include breakpoint(medium up) {
+    @include breakpoint(large up) {
       width: var(--closed-panel-width);
     }
   }
@@ -117,6 +118,11 @@
   @include breakpoint(medium up) {
     flex-direction: row;
     height: map.get($panel-height, medium);
+  }
+
+  @include breakpoint(large up) {
+    flex-direction: row;
+    height: map.get($panel-height, large);
   }
 
   @include breakpoint(xlarge up) {
@@ -250,7 +256,7 @@
         display: flex;
         align-items: center;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           flex-direction: column;
           align-items: normal;
         }
@@ -258,9 +264,9 @@
         .hero-accordion__label {
           flex: 0 0 65%;
 
-          @include breakpoint(medium up) {
+          @include breakpoint(large up) {
             flex: initial;
-            margin: map.get($text-side-margin, medium);
+            margin: map.get($text-side-margin, large);
           }
         }
 
@@ -293,14 +299,14 @@
           transform map.get($panel-transition, duration)
             map.get($panel-transition, timing-function);
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           display: block;
           position: absolute;
           top: 0;
           overflow: hidden;
           opacity: 0;
           height: 100%;
-          padding: map.get($details-section-padding, medium);
+          padding: map.get($details-section-padding, large);
           pointer-events: none;
         }
       }
@@ -310,8 +316,8 @@
         flex-direction: column;
         gap: map.get($details-subsection-gap, small);
 
-        @include breakpoint(medium up) {
-          gap: map.get($details-subsection-gap, medium);
+        @include breakpoint(large up) {
+          gap: map.get($details-subsection-gap, large);
         }
       }
 
@@ -324,7 +330,7 @@
 
         @include closed-panel-width;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           flex-direction: column;
           align-items: stretch;
         }
@@ -333,8 +339,8 @@
           display: block;
           margin: map.get($text-side-margin, small);
 
-          @include breakpoint(medium up) {
-            margin: map.get($text-side-margin, medium);
+          @include breakpoint(large up) {
+            margin: map.get($text-side-margin, large);
           }
         }
 
@@ -375,22 +381,19 @@
         flex-direction: column-reverse;
         justify-content: flex-end;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           flex-direction: row;
         }
 
         .hero-accordion__details {
-          @include breakpoint(medium up) {
+          @include breakpoint(large up) {
             right: 0;
             width: calc(
-              var(--open-panel-width) - map.get($panel-height, small)
-            );
-            transform: translateX(
-              calc(var(--open-panel-width) - 2 * map.get($panel-height, small))
+              var(--open-panel-width) - map.get($panel-height, large)
             );
           }
 
-          @each $size in medium, xlarge {
+          @each $size in large, xlarge {
             @include breakpoint(#{$size} up) {
               @include text-details-position-even($size);
             }
@@ -400,8 +403,8 @@
             transition: transform map.get($panel-transition, duration)
               map.get($panel-transition, timing-function);
 
-            @include breakpoint(medium up) {
-              transform: translateX(-(map.get($panel-height, medium)));
+            @include breakpoint(large up) {
+              transform: translateX(-(map.get($panel-height, large)));
             }
 
             @include breakpoint(xlarge up) {
@@ -414,7 +417,7 @@
           flex-direction: row;
           justify-content: end;
 
-          @include breakpoint(medium up) {
+          @include breakpoint(large up) {
             flex-direction: column;
           }
 
@@ -425,10 +428,10 @@
                   map.get($square-image-corner-radius, small)
               );
 
-              @include breakpoint(medium up) {
+              @include breakpoint(large up) {
                 clip-path: inset(
-                  0 0 0 0 round map.get($square-image-corner-radius, medium) 0 0
-                    map.get($square-image-corner-radius, medium)
+                  0 0 0 0 round map.get($square-image-corner-radius, large) 0 0
+                    map.get($square-image-corner-radius, large)
                 );
               }
             }
@@ -440,23 +443,23 @@
         justify-content: flex-end;
 
         .hero-accordion__details {
-          @include breakpoint(medium up) {
+          @include breakpoint(large up) {
             left: 0;
             right: auto;
             width: calc(
-              var(--open-panel-width) - map.get($panel-height, small)
+              var(--open-panel-width) - map.get($panel-height, large)
             );
           }
 
-          @each $size in medium, xlarge {
+          @each $size in large, xlarge {
             @include breakpoint(#{$size} up) {
               @include text-details-position-odd($size);
             }
           }
 
           &-inner {
-            @include breakpoint(medium up) {
-              transform: translateX(map.get($panel-height, medium));
+            @include breakpoint(large up) {
+              transform: translateX(map.get($panel-height, large));
             }
 
             @include breakpoint(xlarge up) {
@@ -469,7 +472,7 @@
           flex-direction: row-reverse;
           justify-content: start;
 
-          @include breakpoint(medium up) {
+          @include breakpoint(large up) {
             flex-direction: column-reverse;
             justify-content: start;
           }
@@ -481,10 +484,10 @@
                   map.get($square-image-corner-radius, small)
               );
 
-              @include breakpoint(medium up) {
+              @include breakpoint(large up) {
                 clip-path: inset(
-                  0 0 0 0 round 0 map.get($square-image-corner-radius, medium) 0
-                    map.get($square-image-corner-radius, medium)
+                  0 0 0 0 round 0 map.get($square-image-corner-radius, large) 0
+                    map.get($square-image-corner-radius, large)
                 );
               }
             }
@@ -509,10 +512,10 @@
         color: black;
         padding: map.get($details-section-padding, small);
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           position: absolute;
           bottom: 0;
-          padding: map.get($details-section-padding, medium);
+          padding: map.get($details-section-padding, large);
           transform: translateY(0);
           transition: transform map.get($panel-transition, duration)
             map.get($panel-transition, timing-function);
@@ -527,7 +530,7 @@
         }
 
         &.hidden {
-          @include breakpoint(medium up) {
+          @include breakpoint(large up) {
             transform: translateY(100%);
           }
         }
@@ -549,14 +552,14 @@
     &--image_text_panel.active {
       flex-direction: column-reverse;
 
-      @include breakpoint(medium up) {
+      @include breakpoint(large up) {
         flex-direction: row;
       }
 
       .hero-accordion__details {
         display: block;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           pointer-events: auto;
         }
       }
@@ -564,8 +567,8 @@
       .hero-accordion__image-box {
         width: 100%;
 
-        @include breakpoint(medium up) {
-          width: map.get($panel-height, medium);
+        @include breakpoint(large up) {
+          width: map.get($panel-height, large);
         }
 
         @include breakpoint(xlarge up) {
@@ -580,9 +583,9 @@
           width: 100%;
           height: 100%;
 
-          @include breakpoint(medium up) {
-            width: map.get($panel-height, medium);
-            height: map.get($panel-height, medium);
+          @include breakpoint(large up) {
+            width: map.get($panel-height, large);
+            height: map.get($panel-height, large);
           }
 
           @include breakpoint(xlarge up) {
@@ -591,9 +594,9 @@
           }
 
           &::before {
-            @include breakpoint(medium up) {
-              background-size: map.get($panel-height, medium)
-                map.get($panel-height, medium);
+            @include breakpoint(large up) {
+              background-size: map.get($panel-height, large)
+                map.get($panel-height, large);
             }
 
             @include breakpoint(xlarge up) {
@@ -605,7 +608,7 @@
       }
 
       .hero-accordion__details-inner {
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           padding-top: 0;
           padding-bottom: 0;
           transform: translateX(0);
@@ -616,7 +619,7 @@
     &--image_text_panel.transitioning-to-inactive {
       flex-direction: column-reverse;
 
-      @include breakpoint(medium up) {
+      @include breakpoint(large up) {
         flex-direction: row;
       }
 
@@ -627,7 +630,7 @@
       }
 
       .hero-accordion__details {
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           display: block;
           pointer-events: none;
         }
@@ -654,8 +657,8 @@
       .hero-accordion__details {
         @include active-details-visible;
 
-        @include breakpoint(medium up) {
-          transform: translateX(-(map.get($panel-height, medium)));
+        @include breakpoint(large up) {
+          transform: translateX(-(map.get($panel-height, large)));
         }
 
         @include breakpoint(xlarge up) {
@@ -670,8 +673,8 @@
       .hero-accordion__details {
         display: none;
 
-        @include breakpoint(medium up) {
-          transform: translateX(-(map.get($panel-height, medium)));
+        @include breakpoint(large up) {
+          transform: translateX(-(map.get($panel-height, large)));
         }
 
         @include breakpoint(xlarge up) {
@@ -684,7 +687,7 @@
         flex-direction: row;
         justify-content: end;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           flex-direction: column;
         }
 
@@ -704,7 +707,7 @@
       .hero-accordion__details {
         @include active-details-visible;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           transform: translateX(0);
         }
       }
@@ -716,7 +719,7 @@
       .hero-accordion__details {
         display: none;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           transform: translateX(0);
         }
       }
@@ -726,7 +729,7 @@
         flex-direction: row-reverse;
         justify-content: start;
 
-        @include breakpoint(medium up) {
+        @include breakpoint(large up) {
           flex-direction: column-reverse;
           justify-content: start;
         }
