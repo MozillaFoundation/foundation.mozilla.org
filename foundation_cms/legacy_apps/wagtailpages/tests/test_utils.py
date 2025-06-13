@@ -7,7 +7,7 @@ from django.utils.translation.trans_real import (
 )
 from django.utils.translation.trans_real import to_language as django_to_language
 from taggit import models as tag_models
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtail.models import Collection, Locale, PageViewRestriction
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
@@ -34,6 +34,8 @@ from foundation_cms.legacy_apps.wagtailpages.utils import (
     get_content_related_by_tag,
     localize_queryset,
 )
+
+Image = get_image_model()
 
 
 class TestGetContentRelatedByTag(TestCase):
