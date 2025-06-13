@@ -21,7 +21,7 @@ from foundation_cms.blocks import (
     TabbedContentContainerBlock,
     TimelyActivationsCardsBlock,
     TwoColumnContainerBlock,
-    VideoBlock
+    VideoBlock,
 )
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
