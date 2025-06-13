@@ -114,7 +114,7 @@ class FoundationCustomImage(AbstractImage):
 
 # Custom rendition for the Custom Image class
 class FoundationCustomRendition(AbstractRendition):
-    image = models.ForeignKey(get_image_model_string(), on_delete=models.CASCADE, related_name="renditions")
+    image = models.ForeignKey(get_image_model_string(), on_delete=models.CASCADE, related_name="+")
 
     class Meta:
         unique_together = (("image", "filter_spec", "focal_point_key"),)
