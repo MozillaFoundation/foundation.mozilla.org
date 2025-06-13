@@ -31,7 +31,7 @@
   );
   $details-subsection-gap: (
     small: 0,
-    large: 4rem
+    large: 4rem,
   );
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
   $play-button-size: 4rem;
@@ -371,8 +371,10 @@
             background-size: contain;
             z-index: -1;
             transition:
-              background-size map.get($panel-transition, duration) map.get($panel-transition, timing-function),
-              background-position map.get($panel-transition, duration) map.get($panel-transition, timing-function);
+              background-size map.get($panel-transition, duration)
+                map.get($panel-transition, timing-function),
+              background-position map.get($panel-transition, duration)
+                map.get($panel-transition, timing-function);
           }
         }
       }
