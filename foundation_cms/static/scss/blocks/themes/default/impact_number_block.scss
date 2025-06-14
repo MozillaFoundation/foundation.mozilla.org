@@ -6,17 +6,23 @@
   // ===================================
   $stat-colors: (
     1: (
-      "background-color": #ED550A, // orange 400
-      "shape-color": "#50C9F0", // blue 200
+      "background-color": #ed550a,
+      // orange 400
+      "shape-color": "#50C9F0",
+      // blue 200
     ),
     2: (
-      "background-color": #F7EC36, // yellow 200
-      "shape-color": "#53E17C", // green 200
+      "background-color": #f7ec36,
+      // yellow 200
+      "shape-color": "#53E17C",
+      // green 200
     ),
     3: (
-      "background-color": #0057D4, // blue 600
-      "shape-color": "#F88539", // orange 200
-    )
+      "background-color": #0057d4,
+      // blue 600
+      "shape-color": "#F88539",
+      // orange 200
+    ),
   );
   $digit-height: 2em;
 
@@ -35,24 +41,6 @@
     flex: 1;
     display: flex;
     justify-content: center;
-
-    &:nth-child(3n + 1) {
-      .impact-stat__number {
-        background-color: map.get(map.get($stat-colors, 1), "background-color");
-      }
-    }
-
-    &:nth-child(3n + 2) {
-      .impact-stat__number {
-        background-color: map.get(map.get($stat-colors, 2), "background-color");
-      }
-    }
-
-    &:nth-child(3n + 3) {
-      .impact-stat__number {
-        background-color: map.get(map.get($stat-colors, 3), "background-color");
-      }
-    }
 
     &__content {
       display: flex;
@@ -132,6 +120,24 @@
           }
         }
       }
+    }
+  }
+
+  .impact-stat:nth-child(3n + 1) {
+    .impact-stat__number {
+      background-color: map.get(map.get($stat-colors, 1), "background-color");
+    }
+  }
+
+  .impact-stat:nth-child(3n + 2) {
+    .impact-stat__number {
+      background-color: map.get(map.get($stat-colors, 2), "background-color");
+    }
+  }
+
+  .impact-stat:nth-child(3n + 3) {
+    .impact-stat__number {
+      background-color: map.get(map.get($stat-colors, 3), "background-color");
     }
   }
 
