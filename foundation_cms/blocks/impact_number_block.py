@@ -11,6 +11,7 @@ class ImpactStatBlock(blocks.StructBlock):
         help_text="The full value to animate, including any symbols, commas, decimals, or suffixes (e.g., $500.0K).",
     )
 
+    stat_heading = blocks.CharBlock(required=True, help_text="Heading of the stat")
     stat_description = blocks.CharBlock(required=True, help_text="Short description of the stat")
 
     class Meta:
