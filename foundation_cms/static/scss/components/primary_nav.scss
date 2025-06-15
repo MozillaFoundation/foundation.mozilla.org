@@ -141,6 +141,7 @@ $hamburger-bar-spacing: 0.8rem;
       border: 1px solid $color-brand-orange-100;
       border-radius: 1rem;
       padding: 1rem 0;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     }
 
     & > a {
@@ -222,9 +223,9 @@ $hamburger-bar-spacing: 0.8rem;
         width: 100%;
         font-family: "Mozilla Headline", sans-serif;
         color: $text-primary;
-        font-size: 1.8rem;
+        font-size: 1.75rem;
         font-weight: 400;
-        padding: 1.8rem 0;
+        padding: 1rem 0;
 
         @include breakpoint(large up) {
           width: auto;
@@ -234,6 +235,10 @@ $hamburger-bar-spacing: 0.8rem;
           flex: none;
           font-family: "Mozilla Text", sans-serif;
           text-decoration: none;
+        }
+
+        &:hover {
+          color: $color-brand-orange-600;
         }
       }
 
@@ -249,8 +254,12 @@ $hamburger-bar-spacing: 0.8rem;
         }
 
         & .primary-nav__dropdown-toggle::after {
-          transform: rotate(0deg);
-          filter: none;
+          transform: rotate(180deg);
+
+          @include breakpoint(large up) {
+            transform: rotate(0deg);
+            filter: none;
+          }
         }
       }
     }
@@ -270,8 +279,13 @@ $hamburger-bar-spacing: 0.8rem;
   a:focus-visible,
   button:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid $color-brand-orange-600;
+    outline: 2px solid $color-brand-orange-100;
     outline-offset: 2px;
+  }
+
+  a:not(.button):hover,
+  a:not(.button):focus-visible {
+    color: $color-brand-orange-600;
   }
 
   &.open {
