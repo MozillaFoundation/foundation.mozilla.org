@@ -141,7 +141,7 @@ $hamburger-bar-spacing: 0.8rem;
       border: 1px solid $color-brand-orange-100;
       border-radius: 1rem;
       padding: 1rem 0;
-      box-shadow: 0 4px 4px rgba(0 0 0 10%);
+      box-shadow: 0 4px 4px rgba(0 0 0 / 10%);
     }
 
     & > a {
