@@ -1,7 +1,7 @@
 export function initVideoBlocks() {
   const containers = document.querySelectorAll(".video-block__container");
 
-  containers.forEach(container => {
+  containers.forEach((container) => {
     const video = container.querySelector(".video-block__video");
     const playButton = container.querySelector(".video-block__play-button");
     const overlay = container.querySelector(".video-block__overlay");
