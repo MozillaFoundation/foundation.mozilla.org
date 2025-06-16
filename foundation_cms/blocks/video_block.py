@@ -5,14 +5,17 @@ from foundation_cms.blocks.link_block import LinkWithoutLabelBlock
 
 
 class VideoBlock(BaseBlock):
-
     video_url = blocks.URLBlock(
         required=True,
         label="Vimeo Video URL",
+        help_text=('Log into Vimeo, then select the desired video and click "Video File Links".'),
     )
-    caption = blocks.CharBlock(required=False, label="Caption Text")
+    caption = blocks.CharBlock(required=False, help_text="Optional Caption Text")
     caption_url = blocks.ListBlock(
-        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional URL that this caption should link out to."
+        LinkWithoutLabelBlock(),
+        min_num=0,
+        max_num=1,
+        help_text="Optional URL that this caption should link out to.",
     )
 
     class Meta:
