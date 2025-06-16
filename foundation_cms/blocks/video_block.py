@@ -8,10 +8,12 @@ class VideoBlock(BaseBlock):
 
     video_url = blocks.URLBlock(
         required=True,
-        label="Video Embed URL",
+        label="Vimeo Video URL",
     )
     caption = blocks.CharBlock(required=False, label="Caption Text")
-    caption_url = LinkWithoutLabelBlock(required=False, help_text="Optional URL the caption should link to.")
+    caption_url = blocks.ListBlock(
+        LinkWithoutLabelBlock(), min_num=0, max_num=1, help_text="Optional URL that this caption should link out to."
+    )
 
     class Meta:
         template_name = "video_block.html"
