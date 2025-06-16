@@ -2,12 +2,157 @@
   $text-primary: #f7f7f7;
   $bg: #0f0f0f;
   $fg-primary: #fff;
+  $cta-color: #ff9e5f;
   $separator-color: #a3a3a3;
   $input-padding: 1rem;
 
   background-color: $bg;
   color: $text-primary;
   padding: 3rem 0;
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__logo {
+    max-width: 6em;
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 0.82;
+    margin-bottom: 3rem;
+
+    @include breakpoint(large up) {
+      max-width: fit-content;
+    }
+  }
+
+  &__newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .fieldset {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      @include breakpoint(large up) {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    input[type="email"] {
+      padding: $input-padding;
+      border: 1px solid white;
+      background-color: white;
+      color: black;
+      font-size: 1rem;
+      display: block;
+      width: 100%;
+
+      &::placeholder {
+        color: black;
+      }
+    }
+
+    .site-footer-ns__button--newsletter {
+      padding: $input-padding;
+      background-color: black;
+      color: white;
+      border: 1px solid $fg-primary;
+      cursor: pointer;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 700;
+      flex-wrap: nowrap;
+
+      @include breakpoint(large up) {
+        width: 10em;
+        justify-content: center;
+      }
+
+      span {
+        white-space: nowrap;
+      }
+
+      &:focus-visible {
+        outline: 1px solid $fg-primary;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+
+    ul {
+      width: 50%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 0.5rem 0;
+      }
+
+      a {
+        color: $text-primary;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &.external {
+        a {
+          &::after {
+            display: inline-block;
+            content: "";
+            width: 12px;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_2513_482' style='mask-type:luminance' maskUnits='userSpaceOnUse' x='0' y='0' width='12' height='13'%3E%3Cpath d='M0 0.000183105H12V12.0002H0V0.000183105Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_2513_482)'%3E%3Cpath d='M6.93759 1.12518H10.0801L5.34009 5.86518L6.13509 6.66018L10.8751 1.92018V5.06268H12.0001V0.000183105H6.93759V1.12518Z' fill='white'/%3E%3Cpath d='M9 6.75018H7.875V10.8752H1.125V4.12518H5.25V3.00018H0V12.0002H9V6.75018Z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
+            color: $text-primary;
+            margin-left: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  &__cta {
+    .site-footer-ns__button--cta {
+      display: flex;
+      gap: 1rem;
+      background-color: $cta-color;
+      color: black;
+      width: 100%;
+      font-weight: 700;
+      align-items: center;
+      padding: $input-padding;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:focus-visible {
+        outline: 1px solid $fg-primary;
+        outline-offset: 2px;
+      }
+    }
+  }
 
   &__legals {
     border-top: 1px solid $separator-color;
@@ -43,129 +188,11 @@
       @include breakpoint(large up) {
         gap: 2rem;
       }
-    }
-  }
 
-  &__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 3rem;
-    }
-  }
-
-  a {
-    text-decoration: none;
-    color: $text-primary;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__logo {
-    max-width: 6em;
-    font-size: 4rem;
-    font-weight: bold;
-    line-height: 0.82;
-    margin-bottom: 3rem;
-
-    @include breakpoint(large up) {
-      max-width: fit-content;
-    }
-  }
-
-  &__newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .fieldset {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      @include breakpoint(large up) {
-        flex-direction: row;
-        align-items: center;
+      a {
+        display: block;
+        height: 24px;
       }
-    }
-
-    input[type="email"] {
-      padding: $input-padding;
-      border: 1px solid black;
-      background-color: transparent;
-      color: $text-primary;
-      font-size: 1rem;
-      display: block;
-      width: 100%;
-
-      &::placeholder {
-        color: $text-primary;
-      }
-    }
-
-    button {
-      padding: $input-padding;
-      background-color: white;
-      color: black;
-      border: 2px solid $fg-primary;
-      cursor: pointer;
-      display: flex;
-      width: 100%;
-      text-decoration: underline;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-
-      @include breakpoint(large up) {
-        width: 10em;
-        justify-content: center;
-      }
-    }
-  }
-
-  &__links {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-
-    ul {
-      width: 50%;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li {
-        padding: 0.5rem 0;
-      }
-
-      &.external {
-        a {
-          &::after {
-            display: inline-block;
-            content: "⇗";
-            color: $text-primary;
-            margin-left: 0.5rem;
-          }
-        }
-      }
-    }
-  }
-
-  &__cta {
-    button {
-      display: block;
-      width: 100%;
-      color: $text-primary;
-      border: 1px solid white;
-      padding: $input-padding;
-      cursor: pointer;
     }
   }
 }

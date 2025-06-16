@@ -9,7 +9,7 @@ module.exports = {
     // Add "stylelint-config-prettier" last to disable any Stylelint rules that would conflict with Prettier's formatting.
     // This ensures that Prettier handles all code style decisions (e.g., spacing, indentation, line breaks),
     // and Stylelint focuses only on code quality and SCSS best practices — not formatting.
-    "stylelint-config-prettier"
+    "stylelint-config-prettier",
   ],
   ignoreFiles: [
     "../../foundation_cms/static/scss/settings/customized-settings.scss",
@@ -19,5 +19,12 @@ module.exports = {
     "block-no-empty": true,
     // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
+    "selector-class-pattern": [
+      "^[a-z0-9]+(?:-[a-z0-9]+)*(?:__(?:[a-z0-9]+(?:-[a-z0-9]+)*))?(?:--(?:[a-z0-9]+(?:-[a-z0-9]+)*))?$",
+      {
+        message:
+          "Expected class selector to be kebab-case or BEM (block__element--modifier)",
+      },
+    ],
   },
 };
