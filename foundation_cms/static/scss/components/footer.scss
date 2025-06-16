@@ -172,7 +172,7 @@
       margin: 0;
     }
 
-    a {
+    .site-footer-ns__link--legal {
       color: $text-primary;
       text-decoration: underline;
     }
@@ -189,7 +189,7 @@
         gap: 2rem;
       }
 
-      a {
+      .site-footer-ns__social-link {
         display: block;
         height: 24px;
       }
