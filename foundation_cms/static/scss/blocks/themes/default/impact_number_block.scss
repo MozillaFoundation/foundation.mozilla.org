@@ -53,6 +53,9 @@
       align-items: center;
       width: 100%;
       aspect-ratio: 1 / 1;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 85% auto;
 
       @include breakpoint(large up) {
         flex: unset;
@@ -123,18 +126,21 @@
   .impact-stat:nth-child(3n + 1) {
     .impact-stat__number {
       background-color: map.get(map.get($stat-colors, 1), "background-color");
+      background-image: url("../_images/shapes/blue/blue200-1.svg");
     }
   }
 
   .impact-stat:nth-child(3n + 2) {
     .impact-stat__number {
       background-color: map.get(map.get($stat-colors, 2), "background-color");
+      background-image: url("../_images/shapes/green/green200-1.svg");
     }
   }
 
   .impact-stat:nth-child(3n + 3) {
     .impact-stat__number {
       background-color: map.get(map.get($stat-colors, 3), "background-color");
+      background-image: url("../_images/shapes/orange/orange200-1.svg");
     }
   }
 
