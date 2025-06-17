@@ -5,9 +5,9 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 NUM_IMPACT_STATS = 3
 DEFAULT_IMPACT_STATS = [
-    {"stat_number": "", "stat_heading": "", "stat_description": ""}
-    for _ in range(NUM_IMPACT_STATS)
+    {"stat_number": "", "stat_heading": "", "stat_description": ""} for _ in range(NUM_IMPACT_STATS)
 ]
+
 
 class ImpactStatBlock(blocks.StructBlock):
 
