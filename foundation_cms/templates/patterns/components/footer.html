@@ -1,11 +1,12 @@
-{% load wagtailsettings_tags %}
-
+{% load wagtailsettings_tags static %}
 <footer class="site-footer-ns">
   <div class="grid-container">
     <div class="site-footer-ns__grid">
       <div class="site-footer-ns__grid-cell">
         <div class="site-footer-ns__logo">
-          Mozilla Foundation
+          <a href="#">
+            <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="Mozilla Foundation Logo" width="440" height="92" />
+          </a>
         </div>
         <div class="site-footer-ns__newsletter-form">
           {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
