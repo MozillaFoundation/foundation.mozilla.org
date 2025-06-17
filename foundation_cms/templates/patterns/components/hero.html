@@ -5,8 +5,15 @@
 
       <div class="hero__text">
         <h1 class="hero__title">{{ page.hero_title }}</h1>
+        {% if topics %}
+          <div class="hero__topics body-text-small">
+            {% for topic in topics %}
+              <span class="hero__pill">{{ topic }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
         {% if page.hero_description %}
-          <p class="hero__description">{{ page.hero_description }}</p>
+          <p class="hero__description lede-text">{{ page.hero_description }}</p>
         {% endif %}
       </div>
 

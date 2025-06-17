@@ -13,14 +13,25 @@
     }
 
     &__title {
-      font-size: 5rem;
-      font-weight: bold;
       margin-bottom: 1rem;
+      font-family: $display-text-font-family;
+    }
+
+    &__topics {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    &__pill {
+      display: inline-block;
+      border: 1px solid $black;
+      padding: 0 2rem;
+      border-radius: 9999px;
     }
 
     &__description {
-      font-size: 1.2rem;
-      line-height: 1.6;
       color: #666;
     }
 

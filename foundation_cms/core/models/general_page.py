@@ -90,4 +90,5 @@ class GeneralPage(AbstractGeneralPage):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context["topics"] = [topic.strip() for topic in self.topics.split(",") if topic.strip()]
         return context
