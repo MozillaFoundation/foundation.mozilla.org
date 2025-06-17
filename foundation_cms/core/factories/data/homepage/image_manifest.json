@@ -30,5 +30,21 @@
   "portrait_card__3": {
     "filename": "placeholder__1.jpg",
     "alt_text": "Third Card"
+  },
+  "hero_image__1": {
+    "filename": "hero_image_1.jpg",
+    "alt_text": "Mozilla Foundation's mission"
+  },
+  "timely_activations__1": {
+    "filename": "timely_activations_1.jpg",
+    "alt_text": "Internet Health"
+  },
+  "timely_activations__2": {
+    "filename": "timely_activations_2.jpg",
+    "alt_text": "Privacy and Security"
+  },
+  "timely_activations__3": {
+    "filename": "timely_activations_3.jpg",
+    "alt_text": "Digital Inclusion"
   }
 }
