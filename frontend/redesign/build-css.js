@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
   "redesign_main",
+  "redesign_migrated_content",
   "pages/home_page",
 ];
 
@@ -20,11 +21,11 @@ for (const entry of entries) {
   const input = path.resolve(__dirname, `${inDir}/${entry}.scss`);
   const tempOutput = path.resolve(
     __dirname,
-    `${tempDir}/${entry}.unprocessed.css`
+    `${tempDir}/${entry}.unprocessed.css`,
   );
   const finalOutput = path.resolve(
     __dirname,
-    `${outDir}/${entry}.compiled.css`
+    `${outDir}/${entry}.compiled.css`,
   );
 
   try {
@@ -36,7 +37,7 @@ for (const entry of entries) {
     // Process with PostCSS
     execSync(
       `postcss ${tempOutput} -o ${finalOutput} --config ./postcss.config.js`,
-      { stdio: "inherit" }
+      { stdio: "inherit" },
     );
 
     console.log(`Built CSS: ${entry}`);
