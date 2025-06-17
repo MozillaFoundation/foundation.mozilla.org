@@ -4,7 +4,9 @@
 
     <div class="general-page">
         <div class="general-page__body">
-            {% include "patterns/components/hero.html" %}
+            {% if page.show_hero %}
+                {% include "patterns/components/hero.html" %}
+            {% endif %}
             <div class="container">
                 {{ page.body }}
             </div>

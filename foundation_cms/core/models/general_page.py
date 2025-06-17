@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
@@ -38,6 +38,18 @@ class GeneralPage(AbstractGeneralPage):
         help_text="Select the variant of the hero section",
     )
 
+    show_hero = models.BooleanField(
+        default=True,
+        verbose_name="Show Hero Section",
+        help_text="Check to display the hero section on this page.",
+    )
+
+    topics = models.TextField(
+        verbose_name="Topics",
+        blank=True,
+        help_text="Comma-separated list of topics related to this page.",
+    )
+
     button_title = models.CharField(
         verbose_name="Button Text",
         max_length=250,
@@ -50,10 +62,18 @@ class GeneralPage(AbstractGeneralPage):
     )
 
     content_panels = AbstractGeneralPage.content_panels + [
-        FieldPanel("hero_variant"),
-        FieldPanel("hero_title"),
-        FieldPanel("hero_description"),
-        FieldPanel("hero_image"),
+        MultiFieldPanel(
+            [
+                FieldPanel("show_hero"),
+                FieldPanel("hero_variant"),
+                FieldPanel("hero_title"),
+                FieldPanel("hero_description"),
+                FieldPanel("hero_image"),
+            ],
+            heading="Hero Section",
+            classname="collapsible",
+        ),
+        FieldPanel("topics"),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
     ]
@@ -61,6 +81,7 @@ class GeneralPage(AbstractGeneralPage):
     translatable_fields = [
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
+        TranslatableField("topics"),
         TranslatableField("button_title"),
     ]
 
