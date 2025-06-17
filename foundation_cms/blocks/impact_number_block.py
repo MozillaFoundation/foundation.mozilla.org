@@ -8,7 +8,8 @@ class ImpactStatBlock(blocks.StructBlock):
 
     stat_number = blocks.CharBlock(
         required=True,
-        help_text="The full value to animate, including any symbols, commas, decimals, or suffixes (e.g., $500.0K).",
+        max_length=5,
+        help_text="The full value to animate, including any symbols, commas, decimals, or suffixes (e.g., $5.2M).",
     )
 
     stat_heading = blocks.CharBlock(required=True, help_text="Heading of the stat")
@@ -22,10 +23,10 @@ class ImpactStatBlock(blocks.StructBlock):
 class ImpactNumberBlock(BaseBlock):
     stats = blocks.ListBlock(
         ImpactStatBlock(),
-        min_num=1,
+        min_num=3,
         max_num=3,
         label="Impact Stats",
-        help_text="Add 1 to 3 stats to appear in the Impact Numbers section",
+        help_text="Add 3 stats to appear in the Impact Numbers section",
     )
 
     class Meta:
