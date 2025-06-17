@@ -1,30 +1,28 @@
 {% load wagtailcore_tags impact_numbers_tags %}
 
-<div class="impact-number-block wireframe-box grid-container">
-    <div class="grid-x grid-padding-x">
-        {% with stat_count=self.stats|length %}
-            {% for stat in self.stats %}
-                <div class="impact-stat cell small-12 {% if stat_count == 3 %} large-4 {% else %} medium-6 {% endif %}">
-                    <div class="impact-stat__content grid-x align-middle">
+<div class="impact-number-block">
+    {% with stat_count=self.stats|length %}
+        {% for stat in self.stats %}
+            <div class="impact-stat">
+                <div class="impact-stat__content">
                     <!-- Number -->
-                        <div
-                            class="impact-stat__number cell shrink"
-                            aria-label="{{ stat.stat_number }}"
-                        >
-                        <!-- HTML generated through impact_number_tags -->
-                            {{ stat.stat_number|render_animated_number }}
-                        </div>
+                    <div
+                        class="impact-stat__number display-text-1"
+                        aria-label="{{ stat.stat_number }}"
+                    >
+                    <!-- HTML generated through impact_number_tags -->
+                        {{ stat.stat_number|render_animated_number }}
+                    </div>
 
-                    <!-- Description -->
-                        <div class="impact-stat__description cell auto">
-                            <p>
-                                {{ stat.stat_description }}
-                            </p>
-                        </div>
+                    <!-- Details -->
+                    <div class="impact-stat__details">
+                        <h3 class="impact-stat__heading h5-style">{{ stat.stat_heading }}</h3>
+                        <p class="impact-stat__description">
+                            {{ stat.stat_description }}
+                        </p>
                     </div>
                 </div>
-
-            {% endfor %}
-        {% endwith %}
-    </div>
+            </div>
+        {% endfor %}
+    {% endwith %}
 </div>
