@@ -7,17 +7,9 @@
   margin-bottom: 1rem;
 }
 
-.image-block-portrait .image-block-image {
-  width: 60%;
-  height: 400px;
-  object-fit: cover;
-  margin: 0 auto;
-  display: block;
-}
-
-.image-block-landscape .image-block-image {
-  width: 80%;
-  height: 300px;
+.image-block-image {
+  width: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
   margin: 0 auto;
   display: block;
