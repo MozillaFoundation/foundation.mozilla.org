@@ -1,4 +1,4 @@
-{% load static %}
+{% load wagtailsettings_tags static %}
 <footer class="site-footer-ns">
   <div class="grid-container">
     <div class="site-footer-ns__grid">
@@ -8,18 +8,13 @@
             <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="Mozilla Foundation Logo" width="440" height="92" />
           </a>
         </div>
-        <form class="site-footer-ns__newsletter-form">
-          <div class="legend">
-            Stay updated with our newsletter
-          </div>
-          <div class="fieldset">
-            <input type="email" placeholder="Your email" />
-            <button type="button">
-              <span>Sign up</span>
-              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.4499 11.262L10.4499 13.0683L5 13.0683L5 11.262L10.4499 11.262ZM19 12.1651L10.4499 4.97335L10.4499 11.262L12.2562 11.262L12.2562 8.85292L16.194 12.1651L12.2562 15.4774L12.2562 13.0683L10.4499 13.0683L10.4499 19.3569L19 12.1651Z" fill="black"/></svg>
-            </button>
-          </div>
-        </form>
+        <div class="site-footer-ns__newsletter-form">
+          {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+            {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+              {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
+            {% endwith %}
+          {% endif %}
+        </div>
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__links">
         <ul class="internal">
