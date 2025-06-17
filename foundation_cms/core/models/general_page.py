@@ -74,7 +74,6 @@ class GeneralPage(AbstractGeneralPage):
     translatable_fields = [
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
-        TranslatableField("topics"),
         TranslatableField("button_title"),
     ]
 
