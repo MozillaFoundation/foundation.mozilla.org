@@ -1,0 +1,61 @@
+.portrait-card-carousel {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 3rem;
+
+  .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+
+    /* Hide scrollbar cross-browser */
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE/Edge
+    &::-webkit-scrollbar {
+      display: none; // Chrome, Safari
+    }
+
+    .carousel-card {
+      flex: 0 0 calc(100% / 1.5); // Default: 1.5 cards visible
+      max-width: calc(100% / 1.5);
+      scroll-snap-align: start;
+      margin-right: 1rem;
+
+      @include breakpoint(medium) {
+        flex: 0 0 calc(100% / 2.5);
+        max-width: calc(100% / 2.5);
+      }
+
+      @include breakpoint(large) {
+        flex: 0 0 calc(100% / 3.5);
+        max-width: calc(100% / 3.5);
+      }
+    }
+  }
+
+  .carousel-controls {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 1;
+    background: none;
+    pointer-events: auto;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3rem;
+    height: 100%;
+    background: linear-gradient(to left, white, transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+}

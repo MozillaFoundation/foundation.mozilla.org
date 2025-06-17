@@ -23,6 +23,7 @@ from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
 )
 from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
 from foundation_cms.search import views as search_views
+from foundation_cms.views import newsletter_signup_submission_view
 
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -128,6 +129,9 @@ urlpatterns = list(
             re_path(
                 r"^pt/(?P<rest>.*)",
                 RedirectView.as_view(url="/pt-BR/%(rest)s", query_string=True, permanent=True),
+            ),
+            re_path(
+                r"^newsletter-signup/(?P<pk>[0-9]+)/", newsletter_signup_submission_view, name="signup-submission"
             ),
         ],
     )
