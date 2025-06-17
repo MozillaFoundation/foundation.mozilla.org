@@ -26,6 +26,7 @@ const CLASSNAMES = {
   successHidden: "newsletter-signup__success-message--hidden",
   errorHidden: "newsletter-signup__error-message--hidden",
   fieldErrorHidden: "newsletter-signup__field-error--hidden",
+  fieldHidden: "newsletter-signup__field--hidden",
 };
 
 /**
@@ -88,7 +89,7 @@ function applyLayoutBehavior(form, layout, emailInput) {
 
   const revealHiddenFields = () => {
     expandableFields.forEach((el) =>
-      el.classList.remove(CLASSNAMES.fieldErrorHidden),
+      el.classList.remove(CLASSNAMES.fieldHidden),
     );
   };
 

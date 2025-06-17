@@ -2,7 +2,6 @@
   margin-bottom: 2rem;
 
   &__cta {
-    font-size: 1rem;
     margin-bottom: 1rem;
   }
 
@@ -29,10 +28,10 @@
     padding: 1rem;
     border: 1px solid black;
     text-decoration: underline;
-  }
 
-  &__button:hover {
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__field {
@@ -42,7 +41,6 @@
   }
 
   &__field-error {
-    font-size: 0.875rem;
     color: red;
     margin-top: 0.5rem;
 
@@ -53,7 +51,6 @@
 
   &__error-message {
     color: red;
-    font-size: 1rem;
     margin-bottom: 1rem;
 
     &--hidden {
