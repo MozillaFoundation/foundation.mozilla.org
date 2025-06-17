@@ -44,12 +44,6 @@ class GeneralPage(AbstractGeneralPage):
         help_text="Check to display the hero section on this page.",
     )
 
-    topics = models.TextField(
-        verbose_name="Topics",
-        blank=True,
-        help_text="Comma-separated list of topics related to this page.",
-    )
-
     button_title = models.CharField(
         verbose_name="Button Text",
         max_length=250,
@@ -73,7 +67,6 @@ class GeneralPage(AbstractGeneralPage):
             heading="Hero Section",
             classname="collapsible",
         ),
-        FieldPanel("topics"),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
     ]
@@ -90,5 +83,4 @@ class GeneralPage(AbstractGeneralPage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["topics"] = [topic.strip() for topic in self.topics.split(",") if topic.strip()]
         return context
