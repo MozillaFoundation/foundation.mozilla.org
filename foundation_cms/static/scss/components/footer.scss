@@ -52,16 +52,10 @@
 
     input[type="email"] {
       padding: $input-padding;
-      border: 1px solid white;
-      background-color: white;
-      color: black;
+      border: 1px solid black;
       font-size: 1rem;
       display: block;
       width: 100%;
-
-      &::placeholder {
-        color: black;
-      }
     }
 
     .site-footer-ns__button--newsletter {
@@ -79,7 +73,6 @@
       flex-wrap: nowrap;
 
       @include breakpoint(large up) {
-        width: 10em;
         justify-content: center;
       }
 
