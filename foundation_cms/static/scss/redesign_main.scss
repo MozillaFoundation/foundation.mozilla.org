@@ -6,6 +6,7 @@
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/impact_number_block";
 @import "../scss/blocks/themes/default/portrait_card_carousel";
+@import "../scss/blocks/hero";
 
 // Site-wide Components
 @import "../scss/components/primary_nav";
@@ -16,7 +17,6 @@
 @import "../scss/components/spacer_block";
 @import "../scss/components/newsletter_signup/newsletter_signup_form";
 @import "../scss/components/list_block";
-@import "../scss/blocks/hero";
 
 .wireframe-box {
   background: #e6e6e6;
