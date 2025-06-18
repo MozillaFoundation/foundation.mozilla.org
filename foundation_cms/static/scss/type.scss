@@ -1,0 +1,330 @@
+@use "sass:map";
+
+// ===================================
+// Variables
+// ===================================
+
+/* stylelint-disable-next-line scss/dollar-variable-colon-space-after --
+   allow Prettier line break formatting for long font stack */
+$display-text-font-family:
+  "Mozilla Headline Extended", "Helvetica Neue", arial, x-localespecific,
+  sans-serif;
+$display-text-styles: (
+  small: (
+    "1": (
+      "font-size": rem-calc(40),
+      "line-height": 0.95,
+      "font-weight": 700,
+    ),
+    "2": (
+      "font-size": rem-calc(32),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "3": (
+      "font-size": rem-calc(28),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "4": (
+      "font-size": rem-calc(24),
+      "line-height": 1.1,
+      "font-weight": 700,
+    ),
+  ),
+  large: (
+    "1": (
+      "font-size": rem-calc(92),
+      "line-height": 0.95,
+      "font-weight": 700,
+    ),
+    "2": (
+      "font-size": rem-calc(68),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "3": (
+      "font-size": rem-calc(52),
+      "line-height": 1,
+      "font-weight": 700,
+    ),
+    "4": (
+      "font-size": rem-calc(40),
+      "line-height": 1.1,
+      "font-weight": 700,
+    ),
+  ),
+);
+$body-text-styles: (
+  small: (
+    "xlarge": (
+      "font-size": rem-calc(20),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "large": (
+      "font-size": rem-calc(18),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(16),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "small": (
+      "font-size": rem-calc(14),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "xsmall": (
+      "font-size": rem-calc(12),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+  ),
+  large: (
+    "xlarge": (
+      "font-size": rem-calc(20),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "large": (
+      "font-size": rem-calc(18),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(16),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "small": (
+      "font-size": rem-calc(14),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+    "xsmall": (
+      "font-size": rem-calc(12),
+      "line-height": 1.5,
+      "font-weight": 400,
+    ),
+  ),
+);
+$quote-text-styles: (
+  small: (
+    "large": (
+      "font-size": rem-calc(32),
+      "line-height": 1,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(24),
+      "line-height": 1,
+      "font-weight": 300,
+    ),
+  ),
+  large: (
+    "large": (
+      "font-size": rem-calc(52),
+      "line-height": 1,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(40),
+      "line-height": 1,
+      "font-weight": 300,
+    ),
+  ),
+);
+
+// ===================================
+// Functions
+// ===================================
+
+// Get complete ruleset for a specific breakpoint (defaults to "small")
+// @param {Map} $map-name - The style map (e.g., $display-text-styles)
+// @param {String} $key - The style key (e.g., "1", "regular")
+// @param {String} $breakpoint - The breakpoint ("small" or "large"), defaults to "small"
+// @return {Map} The complete style ruleset
+// Example: $some-block-heading: get-text-styles($display-text-styles, "1", "small");
+@function get-text-styles($map-name, $key, $breakpoint: "small") {
+  @return map.get(map.get($map-name, $breakpoint), $key);
+}
+
+// Get a specific property value from a text style
+// @param {Map} $map-name - The style map (e.g., $body-text-styles)
+// @param {String} $key - The style key (e.g., "large", "regular")
+// @param {String} $property - The CSS property to retrieve (e.g., "font-size")
+// @param {String} $breakpoint - The breakpoint ("small" or "large"), defaults to "small"
+// @return {*} The property value
+// Example: $desktop-body-large-size: get-text-property($body-text-styles, "large", "font-size", "large");
+@function get-text-property($map-name, $key, $property, $breakpoint: "small") {
+  $styles: get-text-styles($map-name, $key, $breakpoint);
+  @return map.get($styles, $property);
+}
+
+// ===================================
+// Mixins
+// ===================================
+
+@mixin mofo-text-style($map-name, $key, $font-family: $body-font-family) {
+  $small-styles: get-text-styles($map-name, $key, "small");
+
+  font-family: $font-family;
+
+  @each $property, $value in $small-styles {
+    #{$property}: $value;
+  }
+
+  @include breakpoint(large) {
+    $large-styles: get-text-styles($map-name, $key, "large");
+
+    @each $property, $value in $large-styles {
+      #{$property}: $value;
+    }
+  }
+}
+
+// Applies only specific breakpoint styles for font-family, font-size, line-height, and font-weight
+@mixin apply-text-style(
+  $map-name,
+  $key,
+  $breakpoint: "small",
+  $font-family: $body-font-family
+) {
+  $styles: get-text-styles($map-name, $key, $breakpoint);
+
+  font-family: $font-family;
+
+  @each $property, $value in $styles {
+    #{$property}: $value;
+  }
+}
+
+// ===================================
+// Display Text
+// ===================================
+
+.display-text-1 {
+  @include mofo-text-style(
+    $display-text-styles,
+    "1",
+    $display-text-font-family
+  );
+}
+
+.display-text-2 {
+  @include mofo-text-style(
+    $display-text-styles,
+    "2",
+    $display-text-font-family
+  );
+}
+
+.display-text-3 {
+  @include mofo-text-style(
+    $display-text-styles,
+    "3",
+    $display-text-font-family
+  );
+}
+
+.display-text-4 {
+  @include mofo-text-style(
+    $display-text-styles,
+    "4",
+    $display-text-font-family
+  );
+}
+
+// ===================================
+// Heading
+// ===================================
+
+h1,
+.h1-style {
+  @include mofo-text-style($header-styles, "h1", $header-font-family);
+}
+
+h2,
+.h2-style {
+  @include mofo-text-style($header-styles, "h2", $header-font-family);
+}
+
+h3,
+.h3-style {
+  @include mofo-text-style($header-styles, "h3", $header-font-family);
+}
+
+h4,
+.h4-style {
+  @include mofo-text-style($header-styles, "h4", $header-font-family);
+}
+
+h5,
+.h5-style {
+  @include mofo-text-style($header-styles, "h5", $header-font-family);
+}
+
+h6,
+.h6-style {
+  @include mofo-text-style($header-styles, "h6", $header-font-family);
+}
+
+// ===================================
+// Lede Text
+// ===================================
+
+.lede-text {
+  font-family: $body-font-family;
+  font-size: rem-calc(20);
+  line-height: 1.5;
+  font-weight: 400;
+
+  @include breakpoint(large) {
+    font-size: rem-calc(24);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+}
+
+// ===================================
+// Body Text
+// ===================================
+
+.body-text-xlarge {
+  @include mofo-text-style($body-text-styles, "xlarge");
+}
+
+.body-text-large {
+  @include mofo-text-style($body-text-styles, "large");
+}
+
+.body-text-regular {
+  @include mofo-text-style($body-text-styles, "regular");
+}
+
+.body-text-small {
+  @include mofo-text-style($body-text-styles, "small");
+}
+
+.body-text-xsmall {
+  @include mofo-text-style($body-text-styles, "xsmall");
+}
+
+// ===================================
+// Quote Text
+// ===================================
+
+.quote-text-large {
+  font-style: italic;
+
+  @include mofo-text-style($quote-text-styles, "large");
+}
+
+.quote-text-regular {
+  font-style: italic;
+
+  @include mofo-text-style($quote-text-styles, "regular");
+}

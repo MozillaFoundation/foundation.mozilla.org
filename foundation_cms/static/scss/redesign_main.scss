@@ -1,41 +1,20 @@
-@import "../scss/settings/customized-settings";
-@import "../../../node_modules/foundation-sites/scss/foundation";
-@import "../../../node_modules/foundation-sites/scss/components/visibility";
+@import "../scss/foundation-framework-styles";
 @import "../scss/fonts";
+@import "../scss/colors";
+@import "../scss/type";
+
+// Site-wide Blocks
+@import "../scss/blocks/themes/default/impact_number_block";
+@import "../scss/blocks/themes/default/portrait_card_carousel";
+@import "../scss/blocks/themes/default/quote_block";
+@import "../scss/blocks/hero";
+
+// Site-wide Components
 @import "../scss/components/primary_nav";
 @import "../scss/components/footer";
 @import "../scss/components/images";
-@import "../scss/blocks/themes/default/impact_number_block";
-@import "../scss/blocks/themes/default/portrait_card_carousel";
 @import "../scss/components/tabbed_content";
 @import "../scss/components/timely_activations";
 @import "../scss/components/spacer_block";
+@import "../scss/components/newsletter_signup/newsletter_signup_form";
 @import "../scss/components/list_block";
-
-// Foundation Modules
-@include foundation-global-styles;
-@include foundation-xy-grid-classes;
-@include foundation-visibility-classes;
-
-/* Base font styles */
-body {
-  font-family: "Mozilla Text", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Mozilla Headline", sans-serif;
-  color: #000;
-}
-
-.wireframe-box {
-  background: #e6e6e6;
-  border: 1px solid #555;
-  margin-bottom: 50px;
-}

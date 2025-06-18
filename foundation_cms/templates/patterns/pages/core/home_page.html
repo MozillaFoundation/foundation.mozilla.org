@@ -25,27 +25,6 @@
 
   <!-- Main Content -->
   <main>
-    <div class="grid-container">
-      <div class="grid-x grid-padding-x">
-        <div class="cell large-12 wireframe-box">
-          <h2>Timely Activations</h2>
-          <p>Content content content content content content content content content content content content content.</p>
-        </div>
-        <div class="cell large-12 wireframe-box">
-          <h2>Nothing Personal Releases</h2>
-          <p>Content content content content content content content content content content content content content.</p>
-          <ul>
-            {% for blog in blogs %}
-              <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="cell large-12 wireframe-box">
-          <h2>Community Spotlight</h2>
-          <p>Content content content content content content content content content content content content content.</p>
-        </div>
-      </div>
-    </div>
     {% if page.body %}
       <div class="grid-container">
         <div class="grid-x">

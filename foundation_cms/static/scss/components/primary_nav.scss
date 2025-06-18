@@ -1,4 +1,303 @@
-.primary-nav {
-  background: #e0e0e0;
-  padding: 10px 0;
+@import "../colors";
+
+$hamburger-bar-spacing: 0.8rem;
+
+@import "../../../../node_modules/delicious-hamburgers/scss/base";
+@import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
+
+.primary-nav-ns {
+  position: sticky;
+  width: 100%;
+  margin-bottom: 3rem;
+  max-width: 100vw;
+  top: 0;
+  z-index: 10;
+  background-color: $white;
+  height: 5rem;
+  overflow: hidden;
+  will-change: height;
+  transition: height 0.3s ease-in-out;
+
+  @include breakpoint(large up) {
+    overflow: visible;
+  }
+
+  &__grid {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+
+    @include breakpoint(large up) {
+      gap: 3rem;
+
+      &:not(.hidden-wordmark) {
+        padding-left: calc(229px + 3rem);
+      }
+    }
+  }
+
+  &__hamburger {
+    @include breakpoint(large up) {
+      display: none;
+    }
+  }
+
+  &__wordmark {
+    flex: 1;
+    height: 2rem;
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+
+    @include breakpoint(large up) {
+      flex: 0;
+      position: absolute;
+      left: 0;
+      width: 229px;
+      height: 48px;
+    }
+
+    img {
+      transition: all 0.3s ease-in-out;
+
+      @include breakpoint(large up) {
+        transition-delay: 0.15s;
+      }
+    }
+
+    img[data-name="logo"] {
+      display: none;
+
+      @include breakpoint(large up) {
+        display: block;
+      }
+    }
+
+    img[data-name="symbol"] {
+      display: block;
+
+      @include breakpoint(large up) {
+        display: none;
+      }
+    }
+
+    &.hidden {
+      img {
+        transform: translateY(120%);
+
+        @include breakpoint(large up) {
+          transition-delay: 0ms;
+        }
+      }
+    }
+  }
+
+  &__donate {
+    order: 1;
+
+    @include breakpoint(large up) {
+      order: 2;
+    }
+  }
+
+  &__menu-wrapper {
+    width: 100%;
+    order: 2;
+
+    @include breakpoint(large up) {
+      width: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    will-change: max-height;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+
+    @include breakpoint(large up) {
+      width: auto;
+      position: absolute;
+      top: calc(100% + 1rem);
+      left: -2rem;
+      background: $white;
+      border: 1px solid color(orange, "100");
+      border-radius: 1rem;
+      padding: 1rem 0;
+      box-shadow: 0 4px 4px rgba(0 0 0 / 10%);
+    }
+
+    & > a {
+      display: block;
+      margin: 0.5rem 2rem;
+      color: $black;
+      font-family: "Mozilla Headline", sans-serif;
+      font-size: 1.2rem;
+
+      @include breakpoint(large up) {
+        margin: 0;
+        padding: 0.5rem 4rem 0.5rem 2rem;
+        text-decoration: none;
+        font-family: "Mozilla Text", sans-serif;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__dropdown-toggle {
+    width: 2.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint(large up) {
+      width: 1.5rem;
+      height: 3.5rem;
+      margin: 0.7rem 0;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: 1.6rem;
+      height: 0.9rem;
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='15' viewBox='0 0 24 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.9602 0.949951L12.0002 10.91L2.04019 0.949951L0.450195 2.53995L12.0002 14.09L23.5502 2.53995L21.9602 0.949951Z' fill='%23141414'/%3E%3C/svg%3E%0A");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      transition: transform 0.3s ease-in-out;
+
+      @include breakpoint(large up) {
+        filter: grayscale(100%);
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.0688 6.28888L10.978 6.38068L6.00049 1.40314L5.64697 1.75665L1.021 6.38068L0.930176 6.28888L5.99951 1.21954L11.0688 6.28888Z' fill='%23141414' stroke='%23D13109'/%3E%3C/svg%3E%0A");
+        transform: rotate(180deg);
+        width: 0.9rem;
+        height: 0.6rem;
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: flex-start;
+      width: auto;
+      gap: 2rem;
+    }
+
+    &-item {
+      display: flex;
+      flex-flow: row wrap;
+      position: relative;
+
+      @include breakpoint(large up) {
+        flex-wrap: nowrap;
+        flex: 0 0 auto;
+        gap: 0.5rem;
+      }
+
+      > a {
+        display: flex;
+        flex: 1;
+        width: 100%;
+        font-family: "Mozilla Headline", sans-serif;
+        color: $black;
+        font-size: 1.75rem;
+        font-weight: 400;
+        padding: 1rem 0;
+
+        @include breakpoint(large up) {
+          width: auto;
+          font-size: 1rem;
+          padding: 1rem 0;
+          margin: 0.7rem 0;
+          flex: none;
+          font-family: "Mozilla Text", sans-serif;
+          text-decoration: none;
+        }
+
+        &:hover {
+          color: color(orange, "600");
+        }
+      }
+
+      &.open {
+        > a {
+          @include breakpoint(large up) {
+            color: color(orange, "600");
+          }
+        }
+
+        & .primary-nav-ns__dropdown {
+          opacity: 1;
+        }
+
+        & .primary-nav-ns__dropdown-toggle::after {
+          transform: rotate(180deg);
+
+          @include breakpoint(large up) {
+            transform: rotate(0deg);
+            filter: none;
+          }
+        }
+      }
+    }
+  }
+
+  .button--donate {
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+    align-items: center;
+    color: $white;
+    background: $black;
+    text-decoration: none;
+    padding: 0.9rem 1.5rem;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid color(orange, "100");
+    outline-offset: 2px;
+  }
+
+  a:not(.button):hover,
+  a:not(.button):focus-visible {
+    color: color(orange, "600");
+  }
+
+  &.open {
+    height: 100vh;
+
+    .primary-nav-ns__wordmark.hidden img {
+      transform: translateY(0%);
+    }
+  }
+}
+
+body.primary-nav-ns-open {
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 8rem;
+
+  .primary-nav-ns {
+    position: fixed;
+  }
 }
