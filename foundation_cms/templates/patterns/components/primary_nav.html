@@ -1,10 +1,11 @@
-<nav role="navigation" class="primary-nav">
+{% load static %}
+<nav role="navigation" class="primary-nav-ns">
   <div class="grid-container">
-    <div class="primary-nav__grid hidden-wordmark">
+    <div class="primary-nav-ns__grid hidden-wordmark">
 
       <!-- Hamburguer Menu -->
-      <div class="primary-nav__grid-cell primary-nav__hamburger">
-        <button class="hamburger hamburger--collapse" type="button" aria-label="Toggle navigation" aria-controls="primary-nav-menu">
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__hamburger">
+        <button class="hamburger hamburger--collapse" type="button" aria-label="Toggle navigation" aria-controls="primary-nav-ns-menu">
           <div class="inner">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -14,26 +15,35 @@
       </div>
 
       <!-- Wordmark -->
-      {% include "patterns/components/primary_nav_wordmark.html" %}
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__wordmark hidden">
+
+        <a href="#" aria-label="Mozilla Foundation homepage">
+    
+          <img data-name="logo" src="{% static 'foundation_cms/_images/primary-nav-wordmark-logo.svg' %}" alt="Mozilla Foundation Logo" width="229" height="48" />
+          <img data-name="symbol" src="{% static 'foundation_cms/_images/primary-nav-wordmark-symbol.svg' %}" alt="Mozilla Foundation Symbol" width="29" height="28" />
+          
+        </a>
+
+      </div>
 
       <!-- Menu, accordion for mobile, dropdown for desktop -->
-      <div class="primary-nav__grid-cell primary-nav__menu-wrapper">
-        <div class="primary-nav__menu">
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
+        <div class="primary-nav-ns__menu">
 
-          <div class="primary-nav__menu-item">
+          <div class="primary-nav-ns__menu-item">
             <a href="#" class="nav-link">Meet Mozilla</a>
           </div>
 
-          <div class="primary-nav__menu-item">
+          <div class="primary-nav-ns__menu-item">
             <a href="#" class="nav-link">Mobilize Ideas</a>
 
-            <div class="primary-nav__dropdown">
+            <div class="primary-nav-ns__dropdown">
               <a href="#" class="nav-link">Education</a>
               <a href="#" class="nav-link">Data</a>
               <a href="#" class="nav-link">Community</a>
             </div>
           </div>
-          <div class="primary-nav__menu-item">
+          <div class="primary-nav-ns__menu-item">
             <a href="#" class="nav-link">Imagine with Us</a>
           </div>
 
@@ -41,7 +51,7 @@
       </div>
 
       <!-- Donate Buton -->
-      <div class="primary-nav__grid-cell primary-nav__donate">
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
         <a href="#" class="button button--donate">
           <span>Donate</span>
 

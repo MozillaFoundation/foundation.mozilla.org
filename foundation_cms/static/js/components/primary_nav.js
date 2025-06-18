@@ -2,13 +2,13 @@
  * Css selectors for primary navigation elements.
  */
 const SELECTORS = {
-  primaryNav: ".primary-nav",
-  primaryNavGrid: ".primary-nav__grid",
-  hamburger: ".primary-nav .hamburger",
-  wordmark: ".primary-nav__wordmark",
-  menuItem: ".primary-nav__menu-item",
-  dropdown: ".primary-nav__dropdown",
-  toggle: ".primary-nav__dropdown-toggle",
+  primaryNav: ".primary-nav-ns",
+  primaryNavGrid: ".primary-nav-ns__grid",
+  hamburger: ".primary-nav-ns .hamburger",
+  wordmark: ".primary-nav-ns__wordmark",
+  menuItem: ".primary-nav-ns__menu-item",
+  dropdown: ".primary-nav-ns__dropdown",
+  toggle: ".primary-nav-ns__dropdown-toggle",
   kineticTypeWordmark: ".kinetic-type-wordmark",
 };
 
@@ -16,7 +16,7 @@ const SELECTORS = {
  * Class names used for toggling state.
  */
 const CLASSNAMES = {
-  navOpen: "primary-nav-open",
+  navOpen: "primary-nav-ns-open",
   hidden: "hidden",
   hiddenWordmark: "hidden-wordmark",
 };

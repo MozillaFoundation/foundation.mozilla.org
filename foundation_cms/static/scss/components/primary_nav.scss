@@ -3,7 +3,7 @@ $hamburger-bar-spacing: 0.8rem;
 @import "../../../../node_modules/delicious-hamburgers/scss/base";
 @import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
 
-.primary-nav {
+.primary-nav-ns {
   // @todo: use variables from settings file when available
   $background-color: #fff;
   $text-primary: #141414;
@@ -67,7 +67,7 @@ $hamburger-bar-spacing: 0.8rem;
       height: 48px;
     }
 
-    svg {
+    img {
       transition: all 0.3s ease-in-out;
 
       @include breakpoint(large up) {
@@ -75,7 +75,7 @@ $hamburger-bar-spacing: 0.8rem;
       }
     }
 
-    svg[data-name="logo"] {
+    img[data-name="logo"] {
       display: none;
 
       @include breakpoint(large up) {
@@ -83,7 +83,7 @@ $hamburger-bar-spacing: 0.8rem;
       }
     }
 
-    svg[data-name="symbol"] {
+    img[data-name="symbol"] {
       display: block;
 
       @include breakpoint(large up) {
@@ -92,7 +92,7 @@ $hamburger-bar-spacing: 0.8rem;
     }
 
     &.hidden {
-      svg {
+      img {
         transform: translateY(120%);
 
         @include breakpoint(large up) {
@@ -249,11 +249,11 @@ $hamburger-bar-spacing: 0.8rem;
           }
         }
 
-        & .primary-nav__dropdown {
+        & .primary-nav-ns__dropdown {
           opacity: 1;
         }
 
-        & .primary-nav__dropdown-toggle::after {
+        & .primary-nav-ns__dropdown-toggle::after {
           transform: rotate(180deg);
 
           @include breakpoint(large up) {
@@ -291,18 +291,18 @@ $hamburger-bar-spacing: 0.8rem;
   &.open {
     height: 100vh;
 
-    .primary-nav__wordmark.hidden svg {
+    .primary-nav-ns__wordmark.hidden img {
       transform: translateY(0%);
     }
   }
 }
 
-body.primary-nav-open {
+body.primary-nav-ns-open {
   height: 100vh;
   overflow: hidden;
   padding-top: 8rem;
 
-  .primary-nav {
+  .primary-nav-ns {
     position: fixed;
   }
 }
