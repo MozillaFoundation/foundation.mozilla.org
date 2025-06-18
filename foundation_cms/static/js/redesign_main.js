@@ -5,6 +5,7 @@ import injectNewsletterSignups from "./components/newsletter-signup/newsletter_s
 
 let foundationSiteURL = window.location.origin;
 import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
+import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 
 $(document).foundation();
 
@@ -16,3 +17,4 @@ initImpactNumberStatAnimationsOnScroll();
 
 injectNewsletterSignups(foundationSiteURL);
 initPortraitCardSetCarousels();
+initSpotlightCardCarousels();
