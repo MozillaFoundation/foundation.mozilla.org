@@ -1,14 +1,67 @@
-<nav role="navigation" class="primary-nav">
+{% load static %}
+<nav role="navigation" class="primary-nav-ns">
   <div class="grid-container">
-    <div class="grid-x grid-padding-x">
-      <div class="cell large-12">
-        <ul class="menu">
-          <li><a href="#">Nav Item 1</a></li>
-          <li><a href="#">Nav Item 2</a></li>
-          <li><a href="#">Nav Item 3</a></li>
-          <li><a href="#">Nav Item 4</a></li>
-        </ul>
+    <div class="primary-nav-ns__grid hidden-wordmark">
+
+      <!-- Hamburguer Menu -->
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__hamburger">
+        <button class="hamburger hamburger--collapse" type="button" aria-label="Toggle navigation" aria-controls="primary-nav-ns-menu">
+          <div class="inner">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </button>
       </div>
+
+      <!-- Wordmark -->
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__wordmark hidden">
+
+        <a href="#" aria-label="Mozilla Foundation homepage">
+
+          <img data-name="logo" src="{% static 'foundation_cms/_images/primary-nav-wordmark-logo.svg' %}" alt="Mozilla Foundation Logo" width="229" height="48" />
+          <img data-name="symbol" src="{% static 'foundation_cms/_images/primary-nav-wordmark-symbol.svg' %}" alt="Mozilla Foundation Symbol" width="29" height="28" />
+
+        </a>
+
+      </div>
+
+      <!-- Menu, accordion for mobile, dropdown for desktop -->
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
+        <div class="primary-nav-ns__menu">
+
+          <div class="primary-nav-ns__menu-item">
+            <a href="#" class="nav-link">Meet Mozilla</a>
+          </div>
+
+          <div class="primary-nav-ns__menu-item">
+            <a href="#" class="nav-link">Mobilize Ideas</a>
+
+            <div class="primary-nav-ns__dropdown">
+              <a href="#" class="nav-link">Education</a>
+              <a href="#" class="nav-link">Data</a>
+              <a href="#" class="nav-link">Community</a>
+            </div>
+          </div>
+          <div class="primary-nav-ns__menu-item">
+            <a href="#" class="nav-link">Imagine with Us</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Donate Buton -->
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
+        <a href="#" class="button button--donate">
+          <span>Donate</span>
+
+          <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.8 7.25C15.57 6.48 16 5.45 16 4.35C16.0008 3.81136 15.8953 3.27786 15.6895 2.78007C15.4837 2.28228 15.1818 1.82998 14.8009 1.4491C14.42 1.06823 13.9677 0.766254 13.4699 0.560489C12.9721 0.354725 12.4386 0.249214 11.9 0.250004C10.8 0.250004 9.77998 0.680004 8.99998 1.45L7.98998 2.46L6.97998 1.45C6.20998 0.680004 5.17998 0.250004 4.07998 0.250004C3.54134 0.249214 3.00784 0.354725 2.51005 0.560489C2.01226 0.766254 1.55996 1.06823 1.17908 1.4491C0.798207 1.82998 0.496235 2.28228 0.29047 2.78007C0.0847058 3.27786 -0.0208051 3.81136 -0.0200151 4.35C-0.0200151 5.45 0.409985 6.47 1.17999 7.25L7.97998 14.05L14.78 7.25H14.8ZM1.49998 4.35C1.49998 3.65 1.76998 3 2.25998 2.52C2.74998 2.03 3.39999 1.76 4.09999 1.76C4.79998 1.76 5.43998 2.03 5.93998 2.52L8.00998 4.59L10.08 2.52C11.06 1.54 12.77 1.54 13.75 2.52C13.991 2.76097 14.1821 3.04705 14.3126 3.3619C14.443 3.67675 14.5101 4.01421 14.5101 4.355C14.5101 4.6958 14.443 5.03326 14.3126 5.34811C14.1821 5.66296 13.991 5.94903 13.75 6.19L8.00998 11.93L2.25998 6.19C1.76998 5.7 1.49998 5.05 1.49998 4.35Z" fill="white"/>
+          </svg>
+
+        </a>
+      </div>
+
     </div>
   </div>
 </nav>
