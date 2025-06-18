@@ -1,56 +1,217 @@
-$digit-height: 2em;
+@use "sass:map";
 
-.impact-stat {
-  &__content {
+.impact-number-block {
+  // ===================================
+  // Variables
+  // ===================================
+  $stat-colors: (
+    1: (
+      "background-color": color(orange, "400"),
+      "shape-color": color(blue, "200"),
+    ),
+    2: (
+      "background-color": color(yellow, "200"),
+      "shape-color": color(green, "200"),
+    ),
+    3: (
+      "background-color": color(blue, "600"),
+      "shape-color": color(orange, "200"),
+    ),
+  );
+  $digit-height: (
+    small: get-text-property($display-text-styles, "2", "line-height", "small"),
+    large: get-text-property($display-text-styles, "1", "line-height", "large"),
+  );
+
+  // ===================================
+  // Base Styling
+  // ===================================
+
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(large up) {
+    flex-direction: row;
+  }
+
+  .impact-stat {
+    flex: 1;
     display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+    justify-content: center;
 
-  &__number {
-    display: flex;
-  }
+    &__content {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
 
-  &__description {
-    font-size: 11px;
-  }
-
-  &__digit-window {
-    font-size: $digit-height;
-    line-height: $digit-height;
-    height: $digit-height;
-    display: inline-block;
-
-    &--animated {
-      overflow: hidden;
-    }
-  }
-
-  &__digit {
-    word-break: break-all;
-    display: block;
-    width: min-content;
-
-    &::before {
-      content: attr(data-fake);
+      @include breakpoint(large up) {
+        flex-direction: column;
+      }
     }
 
-    @for $i from 1 through 10 {
-      &--#{$i} {
-        animation: counting 0.4s steps(10) forwards;
-        animation-iteration-count: #{$i * 2};
-        animation-play-state: paused;
+    &__number {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 85% auto;
 
-        &.animate {
-          animation-play-state: running;
+      @include breakpoint(large up) {
+        flex: unset;
+      }
+    }
+
+    &__details {
+      flex: 1;
+      padding: rem-calc(8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      @include breakpoint(large up) {
+        flex: unset;
+        padding: rem-calc(24);
+        justify-content: normal;
+      }
+    }
+
+    &__heading {
+      margin: 0;
+
+      @include apply-text-style(
+        $header-styles,
+        "h6",
+        "small",
+        $header-font-family
+      );
+
+      @include breakpoint(large up) {
+        @include apply-text-style(
+          $header-styles,
+          "h5",
+          "large",
+          $header-font-family
+        );
+      }
+    }
+
+    &__description {
+      margin-top: rem-calc(4);
+
+      @include apply-text-style($body-text-styles, "xsmall", "small");
+
+      @include breakpoint(large up) {
+        margin-top: 1rem;
+
+        @include apply-text-style($body-text-styles, "large", "large");
+      }
+    }
+
+    &__digit-window {
+      height: #{map.get($digit-height, small)}em;
+      display: inline-block;
+
+      @include apply-text-style(
+        $display-text-styles,
+        "2",
+        "small",
+        $display-text-font-family
+      );
+
+      @include breakpoint(large up) {
+        height: #{map.get($digit-height, large)}em;
+
+        @include apply-text-style(
+          $display-text-styles,
+          "1",
+          "large",
+          $display-text-font-family
+        );
+      }
+
+      &--animated {
+        overflow: hidden;
+      }
+    }
+
+    &__digit {
+      word-break: break-all;
+      display: block;
+      width: min-content;
+      text-align: center;
+
+      @include apply-text-style(
+        $display-text-styles,
+        "2",
+        "small",
+        $display-text-font-family
+      );
+
+      @include breakpoint(large up) {
+        @include apply-text-style(
+          $display-text-styles,
+          "1",
+          "large",
+          $display-text-font-family
+        );
+      }
+
+      &::before {
+        content: attr(data-fake);
+      }
+
+      @for $i from 1 through 10 {
+        &--#{$i} {
+          animation: counting-small 0.4s steps(10) forwards;
+          animation-iteration-count: #{$i * 2};
+          animation-play-state: paused;
+
+          @include breakpoint(large up) {
+            animation-name: counting-large; // Use desktop animation on large screens
+          }
+
+          &.animate {
+            animation-play-state: running;
+          }
         }
       }
     }
   }
-}
 
-@keyframes counting {
-  100% {
-    transform: translate3d(0, -#{$digit-height * 10}, 0);
+  .impact-stat:nth-child(3n + 1) {
+    .impact-stat__number {
+      background-color: map.get(map.get($stat-colors, 1), "background-color");
+      background-image: url("../_images/shapes/blue/blue200-1.svg");
+    }
+  }
+
+  .impact-stat:nth-child(3n + 2) {
+    .impact-stat__number {
+      background-color: map.get(map.get($stat-colors, 2), "background-color");
+      background-image: url("../_images/shapes/green/green200-1.svg");
+    }
+  }
+
+  .impact-stat:nth-child(3n + 3) {
+    .impact-stat__number {
+      background-color: map.get(map.get($stat-colors, 3), "background-color");
+      background-image: url("../_images/shapes/orange/orange200-1.svg");
+    }
+  }
+
+  @keyframes counting-small {
+    100% {
+      transform: translate3d(0, -#{map.get($digit-height, small) * 10}em, 0);
+    }
+  }
+
+  @keyframes counting-large {
+    100% {
+      transform: translate3d(0, -#{map.get($digit-height, large) * 10}em, 0);
+    }
   }
 }
