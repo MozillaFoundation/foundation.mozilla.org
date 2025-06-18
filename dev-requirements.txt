@@ -26,7 +26,7 @@ django==4.2.20
     #   django-debug-toolbar
 django-debug-toolbar==5.0.1
     # via -r dev-requirements.in
-djhtml==3.0.7
+djhtml==3.0.8
     # via -r dev-requirements.in
 djlint==1.19.16
     # via -r dev-requirements.in
@@ -127,3 +127,5 @@ typing-extensions==4.4.0
     # via
     #   -c requirements.txt
     #   mypy
+wheel==0.45.1
+    # via -r dev-requirements.in
