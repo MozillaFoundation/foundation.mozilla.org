@@ -1,5 +1,10 @@
 .kinetic-type-brand-line {
-  $line-height: get-text-property($display-text-styles, "3", "line-height", "small");
+  $line-height: get-text-property(
+    $display-text-styles,
+    "3",
+    "line-height",
+    "small"
+  );
 
   --line-height-multiplier: #{$line-height};
 
