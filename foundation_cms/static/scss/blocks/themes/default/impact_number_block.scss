@@ -81,13 +81,33 @@
 
     &__heading {
       margin: 0;
+
+      @include apply-text-style(
+        $header-styles,
+        "h6",
+        "small",
+        $header-font-family
+      );
+
+      @include breakpoint(large up) {
+        @include apply-text-style(
+          $header-styles,
+          "h5",
+          "large",
+          $header-font-family
+        );
+      }
     }
 
     &__description {
       margin-top: rem-calc(4);
 
+      @include apply-text-style($body-text-styles, "xsmall", "small");
+
       @include breakpoint(large up) {
         margin-top: 1rem;
+
+        @include apply-text-style($body-text-styles, "large", "large");
       }
     }
 
