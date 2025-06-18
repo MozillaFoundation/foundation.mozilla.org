@@ -34,11 +34,6 @@
     large: 4rem,
   );
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
-  $play-button-size: 4rem;
-  $play-button-arrow: (
-    width: 30px,
-    height: 18px,
-  );
   $square-image-corner-radius: (
     small: 1.75rem,
     large: 4.25rem,
@@ -161,6 +156,14 @@
   &__description {
     margin-top: 0;
     margin-bottom: 0;
+
+    @include breakpoint(large up) {
+      @include apply-text-style(
+        $body-text-styles,
+        "large",
+        "large"
+      );
+    }
   }
 
   // ===================================
@@ -419,10 +422,11 @@
 
         .hero-accordion__image-box {
           flex-direction: row;
-          justify-content: end;
+          justify-content: space-between;
 
           @include breakpoint(large up) {
             flex-direction: column;
+            justify-content: end;
           }
 
           .hero-accordion__image {
