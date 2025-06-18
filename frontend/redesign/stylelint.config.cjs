@@ -17,7 +17,6 @@ module.exports = {
   ],
   rules: {
     "block-no-empty": true,
-    // Allow kebab-case or BEM (block__element--modifier) class names:
     "selector-class-pattern": [
       // 1) block: lowercase + optional -words
       // 2) optional __element: lowercase + optional -words
