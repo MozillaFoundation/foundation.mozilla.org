@@ -1,0 +1,28 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<article class="spotlight-card__wrapper spotlight-card__wrapper__{{ position }}">
+  {% if card.image %}
+    <figure class="spotlight-card__image">
+      {% image card.image fill-600x600 %}
+    </figure>
+  {% endif %}
+
+  <div class="spotlight-card__content">
+    {% if card.label %}
+      <span class="spotlight-card__label">{{ card.label }}</span>
+    {% endif %}
+    {% if card.headline %}
+      <h3 class="spotlight-card__headline">{{ card.headline }}</h3>
+    {% endif %}
+    {% if card.text %}
+      <p class="spotlight-card__text">{{ card.text }}</p>
+    {% endif %}
+    {% if card.cta_link %}
+      <div class="cell">
+        <div class="portrait-card-set__cta">
+          {% include "patterns/components/link_button_block.html" with value=card.cta_link.0 %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</article>

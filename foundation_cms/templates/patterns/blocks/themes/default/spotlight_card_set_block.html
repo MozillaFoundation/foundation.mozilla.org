@@ -1,0 +1,53 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="spotlight-set">
+
+  {% if self.headline %}
+    <h2 class="spotlight-set__headline">{{ self.headline }}</h2>
+  {% endif %}
+
+  <!-- 📱 Mobile layout: stacked cards, no rotation -->
+  <div class="spotlight-set__mobile grid-x grid-margin-x show-for-small-only">
+    {% for card in self.cards %}
+      <div class="cell small-4 spotlight-card spotlight-card__mobile">
+        {% include "./spotlight_card.html" with card=card position="mobile" %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- 💻 Desktop carousel layout -->
+  <div class="spotlight-set__carousel hide-for-small-only js-spotlight-carousel" data-carousel>
+    {% for card in self.cards %}
+      <div class="spotlight-set__slide {% if forloop.first %}is-active{% endif %}" data-carousel-slide data-index="{{ forloop.counter0 }}">
+        <div class="grid-x grid-margin-x spotlight-set__grid">
+
+          <!-- Primary card -->
+          <div class="cell medium-8 spotlight-card spotlight-card__primary">
+            {% include "./spotlight_card.html" with card=card position="primary" %}
+          </div>
+
+          <!-- Teasers: we'll let JS determine which teaser cards to show based on currentIndex -->
+          <div class="cell medium-4">
+            <div class="grid-y grid-margin-y spotlight-set__teasers" data-teasers>
+              <!-- JS replaces contents dynamically -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    {% endfor %}
+    <div class="spotlight-set__counter">
+      <button class="button small spotlight-set__prev">Prev</button>
+      <span class="spotlight-set__counter-display">1 / {{ self.cards|length }}</span>
+      <button class="button small spotlight-set__next">Next</button>
+    </div>
+  </div>
+
+  {% if self.cta_link %}
+    <div class="spotlight-set__cta text-center">
+      {% include "./link_button_block.html" with value=self.cta_link only %}
+    </div>
+  {% endif %}
+
+</div>
