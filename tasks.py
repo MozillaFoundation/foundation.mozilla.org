@@ -104,8 +104,11 @@ def initialize_database(ctx, slow=False):
     print("* Applying database migrations.")
     migrate(ctx, stop=slow)
 
-    print("* Creating fake data")
-    manage(ctx, "load_fake_data", stop=slow)
+    # print("* Creating fake data")
+    # manage(ctx, "load_fake_data", stop=slow)
+
+    print("* Creating redesign data")
+    manage(ctx, "load_redesign_data", stop=slow)
 
     print("* Creating fake legacy data")
     manage(ctx, "legacy_load_fake_data", stop=slow)
