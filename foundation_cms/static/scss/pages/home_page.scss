@@ -1,5 +1,11 @@
-@import "../../scss/settings/customized-settings";
-@import "../../../../node_modules/foundation-sites/scss/foundation";
+@import "../../scss/foundation-framework-styles";
+@import "../../scss/fonts";
+@import "../../scss/colors";
+@import "../../scss/type";
+
+// Homepage Specific Blocks
+@import "../blocks/hero_accordion";
+
+// Homepage Specific Components
 @import "../components/home_page/kinetic_type_wordmark";
 @import "../components/home_page/kinetic_type_brand_line";
-@import "../blocks/hero_accordion";

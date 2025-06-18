@@ -1,5 +1,5 @@
 .kinetic-type-brand-line {
-  $line-height: 1.03;
+  $line-height: get-text-property($display-text-styles, "3", "line-height", "small");
 
   --line-height-multiplier: #{$line-height};
 
@@ -33,7 +33,6 @@
   &__phrase {
     height: calc(1em * var(--line-height-multiplier));
     line-height: calc(1em * var(--line-height-multiplier));
-    font-weight: bold;
   }
 
   @media (prefers-reduced-motion: reduce) {
