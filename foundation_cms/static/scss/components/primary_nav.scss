@@ -1,23 +1,18 @@
+@import "../colors";
+
 $hamburger-bar-spacing: 0.8rem;
 
 @import "../../../../node_modules/delicious-hamburgers/scss/base";
 @import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
 
 .primary-nav-ns {
-  // @todo: use variables from settings file when available
-  $background-color: #fff;
-  $text-primary: #141414;
-  $text-primary-on-brand: #fff;
-  $color-brand-orange-100: #ff9e5f;
-  $color-brand-orange-600: #d13109;
-
   position: sticky;
   width: 100%;
   margin-bottom: 3rem;
   max-width: 100vw;
   top: 0;
   z-index: 10;
-  background-color: $background-color;
+  background-color: $white;
   height: 5rem;
   overflow: hidden;
   will-change: height;
@@ -137,8 +132,8 @@ $hamburger-bar-spacing: 0.8rem;
       position: absolute;
       top: calc(100% + 1rem);
       left: -2rem;
-      background: $background-color;
-      border: 1px solid $color-brand-orange-100;
+      background: $white;
+      border: 1px solid color(orange, "100");
       border-radius: 1rem;
       padding: 1rem 0;
       box-shadow: 0 4px 4px rgba(0 0 0 / 10%);
@@ -147,7 +142,7 @@ $hamburger-bar-spacing: 0.8rem;
     & > a {
       display: block;
       margin: 0.5rem 2rem;
-      color: $text-primary;
+      color: $black;
       font-family: "Mozilla Headline", sans-serif;
       font-size: 1.2rem;
 
@@ -222,7 +217,7 @@ $hamburger-bar-spacing: 0.8rem;
         flex: 1;
         width: 100%;
         font-family: "Mozilla Headline", sans-serif;
-        color: $text-primary;
+        color: $black;
         font-size: 1.75rem;
         font-weight: 400;
         padding: 1rem 0;
@@ -238,14 +233,14 @@ $hamburger-bar-spacing: 0.8rem;
         }
 
         &:hover {
-          color: $color-brand-orange-600;
+          color: color(orange, "600");
         }
       }
 
       &.open {
         > a {
           @include breakpoint(large up) {
-            color: $color-brand-orange-600;
+            color: color(orange, "600");
           }
         }
 
@@ -270,8 +265,8 @@ $hamburger-bar-spacing: 0.8rem;
     gap: 1rem;
     cursor: pointer;
     align-items: center;
-    color: $text-primary-on-brand;
-    background: $text-primary;
+    color: $white;
+    background: $black;
     text-decoration: none;
     padding: 0.9rem 1.5rem;
   }
@@ -279,13 +274,13 @@ $hamburger-bar-spacing: 0.8rem;
   a:focus-visible,
   button:focus-visible,
   [tabindex]:focus-visible {
-    outline: 2px solid $color-brand-orange-100;
+    outline: 2px solid color(orange, "100");
     outline-offset: 2px;
   }
 
   a:not(.button):hover,
   a:not(.button):focus-visible {
-    color: $color-brand-orange-600;
+    color: color(orange, "600");
   }
 
   &.open {
