@@ -30,7 +30,7 @@
     large: 2rem,
   );
   $details-subsection-gap: (
-    small: 0,
+    small: 0.5rem,
     large: 4rem,
   );
   $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
@@ -115,11 +115,6 @@
   overflow: hidden;
   margin: 3rem 0;
 
-  @include breakpoint(medium up) {
-    flex-direction: row;
-    height: map.get($panel-height, medium);
-  }
-
   @include breakpoint(large up) {
     flex-direction: row;
     height: map.get($panel-height, large);
@@ -133,8 +128,36 @@
   // Text Elements
   // ===================================
 
-  &__label,
-  &__heading,
+  &__heading {
+    margin-top: 0;
+    margin-bottom: rem-calc(8);
+
+    @include breakpoint(large up) {
+      margin-bottom: rem-calc(21);
+    }
+  }
+
+  &__label {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include apply-text-style(
+      $header-styles,
+      "h6",
+      "small",
+      $header-font-family
+    );
+
+    @include breakpoint(large up) {
+      @include apply-text-style(
+        $header-styles,
+        "h5",
+        "large",
+        $header-font-family
+      );
+    }
+  }
+
   &__description {
     margin-top: 0;
     margin-bottom: 0;
@@ -501,6 +524,17 @@
     // ===================================
 
     &--video_panel.active {
+      .hero-accordion__label {
+        margin-bottom: rem-calc(8);
+
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "small",
+          $header-font-family
+        );
+      }
+
       :not(.hero-accordion__details) .hero-accordion__label {
         display: none;
       }

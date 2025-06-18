@@ -186,19 +186,34 @@ $quote-text-styles: (
   }
 }
 
-// Applies only specific breakpoint styles for font-family, font-size, line-height, and font-weight
 @mixin apply-text-style(
   $map-name,
   $key,
   $breakpoint: "small",
   $font-family: $body-font-family
 ) {
+  // Check if breakpoint exists
+  @if not map.has-key($map-name, $breakpoint) {
+    @error "Breakpoint '#{$breakpoint}' not found. Available breakpoints: #{map.keys($map-name)}";
+  }
+
+  // Check if key exists for this breakpoint
+  $breakpoint-styles: map.get($map-name, $breakpoint);
+  @if not map.has-key($breakpoint-styles, $key) {
+    @error "Key '#{$key}' not found at '#{$breakpoint}' breakpoint. Available keys: #{map.keys($breakpoint-styles)}";
+  }
+
+  // Get the styles
   $styles: get-text-styles($map-name, $key, $breakpoint);
 
-  font-family: $font-family;
-
-  @each $property, $value in $styles {
-    #{$property}: $value;
+  // Additional safety check
+  @if not $styles {
+    @warn "No styles found for #{$key} at #{$breakpoint} breakpoint";
+  } @else {
+    font-family: $font-family;
+    @each $property, $value in $styles {
+      #{$property}: $value;
+    }
   }
 }
 
