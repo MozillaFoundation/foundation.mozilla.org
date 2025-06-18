@@ -20,7 +20,7 @@ coverage[toml]==7.4.1
     # via pytest-cov
 cssbeautifier==1.14.7
     # via djlint
-django==4.2.20
+django==4.2.22
     # via
     #   -c requirements.txt
     #   django-debug-toolbar
@@ -127,3 +127,5 @@ typing-extensions==4.4.0
     # via
     #   -c requirements.txt
     #   mypy
+wheel==0.45.1
+    # via -r dev-requirements.in
