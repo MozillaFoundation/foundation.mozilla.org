@@ -1,0 +1,19 @@
+@import "../scss/settings/customized-settings";
+@import "../../../node_modules/foundation-sites/scss/foundation";
+@import "../../../node_modules/foundation-sites/scss/components/visibility";
+@import "../scss/fonts";
+@import "../scss/components/primary_nav";
+@import "../scss/components/footer";
+
+// Foundation Modules
+@include foundation-global-styles;
+@include foundation-xy-grid-classes;
+@include foundation-visibility-classes;
+
+/* Base font styles */
+.site-footer-ns,
+.primary-nav {
+  font-family: $body-font-family;
+  font-size: 1rem;
+  line-height: 1.5;
+}

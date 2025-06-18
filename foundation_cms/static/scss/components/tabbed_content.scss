@@ -1,0 +1,91 @@
+// Tabbed content - simplified
+.tabs-container {
+  width: 100%;
+
+  // Tab navigation
+  .tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    background-color: #f0f0f0;
+
+    .tabs-title {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      padding: 0.5rem;
+
+      &.is-active {
+        font-weight: bold;
+        background-color: #ddd;
+      }
+    }
+  }
+
+  // Tab panels
+  .tabs-panel {
+    display: none;
+    width: 100%;
+
+    &.is-active {
+      display: block;
+    }
+  }
+
+  // Content layout
+  .tab-content-container {
+    display: flex;
+    width: 90%;
+    box-sizing: border-box;
+    margin: 0 auto; /* Center the container horizontally */
+
+    // Text container
+    .tab-content-text {
+      flex: 0 0 30%;
+      box-sizing: border-box;
+      order: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+      align-items: left;
+      padding: 2rem;
+
+      // When no image is present, text takes full width
+      &:only-child {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+      }
+
+      // Center text content
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      div {
+        text-align: left;
+        max-width: 100%;
+      }
+    }
+
+    // Image container
+    .tab-image-block {
+      flex: 0 0 70%;
+      box-sizing: border-box;
+      order: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+}

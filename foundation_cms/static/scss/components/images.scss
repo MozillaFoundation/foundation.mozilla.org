@@ -1,0 +1,28 @@
+// Image block styles
+.image-block {
+  margin-bottom: 2rem;
+}
+
+.image-block-container {
+  margin-bottom: 1rem;
+}
+
+.image-block-portrait .image-block-image {
+  width: 60%;
+  height: 400px;
+  object-fit: cover;
+  margin: 0 auto;
+  display: block;
+}
+
+.image-block-landscape .image-block-image {
+  width: 80%;
+  height: 300px;
+  object-fit: cover;
+  margin: 0 auto;
+  display: block;
+}
+
+.image-block-title {
+  text-align: center;
+}

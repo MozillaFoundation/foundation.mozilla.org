@@ -1,0 +1,28 @@
+{
+  "headline": "Portrait Card Set",
+  "cards": [
+    {
+      "label": "",
+      "headline": "We invest in @TODO expand maxchars",
+      "image": "portrait_card__1"
+    },
+    {
+      "label": "",
+      "headline": "Better tech edu @TODO expand maxchar",
+      "image": "portrait_card__2"
+    },
+    {
+      "label": "",
+      "headline": "Powered by our people and purpose",
+      "image": "portrait_card__3"
+    }
+  ],
+  "cta_link": [
+    {
+      "link_to": "external_url",
+      "external_url": "https://example.com/team",
+      "label": "@TODO, put optional link on card itself",
+      "new_window": true
+    }
+  ]
+}

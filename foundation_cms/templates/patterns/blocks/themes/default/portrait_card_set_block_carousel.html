@@ -1,0 +1,23 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="portrait-card-set grid-container js-portrait-card-carousel">
+  {% if self.headline %}
+    <div class="grid-x">
+      <div class="cell">
+        <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="portrait-card-carousel">
+    <div class="carousel-track js-carousel-track">
+      {% for card in self.cards %}
+        <div class="carousel-card" tabindex="0">
+          {% include "patterns/components/portrait_card.html" %}
+        </div>
+      {% endfor %}
+    </div>
+    {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
+
+    {% include "patterns/components/carousel_controls.html" %}
+  </div>
+</div>

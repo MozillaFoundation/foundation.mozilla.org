@@ -1,0 +1,80 @@
+<div class="newsletter-signup" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
+
+  <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
+    Something went wrong and your signup wasn't completed. Please try again later.
+  </div>
+
+  <form class="newsletter-signup__form" novalidate>
+    <p class="newsletter-signup__cta">{{ newsletter_signup.cta_text }}</p>
+    <div class="grid-x grid-margin-x grid-margin-y">
+      <div class="cell medium-12 large-8">
+        <div class="grid-y grid-margin-y">
+
+          <div class="cell shrink">
+            <input
+              class="newsletter-signup__input"
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            >
+            <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden email-error-message">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <div class="cell shrink newsletter-signup__field newsletter-signup__field--hidden">
+            <select class="newsletter-signup__input" name="country" required>
+                <!-- Country options rendered in through newsletter-signup.js -->
+              <option value="" disabled selected>Your country</option>
+            </select>
+          </div>
+
+          <div class="cell shrink newsletter-signup__field newsletter-signup__field--hidden">
+            <select class="newsletter-signup__input" name="language" required>
+                <!-- Language options rendered in through newsletter-signup.js -->
+              <option value="en">English</option>
+            </select>
+          </div>
+
+          <div class="cell newsletter-signup__field newsletter-signup__field--hidden">
+            <label>
+              <input type="checkbox" name="privacy">
+              I'm okay with Mozilla handling my info as explained in this
+              <a href="https://www.mozilla.org/privacy/websites/" target="_blank">Privacy Notice</a>.
+            </label>
+            <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden privacy-error-message">
+              Please check this box if you want to proceed.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cell medium-12 large-4">
+        <button type="submit" class="newsletter-signup__button button">
+          {{ newsletter_signup.button_text }}
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
+    <div>
+      <h4 class="tw-h5-heading">Thanks!</h4>
+      <div>
+        <p>
+          If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.
+          <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.
+        </p>
+        <p>
+          If you have already confirmed your opt-in to receive Mozilla-related emails, you can now
+          <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
+            manage your subscriptions
+          </a>
+          and update your email preferences.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

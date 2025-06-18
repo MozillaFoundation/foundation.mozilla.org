@@ -1,0 +1,56 @@
+$digit-height: 2em;
+
+.impact-stat {
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__number {
+    display: flex;
+  }
+
+  &__description {
+    font-size: 11px;
+  }
+
+  &__digit-window {
+    font-size: $digit-height;
+    line-height: $digit-height;
+    height: $digit-height;
+    display: inline-block;
+
+    &--animated {
+      overflow: hidden;
+    }
+  }
+
+  &__digit {
+    word-break: break-all;
+    display: block;
+    width: min-content;
+
+    &::before {
+      content: attr(data-fake);
+    }
+
+    @for $i from 1 through 10 {
+      &--#{$i} {
+        animation: counting 0.4s steps(10) forwards;
+        animation-iteration-count: #{$i * 2};
+        animation-play-state: paused;
+
+        &.animate {
+          animation-play-state: running;
+        }
+      }
+    }
+  }
+}
+
+@keyframes counting {
+  100% {
+    transform: translate3d(0, -#{$digit-height * 10}, 0);
+  }
+}

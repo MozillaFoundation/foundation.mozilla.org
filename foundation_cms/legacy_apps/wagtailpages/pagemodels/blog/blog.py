@@ -250,6 +250,13 @@ class BlogPage(BasePage):
 
     subpage_types: list = []
 
+    page_ptr = models.OneToOneField(
+        Page,
+        on_delete=models.CASCADE,
+        parent_link=True,
+        related_name="legacy_blogpage",  # Unique related_name to avoid name clash
+    )
+
     def get_context(self, request):
         context = super().get_context(request)
         context["show_comments"] = settings.USE_COMMENTO and self.feature_comments

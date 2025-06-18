@@ -1,0 +1,10 @@
+// Foundation Framework
+
+@import "../scss/settings/customized-settings";
+@import "../../../node_modules/foundation-sites/scss/foundation";
+@import "../../../node_modules/foundation-sites/scss/components/visibility";
+
+// Modules
+@include foundation-global-styles;
+@include foundation-xy-grid-classes;
+@include foundation-visibility-classes;

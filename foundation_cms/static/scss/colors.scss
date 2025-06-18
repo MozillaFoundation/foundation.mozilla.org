@@ -1,0 +1,48 @@
+$mofo-colors: (
+  neutral: (
+    "100": #f7f7f7,
+    "200": #eee,
+    "300": #b8b8b8,
+    "400": #767676,
+    "500": #4c4c4c,
+    "600": #161616,
+  ),
+  orange: (
+    "100": #ff9e5f,
+    "200": #f88539,
+    "300": #f06c13,
+    "400": #ed550a,
+    "500": #ea3e00,
+    "600": #d13109,
+  ),
+  yellow: (
+    "100": #ffff6c,
+    "200": #f7ec36,
+    "300": #eed800,
+    "400": #eec700,
+    "500": #eeb500,
+    "600": #ee9d00,
+  ),
+  green: (
+    "100": #86ff81,
+    "200": #53e17c,
+    "300": #20c376,
+    "400": #10b35a,
+    "500": #00a43d,
+    "600": #00943d,
+  ),
+  blue: (
+    "100": #7dedf6,
+    "200": #50c9f0,
+    "300": #23a5e9,
+    "400": #1288df,
+    "500": #006bd4,
+    "600": #0057d4,
+  ),
+);
+
+// Example usage:
+//   background-color: color(orange, "500");
+@function color($group, $shade) {
+  @return map-get(map-get($mofo-colors, $group), $shade);
+}
