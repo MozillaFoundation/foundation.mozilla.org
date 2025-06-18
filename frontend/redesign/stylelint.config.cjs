@@ -17,7 +17,6 @@ module.exports = {
   ],
   rules: {
     "block-no-empty": true,
-    // Allow kebab-case or BEM (block__element--modifier) class names:
     "selector-class-pattern": [
       // 1) block: lowercase + optional -words
       // 2) optional __element: lowercase + optional -words
@@ -30,12 +29,7 @@ module.exports = {
     ],
     // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
-    "selector-class-pattern": [
-      "^[a-z0-9]+(?:-[a-z0-9]+)*(?:__(?:[a-z0-9]+(?:-[a-z0-9]+)*))?(?:--(?:[a-z0-9]+(?:-[a-z0-9]+)*))?$",
-      {
-        message:
-          "Expected class selector to be kebab-case or BEM (block__element--modifier)",
-      },
-    ],
+    // Disable this rule to avoid conflict with Prettier line breaks
+    "scss/dollar-variable-colon-space-after": null,
   },
 };
