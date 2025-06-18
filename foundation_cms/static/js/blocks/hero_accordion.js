@@ -224,29 +224,30 @@ function initVideoOverlays() {
 
       // Hide the bottom text-wrapper in the same panel
       const panel = wrapper.closest(SELECTORS.panel);
-      if (panel) {
+
+      if (panel.classList.contains(CLASS_NAMES.active)) {
         const textWrapper = panel.querySelector(SELECTORS.videoTextWrapper);
         if (textWrapper) {
           textWrapper.classList.add(CLASS_NAMES.hidden);
         }
+
+        // Hide the overlay (instead of removing it)
+        overlay.classList.add(CLASS_NAMES.hidden);
+
+        // Create the <iframe> to fill the wrapper
+        const iframe = document.createElement("iframe");
+        iframe.setAttribute(
+          "src",
+          "https://player.vimeo.com/video/" + videoId + "?autoplay=1&muted=1",
+        );
+        iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("title", "Embedded Vimeo Video");
+
+        wrapper.appendChild(iframe);
+
+        // [TODO/FIXME] Trigger a Sentry call if Vimeo iframe fails to load
       }
-
-      // Hide the overlay (instead of removing it)
-      overlay.classList.add(CLASS_NAMES.hidden);
-
-      // Create the <iframe> to fill the wrapper
-      const iframe = document.createElement("iframe");
-      iframe.setAttribute(
-        "src",
-        "https://player.vimeo.com/video/" + videoId + "?autoplay=1&muted=1",
-      );
-      iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
-      iframe.setAttribute("allowfullscreen", "");
-      iframe.setAttribute("title", "Embedded Vimeo Video");
-
-      wrapper.appendChild(iframe);
-
-      // [TODO/FIXME] Trigger a Sentry call if Vimeo iframe fails to load
     });
   });
 }
