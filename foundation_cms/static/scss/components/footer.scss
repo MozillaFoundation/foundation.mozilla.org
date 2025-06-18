@@ -98,15 +98,9 @@
     input[type="email"] {
       padding: $input-padding;
       border: 1px solid black;
-      background-color: transparent;
-      color: $text-primary;
       font-size: 1rem;
       display: block;
       width: 100%;
-
-      &::placeholder {
-        color: $text-primary;
-      }
     }
 
     button {
@@ -124,7 +118,6 @@
       font-weight: 600;
 
       @include breakpoint(large up) {
-        width: 10em;
         justify-content: center;
       }
     }
