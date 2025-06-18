@@ -17,7 +17,6 @@ module.exports = {
   ],
   rules: {
     "block-no-empty": true,
-    // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
     "selector-class-pattern": [
       "^[a-z0-9]+(?:-[a-z0-9]+)*(?:__(?:[a-z0-9]+(?:-[a-z0-9]+)*))?(?:--(?:[a-z0-9]+(?:-[a-z0-9]+)*))?$",
