@@ -164,18 +164,6 @@ $quote-text-styles: (
   @return map.get($styles, $property);
 }
 
-// Get all breakpoint styles for an element
-// @param {Map} $map-name - The style map (e.g., $body-text-styles)
-// @param {String} $key - The style key (e.g., "regular")
-// @return {Map} A map containing both "small" and "large" breakpoint styles
-// Example: $all-body-regular: get-all-breakpoint-styles($body-text-styles, "regular");
-@function get-all-breakpoint-styles($map-name, $key) {
-  @return (
-    "small": get-text-styles($map-name, $key, "small"),
-    "large": get-text-styles($map-name, $key, "large")
-  );
-}
-
 // ===================================
 // Mixins
 // ===================================
@@ -195,6 +183,22 @@ $quote-text-styles: (
     @each $property, $value in $large-styles {
       #{$property}: $value;
     }
+  }
+}
+
+// Applies only specific breakpoint styles for font-family, font-size, line-height, and font-weight
+@mixin apply-text-style(
+  $map-name,
+  $key,
+  $breakpoint: "small",
+  $font-family: $body-font-family
+) {
+  $styles: get-text-styles($map-name, $key, $breakpoint);
+
+  font-family: $font-family;
+
+  @each $property, $value in $styles {
+    #{$property}: $value;
   }
 }
 

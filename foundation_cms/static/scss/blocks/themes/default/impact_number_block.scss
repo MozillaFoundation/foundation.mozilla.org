@@ -18,7 +18,10 @@
       "shape-color": color(orange, "200"),
     ),
   );
-  $digit-height: get-text-property($display-text-styles, "1", "line-height", "small");
+  $digit-height: (
+    small: get-text-property($display-text-styles, "4", "line-height", "small"),
+    large: get-text-property($display-text-styles, "1", "line-height", "large"),
+  );
 
   // ===================================
   // Base Styling
@@ -89,8 +92,26 @@
     }
 
     &__digit-window {
-      height: #{$digit-height}em;
+      height: #{map.get($digit-height, small)}em;
       display: inline-block;
+
+      @include apply-text-style(
+        $display-text-styles,
+        "4",
+        "small",
+        $display-text-font-family
+      );
+
+      @include breakpoint(large up) {
+        height: #{map.get($digit-height, large)}em;
+
+        @include apply-text-style(
+          $display-text-styles,
+          "1",
+          "large",
+          $display-text-font-family
+        );
+      }
 
       &--animated {
         overflow: hidden;
@@ -102,13 +123,24 @@
       display: block;
       width: min-content;
 
-      &::before {
-        content: attr(data-fake);
-        @include mofo-text-style(
+      @include apply-text-style(
+        $display-text-styles,
+        "4",
+        "small",
+        $display-text-font-family
+      );
+
+      @include breakpoint(large up) {
+        @include apply-text-style(
           $display-text-styles,
           "1",
+          "large",
           $display-text-font-family
         );
+      }
+
+      &::before {
+        content: attr(data-fake);
       }
 
       @for $i from 1 through 10 {
@@ -148,7 +180,11 @@
 
   @keyframes counting {
     100% {
-      transform: translate3d(0, -#{$digit-height * 10}em, 0);
+      transform: translate3d(0, -#{map.get($digit-height, small) * 10}em, 0);
+
+      @include breakpoint(large up) {
+        transform: translate3d(0, -#{map.get($digit-height, large) * 10}em, 0);
+      }
     }
   }
 }

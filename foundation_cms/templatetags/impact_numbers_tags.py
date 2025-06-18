@@ -21,7 +21,7 @@ def render_animated_number(value):
             data_fake = random_digits()
             digit_html = f"""
                 <div class="impact-stat__digit-window impact-stat__digit-window--animated" aria-hidden="true">
-                    <div class="impact-stat__digit impact-stat__digit--{ digit_index } display-text-1"
+                    <div class="impact-stat__digit impact-stat__digit--{ digit_index }"
                          data-fake="{data_fake}">
                         {char}
                     </div>
