@@ -1,3 +1,5 @@
+/** Boilerplate spotlight card layout SCSS and open to refactor **/
+
 .spotlight-card {
   &__wrapper {
     background: #fff;
@@ -106,7 +108,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1rem; // More scalable than hardcoded 48% heights
+    gap: 1rem;
 
     .spotlight-card {
       flex: 1;

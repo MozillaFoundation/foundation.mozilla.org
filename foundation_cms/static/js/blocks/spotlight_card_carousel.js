@@ -2,6 +2,7 @@
  * Initializes spotlight card carousels with rotating slides.
  * Dynamically renders teaser cards based on the active primary slide.
  * Navigation via buttons and keyboard only.
+ * Boilerplate and open to refactor.
  */
 
 const SELECTORS = {
@@ -54,7 +55,7 @@ export function initSpotlightCardCarousels() {
         }
     });
 
-    // 🆕 Update the counter text
+    // Update the counter text
     const counterDisplay = carousel.querySelector(".spotlight-set__counter-display");
     if (counterDisplay) {
         counterDisplay.textContent = `${index + 1} / ${total}`;
