@@ -18,7 +18,7 @@
       "shape-color": color(orange, "200"),
     ),
   );
-  $digit-height: 0.95em; // line height of .display-text-1 times 1em
+  $digit-height: get-text-property($display-text-styles, "1", "line-height", "small");
 
   // ===================================
   // Base Styling
@@ -89,9 +89,7 @@
     }
 
     &__digit-window {
-      // font-size: $digit-height;
-      // line-height: $digit-height;
-      height: $digit-height;
+      height: #{$digit-height}em;
       display: inline-block;
 
       &--animated {
@@ -150,7 +148,7 @@
 
   @keyframes counting {
     100% {
-      transform: translate3d(0, -#{$digit-height * 10}, 0);
+      transform: translate3d(0, -#{$digit-height * 10}em, 0);
     }
   }
 }

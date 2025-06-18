@@ -152,6 +152,18 @@ $quote-text-styles: (
   @return map.get(map.get($map-name, $breakpoint), $key);
 }
 
+// Get a specific property value from a text style
+// @param {Map} $map-name - The style map (e.g., $body-text-styles)
+// @param {String} $key - The style key (e.g., "large", "regular")
+// @param {String} $property - The CSS property to retrieve (e.g., "font-size")
+// @param {String} $breakpoint - The breakpoint ("small" or "large"), defaults to "small"
+// @return {*} The property value
+// Example: $desktop-body-large-size: get-text-property($body-text-styles, "large", "font-size", "large");
+@function get-text-property($map-name, $key, $property, $breakpoint: "small") {
+  $styles: get-text-styles($map-name, $key, $breakpoint);
+  @return map.get($styles, $property);
+}
+
 // Get all breakpoint styles for an element
 // @param {Map} $map-name - The style map (e.g., $body-text-styles)
 // @param {String} $key - The style key (e.g., "regular")
