@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
@@ -9,9 +9,14 @@ class GeneralPage(AbstractGeneralPage):
     # Specify the correct template path
     template = "patterns/pages/core/general_page.html"
 
-    hero_headline = models.CharField(
+    hero_title = models.TextField(
+        help_text="Hero Title",
+        blank=True,
+    )
+
+    hero_description = models.CharField(
         max_length=120,
-        help_text="Hero story headline",
+        help_text="Hero Description",
         blank=True,
     )
 
@@ -23,8 +28,20 @@ class GeneralPage(AbstractGeneralPage):
         verbose_name="Hero Image",
     )
 
-    header = models.TextField(
-        blank=True,
+    hero_variant = models.CharField(
+        max_length=50,
+        choices=[
+            ("side-by-side", "Side by Side"),
+            ("top-to-bottom", "Top to Bottom"),
+        ],
+        default="side-by-side",
+        help_text="Select the variant of the hero section",
+    )
+
+    show_hero = models.BooleanField(
+        default=True,
+        verbose_name="Show Hero Section",
+        help_text="Check to display the hero section on this page.",
     )
 
     button_title = models.CharField(
@@ -39,16 +56,24 @@ class GeneralPage(AbstractGeneralPage):
     )
 
     content_panels = AbstractGeneralPage.content_panels + [
-        FieldPanel("hero_headline"),
-        FieldPanel("hero_image"),
-        FieldPanel("header"),
+        MultiFieldPanel(
+            [
+                FieldPanel("show_hero"),
+                FieldPanel("hero_variant"),
+                FieldPanel("hero_title"),
+                FieldPanel("hero_description"),
+                FieldPanel("hero_image"),
+            ],
+            heading="Hero Section",
+            classname="collapsible",
+        ),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
     ]
 
     translatable_fields = [
-        TranslatableField("hero_headline"),
-        TranslatableField("header"),
+        TranslatableField("hero_title"),
+        TranslatableField("hero_description"),
         TranslatableField("button_title"),
     ]
 
