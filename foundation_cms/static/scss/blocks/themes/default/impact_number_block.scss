@@ -142,6 +142,7 @@
       word-break: break-all;
       display: block;
       width: min-content;
+      text-align: center;
 
       @include apply-text-style(
         $display-text-styles,
