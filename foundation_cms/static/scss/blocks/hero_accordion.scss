@@ -208,29 +208,10 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
-    filter: brightness(70%);
   }
 
   &__video-play-button {
-    position: relative;
-    width: $play-button-size;
-    height: $play-button-size;
-    background: transparent;
-    border: none;
-    pointer-events: none;
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 0;
-      height: 0;
-      border-left: map.get($play-button-arrow, width) solid white;
-      border-top: map.get($play-button-arrow, height) solid transparent;
-      border-bottom: map.get($play-button-arrow, height) solid transparent;
-    }
+    z-index: 1;
   }
 
   // ===================================
@@ -572,6 +553,10 @@
 
       .hero-accordion__video-overlay {
         border-radius: 6rem 6rem 0 0;
+
+        &.hidden {
+          display: none;
+        }
       }
     }
 
