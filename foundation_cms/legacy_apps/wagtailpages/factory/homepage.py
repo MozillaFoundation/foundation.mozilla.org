@@ -1,6 +1,6 @@
 from django.conf import settings
 from factory import Faker, SubFactory
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 from wagtail.models import Page as WagtailPage
 from wagtail.models import Site as WagtailSite
 from wagtail_factories import PageFactory
@@ -40,6 +40,8 @@ class WagtailHomepageFactory(PageFactory):
 
 
 def generate(seed):
+    Image = get_image_model()
+
     reseed(seed)
 
     print("Generating blank Homepage")

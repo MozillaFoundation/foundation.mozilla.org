@@ -7,9 +7,7 @@ from wagtail.blocks import StreamBlockValidationError
 from foundation_cms.legacy_apps.nav import factories as nav_factories
 from foundation_cms.legacy_apps.nav import models as nav_models
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
-from foundation_cms.legacy_apps.wagtailpages.factory import (
-    image_factory as image_factories,
-)
+from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.legacy_apps.wagtailpages.tests.blog.test_blog_index import (
     BlogIndexTestCase,
@@ -237,7 +235,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
     def test_icon_validation_accepts_svg_files(self):
         topic = blog_factories.BlogPageTopicFactory(locale=self.default_locale)
         # Simulate uploading an SVG file
-        svg_icon = image_factories.ImageFactory(file__filename="icon.svg", file__extension="svg")
+        svg_icon = ImageFactory(file__filename="icon.svg", file__extension="svg")
 
         # Create the relationship instance but do not save it yet
         topic_with_svg = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
@@ -259,7 +257,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         topic = blog_factories.BlogPageTopicFactory(locale=self.default_locale)
 
         # Simulate uploading a non-SVG file
-        jpg_image = image_factories.ImageFactory(file__filename="image.jpg", file__extension="jpg")
+        jpg_image = ImageFactory(file__filename="image.jpg", file__extension="jpg")
         topic_with_jpg = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic,

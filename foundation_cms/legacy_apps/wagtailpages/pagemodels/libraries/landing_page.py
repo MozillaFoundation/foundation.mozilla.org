@@ -2,6 +2,7 @@ from django.db import models
 from wagtail import fields
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
+from wagtail.images import get_image_model_string
 from wagtail_localize import fields as localize_fields
 
 from foundation_cms.legacy_apps.wagtailpages.pagemodels import customblocks
@@ -21,7 +22,7 @@ class BaseLandingPage(BasePage):
         max_length=250,
     )
     banner_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
