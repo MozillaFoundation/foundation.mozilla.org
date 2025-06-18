@@ -145,9 +145,13 @@
 
       @for $i from 1 through 10 {
         &--#{$i} {
-          animation: counting 0.4s steps(10) forwards;
+          animation: counting-small 0.4s steps(10) forwards;
           animation-iteration-count: #{$i * 2};
           animation-play-state: paused;
+
+          @include breakpoint(large up) {
+            animation-name: counting-large; // Use desktop animation on large screens
+          }
 
           &.animate {
             animation-play-state: running;
@@ -178,13 +182,15 @@
     }
   }
 
-  @keyframes counting {
+  @keyframes counting-small {
     100% {
       transform: translate3d(0, -#{map.get($digit-height, small) * 10}em, 0);
+    }
+  }
 
-      @include breakpoint(large up) {
-        transform: translate3d(0, -#{map.get($digit-height, large) * 10}em, 0);
-      }
+  @keyframes counting-large {
+    100% {
+      transform: translate3d(0, -#{map.get($digit-height, large) * 10}em, 0);
     }
   }
 }
