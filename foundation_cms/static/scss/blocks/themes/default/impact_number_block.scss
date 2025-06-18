@@ -19,7 +19,7 @@
     ),
   );
   $digit-height: (
-    small: get-text-property($display-text-styles, "4", "line-height", "small"),
+    small: get-text-property($display-text-styles, "2", "line-height", "small"),
     large: get-text-property($display-text-styles, "1", "line-height", "large"),
   );
 
@@ -117,7 +117,7 @@
 
       @include apply-text-style(
         $display-text-styles,
-        "4",
+        "2",
         "small",
         $display-text-font-family
       );
@@ -146,7 +146,7 @@
 
       @include apply-text-style(
         $display-text-styles,
-        "4",
+        "2",
         "small",
         $display-text-font-family
       );
