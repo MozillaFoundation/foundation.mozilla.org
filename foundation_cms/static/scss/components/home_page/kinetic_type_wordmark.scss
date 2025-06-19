@@ -1,6 +1,6 @@
 .kinetic-type-wordmark {
   &__svg {
-    $base-animation-duration: 1.5s;
+    $base-animation-duration: 1s;
     $color-fill-z-a-left: color(yellow, "200");
     $color-fill-m-middle: color(orange, "200");
     $color-fill-m-right: color(yellow, "200");
@@ -26,39 +26,61 @@
       }
     }
 
-    // "z" and left fill of "a"
-    .fill-a-left,
+    // Mixin for wipe reveal animations
+    @mixin wipe-reveal($direction: "top", $duration: 1s, $easing: ease-out) {
+      @if $direction == "top" {
+        clip-path: inset(100% 0 0 0);
+      } @else if $direction == "bottom" {
+        clip-path: inset(0 0 100% 0);
+      } @else if $direction == "left" {
+        clip-path: inset(0 100% 0 0);
+      } @else if $direction == "right" {
+        clip-path: inset(0 0 0 100%);
+      }
+
+      animation: wipe-reveal-#{$direction} $duration $easing forwards;
+    }
+
+    // "z"
     .fill-z-left {
       fill: transparent;
       animation: fill-z-a-left $base-animation-duration ease forwards;
     }
 
-    // middle fill of "m" and right fill of "a"
+    // left fill of "m"
+    .fill-m-left {
+      fill: $color-fill-m-left;
+      @include wipe-reveal("bottom");
+    }
+
+    // middle fill of "m"
     .fill-m-middle {
       fill: $color-fill-m-middle;
-      clip-path: inset(100% 0 0 0);
-      animation: wipe-reveal 1s ease-out forwards;
+      @include wipe-reveal("top");
     }
 
     // right fill of "m"
     .fill-m-right {
-      fill: transparent;
-      animation: fill-m-right $base-animation-duration ease forwards;
+      fill: $color-fill-m-right;
+      @include wipe-reveal("bottom");
     }
 
-    // left fill of "m"
-    .fill-m-left {
-      fill: transparent;
-      animation: fill-m-left $base-animation-duration ease forwards;
+    @mixin grow-fill($fill-color) {
+      fill: $fill-color;
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(0);
+      animation: grow-mask $base-animation-duration ease-out forwards;
     }
 
     // inner fill of "o"
     .fill-o-inner {
-      fill: $color-fill-o-inner;
-      transform-box: fill-box;
-      transform-origin: center;
-      transform: scale(0);
-      animation: grow-mask 0.7s ease-out forwards;
+      @include grow-fill($color-fill-o-inner);
+    }
+
+    // fill of "a"
+    .fill-a-left {
+      @include grow-fill($color-fill-z-a-left);
     }
 
     @keyframes fill-z-a-left {
@@ -67,21 +89,11 @@
       }
     }
 
-    @keyframes fill-m-left {
-      to {
-        fill: $color-fill-m-left;
-      }
-    }
-
-    @keyframes fill-m-right {
-      to {
-        fill: $color-fill-m-right;
-      }
-    }
-
-    @keyframes wipe-reveal {
-      to {
-        clip-path: inset(0 0 0 0);
+    @each $direction in (top, bottom, left, right) {
+      @keyframes wipe-reveal-#{$direction} {
+        to {
+          clip-path: inset(0 0 0 0);
+        }
       }
     }
 
