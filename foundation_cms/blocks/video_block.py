@@ -5,10 +5,10 @@ from foundation_cms.blocks.link_block import LinkWithoutLabelBlock
 
 
 class VideoBlock(BaseBlock):
-    video_url = blocks.URLBlock(
+    video_id = blocks.CharBlock(
         required=True,
-        label="Vimeo Video URL",
-        help_text=('Log into Vimeo, then select the desired video and click "Video File Links".'),
+        label="Vimeo Video ID",
+        help_text=("Log into Vimeo, select your desired video, and copy its ID. (Found in the URL)"),
     )
     caption = blocks.CharBlock(required=False, help_text="Optional Caption Text")
     caption_url = blocks.ListBlock(

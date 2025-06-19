@@ -5,7 +5,6 @@ import injectNewsletterSignups from "./components/newsletter-signup/newsletter_s
 
 let foundationSiteURL = window.location.origin;
 import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
-import { initVideoBlocks } from "./blocks/video_block.js";
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
@@ -22,5 +21,4 @@ initImpactNumberStatAnimationsOnScroll();
 
 injectNewsletterSignups(foundationSiteURL);
 initPortraitCardSetCarousels();
-initVideoBlocks();
 initWordmarkVisibilityOnScroll();
