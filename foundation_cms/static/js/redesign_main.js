@@ -4,13 +4,12 @@ import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_
 import { initAllHorizontalAccordions } from "./blocks/hero_accordion.js";
 import injectNewsletterSignups from "./components/newsletter-signup/newsletter_signup.js";
 import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
-import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
 
-let foundationSiteURL = window.location.origin;:
+let foundationSiteURL = window.location.origin;
 
 $(document).foundation();
 
