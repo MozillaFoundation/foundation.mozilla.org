@@ -240,7 +240,10 @@ function initVideoOverlays() {
           "src",
           "https://player.vimeo.com/video/" + videoId + "?autoplay=1&muted=1",
         );
-        iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
+        iframe.setAttribute(
+          "allow",
+          "autoplay; fullscreen; picture-in-picture",
+        );
         iframe.setAttribute("allowfullscreen", "");
         iframe.setAttribute("title", "Embedded Vimeo Video");
 

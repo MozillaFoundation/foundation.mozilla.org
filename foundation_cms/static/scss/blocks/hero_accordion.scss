@@ -107,12 +107,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: hidden;
-  margin: 3rem 0;
+  overflow: visible;
+  margin: rem-calc(105) 0 rem-calc(64) 0;
 
   @include breakpoint(large up) {
     flex-direction: row;
     height: map.get($panel-height, large);
+    margin: rem-calc(105) 0 rem-calc(64) 0;
   }
 
   @include breakpoint(xlarge up) {
@@ -158,11 +159,7 @@
     margin-bottom: 0;
 
     @include breakpoint(large up) {
-      @include apply-text-style(
-        $body-text-styles,
-        "large",
-        "large"
-      );
+      @include apply-text-style($body-text-styles, "large", "large");
     }
   }
 
@@ -234,20 +231,94 @@
 
     @include closed-panel-width;
 
-    &.active {
-      @include active-panel-width;
+    &::after {
+      content: "";
+      position: absolute;
+      height: 4rem;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity map.get($panel-transition, duration)
+        map.get($panel-transition, timing-function);
+
+      @include breakpoint(large up) {
+        height: 8rem;
+      }
     }
 
     &:nth-child(3n + 1) {
       background-color: map.get($panel-colors, 1);
+
+      &::after {
+        width: 4rem;
+        right: 0;
+        top: -2rem;
+        background-image: url("../../_images/handdrawn/1.svg");
+
+        @include breakpoint(large up) {
+          width: 8rem;
+          right: -4rem;
+          top: -5rem;
+        }
+      }
     }
 
     &:nth-child(3n + 2) {
       background-color: map.get($panel-colors, 2);
+
+      &::after {
+        width: 6rem;
+        right: 0;
+        top: calc(100vw - 2rem);
+        background-image: url("../../_images/handdrawn/2.svg");
+
+        @include breakpoint(large up) {
+          width: 12rem;
+          right: map.get($panel-height, large);
+          top: unset;
+          bottom: -4.5rem;
+        }
+
+        @include breakpoint(xlarge up) {
+          right: map.get($panel-height, xlarge);
+          bottom: -3rem;
+        }
+      }
     }
 
     &:nth-child(3n + 3) {
       background-color: map.get($panel-colors, 3);
+
+      &::after {
+        width: 4rem;
+        right: 0;
+        top: calc(100vw - 2rem);
+        background-image: url("../../_images/handdrawn/3.svg");
+
+        @include breakpoint(large up) {
+          width: 8rem;
+          right: map.get($panel-height, large);
+          top: -5rem;
+        }
+
+        @include breakpoint(xlarge up) {
+          right: map.get($panel-height, xlarge);
+          top: -2rem;
+        }
+      }
+    }
+
+    &.active {
+      @include active-panel-width;
+
+      &::after {
+        opacity: 1;
+        transition: opacity map.get($panel-transition, duration)
+          map.get($panel-transition, timing-function)
+          map.get($panel-transition, duration);
+      }
     }
 
     // ===================================
@@ -257,7 +328,7 @@
     &--video_panel {
       flex-direction: column;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
 
       .hero-accordion__video-wrapper {
         display: flex;
@@ -292,7 +363,7 @@
     &--image_text_panel {
       display: flex;
       height: 100%;
-      overflow: hidden;
+      overflow: visible;
       position: relative;
 
       .hero-accordion__details {
