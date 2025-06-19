@@ -1,12 +1,10 @@
 .kinetic-type-wordmark {
   &__svg {
-    $base-delay: 1s;
     $base-animation-duration: 1.5s;
     $color-fill-z-a-left: #f7b210;
     $color-fill-m-middle-a-right: #f07424;
     $color-fill-m-right: #ffff42;
     $color-fill-m-left: #91daf6;
-    $color-fill-between-ll: #23a5df;
     $color-fill-o-inner: #37e9ad;
 
     display: block;
@@ -33,38 +31,25 @@
     .fill-z-left {
       fill: transparent;
       animation: fill-z-a-left $base-animation-duration ease forwards;
-      animation-delay: $base-delay;
     }
 
     // middle fill of "m" and right fill of "a"
-    .fill-m-middle,
-    .fill-a-right {
+    .fill-m-middle {
       fill: $color-fill-m-middle-a-right;
       clip-path: inset(100% 0 0 0);
       animation: wipe-reveal 1s ease-out forwards;
-      animation-delay: 0.5s;
     }
 
     // right fill of "m"
     .fill-m-right {
       fill: transparent;
       animation: fill-m-right $base-animation-duration ease forwards;
-      animation-delay: $base-delay + 0.9s;
     }
 
     // left fill of "m"
     .fill-m-left {
       fill: transparent;
       animation: fill-m-left $base-animation-duration ease forwards;
-      animation-delay: $base-delay + 1.4s;
-    }
-
-    // between "ll"
-    .fill-between-ll {
-      fill: $color-fill-between-ll;
-      clip-path: inset(100% 0 0 0);
-      animation: wipe-reveal 0.5s ease-out forwards;
-      animation-delay: 2.5s;
     }
 
     // inner fill of "o"
@@ -74,14 +59,6 @@
       transform-origin: center;
       transform: scale(0);
       animation: grow-mask 0.7s ease-out forwards;
-      animation-delay: 1.5s;
-    }
-
-    // right fill of "a"
-    .fill-a-right {
-      clip-path: inset(0 100% 0 0); // hidden from right
-      animation: wipe-reveal 1s ease-out forwards;
-      animation-delay: 0.5s;
     }
 
     @keyframes fill-z-a-left {
