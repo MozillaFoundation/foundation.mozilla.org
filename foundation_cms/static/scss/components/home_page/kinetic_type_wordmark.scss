@@ -1,11 +1,11 @@
 .kinetic-type-wordmark {
   &__svg {
     $base-animation-duration: 1.5s;
-    $color-fill-z-a-left: #f7b210;
-    $color-fill-m-middle-a-right: #f07424;
-    $color-fill-m-right: #ffff42;
-    $color-fill-m-left: #91daf6;
-    $color-fill-o-inner: #37e9ad;
+    $color-fill-z-a-left: color(yellow, "200");
+    $color-fill-m-middle: color(orange, "200");
+    $color-fill-m-right: color(yellow, "200");
+    $color-fill-m-left: color(blue, "100");
+    $color-fill-o-inner: color(green, "200");
 
     display: block;
     max-width: 80vw;
@@ -35,7 +35,7 @@
 
     // middle fill of "m" and right fill of "a"
     .fill-m-middle {
-      fill: $color-fill-m-middle-a-right;
+      fill: $color-fill-m-middle;
       clip-path: inset(100% 0 0 0);
       animation: wipe-reveal 1s ease-out forwards;
     }
