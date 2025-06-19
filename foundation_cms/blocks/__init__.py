@@ -24,7 +24,7 @@ from .two_column_container_block import TwoColumnContainerBlock
 __all__ = [
     "BaseCardBlock",
     "SpotlightCardBlock",
-    "SpotlightCardBlock",
+    "SpotlightCardSetBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",
