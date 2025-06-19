@@ -9,6 +9,7 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
+import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 
 $(document).foundation();
 
@@ -22,3 +23,4 @@ initImpactNumberStatAnimationsOnScroll();
 injectNewsletterSignups(foundationSiteURL);
 initPortraitCardSetCarousels();
 initWordmarkVisibilityOnScroll();
+initSpotlightCardCarousels();
