@@ -16,6 +16,7 @@ class VideoBlock(BaseBlock):
         min_num=0,
         max_num=1,
         help_text="Optional URL that this caption should link out to.",
+        default=[],
     )
 
     class Meta:
