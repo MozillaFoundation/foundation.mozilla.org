@@ -6,6 +6,8 @@
     { "type": "portrait_card_set_block", "value": "body/portrait_card_set.json" },
     { "type": "rich_text", "value": "body/richtext.html" },
     { "type": "impact_numbers", "value": "body/impact_numbers.json" },
+    { "type": "timely_activations_cards", "value": "body/timely_activations_cards.json" },
+    { "type": "image", "value": "body/hero_image.json" },
     { "type": "tabbed_content", "value": "body/tabbed_content.json" },
     { "type": "rich_text", "value": "body/richtext.json" }
   ]

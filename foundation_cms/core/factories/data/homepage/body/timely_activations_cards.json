@@ -1,0 +1,48 @@
+{
+  "title": "Take Action Now",
+  "card_count": "3",
+  "cards": [
+    {
+      "type": "card",
+      "value": {
+        "topic": "Internet Health",
+        "category": "Advocacy",
+        "title": "Support Internet Health",
+        "text": "<p>Join our mission to ensure the internet remains a global public resource that is open and accessible to all.</p>",
+        "image": "timely_activations__1",
+        "link": {
+          "text": "Learn More",
+          "url": "/internet-health"
+        }
+      }
+    },
+    {
+      "type": "card",
+      "value": {
+        "topic": "Privacy",
+        "category": "Security",
+        "title": "Privacy & Security",
+        "text": "<p>Help us fight for your right to privacy and security online.</p>",
+        "image": "timely_activations__2",
+        "link": {
+          "text": "Get Involved",
+          "url": "/privacy-security"
+        }
+      }
+    },
+    {
+      "type": "card",
+      "value": {
+        "topic": "Inclusion",
+        "category": "Access",
+        "title": "Digital Inclusion",
+        "text": "<p>Support our work to ensure everyone has access to the internet and the skills to use it effectively.</p>",
+        "image": "timely_activations__3",
+        "link": {
+          "text": "Take Action",
+          "url": "/digital-inclusion"
+        }
+      }
+    }
+  ]
+} 
