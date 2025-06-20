@@ -109,7 +109,7 @@
   flex-direction: column;
   width: 100%;
   overflow: visible;
-  margin: rem-calc(105) 0 rem-calc(64) 0;
+  margin: 3rem 0;
 
   @include breakpoint(large up) {
     flex-direction: row;
@@ -618,7 +618,7 @@
         );
       }
 
-      .hero-accordion__label:not(.hero-accordion__details .hero-accordion__label) {
+      .hero-accordion__video-wrapper .hero-accordion__label {
         display: none;
       }
 
