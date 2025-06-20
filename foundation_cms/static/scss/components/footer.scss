@@ -20,6 +20,10 @@
   &__logo {
     margin-bottom: 3rem;
 
+    a {
+      display: block;
+    }
+
     @include breakpoint(large up) {
       max-width: fit-content;
     }
@@ -124,6 +128,108 @@
       .site-footer-ns__social-link {
         display: block;
         height: 24px;
+      }
+    }
+  }
+
+  .newsletter-signup {
+    &__fieldset {
+      .cell {
+        margin: 0.25rem 0;
+      }
+    }
+
+    &__input {
+      background: $white;
+      border: 1px solid $white;
+      border-radius: 0;
+      padding: 1rem 1.25rem;
+      line-height: 150%;
+
+      &::placeholder {
+        color: $black;
+      }
+
+      &:focus-visible {
+        outline: 1px solid $white;
+        outline-offset: 2px;
+      }
+    }
+
+    select.newsletter-signup__input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.6398 13.3L15.9998 19.94L9.3598 13.3L8.2998 14.36L15.9998 22.06L23.6998 14.36L22.6398 13.3Z' fill='%23141414'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+
+      option {
+        color: $black;
+      }
+    }
+
+    &__field label {
+      @include mofo-text-style($body-text-styles, "xsmall");
+      color: $white;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        appearance: none;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
+        position: relative;
+        border: 1px solid $white;
+
+        &:checked {
+          background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5307 15.1704L8.4707 16.2304L13.8707 21.6304L23.5307 11.9604L22.4707 10.9004L13.8707 19.5004L9.5307 15.1704Z' fill='white'/%3E%3C/svg%3E%0A");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 1.25rem auto;
+        }
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    .cell:has(> button) {
+      @include breakpoint(large up) {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    &__button {
+      color: $white;
+      border-color: $white;
+      text-decoration: none;
+      padding: 1rem 1.25rem;
+      line-height: 150%;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-wrap: nowrap;
+
+      &::after {
+        background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_2950_493' style='mask-type:luminance' maskUnits='userSpaceOnUse' x='0' y='0' width='16' height='16'%3E%3Cpath d='M0 0H16V16H0V0Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_2950_493)'%3E%3Cpath d='M7.24 1.36005L13.13 7.25005H0V8.75005H13.13L7.24 14.64L8.3 15.7L16 8.00005L8.3 0.300049L7.24 1.36005Z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
+        content: "";
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        margin-left: 1rem;
+        flex-shrink: 0;
+      }
+
+      &:focus-visible {
+        outline: 1px solid $white;
+        outline-offset: 2px;
       }
     }
   }
