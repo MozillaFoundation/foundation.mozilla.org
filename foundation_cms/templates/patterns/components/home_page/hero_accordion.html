@@ -3,6 +3,7 @@
 <div class="hero-accordion" style="--total-panels: {{ page.hero_accordion|length }}">
   {% for block in page.hero_accordion %}
     <div class="hero-accordion__panel hero-accordion__panel--{{ block.block_type }} {% if forloop.counter == 1 %}active{% endif %}">
+      <div class="hero-accordion__panel__inner">
         {% if block.block_type == 'video_panel' %}
           <div class="hero-accordion__video-wrapper">
             <div class="hero-accordion__video-box">
@@ -59,6 +60,7 @@
             {% endif %}
           </div>
         {% endif %}
+      </div>
     </div>
   {% endfor %}
 </div>

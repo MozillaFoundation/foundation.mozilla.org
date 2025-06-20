@@ -25,8 +25,9 @@
     small: 1rem,
     large: 0.875rem,
   );
+  $details-section-padding-y-small: 1.5rem;
   $details-section-padding: (
-    small: 1.5rem 2rem,
+    small: $details-section-padding-y-small 2rem,
     large: 2rem,
   );
   $details-subsection-gap: (
@@ -220,14 +221,12 @@
 
   &__panel {
     flex: none;
-    display: flex;
     position: relative;
     background-color: #eee;
     color: #333;
     cursor: pointer;
     transition: width map.get($panel-transition, duration)
       map.get($panel-transition, timing-function);
-    overflow: hidden;
 
     @include closed-panel-width;
 
@@ -331,7 +330,6 @@
     // ===================================
 
     &--video_panel {
-      flex-direction: column;
       position: relative;
       overflow: visible;
 
@@ -366,7 +364,6 @@
     // ===================================
 
     &--image_text_panel {
-      display: flex;
       height: 100%;
       overflow: visible;
       position: relative;
@@ -461,13 +458,6 @@
 
       // Position modifiers
       &:nth-child(even) {
-        flex-direction: column-reverse;
-        justify-content: flex-end;
-
-        @include breakpoint(large up) {
-          flex-direction: row;
-        }
-
         .hero-accordion__details {
           @include breakpoint(large up) {
             right: 0;
@@ -524,8 +514,6 @@
       }
 
       &:nth-child(odd) {
-        justify-content: flex-end;
-
         .hero-accordion__details {
           @include breakpoint(large up) {
             left: 0;
@@ -596,7 +584,7 @@
         );
       }
 
-      :not(.hero-accordion__details) .hero-accordion__label {
+      .hero-accordion__label:not(.hero-accordion__details .hero-accordion__label) {
         display: none;
       }
 
@@ -605,7 +593,7 @@
         width: 100%;
         background-color: map.get($panel-colors, 1);
         color: black;
-        padding: map.get($details-section-padding, small);
+        padding: $details-section-padding-y-small map.get($text-side-margin, small);
 
         @include breakpoint(large up) {
           position: absolute;
@@ -649,12 +637,6 @@
     // ===================================
 
     &--image_text_panel.active {
-      flex-direction: column-reverse;
-
-      @include breakpoint(large up) {
-        flex-direction: row;
-      }
-
       .hero-accordion__details {
         display: block;
 
@@ -767,7 +749,9 @@
     }
 
     &--image_text_panel:nth-child(even).transitioning-to-inactive {
-      justify-content: flex-end;
+      .hero-accordion__panel__inner {
+        justify-content: flex-end;
+      }
 
       .hero-accordion__details {
         display: none;
@@ -813,7 +797,9 @@
     }
 
     &--image_text_panel:nth-child(odd).transitioning-to-inactive {
-      justify-content: flex-end; // Keep everything pushed to the right
+      .hero-accordion__panel__inner {
+        justify-content: flex-end;
+      }
 
       .hero-accordion__details {
         display: none;
@@ -840,5 +826,54 @@
         }
       }
     }
+
+
+    // ===================================
+    // Panel Inner Styles
+    // ===================================
+
+    &.hero-accordion__panel--video_panel {
+      .hero-accordion__panel__inner {
+        flex-direction: column;
+      }
+    }
+
+    &.hero-accordion__panel--image_text_panel {
+      &:nth-child(even) {
+        .hero-accordion__panel__inner {
+          flex-direction: column-reverse;
+          justify-content: flex-end;
+
+          @include breakpoint(large up) {
+            flex-direction: row;
+          }
+        }
+      }
+
+      &:nth-child(odd) {
+        .hero-accordion__panel__inner {
+          justify-content: flex-end;
+        }
+      }
+
+      &.active {
+        .hero-accordion__panel__inner {
+          flex-direction: column-reverse;
+
+          @include breakpoint(large up) {
+            flex-direction: row;
+          }
+        }
+      }
+    }
+
+    &__inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
   }
 }
