@@ -233,6 +233,7 @@
 
     &::after {
       content: "";
+      display: block;
       position: absolute;
       height: 4rem;
       background-size: contain;
@@ -241,7 +242,8 @@
       z-index: 2;
       opacity: 0;
       transition: opacity map.get($panel-transition, duration)
-        map.get($panel-transition, timing-function);
+        map.get($panel-transition, timing-function)
+        map.get($panel-transition, duration);
 
       @include breakpoint(large up) {
         height: 8rem;
@@ -315,9 +317,12 @@
 
       &::after {
         opacity: 1;
-        transition: opacity map.get($panel-transition, duration)
-          map.get($panel-transition, timing-function)
-          map.get($panel-transition, duration);
+      }
+    }
+
+    &.transitioning-to-inactive {
+      &::after {
+        display: none;
       }
     }
 
