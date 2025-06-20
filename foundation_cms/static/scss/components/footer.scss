@@ -169,6 +169,7 @@
 
     &__field label {
       @include mofo-text-style($body-text-styles, "xsmall");
+
       color: $white;
       display: flex;
       align-items: center;
