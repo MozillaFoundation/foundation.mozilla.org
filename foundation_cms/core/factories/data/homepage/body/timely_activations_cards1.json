@@ -1,0 +1,25 @@
+{
+  "title": "Do good. Do your part.",
+  "card_count": "1",
+  "cards": [
+    {
+      "type": "card",
+      "value": {
+        "topic": "Campaign",
+        "category": "",
+        "title": "See No Evil: Shining a light surveillance tech",
+        "text": "",
+        "image": {
+          "title": "",
+          "image": "timely_activations__1",
+          "alt_text": "",
+          "orientation": "square"
+        },
+        "link": {
+          "text": "Our ShadowDragon campaign",
+          "url": ""
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "title": "",
+  "card_count": "1",
+  "cards": [
+    {
+      "type": "card",
+      "value": {
+        "topic": "Data",
+        "category": "",
+        "title": "The most diverse open voice dataset in the world",
+        "text": "",
+        "image": {
+          "title": "",
+          "image": "timely_activations__3",
+          "alt_text": "",
+          "orientation": "square"
+        },
+        "link": {
+          "text": "Be part of Common Voice",
+          "url": ""
+        }
+      }
+    }
+  ]
+}

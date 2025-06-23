@@ -10,7 +10,7 @@ ARG CI=true
 WORKDIR /app
 
 # Copy root workspace definitions
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 
 # Copy all workspace packages
 COPY frontend/ ./frontend/
@@ -77,12 +77,14 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libpq-dev \
     python3-dev \
     libffi-dev \
-    python3-setuptools \
     python3-wheel \
     curl \
     git \
     gettext \
-    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+    ca-certificates \
+    && apt-get autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Don't use the root user as it's an anti-pattern and Heroku does not run
 # containers as root either.
@@ -133,10 +135,12 @@ FROM base as dev
 USER root
 
 # Install `psql`, useful for `manage.py dbshell`, and dependencies for installing nodejs
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+RUN apt-get update --yes --quiet && \
+    apt-get install --yes --quiet --no-install-recommends \
     gnupg \
-    postgresql-client \
-    ca-certificates
+    ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install node (Keep the version in sync with the node container above)
 # Download and import the Nodesource GPG key
