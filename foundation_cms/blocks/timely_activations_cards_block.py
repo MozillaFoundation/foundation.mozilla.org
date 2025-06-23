@@ -2,7 +2,7 @@ from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from .image_block import CustomImageBlock
+from wagtail.images.blocks import ImageBlock
 from .link_block import LinkBlock
 
 
@@ -15,7 +15,7 @@ class ActivationCardBlock(BaseBlock):
     category = blocks.CharBlock(required=False, help_text="Optional category for the card")
     title = blocks.CharBlock(required=True, help_text="Title for the card")
     text = blocks.RichTextBlock(required=False, help_text="Optional description text")
-    image = CustomImageBlock(required=True)
+    image = ImageBlock(required=True)
     link = LinkBlock()
 
     class Meta:
