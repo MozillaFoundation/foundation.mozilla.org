@@ -6,7 +6,7 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 class CustomImageBlock(BaseBlock):
     """
-    A reusable image block with title
+    A reusable image block with title and orientation options
     """
 
     title = CharBlock(required=False, help_text="Title/caption for this image")
