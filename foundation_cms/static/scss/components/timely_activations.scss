@@ -7,18 +7,6 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-
-    &.orientation-portrait {
-      padding-bottom: 110%;
-    }
-
-    &.orientation-landscape {
-      padding-bottom: 56.25%;
-    }
-
-    &.orientation-square {
-      padding-bottom: 80%;
-    }
   }
 
   &-image {
@@ -50,16 +38,31 @@
 
       .activation-card {
         flex-direction: row;
+        height: 350px;
 
         &-image-container {
           width: 60%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
           padding-bottom: 0 !important;
-          height: 350px !important;
+          padding-left: 0;
+          margin-left: 0;
+        }
+
+        &-image {
+          height: 100%;
+          width: auto;
+          aspect-ratio: 1 / 1;
+          object-fit: cover;
+          max-width: 100%;
+          max-height: 100%;
         }
 
         &-content {
           width: 40%;
-          text-align: center;
+          text-align: left;
           margin-top: 10px;
         }
       }
