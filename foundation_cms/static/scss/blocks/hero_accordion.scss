@@ -113,15 +113,10 @@
     }
   }
 
-  @mixin handdrawn-indicator(
-    $mobile-height: 4rem,
-    $desktop-height: 8rem,
-    $opacity: 0
-  ) {
+  @mixin handdrawn-indicator($opacity: 0) {
     content: "";
     display: block;
     position: absolute;
-    height: $mobile-height;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -133,10 +128,6 @@
         map.get($panel-transition, duration)
         map.get($panel-transition, timing-function)
         map.get($panel-transition, duration);
-    }
-
-    @include breakpoint(large up) {
-      height: $desktop-height;
     }
   }
 
@@ -278,6 +269,11 @@
 
     &::after {
       @include handdrawn-indicator;
+      height: 4rem;
+
+      @include breakpoint(large up) {
+        height: 8rem;
+      }
     }
 
     &:nth-child(3n + 1) {
@@ -561,10 +557,7 @@
           width: 4rem;
           right: 0;
           top: calc(100vw - 2rem);
-          background-image: map.get(
-            $handdrawn-illustrations,
-            "image-text-odd"
-          );
+          background-image: map.get($handdrawn-illustrations, "image-text-odd");
 
           @include breakpoint(large up) {
             width: 8rem;
@@ -638,7 +631,6 @@
         }
       }
     }
-
 
     // ===================================
     // Active State for Video Panel
@@ -828,7 +820,6 @@
     // Active States for Image Text Panel (Even-Positioned and Odd-Positioned)
     // ===================================
 
-
     &--image_text_panel:nth-child(even).active {
       .hero-accordion__panel-inner {
         flex-direction: column-reverse;
@@ -953,13 +944,18 @@
           position: relative;
 
           &::after {
-            @include handdrawn-indicator(4rem, 8rem, 1);
+            @include handdrawn-indicator(1);
 
+            height: 4rem;
             width: 4rem;
             top: 60%;
             left: 0;
             background-image: map.get($handdrawn-illustrations, "video");
             transform: rotate(143deg);
+
+            @include breakpoint(large up) {
+              height: 8rem
+            }
           }
         }
       }
@@ -975,8 +971,9 @@
           position: relative;
 
           &::after {
-            @include handdrawn-indicator(4rem, 8rem, 1);
+            @include handdrawn-indicator(1);
 
+            height: 4rem;
             width: 4rem;
             bottom: 110%;
             right: 0;
@@ -985,6 +982,10 @@
               "image-text-even"
             );
             transform: rotate(-150deg) scaleX(-1);
+
+            @include breakpoint(large up) {
+              height: 8rem
+            }
           }
         }
       }
@@ -996,8 +997,9 @@
           position: relative;
 
           &::after {
-            @include handdrawn-indicator(4rem, 8rem, 1);
+            @include handdrawn-indicator(1);
 
+            height: 4rem;
             width: 4rem;
             top: 110%;
             right: 0;
@@ -1006,6 +1008,10 @@
               "image-text-odd"
             );
             transform: rotate(90deg);
+
+            @include breakpoint(large up) {
+              height: 8rem
+            }
           }
         }
       }
