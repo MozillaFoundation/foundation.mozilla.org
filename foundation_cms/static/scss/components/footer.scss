@@ -93,8 +93,8 @@
 
   &__legals {
     background: url("../_images/footer-separator.svg") no-repeat center top;
-    padding-top: 4rem;
-    margin-top: 2rem;
+    padding-top: 3rem;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -102,6 +102,7 @@
     @include breakpoint(large up) {
       flex-direction: row;
       justify-content: space-between;
+      padding-top: 4rem;
     }
 
     p {
