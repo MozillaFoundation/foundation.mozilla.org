@@ -70,10 +70,8 @@
   }
 
   @function calc-video-box-mobile-collapsed-width() {
-    @return calc(
-      #{$video-label-collapsed-width-percent} * 1% -
-        #{map.get($text-side-margin, small)}
-    );
+    $width-percent: $video-label-collapsed-width-percent;
+    @return calc(#{$width-percent} * 1% - #{map.get($text-side-margin, small)});
   }
 
   // ===================================
@@ -115,7 +113,11 @@
     }
   }
 
-  @mixin handdrawn-indicator($mobile-height: 4rem, $desktop-height: 8rem, $opacity: 0) {
+  @mixin handdrawn-indicator(
+    $mobile-height: 4rem,
+    $desktop-height: 8rem,
+    $opacity: 0
+  ) {
     content: "";
     display: block;
     position: absolute;
@@ -326,37 +328,15 @@
       overflow: visible;
 
       &::after {
-        & {
-          width: 4rem;
-          right: 0;
-          top: -2rem;
-          background-image: map.get($handdrawn-illustrations, "video");
-        }
+        width: 4rem;
+        right: 0;
+        top: -2rem;
+        background-image: map.get($handdrawn-illustrations, "video");
 
         @include breakpoint(large up) {
           width: 8rem;
           right: -4rem;
           top: -5rem;
-        }
-      }
-
-      &:hover:not(:active) {
-        .hero-accordion__video-wrapper {
-          .hero-accordion__label {
-            position: relative;
-
-            &::after {
-              @include handdrawn-indicator(4rem, 8rem, 1);
-
-              & {
-                width: 4rem;
-                top: 60%;
-                left: 0;
-                background-image: map.get($handdrawn-illustrations, "video");
-                transform: rotate(143deg);
-              }
-            }
-          }
         }
       }
 
@@ -486,15 +466,13 @@
       // Position modifiers
       &:nth-child(even) {
         &::after {
-          & {
-            width: 6rem;
-            right: 0;
-            top: calc(100vw - 2rem);
-            background-image: map.get(
-              $handdrawn-illustrations,
-              "image-text-even"
-            );
-          }
+          width: 6rem;
+          right: 0;
+          top: calc(100vw - 2rem);
+          background-image: map.get(
+            $handdrawn-illustrations,
+            "image-text-even"
+          );
 
           @include breakpoint(large up) {
             width: 12rem;
@@ -506,29 +484,6 @@
           @include breakpoint(xlarge up) {
             right: map.get($panel-height, xlarge);
             bottom: -3rem;
-          }
-        }
-
-        &:hover:not(:active) {
-          .hero-accordion__image-box {
-            .hero-accordion__label {
-              position: relative;
-
-              &::after {
-                @include handdrawn-indicator(4rem, 8rem, 1);
-
-                & {
-                  width: 4rem;
-                  bottom: 110%;
-                  right: 0;
-                  background-image: map.get(
-                    $handdrawn-illustrations,
-                    "image-text-even"
-                  );
-                  transform: rotate(-150deg) scaleX(-1);
-                }
-              }
-            }
           }
         }
 
@@ -603,12 +558,13 @@
 
       &:nth-child(odd) {
         &::after {
-          & {
-            width: 4rem;
-            right: 0;
-            top: calc(100vw - 2rem);
-            background-image: map.get($handdrawn-illustrations, "image-text-odd");
-          }
+          width: 4rem;
+          right: 0;
+          top: calc(100vw - 2rem);
+          background-image: map.get(
+            $handdrawn-illustrations,
+            "image-text-odd"
+          );
 
           @include breakpoint(large up) {
             width: 8rem;
@@ -619,29 +575,6 @@
           @include breakpoint(xlarge up) {
             right: map.get($panel-height, xlarge);
             top: -2rem;
-          }
-        }
-
-        &:hover:not(:active) {
-          .hero-accordion__image-box {
-            .hero-accordion__label {
-              position: relative;
-
-              &::after {
-                @include handdrawn-indicator(4rem, 8rem, 1);
-
-                & {
-                  width: 4rem;
-                  top: 110%;
-                  right: 0;
-                  background-image: map.get(
-                    $handdrawn-illustrations,
-                    "image-text-odd"
-                  );
-                  transform: rotate(90deg);
-                }
-              }
-            }
           }
         }
 
@@ -706,8 +639,9 @@
       }
     }
 
+
     // ===================================
-    // Active States for Video Panel
+    // Active State for Video Panel
     // ===================================
 
     &--video_panel.active {
@@ -775,6 +709,10 @@
       }
     }
 
+    // ===================================
+    // Transitional State for Video Panel
+    // ===================================
+
     &--video_panel.transitioning-to-inactive {
       .hero-accordion__video-wrapper {
         .hero-accordion__label {
@@ -783,12 +721,21 @@
       }
     }
 
-    &--video_panel:not(.active) .hero-accordion__video-play-button {
-      display: none;
+    // ===================================
+    // Inactive State for Image Text Panel
+    // (Not active or transitioning out)
+    // ===================================
+
+    &--image_text_panel:not(.active, .transitioning-to-inactive) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          display: block;
+        }
+      }
     }
 
     // ===================================
-    // Different States for Image Text Panel
+    // Active State for Image Text Panel (Base)
     // ===================================
 
     &--image_text_panel.active {
@@ -852,6 +799,10 @@
       }
     }
 
+    // ===================================
+    // Transitional State for Image Text Panel (Base)
+    // ===================================
+
     &--image_text_panel.transitioning-to-inactive {
       flex-direction: column-reverse;
 
@@ -874,20 +825,9 @@
     }
 
     // ===================================
-    // Other States for Image Text Panel
+    // Active States for Image Text Panel (Even-Positioned and Odd-Positioned)
     // ===================================
 
-    &--image_text_panel:not(.active, .transitioning-to-inactive) {
-      .hero-accordion__image-box {
-        .hero-accordion__label {
-          display: block;
-        }
-      }
-    }
-
-    // ===================================
-    // Different States for Even-Posistioned Image Text Panel
-    // ===================================
 
     &--image_text_panel:nth-child(even).active {
       .hero-accordion__panel-inner {
@@ -910,6 +850,29 @@
         }
       }
     }
+
+    &--image_text_panel:nth-child(odd).active {
+      .hero-accordion__panel-inner {
+        flex-direction: column-reverse;
+
+        @include breakpoint(large up) {
+          flex-direction: row;
+          justify-content: flex-end;
+        }
+      }
+
+      .hero-accordion__details {
+        @include active-details-visible;
+
+        @include breakpoint(large up) {
+          transform: translateX(0);
+        }
+      }
+    }
+
+    // ===================================
+    // Transitional State for Image Text Panel (Even-Positioned and Odd-Positioned)
+    // ===================================
 
     &--image_text_panel:nth-child(even).transitioning-to-inactive {
       .hero-accordion__panel-inner {
@@ -945,29 +908,6 @@
       }
     }
 
-    // ===================================
-    // Different States for Odd-Posistioned Image Text Panel
-    // ===================================
-
-    &--image_text_panel:nth-child(odd).active {
-      .hero-accordion__panel-inner {
-        flex-direction: column-reverse;
-
-        @include breakpoint(large up) {
-          flex-direction: row;
-          justify-content: flex-end;
-        }
-      }
-
-      .hero-accordion__details {
-        @include active-details-visible;
-
-        @include breakpoint(large up) {
-          transform: translateX(0);
-        }
-      }
-    }
-
     &--image_text_panel:nth-child(odd).transitioning-to-inactive {
       .hero-accordion__panel-inner {
         justify-content: flex-end;
@@ -994,6 +934,78 @@
         .hero-accordion__image {
           &::before {
             background-position: right top;
+          }
+        }
+      }
+    }
+
+    // ===================================
+    // Other State for Video Panel
+    // ===================================
+
+    &--video_panel:not(.active) .hero-accordion__video-play-button {
+      display: none;
+    }
+
+    &--video_panel:hover:not(:active) {
+      .hero-accordion__video-wrapper {
+        .hero-accordion__label {
+          position: relative;
+
+          &::after {
+            @include handdrawn-indicator(4rem, 8rem, 1);
+
+            width: 4rem;
+            top: 60%;
+            left: 0;
+            background-image: map.get($handdrawn-illustrations, "video");
+            transform: rotate(143deg);
+          }
+        }
+      }
+    }
+
+    // ===================================
+    // Hover State for Image Text Panel (Even-Positioned and Odd-Positioned)
+    // ===================================
+
+    &--image_text_panel:nth-child(even):hover:not(:active) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          position: relative;
+
+          &::after {
+            @include handdrawn-indicator(4rem, 8rem, 1);
+
+            width: 4rem;
+            bottom: 110%;
+            right: 0;
+            background-image: map.get(
+              $handdrawn-illustrations,
+              "image-text-even"
+            );
+            transform: rotate(-150deg) scaleX(-1);
+          }
+        }
+      }
+    }
+
+    &--image_text_panel:nth-child(odd):hover:not(:active) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          position: relative;
+
+          &::after {
+            @include handdrawn-indicator(4rem, 8rem, 1);
+
+            width: 4rem;
+            top: 110%;
+            right: 0;
+            background-image: map.get(
+              $handdrawn-illustrations,
+              "image-text-odd"
+            );
+            transform: rotate(90deg);
           }
         }
       }
