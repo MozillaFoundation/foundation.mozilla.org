@@ -944,17 +944,21 @@
           position: relative;
 
           &::after {
-            @include handdrawn-indicator(1);
-
-            height: 4rem;
-            width: 4rem;
-            top: 60%;
-            left: 0;
-            background-image: map.get($handdrawn-illustrations, "video");
-            transform: rotate(143deg);
-
             @include breakpoint(large up) {
-              height: 8rem
+              @include handdrawn-indicator(1);
+
+              width: 8rem;
+              height: 8rem;
+              top: 100%;
+              left: 0;
+              background-image: map.get($handdrawn-illustrations, "video");
+              transform: rotate(143deg);
+            }
+
+            @include breakpoint(xlarge up) {
+              width: 11rem;
+              top: 120%;
+              left: -10%;
             }
           }
         }
@@ -971,20 +975,22 @@
           position: relative;
 
           &::after {
-            @include handdrawn-indicator(1);
-
-            height: 4rem;
-            width: 4rem;
-            bottom: 110%;
-            right: 0;
-            background-image: map.get(
-              $handdrawn-illustrations,
-              "image-text-even"
-            );
-            transform: rotate(-150deg) scaleX(-1);
-
             @include breakpoint(large up) {
-              height: 8rem
+              @include handdrawn-indicator(1);
+
+              width: 8rem;
+              bottom: 110%;
+              right: 0;
+              background-image: map.get(
+                $handdrawn-illustrations,
+                "image-text-even"
+              );
+              transform: rotate(-150deg) scaleX(-1);
+            }
+
+            @include breakpoint(xlarge up) {
+              width: 10rem;
+              height: 6rem;
             }
           }
         }
@@ -997,20 +1003,23 @@
           position: relative;
 
           &::after {
-            @include handdrawn-indicator(1);
-
-            height: 4rem;
-            width: 4rem;
-            top: 110%;
-            right: 0;
-            background-image: map.get(
-              $handdrawn-illustrations,
-              "image-text-odd"
-            );
-            transform: rotate(90deg);
-
             @include breakpoint(large up) {
-              height: 8rem
+              @include handdrawn-indicator(1);
+
+              width: 8rem;
+              height: 6rem;
+              top: 150%;
+              right: 0;
+              background-image: map.get(
+                $handdrawn-illustrations,
+                "image-text-odd"
+              );
+              transform: rotate(90deg);
+            }
+
+            @include breakpoint(xlarge up) {
+              width: 11rem;
+              height: 7rem;
             }
           }
         }
