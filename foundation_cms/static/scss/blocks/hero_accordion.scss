@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 
 .hero-accordion {
   // ===================================
@@ -34,7 +35,8 @@
     small: 0.5rem,
     large: 4rem,
   );
-  $video-aspect-ratio: 16 / 9; // 16:9 aspect ratio
+  $video-aspect-ratio: math.div(16, 9); // 16:9 aspect ratio
+  $video-label-collapsed-width-percent: 50; // Video lable takes 50% of the row width when video panel is on collapsed state
   $square-image-corner-radius: (
     small: 1.75rem,
     large: 4.25rem,
@@ -60,6 +62,13 @@
 
   @function calc-panel-width($height) {
     @return calc(var(--open-panel-width) - #{$height});
+  }
+
+  @function calc-video-box-mobile-collapsed-width() {
+    @return calc(
+      #{$video-label-collapsed-width-percent} * 1% -
+        #{map.get($text-side-margin, small)}
+    );
   }
 
   // ===================================
@@ -170,9 +179,16 @@
 
   &__video-box {
     position: relative;
-    width: 100%;
+    width: calc-video-box-mobile-collapsed-width();
     aspect-ratio: $video-aspect-ratio;
     overflow: hidden;
+    transition: width map.get($panel-transition, duration)
+      map.get($panel-transition, timing-function);
+
+    @include breakpoint(large up) {
+      width: 100%;
+      transform: none;
+    }
 
     iframe {
       position: absolute;
@@ -357,8 +373,8 @@
         }
 
         .hero-accordion__label {
-          flex: 0 0 65%;
           margin: map.get($text-side-margin, small);
+          flex: 0 0 calc-video-box-mobile-collapsed-width();
 
           @include breakpoint(large up) {
             flex: initial;
@@ -437,7 +453,6 @@
 
         .hero-accordion__image {
           width: var(--closed-panel-width);
-          height: var(--closed-panel-width);
           aspect-ratio: 1 / 1;
           overflow: hidden;
           position: relative;
@@ -618,6 +633,14 @@
         );
       }
 
+      .hero-accordion__video-box {
+        width: 100vw;
+
+        @include breakpoint(large up) {
+          width: 100%;
+        }
+      }
+
       .hero-accordion__video-wrapper .hero-accordion__label {
         display: none;
       }
@@ -627,7 +650,8 @@
         width: 100%;
         background-color: map.get($panel-colors, 1);
         color: black;
-        padding: $details-section-padding-y-small map.get($text-side-margin, small);
+        padding: $details-section-padding-y-small
+          map.get($text-side-margin, small);
 
         @include breakpoint(large up) {
           position: absolute;
@@ -657,6 +681,14 @@
         border-radius: 6rem 6rem 0 0;
 
         &.hidden {
+          display: none;
+        }
+      }
+    }
+
+    &--video_panel.transitioning-to-inactive {
+      .hero-accordion__video-wrapper {
+        .hero-accordion__label {
           display: none;
         }
       }
@@ -740,7 +772,7 @@
 
       .hero-accordion__image-box {
         .hero-accordion__label {
-          display: none; // Stay hidden during transition
+          display: none;
         }
       }
 
