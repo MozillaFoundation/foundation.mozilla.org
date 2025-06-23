@@ -127,7 +127,7 @@
     "eslint-plugin-prettier": "^5.2.5",
     "eslint-plugin-react": "^7.37.4",
     "optipng-bin": "^9.0.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.0",
     "stylelint": "^16.17.0",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-prettier": "^5.0.3",
