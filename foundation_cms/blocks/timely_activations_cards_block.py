@@ -1,8 +1,8 @@
 from wagtail import blocks
+from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from wagtail.images.blocks import ImageBlock
 from .link_block import LinkBlock
 
 
