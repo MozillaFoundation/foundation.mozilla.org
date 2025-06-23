@@ -41,6 +41,11 @@
     small: 1.75rem,
     large: 4.25rem,
   );
+  $handdrawn-illustrations: (
+    "video": url("../../_images/handdrawn/1.svg"),
+    "image-text-even": url("../../_images/handdrawn/2.svg"),
+    "image-text-odd": url("../../_images/handdrawn/3.svg"),
+  );
 
   --open-multiplier: 5; // How many "flex units" the open panel gets
   --total-panels: 3; // This is the fallback value. This will be inline-overriden in Dango template
@@ -107,6 +112,29 @@
 
     @include breakpoint(large up) {
       width: var(--closed-panel-width);
+    }
+  }
+
+  @mixin handdrawn-indicator($mobile-height: 4rem, $desktop-height: 8rem, $opacity: 0) {
+    content: "";
+    display: block;
+    position: absolute;
+    height: $mobile-height;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: $opacity;
+    z-index: 2;
+
+    @if $opacity == 0 {
+      transition: opacity
+        map.get($panel-transition, duration)
+        map.get($panel-transition, timing-function)
+        map.get($panel-transition, duration);
+    }
+
+    @include breakpoint(large up) {
+      height: $desktop-height;
     }
   }
 
@@ -247,84 +275,19 @@
     @include closed-panel-width;
 
     &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      height: 4rem;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 2;
-      opacity: 0;
-      transition: opacity map.get($panel-transition, duration)
-        map.get($panel-transition, timing-function)
-        map.get($panel-transition, duration);
-
-      @include breakpoint(large up) {
-        height: 8rem;
-      }
+      @include handdrawn-indicator;
     }
 
     &:nth-child(3n + 1) {
       background-color: map.get($panel-colors, 1);
-
-      &::after {
-        width: 4rem;
-        right: 0;
-        top: -2rem;
-        background-image: url("../../_images/handdrawn/1.svg");
-
-        @include breakpoint(large up) {
-          width: 8rem;
-          right: -4rem;
-          top: -5rem;
-        }
-      }
     }
 
     &:nth-child(3n + 2) {
       background-color: map.get($panel-colors, 2);
-
-      &::after {
-        width: 6rem;
-        right: 0;
-        top: calc(100vw - 2rem);
-        background-image: url("../../_images/handdrawn/2.svg");
-
-        @include breakpoint(large up) {
-          width: 12rem;
-          right: map.get($panel-height, large);
-          top: unset;
-          bottom: -4.5rem;
-        }
-
-        @include breakpoint(xlarge up) {
-          right: map.get($panel-height, xlarge);
-          bottom: -3rem;
-        }
-      }
     }
 
     &:nth-child(3n + 3) {
       background-color: map.get($panel-colors, 3);
-
-      &::after {
-        width: 4rem;
-        right: 0;
-        top: calc(100vw - 2rem);
-        background-image: url("../../_images/handdrawn/3.svg");
-
-        @include breakpoint(large up) {
-          width: 8rem;
-          right: map.get($panel-height, large);
-          top: -5rem;
-        }
-
-        @include breakpoint(xlarge up) {
-          right: map.get($panel-height, xlarge);
-          top: -2rem;
-        }
-      }
     }
 
     &.active {
@@ -362,10 +325,46 @@
       position: relative;
       overflow: visible;
 
+      &::after {
+        & {
+          width: 4rem;
+          right: 0;
+          top: -2rem;
+          background-image: map.get($handdrawn-illustrations, "video");
+        }
+
+        @include breakpoint(large up) {
+          width: 8rem;
+          right: -4rem;
+          top: -5rem;
+        }
+      }
+
+      &:hover:not(:active) {
+        .hero-accordion__video-wrapper {
+          .hero-accordion__label {
+            position: relative;
+
+            &::after {
+              @include handdrawn-indicator(4rem, 8rem, 1);
+
+              & {
+                width: 4rem;
+                top: 60%;
+                left: 0;
+                background-image: map.get($handdrawn-illustrations, "video");
+                transform: rotate(143deg);
+              }
+            }
+          }
+        }
+      }
+
       .hero-accordion__video-wrapper {
         display: flex;
         align-items: center;
         overflow: hidden;
+        height: 100%;
 
         @include breakpoint(large up) {
           flex-direction: column;
@@ -486,6 +485,53 @@
 
       // Position modifiers
       &:nth-child(even) {
+        &::after {
+          & {
+            width: 6rem;
+            right: 0;
+            top: calc(100vw - 2rem);
+            background-image: map.get(
+              $handdrawn-illustrations,
+              "image-text-even"
+            );
+          }
+
+          @include breakpoint(large up) {
+            width: 12rem;
+            right: map.get($panel-height, large);
+            top: unset;
+            bottom: -4.5rem;
+          }
+
+          @include breakpoint(xlarge up) {
+            right: map.get($panel-height, xlarge);
+            bottom: -3rem;
+          }
+        }
+
+        &:hover:not(:active) {
+          .hero-accordion__image-box {
+            .hero-accordion__label {
+              position: relative;
+
+              &::after {
+                @include handdrawn-indicator(4rem, 8rem, 1);
+
+                & {
+                  width: 4rem;
+                  bottom: 110%;
+                  right: 0;
+                  background-image: map.get(
+                    $handdrawn-illustrations,
+                    "image-text-even"
+                  );
+                  transform: rotate(-150deg) scaleX(-1);
+                }
+              }
+            }
+          }
+        }
+
         .hero-accordion__panel-inner {
           @include breakpoint(large up) {
             flex-direction: row;
@@ -556,6 +602,49 @@
       }
 
       &:nth-child(odd) {
+        &::after {
+          & {
+            width: 4rem;
+            right: 0;
+            top: calc(100vw - 2rem);
+            background-image: map.get($handdrawn-illustrations, "image-text-odd");
+          }
+
+          @include breakpoint(large up) {
+            width: 8rem;
+            right: map.get($panel-height, large);
+            top: -5rem;
+          }
+
+          @include breakpoint(xlarge up) {
+            right: map.get($panel-height, xlarge);
+            top: -2rem;
+          }
+        }
+
+        &:hover:not(:active) {
+          .hero-accordion__image-box {
+            .hero-accordion__label {
+              position: relative;
+
+              &::after {
+                @include handdrawn-indicator(4rem, 8rem, 1);
+
+                & {
+                  width: 4rem;
+                  top: 110%;
+                  right: 0;
+                  background-image: map.get(
+                    $handdrawn-illustrations,
+                    "image-text-odd"
+                  );
+                  transform: rotate(90deg);
+                }
+              }
+            }
+          }
+        }
+
         .hero-accordion__panel-inner {
           @include breakpoint(large up) {
             flex-direction: unset;
