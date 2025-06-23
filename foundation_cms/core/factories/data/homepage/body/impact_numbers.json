@@ -1,0 +1,19 @@
+{
+  "stats": [
+    {
+      "stat_number": "$500K",
+      "stat_heading": "Heading",
+      "stat_description": "Invested in open source"
+    },
+    {
+      "stat_number": "1.2M",
+      "stat_heading": "Heading",
+      "stat_description": "Monthly page views"
+    },
+    {
+      "stat_number": "90+",
+      "stat_heading": "Heading",
+      "stat_description": "Global contributors"
+    }
+  ]
+}

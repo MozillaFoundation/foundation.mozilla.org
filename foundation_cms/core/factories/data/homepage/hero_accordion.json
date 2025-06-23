@@ -1,0 +1,49 @@
+[
+  {
+    "type": "video_panel",
+    "value": {
+      "label": "Intro Video",
+      "heading": "Stand up for a better internet",
+      "thumbnail": {
+        "title": "Optional caption",
+        "image": "hero_accordion__1",
+        "alt_text": "Test",
+        "orientation": "landscape"
+      },
+      "alt_text": "Test",
+      "video_url": "https://vimeo.com/123456789"
+    }
+  },
+  {
+    "type": "image_text_panel",
+    "value": {
+      "label": "Explore Features",
+      "heading": "Mozilla Festival 2025",
+      "image": {
+        "title": "Optional caption",
+        "image": "hero_accordion__2",
+        "alt_text": "Test",
+        "orientation": "landscape"
+      },
+      "cta_text": "Try it now",
+      "cta_link": "https://example.com/",
+      "description": "Learn how our tools support your mission."
+    }
+  },
+  {
+    "type": "image_text_panel",
+    "value": {
+      "label": "label",
+      "heading": "Our Community",
+      "image": {
+        "title": "Optional caption",
+        "image": "hero_accordion__3",
+        "alt_text": "Test",
+        "orientation": "landscape"
+      },
+      "cta_text": "View link",
+      "cta_link": "https://example.com/",
+      "description": "Help build the future of the open web."
+    }
+  }
+]
