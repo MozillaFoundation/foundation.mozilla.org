@@ -5,8 +5,8 @@
     {
       "type": "card",
       "value": {
-        "topic": "Data",
-        "category": "",
+        "topic": "",
+        "category": "Data",
         "title": "The most diverse open voice dataset in the world",
         "text": "",
         "image": {

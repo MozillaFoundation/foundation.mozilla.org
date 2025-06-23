@@ -5,8 +5,8 @@
     {
       "type": "card",
       "value": {
-        "topic": "Campaign",
-        "category": "",
+        "topic": "",
+        "category": "Campaign",
         "title": "See No Evil: Shining a light surveillance tech",
         "text": "",
         "image": {
