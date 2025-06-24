@@ -2,9 +2,9 @@
 
 @import "../scss/settings/customized-settings";
 @import "../../../node_modules/foundation-sites/scss/foundation";
-@import "../../../node_modules/foundation-sites/scss/components/visibility";
+@import "../../../node_modules/foundation-sites/scss/xy-grid/xy-grid";
 
-// Modules
+// Foundation modules
 @include foundation-global-styles;
 @include foundation-xy-grid-classes;
 @include foundation-visibility-classes;
