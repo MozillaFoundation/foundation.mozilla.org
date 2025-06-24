@@ -37,6 +37,11 @@
 
   &__newsletter-form {
     .newsletter-signup {
+      .newsletter-signup__link {
+        color: inherit;
+        text-decoration: none;
+      }
+
       &__fieldset {
         .cell {
           margin: 0.25rem 0;
@@ -100,11 +105,6 @@
             background-position: center;
             background-size: 1.25rem auto;
           }
-        }
-
-        .newsletter-signup__link {
-          color: inherit;
-          text-decoration: none;
         }
       }
 
