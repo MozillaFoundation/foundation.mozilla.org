@@ -39,7 +39,7 @@
 
       .activation-card {
         flex-direction: row;
-        height: 350px;
+        height: rem-calc(350);
 
         &-image-container {
           width: 60%;
