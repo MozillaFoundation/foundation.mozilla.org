@@ -1,0 +1,567 @@
+@use "sass:map";
+@use "./base" as base;
+
+@import "../../settings/customized-settings";
+@import "../../../../../node_modules/foundation-sites/scss/util/util";
+@import "../../../../../node_modules/foundation-sites/scss/util/breakpoint";
+
+// FIXME:TODO:
+//   Split type.scss into _type-defs.scss (definitions) and type.scss (selectors) in a follow-up PR.
+//   Once that's done, we can then @use to reduce the final CSS output
+@import "../../../scss/type";
+
+.hero-accordion {
+  // ===================================
+  // Image Text Panel
+  // ===================================
+
+  &__panel--image_text_panel {
+    // ===================================
+    // Base
+    // ===================================
+
+    height: 100%;
+    overflow: visible;
+    position: relative;
+
+    .hero-accordion__details {
+      display: none;
+      padding: map.get(base.$details-section-padding, small);
+      transition:
+        opacity map.get(base.$panel-transition, duration)
+          map.get(base.$panel-transition, timing-function),
+        transform map.get(base.$panel-transition, duration)
+          map.get(base.$panel-transition, timing-function);
+
+      @include breakpoint(large up) {
+        display: block;
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        opacity: 0;
+        height: 100%;
+        padding: map.get(base.$details-section-padding, large);
+        pointer-events: none;
+      }
+    }
+
+    .hero-accordion__details-inner {
+      display: flex;
+      flex-direction: column;
+      gap: map.get(base.$details-subsection-gap, small);
+
+      @include breakpoint(large up) {
+        gap: map.get(base.$details-subsection-gap, large);
+      }
+    }
+
+    .hero-accordion__image-box {
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      transition: width map.get(base.$panel-transition, duration)
+        map.get(base.$panel-transition, timing-function);
+
+      @include base.closed-panel-width;
+
+      @include breakpoint(large up) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-accordion__label {
+        display: block;
+        margin: map.get(base.$text-side-margin, small);
+
+        @include breakpoint(large up) {
+          margin: map.get(base.$text-side-margin, large);
+        }
+      }
+
+      .hero-accordion__image {
+        width: var(--closed-panel-width);
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        position: relative;
+
+        // background-repeat: no-repeat;
+        // background-size: var(--closed-panel-width) var(--closed-panel-width);
+        transition:
+          width map.get(base.$panel-transition, duration)
+            map.get(base.$panel-transition, timing-function),
+          height map.get(base.$panel-transition, duration)
+            map.get(base.$panel-transition, timing-function),
+          background-size map.get(base.$panel-transition, duration)
+            map.get(base.$panel-transition, timing-function);
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: var(--bg-img) no-repeat right center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          z-index: -1;
+          transition:
+            background-size map.get(base.$panel-transition, duration)
+              map.get(base.$panel-transition, timing-function),
+            background-position map.get(base.$panel-transition, duration)
+              map.get(base.$panel-transition, timing-function);
+        }
+      }
+    }
+
+    // Position modifiers
+    &:nth-child(even) {
+      &::after {
+        width: 6rem;
+        right: 0;
+        top: calc(100vw - 2rem);
+        background-image: map.get(
+          base.$handdrawn-illustrations,
+          "image-text-even"
+        );
+
+        @include breakpoint(large up) {
+          width: 12rem;
+          right: map.get(base.$panel-height, large);
+          top: unset;
+          bottom: -4.5rem;
+        }
+
+        @include breakpoint(xlarge up) {
+          right: map.get(base.$panel-height, xlarge);
+          bottom: -3rem;
+        }
+      }
+
+      .hero-accordion__panel-inner {
+        @include breakpoint(large up) {
+          flex-direction: row;
+        }
+      }
+
+      .hero-accordion__image {
+        margin-left: auto;
+
+        @include breakpoint(large up) {
+          margin-left: unset;
+        }
+      }
+
+      .hero-accordion__details {
+        @include breakpoint(large up) {
+          right: 0;
+          width: calc(
+            var(--open-panel-width) - map.get(base.$panel-height, large)
+          );
+        }
+
+        @each $size in large, xlarge {
+          @include breakpoint(#{$size} up) {
+            @include base.text-details-position-even($size);
+          }
+        }
+
+        &-inner {
+          transition: transform map.get(base.$panel-transition, duration)
+            map.get(base.$panel-transition, timing-function);
+
+          @include breakpoint(large up) {
+            transform: translateX(-(map.get(base.$panel-height, large)));
+          }
+
+          @include breakpoint(xlarge up) {
+            transform: translateX(-(map.get(base.$panel-height, xlarge)));
+          }
+        }
+      }
+
+      .hero-accordion__image-box {
+        flex-direction: row;
+        justify-content: space-between;
+
+        @include breakpoint(large up) {
+          flex-direction: column;
+          justify-content: end;
+        }
+
+        .hero-accordion__image {
+          &::before {
+            clip-path: inset(
+              0 0 0 0 round map.get(base.$square-image-corner-radius, small) 0 0
+                map.get(base.$square-image-corner-radius, small)
+            );
+
+            @include breakpoint(large up) {
+              clip-path: inset(
+                0 0 0 0 round map.get(base.$square-image-corner-radius, large) 0
+                  0 map.get(base.$square-image-corner-radius, large)
+              );
+            }
+          }
+        }
+      }
+    }
+
+    &:nth-child(odd) {
+      &::after {
+        width: 4rem;
+        right: 0;
+        top: calc(100vw - 2rem);
+        background-image: map.get(
+          base.$handdrawn-illustrations,
+          "image-text-odd"
+        );
+
+        @include breakpoint(large up) {
+          width: 8rem;
+          right: map.get(base.$panel-height, large);
+          top: -5rem;
+        }
+
+        @include breakpoint(xlarge up) {
+          right: map.get(base.$panel-height, xlarge);
+          top: -2rem;
+        }
+      }
+
+      .hero-accordion__panel-inner {
+        @include breakpoint(large up) {
+          flex-direction: unset;
+          justify-content: flex-end;
+        }
+      }
+
+      .hero-accordion__details {
+        @include breakpoint(large up) {
+          left: 0;
+          right: auto;
+          width: calc(
+            var(--open-panel-width) - map.get(base.$panel-height, large)
+          );
+        }
+
+        @each $size in large, xlarge {
+          @include breakpoint(#{$size} up) {
+            @include base.text-details-position-odd($size);
+          }
+        }
+
+        &-inner {
+          @include breakpoint(large up) {
+            transform: translateX(map.get(base.$panel-height, large));
+          }
+
+          @include breakpoint(xlarge up) {
+            transform: translateX(map.get(base.$panel-height, xlarge));
+          }
+        }
+      }
+
+      .hero-accordion__image-box {
+        flex-direction: row-reverse;
+        justify-content: start;
+
+        @include breakpoint(large up) {
+          flex-direction: column-reverse;
+          justify-content: start;
+        }
+
+        .hero-accordion__image {
+          &::before {
+            clip-path: inset(
+              0 0 0 0 round 0 map.get(base.$square-image-corner-radius, small) 0
+                map.get(base.$square-image-corner-radius, small)
+            );
+
+            @include breakpoint(large up) {
+              clip-path: inset(
+                0 0 0 0 round 0 map.get(base.$square-image-corner-radius, large)
+                  0 map.get(base.$square-image-corner-radius, large)
+              );
+            }
+          }
+        }
+      }
+    }
+
+    // ===================================
+    // Inactive State for Image Text Panel
+    // (Not active or transitioning out)
+    // ===================================
+
+    &:not(.active, .transitioning-to-inactive) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          display: block;
+        }
+      }
+    }
+
+    // ===================================
+    // Active State for Image Text Panel (Base)
+    // ===================================
+
+    &.active {
+      .hero-accordion__details {
+        display: block;
+
+        @include breakpoint(large up) {
+          pointer-events: auto;
+        }
+      }
+
+      .hero-accordion__image-box {
+        width: 100%;
+
+        @include breakpoint(large up) {
+          width: map.get(base.$panel-height, large);
+        }
+
+        @include breakpoint(xlarge up) {
+          width: map.get(base.$panel-height, xlarge);
+        }
+
+        .hero-accordion__label {
+          display: none;
+        }
+
+        .hero-accordion__image {
+          width: 100%;
+          height: 100%;
+
+          @include breakpoint(large up) {
+            width: map.get(base.$panel-height, large);
+            height: map.get(base.$panel-height, large);
+          }
+
+          @include breakpoint(xlarge up) {
+            width: map.get(base.$panel-height, xlarge);
+            height: map.get(base.$panel-height, xlarge);
+          }
+
+          &::before {
+            @include breakpoint(large up) {
+              background-size: map.get(base.$panel-height, large)
+                map.get(base.$panel-height, large);
+            }
+
+            @include breakpoint(xlarge up) {
+              background-size: map.get(base.$panel-height, xlarge)
+                map.get(base.$panel-height, xlarge);
+            }
+          }
+        }
+      }
+
+      .hero-accordion__details-inner {
+        @include breakpoint(large up) {
+          padding-top: 0;
+          padding-bottom: 0;
+          transform: translateX(0);
+        }
+      }
+    }
+
+    // ===================================
+    // Transitional State for Image Text Panel (Base)
+    // ===================================
+
+    &.transitioning-to-inactive {
+      flex-direction: column-reverse;
+
+      @include breakpoint(large up) {
+        flex-direction: row;
+      }
+
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          display: none;
+        }
+      }
+
+      .hero-accordion__details {
+        @include breakpoint(large up) {
+          display: block;
+          pointer-events: none;
+        }
+      }
+    }
+
+    // ===================================
+    // Active States for Image Text Panel (Even-Positioned and Odd-Positioned)
+    // ===================================
+
+    &:nth-child(even).active {
+      .hero-accordion__panel-inner {
+        flex-direction: column-reverse;
+
+        @include breakpoint(large up) {
+          flex-direction: row-reverse;
+        }
+      }
+
+      .hero-accordion__details {
+        @include base.active-details-visible;
+
+        @include breakpoint(large up) {
+          transform: translateX(-(map.get(base.$panel-height, large)));
+        }
+
+        @include breakpoint(xlarge up) {
+          transform: translateX(-(map.get(base.$panel-height, xlarge)));
+        }
+      }
+    }
+
+    &:nth-child(odd).active {
+      .hero-accordion__panel-inner {
+        flex-direction: column-reverse;
+
+        @include breakpoint(large up) {
+          flex-direction: row;
+          justify-content: flex-end;
+        }
+      }
+
+      .hero-accordion__details {
+        @include base.active-details-visible;
+
+        @include breakpoint(large up) {
+          transform: translateX(0);
+        }
+      }
+    }
+
+    // ===================================
+    // Transitional State for Image Text Panel (Even-Positioned and Odd-Positioned)
+    // ===================================
+
+    &:nth-child(even).transitioning-to-inactive {
+      .hero-accordion__panel-inner {
+        justify-content: flex-end;
+      }
+
+      .hero-accordion__details {
+        display: none;
+
+        @include breakpoint(large up) {
+          transform: translateX(-(map.get(base.$panel-height, large)));
+        }
+
+        @include breakpoint(xlarge up) {
+          transform: translateX(-(map.get(base.$panel-height, xlarge)));
+        }
+      }
+
+      .hero-accordion__image-box {
+        // maintain the same flex arrangement as active state
+        flex-direction: row;
+        justify-content: end;
+
+        @include breakpoint(large up) {
+          flex-direction: column;
+        }
+
+        .hero-accordion__image {
+          &::before {
+            background-position: right bottom;
+          }
+        }
+      }
+    }
+
+    &:nth-child(odd).transitioning-to-inactive {
+      .hero-accordion__panel-inner {
+        justify-content: flex-end;
+      }
+
+      .hero-accordion__details {
+        display: none;
+
+        @include breakpoint(large up) {
+          transform: translateX(0);
+        }
+      }
+
+      .hero-accordion__image-box {
+        // maintain the same flex arrangement as active state
+        flex-direction: row-reverse;
+        justify-content: start;
+
+        @include breakpoint(large up) {
+          flex-direction: column-reverse;
+          justify-content: start;
+        }
+
+        .hero-accordion__image {
+          &::before {
+            background-position: right top;
+          }
+        }
+      }
+    }
+
+    // ===================================
+    // Hover State for Image Text Panel (Even-Positioned and Odd-Positioned)
+    // ===================================
+
+    &:nth-child(even):hover:not(:active) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          position: relative;
+
+          &::after {
+            @include breakpoint(large up) {
+              @include base.handdrawn-indicator(1);
+
+              width: 8rem;
+              bottom: 110%;
+              right: 0;
+              background-image: map.get(
+                base.$handdrawn-illustrations,
+                "image-text-even"
+              );
+              transform: rotate(-150deg) scaleX(-1);
+            }
+
+            @include breakpoint(xlarge up) {
+              width: 10rem;
+              height: 6rem;
+            }
+          }
+        }
+      }
+    }
+
+    &:nth-child(odd):hover:not(:active) {
+      .hero-accordion__image-box {
+        .hero-accordion__label {
+          position: relative;
+
+          &::after {
+            @include breakpoint(large up) {
+              @include base.handdrawn-indicator(1);
+
+              width: 8rem;
+              height: 6rem;
+              top: 150%;
+              right: 0;
+              background-image: map.get(
+                base.$handdrawn-illustrations,
+                "image-text-odd"
+              );
+              transform: rotate(90deg);
+            }
+
+            @include breakpoint(xlarge up) {
+              width: 11rem;
+              height: 7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,237 @@
+@use "sass:map";
+@use "./base" as base;
+
+@import "../../settings/customized-settings";
+@import "../../../../../node_modules/foundation-sites/scss/util/util";
+@import "../../../../../node_modules/foundation-sites/scss/util/breakpoint";
+
+// FIXME:TODO:
+//   Split type.scss into _type-defs.scss (definitions) and type.scss (selectors) in a follow-up PR.
+//   Once that's done, we can then @use to reduce the final CSS output
+@import "../../../scss/type";
+
+.hero-accordion {
+  // ===================================
+  // Video Panel
+  // ===================================
+
+  &__panel--video_panel {
+    // ===================================
+    // Base
+    // ===================================
+
+    position: relative;
+    overflow: visible;
+
+    &::after {
+      width: 4rem;
+      right: 0;
+      top: -2rem;
+      background-image: map.get(base.$handdrawn-illustrations, "video");
+
+      @include breakpoint(large up) {
+        width: 8rem;
+        right: -4rem;
+        top: -5rem;
+      }
+    }
+
+    .hero-accordion__video-wrapper {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      height: 100%;
+
+      @include breakpoint(large up) {
+        flex-direction: column;
+        align-items: normal;
+      }
+
+      .hero-accordion__label {
+        margin: map.get(base.$text-side-margin, small);
+        flex: 0 0 calc-video-box-mobile-collapsed-width();
+
+        @include breakpoint(large up) {
+          flex: initial;
+          margin: map.get(base.$text-side-margin, large);
+        }
+      }
+    }
+
+    .hero-accordion__video-box {
+      position: relative;
+      width: base.calc-video-box-mobile-collapsed-width();
+      aspect-ratio: base.$video-aspect-ratio;
+      overflow: hidden;
+      transition: width map.get(base.$panel-transition, duration)
+        map.get(base.$panel-transition, timing-function);
+
+      @include breakpoint(large up) {
+        width: 100%;
+        transform: none;
+      }
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    }
+
+    .hero-accordion__video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem 1rem 0 0;
+      overflow: hidden;
+      transition: border-radius map.get(base.$panel-transition, duration)
+        map.get(base.$panel-transition, timing-function);
+    }
+
+    .hero-accordion__video-thumbnail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-accordion__video-play-button {
+      z-index: 1;
+    }
+
+    .hero-accordion__details {
+      display: none;
+    }
+
+    // ===================================
+    // Active State for Video Panel
+    // ===================================
+
+    &.active {
+      .hero-accordion__label {
+        margin-bottom: rem-calc(8);
+
+        @include apply-text-style(
+          base.$header-styles,
+          "h4",
+          "small",
+          base.$header-font-family
+        );
+      }
+
+      .hero-accordion__video-box {
+        width: 100vw;
+
+        @include breakpoint(large up) {
+          width: 100%;
+        }
+      }
+
+      .hero-accordion__video-wrapper .hero-accordion__label {
+        display: none;
+      }
+
+      .hero-accordion__details {
+        display: block;
+        width: 100%;
+        background-color: map.get(base.$panel-colors, 1);
+        color: black;
+        padding: base.$details-section-padding-y-small
+          map.get(base.$text-side-margin, small);
+
+        @include breakpoint(large up) {
+          position: absolute;
+          bottom: 0;
+          padding: map.get(base.$details-section-padding, large);
+          transform: translateY(0);
+          transition: transform map.get(base.$panel-transition, duration)
+            map.get(base.$panel-transition, timing-function);
+        }
+
+        > :first-child {
+          margin-top: 0;
+        }
+
+        > :last-child {
+          margin-bottom: 0;
+        }
+
+        &.hidden {
+          @include breakpoint(large up) {
+            transform: translateY(100%);
+          }
+        }
+      }
+
+      .hero-accordion__video-overlay {
+        border-radius: 6rem 6rem 0 0;
+
+        &.hidden {
+          display: none;
+        }
+      }
+    }
+
+    // ===================================
+    // Transitional State for Video Panel
+    // ===================================
+
+    &.transitioning-to-inactive {
+      .hero-accordion__video-wrapper {
+        .hero-accordion__label {
+          display: none;
+        }
+      }
+    }
+
+    // ===================================
+    // Other State for Video Panel
+    // ===================================
+
+    &:not(.active) {
+      .hero-accordion__video-play-button {
+        display: none;
+      }
+    }
+
+    &:hover:not(:active) {
+      .hero-accordion__video-wrapper {
+        .hero-accordion__label {
+          position: relative;
+
+          &::after {
+            @include breakpoint(large up) {
+              @include base.handdrawn-indicator(1);
+
+              width: 8rem;
+              height: 8rem;
+              top: 100%;
+              left: 0;
+              background-image: map.get(base.$handdrawn-illustrations, "video");
+              transform: rotate(143deg);
+            }
+
+            @include breakpoint(xlarge up) {
+              width: 11rem;
+              top: 120%;
+              left: -10%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
