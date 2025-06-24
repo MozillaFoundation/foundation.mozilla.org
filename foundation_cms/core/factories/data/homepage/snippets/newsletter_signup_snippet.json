@@ -1,0 +1,13 @@
+[
+    {
+      "model": "snippets.newslettersignup",
+      "pk": 1,
+      "fields": {
+        "name": "Main Newsletter",
+        "cta_text": "The internet we deserve starts with you. Join the movement now.",
+        "button_text": "Sign Up",
+        "newsletter": "mozilla-foundation",
+        "layout": "expanded"
+      }
+    }
+  ] 

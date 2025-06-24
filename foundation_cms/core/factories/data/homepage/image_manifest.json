@@ -32,15 +32,15 @@
     "alt_text": "Third Card"
   },
   "timely_activations__1": {
-    "filename": "ta_card1.jpg",
+    "filename": "timely_activation_card__1.jpg",
     "alt_text": "Internet Health"
   },
   "timely_activations__2": {
-    "filename": "ta_card2.jpg",
+    "filename": "timely_activation_card__2.jpg",
     "alt_text": "Privacy and Security"
   },
   "timely_activations__3": {
-    "filename": "ta_card3.jpg",
+    "filename": "timely_activation_card__3.jpg",
     "alt_text": "Digital Inclusion"
   }
 }
