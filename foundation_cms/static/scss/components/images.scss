@@ -9,8 +9,8 @@
 
 .image-block-portrait .image-block-image {
   width: auto;
-  height: 350px;
-  max-width: 250px;
+  height: rem-calc(350);
+  max-width: rem-calc(250);
   object-fit: cover;
   margin: 0 auto;
   display: block;
