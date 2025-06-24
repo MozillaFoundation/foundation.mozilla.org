@@ -3,10 +3,10 @@
 {% block block_content %}
     <div class="video-block">
         <div class="video-block__wrapper">
-            {% with video_id=block.value.video_url|cut:"https://vimeo.com/" %}
+            {% with video_id=self.video_url|cut:"https://vimeo.com/" %}
                 <iframe
                     class="video-block__iframe"
-                    src="https://player.vimeo.com/video/{{ self.video_id }}"
+                    src="https://player.vimeo.com/video/{{ video_id }}"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture;"
                     allowfullscreen
