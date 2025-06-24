@@ -8,6 +8,7 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
+import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 
 let foundationSiteURL = window.location.origin;
 
@@ -23,3 +24,4 @@ initAllHorizontalAccordions();
 injectNewsletterSignups(foundationSiteURL);
 initPortraitCardSetCarousels();
 initWordmarkVisibilityOnScroll();
+initSpotlightCardCarousels();
