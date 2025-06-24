@@ -8,6 +8,7 @@
 @import "../../settings/customized-settings";
 @import "../../../../../node_modules/foundation-sites/scss/util/util";
 @import "../../../../../node_modules/foundation-sites/scss/util/breakpoint";
+@import "../../../scss/colors";
 
 // FIXME:TODO:
 //   Split type.scss into _type-defs.scss (definitions) and type.scss (selectors) in a follow-up PR.
@@ -20,19 +21,18 @@
 
 $panel-transition: (
   duration: 0.5s,
-  // timing-function: cubic-bezier(0.7, 0, 0.15, 1)
   timing-function: ease,
 );
 $panel-height: (
-  small: 400px,
-  medium: 500px,
-  large: 500px,
-  xlarge: 600px,
+  small: rem-calc(400),
+  medium: rem-calc(500),
+  large: rem-calc(500),
+  xlarge: rem-calc(600),
 );
 $panel-colors: (
-  1: #f88539,
-  2: #eeb500,
-  3: #eed800,
+  1: color(orange, "300"),
+  2: color(yellow, "600"),
+  3: color(yellow, "300"),
 );
 $text-side-margin: (
   small: 1rem,
@@ -218,8 +218,6 @@ $handdrawn-illustrations: (
   &__panel {
     flex: none;
     position: relative;
-    background-color: #eee;
-    color: #333;
     cursor: pointer;
     transition: width map.get($panel-transition, duration)
       map.get($panel-transition, timing-function);
