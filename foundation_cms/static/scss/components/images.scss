@@ -26,7 +26,7 @@
 }
 
 .image-block-square .image-block-image {
-  width: 300px;
+  width: rem-calc(300);
   height: 300px;
   max-width: 90vw;
   object-fit: cover;
