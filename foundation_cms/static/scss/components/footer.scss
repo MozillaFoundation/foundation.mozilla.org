@@ -49,7 +49,7 @@
         text-decoration: none;
 
         &:hover {
-          text-decoration: underline;
+          color: color(orange, "100");
         }
       }
 
@@ -63,6 +63,11 @@
             background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_2513_482' style='mask-type:luminance' maskUnits='userSpaceOnUse' x='0' y='0' width='12' height='13'%3E%3Cpath d='M0 0.000183105H12V12.0002H0V0.000183105Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_2513_482)'%3E%3Cpath d='M6.93759 1.12518H10.0801L5.34009 5.86518L6.13509 6.66018L10.8751 1.92018V5.06268H12.0001V0.000183105H6.93759V1.12518Z' fill='white'/%3E%3Cpath d='M9 6.75018H7.875V10.8752H1.125V4.12518H5.25V3.00018H0V12.0002H9V6.75018Z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
             color: color(neutral, "100");
             margin-left: 0.5rem;
+          }
+          &:hover {
+            &::after {
+              background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0_2513_482' style='mask-type:luminance' maskUnits='userSpaceOnUse' x='0' y='0' width='12' height='13'%3E%3Cpath d='M0 0.000183105H12V12.0002H0V0.000183105Z' fill='%23FF9E5F'/%3E%3C/mask%3E%3Cg mask='url(%23mask0_2513_482)'%3E%3Cpath d='M6.93759 1.12518H10.0801L5.34009 5.86518L6.13509 6.66018L10.8751 1.92018V5.06268H12.0001V0.000183105H6.93759V1.12518Z' fill='%23FF9E5F'/%3E%3Cpath d='M9 6.75018H7.875V10.8752H1.125V4.12518H5.25V3.00018H0V12.0002H9V6.75018Z' fill='%23FF9E5F'/%3E%3C/g%3E%3C/svg%3E%0A");
+            }
           }
         }
       }
@@ -93,6 +98,7 @@
 
   &__legals {
     background: url("../_images/footer-separator.svg") no-repeat center top;
+    background-size: 100% auto;
     padding-top: 3rem;
     margin-top: 3rem;
     display: flex;
@@ -120,15 +126,18 @@
       padding: 0;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
-
-      @include breakpoint(large up) {
-        gap: 2rem;
-      }
+      gap: 2rem;
+      justify-content: center;
 
       .site-footer-ns__social-link {
         display: block;
         height: 24px;
+
+        &:hover {
+          svg path {
+            fill: color(orange, "100");
+          }
+        }
       }
     }
   }
