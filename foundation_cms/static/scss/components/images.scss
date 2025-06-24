@@ -17,8 +17,8 @@
 }
 
 .image-block-landscape .image-block-image {
-  width: 400px;
-  height: 225px;
+  width: rem-calc(400);
+  height: rem-calc(225);
   max-width: 90vw;
   object-fit: cover;
   margin: 0 auto;
