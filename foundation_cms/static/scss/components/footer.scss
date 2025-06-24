@@ -17,6 +17,12 @@
     }
   }
 
+  &__grid-cell:has(> .site-footer-ns__logo) {
+    @include breakpoint(large up) {
+      width: 40%;
+    }
+  }
+
   &__logo {
     margin-bottom: 3rem;
 
@@ -25,7 +31,7 @@
     }
 
     @include breakpoint(large up) {
-      max-width: fit-content;
+      // max-width: fit-content;
     }
   }
 
@@ -51,6 +57,10 @@
         &:focus-visible {
           outline: 1px solid $white;
           outline-offset: 2px;
+        }
+
+        @include breakpoint(large up) {
+          width: 100%;
         }
       }
 
