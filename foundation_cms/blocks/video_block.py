@@ -1,7 +1,10 @@
+from django.core.exceptions import ValidationError
 from wagtail import blocks
+from wagtail.blocks import StructBlockValidationError
 
 from foundation_cms.base.models.base_block import BaseBlock
 from foundation_cms.blocks.link_block import LinkWithoutLabelBlock
+from foundation_cms.validators import validate_vimeo_url
 
 
 class VideoBlock(BaseBlock):
@@ -18,6 +21,20 @@ class VideoBlock(BaseBlock):
         help_text="Optional URL that this caption should link out to.",
         default=[],
     )
+
+    def clean(self, value):
+        validation_errors = {}
+
+        # Run custom Vimeo URL validation
+        try:
+            validate_vimeo_url(value.get("video_url", ""))
+        except ValidationError as e:
+            validation_errors["video_url"] = ValidationError(e)
+
+        if validation_errors:
+            raise StructBlockValidationError(validation_errors)
+
+        return super().clean(value)
 
     class Meta:
         template_name = "video_block.html"
