@@ -49,6 +49,7 @@ class HomePageFactory(PageFactory):
         model_instance = model_cls()
 
         # Build an instance of the model, using raw json data
+        print("BODY DATA:", raw.get("body", []))
         instance = cls.build(
             title=raw.get("title", "Redesign Homepage"),
             slug=slug,

@@ -42,5 +42,17 @@
   "timely_activations__3": {
     "filename": "timely_activation_card__3.jpg",
     "alt_text": "Digital Inclusion"
+  },
+  "spotlight_card_set__1": {
+    "filename": "spotlight_card__1.jpg",
+    "alt_text": ""
+  },
+  "spotlight_card_set__2": {
+    "filename": "spotlight_card__2.jpg",
+    "alt_text": ""
+  },
+  "spotlight_card_set__3": {
+    "filename": "spotlight_card__3.jpg",
+    "alt_text": ""
   }
 }

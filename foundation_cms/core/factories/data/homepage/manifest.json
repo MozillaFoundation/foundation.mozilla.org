@@ -11,6 +11,7 @@
     { "type": "timely_activations_cards", "value": "body/timely_activations_cards2.json" },
     { "type": "timely_activations_cards", "value": "body/timely_activations_cards3.json" },
     { "type": "tabbed_content", "value": "body/tabbed_content.json" },
-    { "type": "rich_text", "value": "body/richtext.json" }
+    { "type": "spotlight_card_set_block", "value": "body/spotlight_card_set_block.json" },
+    { "type": "", "value": "body/.json" }
   ]
 }

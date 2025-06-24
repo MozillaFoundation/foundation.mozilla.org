@@ -9,5 +9,17 @@
         "newsletter": "mozilla-foundation",
         "layout": "expanded"
       }
+    },
+  {
+      "model": "snippets.newslettersignup",
+      "pk": 2,
+      "fields": {
+        "name": "Footer Newsletter",
+        "cta_text": "Stay updated with our newsletter",
+        "button_text": "Sign Up",
+        "newsletter": "mozilla-foundation",
+        "layout": "expanded"
+      }
     }
-  ] 
+
+  ]

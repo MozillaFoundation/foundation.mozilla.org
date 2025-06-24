@@ -16,12 +16,10 @@
       "image": "portrait_card__3"
     }
   ],
-  "cta_link": [
-    {
+  "cta_link":{
       "link_to": "external_url",
       "external_url": "https://example.com/team",
       "label": "See how we disrupt for good",
       "new_window": true
     }
-  ]
 }
