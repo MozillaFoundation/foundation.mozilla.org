@@ -23,26 +23,16 @@ class Migration(migrations.Migration):
                     ("image", 4),
                     ("audio_block", 9),
                     ("tabbed_content", 30),
-<<<<<<< HEAD
-                    ("two_column_container_block", 41),
-                    ("link_button_block", 24),
-                    ("portrait_card_set_block", 49),
-=======
                     ("two_column_container_block", 36),
                     ("link_button_block", 24),
                     ("portrait_card_set_block", 45),
                     ("spotlight_card_set_block", 49),
->>>>>>> origin/redesign
                     ("spacer_block", 51),
                     ("impact_numbers", 57),
                     ("newsletter_signup", 33),
                     ("timely_activations_cards", 67),
                     ("quote", 69),
                     ("list_block", 74),
-<<<<<<< HEAD
-                    ("video_block", 38),
-=======
->>>>>>> origin/redesign
                 ],
                 blank=True,
                 block_lookup={
@@ -205,65 +195,6 @@ class Migration(migrations.Migration):
                     ),
                     33: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 32)]], {}),
                     34: (
-<<<<<<< HEAD
-                        "wagtail.blocks.CharBlock",
-                        (),
-                        {
-                            "help_text": "Log into Vimeo, select your desired video, and click 'Copy Link'",
-                            "label": "Vimeo Video URL",
-                            "required": True,
-                        },
-                    ),
-                    35: ("wagtail.blocks.CharBlock", (), {"help_text": "Optional Caption Text", "required": False}),
-                    36: (
-                        "wagtail.blocks.StructBlock",
-                        [
-                            [
-                                ("link_to", 15),
-                                ("page", 16),
-                                ("external_url", 17),
-                                ("relative_url", 18),
-                                ("anchor", 19),
-                                ("email", 20),
-                                ("file", 21),
-                                ("phone", 22),
-                                ("new_window", 23),
-                            ]
-                        ],
-                        {},
-                    ),
-                    37: (
-                        "wagtail.blocks.ListBlock",
-                        (36,),
-                        {
-                            "default": [],
-                            "help_text": "Optional URL that this caption should link out to.",
-                            "max_num": 1,
-                            "min_num": 0,
-                        },
-                    ),
-                    38: (
-                        "wagtail.blocks.StructBlock",
-                        [[("video_url", 34), ("caption", 35), ("caption_url", 37)]],
-                        {},
-                    ),
-                    39: (
-                        "wagtail.blocks.StreamBlock",
-                        [[("rich_text", 0), ("audio", 9), ("image", 4), ("newsletter_signup", 33), ("video", 38)]],
-                        {"label": "Left Column"},
-                    ),
-                    40: (
-                        "wagtail.blocks.StreamBlock",
-                        [[("rich_text", 0), ("audio", 9), ("image", 4), ("newsletter_signup", 33), ("video", 38)]],
-                        {"label": "Right Column"},
-                    ),
-                    41: (
-                        "wagtail.blocks.StructBlock",
-                        [[("title", 31), ("left_column", 39), ("right_column", 40)]],
-                        {},
-                    ),
-                    42: (
-=======
                         "wagtail.blocks.StreamBlock",
                         [[("rich_text", 0), ("audio", 9), ("image", 4), ("newsletter_signup", 33)]],
                         {"label": "Left Column"},
@@ -279,62 +210,35 @@ class Migration(migrations.Migration):
                         {},
                     ),
                     37: (
->>>>>>> origin/redesign
                         "wagtail.blocks.CharBlock",
                         (),
                         {"help_text": "Main heading for the card set.", "label": "Headline", "required": False},
                     ),
-<<<<<<< HEAD
-                    43: (
-=======
                     38: (
->>>>>>> origin/redesign
                         "wagtail.blocks.CharBlock",
                         (),
                         {
                             "help_text": "Appears above the headline (max 36 characters).",
                             "label": "Label",
-<<<<<<< HEAD
-                            "max_length": 36,
-                            "required": False,
-                        },
-                    ),
-                    44: (
-=======
                             "max_length": 50,
                             "required": False,
                         },
                     ),
                     39: (
->>>>>>> origin/redesign
                         "wagtail.blocks.CharBlock",
                         (),
                         {
                             "help_text": "Appears as the main heading (max 36 characters).",
                             "label": "Headline",
-<<<<<<< HEAD
-                            "max_length": 36,
-                            "required": False,
-                        },
-                    ),
-                    45: (
-=======
                             "max_length": 50,
                             "required": False,
                         },
                     ),
                     40: (
->>>>>>> origin/redesign
                         "wagtail.images.blocks.ImageChooserBlock",
                         (),
                         {"help_text": "Image should follow a 2:3 aspect ratio.", "label": "Image", "required": False},
                     ),
-<<<<<<< HEAD
-                    46: ("wagtail.blocks.StructBlock", [[("label", 43), ("headline", 44), ("image", 45)]], {}),
-                    47: (
-                        "wagtail.blocks.ListBlock",
-                        (46,),
-=======
                     41: (
                         "foundation_cms.blocks.link_block.OptionalLinkBlock",
                         (),
@@ -352,18 +256,13 @@ class Migration(migrations.Migration):
                     43: (
                         "wagtail.blocks.ListBlock",
                         (42,),
->>>>>>> origin/redesign
                         {
                             "help_text": "Minimum of 3 cards required. More than 3 will turn element into a carousel.",
                             "label": "Portrait Cards",
                             "min_num": 3,
                         },
                     ),
-<<<<<<< HEAD
-                    48: (
-=======
                     44: (
->>>>>>> origin/redesign
                         "foundation_cms.blocks.link_block.OptionalLinkBlock",
                         (),
                         {
@@ -372,9 +271,6 @@ class Migration(migrations.Migration):
                             "required": False,
                         },
                     ),
-<<<<<<< HEAD
-                    49: ("wagtail.blocks.StructBlock", [[("headline", 42), ("cards", 47), ("cta_link", 48)]], {}),
-=======
                     45: ("wagtail.blocks.StructBlock", [[("headline", 37), ("cards", 43), ("cta_link", 44)]], {}),
                     46: (
                         "wagtail.images.blocks.ImageChooserBlock",
@@ -392,7 +288,6 @@ class Migration(migrations.Migration):
                         {"help_text": "3 cards required.", "label": "Spotlight Cards", "max_num": 3, "min_num": 3},
                     ),
                     49: ("wagtail.blocks.StructBlock", [[("headline", 37), ("cards", 48), ("cta_link", 44)]], {}),
->>>>>>> origin/redesign
                     50: (
                         "wagtail.blocks.ChoiceBlock",
                         [],
@@ -511,26 +406,16 @@ class Migration(migrations.Migration):
                     ("image", 4),
                     ("audio_block", 9),
                     ("tabbed_content", 30),
-<<<<<<< HEAD
-                    ("two_column_container_block", 41),
-                    ("link_button_block", 24),
-                    ("portrait_card_set_block", 49),
-=======
                     ("two_column_container_block", 36),
                     ("link_button_block", 24),
                     ("portrait_card_set_block", 45),
                     ("spotlight_card_set_block", 49),
->>>>>>> origin/redesign
                     ("spacer_block", 51),
                     ("impact_numbers", 57),
                     ("newsletter_signup", 33),
                     ("timely_activations_cards", 67),
                     ("quote", 69),
                     ("list_block", 74),
-<<<<<<< HEAD
-                    ("video_block", 38),
-=======
->>>>>>> origin/redesign
                 ],
                 blank=True,
                 block_lookup={
@@ -693,65 +578,6 @@ class Migration(migrations.Migration):
                     ),
                     33: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 32)]], {}),
                     34: (
-<<<<<<< HEAD
-                        "wagtail.blocks.CharBlock",
-                        (),
-                        {
-                            "help_text": "Log into Vimeo, select your desired video, and click 'Copy Link'",
-                            "label": "Vimeo Video URL",
-                            "required": True,
-                        },
-                    ),
-                    35: ("wagtail.blocks.CharBlock", (), {"help_text": "Optional Caption Text", "required": False}),
-                    36: (
-                        "wagtail.blocks.StructBlock",
-                        [
-                            [
-                                ("link_to", 15),
-                                ("page", 16),
-                                ("external_url", 17),
-                                ("relative_url", 18),
-                                ("anchor", 19),
-                                ("email", 20),
-                                ("file", 21),
-                                ("phone", 22),
-                                ("new_window", 23),
-                            ]
-                        ],
-                        {},
-                    ),
-                    37: (
-                        "wagtail.blocks.ListBlock",
-                        (36,),
-                        {
-                            "default": [],
-                            "help_text": "Optional URL that this caption should link out to.",
-                            "max_num": 1,
-                            "min_num": 0,
-                        },
-                    ),
-                    38: (
-                        "wagtail.blocks.StructBlock",
-                        [[("video_url", 34), ("caption", 35), ("caption_url", 37)]],
-                        {},
-                    ),
-                    39: (
-                        "wagtail.blocks.StreamBlock",
-                        [[("rich_text", 0), ("audio", 9), ("image", 4), ("newsletter_signup", 33), ("video", 38)]],
-                        {"label": "Left Column"},
-                    ),
-                    40: (
-                        "wagtail.blocks.StreamBlock",
-                        [[("rich_text", 0), ("audio", 9), ("image", 4), ("newsletter_signup", 33), ("video", 38)]],
-                        {"label": "Right Column"},
-                    ),
-                    41: (
-                        "wagtail.blocks.StructBlock",
-                        [[("title", 31), ("left_column", 39), ("right_column", 40)]],
-                        {},
-                    ),
-                    42: (
-=======
                         "wagtail.blocks.StreamBlock",
                         [[("rich_text", 0), ("audio", 9), ("image", 4), ("newsletter_signup", 33)]],
                         {"label": "Left Column"},
@@ -767,62 +593,35 @@ class Migration(migrations.Migration):
                         {},
                     ),
                     37: (
->>>>>>> origin/redesign
                         "wagtail.blocks.CharBlock",
                         (),
                         {"help_text": "Main heading for the card set.", "label": "Headline", "required": False},
                     ),
-<<<<<<< HEAD
-                    43: (
-=======
                     38: (
->>>>>>> origin/redesign
                         "wagtail.blocks.CharBlock",
                         (),
                         {
                             "help_text": "Appears above the headline (max 36 characters).",
                             "label": "Label",
-<<<<<<< HEAD
-                            "max_length": 36,
-                            "required": False,
-                        },
-                    ),
-                    44: (
-=======
                             "max_length": 50,
                             "required": False,
                         },
                     ),
                     39: (
->>>>>>> origin/redesign
                         "wagtail.blocks.CharBlock",
                         (),
                         {
                             "help_text": "Appears as the main heading (max 36 characters).",
                             "label": "Headline",
-<<<<<<< HEAD
-                            "max_length": 36,
-                            "required": False,
-                        },
-                    ),
-                    45: (
-=======
                             "max_length": 50,
                             "required": False,
                         },
                     ),
                     40: (
->>>>>>> origin/redesign
                         "wagtail.images.blocks.ImageChooserBlock",
                         (),
                         {"help_text": "Image should follow a 2:3 aspect ratio.", "label": "Image", "required": False},
                     ),
-<<<<<<< HEAD
-                    46: ("wagtail.blocks.StructBlock", [[("label", 43), ("headline", 44), ("image", 45)]], {}),
-                    47: (
-                        "wagtail.blocks.ListBlock",
-                        (46,),
-=======
                     41: (
                         "foundation_cms.blocks.link_block.OptionalLinkBlock",
                         (),
@@ -840,18 +639,13 @@ class Migration(migrations.Migration):
                     43: (
                         "wagtail.blocks.ListBlock",
                         (42,),
->>>>>>> origin/redesign
                         {
                             "help_text": "Minimum of 3 cards required. More than 3 will turn element into a carousel.",
                             "label": "Portrait Cards",
                             "min_num": 3,
                         },
                     ),
-<<<<<<< HEAD
-                    48: (
-=======
                     44: (
->>>>>>> origin/redesign
                         "foundation_cms.blocks.link_block.OptionalLinkBlock",
                         (),
                         {
@@ -860,9 +654,6 @@ class Migration(migrations.Migration):
                             "required": False,
                         },
                     ),
-<<<<<<< HEAD
-                    49: ("wagtail.blocks.StructBlock", [[("headline", 42), ("cards", 47), ("cta_link", 48)]], {}),
-=======
                     45: ("wagtail.blocks.StructBlock", [[("headline", 37), ("cards", 43), ("cta_link", 44)]], {}),
                     46: (
                         "wagtail.images.blocks.ImageChooserBlock",
@@ -880,7 +671,6 @@ class Migration(migrations.Migration):
                         {"help_text": "3 cards required.", "label": "Spotlight Cards", "max_num": 3, "min_num": 3},
                     ),
                     49: ("wagtail.blocks.StructBlock", [[("headline", 37), ("cards", 48), ("cta_link", 44)]], {}),
->>>>>>> origin/redesign
                     50: (
                         "wagtail.blocks.ChoiceBlock",
                         [],
