@@ -68,10 +68,6 @@ def inject_images_into_data(data, manifest, image_dir):
         return updated
 
     elif isinstance(data, list):
-        # Only process lists that might contain image data
-        # Skip lists of strings (like rich text content)
-        if data and all(isinstance(item, str) for item in data):
-            return data
         return [inject_images_into_data(item, manifest, image_dir) for item in data]
 
     return data
