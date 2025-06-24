@@ -49,7 +49,7 @@
 
       .hero-accordion__label {
         margin: map.get(base.$text-side-margin, small);
-        flex: 0 0 calc-video-box-mobile-collapsed-width();
+        flex: 0 0 base.calc-video-box-mobile-collapsed-width();
 
         @include breakpoint(large up) {
           flex: initial;
