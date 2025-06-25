@@ -49,7 +49,7 @@ $details-subsection-gap: (
 );
 $video-aspect-ratio: math.div(16, 9); // 16:9 aspect ratio
 $video-label-collapsed-width-percent: 50; // Video lable takes 50% of the row width when video panel is on collapsed state
-$square-image-corner-radius: (
+$corner-radius: (
   small: 1.75rem,
   large: 4.25rem,
 );
@@ -58,6 +58,7 @@ $handdrawn-illustrations: (
   "image-text-even": url("../../_images/handdrawn/2.svg"),
   "image-text-odd": url("../../_images/handdrawn/3.svg"),
 );
+$image-hover-scale: 105%;
 
 // ===================================
 // Functions
@@ -161,7 +162,7 @@ $handdrawn-illustrations: (
   @include breakpoint(large up) {
     flex-direction: row;
     height: map.get($panel-height, large);
-    margin: rem-calc(105) 0 rem-calc(64) 0;
+    margin: rem-calc(48) 0 rem-calc(64) 0;
   }
 
   @include breakpoint(xlarge up) {

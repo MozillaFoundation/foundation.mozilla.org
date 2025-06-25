@@ -90,10 +90,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 1rem 1rem 0 0;
+      border-radius: map.get(base.$corner-radius, small)
+        map.get(base.$corner-radius, small) 0 0;
       overflow: hidden;
       transition: border-radius map.get(base.$panel-transition, duration)
         map.get(base.$panel-transition, timing-function);
+
+      @include breakpoint(large up) {
+        border-radius: map.get(base.$corner-radius, large)
+          map.get(base.$corner-radius, large) 0 0;
+      }
     }
 
     .hero-accordion__video-thumbnail {
@@ -105,6 +111,8 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: cover;
+      transition: transform map.get(base.$panel-transition, duration)
+        map.get(base.$panel-transition, timing-function);
     }
 
     .hero-accordion__video-play-button {
@@ -208,6 +216,10 @@
 
     &:hover:not(:active) {
       .hero-accordion__video-wrapper {
+        .hero-accordion__video-thumbnail {
+          transform: scale(base.$image-hover-scale);
+        }
+
         .hero-accordion__label {
           position: relative;
 

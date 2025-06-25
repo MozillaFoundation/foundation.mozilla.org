@@ -83,9 +83,6 @@
         aspect-ratio: 1 / 1;
         overflow: hidden;
         position: relative;
-
-        // background-repeat: no-repeat;
-        // background-size: var(--closed-panel-width) var(--closed-panel-width);
         transition:
           width map.get(base.$panel-transition, duration)
             map.get(base.$panel-transition, timing-function),
@@ -106,6 +103,8 @@
             background-size map.get(base.$panel-transition, duration)
               map.get(base.$panel-transition, timing-function),
             background-position map.get(base.$panel-transition, duration)
+              map.get(base.$panel-transition, timing-function),
+            transform map.get(base.$panel-transition, duration)
               map.get(base.$panel-transition, timing-function);
         }
       }
@@ -187,18 +186,16 @@
         }
 
         .hero-accordion__image {
-          &::before {
-            clip-path: inset(
-              0 0 0 0 round map.get(base.$square-image-corner-radius, small) 0 0
-                map.get(base.$square-image-corner-radius, small)
-            );
+          clip-path: inset(
+            0 0 0 0 round map.get(base.$corner-radius, small) 0 0
+              map.get(base.$corner-radius, small)
+          );
 
-            @include breakpoint(large up) {
-              clip-path: inset(
-                0 0 0 0 round map.get(base.$square-image-corner-radius, large) 0
-                  0 map.get(base.$square-image-corner-radius, large)
-              );
-            }
+          @include breakpoint(large up) {
+            clip-path: inset(
+              0 0 0 0 round map.get(base.$corner-radius, large) 0 0
+                map.get(base.$corner-radius, large)
+            );
           }
         }
       }
@@ -269,18 +266,16 @@
         }
 
         .hero-accordion__image {
-          &::before {
-            clip-path: inset(
-              0 0 0 0 round 0 map.get(base.$square-image-corner-radius, small) 0
-                map.get(base.$square-image-corner-radius, small)
-            );
+          clip-path: inset(
+            0 0 0 0 round 0 map.get(base.$corner-radius, small) 0
+              map.get(base.$corner-radius, small)
+          );
 
-            @include breakpoint(large up) {
-              clip-path: inset(
-                0 0 0 0 round 0 map.get(base.$square-image-corner-radius, large)
-                  0 map.get(base.$square-image-corner-radius, large)
-              );
-            }
+          @include breakpoint(large up) {
+            clip-path: inset(
+              0 0 0 0 round 0 map.get(base.$corner-radius, large) 0
+                map.get(base.$corner-radius, large)
+            );
           }
         }
       }
@@ -504,8 +499,18 @@
     }
 
     // ===================================
-    // Hover State for Image Text Panel (Even-Positioned and Odd-Positioned)
+    // Hover State for Image Text Panel
     // ===================================
+
+    &:hover:not(:active) {
+      .hero-accordion__image-box {
+        .hero-accordion__image {
+          &::before {
+            transform: scale(base.$image-hover-scale);
+          }
+        }
+      }
+    }
 
     &:nth-child(even):hover:not(:active) {
       .hero-accordion__image-box {
@@ -530,6 +535,12 @@
               width: 10rem;
               height: 6rem;
             }
+          }
+        }
+
+        .hero-accordion__image {
+          &::before {
+            transform: scale(base.$image-hover-scale);
           }
         }
       }
