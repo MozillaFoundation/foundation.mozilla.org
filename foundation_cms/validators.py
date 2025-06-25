@@ -1,3 +1,4 @@
+import re
 from urllib.parse import urlparse
 
 from django.core import validators
@@ -34,3 +35,14 @@ class AnchorLinkValidator(validators.URLValidator):
 
         value = "http://example.com" + value
         super().__call__(value)
+
+
+VIMEO_HELP_TEXT = (
+    "Please enter a valid Vimeo URL (e.g. https://vimeo.com/123456789 or " "https://player.vimeo.com/video/123456789)."
+)
+
+
+def validate_vimeo_url(url):
+    pattern = r"^https?://(www\.)?(vimeo\.com|player\.vimeo\.com/video)/\d+"
+    if not re.match(pattern, url):
+        raise ValidationError(VIMEO_HELP_TEXT)
