@@ -4,14 +4,18 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 from . import OptionalLinkBlock, PillarCardBlock
 
+NUM_PILLAR_CARDS = 3
+DEFAULT_PILLAR_CARDS = [{"label": "", "headline": "", "image": None, "cta_link": []} for _ in range(NUM_PILLAR_CARDS)]
+
 
 class PillarCardSetBlock(BaseBlock):
     cards = blocks.ListBlock(
         PillarCardBlock(),
         label="Pillar Cards",
-        min_num=3,
-        max_num=3,
+        min_num=NUM_PILLAR_CARDS,
+        max_num=NUM_PILLAR_CARDS,
         help_text="3 cards required.",
+        default=DEFAULT_PILLAR_CARDS,
     )
 
     class Meta:
