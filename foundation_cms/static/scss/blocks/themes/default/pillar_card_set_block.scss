@@ -1,0 +1,10 @@
+.pillar-card-set {
+  display: flex;
+  gap: 1rem;
+
+  &__card {
+    flex: 1 1 0;
+    border: 1px solid black;
+    text-align: center;
+  }
+}
