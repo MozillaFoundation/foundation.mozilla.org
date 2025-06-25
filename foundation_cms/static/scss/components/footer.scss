@@ -104,16 +104,16 @@
         }
       }
 
-      .cell:has(> .newsletter-signup__fieldset) {
-        @include breakpoint(large up) {
-          padding-right: 1rem;
-        }
-      }
-
       .cell:has(> button) {
         @include breakpoint(large up) {
           margin-top: 0.25rem;
           margin-bottom: 0.25rem;
+        }
+      }
+
+      .cell:has(> .newsletter-signup__fieldset) {
+        @include breakpoint(large up) {
+          padding-right: 1rem;
         }
       }
 
