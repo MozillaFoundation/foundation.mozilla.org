@@ -17,8 +17,16 @@
           </p>
 
           <p>Link: 
-            {% if card.cta_link and card.cta_link.0 %}
-              <a href="{{ card.cta_link.0.url }}" target="{{ card.cta_link.0.target }}">{{ card.cta_link.0.label }}</a>
+            {% if card.cta_link %}
+              {% with link=card.cta_link.0 %}
+                <a
+                  class="cta_link"
+                  href="{{ link.url }}"
+                  {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+                  {{ link.label }}
+                </a>
+              {% endwith %}
             {% else %}
               No link provided
             {% endif %}
