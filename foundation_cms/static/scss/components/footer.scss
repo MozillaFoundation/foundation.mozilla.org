@@ -19,7 +19,7 @@
 
   &__grid-cell:has(> .site-footer-ns__logo) {
     @include breakpoint(large up) {
-      width: 40%;
+      width: 440px;
     }
   }
 
@@ -28,10 +28,6 @@
 
     a {
       display: block;
-    }
-
-    @include breakpoint(large up) {
-      // max-width: fit-content;
     }
   }
 
@@ -108,6 +104,12 @@
         }
       }
 
+      .cell:has(> .newsletter-signup__fieldset) {
+        @include breakpoint(large up) {
+          padding-right: 1rem;
+        }
+      }
+
       .cell:has(> button) {
         @include breakpoint(large up) {
           margin-top: 0.25rem;
@@ -126,6 +128,7 @@
         align-items: center;
         justify-content: center;
         text-wrap: nowrap;
+        width: 100%;
 
         &::after {
           background-image: url("../_images/icons/button-arrow-right-white.svg");
@@ -140,6 +143,10 @@
         &:focus-visible {
           outline: 1px solid $white;
           outline-offset: 2px;
+        }
+
+        @include breakpoint(large up) {
+          width: 9rem;
         }
       }
     }
@@ -187,6 +194,10 @@
           }
         }
       }
+    }
+
+    @include breakpoint(large up) {
+      width: 33%;
     }
   }
 
