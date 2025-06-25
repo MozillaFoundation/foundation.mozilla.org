@@ -5,7 +5,7 @@ from foundation_cms.base.models.base_block import BaseBlock
 from . import OptionalLinkBlock, PillarCardBlock
 
 NUM_PILLAR_CARDS = 3
-DEFAULT_PILLAR_CARDS = [{"label": "", "headline": "", "image": None, "cta_link": []} for _ in range(NUM_PILLAR_CARDS)]
+DEFAULT_PILLAR_CARDS = [{"headline": "", "image": None, "cta_link": []} for _ in range(NUM_PILLAR_CARDS)]
 
 
 class PillarCardSetBlock(BaseBlock):

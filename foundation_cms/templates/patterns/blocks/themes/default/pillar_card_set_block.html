@@ -1,0 +1,30 @@
+{% load wagtailcore_tags %}
+{% block block_content %}
+  <div class="grid-container">
+    <h3>Pillar Cards</h3>
+
+      {% for card in self.cards %}
+        <div class="pillar-card">
+          <p><strong>Card {{ forloop.counter }}</strong></p>
+          <p>Headline: {{ card.headline }}</p>
+
+          <p>Image: 
+            {% if card.image %}
+              {{ card.image }}
+            {% else %}
+              None
+            {% endif %}
+          </p>
+
+          <p>Link: 
+            {% if card.cta_link and card.cta_link.0 %}
+              <a href="{{ card.cta_link.0.url }}" target="{{ card.cta_link.0.target }}">{{ card.cta_link.0.label }}</a>
+            {% else %}
+              No link provided
+            {% endif %}
+          </p>
+          <hr>
+        </div>
+      {% endfor %}
+  </div>
+{% endblock block_content %}
