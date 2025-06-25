@@ -123,6 +123,12 @@
       display: none;
     }
 
+    .hero-accordion__heading {
+      @include breakpoint(large up) {
+        @include apply-text-style($body-text-styles, "large", "large");
+      }
+    }
+
     // ===================================
     // Active State for Video Panel
     // ===================================
@@ -130,13 +136,6 @@
     &.active {
       .hero-accordion__label {
         margin-bottom: rem-calc(8);
-
-        @include apply-text-style(
-          base.$header-styles,
-          "h4",
-          "small",
-          base.$header-font-family
-        );
       }
 
       .hero-accordion__video-box {
