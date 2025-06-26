@@ -1,8 +1,9 @@
-import re
-
 from django.core.exceptions import ValidationError
 from wagtail import blocks
+from wagtail.blocks import StructBlockValidationError
 from wagtail.images.blocks import ImageBlock
+
+from foundation_cms.validators import validate_vimeo_url
 
 
 class VideoPanelBlock(blocks.StructBlock):
@@ -17,20 +18,18 @@ class VideoPanelBlock(blocks.StructBlock):
     video_url = blocks.URLBlock(required=True, help_text=VIMEO_HELP_TEXT)
 
     def clean(self, value):
-        cleaned = super().clean(value)
-        url = cleaned.get("video_url", "")
-        errors = {}
+        validation_errors = {}
 
-        # Allow regular and embed Vimeo formats
-        vimeo_pattern = r"^https?://(www\.)?(vimeo\.com|player\.vimeo\.com/video)/\d+"
+        # Run custom Vimeo URL validation
+        try:
+            validate_vimeo_url(value.get("video_url", ""))
+        except ValidationError as e:
+            validation_errors["video_url"] = ValidationError(e)
 
-        if not re.match(vimeo_pattern, url):
-            errors["video_url"] = self.VIMEO_HELP_TEXT
+        if validation_errors:
+            raise StructBlockValidationError(validation_errors)
 
-        if errors:
-            raise ValidationError(errors)
-
-        return cleaned
+        return super().clean(value)
 
     class Meta:
         icon = "media"

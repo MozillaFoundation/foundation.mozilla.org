@@ -19,9 +19,11 @@ from foundation_cms.blocks import (
     PortraitCardSetBlock,
     QuoteBlock,
     SpacerBlock,
+    SpotlightCardSetBlock,
     TabbedContentContainerBlock,
     TimelyActivationsCardsBlock,
     TwoColumnContainerBlock,
+    VideoBlock,
 )
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
@@ -34,12 +36,14 @@ base_page_block_options = [
     ("two_column_container_block", TwoColumnContainerBlock()),
     ("link_button_block", LinkButtonBlock()),
     ("portrait_card_set_block", PortraitCardSetBlock()),
+    ("spotlight_card_set_block", SpotlightCardSetBlock()),
     ("spacer_block", SpacerBlock()),
     ("impact_numbers", ImpactNumberBlock()),
     ("newsletter_signup", NewsletterSignupBlock()),
     ("timely_activations_cards", TimelyActivationsCardsBlock()),
     ("quote", QuoteBlock()),
     ("list_block", ListBlock()),
+    ("video_block", VideoBlock()),
 ]
 
 
