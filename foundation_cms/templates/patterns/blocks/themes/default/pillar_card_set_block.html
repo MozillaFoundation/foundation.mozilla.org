@@ -5,27 +5,25 @@
     <div class="pillar-card-set__card-container">
       {% for card in self.cards %}
         <div class="pillar-card-set__card">
-          <p class="pillar-card-set__card-count"><strong>Card {{ forloop.counter }}</strong></p>
+          <p class="pillar-card-set__card-count">
+            <strong>Card {{ forloop.counter }}</strong>
+          </p>
           <p class="pillar-card-set__card-headline">Headline: {{ card.headline }}</p>
-
           <p class="pillar-card-set__card-image">
-            Image: 
+            Image:
             {% if card.image %}
               {{ card.image }}
             {% else %}
               None
             {% endif %}
           </p>
-
           <p class="pillar-card-set__card-cta-link">
-            Link: 
+            Link:
             {% if card.cta_link %}
               {% with link=card.cta_link.0 %}
-                <a
-                  class="pillar-card-set__card-link"
-                  href="{{ link.url }}"
-                  {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}
-                >
+                <a class="pillar-card-set__card-link"
+                   href="{{ link.url }}"
+                   {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
                   {{ link.label }}
                 </a>
               {% endwith %}
