@@ -1,5 +1,5 @@
-from foundation_cms.blocks.link_block import LinkBlock
 from foundation_cms.base.models.base_block import BaseBlock
+from foundation_cms.blocks.link_block import LinkBlock
 
 
 class LinkButtonBlock(BaseBlock, LinkBlock):
