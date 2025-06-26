@@ -1,8 +1,7 @@
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
-
-from . import OptionalLinkBlock, PillarCardBlock
+from foundation_cms.blocks.pillar_card_block import PillarCardBlock
 
 NUM_PILLAR_CARDS = 3
 DEFAULT_PILLAR_CARDS = [{"headline": "", "image": None, "cta_link": []} for _ in range(NUM_PILLAR_CARDS)]
