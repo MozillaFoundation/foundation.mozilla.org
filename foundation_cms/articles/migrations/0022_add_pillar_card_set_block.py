@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                     ("quote", 74),
                     ("list_block", 79),
                     ("video_block", 38),
-                    ("pillar_cards", 82),
+                    ("pillar_card_set", 82),
                 ],
                 blank=True,
                 block_lookup={
@@ -468,7 +468,7 @@ class Migration(migrations.Migration):
                     ("quote", 74),
                     ("list_block", 79),
                     ("video_block", 38),
-                    ("pillar_cards", 82),
+                    ("pillar_card_set", 82),
                 ],
                 blank=True,
                 block_lookup={
@@ -902,7 +902,7 @@ class Migration(migrations.Migration):
                     ("quote", 74),
                     ("list_block", 79),
                     ("video_block", 38),
-                    ("pillar_cards", 82),
+                    ("pillar_card_set", 82),
                 ],
                 blank=True,
                 block_lookup={
@@ -1336,7 +1336,7 @@ class Migration(migrations.Migration):
                     ("quote", 74),
                     ("list_block", 79),
                     ("video_block", 38),
-                    ("pillar_cards", 82),
+                    ("pillar_card_set", 82),
                 ],
                 blank=True,
                 block_lookup={

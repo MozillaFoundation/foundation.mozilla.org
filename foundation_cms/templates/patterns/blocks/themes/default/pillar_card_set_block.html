@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
 {% block block_content %}
-  <div class="pillar-cards">
+  <div class="pillar-card-set">
     <h3 class="pillar-card-set__heading">Pillar Cards</h3>
-    <div class="pillar-card-set">
+    <div class="pillar-card-set__card-container">
       {% for card in self.cards %}
         <div class="pillar-card-set__card">
           <p class="pillar-card-set__card-count"><strong>Card {{ forloop.counter }}</strong></p>

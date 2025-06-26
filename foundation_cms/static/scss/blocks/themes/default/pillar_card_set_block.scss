@@ -1,6 +1,8 @@
 .pillar-card-set {
-  display: flex;
-  gap: 1rem;
+  &__card-container {
+    display: flex;
+    gap: 1rem;
+  }
 
   &__card {
     flex: 1 1 0;

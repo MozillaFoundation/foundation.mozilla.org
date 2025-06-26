@@ -45,7 +45,7 @@ base_page_block_options = [
     ("quote", QuoteBlock()),
     ("list_block", ListBlock()),
     ("video_block", VideoBlock()),
-    ("pillar_cards", PillarCardSetBlock()),
+    ("pillar_card_set", PillarCardSetBlock()),
 ]
 
 
