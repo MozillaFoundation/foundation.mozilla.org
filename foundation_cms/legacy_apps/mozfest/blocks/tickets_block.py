@@ -6,6 +6,9 @@ from foundation_cms.legacy_apps.wagtailpages import utils
 
 class TicketsBlock(blocks.StructBlock):
     heading = blocks.CharBlock(help_text="Heading for the block.", required=False)
+    source = blocks.CharBlock(
+        required=False, max_length=255, help_text="Enter a source to track where events come from."
+    )
     tickets = blocks.ListBlock(SnippetChooserBlock("mozfest.Ticket"), max_num=3)
 
     class Meta:
