@@ -1,7 +1,15 @@
 {% load wagtailcore_tags %}
-
 {% block block_content %}
-    <a href="{{ value.url }}" {% if value.new_window %}target="_blank"{% endif %} class="link-button-block">
-        <span class="link-button-block__text">{{ value.label }}</span>
+  <div class="link-button-block">
+    <a href="{{ value.url }}"
+       {% if value.new_window %}target="_blank"{% endif %}
+       class="link-button">
+      <span class="link-button__roller">
+        <span class="link-button__rolltext">
+          <span class="link-button__text">{{ value.label }}</span>
+          <span class="link-button__text link-button__text--roll-in">{{ value.label }}</span>
+        </span>
+      </span>
     </a>
+  </div>
 {% endblock block_content %}

@@ -1,7 +1,8 @@
 from foundation_cms.blocks.link_block import LinkBlock
+from foundation_cms.base.models.base_block import BaseBlock
 
 
-class LinkButtonBlock(LinkBlock):
+class LinkButtonBlock(BaseBlock, LinkBlock):
 
     # TODO: Uncomment the lines below to enable styling for buttons, once
     # we get the OK from the design team.
