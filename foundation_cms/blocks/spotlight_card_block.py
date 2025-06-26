@@ -1,5 +1,5 @@
-from wagtail.images.blocks import ImageBlock
 from wagtail.blocks import CharBlock, RichTextBlock
+from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
