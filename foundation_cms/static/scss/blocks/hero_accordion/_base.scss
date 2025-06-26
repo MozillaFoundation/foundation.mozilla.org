@@ -47,8 +47,6 @@ $details-subsection-gap: (
   small: 0.5rem,
   large: 4rem,
 );
-$video-aspect-ratio: math.div(16, 9); // 16:9 aspect ratio
-$video-label-collapsed-width-percent: 50; // Video lable takes 50% of the row width when video panel is on collapsed state
 $corner-radius: (
   small: 1.75rem,
   large: 4.25rem,
@@ -75,11 +73,6 @@ $image-hover-scale: 105%;
 
 @function calc-panel-width($height) {
   @return calc(var(--open-panel-width) - #{$height});
-}
-
-@function calc-video-box-mobile-collapsed-width() {
-  $width-percent: $video-label-collapsed-width-percent;
-  @return calc(#{$width-percent} * 1% - #{map.get($text-side-margin, small)});
 }
 
 // ===================================

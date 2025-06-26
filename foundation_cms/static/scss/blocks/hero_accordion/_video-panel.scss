@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "sass:map";
 @use "./base" as base;
 
@@ -10,12 +11,21 @@
 //   Once that's done, we can then @use to reduce the final CSS output
 @import "../../../scss/type";
 
-.hero-accordion {
-  // ===================================
-  // Video Panel
-  // ===================================
+// ===================================
+// Video Panel
+// ===================================
+.hero-accordion .hero-accordion__panel {
+  &--video_panel {
+    $video-aspect-ratio: math.div(16, 9); // 16:9 aspect ratio
+    $video-box-collapsed-width-percent: math.div(1, 3) * 100%;
 
-  &__panel--video_panel {
+    @function calc-label-mobile-collapsed-width() {
+      $width-percent: calc(100% - $video-box-collapsed-width-percent);
+      $side-margins: calc(map.get(base.$text-side-margin, small) * 2);
+
+      @return calc($width-percent - $side-margins);
+    }
+
     // ===================================
     // Base
     // ===================================
@@ -49,7 +59,7 @@
 
       .hero-accordion__label {
         margin: map.get(base.$text-side-margin, small);
-        flex: 0 0 base.calc-video-box-mobile-collapsed-width();
+        flex: 0 0 calc-label-mobile-collapsed-width();
 
         @include breakpoint(large up) {
           flex: initial;
@@ -60,15 +70,17 @@
 
     .hero-accordion__video-box {
       position: relative;
-      width: base.calc-video-box-mobile-collapsed-width();
-      aspect-ratio: base.$video-aspect-ratio;
+      flex: 0 0 $video-box-collapsed-width-percent;
+      align-self: end;
+      aspect-ratio: $video-aspect-ratio;
       overflow: hidden;
-      transition: width map.get(base.$panel-transition, duration)
+      transition: flex-basis map.get(base.$panel-transition, duration)
         map.get(base.$panel-transition, timing-function);
 
       @include breakpoint(large up) {
         width: 100%;
         transform: none;
+        align-self: unset;
       }
 
       iframe {
@@ -140,6 +152,7 @@
 
       .hero-accordion__video-box {
         width: 100vw;
+        flex-basis: 100%;
 
         @include breakpoint(large up) {
           width: 100%;
