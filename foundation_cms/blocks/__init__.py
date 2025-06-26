@@ -7,6 +7,8 @@ from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
+from .pillar_card_block import PillarCardBlock
+from .pillar_card_set_block import PillarCardSetBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .quote_block import QuoteBlock
@@ -46,4 +48,6 @@ __all__ = [
     "QuoteBlock",
     "ListBlock",
     "VideoBlock",
+    "PillarCardBlock",
+    "PillarCardSetBlock",
 ]
