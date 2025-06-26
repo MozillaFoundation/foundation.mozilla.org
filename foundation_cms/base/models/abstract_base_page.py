@@ -16,6 +16,7 @@ from foundation_cms.blocks import (
     LinkButtonBlock,
     ListBlock,
     NewsletterSignupBlock,
+    PillarCardSetBlock,
     PortraitCardSetBlock,
     QuoteBlock,
     SpacerBlock,
@@ -44,6 +45,7 @@ base_page_block_options = [
     ("quote", QuoteBlock()),
     ("list_block", ListBlock()),
     ("video_block", VideoBlock()),
+    ("pillar_card_set", PillarCardSetBlock()),
 ]
 
 

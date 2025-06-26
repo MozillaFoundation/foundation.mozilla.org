@@ -257,34 +257,36 @@ $quote-text-styles: (
 // Heading
 // ===================================
 
-h1,
-.h1-style {
-  @include mofo-text-style($header-styles, "h1", $header-font-family);
-}
+body.redesign {
+  h1,
+  .h1-style {
+    @include mofo-text-style($header-styles, "h1", $header-font-family);
+  }
 
-h2,
-.h2-style {
-  @include mofo-text-style($header-styles, "h2", $header-font-family);
-}
+  h2,
+  .h2-style {
+    @include mofo-text-style($header-styles, "h2", $header-font-family);
+  }
 
-h3,
-.h3-style {
-  @include mofo-text-style($header-styles, "h3", $header-font-family);
-}
+  h3,
+  .h3-style {
+    @include mofo-text-style($header-styles, "h3", $header-font-family);
+  }
 
-h4,
-.h4-style {
-  @include mofo-text-style($header-styles, "h4", $header-font-family);
-}
+  h4,
+  .h4-style {
+    @include mofo-text-style($header-styles, "h4", $header-font-family);
+  }
 
-h5,
-.h5-style {
-  @include mofo-text-style($header-styles, "h5", $header-font-family);
-}
+  h5,
+  .h5-style {
+    @include mofo-text-style($header-styles, "h5", $header-font-family);
+  }
 
-h6,
-.h6-style {
-  @include mofo-text-style($header-styles, "h6", $header-font-family);
+  h6,
+  .h6-style {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+  }
 }
 
 // ===================================
