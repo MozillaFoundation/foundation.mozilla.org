@@ -1,0 +1,21 @@
+.link-button-block {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  color: color(neutral, "100");
+  background-color: color(neutral, "600");
+  text-decoration: none;
+  padding: rem-calc(14.4) rem-calc(24);
+  width: max-content;
+  margin: rem-calc(16) 0;
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-white.svg");
+    content: "";
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-left: 1rem;
+    flex-shrink: 0;
+  }
+}
