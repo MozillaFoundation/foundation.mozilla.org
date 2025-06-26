@@ -1,14 +1,14 @@
-@import "../scss/settings/customized-settings";
-@import "../../../node_modules/foundation-sites/scss/foundation";
-@import "../../../node_modules/foundation-sites/scss/components/visibility";
+@import "../scss/foundation-framework-styles";
 @import "../scss/fonts";
+
+// Our custom variables and base styles
+@import "../scss/colors";
+@import "../scss/type";
+
+// Site-wide Components
 @import "../scss/components/primary_nav";
 @import "../scss/components/footer";
-
-// Foundation Modules
-@include foundation-global-styles;
-@include foundation-xy-grid-classes;
-@include foundation-visibility-classes;
+@import "../scss/components/newsletter_signup/newsletter_signup_form";
 
 /* Base font styles */
 .site-footer-ns,
