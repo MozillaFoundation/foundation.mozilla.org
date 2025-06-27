@@ -1,6 +1,7 @@
+from wagtail import blocks
+
 from foundation_cms.base.models.base_block import BaseBlock
 from foundation_cms.blocks.link_block import LinkBlock
-from wagtail import blocks
 
 
 class LinkButtonBlock(BaseBlock, LinkBlock):
