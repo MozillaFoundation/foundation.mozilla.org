@@ -3,7 +3,7 @@ from . import BaseCardBlock
 
 class PillarCardBlock(BaseCardBlock):
     label = None
-    # TODO:FIXME: remove image field
+    image = None
 
     class Meta:
         label = "Pillar Card"
