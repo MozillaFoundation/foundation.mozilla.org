@@ -1,8 +1,32 @@
+@import "../../colors";
+
 .newsletter-signup {
+  background-color: color(orange, "100");
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  padding: 1.5rem 1rem 2rem;
   margin-bottom: 2rem;
+  position: relative;
+
+  &::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -1rem;
+    left: 2rem;
+    width: rem-calc(51px);
+    height: rem-calc(44px);
+    background-image: url("../_images/freeforms/freeform-1.svg");
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
+  }
 
   &__cta {
     margin-bottom: 1rem;
+    font-weight: 700;
   }
 
   &__form {
@@ -12,25 +36,63 @@
   }
 
   &__input {
+    background: $white;
+    border: 1px solid $white;
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    line-height: 150%;
 
-    &:focus {
-      border-color: #0070d2;
+    &::placeholder {
+      color: $black;
+    }
+
+    &:hover {
+      border: 1px solid color(neutral, "600");
+    }
+
+    &:focus-visible {
       outline: none;
+      border: 1px solid color(neutral, "600");
+    }
+  }
+
+  select.newsletter-signup__input {
+    appearance: none;
+    background-image: url("../_images/icons/select-caret-down-black.svg");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+
+    option {
+      color: color(neutral, "600");
     }
   }
 
   &__button {
+    color: $white;
+    background-color: color(neutral, "600");
+    text-decoration: none;
+    padding: 1rem 1.25rem;
+    line-height: 150%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-wrap: nowrap;
     width: 100%;
-    padding: 1rem;
-    border: 1px solid black;
-    text-decoration: underline;
+    cursor: pointer;
 
-    &:hover {
-      cursor: pointer;
+    &::after {
+      background-image: url("../_images/icons/button-arrow-right-white.svg");
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      display: inline-block;
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $white;
     }
   }
 
@@ -38,11 +100,44 @@
     &--hidden {
       display: none;
     }
+
+    label {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        appearance: none;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
+        position: relative;
+        background-color: $white;
+
+        &:checked {
+          background-image: url("../_images/icons/checkbox-stripe-black.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 1.25rem auto;
+        }
+      }
+    }
   }
 
   &__field-error {
-    color: red;
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    color: color(orange, "600");
     margin-top: 0.5rem;
+    background-color: color(neutral, "100");
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 1rem;
+    line-height: 150%;
 
     &--hidden {
       display: none;
