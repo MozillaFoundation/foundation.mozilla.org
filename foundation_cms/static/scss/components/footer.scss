@@ -1,50 +1,9 @@
+@import "../colors";
+
 .site-footer-ns {
-  $text-primary: #f7f7f7;
-  $bg: #0f0f0f;
-  $fg-primary: #fff;
-  $separator-color: #a3a3a3;
-  $input-padding: 1rem;
-
-  background-color: $bg;
-  color: $text-primary;
+  background-color: color(neutral, "600");
+  color: color(neutral, "100");
   padding: 3rem 0;
-
-  &__legals {
-    border-top: 1px solid $separator-color;
-    padding-top: 2rem;
-    margin-top: 2rem;
-    font-size: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    a {
-      color: $text-primary;
-      text-decoration: underline;
-    }
-
-    .social-links {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
-      @include breakpoint(large up) {
-        gap: 2rem;
-      }
-    }
-  }
 
   &__grid {
     display: flex;
@@ -58,67 +17,137 @@
     }
   }
 
-  a {
-    text-decoration: none;
-    color: $text-primary;
-
-    &:hover {
-      text-decoration: underline;
+  &__grid-cell:has(> .site-footer-ns__logo) {
+    @include breakpoint(large up) {
+      width: 440px;
     }
   }
 
   &__logo {
-    max-width: 6em;
-    font-size: 4rem;
-    font-weight: bold;
-    line-height: 0.82;
     margin-bottom: 3rem;
 
-    @include breakpoint(large up) {
-      max-width: fit-content;
+    a {
+      display: block;
     }
   }
 
   &__newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .fieldset {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      @include breakpoint(large up) {
-        flex-direction: row;
-        align-items: center;
+    .newsletter-signup {
+      .newsletter-signup__link {
+        color: inherit;
+        text-decoration: none;
       }
-    }
 
-    input[type="email"] {
-      padding: $input-padding;
-      border: 1px solid black;
-      font-size: 1rem;
-      display: block;
-      width: 100%;
-    }
+      &__fieldset {
+        .cell {
+          margin: 0.25rem 0;
+        }
+      }
 
-    button {
-      padding: $input-padding;
-      background-color: white;
-      color: black;
-      border: 2px solid $fg-primary;
-      cursor: pointer;
-      display: flex;
-      width: 100%;
-      text-decoration: underline;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
+      &__input {
+        background: $white;
+        border: 1px solid $white;
+        border-radius: 0;
+        padding: 1rem 1.25rem;
+        line-height: 150%;
 
-      @include breakpoint(large up) {
+        &::placeholder {
+          color: $black;
+        }
+
+        &:focus-visible {
+          outline: 1px solid $white;
+          outline-offset: 2px;
+        }
+
+        @include breakpoint(large up) {
+          width: 100%;
+        }
+      }
+
+      select.newsletter-signup__input {
+        appearance: none;
+        background-image: url("../_images/icons/select-caret-down-black.svg");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 3rem;
+
+        option {
+          color: color(neutral, "600");
+        }
+      }
+
+      &__field label {
+        @include mofo-text-style($body-text-styles, "xsmall");
+
+        color: $white;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+
+        input[type="checkbox"] {
+          appearance: none;
+          flex-shrink: 0;
+          width: 1.5rem;
+          height: 1.5rem;
+          display: inline-block;
+          position: relative;
+          border: 1px solid $white;
+
+          &:checked {
+            background-image: url("../_images/icons/checkbox-stripe-white.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 1.25rem auto;
+          }
+        }
+      }
+
+      .cell:has(> button) {
+        @include breakpoint(large up) {
+          margin-top: 0.25rem;
+          margin-bottom: 0.25rem;
+        }
+      }
+
+      .cell:has(> .newsletter-signup__fieldset) {
+        @include breakpoint(large up) {
+          padding-right: 1rem;
+        }
+      }
+
+      &__button {
+        color: $white;
+        border-color: $white;
+        text-decoration: none;
+        padding: 1rem 1.25rem;
+        line-height: 150%;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        text-wrap: nowrap;
+        width: 100%;
+
+        &::after {
+          background-image: url("../_images/icons/button-arrow-right-white.svg");
+          content: "";
+          width: 16px;
+          height: 16px;
+          display: inline-block;
+          margin-left: 1rem;
+          flex-shrink: 0;
+        }
+
+        &:focus-visible {
+          outline: 1px solid $white;
+          outline-offset: 2px;
+        }
+
+        @include breakpoint(large up) {
+          width: 9rem;
+        }
       }
     }
   }
@@ -138,27 +167,164 @@
         padding: 0.5rem 0;
       }
 
+      a {
+        color: color(neutral, "100");
+        text-decoration: none;
+
+        &:hover {
+          color: color(orange, "100");
+        }
+      }
+
       &.external {
         a {
           &::after {
             display: inline-block;
-            content: "⇗";
-            color: $text-primary;
+            content: "";
+            width: 12px;
+            height: 12px;
+            background-image: url("../_images/icons/link-external-white.svg");
             margin-left: 0.5rem;
+          }
+
+          &:hover {
+            &::after {
+              background-image: url("../_images/icons/link-external-orange.svg");
+            }
           }
         }
       }
     }
+
+    @include breakpoint(large up) {
+      width: 33%;
+    }
   }
 
   &__cta {
-    button {
-      display: block;
+    .site-footer-ns__button--cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: color(orange, "100");
+      color: color(neutral, "600");
       width: 100%;
-      color: $text-primary;
-      border: 1px solid white;
-      padding: $input-padding;
+      font-weight: 700;
+      padding: 1rem 1.25rem;
+      line-height: 150%;
       cursor: pointer;
+      white-space: nowrap;
+
+      &:focus-visible {
+        outline: 1px solid color(neutral, "100");
+        outline-offset: 2px;
+      }
+
+      &::after {
+        background-image: url("../_images/icons/button-arrow-right-black.svg");
+        content: "";
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        margin-left: 1rem;
+        flex-wrap: nowrap;
+      }
+    }
+  }
+
+  &__legals {
+    background: url("../_images/footer-separator.svg") no-repeat center top;
+    background-size: 100% auto;
+    padding-top: 3rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 4rem;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .site-footer-ns__link--legal {
+      color: color(neutral, "100");
+      text-decoration: underline;
+    }
+
+    .social-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      justify-content: center;
+
+      .site-footer-ns__social-link {
+        display: block;
+        height: 24px;
+        width: 24px;
+
+        &:hover {
+          svg path {
+            fill: color(orange, "100");
+          }
+        }
+
+        [class*="icon-"] {
+          width: 100%;
+          height: 100%;
+          display: block;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        .icon-bluesky {
+          background-image: url("../_images/icons/social-bluesky-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-bluesky-orange.svg");
+          }
+        }
+
+        .icon-instagram {
+          background-image: url("../_images/icons/social-instagram-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-instagram-orange.svg");
+          }
+        }
+
+        .icon-linkedin {
+          background-image: url("../_images/icons/social-linkedin-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-linkedin-orange.svg");
+          }
+        }
+
+        .icon-spotify {
+          background-image: url("../_images/icons/social-spotify-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-spotify-orange.svg");
+          }
+        }
+
+        .icon-tiktok {
+          background-image: url("../_images/icons/social-tiktok-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-tiktok-orange.svg");
+          }
+        }
+      }
     }
   }
 }

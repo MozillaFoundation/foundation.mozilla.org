@@ -1,0 +1,15 @@
+@use "sass:math";
+
+.video-block {
+  $video-aspect-ratio: math.div(16, 9);
+
+  &__wrapper {
+    aspect-ratio: $video-aspect-ratio;
+    overflow: hidden;
+  }
+
+  &__iframe {
+    width: 100%;
+    height: 100%;
+  }
+}

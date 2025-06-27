@@ -42,6 +42,7 @@
     "format:scss": "prettier \"../../foundation_cms/static/scss/**/*.scss\" --write --ignore-path .prettierignore"
   },
   "dependencies": {
+    "delicious-hamburgers": "^1.2.3",
     "esbuild": "^0.25.2",
     "foundation-sites": "^6.9.0",
     "jquery": "^3.7.1",
