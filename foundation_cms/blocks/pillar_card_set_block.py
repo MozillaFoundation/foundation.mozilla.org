@@ -7,7 +7,7 @@ from foundation_cms.blocks.pillar_card_block import PillarCardBlock
 
 NUM_PILLAR_CARDS = 3
 DEFAULT_PILLAR_CARDS: List[Dict[str, Any]] = [
-    {"headline": "", "image": None, "cta_link": []} for _ in range(NUM_PILLAR_CARDS)
+    {"headline": "", "cta_link": []} for _ in range(NUM_PILLAR_CARDS)
 ]
 
 
