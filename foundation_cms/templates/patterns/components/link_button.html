@@ -1,0 +1,10 @@
+<a href="{{ link.url }}"
+    {% if link.new_window %}target="_blank"{% endif %}
+    class="link-button">
+    <span class="link-button__roller">
+    <span class="link-button__rolltext">
+        <span class="link-button__text">{{ link.label }}</span>
+        <span class="link-button__text link-button__text--roll-in">{{ link.label }}</span>
+    </span>
+    </span>
+</a>
