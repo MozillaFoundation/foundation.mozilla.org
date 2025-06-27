@@ -6,15 +6,15 @@
         <div class="pillar-card-set__card">
           <p class="pillar-card-set__card-headline h3-style">{{ card.headline }}</p>
           {% if card.cta_link %}
-          <div>
-            {% with link=card.cta_link.0 %}
-              <a class="pillar-card-set__card-link"
-                  href="{{ link.url }}"
-                  {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                {{ link.label }}
-              </a>
-            {% endwith %}
-          </div>
+            <div>
+              {% with link=card.cta_link.0 %}
+                <a class="pillar-card-set__card-link"
+                   href="{{ link.url }}"
+                   {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                  {{ link.label }}
+                </a>
+              {% endwith %}
+            </div>
           {% endif %}
         </div>
       {% endfor %}
