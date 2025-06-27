@@ -18,6 +18,14 @@
                 {% if page.banner_link_url and page.banner_link_text %}
                     <a class="tw-btn-secondary" href="{{ page.banner_link_url }}" data-cta-event="hero">{{ page.banner_link_text }}</a>
                 {% endif %}
+
+                {% if page.hero_cta %}
+                    <!--  How we usually render blocks-->
+                    {{ page.hero_cta.0 }}
+                    <!-- Another possible option. To workaround request problem.  Though Streamfield block base template forces a "justify center" class -->
+                    {% include "./tito_widget_block.html" with value=page.hero_cta.0.value request=request %}
+                {% endif %}
+
             </div>
         </div>
     </div>

@@ -269,17 +269,36 @@ class MozfestHomepage(MozfestPrimaryPage):
     MozFest Homepage
     """
 
-    cta_button_label = models.CharField(
-        max_length=250,
+    # cta_button_label = models.CharField(
+    #     max_length=250,
+    #     blank=True,
+    #     help_text="Label text for the CTA button in the primary nav bar",
+    # )
+
+    # cta_button_destination = models.CharField(
+    #     max_length=2048,
+    #     blank=True,
+    #     help_text="The URL for the page that the CTA button in the primary nav bar should redirect to."
+    #     "E.g., /proposals, https://example.com/external-link",
+    # )
+    nav_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Label text for the CTA button in the primary nav bar",
+        use_json_field=True,
+        verbose_name="Nav CTA",
     )
 
-    cta_button_destination = models.CharField(
-        max_length=2048,
+    hero_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="The URL for the page that the CTA button in the primary nav bar should redirect to."
-        "E.g., /proposals, https://example.com/external-link",
+        use_json_field=True,
+        verbose_name="Hero CTA",
     )
 
     # Hero/Banner fields
@@ -316,8 +335,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel("signup"),
         MultiFieldPanel(
             [
-                FieldPanel("cta_button_label", heading="Label"),
-                FieldPanel("cta_button_destination", heading="Destination"),
+                FieldPanel("nav_cta", heading="Nav CTA"),
             ],
             heading="CTA Button",
         ),
@@ -327,8 +345,7 @@ class MozfestHomepage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("banner_link_url"),
-                FieldPanel("banner_link_text"),
+                FieldPanel("hero_cta", heading="Hero CTA"),
             ],
             heading="Hero banner",
         ),
