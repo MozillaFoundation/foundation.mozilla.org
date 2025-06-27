@@ -114,6 +114,9 @@
 
   &__card {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: map.get($card-padding, small);
     box-shadow: 0 4px 10px rgba(map.get($mofo-colors, black), 0.1);
 
