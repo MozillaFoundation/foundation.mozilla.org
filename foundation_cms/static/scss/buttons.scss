@@ -54,4 +54,18 @@ $link-button-transition-ease: ease;
       transform: translateY(0);
     }
   }
+
+  &--primary {
+    color: color(neutral, "100");
+    background-color: color(neutral, "600");
+
+    &::after {
+      background-image: url("../_images/icons/button-arrow-right-white.svg");
+      content: "";
+      width: rem-calc(16);
+      height: rem-calc(16);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+  }
 }
