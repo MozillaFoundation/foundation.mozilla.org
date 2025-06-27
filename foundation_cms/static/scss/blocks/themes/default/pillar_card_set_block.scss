@@ -1,12 +1,139 @@
+@use "sass:map";
+
+@import "../../../colors";
+
 .pillar-card-set {
+  $corner-radius: (
+    small: 1rem,
+    large: 2rem,
+  );
+  $cards: (
+    1: (
+      rotation: -2.5deg,
+      background-color: color(blue, "200"),
+      background-image: url("../_images/handdrawn/arrow-up.svg"),
+      background-size: (
+        small: auto rem-calc(70),
+        large: auto rem-calc(120),
+      ),
+      background-position: (
+        small: right 1rem bottom 1rem,
+        large: right 3rem bottom 2rem,
+      ),
+      border-top-left-radius: $corner-radius,
+      border-top-right-radius: $corner-radius,
+    ),
+    2: (
+      rotation: 4deg,
+      background-color: color(green, "200"),
+      background-image: url("../_images/handdrawn/stairs.svg"),
+      background-size: (
+        small: auto rem-calc(60),
+        large: auto rem-calc(120),
+      ),
+      background-position: (
+        small: right 1rem bottom 1rem,
+        large: right 2rem bottom 2rem,
+      ),
+      border-bottom-left-radius: $corner-radius,
+    ),
+    3: (
+      rotation: -2.5deg,
+      background-color: color(yellow, "200"),
+      background-image: url("../_images/handdrawn/rays.svg"),
+      background-size: (
+        small: auto rem-calc(80),
+        large: auto rem-calc(120),
+      ),
+      background-position: (
+        small: right 1rem bottom 1rem,
+        large: right 2rem bottom 2rem,
+      ),
+      border-top-right-radius: $corner-radius,
+    ),
+  );
+  $card-padding: (
+    small: 1rem,
+    large: 2rem,
+  );
+
+  @mixin apply-border-radius($corner-name, $radius-value) {
+    @if $radius-value {
+      border-#{$corner-name}-radius: map.get($radius-value, small);
+      @include breakpoint(large up) {
+        border-#{$corner-name}-radius: map.get($radius-value, large);
+      }
+    }
+  }
+
+  @mixin card-style($index) {
+    $style: map.get($cards, $index);
+    $background-size: map.get($style, background-size);
+    $background-position: map.get($style, background-position);
+
+    background-repeat: no-repeat;
+    background-color: map.get($style, background-color);
+    background-image: map.get($style, background-image);
+    background-size: map.get($background-size, small);
+    background-position: map.get($background-position, small);
+    transform: rotate(map.get($style, rotation));
+
+    @include apply-border-radius(
+      top-left,
+      map.get($style, border-top-left-radius)
+    );
+    @include apply-border-radius(
+      top-right,
+      map.get($style, border-top-right-radius)
+    );
+    @include apply-border-radius(
+      bottom-left,
+      map.get($style, border-bottom-left-radius)
+    );
+    @include apply-border-radius(
+      bottom-right,
+      map.get($style, border-bottom-right-radius)
+    );
+
+    @include breakpoint(large up) {
+      background-size: map.get($background-size, large);
+      background-position: map.get($background-position, large);
+    }
+  }
+
   &__card-container {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 3rem;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      gap: 0;
+    }
   }
 
   &__card {
-    flex: 1 1 0;
-    border: 1px solid black;
-    text-align: center;
+    flex: 1;
+    padding: map.get($card-padding, small);
+    box-shadow: 0 4px 10px rgba(map.get($mofo-colors, black), 0.1);
+
+    @for $i from 1 through length($cards) {
+      &:nth-child(#{$i}) {
+        @include card-style($i);
+      }
+    }
+
+    @include breakpoint(large up) {
+      padding: map.get($card-padding, large);
+    }
+
+    &-headline {
+      margin-top: 0;
+      margin-bottom: rem-calc(84);
+
+      @include breakpoint(large up) {
+        margin-bottom: rem-calc(154);
+      }
+    }
   }
 }
