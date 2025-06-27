@@ -2,9 +2,10 @@ import typing
 
 from django.db import models
 from modelcluster import fields as cluster_fields
-from wagtail import blocks, fields, images
+from wagtail import blocks, fields
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as panels
+from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.utility import orderables
@@ -29,7 +30,7 @@ class BuyersGuideArticlePage(BasePage):
     base_form_class = BuyersGuideArticlePageForm
 
     hero_image = models.ForeignKey(
-        images.get_image_model_string(),
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
