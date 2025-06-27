@@ -16,6 +16,7 @@ from wagtail.admin.panels import (
     TitleFieldPanel,
 )
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
 from wagtail.search import index
@@ -134,7 +135,7 @@ class BlogPage(BasePage):
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
