@@ -54,18 +54,31 @@ $link-button-transition-ease: ease;
       transform: translateY(0);
     }
   }
+}
 
-  &--primary {
-    color: color(neutral, "100");
-    background-color: color(neutral, "600");
+.btn-primary::after,
+.btn-secondary::after {
+  content: "";
+  width: rem-calc(16);
+  height: rem-calc(16);
+  display: inline-block;
+  flex-shrink: 0;
+}
 
-    &::after {
-      background-image: url("../_images/icons/button-arrow-right-white.svg");
-      content: "";
-      width: rem-calc(16);
-      height: rem-calc(16);
-      display: inline-block;
-      flex-shrink: 0;
-    }
+.btn-primary {
+  color: color(neutral, "100");
+  background-color: color(neutral, "600");
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-white.svg");
+  }
+}
+
+.btn-secondary {
+  color: color(neutral, "600");
+  border: 1px solid color(neutral, "600");
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-black.svg");
   }
 }
