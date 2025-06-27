@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.wagtailpages.utils import CharCountWidget
@@ -23,7 +24,7 @@ class AppInstallPage(CampaignPage):
         help_text="Hero story subheadline",
     )
     hero_background = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         on_delete=models.PROTECT,
         related_name="+",
         help_text="Background image for the hero section",
