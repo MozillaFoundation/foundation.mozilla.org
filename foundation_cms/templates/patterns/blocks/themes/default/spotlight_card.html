@@ -11,18 +11,11 @@
     {% if card.label %}
       <span class="spotlight-card__label">{{ card.label }}</span>
     {% endif %}
-    {% if card.headline %}
-      <h3 class="spotlight-card__headline">{{ card.headline }}</h3>
+    {% if card.title %}
+      <h3 class="spotlight-card__headline">{{ card.title }}</h3>
     {% endif %}
-    {% if card.text %}
-      <p class="spotlight-card__text">{{ card.text }}</p>
-    {% endif %}
-    {% if card.cta_link %}
-      <div class="cell">
-        <div class="portrait-card-set__cta">
-          {% include "patterns/components/link.html" with value=card.cta_link.0 %}
-        </div>
-      </div>
+    {% if card.description %}
+      <div class="spotlight-card__text">{{ card.description }}</div>
     {% endif %}
   </div>
 </article>
