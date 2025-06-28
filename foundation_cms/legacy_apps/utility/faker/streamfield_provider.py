@@ -4,9 +4,11 @@ from random import choice, randint, random
 from django.conf import settings
 from faker import Faker
 from faker.providers import BaseProvider
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 
 from foundation_cms.legacy_apps.wagtailpages.models import BlogPage, BlogPageTopic
+
+Image = get_image_model()
 
 seed = randint(0, 5000000)
 if settings.RANDOM_SEED is not None:

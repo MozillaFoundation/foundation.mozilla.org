@@ -7,6 +7,8 @@ from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
+from .pillar_card_block import PillarCardBlock
+from .pillar_card_set_block import PillarCardSetBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .quote_block import QuoteBlock
@@ -19,6 +21,7 @@ from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .two_column_container_block import TwoColumnContainerBlock
+from .video_block import VideoBlock
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
@@ -44,4 +47,7 @@ __all__ = [
     "NewsletterSignupBlock",
     "QuoteBlock",
     "ListBlock",
+    "VideoBlock",
+    "PillarCardBlock",
+    "PillarCardSetBlock",
 ]

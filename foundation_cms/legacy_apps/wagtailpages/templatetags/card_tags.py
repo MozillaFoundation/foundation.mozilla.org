@@ -1,8 +1,10 @@
 from bs4 import BeautifulSoup
 from django import template
-from wagtail.images.models import Image
+from wagtail.images import get_image_model
 
 register = template.Library()
+
+Image = get_image_model()
 
 
 @register.inclusion_tag("wagtailpages/tags/card.html")
