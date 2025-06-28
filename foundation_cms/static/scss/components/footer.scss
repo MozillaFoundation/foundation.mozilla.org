@@ -19,7 +19,7 @@
 
   &__grid-cell:has(> .site-footer-ns__logo) {
     @include breakpoint(large up) {
-      width: 440px;
+      width: rem-calc(440);
     }
   }
 
@@ -33,9 +33,16 @@
 
   &__newsletter-form {
     .newsletter-signup {
-      .newsletter-signup__link {
-        color: inherit;
-        text-decoration: none;
+      background-color: transparent;
+      padding: 0;
+
+      &::before {
+        display: none;
+      }
+
+      &__cta {
+        margin-bottom: 1rem;
+        font-weight: 400;
       }
 
       &__fieldset {
@@ -46,16 +53,15 @@
 
       &__input {
         background: $white;
-        border: 1px solid $white;
+        border: none;
         border-radius: 0;
-        padding: 1rem 1.25rem;
-        line-height: 150%;
 
-        &::placeholder {
-          color: $black;
+        &:hover {
+          border: none;
         }
 
         &:focus-visible {
+          border: none;
           outline: 1px solid $white;
           outline-offset: 2px;
         }
@@ -65,41 +71,15 @@
         }
       }
 
-      select.newsletter-signup__input {
-        appearance: none;
-        background-image: url("../_images/icons/select-caret-down-black.svg");
-        background-repeat: no-repeat;
-        background-position: right 1rem center;
-        padding-right: 3rem;
-
-        option {
-          color: color(neutral, "600");
-        }
-      }
-
       &__field label {
-        @include mofo-text-style($body-text-styles, "xsmall");
-
         color: $white;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        cursor: pointer;
 
         input[type="checkbox"] {
-          appearance: none;
-          flex-shrink: 0;
-          width: 1.5rem;
-          height: 1.5rem;
-          display: inline-block;
-          position: relative;
           border: 1px solid $white;
+          background-color: transparent;
 
           &:checked {
             background-image: url("../_images/icons/checkbox-stripe-white.svg");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 1.25rem auto;
           }
         }
       }
@@ -118,27 +98,9 @@
       }
 
       &__button {
-        color: $white;
-        border-color: $white;
-        text-decoration: none;
-        padding: 1rem 1.25rem;
-        line-height: 150%;
+        border: 1px solid $white;
+        background-color: transparent;
         font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-wrap: nowrap;
-        width: 100%;
-
-        &::after {
-          background-image: url("../_images/icons/button-arrow-right-white.svg");
-          content: "";
-          width: 16px;
-          height: 16px;
-          display: inline-block;
-          margin-left: 1rem;
-          flex-shrink: 0;
-        }
 
         &:focus-visible {
           outline: 1px solid $white;
@@ -181,8 +143,8 @@
           &::after {
             display: inline-block;
             content: "";
-            width: 12px;
-            height: 12px;
+            width: rem-calc(12px);
+            height: rem-calc(12px);
             background-image: url("../_images/icons/link-external-white.svg");
             margin-left: 0.5rem;
           }
@@ -223,8 +185,8 @@
       &::after {
         background-image: url("../_images/icons/button-arrow-right-black.svg");
         content: "";
-        width: 16px;
-        height: 16px;
+        width: 1rem;
+        height: 1rem;
         display: inline-block;
         margin-left: 1rem;
         flex-wrap: nowrap;
@@ -267,8 +229,8 @@
 
       .site-footer-ns__social-link {
         display: block;
-        height: 24px;
-        width: 24px;
+        height: rem-calc(24px);
+        width: rem-calc(24px);
 
         &:hover {
           svg path {
