@@ -1,0 +1,13 @@
+.quote-block {
+  figure {
+    margin: 0;
+
+    blockquote {
+      margin: 0;
+
+      p {
+        margin: 0 0 rem-calc(24) 0;
+      }
+    }
+  }
+}

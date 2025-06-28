@@ -1,0 +1,5 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+    <a href="{{ value.url }}" {% if value.new_window %}target="_blank"{% endif %}>{{ value.label }}</a>
+{% endblock block_content %}

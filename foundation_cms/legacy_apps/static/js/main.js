@@ -106,7 +106,7 @@ let main = {
     envReq.addEventListener(`load`, () => {
       try {
         processEnv(JSON.parse(envReq.response));
-      } catch (e) {
+      } catch {
         processEnv({});
       }
     });

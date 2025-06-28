@@ -229,6 +229,9 @@ ignore="H017"
 "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/tags/cta/petition.html" = "H008"
 "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/tags/homepage_image.html" = "H006,H013"
 "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/tags/picture_ratios.html" = "H006"
+# Ignores for Redesign
+"foundation_cms/templates/500.html" = "H030, H031"
+"foundation_cms/templates/base.html" = "H031"
 
 [tool.isort]
 profile = "black"

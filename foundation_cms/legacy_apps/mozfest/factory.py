@@ -122,9 +122,10 @@ def generate(seed):
 
     print("Creating MozFest Site record in Wagtail")
     tds = settings.TARGET_DOMAINS
-    if tds and len(tds) > 1:
-        # Assume that tds[0] is the main mofo domain, and tds[1] is the Mozfest domain
-        hostname = tds[1]
+    # @TODO Need a more future-proof check that doesn't require incrementing as we add sites.
+    if tds and len(tds) > 2:
+        # Assume that tds[0] is the main mofo domain, tds[1] is the legacy domain, and tds[2] is the Mozfest domain
+        hostname = tds[2]
         port = 80
     else:
         # use a localhost domain (must be set in /etc/hosts)
