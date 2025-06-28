@@ -2,48 +2,49 @@
   {
     "type": "video_panel",
     "value": {
-      "label": "Intro Video",
+      "label": "Video",
       "heading": "Stand up for a better internet",
       "thumbnail": {
-        "title": "Optional caption",
+        "title": "",
         "image": "hero_accordion__1",
-        "alt_text": "Test",
+        "alt_text": "",
         "orientation": "landscape"
       },
-      "alt_text": "Test",
-      "video_url": "https://vimeo.com/123456789"
+      "alt_text": "",
+      "video_url": "https://vimeo.com/123456789",
+      "description": "Hear from Mozilla Foundation’s CEO Nabiha Syed on why making good is about building ethical technology."
     }
   },
   {
     "type": "image_text_panel",
     "value": {
-      "label": "Explore Features",
-      "heading": "Mozilla Festival 2025",
+      "label": "Mozilla Festival 2025",
+      "heading": "Bold ideas shaping the future of technology",
       "image": {
-        "title": "Optional caption",
+        "title": "",
         "image": "hero_accordion__2",
-        "alt_text": "Test",
+        "alt_text": "",
         "orientation": "landscape"
       },
-      "cta_text": "Try it now",
+      "cta_text": "",
       "cta_link": "https://example.com/",
-      "description": "Learn how our tools support your mission."
+      "description": "Join us in Barcelona this November for three days to unlearn and reimagine the role of technology in our lives."
     }
   },
   {
     "type": "image_text_panel",
     "value": {
-      "label": "label",
-      "heading": "Our Community",
+      "label": "Community",
+      "heading": "How we make it matters",
       "image": {
-        "title": "Optional caption",
+        "title": "",
         "image": "hero_accordion__3",
-        "alt_text": "Test",
+        "alt_text": "",
         "orientation": "landscape"
       },
-      "cta_text": "View link",
+      "cta_text": "",
       "cta_link": "https://example.com/",
-      "description": "Help build the future of the open web."
+      "description": "The internet is for everyone. Let’s make it good together with our community and yours. Hey, that’s what we keep saying."
     }
   }
 ]

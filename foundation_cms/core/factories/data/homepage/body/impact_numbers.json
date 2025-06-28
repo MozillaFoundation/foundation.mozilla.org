@@ -1,19 +1,19 @@
 {
   "stats": [
     {
-      "stat_number": "$500K",
-      "stat_heading": "Heading",
-      "stat_description": "Invested in open source"
+      "stat_number": "$25M",
+      "stat_heading": "Common Voice Audio Clips",
+      "stat_description": "The world’s largest crowdsourced datasets powered by people."
     },
     {
-      "stat_number": "1.2M",
-      "stat_heading": "Heading",
+      "stat_number": "31K",
+      "stat_heading": "Nurturing the next generation of responsible technologists.",
       "stat_description": "Monthly page views"
     },
     {
-      "stat_number": "90+",
-      "stat_heading": "Heading",
-      "stat_description": "Global contributors"
+      "stat_number": "33M",
+      "stat_heading": "Awarded in grants",
+      "stat_description": "Fueling over 800 worldwide tech for good projects."
     }
   ]
 }
