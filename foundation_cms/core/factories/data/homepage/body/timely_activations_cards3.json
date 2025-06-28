@@ -12,12 +12,12 @@
         "image": {
           "title": "",
           "image": "timely_activations__3",
-          "alt_text": "",
-          "orientation": "square"
+          "alt_text": ""
         },
         "link": {
-          "text": "Be part of Common Voice",
-          "url": ""
+          "label": "Be part of Common Voice",
+          "link_to": "external_url",
+          "external_url": "https://example.com"
         }
       }
     }

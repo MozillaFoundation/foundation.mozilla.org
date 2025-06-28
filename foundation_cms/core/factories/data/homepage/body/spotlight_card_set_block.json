@@ -2,34 +2,29 @@
   "headline": "Community Spotlight",
   "cards": [
     {
-      "type": "spotlight_card",
-      "value": {
-        "title": "Dr. Mary Mwadulo",
-        "label": "Faculty",
-        "description": "Dr. Mary is reimagining tech education in Kenya. As the Dean of Computing and Informatics at Meru University, she’s bridging the gap between what her students are learning and the real challenges in their communities. For her, building better technology starts with listening, “it’s not just about coding, it’s about understanding people’s needs.”",
-        "image": "spotlight_card_set__1",
-        "cta_link": "Activation Page"
-      }
+      "title": "Dr. Mary Mwadulo",
+      "label": "Faculty",
+      "description": "Dr. Mary is reimagining tech education in Kenya. As the Dean of Computing and Informatics at Meru University, she's bridging the gap between what her students are learning and the real challenges in their communities. For her, building better technology starts with listening, \"it's not just about coding, it's about understanding people's needs.\"",
+      "image": "spotlight_card_set__1"
     },
     {
-      "type": "spotlight_card",
-      "value": {
-        "title": "Irvin Chen",
-        "label": "Common Voice",
-        "description": "Irvin is inspiring more people to build a better digital future. As a longtime contributor and volunteer community lead for the Mozilla Taiwan Community, Irvin is passionate about turning open-source technology into local impact. He has dedicated years to projects like Firefox, Support Mozilla (SUMO), MDN, and Common Voice.",
-        "image": "spotlight_card_set__2",
-        "cta_link": "Activation Page"
-      }
+      "title": "Irvin Chen",
+      "label": "Common Voice",
+      "description": "Irvin is inspiring more people to build a better digital future. As a longtime contributor and volunteer community lead for the Mozilla Taiwan Community, Irvin is passionate about turning open-source technology into local impact. He has dedicated years to projects like Firefox, Support Mozilla (SUMO), MDN, and Common Voice.",
+      "image": "spotlight_card_set__2"
     },
     {
-      "type": "spotlight_card",
-      "value": {
-        "title": "Surabhi Srivastava",
-        "label": "Festival Wrangler",
-        "description": "Surabhi explores how media can be a lever to drive social impact at RNW Media in the Netherlands. She is focused on the intersection of media and AI ethics. She wants real impact for her community, where “diverse groups of people have a voice, and the decision-making power to co-design and co-create tech that serves public interest.”",
-        "image": "spotlight_card_set__3",
-        "cta_link": "Activation Page"
-      }
+      "title": "Surabhi Srivastava",
+      "label": "Festival Wrangler",
+      "description": "Surabhi explores how media can be a lever to drive social impact at RNW Media in the Netherlands. She is focused on the intersection of media and AI ethics. She wants real impact for her community, where \"diverse groups of people have a voice, and the decision-making power to co-design and co-create tech that serves public interest.\"",
+      "image": "spotlight_card_set__3"
+    }
+  ],
+  "cta_link": [
+    {
+      "label": "Activation Page",
+      "link_to": "external_url",
+      "external_url": "https://example.com"
     }
   ]
 }

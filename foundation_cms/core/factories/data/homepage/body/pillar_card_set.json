@@ -1,0 +1,43 @@
+{
+  "cards": [
+    {
+      "label": "",
+      "headline": "We invest in alternative tech futures",
+      "image": "pillar_card__1",
+      "cta_link": [
+        {
+          "label": "Calling all builders",
+          "link_to": "external_url",
+          "external_url": "https://example.com",
+          "new_window": false
+        }
+      ]
+    },
+    {
+      "label": "",
+      "headline": "Better tech education for everyone, everywhere.",
+      "image": "pillar_card__2",
+      "cta_link": [
+        {
+          "label": "Learn with us",
+          "link_to": "external_url",
+          "external_url": "https://example.com",
+          "new_window": false
+        }
+      ]
+    },
+    {
+      "label": "",
+      "headline": "Powered by our people and purpose.",
+      "image": "pillar_card__3",
+      "cta_link": [
+        {
+          "label": "Let's mobilize",
+          "link_to": "external_url",
+          "external_url": "https://example.com",
+          "new_window": false
+        }
+      ]
+    }
+  ]
+} 

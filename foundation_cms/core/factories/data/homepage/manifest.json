@@ -4,14 +4,12 @@
   "hero_accordion": "hero_accordion.json",
   "body": [
     { "type": "newsletter_signup", "value": "body/newsletter_signup_block.json" },
-    { "type": "portrait_card_set_block", "value": "body/portrait_card_set.json" },
+    { "type": "pillar_card_set", "value": "body/pillar_card_set.json" },
     { "type": "rich_text", "value": "body/richtext.html" },
     { "type": "impact_numbers", "value": "body/impact_numbers.json" },
     { "type": "timely_activations_cards", "value": "body/timely_activations_cards1.json" },
     { "type": "timely_activations_cards", "value": "body/timely_activations_cards2.json" },
     { "type": "timely_activations_cards", "value": "body/timely_activations_cards3.json" },
-    { "type": "tabbed_content", "value": "body/tabbed_content.json" },
-    { "type": "spotlight_card_set_block", "value": "body/spotlight_card_set_block.json" },
-    { "type": "", "value": "body/.json" }
+    { "type": "spotlight_card_set_block", "value": "body/spotlight_card_set_block.json" }
   ]
 }

@@ -12,12 +12,12 @@
         "image": {
           "title": "",
           "image": "timely_activations__1",
-          "alt_text": "",
-          "orientation": "square"
+          "alt_text": ""
         },
         "link": {
-          "text": "Our ShadowDragon campaign",
-          "url": ""
+          "label": "Our ShadowDragon campaign",
+          "link_to": "external_url",
+          "external_url": "https://example.com"
         }
       }
     }

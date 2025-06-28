@@ -54,5 +54,17 @@
   "spotlight_card_set__3": {
     "filename": "spotlight_card__3.jpg",
     "alt_text": ""
+  },
+  "pillar_card__1": {
+    "filename": "arrow-up.svg",
+    "alt_text": ""
+  },
+  "pillar_card__2": {
+    "filename": "stairs.svg",
+    "alt_text": ""
+  },
+  "pillar_card__3": {
+    "filename": "rays.svg",
+    "alt_text": ""
   }
 }

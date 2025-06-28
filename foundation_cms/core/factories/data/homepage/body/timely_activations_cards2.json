@@ -12,12 +12,12 @@
         "image": {
           "title": "",
           "image": "timely_activations__2",
-          "alt_text": "",
-          "orientation": "square"
+          "alt_text": ""
         },
         "link": {
-          "text": "Get yours today!",
-          "url": ""
+          "label": "Get yours today!",
+          "link_to": "external_url",
+          "external_url": "https://example.com"
         }
       }
     }
