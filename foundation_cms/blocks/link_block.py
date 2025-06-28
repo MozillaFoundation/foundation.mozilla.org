@@ -62,7 +62,6 @@ class LinkBlock(BaseLinkBlock):
     class Meta:
         value_class = LinkValue
         icon = "link"
-        template = "wagtailpages/blocks/link_block.html"
 
 
 register(BaseLinkBlockAdapter(), LinkBlock)
