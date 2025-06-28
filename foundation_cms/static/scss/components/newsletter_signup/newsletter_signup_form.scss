@@ -167,12 +167,14 @@
       display: none;
     }
 
-    h4 {
-      margin-top: 0;
+    .newsletter-siginup__success-title {
+      margin-top: 0.75rem;
       margin-bottom: 0.5rem;
+      font-weight: 700;
     }
 
     p {
+      @include mofo-text-style($body-text-styles, "small");
       margin-bottom: 0.5rem;
     }
   }
