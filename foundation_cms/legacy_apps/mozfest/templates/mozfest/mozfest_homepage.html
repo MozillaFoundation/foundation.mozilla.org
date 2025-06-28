@@ -12,7 +12,7 @@
 {% block bodyclass %}mozfest {% if banner_video_type %}banner-type-{{ banner_video_type }}{% endif %}{% endblock bodyclass %}
 
 {% block hero_guts %}
-    {% include "partials/primary_hero.html" with page=page %}
+    {% include "partials/primary_hero.html" with page=page request=request %}
 {% endblock %}
 
 {% block bootstrap_width %}col-lg-12{% endblock bootstrap_width %}

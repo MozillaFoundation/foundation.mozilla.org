@@ -18,6 +18,11 @@
                 {% if page.banner_link_url and page.banner_link_text %}
                     <a class="tw-btn-secondary" href="{{ page.banner_link_url }}" data-cta-event="hero">{{ page.banner_link_text }}</a>
                 {% endif %}
+
+                {% if page.hero_cta %}
+                    {{ page.hero_cta.0 }}
+                {% endif %}
+
             </div>
         </div>
     </div>
