@@ -16,7 +16,7 @@
     left: 2rem;
     width: rem-calc(51px);
     height: rem-calc(44px);
-    background-image: url("../_images/freeforms/freeform-1.svg");
+    background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
   }
 
   &__link {
@@ -124,6 +124,11 @@
           background-position: center;
           background-size: 1.25rem auto;
         }
+
+        &:hover {
+          border: 1px solid color(neutral, "600");
+          box-shadow: 1px 1px 0 0 color(neutral, "600");
+        }
       }
     }
   }
@@ -134,9 +139,13 @@
     color: color(orange, "600");
     margin-top: 0.5rem;
     background-color: color(neutral, "100");
+    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-size: 0.75rem auto;
+    background-position: 0.75rem center;
+    background-repeat: no-repeat;
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 1rem;
+    padding: 0.5rem 1rem 0.5rem 2rem;
     line-height: 150%;
 
     &--hidden {
