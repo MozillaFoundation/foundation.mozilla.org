@@ -365,8 +365,8 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField("search_image"),
         # Content tab fields
         TranslatableField("title"),
-        TranslatableField("cta_button_label"),
-        SynchronizedField("cta_button_destination"),
+        TranslatableField("nav_cta"),
+        TranslatableField("hero_cta"),
         TranslatableField("banner_heading"),
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),

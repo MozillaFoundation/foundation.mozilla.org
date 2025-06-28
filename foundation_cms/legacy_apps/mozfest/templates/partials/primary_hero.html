@@ -20,10 +20,7 @@
                 {% endif %}
 
                 {% if page.hero_cta %}
-                    <!--  How we usually render blocks-->
                     {{ page.hero_cta.0 }}
-                    <!-- Another possible option. To workaround request problem.  Though Streamfield block base template forces a "justify center" class -->
-                    {% include "./tito_widget_block.html" with value=page.hero_cta.0.value request=request %}
                 {% endif %}
 
             </div>

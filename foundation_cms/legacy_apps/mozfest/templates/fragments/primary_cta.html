@@ -1,3 +1,5 @@
-{% if root.cta_button_destination and root.cta_button_label %}
-    <a class="tw-btn-primary" href="{{ root.cta_button_destination }}" data-cta-event="header">{{ root.cta_button_label }}</a>
+{% if root.nav_cta %}
+    {% for block in root.nav_cta %}
+        {% include "wagtailpages/blocks/tito_widget_block.html" with value=block.value request=request %}
+    {% endfor %}
 {% endif %}
