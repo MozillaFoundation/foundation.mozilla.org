@@ -192,6 +192,7 @@
 
     p {
       @include mofo-text-style($body-text-styles, "small");
+
       margin-bottom: 0.5rem;
     }
   }
