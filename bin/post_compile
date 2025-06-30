@@ -9,6 +9,3 @@ curl -o translations.tar https://foundation-site-translations.s3.amazonaws.com/t
 
 # Untar the archive
 tar -C foundation_cms -xvf translations.tar
-
-# Remove node_modules
-rm -rf node_modules
