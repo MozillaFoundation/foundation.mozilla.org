@@ -8,6 +8,10 @@
   margin-bottom: 2rem;
   position: relative;
 
+  @include breakpoint(large up) {
+    padding: 1.5rem 1.5rem 2rem;
+  }
+
   &::before {
     display: block;
     content: "";
@@ -29,6 +33,18 @@
     font-weight: 700;
   }
 
+  &__fieldset {
+    .cell {
+      margin: 0.25rem 0;
+
+      &:first-of-type {
+        @include breakpoint(large up) {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+
   &__form {
     &--hidden {
       display: none;
@@ -38,6 +54,7 @@
   &__input {
     background: $white;
     border: 1px solid $white;
+    border-radius: 0;
     width: 100%;
     padding: 1rem 1.25rem;
     line-height: 150%;
