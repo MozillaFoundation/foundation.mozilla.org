@@ -16,10 +16,6 @@ class SpotlightCardSetBlock(BaseBlock):
         help_text="3 cards required.",
     )
 
-    cta_link = OptionalLinkBlock(
-        required=False, label="Call to Action Link", help_text="Optional link below the cards."
-    )
-
     class Meta:
         label = "Spotlight Card Set"
         icon = "form"
