@@ -6,10 +6,10 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 class SpotlightCardBlock(BaseBlock):
 
-    title = CharBlock(required=False)
-    label = CharBlock(required=False, max_length=50, label="Label")
-    description = RichTextBlock(required=False, max_length=500, label="Description")
-    image = ImageBlock(required=False, label="Image", help_text="Image should follow a 1:1 aspect ratio.")
+    title = CharBlock(required=True)
+    name = CharBlock(required=True, max_length=50, label="Name")
+    description = RichTextBlock(required=True, max_length=500, label="Description", features=["bold", "italic"])
+    image = ImageBlock(required=True, label="Image", help_text="Image should follow a 1:1 aspect ratio.")
 
     class Meta:
         label = "Spotlight Card"
