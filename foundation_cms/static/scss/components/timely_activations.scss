@@ -20,6 +20,17 @@ body.redesign {
       padding: 1rem 2rem 1rem 0.5rem;
       position: relative;
 
+      @include breakpoint(large up) {
+        font-size: get-text-property(
+          $display-text-styles,
+          "2",
+          "font-size",
+          "large"
+        );
+        padding: 2rem;
+        margin-bottom: 1rem;
+      }
+
       &::before {
         content: "";
         position: absolute;
@@ -31,6 +42,14 @@ body.redesign {
         background-position: center top;
         background-repeat: no-repeat;
         background-size: contain;
+
+        @include breakpoint(large up) {
+          width: rem-calc(138);
+          height: rem-calc(77);
+          left: 2rem;
+          top: auto;
+          bottom: calc(100% - 1rem);
+        }
       }
 
       &::after {
@@ -41,6 +60,10 @@ body.redesign {
         background-color: $white;
         width: 1.5rem;
         height: 50%;
+
+        @include breakpoint(large up) {
+          width: 3rem;
+        }
       }
     }
 
@@ -65,11 +88,16 @@ body.redesign {
         height: rem-calc(290);
       }
 
+      @include breakpoint(large up) {
+        height: rem-calc(451);
+      }
+
       &__image-container {
         width: 100%;
         aspect-ratio: 1 / 1;
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;
 
         @include breakpoint(medium up) {
           width: auto;
@@ -100,6 +128,10 @@ body.redesign {
         @include breakpoint(medium up) {
           padding: 2rem;
           justify-content: center;
+        }
+
+        @include breakpoint(large up) {
+          padding: 2rem 3rem;
         }
       }
 
@@ -165,6 +197,10 @@ body.redesign {
           margin-right: 3rem;
         }
 
+        @include breakpoint(large up) {
+          margin-right: calc(rem-calc(268) + 2.5rem);
+        }
+
         &::after {
           content: "";
           position: absolute;
@@ -172,7 +208,7 @@ body.redesign {
           top: 100%;
           width: 100%;
           height: 3rem;
-          background-image: url("../_images/timely-activations/separator-blue-200.svg");
+          background-image: url("../_images/timely-activations/separator-blue-300.svg");
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
@@ -184,10 +220,20 @@ body.redesign {
             transform-origin: 100% 100%;
             transform: rotate(90deg) scaleX(-1);
             top: auto;
-            right: -0.25rem;
+            left: calc(100% - rem-calc(290));
             bottom: 100%;
-            /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
-            left: auto;
+          }
+
+          @include breakpoint(large up) {
+            transform: none;
+            width: rem-calc(268);
+            height: 100%;
+            top: 0;
+            bottom: auto;
+            left: calc(100% + 2.5rem);
+            background-image: url("../_images/timely-activations/separator-blue-300-large.svg");
+            background-size: 100% 100%;
+            background-position: right;
           }
         }
 
@@ -211,6 +257,11 @@ body.redesign {
                 transform-origin: 100% 100%;
                 transform: rotate(90deg) scaleY(-1);
               }
+
+              @include breakpoint(large up) {
+                height: rem-calc(64);
+                width: calc(100% + 1px);
+              }
             }
           }
         }
@@ -222,6 +273,10 @@ body.redesign {
         @include breakpoint(medium up) {
           margin-bottom: 0;
           margin-left: 4.25rem;
+        }
+
+        @include breakpoint(large up) {
+          margin-left: calc(rem-calc(264) + 2.25rem);
         }
 
         &::after {
@@ -246,6 +301,16 @@ body.redesign {
             top: auto;
             left: -4.25rem;
           }
+
+          @include breakpoint(large up) {
+            background-image: url("../_images/timely-activations/separator-blue-600-large.svg");
+            background-size: 100% 100%;
+            width: rem-calc(264);
+            height: 100%;
+            transform: none;
+            left: calc(0rem - rem-calc(264) - 2.25rem);
+            bottom: 0;
+          }
         }
 
         .activation-card {
@@ -257,6 +322,10 @@ body.redesign {
             border-top-right-radius: 3rem;
             flex-direction: row-reverse;
           }
+
+          @include breakpoint(large up) {
+            border-top-right-radius: 5rem;
+          }
         }
       }
 
@@ -266,6 +335,10 @@ body.redesign {
         @include breakpoint(medium up) {
           margin-bottom: 0;
           margin-right: 3rem;
+        }
+
+        @include breakpoint(large up) {
+          margin-right: calc(rem-calc(276) + 2.5rem);
         }
 
         &::after {
@@ -290,6 +363,18 @@ body.redesign {
             bottom: 0;
             background-position: bottom;
           }
+
+          @include breakpoint(large up) {
+            background-image: url("../_images/timely-activations/separator-orange-200-large.svg");
+            transform: none;
+            width: rem-calc(276);
+            height: 100%;
+            top: 0;
+            bottom: auto;
+            left: calc(100% + 2.5rem);
+            background-size: 100% 100%;
+            background-position: right;
+          }
         }
 
         .activation-card {
@@ -308,6 +393,11 @@ body.redesign {
               @include breakpoint(medium up) {
                 right: 0;
                 left: auto;
+              }
+
+              @include breakpoint(large up) {
+                width: 4rem;
+                height: rem-calc(75);
               }
             }
           }
