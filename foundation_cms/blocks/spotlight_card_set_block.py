@@ -6,7 +6,6 @@ from . import SpotlightCardBlock
 
 
 class SpotlightCardSetBlock(BaseBlock):
-    headline = blocks.CharBlock(required=False, label="Headline", help_text="Main heading for the card set.")
 
     cards = blocks.ListBlock(
         SpotlightCardBlock(),
