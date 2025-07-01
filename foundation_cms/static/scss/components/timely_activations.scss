@@ -120,13 +120,6 @@ body.redesign {
         transition: transform 0.3s ease-out;
       }
 
-      &__topic {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: $white;
-      }
-
       &__content {
         flex: 1;
         padding: 2rem 1rem;
