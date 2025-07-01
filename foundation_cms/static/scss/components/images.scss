@@ -11,12 +11,11 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-
 }
 
 .image-block-portrait .image-block-container {
   max-width: rem-calc(320);
-  
+
   .image-block-image {
     width: 100%;
     height: rem-calc(448);
@@ -29,7 +28,7 @@
 
 .image-block-landscape .image-block-container {
   max-width: rem-calc(520);
-  
+
   .image-block-image {
     width: 100%;
     height: rem-calc(300);
@@ -42,7 +41,7 @@
 
 .image-block-square .image-block-container {
   max-width: rem-calc(400);
-  
+
   .image-block-image {
     width: 100%;
     height: rem-calc(400);
