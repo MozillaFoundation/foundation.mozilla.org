@@ -19,15 +19,23 @@ body.redesign {
       padding: 1rem 2rem 1rem 0.5rem;
       position: relative;
 
-      @include breakpoint(large up) {
+      @include breakpoint(medium up) {
+        font-size: get-text-property(
+          $display-text-styles,
+          "2",
+          "font-size",
+          "small"
+        );
+        margin-bottom: 1rem;
+      }
+
+      @include breakpoint(xlarge up) {
         font-size: get-text-property(
           $display-text-styles,
           "2",
           "font-size",
           "large"
         );
-        padding: 2rem;
-        margin-bottom: 1rem;
       }
 
       &::before {
@@ -42,7 +50,7 @@ body.redesign {
         background-repeat: no-repeat;
         background-size: contain;
 
-        @include breakpoint(large up) {
+        @include breakpoint(xlarge up) {
           width: rem-calc(138);
           height: rem-calc(77);
           left: 2rem;
@@ -60,7 +68,7 @@ body.redesign {
         width: 1.5rem;
         height: 50%;
 
-        @include breakpoint(large up) {
+        @include breakpoint(xlarge up) {
           width: 3rem;
         }
       }
@@ -79,15 +87,16 @@ body.redesign {
     .activation-card {
       display: flex;
       flex-direction: column;
-      height: rem-calc(560);
+      min-height: rem-calc(560);
       position: relative;
 
       @include breakpoint(medium up) {
         flex-direction: row;
+        min-height: 0;
         height: rem-calc(290);
       }
 
-      @include breakpoint(large up) {
+      @include breakpoint(xlarge up) {
         height: rem-calc(451);
       }
 
@@ -123,13 +132,16 @@ body.redesign {
         padding: 2rem 1rem;
         display: flex;
         flex-direction: column;
+        min-height: rem-calc(272);
+        justify-content: center;
 
         @include breakpoint(medium up) {
           padding: 2rem;
           justify-content: center;
+          min-height: 0;
         }
 
-        @include breakpoint(large up) {
+        @include breakpoint(xlarge up) {
           padding: 2rem 3rem;
         }
       }
@@ -144,6 +156,49 @@ body.redesign {
           "font-size",
           "small"
         );
+      }
+
+      &__title {
+        margin: 1rem 0;
+
+        @include breakpoint(medium up) {
+          font-size: get-text-property(
+            $display-text-styles,
+            "3",
+            "font-size",
+            "small"
+          );
+        }
+
+        @include breakpoint(xlarge up) {
+          font-size: get-text-property(
+            $display-text-styles,
+            "3",
+            "font-size",
+            "large"
+          );
+        }
+      }
+
+      &__text {
+        font-size: get-text-property(
+          $body-text-styles,
+          "small",
+          "font-size",
+          "small"
+        );
+        p {
+          margin: 0 0 1rem;
+        }
+
+        @include breakpoint(medium up) {
+          font-size: get-text-property(
+            $body-text-styles,
+            "regular",
+            "font-size",
+            "small"
+          );
+        }
       }
 
       &__cta {
@@ -196,7 +251,7 @@ body.redesign {
           margin-right: 3rem;
         }
 
-        @include breakpoint(large up) {
+        @include breakpoint(xlarge up) {
           margin-right: calc(rem-calc(268) + 2.5rem);
         }
 
@@ -223,7 +278,7 @@ body.redesign {
             bottom: 100%;
           }
 
-          @include breakpoint(large up) {
+          @include breakpoint(xlarge up) {
             transform: none;
             width: rem-calc(268);
             height: 100%;
@@ -257,7 +312,7 @@ body.redesign {
                 transform: rotate(90deg) scaleY(-1);
               }
 
-              @include breakpoint(large up) {
+              @include breakpoint(xlarge up) {
                 height: rem-calc(64);
                 width: calc(100% + 1px);
               }
@@ -274,7 +329,7 @@ body.redesign {
           margin-left: 4.25rem;
         }
 
-        @include breakpoint(large up) {
+        @include breakpoint(xlarge up) {
           margin-left: calc(rem-calc(264) + 2.25rem);
         }
 
@@ -301,7 +356,7 @@ body.redesign {
             left: -4.25rem;
           }
 
-          @include breakpoint(large up) {
+          @include breakpoint(xlarge up) {
             background-image: url("../_images/timely-activations/separator-blue-600-large.svg");
             background-size: 100% 100%;
             width: rem-calc(264);
@@ -322,7 +377,7 @@ body.redesign {
             flex-direction: row-reverse;
           }
 
-          @include breakpoint(large up) {
+          @include breakpoint(xlarge up) {
             border-top-right-radius: 5rem;
           }
         }
@@ -336,7 +391,7 @@ body.redesign {
           margin-right: 3rem;
         }
 
-        @include breakpoint(large up) {
+        @include breakpoint(xlarge up) {
           margin-right: calc(rem-calc(276) + 2.5rem);
         }
 
@@ -363,7 +418,7 @@ body.redesign {
             background-position: bottom;
           }
 
-          @include breakpoint(large up) {
+          @include breakpoint(xlarge up) {
             background-image: url("../_images/timely-activations/separator-orange-200-large.svg");
             transform: none;
             width: rem-calc(276);
@@ -394,7 +449,7 @@ body.redesign {
                 left: auto;
               }
 
-              @include breakpoint(large up) {
+              @include breakpoint(xlarge up) {
                 width: 4rem;
                 height: rem-calc(75);
               }
