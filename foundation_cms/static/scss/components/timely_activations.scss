@@ -49,48 +49,9 @@ body.redesign {
       display: flex;
       flex-direction: column;
 
-      // &.card-count-1 .timely-activations__card-wrapper {
-      //   width: 100%;
-
-      //   .activation-card {
-      //     flex-direction: row;
-      //     height: rem-calc(350);
-
-      //     &-image-container {
-      //       width: 60%;
-      //       height: 100%;
-      //       display: flex;
-      //       align-items: center;
-      //       justify-content: flex-start;
-      //       padding-bottom: 0;
-      //       padding-left: 0;
-      //       margin-left: 0;
-      //     }
-
-      //     &-image {
-      //       height: 100%;
-      //       width: auto;
-      //       aspect-ratio: 1 / 1;
-      //       object-fit: cover;
-      //       max-width: 100%;
-      //       max-height: 100%;
-      //     }
-
-      //     &-content {
-      //       width: 40%;
-      //       text-align: left;
-      //       margin-top: 10px;
-      //     }
-      //   }
-      // }
-
-      // &.card-count-2 .timely-activations__card-wrapper {
-      //   width: calc(50% - 0.5rem);
-      // }
-
-      // &.card-count-3 .timely-activations__card-wrapper {
-      //   width: calc(33.333% - 0.667rem);
-      // }
+      @include breakpoint(medium up) {
+        gap: 1rem;
+      }
     }
 
     .activation-card {
@@ -99,11 +60,20 @@ body.redesign {
       height: rem-calc(560);
       position: relative;
 
+      @include breakpoint(medium up) {
+        flex-direction: row;
+        height: rem-calc(290);
+      }
+
       &__image-container {
         width: 100%;
         aspect-ratio: 1 / 1;
         position: relative;
         overflow: hidden;
+
+        @include breakpoint(medium up) {
+          width: auto;
+        }
       }
 
       &__image {
@@ -111,6 +81,7 @@ body.redesign {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.2s ease-in-out;
       }
 
       &__topic {
@@ -125,6 +96,11 @@ body.redesign {
         padding: 2rem 1rem;
         display: flex;
         flex-direction: column;
+
+        @include breakpoint(medium up) {
+          padding: 2rem;
+          justify-content: center;
+        }
       }
 
       &__category {
@@ -168,6 +144,10 @@ body.redesign {
       }
 
       &:hover {
+        .activation-card__image {
+          transform: scale(1.2);
+        }
+
         .activation-card__cta::after {
           transform: translateX(0.25rem);
         }
@@ -180,6 +160,11 @@ body.redesign {
       &:nth-child(1) {
         margin-bottom: 3rem;
 
+        @include breakpoint(medium up) {
+          margin-bottom: 0;
+          margin-right: 3rem;
+        }
+
         &::after {
           content: "";
           position: absolute;
@@ -191,6 +176,19 @@ body.redesign {
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
+
+          @include breakpoint(medium up) {
+            width: rem-calc(290);
+            height: 2.75rem;
+            background-position: top;
+            transform-origin: 100% 100%;
+            transform: rotate(90deg) scaleX(-1);
+            top: auto;
+            right: -0.25rem;
+            bottom: 100%;
+            /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+            left: auto;
+          }
         }
 
         .activation-card {
@@ -202,12 +200,17 @@ body.redesign {
             &::after {
               content: "";
               position: absolute;
-              left: 0;
+              right: 0;
               bottom: 0;
               width: 100%;
               height: rem-calc(40);
               background-image: url("../_images/timely-activations/mask-orange-200.svg");
               background-size: 100% 100%;
+
+              @include breakpoint(medium up) {
+                transform-origin: 100% 100%;
+                transform: rotate(90deg) scaleY(-1);
+              }
             }
           }
         }
@@ -215,6 +218,11 @@ body.redesign {
 
       &:nth-child(2) {
         margin-bottom: 4rem;
+
+        @include breakpoint(medium up) {
+          margin-bottom: 0;
+          margin-left: 4.25rem;
+        }
 
         &::after {
           content: "";
@@ -227,17 +235,38 @@ body.redesign {
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
+
+          @include breakpoint(medium up) {
+            width: rem-calc(290);
+            height: 4rem;
+            background-position: bottom;
+            transform-origin: 0% 100%;
+            transform: rotate(90deg);
+            bottom: 100%;
+            top: auto;
+            left: -4.25rem;
+          }
         }
 
         .activation-card {
           border-top-right-radius: 2rem;
           background-color: color(green, "200");
           overflow: hidden;
+
+          @include breakpoint(medium up) {
+            border-top-right-radius: 3rem;
+            flex-direction: row-reverse;
+          }
         }
       }
 
       &:nth-child(3) {
         margin-bottom: 3rem;
+
+        @include breakpoint(medium up) {
+          margin-bottom: 0;
+          margin-right: 3rem;
+        }
 
         &::after {
           content: "";
@@ -250,6 +279,17 @@ body.redesign {
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
+
+          @include breakpoint(medium up) {
+            width: rem-calc(290);
+            height: 2.5rem;
+            transform-origin: 0% 100%;
+            transform: rotate(270deg);
+            top: auto;
+            left: calc(100% + 3rem);
+            bottom: 0;
+            background-position: bottom;
+          }
         }
 
         .activation-card {
@@ -264,6 +304,11 @@ body.redesign {
               width: 3rem;
               height: rem-calc(54);
               background-color: color(blue, "200");
+
+              @include breakpoint(medium up) {
+                right: 0;
+                left: auto;
+              }
             }
           }
         }
