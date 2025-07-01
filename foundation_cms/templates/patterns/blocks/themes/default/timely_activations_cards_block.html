@@ -7,11 +7,9 @@
 
     <div class="timely-activations__cards-container">
         {% for card_item in self.cards %}
-            {% if forloop.counter <= self.card_count|add:"0" %}
-                <div class="timely-activations__card-wrapper">
-                    {% include_block card_item %}
-                </div>
-            {% endif %}
+            <div class="timely-activations__card-wrapper">
+                {% include_block card_item %}
+            </div>
         {% endfor %}
     </div>
 </section>
