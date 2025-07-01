@@ -1,23 +1,22 @@
 {% load wagtailimages_tags %}
 <div class="activation-card">
     {% if self.image %}
-        <div class="activation-card-image-container">
+        <div class="activation-card__image-container">
             <img src="{{ self.image.file.url }}"
                  alt="{{ self.title }}"
-                 class="activation-card-image"
+                 class="activation-card__image"
                  width="100%"
                  height="100%">
-            {% if self.topic %}<span class="activation-card-topic">{{ self.topic }}</span>{% endif %}
+            {% if self.topic %}<span class="activation-card__topic">{{ self.topic }}</span>{% endif %}
         </div>
     {% endif %}
-    <div class="activation-card-content">
-        {% if self.category %}<div class="activation-card-category">{{ self.category }}</div>{% endif %}
-        <h3 class="activation-card-title">{{ self.title }}</h3>
-        {% if self.text %}<div class="activation-card-text">{{ self.text }}</div>{% endif %}
+    <div class="activation-card__content">
+        {% if self.category %}<div class="activation-card__category">{{ self.category }}</div>{% endif %}
+        <h3 class="activation-card__title">{{ self.title }}</h3>
+        {% if self.text %}<div class="activation-card__text">{{ self.text }}</div>{% endif %}
         {% if self.link %}
-            <a href="{{ self.link.url }}" class="activation-card-cta">
+            <a href="{{ self.link.url }}" class="activation-card__cta">
                 {{ self.link.label }}
-                <span class="arrow">link</span>
             </a>
         {% endif %}
     </div>

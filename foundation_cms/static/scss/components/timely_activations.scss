@@ -1,82 +1,273 @@
 @import "../../../../node_modules/foundation-sites/scss/util/util";
+@import "../colors";
+@import "../type";
 
-.activation-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-
-  &-image-container {
+body.redesign {
+  .timely-activations {
     width: 100%;
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 0;
-  }
+    margin: 1rem 0;
 
-  &-image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    &__title {
+      @include mofo-text-style(
+        $display-text-styles,
+        "2",
+        $display-text-font-family
+      );
 
-  &-topic {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: #fff;
-  }
-}
+      margin-bottom: 0.5rem;
+      color: #333;
+      background-color: color(yellow, "200");
+      padding: 1rem 2rem 1rem 0.5rem;
+      position: relative;
 
-.timely-activations {
-  width: 100%;
-  margin: 1rem 0;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 1rem;
+        top: calc(-2rem - 1px);
+        width: rem-calc(80);
+        height: rem-calc(45);
+        background-image: url("../_images/handdrawn/title-rays.svg");
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
 
-  &-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: $white;
+        width: 1.5rem;
+        height: 50%;
+      }
+    }
 
-    &.card-count-1 .timely-activations-card-wrapper {
+    &__cards-container {
       width: 100%;
+      display: flex;
+      flex-direction: column;
 
-      .activation-card {
-        flex-direction: row;
-        height: rem-calc(350);
+      // &.card-count-1 .timely-activations__card-wrapper {
+      //   width: 100%;
 
-        &-image-container {
-          width: 60%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          padding-bottom: 0;
-          padding-left: 0;
-          margin-left: 0;
+      //   .activation-card {
+      //     flex-direction: row;
+      //     height: rem-calc(350);
+
+      //     &-image-container {
+      //       width: 60%;
+      //       height: 100%;
+      //       display: flex;
+      //       align-items: center;
+      //       justify-content: flex-start;
+      //       padding-bottom: 0;
+      //       padding-left: 0;
+      //       margin-left: 0;
+      //     }
+
+      //     &-image {
+      //       height: 100%;
+      //       width: auto;
+      //       aspect-ratio: 1 / 1;
+      //       object-fit: cover;
+      //       max-width: 100%;
+      //       max-height: 100%;
+      //     }
+
+      //     &-content {
+      //       width: 40%;
+      //       text-align: left;
+      //       margin-top: 10px;
+      //     }
+      //   }
+      // }
+
+      // &.card-count-2 .timely-activations__card-wrapper {
+      //   width: calc(50% - 0.5rem);
+      // }
+
+      // &.card-count-3 .timely-activations__card-wrapper {
+      //   width: calc(33.333% - 0.667rem);
+      // }
+    }
+
+    .activation-card {
+      display: flex;
+      flex-direction: column;
+      height: rem-calc(560);
+      position: relative;
+
+      &__image-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      &__image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &__topic {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: $white;
+      }
+
+      &__content {
+        flex: 1;
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__category {
+        text-transform: uppercase;
+        font-weight: 300;
+        line-height: 120%;
+        font-size: get-text-property(
+          $body-text-styles,
+          "small",
+          "font-size",
+          "small"
+        );
+      }
+
+      &__cta {
+        font-family: $header-font-family;
+        line-height: 120%;
+        font-weight: 400;
+        color: $black;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-wrap: nowrap;
+        width: fit-content;
+
+        &::after {
+          background-image: url("../_images/icons/button-arrow-right-black.svg");
+          background-size: contain;
+          content: "";
+          width: rem-calc(12);
+          height: rem-calc(12);
+          display: inline-block;
+          flex-shrink: 0;
+          transition: transform 0.2s ease-in-out;
         }
 
-        &-image {
-          height: 100%;
-          width: auto;
-          aspect-ratio: 1 / 1;
-          object-fit: cover;
-          max-width: 100%;
-          max-height: 100%;
+        &:focus-visible {
+          outline: 1px solid $black;
+          outline-offset: 2px;
         }
+      }
 
-        &-content {
-          width: 40%;
-          text-align: left;
-          margin-top: 10px;
+      &:hover {
+        .activation-card__cta::after {
+          transform: translateX(0.25rem);
         }
       }
     }
 
-    &.card-count-2 .timely-activations-card-wrapper {
-      width: calc(50% - 0.5rem);
-    }
+    &__card-wrapper {
+      position: relative;
 
-    &.card-count-3 .timely-activations-card-wrapper {
-      width: calc(33.333% - 0.667rem);
+      &:nth-child(1) {
+        margin-bottom: 3rem;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 100%;
+          width: 100%;
+          height: 3rem;
+          background-image: url("../_images/timely-activations/separator-blue-200.svg");
+          background-size: 100% calc(100% - 0.5rem);
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .activation-card {
+          background-color: color(orange, "200");
+
+          &__image-container {
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              width: 100%;
+              height: rem-calc(40);
+              background-image: url("../_images/timely-activations/mask-orange-200.svg");
+              background-size: 100% 100%;
+            }
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        margin-bottom: 4rem;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 100%;
+          width: 100%;
+          height: 4rem;
+          background-image: url("../_images/timely-activations/separator-blue-600.svg");
+          background-size: 100% calc(100% - 0.5rem);
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .activation-card {
+          border-top-right-radius: 2rem;
+          background-color: color(green, "200");
+          overflow: hidden;
+        }
+      }
+
+      &:nth-child(3) {
+        margin-bottom: 3rem;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 100%;
+          width: 100%;
+          height: 3rem;
+          background-image: url("../_images/timely-activations/separator-orange-200.svg");
+          background-size: 100% calc(100% - 0.5rem);
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .activation-card {
+          background-color: color(blue, "200");
+
+          &__image-container {
+            &::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              width: 3rem;
+              height: rem-calc(54);
+              background-color: color(blue, "200");
+            }
+          }
+        }
+      }
     }
   }
 }
