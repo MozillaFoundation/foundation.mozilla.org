@@ -1,7 +1,9 @@
 {% load wagtailcore_tags %}
 
 <section class="timely-activations">
-    <h2 class="timely-activations__title">{{ self.title }}</h2>
+    {% if self.title %}
+        <h2 class="timely-activations__title">{{ self.title }}</h2>
+    {% endif %}
 
     <div class="timely-activations__cards-container card-count-{{ self.card_count }}">
         {% for card_item in self.cards %}
