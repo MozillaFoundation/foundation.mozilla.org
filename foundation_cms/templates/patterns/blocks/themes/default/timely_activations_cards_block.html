@@ -5,7 +5,7 @@
         <h2 class="timely-activations__title">{{ self.title }}</h2>
     {% endif %}
 
-    <div class="timely-activations__cards-container card-count-{{ self.card_count }}">
+    <div class="timely-activations__cards-container">
         {% for card_item in self.cards %}
             {% if forloop.counter <= self.card_count|add:"0" %}
                 <div class="timely-activations__card-wrapper">

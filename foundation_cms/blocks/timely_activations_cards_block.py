@@ -11,7 +11,6 @@ class ActivationCardBlock(BaseBlock):
     A flexible card block for timely activations
     """
 
-    topic = blocks.CharBlock(required=False, help_text="Optional topic tag for the card")
     category = blocks.CharBlock(required=False, help_text="Optional category for the card")
     title = blocks.CharBlock(required=True, help_text="Title for the card")
     text = blocks.RichTextBlock(required=False, help_text="Optional description text")
@@ -31,24 +30,13 @@ class TimelyActivationsCardsBlock(BaseBlock):
 
     title = blocks.CharBlock(required=False, help_text="Title for the activations section")
 
-    # Display count selection
-    card_count = blocks.ChoiceBlock(
-        choices=[
-            ("1", "One Card (Full Width)"),
-            ("2", "Two Cards"),
-            ("3", "Three Cards"),
-        ],
-        default="3",
-        help_text="Select how many cards to display in a row",
-    )
-
     cards = blocks.StreamBlock(
         [
             ("card", ActivationCardBlock()),
         ],
         min_num=1,
         max_num=3,
-        help_text="Add between 1 and 3 cards. Only the number of cards selected above will be displayed.",
+        help_text="Add between 1 and 3 cards.",
     )
 
     class Meta:
