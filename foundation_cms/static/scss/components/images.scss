@@ -60,7 +60,7 @@
   padding-left: 30px;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (width <= 640px) {
   .image-block-portrait .image-block-container,
   .image-block-landscape .image-block-container,
   .image-block-square .image-block-container {
