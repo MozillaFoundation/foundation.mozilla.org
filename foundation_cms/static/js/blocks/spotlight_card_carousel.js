@@ -31,6 +31,7 @@ class SpotlightCarousel {
     this.totalCards = this.cards.length;
     this.resizeTimer = null;
     this.isMobile = false;
+    this.cardsByPosition = {};
 
     this.RESIZE_DEBOUNCE_MS = 200;
     this.DESKTOP_BREAKPOINT = 1024; // our desktop breakpoint, "large", in px
@@ -90,11 +91,15 @@ class SpotlightCarousel {
   updateDataPosition() {
     const offset = this.currentStep - 1;
 
+    // reset the card cache
+    this.cardsByPosition = {};
+
     this.cards.forEach((card, i) => {
-      card.dataset.displayPosition = this.wrapStep(
-        i + 1 - offset,
-        this.totalCards,
-      );
+      const position = this.wrapStep(i + 1 - offset, this.totalCards);
+      card.dataset.displayPosition = position;
+
+      // cache the card by its position
+      this.cardsByPosition[position] = card;
     });
   }
 
@@ -164,9 +169,7 @@ class SpotlightCarousel {
     if (this.isMobile) return;
 
     Object.values(CARD_CONFIG).forEach(({ position, cssVar }) => {
-      const card = this.root.querySelector(
-        `[data-display-position="${position}"]`,
-      );
+      const card = this.cardsByPosition[position];
       if (card) {
         this.setCSSVariable(cssVar, `${card.offsetHeight}px`);
       }
@@ -181,7 +184,7 @@ class SpotlightCarousel {
     // details box only exists on desktop
     if (this.isMobile || !this.details) return;
 
-    const currentFeaturedCard = this.root.querySelector(SELECTORS.featuredCard);
+    const currentFeaturedCard = this.cardsByPosition[CARD_CONFIG.featured.position];
     if (currentFeaturedCard) {
       const content = currentFeaturedCard.querySelector(
         ".spotlight-card__content",
@@ -196,8 +199,8 @@ class SpotlightCarousel {
     // this is only needed for desktop
     if (this.isMobile) return;
 
-    const featuredCard = this.root.querySelector(SELECTORS.featuredCard);
-    const detailsHeight = this.details.offsetHeight || 0;
+    const featuredCard = this.cardsByPosition[CARD_CONFIG.featured.position];
+    const detailsHeight = this.details?.offsetHeight || 0;
 
     if (featuredCard) {
       this.slides.style.minHeight = `${featuredCard.offsetHeight + detailsHeight}px`;
