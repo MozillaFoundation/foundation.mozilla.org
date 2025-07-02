@@ -19,7 +19,7 @@
   .image-block-image {
     width: 100%;
     height: rem-calc(448);
-    border-bottom-left-radius: 30px;
+    border-bottom-left-radius: rem-calc(30);
     object-fit: cover;
     margin: 0 auto;
     display: block;
@@ -32,7 +32,7 @@
   .image-block-image {
     width: 100%;
     height: rem-calc(300);
-    border-bottom-left-radius: 30px;
+    border-bottom-left-radius: rem-calc(30);
     object-fit: cover;
     margin: 0 auto;
     display: block;
@@ -45,7 +45,7 @@
   .image-block-image {
     width: 100%;
     height: rem-calc(400);
-    border-bottom-left-radius: 30px;
+    border-bottom-left-radius: rem-calc(30);
     object-fit: cover;
     margin: 0 auto;
     display: block;
@@ -56,7 +56,7 @@
   text-align: left;
   width: 100%;
   max-width: inherit;
-  padding-left: 30px;
+  padding-left: rem-calc(30);
 }
 
 @media screen and (width <= 640px) {
