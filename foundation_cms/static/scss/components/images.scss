@@ -59,7 +59,7 @@
   padding-left: rem-calc(30);
 }
 
-@media screen and (width <= 640px) {
+@include breakpoint(medium up) {
   .image-block-portrait .image-block-container,
   .image-block-landscape .image-block-container,
   .image-block-square .image-block-container {
