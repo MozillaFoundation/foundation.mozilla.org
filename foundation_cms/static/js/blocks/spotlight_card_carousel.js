@@ -1,9 +1,17 @@
+/**
+ * Configuration for carousel card positions and their corresponding CSS variables
+ * @constant {Object}
+ */
 const CARD_CONFIG = {
   featured: { position: 1, cssVar: "--featured-image-height" },
   middle: { position: 2, cssVar: "--middle-image-height" },
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
+/**
+ * CSS selectors used throughout the carousel
+ * @constant {Object}
+ */
 const SELECTORS = {
   root: ".spotlight-card-set",
   slides: ".spotlight-card-set__slides",
@@ -16,7 +24,16 @@ const SELECTORS = {
   featuredCard: `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
 };
 
+/**
+ * Spotlight carousel component that handles card rotation and display
+ * Supports both desktop (3-card view) and mobile (single card view) layouts
+ * @class
+ */
 class SpotlightCarousel {
+  /**
+   * Creates a new SpotlightCarousel instance
+   * @param {HTMLElement} root - The root carousel container element
+   */
   constructor(root) {
     this.root = root;
     this.slides = root.querySelector(SELECTORS.slides);
@@ -41,6 +58,10 @@ class SpotlightCarousel {
     this.init();
   }
 
+  /**
+   * Initializes the carousel based on current viewport
+   * Sets up event listeners and determines mobile vs desktop layout
+   */
   init() {
     this.checkViewport();
     this.setupEventListeners();
@@ -52,6 +73,10 @@ class SpotlightCarousel {
     }
   }
 
+  /**
+   * Checks current viewport width and updates mobile state
+   * @returns {boolean} True if viewport changed from mobile to desktop or vice versa
+   */
   checkViewport() {
     const wasMobile = this.isMobile;
     this.isMobile = window.innerWidth < this.DESKTOP_BREAKPOINT;
@@ -59,35 +84,56 @@ class SpotlightCarousel {
     return wasMobile !== this.isMobile; // returns true if viewport changed
   }
 
+  /**
+   * Initializes desktop-specific layout and positioning
+   * Shows 3 cards at once with a teaser region
+   */
   initDesktop() {
     // Reset any mobile transforms and styles
     this.slides.style.transform = "";
     this.slides.style.minHeight = ""; // Reset minHeight from mobile
 
     // Set up desktop positioning
-    this.updateDesktopPosition(); // do i need this?
+    this.updateDesktopPosition();
     this.updateTeaserRegion();
     this.updateAllCardHeights();
     this.updateContainerHeight();
   }
 
+  /**
+   * Initializes mobile-specific layout
+   * Shows one card at a time with horizontal scrolling
+   */
   initMobile() {
     this.slides.style.minHeight = "";
 
     this.updateMobilePosition();
   }
 
+  /**
+   * Sets up event listeners for navigation and resize
+   */
   setupEventListeners() {
     this.nextBtn?.addEventListener("click", () => this.handleNext());
     this.prevBtn?.addEventListener("click", () => this.handlePrev());
     window.addEventListener("resize", () => this.handleResize());
   }
 
+  /**
+   * Wraps a step number to ensure it stays within bounds
+   * @param {number} step - The step to wrap (1-based)
+   * @param {number} totalCards - Total number of cards
+   * @returns {number} Wrapped step number (1-based)
+   */
   wrapStep(step, totalCards) {
     // subtract 1 to go 0-based, mod, then add 1 back
     return ((step - 1 + totalCards) % totalCards) + 1;
   }
 
+  /**
+   * Updates data-display-position attributes and caches cards by position
+   * Also updates ARIA attributes for accessibility
+   */
   updateDataPosition() {
     const offset = this.currentStep - 1;
 
@@ -105,6 +151,10 @@ class SpotlightCarousel {
     });
   }
 
+  /**
+   * Handles previous button click
+   * Moves carousel one step backward
+   */
   handlePrev() {
     this.currentStep = this.wrapStep(this.currentStep - 1, this.totalCards);
 
@@ -117,6 +167,10 @@ class SpotlightCarousel {
     this.updateCounterDisplay();
   }
 
+  /**
+   * Handles next button click
+   * Moves carousel one step forward
+   */
   handleNext() {
     this.currentStep = this.wrapStep(this.currentStep + 1, this.totalCards);
 
@@ -129,30 +183,49 @@ class SpotlightCarousel {
     this.updateCounterDisplay();
   }
 
+  /**
+   * Updates desktop view when moving to previous card
+   */
   handleDesktopPrev() {
     this.updateDesktopPosition();
     this.updateTeaserRegion();
   }
 
+  /**
+   * Updates desktop view when moving to next card
+   */
   handleDesktopNext() {
     this.updateDesktopPosition();
     this.updateTeaserRegion();
   }
 
+  /**
+   * Updates mobile view when moving to previous card
+   */
   handleMobilePrev() {
     this.updateMobilePosition();
   }
 
+  /**
+   * Updates mobile view when moving to next card
+   */
   handleMobileNext() {
     this.updateMobilePosition();
   }
 
+  /**
+   * Updates the counter display with current step
+   */
   updateCounterDisplay() {
     if (this.counter) {
       this.counter.textContent = this.currentStep;
     }
   }
 
+  /**
+   * Updates mobile carousel position using CSS transform
+   * Translates the slides container horizontally
+   */
   updateMobilePosition() {
     // calculate translateX based on current step
     const translateValue = (this.currentStep - 1) * -100;
@@ -160,12 +233,20 @@ class SpotlightCarousel {
     this.updateDataPosition();
   }
 
+  /**
+   * Updates desktop carousel position by changing data attributes
+   * Desktop uses CSS for positioning based on data-display-position
+   */
   updateDesktopPosition() {
     if (this.isMobile) return;
 
     this.updateDataPosition();
   }
 
+  /**
+   * Updates CSS variables with current card heights
+   * Used for desktop layout calculations
+   */
   updateAllCardHeights() {
     // this is only needed for desktop
     if (this.isMobile) return;
@@ -178,10 +259,19 @@ class SpotlightCarousel {
     });
   }
 
+  /**
+   * Sets a CSS custom property on the root element
+   * @param {string} name - CSS variable name
+   * @param {string} value - CSS variable value
+   */
   setCSSVariable(name, value) {
     this.root.style.setProperty(name, value);
   }
 
+  /**
+   * Updates the teaser region with content from the featured card
+   * Desktop only - shows expanded content for the featured card
+   */
   updateTeaserRegion() {
     // teaser box only exists on desktop
     if (this.isMobile || !this.teaserRegion) return;
@@ -197,6 +287,10 @@ class SpotlightCarousel {
     }
   }
 
+  /**
+   * Updates the minimum height of the slides container
+   * Ensures container is tall enough for featured card + teaser
+   */
   updateContainerHeight() {
     // this is only needed for desktop
     if (this.isMobile) return;
@@ -209,6 +303,10 @@ class SpotlightCarousel {
     }
   }
 
+  /**
+   * Handles window resize events with debouncing
+   * Re-initializes carousel if viewport changes between mobile/desktop
+   */
   handleResize() {
     clearTimeout(this.resizeTimer);
     this.resizeTimer = setTimeout(() => {
@@ -229,6 +327,10 @@ class SpotlightCarousel {
   }
 }
 
+/**
+ * Initializes all spotlight card carousels on the page
+ * @exports
+ */
 export function initSpotlightCardCarousels() {
   const carousels = document.querySelectorAll(SELECTORS.root);
 
