@@ -13,6 +13,7 @@ from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
+from .featured_card_block import FeaturedCardBlock
 from .spotlight_card_block import SpotlightCardBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
@@ -28,6 +29,7 @@ __all__ = [
     "BaseCardBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
+    "FeaturedCardBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",

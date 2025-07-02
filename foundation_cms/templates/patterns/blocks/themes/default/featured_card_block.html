@@ -1,0 +1,23 @@
+{% load wagtailimages_tags %}
+
+<div class="featured-card-container">
+  <div class="grid-x grid-margin-x align-middle featured-card">
+    {% if self.image %}
+      <div class="cell small-12 medium-6 featured-card__image">
+        {% image self.image fill-600x400 as card_img %}
+        <img src="{{ card_img.url }}" alt="{{ card_img.alt }}">
+      </div>
+    {% endif %}
+    <div class="cell small-12 medium-6 featured-card__content">
+      <h2 class="featured-card__heading">{{ self.heading }}</h2>
+      <div class="featured-card__description">
+        {{ self.description|safe }}
+      </div>
+        {% if self.button and self.button.0 %}
+            <div class="featured-card__button">
+                {% include "patterns/components/link_button_block.html" with value=self.button.0 %}
+            </div>
+        {% endif %}
+    </div>
+  </div>
+</div>

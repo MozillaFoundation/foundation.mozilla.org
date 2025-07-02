@@ -1,0 +1,37 @@
+.featured-card-container {
+  padding: 2rem;
+  background: #f9f9f9;
+}
+
+.featured-card {
+  background: #ffffff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.featured-card__image {
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.featured-card__content {
+  padding: 1.5rem;
+
+  .featured-card__heading {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-card__description {
+    margin-bottom: 1rem;
+  }
+
+  .featured-card__button a {
+    text-decoration: underline;
+    color: #0078e7;
+    font-weight: bold;
+  }
+}
