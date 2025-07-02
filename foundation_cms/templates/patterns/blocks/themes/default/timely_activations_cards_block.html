@@ -1,10 +1,6 @@
 {% load wagtailcore_tags %}
 
 <section class="timely-activations">
-    {% if self.title %}
-        <h2 class="timely-activations__title">{{ self.title }}</h2>
-    {% endif %}
-
     <div class="timely-activations__cards-container">
         {% for card_item in self.cards %}
             <div class="timely-activations__card-wrapper">

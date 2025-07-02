@@ -28,8 +28,6 @@ class TimelyActivationsCardsBlock(BaseBlock):
     Block for displaying timely activations cards with customizable number of cards (1, 2, or 3)
     """
 
-    title = blocks.CharBlock(required=False, help_text="Title for the activations section")
-
     cards = blocks.StreamBlock(
         [
             ("card", ActivationCardBlock()),
