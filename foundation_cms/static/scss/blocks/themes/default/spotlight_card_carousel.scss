@@ -1,145 +1,162 @@
-/** Boilerplate spotlight card layout SCSS and open to refactor **/
+@use "sass:map";
+@use "sass:math";
 
-.spotlight-card {
-  &__wrapper {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    height: 100%;
+.spotlight-card-set {
+  $featured-columns: 7;
+  $secondary-columns: 5;
+  $right-half-offset-x: (
+    large: rem-calc(74)
+  );
+  $transition: (
+    duration: 0.5s,
+    timing-function: ease,
+  );
+  $mobile-container-width: calc(100vw - map.get($grid-margin-gutters, small) * 2);
+
+  // returns the percentage width of N columns
+  @function display-width($columns) {
+    $total: $grid-column-count;
+    @return percentage($columns / $total);
+  }
+
+  // key starts from 1
+  $positions: (
+    // 1 being the featured position
+    1: (
+      left: 0,
+      top: 0,
+      width: display-width($featured-columns),
+      z-index: 3,
+      image: (
+        width: display-width($featured-columns),
+      ),
+    ),
+    2: (
+      left: math.percentage($featured-columns / $grid-column-count),
+      top: calc(var(--last-image-height) + map.get($right-half-offset-x, large)),
+      width: display-width($secondary-columns),
+      image: (
+        width: display-width($secondary-columns),
+      ),
+    ),
+    3: (
+      left: math.percentage($featured-columns / $grid-column-count),
+      top: map.get($right-half-offset-x, large),
+      width: calc(display-width($secondary-columns) * 0.6),
+      image: (
+        width: calc(display-width($secondary-columns) * 0.6),
+      ),
+    ),
+  );
+
+  @mixin desktop-display-style($index) {
+    $style: map.get($positions, $index);
+    $image: map.get($style, image);
+
+    left: map.get($style, left);
+    top: map.get($style, top);
+    width: map.get($style, width);
+
+    @if (map.get($style, z-index)) {
+      z-index: map.get($style, z-index);
+    }
+  }
+
+  position: relative;
+  overflow: hidden;
+
+  @include breakpoint(large up) {
+    overflow: unset;
+    background-image: url("../_images/handdrawn/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: right 1rem top calc(var(--last-image-height) / 2 + map.get($right-half-offset-x, large));
+    background-size: rem-calc(180) auto;
+  }
+
+  &__slides {
+    width: calc(100vw * 3);
     display: flex;
-    flex-direction: column;
-  }
+    gap: map.get($grid-margin-gutters, small) * 2;
+    transition: transform map.get($transition, duration)
+      map.get($transition, timing-function);
 
-  &__image {
-    margin-bottom: 0.5rem;
-
-    img {
-      aspect-ratio: 1 / 1;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 0.25rem;
-  }
-
-  &__headline {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-  }
-
-  &__text {
-    flex-grow: 1;
-  }
-
-  &__cta {
-    margin-top: auto;
-
-    a {
-      font-weight: bold;
-    }
-  }
-
-  // Variants
-  &__primary {
-    .spotlight-card__headline {
-      font-size: 1.5rem;
-    }
-  }
-
-  &__teaser-top,
-  &__teaser-bottom {
-    .spotlight-card__headline {
-      font-size: 1rem;
-    }
-
-    .spotlight-card__text {
-      display: none;
-    }
-  }
-
-  &__mobile {
-    .spotlight-card__headline {
-      font-size: 1.25rem;
-    }
-
-    .spotlight-card__text {
-      font-size: 1rem;
-    }
-
-    .spotlight-card__cta {
-      margin-top: 0.5rem;
-    }
-  }
-}
-
-.spotlight-set {
-  margin-bottom: 2rem;
-
-  &__headline {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  &__carousel {
-    position: relative;
-    overflow: hidden;
-  }
-
-  &__slide {
-    display: none;
-    transition: opacity 0.3s ease-in-out;
-
-    &.is-active {
+    @include breakpoint(large up) {
+      width: unset;
       display: block;
+      gap: unset;
+      transition: unset;
     }
   }
 
-  &__grid {
-    margin-bottom: 1rem;
+  &__details {
+    display: none;
+
+    @include breakpoint(large up) {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: var(--featured-image-height);
+      width: display-width($featured-columns);
+      padding: 2rem 5rem;
+    }
   }
 
-  &__teasers {
+  &__controls {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+
+    @include breakpoint(large up) {
+      position: absolute;
+      right: 0;
+      top: calc(var(--middle-image-height) + var(--last-image-height) + map.get($right-half-offset-x, large));
+    }
+  }
+
+  .spotlight-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    width: $mobile-container-width;
+    transition: all map.get($transition, duration)
+      map.get($transition, timing-function);
 
-    .spotlight-card {
-      flex: 1;
+    @include breakpoint(large up) {
+      position: absolute;
+
+      &[data-display-position="1"] {
+        @include desktop-display-style(1);
+      }
+
+      &[data-display-position="2"] {
+        @include desktop-display-style(2);
+      }
+
+      &[data-display-position="3"] {
+        @include desktop-display-style(3);
+      }
+
+      &__content {
+        display: none;
+      }
     }
-  }
 
-  &__counter {
-    text-align: center;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-
-    .button {
-      margin: 0 0.5rem;
+    &__name {
+      margin: 1rem 0;
     }
-  }
 
-  &__cta {
-    text-align: center;
-    margin-top: 1.5rem;
-  }
+    &__image {
+      width: 100%;
+      aspect-ratio: math.div(1, 1);
+      margin: 0;
 
-  &__mobile {
-    .spotlight-card__mobile {
-      margin-bottom: 1rem;
-    }
-  }
-
-  @include breakpoint(small only) {
-    &__carousel,
-    &__nav {
-      display: none;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
     }
   }
 }

@@ -1,96 +1,227 @@
-/**
- * Initializes spotlight card carousels with rotating slides.
- * Dynamically renders teaser cards based on the active primary slide.
- * Navigation via buttons and keyboard only.
- * Boilerplate and open to refactor.
- */
-
-const SELECTORS = {
-  container: "[data-carousel]",
-  slide: "[data-carousel-slide]",
-  teaserRegion: "[data-teasers]",
-  next: ".spotlight-set__next",
-  prev: ".spotlight-set__prev",
+const CARD_CONFIG = {
+  featured: { position: 1, cssVar: '--featured-image-height' },
+  middle: { position: 2, cssVar: '--middle-image-height' },
+  last: { position: 3, cssVar: '--last-image-height' }
 };
 
-export function initSpotlightCardCarousels() {
-  const carousels = document.querySelectorAll(SELECTORS.container);
-  if (!carousels.length) return;
+const SELECTORS = {
+  root: ".spotlight-card-set",
+  slides: ".spotlight-card-set__slides",
+  details: ".spotlight-card-set__details",
+  content: ".spotlight-card__content",
+  cards: ".spotlight-card",
+  next: ".spotlight-card-set__next",
+  prev: ".spotlight-card-set__prev",
+  counter: "[data-active-index]",
+  featuredCard:
+    `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
+};
 
-  carousels.forEach((carousel) => {
-    const slides = Array.from(carousel.querySelectorAll(SELECTORS.slide));
-    const nextBtn = carousel.querySelector(SELECTORS.next);
-    const prevBtn = carousel.querySelector(SELECTORS.prev);
+class SpotlightCarousel {
+  constructor(root) {
+    this.root = root;
+    this.slides = root.querySelector(SELECTORS.slides);
+    this.details = root.querySelector(SELECTORS.details);
+    this.cards = root.querySelectorAll(SELECTORS.cards);
+    this.content = root.querySelectorAll(SELECTORS.content);
+    this.nextBtn = root.querySelector(SELECTORS.next);
+    this.prevBtn = root.querySelector(SELECTORS.prev);
+    this.counter = root.querySelector(SELECTORS.counter);
 
-    if (!slides.length || !nextBtn || !prevBtn) return;
+    this.currentStep = 1;
+    this.totalCards = this.cards.length;
+    this.resizeTimer = null;
+    this.isMobile = false;
 
-    const total = slides.length;
-    let currentIndex = slides.findIndex((el) =>
-      el.classList.contains("is-active"),
-    );
-    if (currentIndex === -1) currentIndex = 0;
+    this.RESIZE_DEBOUNCE_MS = 200;
+    this.DESKTOP_BREAKPOINT = 1024; // our desktop breakpoint, "large", in px
 
-    // Extract card HTML upfront
-    const primaryCards = slides.map(
-      (slide) =>
-        slide.querySelector(".spotlight-card__primary")?.innerHTML || "",
-    );
+    if (this.totalCards === 0) return;
 
-    const getTeaserCard = (cardHTML, positionClass) => {
-      const div = document.createElement("div");
-      div.className = `cell auto spotlight-card spotlight-card__${positionClass}`;
-      div.innerHTML = cardHTML;
-      return div;
-    };
+    this.init();
+  }
 
-    const updateSlide = (index) => {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("is-active", i === index);
-        if (i === index) {
-          const teaserRegion = slide.querySelector(SELECTORS.teaserRegion);
-          if (teaserRegion) {
-            teaserRegion.innerHTML = "";
-            const teaserIndex1 = (index + 1) % total;
-            const teaserIndex2 = (index + 2) % total;
-            teaserRegion.appendChild(
-              getTeaserCard(primaryCards[teaserIndex1], "teaser-top"),
-            );
-            teaserRegion.appendChild(
-              getTeaserCard(primaryCards[teaserIndex2], "teaser-bottom"),
-            );
-          }
-        }
-      });
+  init() {
+    this.checkViewport();
+    this.setupEventListeners();
 
-      // Update the counter text
-      const counterDisplay = carousel.querySelector(
-        ".spotlight-set__counter-display",
-      );
-      if (counterDisplay) {
-        counterDisplay.textContent = `${index + 1} / ${total}`;
-      }
-    };
+    if (this.isMobile) {
+      this.initMobile();
+    } else {
+      this.initDesktop();
+    }
+  }
 
-    const nextSlide = () => {
-      console.log("NEXT");
-      currentIndex = (currentIndex + 1) % total;
-      updateSlide(currentIndex);
-    };
+  checkViewport() {
+    const wasMobile = this.isMobile;
+    this.isMobile = window.innerWidth < this.DESKTOP_BREAKPOINT;
 
-    const prevSlide = () => {
-      currentIndex = (currentIndex - 1 + total) % total;
-      updateSlide(currentIndex);
-    };
+    return wasMobile !== this.isMobile; // returns true if viewport changed
+  }
 
-    nextBtn.addEventListener("click", nextSlide);
-    prevBtn.addEventListener("click", prevSlide);
+  initDesktop() {
+    // Reset any mobile transforms and styles
+    this.slides.style.transform = '';
+    this.slides.style.minHeight = ''; // Reset minHeight from mobile
 
-    carousel.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") nextSlide();
-      if (e.key === "ArrowLeft") prevSlide();
+    // Set up desktop positioning
+    this.updateDesktopPosition(); // do i need this?
+    this.updateDetails();
+    this.updateAllCardHeights();
+    this.updateContainerHeight();
+  }
+
+  initMobile() {
+    this.slides.style.minHeight = '';
+
+    this.updateMobilePosition();
+  }
+
+  setupEventListeners() {
+    this.nextBtn?.addEventListener("click", () => this.handleNext());
+    this.prevBtn?.addEventListener("click", () => this.handlePrev());
+    window.addEventListener("resize", () => this.handleResize());
+  }
+
+  wrapStep(step, totalCards) {
+    // subtract 1 to go 0-based, mod, then add 1 back
+    return ((step - 1 + totalCards) % totalCards) + 1;
+  }
+
+  updateDataPosition() {
+    const offset = this.currentStep - 1;
+
+    this.cards.forEach((card, i) => {
+      card.dataset.displayPosition = this.wrapStep(i + 1 - offset, this.totalCards);
     });
+  }
 
-    // Initial render
-    updateSlide(currentIndex);
+  handlePrev() {
+    this.currentStep = this.wrapStep(this.currentStep - 1, this.totalCards);
+
+    if (this.isMobile) {
+      this.handleMobilePrev();
+    } else {
+      this.handleDesktopPrev();
+    }
+
+    this.updateCounterDisplay();
+  }
+
+  handleNext() {
+    this.currentStep = this.wrapStep(this.currentStep + 1, this.totalCards);
+
+    if (this.isMobile) {
+      this.handleMobileNext();
+    } else {
+      this.handleDesktopNext();
+    }
+
+    this.updateCounterDisplay();
+  }
+
+  handleDesktopPrev() {
+    this.updateDesktopPosition();
+    this.updateDetails();
+  }
+
+  handleDesktopNext() {
+    this.updateDesktopPosition();
+    this.updateDetails();
+  }
+
+  handleMobilePrev() {
+    this.updateMobilePosition();
+  }
+
+  handleMobileNext() {
+    this.updateMobilePosition();
+  }
+
+  updateCounterDisplay() {
+    if (this.counter) {
+      this.counter.textContent = this.currentStep;
+    }
+  }
+
+  updateMobilePosition() {
+    // calculate translateX based on current step
+    const translateValue = (this.currentStep - 1) * -100;
+    this.slides.style.transform = `translateX(${translateValue}vw)`;
+    this.updateDataPosition();
+  }
+
+  updateDesktopPosition() {
+    if (this.isMobile) return;
+
+    this.updateDataPosition();
+  }
+
+  updateAllCardHeights() {
+    // this is only needed for desktop
+    if (this.isMobile) return;
+
+    Object.values(CARD_CONFIG).forEach(({ position, cssVar }) => {
+      const card = this.root.querySelector(`[data-display-position="${position}"]`);
+      if (card) {
+        this.setCSSVariable(cssVar, `${card.offsetHeight}px`);
+      }
+    });
+  }
+
+  setCSSVariable(name, value) {
+    this.root.style.setProperty(name, value);
+  }
+
+  updateDetails() {
+    // details box only exists on desktop
+    if (this.isMobile || !this.details) return;
+
+    const currentFeaturedCard = this.root.querySelector(SELECTORS.featuredCard);
+    if (currentFeaturedCard) {
+      const content = currentFeaturedCard.querySelector(".spotlight-card__content");
+      if (content) {
+        this.details.innerHTML = content.innerHTML;
+      }
+    }
+  }
+
+  updateContainerHeight() {
+    // this is only needed for desktop
+    if (this.isMobile) return;
+
+    const featuredCard = this.root.querySelector(SELECTORS.featuredCard);
+    const detailsHeight = this.details.offsetHeight || 0;
+
+    if (featuredCard) {
+      this.slides.style.minHeight = `${featuredCard.offsetHeight + detailsHeight}px`;
+    }
+  }
+
+  handleResize() {
+    clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => {
+      const viewportChanged = this.checkViewport();
+
+      if (viewportChanged) {
+        if (this.isMobile) {
+          this.initMobile();
+        } else {
+          this.initDesktop();
+        }
+      } else if (!this.isMobile) {
+        // Still desktop. Just update heights
+        this.updateContainerHeight();
+        this.updateAllCardHeights();
+      }
+    }, this.RESIZE_DEBOUNCE_MS);
+  }
+}
+
+export function initSpotlightCardCarousels() {
+  const carousels = document.querySelectorAll(SELECTORS.root);
+
+  carousels.forEach((container) => {
+    new SpotlightCarousel(container);
   });
 }

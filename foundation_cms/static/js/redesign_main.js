@@ -19,7 +19,6 @@ console.log(
 
 initPrimaryNav();
 initImpactNumberStatAnimationsOnScroll();
-
 injectNewsletterSignups(foundationSiteURL);
 initPortraitCardSetCarousels();
 initWordmarkVisibilityOnScroll();
