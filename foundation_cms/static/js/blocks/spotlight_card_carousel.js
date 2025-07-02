@@ -143,7 +143,10 @@ class SpotlightCarousel {
     this.cards.forEach((card, i) => {
       const position = this.wrapStep(i + 1 - offset, this.totalCards);
       card.dataset.displayPosition = position;
-      card.setAttribute("aria-hidden", position !== CARD_CONFIG.featured.position);
+      card.setAttribute(
+        "aria-hidden",
+        position !== CARD_CONFIG.featured.position,
+      );
       card.setAttribute("aria-label", `Card ${i + 1} of ${this.totalCards}`);
 
       // cache the card by its position
@@ -276,7 +279,8 @@ class SpotlightCarousel {
     // teaser box only exists on desktop
     if (this.isMobile || !this.teaserRegion) return;
 
-    const currentFeaturedCard = this.cardsByPosition[CARD_CONFIG.featured.position];
+    const currentFeaturedCard =
+      this.cardsByPosition[CARD_CONFIG.featured.position];
     if (currentFeaturedCard) {
       const content = currentFeaturedCard.querySelector(
         ".spotlight-card__content",
