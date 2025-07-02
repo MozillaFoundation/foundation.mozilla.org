@@ -1,7 +1,8 @@
 $link-button-transition-duration: 0.5s;
 $link-button-transition-ease: ease;
 
-.link-button {
+.btn-primary,
+.btn-secondary {
   display: flex;
   align-items: center;
   gap: rem-calc(16);
@@ -56,13 +57,15 @@ $link-button-transition-ease: ease;
   }
 }
 
-.btn-primary::after,
-.btn-secondary::after {
-  content: "";
-  width: rem-calc(16);
-  height: rem-calc(16);
-  display: inline-block;
-  flex-shrink: 0;
+.btn-primary,
+.btn-secondary {
+  &::after {
+    content: "";
+    width: rem-calc(16);
+    height: rem-calc(16);
+    display: inline-block;
+    flex-shrink: 0;
+  }
 }
 
 .btn-primary {
