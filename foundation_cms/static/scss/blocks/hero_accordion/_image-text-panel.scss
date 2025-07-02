@@ -103,8 +103,16 @@
 
         @include breakpoint(large up) {
           align-self: unset;
+          flex-basis: unset;
           width: var(--closed-panel-width);
-          flex: unset;
+          height: var(--closed-panel-width);
+          transition:
+            width map.get(base.$panel-transition, duration)
+              map.get(base.$panel-transition, timing-function),
+            height map.get(base.$panel-transition, duration)
+              map.get(base.$panel-transition, timing-function),
+            background-size map.get(base.$panel-transition, duration)
+              map.get(base.$panel-transition, timing-function);
         }
 
         &::before {
@@ -344,6 +352,7 @@
           height: 100%;
 
           @include breakpoint(large up) {
+            flex-basis: unset;
             width: map.get(base.$panel-height, large);
             height: map.get(base.$panel-height, large);
           }
