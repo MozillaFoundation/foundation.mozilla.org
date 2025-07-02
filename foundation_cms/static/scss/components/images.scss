@@ -19,7 +19,7 @@
   .image-block-image {
     width: 100%;
     height: rem-calc(448);
-    border-bottom-left-radius: rem-calc(30);
+    border-bottom-left-radius: 2rem;
     object-fit: cover;
     margin: 0 auto;
     display: block;
@@ -32,7 +32,7 @@
   .image-block-image {
     width: 100%;
     height: rem-calc(300);
-    border-bottom-left-radius: rem-calc(30);
+    border-bottom-left-radius: 2rem;
     object-fit: cover;
     margin: 0 auto;
     display: block;
@@ -45,7 +45,7 @@
   .image-block-image {
     width: 100%;
     height: rem-calc(400);
-    border-bottom-left-radius: rem-calc(30);
+    border-bottom-left-radius: 2rem;
     object-fit: cover;
     margin: 0 auto;
     display: block;
