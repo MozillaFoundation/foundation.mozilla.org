@@ -149,6 +149,34 @@
       }
     }
 
+    @mixin svg-mask-overlay($frame-url, $background-color: white) {
+      background: $background-color;
+      img {
+        mask-image: url(#{$frame-url});
+        mask-size: cover;
+        mask-position: center;
+        mask-repeat: no-repeat;
+      }
+    }
+
+    &[data-carousel-slide="1"] {
+      .spotlight-card__image {
+        @include svg-mask-overlay("../_images/spotlight/circle-mask.svg", color(yellow, "200"));
+      }
+    }
+
+    &[data-carousel-slide="2"] {
+      .spotlight-card__image {
+        @include svg-mask-overlay("../_images/spotlight/square-cutout-mask.svg", color(orange, "400"));
+      }
+    }
+
+    &[data-carousel-slide="3"] {
+      .spotlight-card__image {
+        @include svg-mask-overlay("../_images/spotlight/trapezoid-mask.svg", color(blue, "200"));
+      }
+    }
+
     &__name {
       margin: 1rem 0;
     }
