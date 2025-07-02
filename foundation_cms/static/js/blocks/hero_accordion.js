@@ -94,14 +94,9 @@ export class HorizontalAccordion {
   }
 
   _setWidth() {
-    let pageWidth = document.documentElement.clientWidth;
-    // let basePanelWidth = pageWidth / this.totalUnits; // in px
     let scrollBarWidth =
       window.innerWidth - document.documentElement.clientWidth;
     let basePanelWidth = `(100vw - ${scrollBarWidth}px) / ${this.totalUnits}`;
-
-    // this._setCssVariableValue(`--open-panel-width`, `${basePanelWidth * this.openMultiplier}px`);
-    // this._setCssVariableValue(`--closed-panel-width`, `${basePanelWidth}px`);
 
     this._setCssVariableValue(
       `--open-panel-width`,
