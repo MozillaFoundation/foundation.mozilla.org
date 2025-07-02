@@ -1,7 +1,7 @@
 const CARD_CONFIG = {
-  featured: { position: 1, cssVar: '--featured-image-height' },
-  middle: { position: 2, cssVar: '--middle-image-height' },
-  last: { position: 3, cssVar: '--last-image-height' }
+  featured: { position: 1, cssVar: "--featured-image-height" },
+  middle: { position: 2, cssVar: "--middle-image-height" },
+  last: { position: 3, cssVar: "--last-image-height" },
 };
 
 const SELECTORS = {
@@ -13,8 +13,7 @@ const SELECTORS = {
   next: ".spotlight-card-set__next",
   prev: ".spotlight-card-set__prev",
   counter: "[data-active-index]",
-  featuredCard:
-    `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
+  featuredCard: `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
 };
 
 class SpotlightCarousel {
@@ -61,8 +60,8 @@ class SpotlightCarousel {
 
   initDesktop() {
     // Reset any mobile transforms and styles
-    this.slides.style.transform = '';
-    this.slides.style.minHeight = ''; // Reset minHeight from mobile
+    this.slides.style.transform = "";
+    this.slides.style.minHeight = ""; // Reset minHeight from mobile
 
     // Set up desktop positioning
     this.updateDesktopPosition(); // do i need this?
@@ -72,7 +71,7 @@ class SpotlightCarousel {
   }
 
   initMobile() {
-    this.slides.style.minHeight = '';
+    this.slides.style.minHeight = "";
 
     this.updateMobilePosition();
   }
@@ -92,7 +91,10 @@ class SpotlightCarousel {
     const offset = this.currentStep - 1;
 
     this.cards.forEach((card, i) => {
-      card.dataset.displayPosition = this.wrapStep(i + 1 - offset, this.totalCards);
+      card.dataset.displayPosition = this.wrapStep(
+        i + 1 - offset,
+        this.totalCards,
+      );
     });
   }
 
@@ -162,7 +164,9 @@ class SpotlightCarousel {
     if (this.isMobile) return;
 
     Object.values(CARD_CONFIG).forEach(({ position, cssVar }) => {
-      const card = this.root.querySelector(`[data-display-position="${position}"]`);
+      const card = this.root.querySelector(
+        `[data-display-position="${position}"]`,
+      );
       if (card) {
         this.setCSSVariable(cssVar, `${card.offsetHeight}px`);
       }
@@ -179,7 +183,9 @@ class SpotlightCarousel {
 
     const currentFeaturedCard = this.root.querySelector(SELECTORS.featuredCard);
     if (currentFeaturedCard) {
-      const content = currentFeaturedCard.querySelector(".spotlight-card__content");
+      const content = currentFeaturedCard.querySelector(
+        ".spotlight-card__content",
+      );
       if (content) {
         this.details.innerHTML = content.innerHTML;
       }

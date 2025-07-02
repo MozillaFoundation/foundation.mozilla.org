@@ -5,13 +5,15 @@
   $featured-columns: 7;
   $secondary-columns: 5;
   $right-half-offset-x: (
-    large: rem-calc(74)
+    large: rem-calc(74),
   );
   $transition: (
     duration: 0.5s,
     timing-function: ease,
   );
-  $mobile-container-width: calc(100vw - map.get($grid-margin-gutters, small) * 2);
+  $mobile-container-width: calc(
+    100vw - map.get($grid-margin-gutters, small) * 2
+  );
 
   // returns the percentage width of N columns
   @function display-width($columns) {
@@ -23,14 +25,14 @@
   $positions: (
     // 1 being the featured position
     1: (
-      left: 0,
-      top: 0,
-      width: display-width($featured-columns),
-      z-index: 3,
-      image: (
+        left: 0,
+        top: 0,
         width: display-width($featured-columns),
+        z-index: 3,
+        image: (
+          width: display-width($featured-columns),
+        ),
       ),
-    ),
     2: (
       left: math.percentage($featured-columns / $grid-column-count),
       top: calc(var(--last-image-height) + map.get($right-half-offset-x, large)),
@@ -46,7 +48,7 @@
       image: (
         width: calc(display-width($secondary-columns) * 0.6),
       ),
-    ),
+    )
   );
 
   @mixin desktop-display-style($index) {
@@ -57,7 +59,7 @@
     top: map.get($style, top);
     width: map.get($style, width);
 
-    @if (map.get($style, z-index)) {
+    @if map.get($style, z-index) {
       z-index: map.get($style, z-index);
     }
   }
@@ -69,7 +71,8 @@
     overflow: unset;
     background-image: url("../_images/handdrawn/arrow-down.svg");
     background-repeat: no-repeat;
-    background-position: right 1rem top calc(var(--last-image-height) / 2 + map.get($right-half-offset-x, large));
+    background-position: right 1rem top
+      calc(var(--last-image-height) / 2 + map.get($right-half-offset-x, large));
     background-size: rem-calc(180) auto;
   }
 
@@ -109,7 +112,10 @@
     @include breakpoint(large up) {
       position: absolute;
       right: 0;
-      top: calc(var(--middle-image-height) + var(--last-image-height) + map.get($right-half-offset-x, large));
+      top: calc(
+        var(--middle-image-height) + var(--last-image-height) +
+          map.get($right-half-offset-x, large)
+      );
     }
   }
 
