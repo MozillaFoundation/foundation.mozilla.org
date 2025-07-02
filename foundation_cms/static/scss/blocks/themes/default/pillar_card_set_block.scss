@@ -132,11 +132,7 @@
 
     &-headline {
       margin-top: 0;
-      margin-bottom: rem-calc(84);
-
-      @include breakpoint(large up) {
-        margin-bottom: rem-calc(154);
-      }
+      margin-bottom: rem-calc(154);
     }
   }
 }
