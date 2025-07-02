@@ -58,11 +58,3 @@
   max-width: inherit;
   padding-left: rem-calc(30);
 }
-
-@include breakpoint(medium up) {
-  .image-block-portrait .image-block-container,
-  .image-block-landscape .image-block-container,
-  .image-block-square .image-block-container {
-    max-width: 90vw;
-  }
-}
