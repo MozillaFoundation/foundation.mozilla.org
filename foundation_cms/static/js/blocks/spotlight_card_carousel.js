@@ -97,6 +97,8 @@ class SpotlightCarousel {
     this.cards.forEach((card, i) => {
       const position = this.wrapStep(i + 1 - offset, this.totalCards);
       card.dataset.displayPosition = position;
+      card.setAttribute("aria-hidden", position !== CARD_CONFIG.featured.position);
+      card.setAttribute("aria-label", `Card ${i + 1} of ${this.totalCards}`);
 
       // cache the card by its position
       this.cardsByPosition[position] = card;

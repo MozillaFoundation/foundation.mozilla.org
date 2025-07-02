@@ -77,6 +77,9 @@
   }
 
   &__slides {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     width: calc(100vw * 3);
     display: flex;
     gap: map.get($grid-margin-gutters, small) * 2;
@@ -86,7 +89,6 @@
     @include breakpoint(large up) {
       width: unset;
       display: block;
-      gap: unset;
       transition: unset;
     }
   }

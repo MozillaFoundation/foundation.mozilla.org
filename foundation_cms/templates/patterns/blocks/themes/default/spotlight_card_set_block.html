@@ -1,17 +1,19 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="spotlight-card-set">
-  <div class="spotlight-card-set__slides">
+<div class="spotlight-card-set" tabindex="0" role="region" aria-label="Spotlight Carousel" aria-roledescription="carousel">
+  <ol class="spotlight-card-set__slides">
     {% for card in self.cards %}
-      {% include "./spotlight_card.html" with card=card index=forloop.counter0|add:"1" %}
+      <li>{% include "./spotlight_card.html" with card=card index=forloop.counter0|add:"1" %}</li>
     {% endfor %}
     <div class="spotlight-card-set__teaser" aria-live="polite">
       <!-- Content will be inserted via JS -->
     </div>
-  </div>
+  </ol>
   <div class="spotlight-card-set__controls">
-    <button class="button spotlight-card-set__prev">Prev</button>
-    <div class="spotlight-card-set__counter"><span data-active-index>1</span> / {{ self.cards|length }}</div>
-    <button class="button spotlight-card-set__next">Next</button>
+    <button type="button" class="button spotlight-card-set__prev" aria-label="Previous slide">Prev</button>
+    <div class="spotlight-card-set__counter">
+      <span data-active-index>1</span> / <span>{{ self.cards|length }}</span>
+    </div>
+    <button type="button" class="button spotlight-card-set__next" aria-label="Next slide">Next</button>
   </div>
 </div>
