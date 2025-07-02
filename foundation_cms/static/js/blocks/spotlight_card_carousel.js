@@ -7,7 +7,7 @@ const CARD_CONFIG = {
 const SELECTORS = {
   root: ".spotlight-card-set",
   slides: ".spotlight-card-set__slides",
-  details: ".spotlight-card-set__details",
+  teaserRegion: ".spotlight-card-set__teaser",
   content: ".spotlight-card__content",
   cards: ".spotlight-card",
   next: ".spotlight-card-set__next",
@@ -20,7 +20,7 @@ class SpotlightCarousel {
   constructor(root) {
     this.root = root;
     this.slides = root.querySelector(SELECTORS.slides);
-    this.details = root.querySelector(SELECTORS.details);
+    this.teaserRegion = root.querySelector(SELECTORS.teaserRegion);
     this.cards = root.querySelectorAll(SELECTORS.cards);
     this.content = root.querySelectorAll(SELECTORS.content);
     this.nextBtn = root.querySelector(SELECTORS.next);
@@ -66,7 +66,7 @@ class SpotlightCarousel {
 
     // Set up desktop positioning
     this.updateDesktopPosition(); // do i need this?
-    this.updateDetails();
+    this.updateTeaserRegion();
     this.updateAllCardHeights();
     this.updateContainerHeight();
   }
@@ -129,12 +129,12 @@ class SpotlightCarousel {
 
   handleDesktopPrev() {
     this.updateDesktopPosition();
-    this.updateDetails();
+    this.updateTeaserRegion();
   }
 
   handleDesktopNext() {
     this.updateDesktopPosition();
-    this.updateDetails();
+    this.updateTeaserRegion();
   }
 
   handleMobilePrev() {
@@ -180,9 +180,9 @@ class SpotlightCarousel {
     this.root.style.setProperty(name, value);
   }
 
-  updateDetails() {
-    // details box only exists on desktop
-    if (this.isMobile || !this.details) return;
+  updateTeaserRegion() {
+    // teaser box only exists on desktop
+    if (this.isMobile || !this.teaserRegion) return;
 
     const currentFeaturedCard = this.cardsByPosition[CARD_CONFIG.featured.position];
     if (currentFeaturedCard) {
@@ -190,7 +190,7 @@ class SpotlightCarousel {
         ".spotlight-card__content",
       );
       if (content) {
-        this.details.innerHTML = content.innerHTML;
+        this.teaserRegion.innerHTML = content.innerHTML;
       }
     }
   }
@@ -200,10 +200,10 @@ class SpotlightCarousel {
     if (this.isMobile) return;
 
     const featuredCard = this.cardsByPosition[CARD_CONFIG.featured.position];
-    const detailsHeight = this.details?.offsetHeight || 0;
+    const teaserRegionHeight = this.teaserRegion?.offsetHeight || 0;
 
     if (featuredCard) {
-      this.slides.style.minHeight = `${featuredCard.offsetHeight + detailsHeight}px`;
+      this.slides.style.minHeight = `${featuredCard.offsetHeight + teaserRegionHeight}px`;
     }
   }
 

@@ -91,7 +91,7 @@
     }
   }
 
-  &__details {
+  &__teaser {
     display: none;
 
     @include breakpoint(large up) {

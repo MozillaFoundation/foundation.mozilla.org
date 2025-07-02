@@ -5,7 +5,7 @@
     {% for card in self.cards %}
       {% include "./spotlight_card.html" with card=card index=forloop.counter0|add:"1" %}
     {% endfor %}
-    <div class="spotlight-card-set__details" aria-live="polite">
+    <div class="spotlight-card-set__teaser" aria-live="polite">
       <!-- Content will be inserted via JS -->
     </div>
   </div>
