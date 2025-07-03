@@ -1,5 +1,6 @@
 from .audio_block import AudioBlock
 from .base_card_block import BaseCardBlock
+from .featured_card_block import FeaturedCardBlock
 from .hero_accordion import HeroAccordionBlock
 from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
@@ -13,7 +14,6 @@ from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
-from .featured_card_block import FeaturedCardBlock
 from .spotlight_card_block import SpotlightCardBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock

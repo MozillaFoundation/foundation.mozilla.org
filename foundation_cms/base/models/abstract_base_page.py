@@ -12,11 +12,11 @@ from wagtailmetadata.models import MetadataPageMixin
 from foundation_cms.blocks import (
     AudioBlock,
     CustomImageBlock,
+    FeaturedCardBlock,
     ImpactNumberBlock,
     LinkButtonBlock,
     ListBlock,
     NewsletterSignupBlock,
-    FeaturedCardBlock,
     PillarCardSetBlock,
     PortraitCardSetBlock,
     QuoteBlock,
