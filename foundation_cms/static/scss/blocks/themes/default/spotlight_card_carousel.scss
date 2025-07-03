@@ -14,9 +14,7 @@
     duration: 0.5s,
     timing-function: ease,
   );
-  $mobile-container-width: calc(
-    100vw - map.get($grid-margin-gutters, small) * 2
-  );
+  $mobile-container-width: 100vw;
 
   // returns the percentage width of N columns
   @function display-width($columns) {
@@ -100,7 +98,6 @@
     padding: 0;
     width: calc(100vw * 3);
     display: flex;
-    gap: map.get($grid-margin-gutters, small) * 2;
     transition: transform map.get($transition, duration)
       map.get($transition, timing-function);
 
@@ -183,6 +180,10 @@
         object-fit: cover;
         object-position: center;
       }
+    }
+
+    &__content {
+      padding: map.get($grid-margin-gutters, small);
     }
 
     &[data-carousel-slide="1"] {

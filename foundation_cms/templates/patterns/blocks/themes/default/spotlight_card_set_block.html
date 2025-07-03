@@ -1,15 +1,21 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="spotlight-card-set" tabindex="0" role="region" aria-label="Spotlight Carousel" aria-roledescription="carousel">
-  <ol class="spotlight-card-set__slides">
-    {% for card in self.cards %}
-      <li>{% include "./spotlight_card.html" with card=card index=forloop.counter0|add:"1" %}</li>
-    {% endfor %}
-  </ol>
-  <div class="spotlight-card-set__teaser" aria-live="polite">
-    <!-- content will be updated by JS -->
-  </div>
-  <div class="spotlight-card-set__controls">
-    {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
+<div class="grid-container mobile-padding-0">
+  <div class="grid-x">
+    <div class="cell">
+      <div class="spotlight-card-set" tabindex="0" role="region" aria-label="Spotlight Carousel" aria-roledescription="carousel">
+        <ol class="spotlight-card-set__slides">
+          {% for card in self.cards %}
+            <li>{% include "./spotlight_card.html" with card=card index=forloop.counter0|add:"1" %}</li>
+          {% endfor %}
+        </ol>
+        <div class="spotlight-card-set__teaser" aria-live="polite">
+          <!-- content will be updated by JS -->
+        </div>
+        <div class="spotlight-card-set__controls">
+          {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
