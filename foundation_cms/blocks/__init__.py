@@ -1,5 +1,6 @@
 from .audio_block import AudioBlock
 from .base_card_block import BaseCardBlock
+from .divider_block import DividerBlock
 from .hero_accordion import HeroAccordionBlock
 from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
