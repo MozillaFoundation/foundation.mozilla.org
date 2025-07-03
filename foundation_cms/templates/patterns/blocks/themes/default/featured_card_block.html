@@ -5,7 +5,7 @@
     {% if self.image %}
       <div class="cell small-12 medium-6 featured-card__image">
         {% image self.image fill-600x400 as card_img %}
-        <img src="{{ card_img.url }}" alt="{{ card_img.alt }}">
+        <img height="{{ card_img.height }}" width="{{ card_img.width }}" src="{{ card_img.url }}" alt="{{ card_img.alt }}">
       </div>
     {% endif %}
     <div class="cell small-12 medium-6 featured-card__content">
