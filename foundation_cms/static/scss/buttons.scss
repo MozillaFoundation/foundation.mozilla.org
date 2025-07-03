@@ -70,6 +70,19 @@
   }
 }
 
+.btn {
+  cursor: pointer;
+}
+
+// TODO:FIXME: remove once we have implemented real button stylings
+.btn-fixme,
+.link-fixme {
+  color: red;
+  display: inline-block;
+  border: 1px solid red;
+  padding: rem-calc(7) rem-calc(12) rem-calc(7) 0;
+}
+
 .btn-primary {
   @include rolling-text-effect(".btn-primary", color(neutral, "100"));
 
