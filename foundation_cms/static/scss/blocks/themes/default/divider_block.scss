@@ -4,7 +4,11 @@ hr.divider {
     height: rem-calc(59);
     background-image: url("../_images/divider-line-loop.svg");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: left 47% center;
     background-size: cover;
+
+    @include breakpoint(large up) {
+      background-position: center;
+    }
   }
 }
