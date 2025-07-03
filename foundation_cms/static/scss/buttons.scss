@@ -1,7 +1,11 @@
-$link-button-transition-duration: 0.5s;
-$link-button-transition-ease: ease;
+@mixin rolling-text-effect(
+  $base-class: ".btn-primary",
+  $color: color(neutral, "100"),
+  $border-color: black
+) {
+  $button-transition-duration: 0.5s;
+  $button-transition-ease: ease;
 
-.link-button {
   display: flex;
   align-items: center;
   gap: rem-calc(16);
@@ -11,6 +15,8 @@ $link-button-transition-ease: ease;
   width: max-content;
   overflow: hidden;
   margin: rem-calc(16) 0;
+  color: $color;
+  border: 1px solid $border-color;
 
   &__roller {
     position: relative;
@@ -31,8 +37,8 @@ $link-button-transition-ease: ease;
     opacity: 1;
     transform: translateY(0);
     transition:
-      transform $link-button-transition-duration $link-button-transition-ease,
-      opacity $link-button-transition-duration $link-button-transition-ease;
+      transform $button-transition-duration $button-transition-ease,
+      opacity $button-transition-duration $button-transition-ease;
   }
 
   &__text--roll-in {
@@ -44,29 +50,42 @@ $link-button-transition-ease: ease;
   }
 
   &:hover {
-    .link-button__text {
+    #{$base-class}__text {
       opacity: 0;
       transform: translateY(-1.5em);
-    }
 
-    .link-button__text--roll-in {
-      opacity: 1;
-      transform: translateY(0);
+      &--roll-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+  }
+
+  &::after {
+    content: "";
+    width: rem-calc(16);
+    height: rem-calc(16);
+    display: inline-block;
+    flex-shrink: 0;
   }
 }
 
-.btn-primary::after,
-.btn-secondary::after {
-  content: "";
-  width: rem-calc(16);
-  height: rem-calc(16);
+.btn {
+  cursor: pointer;
+}
+
+// TODO:FIXME: remove once we have implemented real button stylings
+.btn-fixme,
+.link-fixme {
+  color: red;
   display: inline-block;
-  flex-shrink: 0;
+  border: 1px solid red;
+  padding: rem-calc(7) rem-calc(12) rem-calc(7) 0;
 }
 
 .btn-primary {
-  color: color(neutral, "100");
+  @include rolling-text-effect(".btn-primary", color(neutral, "100"));
+
   background-color: color(neutral, "600");
 
   &::after {
@@ -75,8 +94,11 @@ $link-button-transition-ease: ease;
 }
 
 .btn-secondary {
-  color: color(neutral, "600");
-  border: 1px solid color(neutral, "600");
+  @include rolling-text-effect(
+    ".btn-secondary",
+    color(neutral, "600"),
+    color(neutral, "600")
+  );
 
   &::after {
     background-image: url("../_images/icons/button-arrow-right-black.svg");

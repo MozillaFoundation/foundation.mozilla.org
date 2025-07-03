@@ -1,5 +1,15 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags streamfield_tags %}
 
 {% for block in streamfield %}
+  {% if block.block_type|should_wrap_block %}
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+          {% include_block block %}
+        </div>
+      </div>
+    </div>
+  {% else %}
     {% include_block block %}
+  {% endif %}
 {% endfor %}
