@@ -1,4 +1,4 @@
-.btn-rolling-text {
+@mixin rolling-text-effect($base-class: ".btn-primary", $color: color(neutral, "100")) {
   $button-transition-duration: 0.5s;
   $button-transition-ease: ease;
 
@@ -11,6 +11,7 @@
   width: max-content;
   overflow: hidden;
   margin: rem-calc(16) 0;
+  color: $color;
 
   &__roller {
     position: relative;
@@ -44,7 +45,7 @@
   }
 
   &:hover {
-    .btn-rolling-text__text {
+    #{$base-class}__text {
       opacity: 0;
       transform: translateY(-1.5em);
 
@@ -65,7 +66,7 @@
 }
 
 .btn-primary {
-  color: color(neutral, "100");
+  @include rolling-text-effect(".btn-primary", color(neutral, "100"));
   background-color: color(neutral, "600");
 
   &::after {
@@ -74,7 +75,8 @@
 }
 
 .btn-secondary {
-  color: color(neutral, "600");
+  @include rolling-text-effect(".btn-secondary", color(neutral, "600"));
+
   border: 1px solid color(neutral, "600");
 
   &::after {
