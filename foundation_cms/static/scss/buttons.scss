@@ -141,5 +141,10 @@
     color: white;
     background: $background-color;
     cursor: pointer;
+
+    &:focus-visible {
+      outline-color: color(neutral, "300");
+      z-index: 1;
+    }
   }
 }
