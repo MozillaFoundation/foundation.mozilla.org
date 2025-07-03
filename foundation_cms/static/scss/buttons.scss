@@ -118,7 +118,7 @@
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: rem-calc(48) * -1;
     top: 0;
