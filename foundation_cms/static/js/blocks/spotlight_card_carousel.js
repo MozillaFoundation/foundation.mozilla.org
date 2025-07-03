@@ -18,6 +18,7 @@ const SELECTORS = {
   teaserRegion: ".spotlight-card-set__teaser",
   content: ".spotlight-card__content",
   cards: ".spotlight-card",
+  navSection: ".pagination-controls",
   navButton: ".pagination-controls [data-direction]",
   counter: ".pagination-controls [data-active-index]",
   featuredCard: `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
@@ -39,6 +40,7 @@ class SpotlightCarousel {
     this.teaserRegion = root.querySelector(SELECTORS.teaserRegion);
     this.cards = root.querySelectorAll(SELECTORS.cards);
     this.content = root.querySelectorAll(SELECTORS.content);
+    this.navSection = root.querySelector(SELECTORS.navSection);
     this.counter = root.querySelector(SELECTORS.counter);
 
     this.currentStep = 1;
@@ -310,9 +312,10 @@ class SpotlightCarousel {
 
     const featuredCard = this.cardsByPosition[CARD_CONFIG.featured.position];
     const teaserRegionHeight = this.teaserRegion?.offsetHeight || 0;
+    const navSectionHeight = this.navSection?.offsetHeight || 0;
 
     if (featuredCard) {
-      this.slides.style.minHeight = `${featuredCard.offsetHeight + teaserRegionHeight}px`;
+      this.slides.style.minHeight = `${featuredCard.offsetHeight + teaserRegionHeight + navSectionHeight}px`;
     }
   }
 

@@ -127,7 +127,7 @@
     margin-top: 1rem;
 
     @include breakpoint(large up) {
-      $total-image-height: var(--middle-image-height) + var(--last-image-height);
+      $total-image-height: calc(var(--middle-image-height) + var(--last-image-height));
       $offset: map.get($right-half-offset-y, large);
 
       position: absolute;
