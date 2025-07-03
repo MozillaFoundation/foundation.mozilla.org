@@ -1,5 +1,3 @@
-from wagtail.blocks import ChoiceBlock
-
 from foundation_cms.base.models.base_block import BaseBlock
 
 
