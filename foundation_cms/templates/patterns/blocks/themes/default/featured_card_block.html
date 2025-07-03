@@ -13,9 +13,9 @@
       <div class="featured-card__description">
         {{ self.description|safe }}
       </div>
-      {% if self.button and self.button.0 %}
+      {% if self.button %}
         <div class="featured-card__button">
-          {% include "patterns/components/link_button_block.html" with value=self.button.0 %}
+          {% include "patterns/blocks/themes/default/link_button_block.html" with value=self.button %}
         </div>
       {% endif %}
     </div>
