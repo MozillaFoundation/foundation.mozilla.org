@@ -13,12 +13,11 @@
   width: 100%;
 }
 
-.image-block-portrait .image-block-container {
-  max-width: rem-calc(320);
+.image-block-square {
 
   .image-block-image {
     width: 100%;
-    height: rem-calc(448);
+    aspect-ratio: 15 / 16;
     border-bottom-left-radius: 2rem;
     object-fit: cover;
     margin: 0 auto;
@@ -26,12 +25,11 @@
   }
 }
 
-.image-block-landscape .image-block-container {
-  max-width: rem-calc(520);
+.image-block-landscape {
 
   .image-block-image {
     width: 100%;
-    height: rem-calc(300);
+    aspect-ratio: 4 / 3;
     border-bottom-left-radius: 2rem;
     object-fit: cover;
     margin: 0 auto;
@@ -39,12 +37,11 @@
   }
 }
 
-.image-block-square .image-block-container {
-  max-width: rem-calc(400);
+.image-block-portrait {
 
   .image-block-image {
     width: 100%;
-    height: rem-calc(400);
+    aspect-ratio: 4 / 3;
     border-bottom-left-radius: 2rem;
     object-fit: cover;
     margin: 0 auto;
@@ -56,5 +53,20 @@
   text-align: left;
   width: 100%;
   max-width: inherit;
-  padding-left: rem-calc(30);
+  padding-left: rem-calc(25);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url('/media/images/arrow_image_caption.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
