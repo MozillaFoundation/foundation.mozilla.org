@@ -82,3 +82,42 @@ $link-button-transition-ease: ease;
     background-image: url("../_images/icons/button-arrow-right-black.svg");
   }
 }
+
+// ===================================
+// Pagination Controls
+// ===================================
+
+.pagination-controls {
+  $background-color: black;
+
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: rem-calc(48) * -1;
+    top: 0;
+    bottom: 0;
+    width: rem-calc(48);
+    background: $background-color;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  }
+
+  &__counter {
+    background: $background-color;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: rem-calc(4);
+  }
+
+  button {
+    padding: rem-calc(24) rem-calc(20);
+    color: white;
+    background: $background-color;
+    cursor: pointer;
+  }
+}

@@ -18,9 +18,8 @@ const SELECTORS = {
   teaserRegion: ".spotlight-card-set__teaser",
   content: ".spotlight-card__content",
   cards: ".spotlight-card",
-  next: ".spotlight-card-set__next",
-  prev: ".spotlight-card-set__prev",
-  counter: "[data-active-index]",
+  navButton: ".pagination-controls [data-direction]",
+  counter: ".pagination-controls [data-active-index]",
   featuredCard: `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
 };
 
@@ -40,8 +39,6 @@ class SpotlightCarousel {
     this.teaserRegion = root.querySelector(SELECTORS.teaserRegion);
     this.cards = root.querySelectorAll(SELECTORS.cards);
     this.content = root.querySelectorAll(SELECTORS.content);
-    this.nextBtn = root.querySelector(SELECTORS.next);
-    this.prevBtn = root.querySelector(SELECTORS.prev);
     this.counter = root.querySelector(SELECTORS.counter);
 
     this.currentStep = 1;
@@ -114,8 +111,20 @@ class SpotlightCarousel {
    * Sets up event listeners for navigation and resize
    */
   setupEventListeners() {
-    this.nextBtn?.addEventListener("click", () => this.handleNext());
-    this.prevBtn?.addEventListener("click", () => this.handlePrev());
+    this.root.addEventListener("click", (e) => {
+      const navButton = e.target.closest(SELECTORS.navButton);
+
+      if (!navButton) return;
+
+      const direction = navButton.dataset.direction;
+
+      if (direction === "next") {
+        this.handleNext();
+      } else if (direction === "prev") {
+        this.handlePrev();
+      }
+    });
+
     window.addEventListener("resize", () => this.handleResize());
   }
 

@@ -10,10 +10,6 @@
     <!-- content will be updated by JS -->
   </div>
   <div class="spotlight-card-set__controls">
-    <button type="button" class="button spotlight-card-set__prev" aria-label="Previous slide">Prev</button>
-    <div class="spotlight-card-set__counter">
-      <span data-active-index>1</span> / <span>{{ self.cards|length }}</span>
-    </div>
-    <button type="button" class="button spotlight-card-set__next" aria-label="Next slide">Next</button>
+    {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
   </div>
 </div>
