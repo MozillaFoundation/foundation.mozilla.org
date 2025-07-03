@@ -1,0 +1,9 @@
+.grid-container {
+  // this class is useful if you need to have a full-bleed grid-container on mobile
+  &.mobile-padding-0 {
+    @include breakpoint(large down) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
