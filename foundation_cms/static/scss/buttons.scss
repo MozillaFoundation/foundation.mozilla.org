@@ -1,4 +1,7 @@
-@mixin rolling-text-effect($base-class: ".btn-primary", $color: color(neutral, "100")) {
+@mixin rolling-text-effect(
+  $base-class: ".btn-primary",
+  $color: color(neutral, "100")
+) {
   $button-transition-duration: 0.5s;
   $button-transition-ease: ease;
 
@@ -67,6 +70,7 @@
 
 .btn-primary {
   @include rolling-text-effect(".btn-primary", color(neutral, "100"));
+
   background-color: color(neutral, "600");
 
   &::after {
