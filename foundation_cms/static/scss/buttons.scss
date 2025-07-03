@@ -1,6 +1,7 @@
 @mixin rolling-text-effect(
   $base-class: ".btn-primary",
-  $color: color(neutral, "100")
+  $color: color(neutral, "100"),
+  $border-color: black
 ) {
   $button-transition-duration: 0.5s;
   $button-transition-ease: ease;
@@ -15,6 +16,7 @@
   overflow: hidden;
   margin: rem-calc(16) 0;
   color: $color;
+  border: 1px solid $border-color;
 
   &__roller {
     position: relative;
@@ -79,9 +81,11 @@
 }
 
 .btn-secondary {
-  @include rolling-text-effect(".btn-secondary", color(neutral, "600"));
-
-  border: 1px solid color(neutral, "600");
+  @include rolling-text-effect(
+    ".btn-secondary",
+    color(neutral, "600"),
+    color(neutral, "600")
+  );
 
   &::after {
     background-image: url("../_images/icons/button-arrow-right-black.svg");
