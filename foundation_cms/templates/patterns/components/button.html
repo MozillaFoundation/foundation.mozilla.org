@@ -1,0 +1,12 @@
+{% if button_style == "btn-primary" or button_style == "btn-secondary" %}
+<a href="{{ link.url }}"
+   {% if value.new_window %}target="_blank"{% endif %}
+   class="btn-rolling-text {{ button_style }} {{ classnames }}">
+  <span class="btn-rolling-text__roller">
+    <span class="btn-rolling-text__rolltext">
+      <span class="btn-rolling-text__text">{{ link.label }}</span>
+      <span class="btn-rolling-text__text btn-rolling-text__text--roll-in">{{ link.label }}</span>
+    </span>
+  </span>
+</a>
+{% endif %}

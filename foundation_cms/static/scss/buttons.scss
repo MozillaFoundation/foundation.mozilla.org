@@ -1,8 +1,7 @@
-$link-button-transition-duration: 0.5s;
-$link-button-transition-ease: ease;
+.btn-rolling-text {
+  $button-transition-duration: 0.5s;
+  $button-transition-ease: ease;
 
-.btn-primary,
-.btn-secondary {
   display: flex;
   align-items: center;
   gap: rem-calc(16);
@@ -32,8 +31,8 @@ $link-button-transition-ease: ease;
     opacity: 1;
     transform: translateY(0);
     transition:
-      transform $link-button-transition-duration $link-button-transition-ease,
-      opacity $link-button-transition-duration $link-button-transition-ease;
+      transform $button-transition-duration $button-transition-ease,
+      opacity $button-transition-duration $button-transition-ease;
   }
 
   &__text--roll-in {
@@ -45,20 +44,17 @@ $link-button-transition-ease: ease;
   }
 
   &:hover {
-    .link-button__text {
+    .btn-rolling-text__text {
       opacity: 0;
       transform: translateY(-1.5em);
-    }
 
-    .link-button__text--roll-in {
-      opacity: 1;
-      transform: translateY(0);
+      &--roll-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
-}
 
-.btn-primary,
-.btn-secondary {
   &::after {
     content: "";
     width: rem-calc(16);
