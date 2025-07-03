@@ -26,13 +26,7 @@
   <!-- Main Content -->
   <main>
     {% if page.body %}
-      <div class="grid-container">
-        <div class="grid-x">
-          <div class="cell">
-            {% include "patterns/components/streamfield.html" with streamfield=page.body %}
-          </div>
-        </div>
-      </div>
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
     {% endif %}
   </main>
 
