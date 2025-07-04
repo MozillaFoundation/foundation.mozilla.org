@@ -74,15 +74,6 @@
   cursor: pointer;
 }
 
-// TODO:FIXME: remove once we have implemented real button stylings
-.btn-fixme,
-.link-fixme {
-  color: red;
-  display: inline-block;
-  border: 1px solid red;
-  padding: rem-calc(7) rem-calc(12) rem-calc(7) 0;
-}
-
 .btn-primary {
   @include rolling-text-effect(".btn-primary", color(neutral, "100"));
 
@@ -105,11 +96,12 @@
   }
 }
 
-// Link with arrow icon
+// ===================================
+// CTA Link (link with an arrow)
+// ===================================
 .cta-link {
-  font-family: $header-font-family;
-  line-height: 120%;
-  font-weight: 400;
+  @include mofo-text-style($link-text-styles, "regular", $header-font-family);
+
   color: $black;
   display: flex;
   align-items: center;
