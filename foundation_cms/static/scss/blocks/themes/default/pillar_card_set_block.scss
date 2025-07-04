@@ -4,7 +4,7 @@
 
 .pillar-card-set {
   $corner-radius: (
-    small: 1rem,
+    small: 2rem,
     large: 2rem,
   );
   $cards: (
@@ -97,6 +97,10 @@
       bottom-right,
       map.get($style, border-bottom-right-radius)
     );
+
+    &:hover {
+      transform: rotate(0);
+    }
 
     @include breakpoint(large up) {
       background-size: map.get($background-size, large);
