@@ -18,6 +18,7 @@ const SELECTORS = {
   teaserRegion: ".spotlight-card-set__teaser",
   content: ".spotlight-card__content",
   cards: ".spotlight-card",
+  cardImage: ".spotlight-card__image",
   navSection: ".pagination-controls",
   navButton: ".pagination-controls [data-direction]",
   counter: ".pagination-controls [data-active-index]",
@@ -115,15 +116,18 @@ class SpotlightCarousel {
   setupEventListeners() {
     this.root.addEventListener("click", (e) => {
       const navButton = e.target.closest(SELECTORS.navButton);
+      const cardImage = e.target.closest(SELECTORS.cardImage);
 
-      if (!navButton) return;
+      if (navButton) {
+        const direction = navButton.dataset.direction;
 
-      const direction = navButton.dataset.direction;
-
-      if (direction === "next") {
+        if (direction === "next") {
+          this.handleNext();
+        } else if (direction === "prev") {
+          this.handlePrev();
+        }
+      } else if (cardImage) {
         this.handleNext();
-      } else if (direction === "prev") {
-        this.handlePrev();
       }
     });
 
