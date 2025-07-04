@@ -1,145 +1,268 @@
-/** Boilerplate spotlight card layout SCSS and open to refactor **/
+@use "sass:map";
+@use "sass:math";
 
-.spotlight-card {
-  &__wrapper {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+.spotlight-card-set {
+  position: relative;
 
-  &__image {
-    margin-bottom: 0.5rem;
-
-    img {
-      aspect-ratio: 1 / 1;
+  @include breakpoint(xxlarge up) {
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
       width: 100%;
-      object-fit: cover;
+      height: 100%;
+      transform: translateX(-50%);
+      z-index: -1;
+      pointer-events: none;
+
+      $offset-to-container-edge: calc(
+        math.div(100vw, 2) - math.div($global-width, 2)
+      );
+      $bg: (
+        1: (
+          img: url("../_images/handdrawn/notched-rectangle.svg"),
+          position: left calc($offset-to-container-edge - 4rem) top 5rem,
+          size: rem-calc(256) auto,
+        ),
+        2: (
+          img: url("../_images/handdrawn/speech-bubble.svg"),
+          position: right calc($offset-to-container-edge - 2.5rem) bottom 8rem,
+          size: rem-calc(180) auto,
+        ),
+      );
+      $bg1: map.get($bg, 1);
+      $bg2: map.get($bg, 2);
+
+      background-repeat: no-repeat;
+      background-image: map.get($bg1, img), map.get($bg2, img);
+      background-size: map.get($bg1, size), map.get($bg2, size);
+      background-position: map.get($bg1, position), map.get($bg2, position);
     }
   }
 
-  &__label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 0.25rem;
-  }
+  .spotlight-card-carousel {
+    // ===================================
+    // Variables, Functions, Mixins
+    // ===================================
+    $featured-columns: 7;
+    $secondary-columns: 5;
+    $right-half-offset-y: (
+      large: rem-calc(74),
+    );
+    $transition: (
+      duration: 0.5s,
+      timing-function: ease,
+    );
+    $mobile-container-width: 100vw;
 
-  &__headline {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-  }
-
-  &__text {
-    flex-grow: 1;
-  }
-
-  &__cta {
-    margin-top: auto;
-
-    a {
-      font-weight: bold;
-    }
-  }
-
-  // Variants
-  &__primary {
-    .spotlight-card__headline {
-      font-size: 1.5rem;
-    }
-  }
-
-  &__teaser-top,
-  &__teaser-bottom {
-    .spotlight-card__headline {
-      font-size: 1rem;
+    // returns the percentage width of N columns
+    @function display-width($columns) {
+      $total: $grid-column-count;
+      @return percentage($columns / $total);
     }
 
-    .spotlight-card__text {
-      display: none;
+    // key starts from 1
+    $positions: (
+      // 1 being the featured position
+      1: (
+          left: 0,
+          top: 0,
+          width: display-width($featured-columns),
+          z-index: 3,
+          image: (
+            width: display-width($featured-columns),
+          ),
+        ),
+      2: (
+        left: math.percentage($featured-columns / $grid-column-count),
+        top: calc(
+            var(--last-image-height) + map.get($right-half-offset-y, large)
+          ),
+        width: display-width($secondary-columns),
+        image: (
+          width: display-width($secondary-columns),
+        ),
+      ),
+      3: (
+        left: math.percentage($featured-columns / $grid-column-count),
+        top: map.get($right-half-offset-y, large),
+        width: calc(display-width($secondary-columns) * 0.6),
+        image: (
+          width: calc(display-width($secondary-columns) * 0.6),
+        ),
+      )
+    );
+
+    @mixin desktop-display-style($index) {
+      $style: map.get($positions, $index);
+      $image: map.get($style, image);
+
+      left: map.get($style, left);
+      top: map.get($style, top);
+      width: map.get($style, width);
+
+      @if map.get($style, z-index) {
+        z-index: map.get($style, z-index);
+      }
     }
-  }
 
-  &__mobile {
-    .spotlight-card__headline {
-      font-size: 1.25rem;
+    @mixin svg-mask-overlay($frame-url, $background-color: white) {
+      background: $background-color;
+
+      img {
+        mask-image: url(#{$frame-url});
+        mask-size: cover;
+        mask-position: center;
+        mask-repeat: no-repeat;
+      }
     }
 
-    .spotlight-card__text {
-      font-size: 1rem;
-    }
+    // ===================================
+    // Styling
+    // ===================================
 
-    .spotlight-card__cta {
-      margin-top: 0.5rem;
-    }
-  }
-}
-
-.spotlight-set {
-  margin-bottom: 2rem;
-
-  &__headline {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  &__carousel {
     position: relative;
     overflow: hidden;
-  }
 
-  &__slide {
-    display: none;
-    transition: opacity 0.3s ease-in-out;
-
-    &.is-active {
-      display: block;
+    @include breakpoint(large up) {
+      overflow: unset;
+      background-image: url("../_images/handdrawn/arrow-down.svg");
+      background-repeat: no-repeat;
+      background-position: right 1rem top
+        calc(
+          var(--last-image-height) / 2 + map.get($right-half-offset-y, large)
+        );
+      background-size: rem-calc(150) auto;
     }
-  }
 
-  &__grid {
-    margin-bottom: 1rem;
-  }
+    @include breakpoint(xxlarge up) {
+      background-size: rem-calc(180) auto;
+    }
 
-  &__teasers {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+    &__slides {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: calc(100vw * 3);
+      display: flex;
+      transition: transform map.get($transition, duration)
+        map.get($transition, timing-function);
+
+      @include breakpoint(large up) {
+        width: unset;
+        display: block;
+        transition: unset;
+      }
+    }
+
+    &__teaser {
+      display: none;
+
+      @include breakpoint(large up) {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: var(--featured-image-height);
+        width: display-width($featured-columns);
+        padding: 2rem 5rem;
+      }
+    }
+
+    &__controls {
+      display: flex;
+      justify-content: end;
+      margin-top: 1rem;
+
+      @include breakpoint(large up) {
+        $total-image-height: calc(
+          var(--middle-image-height) + var(--last-image-height)
+        );
+        $offset: map.get($right-half-offset-y, large);
+
+        position: absolute;
+        right: 0;
+        top: calc($total-image-height + $offset);
+      }
+    }
 
     .spotlight-card {
-      flex: 1;
-    }
-  }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: $mobile-container-width;
+      transition: all map.get($transition, duration)
+        map.get($transition, timing-function);
 
-  &__counter {
-    text-align: center;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
+      @include breakpoint(large up) {
+        position: absolute;
 
-    .button {
-      margin: 0 0.5rem;
-    }
-  }
+        &[data-display-position="1"] {
+          @include desktop-display-style(1);
+        }
 
-  &__cta {
-    text-align: center;
-    margin-top: 1.5rem;
-  }
+        &[data-display-position="2"] {
+          @include desktop-display-style(2);
+        }
 
-  &__mobile {
-    .spotlight-card__mobile {
-      margin-bottom: 1rem;
-    }
-  }
+        &[data-display-position="3"] {
+          @include desktop-display-style(3);
+        }
 
-  @include breakpoint(small only) {
-    &__carousel,
-    &__nav {
-      display: none;
+        &__content {
+          display: none;
+        }
+      }
+
+      &__name {
+        margin: 1rem 0;
+      }
+
+      &__image {
+        width: 100%;
+        aspect-ratio: math.div(1, 1);
+        margin: 0;
+        cursor: pointer;
+
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+
+      &__content {
+        padding: map.get($grid-margin-gutters, small);
+      }
+
+      &[data-carousel-slide="1"] {
+        .spotlight-card__image {
+          @include svg-mask-overlay(
+            "../_images/spotlight/circle-mask.svg",
+            color(yellow, "200")
+          );
+        }
+      }
+
+      &[data-carousel-slide="2"] {
+        .spotlight-card__image {
+          @include svg-mask-overlay(
+            "../_images/spotlight/square-cutout-mask.svg",
+            color(orange, "400")
+          );
+        }
+      }
+
+      &[data-carousel-slide="3"] {
+        .spotlight-card__image {
+          @include svg-mask-overlay(
+            "../_images/spotlight/trapezoid-mask.svg",
+            color(blue, "200")
+          );
+        }
+      }
     }
   }
 }

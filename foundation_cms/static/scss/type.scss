@@ -137,6 +137,32 @@ $quote-text-styles: (
     ),
   ),
 );
+$label-text-styles: (
+  small: (
+    "large": (
+      "font-size": rem-calc(20),
+      "line-height": 1.2,
+      "font-weight": 300,
+    ),
+    "regular": (
+      "font-size": rem-calc(14),
+      "line-height": 1.2,
+      "font-weight": 300,
+    ),
+  ),
+  large: (
+    "large": (
+      "font-size": rem-calc(20),
+      "line-height": 1.2,
+      "font-weight": 300,
+    ),
+    "regular": (
+      "font-size": rem-calc(14),
+      "line-height": 1.2,
+      "font-weight": 300,
+    ),
+  ),
+);
 
 // ===================================
 // Functions
@@ -344,4 +370,20 @@ body.redesign {
   font-style: italic;
 
   @include mofo-text-style($quote-text-styles, "regular");
+}
+
+// ===================================
+// Label Text
+// ===================================
+
+.label-text-large {
+  text-transform: uppercase;
+
+  @include mofo-text-style($label-text-styles, "large");
+}
+
+.label-text-regular {
+  text-transform: uppercase;
+
+  @include mofo-text-style($label-text-styles, "regular");
 }
