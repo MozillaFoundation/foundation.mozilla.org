@@ -1,0 +1,106 @@
+@mixin rolling-text-effect(
+  $base-class: ".btn-primary",
+  $color: color(neutral, "100"),
+  $border-color: black
+) {
+  $button-transition-duration: 0.5s;
+  $button-transition-ease: ease;
+
+  display: flex;
+  align-items: center;
+  gap: rem-calc(16);
+  padding: rem-calc(14.4) rem-calc(24);
+  text-decoration: none;
+  cursor: pointer;
+  width: max-content;
+  overflow: hidden;
+  margin: rem-calc(16) 0;
+  color: $color;
+  border: 1px solid $border-color;
+
+  &__roller {
+    position: relative;
+    height: rem-calc(24);
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  &__rolltext {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__text {
+    display: block;
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      transform $button-transition-duration $button-transition-ease,
+      opacity $button-transition-duration $button-transition-ease;
+  }
+
+  &__text--roll-in {
+    opacity: 0;
+    transform: translateY(1.5em);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &:hover {
+    #{$base-class}__text {
+      opacity: 0;
+      transform: translateY(-1.5em);
+
+      &--roll-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    width: rem-calc(16);
+    height: rem-calc(16);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+}
+
+.btn {
+  cursor: pointer;
+}
+
+// TODO:FIXME: remove once we have implemented real button stylings
+.btn-fixme,
+.link-fixme {
+  color: red;
+  display: inline-block;
+  border: 1px solid red;
+  padding: rem-calc(7) rem-calc(12) rem-calc(7) 0;
+}
+
+.btn-primary {
+  @include rolling-text-effect(".btn-primary", color(neutral, "100"));
+
+  background-color: color(neutral, "600");
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-white.svg");
+  }
+}
+
+.btn-secondary {
+  @include rolling-text-effect(
+    ".btn-secondary",
+    color(neutral, "600"),
+    color(neutral, "600")
+  );
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-black.svg");
+  }
+}

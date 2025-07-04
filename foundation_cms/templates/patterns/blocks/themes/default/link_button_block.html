@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+  <div class="link-button-block">
+    {% include "patterns/components/button.html" with classnames="link-button" link=value button_style=value.style %}
+  </div>
+{% endblock block_content %}
