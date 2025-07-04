@@ -36,6 +36,9 @@
         large: right 2rem bottom 2rem,
       ),
       border-bottom-left-radius: $corner-radius,
+      topOffset: (
+        large: 2rem
+      ),
     ),
     3: (
       rotation: -2.5deg,
@@ -98,13 +101,21 @@
     @include breakpoint(large up) {
       background-size: map.get($background-size, large);
       background-position: map.get($background-position, large);
+
+      @if map.get($style, topOffset) {
+        $top-offset: map.get($style, topOffset);
+        @if map.get($top-offset, large) {
+          position: relative;
+          top: map.get( $top-offset, large);
+        }
+      }
     }
   }
 
   &__card-container {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
 
     @include breakpoint(large up) {
       flex-direction: row;
