@@ -13,6 +13,7 @@ from foundation_cms.blocks import (
     AudioBlock,
     CustomImageBlock,
     DividerBlock,
+    FeaturedCardBlock,
     ImpactNumberBlock,
     LinkButtonBlock,
     ListBlock,
@@ -48,6 +49,7 @@ base_page_block_options = [
     ("list_block", ListBlock()),
     ("video_block", VideoBlock()),
     ("pillar_card_set", PillarCardSetBlock()),
+    ("featured_card_block", FeaturedCardBlock()),
     ("divider", DividerBlock()),
 ]
 
