@@ -92,6 +92,10 @@
     background-size: rem-calc(180) auto;
   }
 
+  &__background-wrapper {
+    background-color: pink;
+  }
+
   &__slides {
     list-style: none;
     margin: 0;
