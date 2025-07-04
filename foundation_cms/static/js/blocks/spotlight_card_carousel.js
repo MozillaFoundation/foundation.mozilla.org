@@ -13,9 +13,9 @@ const CARD_CONFIG = {
  * @constant {Object}
  */
 const SELECTORS = {
-  root: ".spotlight-card-set",
-  slides: ".spotlight-card-set__slides",
-  teaserRegion: ".spotlight-card-set__teaser",
+  root: ".spotlight-card-carousel",
+  slides: ".spotlight-card-carousel__slides",
+  teaserRegion: ".spotlight-card-carousel__teaser",
   content: ".spotlight-card__content",
   cards: ".spotlight-card",
   cardImage: ".spotlight-card__image",
