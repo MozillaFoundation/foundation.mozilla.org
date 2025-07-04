@@ -8,6 +8,8 @@ const CARD_CONFIG = {
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
+const BTN_DISABLED_ATTR = "disabled";
+
 /**
  * CSS selectors used throughout the carousel
  * @constant {Object}
@@ -21,6 +23,8 @@ const SELECTORS = {
   cardImage: ".spotlight-card__image",
   navSection: ".pagination-controls",
   navButton: ".pagination-controls [data-direction]",
+  navButtonNext: ".pagination-controls [data-direction='next']",
+  navButtonPrev: ".pagination-controls [data-direction='prev']",
   counter: ".pagination-controls [data-active-index]",
   featuredCard: `.spotlight-card[data-display-position='${CARD_CONFIG.featured.position}']`,
 };
@@ -43,6 +47,8 @@ class SpotlightCarousel {
     this.content = root.querySelectorAll(SELECTORS.content);
     this.navSection = root.querySelector(SELECTORS.navSection);
     this.counter = root.querySelector(SELECTORS.counter);
+    this.nextButton = root.querySelector(SELECTORS.navButtonNext);
+    this.prevButton = root.querySelector(SELECTORS.navButtonPrev);
 
     this.currentStep = 1;
     this.totalCards = this.cards.length;
@@ -93,6 +99,9 @@ class SpotlightCarousel {
     this.slides.style.transform = "";
     this.slides.style.minHeight = ""; // Reset minHeight from mobile
 
+    // Remove disabled attributes on buttons
+    this.enableAllButtons();
+
     // Set up desktop positioning
     this.updateDesktopPosition();
     this.updateTeaserRegion();
@@ -108,6 +117,44 @@ class SpotlightCarousel {
     this.slides.style.minHeight = "";
 
     this.updateMobilePosition();
+    this.updateMobileButtonStates();
+  }
+
+  /**
+   * Updates the disabled state of navigation buttons on mobile
+   */
+  updateMobileButtonStates() {
+    if (!this.isMobile) return;
+
+    // Disable prev button when at first card
+    if (this.prevButton) {
+      if (this.currentStep === 1) {
+        this.prevButton.setAttribute(BTN_DISABLED_ATTR, "");
+      } else {
+        this.prevButton.removeAttribute(BTN_DISABLED_ATTR);
+      }
+    }
+
+    // Disable next button when at last card
+    if (this.nextButton) {
+      if (this.currentStep === this.totalCards) {
+        this.nextButton.setAttribute(BTN_DISABLED_ATTR, "");
+      } else {
+        this.nextButton.removeAttribute(BTN_DISABLED_ATTR);
+      }
+    }
+  }
+
+  /**
+   * Enables all navigation buttons
+   */
+  enableAllButtons() {
+    if (this.prevButton) {
+      this.prevButton.removeAttribute(BTN_DISABLED_ATTR);
+    }
+    if (this.nextButton) {
+      this.nextButton.removeAttribute(BTN_DISABLED_ATTR);
+    }
   }
 
   /**
@@ -119,6 +166,10 @@ class SpotlightCarousel {
       const cardImage = e.target.closest(SELECTORS.cardImage);
 
       if (navButton) {
+        if (navButton.hasAttribute("disabled")) {
+          return;
+        }
+
         const direction = navButton.dataset.direction;
 
         if (direction === "next") {
@@ -229,6 +280,7 @@ class SpotlightCarousel {
    */
   handleMobilePrev() {
     this.updateMobilePosition();
+    this.updateMobileButtonStates();
   }
 
   /**
@@ -236,6 +288,7 @@ class SpotlightCarousel {
    */
   handleMobileNext() {
     this.updateMobilePosition();
+    this.updateMobileButtonStates();
   }
 
   /**

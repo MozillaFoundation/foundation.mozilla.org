@@ -146,6 +146,7 @@
   align-items: center;
   color: white;
   position: relative;
+  background: $background-color;
 
   &::before {
     content: "";
@@ -160,10 +161,12 @@
 
   &__counter {
     background: $background-color;
+    width: 3em;
     height: 100%;
     display: flex;
     align-items: center;
     gap: rem-calc(4);
+    justify-content: space-evenly;
   }
 
   button {
@@ -175,6 +178,10 @@
     &:focus-visible {
       outline-color: color(neutral, "300");
       z-index: 1;
+    }
+
+    &:disabled {
+      visibility: hidden;
     }
   }
 }
