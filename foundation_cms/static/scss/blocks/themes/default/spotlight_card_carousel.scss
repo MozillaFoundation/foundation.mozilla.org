@@ -16,20 +16,21 @@
       z-index: -1;
       pointer-events: none;
 
-      $offset-to-container-edge: calc(math.div(100vw, 2) - math.div($global-width, 2));
+      $offset-to-container-edge: calc(
+        math.div(100vw, 2) - math.div($global-width, 2)
+      );
       $bg: (
         1: (
           img: url("../_images/handdrawn/notched-rectangle.svg"),
           position: left calc($offset-to-container-edge - 4rem) top 5rem,
-          size: rem-calc(256) auto
+          size: rem-calc(256) auto,
         ),
         2: (
           img: url("../_images/handdrawn/speech-bubble.svg"),
           position: right calc($offset-to-container-edge - 2.5rem) bottom 8rem,
-          size: rem-calc(180) auto
-        )
+          size: rem-calc(180) auto,
+        ),
       );
-
       $bg1: map.get($bg, 1);
       $bg2: map.get($bg, 2);
 
@@ -75,7 +76,9 @@
         ),
       2: (
         left: math.percentage($featured-columns / $grid-column-count),
-        top: calc(var(--last-image-height) + map.get($right-half-offset-y, large)),
+        top: calc(
+            var(--last-image-height) + map.get($right-half-offset-y, large)
+          ),
         width: display-width($secondary-columns),
         image: (
           width: display-width($secondary-columns),
@@ -127,7 +130,9 @@
       background-image: url("../_images/handdrawn/arrow-down.svg");
       background-repeat: no-repeat;
       background-position: right 1rem top
-        calc(var(--last-image-height) / 2 + map.get($right-half-offset-y, large));
+        calc(
+          var(--last-image-height) / 2 + map.get($right-half-offset-y, large)
+        );
       background-size: rem-calc(150) auto;
     }
 

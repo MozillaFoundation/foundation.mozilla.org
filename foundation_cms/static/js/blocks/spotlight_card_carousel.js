@@ -127,7 +127,14 @@ class SpotlightCarousel {
           this.handlePrev();
         }
       } else if (cardImage) {
-        this.handleNext();
+        const card = cardImage.closest(SELECTORS.cards);
+        const position = card.dataset.displayPosition;
+
+        if (position == "2") {
+          this.handleNext();
+        } else if (position == "3") {
+          this.handlePrev();
+        }
       }
     });
 
