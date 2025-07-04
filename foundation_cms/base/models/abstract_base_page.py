@@ -12,6 +12,7 @@ from wagtailmetadata.models import MetadataPageMixin
 from foundation_cms.blocks import (
     AudioBlock,
     CustomImageBlock,
+    DividerBlock,
     FeaturedCardBlock,
     ImpactNumberBlock,
     LinkButtonBlock,
@@ -31,6 +32,7 @@ from foundation_cms.blocks import (
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
 base_page_block_options = [
+    # [TODO/FIXME] consider ordering or grouping these blocks
     ("rich_text", RichTextBlock()),
     ("image", CustomImageBlock()),
     ("audio_block", AudioBlock()),
@@ -48,6 +50,7 @@ base_page_block_options = [
     ("video_block", VideoBlock()),
     ("pillar_card_set", PillarCardSetBlock()),
     ("featured_card_block", FeaturedCardBlock()),
+    ("divider", DividerBlock()),
 ]
 
 
