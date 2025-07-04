@@ -14,9 +14,7 @@
         <h3 class="activation-card__title">{{ self.title }}</h3>
         {% if self.text %}<div class="activation-card__text">{{ self.text }}</div>{% endif %}
         {% if self.link %}
-            <a href="{{ self.link.url }}" class="activation-card__cta">
-                {{ self.link.label }}
-            </a>
+            {% include "patterns/blocks/themes/default/cta_link_block.html" with link=self.link %}
         {% endif %}
     </div>
 </div>

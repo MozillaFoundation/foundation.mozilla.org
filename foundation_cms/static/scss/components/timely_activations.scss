@@ -128,27 +128,6 @@ body.redesign {
       }
 
       &__cta {
-        font-family: $header-font-family;
-        line-height: 120%;
-        font-weight: 400;
-        color: $black;
-        display: flex;
-        align-items: center;
-        gap: rem-calc(12);
-        text-wrap: nowrap;
-        width: fit-content;
-
-        &::after {
-          background-image: url("../_images/icons/button-arrow-right-black.svg");
-          background-size: contain;
-          content: "";
-          width: rem-calc(12);
-          height: rem-calc(12);
-          display: inline-block;
-          flex-shrink: 0;
-          transition: transform 0.3s ease-out;
-        }
-
         &:focus-visible {
           outline: 1px solid $black;
           outline-offset: 2px;
@@ -160,8 +139,8 @@ body.redesign {
           transform: scale(1.05);
         }
 
-        .activation-card__cta::after {
-          transform: translateX(0.5rem);
+        .cta-link::after {
+          transform: translateX(0.75rem);
         }
       }
     }
