@@ -105,6 +105,36 @@
   }
 }
 
+// Link with arrow icon
+.cta-link {
+  font-family: $header-font-family;
+  line-height: 120%;
+  font-weight: 400;
+  color: $black;
+  display: flex;
+  align-items: center;
+  gap: rem-calc(12);
+  text-wrap: nowrap;
+  width: fit-content;
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-black.svg");
+    background-size: contain;
+    content: "";
+    width: rem-calc(12);
+    height: rem-calc(12);
+    display: inline-block;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-out;
+  }
+
+  &:hover {
+    &::after {
+      transform: translateX(0.75rem);
+    }
+  }
+}
+
 // ===================================
 // Pagination Controls
 // ===================================
