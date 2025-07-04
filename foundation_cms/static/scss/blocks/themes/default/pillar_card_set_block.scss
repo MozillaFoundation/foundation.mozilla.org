@@ -36,8 +36,8 @@
         large: right 2rem bottom 2rem,
       ),
       border-bottom-left-radius: $corner-radius,
-      topOffset: (
-        large: 2rem
+      top-offset: (
+        large: 2rem,
       ),
     ),
     3: (
@@ -102,11 +102,11 @@
       background-size: map.get($background-size, large);
       background-position: map.get($background-position, large);
 
-      @if map.get($style, topOffset) {
-        $top-offset: map.get($style, topOffset);
+      @if map.get($style, top-offset) {
+        $top-offset: map.get($style, top-offset);
         @if map.get($top-offset, large) {
           position: relative;
-          top: map.get( $top-offset, large);
+          top: map.get($top-offset, large);
         }
       }
     }
