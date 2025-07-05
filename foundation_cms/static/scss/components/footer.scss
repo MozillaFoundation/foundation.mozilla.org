@@ -40,7 +40,20 @@
         display: none;
       }
 
+      &__form {
+        @include breakpoint(xlarge up) {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+
+      &__form-grid {
+        width: 100%;
+      }
+
       &__cta {
+        @include mofo-text-style($body-text-styles, "large");
+
         margin-bottom: 1rem;
         font-weight: 400;
       }
@@ -72,19 +85,11 @@
           &:checked {
             background-image: url("../_images/icons/checkbox-stripe-white.svg");
           }
-        }
-      }
 
-      .cell:has(> button) {
-        @include breakpoint(large up) {
-          margin-bottom: 0.25rem;
-        }
-      }
-
-      .cell:has(> .newsletter-signup__fieldset) {
-        @include breakpoint(large up) {
-          padding-right: 0;
-          margin-right: 0;
+          &:hover {
+            border: 1px solid $white;
+            box-shadow: 1px 1px 0 0 $white;
+          }
         }
       }
 
@@ -96,10 +101,6 @@
         &:focus-visible {
           outline: 1px solid $white;
           outline-offset: 2px;
-        }
-
-        @include breakpoint(large up) {
-          width: 9rem;
         }
       }
     }

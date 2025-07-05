@@ -118,7 +118,7 @@
     border: 1px solid $white;
     border-radius: 0;
     width: 100%;
-    padding: 1rem 1.25rem;
+    padding: calc(1rem - 2px) 1.25rem;
     line-height: 150%;
 
     &::placeholder {
