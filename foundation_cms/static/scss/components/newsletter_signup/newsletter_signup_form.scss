@@ -9,44 +9,9 @@
   position: relative;
 
   @include breakpoint(medium up) {
-    margin-top: 3rem;
     border-top-right-radius: 1.5rem;
     border-bottom-left-radius: 2rem;
     padding: 1.5rem 2rem 1.75rem;
-  }
-
-  @include breakpoint(xlarge up) {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    padding: 1rem 5rem;
-    align-items: start;
-  }
-
-  &::before {
-    display: block;
-    content: "";
-    position: absolute;
-    top: -1rem;
-    left: 2rem;
-    width: rem-calc(51px);
-    height: rem-calc(44px);
-    background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
-    background-size: 100% auto;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    @include breakpoint(medium up) {
-      top: -2rem;
-    }
-
-    @include breakpoint(xlarge up) {
-      position: relative;
-      top: 0;
-      left: 0;
-      flex-shrink: 0;
-      min-height: rem-calc(58);
-    }
   }
 
   &__link {
@@ -62,27 +27,12 @@
     &--hidden {
       display: none;
     }
-
-    @include breakpoint(xlarge up) {
-      flex-direction: row;
-      align-items: start;
-      flex: 1;
-      gap: 1rem;
-    }
   }
 
   &__form-grid {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-
-    @include breakpoint(medium up) {
-      flex-direction: row;
-    }
-
-    @include breakpoint(xlarge up) {
-      flex: 1;
-    }
   }
 
   &__cta {
@@ -92,10 +42,6 @@
 
     @include breakpoint(medium up) {
       font-size: rem-calc(20);
-    }
-
-    @include breakpoint(xlarge up) {
-      margin-top: 1rem;
     }
   }
 
@@ -231,6 +177,8 @@
     }
 
     .newsletter-siginup__success-title {
+      @include mofo-text-style($header-styles, "h4", $display-text-font-family);
+
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
       font-weight: 700;
@@ -243,9 +191,123 @@
 
       @include breakpoint(medium up) {
         @include mofo-text-style($body-text-styles, "regular");
-
-        margin-right: 9rem;
       }
     }
+  }
+
+  &[data-layout="expand_on_focus"] {
+    @include breakpoint(medium up) {
+      margin-top: 3rem;
+    }
+
+    @include breakpoint(xlarge up) {
+      margin-top: 0;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      padding: 1rem 5rem;
+      align-items: start;
+    }
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: -1rem;
+      left: 2rem;
+      width: rem-calc(51px);
+      height: rem-calc(44px);
+      background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+      background-size: 100% auto;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      @include breakpoint(medium up) {
+        top: -2rem;
+      }
+
+      @include breakpoint(xlarge up) {
+        position: relative;
+        top: 0;
+        left: 0;
+        flex-shrink: 0;
+        min-height: rem-calc(54);
+      }
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(xlarge up) {
+        margin-bottom: 0;
+        min-height: rem-calc(54);
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .newsletter-signup__form {
+      @include breakpoint(xlarge up) {
+        flex-direction: row;
+        align-items: start;
+        flex: 1;
+        gap: 1rem;
+      }
+    }
+
+    .newsletter-signup__form-grid {
+      @include breakpoint(medium up) {
+        flex-direction: row;
+      }
+
+      @include breakpoint(xlarge up) {
+        flex: 1;
+      }
+    }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(xlarge up) {
+        padding-right: 9rem;
+      }
+    }
+  }
+
+  &[data-layout="expanded"] {
+    @include breakpoint(medium up) {
+      padding: 4rem 5rem;
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(medium up) {
+        position: relative;
+        padding-left: calc(1rem + rem-calc(51));
+        min-height: rem-calc(51);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &::before {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.25rem;
+          width: rem-calc(51px);
+          height: rem-calc(44px);
+          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-size: 100% auto;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.block-two_column_container_block {
+  // This pattern probably affects multiple components while nesting .grid-container elements
+  .grid-container:has(> .newsletter-signup) {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }

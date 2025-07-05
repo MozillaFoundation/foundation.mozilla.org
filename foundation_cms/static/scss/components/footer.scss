@@ -32,7 +32,7 @@
   }
 
   &__newsletter-form {
-    .newsletter-signup {
+    .newsletter-signup[data-layout="expand_on_focus"] {
       background-color: transparent;
       padding: 0;
 
@@ -40,25 +40,25 @@
         display: none;
       }
 
-      &__form {
+      .newsletter-signup__form {
         @include breakpoint(xlarge up) {
           flex-direction: column;
+          align-items: start;
           gap: 0;
         }
       }
 
-      &__form-grid {
+      .newsletter-signup__form-grid {
         width: 100%;
       }
 
-      &__cta {
+      .newsletter-signup__cta {
         @include mofo-text-style($body-text-styles, "large");
 
-        margin-bottom: 1rem;
         font-weight: 400;
       }
 
-      &__input {
+      .newsletter-signup__input {
         background: $white;
 
         &:hover {
@@ -75,7 +75,7 @@
         }
       }
 
-      &__field label {
+      .newsletter-signup__field label {
         color: $white;
 
         input[type="checkbox"] {
@@ -93,7 +93,7 @@
         }
       }
 
-      &__button {
+      .newsletter-signup__button {
         border: 1px solid $white;
         background-color: transparent;
         font-weight: 700;
