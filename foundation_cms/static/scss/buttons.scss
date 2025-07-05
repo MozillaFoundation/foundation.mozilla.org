@@ -104,3 +104,84 @@
     background-image: url("../_images/icons/button-arrow-right-black.svg");
   }
 }
+
+// Link with arrow icon
+.cta-link {
+  font-family: $header-font-family;
+  line-height: 120%;
+  font-weight: 400;
+  color: $black;
+  display: flex;
+  align-items: center;
+  gap: rem-calc(12);
+  text-wrap: nowrap;
+  width: fit-content;
+
+  &::after {
+    background-image: url("../_images/icons/button-arrow-right-black.svg");
+    background-size: contain;
+    content: "";
+    width: rem-calc(12);
+    height: rem-calc(12);
+    display: inline-block;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-out;
+  }
+
+  &:hover {
+    &::after {
+      transform: translateX(0.75rem);
+    }
+  }
+}
+
+// ===================================
+// Pagination Controls
+// ===================================
+
+.pagination-controls {
+  $background-color: black;
+
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+  background: $background-color;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: rem-calc(48) * -1;
+    top: 0;
+    bottom: 0;
+    width: rem-calc(48);
+    background: $background-color;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  }
+
+  &__counter {
+    background: $background-color;
+    width: 3em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: rem-calc(4);
+    justify-content: space-evenly;
+  }
+
+  button {
+    padding: rem-calc(24) rem-calc(20);
+    color: white;
+    background: $background-color;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline-color: color(neutral, "300");
+      z-index: 1;
+    }
+
+    &:disabled {
+      visibility: hidden;
+    }
+  }
+}
