@@ -74,15 +74,6 @@
   cursor: pointer;
 }
 
-// TODO:FIXME: remove once we have implemented real button stylings
-.btn-fixme,
-.link-fixme {
-  color: red;
-  display: inline-block;
-  border: 1px solid red;
-  padding: rem-calc(7) rem-calc(12) rem-calc(7) 0;
-}
-
 .btn-primary {
   @include rolling-text-effect(".btn-primary", color(neutral, "100"));
 
@@ -105,11 +96,13 @@
   }
 }
 
-// Link with arrow icon
-.cta-link {
-  font-family: $header-font-family;
-  line-height: 120%;
-  font-weight: 400;
+// ===================================
+// CTA Link (link with an arrow)
+// ===================================
+
+@mixin cta-link($imageSize, $textSize: "regular") {
+  @include mofo-text-style($link-text-styles, $textSize, $header-font-family);
+
   color: $black;
   display: flex;
   align-items: center;
@@ -121,8 +114,8 @@
     background-image: url("../_images/icons/button-arrow-right-black.svg");
     background-size: contain;
     content: "";
-    width: rem-calc(12);
-    height: rem-calc(12);
+    width: $imageSize;
+    height: $imageSize;
     display: inline-block;
     flex-shrink: 0;
     transition: transform 0.3s ease-out;
@@ -132,6 +125,18 @@
     &::after {
       transform: translateX(0.75rem);
     }
+  }
+}
+
+.cta-link {
+  @include cta-link(rem-calc(12), "regular");
+
+  &--large {
+    @include cta-link(rem-calc(16), "large");
+  }
+
+  &--xlarge {
+    @include cta-link(rem-calc(24), "xlarge");
   }
 }
 
