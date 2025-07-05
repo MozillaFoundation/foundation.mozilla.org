@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+  <div class="cta-link-block">
+    {% include "patterns/components/link.html" with classnames="cta-link" value=link %}
+  </div>
+{% endblock block_content %}

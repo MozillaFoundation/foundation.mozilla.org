@@ -1,0 +1,51 @@
+@import "../../../../node_modules/foundation-sites/scss/util/util";
+
+// Image block styles
+.image-block {
+  margin-bottom: 2rem;
+
+  &__image {
+    width: 100%;
+    border-bottom-left-radius: 2rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__title {
+    text-align: left;
+    width: 100%;
+    padding-left: 2rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -0.25rem;
+      width: rem-calc(27);
+      height: rem-calc(18);
+      background-image: url("../_images/icons/image-caption-arrow-black.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &--square {
+    .image-block__image {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  &--landscape {
+    .image-block__image {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  &--portrait {
+    .image-block__image {
+      aspect-ratio: 3 / 4;
+    }
+  }
+}

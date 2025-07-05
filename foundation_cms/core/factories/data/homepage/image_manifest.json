@@ -1,0 +1,34 @@
+{
+  "hero_accordion__1": {
+    "filename": "hero_accordion__1.jpg",
+    "alt_text": "Intro video thumbnail image"
+  },
+  "hero_accordion__2": {
+    "filename": "hero_accordion__2.jpg",
+    "alt_text": "Mozilla Festival 2025 visual"
+  },
+  "hero_accordion__3": {
+    "filename": "hero_accordion__3.jpg",
+    "alt_text": "Our global community at MozFest"
+  },
+  "tabbed_content__tab_2": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "Diagram of tools"
+  },
+  "tabbed_content__tab_3": {
+    "filename": "placeholder__2.jpg",
+    "alt_text": "Photo of a Mozilla contributor"
+  },
+  "portrait_card__1": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "First Card"
+  },
+  "portrait_card__2": {
+    "filename": "placeholder__2.jpg",
+    "alt_text": "Second Card"
+  },
+  "portrait_card__3": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "Third Card"
+  }
+}

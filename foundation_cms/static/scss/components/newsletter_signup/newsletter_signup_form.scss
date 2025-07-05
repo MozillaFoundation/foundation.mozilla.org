@@ -1,0 +1,75 @@
+.newsletter-signup {
+  margin-bottom: 2rem;
+
+  &__cta {
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    &:focus {
+      border-color: #0070d2;
+      outline: none;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid black;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__field {
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__field-error {
+    color: red;
+    margin-top: 0.5rem;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__error-message {
+    color: red;
+    margin-bottom: 1rem;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__success-message {
+    &--hidden {
+      display: none;
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

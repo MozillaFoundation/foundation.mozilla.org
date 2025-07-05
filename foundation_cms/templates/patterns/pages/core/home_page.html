@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock body_class %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/home_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="grid-x">
+      <div class="cell small-12 large-7">
+        {% include "patterns/components/home_page/kinetic_type_wordmark.html" %}
+      </div>
+      <div class="cell small-12">
+        {% include "patterns/components/home_page/kinetic_type_brand_line.html" %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Bleed Hero Accordion -->
+  {% include "patterns/components/home_page/hero_accordion.html" %}
+
+  <!-- Main Content -->
+  <main>
+    {% if page.body %}
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
+  </main>
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'foundation_cms/_js/pages/home_page.compiled.js' %}"></script>
+{% endblock extra_js %}
