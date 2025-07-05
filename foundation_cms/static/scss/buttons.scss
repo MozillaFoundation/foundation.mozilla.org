@@ -102,6 +102,7 @@
 
 @mixin cta-link($imageSize, $textSize: "regular") {
   @include mofo-text-style($link-text-styles, $textSize, $header-font-family);
+
   color: $black;
   display: flex;
   align-items: center;
