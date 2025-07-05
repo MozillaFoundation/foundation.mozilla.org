@@ -1,0 +1,62 @@
+{
+  "title": "",
+  "cards": [
+    {
+      "type": "card",
+      "value": {
+        "topic": "",
+        "category": "Campaign",
+        "title": "See No Evil: Shining a light surveillance tech",
+        "text": "",
+        "image": {
+          "title": "",
+          "image": "timely_activations__1",
+          "alt_text": ""
+        },
+        "link": {
+          "label": "Our ShadowDragon campaign",
+          "link_to": "external_url",
+          "external_url": "https://example.com"
+        }
+      }
+    },
+    {
+      "type": "card",
+      "value": {
+        "topic": "",
+        "category": "Mozilla Festival 2025",
+        "title": "Early Bird badges are on sale",
+        "text": "",
+        "image": {
+          "title": "",
+          "image": "timely_activations__2",
+          "alt_text": ""
+        },
+        "link": {
+          "label": "Get yours today!",
+          "link_to": "external_url",
+          "external_url": "https://example.com"
+        }
+      }
+    },
+    {
+      "type": "card",
+      "value": {
+        "topic": "",
+        "category": "Data",
+        "title": "The most diverse open voice dataset in the world",
+        "text": "",
+        "image": {
+          "title": "",
+          "image": "timely_activations__3",
+          "alt_text": ""
+        },
+        "link": {
+          "label": "Be part of Common Voice",
+          "link_to": "external_url",
+          "external_url": "https://example.com"
+        }
+      }
+    }
+  ]
+}
