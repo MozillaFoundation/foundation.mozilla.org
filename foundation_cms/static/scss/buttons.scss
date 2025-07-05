@@ -129,14 +129,14 @@
 
 .cta-link {
   @include cta-link(rem-calc(12), "regular");
-}
 
-.cta-link-large {
-  @include cta-link(rem-calc(16), "large");
-}
+  &--large {
+    @include cta-link(rem-calc(16), "large");
+  }
 
-.cta-link-xlarge {
-  @include cta-link(rem-calc(24), "xlarge");
+  &--xlarge {
+    @include cta-link(rem-calc(24), "xlarge");
+  }
 }
 
 // ===================================
