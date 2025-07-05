@@ -4,12 +4,15 @@
   background-color: color(orange, "100");
   border-top-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
-  padding: 1.5rem 1rem 2rem;
+  padding: 2.5rem 1rem 2rem;
   margin-bottom: 2rem;
   position: relative;
 
-  @include breakpoint(large up) {
-    padding: 1.5rem 1.5rem 2rem;
+  @include breakpoint(medium up) {
+    margin-top: 3rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-left-radius: 2rem;
+    padding: 1.5rem 2rem 1.75rem;
   }
 
   &::before {
@@ -21,6 +24,10 @@
     width: rem-calc(51px);
     height: rem-calc(44px);
     background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+
+    @include breakpoint(medium up) {
+      top: -2rem;
+    }
   }
 
   &__link {
@@ -28,26 +35,45 @@
     text-decoration: none;
   }
 
-  &__cta {
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
-  &__fieldset {
-    .cell {
-      margin: 0.25rem 0;
-
-      &:first-of-type {
-        @include breakpoint(large up) {
-          margin-top: 1rem;
-        }
-      }
+    &--hidden {
+      display: none;
     }
   }
 
-  &__form {
-    &--hidden {
-      display: none;
+  &__form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include breakpoint(medium up) {
+      flex-direction: row;
+    }
+  }
+
+  &__cta {
+    // font-weight: 700;
+    // line-height: 120%;
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    margin: 0 0 0.5rem;
+
+    @include breakpoint(medium up) {
+      font-size: rem-calc(20);
+    }
+  }
+
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include breakpoint(medium up) {
+      flex: 1;
     }
   }
 
@@ -88,6 +114,7 @@
   &__button {
     color: $white;
     background-color: color(neutral, "600");
+    border: 1px solid color(neutral, "600");
     text-decoration: none;
     padding: 1rem 1.25rem;
     line-height: 150%;
