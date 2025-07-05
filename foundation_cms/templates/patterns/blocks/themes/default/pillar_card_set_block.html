@@ -8,7 +8,7 @@
           {% if card.cta_link %}
             <div>
               {% with link=card.cta_link.0 %}
-                <a class="pillar-card-set__card-link cta-link link-text-large"
+                <a class="pillar-card-set__card-link cta-link-large"
                    href="{{ link.url }}"
                    {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
                   {{ link.label }}

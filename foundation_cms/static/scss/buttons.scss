@@ -99,9 +99,9 @@
 // ===================================
 // CTA Link (link with an arrow)
 // ===================================
-.cta-link {
-  @include mofo-text-style($link-text-styles, "regular", $header-font-family);
 
+@mixin cta-link($imageSize, $textSize: "regular") {
+  @include mofo-text-style($link-text-styles, $textSize, $header-font-family);
   color: $black;
   display: flex;
   align-items: center;
@@ -113,8 +113,8 @@
     background-image: url("../_images/icons/button-arrow-right-black.svg");
     background-size: contain;
     content: "";
-    width: rem-calc(12);
-    height: rem-calc(12);
+    width: $imageSize;
+    height: $imageSize;
     display: inline-block;
     flex-shrink: 0;
     transition: transform 0.3s ease-out;
@@ -125,20 +125,18 @@
       transform: translateX(0.75rem);
     }
   }
+}
 
-  &.link-text-large {
-    &::after {
-      width: rem-calc(16);
-      height: rem-calc(16);
-    }
-  }
+.cta-link {
+  @include cta-link(rem-calc(12), "regular");
+}
 
-  &.link-text-xlarge {
-    &::after {
-      width: rem-calc(24);
-      height: rem-calc(24);
-    }
-  }
+.cta-link-large {
+  @include cta-link(rem-calc(16), "large");
+}
+
+.cta-link-xlarge {
+  @include cta-link(rem-calc(24), "xlarge");
 }
 
 // ===================================
