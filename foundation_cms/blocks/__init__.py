@@ -1,5 +1,7 @@
 from .audio_block import AudioBlock
 from .base_card_block import BaseCardBlock
+from .divider_block import DividerBlock
+from .featured_card_block import FeaturedCardBlock
 from .hero_accordion import HeroAccordionBlock
 from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
@@ -26,8 +28,10 @@ from .video_block import VideoBlock
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
     "BaseCardBlock",
+    "DividerBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
+    "FeaturedCardBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",

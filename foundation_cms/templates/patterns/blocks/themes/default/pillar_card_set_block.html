@@ -1,33 +1,21 @@
 {% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-
 {% block block_content %}
   <div class="pillar-card-set">
     <div class="pillar-card-set__card-container">
       {% for card in self.cards %}
         <div class="pillar-card-set__card">
-          <p class="pillar-card-set__card-headline">{{ card.headline }}</p>
-          <p class="pillar-card-set__card-image">
-            {% if card.image %}
-              {% image card.image original as img %}
-              <img src="{{ img.url }}" alt="{{ img.alt }}" width="{{ img.width }}" height="{{ img.height }}">
-            {% else %}
-              None
-            {% endif %}
-          </p>
-          <p class="pillar-card-set__card-cta-link">
-            {% if card.cta_link %}
+          <p class="pillar-card-set__card-headline h3-style">{{ card.headline }}</p>
+          {% if card.cta_link %}
+            <div>
               {% with link=card.cta_link.0 %}
-                <a class="pillar-card-set__card-link"
+                <a class="pillar-card-set__card-link cta-link"
                    href="{{ link.url }}"
                    {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
                   {{ link.label }}
                 </a>
               {% endwith %}
-            {% else %}
-              No link provided
-            {% endif %}
-          </p>
+            </div>
+          {% endif %}
         </div>
       {% endfor %}
     </div>

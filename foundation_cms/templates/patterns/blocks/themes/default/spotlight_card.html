@@ -1,22 +1,23 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load wagtailimages_tags %}
 
-<article class="spotlight-card__wrapper spotlight-card__wrapper__{{ position }}">
+<article class="spotlight-card" data-carousel-slide="{{ index }}" data-display-position="{{ index }}">
   {% if card.image %}
     <figure class="spotlight-card__image">
-      {% image card.image fill-600x600 %}
+      {% image card.image fill-1600x1600 %}
     </figure>
+    <figcaption class="show-for-sr">Image of {{ card.title }}</figcaption>
   {% endif %}
 
   <div class="spotlight-card__content">
-    {% if card.label %}
-      <span class="spotlight-card__label">{{ card.label }}</span>
+    {% if card.title %}
+      <span class="spotlight-card__title label-text-regular">{{ card.title }}</span>
     {% endif %}
     {% if card.title %}
-      <h3 class="spotlight-card__headline">{{ card.title }}</h3>
+      <h3 class="spotlight-card__name">{{ card.name }}</h3>
     {% endif %}
     {% if card.description %}
-      <div class="spotlight-card__text">{{ card.description }}</div>
+      <div class="spotlight-card__description">{{ card.description }}</div>
     {% endif %}
   </div>
 </article>

@@ -4,8 +4,12 @@
 // Our custom variables and base styles
 @import "../scss/colors";
 @import "../scss/type";
+@import "../scss/buttons";
+@import "../scss/utilities";
 
 // Site-wide Blocks
+@import "../scss/blocks/themes/default/divider_block";
+@import "../scss/blocks/themes/default/featured_card_block";
 @import "../scss/blocks/themes/default/impact_number_block";
 @import "../scss/blocks/themes/default/portrait_card_carousel";
 @import "../scss/blocks/themes/default/pillar_card_set_block";
