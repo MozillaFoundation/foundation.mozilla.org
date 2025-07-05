@@ -66,5 +66,9 @@
   "pillar_card__3": {
     "filename": "rays.svg",
     "alt_text": ""
+  },
+  "featured_card": {
+    "filename": "featured_card.jpg",
+    "alt_text": ""
   }
 }

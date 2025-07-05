@@ -2,8 +2,8 @@
   {
     "type": "video_panel",
     "value": {
-      "label": "Video",
-      "heading": "Stand up for a better internet",
+      "label": "Stand up for a better internet",
+      "heading": "Hear from Mozilla Foundation’s CEO Nabiha Syed on why making good is about building ethical technology.",
       "thumbnail": {
         "title": "",
         "image": "hero_accordion__1",
@@ -12,7 +12,7 @@
       },
       "alt_text": "",
       "video_url": "https://vimeo.com/1073235226",
-      "description": "Hear from Mozilla Foundation’s CEO Nabiha Syed on why making good is about building ethical technology."
+      "description": ""
     }
   },
   {

@@ -15,7 +15,7 @@
     },
     {
       "label": "",
-      "headline": "Better tech education for everyone, everywhere.",
+      "headline": "Better tech education for everyone, everywhere",
       "image": "pillar_card__2",
       "cta_link": [
         {
@@ -28,7 +28,7 @@
     },
     {
       "label": "",
-      "headline": "Powered by our people and purpose.",
+      "headline": "Powered by our people and purpose",
       "image": "pillar_card__3",
       "cta_link": [
         {
@@ -40,4 +40,4 @@
       ]
     }
   ]
-} 
+}

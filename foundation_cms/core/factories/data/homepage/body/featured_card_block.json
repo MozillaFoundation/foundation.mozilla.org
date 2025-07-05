@@ -1,0 +1,10 @@
+{
+  "heading": "Donate to Mozilla Foundation",
+  "description": "Together we have the power to make good on the promise of the Internet. Join our global movement and make a contribution today to shape the future of technology.",
+  "image": "featured_card",
+  "button": {
+    "label": "Donate now",
+    "link_to": "external_url",
+    "external_url": "https://www.mozillafoundation.org?form=donate-header"
+  }
+}

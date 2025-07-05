@@ -5,11 +5,13 @@
   "body": [
     { "type": "newsletter_signup", "value": "body/newsletter_signup_block.json" },
     { "type": "pillar_card_set", "value": "body/pillar_card_set.json" },
-    { "type": "rich_text", "value": "body/richtext.html" },
+    { "type": "divider", "value": {} },
+    { "type": "rich_text", "value": "body/impact_numbers_title.html" },
     { "type": "impact_numbers", "value": "body/impact_numbers.json" },
-    { "type": "timely_activations_cards", "value": "body/timely_activations_cards1.json" },
-    { "type": "timely_activations_cards", "value": "body/timely_activations_cards2.json" },
-    { "type": "timely_activations_cards", "value": "body/timely_activations_cards3.json" },
-    { "type": "spotlight_card_set_block", "value": "body/spotlight_card_set_block.json" }
+    { "type": "rich_text", "value": "body/timely_activations_title.html" },
+    { "type": "timely_activations_cards", "value": "body/timely_activations_cards.json" },
+    { "type": "rich_text", "value": "body/community_spotlight_title.html" },
+    { "type": "spotlight_card_set_block", "value": "body/spotlight_card_set_block.json" },
+    { "type": "featured_card_block", "value": "body/featured_card_block.json" }
   ]
 }
