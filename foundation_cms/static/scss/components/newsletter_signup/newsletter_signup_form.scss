@@ -152,6 +152,7 @@
     width: 100%;
     line-height: 150%;
     text-wrap: nowrap;
+    justify-content: center;
 
     &:focus-visible {
       outline: 2px solid $white;
