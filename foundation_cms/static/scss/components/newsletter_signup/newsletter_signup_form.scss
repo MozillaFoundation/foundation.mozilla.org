@@ -107,6 +107,10 @@
     @include breakpoint(medium up) {
       flex: 1;
     }
+
+    @include breakpoint(xlarge up) {
+      min-width: 17rem;
+    }
   }
 
   &__input {
@@ -253,6 +257,12 @@
       @include mofo-text-style($body-text-styles, "small");
 
       margin-bottom: 0.5rem;
+
+      @include breakpoint(medium up) {
+        @include mofo-text-style($body-text-styles, "regular");
+
+        margin-right: 9rem;
+      }
     }
   }
 }
