@@ -148,28 +148,10 @@
   }
 
   &__button {
-    color: $white;
-    background-color: color(neutral, "600");
-    border: 1px solid color(neutral, "600");
-    text-decoration: none;
-    padding: 1rem 1.25rem;
-    line-height: 150%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-wrap: nowrap;
+    margin: 0;
     width: 100%;
-    cursor: pointer;
-
-    &::after {
-      background-image: url("../_images/icons/button-arrow-right-white.svg");
-      content: "";
-      width: 1rem;
-      height: 1rem;
-      display: inline-block;
-      margin-left: 1rem;
-      flex-shrink: 0;
-    }
+    line-height: 150%;
+    text-wrap: nowrap;
 
     &:focus-visible {
       outline: 2px solid $white;
