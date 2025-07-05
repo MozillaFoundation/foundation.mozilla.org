@@ -125,6 +125,20 @@
       transform: translateX(0.75rem);
     }
   }
+
+  &.link-text-large {
+    &::after {
+      width: rem-calc(16);
+      height: rem-calc(16);
+    }
+  }
+
+  &.link-text-xlarge {
+    &::after {
+      width: rem-calc(24);
+      height: rem-calc(24);
+    }
+  }
 }
 
 // ===================================
