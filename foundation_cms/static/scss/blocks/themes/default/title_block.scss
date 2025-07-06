@@ -1,0 +1,95 @@
+// Needed because we're styling an h2 tag
+body.redesign {
+  .title-block {
+    &__title {
+      margin: 0;
+      font-family: $display-text-font-family;
+      position: relative;
+    }
+
+    &--shape {
+      padding-top: 2rem;
+      margin-bottom: 0.5rem;
+
+      @include breakpoint(large up) {
+        padding-top: 4rem;
+        margin-bottom: 1rem;
+      }
+
+      .title-block__title {
+        background-color: color(yellow, "200");
+        padding: 1rem 2rem 1rem 0.5rem;
+        margin: 0;
+
+        @include breakpoint(large up) {
+          padding: 2rem 3rem 2rem 2rem;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          width: rem-calc(80);
+          height: rem-calc(45);
+          left: 1rem;
+          top: -2rem;
+          background-image: url("../_images/handdrawn/title-rays.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+
+          @include breakpoint(large up) {
+            width: rem-calc(138);
+            height: rem-calc(77);
+            left: 2rem;
+            top: -4rem;
+          }
+        }
+
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 1.5rem;
+          height: 2rem;
+          right: 0rem;
+          top: 0;
+          background-color: $white;
+
+          @include breakpoint(large up) {
+            width: 3rem;
+            height: 4rem;
+          }
+        }
+      }
+    }
+
+    &--loop-line {
+      padding-top: 3.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+
+      @include breakpoint(large up) {
+        padding-top: 4rem;
+        margin-bottom: 2rem;
+      }
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: rem-calc(45);
+        top: 0;
+        background-image: url("../_images/handdrawn/title-loop-line-large.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+
+        @include breakpoint(large up) {
+          height: 3.5rem;
+        }
+      }
+    }
+  }
+}
