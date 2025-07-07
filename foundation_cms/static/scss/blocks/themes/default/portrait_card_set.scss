@@ -1,0 +1,32 @@
+@use "sass:map";
+
+.portrait-card-set {
+  $cardset-colors: (
+    1: (
+      "background-color": color(blue, "300"),
+    ),
+    2: (
+      "background-color": color(yellow, "300"),
+    ),
+    3: (
+      "background-color": color(orange, "200"),
+    ),
+    4: (
+      "background-color": color(green, "300"),
+    ),
+  );
+  .portrait-card-set__card-container {
+    .portrait-card:nth-child(4n + 1) {
+        background-color: map.get(map.get($cardset-colors, 1), "background-color");
+    }
+    .portrait-card:nth-child(4n + 2) {
+        background-color: map.get(map.get($cardset-colors, 2), "background-color");
+    }
+    .portrait-card:nth-child(4n + 3) {
+        background-color: map.get(map.get($cardset-colors, 3), "background-color");
+    }
+    .portrait-card:nth-child(4n + 4) {
+        background-color: map.get(map.get($cardset-colors, 4), "background-color");
+    }
+  }
+}

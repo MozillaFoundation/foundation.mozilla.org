@@ -9,11 +9,11 @@
       </div>
     {% endif %}
 
-    {% for card in self.cards %}
-      <div class="cell small-12 medium-4">
-        {% include "./portrait_card.html" %}
-      </div>
-    {% endfor %}
+    <div class="portrait-card-set__card-container">
+      {% for card in self.cards %}
+          {% include "./portrait_card.html" %}
+      {% endfor %}
+    </div>
 
     {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
 
