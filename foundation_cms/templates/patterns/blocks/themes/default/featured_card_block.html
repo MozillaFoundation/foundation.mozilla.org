@@ -1,15 +1,15 @@
 {% load wagtailimages_tags %}
 
 <div class="featured-card-container">
-  <div class="grid-x grid-margin-x align-middle featured-card">
+  <div class="featured-card">
     {% if self.image %}
-      <div class="cell small-12 medium-6 featured-card__image">
+      <div class="featured-card__image">
         {% image self.image fill-600x400 as card_img %}
         <img height="{{ card_img.height }}" width="{{ card_img.width }}" src="{{ card_img.url }}" alt="{{ card_img.alt }}">
       </div>
     {% endif %}
-    <div class="cell small-12 medium-6 featured-card__content">
-      <h2 class="featured-card__heading">{{ self.heading }}</h2>
+    <div class="featured-card__content">
+      <h3 class="featured-card__heading">{{ self.heading }}</h3>
       <div class="featured-card__description">
         {{ self.description|safe }}
       </div>
