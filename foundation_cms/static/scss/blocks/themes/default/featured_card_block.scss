@@ -1,13 +1,13 @@
 .featured-card-container {
-  padding: 1rem;
+  padding: 1rem 0;
   background: url("../_images/featured-card/featured-card-background-small.svg")
     no-repeat center center;
   background-size: 100% 100%;
-  margin: 0 -1rem;
+  margin: 0;
 
   @include breakpoint(large up) {
     margin: 0;
-    padding: 4rem 6rem;
+    padding: 4rem 0;
   }
 }
 
@@ -23,6 +23,7 @@ body.redesign {
     @include breakpoint(large up) {
       flex-direction: row;
       padding: 2rem;
+      margin: 0 1rem;
       gap: 3rem;
       align-items: center;
       border-top-right-radius: 6rem;
