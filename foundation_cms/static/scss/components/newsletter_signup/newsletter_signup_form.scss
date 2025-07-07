@@ -193,25 +193,6 @@
         @include mofo-text-style($body-text-styles, "regular");
       }
     }
-
-    .newsletter-signup__dismiss-button {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-
-      &::after {
-        background-image: url("../_images/icons/checkbox-stripe-white.svg");
-        background-size: 1rem auto;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
-
-      @include breakpoint(medium up) {
-        width: fit-content;
-      }
-    }
   }
 
   &[data-layout="expand_on_focus"] {
