@@ -131,7 +131,7 @@
           background-image: url("../_images/icons/checkbox-stripe-black.svg");
           background-repeat: no-repeat;
           background-position: center;
-          background-size: 1.25rem auto;
+          background-size: rem-calc(12) auto;
         }
 
         &:hover {
@@ -176,7 +176,7 @@
       display: none;
     }
 
-    .newsletter-siginup__success-title {
+    .newsletter-signup__success-title {
       @include mofo-text-style($header-styles, "h4", $display-text-font-family);
 
       margin-top: 0.75rem;
@@ -191,6 +191,15 @@
 
       @include breakpoint(medium up) {
         @include mofo-text-style($body-text-styles, "regular");
+      }
+    }
+
+    .newsletter-signup__dismiss-button {
+      &::after {
+        background-image: url("../_images/icons/checkbox-stripe-white.svg");
+        background-size: 1rem auto;
+        background-repeat: no-repeat;
+        background-position: center;
       }
     }
   }
@@ -263,9 +272,16 @@
       }
     }
 
+    .newsletter-signup__field:has(> label > input[type="checkbox"]) {
+      @include breakpoint(xlarge up) {
+        padding-bottom: 1rem;
+      }
+    }
+
     .newsletter-signup__success-message {
       @include breakpoint(xlarge up) {
-        padding-right: 9rem;
+        max-width: 38rem;
+        padding-bottom: 1rem;
       }
     }
   }

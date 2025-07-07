@@ -14,6 +14,7 @@ const SELECTORS = {
   emailErrorMessage: ".email-error-message",
   privacyErrorMessage: ".privacy-error-message",
   successMessage: ".newsletter-signup__success-message",
+  dismissButton: ".newsletter-signup__dismiss-button",
   errorMessage: ".newsletter-signup__error-message",
   expandableField: ".newsletter-signup__field--hidden",
 };
@@ -83,8 +84,16 @@ function populateSelectOptions(selectEl, options) {
  * @param {HTMLFormElement} form - The form element containing the fields.
  * @param {string} layout - The layout type ('default' or 'expanded').
  * @param {HTMLInputElement} emailInput - The email input field that triggers expansion.
+ * @param {HTMLAnchorElement} dismissButton - The link button that dismisses the block once clicked.
+ * @param {HTMLElement} container - The container element for the form.
  */
-function applyLayoutBehavior(form, layout, emailInput) {
+function applyLayoutBehavior(
+  form,
+  layout,
+  emailInput,
+  dismissButton,
+  container,
+) {
   const expandableFields = form.querySelectorAll(SELECTORS.expandableField);
 
   const revealHiddenFields = () => {
@@ -93,11 +102,20 @@ function applyLayoutBehavior(form, layout, emailInput) {
     );
   };
 
+  const removeBlock = () => {
+    container.remove();
+  };
+
   if (layout === "expanded") {
     revealHiddenFields();
   } else {
     emailInput.addEventListener("focus", revealHiddenFields, { once: true });
   }
+
+  dismissButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    removeBlock();
+  });
 }
 
 /**
@@ -152,6 +170,7 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     );
     const successMessage = container.querySelector(SELECTORS.successMessage);
     const errorMessage = container.querySelector(SELECTORS.errorMessage);
+    const dismissButton = container.querySelector(SELECTORS.dismissButton);
 
     const signupId = container.dataset.signupId;
     const layout = container.dataset.layout;
@@ -160,7 +179,7 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     populateSelectOptions(languageInput, LANGUAGE_OPTIONS);
     populateSelectOptions(countryInput, COUNTRY_OPTIONS);
 
-    applyLayoutBehavior(form, layout, emailInput);
+    applyLayoutBehavior(form, layout, emailInput, dismissButton, container);
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
