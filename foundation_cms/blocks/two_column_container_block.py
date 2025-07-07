@@ -17,7 +17,6 @@ class ColumnStreamBlock(StreamBlock):
 
 
 class TwoColumnContainerBlock(BaseBlock):
-    title = CharBlock(required=False, help_text="Optional title for the block")
     left_column = ColumnStreamBlock(label="Left Column")
     right_column = ColumnStreamBlock(label="Right Column")
 
