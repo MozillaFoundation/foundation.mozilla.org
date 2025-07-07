@@ -9,10 +9,15 @@
       </div>
     {% endif %}
 
-    <div class="portrait-card-set__card-container">
-      {% for card in self.cards %}
-          {% include "./portrait_card.html" %}
-      {% endfor %}
+    <!-- Foundation-aligned card layout -->
+    <div class="portrait-card-set__card-container cell">
+      <div class="grid-x grid-margin-y">
+        {% for card in self.cards %}
+          <div class="portrait-card cell small-12 medium-4">
+            {% include "./portrait_card.html" %}
+          </div>
+        {% endfor %}
+      </div>
     </div>
 
     {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
