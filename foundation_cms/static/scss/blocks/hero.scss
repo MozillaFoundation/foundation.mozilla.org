@@ -132,6 +132,12 @@
         position: relative;
       }
 
+      &__description {
+        @include breakpoint(large up) {
+          max-width: 50rem;
+        }
+      }
+
       &__media {
         position: relative;
         border-top-left-radius: 3rem;
