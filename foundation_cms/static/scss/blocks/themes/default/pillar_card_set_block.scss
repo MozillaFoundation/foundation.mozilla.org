@@ -124,6 +124,7 @@
     @include breakpoint(large up) {
       flex-direction: row;
       gap: 0;
+      padding-bottom: 3rem;
     }
   }
 
