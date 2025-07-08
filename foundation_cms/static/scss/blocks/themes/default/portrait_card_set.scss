@@ -1,7 +1,6 @@
 @use "sass:map";
 
 .portrait-card-set {
-  // variables
   $card-border-radius: 5.75rem;
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
@@ -15,24 +14,43 @@
 
   &__card-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.5rem;
+    -webkit-overflow-scrolling: touch;
 
-    @media (max-width: 1024px) {
-      gap: 1.5rem;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
+  &__controls {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+  }
+
   .portrait-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    flex: 1 1 calc(33.333% - 1.333rem);
     padding: 2.5rem 3rem 4.5rem;
     min-height: 29.25rem;
-    aspect-ratio: 5/8;
+    aspect-ratio: 5 / 8;
     box-sizing: border-box;
 
+    width: 80%; // Mobile: ~1 in view
+
     @include breakpoint(medium) {
+      width: 45%; // Tablet: ~2 in view with teaser
+    }
+
+    @include breakpoint(large up) {
+      width: calc(33.33% - 1rem); // Desktop default
       min-height: 44rem;
     }
 
@@ -64,7 +82,6 @@
       }
     }
 
-    // Color and style variations by position
     @for $i from 1 through 4 {
       &:nth-child(4n + #{$i}) {
         background-color: map.get($cardset-colors, $i);
@@ -86,13 +103,14 @@
         }
       }
     }
+  }
 
-    @media (max-width: 1024px) {
-      flex: 1 1 calc(50% - 1rem); // 2 per row on tablets
-    }
-
-    @media (max-width: 640px) {
-      flex: 1 1 100%; // Stack on mobile
+  // Teaser support: shrink cards slightly on large+
+  @include breakpoint(large up) {
+    &__card-container.has-teaser {
+      .portrait-card {
+        width: 30%;
+      }
     }
   }
 }

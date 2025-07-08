@@ -1,19 +1,22 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="portrait-card-set">
-    {% if self.headline %}
-      <div class="portrait-card-set__headline-wrapper">
-        <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
-      </div>
-    {% endif %}
-
-    <div class="portrait-card-set__card-container">
-      {% for card in self.cards %}
-        <div class="portrait-card">
-          {% include "./portrait_card.html" %}
-        </div>
-      {% endfor %}
+  {% if self.headline %}
+    <div class="portrait-card-set__headline-wrapper">
+      <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
     </div>
+  {% endif %}
 
-    {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
+  <div class="portrait-card-set__card-container {% if self.cards|length > 3 %} has-teaser{% endif %}">
+    {% for card in self.cards %}
+      <div class="portrait-card" data-display-position="">
+        {% include "./portrait_card.html" %}
+      </div>
+    {% endfor %}
+  </div>
+  {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
+
+  <div class="portrait-card-set__controls">
+    {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
+  </div>
 </div>

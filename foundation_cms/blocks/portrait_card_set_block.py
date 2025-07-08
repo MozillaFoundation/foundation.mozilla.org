@@ -23,7 +23,7 @@ class PortraitCardSetBlock(BaseBlock):
         context = super().get_context(value, parent_context)
         card_count = len(value.get("cards", []))
         theme = self.get_theme(parent_context or {})
-        layout = "portrait_card_set_block_carousel.html" if card_count > 3 else "portrait_card_set_block_grid.html"
+        layout = "portrait_card_set_block_grid.html"
         context["card_set_template"] = f"patterns/blocks/themes/{theme}/{layout}"
         return context
 
