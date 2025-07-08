@@ -31,6 +31,9 @@
     display: flex;
     justify-content: end;
     margin-top: 1rem;
+    @include breakpoint(large up) {
+      display: none;
+    }
   }
 
   .portrait-card {
@@ -105,12 +108,18 @@
     }
   }
 
-  // Teaser support: shrink cards slightly on large+
+  // Carousel support: shrink cards slightly on large+
   @include breakpoint(large up) {
-    &__card-container.has-teaser {
+    &.is-carousel {
+      
       .portrait-card {
         width: 30%;
       }
+
+      .portrait-card-set__controls {
+        display: flex;
+      }
+
     }
   }
 }
