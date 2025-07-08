@@ -7,7 +7,7 @@
         "cta_text": "The internet we deserve starts with you. Join the movement now.",
         "button_text": "Sign Up",
         "newsletter": "mozilla-foundation",
-        "layout": "expanded"
+        "layout": "expand-on-focus"
       }
     },
   {
@@ -18,7 +18,7 @@
         "cta_text": "Stay updated with our newsletter",
         "button_text": "Sign Up",
         "newsletter": "mozilla-foundation",
-        "layout": "expanded"
+        "layout": "expand-on-focus"
       }
     }
 
