@@ -1,9 +1,9 @@
-import json
 import glob
+import json
 from pathlib import Path
-from django.core.management import call_command
 
 import factory
+from django.core.management import call_command
 from wagtail_factories import PageFactory
 
 from foundation_cms.base.utils.helpers import (
