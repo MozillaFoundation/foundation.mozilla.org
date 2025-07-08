@@ -89,16 +89,11 @@ body.redesign {
         @include breakpoint(large up) {
           height: 3.5rem;
         }
+
+        @include breakpoint(xlarge up) {
+          background-size: 100% 100%;
+        }
       }
     }
-  }
-}
-
-.grid-container {
-  // This pattern probably affects multiple components while nesting .grid-container elements
-  .grid-container:has(> .title-block__title) {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
   }
 }
