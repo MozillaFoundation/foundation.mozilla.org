@@ -42,7 +42,7 @@
       <div class="hero__text">
         <div class="grid-container">
           <h1 class="hero__title">{{ page.hero_title }}</h1>
-          <!-- {% if page.topics %} -->
+          {% if page.topics %}
             <div class="hero__topics body-text-small">
               <span class="hero__pill">Some</span>
               <span class="hero__pill">Topics</span>
@@ -51,7 +51,7 @@
               <span class="hero__pill">Be</span>
               <span class="hero__pill">Hardcoded</span>
             </div>
-          <!-- {% endif %} -->
+          {% endif %}
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
