@@ -1,5 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.images import get_image_model_string
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
@@ -21,11 +22,12 @@ class GeneralPage(AbstractGeneralPage):
     )
 
     hero_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         verbose_name="Hero Image",
+        help_text="Image for page hero section.",
     )
 
     hero_variant = models.CharField(
@@ -62,6 +64,7 @@ class GeneralPage(AbstractGeneralPage):
                 FieldPanel("hero_variant"),
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
+                # ImageChooserPanel("hero_image"),
                 FieldPanel("hero_image"),
             ],
             heading="Hero Section",
