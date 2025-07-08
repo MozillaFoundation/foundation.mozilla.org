@@ -25,6 +25,7 @@ from foundation_cms.blocks import (
     SpotlightCardSetBlock,
     TabbedContentContainerBlock,
     TimelyActivationsCardsBlock,
+    TitleBlock,
     TwoColumnContainerBlock,
     VideoBlock,
 )
@@ -51,6 +52,7 @@ base_page_block_options = [
     ("pillar_card_set", PillarCardSetBlock()),
     ("featured_card_block", FeaturedCardBlock()),
     ("divider", DividerBlock()),
+    ("title_block", TitleBlock()),
 ]
 
 
