@@ -47,7 +47,7 @@ class GeneralPage(AbstractGeneralPage):
             ("yellow-200", "Yellow"),
         ],
         default="orange-200",
-        help_text="Select the color of the hero background",
+        help_text="Select the color of the hero background, only for 'Top to Bottom' variant.",
     )
 
     show_hero = models.BooleanField(
