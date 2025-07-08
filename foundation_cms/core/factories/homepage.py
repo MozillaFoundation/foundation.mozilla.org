@@ -29,7 +29,7 @@ class HomePageFactory(PageFactory):
         """
         Load homepage content from a manifest and return a published HomePage instance.
         """
-        # NEW: Load snippet fixtures first
+        # Load snippet fixtures first
         snippet_dir = HOMEPAGE_DIR / "snippets"
         for fixture_path in glob.glob(str(snippet_dir / "*.json")):
             call_command("loaddata", fixture_path)
