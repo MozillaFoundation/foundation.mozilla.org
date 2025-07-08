@@ -1,32 +1,98 @@
 @use "sass:map";
 
 .portrait-card-set {
+  // variables
+  $card-border-radius: 5.75rem;
+  $rotate-pos: 3deg;
+  $rotate-neg: -3deg;
+
   $cardset-colors: (
-    1: (
-      "background-color": color(blue, "300"),
-    ),
-    2: (
-      "background-color": color(yellow, "300"),
-    ),
-    3: (
-      "background-color": color(orange, "200"),
-    ),
-    4: (
-      "background-color": color(green, "300"),
-    ),
+    1: color(blue, "300"),
+    2: color(yellow, "300"),
+    3: color(orange, "200"),
+    4: color(green, "300"),
   );
-  .portrait-card-set__card-container {
-    .portrait-card:nth-child(4n + 1) {
-        background-color: map.get(map.get($cardset-colors, 1), "background-color");
+
+  &__card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    @media (max-width: 1024px) {
+      gap: 1.5rem;
     }
-    .portrait-card:nth-child(4n + 2) {
-        background-color: map.get(map.get($cardset-colors, 2), "background-color");
+  }
+
+  .portrait-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 calc(33.333% - 1.333rem);
+    padding: 2.5rem 3rem 4.5rem;
+    min-height: 29.25rem;
+    aspect-ratio: 5/8;
+    box-sizing: border-box;
+
+    @include breakpoint(medium) {
+      min-height: 44rem;
     }
-    .portrait-card:nth-child(4n + 3) {
-        background-color: map.get(map.get($cardset-colors, 3), "background-color");
+
+    .portrait-card__image {
+      aspect-ratio: 1 / 1;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
-    .portrait-card:nth-child(4n + 4) {
-        background-color: map.get(map.get($cardset-colors, 4), "background-color");
+
+    .portrait-card__text {
+      margin-top: auto;
+    }
+
+    .portrait-card__headline {
+      margin: 0;
+
+      .cta-link {
+        text-wrap: wrap;
+        text-decoration: none;
+
+        &::after {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+    }
+
+    // Color and style variations by position
+    @for $i from 1 through 4 {
+      &:nth-child(4n + #{$i}) {
+        background-color: map.get($cardset-colors, $i);
+
+        .portrait-card__image img {
+          @if $i == 1 {
+            border-radius: 0 $card-border-radius 0 0;
+            transform: rotate($rotate-neg);
+          } @else if $i == 2 {
+            border-radius: 0 $card-border-radius $card-border-radius 0;
+            transform: rotate($rotate-pos);
+          } @else if $i == 3 {
+            border-radius: $card-border-radius $card-border-radius 0 0;
+            transform: rotate($rotate-neg);
+          } @else if $i == 4 {
+            border-radius: 0 $card-border-radius 0 $card-border-radius;
+            transform: rotate($rotate-pos);
+          }
+        }
+      }
+    }
+
+    @media (max-width: 1024px) {
+      flex: 1 1 calc(50% - 1rem); // 2 per row on tablets
+    }
+
+    @media (max-width: 640px) {
+      flex: 1 1 100%; // Stack on mobile
     }
   }
 }

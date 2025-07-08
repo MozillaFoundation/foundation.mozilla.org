@@ -2,13 +2,19 @@
 
 {% if card.image %}
   <div class="portrait-card__image">
-    {% image card.image fill-400x400 %}
+    {% image card.image fill-354x354 %}
   </div>
 {% endif %}
 
 <div class="portrait-card__text">
   {% if card.label %}
-    <p class="portrait-card__label">{{ card.label }}</p>
+    <p class="portrait-card__label label-text-regular">{{ card.label }}</p>
   {% endif %}
-  <h3 class="portrait-card__headline">{{ card.headline }}</h3>
+  <h4 class="portrait-card__headline">
+  {% if card.cta_link.0 and card.cta_link.0.link_to %}
+   {% include "patterns/components/link.html" with value=card.cta_link.0 label_override=card.headline classnames="cta-link" %}
+  {% else %}
+    {{ card.headline }}
+  {% endif %}
+  </h4>
 </div>

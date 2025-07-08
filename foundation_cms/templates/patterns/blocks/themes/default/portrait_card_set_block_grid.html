@@ -1,26 +1,19 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="portrait-card-set grid-container">
-  <div class="grid-x grid-margin-x">
-
+<div class="portrait-card-set">
     {% if self.headline %}
-      <div class="cell">
+      <div class="portrait-card-set__headline-wrapper">
         <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
       </div>
     {% endif %}
 
-    <!-- Foundation-aligned card layout -->
-    <div class="portrait-card-set__card-container cell">
-      <div class="grid-x grid-margin-y">
-        {% for card in self.cards %}
-          <div class="portrait-card cell small-12 medium-4">
-            {% include "./portrait_card.html" %}
-          </div>
-        {% endfor %}
-      </div>
+    <div class="portrait-card-set__card-container">
+      {% for card in self.cards %}
+        <div class="portrait-card">
+          {% include "./portrait_card.html" %}
+        </div>
+      {% endfor %}
     </div>
 
     {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
-
-  </div>
 </div>
