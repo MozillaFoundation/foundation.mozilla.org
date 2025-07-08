@@ -1,36 +1,107 @@
-.newsletter-signup {
-  margin-bottom: 2rem;
+@import "../../colors";
 
-  &__cta {
-    margin-bottom: 1rem;
+.newsletter-signup {
+  background-color: color(orange, "100");
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  padding: 2.5rem 1rem 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+
+  @include breakpoint(medium up) {
+    border-top-right-radius: 1.5rem;
+    border-bottom-left-radius: 2rem;
+    padding: 2rem;
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
   }
 
   &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
     &--hidden {
       display: none;
     }
   }
 
-  &__input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  &__form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
-    &:focus {
-      border-color: #0070d2;
+  &__cta {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    margin: 0 0 0.5rem;
+
+    @include breakpoint(medium up) {
+      font-size: rem-calc(20);
+    }
+  }
+
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include breakpoint(medium up) {
+      flex: 1;
+    }
+
+    @include breakpoint(xlarge up) {
+      min-width: 17rem;
+    }
+  }
+
+  &__input {
+    background: $white;
+    border: 1px solid $white;
+    border-radius: 0;
+    width: 100%;
+    padding: calc(1rem - 2px) 1.25rem;
+    line-height: 150%;
+
+    &::placeholder {
+      color: $black;
+    }
+
+    &:hover {
+      border: 1px solid color(neutral, "600");
+    }
+
+    &:focus-visible {
       outline: none;
+      border: 1px solid color(neutral, "600");
+    }
+  }
+
+  select.newsletter-signup__input {
+    appearance: none;
+    background-image: url("../_images/icons/select-caret-down-black.svg");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+
+    option {
+      color: color(neutral, "600");
     }
   }
 
   &__button {
+    margin: 0;
     width: 100%;
-    padding: 1rem;
-    border: 1px solid black;
-    text-decoration: underline;
+    line-height: 150%;
+    text-wrap: nowrap;
+    justify-content: center;
 
-    &:hover {
-      cursor: pointer;
+    &:focus-visible {
+      outline: 2px solid $white;
     }
   }
 
@@ -38,11 +109,53 @@
     &--hidden {
       display: none;
     }
+
+    label {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        appearance: none;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
+        position: relative;
+        background-color: $white;
+
+        &:checked {
+          background-image: url("../_images/icons/checkbox-stripe-black.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: rem-calc(12) auto;
+        }
+
+        &:hover {
+          border: 1px solid color(neutral, "600");
+          box-shadow: 1px 1px 0 0 color(neutral, "600");
+        }
+      }
+    }
   }
 
   &__field-error {
-    color: red;
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    color: color(orange, "600");
     margin-top: 0.5rem;
+    background-color: color(neutral, "100");
+    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-size: 0.75rem auto;
+    background-position: 0.75rem center;
+    background-repeat: no-repeat;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    line-height: 150%;
 
     &--hidden {
       display: none;
@@ -50,8 +163,19 @@
   }
 
   &__error-message {
-    color: red;
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    color: color(orange, "600");
     margin-bottom: 1rem;
+    background-color: color(neutral, "100");
+    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-size: 0.75rem auto;
+    background-position: 0.75rem 0.66rem;
+    background-repeat: no-repeat;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    line-height: 150%;
 
     &--hidden {
       display: none;
@@ -63,13 +187,155 @@
       display: none;
     }
 
-    h4 {
-      margin-top: 0;
+    .newsletter-signup__success-title {
+      @include mofo-text-style($header-styles, "h4", $display-text-font-family);
+
+      margin-top: 0.75rem;
       margin-bottom: 0.5rem;
+      font-weight: 700;
     }
 
     p {
+      @include mofo-text-style($body-text-styles, "small");
+
       margin-bottom: 0.5rem;
+
+      @include breakpoint(medium up) {
+        @include mofo-text-style($body-text-styles, "regular");
+      }
     }
+  }
+
+  &[data-layout="expand_on_focus"] {
+    @include breakpoint(medium up) {
+      margin-top: 3rem;
+    }
+
+    @include breakpoint(xlarge up) {
+      margin-top: 0;
+      display: flex;
+      gap: 1rem;
+      flex-flow: row wrap;
+      padding: 1rem 5rem;
+      align-items: start;
+    }
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: -1rem;
+      left: 2rem;
+      width: rem-calc(51px);
+      height: rem-calc(44px);
+      background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+      background-size: 100% auto;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      @include breakpoint(medium up) {
+        top: -2rem;
+      }
+
+      @include breakpoint(xlarge up) {
+        position: relative;
+        top: 0;
+        left: 0;
+        flex-shrink: 0;
+        min-height: rem-calc(54);
+      }
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(xlarge up) {
+        margin-bottom: 0;
+        min-height: rem-calc(54);
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .newsletter-signup__form {
+      @include breakpoint(xlarge up) {
+        flex-direction: row;
+        align-items: start;
+        flex: 1;
+        gap: 1rem;
+      }
+    }
+
+    .newsletter-signup__form-grid {
+      @include breakpoint(medium up) {
+        flex-direction: row;
+      }
+
+      @include breakpoint(xlarge up) {
+        flex: 1;
+      }
+    }
+
+    .newsletter-signup__field:has(> label > input[type="checkbox"]) {
+      @include breakpoint(xlarge up) {
+        padding-bottom: 1rem;
+      }
+    }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(xlarge up) {
+        max-width: 38rem;
+        padding-bottom: 1rem;
+      }
+    }
+
+    .newsletter-signup__error-message {
+      @include breakpoint(xlarge up) {
+        @include breakpoint(large up) {
+          order: -1;
+          width: 100%;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &[data-layout="expanded"] {
+    @include breakpoint(medium up) {
+      padding: 4rem 5rem;
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(medium up) {
+        position: relative;
+        padding-left: calc(1rem + rem-calc(51));
+        min-height: rem-calc(51);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &::before {
+          display: block;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.25rem;
+          width: rem-calc(51px);
+          height: rem-calc(44px);
+          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-size: 100% auto;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.block-two_column_container_block {
+  // This pattern probably affects multiple components while nesting .grid-container elements
+  .grid-container:has(> .newsletter-signup) {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
