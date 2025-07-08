@@ -152,5 +152,11 @@
         }
       }
     }
+
+    &.hero__wrapper--yellow-200 {
+      .hero__text::before {
+        background-color: color(yellow, "200");
+      }
+    }
   }
 }

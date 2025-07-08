@@ -40,6 +40,16 @@ class GeneralPage(AbstractGeneralPage):
         help_text="Select the variant of the hero section",
     )
 
+    hero_background_color = models.CharField(
+        max_length=50,
+        choices=[
+            ("orange-200", "Orange"),
+            ("yellow-200", "Yellow"),
+        ],
+        default="orange-200",
+        help_text="Select the color of the hero background",
+    )
+
     show_hero = models.BooleanField(
         default=True,
         verbose_name="Show Hero Section",
@@ -62,9 +72,9 @@ class GeneralPage(AbstractGeneralPage):
             [
                 FieldPanel("show_hero"),
                 FieldPanel("hero_variant"),
+                FieldPanel("hero_background_color"),
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
-                # ImageChooserPanel("hero_image"),
                 FieldPanel("hero_image"),
             ],
             heading="Hero Section",
