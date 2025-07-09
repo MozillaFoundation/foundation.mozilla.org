@@ -1,29 +1,74 @@
-<div class="hero__wrapper">
-  <div class="grid-container">
+{% load wagtailimages_tags %}
 
-    <div class="hero hero--text-media-{{ page.hero_variant }}">
+<div class="hero__wrapper hero__wrapper--{{ page.hero_variant }} hero__wrapper--{{ page.hero_background_color }}">
+
+  {% if page.hero_variant == "side-by-side" %}
+
+    <div class="grid-container">
+
+      <div class="hero">
+
+        <div class="hero__text">
+          <h1 class="hero__title">{{ page.hero_title }}</h1>
+          {% if page.topics %}
+            <div class="hero__topics body-text-small">
+              <span class="hero__pill">Some</span>
+              <span class="hero__pill">Topics</span>
+              <span class="hero__pill">That</span>
+              <span class="hero__pill">May</span>
+              <span class="hero__pill">Be</span>
+              <span class="hero__pill">Hardcoded</span>
+            </div>
+          {% endif %}
+          {% if page.hero_description %}
+            <p class="hero__description lede-text">{{ page.hero_description }}</p>
+          {% endif %}
+        </div>
+
+        {% if page.hero_image %}
+          {% image page.hero_image fill-692x692 as img %}
+          <div class="hero__media">
+            <img src="{{ img.url }}" alt="{{ img.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+  {% else %}
+
+    <div class="hero">
 
       <div class="hero__text">
-        <h1 class="hero__title">{{ page.hero_title }}</h1>
-        <div class="hero__topics body-text-small">
-          <span class="hero__pill">Some</span>
-          <span class="hero__pill">Topics</span>
-          <span class="hero__pill">That</span>
-          <span class="hero__pill">May</span>
-          <span class="hero__pill">Be</span>
-          <span class="hero__pill">Hardcoded</span>
+        <div class="grid-container">
+          <h1 class="hero__title">{{ page.hero_title }}</h1>
+          {% if page.topics %}
+            <div class="hero__topics body-text-small">
+              <span class="hero__pill">Some</span>
+              <span class="hero__pill">Topics</span>
+              <span class="hero__pill">That</span>
+              <span class="hero__pill">May</span>
+              <span class="hero__pill">Be</span>
+              <span class="hero__pill">Hardcoded</span>
+            </div>
+          {% endif %}
+          {% if page.hero_description %}
+            <p class="hero__description lede-text">{{ page.hero_description }}</p>
+          {% endif %}
         </div>
-        {% if page.hero_description %}
-          <p class="hero__description lede-text">{{ page.hero_description }}</p>
-        {% endif %}
       </div>
 
       {% if page.hero_image %}
-        <div class="hero__media">
-          <img src="{{ page.hero_image.url }}" alt="{{ page.hero_image.title }}" width="{{ page.hero_image.width }}" height="{{ page.hero_image.height }}" class="hero__media-image">
+        {% image page.hero_image fill-1408x791 as img %}
+        <div class="grid-container">
+          <div class="hero__media">
+            <img src="{{ img.url }}" alt="{{ img.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+          </div>
         </div>
       {% endif %}
 
     </div>
-  </div>
+
+  {% endif %}
+
 </div>
