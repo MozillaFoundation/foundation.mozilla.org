@@ -90,6 +90,7 @@ class OptionalLinkBlock(blocks.ListBlock):
     class Meta:
         label = "Optional Link"
 
+
 class OptionalLinkWithoutLabelBlock(blocks.ListBlock):
     """
     A wrapper for a single optional LinkWithoutLabelBlock, useful for conditional display.
