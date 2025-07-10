@@ -11,10 +11,10 @@
     <p class="portrait-card__label label-text-regular">{{ card.label }}</p>
   {% endif %}
   <h4 class="portrait-card__headline">
-  {% if card.cta_link.0 and card.cta_link.0.link_to %}
-   {% include "patterns/components/link.html" with value=card.cta_link.0 label_override=card.headline classnames="cta-link" %}
-  {% else %}
-    {{ card.headline }}
-  {% endif %}
+    {% if card.cta_link.0 and card.cta_link.0.link_to %}
+      {% include "patterns/components/link.html" with value=card.cta_link.0 label_override=card.headline classnames="cta-link" %}
+    {% else %}
+      {{ card.headline }}
+    {% endif %}
   </h4>
 </div>

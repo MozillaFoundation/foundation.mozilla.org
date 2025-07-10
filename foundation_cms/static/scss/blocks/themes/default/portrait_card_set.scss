@@ -4,7 +4,6 @@
   $card-border-radius: 5.75rem;
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
-
   $cardset-colors: (
     1: color(blue, "300"),
     2: color(yellow, "300"),
@@ -17,11 +16,12 @@
     flex-wrap: nowrap;
     gap: 1.5rem;
     overflow-x: auto;
+
     //scroll-snap-type: x mandatory;
     //scroll-padding-left: 1.5rem;
     -webkit-overflow-scrolling: touch;
-
     scrollbar-width: none;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -45,7 +45,6 @@
     min-height: 29.25rem;
     aspect-ratio: 5 / 8;
     box-sizing: border-box;
-
     width: 80%; // Mobile: ~1 in view
 
     @include breakpoint(medium) {
@@ -110,7 +109,6 @@
   // Carousel support: shrink cards slightly on large+
   @include breakpoint(large up) {
     &.is-carousel {
-      
       .portrait-card {
         width: 30%;
       }
