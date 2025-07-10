@@ -8,7 +8,7 @@ $hamburger-bar-spacing: 0.8rem;
 .primary-nav-ns {
   position: sticky;
   width: 100%;
-  margin-bottom: 3rem;
+  margin: 0;
   max-width: 100vw;
   top: 0;
   z-index: 10;
@@ -295,7 +295,7 @@ $hamburger-bar-spacing: 0.8rem;
 body.primary-nav-ns-open {
   height: 100vh;
   overflow: hidden;
-  padding-top: 8rem;
+  padding-top: 5rem;
 
   .primary-nav-ns {
     position: fixed;
