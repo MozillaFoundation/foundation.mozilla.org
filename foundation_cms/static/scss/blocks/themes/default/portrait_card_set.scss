@@ -17,8 +17,8 @@
     flex-wrap: nowrap;
     gap: 1.5rem;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 1.5rem;
+    //scroll-snap-type: x mandatory;
+    //scroll-padding-left: 1.5rem;
     -webkit-overflow-scrolling: touch;
 
     scrollbar-width: none;
@@ -84,25 +84,24 @@
         }
       }
     }
-
+  }
     @for $i from 1 through 4 {
-      &:nth-child(4n + #{$i}) {
-        background-color: map.get($cardset-colors, $i);
+    .portrait-card[data-card-color="#{$i - 1}"] {
+      background-color: map.get($cardset-colors, $i);
 
-        .portrait-card__image img {
-          @if $i == 1 {
-            border-radius: 0 $card-border-radius 0 0;
-            transform: rotate($rotate-neg);
-          } @else if $i == 2 {
-            border-radius: 0 $card-border-radius $card-border-radius 0;
-            transform: rotate($rotate-pos);
-          } @else if $i == 3 {
-            border-radius: $card-border-radius $card-border-radius 0 0;
-            transform: rotate($rotate-neg);
-          } @else if $i == 4 {
-            border-radius: 0 $card-border-radius 0 $card-border-radius;
-            transform: rotate($rotate-pos);
-          }
+      .portrait-card__image img {
+        @if $i == 1 {
+          border-radius: 0 $card-border-radius 0 0;
+          transform: rotate($rotate-neg);
+        } @else if $i == 2 {
+          border-radius: 0 $card-border-radius $card-border-radius 0;
+          transform: rotate($rotate-pos);
+        } @else if $i == 3 {
+          border-radius: $card-border-radius $card-border-radius 0 0;
+          transform: rotate($rotate-neg);
+        } @else if $i == 4 {
+          border-radius: 0 $card-border-radius 0 $card-border-radius;
+          transform: rotate($rotate-pos);
         }
       }
     }
