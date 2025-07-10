@@ -6,7 +6,6 @@ from . import OptionalLinkBlock, PortraitCardBlock
 
 
 class PortraitCardSetBlock(BaseBlock):
-    headline = blocks.CharBlock(required=False, label="Headline", help_text="Main heading for the card set.")
 
     cards = blocks.ListBlock(
         PortraitCardBlock(),

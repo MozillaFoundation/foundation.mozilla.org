@@ -1,4 +1,4 @@
-from wagtail.blocks import CharBlock, RichTextBlock, StreamBlock
+from wagtail.blocks import RichTextBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
@@ -17,7 +17,6 @@ class ColumnStreamBlock(StreamBlock):
 
 
 class TwoColumnContainerBlock(BaseBlock):
-    title = CharBlock(required=False, help_text="Optional title for the block")
     left_column = ColumnStreamBlock(label="Left Column")
     right_column = ColumnStreamBlock(label="Right Column")
 
