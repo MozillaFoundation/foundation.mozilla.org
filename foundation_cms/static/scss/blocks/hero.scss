@@ -1,25 +1,22 @@
 .hero__wrapper {
-  padding: 2rem 0;
+  padding: 0;
+  margin: 0;
 
   .hero {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    &__text {
-      flex: 1;
-      text-align: left;
-    }
-
     &__title {
-      margin-bottom: 1rem;
-      font-family: $display-text-font-family;
+      @include mofo-text-style(
+        $display-text-styles,
+        "1",
+        $display-text-font-family
+      );
+
+      margin: 0;
     }
 
     &__topics {
       display: flex;
       flex-flow: row wrap;
-      gap: 1rem;
+      gap: 0.5rem 1rem;
     }
 
     &__pill {
@@ -30,54 +27,141 @@
     }
 
     &__description {
-      color: #666;
+      margin: 0;
     }
+  }
 
-    &__media {
-      flex: 1;
-      aspect-ratio: 1 / 1;
-
-      &-placeholder {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #ffe9f5;
-        height: 100%;
-        border: 1px dashed #ccc;
-        color: #333;
+  // Variant: Side by side
+  &--side-by-side {
+    .grid-container {
+      // Medium breakpoint works better than the utility class defined in utilities.scss in this case
+      @include breakpoint(medium down) {
+        padding-left: 0;
+        padding-right: 0;
       }
     }
 
-    // Variant: Text and media side by side
-    &--text-media-side-by-side {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      &__text {
-        flex: 1;
-        padding-right: 1rem;
-      }
-
-      &__media {
-        flex: 1;
-        padding-left: 1rem;
-      }
-    }
-
-    // Variant: Text on top of media
-    &--text-media-top-to-bottom {
+    .hero {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      gap: 1rem;
+
+      @include breakpoint(large up) {
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+      }
 
       &__text {
-        margin-bottom: 1rem;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 3rem 1rem 1rem;
+
+        @include breakpoint(large up) {
+          padding: 0;
+          flex: 1;
+          gap: 2rem;
+        }
       }
 
       &__media {
-        width: 100%;
+        border-top-right-radius: 3rem;
+        overflow: hidden;
+
+        @include breakpoint(large up) {
+          flex: 1;
+          border-top-right-radius: 6rem;
+        }
+
+        img {
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  // Variant: Text on top of media
+  &--top-to-bottom {
+    .hero {
+      padding: 0;
+
+      &__text {
+        padding: 4rem 0 2rem;
+        position: relative;
+
+        @include breakpoint(large up) {
+          padding: 8rem 0 4rem;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: color(orange, "200");
+        }
+
+        .grid-container {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          @include breakpoint(large up) {
+            gap: 2rem;
+          }
+        }
+      }
+
+      &:has(.hero__media) .hero__text {
+        padding-bottom: 6rem;
+
+        @include breakpoint(large up) {
+          padding-bottom: 12rem;
+        }
+      }
+
+      &__title,
+      &__topics,
+      &__description {
+        position: relative;
+      }
+
+      &__description {
+        @include breakpoint(large up) {
+          max-width: 50rem;
+        }
+      }
+
+      &__media {
+        position: relative;
+        border-top-left-radius: 3rem;
+        border-top-right-radius: 3rem;
+        overflow: hidden;
+        margin-top: -4rem;
+
+        @include breakpoint(large up) {
+          border-top-left-radius: 6rem;
+          border-top-right-radius: 6rem;
+          margin-top: -9rem;
+        }
+
+        img {
+          width: 100%;
+          aspect-ratio: 1.78 / 1;
+          object-fit: cover;
+        }
+      }
+    }
+
+    &.hero__wrapper--yellow-200 {
+      .hero__text::before {
+        background-color: color(yellow, "200");
       }
     }
   }

@@ -167,13 +167,14 @@ export function initPrimaryNav() {
  * Hides the navigation wordmark when the kinetic type wordmark is visible in the viewport.
  */
 export function initWordmarkVisibilityOnScroll() {
+  const nav = document.querySelector(SELECTORS.primaryNav);
   const grid = document.querySelector(SELECTORS.primaryNavGrid);
   const wordmark = document.querySelector(SELECTORS.wordmark);
   const kineticTypeWordmark = document.querySelector(
     SELECTORS.kineticTypeWordmark,
   );
 
-  if (!grid || !wordmark) return;
+  if (!nav || !grid || !wordmark) return;
 
   // If kineticTypeWordmark is not present, always show the wordmark
   if (!kineticTypeWordmark) {
@@ -181,6 +182,8 @@ export function initWordmarkVisibilityOnScroll() {
     grid.classList.remove(CLASSNAMES.hiddenWordmark);
     return;
   }
+
+  const navHeight = nav.offsetHeight;
 
   const observer = new IntersectionObserver(
     ([entry]) => {
@@ -194,6 +197,7 @@ export function initWordmarkVisibilityOnScroll() {
     },
     {
       root: null, // viewport
+      rootMargin: `-${navHeight}px  0px 0px 0px`,
       threshold: 0.01, // as soon as even 1% is visible/invisible
     },
   );

@@ -10,3 +10,9 @@
 // Homepage Specific Components
 @import "../components/home_page/kinetic_type_wordmark";
 @import "../components/home_page/kinetic_type_brand_line";
+
+body.template-homepage {
+  .kinetic-type-wordmark {
+    margin-top: 3rem;
+  }
+}
