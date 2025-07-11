@@ -151,11 +151,7 @@
     }
 
     &-link {
-      @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
-
-      @include breakpoint(large up) {
-        @include cta-link(map.get($cta-link-icon-sizes, large), "large");
-      }
+      @include cta-link(map.get($cta-link-icon-sizes, large), "large");
     }
   }
 }
