@@ -11,9 +11,7 @@
 
     {% for item in value.items %}
       <div class="list-block__item">
-        <a href="{% pageurl item %}" class="list-block__link">
-          {{ item.title }}
-        </a>
+        {% include "patterns/components/link.html" with classnames="list-block__link" value=item %}
       </div>
     {% endfor %}
 
