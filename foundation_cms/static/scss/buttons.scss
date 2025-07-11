@@ -88,7 +88,7 @@ $cta-link-icon-sizes: (
   background-color: color(neutral, "600");
 
   &::after {
-    background-image: url("../_images/icons/button-arrow-right-white.svg");
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
   }
 }
 
@@ -100,7 +100,7 @@ $cta-link-icon-sizes: (
   );
 
   &::after {
-    background-image: url("../_images/icons/button-arrow-right-black.svg");
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
   }
 }
 
