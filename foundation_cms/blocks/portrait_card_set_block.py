@@ -2,7 +2,7 @@ from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from . import OptionalLinkBlock, PortraitCardBlock
+from . import PortraitCardBlock
 
 
 class PortraitCardSetBlock(BaseBlock):
