@@ -150,12 +150,12 @@ $image-hover-scale: 105%;
   flex-direction: column;
   width: 100%;
   overflow: visible;
-  margin: 3rem 0;
+  margin-bottom: 3rem;
 
   @include breakpoint(large up) {
     flex-direction: row;
     height: map.get($panel-height, large);
-    margin: rem-calc(48) 0 rem-calc(64) 0;
+    margin: 1rem 0 rem-calc(64) 0;
   }
 
   @include breakpoint(xlarge up) {
