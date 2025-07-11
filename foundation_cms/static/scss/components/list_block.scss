@@ -32,6 +32,10 @@ body.redesign {
       flex-direction: column;
     }
 
+    &__title + .list-block__items {
+      margin-top: 1rem;
+    }
+
     &__link {
       @include mofo-text-style($body-text-styles, "regular");
 
