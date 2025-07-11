@@ -1,0 +1,65 @@
+@import "../../components/images";
+// ...existing code...
+
+.two-column-container {
+    padding: 2rem 0;
+    background: $white;
+    border-radius: 1.5rem;
+    margin: 2rem 0;
+
+    @include breakpoint(large up) {
+        padding: 4rem 0;
+        border-radius: 3rem;
+        margin: 3rem 0;
+    }
+
+    .two-column-title {
+        @include mofo-text-style($header-styles, "h2", $header-font-family);
+        margin-bottom: 2rem;
+        font-weight: 500;
+
+        @include breakpoint(small) {
+            font-size: rem-calc(36);
+        }
+    }
+
+    .grid-x {
+        gap: 2rem;
+
+        @include breakpoint(large up) {
+            gap: 3rem;
+        }
+    }
+
+    .cell {
+        background: $white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        @include breakpoint(large up) {
+            padding: 2rem;
+            border-radius: 2rem;
+        }
+    }
+
+    // Optional: add a divider between columns on large screens
+    @include breakpoint(large up) {
+        .cell:not(:last-child) {
+            border-right: 1px solid $gray-200;
+        }
+    }
+}
+
+// For redesign context, if needed
+body.redesign {
+    .two-column-container {
+        background: $gray-100;
+        border-radius: 2rem;
+
+        .cell {
+            background: $white;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+    }
+}
