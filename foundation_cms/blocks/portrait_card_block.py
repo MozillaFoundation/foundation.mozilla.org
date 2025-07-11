@@ -1,11 +1,11 @@
 from . import BaseCardBlock
-from .link_block import OptionalLinkWithoutLabelBlock
+from .link_block import LinkWithoutLabelBlock
 
 
 class PortraitCardBlock(BaseCardBlock):
 
-    cta_link = OptionalLinkWithoutLabelBlock(
-        required=False, label="Call to Action Link", help_text="Optional link for the card."
+    cta_link = LinkWithoutLabelBlock(
+        required=True, label="Call to Action Link", help_text="Link for the card."
     )
 
     class Meta:
