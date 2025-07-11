@@ -1,7 +1,7 @@
 .kinetic-type-brand-line {
   $line-height: get-text-property(
-    $display-text-styles,
-    "3",
+    $header-styles,
+    "h3",
     "line-height",
     "small"
   );
@@ -14,6 +14,10 @@
 
   line-height: $line-height;
   margin-bottom: 0;
+
+  &__heading {
+    margin: 2rem 0;
+  }
 
   &__full-text {
     display: flex;
