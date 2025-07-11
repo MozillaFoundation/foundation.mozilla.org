@@ -15,10 +15,9 @@
     display: flex;
     flex-wrap: nowrap;
     gap: 1.5rem;
-    overflow-x: auto;
-
-    // scroll-snap-type: x mandatory;
-    // scroll-padding-left: 1.5rem;
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 
@@ -31,32 +30,61 @@
     display: flex;
     justify-content: end;
     margin-top: 1rem;
+
     @include breakpoint(large up) {
       display: none;
     }
   }
 
+  &.is-carousel {
+    @include breakpoint(large up) {
+      .portrait-card {
+        width: 30%;
+      }
+
+      .portrait-card-set__controls {
+        display: flex;
+      }
+    }
+  }
+
+  // Carousel-specific track container
+  .carousel-track {
+    display: flex;
+    width: 100%;
+    will-change: transform;
+    transition: transform 0.4s ease;
+  }
+  
   .portrait-card {
     flex: 0 0 auto;
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     padding: 2.5rem 3rem 4.5rem;
     min-height: 29.25rem;
     aspect-ratio: 5 / 8;
     box-sizing: border-box;
-    width: 80%; // Mobile: ~1 in view
+    width: 80%; // Mobile default
+    scroll-snap-align: start;
 
     @include breakpoint(medium) {
-      width: 45%; // Tablet: ~2 in view with teaser
+      width: 45%; // Tablet
     }
 
     @include breakpoint(large up) {
-      width: calc(33.33% - 1rem); // Desktop default
+      width: calc(33.3333% - 1.3333rem);
       min-height: 44rem;
     }
 
-    .portrait-card__image {
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &__image {
       aspect-ratio: 1 / 1;
 
       img {
@@ -66,11 +94,11 @@
       }
     }
 
-    .portrait-card__text {
+    &__text {
       margin-top: auto;
     }
 
-    .portrait-card__headline {
+    &__headline {
       margin: 0;
 
       .cta-link {
@@ -83,40 +111,29 @@
         }
       }
     }
-  }
-    @for $i from 1 through 4 {
-    .portrait-card[data-card-color="#{$i - 1}"] {
-      background-color: map.get($cardset-colors, $i);
 
-      .portrait-card__image img {
-        @if $i == 1 {
-          border-radius: 0 $card-border-radius 0 0;
-          transform: rotate($rotate-neg);
-        } @else if $i == 2 {
-          border-radius: 0 $card-border-radius $card-border-radius 0;
-          transform: rotate($rotate-pos);
-        } @else if $i == 3 {
-          border-radius: $card-border-radius $card-border-radius 0 0;
-          transform: rotate($rotate-neg);
-        } @else if $i == 4 {
-          border-radius: 0 $card-border-radius 0 $card-border-radius;
-          transform: rotate($rotate-pos);
+    // Color theming via data attribute
+    @for $i from 1 through 4 {
+      &[data-card-color="#{$i - 1}"] {
+        background-color: map.get($cardset-colors, $i);
+
+        .portrait-card__image img {
+          @if $i == 1 {
+            border-radius: 0 $card-border-radius 0 0;
+            transform: rotate($rotate-neg);
+          } @else if $i == 2 {
+            border-radius: 0 $card-border-radius $card-border-radius 0;
+            transform: rotate($rotate-pos);
+          } @else if $i == 3 {
+            border-radius: $card-border-radius $card-border-radius 0 0;
+            transform: rotate($rotate-neg);
+          } @else if $i == 4 {
+            border-radius: 0 $card-border-radius 0 $card-border-radius;
+            transform: rotate($rotate-pos);
+          }
         }
       }
     }
   }
-
-  // Carousel support: shrink cards slightly on large+
-  @include breakpoint(large up) {
-    &.is-carousel {
-      .portrait-card {
-        width: 30%;
-      }
-
-      .portrait-card-set__controls {
-        display: flex;
-      }
-
-    }
-  }
 }
+

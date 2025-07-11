@@ -1,6 +1,7 @@
 const SELECTORS = {
   root: '.portrait-card-set',
-  container: '.portrait-card-set__card-container',
+  viewport: '.portrait-card-set__card-container',
+  track: '.carousel-track',
   card: '.portrait-card',
   prevBtn: '.pagination-controls__prev',
   nextBtn: '.pagination-controls__next',
@@ -10,138 +11,161 @@ const SELECTORS = {
 
 export function initPortraitCardSetCarousels() {
   const carousels = document.querySelectorAll(SELECTORS.root);
-  carousels.forEach((carousel) => new PortraitCardCarousel(carousel));
+  carousels.forEach((carousel) => new TransformCarousel(carousel));
 }
 
-class PortraitCardCarousel {
+class TransformCarousel {
   constructor(rootEl) {
     this.root = rootEl;
-    this.container = this.root.querySelector(SELECTORS.container);
-    this.cards = Array.from(this.container.children);
+    this.viewport = this.root.querySelector(SELECTORS.viewport);
+    this.track = this.viewport.querySelector(SELECTORS.track);
+    this.originalCards = Array.from(this.track.querySelectorAll(SELECTORS.card));
     this.prevBtn = this.root.querySelector(SELECTORS.prevBtn);
     this.nextBtn = this.root.querySelector(SELECTORS.nextBtn);
     this.counterEl = this.root.querySelector(SELECTORS.counter);
-    this.total = this.cards.length;
+    this.total = this.originalCards.length;
 
-    this.cardWidth = 0;
-    this.currentIndex = 0;
+    this.visibleCount = 3;
     this.isTransitioning = false;
-    this.cloned = false;
+    this.index = this.total; // Start in the middle of the tripled array
+    this.isCarousel = this.root.classList.contains('is-carousel');
 
     this.init();
   }
 
   init() {
-    this.applyCardColorDataAttrs();
-    this.cloneSlides();
-    this.updateMeasurements();
-    this.goTo(this.currentIndex, false);
+    this.applyCardColorDataAttrs(this.originalCards);
+    this.setupTrack();
+    this.setInitialPosition();
     this.bindEvents();
     this.updateCounter();
   }
 
-  applyCardColorDataAttrs() {
-    this.originalCards = Array.from(this.container.children);
-
-    this.originalCards.forEach((card, i) => {
-      card.setAttribute('data-card-color', i % 4);
+  // Add data-card-color based on total colors needed
+  applyCardColorDataAttrs(cards) {
+    cards.forEach((card, i) => {
+      card.setAttribute('data-card-color', i % this.total);
     });
   }
 
-  cloneSlides() {
-    if (this.cloned) return;
+  // Create a tripled set of cards to simulate infinite scroll
+  setupTrack() {
+    const tripled = [
+      ...this.originalCards,
+      ...this.originalCards.map(card => card.cloneNode(true)),
+      ...this.originalCards.map(card => card.cloneNode(true))
+    ];
 
-    const headClones = this.cards.slice(0, 2).map(el => el.cloneNode(true));
-    const tailClones = this.cards.slice(-2).map(el => el.cloneNode(true));
+    this.track.innerHTML = '';
+    this.applyCardColorDataAttrs(tripled);
 
-    tailClones.reverse().forEach(el => this.container.prepend(el));
-    headClones.forEach(el => this.container.appendChild(el));
-
-    this.cloned = true;
-    this.cards = Array.from(this.container.children);
+    tripled.forEach(card => this.track.appendChild(card));
+    this.cards = Array.from(this.track.querySelectorAll(SELECTORS.card));
   }
 
-  updateMeasurements() {
-    const firstCard = this.container.querySelector(SELECTORS.card);
-    this.cardWidth = firstCard.getBoundingClientRect().width + this.getGap();
-
-    // Scroll to the first "real" card
-    this.container.scrollLeft = this.cardWidth * 2;
+  // Calculate scroll offset for the current index
+  getSlideOffset() {
+    const card = this.cards[this.index];
+    if (!card) return 0;
+    const style = window.getComputedStyle(card);
+    return card.getBoundingClientRect().width + parseFloat(style.marginRight);
   }
 
-  getGap() {
-    const style = window.getComputedStyle(this.container);
-    return parseFloat(style.columnGap || style.gap || 0);
+  // Move the carousel track by transform
+  updateTransform(index, animate = true) {
+    const offset = this.getSlideOffset() * index;
+    this.track.style.transition = animate ? 'transform 0.4s ease' : 'none';
+    this.track.style.transform = `translateX(-${offset}px)`;
   }
 
-  goTo(index, smooth = true) {
-    this.currentIndex = index;
-
-    const scrollTarget = this.cardWidth * (index + 2);
-    this.container.scrollTo({
-      left: scrollTarget,
-      behavior: smooth ? 'smooth' : 'auto'
+  // Initial transform (no animation)
+  setInitialPosition() {
+    requestAnimationFrame(() => {
+      this.updateTransform(this.index, false);
     });
+  }
 
+  // Navigate to a given index
+  slideTo(newIndex) {
+    const shouldDisable = !this.root.classList.contains('is-carousel') && window.innerWidth >= 1024;
+    if (shouldDisable || this.isTransitioning) return;
+
+    this.isTransitioning = true;
+    this.index = newIndex;
+    this.updateTransform(this.index, true);
+
+    this.track.addEventListener('transitionend', () => this.handleLoop(), { once: true });
+  }
+
+  // Loop logic to simulate infinite scroll
+  handleLoop() {
+    if (this.index >= this.total * 2) {
+      this.index = this.total;
+    } else if (this.index < this.total) {
+      this.index = this.total * 2 - 1;
+    }
+
+    this.updateTransform(this.index, false);
     this.updateCounter();
+    this.isTransitioning = false;
   }
 
-  next() {
-    if (this.isTransitioning) return;
-    this.isTransitioning = true;
-    this.goTo(this.currentIndex + 1);
-
-    this.handleLoopIfNeeded();
-  }
-
-  prev() {
-    if (this.isTransitioning) return;
-    this.isTransitioning = true;
-    this.goTo(this.currentIndex - 1);
-
-    this.handleLoopIfNeeded();
-  }
-
-  handleLoopIfNeeded() {
-    setTimeout(() => {
-      if (this.currentIndex >= this.total) {
-        this.goTo(0, false);
-      } else if (this.currentIndex < 0) {
-        this.goTo(this.total - 1, false);
-      }
-      this.isTransitioning = false;
-    }, 400); // match smooth scroll duration
-  }
-
+  // Update visual counter display
   updateCounter() {
     if (this.counterEl) {
-      const displayIndex = ((this.currentIndex % this.total + this.total) % this.total) + 1;
-      this.counterEl.textContent = `${displayIndex}`;
+      const logicalIndex = (this.index % this.total + this.total) % this.total;
+      this.counterEl.textContent = `${logicalIndex + 1}`;
     }
   }
 
+  // Bind arrow keys, buttons, swipe, and drag for navigation
   bindEvents() {
-    this.nextBtn?.addEventListener('click', () => this.next());
-    this.prevBtn?.addEventListener('click', () => this.prev());
+    this.nextBtn?.addEventListener('click', () => this.slideTo(this.index + 1));
+    this.prevBtn?.addEventListener('click', () => this.slideTo(this.index - 1));
 
     let startX = 0;
+    let isDragging = false;
 
-    this.container.addEventListener('touchstart', (e) => {
+    // Touch support
+    this.viewport.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
+      isDragging = true;
     }, { passive: true });
 
-    this.container.addEventListener('touchend', (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const delta = endX - startX;
-      if (Math.abs(delta) > 50) {
-        if (delta < 0) this.next();
-        else this.prev();
-      }
+    this.viewport.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const delta = e.changedTouches[0].clientX - startX;
+      if (Math.abs(delta) > 50) delta < 0 ? this.slideTo(this.index + 1) : this.slideTo(this.index - 1);
     }, { passive: true });
 
+    // Mouse drag support
+    this.viewport.addEventListener('mousedown', (e) => {
+      startX = e.clientX;
+      isDragging = true;
+    });
+
+    this.viewport.addEventListener('mouseup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const delta = e.clientX - startX;
+      if (Math.abs(delta) > 50) delta < 0 ? this.slideTo(this.index + 1) : this.slideTo(this.index - 1);
+    });
+
+    this.viewport.addEventListener('mouseleave', () => {
+      if (isDragging) isDragging = false;
+    });
+
+    // Keyboard navigation
+    this.root.setAttribute('tabindex', '0');
+    this.root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') this.slideTo(this.index + 1);
+      if (e.key === 'ArrowLeft') this.slideTo(this.index - 1);
+    });
+
+    // Recalculate position on resize
     window.addEventListener('resize', () => {
-      this.updateMeasurements();
-      this.goTo(this.currentIndex, false);
+      this.setInitialPosition();
     });
   }
 }
