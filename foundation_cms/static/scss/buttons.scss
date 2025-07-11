@@ -1,3 +1,11 @@
+@use "sass:map";
+
+$cta-link-icon-sizes: (
+  regular: rem-calc(12),
+  large: rem-calc(16),
+  xlarge: rem-calc(24)
+);
+
 @mixin rolling-text-effect(
   $base-class: ".btn-primary",
   $color: color(neutral, "100"),
@@ -111,7 +119,7 @@
   width: fit-content;
 
   &::after {
-    background-image: url("../_images/icons/button-arrow-right-black.svg");
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
     background-size: contain;
     content: "";
     width: $imageSize;
@@ -129,14 +137,14 @@
 }
 
 .cta-link {
-  @include cta-link(rem-calc(12), "regular");
+  @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
 
   &--large {
-    @include cta-link(rem-calc(16), "large");
+    @include cta-link(map.get($cta-link-icon-sizes, large), "large");
   }
 
   &--xlarge {
-    @include cta-link(rem-calc(24), "xlarge");
+    @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
   }
 }
 
