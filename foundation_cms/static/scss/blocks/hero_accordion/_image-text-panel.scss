@@ -147,13 +147,13 @@
 
         @include breakpoint(large up) {
           width: 12rem;
-          right: map.get(base.$panel-height, large);
+          right: map.get(base.$panel-heights, large);
           top: unset;
           bottom: -4.5rem;
         }
 
         @include breakpoint(xlarge up) {
-          right: map.get(base.$panel-height, xlarge);
+          right: map.get(base.$panel-heights, xlarge);
           bottom: -3rem;
         }
       }
@@ -176,7 +176,7 @@
         @include breakpoint(large up) {
           right: 0;
           width: calc(
-            var(--open-panel-width) - map.get(base.$panel-height, large)
+            var(--open-panel-width) - map.get(base.$panel-heights, large)
           );
         }
 
@@ -191,11 +191,11 @@
             map.get(base.$panel-transition, timing-function);
 
           @include breakpoint(large up) {
-            transform: translateX(-(map.get(base.$panel-height, large)));
+            transform: translateX(-(map.get(base.$panel-heights, large)));
           }
 
           @include breakpoint(xlarge up) {
-            transform: translateX(-(map.get(base.$panel-height, xlarge)));
+            transform: translateX(-(map.get(base.$panel-heights, xlarge)));
           }
         }
       }
@@ -237,12 +237,12 @@
 
         @include breakpoint(large up) {
           width: 8rem;
-          right: map.get(base.$panel-height, large);
+          right: map.get(base.$panel-heights, large);
           top: -5rem;
         }
 
         @include breakpoint(xlarge up) {
-          right: map.get(base.$panel-height, xlarge);
+          right: map.get(base.$panel-heights, xlarge);
           top: -2rem;
         }
       }
@@ -259,7 +259,7 @@
           left: 0;
           right: auto;
           width: calc(
-            var(--open-panel-width) - map.get(base.$panel-height, large)
+            var(--open-panel-width) - map.get(base.$panel-heights, large)
           );
         }
 
@@ -271,11 +271,11 @@
 
         &-inner {
           @include breakpoint(large up) {
-            transform: translateX(map.get(base.$panel-height, large));
+            transform: translateX(map.get(base.$panel-heights, large));
           }
 
           @include breakpoint(xlarge up) {
-            transform: translateX(map.get(base.$panel-height, xlarge));
+            transform: translateX(map.get(base.$panel-heights, xlarge));
           }
         }
       }
@@ -335,11 +335,11 @@
         width: 100%;
 
         @include breakpoint(large up) {
-          width: map.get(base.$panel-height, large);
+          width: map.get(base.$panel-heights, large);
         }
 
         @include breakpoint(xlarge up) {
-          width: map.get(base.$panel-height, xlarge);
+          width: map.get(base.$panel-heights, xlarge);
         }
 
         .hero-accordion__label {
@@ -353,24 +353,24 @@
 
           @include breakpoint(large up) {
             flex-basis: unset;
-            width: map.get(base.$panel-height, large);
-            height: map.get(base.$panel-height, large);
+            width: map.get(base.$panel-heights, large);
+            height: map.get(base.$panel-heights, large);
           }
 
           @include breakpoint(xlarge up) {
-            width: map.get(base.$panel-height, xlarge);
-            height: map.get(base.$panel-height, xlarge);
+            width: map.get(base.$panel-heights, xlarge);
+            height: map.get(base.$panel-heights, xlarge);
           }
 
           &::before {
             @include breakpoint(large up) {
-              background-size: map.get(base.$panel-height, large)
-                map.get(base.$panel-height, large);
+              background-size: map.get(base.$panel-heights, large)
+                map.get(base.$panel-heights, large);
             }
 
             @include breakpoint(xlarge up) {
-              background-size: map.get(base.$panel-height, xlarge)
-                map.get(base.$panel-height, xlarge);
+              background-size: map.get(base.$panel-heights, xlarge)
+                map.get(base.$panel-heights, xlarge);
             }
           }
         }
@@ -427,11 +427,11 @@
         @include base.active-details-visible;
 
         @include breakpoint(large up) {
-          transform: translateX(-(map.get(base.$panel-height, large)));
+          transform: translateX(-(map.get(base.$panel-heights, large)));
         }
 
         @include breakpoint(xlarge up) {
-          transform: translateX(-(map.get(base.$panel-height, xlarge)));
+          transform: translateX(-(map.get(base.$panel-heights, xlarge)));
         }
       }
     }
@@ -468,11 +468,11 @@
         display: none;
 
         @include breakpoint(large up) {
-          transform: translateX(-(map.get(base.$panel-height, large)));
+          transform: translateX(-(map.get(base.$panel-heights, large)));
         }
 
         @include breakpoint(xlarge up) {
-          transform: translateX(-(map.get(base.$panel-height, xlarge)));
+          transform: translateX(-(map.get(base.$panel-heights, xlarge)));
         }
       }
 
