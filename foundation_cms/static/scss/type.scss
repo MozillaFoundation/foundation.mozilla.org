@@ -163,6 +163,42 @@ $label-text-styles: (
     ),
   ),
 );
+$link-text-styles: (
+  small: (
+    "xlarge": (
+      "font-size": rem-calc(24),
+      "line-height": 1.2,
+      "font-weight": 400,
+    ),
+    "large": (
+      "font-size": rem-calc(18),
+      "line-height": 1.2,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(16),
+      "line-height": 1.2,
+      "font-weight": 400,
+    ),
+  ),
+  large: (
+    "xlarge": (
+      "font-size": rem-calc(28),
+      "line-height": 1.2,
+      "font-weight": 400,
+    ),
+    "large": (
+      "font-size": rem-calc(18),
+      "line-height": 1.2,
+      "font-weight": 400,
+    ),
+    "regular": (
+      "font-size": rem-calc(16),
+      "line-height": 1.2,
+      "font-weight": 400,
+    ),
+  ),
+);
 
 // ===================================
 // Functions
@@ -386,4 +422,20 @@ body.redesign {
   text-transform: uppercase;
 
   @include mofo-text-style($label-text-styles, "regular");
+}
+
+// ===================================
+// Link Text
+// ===================================
+
+.link-text-xlarge {
+  @include mofo-text-style($link-text-styles, "xlarge", $header-font-family);
+}
+
+.link-text-large {
+  @include mofo-text-style($link-text-styles, "large", $header-font-family);
+}
+
+.link-text-regular {
+  @include mofo-text-style($link-text-styles, "regular", $header-font-family);
 }
