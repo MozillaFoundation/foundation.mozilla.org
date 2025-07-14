@@ -5,6 +5,6 @@
   "button": {
     "label": "Donate now",
     "link_to": "external_url",
-    "external_url": "https://www.mozillafoundation.org?form=donate-header"
+    "external_url": "https://www.mozillafoundation.org?form=home-donate1"
   }
 }
