@@ -156,18 +156,16 @@
   }
 
   &__cta {
-    .site-footer-ns__button--cta {
-      display: flex;
-      align-items: center;
+    .btn-primary {
+      width: 100%;
       justify-content: center;
       background-color: color(orange, "100");
       color: color(neutral, "600");
-      width: 100%;
       font-weight: 700;
-      padding: 1rem 1.25rem;
-      line-height: 150%;
-      cursor: pointer;
-      white-space: nowrap;
+
+      @include breakpoint(large up) {
+        width: auto;
+      }
 
       &:focus-visible {
         outline: 1px solid color(neutral, "100");
@@ -175,19 +173,18 @@
       }
 
       &::after {
-        background-image: url("../_images/icons/button-arrow-right-black.svg");
-        content: "";
-        width: 1rem;
-        height: 1rem;
-        display: inline-block;
-        margin-left: 1rem;
-        flex-wrap: nowrap;
+        background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
       }
+    }
+
+    @include breakpoint(large up) {
+      padding-right: 2rem;
     }
   }
 
   &__legals {
-    background: url("../_images/footer-separator.svg") no-repeat center top;
+    background: url("/static/foundation_cms/_images/footer-separator.svg")
+      no-repeat center top;
     background-size: 100% auto;
     padding-top: 3rem;
     margin-top: 3rem;
