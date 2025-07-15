@@ -1,6 +1,9 @@
+@use "sass:map";
+@import "../../../colors";
+
 .two-column-container {
   padding: 2rem 0;
-  background: $white;
+  background: map.get($mofo-colors, white);
   border-radius: 1.5rem;
   margin: 2rem 0;
 }
