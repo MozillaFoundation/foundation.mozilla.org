@@ -1,10 +1,5 @@
 .kinetic-type-brand-line {
-  $line-height: get-text-property(
-    $header-styles,
-    "h3",
-    "line-height",
-    "small"
-  );
+  $line-height: get-text-property($header-styles, "h3", "line-height", "small");
 
   --line-height-multiplier: #{$line-height};
 
@@ -16,7 +11,11 @@
   margin-bottom: 0;
 
   &__heading {
-    margin: 2rem 0;
+    margin: 1rem 0 2rem;
+
+    @include breakpoint(large up) {
+      margin-top: 2rem;
+    }
   }
 
   &__full-text {
