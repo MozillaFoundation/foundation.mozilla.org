@@ -184,6 +184,7 @@ $cta-link-icon-sizes: (
   &::before {
     $width: rem-calc(48);
     $left-offset: $width * -1;
+
     // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges
     $scale-overlap: 101%; // instead of 100%
 
