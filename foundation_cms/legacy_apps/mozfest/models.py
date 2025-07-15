@@ -269,18 +269,6 @@ class MozfestHomepage(MozfestPrimaryPage):
     MozFest Homepage
     """
 
-    # cta_button_label = models.CharField(
-    #     max_length=250,
-    #     blank=True,
-    #     help_text="Label text for the CTA button in the primary nav bar",
-    # )
-
-    # cta_button_destination = models.CharField(
-    #     max_length=2048,
-    #     blank=True,
-    #     help_text="The URL for the page that the CTA button in the primary nav bar should redirect to."
-    #     "E.g., /proposals, https://example.com/external-link",
-    # )
     nav_cta = StreamField(
         [
             ("tito_widget", customblocks.TitoWidgetBlock()),

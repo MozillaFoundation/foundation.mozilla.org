@@ -20,7 +20,7 @@
                 {% endif %}
 
                 {% if page.hero_cta %}
-                    {{ page.hero_cta.0 }}
+                    {% include "wagtailpages/fragments/tito_button.html" with value=page.hero_cta.0.value request=request %}
                 {% endif %}
 
             </div>
