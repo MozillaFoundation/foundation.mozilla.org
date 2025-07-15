@@ -346,7 +346,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         TranslatableField("banner_heading"),
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
-        TranslatableField("banner_text"),  
+        TranslatableField("banner_text"),
         TranslatableField("banner_cta"),
         # Signup field should be translatable, but is having issues
         # remaining synced across locales. Using sync field as workaround.
