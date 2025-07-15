@@ -164,15 +164,6 @@
       @include breakpoint(large up) {
         width: auto;
       }
-
-      &:focus-visible {
-        outline: 1px solid color(neutral, "100");
-        outline-offset: 2px;
-      }
-
-      &::after {
-        background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
-      }
     }
 
     @include breakpoint(large up) {
