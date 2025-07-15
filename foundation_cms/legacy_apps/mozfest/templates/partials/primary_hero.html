@@ -15,9 +15,10 @@
                 {% if page.banner_text %}
                     <p class="tw-body-large">{{ page.banner_text }}</p>
                 {% endif %}
-                {% if page.banner_link_url and page.banner_link_text %}
-                    <a class="tw-btn-secondary" href="{{ page.banner_link_url }}" data-cta-event="hero">{{ page.banner_link_text }}</a>
+                {% if page.banner_cta %}
+                    {% include "wagtailpages/fragments/tito_button.html" with value=page.banner_cta.0.value request=request %}
                 {% endif %}
+
             </div>
         </div>
     </div>

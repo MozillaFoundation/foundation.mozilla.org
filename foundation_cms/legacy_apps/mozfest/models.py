@@ -269,17 +269,14 @@ class MozfestHomepage(MozfestPrimaryPage):
     MozFest Homepage
     """
 
-    cta_button_label = models.CharField(
-        max_length=250,
+    nav_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Label text for the CTA button in the primary nav bar",
-    )
-
-    cta_button_destination = models.CharField(
-        max_length=2048,
-        blank=True,
-        help_text="The URL for the page that the CTA button in the primary nav bar should redirect to."
-        "E.g., /proposals, https://example.com/external-link",
+        use_json_field=True,
+        verbose_name="Nav CTA",
     )
 
     # Hero/Banner fields
@@ -298,15 +295,14 @@ class MozfestHomepage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.CharField(
-        max_length=2048,
+    banner_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Link presented to the user as a CTA in the banner.",
-    )
-    banner_link_text = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Text displayed for the banner link.",
+        use_json_field=True,
+        verbose_name="Banner CTA",
     )
 
     subpage_types = ["MozfestPrimaryPage", "MozfestHomepage", "MozfestLandingPage"]
@@ -316,8 +312,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel("signup"),
         MultiFieldPanel(
             [
-                FieldPanel("cta_button_label", heading="Label"),
-                FieldPanel("cta_button_destination", heading="Destination"),
+                FieldPanel("nav_cta", heading="Nav CTA"),
             ],
             heading="CTA Button",
         ),
@@ -327,8 +322,7 @@ class MozfestHomepage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("banner_link_url"),
-                FieldPanel("banner_link_text"),
+                FieldPanel("banner_cta"),
             ],
             heading="Hero banner",
         ),
@@ -348,14 +342,12 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField("search_image"),
         # Content tab fields
         TranslatableField("title"),
-        TranslatableField("cta_button_label"),
-        SynchronizedField("cta_button_destination"),
+        TranslatableField("nav_cta"),
         TranslatableField("banner_heading"),
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
-        SynchronizedField("banner_link_url"),
-        TranslatableField("banner_link_text"),
+        TranslatableField("banner_cta"),
         # Signup field should be translatable, but is having issues
         # remaining synced across locales. Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/648
@@ -395,15 +387,14 @@ class MozfestLandingPage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.CharField(
-        max_length=2048,
+    banner_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Link presented to the user as a CTA in the banner.",
-    )
-    banner_link_text = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Text displayed for the banner link.",
+        use_json_field=True,
+        verbose_name="Banner CTA",
     )
 
     content_panels = Page.content_panels + [
@@ -413,8 +404,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("banner_link_url"),
-                FieldPanel("banner_link_text"),
+                FieldPanel("banner_cta"),
             ],
             heading="Hero banner",
         ),
@@ -438,8 +428,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
-        SynchronizedField("banner_link_url"),
-        TranslatableField("banner_link_text"),
+        TranslatableField("banner_cta"),
         TranslatableField("body"),
     ]
 
