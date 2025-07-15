@@ -23,6 +23,10 @@
       n2-inner: color(yellow, "100"),
     );
 
+    // Negative offset to prevent sub-pixel rendering gaps at clip-path edges
+    // Browser rounding of fractional pixels can cause 1px gaps during animations
+    $clip-path-overlap: -1px;
+
     display: block;
 
     &--horizontal {
@@ -39,16 +43,17 @@
       }
     }
 
-    // Mixin for wipe reveal animations
     @mixin wipe-reveal($direction: "top", $duration: 1s, $easing: ease-out) {
       @if $direction == "top" {
-        clip-path: inset(100% 0 0 0);
+        clip-path: inset(
+          100% 0 $clip-path-overlap 0
+        ); // Prevent bottom edge gap
       } @else if $direction == "bottom" {
-        clip-path: inset(0 0 100% 0);
+        clip-path: inset($clip-path-overlap 0 100% 0); // Prevent top edge gap
       } @else if $direction == "left" {
-        clip-path: inset(0 0 0 100%);
+        clip-path: inset(0 $clip-path-overlap 0 100%); // Prevent right edge gap
       } @else if $direction == "right" {
-        clip-path: inset(0 100% 0 0);
+        clip-path: inset(-1px 100% -1px -1px); // Prevent left edge gap
       }
 
       animation: wipe-reveal-#{$direction} $duration $easing forwards
@@ -143,7 +148,10 @@
     @each $direction in (top, bottom, left, right) {
       @keyframes wipe-reveal-#{$direction} {
         to {
-          clip-path: inset(0 0 0 0);
+          clip-path: inset(
+            $clip-path-overlap $clip-path-overlap $clip-path-overlap
+              $clip-path-overlap
+          );
         }
       }
     }
