@@ -1,22 +1,35 @@
+@use "sass:map";
+
 .kinetic-type-wordmark {
+  $animation-delay: calc(var(--kinetic-animation-delay-ms) * 1ms);
+
   &__svg {
     $base-animation-duration: 1s;
-    $color-fill-z-a-left: color(yellow, "200");
-    $color-fill-m-middle: color(orange, "200");
-    $color-fill-m-right: color(yellow, "200");
-    $color-fill-m-left: color(blue, "100");
-    $color-fill-o-inner: color(green, "200");
+    $fill-colors: (
+      m-left: color(blue, "300"),
+      m-middle: color(orange, "300"),
+      m-right: #ffff42,
+      o-inner: color(green, "200"),
+      z-left: #ffff42,
+      a-inner: #ffff42,
+      f-bottom: color(blue, "300"),
+      o2-inner: color(orange, "300"),
+      u-inner: color(orange, "300"),
+      n-inner: color(blue, "300"),
+      d-inner: #ffff42,
+      a2-inner: color(green, "200"),
+      t-right: color(orange, "300"),
+      o3-inner: color(orange, "300"),
+      n2-inner: #ffff42,
+    );
 
     display: block;
-    max-width: 80vw;
 
     &--horizontal {
       display: none;
     }
 
     @include breakpoint(medium up) {
-      max-width: 100%;
-
       &--stacked {
         display: none;
       }
@@ -33,36 +46,13 @@
       } @else if $direction == "bottom" {
         clip-path: inset(0 0 100% 0);
       } @else if $direction == "left" {
-        clip-path: inset(0 100% 0 0);
-      } @else if $direction == "right" {
         clip-path: inset(0 0 0 100%);
+      } @else if $direction == "right" {
+        clip-path: inset(0 100% 0 0);
       }
 
-      animation: wipe-reveal-#{$direction} $duration $easing forwards;
-    }
-
-    // "z"
-    .fill-z-left {
-      fill: transparent;
-      animation: fill-z-a-left $base-animation-duration ease forwards;
-    }
-
-    // left fill of "m"
-    .fill-m-left {
-      fill: $color-fill-m-left;
-      @include wipe-reveal("bottom");
-    }
-
-    // middle fill of "m"
-    .fill-m-middle {
-      fill: $color-fill-m-middle;
-      @include wipe-reveal("top");
-    }
-
-    // right fill of "m"
-    .fill-m-right {
-      fill: $color-fill-m-right;
-      @include wipe-reveal("bottom");
+      animation: wipe-reveal-#{$direction} $duration $easing forwards
+        $animation-delay;
     }
 
     @mixin grow-fill($fill-color) {
@@ -70,22 +60,83 @@
       transform-box: fill-box;
       transform-origin: center;
       transform: scale(0);
-      animation: grow-mask $base-animation-duration ease-out forwards;
+      animation: grow-mask $base-animation-duration ease-out forwards
+        $animation-delay;
     }
 
-    // inner fill of "o"
+    .fill-z-left {
+      fill: transparent;
+      animation: fill-z-left $base-animation-duration ease forwards
+        $animation-delay;
+    }
+
+    .fill-m-left {
+      fill: map.get($fill-colors, m-left);
+      @include wipe-reveal("bottom");
+    }
+
+    .fill-m-middle {
+      fill: map.get($fill-colors, m-middle);
+      @include wipe-reveal("top");
+    }
+
+    .fill-m-right {
+      fill: map.get($fill-colors, m-right);
+      @include wipe-reveal("bottom");
+    }
+
     .fill-o-inner {
-      @include grow-fill($color-fill-o-inner);
+      @include grow-fill(map.get($fill-colors, o-inner));
     }
 
-    // fill of "a"
-    .fill-a-left {
-      @include grow-fill($color-fill-z-a-left);
+    .fill-a-inner {
+      @include grow-fill(map.get($fill-colors, a-inner));
     }
 
-    @keyframes fill-z-a-left {
+    .fill-f-bottom {
+      fill: map.get($fill-colors, f-bottom);
+      @include wipe-reveal("right");
+    }
+
+    .fill-o2-inner {
+      @include grow-fill(map.get($fill-colors, o2-inner));
+    }
+
+    .fill-u-inner {
+      fill: map.get($fill-colors, u-inner);
+      @include wipe-reveal("top");
+    }
+
+    .fill-n-inner {
+      fill: map.get($fill-colors, n-inner);
+      @include wipe-reveal("bottom");
+    }
+
+    .fill-d-inner {
+      @include grow-fill(map.get($fill-colors, d-inner));
+    }
+
+    .fill-a2-inner {
+      @include grow-fill(map.get($fill-colors, a2-inner));
+    }
+
+    .fill-t-right {
+      fill: map.get($fill-colors, t-right);
+      @include wipe-reveal("right");
+    }
+
+    .fill-o3-inner {
+      @include grow-fill(map.get($fill-colors, o3-inner));
+    }
+
+    .fill-n2-inner {
+      fill: map.get($fill-colors, n2-inner);
+      @include wipe-reveal("bottom");
+    }
+
+    @keyframes fill-z-left {
       to {
-        fill: $color-fill-z-a-left;
+        fill: map.get($fill-colors, z-left);
       }
     }
 
