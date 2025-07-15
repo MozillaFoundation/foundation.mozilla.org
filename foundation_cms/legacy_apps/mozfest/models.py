@@ -279,16 +279,6 @@ class MozfestHomepage(MozfestPrimaryPage):
         verbose_name="Nav CTA",
     )
 
-    hero_cta = StreamField(
-        [
-            ("tito_widget", customblocks.TitoWidgetBlock()),
-        ],
-        max_num=1,
-        blank=True,
-        use_json_field=True,
-        verbose_name="Hero CTA",
-    )
-
     # Hero/Banner fields
     banner_heading = models.CharField(
         max_length=250,
@@ -304,6 +294,15 @@ class MozfestHomepage(MozfestPrimaryPage):
         max_length=150,
         blank=True,
         help_text="Text displayed below the banner heading.",
+    )
+    banner_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
+        blank=True,
+        use_json_field=True,
+        verbose_name="Banner CTA",
     )
 
     subpage_types = ["MozfestPrimaryPage", "MozfestHomepage", "MozfestLandingPage"]
@@ -323,7 +322,7 @@ class MozfestHomepage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("hero_cta", heading="Hero CTA"),
+                FieldPanel("banner_cta"),
             ],
             heading="Hero banner",
         ),
@@ -344,11 +343,11 @@ class MozfestHomepage(MozfestPrimaryPage):
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("nav_cta"),
-        TranslatableField("hero_cta"),
         TranslatableField("banner_heading"),
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
-        TranslatableField("banner_text"),
+        TranslatableField("banner_text"),  
+        TranslatableField("banner_cta"),
         # Signup field should be translatable, but is having issues
         # remaining synced across locales. Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/648
@@ -388,15 +387,14 @@ class MozfestLandingPage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.CharField(
-        max_length=2048,
+    banner_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Link presented to the user as a CTA in the banner.",
-    )
-    banner_link_text = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Text displayed for the banner link.",
+        use_json_field=True,
+        verbose_name="Banner CTA",
     )
 
     content_panels = Page.content_panels + [
@@ -406,8 +404,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("banner_link_url"),
-                FieldPanel("banner_link_text"),
+                FieldPanel("banner_cta"),
             ],
             heading="Hero banner",
         ),
@@ -431,8 +428,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
-        SynchronizedField("banner_link_url"),
-        TranslatableField("banner_link_text"),
+        TranslatableField("banner_cta"),
         TranslatableField("body"),
     ]
 
