@@ -96,6 +96,11 @@ $cta-link-icon-sizes: (
       background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
     }
   }
+
+  &.dark-mode {
+    background-color: color(orange, "100");
+    color: color(neutral, "600");
+  }
 }
 
 .btn-secondary {

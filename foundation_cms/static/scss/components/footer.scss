@@ -159,8 +159,6 @@
     .btn-primary {
       width: 100%;
       justify-content: center;
-      background-color: color(orange, "100");
-      color: color(neutral, "600");
       font-weight: 700;
 
       @include breakpoint(large up) {
