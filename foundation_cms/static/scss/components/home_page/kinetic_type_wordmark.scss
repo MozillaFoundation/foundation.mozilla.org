@@ -8,19 +8,19 @@
     $fill-colors: (
       m-left: color(blue, "300"),
       m-middle: color(orange, "300"),
-      m-right: #ffff42,
+      m-right: color(yellow, "100"),
       o-inner: color(green, "200"),
-      z-left: #ffff42,
-      a-inner: #ffff42,
+      z-left: color(yellow, "100"),
+      a-inner: color(yellow, "100"),
       f-bottom: color(blue, "300"),
       o2-inner: color(orange, "300"),
       u-inner: color(orange, "300"),
       n-inner: color(blue, "300"),
-      d-inner: #ffff42,
+      d-inner: color(yellow, "100"),
       a2-inner: color(green, "200"),
       t-right: color(orange, "300"),
       o3-inner: color(orange, "300"),
-      n2-inner: #ffff42,
+      n2-inner: color(yellow, "100"),
     );
 
     display: block;
