@@ -90,6 +90,26 @@ $cta-link-icon-sizes: (
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
   }
+
+  &.with-heart-icon {
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
+    }
+  }
+
+  &.dark-mode {
+    background-color: color(orange, "100");
+    color: color(neutral, "600");
+
+    &:focus-visible {
+      outline: 1px solid color(neutral, "100");
+      outline-offset: 2px;
+    }
+
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+    }
+  }
 }
 
 .btn-secondary {
