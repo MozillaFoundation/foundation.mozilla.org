@@ -305,16 +305,6 @@ class MozfestHomepage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.CharField(
-        max_length=2048,
-        blank=True,
-        help_text="Link presented to the user as a CTA in the banner.",
-    )
-    banner_link_text = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Text displayed for the banner link.",
-    )
 
     subpage_types = ["MozfestPrimaryPage", "MozfestHomepage", "MozfestLandingPage"]
 
@@ -359,8 +349,6 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
-        SynchronizedField("banner_link_url"),
-        TranslatableField("banner_link_text"),
         # Signup field should be translatable, but is having issues
         # remaining synced across locales. Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/648
