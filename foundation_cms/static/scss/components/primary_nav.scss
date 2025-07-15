@@ -105,12 +105,6 @@ $primary-nav-height: rem-calc(88);
     @include breakpoint(large up) {
       order: 2;
     }
-
-    .btn-primary {
-      &::after {
-        background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
-      }
-    }
   }
 
   &__menu-wrapper {

@@ -90,6 +90,12 @@ $cta-link-icon-sizes: (
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
   }
+
+  &.with-heart-icon {
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
+    }
+  }
 }
 
 .btn-secondary {
