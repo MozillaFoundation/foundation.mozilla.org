@@ -5,6 +5,8 @@ $hamburger-bar-spacing: 0.8rem;
 @import "../../../../node_modules/delicious-hamburgers/scss/base";
 @import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
 
+$primary-nav-height: rem-calc(88);
+
 .primary-nav-ns {
   position: sticky;
   width: 100%;
@@ -13,7 +15,7 @@ $hamburger-bar-spacing: 0.8rem;
   top: 0;
   z-index: 10;
   background-color: $white;
-  height: 5rem;
+  height: $primary-nav-height;
   overflow: hidden;
   will-change: height;
   transition: height 0.3s ease-in-out;
@@ -260,17 +262,6 @@ $hamburger-bar-spacing: 0.8rem;
     }
   }
 
-  .button--donate {
-    display: flex;
-    gap: 1rem;
-    cursor: pointer;
-    align-items: center;
-    color: $white;
-    background: $black;
-    text-decoration: none;
-    padding: 0.9rem 1.5rem;
-  }
-
   a:focus-visible,
   button:focus-visible,
   [tabindex]:focus-visible {
@@ -278,8 +269,8 @@ $hamburger-bar-spacing: 0.8rem;
     outline-offset: 2px;
   }
 
-  a:not(.button):hover,
-  a:not(.button):focus-visible {
+  a:not(.btn-primary):hover,
+  a:not(.btn-primary):focus-visible {
     color: color(orange, "600");
   }
 
@@ -295,7 +286,7 @@ $hamburger-bar-spacing: 0.8rem;
 body.primary-nav-ns-open {
   height: 100vh;
   overflow: hidden;
-  padding-top: 5rem;
+  padding-top: $primary-nav-height;
 
   .primary-nav-ns {
     position: fixed;
