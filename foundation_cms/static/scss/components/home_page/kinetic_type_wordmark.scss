@@ -28,7 +28,7 @@
     $clip-path-overlap: -1px;
     // Slight scale oversizing to prevent edge gaps during transform animations
     // Scaling to exactly 1.0 can leave hairline gaps due to anti-aliasing
-    $scale-overlap: 1.005;
+    $scale-overlap: 1.01;
 
     display: block;
 
