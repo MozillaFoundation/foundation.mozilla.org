@@ -27,7 +27,7 @@
         "orientation": "landscape"
       },
       "cta_text": "",
-      "cta_link": "https://example.com/",
+      "cta_link": "",
       "description": "Join us in Barcelona this November for three days to unlearn and reimagine the role of technology in our lives."
     }
   },
@@ -43,7 +43,7 @@
         "orientation": "landscape"
       },
       "cta_text": "",
-      "cta_link": "https://example.com/",
+      "cta_link": "",
       "description": "The internet is for everyone. Let’s make it good together with our community and yours. Hey, that’s what we keep saying."
     }
   }
