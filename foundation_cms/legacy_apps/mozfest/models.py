@@ -22,7 +22,9 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.full_conten
     full_content_rich_text_options,
 )
 from foundation_cms.legacy_apps.wagtailpages.utils import (
+    get_language_from_request,
     get_page_tree_information,
+    map_language_code_to_tito_supported_language_code,
     set_main_site_nav_information,
 )
 
@@ -250,6 +252,9 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, "MozfestHomepage")
         context = get_page_tree_information(self, context)
+
+        request_language_code = get_language_from_request(context["request"])
+        context["tito_widget_lang_code"] = map_language_code_to_tito_supported_language_code(request_language_code)
 
         # primary nav information
         context["menu_root"] = self
