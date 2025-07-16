@@ -21,8 +21,7 @@
             "image": {
               "title": "Optional caption",
               "image": "tabbed_content__tab_2",
-              "alt_text": "Test",
-              "orientation": "landscape"
+              "alt_text": "Test"
             },
             "subtitle": "Card subtitle here"
           }
@@ -40,8 +39,7 @@
             "image": {
               "title": "Optional caption",
               "image": "tabbed_content__tab_3",
-              "alt_text": "Test",
-              "orientation": "landscape"
+              "alt_text": "Test"
             },
             "subtitle": "Card subtitle here"
           }
