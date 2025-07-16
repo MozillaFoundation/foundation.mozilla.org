@@ -11,11 +11,8 @@
   margin-bottom: 0;
 
   &__heading {
-    margin: 1rem 0 2rem;
-
-    @include breakpoint(large up) {
-      margin-top: 2rem;
-    }
+    margin-top: 0;
+    margin-bottom: 2rem;
   }
 
   &__full-text {

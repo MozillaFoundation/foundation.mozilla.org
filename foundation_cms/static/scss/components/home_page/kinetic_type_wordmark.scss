@@ -3,6 +3,13 @@
 .kinetic-type-wordmark {
   $animation-delay: calc(var(--kinetic-animation-delay-ms) * 1ms);
 
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  @include breakpoint(large up) {
+    margin-bottom: 2rem;
+  }
+
   &__svg {
     $base-animation-duration: 1s;
     $fill-colors: (
