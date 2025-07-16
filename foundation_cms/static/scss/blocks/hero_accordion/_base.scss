@@ -14,6 +14,7 @@
 //   Split type.scss into _type-defs.scss (definitions) and type.scss (selectors) in a follow-up PR.
 //   Once that's done, we can then @use to reduce the final CSS output
 @import "../../../scss/type";
+@import "../../../scss/buttons";
 
 // ===================================
 // Variables
@@ -202,6 +203,14 @@ $image-hover-scale: 105%;
 
     @include breakpoint(large up) {
       @include apply-text-style($body-text-styles, "large", "large");
+    }
+  }
+
+  &__cta {
+    @include cta-link(map.get($cta-link-icon-sizes, large), "large");
+
+    @include breakpoint(large up) {
+      @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
     }
   }
 
