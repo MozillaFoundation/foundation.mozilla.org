@@ -56,7 +56,7 @@
     ),
   );
   $card-padding: (
-    small: 1rem,
+    small: rem-calc(20),
     large: 2rem,
   );
 
@@ -80,6 +80,7 @@
     background-size: map.get($background-size, small);
     background-position: map.get($background-position, small);
     transform: rotate(map.get($style, rotation));
+    transition: transform 0.1s ease;
 
     @include apply-border-radius(
       top-left,
@@ -147,7 +148,11 @@
 
     &-headline {
       margin-top: 0;
-      margin-bottom: rem-calc(154);
+      margin-bottom: 5rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: rem-calc(154);
+      }
     }
 
     &-link {
