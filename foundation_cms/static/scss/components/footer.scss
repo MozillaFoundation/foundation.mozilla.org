@@ -1,0 +1,270 @@
+@import "../colors";
+
+.site-footer-ns {
+  background-color: color(neutral, "600");
+  color: color(neutral, "100");
+  padding: 3rem 0;
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__grid-cell:has(> .site-footer-ns__logo) {
+    @include breakpoint(large up) {
+      width: rem-calc(440);
+    }
+  }
+
+  &__logo {
+    margin-bottom: 3rem;
+
+    a {
+      display: block;
+    }
+  }
+
+  &__newsletter-form {
+    .newsletter-signup[data-layout="expand_on_focus"] {
+      background-color: transparent;
+      padding: 0;
+
+      &::before {
+        display: none;
+      }
+
+      .newsletter-signup__form {
+        @include breakpoint(xlarge up) {
+          flex-direction: column;
+          align-items: start;
+          gap: 0;
+        }
+      }
+
+      .newsletter-signup__form-grid {
+        width: 100%;
+      }
+
+      .newsletter-signup__cta {
+        @include mofo-text-style($body-text-styles, "large");
+
+        font-weight: 400;
+      }
+
+      .newsletter-signup__input {
+        background: $white;
+
+        &:hover {
+          border-color: $white;
+        }
+
+        &:focus-visible {
+          outline: 1px solid $white;
+          outline-offset: 2px;
+        }
+
+        @include breakpoint(large up) {
+          width: 100%;
+        }
+      }
+
+      .newsletter-signup__field label {
+        color: $white;
+
+        input[type="checkbox"] {
+          border: 1px solid $white;
+          background-color: transparent;
+
+          &:checked {
+            background-image: url("../_images/icons/checkbox-stripe-white.svg");
+          }
+
+          &:hover {
+            border: 1px solid $white;
+            box-shadow: 1px 1px 0 0 $white;
+          }
+        }
+      }
+
+      .newsletter-signup__button {
+        border: 1px solid $white;
+        background-color: transparent;
+        font-weight: 700;
+
+        &:focus-visible {
+          outline: 1px solid $white;
+          outline-offset: 2px;
+        }
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+
+    ul {
+      width: 50%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 0.5rem 0;
+      }
+
+      a {
+        color: color(neutral, "100");
+        text-decoration: none;
+
+        &:hover {
+          color: color(orange, "100");
+        }
+      }
+
+      &.external {
+        a {
+          &::after {
+            display: inline-block;
+            content: "";
+            width: rem-calc(12px);
+            height: rem-calc(12px);
+            background-image: url("../_images/icons/link-external-white.svg");
+            margin-left: 0.5rem;
+          }
+
+          &:hover {
+            &::after {
+              background-image: url("../_images/icons/link-external-orange.svg");
+            }
+          }
+        }
+      }
+    }
+
+    @include breakpoint(large up) {
+      width: 33%;
+    }
+  }
+
+  &__cta {
+    .btn-primary {
+      width: 100%;
+      justify-content: center;
+      font-weight: 700;
+
+      @include breakpoint(large up) {
+        width: auto;
+      }
+    }
+
+    @include breakpoint(large up) {
+      padding-right: 2rem;
+    }
+  }
+
+  &__legals {
+    background: url("/static/foundation_cms/_images/footer-separator.svg")
+      no-repeat center top;
+    background-size: 100% auto;
+    padding-top: 3rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 4rem;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .site-footer-ns__link--legal {
+      color: color(neutral, "100");
+      text-decoration: underline;
+    }
+
+    .social-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      justify-content: center;
+
+      .site-footer-ns__social-link {
+        display: block;
+        height: rem-calc(24px);
+        width: rem-calc(24px);
+
+        &:hover {
+          svg path {
+            fill: color(orange, "100");
+          }
+        }
+
+        [class*="icon-"] {
+          width: 100%;
+          height: 100%;
+          display: block;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        .icon-bluesky {
+          background-image: url("../_images/icons/social-bluesky-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-bluesky-orange.svg");
+          }
+        }
+
+        .icon-instagram {
+          background-image: url("../_images/icons/social-instagram-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-instagram-orange.svg");
+          }
+        }
+
+        .icon-linkedin {
+          background-image: url("../_images/icons/social-linkedin-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-linkedin-orange.svg");
+          }
+        }
+
+        .icon-spotify {
+          background-image: url("../_images/icons/social-spotify-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-spotify-orange.svg");
+          }
+        }
+
+        .icon-tiktok {
+          background-image: url("../_images/icons/social-tiktok-white.svg");
+
+          &:hover {
+            background-image: url("../_images/icons/social-tiktok-orange.svg");
+          }
+        }
+      }
+    }
+  }
+}

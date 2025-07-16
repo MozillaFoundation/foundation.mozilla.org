@@ -254,7 +254,7 @@ INSTALLED_APPS = list(
             "adminsortable",
             "querystring_tag",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
-            # the network site
+            # Legacy Site Apps
             "foundation_cms.legacy_apps.s3_file_storage" if USE_S3 else None,
             "foundation_cms.legacy_apps.campaign",
             "foundation_cms.legacy_apps.events",
@@ -271,6 +271,13 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.reports",
             "foundation_cms.legacy_apps.nav",
             "foundation_cms.legacy_apps.project_styleguide",
+            # Redesign Site Apps
+            "foundation_cms.base",
+            "foundation_cms.core",
+            "foundation_cms.blog",
+            "foundation_cms.articles",
+            "foundation_cms.profiles",
+            "foundation_cms.snippets",
             "foundation_cms.images",
         ],
     )
@@ -342,6 +349,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             root("legacy_apps/templates"),
+            root("templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -378,6 +386,8 @@ TEMPLATES = [
                 "nav_tags": "foundation_cms.legacy_apps.nav.templatetags.nav_tags",
                 "primary_page_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
+                "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
+                "streamfield_tags": "foundation_cms.templatetags.streamfield_tags",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),

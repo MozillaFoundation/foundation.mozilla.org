@@ -1,0 +1,74 @@
+{
+  "hero_accordion__1": {
+    "filename": "hero_accordion__1.jpg",
+    "alt_text": "Intro video thumbnail image"
+  },
+  "hero_accordion__2": {
+    "filename": "hero_accordion__2.jpg",
+    "alt_text": "Mozilla Festival 2025 visual"
+  },
+  "hero_accordion__3": {
+    "filename": "hero_accordion__3.jpg",
+    "alt_text": "Our global community at MozFest"
+  },
+  "tabbed_content__tab_2": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "Diagram of tools"
+  },
+  "tabbed_content__tab_3": {
+    "filename": "placeholder__2.jpg",
+    "alt_text": "Photo of a Mozilla contributor"
+  },
+  "portrait_card__1": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "First Card"
+  },
+  "portrait_card__2": {
+    "filename": "placeholder__2.jpg",
+    "alt_text": "Second Card"
+  },
+  "portrait_card__3": {
+    "filename": "placeholder__1.jpg",
+    "alt_text": "Third Card"
+  },
+  "timely_activations__1": {
+    "filename": "timely_activation_card__1.jpg",
+    "alt_text": "Internet Health"
+  },
+  "timely_activations__2": {
+    "filename": "timely_activation_card__2.jpg",
+    "alt_text": "Privacy and Security"
+  },
+  "timely_activations__3": {
+    "filename": "timely_activation_card__3.jpg",
+    "alt_text": "Digital Inclusion"
+  },
+  "spotlight_card_set__1": {
+    "filename": "spotlight_card__1.jpg",
+    "alt_text": "Faculty"
+  },
+  "spotlight_card_set__2": {
+    "filename": "spotlight_card__2.jpg",
+    "alt_text": "Common Voice"
+  },
+  "spotlight_card_set__3": {
+    "filename": "spotlight_card__3.jpg",
+    "alt_text": "Festival Wrangler"
+  },
+  "pillar_card__1": {
+    "filename": "arrow-up.svg",
+    "alt_text": ""
+  },
+  "pillar_card__2": {
+    "filename": "stairs.svg",
+    "alt_text": ""
+  },
+  "pillar_card__3": {
+    "filename": "rays.svg",
+    "alt_text": ""
+  },
+  "featured_card": {
+    "filename": "featured_card.jpg",
+    "alt_text": ""
+  }
+}

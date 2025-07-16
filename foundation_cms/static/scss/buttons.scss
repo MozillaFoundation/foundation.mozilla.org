@@ -1,0 +1,220 @@
+@use "sass:map";
+
+$cta-link-icon-sizes: (
+  regular: rem-calc(12),
+  large: rem-calc(16),
+  xlarge: rem-calc(24),
+);
+
+@mixin rolling-text-effect(
+  $base-class: ".btn-primary",
+  $color: color(neutral, "100"),
+  $border-color: black
+) {
+  $button-transition-duration: 0.5s;
+  $button-transition-ease: ease;
+
+  display: flex;
+  align-items: center;
+  gap: rem-calc(16);
+  padding: rem-calc(14.4) rem-calc(24);
+  text-decoration: none;
+  cursor: pointer;
+  width: max-content;
+  overflow: hidden;
+  margin: rem-calc(16) 0;
+  color: $color;
+  border: 1px solid $border-color;
+
+  &__roller {
+    position: relative;
+    height: rem-calc(24);
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  &__rolltext {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__text {
+    display: block;
+    white-space: nowrap;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      transform $button-transition-duration $button-transition-ease,
+      opacity $button-transition-duration $button-transition-ease;
+  }
+
+  &__text--roll-in {
+    opacity: 0;
+    transform: translateY(1.5em);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &:hover {
+    #{$base-class}__text {
+      opacity: 0;
+      transform: translateY(-1.5em);
+
+      &--roll-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    width: rem-calc(16);
+    height: rem-calc(16);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn-primary {
+  @include rolling-text-effect(".btn-primary", color(neutral, "100"));
+
+  background-color: color(neutral, "600");
+
+  &::after {
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
+  }
+
+  &.with-heart-icon {
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
+    }
+  }
+
+  &.dark-mode {
+    background-color: color(orange, "100");
+    color: color(neutral, "600");
+
+    &:focus-visible {
+      outline: 1px solid color(neutral, "100");
+      outline-offset: 2px;
+    }
+
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+    }
+  }
+}
+
+.btn-secondary {
+  @include rolling-text-effect(
+    ".btn-secondary",
+    color(neutral, "600"),
+    color(neutral, "600")
+  );
+
+  &::after {
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+  }
+}
+
+// ===================================
+// CTA Link (link with an arrow)
+// ===================================
+
+@mixin cta-link($imageSize, $textSize: "regular") {
+  @include mofo-text-style($link-text-styles, $textSize, $header-font-family);
+
+  color: $black;
+  display: flex;
+  align-items: center;
+  gap: rem-calc(12);
+  text-wrap: nowrap;
+  width: fit-content;
+
+  &::after {
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+    background-size: contain;
+    content: "";
+    width: $imageSize;
+    height: $imageSize;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: transform 0.3s ease-out;
+  }
+
+  &:hover {
+    &::after {
+      transform: translateX(0.75rem);
+    }
+  }
+}
+
+.cta-link {
+  @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+
+  &--large {
+    @include cta-link(map.get($cta-link-icon-sizes, large), "large");
+  }
+
+  &--xlarge {
+    @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
+  }
+}
+
+// ===================================
+// Pagination Controls
+// ===================================
+
+.pagination-controls {
+  $background-color: black;
+
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+  background: $background-color;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: rem-calc(48) * -1;
+    top: 0;
+    bottom: 0;
+    width: rem-calc(48);
+    background: $background-color;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+  }
+
+  &__counter {
+    background: $background-color;
+    width: 3em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: rem-calc(4);
+    justify-content: space-evenly;
+  }
+
+  button {
+    padding: rem-calc(24) rem-calc(20);
+    color: white;
+    background: $background-color;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline-color: color(neutral, "300");
+      z-index: 1;
+    }
+
+    &:disabled {
+      visibility: hidden;
+    }
+  }
+}

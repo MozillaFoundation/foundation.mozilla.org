@@ -1,0 +1,279 @@
+// ===================================
+// Shared variables, mixins, functions, and base selectors for hero-accordion
+// ===================================
+
+@use "sass:math";
+@use "sass:map";
+
+@import "../../settings/customized-settings";
+@import "../../../../../node_modules/foundation-sites/scss/util/util";
+@import "../../../../../node_modules/foundation-sites/scss/util/breakpoint";
+@import "../../../scss/colors";
+
+// FIXME:TODO:
+//   Split type.scss into _type-defs.scss (definitions) and type.scss (selectors) in a follow-up PR.
+//   Once that's done, we can then @use to reduce the final CSS output
+@import "../../../scss/type";
+@import "../../../scss/buttons";
+
+// ===================================
+// Variables
+// ===================================
+
+$panel-transition: (
+  duration: 0.5s,
+  timing-function: ease,
+);
+$panel-height: (
+  small: rem-calc(400),
+  medium: rem-calc(500),
+  large: rem-calc(500),
+  xlarge: rem-calc(600),
+);
+$panel-colors: (
+  1: color(orange, "300"),
+  2: color(yellow, "600"),
+  3: color(yellow, "300"),
+);
+$text-side-margin: (
+  small: 1rem,
+  large: 0.875rem,
+);
+$details-section-padding-y-small: 1.5rem;
+$details-section-padding: (
+  small: $details-section-padding-y-small 2rem,
+  large: 2rem,
+);
+$details-subsection-gap: (
+  small: 0.5rem,
+  large: 4rem,
+);
+$corner-radius: (
+  small: 1.75rem,
+  large: 4.25rem,
+);
+$handdrawn-illustrations: (
+  "video": url("../../_images/handdrawn/hero-accordion/rays.svg"),
+  "image-text-even": url("../../_images/handdrawn/hero-accordion/loop-line.svg"),
+  "image-text-odd": url("../../_images/handdrawn/hero-accordion/zig-zag.svg"),
+);
+$image-hover-scale: 105%;
+
+// ===================================
+// Functions
+// ===================================
+
+// Calculates the horizontal offset for panel details animation
+// Used to position the details section off-screen before it slides in
+// @param {Number} $height - The panel height at current breakpoint
+// @param {Number} $direction - Direction multiplier: 1 for right (even panels), -1 for left (odd panels)
+// @return {Calc} - CSS calc() expression for translateX offset
+@function calc-panel-offset($height, $direction: 1) {
+  @return calc(#{$direction} * (var(--open-panel-width) - 2 * #{$height}));
+}
+
+@function calc-panel-width($height) {
+  @return calc(var(--open-panel-width) - #{$height});
+}
+
+// ===================================
+// Mixins
+// ===================================
+
+@mixin text-details-position-even($size) {
+  $height: map.get($panel-height, $size);
+
+  transform: translateX(calc-panel-offset($height));
+  width: calc-panel-width($height);
+}
+
+@mixin text-details-position-odd($size) {
+  $height: map.get($panel-height, $size);
+
+  transform: translateX(calc-panel-offset($height, -1));
+  width: calc-panel-width($height);
+}
+
+@mixin active-details-visible {
+  display: block;
+  opacity: 1;
+}
+
+@mixin active-panel-width {
+  width: 100%;
+
+  @include breakpoint(large up) {
+    width: var(--open-panel-width);
+  }
+}
+
+@mixin closed-panel-width {
+  width: 100%;
+
+  @include breakpoint(large up) {
+    width: var(--closed-panel-width);
+  }
+}
+
+@mixin handdrawn-indicator($opacity: 0) {
+  content: "";
+  display: block;
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: $opacity;
+  z-index: 2;
+
+  @if $opacity == 0 {
+    transition: opacity
+      map.get($panel-transition, duration)
+      map.get($panel-transition, timing-function)
+      map.get($panel-transition, duration);
+  }
+}
+
+.hero-accordion {
+  // ===================================
+  // CSS Variables
+  // ===================================
+
+  --open-multiplier: 5; // How many "flex units" the open panel gets
+  --total-panels: 3; // This is the fallback value. This will be inline-overriden in Dango template
+  --closed-panel-width: 100% / 3; // fallback value. Will be overriden by JS
+  --open-panel-width: 100% / 3; // fallback value. Will be overriden by JS
+
+  // ===================================
+  // Accordion Base Styling
+  // ===================================
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: visible;
+  margin: 3rem 0;
+
+  @include breakpoint(large up) {
+    flex-direction: row;
+    height: map.get($panel-height, large);
+    margin: rem-calc(48) 0 rem-calc(64) 0;
+  }
+
+  @include breakpoint(xlarge up) {
+    height: map.get($panel-height, xlarge);
+  }
+
+  // ===================================
+  // Text Elements
+  // ===================================
+
+  &__heading {
+    margin-top: 0;
+    margin-bottom: rem-calc(8);
+
+    @include breakpoint(large up) {
+      margin-bottom: rem-calc(21);
+    }
+  }
+
+  &__label {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include apply-text-style(
+      $header-styles,
+      "h6",
+      "small",
+      $header-font-family
+    );
+
+    @include breakpoint(large up) {
+      @include apply-text-style(
+        $header-styles,
+        "h5",
+        "large",
+        $header-font-family
+      );
+    }
+  }
+
+  &__description {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    @include breakpoint(large up) {
+      @include apply-text-style($body-text-styles, "large", "large");
+    }
+  }
+
+  &__cta {
+    @include cta-link(map.get($cta-link-icon-sizes, large), "large");
+
+    @include breakpoint(large up) {
+      @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
+    }
+  }
+
+  // ===================================
+  // Panel Base Styles
+  // ===================================
+
+  &__panel {
+    flex: none;
+    position: relative;
+    cursor: pointer;
+    transition: width map.get($panel-transition, duration)
+      map.get($panel-transition, timing-function);
+
+    @include closed-panel-width;
+
+    &::after {
+      @include handdrawn-indicator;
+
+      height: 4rem;
+
+      @include breakpoint(large up) {
+        height: 8rem;
+      }
+    }
+
+    &:nth-child(3n + 1) {
+      background-color: map.get($panel-colors, 1);
+    }
+
+    &:nth-child(3n + 2) {
+      background-color: map.get($panel-colors, 2);
+    }
+
+    &:nth-child(3n + 3) {
+      background-color: map.get($panel-colors, 3);
+    }
+
+    &.active {
+      @include active-panel-width;
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &.transitioning-to-inactive {
+      &::after {
+        display: none;
+      }
+    }
+
+    // ===================================
+    // Panel Inner Wrapper - Base Structure
+    // ===================================
+
+    &-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

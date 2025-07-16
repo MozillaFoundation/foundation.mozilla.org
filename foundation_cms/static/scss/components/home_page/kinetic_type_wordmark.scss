@@ -1,0 +1,106 @@
+.kinetic-type-wordmark {
+  &__svg {
+    $base-animation-duration: 1s;
+    $color-fill-z-a-left: color(yellow, "200");
+    $color-fill-m-middle: color(orange, "200");
+    $color-fill-m-right: color(yellow, "200");
+    $color-fill-m-left: color(blue, "100");
+    $color-fill-o-inner: color(green, "200");
+
+    display: block;
+    max-width: 80vw;
+
+    &--horizontal {
+      display: none;
+    }
+
+    @include breakpoint(medium up) {
+      max-width: 100%;
+
+      &--stacked {
+        display: none;
+      }
+
+      &--horizontal {
+        display: block;
+      }
+    }
+
+    // Mixin for wipe reveal animations
+    @mixin wipe-reveal($direction: "top", $duration: 1s, $easing: ease-out) {
+      @if $direction == "top" {
+        clip-path: inset(100% 0 0 0);
+      } @else if $direction == "bottom" {
+        clip-path: inset(0 0 100% 0);
+      } @else if $direction == "left" {
+        clip-path: inset(0 100% 0 0);
+      } @else if $direction == "right" {
+        clip-path: inset(0 0 0 100%);
+      }
+
+      animation: wipe-reveal-#{$direction} $duration $easing forwards;
+    }
+
+    // "z"
+    .fill-z-left {
+      fill: transparent;
+      animation: fill-z-a-left $base-animation-duration ease forwards;
+    }
+
+    // left fill of "m"
+    .fill-m-left {
+      fill: $color-fill-m-left;
+      @include wipe-reveal("bottom");
+    }
+
+    // middle fill of "m"
+    .fill-m-middle {
+      fill: $color-fill-m-middle;
+      @include wipe-reveal("top");
+    }
+
+    // right fill of "m"
+    .fill-m-right {
+      fill: $color-fill-m-right;
+      @include wipe-reveal("bottom");
+    }
+
+    @mixin grow-fill($fill-color) {
+      fill: $fill-color;
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(0);
+      animation: grow-mask $base-animation-duration ease-out forwards;
+    }
+
+    // inner fill of "o"
+    .fill-o-inner {
+      @include grow-fill($color-fill-o-inner);
+    }
+
+    // fill of "a"
+    .fill-a-left {
+      @include grow-fill($color-fill-z-a-left);
+    }
+
+    @keyframes fill-z-a-left {
+      to {
+        fill: $color-fill-z-a-left;
+      }
+    }
+
+    @each $direction in (top, bottom, left, right) {
+      @keyframes wipe-reveal-#{$direction} {
+        to {
+          clip-path: inset(0 0 0 0);
+        }
+      }
+    }
+
+    @keyframes grow-mask {
+      to {
+        transform: scale(1);
+      }
+    }
+  }
+}
