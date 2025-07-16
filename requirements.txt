@@ -250,7 +250,7 @@ typing-extensions==4.4.0
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
-urllib3==1.26.19
+urllib3==2.5.0
     # via
     #   botocore
     #   requests
