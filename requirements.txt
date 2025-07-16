@@ -95,7 +95,7 @@ django-permissionedforms==0.1
     # via wagtail
 django-querystring-tag==1.0.3
     # via -r requirements.in
-django-redis==5.4.0
+django-redis==6.0.0
     # via -r requirements.in
 django-storages==1.14.5
     # via -r requirements.in
