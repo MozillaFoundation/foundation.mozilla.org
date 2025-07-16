@@ -117,6 +117,12 @@
     }
   }
 
+  padding: 2rem 0 3rem 0;
+
+  @include breakpoint(large up) {
+    padding: 3rem 0 5rem 0;
+  }
+
   &__card-container {
     display: flex;
     flex-direction: column;
