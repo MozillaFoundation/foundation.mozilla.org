@@ -18,7 +18,7 @@ class ImpactStatBlock(blocks.StructBlock):
     )
 
     stat_heading = blocks.CharBlock(required=True, help_text="Heading of the stat")
-    stat_description = blocks.CharBlock(required=True, help_text="Short description of the stat")
+    stat_description = blocks.CharBlock(required=False, help_text="Short description of the stat")
 
     class Meta:
         icon = "plus"
