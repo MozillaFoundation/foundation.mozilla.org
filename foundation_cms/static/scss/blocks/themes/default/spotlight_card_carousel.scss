@@ -1,10 +1,12 @@
 @use "sass:map";
 @use "sass:math";
 
+// @import "../../../scss/type";
+
 .spotlight-card-set {
   position: relative;
 
-  @include breakpoint(xxlarge up) {
+  @include breakpoint(large up) {
     &::before {
       content: "";
       position: absolute;
@@ -22,13 +24,13 @@
       $bg: (
         1: (
           img: url("../_images/handdrawn/notched-rectangle.svg"),
-          position: left calc($offset-to-container-edge - 4rem) top 5rem,
-          size: rem-calc(256) auto,
+          position: left calc($offset-to-container-edge + 3rem) top 3rem,
+          size: rem-calc(320) auto,
         ),
         2: (
           img: url("../_images/handdrawn/speech-bubble.svg"),
-          position: right calc($offset-to-container-edge - 2.5rem) bottom 8rem,
-          size: rem-calc(180) auto,
+          position: right calc($offset-to-container-edge + 3rem) bottom 15rem,
+          size: rem-calc(302) auto,
         ),
       );
       $bg1: map.get($bg, 1);
@@ -133,11 +135,7 @@
         calc(
           var(--last-image-height) / 2 + map.get($right-half-offset-y, large)
         );
-      background-size: rem-calc(150) auto;
-    }
-
-    @include breakpoint(xxlarge up) {
-      background-size: rem-calc(180) auto;
+      background-size: rem-calc(120) auto;
     }
 
     &__slides {
@@ -165,7 +163,7 @@
         left: 0;
         top: var(--featured-image-height);
         width: display-width($featured-columns);
-        padding: 2rem 2rem 2rem 0;
+        padding: rem-calc(24) 2rem 2rem 0;
       }
     }
 
@@ -215,7 +213,23 @@
       }
 
       &__name {
-        margin: 1rem 0;
+        margin: 0.5rem 0;
+
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "small",
+          $header-font-family
+        );
+
+        @include breakpoint(large up) {
+          @include apply-text-style(
+            $header-styles,
+            "h4",
+            "large",
+            $header-font-family
+          );
+        }
       }
 
       &__image {
