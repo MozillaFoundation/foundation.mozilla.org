@@ -20,6 +20,10 @@
     flex-direction: column;
   }
 
+  &__space-char {
+    display: none;
+  }
+
   &__phrase-wrapper {
     display: inline-block;
     overflow: hidden;
@@ -51,6 +55,10 @@
     &__full-text {
       align-items: center;
       flex-direction: row;
+    }
+
+    &__space-char {
+      display: block;
     }
   }
 }
