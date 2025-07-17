@@ -22,6 +22,10 @@
     @include mofo-text-style($header-styles, "h3", $header-font-family);
   }
 
+  &__space-char {
+    display: none;
+  }
+
   &__phrase-wrapper {
     display: inline-block;
     overflow: hidden;
@@ -53,7 +57,10 @@
     &__full-text {
       align-items: center;
       flex-direction: row;
-      gap: 0.5rem;
+    }
+
+    &__space-char {
+      display: block;
     }
   }
 }
