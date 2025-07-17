@@ -117,10 +117,10 @@
     }
   }
 
-  padding: 2rem 0 3rem 0;
+  padding: 2rem 0 3rem;
 
   @include breakpoint(large up) {
-    padding: 3rem 0 5rem 0;
+    padding: 3rem 0 5rem;
   }
 
   &__card-container {
