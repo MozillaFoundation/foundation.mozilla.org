@@ -24,6 +24,7 @@ $panel-transition: (
   duration: 0.5s,
   timing-function: ease,
 );
+
 // panel heights for desktop layout (horizontal instead of stacked)
 $panel-heights: (
   large: rem-calc(500),
