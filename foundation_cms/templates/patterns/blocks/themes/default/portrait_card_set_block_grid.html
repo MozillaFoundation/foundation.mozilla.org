@@ -1,21 +1,24 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="portrait-card-set grid-container">
-  <div class="grid-x grid-margin-x">
+<div class="portrait-card-set {% if self.cards|length > 3 %}is-carousel{% endif %}">
+  {% if self.headline %}
+    <div class="portrait-card-set__headline-wrapper">
+      <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
+    </div>
+  {% endif %}
 
-    {% if self.headline %}
-      <div class="cell">
-        <h2 class="portrait-card-set__headline">{{ self.headline }}</h2>
-      </div>
-    {% endif %}
+  <div class="portrait-card-set__card-container">
+    <div class="carousel-track">
+      {% for card in self.cards %}
+        <div class="portrait-card">
+          {% include "./portrait_card.html" %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
 
-    {% for card in self.cards %}
-      <div class="cell small-12 medium-4">
-        {% include "./portrait_card.html" %}
-      </div>
-    {% endfor %}
-
-    {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
-
+  <div class="portrait-card-set__controls">
+    {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
   </div>
 </div>
