@@ -4,6 +4,8 @@
 // @import "../../../scss/type";
 
 .spotlight-card-set {
+  $image-hover-scale: 105%;
+
   position: relative;
 
   @include breakpoint(large up) {
@@ -236,7 +238,6 @@
         width: 100%;
         aspect-ratio: math.div(1, 1);
         margin: 0;
-        cursor: pointer;
 
         img {
           display: block;
@@ -244,6 +245,8 @@
           height: 100%;
           object-fit: cover;
           object-position: center;
+          transition: transform map.get($transition, duration)
+            map.get($transition, timing-function);
         }
       }
 
@@ -275,6 +278,16 @@
             "../_images/spotlight/trapezoid-mask.svg",
             color(blue, "200")
           );
+        }
+      }
+
+      &[data-display-position]:not([data-display-position="1"]) {
+        &:hover {
+          cursor: pointer;
+
+          img {
+            transform: scale($image-hover-scale);
+          }
         }
       }
     }
