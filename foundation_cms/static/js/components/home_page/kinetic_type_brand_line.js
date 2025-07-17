@@ -153,5 +153,5 @@ export class KineticTypeBrandLine {
 export function initAllRollingPhrases() {
   document
     .querySelectorAll(SELECTORS.root)
-    .forEach((el) => new RollingPhrases(el).init());
+    .forEach((el) => new KineticTypeBrandLine(el).init());
 }
