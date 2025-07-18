@@ -2,7 +2,7 @@ from pathlib import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from wagtail.models import Page, Site
+from wagtail.models import Page
 
 from foundation_cms.core.factories.homepage import HomePageFactory
 from foundation_cms.core.models.home_page import HomePage
@@ -19,9 +19,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         homepage_slug = "redesign-home"
-        REVIEW_APP_NAME = getattr(settings, "HEROKU_APP_NAME", None)
-        hostname = f"{REVIEW_APP_NAME}.herokuapp.com" if REVIEW_APP_NAME else "localhost"
-        port = 80 if REVIEW_APP_NAME else 8000
+        # REVIEW_APP_NAME = getattr(settings, "HEROKU_APP_NAME", None)
+        # hostname = f"{REVIEW_APP_NAME}.herokuapp.com" if REVIEW_APP_NAME else "localhost"
+        # port = 80 if REVIEW_APP_NAME else 8000
 
         root = Page.get_first_root_node()
         if not root.pk:
