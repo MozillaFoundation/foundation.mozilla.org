@@ -11,6 +11,7 @@ from wagtail.search import index
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.core.models.home_page import HomePage as NewHomePage
 from foundation_cms.legacy_apps.donate_banner.models import DonateBannerPage
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.link_block import (
     LinkBlock,
@@ -1077,6 +1078,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ArticlePage",
         "donate.DonateLandingPage",
         "donate_banner.DonateBannerPage",
+        NewHomePage,
     ]
 
     page_ptr = models.OneToOneField(
