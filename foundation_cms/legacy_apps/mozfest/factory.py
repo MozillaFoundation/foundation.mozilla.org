@@ -61,8 +61,6 @@ class MozfestHomepageFactory(MozfestPrimaryPageFactory):
     banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
     banner_meta = "1st–3rd June 2024 | MALDIVES"
     banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
-    banner_link_url = Faker("url")
-    banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
     body = Faker("streamfield", fields=streamfield_fields)
 
@@ -78,8 +76,6 @@ class MozfestLandingPageFactory(PageFactory):
     banner_heading = Faker("sentence", nb_words=6, variable_nb_words=True)
     banner_meta = "1st–3rd June 2024 | MALDIVES"
     banner_text = Faker("sentence", nb_words=12, variable_nb_words=True)
-    banner_link_url = Faker("url")
-    banner_link_text = Faker("sentence", nb_words=2, variable_nb_words=True)
 
 
 class TicketSnippetFactory(DjangoModelFactory):

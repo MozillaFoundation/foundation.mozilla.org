@@ -1,9 +1,8 @@
 {% extends "./base_streamfield_block.html" %}
 {% load i18n %}
 
-
 {% block block_content %}
-    <script src='https://js.tito.io/v2' async></script>
-
-    <tito-button event="{{ value.event.event_id }}" source="{% if value.source %}{{ value.source }}{% endif %}" save-metadata-parameters="utm_*" cache-metadata-parameters locale="{{ tito_widget_lang_code }}"{% if value.releases %} releases="{{ value.releases }}"{% endif %} class="tw-{{ value.styling }} link-button tw-my-8">{{ value.button_label }}</tito-button>
+    {% with block_value=value %}
+        {% include "../fragments/tito_button.html" with value=block_value %}
+    {% endwith %}
 {% endblock %}

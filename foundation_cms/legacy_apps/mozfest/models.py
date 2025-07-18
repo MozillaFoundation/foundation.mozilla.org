@@ -22,7 +22,9 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.full_conten
     full_content_rich_text_options,
 )
 from foundation_cms.legacy_apps.wagtailpages.utils import (
+    get_language_from_request,
     get_page_tree_information,
+    map_language_code_to_tito_supported_language_code,
     set_main_site_nav_information,
 )
 
@@ -251,6 +253,9 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         context = set_main_site_nav_information(self, context, "MozfestHomepage")
         context = get_page_tree_information(self, context)
 
+        request_language_code = get_language_from_request(context["request"])
+        context["tito_widget_lang_code"] = map_language_code_to_tito_supported_language_code(request_language_code)
+
         # primary nav information
         context["menu_root"] = self
         context["menu_items"] = self.get_children().live().in_menu()
@@ -269,17 +274,14 @@ class MozfestHomepage(MozfestPrimaryPage):
     MozFest Homepage
     """
 
-    cta_button_label = models.CharField(
-        max_length=250,
+    nav_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Label text for the CTA button in the primary nav bar",
-    )
-
-    cta_button_destination = models.CharField(
-        max_length=2048,
-        blank=True,
-        help_text="The URL for the page that the CTA button in the primary nav bar should redirect to."
-        "E.g., /proposals, https://example.com/external-link",
+        use_json_field=True,
+        verbose_name="Nav CTA",
     )
 
     # Hero/Banner fields
@@ -298,15 +300,14 @@ class MozfestHomepage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.CharField(
-        max_length=2048,
+    banner_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Link presented to the user as a CTA in the banner.",
-    )
-    banner_link_text = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Text displayed for the banner link.",
+        use_json_field=True,
+        verbose_name="Banner CTA",
     )
 
     subpage_types = ["MozfestPrimaryPage", "MozfestHomepage", "MozfestLandingPage"]
@@ -316,8 +317,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         FieldPanel("signup"),
         MultiFieldPanel(
             [
-                FieldPanel("cta_button_label", heading="Label"),
-                FieldPanel("cta_button_destination", heading="Destination"),
+                FieldPanel("nav_cta", heading="Nav CTA"),
             ],
             heading="CTA Button",
         ),
@@ -327,8 +327,7 @@ class MozfestHomepage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("banner_link_url"),
-                FieldPanel("banner_link_text"),
+                FieldPanel("banner_cta"),
             ],
             heading="Hero banner",
         ),
@@ -348,14 +347,12 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField("search_image"),
         # Content tab fields
         TranslatableField("title"),
-        TranslatableField("cta_button_label"),
-        SynchronizedField("cta_button_destination"),
+        TranslatableField("nav_cta"),
         TranslatableField("banner_heading"),
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
-        SynchronizedField("banner_link_url"),
-        TranslatableField("banner_link_text"),
+        TranslatableField("banner_cta"),
         # Signup field should be translatable, but is having issues
         # remaining synced across locales. Using sync field as workaround.
         # See also: https://github.com/wagtail/wagtail-localize/issues/648
@@ -395,15 +392,14 @@ class MozfestLandingPage(MozfestPrimaryPage):
         blank=True,
         help_text="Text displayed below the banner heading.",
     )
-    banner_link_url = models.CharField(
-        max_length=2048,
+    banner_cta = StreamField(
+        [
+            ("tito_widget", customblocks.TitoWidgetBlock()),
+        ],
+        max_num=1,
         blank=True,
-        help_text="Link presented to the user as a CTA in the banner.",
-    )
-    banner_link_text = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Text displayed for the banner link.",
+        use_json_field=True,
+        verbose_name="Banner CTA",
     )
 
     content_panels = Page.content_panels + [
@@ -413,8 +409,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
                 FieldPanel("banner"),
                 FieldPanel("banner_meta"),
                 FieldPanel("banner_text"),
-                FieldPanel("banner_link_url"),
-                FieldPanel("banner_link_text"),
+                FieldPanel("banner_cta"),
             ],
             heading="Hero banner",
         ),
@@ -438,8 +433,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         SynchronizedField("banner"),
         TranslatableField("banner_meta"),
         TranslatableField("banner_text"),
-        SynchronizedField("banner_link_url"),
-        TranslatableField("banner_link_text"),
+        TranslatableField("banner_cta"),
         TranslatableField("body"),
     ]
 

@@ -12,7 +12,5 @@
 @import "../components/home_page/kinetic_type_brand_line";
 
 body.template-homepage {
-  .kinetic-type-wordmark {
-    margin-top: 3rem;
-  }
+  --kinetic-animation-delay-ms: 1000; // in ms
 }

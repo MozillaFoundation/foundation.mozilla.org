@@ -1,7 +1,9 @@
+import glob
 import json
 from pathlib import Path
 
 import factory
+from django.core.management import call_command
 from wagtail_factories import PageFactory
 
 from foundation_cms.base.utils.helpers import (
@@ -27,6 +29,11 @@ class HomePageFactory(PageFactory):
         """
         Load homepage content from a manifest and return a published HomePage instance.
         """
+        # Load snippet fixtures first
+        snippet_dir = HOMEPAGE_DIR / "snippets"
+        for fixture_path in glob.glob(str(snippet_dir / "*.json")):
+            call_command("loaddata", fixture_path)
+
         manifest_path = HOMEPAGE_DIR / "manifest.json"
         image_manifest_path = HOMEPAGE_DIR / "image_manifest.json"
 

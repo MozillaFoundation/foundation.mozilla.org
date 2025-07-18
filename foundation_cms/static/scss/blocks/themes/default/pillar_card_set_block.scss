@@ -124,6 +124,7 @@
     @include breakpoint(large up) {
       flex-direction: row;
       gap: 0;
+      padding-bottom: 3rem;
     }
   }
 
@@ -148,6 +149,10 @@
     &-headline {
       margin-top: 0;
       margin-bottom: rem-calc(154);
+    }
+
+    &-link {
+      @include cta-link(map.get($cta-link-icon-sizes, large), "large");
     }
   }
 }

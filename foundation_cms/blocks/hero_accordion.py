@@ -13,7 +13,7 @@ class VideoPanelBlock(blocks.StructBlock):
     )
 
     label = blocks.CharBlock(required=True)
-    heading = blocks.CharBlock(required=False, max_length=40)
+    heading = blocks.CharBlock(required=False)
     thumbnail = ImageBlock(required=True)
     video_url = blocks.URLBlock(required=True, help_text=VIMEO_HELP_TEXT)
 
@@ -38,11 +38,11 @@ class VideoPanelBlock(blocks.StructBlock):
 
 class ImageTextPanelBlock(blocks.StructBlock):
     label = blocks.CharBlock(required=True)
-    heading = blocks.CharBlock(required=True, max_length=40)
+    heading = blocks.CharBlock(required=True)
     image = ImageBlock(required=True)
-    cta_text = blocks.CharBlock(required=True)
-    cta_link = blocks.URLBlock(required=True)
-    description = blocks.TextBlock(required=False, max_length=100)
+    cta_text = blocks.CharBlock(required=False)
+    cta_link = blocks.URLBlock(required=False)
+    description = blocks.TextBlock(required=False)
 
     def clean(self, value):
         cleaned = super().clean(value)
