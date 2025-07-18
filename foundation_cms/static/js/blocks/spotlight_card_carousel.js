@@ -161,6 +161,7 @@ class SpotlightCarousel {
    * Sets up event listeners for navigation and resize
    */
   setupEventListeners() {
+    // click handlers
     this.root.addEventListener("click", (e) => {
       const navButton = e.target.closest(SELECTORS.navButton);
       const cardImage = e.target.closest(SELECTORS.cardImage);
@@ -185,6 +186,23 @@ class SpotlightCarousel {
           this.handleNext();
         } else if (position == "3") {
           this.handlePrev();
+        }
+      }
+    });
+
+    // keydown handler
+    this.root.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        const card = e.target.closest(SELECTORS.cards);
+        if (card) {
+          const position = card.dataset.displayPosition;
+          if (position == "2") {
+            e.preventDefault();
+            this.handleNext();
+          } else if (position == "3") {
+            e.preventDefault();
+            this.handlePrev();
+          }
         }
       }
     });
@@ -221,6 +239,14 @@ class SpotlightCarousel {
         position !== CARD_CONFIG.featured.position,
       );
       card.setAttribute("aria-label", `Card ${i + 1} of ${this.totalCards}`);
+
+      if (position != "1") {
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+      } else {
+        card.removeAttribute("role");
+        card.removeAttribute("tabindex");
+      }
 
       // cache the card by its position
       this.cardsByPosition[position] = card;
