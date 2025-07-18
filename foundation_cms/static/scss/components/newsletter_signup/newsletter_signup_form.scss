@@ -1,4 +1,4 @@
-@import "../../colors";
+@use "sass:math";
 
 .newsletter-signup {
   background-color: color(orange, "100");
@@ -184,6 +184,15 @@
   }
 
   &__success-message {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @include breakpoint(medium up) {
+      flex-direction: row;
+      align-items: start;
+    }
+
     &--hidden {
       display: none;
     }
@@ -203,6 +212,24 @@
 
       @include breakpoint(medium up) {
         @include mofo-text-style($body-text-styles, "regular");
+      }
+    }
+
+    .newsletter-signup__success-content {
+      @include breakpoint(medium up) {
+        flex: 1;
+      }
+    }
+
+    .newsletter-signup__success-media {
+      @include breakpoint(medium up) {
+        flex: 1;
+      }
+
+      img {
+        display: block;
+        aspect-ratio: math.div(3, 2);
+        object-fit: cover;
       }
     }
   }
@@ -283,18 +310,15 @@
 
     .newsletter-signup__success-message {
       @include breakpoint(xlarge up) {
-        max-width: 38rem;
         padding-bottom: 1rem;
       }
     }
 
     .newsletter-signup__error-message {
       @include breakpoint(xlarge up) {
-        @include breakpoint(large up) {
-          order: -1;
-          width: 100%;
-          margin-bottom: 0;
-        }
+        order: -1;
+        width: 100%;
+        margin-bottom: 0;
       }
     }
   }
@@ -338,5 +362,12 @@
     max-width: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  // todo: Implement container queries instead of catching the two column container block
+  .newsletter-signup__success-message {
+    @include breakpoint(medium up) {
+      flex-direction: column;
+    }
   }
 }
