@@ -25,6 +25,60 @@
       @return calc($width-percent - $side-margins);
     }
 
+    @mixin responsive-width($panel-height-map) {
+      @each $breakpoint, $height in $panel-height-map {
+        @include breakpoint(#{$breakpoint} up) {
+          width: $height;
+        }
+      }
+    }
+
+    @mixin responsive-right-offset($panel-height-map) {
+      @each $breakpoint, $height in $panel-height-map {
+        @include breakpoint(#{$breakpoint} up) {
+          right: $height;
+        }
+      }
+    }
+
+    @mixin responsive-square($panel-height-map) {
+      @each $breakpoint, $height in $panel-height-map {
+        @include breakpoint(#{$breakpoint} up) {
+          width: $height;
+          height: $height;
+        }
+      }
+    }
+
+    @mixin responsive-bg-square($panel-height-map) {
+      @each $breakpoint, $height in $panel-height-map {
+        @include breakpoint(#{$breakpoint} up) {
+          background-size: $height $height;
+        }
+      }
+    }
+
+    @mixin responsive-text-details-position($panel-height-map, $type: "even") {
+      @each $breakpoint, $height in $panel-height-map {
+        @include breakpoint(#{$breakpoint} up) {
+          @include base.text-details-position($breakpoint, type);
+        }
+      }
+    }
+
+    @mixin responsive-translate-x($panel-height-map, $negative: true) {
+      @each $breakpoint, $height in $panel-height-map {
+        $width: $height;
+        @include breakpoint(#{$breakpoint} up) {
+          @if $negative {
+            transform: translateX(calc(-1 * #{$width}));
+          } @else {
+            transform: translateX(#{$width});
+          }
+        }
+      }
+    }
+
     // ===================================
     // Base
     // ===================================
@@ -147,15 +201,11 @@
 
         @include breakpoint(large up) {
           width: 12rem;
-          right: map.get(base.$panel-height, large);
           top: unset;
           bottom: -4.5rem;
         }
 
-        @include breakpoint(xlarge up) {
-          right: map.get(base.$panel-height, xlarge);
-          bottom: -3rem;
-        }
+        @include responsive-right-offset(base.$panel-heights);
       }
 
       .hero-accordion__panel-inner {
@@ -176,27 +226,17 @@
         @include breakpoint(large up) {
           right: 0;
           width: calc(
-            var(--open-panel-width) - map.get(base.$panel-height, large)
+            var(--open-panel-width) - map.get(base.$panel-heights, large)
           );
         }
 
-        @each $size in large, xlarge {
-          @include breakpoint(#{$size} up) {
-            @include base.text-details-position-even($size);
-          }
-        }
+        @include responsive-text-details-position(base.$panel-heights, "even");
 
         &-inner {
           transition: transform map.get(base.$panel-transition, duration)
             map.get(base.$panel-transition, timing-function);
 
-          @include breakpoint(large up) {
-            transform: translateX(-(map.get(base.$panel-height, large)));
-          }
-
-          @include breakpoint(xlarge up) {
-            transform: translateX(-(map.get(base.$panel-height, xlarge)));
-          }
+          @include responsive-translate-x(base.$panel-heights);
         }
       }
 
@@ -237,14 +277,14 @@
 
         @include breakpoint(large up) {
           width: 8rem;
-          right: map.get(base.$panel-height, large);
           top: -5rem;
         }
 
         @include breakpoint(xlarge up) {
-          right: map.get(base.$panel-height, xlarge);
           top: -2rem;
         }
+
+        @include responsive-right-offset(base.$panel-heights);
       }
 
       .hero-accordion__panel-inner {
@@ -259,24 +299,14 @@
           left: 0;
           right: auto;
           width: calc(
-            var(--open-panel-width) - map.get(base.$panel-height, large)
+            var(--open-panel-width) - map.get(base.$panel-heights, large)
           );
         }
 
-        @each $size in large, xlarge {
-          @include breakpoint(#{$size} up) {
-            @include base.text-details-position-odd($size);
-          }
-        }
+        @include responsive-text-details-position(base.$panel-heights, "odd");
 
         &-inner {
-          @include breakpoint(large up) {
-            transform: translateX(map.get(base.$panel-height, large));
-          }
-
-          @include breakpoint(xlarge up) {
-            transform: translateX(map.get(base.$panel-height, xlarge));
-          }
+          @include responsive-translate-x(base.$panel-heights, false);
         }
       }
 
@@ -334,13 +364,7 @@
       .hero-accordion__image-box {
         width: 100%;
 
-        @include breakpoint(large up) {
-          width: map.get(base.$panel-height, large);
-        }
-
-        @include breakpoint(xlarge up) {
-          width: map.get(base.$panel-height, xlarge);
-        }
+        @include responsive-width(base.$panel-heights);
 
         .hero-accordion__label {
           display: none;
@@ -353,25 +377,11 @@
 
           @include breakpoint(large up) {
             flex-basis: unset;
-            width: map.get(base.$panel-height, large);
-            height: map.get(base.$panel-height, large);
           }
-
-          @include breakpoint(xlarge up) {
-            width: map.get(base.$panel-height, xlarge);
-            height: map.get(base.$panel-height, xlarge);
-          }
+          @include responsive-square(base.$panel-heights);
 
           &::before {
-            @include breakpoint(large up) {
-              background-size: map.get(base.$panel-height, large)
-                map.get(base.$panel-height, large);
-            }
-
-            @include breakpoint(xlarge up) {
-              background-size: map.get(base.$panel-height, xlarge)
-                map.get(base.$panel-height, xlarge);
-            }
+            @include responsive-bg-square(base.$panel-heights);
           }
         }
       }
@@ -426,13 +436,7 @@
       .hero-accordion__details {
         @include base.active-details-visible;
 
-        @include breakpoint(large up) {
-          transform: translateX(-(map.get(base.$panel-height, large)));
-        }
-
-        @include breakpoint(xlarge up) {
-          transform: translateX(-(map.get(base.$panel-height, xlarge)));
-        }
+        @include responsive-translate-x(base.$panel-heights);
       }
     }
 
@@ -467,13 +471,7 @@
       .hero-accordion__details {
         display: none;
 
-        @include breakpoint(large up) {
-          transform: translateX(-(map.get(base.$panel-height, large)));
-        }
-
-        @include breakpoint(xlarge up) {
-          transform: translateX(-(map.get(base.$panel-height, xlarge)));
-        }
+        @include responsive-translate-x(base.$panel-heights);
       }
 
       .hero-accordion__image-box {
