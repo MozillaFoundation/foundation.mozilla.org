@@ -9,6 +9,7 @@ $carousel-transition: transform 0.4s ease;
 .portrait-card-set {
   --carousel-transition: #{$carousel-transition};
   --card-radius: 1.5rem;
+
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
   $cardset-colors: (
@@ -20,6 +21,7 @@ $carousel-transition: transform 0.4s ease;
   @include breakpoint(large up) {
     --card-radius: 5.75rem;
   }
+
   border-radius: var(--card-radius);
 
   &__card-container {
@@ -85,6 +87,7 @@ $carousel-transition: transform 0.4s ease;
       width: calc(100% / #{$num-cards} - #{$card-gap-offset});
       min-height: 44rem;
       padding: 2.5rem 3rem 4.5rem;
+
       &:not(:last-child) {
         margin-right: #{$gap-between-cards};
       }
