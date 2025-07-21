@@ -31,6 +31,9 @@ class TransformCarousel {
     this.isTransitioning = false;
     this.index = this.total; // Start in the middle of the tripled array
     this.isCarousel = this.root.classList.contains("is-carousel");
+    
+    this.resizeTimer = null;
+    this.RESIZE_DEBOUNCE_MS = 200;
 
     this.init();
   }
@@ -126,6 +129,14 @@ class TransformCarousel {
     }
   }
 
+  // recalc based on window resize w/ debounce
+  handleResize() {
+    clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => {
+      this.setInitialPosition();
+    }, this.RESIZE_DEBOUNCE_MS);
+  }
+
   // Bind arrow keys, buttons, swipe, and drag for navigation
   bindEvents() {
     this.nextBtn?.addEventListener("click", () => this.slideTo(this.index + 1));
@@ -184,8 +195,7 @@ class TransformCarousel {
     });
 
     // Recalculate position on resize
-    window.addEventListener("resize", () => {
-      this.setInitialPosition();
-    });
+    window.addEventListener("resize", () => this.handleResize());
+
   }
 }
