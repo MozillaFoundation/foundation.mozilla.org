@@ -109,11 +109,12 @@ $print-hrefs: true;
 
 $-zf-size: null;
 $breakpoints: (
-  "small": 0,        // phones
-  "medium": 640px,   // tablets
-  "large": 1024px,   // laptops, small desktops
-  "xlarge": 1200px,  // standard desktops
-  "xxlarge": 1440px, // large desktops, ultrawide
+  "small": 0,          // phones
+  "medium": 640px,     // large phones, small tablets
+  "large": 1024px,     // tablets, small laptops
+  "xlarge": 1200px,    // laptops, small desktops
+  "xxlarge": 1440px,   // standard desktops
+  "xxxlarge": 1920px,  // large desktops, full HD displays
 );
 $breakpoints-hidpi: (
   "hidpi-1": 1,
