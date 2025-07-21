@@ -1,10 +1,5 @@
 .kinetic-type-brand-line {
-  $line-height: get-text-property(
-    $display-text-styles,
-    "3",
-    "line-height",
-    "small"
-  );
+  $line-height: get-text-property($header-styles, "h3", "line-height", "small");
 
   --line-height-multiplier: #{$line-height};
 
@@ -15,9 +10,20 @@
   line-height: $line-height;
   margin-bottom: 0;
 
+  &__heading {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
   &__full-text {
     display: flex;
     flex-direction: column;
+
+    @include mofo-text-style($header-styles, "h3", $header-font-family);
+  }
+
+  &__space-char {
+    display: none;
   }
 
   &__space-char {
@@ -51,7 +57,7 @@
     }
   }
 
-  @include breakpoint(medium up) {
+  @include breakpoint(400px up) {
     &__full-text {
       align-items: center;
       flex-direction: row;
