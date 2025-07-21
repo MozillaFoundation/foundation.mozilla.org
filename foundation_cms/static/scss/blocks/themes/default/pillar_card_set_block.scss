@@ -169,7 +169,7 @@
 
     &[data-href] {
       &:hover {
-        .pillar-card-set__card-link{
+        .pillar-card-set__card-link {
           @include cta-link-hover-state;
         }
       }
