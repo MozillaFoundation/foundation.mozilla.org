@@ -119,7 +119,7 @@ class TransformCarousel {
 
     if (isHovered && image) {
       const duration = parseFloat(
-        getComputedStyle(image).transitionDuration || "0"
+        getComputedStyle(image).transitionDuration || "0",
       );
 
       if (duration > 0) {
@@ -131,7 +131,6 @@ class TransformCarousel {
     // Fallback for headline::after or if no hover
     setTimeout(animateSlide, 300);
   }
-
 
   // Loop logic to simulate infinite scroll
   handleLoop() {
