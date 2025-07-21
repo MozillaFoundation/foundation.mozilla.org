@@ -7,8 +7,8 @@ $card-gap-offset: calc(($gap-between-cards * ($num-cards - 1)) / $num-cards);
 $carousel-transition: transform 0.4s ease;
 
 .portrait-card-set {
-  --carousel-transition: #{$carousel-transition} $card-border-radius: 5.75rem;
-
+  --carousel-transition: #{$carousel-transition};
+  --card-radius: 1.5rem;
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
   $cardset-colors: (
@@ -17,6 +17,10 @@ $carousel-transition: transform 0.4s ease;
     3: color(orange, "200"),
     4: color(green, "300"),
   );
+  @include breakpoint(large up) {
+      --card-radius: 5.75rem;
+  }
+  border-radius: var(--card-radius);
 
   &__card-container {
     display: flex;
@@ -63,12 +67,13 @@ $carousel-transition: transform 0.4s ease;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 2.5rem 3rem 4.5rem;
+    padding: 1.5rem;
     min-height: 29.25rem;
     aspect-ratio: math.div(5, 8);
     box-sizing: border-box;
-    width: 80%; // Mobile default
+    width: 85%; // Mobile default
     scroll-snap-align: start;
+    margin-right: .5rem;
 
     @include breakpoint(medium) {
       width: 45%; // Tablet
@@ -79,10 +84,10 @@ $carousel-transition: transform 0.4s ease;
       // 3 cards = 2 total gaps → 1.5rem total gap ÷ 3 cards = 0.5rem per card
       width: calc(100% / #{$num-cards} - #{$card-gap-offset});
       min-height: 44rem;
-    }
-
-    &:not(:last-child) {
-      margin-right: #{$gap-between-cards};
+      padding: 2.5rem 3rem 4.5rem;
+      &:not(:last-child) {
+        margin-right: #{$gap-between-cards};
+      }
     }
 
     &:last-child {
@@ -113,6 +118,10 @@ $carousel-transition: transform 0.4s ease;
       @include mofo-text-style($header-styles, "h4", $header-font-family);
     }
 
+    .portrait-card__headline {
+      text-wrap: wrap;
+    }
+
     &:hover {
       .portrait-card__image {
         transform: scale(1.05);
@@ -130,16 +139,16 @@ $carousel-transition: transform 0.4s ease;
 
         .portrait-card__image img {
           @if $i == 1 {
-            border-radius: 0 $card-border-radius 0 0;
+            border-radius: 0 var(--card-radius) 0 0;
             transform: rotate($rotate-neg);
           } @else if $i == 2 {
-            border-radius: 0 $card-border-radius $card-border-radius 0;
+            border-radius: 0 var(--card-radius) var(--card-radius) 0;
             transform: rotate($rotate-pos);
           } @else if $i == 3 {
-            border-radius: $card-border-radius $card-border-radius 0 0;
+            border-radius: var(--card-radius) var(--card-radius) 0 0;
             transform: rotate($rotate-neg);
           } @else if $i == 4 {
-            border-radius: 0 $card-border-radius 0 $card-border-radius;
+            border-radius: 0 var(--card-radius) 0 var(--card-radius);
             transform: rotate($rotate-pos);
           }
         }
