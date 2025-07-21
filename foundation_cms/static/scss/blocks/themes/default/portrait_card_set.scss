@@ -129,9 +129,11 @@ $carousel-transition: transform 0.4s ease;
       .portrait-card__image {
         transform: scale(1.05);
       }
+
       .portrait-card__headline {
         text-decoration: underline;
       }
+
       .portrait-card__headline::after {
         transform: translateX(0.75rem);
       }
