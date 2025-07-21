@@ -103,12 +103,35 @@ class TransformCarousel {
 
     this.isTransitioning = true;
     this.index = newIndex;
-    this.updateTransform(this.index, true);
 
-    this.track.addEventListener("transitionend", () => this.handleLoop(), {
-      once: true,
-    });
+    const currentCard = this.cards[this.index];
+    const image = currentCard.querySelector(".portrait-card__image");
+
+    const animateSlide = () => {
+      this.updateTransform(this.index, true);
+      this.track.addEventListener("transitionend", () => this.handleLoop(), {
+        once: true,
+      });
+    };
+
+    // Wait for image scale to finish if hovering
+    const isHovered = currentCard.matches(":hover");
+
+    if (isHovered && image) {
+      const duration = parseFloat(
+        getComputedStyle(image).transitionDuration || "0"
+      );
+
+      if (duration > 0) {
+        image.addEventListener("transitionend", animateSlide, { once: true });
+        return;
+      }
+    }
+
+    // Fallback for headline::after or if no hover
+    setTimeout(animateSlide, 300);
   }
+
 
   // Loop logic to simulate infinite scroll
   handleLoop() {

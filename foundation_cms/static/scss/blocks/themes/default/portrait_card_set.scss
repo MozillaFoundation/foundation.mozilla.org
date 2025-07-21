@@ -100,6 +100,7 @@ $carousel-transition: transform 0.4s ease;
     &__image {
       transition: #{$carousel-transition};
       aspect-ratio: math.div(1, 1);
+      will-change: transform;
 
       img {
         width: 100%;
@@ -123,6 +124,10 @@ $carousel-transition: transform 0.4s ease;
 
     .portrait-card__headline {
       text-wrap: wrap;
+
+      ::after {
+        will-change: transform;
+      }
     }
 
     &:hover {
