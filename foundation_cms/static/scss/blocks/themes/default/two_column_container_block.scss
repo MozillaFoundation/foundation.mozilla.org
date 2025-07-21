@@ -3,34 +3,29 @@ $cell-block-margin-bottom: 2.5rem;
 
 .two-column-container {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: $global-margin * 2;
+  flex-direction: column;
+  margin-bottom: $two-column-mobile-margin-bottom;
 
-  .cell {
+  &__cell {
     flex: 1;
     padding: $global-margin;
     box-sizing: border-box;
 
     &:not(:last-child) {
-      margin-right: $global-margin;
-    }
-  }
-
-  .cell > *:not(:last-child) {
-    margin-bottom: $global-margin;
-  }
-
-  @media (max-width: map-get($breakpoints, 'medium')) {
-    flex-direction: column;
-    margin-bottom: $two-column-mobile-margin-bottom;
-
-    .cell {
-      margin-right: 0;
-      margin-bottom: $global-margin;
-    }
-
-    .cell > *:not(:last-child) {
       margin-bottom: $cell-block-margin-bottom;
+    }
+  }
+
+  @include breakpoint(medium up) {
+    flex-direction: row;
+    margin-bottom: $global-margin * 2;
+
+    &__cell {
+      margin-bottom: 0;
+
+      &:not(:last-child) {
+        margin-right: $global-margin;
+      }
     }
   }
 }
