@@ -1,5 +1,5 @@
 @use "sass:map";
-@use 'sass:math';
+@use "sass:math";
 
 $num-cards: 3;
 $gap-between-cards: 1.5rem;
@@ -7,8 +7,7 @@ $card-gap-offset: calc(($gap-between-cards * ($num-cards - 1)) / $num-cards);
 $carousel-transition: transform 0.4s ease;
 
 .portrait-card-set {
-  --carousel-transition: #{$carousel-transition}
-  $card-border-radius: 5.75rem;
+  --carousel-transition: #{$carousel-transition} $card-border-radius: 5.75rem;
 
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
