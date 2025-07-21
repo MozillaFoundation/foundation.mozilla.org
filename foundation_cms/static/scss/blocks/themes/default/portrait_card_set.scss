@@ -64,7 +64,7 @@
     flex-direction: column;
     padding: 2.5rem 3rem 4.5rem;
     min-height: 29.25rem;
-    aspect-ratio: 5 / 8;
+    aspect-ratio: math.div(5, 8);
     box-sizing: border-box;
     width: 80%; // Mobile default
     scroll-snap-align: start;
@@ -88,7 +88,7 @@
 
     &__image {
       transition: transform 0.3s ease-out;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: math.div(1, 1);
 
       img {
         width: 100%;
