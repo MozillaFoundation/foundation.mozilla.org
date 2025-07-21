@@ -186,14 +186,20 @@ $cta-link-icon-sizes: (
   background: $background-color;
 
   &::before {
+    $width: rem-calc(48);
+    $left-offset: $width * -1;
+
+    // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges
+    $scale-overlap: 101%; // instead of 100%
+
     content: "";
     position: absolute;
-    left: rem-calc(48) * -1;
+    left: $left-offset;
     top: 0;
     bottom: 0;
-    width: rem-calc(48);
+    width: $width;
     background: $background-color;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+    clip-path: polygon(0% 0%, $scale-overlap 0%, $scale-overlap $scale-overlap);
   }
 
   &__counter {
