@@ -18,7 +18,7 @@ $carousel-transition: transform 0.4s ease;
     4: color(green, "300"),
   );
   @include breakpoint(large up) {
-      --card-radius: 5.75rem;
+    --card-radius: 5.75rem;
   }
   border-radius: var(--card-radius);
 
@@ -73,7 +73,7 @@ $carousel-transition: transform 0.4s ease;
     box-sizing: border-box;
     width: 85%; // Mobile default
     scroll-snap-align: start;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 
     @include breakpoint(medium) {
       width: 45%; // Tablet
