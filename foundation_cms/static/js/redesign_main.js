@@ -9,6 +9,7 @@ import {
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
+import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
 
 let foundationSiteURL = window.location.origin;
 
@@ -25,3 +26,4 @@ injectNewsletterSignups(foundationSiteURL);
 initPortraitCardSetCarousels();
 initWordmarkVisibilityOnScroll();
 initSpotlightCardCarousels();
+initPillarCardLinks();

@@ -78,6 +78,12 @@ $cta-link-icon-sizes: (
   }
 }
 
+@mixin cta-link-hover-state {
+  &::after {
+    transform: translateX(0.75rem);
+  }
+}
+
 .btn {
   cursor: pointer;
 }
@@ -150,9 +156,7 @@ $cta-link-icon-sizes: (
   }
 
   &:hover {
-    &::after {
-      transform: translateX(0.75rem);
-    }
+    @include cta-link-hover-state;
   }
 }
 

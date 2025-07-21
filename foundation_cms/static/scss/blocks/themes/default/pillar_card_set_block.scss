@@ -1,6 +1,7 @@
 @use "sass:map";
 
 @import "../../../colors";
+@import "../../../buttons";
 
 .pillar-card-set {
   $corner-radius: (
@@ -164,6 +165,14 @@
 
     &-link {
       @include cta-link(map.get($cta-link-icon-sizes, large), "large");
+    }
+
+    &[data-href] {
+      &:hover {
+        .pillar-card-set__card-link{
+          @include cta-link-hover-state;
+        }
+      }
     }
   }
 }
