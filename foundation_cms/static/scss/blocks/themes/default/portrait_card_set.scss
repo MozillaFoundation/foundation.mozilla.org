@@ -9,6 +9,7 @@ $carousel-transition: transform 0.4s ease;
 .portrait-card-set {
   --carousel-transition: #{$carousel-transition}
   $card-border-radius: 5.75rem;
+
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
   $cardset-colors: (
