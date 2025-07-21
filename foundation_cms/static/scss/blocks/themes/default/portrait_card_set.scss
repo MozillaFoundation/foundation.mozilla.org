@@ -1,7 +1,13 @@
 @use "sass:map";
+@use 'sass:math';
+
+$num-cards: 3;
+$gap-between-cards: 1.5rem;
+$card-gap-offset: calc(($gap-between-cards * ($num-cards - 1)) / $num-cards);
+$carousel-transition: transform 0.4s ease;
 
 .portrait-card-set {
-  --carousel-transition: transform 0.4s ease;
+  --carousel-transition: #{$carousel-transition}
   $card-border-radius: 5.75rem;
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
@@ -15,7 +21,6 @@
   &__card-container {
     display: flex;
     flex-wrap: nowrap;
-    gap: 1.5rem;
     overflow: hidden;
     max-width: 100%;
     position: relative;
@@ -49,7 +54,7 @@
     display: flex;
     width: 100%;
     will-change: transform;
-    transition: var(--carousel-transition);
+    transition: #{$carousel-transition};
   }
 
   .portrait-card {
@@ -70,12 +75,14 @@
     }
 
     @include breakpoint(large up) {
-      width: calc(33.3333% - 1.3333rem);
+      // For 3 cards in a row, subtract each card's share of the total row gap from 100%
+      // 3 cards = 2 total gaps → 1.5rem total gap ÷ 3 cards = 0.5rem per card
+      width: calc(100% / #{$num-cards} - #{$card-gap-offset});
       min-height: 44rem;
     }
 
     &:not(:last-child) {
-      margin-right: 1.5rem;
+      margin-right: #{$gap-between-cards};
     }
 
     &:last-child {
@@ -83,7 +90,7 @@
     }
 
     &__image {
-      transition: var(--carousel-transition);
+      transition: #{$carousel-transition};
       aspect-ratio: math.div(1, 1);
 
       img {
@@ -99,7 +106,10 @@
 
     &__headline {
       margin: 0;
-      @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
+      @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+      @include breakpoint(large) {
+        @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
+      }
       @include mofo-text-style($header-styles, "h4", $header-font-family);
     }
 
