@@ -34,6 +34,7 @@ class TransformCarousel {
     
     this.resizeTimer = null;
     this.RESIZE_DEBOUNCE_MS = 200;
+    this.SWIPE_THRESHOLD = 50;
 
     this.init();
   }
@@ -161,7 +162,7 @@ class TransformCarousel {
         if (!isDragging) return;
         isDragging = false;
         const delta = e.changedTouches[0].clientX - startX;
-        if (Math.abs(delta) > 50)
+        if (Math.abs(delta) > this.SWIPE_THRESHOLD)
           delta < 0
             ? this.slideTo(this.index + 1)
             : this.slideTo(this.index - 1);
@@ -179,7 +180,7 @@ class TransformCarousel {
       if (!isDragging) return;
       isDragging = false;
       const delta = e.clientX - startX;
-      if (Math.abs(delta) > 50)
+      if (Math.abs(delta) > this.SWIPE_THRESHOLD)
         delta < 0 ? this.slideTo(this.index + 1) : this.slideTo(this.index - 1);
     });
 
