@@ -1,5 +1,7 @@
 {% load wagtailimages_tags %}
-
+{% if card.cta_link and card.cta_link.link_to %}
+  <a class="portrait-card" href="{{ card.cta_link.url }}" {% if card.cta_link.new_window %}target="_blank"{% endif %}>
+{% endif %}
 {% if card.image %}
   <div class="portrait-card__image">
     {% image card.image fill-354x354 %}
@@ -11,10 +13,9 @@
     <p class="portrait-card__label label-text-regular">{{ card.label }}</p>
   {% endif %}
   <h4 class="portrait-card__headline">
-    {% if card.cta_link.0 and card.cta_link.0.link_to %}
-      {% include "patterns/components/link.html" with value=card.cta_link.0 label_override=card.headline classnames="cta-link" %}
-    {% else %}
-      {{ card.headline }}
-    {% endif %}
+    {{ card.headline }}
   </h4>
 </div>
+{% if card.cta_link and card.cta_link.link_to %}
+  </a>
+{% endif %}

@@ -10,13 +10,10 @@
   <div class="portrait-card-set__card-container">
     <div class="carousel-track">
       {% for card in self.cards %}
-        <div class="portrait-card">
-          {% include "./portrait_card.html" %}
-        </div>
+        {% include "./portrait_card.html" %}
       {% endfor %}
     </div>
   </div>
-  {% include "patterns/components/portrait_card_set_cta.html" with link=self.cta_link.0 only %}
 
   <div class="portrait-card-set__controls">
     {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
