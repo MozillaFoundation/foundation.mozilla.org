@@ -1,9 +1,36 @@
-@use "sass:map";
-@import "../../../colors";
+$two-column-mobile-margin-bottom: 0.25rem;
+$cell-block-margin-bottom: 2.5rem;
 
 .two-column-container {
-  padding: 2rem 0;
-  background: map.get($mofo-colors, white);
-  border-radius: 1.5rem;
-  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: $global-margin * 2;
+
+  .cell {
+    flex: 1;
+    padding: $global-margin;
+    box-sizing: border-box;
+
+    &:not(:last-child) {
+      margin-right: $global-margin;
+    }
+  }
+
+  .cell > *:not(:last-child) {
+    margin-bottom: $global-margin;
+  }
+
+  @media (max-width: map-get($breakpoints, 'medium')) {
+    flex-direction: column;
+    margin-bottom: $two-column-mobile-margin-bottom;
+
+    .cell {
+      margin-right: 0;
+      margin-bottom: $global-margin;
+    }
+
+    .cell > *:not(:last-child) {
+      margin-bottom: $cell-block-margin-bottom;
+    }
+  }
 }
