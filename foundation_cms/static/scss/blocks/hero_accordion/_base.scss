@@ -24,13 +24,11 @@ $panel-transition: (
   duration: 0.5s,
   timing-function: ease,
 );
-
-// panel heights for desktop layout (horizontal instead of stacked)
-$panel-heights: (
+$panel-height: (
+  small: rem-calc(400),
+  medium: rem-calc(500),
   large: rem-calc(500),
   xlarge: rem-calc(600),
-  xxlarge: rem-calc(700),
-  xxxlarge: rem-calc(800),
 );
 $panel-colors: (
   1: color(orange, "300"),
@@ -82,15 +80,17 @@ $image-hover-scale: 105%;
 // Mixins
 // ===================================
 
-@mixin text-details-position($breakpoint, $type: "even") {
-  $height: map.get($panel-heights, $breakpoint);
+@mixin text-details-position-even($size) {
+  $height: map.get($panel-height, $size);
 
-  @if $type == "even" {
-    transform: translateX(calc-panel-offset($height));
-  } @else {
-    transform: translateX(calc-panel-offset($height, -1));
-  }
+  transform: translateX(calc-panel-offset($height));
+  width: calc-panel-width($height);
+}
 
+@mixin text-details-position-odd($size) {
+  $height: map.get($panel-height, $size);
+
+  transform: translateX(calc-panel-offset($height, -1));
   width: calc-panel-width($height);
 }
 
@@ -133,14 +133,6 @@ $image-hover-scale: 105%;
   }
 }
 
-@mixin responsive-panel-heights($map) {
-  @each $breakpoint, $height in $map {
-    @include breakpoint(#{$breakpoint} up) {
-      height: $height;
-    }
-  }
-}
-
 .hero-accordion {
   // ===================================
   // CSS Variables
@@ -159,14 +151,17 @@ $image-hover-scale: 105%;
   flex-direction: column;
   width: 100%;
   overflow: visible;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
 
   @include breakpoint(large up) {
     flex-direction: row;
-    margin: 1rem 0 rem-calc(64) 0;
+    height: map.get($panel-height, large);
+    margin: rem-calc(48) 0 rem-calc(64) 0;
   }
 
-  @include responsive-panel-heights($panel-heights);
+  @include breakpoint(xlarge up) {
+    height: map.get($panel-height, xlarge);
+  }
 
   // ===================================
   // Text Elements

@@ -1,46 +1,22 @@
-@use "sass:map";
-
 .kinetic-type-wordmark {
-  $animation-delay: calc(var(--kinetic-animation-delay-ms) * 1ms);
-
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-
   &__svg {
     $base-animation-duration: 1s;
-    $fill-colors: (
-      m-left: color(blue, "300"),
-      m-middle: color(orange, "300"),
-      m-right: color(yellow, "100"),
-      o-inner: color(green, "200"),
-      z-left: color(yellow, "100"),
-      a-inner: color(yellow, "100"),
-      f-bottom: color(blue, "300"),
-      o2-inner: color(orange, "300"),
-      u-inner: color(orange, "300"),
-      n-inner: color(blue, "300"),
-      d-inner: color(yellow, "100"),
-      a2-inner: color(green, "200"),
-      t-right: color(orange, "300"),
-      o3-inner: color(orange, "300"),
-      n2-inner: color(yellow, "100"),
-    );
-
-    // Negative offset to prevent sub-pixel rendering gaps at clip-path edges
-    // Browser rounding of fractional pixels can cause 1px gaps during animations
-    $clip-path-overlap: -1px;
-
-    // Slight scale oversizing to prevent edge gaps during transform animations
-    // Scaling to exactly 1.0 can leave hairline gaps due to anti-aliasing
-    $scale-overlap: 1.01;
+    $color-fill-z-a-left: color(yellow, "200");
+    $color-fill-m-middle: color(orange, "200");
+    $color-fill-m-right: color(yellow, "200");
+    $color-fill-m-left: color(blue, "100");
+    $color-fill-o-inner: color(green, "200");
 
     display: block;
+    max-width: 80vw;
 
     &--horizontal {
       display: none;
     }
 
     @include breakpoint(medium up) {
+      max-width: 100%;
+
       &--stacked {
         display: none;
       }
@@ -50,21 +26,43 @@
       }
     }
 
+    // Mixin for wipe reveal animations
     @mixin wipe-reveal($direction: "top", $duration: 1s, $easing: ease-out) {
       @if $direction == "top" {
-        clip-path: inset(
-          100% 0 $clip-path-overlap 0
-        ); // Prevent bottom edge gap
+        clip-path: inset(100% 0 0 0);
       } @else if $direction == "bottom" {
-        clip-path: inset($clip-path-overlap 0 100% 0); // Prevent top edge gap
+        clip-path: inset(0 0 100% 0);
       } @else if $direction == "left" {
-        clip-path: inset(0 $clip-path-overlap 0 100%); // Prevent right edge gap
+        clip-path: inset(0 100% 0 0);
       } @else if $direction == "right" {
-        clip-path: inset(-1px 100% -1px -1px); // Prevent left edge gap
+        clip-path: inset(0 0 0 100%);
       }
 
-      animation: wipe-reveal-#{$direction} $duration $easing forwards
-        $animation-delay;
+      animation: wipe-reveal-#{$direction} $duration $easing forwards;
+    }
+
+    // "z"
+    .fill-z-left {
+      fill: transparent;
+      animation: fill-z-a-left $base-animation-duration ease forwards;
+    }
+
+    // left fill of "m"
+    .fill-m-left {
+      fill: $color-fill-m-left;
+      @include wipe-reveal("bottom");
+    }
+
+    // middle fill of "m"
+    .fill-m-middle {
+      fill: $color-fill-m-middle;
+      @include wipe-reveal("top");
+    }
+
+    // right fill of "m"
+    .fill-m-right {
+      fill: $color-fill-m-right;
+      @include wipe-reveal("bottom");
     }
 
     @mixin grow-fill($fill-color) {
@@ -72,100 +70,36 @@
       transform-box: fill-box;
       transform-origin: center;
       transform: scale(0);
-      animation: grow-mask $base-animation-duration ease-out forwards
-        $animation-delay;
+      animation: grow-mask $base-animation-duration ease-out forwards;
     }
 
-    .fill-z-left {
-      fill: transparent;
-      animation: fill-z-left $base-animation-duration ease forwards
-        $animation-delay;
-    }
-
-    .fill-m-left {
-      fill: map.get($fill-colors, m-left);
-      @include wipe-reveal("bottom");
-    }
-
-    .fill-m-middle {
-      fill: map.get($fill-colors, m-middle);
-      @include wipe-reveal("top");
-    }
-
-    .fill-m-right {
-      fill: map.get($fill-colors, m-right);
-      @include wipe-reveal("bottom");
-    }
-
+    // inner fill of "o"
     .fill-o-inner {
-      @include grow-fill(map.get($fill-colors, o-inner));
+      @include grow-fill($color-fill-o-inner);
     }
 
-    .fill-a-inner {
-      @include grow-fill(map.get($fill-colors, a-inner));
+    // fill of "a"
+    .fill-a-left {
+      @include grow-fill($color-fill-z-a-left);
     }
 
-    .fill-f-bottom {
-      fill: map.get($fill-colors, f-bottom);
-      @include wipe-reveal("right");
-    }
-
-    .fill-o2-inner {
-      @include grow-fill(map.get($fill-colors, o2-inner));
-    }
-
-    .fill-u-inner {
-      fill: map.get($fill-colors, u-inner);
-      @include wipe-reveal("top");
-    }
-
-    .fill-n-inner {
-      fill: map.get($fill-colors, n-inner);
-      @include wipe-reveal("bottom");
-    }
-
-    .fill-d-inner {
-      @include grow-fill(map.get($fill-colors, d-inner));
-    }
-
-    .fill-a2-inner {
-      @include grow-fill(map.get($fill-colors, a2-inner));
-    }
-
-    .fill-t-right {
-      fill: map.get($fill-colors, t-right);
-      @include wipe-reveal("right");
-    }
-
-    .fill-o3-inner {
-      @include grow-fill(map.get($fill-colors, o3-inner));
-    }
-
-    .fill-n2-inner {
-      fill: map.get($fill-colors, n2-inner);
-      @include wipe-reveal("bottom");
-    }
-
-    @keyframes fill-z-left {
+    @keyframes fill-z-a-left {
       to {
-        fill: map.get($fill-colors, z-left);
+        fill: $color-fill-z-a-left;
       }
     }
 
     @each $direction in (top, bottom, left, right) {
       @keyframes wipe-reveal-#{$direction} {
         to {
-          clip-path: inset(
-            $clip-path-overlap $clip-path-overlap $clip-path-overlap
-              $clip-path-overlap
-          );
+          clip-path: inset(0 0 0 0);
         }
       }
     }
 
     @keyframes grow-mask {
       to {
-        transform: scale($scale-overlap);
+        transform: scale(1);
       }
     }
   }

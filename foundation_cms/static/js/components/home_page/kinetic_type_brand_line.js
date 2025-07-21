@@ -4,7 +4,6 @@
 const CSS_VARS = {
   lineHeightMultiplier: "--line-height-multiplier",
   animationDuration: "--animation-duration-in-ms",
-  initialDelay: "--kinetic-animation-delay-ms",
 };
 
 /**
@@ -14,7 +13,6 @@ const FALLBACKS = {
   lineHeight: 1,
   animationDurationMs: 1000,
   pauseDurationMs: 3000,
-  initialDelayMs: 0,
 };
 
 /**
@@ -91,12 +89,6 @@ export class KineticTypeBrandLine {
       FALLBACKS.animationDurationMs,
     );
 
-    this.initialDelayMs = getCssVarFloat(
-      this.root,
-      CSS_VARS.initialDelay,
-      FALLBACKS.initialDelayMs,
-    );
-
     this.pauseDurationMs = FALLBACKS.pauseDurationMs;
 
     // Duplicate phrases for looping
@@ -109,10 +101,7 @@ export class KineticTypeBrandLine {
 
     // Respect user motion preferences
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      this.timer = setTimeout(
-        () => this.rollLoop(),
-        this.initialDelayMs + this.pauseDurationMs,
-      );
+      this.timer = setTimeout(() => this.rollLoop(), this.pauseDurationMs);
     }
   }
 
@@ -153,5 +142,5 @@ export class KineticTypeBrandLine {
 export function initAllRollingPhrases() {
   document
     .querySelectorAll(SELECTORS.root)
-    .forEach((el) => new KineticTypeBrandLine(el).init());
+    .forEach((el) => new RollingPhrases(el).init());
 }

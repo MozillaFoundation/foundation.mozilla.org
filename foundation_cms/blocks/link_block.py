@@ -91,21 +91,4 @@ class OptionalLinkBlock(blocks.ListBlock):
         label = "Optional Link"
 
 
-class OptionalLinkWithoutLabelBlock(blocks.ListBlock):
-    """
-    A wrapper for a single optional LinkWithoutLabelBlock, useful for conditional display.
-    Use `self.YOUR_FIELD_NAME.0` in templates if present.
-    """
-
-    def __init__(self, **kwargs):
-        super().__init__(LinkWithoutLabelBlock(), min_num=0, max_num=1, **kwargs)
-
-    def get_default(self):
-        # Ensures the field starts truly empty, not with a blank block
-        return []
-
-    class Meta:
-        label = "Optional Link without label"
-
-
 register(BaseLinkBlockAdapter(), LinkWithoutLabelBlock)
