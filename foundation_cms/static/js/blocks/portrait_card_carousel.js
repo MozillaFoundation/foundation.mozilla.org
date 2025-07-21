@@ -31,7 +31,7 @@ class TransformCarousel {
     this.isTransitioning = false;
     this.index = this.total; // Start in the middle of the tripled array
     this.isCarousel = this.root.classList.contains("is-carousel");
-    
+
     this.resizeTimer = null;
     this.RESIZE_DEBOUNCE_MS = 200;
     this.SWIPE_THRESHOLD = 50;
@@ -81,8 +81,10 @@ class TransformCarousel {
   updateTransform(index, animate = true) {
     const offset = this.getSlideOffset() * index;
     this.track.style.transition = animate
-      ? getComputedStyle(this.track).getPropertyValue('--carousel-transition').trim()
-      : 'none';
+      ? getComputedStyle(this.track)
+          .getPropertyValue("--carousel-transition")
+          .trim()
+      : "none";
     this.track.style.transform = `translateX(-${offset}px)`;
   }
 
@@ -197,6 +199,5 @@ class TransformCarousel {
 
     // Recalculate position on resize
     window.addEventListener("resize", () => this.handleResize());
-
   }
 }
