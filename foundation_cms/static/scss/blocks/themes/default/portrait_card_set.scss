@@ -1,6 +1,7 @@
 @use "sass:map";
 
 .portrait-card-set {
+  --carousel-transition: transform 0.4s ease;
   $card-border-radius: 5.75rem;
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
@@ -48,7 +49,7 @@
     display: flex;
     width: 100%;
     will-change: transform;
-    transition: transform 0.4s ease;
+    transition: var(--carousel-transition);
   }
 
   .portrait-card {
@@ -82,7 +83,7 @@
     }
 
     &__image {
-      transition: transform 0.3s ease-out;
+      transition: var(--carousel-transition);
       aspect-ratio: math.div(1, 1);
 
       img {

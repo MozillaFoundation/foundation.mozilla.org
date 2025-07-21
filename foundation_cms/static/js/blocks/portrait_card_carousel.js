@@ -76,7 +76,9 @@ class TransformCarousel {
   // Move the carousel track by transform
   updateTransform(index, animate = true) {
     const offset = this.getSlideOffset() * index;
-    this.track.style.transition = animate ? "transform 0.4s ease" : "none";
+    this.track.style.transition = animate
+      ? getComputedStyle(this.track).getPropertyValue('--carousel-transition').trim()
+      : 'none';
     this.track.style.transform = `translateX(-${offset}px)`;
   }
 
