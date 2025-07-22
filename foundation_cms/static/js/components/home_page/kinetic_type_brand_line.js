@@ -150,7 +150,7 @@ export class KineticTypeBrandLine {
 /**
  * Initializes all rolling phrase components on the page.
  */
-export function initAllRollingPhrases() {
+export function initAllKineticTypeBrandLines() {
   document
     .querySelectorAll(SELECTORS.root)
     .forEach((el) => new KineticTypeBrandLine(el).init());
