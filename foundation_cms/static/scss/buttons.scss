@@ -90,6 +90,26 @@ $cta-link-icon-sizes: (
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
   }
+
+  &.with-heart-icon {
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
+    }
+  }
+
+  &.dark-mode {
+    background-color: color(orange, "100");
+    color: color(neutral, "600");
+
+    &:focus-visible {
+      outline: 1px solid color(neutral, "100");
+      outline-offset: 2px;
+    }
+
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+    }
+  }
 }
 
 .btn-secondary {
@@ -162,14 +182,20 @@ $cta-link-icon-sizes: (
   background: $background-color;
 
   &::before {
+    $width: rem-calc(48);
+    $left-offset: $width * -1;
+
+    // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges
+    $scale-overlap: 101%; // instead of 100%
+
     content: "";
     position: absolute;
-    left: rem-calc(48) * -1;
+    left: $left-offset;
     top: 0;
     bottom: 0;
-    width: rem-calc(48);
+    width: $width;
     background: $background-color;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+    clip-path: polygon(0% 0%, $scale-overlap 0%, $scale-overlap $scale-overlap);
   }
 
   &__counter {
