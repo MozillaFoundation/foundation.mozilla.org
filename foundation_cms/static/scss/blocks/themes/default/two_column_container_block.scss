@@ -1,7 +1,7 @@
-$two-column-mobile-margin-bottom: 0.25rem;
-$cell-block-margin-bottom: 2.5rem;
-
 .two-column-container {
+  $two-column-mobile-margin-bottom: 0.25rem;
+  $cell-block-margin-bottom: 2.5rem;
+
   display: flex;
   flex-direction: column;
   margin-bottom: $two-column-mobile-margin-bottom;
