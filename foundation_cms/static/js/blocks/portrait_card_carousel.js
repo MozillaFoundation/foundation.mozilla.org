@@ -35,6 +35,11 @@ class TransformCarousel {
     this.resizeTimer = null;
     this.RESIZE_DEBOUNCE_MS = 200;
     this.SWIPE_THRESHOLD = 50;
+    this.DISABLE_CAROUSEL_MIN_WIDTH = 1024;
+    this.ANIMATION_TIMEOUT_FALLBACK = 300;
+
+    this.slideOffset = 0;
+    this.carouselTransition = "";
 
     this.init();
   }
@@ -42,9 +47,21 @@ class TransformCarousel {
   init() {
     this.applyCardColorDataAttrs(this.originalCards);
     this.setupTrack();
+    this.cacheComputedValues();
     this.setInitialPosition();
     this.bindEvents();
     this.updateCounter();
+  }
+
+  cacheComputedValues() {
+    const card = this.cards[this.index];
+    if (card) {
+      const style = window.getComputedStyle(card);
+      this.slideOffset = card.getBoundingClientRect().width + parseFloat(style.marginRight);
+    }
+    this.carouselTransition = getComputedStyle(this.track)
+      .getPropertyValue("--carousel-transition")
+      .trim();
   }
 
   // Add data-card-color based on total colors needed
@@ -69,28 +86,17 @@ class TransformCarousel {
     this.cards = Array.from(this.track.querySelectorAll(SELECTORS.card));
   }
 
-  // Calculate scroll offset for the current index
-  getSlideOffset() {
-    const card = this.cards[this.index];
-    if (!card) return 0;
-    const style = window.getComputedStyle(card);
-    return card.getBoundingClientRect().width + parseFloat(style.marginRight);
-  }
-
   // Move the carousel track by transform
   updateTransform(index, animate = true) {
-    const offset = this.getSlideOffset() * index;
-    this.track.style.transition = animate
-      ? getComputedStyle(this.track)
-          .getPropertyValue("--carousel-transition")
-          .trim()
-      : "none";
+    const offset = this.slideOffset * index;
+    this.track.style.transition = animate ? this.carouselTransition : "none";
     this.track.style.transform = `translateX(-${offset}px)`;
   }
 
   // Initial transform (no animation)
   setInitialPosition() {
     requestAnimationFrame(() => {
+      this.cacheComputedValues();
       this.updateTransform(this.index, false);
     });
   }
@@ -98,7 +104,8 @@ class TransformCarousel {
   // Navigate to a given index
   slideTo(newIndex) {
     const shouldDisable =
-      !this.root.classList.contains("is-carousel") && window.innerWidth >= 1024;
+      !this.root.classList.contains("is-carousel") &&
+      window.innerWidth >= this.DISABLE_CAROUSEL_MIN_WIDTH;
     if (shouldDisable || this.isTransitioning) return;
 
     this.isTransitioning = true;
@@ -129,7 +136,7 @@ class TransformCarousel {
     }
 
     // Fallback for headline::after or if no hover
-    setTimeout(animateSlide, 300);
+    setTimeout(animateSlide, this.ANIMATION_TIMEOUT_FALLBACK);
   }
 
   // Loop logic to simulate infinite scroll
