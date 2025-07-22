@@ -153,22 +153,22 @@ $header-styles: (
   small: (
     'h1': (
       'font-size': rem-calc(40),
-      'line-height': 0.95,
+      'line-height': 0.9,
       'font-weight': 200,
     ),
     'h2': (
       'font-size': rem-calc(32),
-      'line-height': 1,
+      'line-height': 0.9,
       'font-weight': 300,
     ),
     'h3': (
       'font-size': rem-calc(28),
-      'line-height': 1,
+      'line-height': 0.9,
       'font-weight': 400,
     ),
     'h4': (
       'font-size': rem-calc(24),
-      'line-height': 1.1,
+      'line-height': 1,
       'font-weight': 600,
     ),
     'h5': (
@@ -178,29 +178,29 @@ $header-styles: (
     ),
     'h6': (
       'font-size': rem-calc(18),
-      'line-height': 1.2,
+      'line-height': 1.1,
       'font-weight': 700,
     ),
   ),
-  large: (
+  medium: (
     'h1': (
-      'font-size': rem-calc(92),
-      'line-height': 0.95,
+      'font-size': rem-calc(56),
+      'line-height': 0.9,
       'font-weight': 200,
     ),
     'h2': (
-      'font-size': rem-calc(68),
-      'line-height': 1,
+      'font-size': rem-calc(48),
+      'line-height': 0.9,
       'font-weight': 300,
     ),
     'h3': (
-      'font-size': rem-calc(52),
-      'line-height': 1,
+      'font-size': rem-calc(40),
+      'line-height': 0.9,
       'font-weight': 400,
     ),
     'h4': (
-      'font-size': rem-calc(40),
-      'line-height': 1.1,
+      'font-size': rem-calc(32),
+      'line-height': 1,
       'font-weight': 600,
     ),
     'h5': (
@@ -209,8 +209,40 @@ $header-styles: (
       'font-weight': 700,
     ),
     'h6': (
-      'font-size': rem-calc(20),
-      'line-height': 1.2,
+      'font-size': rem-calc(24),
+      'line-height': 1.1,
+      'font-weight': 700,
+    ),
+  ),
+  large: (
+    'h1': (
+      'font-size': rem-calc(80),
+      'line-height': 0.9,
+      'font-weight': 200,
+    ),
+    'h2': (
+      'font-size': rem-calc(64),
+      'line-height': 0.9,
+      'font-weight': 300,
+    ),
+    'h3': (
+      'font-size': rem-calc(48),
+      'line-height': 0.9,
+      'font-weight': 400,
+    ),
+    'h4': (
+      'font-size': rem-calc(40),
+      'line-height': 1,
+      'font-weight': 600,
+    ),
+    'h5': (
+      'font-size': rem-calc(32),
+      'line-height': 1.1,
+      'font-weight': 700,
+    ),
+    'h6': (
+      'font-size': rem-calc(24),
+      'line-height': 1.1,
       'font-weight': 700,
     ),
   ),
