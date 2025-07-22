@@ -4,6 +4,14 @@
 // Variables
 // ===================================
 
+$font-weights: (
+  extralight: 200,
+  light: 300,
+  regular: 400,
+  semibold: 600,
+  bold: 700,
+);
+
 /* stylelint-disable-next-line scss/dollar-variable-colon-space-after --
    allow Prettier line break formatting for long font stack */
 $display-text-font-family:
@@ -358,13 +366,19 @@ body.redesign {
 .lede-text {
   font-family: $body-font-family;
   font-size: rem-calc(20);
-  line-height: 1.5;
-  font-weight: 400;
+  line-height: 1.2;
+  font-weight: map.get($font-weights, regular);
 
   @include breakpoint(large) {
     font-size: rem-calc(24);
-    line-height: 1.5;
-    font-weight: 400;
+    line-height: 1.2;
+    font-weight: map.get($font-weights, regular);
+  }
+
+  @include breakpoint(large) {
+    font-size: rem-calc(24);
+    line-height: 1.2;
+    font-weight: map.get($font-weights, regular);
   }
 }
 
