@@ -26,6 +26,11 @@ $carousel-transition: transform 0.4s ease;
     --card-radius: 5.75rem;
   }
 
+  // counter the mobile-padding-0 full-bleed on the left by adding a small margin-left
+  @include breakpoint(large down) {
+    margin-left: 1rem;
+  }
+
   border-radius: var(--card-radius);
 
   &__card-container {
