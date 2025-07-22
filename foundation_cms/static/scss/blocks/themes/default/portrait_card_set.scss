@@ -74,7 +74,7 @@ $carousel-transition: transform 0.4s ease;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 1.9rem;
     min-height: 29.25rem;
     aspect-ratio: math.div(5, 8);
     box-sizing: border-box;
@@ -83,6 +83,7 @@ $carousel-transition: transform 0.4s ease;
     margin-right: 0.5rem;
 
     @include breakpoint(medium) {
+      padding: 2.25rem;
       width: 45%;
     }
 
