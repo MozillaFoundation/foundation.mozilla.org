@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 
+// layout variables for card spacing and animation timing
 $num-cards: 3;
 $gap-between-cards: 1.5rem;
 $card-gap-offset: calc(($gap-between-cards * ($num-cards - 1)) / $num-cards);
@@ -9,7 +10,9 @@ $carousel-transition: transform 0.4s ease;
 .portrait-card-set {
   --carousel-transition: #{$carousel-transition};
   --card-radius: 1.5rem;
+  --card-rotation: 0deg;
 
+  // individual rotation directions and assigned color map
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
   $cardset-colors: (
@@ -18,6 +21,7 @@ $carousel-transition: transform 0.4s ease;
     3: color(orange, "200"),
     4: color(green, "300"),
   );
+
   @include breakpoint(large up) {
     --card-radius: 5.75rem;
   }
@@ -43,6 +47,7 @@ $carousel-transition: transform 0.4s ease;
     }
   }
 
+  // responsive behavior for carousel card layout
   &.is-carousel {
     @include breakpoint(large up) {
       .portrait-card {
@@ -55,7 +60,7 @@ $carousel-transition: transform 0.4s ease;
     }
   }
 
-  // Carousel-specific track container
+  // horizontal scrolling container for cards
   .carousel-track {
     display: flex;
     width: 100%;
@@ -73,17 +78,15 @@ $carousel-transition: transform 0.4s ease;
     min-height: 29.25rem;
     aspect-ratio: math.div(5, 8);
     box-sizing: border-box;
-    width: 85%; // Mobile default
+    width: 85%; // mobile default
     scroll-snap-align: start;
     margin-right: 0.5rem;
 
     @include breakpoint(medium) {
-      width: 45%; // Tablet
+      width: 45%;
     }
 
     @include breakpoint(large up) {
-      // For 3 cards in a row, subtract each card's share of the total row gap from 100%
-      // 3 cards = 2 total gaps → 1.5rem total gap ÷ 3 cards = 0.5rem per card
       width: calc(100% / #{$num-cards} - #{$card-gap-offset});
       min-height: 44rem;
       padding: 2.5rem 3rem 4.5rem;
@@ -97,12 +100,16 @@ $carousel-transition: transform 0.4s ease;
       margin-right: 0;
     }
 
+    // image wrapper: rotated and clipped with variable shape
     &__image {
       transition: #{$carousel-transition};
       aspect-ratio: math.div(1, 1);
       will-change: transform;
+      clip-path: var(--image-clip, inset(0 round 0));
+      transform: var(--image-transform, none);
 
       img {
+        transition: transform 0.3s ease;
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -113,6 +120,7 @@ $carousel-transition: transform 0.4s ease;
       margin-top: auto;
     }
 
+    // headline area with CTA link styling
     &__headline {
       margin: 0;
       @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
@@ -130,8 +138,9 @@ $carousel-transition: transform 0.4s ease;
       }
     }
 
+    // hover state for zoom and headline animation
     &:hover {
-      .portrait-card__image {
+      .portrait-card__image img {
         transform: scale(1.05);
       }
 
@@ -144,24 +153,28 @@ $carousel-transition: transform 0.4s ease;
       }
     }
 
-    // Color theming via data attribute
+    // assign alternating colors, rotations, and clip paths for the cards and images
     @for $i from 1 through 4 {
       &[data-card-color="#{$i - 1}"] {
         background-color: map.get($cardset-colors, $i);
 
-        .portrait-card__image img {
+        .portrait-card__image {
           @if $i == 1 {
-            border-radius: 0 var(--card-radius) 0 0;
-            transform: rotate($rotate-neg);
+            --card-rotation: #{$rotate-neg};
+            --image-clip: inset(0 round 0 var(--card-radius) 0 0);
+            --image-transform: rotate(#{$rotate-neg});
           } @else if $i == 2 {
-            border-radius: 0 var(--card-radius) var(--card-radius) 0;
-            transform: rotate($rotate-pos);
+            --card-rotation: #{$rotate-pos};
+            --image-clip: inset(0 round 0 var(--card-radius) var(--card-radius) 0);
+            --image-transform: rotate(#{$rotate-pos});
           } @else if $i == 3 {
-            border-radius: var(--card-radius) var(--card-radius) 0 0;
-            transform: rotate($rotate-neg);
+            --card-rotation: #{$rotate-neg};
+            --image-clip: inset(0 round var(--card-radius) var(--card-radius) 0 0);
+            --image-transform: rotate(#{$rotate-neg});
           } @else if $i == 4 {
-            border-radius: 0 var(--card-radius) 0 var(--card-radius);
-            transform: rotate($rotate-pos);
+            --card-rotation: #{$rotate-pos};
+            --image-clip: inset(0 round 0 var(--card-radius) 0 var(--card-radius));
+            --image-transform: rotate(#{$rotate-pos});
           }
         }
       }
