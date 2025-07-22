@@ -14,9 +14,7 @@ $font-weights: (
 
 /* stylelint-disable-next-line scss/dollar-variable-colon-space-after --
    allow Prettier line break formatting for long font stack */
-$display-text-font-family:
-  "Mozilla Headline Extended", "Helvetica Neue", arial, x-localespecific,
-  sans-serif;
+$display-text-font-family: $header-font-family; // [FIXME:TODO] quick fix for demo
 $display-text-styles: (
   small: (
     "1": (
