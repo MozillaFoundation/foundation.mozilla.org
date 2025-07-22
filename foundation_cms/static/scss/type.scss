@@ -151,24 +151,36 @@ $quote-text-styles: (
     "large": (
       "font-size": rem-calc(32),
       "line-height": 1,
-      "font-weight": 400,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(24),
       "line-height": 1,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
+    ),
+  ),
+  medium: (
+    "large": (
+      "font-size": rem-calc(48),
+      "line-height": 1,
+      "font-weight": map.get($font-weights, regular),
+    ),
+    "regular": (
+      "font-size": rem-calc(32),
+      "line-height": 1,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
   large: (
     "large": (
       "font-size": rem-calc(52),
       "line-height": 1,
-      "font-weight": 400,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(40),
       "line-height": 1,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
 );
