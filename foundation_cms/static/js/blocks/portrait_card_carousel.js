@@ -28,15 +28,13 @@ class TransformCarousel {
     this.total = this.originalCards.length;
 
     this.visibleCount = 3;
-    this.isTransitioning = false;
-    this.index = this.total; // Start in the middle of the tripled array
+    this.index = this.total * 2; // Start in the middle of the quintupled array
     this.isCarousel = this.root.classList.contains("is-carousel");
 
     this.resizeTimer = null;
     this.RESIZE_DEBOUNCE_MS = 200;
     this.SWIPE_THRESHOLD = 50;
     this.DISABLE_CAROUSEL_MIN_WIDTH = 1024;
-    this.ANIMATION_TIMEOUT_FALLBACK = 300;
 
     this.slideOffset = 0;
     this.carouselTransition = "";
@@ -71,18 +69,20 @@ class TransformCarousel {
     });
   }
 
-  // Create a tripled set of cards to simulate infinite scroll
+  // Create a quintupled set of cards to simulate infinite scroll with extra buffer
   setupTrack() {
-    const tripled = [
+    const quintupled = [
+      ...this.originalCards.map((card) => card.cloneNode(true)),
+      ...this.originalCards.map((card) => card.cloneNode(true)),
       ...this.originalCards,
       ...this.originalCards.map((card) => card.cloneNode(true)),
       ...this.originalCards.map((card) => card.cloneNode(true)),
     ];
 
     this.track.innerHTML = "";
-    this.applyCardColorDataAttrs(tripled);
+    this.applyCardColorDataAttrs(quintupled);
 
-    tripled.forEach((card) => this.track.appendChild(card));
+    quintupled.forEach((card) => this.track.appendChild(card));
     this.cards = Array.from(this.track.querySelectorAll(SELECTORS.card));
   }
 
@@ -106,50 +106,30 @@ class TransformCarousel {
     const shouldDisable =
       !this.root.classList.contains("is-carousel") &&
       window.innerWidth >= this.DISABLE_CAROUSEL_MIN_WIDTH;
-    if (shouldDisable || this.isTransitioning) return;
+    if (shouldDisable) return;
 
-    this.isTransitioning = true;
     this.index = newIndex;
-
-    const currentCard = this.cards[this.index];
-    const image = currentCard.querySelector(".portrait-card__image");
-
-    const animateSlide = () => {
-      this.updateTransform(this.index, true);
-      this.track.addEventListener("transitionend", () => this.handleLoop(), {
-        once: true,
-      });
-    };
-
-    // Wait for image scale to finish if hovering
-    const isHovered = currentCard.matches(":hover");
-
-    if (isHovered && image) {
-      const duration = parseFloat(
-        getComputedStyle(image).transitionDuration || "0",
-      );
-
-      if (duration > 0) {
-        image.addEventListener("transitionend", animateSlide, { once: true });
-        return;
-      }
-    }
-
-    // Fallback for headline::after or if no hover
-    setTimeout(animateSlide, this.ANIMATION_TIMEOUT_FALLBACK);
+    this.updateTransform(this.index, true);
+    this.track.addEventListener("transitionend", () => this.handleLoop(), {
+      once: true,
+    });
   }
 
   // Loop logic to simulate infinite scroll
   handleLoop() {
-    if (this.index >= this.total * 2) {
-      this.index = this.total;
-    } else if (this.index < this.total) {
-      this.index = this.total * 2 - 1;
+    const totalLen = this.total * 5;
+    const middleStart = this.total * 2;
+    const middleEnd = this.total * 3;
+
+    if (this.index >= middleEnd) {
+      this.index -= this.total;
+      this.updateTransform(this.index, false);
+    } else if (this.index < middleStart) {
+      this.index += this.total;
+      this.updateTransform(this.index, false);
     }
 
-    this.updateTransform(this.index, false);
     this.updateCounter();
-    this.isTransitioning = false;
   }
 
   // Update visual counter display
