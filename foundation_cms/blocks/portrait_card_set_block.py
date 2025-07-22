@@ -17,4 +17,4 @@ class PortraitCardSetBlock(BaseBlock):
     class Meta:
         label = "Portrait Card Set"
         icon = "form"
-        template_name = "portrait_card_set_block_grid.html"
+        template_name = "portrait_card_set_block.html"
