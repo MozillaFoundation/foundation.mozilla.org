@@ -189,24 +189,36 @@ $label-text-styles: (
     "large": (
       "font-size": rem-calc(20),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
     "regular": (
       "font-size": rem-calc(14),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
+    ),
+  ),
+  medium: (
+    "large": (
+      "font-size": rem-calc(20),
+      "line-height": 1.2,
+      "font-weight": map.get($font-weights, light),
+    ),
+    "regular": (
+      "font-size": rem-calc(14),
+      "line-height": 1.2,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
   large: (
     "large": (
       "font-size": rem-calc(20),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
     "regular": (
       "font-size": rem-calc(14),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
 );
