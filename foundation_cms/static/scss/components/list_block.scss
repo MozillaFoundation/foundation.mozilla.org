@@ -13,9 +13,9 @@ body.redesign {
 
     &__title {
       @include mofo-text-style(
-        $display-text-styles,
-        "4",
-        $display-text-font-family
+        $header-styles,
+        "h4",
+        $header-font-family
       );
 
       margin: 0 0 0.5rem;

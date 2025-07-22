@@ -19,8 +19,8 @@
     ),
   );
   $digit-height: (
-    small: get-text-property($display-text-styles, "2", "line-height", "small"),
-    large: get-text-property($display-text-styles, "1", "line-height", "large"),
+    small: get-text-property($header-styles, "h2", "line-height", "small"),
+    large: get-text-property($header-styles, "h1", "line-height", "large"),
   );
 
   // ===================================
@@ -116,20 +116,20 @@
       display: inline-block;
 
       @include apply-text-style(
-        $display-text-styles,
-        "2",
+        $header-styles,
+        "h2",
         "small",
-        $display-text-font-family
+        $header-font-family
       );
 
       @include breakpoint(large up) {
         height: #{map.get($digit-height, large)}em;
 
         @include apply-text-style(
-          $display-text-styles,
-          "1",
+          $header-styles,
+          "h1",
           "large",
-          $display-text-font-family
+          $header-font-family
         );
       }
 
@@ -145,18 +145,18 @@
       text-align: center;
 
       @include apply-text-style(
-        $display-text-styles,
-        "2",
+        $header-styles,
+        "h2",
         "small",
-        $display-text-font-family
+        $header-font-family
       );
 
       @include breakpoint(large up) {
         @include apply-text-style(
-          $display-text-styles,
-          "1",
+          $header-styles,
+          "h1",
           "large",
-          $display-text-font-family
+          $header-font-family
         );
       }
 

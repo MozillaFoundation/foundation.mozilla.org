@@ -189,7 +189,7 @@
     }
 
     .newsletter-signup__success-title {
-      @include mofo-text-style($header-styles, "h4", $display-text-font-family);
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
 
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;

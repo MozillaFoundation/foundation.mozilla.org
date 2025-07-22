@@ -5,9 +5,9 @@
   .hero {
     &__title {
       @include mofo-text-style(
-        $display-text-styles,
-        "1",
-        $display-text-font-family
+        $header-styles,
+        "h1",
+        $header-font-family
       );
 
       margin: 0;
