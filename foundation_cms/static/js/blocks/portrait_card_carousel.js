@@ -9,6 +9,11 @@ const SELECTORS = {
   total: ".pagination-controls__total",
 };
 
+const NUM_CARD_DESIGNS = 4;
+const RESIZE_DEBOUNCE_MS = 200;
+const SWIPE_THRESHOLD = 50;
+const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
+
 export function initPortraitCardSetCarousels() {
   const carousels = document.querySelectorAll(SELECTORS.root);
   carousels.forEach((carousel) => new TransformCarousel(carousel));
@@ -28,14 +33,15 @@ class TransformCarousel {
     this.total = this.originalCards.length;
 
     this.visibleCount = 3;
-    this.index = this.total * 2; // Start in the middle of the quintupled array
+    this.index = this.total;
+    this.middleStart = this.total;
+    this.middleEnd = this.total * 2;
+    this.nextCloneTrackStart = this.middleEnd + 1;
+    this.prevCloneTrackEnd = this.middleStart - 1;
+
     this.isCarousel = this.root.classList.contains("is-carousel");
 
     this.resizeTimer = null;
-    this.RESIZE_DEBOUNCE_MS = 200;
-    this.SWIPE_THRESHOLD = 50;
-    this.DISABLE_CAROUSEL_MIN_WIDTH = 1024;
-
     this.slideOffset = 0;
     this.carouselTransition = "";
 
@@ -51,38 +57,39 @@ class TransformCarousel {
     this.updateCounter();
   }
 
+  // Store cachable values like width/offset and transition variable.
   cacheComputedValues() {
     const card = this.cards[this.index];
     if (card) {
       const style = window.getComputedStyle(card);
-      this.slideOffset = card.getBoundingClientRect().width + parseFloat(style.marginRight);
+      this.slideOffset =
+        card.getBoundingClientRect().width + parseFloat(style.marginRight);
     }
     this.carouselTransition = getComputedStyle(this.track)
       .getPropertyValue("--carousel-transition")
       .trim();
   }
 
-  // Add data-card-color based on total colors needed
+  // Add data-card-design based on how many card designs we have
   applyCardColorDataAttrs(cards) {
     cards.forEach((card, i) => {
-      card.setAttribute("data-card-color", i % this.total);
+      card.setAttribute("data-card-design", i % NUM_CARD_DESIGNS);
     });
   }
 
-  // Create a quintupled set of cards to simulate infinite scroll with extra buffer
+  // Create a tripled set of cards to simulate infinite scroll
   setupTrack() {
-    const quintupled = [
-      ...this.originalCards.map((card) => card.cloneNode(true)),
+    const tripled = [
       ...this.originalCards.map((card) => card.cloneNode(true)),
       ...this.originalCards,
       ...this.originalCards.map((card) => card.cloneNode(true)),
-      ...this.originalCards.map((card) => card.cloneNode(true)),
     ];
 
-    this.track.innerHTML = "";
-    this.applyCardColorDataAttrs(quintupled);
+    const fragment = document.createDocumentFragment();
+    tripled.forEach((card) => fragment.appendChild(card));
 
-    quintupled.forEach((card) => this.track.appendChild(card));
+    this.track.innerHTML = "";
+    this.track.appendChild(fragment);
     this.cards = Array.from(this.track.querySelectorAll(SELECTORS.card));
   }
 
@@ -103,50 +110,80 @@ class TransformCarousel {
 
   // Navigate to a given index
   slideTo(newIndex) {
-    const shouldDisable =
-      !this.root.classList.contains("is-carousel") &&
-      window.innerWidth >= this.DISABLE_CAROUSEL_MIN_WIDTH;
-    if (shouldDisable) return;
+    if (!this.isCarousel && window.innerWidth >= DISABLE_CAROUSEL_MIN_WIDTH)
+      return;
 
+    // handle loop
+    if (this.handleLoop(newIndex)) return;
+
+    // or increment
     this.index = newIndex;
     this.updateTransform(this.index, true);
-    this.track.addEventListener("transitionend", () => this.handleLoop(), {
-      once: true,
-    });
+    this.updateCounter();
   }
 
   // Loop logic to simulate infinite scroll
-  handleLoop() {
-    const totalLen = this.total * 5;
-    const middleStart = this.total * 2;
-    const middleEnd = this.total * 3;
+  handleLoop(newIndex) {
+    if (newIndex === this.nextCloneTrackStart) {
+      this.track.style.transition = "none";
+      this.index = this.middleStart;
+      this.updateTransform(this.index, false);
 
-    if (this.index >= middleEnd) {
-      this.index -= this.total;
-      this.updateTransform(this.index, false);
-    } else if (this.index < middleStart) {
-      this.index += this.total;
-      this.updateTransform(this.index, false);
+      // Double requestAnimationFrame required to avoid visual jump
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.index += 1;
+          this.updateTransform(this.index, true);
+          this.updateCounter();
+        });
+      });
+      return true;
     }
 
-    this.updateCounter();
+    if (newIndex === this.prevCloneTrackEnd) {
+      this.track.style.transition = "none";
+      this.index = this.middleEnd;
+      this.updateTransform(this.index, false);
+
+      // Double requestAnimationFrame required to avoid visual jump
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.index -= 1;
+          this.updateTransform(this.index, true);
+          this.updateCounter();
+        });
+      });
+      return true;
+    }
+
+    return false;
   }
 
   // Update visual counter display
   updateCounter() {
     if (this.counterEl) {
-      const logicalIndex =
-        ((this.index % this.total) + this.total) % this.total;
-      this.counterEl.textContent = `${logicalIndex + 1}`;
+      this.counterEl.textContent = `${this.getLogicalIndex() + 1}`;
     }
   }
 
-  // recalc based on window resize w/ debounce
+  // Return current logical index within original card set
+  getLogicalIndex() {
+    return ((this.index % this.total) + this.total) % this.total;
+  }
+
+  // Recalc based on window resize w/ debounce
   handleResize() {
     clearTimeout(this.resizeTimer);
     this.resizeTimer = setTimeout(() => {
       this.setInitialPosition();
-    }, this.RESIZE_DEBOUNCE_MS);
+    }, RESIZE_DEBOUNCE_MS);
+  }
+
+  // Unified swipe/drag handler
+  handleSwipe(delta) {
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      this.slideTo(delta < 0 ? this.index + 1 : this.index - 1);
+    }
   }
 
   // Bind arrow keys, buttons, swipe, and drag for navigation
@@ -157,44 +194,33 @@ class TransformCarousel {
     let startX = 0;
     let isDragging = false;
 
+    const onStart = (x) => {
+      startX = x;
+      isDragging = true;
+    };
+
+    const onEnd = (x) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const delta = x - startX;
+      this.handleSwipe(delta);
+    };
+
     // Touch support
     this.viewport.addEventListener(
       "touchstart",
-      (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-      },
+      (e) => onStart(e.touches[0].clientX),
       { passive: true },
     );
-
     this.viewport.addEventListener(
       "touchend",
-      (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        const delta = e.changedTouches[0].clientX - startX;
-        if (Math.abs(delta) > this.SWIPE_THRESHOLD)
-          delta < 0
-            ? this.slideTo(this.index + 1)
-            : this.slideTo(this.index - 1);
-      },
+      (e) => onEnd(e.changedTouches[0].clientX),
       { passive: true },
     );
 
     // Mouse drag support
-    this.viewport.addEventListener("mousedown", (e) => {
-      startX = e.clientX;
-      isDragging = true;
-    });
-
-    this.viewport.addEventListener("mouseup", (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      const delta = e.clientX - startX;
-      if (Math.abs(delta) > this.SWIPE_THRESHOLD)
-        delta < 0 ? this.slideTo(this.index + 1) : this.slideTo(this.index - 1);
-    });
-
+    this.viewport.addEventListener("mousedown", (e) => onStart(e.clientX));
+    this.viewport.addEventListener("mouseup", (e) => onEnd(e.clientX));
     this.viewport.addEventListener("mouseleave", () => {
       if (isDragging) isDragging = false;
     });

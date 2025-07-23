@@ -5,7 +5,7 @@
 $num-cards: 3;
 $gap-between-cards: 1.5rem;
 $card-gap-offset: calc(($gap-between-cards * ($num-cards - 1)) / $num-cards);
-$carousel-transition: transform 0.4s ease;
+$carousel-transition: transform 0.3s ease;
 
 .portrait-card-set {
   --carousel-transition: #{$carousel-transition};
@@ -159,9 +159,9 @@ $carousel-transition: transform 0.4s ease;
       }
     }
 
-    // assign alternating colors, rotations, and clip paths for the cards and images
+    // assemble card design rules (colors, rotations, and clip paths) for the cards
     @for $i from 1 through 4 {
-      &[data-card-color="#{$i - 1}"] {
+      &[data-card-design="#{$i - 1}"] {
         background-color: map.get($cardset-colors, $i);
 
         .portrait-card__image {
@@ -171,15 +171,21 @@ $carousel-transition: transform 0.4s ease;
             --image-transform: rotate(#{$rotate-neg});
           } @else if $i == 2 {
             --card-rotation: #{$rotate-pos};
-            --image-clip: inset(0 round 0 var(--card-radius) var(--card-radius) 0);
+            --image-clip: inset(
+              0 round 0 var(--card-radius) var(--card-radius) 0
+            );
             --image-transform: rotate(#{$rotate-pos});
           } @else if $i == 3 {
             --card-rotation: #{$rotate-neg};
-            --image-clip: inset(0 round var(--card-radius) var(--card-radius) 0 0);
+            --image-clip: inset(
+              0 round var(--card-radius) var(--card-radius) 0 0
+            );
             --image-transform: rotate(#{$rotate-neg});
           } @else if $i == 4 {
             --card-rotation: #{$rotate-pos};
-            --image-clip: inset(0 round 0 var(--card-radius) 0 var(--card-radius));
+            --image-clip: inset(
+              0 round 0 var(--card-radius) 0 var(--card-radius)
+            );
             --image-transform: rotate(#{$rotate-pos});
           }
         }
