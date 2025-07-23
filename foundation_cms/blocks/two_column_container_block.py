@@ -1,4 +1,4 @@
-from wagtail.blocks import RichTextBlock, StreamBlock
+from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
@@ -21,6 +21,15 @@ class ColumnStreamBlock(StreamBlock):
 
 
 class TwoColumnContainerBlock(BaseBlock):
+    vertical_alignment = ChoiceBlock(
+        choices=[
+            ("top", "Top"),
+            ("middle", "Middle"),
+            ("bottom", "Bottom"),
+        ],
+        default="middle",
+        help_text="Vertical alignment of the columns content",
+    )
     left_column = ColumnStreamBlock(label="Left Column")
     right_column = ColumnStreamBlock(label="Right Column")
 

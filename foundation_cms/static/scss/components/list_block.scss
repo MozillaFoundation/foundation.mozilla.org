@@ -64,3 +64,12 @@ body.redesign {
     }
   }
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
+.block-two_column_container_block {
+  .list-block {
+    margin-bottom: 0;
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}

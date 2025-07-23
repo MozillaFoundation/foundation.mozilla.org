@@ -6,6 +6,15 @@
   flex-direction: column;
   margin-bottom: $two-column-mobile-margin-bottom;
 
+  @include breakpoint(medium up) {
+    flex-direction: row;
+    margin-bottom: $global-margin * 2;
+  }
+
+  .grid-x {
+    width: calc(100% + 2rem);
+  }
+
   &__cell {
     flex: 1;
     padding: $global-margin;
@@ -13,19 +22,32 @@
 
     &:not(:last-child) {
       margin-bottom: $cell-block-margin-bottom;
+
+      @include breakpoint(medium up) {
+        margin-right: $global-margin;
+      }
+    }
+
+    @include breakpoint(medium up) {
+      margin-bottom: 0;
     }
   }
 
-  @include breakpoint(medium up) {
-    flex-direction: row;
-    margin-bottom: $global-margin * 2;
+  &--middle {
+    > .grid-x {
+      align-items: center;
+    }
+  }
 
-    &__cell {
-      margin-bottom: 0;
+  &--bottom {
+    > .grid-x {
+      align-items: flex-end;
+    }
+  }
 
-      &:not(:last-child) {
-        margin-right: $global-margin;
-      }
+  &--top {
+    > .grid-x {
+      align-items: flex-start;
     }
   }
 }
