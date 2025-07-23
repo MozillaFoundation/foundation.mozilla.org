@@ -201,7 +201,7 @@
     .newsletter-signup__success-title {
       @include mofo-text-style($header-styles, "h4", $display-text-font-family);
 
-      margin-top: 0.75rem;
+      margin-top: 0;
       margin-bottom: 0.5rem;
       font-weight: 700;
       position: relative;
