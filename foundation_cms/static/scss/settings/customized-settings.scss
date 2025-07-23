@@ -182,38 +182,6 @@ $header-styles: (
       'font-weight': 700,
     ),
   ),
-  medium: (
-    'h1': (
-      'font-size': rem-calc(56),
-      'line-height': 0.9,
-      'font-weight': 200,
-    ),
-    'h2': (
-      'font-size': rem-calc(48),
-      'line-height': 0.9,
-      'font-weight': 300,
-    ),
-    'h3': (
-      'font-size': rem-calc(40),
-      'line-height': 0.9,
-      'font-weight': 400,
-    ),
-    'h4': (
-      'font-size': rem-calc(32),
-      'line-height': 1,
-      'font-weight': 600,
-    ),
-    'h5': (
-      'font-size': rem-calc(28),
-      'line-height': 1.1,
-      'font-weight': 700,
-    ),
-    'h6': (
-      'font-size': rem-calc(24),
-      'line-height': 1.1,
-      'font-weight': 700,
-    ),
-  ),
   large: (
     'h1': (
       'font-size': rem-calc(64),
