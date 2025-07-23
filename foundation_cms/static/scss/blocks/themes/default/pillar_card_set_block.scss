@@ -1,6 +1,7 @@
 @use "sass:map";
 
 @import "../../../colors";
+@import "../../../buttons";
 
 .pillar-card-set {
   $corner-radius: (
@@ -13,12 +14,12 @@
       background-color: color(blue, "200"),
       background-image: url("../_images/handdrawn/arrow-up.svg"),
       background-size: (
-        small: auto rem-calc(70),
-        large: auto rem-calc(120),
+        small: auto rem-calc(110),
+        large: auto rem-calc(150),
       ),
       background-position: (
-        small: right 1rem bottom 1rem,
-        large: right 3rem bottom 2rem,
+        small: right bottom rem-calc(12),
+        large: right 1rem bottom 1rem,
       ),
       border-top-left-radius: $corner-radius,
       border-top-right-radius: $corner-radius,
@@ -28,12 +29,12 @@
       background-color: color(green, "200"),
       background-image: url("../_images/handdrawn/stairs.svg"),
       background-size: (
-        small: auto rem-calc(60),
-        large: auto rem-calc(120),
+        small: auto rem-calc(112),
+        large: auto rem-calc(160),
       ),
       background-position: (
-        small: right 1rem bottom 1rem,
-        large: right 2rem bottom 2rem,
+        small: right 0.5rem bottom,
+        large: right 1rem bottom 1rem,
       ),
       border-bottom-left-radius: $corner-radius,
       top-offset: (
@@ -56,7 +57,7 @@
     ),
   );
   $card-padding: (
-    small: 1rem,
+    small: rem-calc(20),
     large: 2rem,
   );
 
@@ -80,6 +81,7 @@
     background-size: map.get($background-size, small);
     background-position: map.get($background-position, small);
     transform: rotate(map.get($style, rotation));
+    transition: transform 0.1s ease;
 
     @include apply-border-radius(
       top-left,
@@ -116,6 +118,12 @@
     }
   }
 
+  padding: 2rem 0 3rem;
+
+  @include breakpoint(large up) {
+    padding: 3rem 0 5rem;
+  }
+
   &__card-container {
     display: flex;
     flex-direction: column;
@@ -148,11 +156,23 @@
 
     &-headline {
       margin-top: 0;
-      margin-bottom: rem-calc(154);
+      margin-bottom: 5rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: rem-calc(154);
+      }
     }
 
     &-link {
       @include cta-link(map.get($cta-link-icon-sizes, large), "large");
+    }
+
+    &[data-href] {
+      &:hover {
+        .pillar-card-set__card-link {
+          @include cta-link-hover-state;
+        }
+      }
     }
   }
 }
