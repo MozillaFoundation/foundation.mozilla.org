@@ -7,6 +7,7 @@
   $image-hover-scale: 105%;
 
   position: relative;
+  margin-bottom: 2.5rem;
 
   @include breakpoint(large up) {
     &::before {
@@ -58,7 +59,7 @@
       duration: 0.5s,
       timing-function: ease,
     );
-    $mobile-container-width: 100vw;
+    $mobile-container-width: calc(100vw - map.get($grid-margin-gutters, small) * 2);
 
     // returns the percentage width of N columns
     @function display-width($columns) {
@@ -172,7 +173,6 @@
     &__controls {
       display: flex;
       justify-content: end;
-      margin-top: 1rem;
 
       @include breakpoint(large up) {
         $total-image-height: calc(
@@ -183,6 +183,7 @@
         position: absolute;
         right: 0;
         top: calc($total-image-height + $offset);
+        margin-top: 1rem;
       }
     }
 
@@ -191,6 +192,7 @@
       flex-direction: column;
       align-items: center;
       width: $mobile-container-width;
+      margin: 0 map.get($grid-margin-gutters, small);
       transition: all map.get($transition, duration)
         map.get($transition, timing-function);
 
