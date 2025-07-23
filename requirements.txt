@@ -63,7 +63,9 @@ django==4.2.20
     #   django-querystring-tag
     #   django-redis
     #   django-storages
+    #   django-stubs-ext
     #   django-taggit
+    #   django-tasks
     #   django-treebeard
     #   djangorestframework
     #   laces
@@ -99,7 +101,11 @@ django-redis==5.4.0
     # via -r requirements.in
 django-storages==1.14.5
     # via -r requirements.in
+django-stubs-ext==5.2.1
+    # via django-tasks
 django-taggit==6.1.0
+    # via wagtail
+django-tasks==0.7.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
@@ -139,8 +145,6 @@ jmespath==0.10.0
     # via
     #   boto3
     #   botocore
-l18n==2021.3
-    # via wagtail
 laces==0.1.2
     # via wagtail
 markdown==3.4.4
@@ -193,9 +197,7 @@ python-slugify==8.0.4
 python3-openid==3.2.0
     # via social-auth-core
 pytz==2023.3.post1
-    # via
-    #   django-modelcluster
-    #   l18n
+    # via django-modelcluster
 pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
@@ -224,7 +226,6 @@ six==1.16.0
     # via
     #   basket-client
     #   ecdsa
-    #   l18n
     #   python-dateutil
 smmap==5.0.0
     # via gitdb
@@ -247,6 +248,8 @@ tqdm==4.63.0
 typing-extensions==4.4.0
     # via
     #   dj-database-url
+    #   django-stubs-ext
+    #   django-tasks
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
@@ -258,7 +261,7 @@ urllib3==1.26.19
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==6.3.2
+wagtail==7.0.1
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
@@ -294,7 +297,7 @@ wand==0.6.13
     # via -r requirements.in
 whitenoise==6.9.0
     # via -r requirements.in
-willow[heif]==1.8.0
+willow[heif]==1.10.0
     # via
     #   wagtail
     #   willow
