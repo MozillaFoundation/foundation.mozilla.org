@@ -1,0 +1,31 @@
+.two-column-container {
+  $two-column-mobile-margin-bottom: 0.25rem;
+  $cell-block-margin-bottom: 2.5rem;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $two-column-mobile-margin-bottom;
+
+  &__cell {
+    flex: 1;
+    padding: $global-margin;
+    box-sizing: border-box;
+
+    &:not(:last-child) {
+      margin-bottom: $cell-block-margin-bottom;
+    }
+  }
+
+  @include breakpoint(medium up) {
+    flex-direction: row;
+    margin-bottom: $global-margin * 2;
+
+    &__cell {
+      margin-bottom: 0;
+
+      &:not(:last-child) {
+        margin-right: $global-margin;
+      }
+    }
+  }
+}
