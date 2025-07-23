@@ -59,7 +59,9 @@
       duration: 0.5s,
       timing-function: ease,
     );
-    $mobile-container-width: calc(100vw - map.get($grid-margin-gutters, small) * 2);
+    $mobile-container-width: calc(
+      100vw - map.get($grid-margin-gutters, small) * 2
+    );
 
     // returns the percentage width of N columns
     @function display-width($columns) {
