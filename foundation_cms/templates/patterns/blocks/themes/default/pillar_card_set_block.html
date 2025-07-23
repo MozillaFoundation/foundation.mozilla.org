@@ -3,20 +3,24 @@
   <div class="pillar-card-set">
     <div class="pillar-card-set__card-container">
       {% for card in self.cards %}
-        <div class="pillar-card-set__card">
-          <p class="pillar-card-set__card-headline h3-style">{{ card.headline }}</p>
-          {% if card.cta_link %}
-            <div>
-              {% with link=card.cta_link.0 %}
+        {% with link=card.cta_link.0 target=card.cta_link.0.new_window|yesno:"_blank," %}
+          <div class="pillar-card-set__card"
+               {% if link %}
+                 data-href="{{ link.url }}"
+                 {% if target %}data-target="{{ target }}"{% endif %}
+               {% endif %}>
+            <p class="pillar-card-set__card-headline h3-style">{{ card.headline }}</p>
+            {% if link %}
+              <div>
                 <a class="pillar-card-set__card-link"
                    href="{{ link.url }}"
-                   {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                   {% if target %}target="{{ target }}" rel="noopener noreferrer"{% endif %}>
                   {{ link.label }}
                 </a>
-              {% endwith %}
-            </div>
-          {% endif %}
-        </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endwith %}
       {% endfor %}
     </div>
   </div>
