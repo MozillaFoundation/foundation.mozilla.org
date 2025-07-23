@@ -30,8 +30,8 @@ class TwoColumnContainerBlock(BaseBlock):
         default="middle",
         help_text="Vertical alignment of the columns content",
     )
-    left_column = ColumnStreamBlock(label="Left Column")
-    right_column = ColumnStreamBlock(label="Right Column")
+    left_column = ColumnStreamBlock(label="Left Column", required=False)
+    right_column = ColumnStreamBlock(label="Right Column", required=False)
 
     class Meta:
         template_name = "two_column_container_block.html"
