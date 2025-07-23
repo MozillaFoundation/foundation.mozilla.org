@@ -104,6 +104,14 @@
         }
       }
 
+      .newsletter-signup__success-title {
+        padding-left: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+
       .newsletter-signup__success-media {
         display: none;
       }
