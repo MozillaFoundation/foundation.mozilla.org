@@ -124,35 +124,30 @@ class TransformCarousel {
 
   // Loop logic to simulate infinite scroll
   handleLoop(newIndex) {
-    if (newIndex === this.nextCloneTrackStart) {
+    const loopTransition = (resetIndex, adjustFn) => {
       this.track.style.transition = "none";
-      this.index = this.middleStart;
+      this.index = resetIndex;
       this.updateTransform(this.index, false);
 
-      // Double requestAnimationFrame required to avoid visual jump
+      // Double requestAnimationFrame required to avoid jump
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          this.index += 1;
+          this.index = adjustFn(this.index);
           this.updateTransform(this.index, true);
           this.updateCounter();
         });
       });
+    };
+
+    // handle forward loop
+    if (newIndex === this.nextCloneTrackStart) {
+      loopTransition(this.middleStart, (i) => i + 1);
       return true;
     }
 
+    // handle backwards loop
     if (newIndex === this.prevCloneTrackEnd) {
-      this.track.style.transition = "none";
-      this.index = this.middleEnd;
-      this.updateTransform(this.index, false);
-
-      // Double requestAnimationFrame required to avoid visual jump
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          this.index -= 1;
-          this.updateTransform(this.index, true);
-          this.updateCounter();
-        });
-      });
+      loopTransition(this.middleEnd, (i) => i - 1);
       return true;
     }
 
