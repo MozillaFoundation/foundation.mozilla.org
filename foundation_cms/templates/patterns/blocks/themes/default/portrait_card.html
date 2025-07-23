@@ -1,12 +1,24 @@
 {% load wagtailimages_tags %}
-<div class="portrait-card">
-    <div class="portrait-card__text">
-        <p class="portrait-card__label">{{ card.label }}</p>
-        <h3 class="portrait-card__headline">{{ card.headline }}</h3>
-    </div>
-    {% if card.image %}
-        <div class="portrait-card__image">
-            {% image card.image fill-400x600 %}
-        </div>
-    {% endif %}
+{% if card.cta_link and card.cta_link.link_to %}
+  <a class="portrait-card" href="{{ card.cta_link.url }}" {% if card.cta_link.new_window %}target="_blank"{% endif %}>
+{% endif %}
+{% if card.image %}
+  <div class="portrait-card__image">
+    {% image card.image fill-354x354 %}
+  </div>
+{% endif %}
+
+<div class="portrait-card__text">
+  {% if card.label %}
+    <p class="portrait-card__label label-text-regular">{{ card.label }}</p>
+  {% endif %}
+  <h4 class="portrait-card__headline">
+    {{ card.headline }}
+  </h4>
+  <div class="portrait-card__cta">
+    {{ card.cta_link.label }}
+  </div>
 </div>
+{% if card.cta_link and card.cta_link.link_to %}
+  </a>
+{% endif %}
