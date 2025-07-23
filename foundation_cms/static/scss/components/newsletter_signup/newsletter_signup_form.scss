@@ -9,7 +9,7 @@
   position: relative;
 
   @include breakpoint(medium up) {
-    border-top-right-radius: 1.5rem;
+    border-top-right-radius: 2rem;
     border-bottom-left-radius: 2rem;
     padding: 2rem;
   }
@@ -190,7 +190,8 @@
 
     @include breakpoint(medium up) {
       flex-direction: row;
-      align-items: start;
+      align-items: center;
+      padding: 1rem 0;
     }
 
     &--hidden {
@@ -203,6 +204,27 @@
       margin-top: 0.75rem;
       margin-bottom: 0.5rem;
       font-weight: 700;
+      position: relative;
+
+      @include breakpoint(medium up) {
+        padding-left: calc(rem-calc(53) + 1rem);
+      }
+
+      &::before {
+        @include breakpoint(medium up) {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: rem-calc(53px);
+          height: rem-calc(44px);
+          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-size: 100% auto;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
     }
 
     p {
@@ -274,6 +296,14 @@
       }
     }
 
+    &:has(> .newsletter-signup__form--hidden) {
+      &::before {
+        @include breakpoint(xlarge up) {
+          display: none;
+        }
+      }
+    }
+
     .newsletter-signup__cta {
       @include breakpoint(xlarge up) {
         margin-bottom: 0;
@@ -303,12 +333,6 @@
     }
 
     .newsletter-signup__field:has(> label > input[type="checkbox"]) {
-      @include breakpoint(xlarge up) {
-        padding-bottom: 1rem;
-      }
-    }
-
-    .newsletter-signup__success-message {
       @include breakpoint(xlarge up) {
         padding-bottom: 1rem;
       }
@@ -352,18 +376,18 @@
         }
       }
     }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(medium up) {
+        padding: 0;
+        margin: -2rem 0;
+      }
+    }
   }
 }
 
 /* stylelint-disable-next-line selector-class-pattern */
 .block-two_column_container_block {
-  // This pattern probably affects multiple components while nesting .grid-container elements
-  .grid-container:has(> .newsletter-signup) {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
   // todo: Implement container queries instead of catching the two column container block
   .newsletter-signup__success-message {
     @include breakpoint(medium up) {
