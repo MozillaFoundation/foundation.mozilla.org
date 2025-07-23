@@ -15,6 +15,9 @@
   <h4 class="portrait-card__headline">
     {{ card.headline }}
   </h4>
+  <div class="portrait-card__cta">
+    {{ card.cta_link.label }}
+  </div>
 </div>
 {% if card.cta_link and card.cta_link.link_to %}
   </a>

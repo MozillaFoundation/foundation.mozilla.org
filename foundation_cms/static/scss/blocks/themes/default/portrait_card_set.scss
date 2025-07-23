@@ -123,38 +123,44 @@ $carousel-transition: transform 0.3s ease;
     }
 
     &__text {
-      margin-top: auto;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
     }
 
-    // headline area with CTA link styling
+    &__label {
+      margin-top: 1.9rem;
+    }
+
     &__headline {
-      margin: 0;
+      margin-top: 0.5rem;
+    }
+
+    &__cta {
+      text-decoration: underline;
+      margin-top: auto;
       @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
-      @include breakpoint(large) {
-        @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
-      }
-      @include mofo-text-style($header-styles, "h4", $header-font-family);
     }
 
     .portrait-card__headline {
       text-wrap: wrap;
+    }
 
-      ::after {
-        will-change: transform;
-      }
+    .portrait-card__cta::after {
+      will-change: transform;
     }
 
     // hover state for zoom and headline animation
     &:hover {
-      .portrait-card__image img {
-        transform: scale(1.05);
-      }
-
       .portrait-card__headline {
         text-decoration: underline;
       }
 
-      .portrait-card__headline::after {
+      .portrait-card__image img {
+        transform: scale(1.05);
+      }
+
+      .portrait-card__cta::after {
         transform: translateX(0.75rem);
       }
     }
