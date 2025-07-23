@@ -6,6 +6,7 @@ from .audio_block import AudioBlock  # Just as an example second block
 from .image_block import CustomImageBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
+from .spacer_block import SpacerBlock
 from .video_block import VideoBlock
 
 
@@ -16,6 +17,7 @@ class ColumnStreamBlock(StreamBlock):
     newsletter_signup = NewsletterSignupBlock()
     video = VideoBlock()
     list = ListBlock()
+    spacer = SpacerBlock()
 
 
 class TwoColumnContainerBlock(BaseBlock):
