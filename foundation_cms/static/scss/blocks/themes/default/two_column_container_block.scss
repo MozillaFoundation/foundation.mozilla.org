@@ -9,15 +9,11 @@
   @include breakpoint(medium up) {
     flex-direction: row;
     margin-bottom: $global-margin * 2;
+    gap: $global-padding;
   }
 
-  .container-column {
+  .two-column-container__column {
     flex: 1;
-    padding: 0 $global-padding;
-
-    @include breakpoint(medium up) {
-      padding: 0 $global-padding;
-    }
   }
 
   &--middle {

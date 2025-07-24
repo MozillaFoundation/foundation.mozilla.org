@@ -2,13 +2,13 @@
 
 <div class="two-column-container two-column-container--{{ self.vertical_alignment }}">
 
-  <div class="container-column container-column-left">
+  <div class="two-column-container__column two-column-container__column--left">
     {% for block in self.left_column %}
       {{ block }}
     {% endfor %}
   </div>
 
-  <div class="container-column container-column-right">
+  <div class="two-column-container__column two-column-container__column--right">
     {% for block in self.right_column %}
       {{ block }}
     {% endfor %}
