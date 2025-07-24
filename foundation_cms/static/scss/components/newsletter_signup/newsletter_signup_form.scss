@@ -209,7 +209,7 @@
       @include breakpoint(medium up) {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: end;
         gap: 1rem;
       }
 
