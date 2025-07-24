@@ -330,19 +330,3 @@
     }
   }
 }
-
-/* stylelint-disable-next-line selector-class-pattern */
-.two-column-container {
-  // This pattern probably affects multiple components while nesting .grid-container elements
-  .grid-container:has(> .newsletter-signup) {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .newsletter-signup {
-    margin-bottom: 0;
-    margin-left: -rem-calc(map.get($grid-margin-gutters, "small"));
-    margin-right: -rem-calc(map.get($grid-margin-gutters, "small"));
-  }
-}

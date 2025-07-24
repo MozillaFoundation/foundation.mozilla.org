@@ -1,11 +1,3 @@
-.two-column-container {
-  .list-block {
-    margin-bottom: 0;
-    margin-left: -rem-calc(map.get($grid-margin-gutters, "small"));
-    margin-right: -rem-calc(map.get($grid-margin-gutters, "small"));
-  }
-}
-
 body.redesign {
   .list-block {
     background-color: color(yellow, "200");
