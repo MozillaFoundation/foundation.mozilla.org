@@ -106,6 +106,10 @@
         padding: map.get(base.$details-section-padding, large);
         pointer-events: none;
       }
+
+      .hero-accordion__heading {
+        @include mofo-text-style($header-styles, "h4", $header-font-family);
+      }
     }
 
     .hero-accordion__details-inner {
@@ -237,10 +241,6 @@
             map.get(base.$panel-transition, timing-function);
 
           @include responsive-translate-x(base.$panel-heights);
-        }
-
-        .hero-accordion__heading {
-          @include mofo-text-style($header-styles, "h4", $header-font-family);
         }
       }
 
