@@ -10,22 +10,23 @@
     flex-direction: row;
     margin-bottom: $global-margin * 2;
     gap: $global-padding;
+
+    &--middle {
+      align-items: center;
+    }
+
+    &--bottom {
+      align-items: flex-end;
+    }
+
+    &--top {
+      align-items: flex-start;
+    }
+
   }
 
   .two-column-container__column {
     flex: 1;
-  }
-
-  &--middle {
-    align-items: center;
-  }
-
-  &--bottom {
-    align-items: flex-end;
-  }
-
-  &--top {
-    align-items: flex-start;
   }
 
   .newsletter-signup,
