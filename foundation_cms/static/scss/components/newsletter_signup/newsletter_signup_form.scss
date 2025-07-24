@@ -332,7 +332,7 @@
 }
 
 /* stylelint-disable-next-line selector-class-pattern */
-.block-two_column_container_block {
+.two-column-container {
   // This pattern probably affects multiple components while nesting .grid-container elements
   .grid-container:has(> .newsletter-signup) {
     max-width: 100%;
@@ -342,7 +342,7 @@
 
   .newsletter-signup {
     margin-bottom: 0;
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -rem-calc(map.get($grid-margin-gutters, "small"));
+    margin-right: -rem-calc(map.get($grid-margin-gutters, "small"));
   }
 }

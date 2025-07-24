@@ -1,3 +1,11 @@
+.two-column-container {
+  .list-block {
+    margin-bottom: 0;
+    margin-left: -rem-calc(map.get($grid-margin-gutters, "small"));
+    margin-right: -rem-calc(map.get($grid-margin-gutters, "small"));
+  }
+}
+
 body.redesign {
   .list-block {
     background-color: color(yellow, "200");
@@ -62,14 +70,5 @@ body.redesign {
       border-top: 1px solid #a3a3a3;
       padding: 1rem 1rem 1rem 0;
     }
-  }
-}
-
-/* stylelint-disable-next-line selector-class-pattern */
-.block-two_column_container_block {
-  .list-block {
-    margin-bottom: 0;
-    margin-left: -1rem;
-    margin-right: -1rem;
   }
 }
