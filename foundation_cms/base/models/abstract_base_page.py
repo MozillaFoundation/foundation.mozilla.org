@@ -34,9 +34,12 @@ from foundation_cms.blocks import (
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
 base_page_block_options = [
     # [TODO/FIXME] consider ordering or grouping these blocks
-    ("rich_text", RichTextBlock(
-        template="patterns/blocks/themes/default/rich_text_block.html",
-    ),),
+    (
+        "rich_text",
+        RichTextBlock(
+            template="patterns/blocks/themes/default/rich_text_block.html",
+        ),
+    ),
     ("image", CustomImageBlock()),
     ("audio_block", AudioBlock()),
     ("tabbed_content", TabbedContentContainerBlock()),
