@@ -9,30 +9,57 @@
   @include breakpoint(medium up) {
     flex-direction: row;
     margin-bottom: $global-margin * 2;
-    gap: $global-padding;
+    gap: $global-padding * 2;
+  }
 
-    &--middle {
+  &--middle {
+    @include breakpoint(medium up) {
       align-items: center;
     }
+  }
 
-    &--bottom {
+  &--bottom {
+    @include breakpoint(medium up) {
       align-items: flex-end;
     }
+  }
 
-    &--top {
+  &--top {
+    @include breakpoint(medium up) {
       align-items: flex-start;
     }
+  }
 
+  &__column {
+    .grid-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &__column--left {
+    .list-block,
+    .newsletter-signup {
+      @include breakpoint(medium up) {
+        margin-right: -$global-padding;
+      }
+    }
+  }
+
+  &__column--right {
+    .list-block,
+    .newsletter-signup {
+      @include breakpoint(medium up) {
+        margin-left: -$global-padding;
+      }
+    }
   }
 
   .two-column-container__column {
     flex: 1;
   }
 
-  .newsletter-signup,
-  .list-block {
+  .newsletter-signup {
     margin-bottom: 0;
-    margin-left: -$global-padding;
-    margin-right: -$global-padding;
   }
 }
