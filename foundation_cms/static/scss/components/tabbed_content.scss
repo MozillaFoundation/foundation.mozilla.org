@@ -23,11 +23,16 @@ $tab-colors: (
     overflow-x: auto;
 
     .tabs-title {
-      width: rem-calc(235);
+      min-width: rem-calc(235);
       cursor: pointer;
       padding: 1.5rem 1rem;
+      flex: 1;
       flex-shrink: 0;
       border-top-right-radius: rem-calc(18);
+
+      @include breakpoint(large up) {
+        padding: 1.5rem;
+      }
 
       a {
         text-decoration: none;
@@ -60,6 +65,10 @@ $tab-colors: (
     width: 100%;
     padding: 1rem 1rem 2rem;
 
+    @include breakpoint(large up) {
+      padding: 4rem;
+    }
+
     &.is-active {
       display: block;
     }
@@ -77,8 +86,19 @@ $tab-colors: (
   flex-direction: column;
   gap: 1.5rem;
 
+  @include breakpoint(large up) {
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+  }
+
   &__text {
     order: 2;
+
+    @include breakpoint(large up) {
+      order: 1;
+      max-width: 50%;
+    }
   }
 
   &__subtitle {
@@ -89,14 +109,30 @@ $tab-colors: (
     padding: 0.25rem 0.5rem;
     border-radius: 9999px;
     margin: 0 0 1rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 1.5rem;
+    }
   }
 
   &__title {
     @include mofo-text-style($header-styles, "h4", $header-font-family);
   }
 
+  &__link {
+    @include breakpoint(large up) {
+      margin-top: 1.5rem;
+    }
+  }
+
   &__image {
     order: 1;
+
+    @include breakpoint(large up) {
+      order: 2;
+      flex-basis: 1;
+      min-width: 50%;
+    }
 
     // Using default image block but overriding aspect ratios
     .image-block {
