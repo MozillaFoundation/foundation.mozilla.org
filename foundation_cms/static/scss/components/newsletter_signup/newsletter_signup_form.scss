@@ -1,15 +1,15 @@
-@import "../../colors";
+@use "sass:math";
 
 .newsletter-signup {
   background-color: color(orange, "100");
-  border-top-right-radius: 1rem;
-  border-bottom-left-radius: 1rem;
+  border-top-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
   padding: 2.5rem 1rem 2rem;
   margin-bottom: 2rem;
   position: relative;
 
   @include breakpoint(medium up) {
-    border-top-right-radius: 1.5rem;
+    border-top-right-radius: 2rem;
     border-bottom-left-radius: 2rem;
     padding: 2rem;
   }
@@ -184,6 +184,16 @@
   }
 
   &__success-message {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @include breakpoint(medium up) {
+      flex-direction: row;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
     &--hidden {
       display: none;
     }
@@ -191,9 +201,30 @@
     .newsletter-signup__success-title {
       @include mofo-text-style($header-styles, "h4", $header-font-family);
 
-      margin-top: 0.75rem;
+      margin-top: 0;
       margin-bottom: 0.5rem;
       font-weight: 700;
+      position: relative;
+
+      @include breakpoint(medium up) {
+        display: flex;
+        flex-direction: row;
+        align-items: last baseline;
+        gap: 1rem;
+      }
+
+      &::before {
+        @include breakpoint(medium up) {
+          content: "";
+          display: block;
+          width: rem-calc(53px);
+          height: rem-calc(44px);
+          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-size: 100% auto;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
     }
 
     p {
@@ -203,6 +234,24 @@
 
       @include breakpoint(medium up) {
         @include mofo-text-style($body-text-styles, "regular");
+      }
+    }
+
+    .newsletter-signup__success-content {
+      @include breakpoint(medium up) {
+        flex: 1;
+      }
+    }
+
+    .newsletter-signup__success-media {
+      @include breakpoint(medium up) {
+        flex: 1;
+      }
+
+      img {
+        display: block;
+        aspect-ratio: math.div(3, 2);
+        object-fit: cover;
       }
     }
   }
@@ -247,6 +296,14 @@
       }
     }
 
+    &:has(> .newsletter-signup__form--hidden) {
+      &::before {
+        @include breakpoint(medium up) {
+          display: none;
+        }
+      }
+    }
+
     .newsletter-signup__cta {
       @include breakpoint(xlarge up) {
         margin-bottom: 0;
@@ -281,20 +338,11 @@
       }
     }
 
-    .newsletter-signup__success-message {
-      @include breakpoint(xlarge up) {
-        max-width: 38rem;
-        padding-bottom: 1rem;
-      }
-    }
-
     .newsletter-signup__error-message {
       @include breakpoint(xlarge up) {
-        @include breakpoint(large up) {
-          order: -1;
-          width: 100%;
-          margin-bottom: 0;
-        }
+        order: -1;
+        width: 100%;
+        margin-bottom: 0;
       }
     }
   }
@@ -328,15 +376,24 @@
         }
       }
     }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(medium up) {
+        padding: 0;
+        margin: -2rem 0;
+      }
+    }
   }
 }
 
 /* stylelint-disable-next-line selector-class-pattern */
 .block-two_column_container_block {
-  // This pattern probably affects multiple components while nesting .grid-container elements
-  .grid-container:has(> .newsletter-signup) {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
+  // todo: Implement container queries instead of catching the two column container block
+  .newsletter-signup[data-layout] {
+    .newsletter-signup__success-message {
+      @include breakpoint(medium up) {
+        flex-direction: column;
+      }
+    }
   }
 }
