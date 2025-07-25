@@ -9,7 +9,6 @@ def should_wrap_block(block_type):
     NO_WRAP_BLOCKS = {
         "spotlight_card_set_block",
         "portrait_card_set_block",
-        "newsletter_signup",
         "featured_card_block",
     }
     return block_type not in NO_WRAP_BLOCKS
