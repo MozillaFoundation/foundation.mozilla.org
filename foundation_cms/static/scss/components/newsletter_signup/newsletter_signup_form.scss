@@ -386,8 +386,7 @@
   }
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
-.block-two_column_container_block {
+.two-column-container {
   // todo: Implement container queries instead of catching the two column container block
   .newsletter-signup[data-layout] {
     .newsletter-signup__success-message {
