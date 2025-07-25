@@ -2,7 +2,7 @@
 set -e
 
 # This script can help automate migration conflicts and local environment
-# It stashes your changes, pulls / checks out redesign branch makes a clean db, 
+# It stashes your changes, pulls / checks out main branch makes a clean db, 
 # rechecks out your branch / stash, detects any migrations that haven't run
 # (and deletes them because these are probably just conflicting) and then regenerates them
 
@@ -37,11 +37,11 @@ else
   echo "No uncommitted changes detected."
 fi
 
-# Checkout redesign branch and pull latest changes
-echo "Checking out 'redesign' branch..."
-git checkout redesign
+# Checkout main branch and pull latest changes
+echo "Checking out 'main' branch..."
+git checkout main
 echo "Pulling latest changes..."
-git pull origin redesign
+git pull origin main
 
 # Rebuild database from committed migrations
 echo "Rebuilding DB from migrations..."
