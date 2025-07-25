@@ -4,13 +4,13 @@
   <div class="tabs-container">
 
     {# Tab Navigation #}
-    <ul class="tabs grid-x" data-tabs id="tabbed-content-{{ forloop.counter }}">
+    <ul class="tabs" data-tabs id="tabbed-content-{{ forloop.counter }}">
       {% for tab in self.tabs %}
-        <li class="tabs-title cell small-12 medium-auto {% if forloop.first %}is-active{% endif %}">
+        <li class="tabs-title {% if forloop.first %}is-active{% endif %}">
           <a href="#panel{{ forloop.counter }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
-            <strong>{{ tab.title }}</strong>
+            <div class="tabs-title__title">{{ tab.title }}</div>
             {% if tab.subtitle %}
-              <br><small>{{ tab.subtitle }}</small>
+              <div class="tabs-title__subtitle">{{ tab.subtitle }}</div>
             {% endif %}
           </a>
         </li>
