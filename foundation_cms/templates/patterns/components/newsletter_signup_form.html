@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="newsletter-signup" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
 
   <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
@@ -70,8 +72,9 @@
   </form>
 
   <div class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
-    <div>
-      <h4 class="newsletter-signup__success-title">Thanks!</h4>
+
+    <div class="newsletter-signup__success-content">
+      <h4 class="newsletter-signup__success-title">Thank you!</h4>
       <div>
         <p>
           If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.
@@ -86,5 +89,11 @@
         </p>
       </div>
     </div>
+
+    <div class="newsletter-signup__success-media">
+      <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
+    </div>
+
   </div>
+
 </div>
