@@ -166,6 +166,10 @@ $tab-colors: (
   flex-direction: column;
   width: calc(50% - 0.5rem);
 
+  @include breakpoint(large up) {
+    width: calc(25% - 0.75rem);
+  }
+
   &__image {
     margin-bottom: 1rem;
 
