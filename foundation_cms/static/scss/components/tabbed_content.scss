@@ -165,7 +165,7 @@ $tab-colors: (
     @include breakpoint(large up) {
       order: 2;
       flex-basis: 1;
-      min-width: 50%;
+      min-width: 54%;
     }
 
     // Using default image block but overriding aspect ratios
