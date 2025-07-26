@@ -16,7 +16,7 @@
     </ul>
 
     {# Tab Panels #}
-    <div>
+    <div class="tabbed-content__tab-panels">
       {% for tab in self.tabs %}
         <div class="tabbed-content__tab-panel {% if forloop.first %}is-active{% endif %}">
           {% for block in tab.content %}
