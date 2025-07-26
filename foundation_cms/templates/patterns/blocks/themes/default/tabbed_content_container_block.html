@@ -1,26 +1,24 @@
 {% load wagtailcore_tags %}
 
 {% if self.tabs %}
-  <div class="tabs-container">
+  <div class="tabbed-content">
 
     {# Tab Navigation #}
-    <ul class="tabs" data-tabs id="tabbed-content-{{ forloop.counter }}">
+    <ul class="tabbed-content__tab-row">
       {% for tab in self.tabs %}
-        <li class="tabs-title {% if forloop.first %}is-active{% endif %}">
-          <a href="#panel{{ forloop.counter }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
-            <div class="tabs-title__title">{{ tab.title }}</div>
-            {% if tab.subtitle %}
-              <div class="tabs-title__subtitle">{{ tab.subtitle }}</div>
-            {% endif %}
-          </a>
+        <li class="tabbed-content__tab-button {% if forloop.first %}is-active{% endif %}">
+          <div class="tabbed-content__tab-button-title">{{ tab.title }}</div>
+          {% if tab.subtitle %}
+            <div class="tabbed-content__tab-button-subtitle">{{ tab.subtitle }}</div>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
 
     {# Tab Panels #}
-    <div class="tabs-content" data-tabs-content="tabbed-content-{{ forloop.counter }}">
+    <div>
       {% for tab in self.tabs %}
-        <div class="tabs-panel {% if forloop.first %}is-active{% endif %}" id="panel{{ forloop.counter }}">
+        <div class="tabbed-content__tab-panel {% if forloop.first %}is-active{% endif %}">
           {% for block in tab.content %}
             {% include_block block %}
           {% endfor %}

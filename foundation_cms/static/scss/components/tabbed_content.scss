@@ -11,56 +11,52 @@ $tab-colors: (
   5: color(orange, "100"),
 );
 
-.tabs-container {
+.tabbed-content {
   width: 100%;
 
   // Tab navigation
-  .tabs {
+  &__tab-row {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
     overflow-x: auto;
+  }
 
-    .tabs-title {
-      min-width: rem-calc(235);
-      cursor: pointer;
-      padding: 1.5rem 1rem;
-      flex: 1;
-      flex-shrink: 0;
-      border-top-right-radius: rem-calc(18);
+  &__tab-button {
+    min-width: rem-calc(235);
+    cursor: pointer;
+    padding: 1.5rem 1rem;
+    flex: 1;
+    flex-shrink: 0;
+    border-top-right-radius: rem-calc(18);
 
-      @include breakpoint(large up) {
-        padding: 1.5rem;
-      }
+    @include breakpoint(large up) {
+      padding: 1.5rem;
+      border-top-right-radius: 2rem;
+    }
 
-      a {
-        text-decoration: none;
-        color: $black;
-      }
-
-      @for $i from 0 through length($tab-colors) - 1 {
-        &:nth-child(#{$i + 1}) {
-          background-color: map-get($tab-colors, $i);
-        }
-      }
-
-      &__title {
-        @include mofo-text-style($header-styles, "h6", $header-font-family);
-
-        margin-bottom: 0.5rem;
-      }
-
-      &__subtitle {
-        @include mofo-text-style($label-text-styles, "regular");
-
-        text-transform: uppercase;
+    @for $i from 0 through length($tab-colors) - 1 {
+      &:nth-child(#{$i + 1}) {
+        background-color: map-get($tab-colors, $i);
       }
     }
   }
 
+  &__tab-button-title {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    margin-bottom: 0.5rem;
+  }
+
+  &__tab-button-subtitle {
+    @include mofo-text-style($label-text-styles, "regular");
+
+    text-transform: uppercase;
+  }
+
   // Tab panels
-  .tabs-panel {
+  &__tab-panel {
     display: none;
     width: 100%;
     padding: 1rem 1rem 2rem;
@@ -77,6 +73,12 @@ $tab-colors: (
       &:nth-child(#{$i + 1}) {
         background-color: map-get($tab-colors, $i);
       }
+    }
+
+    &.is-active:has(> .tab-card-set) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 }
@@ -155,5 +157,19 @@ $tab-colors: (
         }
       }
     }
+  }
+}
+
+.tab-card-set {
+  display: flex;
+  flex-direction: column;
+
+  &__image {
+  }
+
+  &__title {
+  }
+
+  &__subtitle {
   }
 }
