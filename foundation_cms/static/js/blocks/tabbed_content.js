@@ -16,6 +16,8 @@ export function initTabbedContent() {
       button.addEventListener("click", (event) => {
         panels.forEach((panel) => panel.classList.remove("is-active"));
         panels[tabIndex].classList.add("is-active");
+        buttons.forEach((btn) => btn.classList.remove("is-active"));
+        button.classList.add("is-active");
         button.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
