@@ -3,7 +3,7 @@ from wagtail import blocks
 from foundation_cms.base.models.base_block import BaseBlock
 
 from .image_block import CustomImageBlock
-from .link_block import LinkBlock
+from .link_block import OptionalLinkBlock
 
 
 class TextImageBlock(BaseBlock):
@@ -12,7 +12,7 @@ class TextImageBlock(BaseBlock):
     subtitle = blocks.CharBlock(required=False)
     text = blocks.RichTextBlock(required=False)
     image = CustomImageBlock(required=False)
-    link = LinkBlock()
+    link = OptionalLinkBlock(required=False)
 
     class Meta:
         icon = "image"
