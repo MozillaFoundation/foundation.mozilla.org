@@ -45,4 +45,13 @@
   .list-block {
     margin-bottom: $cell-block-margin-bottom;
   }
+
+  // todo: Implement container queries instead of catching the two column container block
+  .newsletter-signup[data-layout] {
+    .newsletter-signup__success-message {
+      @include breakpoint(medium up) {
+        flex-direction: column;
+      }
+    }
+  }
 }
