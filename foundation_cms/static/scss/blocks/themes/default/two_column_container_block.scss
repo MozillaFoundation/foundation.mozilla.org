@@ -1,6 +1,6 @@
 .two-column-container {
   $two-column-mobile-margin-bottom: 0.25rem;
-  $cell-block-margin-bottom: 2.5rem;
+  $cell-block-margin-bottom: 2rem;
 
   display: flex;
   flex-direction: column;
@@ -37,29 +37,12 @@
     }
   }
 
-  &__column--left {
-    .list-block,
-    .newsletter-signup {
-      @include breakpoint(medium up) {
-        margin-right: -$global-padding;
-      }
-    }
-  }
-
-  &__column--right {
-    .list-block,
-    .newsletter-signup {
-      @include breakpoint(medium up) {
-        margin-left: -$global-padding;
-      }
-    }
-  }
-
   .two-column-container__column {
     flex: 1;
   }
 
-  .newsletter-signup {
-    margin-bottom: 0;
+  .newsletter-signup,
+  .list-block {
+    margin-bottom: $cell-block-margin-bottom;
   }
 }
