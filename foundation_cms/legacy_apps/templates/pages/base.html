@@ -120,13 +120,17 @@
             <div class="wrapper">
                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
-                        {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
-                            {% if nav_menu %}
-                                {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
-                            {% else %}
-                                {% include "fragments/primary_nav.html" with background="simple-background" %}
-                            {% endif %}
-                        {% endwith %}
+                        {% if parent_homepage == "redesign" %}
+                            {% include "patterns/components/primary_nav.html" %}
+                        {% else %}
+                            {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
+                                {% if nav_menu %}
+                                    {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
+                                {% else %}
+                                    {% include "fragments/primary_nav.html" with background="simple-background" %}
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
                     {% endblock %}
                 </div>
 
@@ -145,7 +149,11 @@
                 {% block prefooter %}{% endblock %}
 
                 {% block footer_block %}
-                    {% include "fragments/footer.html" %}
+                    {% if parent_homepage == "redesign" %}
+                        {% include "patterns/components/footer.html" %}
+                    {% else %}
+                        {% include "fragments/footer.html" %}
+                    {% endif %}
                 {% endblock %}
             </div>
         {% endblock %}
