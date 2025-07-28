@@ -1,5 +1,13 @@
+@use "sass:math";
+
 .kinetic-type-brand-line {
-  $line-height: get-text-property($header-styles, "h3", "line-height", "small");
+  $raw-line-height: get-text-property(
+    $header-styles,
+    "h3",
+    "line-height",
+    "small"
+  );
+  $line-height: math.max($raw-line-height, 1);
 
   --line-height-multiplier: #{$line-height};
 

@@ -88,8 +88,8 @@ body.redesign {
 
         @include breakpoint(medium up) {
           font-size: get-text-property(
-            $display-text-styles,
-            "3",
+            $header-styles,
+            "h3",
             "font-size",
             "small"
           );
@@ -97,8 +97,8 @@ body.redesign {
 
         @include breakpoint(xlarge up) {
           font-size: get-text-property(
-            $display-text-styles,
-            "3",
+            $header-styles,
+            "h3",
             "font-size",
             "large"
           );

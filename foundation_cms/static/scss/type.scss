@@ -4,110 +4,69 @@
 // Variables
 // ===================================
 
+$font-weights: (
+  extralight: 200,
+  light: 300,
+  regular: 400,
+  semibold: 600,
+  bold: 700,
+);
+
 /* stylelint-disable-next-line scss/dollar-variable-colon-space-after --
    allow Prettier line break formatting for long font stack */
-$display-text-font-family:
-  "Mozilla Headline Extended", "Helvetica Neue", arial, x-localespecific,
-  sans-serif;
-$display-text-styles: (
-  small: (
-    "1": (
-      "font-size": rem-calc(40),
-      "line-height": 0.95,
-      "font-weight": 700,
-    ),
-    "2": (
-      "font-size": rem-calc(32),
-      "line-height": 1,
-      "font-weight": 700,
-    ),
-    "3": (
-      "font-size": rem-calc(28),
-      "line-height": 1,
-      "font-weight": 700,
-    ),
-    "4": (
-      "font-size": rem-calc(24),
-      "line-height": 1.1,
-      "font-weight": 700,
-    ),
-  ),
-  large: (
-    "1": (
-      "font-size": rem-calc(92),
-      "line-height": 0.95,
-      "font-weight": 700,
-    ),
-    "2": (
-      "font-size": rem-calc(68),
-      "line-height": 1,
-      "font-weight": 700,
-    ),
-    "3": (
-      "font-size": rem-calc(52),
-      "line-height": 1,
-      "font-weight": 700,
-    ),
-    "4": (
-      "font-size": rem-calc(40),
-      "line-height": 1.1,
-      "font-weight": 700,
-    ),
-  ),
-);
 $body-text-styles: (
   small: (
     "xlarge": (
       "font-size": rem-calc(20),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "large": (
       "font-size": rem-calc(18),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(16),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.4,
+      "font-weight": map.get($font-weights, regular),
     ),
     "small": (
       "font-size": rem-calc(14),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "xsmall": (
       "font-size": rem-calc(12),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
   ),
   large: (
     "xlarge": (
       "font-size": rem-calc(20),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "large": (
       "font-size": rem-calc(18),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(16),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.4,
+      "font-weight": map.get($font-weights, regular),
     ),
     "small": (
       "font-size": rem-calc(14),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "xsmall": (
       "font-size": rem-calc(12),
-      "line-height": 1.5,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
   ),
 );
@@ -116,24 +75,24 @@ $quote-text-styles: (
     "large": (
       "font-size": rem-calc(32),
       "line-height": 1,
-      "font-weight": 400,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(24),
       "line-height": 1,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
   large: (
     "large": (
       "font-size": rem-calc(52),
       "line-height": 1,
-      "font-weight": 400,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(40),
       "line-height": 1,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
 );
@@ -142,60 +101,60 @@ $label-text-styles: (
     "large": (
       "font-size": rem-calc(20),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
     "regular": (
       "font-size": rem-calc(14),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
   large: (
     "large": (
       "font-size": rem-calc(20),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
     "regular": (
       "font-size": rem-calc(14),
       "line-height": 1.2,
-      "font-weight": 300,
+      "font-weight": map.get($font-weights, light),
     ),
   ),
 );
 $link-text-styles: (
   small: (
     "xlarge": (
-      "font-size": rem-calc(24),
-      "line-height": 1.2,
-      "font-weight": 400,
+      "font-size": rem-calc(20),
+      "line-height": 1.1,
+      "font-weight": map.get($font-weights, regular),
     ),
     "large": (
       "font-size": rem-calc(18),
-      "line-height": 1.2,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(16),
-      "line-height": 1.2,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
   ),
   large: (
     "xlarge": (
-      "font-size": rem-calc(28),
-      "line-height": 1.2,
-      "font-weight": 400,
+      "font-size": rem-calc(20),
+      "line-height": 1.1,
+      "font-weight": map.get($font-weights, regular),
     ),
     "large": (
       "font-size": rem-calc(18),
-      "line-height": 1.2,
-      "font-weight": 400,
+      "line-height": 1.1,
+      "font-weight": map.get($font-weights, regular),
     ),
     "regular": (
       "font-size": rem-calc(16),
-      "line-height": 1.2,
-      "font-weight": 400,
+      "line-height": 1.3,
+      "font-weight": map.get($font-weights, regular),
     ),
   ),
 );
@@ -205,11 +164,11 @@ $link-text-styles: (
 // ===================================
 
 // Get complete ruleset for a specific breakpoint (defaults to "small")
-// @param {Map} $map-name - The style map (e.g., $display-text-styles)
+// @param {Map} $map-name - The style map (e.g., $header-styles)
 // @param {String} $key - The style key (e.g., "1", "regular")
 // @param {String} $breakpoint - The breakpoint ("small" or "large"), defaults to "small"
 // @return {Map} The complete style ruleset
-// Example: $some-block-heading: get-text-styles($display-text-styles, "1", "small");
+// Example: $some-block-heading: get-text-styles($header-styles, "1", "small");
 @function get-text-styles($map-name, $key, $breakpoint: "small") {
   @return map.get(map.get($map-name, $breakpoint), $key);
 }
@@ -280,42 +239,6 @@ $link-text-styles: (
 }
 
 // ===================================
-// Display Text
-// ===================================
-
-.display-text-1 {
-  @include mofo-text-style(
-    $display-text-styles,
-    "1",
-    $display-text-font-family
-  );
-}
-
-.display-text-2 {
-  @include mofo-text-style(
-    $display-text-styles,
-    "2",
-    $display-text-font-family
-  );
-}
-
-.display-text-3 {
-  @include mofo-text-style(
-    $display-text-styles,
-    "3",
-    $display-text-font-family
-  );
-}
-
-.display-text-4 {
-  @include mofo-text-style(
-    $display-text-styles,
-    "4",
-    $display-text-font-family
-  );
-}
-
-// ===================================
 // Heading
 // ===================================
 
@@ -358,13 +281,19 @@ body.redesign {
 .lede-text {
   font-family: $body-font-family;
   font-size: rem-calc(20);
-  line-height: 1.5;
-  font-weight: 400;
+  line-height: 1.2;
+  font-weight: map.get($font-weights, regular);
 
   @include breakpoint(large) {
     font-size: rem-calc(24);
-    line-height: 1.5;
-    font-weight: 400;
+    line-height: 1.2;
+    font-weight: map.get($font-weights, regular);
+  }
+
+  @include breakpoint(large) {
+    font-size: rem-calc(24);
+    line-height: 1.2;
+    font-weight: map.get($font-weights, regular);
   }
 }
 
