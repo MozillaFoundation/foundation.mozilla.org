@@ -7,11 +7,11 @@
     {% if self.image %}
       <div class="audio-block__image">
         {% image self.image original as audio_img %}
-        <img height="{{ audio_img.height }}" width="{{ audio_img.width }}" src="{{ audio_img.url }}" alt="{{ self.image_alt_text }}">
+        <img height="{{ audio_img.height }}" width="{{ audio_img.width }}" src="{{ audio_img.url }}" alt="{{ audio_img.alt }}">
       </div>
     {% endif %}
-    <p>Audio Title: {{ self.title }}</p>
-    <p>Audio Description: {{ self.description }}</p>
-    <p>Audio Simplecast Embed: {{ self.simplecast_embed_code|safe }}</p>
+    <p>{{ self.title }}</p>
+    <p>{{ self.description }}</p>
+    <p>{{ self.simplecast_embed_code|safe }}</p>
   </div>
 {% endblock block_content %}
