@@ -18,8 +18,8 @@ $carousel-transition: transform 0.3s ease;
   $cardset-colors: (
     1: color(blue, "300"),
     2: color(yellow, "300"),
-    3: color(orange, "200"),
-    4: color(green, "300"),
+    3: color(green, "300"),
+    4: color(orange, "200"),
   );
 
   @include breakpoint(large up) {
@@ -132,6 +132,7 @@ $carousel-transition: transform 0.3s ease;
 
     &__label {
       margin-top: 1.9rem;
+      min-height: 1rem;
     }
 
     &__headline {
