@@ -1,8 +1,12 @@
 export function initTabbedContent() {
   const SELECTORS = {
-    tabbedContent: ".tabbed-content",
-    tabButtons: ".tabbed-content__tab-button",
-    tabPanels: ".tabbed-content__tab-panel",
+    tabbedContent: ".tabbed-content-container",
+    tabButtons: ".tabbed-content-container__tab-button",
+    tabPanels: ".tabbed-content-container__tab-panel",
+  };
+
+  const CLASSNAMES = {
+    isActive: "is-active",
   };
 
   const tabbedContents = document.querySelectorAll(SELECTORS.tabbedContent);
@@ -14,10 +18,10 @@ export function initTabbedContent() {
     // Refer content panels by index instead of ID to allow for multiple instances in one page.
     buttons.forEach((button, tabIndex) => {
       button.addEventListener("click", (event) => {
-        panels.forEach((panel) => panel.classList.remove("is-active"));
-        panels[tabIndex].classList.add("is-active");
-        buttons.forEach((btn) => btn.classList.remove("is-active"));
-        button.classList.add("is-active");
+        panels.forEach((panel) => panel.classList.remove(CLASSNAMES.isActive));
+        panels[tabIndex].classList.add(CLASSNAMES.isActive);
+        buttons.forEach((btn) => btn.classList.remove(CLASSNAMES.isActive));
+        button.classList.add(CLASSNAMES.isActive);
         button.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
@@ -26,11 +30,16 @@ export function initTabbedContent() {
       });
     });
   });
+
+  initTabbedContentCardSets();
 }
 
 export function initTabbedContentCardSets() {
+  const cardsPerPage = 4;
+
   const SELECTORS = {
-    tabbedContentCardSetPanels: ".tabbed-content__tab-panel:has(>.tab-card)",
+    tabbedContentCardSetPanels:
+      ".tabbed-content-container__tab-panel:has(>.tab-card)",
     tabbedContentCard: ".tab-card",
   };
 
@@ -50,13 +59,13 @@ export function initTabbedContentCardSets() {
     const cards = panel.querySelectorAll(SELECTORS.tabbedContentCard);
 
     // Wrap cards in pages of 4 cards each
-    const pages = Math.ceil(cards.length / 4);
+    const pages = Math.ceil(cards.length / cardsPerPage);
     for (let i = 0; i < pages; i++) {
       const page = document.createElement("div");
       page.classList.add(CLASSNAMES.tabCardPage);
 
-      const start = i * 4;
-      const end = start + 4;
+      const start = i * cardsPerPage;
+      const end = start + cardsPerPage;
       const cardsToShow = Array.from(cards).slice(start, end);
 
       cardsToShow.forEach((card) => {

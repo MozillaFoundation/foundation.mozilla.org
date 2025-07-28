@@ -3,16 +3,16 @@
 
 // Tabbed content - simplified
 
-$tab-colors: (
-  0: color(blue, "300"),
-  1: color(blue, "200"),
-  2: color(blue, "100"),
-  3: color(orange, "300"),
-  4: color(orange, "200"),
-  5: color(orange, "100"),
-);
+.tabbed-content-container {
+  $tab-colors: (
+    0: color(blue, "300"),
+    1: color(blue, "200"),
+    2: color(blue, "100"),
+    3: color(orange, "300"),
+    4: color(orange, "200"),
+    5: color(orange, "100"),
+  );
 
-.tabbed-content {
   width: 100%;
 
   // Tab navigation
@@ -22,6 +22,7 @@ $tab-colors: (
     padding: 0;
     margin: 0;
     overflow-x: auto;
+    scrollbar-width: none;
 
     @include breakpoint(large up) {
       overflow-x: hidden;
@@ -136,12 +137,8 @@ $tab-colors: (
   }
 
   &__subtitle {
-    @include mofo-text-style($body-text-styles, "small");
+    @include mofo-text-style($label-text-styles, "small");
 
-    display: inline-block;
-    border: 1px solid $black;
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
     margin: 0 0 1rem;
 
     @include breakpoint(large up) {
@@ -172,6 +169,12 @@ $tab-colors: (
     .image-block {
       margin: 0;
 
+      @include breakpoint(large up) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
       &__image {
         border-bottom-left-radius: rem-calc(28);
         border-top-right-radius: rem-calc(28);
@@ -190,6 +193,7 @@ $tab-colors: (
 
       &--portrait {
         .image-block__image {
+          max-width: rem-calc(300);
           aspect-ratio: math.div(2, 3);
         }
       }
@@ -246,12 +250,21 @@ $tab-colors: (
 }
 
 .tab-card {
+  $small-card-count: 2;
+  $large-card-count: 4;
+  $gap: 1rem;
+
   display: flex;
   flex-direction: column;
-  width: calc(50% - 0.5rem);
+  // Half of container width and account for the 1rem gap in between cards (1 / 2 = 0.5)
+  width: calc((100% / #{$small-card-count}) - (#{$gap} / #{$small-card-count}));
 
   @include breakpoint(large up) {
-    width: calc(25% - 0.75rem);
+    // A fourth (25%) of the container width and account for the 3 1rem gap in between cards (3 / 4 = 0.75)
+    width: calc(
+      (100% / #{$large-card-count}) -
+        (#{$gap} * (#{$large-card-count} - 1) / #{$large-card-count})
+    );
   }
 
   &__image {
