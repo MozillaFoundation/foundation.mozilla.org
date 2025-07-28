@@ -250,21 +250,20 @@
 }
 
 .tab-card {
+  $gap: 1rem;
   $small-card-count: 2;
   $large-card-count: 4;
-  $gap: 1rem;
+  $gaps-in-small: $small-card-count - 1;
+  $gaps-in-large: $large-card-count - 1;
+  $gap-adjustment-small: math.div($gap * $gaps-in-small, $small-card-count);
+  $gap-adjustment-large: math.div($gap * $gaps-in-large, $large-card-count);
 
   display: flex;
   flex-direction: column;
-  // Half of container width and account for the 1rem gap in between cards (1 / 2 = 0.5)
-  width: calc((100% / #{$small-card-count}) - (#{$gap} / #{$small-card-count}));
+  width: calc((100% / #{$small-card-count}) - $gap-adjustment-small);
 
   @include breakpoint(large up) {
-    // A fourth (25%) of the container width and account for the 3 1rem gap in between cards (3 / 4 = 0.75)
-    width: calc(
-      (100% / #{$large-card-count}) -
-        (#{$gap} * (#{$large-card-count} - 1) / #{$large-card-count})
-    );
+    width: calc((100% / #{$large-card-count}) - $gap-adjustment-large);
   }
 
   &__image {
