@@ -99,18 +99,27 @@
       overflow-x: hidden;
       margin-top: -1px; // ios Device bug
 
-      @include breakpoint(large up) {
+      @include breakpoint(medium up) {
         margin-top: 0;
         flex-direction: column;
         overflow-x: auto;
+        padding: 1.5rem;
+      }
+
+      @include breakpoint(large up) {
+        padding: 2rem;
       }
     }
 
     &.is-active:has(> .tab-card__page-nav) {
       padding-bottom: 6rem;
 
+      @include breakpoint(medium up) {
+        padding-bottom: 1.5rem;
+      }
+
       @include breakpoint(large up) {
-        padding-bottom: 4rem;
+        padding-bottom: 2rem;
       }
     }
   }
@@ -220,7 +229,7 @@
   align-items: center;
   gap: 0.5rem;
 
-  @include breakpoint(large up) {
+  @include breakpoint(medium up) {
     display: none;
   }
 
@@ -252,15 +261,22 @@
 .tab-card {
   $gap: 1rem;
   $small-card-count: 2;
+  $medium-card-count: 4;
   $large-card-count: 4;
   $gaps-in-small: $small-card-count - 1;
+  $gaps-in-medium: $medium-card-count - 1;
   $gaps-in-large: $large-card-count - 1;
   $gap-adjustment-small: math.div($gap * $gaps-in-small, $small-card-count);
+  $gap-adjustment-medium: math.div($gap * $gaps-in-medium, $medium-card-count);
   $gap-adjustment-large: math.div($gap * $gaps-in-large, $large-card-count);
 
   display: flex;
   flex-direction: column;
   width: calc((100% / #{$small-card-count}) - $gap-adjustment-small);
+
+  @include breakpoint(medium up) {
+    width: calc((100% / #{$medium-card-count}) - $gap-adjustment-medium);
+  }
 
   @include breakpoint(large up) {
     width: calc((100% / #{$large-card-count}) - $gap-adjustment-large);
