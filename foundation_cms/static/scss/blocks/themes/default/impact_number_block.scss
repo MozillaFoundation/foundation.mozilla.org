@@ -18,9 +18,10 @@
       "shape-color": color(orange, "200"),
     ),
   );
-  $digit-height: (
-    small: get-text-property($header-styles, "h2", "line-height", "small"),
-    large: get-text-property($header-styles, "h1", "line-height", "large"),
+  $desktop-layout-breakpoint: large;
+  $digit-height: map-merge(
+    (small: get-text-property($header-styles, "h2", "line-height", "small")),
+    ($desktop-layout-breakpoint: get-text-property($header-styles, "h1", "line-height", "large"))
   );
 
   // ===================================
@@ -30,7 +31,7 @@
   display: flex;
   flex-direction: column;
 
-  @include breakpoint(large up) {
+  @include breakpoint($desktop-layout-breakpoint up) {
     flex-direction: row;
   }
 
@@ -44,7 +45,7 @@
       flex-direction: row;
       width: 100%;
 
-      @include breakpoint(large up) {
+      @include breakpoint($desktop-layout-breakpoint up) {
         flex-direction: column;
       }
     }
@@ -60,7 +61,7 @@
       background-position: center;
       background-size: 85% auto;
 
-      @include breakpoint(large up) {
+      @include breakpoint($desktop-layout-breakpoint up) {
         flex: unset;
       }
     }
@@ -72,7 +73,7 @@
       flex-direction: column;
       justify-content: center;
 
-      @include breakpoint(large up) {
+      @include breakpoint($desktop-layout-breakpoint up) {
         flex: unset;
         padding: rem-calc(24);
         justify-content: normal;
@@ -89,7 +90,7 @@
         $header-font-family
       );
 
-      @include breakpoint(large up) {
+      @include breakpoint($desktop-layout-breakpoint up) {
         @include apply-text-style(
           $header-styles,
           "h5",
@@ -104,7 +105,7 @@
 
       @include apply-text-style($body-text-styles, "xsmall", "small");
 
-      @include breakpoint(large up) {
+      @include breakpoint($desktop-layout-breakpoint up) {
         margin-top: 1rem;
 
         @include apply-text-style($body-text-styles, "large", "large");
@@ -122,8 +123,8 @@
         $header-font-family
       );
 
-      @include breakpoint(large up) {
-        height: #{map.get($digit-height, large)}em;
+      @include breakpoint($desktop-layout-breakpoint up) {
+        height: #{map.get($digit-height, $desktop-layout-breakpoint)}em;
 
         @include apply-text-style(
           $header-styles,
@@ -151,7 +152,7 @@
         $header-font-family
       );
 
-      @include breakpoint(large up) {
+      @include breakpoint($desktop-layout-breakpoint up) {
         @include apply-text-style(
           $header-styles,
           "h1",
@@ -166,12 +167,12 @@
 
       @for $i from 1 through 10 {
         &--#{$i} {
-          animation: counting-small 0.4s steps(10) forwards;
+          animation: counting-mobile 0.4s steps(10) forwards;
           animation-iteration-count: #{$i * 2};
           animation-play-state: paused;
 
-          @include breakpoint(large up) {
-            animation-name: counting-large; // Use desktop animation on large screens
+          @include breakpoint($desktop-layout-breakpoint up) {
+            animation-name: counting-deskop; // Use desktop animation on large screens
           }
 
           &.animate {
@@ -203,15 +204,15 @@
     }
   }
 
-  @keyframes counting-small {
+  @keyframes counting-mobile {
     100% {
       transform: translate3d(0, -#{map.get($digit-height, small) * 10}em, 0);
     }
   }
 
-  @keyframes counting-large {
+  @keyframes counting-big {
     100% {
-      transform: translate3d(0, -#{map.get($digit-height, large) * 10}em, 0);
+      transform: translate3d(0, -#{map.get($digit-height, $desktop-layout-breakpoint) * 10}em, 0);
     }
   }
 }
