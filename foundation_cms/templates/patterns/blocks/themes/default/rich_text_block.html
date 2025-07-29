@@ -1,7 +1,5 @@
 {% load wagtailcore_tags %}
 
-{% if text %}
-  <div class="text-image-block-text">
-    {{ text|richtext }}
-  </div>
-{% endif %}
+<div class="rich-text-block">
+  {{ value|richtext }}
+</div>
