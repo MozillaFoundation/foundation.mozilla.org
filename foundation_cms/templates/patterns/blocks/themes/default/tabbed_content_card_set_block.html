@@ -3,10 +3,20 @@
 <div class="tab-card">
     <div class="tab-card__image">
         {% image value.image fill-500x500 as img %}
-        <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
+        {% if value.link %}
+            <a href="{{ value.link.url }}">
+                <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
+            </a>
+        {% else %}
+            <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
+        {% endif %}
     </div>
     <div class="tab-card__title">
-        {{ value.title }}
+        {% if value.link %}
+            {% include "patterns/components/link.html" with value=value.link label_override=value.title classnames="tab-card__link" %}
+        {% else %}
+            {{ value.title }}
+        {% endif %}
     </div>
     <div class="tab-card__subtitle">
         {{ value.subtitle }}

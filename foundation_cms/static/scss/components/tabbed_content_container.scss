@@ -297,6 +297,11 @@
     margin-bottom: 0.25rem;
   }
 
+  &__link {
+    color: $black;
+    text-decoration: underline;
+  }
+
   &__subtitle {
     @include mofo-text-style($body-text-styles, "xsmall");
   }
