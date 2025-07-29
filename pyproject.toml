@@ -232,6 +232,7 @@ ignore="H017"
 # Ignores for Redesign
 "foundation_cms/templates/500.html" = "H030, H031"
 "foundation_cms/templates/base.html" = "H031"
+"foundation_cms/templates/patterns/components/primary_nav.html" = "D018"
 
 [tool.isort]
 profile = "black"
