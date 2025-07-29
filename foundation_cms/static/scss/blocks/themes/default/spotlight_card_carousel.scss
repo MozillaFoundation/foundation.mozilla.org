@@ -27,13 +27,13 @@
       $bg: (
         1: (
           img: url("../_images/handdrawn/notched-rectangle.svg"),
-          position: left calc($offset-to-container-edge + 3rem) top 3rem,
-          size: rem-calc(320) auto,
+          position: left calc($offset-to-container-edge + 4rem) top 3rem,
+          size: rem-calc(240) auto,
         ),
         2: (
           img: url("../_images/handdrawn/speech-bubble.svg"),
-          position: right calc($offset-to-container-edge + 3rem) bottom 15rem,
-          size: rem-calc(302) auto,
+          position: right calc($offset-to-container-edge + 4rem) bottom 14rem,
+          size: rem-calc(240) auto,
         ),
       );
       $bg1: map.get($bg, 1);
@@ -136,11 +136,11 @@
       overflow: unset;
       background-image: url("../_images/handdrawn/arrow-down.svg");
       background-repeat: no-repeat;
-      background-position: right 1rem top
+      background-position: right top
         calc(
           var(--last-image-height) / 2 + map.get($right-half-offset-y, large)
         );
-      background-size: rem-calc(120) auto;
+      background-size: rem-calc(90) auto;
     }
 
     &__slides {
