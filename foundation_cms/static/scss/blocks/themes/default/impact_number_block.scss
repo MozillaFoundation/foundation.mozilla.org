@@ -19,9 +19,18 @@
     ),
   );
   $desktop-layout-breakpoint: large;
-  $digit-height: map-merge(
-    (small: get-text-property($header-styles, "h2", "line-height", "small")),
-    ($desktop-layout-breakpoint: get-text-property($header-styles, "h1", "line-height", "large"))
+  $digit-height: map.merge(
+    (
+      small: get-text-property($header-styles, "h2", "line-height", "small"),
+    ),
+    (
+      $desktop-layout-breakpoint: get-text-property(
+          $header-styles,
+          "h1",
+          "line-height",
+          "large"
+        ),
+    )
   );
 
   // ===================================
@@ -212,7 +221,11 @@
 
   @keyframes counting-big {
     100% {
-      transform: translate3d(0, -#{map.get($digit-height, $desktop-layout-breakpoint) * 10}em, 0);
+      transform: translate3d(
+        0,
+        -#{map.get($digit-height, $desktop-layout-breakpoint) * 10}em,
+        0
+      );
     }
   }
 }
