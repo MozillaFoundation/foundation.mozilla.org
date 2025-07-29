@@ -29,4 +29,3 @@ initWordmarkVisibilityOnScroll();
 initSpotlightCardCarousels();
 initPillarCardLinks();
 initTabbedContent();
-initTabbedContentCardSets();
