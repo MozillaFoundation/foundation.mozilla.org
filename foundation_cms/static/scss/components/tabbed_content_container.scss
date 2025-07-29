@@ -1,0 +1,303 @@
+@use "sass:math";
+@use "sass:map";
+
+// Tabbed content - simplified
+
+.tabbed-content-container {
+  $tab-colors: (
+    0: color(blue, "300"),
+    1: color(blue, "200"),
+    2: color(blue, "100"),
+    3: color(orange, "300"),
+    4: color(orange, "200"),
+    5: color(orange, "100"),
+  );
+
+  width: 100%;
+
+  // Tab navigation
+  &__tab-row {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    @include breakpoint(large up) {
+      overflow-x: hidden;
+    }
+  }
+
+  &__tab-button {
+    min-width: rem-calc(235);
+    cursor: pointer;
+    padding: 1.5rem 1rem;
+    flex: 1;
+    flex-shrink: 0;
+
+    @include breakpoint(large up) {
+      padding: 1.5rem;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    &.is-active {
+      border-top-right-radius: rem-calc(18);
+      @include breakpoint(large up) {
+        border-top-right-radius: 2rem;
+      }
+    }
+
+    @for $i from 0 through length($tab-colors) - 1 {
+      &:nth-child(#{$i + 1}) {
+        background-color: map.get($tab-colors, $i);
+      }
+    }
+  }
+
+  &__tab-button-title {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    margin-bottom: 0.5rem;
+  }
+
+  &__tab-button-subtitle {
+    @include mofo-text-style($label-text-styles, "regular");
+
+    text-transform: uppercase;
+  }
+
+  &__tab-panels {
+    position: relative;
+  }
+
+  // Tab panels
+  &__tab-panel {
+    display: none;
+    width: 100%;
+    padding: 1rem 1rem 2rem;
+
+    @include breakpoint(large up) {
+      padding: 4rem;
+    }
+
+    &.is-active {
+      display: block;
+    }
+
+    @for $i from 0 through length($tab-colors) - 1 {
+      &:nth-child(#{$i + 1}) {
+        background-color: map.get($tab-colors, $i);
+      }
+    }
+
+    &.is-active:has(> .tab-card__page) {
+      display: flex;
+      gap: 1rem;
+      flex-flow: row nowrap;
+      overflow-x: hidden;
+      margin-top: -1px; // ios Device bug
+
+      @include breakpoint(medium up) {
+        margin-top: 0;
+        flex-direction: column;
+        overflow-x: auto;
+        padding: 1.5rem;
+      }
+
+      @include breakpoint(large up) {
+        padding: 2rem;
+      }
+    }
+
+    &.is-active:has(> .tab-card__page-nav) {
+      padding-bottom: 6rem;
+
+      @include breakpoint(medium up) {
+        padding-bottom: 1.5rem;
+      }
+
+      @include breakpoint(large up) {
+        padding-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.text-image-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @include breakpoint(large up) {
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  &__text {
+    order: 2;
+
+    @include breakpoint(large up) {
+      order: 1;
+      max-width: 50%;
+    }
+  }
+
+  &__subtitle {
+    @include mofo-text-style($label-text-styles, "small");
+
+    margin: 0 0 1rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h4", $header-font-family);
+  }
+
+  &__link {
+    @include breakpoint(large up) {
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__image {
+    order: 1;
+
+    @include breakpoint(large up) {
+      order: 2;
+      flex-basis: 1;
+      min-width: 54%;
+    }
+
+    // Using default image block but overriding aspect ratios
+    .image-block {
+      margin: 0;
+
+      @include breakpoint(large up) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      &__image {
+        border-bottom-left-radius: rem-calc(28);
+        border-top-right-radius: rem-calc(28);
+
+        @include breakpoint(large up) {
+          border-top-right-radius: rem-calc(92);
+          border-bottom-left-radius: rem-calc(92);
+        }
+      }
+
+      &--landscape {
+        .image-block__image {
+          aspect-ratio: math.div(3, 2);
+        }
+      }
+
+      &--portrait {
+        .image-block__image {
+          max-width: rem-calc(300);
+          aspect-ratio: math.div(2, 3);
+        }
+      }
+    }
+  }
+}
+
+.tab-card__page {
+  display: flex;
+  gap: 1rem;
+  flex-flow: row wrap;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.tab-card__page-nav {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  @include breakpoint(medium up) {
+    display: none;
+  }
+
+  &-current {
+    display: inline-block;
+    width: 3rem;
+    text-align: center;
+  }
+
+  &-prev,
+  &-next {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    background-size: 1rem auto;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &-prev {
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-left-black.svg");
+  }
+
+  &-next {
+    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+  }
+}
+
+.tab-card {
+  $gap: 1rem;
+  $small-card-count: 2;
+  $medium-card-count: 4;
+  $large-card-count: 4;
+  $gaps-in-small: $small-card-count - 1;
+  $gaps-in-medium: $medium-card-count - 1;
+  $gaps-in-large: $large-card-count - 1;
+  $gap-adjustment-small: math.div($gap * $gaps-in-small, $small-card-count);
+  $gap-adjustment-medium: math.div($gap * $gaps-in-medium, $medium-card-count);
+  $gap-adjustment-large: math.div($gap * $gaps-in-large, $large-card-count);
+
+  display: flex;
+  flex-direction: column;
+  width: calc((100% / #{$small-card-count}) - $gap-adjustment-small);
+
+  @include breakpoint(medium up) {
+    width: calc((100% / #{$medium-card-count}) - $gap-adjustment-medium);
+  }
+
+  @include breakpoint(large up) {
+    width: calc((100% / #{$large-card-count}) - $gap-adjustment-large);
+  }
+
+  &__image {
+    margin-bottom: 1rem;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    margin-bottom: 0.25rem;
+  }
+
+  &__subtitle {
+    @include mofo-text-style($body-text-styles, "xsmall");
+  }
+}
