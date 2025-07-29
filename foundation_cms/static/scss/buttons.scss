@@ -138,11 +138,10 @@ $cta-link-icon-sizes: (
   @include mofo-text-style($link-text-styles, $textSize, $header-font-family);
 
   color: $black;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: rem-calc(12);
-  text-wrap: nowrap;
-  width: fit-content;
+  max-width: 100%;
 
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
