@@ -61,13 +61,13 @@ body.redesign {
         justify-content: center;
 
         @include breakpoint(medium up) {
-          padding: 2rem;
+          padding: 1.5rem;
           justify-content: center;
           min-height: 0;
         }
 
         @include breakpoint(xlarge up) {
-          padding: 2rem 3rem;
+          padding: 1.5rem 3rem;
         }
       }
 
@@ -85,20 +85,17 @@ body.redesign {
 
       &__title {
         margin: 1rem 0;
-
-        @include breakpoint(medium up) {
-          font-size: get-text-property(
-            $header-styles,
-            "h3",
-            "font-size",
-            "small"
-          );
-        }
+        font-size: get-text-property(
+          $header-styles,
+          "h4",
+          "font-size",
+          "small"
+        );
 
         @include breakpoint(xlarge up) {
           font-size: get-text-property(
             $header-styles,
-            "h3",
+            "h4",
             "font-size",
             "large"
           );
@@ -153,6 +150,9 @@ body.redesign {
 
         @include breakpoint(medium up) {
           margin-bottom: 0;
+        }
+
+        @include breakpoint(large up) {
           margin-right: 3rem;
         }
 
@@ -173,6 +173,11 @@ body.redesign {
           background-repeat: no-repeat;
 
           @include breakpoint(medium up) {
+            display: none;
+          }
+
+          @include breakpoint(large up) {
+            display: inline-block;
             width: rem-calc(290);
             height: 2.75rem;
             background-position: top;
@@ -231,10 +236,10 @@ body.redesign {
 
         @include breakpoint(medium up) {
           margin-bottom: 0;
-          margin-left: 4.25rem;
         }
 
         @include breakpoint(xlarge up) {
+          margin-left: 4.25rem;
           margin-left: calc(rem-calc(264) + 2.25rem);
         }
 
@@ -251,6 +256,12 @@ body.redesign {
           background-repeat: no-repeat;
 
           @include breakpoint(medium up) {
+            display: none;
+            margin-bottom: 0;
+          }
+
+          @include breakpoint(large up) {
+            display: inline-block;
             width: rem-calc(290);
             height: 4rem;
             background-position: bottom;
@@ -293,6 +304,9 @@ body.redesign {
 
         @include breakpoint(medium up) {
           margin-bottom: 0;
+        }
+
+        @include breakpoint(large up) {
           margin-right: 3rem;
         }
 
@@ -313,6 +327,7 @@ body.redesign {
           background-repeat: no-repeat;
 
           @include breakpoint(medium up) {
+            display: none;
             width: rem-calc(290);
             height: 2.5rem;
             transform-origin: 0% 100%;
@@ -324,6 +339,7 @@ body.redesign {
           }
 
           @include breakpoint(xlarge up) {
+            display: inline-block;
             background-image: url("../_images/timely-activations/separator-orange-200-large.svg");
             transform: none;
             width: rem-calc(276);
