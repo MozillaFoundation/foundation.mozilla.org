@@ -9,6 +9,8 @@ const CARD_CONFIG = {
 };
 
 const BTN_DISABLED_ATTR = "disabled";
+const SWIPE_THRESHOLD = 50;
+const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
 
 /**
  * CSS selectors used throughout the carousel
@@ -48,13 +50,19 @@ class SpotlightCarousel {
     this.navSection = root.querySelector(SELECTORS.navSection);
     this.counter = root.querySelector(SELECTORS.counter);
     this.nextButton = root.querySelector(SELECTORS.navButtonNext);
-    this.prevButton = root.querySelector(SELECTORS.navButtonPrev);
+    this.prevButton = root.querySelector(SELECTORS.prevButtonPrev);
 
     this.currentStep = 1;
     this.totalCards = this.cards.length;
     this.resizeTimer = null;
     this.isMobile = false;
     this.cardsByPosition = {};
+
+    // For touch/swipe
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+    this.isSwiping = false;
+    this.swipeStartTransform = 0;
 
     this.RESIZE_DEBOUNCE_MS = 200;
     this.DESKTOP_BREAKPOINT = 1024; // our desktop breakpoint, "large", in px
@@ -102,6 +110,9 @@ class SpotlightCarousel {
     // Remove disabled attributes on buttons
     this.enableAllButtons();
 
+    // Remove touch event listeners on desktop
+    this.removeTouchListeners();
+
     // Set up desktop positioning
     this.updateDesktopPosition();
     this.updateTeaserRegion();
@@ -116,9 +127,116 @@ class SpotlightCarousel {
   initMobile() {
     this.slides.style.minHeight = "";
 
+    this.addTouchListeners();
     this.updateMobilePosition();
     this.updateMobileButtonStates();
   }
+
+  /**
+   * Adds touch event listeners for swipe functionality
+   */
+  addTouchListeners() {
+    this.slides.addEventListener("touchstart", this.handleTouchStart, {
+      passive: true,
+    });
+    this.slides.addEventListener("touchmove", this.handleTouchMove, {
+      passive: false,
+    });
+    this.slides.addEventListener("touchend", this.handleTouchEnd, {
+      passive: true,
+    });
+  }
+
+  /**
+   * Removes touch event listeners
+   */
+  removeTouchListeners() {
+    this.slides.removeEventListener("touchstart", this.handleTouchStart);
+    this.slides.removeEventListener("touchmove", this.handleTouchMove);
+    this.slides.removeEventListener("touchend", this.handleTouchEnd);
+  }
+
+  /**
+   * Handles touch start event
+   * @param {TouchEvent} e - Touch event
+   */
+  handleTouchStart = (e) => {
+    if (!this.isMobile) return;
+
+    this.touchStartX = e.touches[0].clientX;
+    this.touchEndX = this.touchStartX;
+    this.isSwiping = true;
+
+    // Store the current transform value
+    const currentTransform = window.getComputedStyle(this.slides).transform;
+    if (currentTransform !== "none") {
+      const matrix = new DOMMatrix(currentTransform);
+      this.swipeStartTransform = matrix.m41; // translateX value
+    } else {
+      this.swipeStartTransform = (this.currentStep - 1) * -window.innerWidth;
+    }
+
+    // Disable transitions for immediate visual feedback during swipe
+    this.slides.style.transition = "none";
+  };
+
+  /**
+   * Handles touch move event
+   * @param {TouchEvent} e - Touch event
+   */
+  handleTouchMove = (e) => {
+    if (!this.isMobile || !this.isSwiping) return;
+
+    this.touchEndX = e.touches[0].clientX;
+    const diff = this.touchEndX - this.touchStartX;
+
+    // Apply real-time transform for visual feedback
+    const newTransform = this.swipeStartTransform + diff;
+    this.slides.style.transform = `translateX(${newTransform}px)`;
+
+    // Prevent vertical scrolling while swiping horizontally
+    if (Math.abs(diff) > 10) {
+      e.preventDefault();
+    }
+  };
+
+  /**
+   * Handles touch end event
+   * @param {TouchEvent} e - Touch event
+   */
+  handleTouchEnd = (e) => {
+    if (!this.isMobile || !this.isSwiping) return;
+
+    this.isSwiping = false;
+    const diff = this.touchEndX - this.touchStartX;
+
+    // Re-enable smooth transitions for snap animation
+    this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+
+    // Check if swipe meets threshold
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff > 0 && this.currentStep > 1) {
+        // Swipe right
+        this.handlePrev();
+      } else if (diff < 0 && this.currentStep < this.totalCards) {
+        // Swipe left
+        this.handleNext();
+      } else {
+        // Can't swipe further, snap back to current position
+        this.updateMobilePosition();
+      }
+    } else {
+      // Swipe didn't meet threshold, snap back to current position
+      this.updateMobilePosition();
+    }
+
+    // Clean up inline transition after animation completes
+    setTimeout(() => {
+      if (this.slides) {
+        this.slides.style.transition = "";
+      }
+    }, SWIPE_TRANSITION_DURATION);
+  };
 
   /**
    * Updates the disabled state of navigation buttons on mobile
