@@ -9,7 +9,9 @@
 {% endif %}
 
 <div class="portrait-card__text">
-  <p class="portrait-card__label label-text-regular">{{ card.label }}</p>
+  {% if card.label %}
+    <p class="portrait-card__label label-text-regular">{{ card.label }}</p>
+  {% endif %}
   <h4 class="portrait-card__headline">
     {{ card.headline }}
   </h4>

@@ -101,7 +101,7 @@ $carousel-transition: transform 0.3s ease;
     }
 
     @include breakpoint(xlarge up) {
-      padding: 2.5rem 3rem 4.5rem; // desktop padding on xlarge only to accommodate card aspect ratio
+      padding: 2.5rem 3rem 4rem; // desktop padding on xlarge only to accommodate card aspect ratio
     }
 
     &:last-child {
@@ -132,11 +132,10 @@ $carousel-transition: transform 0.3s ease;
 
     &__label {
       margin-top: 1.9rem;
-      min-height: 1rem;
     }
 
     &__headline {
-      margin: 0;
+      margin: 3.9rem 0 0;
       padding-bottom: .5rem;
     }
 
@@ -148,6 +147,10 @@ $carousel-transition: transform 0.3s ease;
 
     .portrait-card__headline {
       text-wrap: wrap;
+    }
+
+    .portrait-card__label + .portrait-card__headline {
+      margin: 0; // override margin if label is present
     }
 
     .portrait-card__cta::after {
