@@ -13,13 +13,7 @@
               >
                 {% image block.value.thumbnail fill-4266x2400 as img %}
                 <img class="hero-accordion__video-thumbnail" src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="{{ img.alt }}">
-                <button
-                  class="hero-accordion__video-play-button btn btn-play"
-                  aria-label="Play {{ block.value.label }} video"
-                >
-                  <img src="{% static 'foundation_cms/_images/buttons/accordion-video-play-button.svg' %}" alt="Video Play Button" width="48" height="48" />
-                  <span class="show-for-sr">Play video</span>
-                </button>
+                {% include "patterns/components/buttons/video_play_button_vimeo_style.html" with classnames="hero-accordion__video-play-button" video_label=block.value.label %}
               </div>
             </div>
             <p class="hero-accordion__label">{{ block.value.label }}</p>
