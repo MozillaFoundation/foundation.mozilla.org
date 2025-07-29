@@ -8,7 +8,6 @@ const CARD_CONFIG = {
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
-const BTN_DISABLED_ATTR = "disabled";
 const SWIPE_THRESHOLD = 50;
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
 
@@ -107,9 +106,6 @@ class SpotlightCarousel {
     this.slides.style.transform = "";
     this.slides.style.minHeight = ""; // Reset minHeight from mobile
 
-    // Remove disabled attributes on buttons
-    this.enableAllButtons();
-
     // Remove touch event listeners on desktop
     this.removeTouchListeners();
 
@@ -129,7 +125,6 @@ class SpotlightCarousel {
 
     this.addTouchListeners();
     this.updateMobilePosition();
-    this.updateMobileButtonStates();
   }
 
   /**
@@ -215,15 +210,12 @@ class SpotlightCarousel {
 
     // Check if swipe meets threshold
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff > 0 && this.currentStep > 1) {
+      if (diff > 0) {
         // Swipe right
         this.handlePrev();
-      } else if (diff < 0 && this.currentStep < this.totalCards) {
+      } else {
         // Swipe left
         this.handleNext();
-      } else {
-        // Can't swipe further, snap back to current position
-        this.updateMobilePosition();
       }
     } else {
       // Swipe didn't meet threshold, snap back to current position
@@ -237,43 +229,6 @@ class SpotlightCarousel {
       }
     }, SWIPE_TRANSITION_DURATION);
   };
-
-  /**
-   * Updates the disabled state of navigation buttons on mobile
-   */
-  updateMobileButtonStates() {
-    if (!this.isMobile) return;
-
-    // Disable prev button when at first card
-    if (this.prevButton) {
-      if (this.currentStep === 1) {
-        this.prevButton.setAttribute(BTN_DISABLED_ATTR, "");
-      } else {
-        this.prevButton.removeAttribute(BTN_DISABLED_ATTR);
-      }
-    }
-
-    // Disable next button when at last card
-    if (this.nextButton) {
-      if (this.currentStep === this.totalCards) {
-        this.nextButton.setAttribute(BTN_DISABLED_ATTR, "");
-      } else {
-        this.nextButton.removeAttribute(BTN_DISABLED_ATTR);
-      }
-    }
-  }
-
-  /**
-   * Enables all navigation buttons
-   */
-  enableAllButtons() {
-    if (this.prevButton) {
-      this.prevButton.removeAttribute(BTN_DISABLED_ATTR);
-    }
-    if (this.nextButton) {
-      this.nextButton.removeAttribute(BTN_DISABLED_ATTR);
-    }
-  }
 
   /**
    * Sets up event listeners for navigation and resize
@@ -424,7 +379,6 @@ class SpotlightCarousel {
    */
   handleMobilePrev() {
     this.updateMobilePosition();
-    this.updateMobileButtonStates();
   }
 
   /**
@@ -432,7 +386,6 @@ class SpotlightCarousel {
    */
   handleMobileNext() {
     this.updateMobilePosition();
-    this.updateMobileButtonStates();
   }
 
   /**
