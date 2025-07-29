@@ -200,6 +200,7 @@
 
       @include breakpoint(large up) {
         position: absolute;
+        margin: 0;
 
         &[data-display-position="1"] {
           @include desktop-display-style(1);
