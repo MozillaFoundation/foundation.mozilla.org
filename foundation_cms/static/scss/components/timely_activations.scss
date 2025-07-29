@@ -1,8 +1,35 @@
+@use "sass:map";
+
 @import "../colors";
 @import "../type";
 
 body.redesign {
   .timely-activations {
+    // horizontal layout - gap between text section and illustration
+    $hori-gap: (
+      large: 1rem,
+      xlarge: 1.5rem,
+    );
+
+    // horizontal layout - care minimum height
+    $hori-card-min-height: (
+      medium: rem-calc(268),
+      large: rem-calc(268),
+      xlarge: rem-calc(336),
+    );
+
+    // horizontal layout - illustration dimension
+    $hori-illu-dimension: (
+      large: (
+        width: rem-calc(30),
+        height: map.get($hori-card-min-height, large),
+      ),
+      xlarge: (
+        width: rem-calc(180),
+        height: map.get($hori-card-min-height, xlarge),
+      ),
+    );
+
     width: 100%;
     margin: 1rem 0;
 
@@ -25,11 +52,15 @@ body.redesign {
       @include breakpoint(medium up) {
         flex-direction: row;
         min-height: 0;
-        height: rem-calc(290);
+        height: map.get($hori-card-min-height, medium);
+      }
+
+      @include breakpoint(large up) {
+        height: map.get($hori-card-min-height, large);
       }
 
       @include breakpoint(xlarge up) {
-        height: rem-calc(451);
+        height: map.get($hori-card-min-height, xlarge);
       }
 
       &__image-container {
@@ -153,11 +184,17 @@ body.redesign {
         }
 
         @include breakpoint(large up) {
-          margin-right: 3rem;
+          $illus-dimension: map.get($hori-illu-dimension, large);
+          $gap: map.get($hori-gap, large);
+
+          margin-right: calc($gap + map.get($illus-dimension, width));
         }
 
         @include breakpoint(xlarge up) {
-          margin-right: calc(rem-calc(268) + 2.5rem);
+          $illus-dimension: map.get($hori-illu-dimension, xlarge);
+          $gap: map.get($hori-gap, xlarge);
+
+          margin-right: calc($gap + map.get($illus-dimension, width));
         }
 
         &::after {
@@ -177,27 +214,40 @@ body.redesign {
           }
 
           @include breakpoint(large up) {
+            $gap: map.get($hori-gap, large);
+            $dimension: map.get($hori-illu-dimension, large);
+
+            // because of the transform on the same ::after element on smaller screens,
+            // we need to swap the values for width <-> height
+            $width: map.get($dimension, height);
+            $height: map.get($dimension, width);
+
             display: inline-block;
-            width: rem-calc(290);
-            height: 2.75rem;
-            background-position: top;
+            width: $width;
+            height: $height;
+            background-position: center;
+            background-size: 100% 100%;
             transform-origin: 100% 100%;
             transform: rotate(90deg) scaleX(-1);
             top: auto;
-            left: calc(100% - rem-calc(290));
+            left: calc(100% - $width + $gap);
             bottom: 100%;
           }
 
           @include breakpoint(xlarge up) {
+            // a different background-image is used here
+            // no need to swap the width and height value because "transform" is set to none now
+            $gap: map.get($hori-gap, xlarge);
+            $dimension: map.get($hori-illu-dimension, xlarge);
+            $width: map.get($dimension, width);
+            $height: map.get($dimension, height);
+
             transform: none;
-            width: rem-calc(268);
-            height: 100%;
+            width: $width;
+            height: $height;
             top: 0;
-            bottom: auto;
-            left: calc(100% + 2.5rem);
+            left: calc(100% + $gap);
             background-image: url("../_images/timely-activations/separator-blue-300-large.svg");
-            background-size: 100% 100%;
-            background-position: right;
           }
         }
 
@@ -238,9 +288,18 @@ body.redesign {
           margin-bottom: 0;
         }
 
+        @include breakpoint(large up) {
+          $illus-dimension: map.get($hori-illu-dimension, large);
+          $gap: map.get($hori-gap, large);
+
+          margin-left: calc($gap + map.get($illus-dimension, width));
+        }
+
         @include breakpoint(xlarge up) {
-          margin-left: 4.25rem;
-          margin-left: calc(rem-calc(264) + 2.25rem);
+          $illus-dimension: map.get($hori-illu-dimension, xlarge);
+          $gap: map.get($hori-gap, xlarge);
+
+          margin-left: calc($gap + map.get($illus-dimension, width));
         }
 
         &::after {
@@ -261,24 +320,40 @@ body.redesign {
           }
 
           @include breakpoint(large up) {
+            $gap: map.get($hori-gap, large);
+            $dimension: map.get($hori-illu-dimension, large);
+
+            // because of the transform on the same ::after element on smaller screens,
+            // we need to swap the values for width <-> height
+            $width: map.get($dimension, height);
+            $height: map.get($dimension, width);
+
             display: inline-block;
-            width: rem-calc(290);
-            height: 4rem;
-            background-position: bottom;
+            width: $width;
+            height: $height;
+            background-position: center;
+            background-size: 100% 100%;
             transform-origin: 0% 100%;
             transform: rotate(90deg);
             bottom: 100%;
             top: auto;
-            left: -4.25rem;
+            left: -($height + $gap);
           }
 
           @include breakpoint(xlarge up) {
+            // a different background-image is used here
+            // no need to swap the width and height value because "transform" is set to none now
+            $gap: map.get($hori-gap, xlarge);
+            $dimension: map.get($hori-illu-dimension, xlarge);
+            $width: map.get($dimension, width);
+            $height: map.get($dimension, height);
+
             background-image: url("../_images/timely-activations/separator-blue-600-large.svg");
             background-size: 100% 100%;
-            width: rem-calc(264);
-            height: 100%;
+            width: $width;
+            height: $height;
             transform: none;
-            left: calc(0rem - rem-calc(264) - 2.25rem);
+            left: -($width + $gap);
             bottom: 0;
           }
         }
@@ -307,11 +382,17 @@ body.redesign {
         }
 
         @include breakpoint(large up) {
-          margin-right: 3rem;
+          $illus-dimension: map.get($hori-illu-dimension, large);
+          $gap: map.get($hori-gap, large);
+
+          margin-right: calc($gap + map.get($illus-dimension, width));
         }
 
         @include breakpoint(xlarge up) {
-          margin-right: calc(rem-calc(276) + 2.5rem);
+          $illus-dimension: map.get($hori-illu-dimension, xlarge);
+          $gap: map.get($hori-gap, xlarge);
+
+          margin-right: calc($gap + map.get($illus-dimension, width));
         }
 
         &::after {
@@ -328,27 +409,44 @@ body.redesign {
 
           @include breakpoint(medium up) {
             display: none;
-            width: rem-calc(290);
-            height: 2.5rem;
+          }
+
+          @include breakpoint(large up) {
+            $gap: map.get($hori-gap, large);
+            $dimension: map.get($hori-illu-dimension, large);
+
+            // because of the transform on the same ::after element on smaller screens,
+            // we need to swap the values for width <-> height
+            $width: map.get($dimension, height);
+            $height: map.get($dimension, width);
+
+            display: inline-block;
+            width: $width;
+            height: $height;
             transform-origin: 0% 100%;
             transform: rotate(270deg);
             top: auto;
-            left: calc(100% + 3rem);
+            left: calc(100% + $height + $gap);
             bottom: 0;
-            background-position: bottom;
+            background-size: 100% 100%;
+            background-position: center;
           }
 
           @include breakpoint(xlarge up) {
-            display: inline-block;
+            // a different background-image is used here
+            // no need to swap the width and height value because "transform" is set to none now
+            $gap: map.get($hori-gap, xlarge);
+            $dimension: map.get($hori-illu-dimension, xlarge);
+            $width: map.get($dimension, width);
+            $height: map.get($dimension, height);
+
             background-image: url("../_images/timely-activations/separator-orange-200-large.svg");
             transform: none;
-            width: rem-calc(276);
-            height: 100%;
+            width: $width;
+            height: $height;
             top: 0;
             bottom: auto;
-            left: calc(100% + 2.5rem);
-            background-size: 100% 100%;
-            background-position: right;
+            left: calc(100% + $gap);
           }
         }
 
