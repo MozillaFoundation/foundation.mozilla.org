@@ -10,6 +10,7 @@ import {
 } from "./components/primary_nav";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
+import { initTabbedContent } from "./blocks/tabbed_content_container.js";
 
 let foundationSiteURL = window.location.origin;
 
@@ -27,3 +28,4 @@ initPortraitCardSetCarousels();
 initWordmarkVisibilityOnScroll();
 initSpotlightCardCarousels();
 initPillarCardLinks();
+initTabbedContent();
