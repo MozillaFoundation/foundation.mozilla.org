@@ -1,0 +1,57 @@
+.two-column-container {
+  $two-column-mobile-margin-bottom: 0.25rem;
+  $cell-block-margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $two-column-mobile-margin-bottom;
+
+  @include breakpoint(medium up) {
+    flex-direction: row;
+    margin-bottom: $global-margin * 2;
+    gap: $global-padding * 2;
+  }
+
+  &--middle {
+    @include breakpoint(medium up) {
+      align-items: center;
+    }
+  }
+
+  &--bottom {
+    @include breakpoint(medium up) {
+      align-items: flex-end;
+    }
+  }
+
+  &--top {
+    @include breakpoint(medium up) {
+      align-items: flex-start;
+    }
+  }
+
+  &__column {
+    .grid-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .two-column-container__column {
+    flex: 1;
+  }
+
+  .newsletter-signup,
+  .list-block {
+    margin-bottom: $cell-block-margin-bottom;
+  }
+
+  // todo: Implement container queries instead of catching the two column container block
+  .newsletter-signup[data-layout] {
+    .newsletter-signup__success-message {
+      @include breakpoint(medium up) {
+        flex-direction: column;
+      }
+    }
+  }
+}

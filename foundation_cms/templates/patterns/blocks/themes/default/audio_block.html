@@ -1,10 +1,17 @@
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
 {% block block_content %}
-    <div class="grid-container">
-        <h3>Audio Block</h3>
-        <p>Audio Image: {{ self.image }}</p>
-        <p>Audio Title: {{ self.title }}</p>
-        <p>Audio Description: {{ self.description }}</p>
-        <p>Audio Simplecast Embed: {{ self.simplecast_embed_code|safe }}</p>
-    </div>
+  <div class="grid-container">
+    <h3>Audio Block</h3>
+    {% if self.image %}
+      <div class="audio-block__image">
+        {% image self.image original as audio_img %}
+        <img height="{{ audio_img.height }}" width="{{ audio_img.width }}" src="{{ audio_img.url }}" alt="{{ audio_img.alt }}">
+      </div>
+    {% endif %}
+    <p>{{ self.title }}</p>
+    <p>{{ self.description }}</p>
+    <p>{{ self.simplecast_embed_code|safe }}</p>
+  </div>
 {% endblock block_content %}
