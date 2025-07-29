@@ -309,6 +309,10 @@ body.redesign {
   @include mofo-text-style($body-text-styles, "large");
 }
 
+.tw-body-large {
+  @include mofo-text-style($body-text-styles, "large");
+}
+
 .body-text-regular {
   @include mofo-text-style($body-text-styles, "regular");
 }
