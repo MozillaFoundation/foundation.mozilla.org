@@ -177,10 +177,6 @@
         width: auto;
       }
     }
-
-    @include breakpoint(large up) {
-      padding-right: 2rem;
-    }
   }
 
   &__legals {
