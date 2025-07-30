@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 
 .impact-number-block {
   // ===================================
@@ -20,8 +21,14 @@
   );
   $layout-breakpoint: medium;
   $digit-height: (
-    small: get-text-property($header-styles, "h2", "line-height", "small"),
-    large: get-text-property($header-styles, "h1", "line-height", "large"),
+    small: math.max(
+        get-text-property($header-styles, "h2", "line-height", "small"),
+        1
+      ),
+    large: math.max(
+        get-text-property($header-styles, "h1", "line-height", "large"),
+        1
+      ),
   );
 
   // ===================================
@@ -118,9 +125,6 @@
     }
 
     &__digit-window {
-      height: #{map.get($digit-height, small)}em;
-      display: inline-block;
-
       @include apply-text-style(
         $header-styles,
         "h2",
@@ -128,15 +132,18 @@
         $header-font-family
       );
 
-      @include breakpoint(large up) {
-        height: #{map.get($digit-height, large)}em;
+      display: inline-block;
+      height: #{map.get($digit-height, small)}em;
 
+      @include breakpoint(large up) {
         @include apply-text-style(
           $header-styles,
           "h1",
           "large",
           $header-font-family
         );
+
+        height: #{map.get($digit-height, large)}em;
       }
 
       &--animated {
@@ -145,17 +152,18 @@
     }
 
     &__digit {
-      word-break: break-all;
-      display: block;
-      width: min-content;
-      text-align: center;
-
       @include apply-text-style(
         $header-styles,
         "h2",
         "small",
         $header-font-family
       );
+
+      word-break: break-all;
+      display: block;
+      width: min-content;
+      text-align: center;
+      line-height: map.get($digit-height, small);
 
       @include breakpoint(large up) {
         @include apply-text-style(
@@ -164,6 +172,8 @@
           "large",
           $header-font-family
         );
+
+        line-height: map.get($digit-height, large);
       }
 
       &::before {
