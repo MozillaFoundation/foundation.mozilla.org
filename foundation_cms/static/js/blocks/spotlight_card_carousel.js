@@ -478,12 +478,7 @@ class SpotlightCarousel {
         }
 
         // Apply the new position instantly
-        const cardWidth = this.getCSSVarValue("--mobile-card-width");
-        const gap = this.getCSSVarValue("--mobile-slide-gap");
-
-        this.slides.style.transform = `translateX(calc(
-          ${this.mobileIndex} * (-${cardWidth} - ${gap})
-        ))`;
+        this.setMobileTransformValue();
 
         // Force a reflow to ensure the transform is applied before re-enabling transitions
         void this.slides.offsetWidth;
@@ -533,17 +528,22 @@ class SpotlightCarousel {
   }
 
   /**
+   * Sets the translateX transform for mobile carousel position
+   * Directly updates the slides container's transform style based on current mobileIndex
+   */
+  setMobileTransformValue() {
+    const cardWidth = this.getCSSVarValue("--mobile-card-width");
+    const gap = this.getCSSVarValue("--mobile-slide-gap");
+
+    this.slides.style.transform = `translateX(calc(${this.mobileIndex} * (-${cardWidth} - ${gap})))`;
+  }
+
+  /**
    * Updates mobile carousel position using CSS transform
    * Translates the slides container horizontally
    */
   updateMobilePosition() {
-    const cardWidth = this.getCSSVarValue("--mobile-card-width");
-    const gap = this.getCSSVarValue("--mobile-slide-gap");
-
-    this.slides.style.transform = `translateX(calc(
-      ${this.mobileIndex} * (-${cardWidth} - ${gap})
-    ))`;
-
+    this.setMobileTransformValue();
     this.updateAriaAttributes();
   }
 
