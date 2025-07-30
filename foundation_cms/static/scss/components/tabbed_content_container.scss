@@ -303,7 +303,7 @@
     margin-bottom: 0.5rem;
 
     @include breakpoint(large up) {
-      font-size: rem-calc(16);
+      @include mofo-text-style($body-text-styles, "regular");
     }
   }
 
@@ -311,5 +311,9 @@
     @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
 
     margin-bottom: 0.5rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 0.75rem;
+    }
   }
 }
