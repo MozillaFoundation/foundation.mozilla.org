@@ -18,8 +18,8 @@ $carousel-transition: transform 0.3s ease;
   $cardset-colors: (
     1: color(blue, "300"),
     2: color(yellow, "300"),
-    3: color(orange, "200"),
-    4: color(green, "300"),
+    3: color(green, "300"),
+    4: color(orange, "200"),
   );
 
   @include breakpoint(large up) {
@@ -101,7 +101,7 @@ $carousel-transition: transform 0.3s ease;
     }
 
     @include breakpoint(xlarge up) {
-      padding: 2.5rem 3rem 4.5rem; // desktop padding on xlarge only to accommodate card aspect ratio
+      padding: 2.5rem 3rem 4rem; // desktop padding on xlarge only to accommodate card aspect ratio
     }
 
     &:last-child {
@@ -135,7 +135,8 @@ $carousel-transition: transform 0.3s ease;
     }
 
     &__headline {
-      margin: 0;
+      margin: 3.9rem 0 0;
+      padding-bottom: 0.5rem;
     }
 
     &__cta {
@@ -146,6 +147,10 @@ $carousel-transition: transform 0.3s ease;
 
     .portrait-card__headline {
       text-wrap: wrap;
+    }
+
+    .portrait-card__label + .portrait-card__headline {
+      margin: 0; // override margin if label is present
     }
 
     .portrait-card__cta::after {
