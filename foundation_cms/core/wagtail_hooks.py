@@ -38,7 +38,8 @@ def register_large_feature(features):
 
     # The "From" version uses a CSS selector to find spans with a class of 'tw-body-large' and body-text-large
     # The "To" version adds a span with a class of 'tw-body-large' and 'body-text-large' surrounding the selected text
-    # TODO: We may need to adjust the CSS classes based on the actual styles used. Class 'tw-body-large' is a class used in the legacy app, so should be replaced with the correct class used in the new app.
+    # TODO: We may need to adjust the CSS classes based on the actual styles used. Class 'tw-body-large' is a class
+    #       used in the legacy app, so should be replaced with the correct class used in the new app.
     db_conversion = {
         "from_database_format": {
             'span[class="tw-body-large"]': InlineStyleElementHandler(type_),

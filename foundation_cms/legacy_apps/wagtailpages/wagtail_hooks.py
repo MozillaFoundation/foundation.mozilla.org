@@ -16,10 +16,6 @@ from django.utils.html import escape
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.rich_text.converters.html_to_contentstate import (
-    InlineStyleElementHandler,
-)
-from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail.admin.ui.tables import BooleanColumn
 from wagtail.contrib.settings.models import register_setting
 from wagtail.contrib.settings.registry import SettingMenuItem
