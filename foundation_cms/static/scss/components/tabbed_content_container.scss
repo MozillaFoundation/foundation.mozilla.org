@@ -292,12 +292,28 @@
   }
 
   &__title {
-    @include mofo-text-style($header-styles, "h6", $header-font-family);
+    @include mofo-text-style($header-styles, "h5", $header-font-family);
 
     margin-bottom: 0.25rem;
   }
 
   &__subtitle {
     @include mofo-text-style($body-text-styles, "xsmall");
+
+    margin-bottom: 0.5rem;
+
+    @include breakpoint(large up) {
+      @include mofo-text-style($body-text-styles, "regular");
+    }
+  }
+
+  .cta-link {
+    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+
+    margin-bottom: 0.5rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 0.75rem;
+    }
   }
 }
