@@ -297,12 +297,15 @@
     margin-bottom: 0.25rem;
   }
 
-  &__link {
-    color: $black;
-    text-decoration: underline;
-  }
-
   &__subtitle {
     @include mofo-text-style($body-text-styles, "xsmall");
+
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-link {
+    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+
+    margin-bottom: 0.5rem;
   }
 }

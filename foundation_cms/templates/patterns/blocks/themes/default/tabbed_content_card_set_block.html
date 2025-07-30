@@ -12,13 +12,12 @@
         {% endif %}
     </div>
     <div class="tab-card__title">
-        {% if value.link %}
-            {% include "patterns/components/link.html" with value=value.link label_override=value.title classnames="tab-card__link" %}
-        {% else %}
-            {{ value.title }}
-        {% endif %}
+        {{ value.title }}
     </div>
     <div class="tab-card__subtitle">
         {{ value.subtitle }}
     </div>
+    {% if value.link %}
+        {% include "patterns/blocks/themes/default/cta_link_block.html" with link=value.link.0 classnames="tab-card__link" %}
+    {% endif %}
 </div>
