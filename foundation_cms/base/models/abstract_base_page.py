@@ -29,6 +29,9 @@ from foundation_cms.blocks import (
     TwoColumnContainerBlock,
     VideoBlock,
 )
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin.foundation_metadata import (
+    FoundationMetadataPageMixin,
+)
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
@@ -91,7 +94,7 @@ class PageTag(TagBase):
         verbose_name_plural = "Page Tags (new)"
 
 
-class AbstractBasePage(MetadataPageMixin, Page):
+class AbstractBasePage(FoundationMetadataPageMixin, Page):
     theme = models.CharField(
         max_length=50,
         blank=True,
@@ -113,7 +116,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
         related_name="%(class)s_pages",
     )
 
-    promote_panels = Page.promote_panels + [
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
         MultiFieldPanel(
             [
                 FieldPanel("author"),
