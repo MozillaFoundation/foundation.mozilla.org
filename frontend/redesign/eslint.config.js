@@ -8,7 +8,7 @@ export default [
       },
       parserOptions: {
         sourceType: "module",
-        ecmaVersion: 2020,
+        ecmaVersion: 2022,
       },
     }
   },
