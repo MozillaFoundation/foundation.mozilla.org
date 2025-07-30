@@ -49,7 +49,7 @@ class SpotlightCarousel {
     this.navSection = root.querySelector(SELECTORS.navSection);
     this.counter = root.querySelector(SELECTORS.counter);
     this.nextButton = root.querySelector(SELECTORS.navButtonNext);
-    this.prevButton = root.querySelector(SELECTORS.prevButtonPrev);
+    this.prevButton = root.querySelector(SELECTORS.navButtonPrev);
 
     this.currentStep = 1;
     this.totalCards = this.cards.length;
