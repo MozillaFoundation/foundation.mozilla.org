@@ -17,7 +17,7 @@
       <!-- Wordmark -->
       <div class="primary-nav-ns__grid-cell primary-nav-ns__wordmark hidden">
 
-        <a href="#" aria-label="Mozilla Foundation homepage">
+        <a href="/" aria-label="Mozilla Foundation homepage">
 
           <img data-name="logo" src="{% static 'foundation_cms/_images/primary-nav-wordmark-logo.svg' %}" alt="Mozilla Foundation Logo" width="229" height="48" />
           <img data-name="symbol" src="{% static 'foundation_cms/_images/primary-nav-wordmark-symbol.svg' %}" alt="Mozilla Foundation Symbol" width="29" height="28" />
@@ -31,27 +31,27 @@
         <div class="primary-nav-ns__menu">
 
           <div class="primary-nav-ns__menu-item">
-            <a href="/en/meet-mozilla/" class="nav-link">Meet Mozilla</a>
+            <a href="/meet-mozilla/" class="nav-link">Meet Mozilla</a>
           </div>
 
           <div class="primary-nav-ns__menu-item">
-            <a href="/en/what-we-do/" class="nav-link">What We Do</a>
+            <a href="/what-we-do/" class="nav-link">What We Do</a>
 
             <div class="primary-nav-ns__dropdown">
-              <a href="/en/what-we-do/make/" class="nav-link">Make</a>
-              <a href="/en/what-we-do/inspire/" class="nav-link">Inspire</a>
-              <a href="/en/what-we-do/mobilize/" class="nav-link">Mobilize</a>
+              <a href="/what-we-do/make/" class="nav-link">Make</a>
+              <a href="/what-we-do/inspire/" class="nav-link">Inspire</a>
+              <a href="/what-we-do/mobilize/" class="nav-link">Mobilize</a>
             </div>
           </div>
           <div class="primary-nav-ns__menu-item">
-            <a href="/en/join-us/" class="nav-link">Join Us</a>
+            <a href="/join-us/" class="nav-link">Join Us</a>
           </div>
 
         </div>
       </div>
 
       <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
-        {% include "patterns/components/button.html" with classnames="with-heart-icon" url="/donate" label="Donate" button_style="btn-primary" %}
+        {% include "patterns/components/button.html" with classnames="with-heart-icon" url="?form=donate-header" label="Donate" button_style="btn-primary" %}
       </div>
 
     </div>
