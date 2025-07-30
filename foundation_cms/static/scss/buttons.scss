@@ -227,3 +227,42 @@ $cta-link-icon-sizes: (
     }
   }
 }
+
+// ===================================
+// Video Play Button (Vimeo Style)
+// ===================================
+
+button.btn-play--vimeo {
+  $bg-color: color(neutral, "600");
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($bg-color, 0.9);
+  width: rem-calc(56);
+  height: rem-calc(32);
+  border-radius: rem-calc(4);
+  transition:
+    opacity 250ms ease-out,
+    background-color 40ms,
+    color 40ms,
+    width 250ms ease-in-out;
+
+  svg {
+    .icon {
+      fill: map.get($mofo-colors, white);
+    }
+  }
+
+  &:hover {
+    $bg-color: color(orange, "200");
+
+    background-color: rgba($bg-color, 1);
+
+    svg {
+      .icon {
+        fill: map.get($mofo-colors, black);
+      }
+    }
+  }
+}
