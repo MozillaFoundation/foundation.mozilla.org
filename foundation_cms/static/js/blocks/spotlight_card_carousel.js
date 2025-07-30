@@ -44,7 +44,8 @@ class SpotlightCarousel {
     this.root = root;
     this.slides = root.querySelector(SELECTORS.slides);
     this.teaserRegion = root.querySelector(SELECTORS.teaserRegion);
-    this.cards = root.querySelectorAll(SELECTORS.cards);
+    this.originalCards = Array.from(root.querySelectorAll(SELECTORS.cards));
+    this.cards = this.originalCards;
     this.content = root.querySelectorAll(SELECTORS.content);
     this.navSection = root.querySelector(SELECTORS.navSection);
     this.counter = root.querySelector(SELECTORS.counter);
@@ -52,10 +53,12 @@ class SpotlightCarousel {
     this.prevButton = root.querySelector(SELECTORS.navButtonPrev);
 
     this.currentStep = 1;
-    this.totalCards = this.cards.length;
+    this.totalCards = this.originalCards.length;
     this.resizeTimer = null;
     this.isMobile = false;
     this.cardsByPosition = {};
+    this.mobileIndex = 0;
+    this.isTransitioning = false;
 
     // For touch/swipe
     this.touchStartX = 0;
@@ -104,10 +107,25 @@ class SpotlightCarousel {
   initDesktop() {
     // Reset any mobile transforms and styles
     this.slides.style.transform = "";
-    this.slides.style.minHeight = ""; // Reset minHeight from mobile
+    this.slides.style.minHeight = "";
+    this.slides.style.width = "";
 
     // Remove touch event listeners on desktop
     this.removeTouchListeners();
+
+    // Sync currentStep from mobileIndex if coming from mobile
+    if (this.cards.length > this.originalCards.length) {
+      // Calculate which logical card we're on (1-3)
+      const logicalPosition =
+        ((this.mobileIndex % this.totalCards) + this.totalCards) %
+        this.totalCards;
+      this.currentStep = logicalPosition + 1;
+
+      // Restore original cards after syncing
+      this.slides.innerHTML = "";
+      this.originalCards.forEach((card) => this.slides.appendChild(card));
+      this.cards = this.originalCards;
+    }
 
     // Set up desktop positioning
     this.updateDesktopPosition();
@@ -123,8 +141,46 @@ class SpotlightCarousel {
   initMobile() {
     this.slides.style.minHeight = "";
 
+    // Setup tripled cards for infinite scroll
+    this.setupMobileInfiniteTrack();
+
+    // Sync mobile index with current step
+    // For 3 cards: if currentStep is 1, mobileIndex should be 3 (first real card)
+    this.mobileIndex = this.totalCards + (this.currentStep - 1);
+
     this.addTouchListeners();
     this.updateMobilePosition();
+
+    // Re-enable transition after initial positioning
+    requestAnimationFrame(() => {
+      this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+    });
+  }
+
+  /**
+   * Creates a tripled set of cards for seamless infinite scroll on mobile
+   */
+  setupMobileInfiniteTrack() {
+    // Only triple if not already done
+    if (this.cards.length === this.originalCards.length) {
+      const fragment = document.createDocumentFragment();
+
+      // Clone cards: [clones of originals] [originals] [clones of originals]
+      this.originalCards.forEach((card) =>
+        fragment.appendChild(card.cloneNode(true)),
+      );
+      this.originalCards.forEach((card) => fragment.appendChild(card));
+      this.originalCards.forEach((card) =>
+        fragment.appendChild(card.cloneNode(true)),
+      );
+
+      this.slides.innerHTML = "";
+      this.slides.appendChild(fragment);
+      this.cards = Array.from(this.slides.querySelectorAll(SELECTORS.cards));
+
+      // Ensure slides container is wide enough and cards are displayed inline
+      this.slides.style.width = `${this.cards.length * 100}vw`;
+    }
   }
 
   /**
@@ -378,14 +434,68 @@ class SpotlightCarousel {
    * Updates mobile view when moving to previous card
    */
   handleMobilePrev() {
+    this.mobileIndex--;
     this.updateMobilePosition();
+    this.handleMobileInfiniteLoop();
   }
 
   /**
    * Updates mobile view when moving to next card
    */
   handleMobileNext() {
+    this.mobileIndex++;
     this.updateMobilePosition();
+    this.handleMobileInfiniteLoop();
+  }
+
+  /**
+   * Handles the infinite loop reset for mobile
+   */
+  handleMobileInfiniteLoop() {
+    // Prevent multiple loop handlers
+    if (this.isTransitioning) return;
+
+    const middleStart = this.totalCards;
+    const middleEnd = this.totalCards * 2 - 1;
+
+    // Check if we need to reset position
+    if (this.mobileIndex < middleStart || this.mobileIndex > middleEnd) {
+      this.isTransitioning = true;
+
+      // Use transitionend event instead of setTimeout for precise timing
+      const handleTransitionEnd = (e) => {
+        // Only handle transform transitions
+        if (e.propertyName !== "transform") return;
+
+        this.slides.removeEventListener("transitionend", handleTransitionEnd);
+
+        // Now that animation is complete, do the invisible jump
+        this.slides.style.transition = "none";
+
+        if (this.mobileIndex < middleStart) {
+          // We're in the left clones, jump to corresponding position in middle
+          this.mobileIndex = this.mobileIndex + this.totalCards;
+        } else {
+          // We're in the right clones, jump to corresponding position in middle
+          this.mobileIndex = this.mobileIndex - this.totalCards;
+        }
+
+        // Apply the new position instantly
+        const translateValue = this.mobileIndex * 100;
+        this.slides.style.transform = `translateX(-${translateValue}vw)`;
+
+        // Force a reflow to ensure the transform is applied before re-enabling transitions
+        void this.slides.offsetWidth;
+
+        // Re-enable transitions for next interaction
+        requestAnimationFrame(() => {
+          this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+          this.isTransitioning = false;
+        });
+      };
+
+      this.slides.addEventListener("transitionend", handleTransitionEnd);
+    }
   }
 
   /**
@@ -402,10 +512,8 @@ class SpotlightCarousel {
    * Translates the slides container horizontally
    */
   updateMobilePosition() {
-    // calculate translateX based on current step
-    const translateValue = (this.currentStep - 1) * -100;
-    this.slides.style.transform = `translateX(${translateValue}vw)`;
-    this.updateDataPosition();
+    const translateValue = this.mobileIndex * 100;
+    this.slides.style.transform = `translateX(-${translateValue}vw)`;
   }
 
   /**
@@ -491,8 +599,10 @@ class SpotlightCarousel {
 
       if (viewportChanged) {
         if (this.isMobile) {
+          // Desktop → Mobile
           this.initMobile();
         } else {
+          // Mobile → Desktop
           this.initDesktop();
         }
       } else if (!this.isMobile) {
