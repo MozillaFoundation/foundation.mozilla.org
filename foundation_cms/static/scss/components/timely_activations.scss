@@ -181,6 +181,10 @@ body.redesign {
 
         @include breakpoint(medium up) {
           margin-bottom: 0;
+
+          .activation-card__content {
+            padding-left: 1.15rem;
+          }
         }
 
         @include breakpoint(large up) {
