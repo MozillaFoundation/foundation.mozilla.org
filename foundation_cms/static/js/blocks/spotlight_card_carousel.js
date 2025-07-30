@@ -10,6 +10,7 @@ const CARD_CONFIG = {
 
 const SWIPE_THRESHOLD = 50;
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
+const SWIPE_PREVENTION_THRESHOLD = 10;
 
 /**
  * CSS selectors used throughout the carousel
@@ -34,6 +35,7 @@ const SELECTORS = {
  * Spotlight carousel component that handles card rotation and display
  * Supports both desktop (3-card view) and mobile (single card view) layouts
  * @class
+ * @todo Replace inline style usage with CSS classes and CSS custom properties
  */
 class SpotlightCarousel {
   /**
@@ -106,9 +108,7 @@ class SpotlightCarousel {
    */
   initDesktop() {
     // Reset any mobile transforms and styles
-    this.slides.style.transform = "";
-    this.slides.style.minHeight = "";
-    this.slides.style.width = "";
+    this.resetMobileStyles();
 
     // Remove touch event listeners on desktop
     this.removeTouchListeners();
@@ -153,7 +153,7 @@ class SpotlightCarousel {
 
     // Re-enable transition after initial positioning
     requestAnimationFrame(() => {
-      this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+      this.setCarouselTransition(true);
     });
   }
 
@@ -224,11 +224,11 @@ class SpotlightCarousel {
       const matrix = new DOMMatrix(currentTransform);
       this.swipeStartTransform = matrix.m41; // translateX value
     } else {
-      this.swipeStartTransform = (this.currentStep - 1) * -window.innerWidth;
+      this.swipeStartTransform = -this.mobileIndex * window.innerWidth;
     }
 
     // Disable transitions for immediate visual feedback during swipe
-    this.slides.style.transition = "none";
+    this.setCarouselTransition(false);
   };
 
   /**
@@ -246,7 +246,7 @@ class SpotlightCarousel {
     this.slides.style.transform = `translateX(${newTransform}px)`;
 
     // Prevent vertical scrolling while swiping horizontally
-    if (Math.abs(diff) > 10) {
+    if (Math.abs(diff) > SWIPE_PREVENTION_THRESHOLD) {
       e.preventDefault();
     }
   };
@@ -262,7 +262,7 @@ class SpotlightCarousel {
     const diff = this.touchEndX - this.touchStartX;
 
     // Re-enable smooth transitions for snap animation
-    this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+    this.setCarouselTransition(true);
 
     // Check if swipe meets threshold
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
@@ -281,7 +281,7 @@ class SpotlightCarousel {
     // Clean up inline transition after animation completes
     setTimeout(() => {
       if (this.slides) {
-        this.slides.style.transition = "";
+        this.clearCarouselTransition();
       }
     }, SWIPE_TRANSITION_DURATION);
   };
@@ -352,7 +352,7 @@ class SpotlightCarousel {
 
   /**
    * Updates data-display-position attributes and caches cards by position
-   * Also updates ARIA attributes for accessibility
+   * Desktop only. Used for CSS positioning
    */
   updateDataPosition() {
     const offset = this.currentStep - 1;
@@ -367,7 +367,6 @@ class SpotlightCarousel {
         "aria-hidden",
         position !== CARD_CONFIG.featured.position,
       );
-      card.setAttribute("aria-label", `Card ${i + 1} of ${this.totalCards}`);
 
       if (position != "1") {
         card.setAttribute("role", "button");
@@ -452,7 +451,6 @@ class SpotlightCarousel {
    * Handles the infinite loop reset for mobile
    */
   handleMobileInfiniteLoop() {
-    // Prevent multiple loop handlers
     if (this.isTransitioning) return;
 
     const middleStart = this.totalCards;
@@ -462,15 +460,14 @@ class SpotlightCarousel {
     if (this.mobileIndex < middleStart || this.mobileIndex > middleEnd) {
       this.isTransitioning = true;
 
-      // Use transitionend event instead of setTimeout for precise timing
       const handleTransitionEnd = (e) => {
         // Only handle transform transitions
         if (e.propertyName !== "transform") return;
 
         this.slides.removeEventListener("transitionend", handleTransitionEnd);
 
-        // Now that animation is complete, do the invisible jump
-        this.slides.style.transition = "none";
+        // Animation is complete, do the invisible jump
+        this.setCarouselTransition(false);
 
         if (this.mobileIndex < middleStart) {
           // We're in the left clones, jump to corresponding position in middle
@@ -489,7 +486,7 @@ class SpotlightCarousel {
 
         // Re-enable transitions for next interaction
         requestAnimationFrame(() => {
-          this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+          this.setCarouselTransition(true);
           this.isTransitioning = false;
         });
       };
@@ -508,12 +505,37 @@ class SpotlightCarousel {
   }
 
   /**
+   * Updates ARIA attributes for all cards
+   */
+  updateAriaAttributes() {
+    const cardsToUpdate =
+      this.isMobile && this.cards.length > this.originalCards.length
+        ? this.originalCards
+        : this.cards;
+
+    cardsToUpdate.forEach((card, i) => {
+      const logicalIndex = i + 1;
+      card.setAttribute(
+        "aria-label",
+        `Card ${logicalIndex} of ${this.totalCards}`,
+      );
+
+      if (this.isMobile) {
+        const currentCardIndex = this.currentStep - 1; // becuz currentStep is 1-based
+        const isCurrentCard = i === currentCardIndex;
+        card.setAttribute("aria-hidden", !isCurrentCard);
+      }
+    });
+  }
+
+  /**
    * Updates mobile carousel position using CSS transform
    * Translates the slides container horizontally
    */
   updateMobilePosition() {
     const translateValue = this.mobileIndex * 100;
     this.slides.style.transform = `translateX(-${translateValue}vw)`;
+    this.updateAriaAttributes();
   }
 
   /**
@@ -524,6 +546,7 @@ class SpotlightCarousel {
     if (this.isMobile) return;
 
     this.updateDataPosition();
+    this.updateAriaAttributes();
   }
 
   /**
@@ -549,6 +572,35 @@ class SpotlightCarousel {
    */
   setCSSVariable(name, value) {
     this.root.style.setProperty(name, value);
+  }
+
+  /**
+   * Sets carousel transition with consistent timing
+   * @param {boolean} enable - Whether to enable transition
+   */
+  setCarouselTransition(enable = true) {
+    if (enable) {
+      this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+    } else {
+      this.slides.style.transition = "none";
+    }
+  }
+
+  /**
+   * Clears inline transition styles to allow CSS to take over
+   */
+  clearCarouselTransition() {
+    this.slides.style.transition = "";
+  }
+
+  /**
+   * Resets all mobile-specific inline styles
+   */
+  resetMobileStyles() {
+    this.slides.style.transform = "";
+    this.slides.style.minHeight = "";
+    this.slides.style.width = "";
+    this.clearCarouselTransition();
   }
 
   /**
