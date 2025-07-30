@@ -46,7 +46,7 @@ defusedxml==0.7.1
     #   python3-openid
     #   social-auth-core
     #   willow
-dj-database-url==2.3.0
+dj-database-url==3.0.1
     # via -r requirements.in
 django==4.2.20
     # via
@@ -245,9 +245,7 @@ toml==0.10.2
 tqdm==4.63.0
     # via wagtail-inventory
 typing-extensions==4.4.0
-    # via
-    #   dj-database-url
-    #   wagtail-localize
+    # via wagtail-localize
 ua-parser==0.18.0
     # via user-agents
 urllib3==1.26.19
