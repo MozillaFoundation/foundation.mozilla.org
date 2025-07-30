@@ -59,9 +59,6 @@
       duration: 0.5s,
       timing-function: ease,
     );
-    $mobile-container-width: calc(
-      100vw - map.get($grid-margin-gutters, small) * 2
-    );
 
     // returns the percentage width of N columns
     @function display-width($columns) {
@@ -100,6 +97,20 @@
         ),
       )
     );
+
+    // Calculate mobile card width based on $grid-container-padding
+    // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
+    @function mobile-card-width($padding-key: small) {
+      $padding: map.get($grid-container-padding, $padding-key);
+      @return calc(100vw - $padding);
+    }
+
+    // Calculate mobile card left/right margin based on $grid-container-padding
+    // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
+    @function mobile-side-margin($padding-key: small) {
+      $padding: map.get($grid-container-padding, $padding-key);
+      @return calc($padding / 2);
+    }
 
     @mixin desktop-display-style($index) {
       $style: map.get($positions, $index);
@@ -193,10 +204,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: $mobile-container-width;
-      margin: 0 map.get($grid-margin-gutters, small);
+      width: mobile-card-width();
+      margin: 0 mobile-side-margin();
       transition: all map.get($transition, duration)
         map.get($transition, timing-function);
+
+      @include breakpoint(medium up) {
+        width: mobile-card-width(medium);
+        margin: 0 mobile-side-margin(medium);
+      }
 
       @include breakpoint(large up) {
         position: absolute;
