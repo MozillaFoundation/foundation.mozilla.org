@@ -281,7 +281,7 @@
       }
 
       &__content {
-        padding: map.get($grid-margin-gutters, small);
+        padding: map.get($grid-margin-gutters, small) 0;
       }
 
       &[data-carousel-slide="1"] {
