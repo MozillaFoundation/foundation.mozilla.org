@@ -138,11 +138,10 @@ $cta-link-icon-sizes: (
   @include mofo-text-style($link-text-styles, $textSize, $header-font-family);
 
   color: $black;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: rem-calc(12);
-  text-wrap: nowrap;
-  width: fit-content;
+  max-width: 100%;
 
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
@@ -225,6 +224,45 @@ $cta-link-icon-sizes: (
 
     &:disabled {
       visibility: hidden;
+    }
+  }
+}
+
+// ===================================
+// Video Play Button (Vimeo Style)
+// ===================================
+
+button.btn-play--vimeo {
+  $bg-color: color(neutral, "600");
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($bg-color, 0.9);
+  width: rem-calc(56);
+  height: rem-calc(32);
+  border-radius: rem-calc(4);
+  transition:
+    opacity 250ms ease-out,
+    background-color 40ms,
+    color 40ms,
+    width 250ms ease-in-out;
+
+  svg {
+    .icon {
+      fill: map.get($mofo-colors, white);
+    }
+  }
+
+  &:hover {
+    $bg-color: color(orange, "200");
+
+    background-color: rgba($bg-color, 1);
+
+    svg {
+      .icon {
+        fill: map.get($mofo-colors, black);
+      }
     }
   }
 }
