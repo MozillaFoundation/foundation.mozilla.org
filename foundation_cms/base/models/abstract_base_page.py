@@ -7,7 +7,6 @@ from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
-from wagtailmetadata.models import MetadataPageMixin
 
 from foundation_cms.blocks import (
     AudioBlock,
