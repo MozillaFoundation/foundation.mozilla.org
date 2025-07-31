@@ -11,10 +11,27 @@
 @import "../scss/components/footer";
 @import "../scss/components/newsletter_signup/newsletter_signup_form";
 
-/* Base font styles */
+/* Overriding legacy SCSS that was targeting these elements */
 .site-footer-ns,
-.primary-nav {
-  font-family: $body-font-family;
-  font-size: 1rem;
-  line-height: 1.5;
+.primary-nav-ns {
+  ul,
+  ol,
+  p {
+    font-family: $body-font-family;
+    font-size: unset;
+    line-height: 1.3;
+  }
+
+  a.btn-primary {
+    &:hover {
+      background-color: color(neutral, "600");
+      border-color: black;
+    }
+
+    &.dark-mode {
+      &:hover {
+        background-color: color(orange, "100");
+      }
+    }
+  }
 }
