@@ -14,24 +14,24 @@
                 {% image block.value.thumbnail fill-1200x675 as img_small %}
                 {% image block.value.thumbnail fill-2400x1350 as img_medium %}
                 {% image block.value.thumbnail fill-4266x2400 as img_large %}
-                
+
                 <picture class="hero-accordion__video-thumbnail">
-                  <source 
-                    media="(max-width: 639px)" 
+                  <source
+                    media="(max-width: 639px)"
                     srcset="{{ img_small.url }}"
                     width="{{ img_small.width }}"
                     height="{{ img_small.height }}"
                   >
-                  <source 
-                    media="(max-width: 1023px)" 
+                  <source
+                    media="(max-width: 1023px)"
                     srcset="{{ img_medium.url }}"
                     width="{{ img_medium.width }}"
                     height="{{ img_medium.height }}"
                   >
-                  <img 
-                    src="{{ img_large.url }}" 
-                    width="{{ img_large.width }}" 
-                    height="{{ img_large.height }}" 
+                  <img
+                    src="{{ img_large.url }}"
+                    width="{{ img_large.width }}"
+                    height="{{ img_large.height }}"
                     alt="{{ img_large.alt }}"
                     loading="lazy"
                   >
@@ -66,26 +66,26 @@
             {% image block.value.image fill-1000x1000 as img_small %}
             {% image block.value.image fill-1500x1500 as img_medium %}
             {% image block.value.image fill-2000x2000 as img_large %}
-            
+
             <p class="hero-accordion__label">{{ block.value.label }}</p>
-            
+
             <picture class="hero-accordion__image">
-              <source 
-                media="(max-width: 639px)" 
+              <source
+                media="(max-width: 639px)"
                 srcset="{{ img_small.url }}"
                 width="{{ img_small.width }}"
                 height="{{ img_small.height }}"
               >
-              <source 
-                media="(max-width: 1023px)" 
+              <source
+                media="(max-width: 1023px)"
                 srcset="{{ img_medium.url }}"
                 width="{{ img_medium.width }}"
                 height="{{ img_medium.height }}"
               >
-              <img 
-                src="{{ img_large.url }}" 
-                width="{{ img_large.width }}" 
-                height="{{ img_large.height }}" 
+              <img
+                src="{{ img_large.url }}"
+                width="{{ img_large.width }}"
+                height="{{ img_large.height }}"
                 alt="{{ block.value.image.alt }}"
                 loading="lazy"
               >
