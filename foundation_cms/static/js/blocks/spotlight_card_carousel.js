@@ -8,7 +8,9 @@ const CARD_CONFIG = {
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
-const BTN_DISABLED_ATTR = "disabled";
+const SWIPE_THRESHOLD = 50;
+const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
+const SWIPE_PREVENTION_THRESHOLD = 10;
 
 /**
  * CSS selectors used throughout the carousel
@@ -33,6 +35,7 @@ const SELECTORS = {
  * Spotlight carousel component that handles card rotation and display
  * Supports both desktop (3-card view) and mobile (single card view) layouts
  * @class
+ * @todo Replace inline style usage with CSS classes and CSS custom properties
  */
 class SpotlightCarousel {
   /**
@@ -43,7 +46,8 @@ class SpotlightCarousel {
     this.root = root;
     this.slides = root.querySelector(SELECTORS.slides);
     this.teaserRegion = root.querySelector(SELECTORS.teaserRegion);
-    this.cards = root.querySelectorAll(SELECTORS.cards);
+    this.originalCards = Array.from(root.querySelectorAll(SELECTORS.cards));
+    this.cards = this.originalCards;
     this.content = root.querySelectorAll(SELECTORS.content);
     this.navSection = root.querySelector(SELECTORS.navSection);
     this.counter = root.querySelector(SELECTORS.counter);
@@ -51,10 +55,18 @@ class SpotlightCarousel {
     this.prevButton = root.querySelector(SELECTORS.navButtonPrev);
 
     this.currentStep = 1;
-    this.totalCards = this.cards.length;
+    this.totalCards = this.originalCards.length;
     this.resizeTimer = null;
     this.isMobile = false;
     this.cardsByPosition = {};
+    this.mobileIndex = 0;
+    this.isTransitioning = false;
+
+    // For touch/swipe
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+    this.isSwiping = false;
+    this.swipeStartTransform = 0;
 
     this.RESIZE_DEBOUNCE_MS = 200;
     this.DESKTOP_BREAKPOINT = 1024; // our desktop breakpoint, "large", in px
@@ -96,11 +108,24 @@ class SpotlightCarousel {
    */
   initDesktop() {
     // Reset any mobile transforms and styles
-    this.slides.style.transform = "";
-    this.slides.style.minHeight = ""; // Reset minHeight from mobile
+    this.resetMobileStyles();
 
-    // Remove disabled attributes on buttons
-    this.enableAllButtons();
+    // Remove touch event listeners on desktop
+    this.removeTouchListeners();
+
+    // Sync currentStep from mobileIndex if coming from mobile
+    if (this.cards.length > this.originalCards.length) {
+      // Calculate which logical card we're on (1-3)
+      const logicalPosition =
+        ((this.mobileIndex % this.totalCards) + this.totalCards) %
+        this.totalCards;
+      this.currentStep = logicalPosition + 1;
+
+      // Restore original cards after syncing
+      this.slides.innerHTML = "";
+      this.originalCards.forEach((card) => this.slides.appendChild(card));
+      this.cards = this.originalCards;
+    }
 
     // Set up desktop positioning
     this.updateDesktopPosition();
@@ -116,46 +141,150 @@ class SpotlightCarousel {
   initMobile() {
     this.slides.style.minHeight = "";
 
+    // Setup tripled cards for infinite scroll
+    this.setupMobileInfiniteTrack();
+
+    // Sync mobile index with current step
+    // For 3 cards: if currentStep is 1, mobileIndex should be 3 (first real card)
+    this.mobileIndex = this.totalCards + (this.currentStep - 1);
+
+    this.addTouchListeners();
     this.updateMobilePosition();
-    this.updateMobileButtonStates();
+
+    // Re-enable transition after initial positioning
+    requestAnimationFrame(() => {
+      this.setCarouselTransition(true);
+    });
   }
 
   /**
-   * Updates the disabled state of navigation buttons on mobile
+   * Creates a tripled set of cards for seamless infinite scroll on mobile
    */
-  updateMobileButtonStates() {
+  setupMobileInfiniteTrack() {
+    // Only triple if not already done
+    if (this.cards.length === this.originalCards.length) {
+      const fragment = document.createDocumentFragment();
+
+      // Clone cards: [clones of originals] [originals] [clones of originals]
+      this.originalCards.forEach((card) =>
+        fragment.appendChild(card.cloneNode(true)),
+      );
+      this.originalCards.forEach((card) => fragment.appendChild(card));
+      this.originalCards.forEach((card) =>
+        fragment.appendChild(card.cloneNode(true)),
+      );
+
+      this.slides.innerHTML = "";
+      this.slides.appendChild(fragment);
+      this.cards = Array.from(this.slides.querySelectorAll(SELECTORS.cards));
+
+      // Ensure slides container is wide enough and cards are displayed inline
+      this.slides.style.width = `${this.cards.length * 100}vw`;
+    }
+  }
+
+  /**
+   * Adds touch event listeners for swipe functionality
+   */
+  addTouchListeners() {
+    this.slides.addEventListener("touchstart", this.handleTouchStart, {
+      passive: true,
+    });
+    this.slides.addEventListener("touchmove", this.handleTouchMove, {
+      passive: false,
+    });
+    this.slides.addEventListener("touchend", this.handleTouchEnd, {
+      passive: true,
+    });
+  }
+
+  /**
+   * Removes touch event listeners
+   */
+  removeTouchListeners() {
+    this.slides.removeEventListener("touchstart", this.handleTouchStart);
+    this.slides.removeEventListener("touchmove", this.handleTouchMove);
+    this.slides.removeEventListener("touchend", this.handleTouchEnd);
+  }
+
+  /**
+   * Handles touch start event
+   * @param {TouchEvent} e - Touch event
+   */
+  handleTouchStart = (e) => {
     if (!this.isMobile) return;
 
-    // Disable prev button when at first card
-    if (this.prevButton) {
-      if (this.currentStep === 1) {
-        this.prevButton.setAttribute(BTN_DISABLED_ATTR, "");
-      } else {
-        this.prevButton.removeAttribute(BTN_DISABLED_ATTR);
-      }
+    this.touchStartX = e.touches[0].clientX;
+    this.touchEndX = this.touchStartX;
+    this.isSwiping = true;
+
+    // Store the current transform value
+    const currentTransform = window.getComputedStyle(this.slides).transform;
+    if (currentTransform !== "none") {
+      const matrix = new DOMMatrix(currentTransform);
+      this.swipeStartTransform = matrix.m41; // translateX value
+    } else {
+      this.swipeStartTransform = -this.mobileIndex * window.innerWidth;
     }
 
-    // Disable next button when at last card
-    if (this.nextButton) {
-      if (this.currentStep === this.totalCards) {
-        this.nextButton.setAttribute(BTN_DISABLED_ATTR, "");
-      } else {
-        this.nextButton.removeAttribute(BTN_DISABLED_ATTR);
-      }
-    }
-  }
+    // Disable transitions for immediate visual feedback during swipe
+    this.setCarouselTransition(false);
+  };
 
   /**
-   * Enables all navigation buttons
+   * Handles touch move event
+   * @param {TouchEvent} e - Touch event
    */
-  enableAllButtons() {
-    if (this.prevButton) {
-      this.prevButton.removeAttribute(BTN_DISABLED_ATTR);
+  handleTouchMove = (e) => {
+    if (!this.isMobile || !this.isSwiping) return;
+
+    this.touchEndX = e.touches[0].clientX;
+    const diff = this.touchEndX - this.touchStartX;
+
+    // Apply real-time transform for visual feedback
+    const newTransform = this.swipeStartTransform + diff;
+    this.slides.style.transform = `translateX(${newTransform}px)`;
+
+    // Prevent vertical scrolling while swiping horizontally
+    if (Math.abs(diff) > SWIPE_PREVENTION_THRESHOLD) {
+      e.preventDefault();
     }
-    if (this.nextButton) {
-      this.nextButton.removeAttribute(BTN_DISABLED_ATTR);
+  };
+
+  /**
+   * Handles touch end event
+   * @param {TouchEvent} e - Touch event
+   */
+  handleTouchEnd = (e) => {
+    if (!this.isMobile || !this.isSwiping) return;
+
+    this.isSwiping = false;
+    const diff = this.touchEndX - this.touchStartX;
+
+    // Re-enable smooth transitions for snap animation
+    this.setCarouselTransition(true);
+
+    // Check if swipe meets threshold
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff > 0) {
+        // Swipe right
+        this.handlePrev();
+      } else {
+        // Swipe left
+        this.handleNext();
+      }
+    } else {
+      // Swipe didn't meet threshold, snap back to current position
+      this.updateMobilePosition();
     }
-  }
+
+    // Clean up inline transition after animation completes
+    setTimeout(() => {
+      if (this.slides) {
+        this.clearCarouselTransition();
+      }
+    }, SWIPE_TRANSITION_DURATION);
+  };
 
   /**
    * Sets up event listeners for navigation and resize
@@ -223,7 +352,7 @@ class SpotlightCarousel {
 
   /**
    * Updates data-display-position attributes and caches cards by position
-   * Also updates ARIA attributes for accessibility
+   * Desktop only. Used for CSS positioning
    */
   updateDataPosition() {
     const offset = this.currentStep - 1;
@@ -238,7 +367,6 @@ class SpotlightCarousel {
         "aria-hidden",
         position !== CARD_CONFIG.featured.position,
       );
-      card.setAttribute("aria-label", `Card ${i + 1} of ${this.totalCards}`);
 
       if (position != "1") {
         card.setAttribute("role", "button");
@@ -305,16 +433,66 @@ class SpotlightCarousel {
    * Updates mobile view when moving to previous card
    */
   handleMobilePrev() {
+    this.mobileIndex--;
     this.updateMobilePosition();
-    this.updateMobileButtonStates();
+    this.handleMobileInfiniteLoop();
   }
 
   /**
    * Updates mobile view when moving to next card
    */
   handleMobileNext() {
+    this.mobileIndex++;
     this.updateMobilePosition();
-    this.updateMobileButtonStates();
+    this.handleMobileInfiniteLoop();
+  }
+
+  /**
+   * Handles the infinite loop reset for mobile
+   */
+  handleMobileInfiniteLoop() {
+    if (this.isTransitioning) return;
+
+    const middleStart = this.totalCards;
+    const middleEnd = this.totalCards * 2 - 1;
+
+    // Check if we need to reset position
+    if (this.mobileIndex < middleStart || this.mobileIndex > middleEnd) {
+      this.isTransitioning = true;
+
+      const handleTransitionEnd = (e) => {
+        // Only handle transform transitions
+        if (e.propertyName !== "transform") return;
+
+        this.slides.removeEventListener("transitionend", handleTransitionEnd);
+
+        // Animation is complete, do the invisible jump
+        this.setCarouselTransition(false);
+
+        if (this.mobileIndex < middleStart) {
+          // We're in the left clones, jump to corresponding position in middle
+          this.mobileIndex = this.mobileIndex + this.totalCards;
+        } else {
+          // We're in the right clones, jump to corresponding position in middle
+          this.mobileIndex = this.mobileIndex - this.totalCards;
+        }
+
+        // Apply the new position instantly
+        const translateValue = this.mobileIndex * 100;
+        this.slides.style.transform = `translateX(-${translateValue}vw)`;
+
+        // Force a reflow to ensure the transform is applied before re-enabling transitions
+        void this.slides.offsetWidth;
+
+        // Re-enable transitions for next interaction
+        requestAnimationFrame(() => {
+          this.setCarouselTransition(true);
+          this.isTransitioning = false;
+        });
+      };
+
+      this.slides.addEventListener("transitionend", handleTransitionEnd);
+    }
   }
 
   /**
@@ -327,14 +505,37 @@ class SpotlightCarousel {
   }
 
   /**
+   * Updates ARIA attributes for all cards
+   */
+  updateAriaAttributes() {
+    const cardsToUpdate =
+      this.isMobile && this.cards.length > this.originalCards.length
+        ? this.originalCards
+        : this.cards;
+
+    cardsToUpdate.forEach((card, i) => {
+      const logicalIndex = i + 1;
+      card.setAttribute(
+        "aria-label",
+        `Card ${logicalIndex} of ${this.totalCards}`,
+      );
+
+      if (this.isMobile) {
+        const currentCardIndex = this.currentStep - 1; // becuz currentStep is 1-based
+        const isCurrentCard = i === currentCardIndex;
+        card.setAttribute("aria-hidden", !isCurrentCard);
+      }
+    });
+  }
+
+  /**
    * Updates mobile carousel position using CSS transform
    * Translates the slides container horizontally
    */
   updateMobilePosition() {
-    // calculate translateX based on current step
-    const translateValue = (this.currentStep - 1) * -100;
-    this.slides.style.transform = `translateX(${translateValue}vw)`;
-    this.updateDataPosition();
+    const translateValue = this.mobileIndex * 100;
+    this.slides.style.transform = `translateX(-${translateValue}vw)`;
+    this.updateAriaAttributes();
   }
 
   /**
@@ -345,6 +546,7 @@ class SpotlightCarousel {
     if (this.isMobile) return;
 
     this.updateDataPosition();
+    this.updateAriaAttributes();
   }
 
   /**
@@ -370,6 +572,35 @@ class SpotlightCarousel {
    */
   setCSSVariable(name, value) {
     this.root.style.setProperty(name, value);
+  }
+
+  /**
+   * Sets carousel transition with consistent timing
+   * @param {boolean} enable - Whether to enable transition
+   */
+  setCarouselTransition(enable = true) {
+    if (enable) {
+      this.slides.style.transition = `transform ${SWIPE_TRANSITION_DURATION}ms ease-out`;
+    } else {
+      this.slides.style.transition = "none";
+    }
+  }
+
+  /**
+   * Clears inline transition styles to allow CSS to take over
+   */
+  clearCarouselTransition() {
+    this.slides.style.transition = "";
+  }
+
+  /**
+   * Resets all mobile-specific inline styles
+   */
+  resetMobileStyles() {
+    this.slides.style.transform = "";
+    this.slides.style.minHeight = "";
+    this.slides.style.width = "";
+    this.clearCarouselTransition();
   }
 
   /**
@@ -420,8 +651,10 @@ class SpotlightCarousel {
 
       if (viewportChanged) {
         if (this.isMobile) {
+          // Desktop → Mobile
           this.initMobile();
         } else {
+          // Mobile → Desktop
           this.initDesktop();
         }
       } else if (!this.isMobile) {
