@@ -4,6 +4,23 @@
 // @import "../../../scss/type";
 
 .spotlight-card-set {
+  --mobile-card-width: 70vw;
+  --mobile-slide-gap: 1rem;
+  --mobile-cards-in-set: 3;
+  --mobile-card-sets: 3;
+
+  /* prettier-ignore */
+  --mobile-total-cards: var(--mobile-cards-in-set) * var(--mobile-card-sets);
+
+  /* prettier-ignore */
+  --mobile-total-cards-width: var(--mobile-total-cards) * var(--mobile-card-width);
+
+  /* prettier-ignore */
+  --mobile-total-gaps-width: (var(--mobile-total-cards) - 1) * var(--mobile-slide-gap);
+
+  /* prettier-ignore */
+  --mobile-infinite-slides-width: calc(var(--mobile-total-cards-width) + var(--mobile-total-gaps-width));
+
   $image-hover-scale: 105%;
 
   position: relative;
@@ -98,13 +115,6 @@
       )
     );
 
-    // Calculate mobile card width based on $grid-container-padding
-    // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
-    @function mobile-card-width($padding-key: small) {
-      $padding: map.get($grid-container-padding, $padding-key);
-      @return calc(100vw - $padding);
-    }
-
     // Calculate mobile card left/right margin based on $grid-container-padding
     // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
     @function mobile-side-margin($padding-key: small) {
@@ -142,6 +152,11 @@
 
     position: relative;
     overflow: hidden;
+    margin-left: mobile-side-margin(small);
+
+    @include breakpoint(medium up) {
+      margin-left: mobile-side-margin(medium);
+    }
 
     @include breakpoint(large up) {
       overflow: unset;
@@ -158,8 +173,8 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      width: calc(100vw * 3);
       display: flex;
+      gap: var(--mobile-slide-gap);
       transition: transform map.get($transition, duration)
         map.get($transition, timing-function);
 
@@ -204,15 +219,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: mobile-card-width();
-      margin: 0 mobile-side-margin();
+      width: var(--mobile-card-width);
       transition: all map.get($transition, duration)
         map.get($transition, timing-function);
-
-      @include breakpoint(medium up) {
-        width: mobile-card-width(medium);
-        margin: 0 mobile-side-margin(medium);
-      }
 
       @include breakpoint(large up) {
         position: absolute;
@@ -272,7 +281,7 @@
       }
 
       &__content {
-        padding: map.get($grid-margin-gutters, small);
+        padding: map.get($grid-margin-gutters, small) 0;
       }
 
       &[data-carousel-slide="1"] {

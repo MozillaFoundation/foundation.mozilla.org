@@ -230,7 +230,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 8
+        query_number = 10
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -241,7 +241,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 11
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -256,7 +256,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 12
+        query_number = 14
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -271,7 +271,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 11
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -286,7 +286,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = AnonymousUser()
         request.LANGUAGE_CODE = "en"
-        query_number = 12
+        query_number = 14
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
@@ -303,7 +303,7 @@ class TestBuyersGuidePage(BuyersGuideTestCase):
         request = self.request_factory.get(self.bg.url)
         request.user = user
         request.LANGUAGE_CODE = "en"
-        query_number = 11
+        query_number = 13
 
         with self.assertNumQueries(query_number):
             self.bg.get_context(request=request)
