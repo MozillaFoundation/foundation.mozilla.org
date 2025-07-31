@@ -12,6 +12,9 @@ from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.wagtailpages.constants import url_or_query_regex
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin.foundation_navigation import (
+    FoundationNavigationPageMixin,
+)
 
 
 class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
@@ -178,7 +181,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
             )
 
 
-class DonateBannerPage(Page):
+class DonateBannerPage(FoundationNavigationPageMixin, Page):
     max_count = 1
 
     donate_banner = models.ForeignKey(
