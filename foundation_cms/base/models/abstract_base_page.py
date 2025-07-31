@@ -7,7 +7,6 @@ from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
-from wagtailmetadata.models import MetadataPageMixin
 
 from foundation_cms.blocks import (
     AudioBlock,
@@ -28,6 +27,9 @@ from foundation_cms.blocks import (
     TitleBlock,
     TwoColumnContainerBlock,
     VideoBlock,
+)
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin.foundation_metadata import (
+    FoundationMetadataPageMixin,
 )
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
@@ -91,7 +93,7 @@ class PageTag(TagBase):
         verbose_name_plural = "Page Tags (new)"
 
 
-class AbstractBasePage(MetadataPageMixin, Page):
+class AbstractBasePage(FoundationMetadataPageMixin, Page):
     theme = models.CharField(
         max_length=50,
         blank=True,
@@ -113,7 +115,7 @@ class AbstractBasePage(MetadataPageMixin, Page):
         related_name="%(class)s_pages",
     )
 
-    promote_panels = Page.promote_panels + [
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
         MultiFieldPanel(
             [
                 FieldPanel("author"),
