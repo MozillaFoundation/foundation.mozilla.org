@@ -13,13 +13,16 @@
       rotation: -2.5deg,
       background-color: color(blue, "200"),
       background-image: url("../_images/handdrawn/arrow-up.svg"),
+      background-position: right -1rem bottom,
       background-size: (
-        small: auto rem-calc(110),
-        large: auto rem-calc(150),
-      ),
-      background-position: (
-        small: right bottom rem-calc(12),
-        large: right 1rem bottom 1rem,
+        small: (
+          width: rem-calc(110),
+          height: auto,
+        ),
+        large: (
+          width: rem-calc(120),
+          height: auto,
+        ),
       ),
       border-top-left-radius: $corner-radius,
       border-top-right-radius: $corner-radius,
@@ -28,30 +31,33 @@
       rotation: 4deg,
       background-color: color(green, "200"),
       background-image: url("../_images/handdrawn/stairs.svg"),
+      background-position: right -0.5rem bottom -1rem,
       background-size: (
-        small: auto rem-calc(112),
-        large: auto rem-calc(160),
-      ),
-      background-position: (
-        small: right 0.5rem bottom,
-        large: right 1rem bottom 1rem,
+        small: (
+          width: rem-calc(112),
+          height: auto,
+        ),
+        large: (
+          width: rem-calc(120),
+          height: auto,
+        ),
       ),
       border-bottom-left-radius: $corner-radius,
-      top-offset: (
-        large: 2rem,
-      ),
     ),
     3: (
       rotation: -2.5deg,
       background-color: color(yellow, "200"),
       background-image: url("../_images/handdrawn/rays.svg"),
+      background-position: right bottom,
       background-size: (
-        small: auto rem-calc(80),
-        large: auto rem-calc(120),
-      ),
-      background-position: (
-        small: right 1rem bottom 1rem,
-        large: right 2rem bottom 2rem,
+        small: (
+          width: rem-calc(94),
+          height: auto,
+        ),
+        large: (
+          width: rem-calc(112),
+          height: auto,
+        ),
       ),
       border-top-right-radius: $corner-radius,
     ),
@@ -72,14 +78,8 @@
 
   @mixin card-style($index) {
     $style: map.get($cards, $index);
-    $background-size: map.get($style, background-size);
-    $background-position: map.get($style, background-position);
 
-    background-repeat: no-repeat;
     background-color: map.get($style, background-color);
-    background-image: map.get($style, background-image);
-    background-size: map.get($background-size, small);
-    background-position: map.get($background-position, small);
     transform: rotate(map.get($style, rotation));
     transition: transform 0.1s ease;
 
@@ -104,16 +104,23 @@
       transform: rotate(0);
     }
 
-    @include breakpoint(large up) {
-      background-size: map.get($background-size, large);
-      background-position: map.get($background-position, large);
+    .pillar-card-set__card-illu-wrapper {
+      $background-sizes: map.get($style, background-size);
+      $bg-size-small: map.get($background-sizes, small);
+      $bg-size-large: map.get($background-sizes, large);
+      $background-position: map.get($style, background-position);
 
-      @if map.get($style, top-offset) {
-        $top-offset: map.get($style, top-offset);
-        @if map.get($top-offset, large) {
-          position: relative;
-          top: map.get($top-offset, large);
-        }
+      width: rem-calc(120);
+      height: rem-calc(120);
+      background-repeat: no-repeat;
+      background-image: map.get($style, background-image);
+      background-size: map.get($bg-size-small, width) map.get($bg-size-small, height);
+      background-position: $background-position;
+
+      @include breakpoint(large up) {
+        width: rem-calc(120);
+        height: rem-calc(140);
+        background-size: map.get($bg-size-large, width) map.get($bg-size-large, height);
       }
     }
   }
@@ -155,11 +162,23 @@
     }
 
     &-headline {
+      @include apply-text-style(
+        $header-styles,
+        "h4",
+        "small",
+        $header-font-family
+      );
+
       margin-top: 0;
-      margin-bottom: 5rem;
+      margin-bottom: 0;
 
       @include breakpoint(large up) {
-        margin-bottom: rem-calc(154);
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "large",
+          $header-font-family
+        );
       }
     }
 
@@ -172,6 +191,22 @@
         .pillar-card-set__card-link {
           @include cta-link-hover-state;
         }
+      }
+    }
+  }
+
+  &__card-bottom-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    .pillar-card-set__card-link-wrapper {
+      margin-top: 5rem;
+
+      @include breakpoint(large up) {
+        margin-top: rem-calc(154);
       }
     }
   }
