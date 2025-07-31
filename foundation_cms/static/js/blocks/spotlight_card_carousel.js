@@ -177,9 +177,9 @@ class SpotlightCarousel {
       this.slides.innerHTML = "";
       this.slides.appendChild(fragment);
       this.cards = Array.from(this.slides.querySelectorAll(SELECTORS.cards));
-
-      // Ensure slides container is wide enough and cards are displayed inline
-      this.slides.style.width = `${this.cards.length * 100}vw`;
+      this.slides.style.width = this.getCSSVarValue(
+        "--mobile-infinite-slides-width",
+      );
     }
   }
 
@@ -478,8 +478,7 @@ class SpotlightCarousel {
         }
 
         // Apply the new position instantly
-        const translateValue = this.mobileIndex * 100;
-        this.slides.style.transform = `translateX(-${translateValue}vw)`;
+        this.setMobileTransformValue();
 
         // Force a reflow to ensure the transform is applied before re-enabling transitions
         void this.slides.offsetWidth;
@@ -529,12 +528,22 @@ class SpotlightCarousel {
   }
 
   /**
+   * Sets the translateX transform for mobile carousel position
+   * Directly updates the slides container's transform style based on current mobileIndex
+   */
+  setMobileTransformValue() {
+    const cardWidth = this.getCSSVarValue("--mobile-card-width");
+    const gap = this.getCSSVarValue("--mobile-slide-gap");
+
+    this.slides.style.transform = `translateX(calc(${this.mobileIndex} * (-${cardWidth} - ${gap})))`;
+  }
+
+  /**
    * Updates mobile carousel position using CSS transform
    * Translates the slides container horizontally
    */
   updateMobilePosition() {
-    const translateValue = this.mobileIndex * 100;
-    this.slides.style.transform = `translateX(-${translateValue}vw)`;
+    this.setMobileTransformValue();
     this.updateAriaAttributes();
   }
 
@@ -572,6 +581,16 @@ class SpotlightCarousel {
    */
   setCSSVariable(name, value) {
     this.root.style.setProperty(name, value);
+  }
+
+  /**
+   * Gets a CSS custom property value from the root element
+   * @param {string} name - CSS variable name
+   * @returns {string} The CSS variable value, or empty string if not found
+   */
+  getCSSVarValue(name) {
+    const computedStyles = window.getComputedStyle(this.root);
+    return computedStyles.getPropertyValue(name).trim();
   }
 
   /**
