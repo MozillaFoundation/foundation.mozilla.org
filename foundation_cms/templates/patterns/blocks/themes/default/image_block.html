@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
 {% if value.orientation %}
     <div class="image-block image-block--{{ value.orientation }}">
-        {% image value.image original as img %}
+        {% image value.image width-600 as img %}
         <img src="{{ img.url }}"
              alt="{{ value.title }}"
              height="{{ img.height }}"

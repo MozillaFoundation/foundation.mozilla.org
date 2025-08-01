@@ -1,8 +1,10 @@
 {% load wagtailimages_tags %}
+
 <div class="activation-card">
     {% if self.image %}
+        {% image self.image fill-600x600 as img %}
         <div class="activation-card__image-container">
-            <img src="{{ self.image.file.url }}"
+            <img src="{{ img.url }}"
                  alt="{{ self.title }}"
                  class="activation-card__image"
                  width="100%"
