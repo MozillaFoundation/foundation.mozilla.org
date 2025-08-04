@@ -48,7 +48,7 @@
                                                           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-PQQ8H6PM');</script>
-        {% endblock %}
+        {% endblock ga_identifier %}
 
         {% block fundraiseup_script %}
             <script nonce="{{ request.csp_nonce }}">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
@@ -77,9 +77,11 @@
     <body class="{% block body_class %}{% endblock body_class %} redesign">
         {% block gtm_noscript %}
             <noscript>
+                <!-- stylelint-disable-next-line -->
+                <!-- The inline style of this iframe is required by Google Tag Manager for non-JS tracking -->
                 <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQQ8H6PM" height="0" width="0" style="display:none;visibility:hidden"></iframe>
             </noscript>
-        {% endblock %}
+        {% endblock gtm_noscript %}
     {# Basic breadcrumbs for dev navigation #}
         {% with self as page %}
             <nav aria-label="Breadcrumb">
