@@ -28,6 +28,11 @@
         <link rel="stylesheet" href="{% static 'foundation_cms/_css/redesign_main.compiled.css' %}">
         {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock extra_css %}
 
+    {# favicon #}
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "foundation_cms/_images/favicon.png" %}">
+        <link rel="icon" type="image/png" sizes="196x196" href="{% static "foundation_cms/_images/favicon.png" %}">
+        <link rel="shortcut icon" href="{% static "foundation_cms/_images/favicon.png" %}">
+
     {# Global third-party scripts #}
         {% block fundraiseup_script %}
             <script nonce="{{ request.csp_nonce }}">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
