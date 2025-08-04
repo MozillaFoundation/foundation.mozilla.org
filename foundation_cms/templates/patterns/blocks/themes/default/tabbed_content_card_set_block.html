@@ -4,7 +4,7 @@
     <div class="tab-card__image">
         {% image value.image fill-500x500 as img %}
         {% if value.link %}
-            <a href="{{ value.link.url }}">
+            <a href="{{ value.link.0.url }}">
                 <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
             </a>
         {% else %}
