@@ -13,14 +13,14 @@
       rotation: -2.5deg,
       background-color: color(blue, "200"),
       background-image: url("../_images/handdrawn/arrow-up.png"),
-      background-position: right -1rem bottom,
+      background-position: right -1.5rem bottom,
       background-size: (
         small: (
           width: rem-calc(110),
           height: auto,
         ),
         large: (
-          width: rem-calc(120),
+          width: rem-calc(110),
           height: auto,
         ),
       ),
@@ -31,14 +31,14 @@
       rotation: 4deg,
       background-color: color(green, "200"),
       background-image: url("../_images/handdrawn/stairs.png"),
-      background-position: right -0.5rem bottom -1rem,
+      background-position: right -0.7rem bottom -1rem,
       background-size: (
         small: (
-          width: rem-calc(112),
+          width: rem-calc(110),
           height: auto,
         ),
         large: (
-          width: rem-calc(120),
+          width: rem-calc(110),
           height: auto,
         ),
       ),
@@ -51,11 +51,11 @@
       background-position: right bottom,
       background-size: (
         small: (
-          width: rem-calc(94),
+          width: rem-calc(96),
           height: auto,
         ),
         large: (
-          width: rem-calc(112),
+          width: rem-calc(96),
           height: auto,
         ),
       ),
@@ -110,16 +110,16 @@
       $bg-size-large: map.get($background-sizes, large);
       $background-position: map.get($style, background-position);
 
-      width: rem-calc(120);
-      height: rem-calc(120);
+      width: rem-calc(100);
+      height: rem-calc(100);
       background-repeat: no-repeat;
       background-image: map.get($style, background-image);
       background-size: map.get($bg-size-small, width) map.get($bg-size-small, height);
       background-position: $background-position;
 
       @include breakpoint(large up) {
-        width: rem-calc(120);
-        height: rem-calc(140);
+        width: rem-calc(95);
+        height: rem-calc(120);
         background-size: map.get($bg-size-large, width) map.get($bg-size-large, height);
       }
     }
