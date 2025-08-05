@@ -102,7 +102,8 @@ export function initTabbedContentCardSets() {
     let currentPageIndex = 0;
     const initialScrollLeft = panel.scrollLeft;
     const firstPage = panel.querySelector(`.${CLASSNAMES.tabCardPage}`);
-    const pageWidth = firstPage ? firstPage.clientWidth : 0;
+    const gap = parseInt(window.getComputedStyle(panel).gap || "0", 10);
+    const pageWidth = firstPage ? firstPage.clientWidth + gap : 0;
 
     if (initialScrollLeft > 0) {
       currentPageIndex = Math.floor(initialScrollLeft / pageWidth);
@@ -113,7 +114,7 @@ export function initTabbedContentCardSets() {
       if (currentPageIndex < pages - 1) {
         currentPageIndex++;
         panel.scrollTo({
-          left: panel.clientWidth * currentPageIndex,
+          left: pageWidth * currentPageIndex,
           behavior: "smooth",
         });
         currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
@@ -124,7 +125,7 @@ export function initTabbedContentCardSets() {
       if (currentPageIndex > 0) {
         currentPageIndex--;
         panel.scrollTo({
-          left: panel.clientWidth * currentPageIndex,
+          left: pageWidth * currentPageIndex,
           behavior: "smooth",
         });
         currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
