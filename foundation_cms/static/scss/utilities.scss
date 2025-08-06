@@ -1,5 +1,5 @@
 .grid-container {
-  // this creates utlity classes like .large-down-padding-0, .xlarge-down-padding-0
+  // this creates utility classes like .large-down-padding-0, .xlarge-down-padding-0
   @each $breakpoint, $value in $breakpoints {
     &.#{$breakpoint}-down-padding-0 {
       @include breakpoint(#{$breakpoint} down) {
