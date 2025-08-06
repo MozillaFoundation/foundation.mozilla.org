@@ -11,8 +11,31 @@
                 class="hero-accordion__video-overlay"
                 data-video-url="{{ block.value.video_url }}"
               >
-                {% image block.value.thumbnail fill-4266x2400 as img %}
-                <img class="hero-accordion__video-thumbnail" src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="{{ img.alt }}">
+                {% image block.value.thumbnail fill-1200x675 as img_small %}
+                {% image block.value.thumbnail fill-2400x1350 as img_medium %}
+                {% image block.value.thumbnail fill-4266x2400 as img_large %}
+
+                <picture class="hero-accordion__video-thumbnail">
+                  <source
+                    media="(max-width: 639px)"
+                    srcset="{{ img_small.url }}"
+                    width="{{ img_small.width }}"
+                    height="{{ img_small.height }}"
+                  >
+                  <source
+                    media="(max-width: 1023px)"
+                    srcset="{{ img_medium.url }}"
+                    width="{{ img_medium.width }}"
+                    height="{{ img_medium.height }}"
+                  >
+                  <img
+                    src="{{ img_large.url }}"
+                    width="{{ img_large.width }}"
+                    height="{{ img_large.height }}"
+                    alt="{{ img_large.alt }}"
+                    loading="lazy"
+                  >
+                </picture>
                 {% include "patterns/components/buttons/video_play_button_vimeo_style.html" with classnames="hero-accordion__video-play-button" video_label=block.value.label %}
               </div>
             </div>
@@ -40,18 +63,33 @@
             </div>
           </div>
           <div class="hero-accordion__image-box">
-            {% image block.value.image fill-2000x2000 as img %}
+            {% image block.value.image fill-1000x1000 as img_small %}
+            {% image block.value.image fill-1500x1500 as img_medium %}
+            {% image block.value.image fill-2000x2000 as img_large %}
+
             <p class="hero-accordion__label">{{ block.value.label }}</p>
-            <div class="hero-accordion__image" style="--bg-img:url('{{ img.url }}');"></div>
-            {% if image.alt %}
+
+            <picture class="hero-accordion__image">
+              <source
+                media="(max-width: 639px)"
+                srcset="{{ img_small.url }}"
+                width="{{ img_small.width }}"
+                height="{{ img_small.height }}"
+              >
+              <source
+                media="(max-width: 1023px)"
+                srcset="{{ img_medium.url }}"
+                width="{{ img_medium.width }}"
+                height="{{ img_medium.height }}"
+              >
               <img
-                class="show-for-sr"
-                src="{{ image.url }}"
-                alt="{{ image.alt }}"
-                width="{{ image.width }}"
-                height="{{ image.height }}"
-              />
-            {% endif %}
+                src="{{ img_large.url }}"
+                width="{{ img_large.width }}"
+                height="{{ img_large.height }}"
+                alt="{{ block.value.image.alt }}"
+                loading="lazy"
+              >
+            </picture>
           </div>
         {% endif %}
       </div>
