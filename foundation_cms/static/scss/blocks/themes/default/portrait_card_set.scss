@@ -79,7 +79,7 @@ $carousel-transition: transform 0.3s ease;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 1.9rem;
+    padding: 2rem;
     min-height: 29.25rem;
     aspect-ratio: math.div(5, 8);
     box-sizing: border-box;
@@ -88,7 +88,6 @@ $carousel-transition: transform 0.3s ease;
     margin-right: 0.5rem;
 
     @include breakpoint(medium) {
-      padding: 2.25rem;
       width: 45%;
     }
 
@@ -101,7 +100,7 @@ $carousel-transition: transform 0.3s ease;
     }
 
     @include breakpoint(xlarge up) {
-      padding: 2.5rem 3rem 4rem; // desktop padding on xlarge only to accommodate card aspect ratio
+      padding: rem-calc(40); // desktop padding on xlarge only to accommodate card aspect ratio
     }
 
     &:last-child {
