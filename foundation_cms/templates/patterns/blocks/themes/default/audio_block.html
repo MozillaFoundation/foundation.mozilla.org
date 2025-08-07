@@ -6,7 +6,7 @@
     <h3>Audio Block</h3>
     {% if self.image %}
       <div class="audio-block__image">
-        {% image self.image original as audio_img %}
+        {% image self.image width-600 as audio_img %}
         <img height="{{ audio_img.height }}" width="{{ audio_img.width }}" src="{{ audio_img.url }}" alt="{{ audio_img.alt }}">
       </div>
     {% endif %}
