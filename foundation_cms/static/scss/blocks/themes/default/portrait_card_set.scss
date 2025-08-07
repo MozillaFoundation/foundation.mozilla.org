@@ -100,7 +100,9 @@ $carousel-transition: transform 0.3s ease;
     }
 
     @include breakpoint(xlarge up) {
-      padding: rem-calc(40); // desktop padding on xlarge only to accommodate card aspect ratio
+      padding: rem-calc(
+        40
+      ); // desktop padding on xlarge only to accommodate card aspect ratio
     }
 
     &:last-child {

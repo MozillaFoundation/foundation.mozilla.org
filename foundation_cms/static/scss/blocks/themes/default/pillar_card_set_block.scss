@@ -114,13 +114,15 @@
       height: rem-calc(100);
       background-repeat: no-repeat;
       background-image: map.get($style, background-image);
-      background-size: map.get($bg-size-small, width) map.get($bg-size-small, height);
+      background-size: map.get($bg-size-small, width)
+        map.get($bg-size-small, height);
       background-position: $background-position;
 
       @include breakpoint(large up) {
         width: rem-calc(95);
         height: rem-calc(120);
-        background-size: map.get($bg-size-large, width) map.get($bg-size-large, height);
+        background-size: map.get($bg-size-large, width)
+          map.get($bg-size-large, height);
       }
     }
   }
