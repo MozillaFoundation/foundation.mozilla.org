@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.images import get_image_model_string
+from wagtail.fields import StreamField
+from wagtail.images.blocks import ImageBlock
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
@@ -21,13 +22,14 @@ class GeneralPage(AbstractGeneralPage):
         blank=True,
     )
 
-    hero_image = models.ForeignKey(
-        get_image_model_string(),
+    hero_image = StreamField(
+        [("image", ImageBlock(required=False, label="Hero Image", help_text="Image for page hero section."))],
+        max_num=1,
+        min_num=0,
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
         verbose_name="Hero Image",
-        help_text="Image for page hero section.",
+        use_json_field=True,
     )
 
     hero_variant = models.CharField(
@@ -90,6 +92,7 @@ class GeneralPage(AbstractGeneralPage):
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
         TranslatableField("button_title"),
+        TranslatableField("hero_image"),
     ]
 
     class Meta:
