@@ -111,25 +111,27 @@ export function initTabbedContentCardSets() {
     }
 
     const nextPage = () => {
-      if (currentPageIndex < pages - 1) {
-        currentPageIndex++;
-        panel.scrollTo({
-          left: pageWidth * currentPageIndex,
-          behavior: "smooth",
-        });
-        currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
-      }
+      if (currentPageIndex >= pages - 1) return;
+      currentPageIndex++;
+      const newGap = parseInt(window.getComputedStyle(panel).gap || "0", 10);
+      const newPageWidth = firstPage ? firstPage.clientWidth + newGap : 0;
+      panel.scrollTo({
+        left: newPageWidth * currentPageIndex,
+        behavior: "smooth",
+      });
+      currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
     };
 
     const prevPage = () => {
-      if (currentPageIndex > 0) {
-        currentPageIndex--;
-        panel.scrollTo({
-          left: pageWidth * currentPageIndex,
-          behavior: "smooth",
-        });
-        currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
-      }
+      if (currentPageIndex <= 0) return;
+      currentPageIndex--;
+      const newGap = parseInt(window.getComputedStyle(panel).gap || "0", 10);
+      const newPageWidth = firstPage ? firstPage.clientWidth + newGap : 0;
+      panel.scrollTo({
+        left: newPageWidth * currentPageIndex,
+        behavior: "smooth",
+      });
+      currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
     };
 
     nextButton.addEventListener("click", nextPage);
