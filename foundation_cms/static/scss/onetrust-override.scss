@@ -218,8 +218,8 @@
     @include mofo-text-style($body-text-styles, "small");
   }
 
-  #ot-pc-content button,
-  .ot-btn-container button {
+  .ot-btn-container button,
+  #ot-pc-content button {
     @include mofo-text-style($body-text-styles, "small");
   }
 }
