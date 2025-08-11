@@ -203,3 +203,23 @@
     }
   }
 }
+
+// Privacy preference dialog
+#onetrust-consent-sdk,
+#onetrust-pc-sdk {
+  background-color: $white !important;
+
+  #ot-pc-title,
+  #ot-category-title {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+  }
+
+  #ot-pc-desc {
+    @include mofo-text-style($body-text-styles, "small");
+  }
+
+  #ot-pc-content button,
+  .ot-btn-container button {
+    @include mofo-text-style($body-text-styles, "small");
+  }
+}
