@@ -216,10 +216,66 @@
 
   #ot-pc-desc {
     @include mofo-text-style($body-text-styles, "small");
+
+    margin-bottom: 1rem !important;
   }
 
-  .ot-btn-container button,
-  #ot-pc-content button {
+  #accept-recommended-btn-handler,
+  .ot-pc-refuse-all-handler,
+  .save-preference-btn-handler {
     @include mofo-text-style($body-text-styles, "small");
+
+    margin: 0;
+    padding: 0.8rem 1.5rem;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    &::after {
+      display: block;
+      content: "";
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      background-position: center;
+    }
+  }
+
+  #accept-recommended-btn-handler {
+    width: 100%;
+    max-width: none;
+    margin-right: 0 !important;
+
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-white.svg");
+    }
+  }
+
+  .ot-pc-refuse-all-handler {
+    &::after {
+      background-image: url("/static/foundation_cms/_images/icons/dialog-cross-white.svg");
+    }
+  }
+
+  .save-preference-btn-handler {
+    margin-top: 1rem !important;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .ot-close-icon {
+    &:focus {
+      outline: none !important;
+    }
+  }
+
+  .privacy-notice-link,
+  .ot-cat-grp .ot-always-active {
+    color: color(orange, "200") !important;
   }
 }
