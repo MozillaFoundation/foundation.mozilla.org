@@ -28,7 +28,7 @@
         {% if page.hero_image %}
           {% image page.hero_image fill-692x692 as img %}
           <div class="hero__media">
-            <img src="{{ img.url }}" alt="{{ img.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
           </div>
         {% endif %}
 
@@ -62,7 +62,7 @@
         {% image page.hero_image fill-1408x791 as img %}
         <div class="grid-container">
           <div class="hero__media">
-            <img src="{{ img.url }}" alt="{{ img.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
           </div>
         </div>
       {% endif %}
