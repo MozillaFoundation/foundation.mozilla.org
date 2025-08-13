@@ -28,9 +28,7 @@ from foundation_cms.blocks import (
     TwoColumnContainerBlock,
     VideoBlock,
 )
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin.foundation_metadata import (
-    FoundationMetadataPageMixin,
-)
+from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixin
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
