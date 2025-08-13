@@ -30,6 +30,13 @@ class GeneralPage(AbstractGeneralPage):
         help_text="Image for page hero section.",
     )
 
+    hero_image_alt_text = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="Alt Text",
+        help_text="Descriptive text for screen readers. Leave blank to use the image's default title.",
+    )
+
     hero_variant = models.CharField(
         max_length=50,
         choices=[
@@ -77,6 +84,7 @@ class GeneralPage(AbstractGeneralPage):
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
                 FieldPanel("hero_image"),
+                FieldPanel("hero_image_alt_text"),
             ],
             heading="Hero Section",
             classname="collapsible",
@@ -90,6 +98,7 @@ class GeneralPage(AbstractGeneralPage):
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
         TranslatableField("button_title"),
+        TranslatableField("hero_image_alt_text"),
     ]
 
     class Meta:
