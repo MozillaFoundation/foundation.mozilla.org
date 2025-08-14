@@ -178,6 +178,31 @@
         width: auto;
       }
     }
+
+    #language-switcher-form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+
+      #language-switcher {
+        appearance: none;
+        background: transparent;
+        color: $white;
+        border: 1px solid $white;
+        border-radius: 0;
+        padding: calc(1rem - 2px) 1.25rem;
+        line-height: 150%;
+        background-image: url("../_images/icons/select-caret-down-white.svg");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 3rem;
+
+        option {
+          color: color(neutral, "600");
+        }
+      }
+    }
   }
 
   &__legals {

@@ -1,0 +1,25 @@
+{% load i18n localization wagtailcore_tags %}
+
+{% get_current_language as current_language %}
+{% get_local_language_names as languages %}
+
+<form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
+  <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}">
+  <label class="" for="language-switcher">{% trans "Language" %}</label>
+  <select name="language" id="language-switcher" class="">
+    {% for language_code, language_name in languages %}
+      <option value="{{ language_code }}"{% if language_code == current_language %} selected{% endif %}>
+        {{ language_name | capfirst }}
+      </option>
+    {% endfor %}
+  </select>
+</form>
+
+<script nonce="{{ request.csp_nonce }}">
+  const form = document.getElementById('language-switcher-form')
+  const languageSelector = document.getElementById('language-switcher')
+  languageSelector.addEventListener(`change`, (e) => {
+    e.preventDefault();
+    form.submit()
+  });
+</script>
