@@ -70,7 +70,8 @@
           border-top-right-radius: 6rem;
         }
 
-        img {
+        img,
+        video {
           width: 100%;
           aspect-ratio: 1 / 1;
           object-fit: cover;
@@ -147,7 +148,8 @@
           margin-top: -9rem;
         }
 
-        img {
+        img,
+        video {
           width: 100%;
           aspect-ratio: 1.78 / 1;
           object-fit: cover;
