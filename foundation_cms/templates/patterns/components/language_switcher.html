@@ -5,8 +5,8 @@
 
 <form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
   <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}">
-  <label class="" for="language-switcher">{% trans "Language" %}</label>
-  <select name="language" id="language-switcher" class="">
+  <label for="language-switcher">{% trans "Language" %}</label>
+  <select name="language" id="language-switcher">
     {% for language_code, language_name in languages %}
       <option value="{{ language_code }}"{% if language_code == current_language %} selected{% endif %}>
         {{ language_name | capfirst }}
