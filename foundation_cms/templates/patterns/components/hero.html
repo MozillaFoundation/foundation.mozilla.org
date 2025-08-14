@@ -25,10 +25,17 @@
           {% endif %}
         </div>
 
-        {% if page.hero_image %}
-          {% image page.hero_image fill-692x692 as img %}
+        {% if page.hero_media_type == "image" and page.hero_image or page.hero_media_type == "video" and page.hero_video %}
           <div class="hero__media">
-            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+            {% if page.hero_media_type == "image" %}
+              {% image page.hero_image fill-692x692 as img %}
+              <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}">
+            {% elif page.hero_media_type == "video" %}
+              <video controls preload="metadata">
+                <source src="{{ page.hero_video.url }}">
+                <p>Your browser doesn't support video playback. <a href="{{ page.hero_video.url }}">Download the video</a>.</p>
+              </video>
+            {% endif %}
           </div>
         {% endif %}
 
@@ -58,11 +65,18 @@
         </div>
       </div>
 
-      {% if page.hero_image %}
-        {% image page.hero_image fill-1408x791 as img %}
+      {% if page.hero_media_type == "image" and page.hero_image or page.hero_media_type == "video" and page.hero_video %}
         <div class="grid-container">
           <div class="hero__media">
-            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+            {% if page.hero_media_type == "image" %}
+              {% image page.hero_image fill-1408x791 as img %}
+              <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}">
+            {% elif page.hero_media_type == "video" %}
+              <video controls preload="metadata">
+                <source src="{{ page.hero_video.url }}">
+                <p>Your browser doesn't support video playback. <a href="{{ page.hero_video.url }}">Download the video</a>.</p>
+              </video>
+            {% endif %}
           </div>
         </div>
       {% endif %}
