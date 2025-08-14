@@ -9,16 +9,21 @@
                  data-href="{{ link.url }}"
                  {% if target %}data-target="{{ target }}"{% endif %}
                {% endif %}>
-            <p class="pillar-card-set__card-headline h3-style">{{ card.headline }}</p>
-            {% if link %}
-              <div>
-                <a class="pillar-card-set__card-link"
-                   href="{{ link.url }}"
-                   {% if target %}target="{{ target }}" rel="noopener noreferrer"{% endif %}>
-                  {{ link.label }}
-                </a>
+            <p class="pillar-card-set__card-headline">{{ card.headline }}</p>
+            <div class="pillar-card-set__card-bottom-wrapper">
+              {% if link %}
+                <div class="pillar-card-set__card-link-wrapper">
+                  <a class="pillar-card-set__card-link"
+                     href="{{ link.url }}"
+                     {% if target %}target="{{ target }}" rel="noopener noreferrer"{% endif %}>
+                    {{ link.label }}
+                  </a>
+                </div>
+              {% endif %}
+              <div class="pillar-card-set__card-illu-wrapper">
+
               </div>
-            {% endif %}
+            </div>
           </div>
         {% endwith %}
       {% endfor %}
