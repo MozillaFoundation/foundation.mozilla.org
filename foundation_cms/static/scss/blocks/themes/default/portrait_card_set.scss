@@ -143,6 +143,22 @@ $carousel-transition: transform 0.3s ease;
 
     .portrait-card__headline {
       text-wrap: wrap;
+
+      @include apply-text-style(
+        $header-styles,
+        "h4",
+        "small",
+        $header-font-family
+      );
+
+      @include breakpoint(xlarge up) {
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "large",
+          $header-font-family
+        );
+      }
     }
 
     .portrait-card__label + .portrait-card__headline {
