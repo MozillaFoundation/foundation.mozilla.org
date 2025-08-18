@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "delicious-hamburgers": "^1.2.3",
-    "esbuild": "^0.25.2",
+    "esbuild": "^0.25.9",
     "foundation-sites": "^6.9.0",
     "jquery": "^3.7.1",
     "sass": "^1.86.3"
