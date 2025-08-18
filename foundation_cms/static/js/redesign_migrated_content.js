@@ -1,4 +1,4 @@
-import injectNewsletterSignups from "./components/newsletter-signup/newsletter_signup.js";
+import injectNewsletterSignups from "./components/newsletter_signup/newsletter_signup.js";
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
