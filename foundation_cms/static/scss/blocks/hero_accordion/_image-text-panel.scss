@@ -108,7 +108,6 @@
       }
 
       .hero-accordion__heading {
-        // @include mofo-text-style($header-styles, "h4", $header-font-family);
         @include apply-text-style(
           $header-styles,
           "h4",
