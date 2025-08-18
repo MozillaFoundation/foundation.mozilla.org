@@ -3,7 +3,7 @@
     <div class="image-block image-block--{{ value.orientation }}">
         {% image value.image width-600 as img %}
         <img src="{{ img.url }}"
-             alt="{{ value.title }}"
+             alt="{{ img.alt }}"
              height="{{ img.height }}"
              width="{{ img.width }}"
              class="image-block__image">
