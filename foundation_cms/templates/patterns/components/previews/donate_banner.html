@@ -1,0 +1,12 @@
+{# This template is only used for snippet preview. #}
+{% extends "base.html" %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block donate_banner %}
+    {% include "patterns/components/donate_banner.html" with banner=object %}
+{% endblock donate_banner %}
+
+{% block footer_block %}
+    {% include "patterns/components/footer.html" %}
+{% endblock footer_block %}

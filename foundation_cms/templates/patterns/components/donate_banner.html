@@ -1,0 +1,21 @@
+{% load settings_value i18n static wagtailimages_tags %}
+
+
+    <div data-banner-id="{{ banner.id }}"
+         data-banner-title="{{ banner.title }}"
+         data-banner-name="{{ banner.name }}"
+         data-banner-variant-version="{{ banner.variant_version }}"
+         data-banner-active-ab-test="{{ banner.active_ab_test }}"
+         class="donate-banner">
+        <p>Banner Name: {{ banner.name }}</p>
+        <p>Banner Title: {{ banner.title }}</p>
+        <p>Banner Subtitle: {{ banner.subtitle }}</p>
+        <p>Banner Foreground Image:{{ banner.foreground_image }}</p>
+        <p>Banner Background Image: {{ banner.background_image }}</p>
+        <p>Banner Text Color: {{ banner.text_color }}</p>
+        <p>Banner Button Color: {{ banner.button_color }}</p>
+        <p>Banner Button Text and Link: <a id="banner-cta-button" href="{{ banner.cta_link }}">{{ banner.cta_button_text }}</a></p>
+        <p>Banner Active AB Test (If Applicable): {{ banner.active_ab_test }}</p>
+        <p>Banner Variant Version (If active AB test): {{ banner.variant_version }}</p>
+
+    </div>
