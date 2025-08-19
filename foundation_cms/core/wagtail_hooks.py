@@ -59,7 +59,6 @@ def register_large_feature(features):
     features.default_features.append("large")
 
 
-s
 # --------------------------------------------------------------------------------------
 # Custom Wagtail A/B Testing Events:
 # --------------------------------------------------------------------------------------
