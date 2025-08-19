@@ -1,9 +1,12 @@
+from django.shortcuts import redirect
 from wagtail import hooks
+from wagtail.admin import messages
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail_ab_testing.events import BaseEvent
+from wagtail_ab_testing.models import AbTest
 
 
 # Extended rich text features for our site
@@ -57,6 +60,26 @@ def register_large_feature(features):
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append("large")
+
+
+@hooks.register("before_delete_page")
+def delete_historical_ab_tests_before_page_deletion(request, page):
+    """
+    Fixes a bug where historical A/B tests prevent page deletion by removing them beforehand.
+    Active A/B tests will still block deletion. For more info, see:
+    https://github.com/wagtail-nest/wagtail-ab-testing/issues/90
+    """
+    # First, check if there is an active A/B test; if so, block deletion with an error message.
+    if AbTest.objects.filter(page=page, status=AbTest.STATUS_RUNNING).exists():
+        # Redirect to the parent page and display an error message in the CMS
+        messages.error(request, "This page has an active A/B test and cannot be deleted.")
+        return redirect("wagtailadmin_explore", page.get_parent().id)
+
+    # If there are no active A/B tests, delete all historical A/B tests for the page
+    # to prevent them from blocking the page deletion.
+    historical_ab_tests = AbTest.objects.filter(page=page).exclude(status=AbTest.STATUS_RUNNING)
+    if historical_ab_tests.exists():
+        historical_ab_tests.delete()
 
 
 # --------------------------------------------------------------------------------------
