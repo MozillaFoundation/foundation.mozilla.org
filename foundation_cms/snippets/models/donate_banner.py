@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
@@ -150,10 +149,10 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     def get_preview_template(self, request, mode_name):
         return "patterns/components/previews/donate_banner.html"
 
-    # def is_active(self):
-    #     if self.site_donate_banner.exists():
-    #         return True
-    #     return False
+    def is_active(self):
+        if self.site_donate_banner.exists():
+            return True
+        return False
 
     def clean(self):
         super().clean()

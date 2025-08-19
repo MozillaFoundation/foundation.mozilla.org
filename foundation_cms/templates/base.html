@@ -82,7 +82,11 @@
         {% endwith %}
         {% include "patterns/components/primary_nav.html" %}
         {% wagtailuserbar %}
-        {% block donate_banner %}{% endblock donate_banner %}
+        {% block donate_banner %}
+            {% if donate_banner %}
+                {% include "patterns/components/donate_banner.html" with banner=donate_banner %}
+            {% endif %}
+        {% endblock donate_banner %}
         {% block primary_nav %}{% endblock primary_nav %}
         {% block content %}{% endblock content %}
         {% include "patterns/components/footer.html" %}
