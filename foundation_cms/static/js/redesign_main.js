@@ -2,7 +2,7 @@ import $ from "jquery";
 import "foundation-sites";
 import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
 import { initAllHorizontalAccordions } from "./blocks/hero_accordion.js";
-import injectNewsletterSignups from "./components/newsletter-signup/newsletter_signup.js";
+import injectNewsletterSignups from "./components/newsletter_signup/newsletter_signup.js";
 import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
 import {
   initPrimaryNav,
