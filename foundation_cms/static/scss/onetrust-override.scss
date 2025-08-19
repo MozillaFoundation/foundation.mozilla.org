@@ -126,7 +126,12 @@
       color: $white;
       line-height: 150%;
 
-      strong {
+      &:first-child {
+        margin-top: 1.5rem;
+      }
+
+      strong,
+      a {
         color: $white !important;
       }
     }
@@ -277,5 +282,11 @@
   .privacy-notice-link,
   .ot-cat-grp .ot-always-active {
     color: color(orange, "200") !important;
+  }
+
+  .ot-btn-container {
+    &:has(button:only-child) {
+      padding: 0 1rem;
+    }
   }
 }
