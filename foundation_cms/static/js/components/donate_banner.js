@@ -11,8 +11,6 @@ const SELECTORS = {
 * Initializes the donate banner component.
  */
 export function initDonateBanner() {
-  console.log("Initializing donate banner...");
-
   const donateBanner = document.querySelector(SELECTORS.donateBanner);
   const ctaButton = document.querySelector(SELECTORS.ctaButton);
 
