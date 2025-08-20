@@ -34,6 +34,7 @@
                     height="{{ img_large.height }}"
                     alt="{{ img_large.alt }}"
                     loading="lazy"
+                    class="hero-accordion__video-thumbnail"
                   >
                 </picture>
                 {% include "patterns/components/buttons/video_play_button_vimeo_style.html" with classnames="hero-accordion__video-play-button" video_label=block.value.label %}
@@ -88,6 +89,7 @@
                 height="{{ img_large.height }}"
                 alt="{{ block.value.image.alt }}"
                 loading="lazy"
+                class="hero-accordion__image"
               >
             </picture>
           </div>
