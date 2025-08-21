@@ -141,6 +141,12 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
         return "default"
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["page_type"] = self.specific_class.__name__
+        return context
+
+
 
 class TaggedPage(ItemBase):
     tag = models.ForeignKey(PageTag, related_name="tagged_pages", on_delete=models.CASCADE)
