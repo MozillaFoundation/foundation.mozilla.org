@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        .nothing_personal .precontent, .nothing_personal .postcontent {
+            text-align: center;
+        }
+        .nothing_personal p {
+            background-color: yellow;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block pre_content %}
+    <div class="precontent">
+        <img src="{% static "foundation_cms/_images/nothing_personal/header.png" %}" alt ="Nothing Personal by Mozilla Foundation" />
+    </div>
+{% endblock pre_content %}
+
+{% block post_content %}
+    <div class="postcontent">
+        <img src="{% static "foundation_cms/_images/nothing_personal/footer.png" %}" alt ="Nothing Personal." />
+    </div>
+{% endblock post_content %}
