@@ -1,19 +1,19 @@
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 
 
-class ArticleEditorialFeature(AbstractArticlePage):
+class NothingPersonalProductReview(AbstractArticlePage):
 
     content_panels = AbstractArticlePage.content_panels + [
-        # Placeholder for ArticleAdviceColumn blocks
+        # Placeholder for NothingPersonalProductReview blocks
     ]
 
     parent_page_types = ["core.HomePage"]
     subpage_types: list[str] = []
 
     class Meta:
-        verbose_name = "Article Editorial Feature"
+        verbose_name = "Nothing Personal Product Review"
 
-    template = "patterns/pages/articles/article_editorial_feature.html"
+    template = "patterns/pages/nothing_personal/product_review_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)
