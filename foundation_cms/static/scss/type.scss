@@ -72,6 +72,11 @@ $body-text-styles: (
 );
 $quote-text-styles: (
   small: (
+    "emphasis": (
+      "font-size": rem-calc(32),
+      "line-height": 1,
+      "font-weight": map.get($font-weights, bold),
+    ),
     "large": (
       "font-size": rem-calc(32),
       "line-height": 1,
@@ -84,6 +89,11 @@ $quote-text-styles: (
     ),
   ),
   large: (
+    "emphasis": (
+      "font-size": rem-calc(52),
+      "line-height": 1,
+      "font-weight": map.get($font-weights, bold),
+    ),
     "large": (
       "font-size": rem-calc(52),
       "line-height": 1,
@@ -345,6 +355,12 @@ body.redesign {
   font-style: italic;
 
   @include mofo-text-style($quote-text-styles, "regular");
+}
+
+.quote-text-emphasis {
+  font-style: italic;
+
+  @include mofo-text-style($quote-text-styles, "emphasis");
 }
 
 // ===================================
