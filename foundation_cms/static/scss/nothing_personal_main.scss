@@ -1,0 +1,33 @@
+@use "sass:map";
+
+@import "../scss/foundation-framework-styles";
+
+body.nothing-personal {
+  .brand-banner {
+    text-align: center;
+  }
+
+  .pre-footer-banner {
+    &.grid-container {
+      text-align: center;
+      padding-top: rem-calc(64);
+      padding-left: calc(map.get($grid-container-padding, small) / 4);
+      padding-right: calc(map.get($grid-container-padding, small) / 4);
+
+      @include breakpoint(medium up) {
+        padding-left: calc(map.get($grid-container-padding, medium) / 4);
+        padding-right: calc(map.get($grid-container-padding, medium) / 4);
+      }
+
+      @include breakpoint(xlarge up) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    &__wordmark {
+      position: relative;
+      top: 2px;
+    }
+  }
+}

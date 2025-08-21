@@ -10,6 +10,7 @@ const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
   "redesign_main",
   "redesign_migrated_content",
+  "nothing_personal_main",
   "pages/home_page",
 ];
 
