@@ -4,14 +4,14 @@
 {% block content %}
     <div class="general-page">
         <div class="general-page__body">
-            {% if page.show_hero %}
-                {% include "patterns/components/hero.html" %}
-            {% endif %}
             <div class="container">
                 {% if page.body %}
                     {% include "patterns/components/streamfield.html" with streamfield=page.body %}
                 {% endif %}
             </div>
+            {% if page.show_hero %}
+                {% include "patterns/components/hero.html" %}
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
