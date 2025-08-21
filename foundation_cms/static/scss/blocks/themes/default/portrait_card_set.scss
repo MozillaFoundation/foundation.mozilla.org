@@ -26,11 +26,6 @@ $carousel-transition: transform 0.3s ease;
     --card-radius: 5.75rem;
   }
 
-  // counter the large-down-padding-0 full-bleed on the left by adding a small margin-left
-  @include breakpoint(large down) {
-    margin-left: 1rem;
-  }
-
   border-radius: var(--card-radius);
 
   &__card-container {
@@ -79,7 +74,7 @@ $carousel-transition: transform 0.3s ease;
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 1.9rem;
+    padding: 2rem;
     min-height: 29.25rem;
     aspect-ratio: math.div(5, 8);
     box-sizing: border-box;
@@ -88,7 +83,6 @@ $carousel-transition: transform 0.3s ease;
     margin-right: 0.5rem;
 
     @include breakpoint(medium) {
-      padding: 2.25rem;
       width: 45%;
     }
 
@@ -101,7 +95,9 @@ $carousel-transition: transform 0.3s ease;
     }
 
     @include breakpoint(xlarge up) {
-      padding: 2.5rem 3rem 4rem; // desktop padding on xlarge only to accommodate card aspect ratio
+      padding: rem-calc(
+        40
+      ); // desktop padding on xlarge only to accommodate card aspect ratio
     }
 
     &:last-child {
@@ -147,6 +143,22 @@ $carousel-transition: transform 0.3s ease;
 
     .portrait-card__headline {
       text-wrap: wrap;
+
+      @include apply-text-style(
+        $header-styles,
+        "h4",
+        "small",
+        $header-font-family
+      );
+
+      @include breakpoint(xlarge up) {
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "large",
+          $header-font-family
+        );
+      }
     }
 
     .portrait-card__label + .portrait-card__headline {
