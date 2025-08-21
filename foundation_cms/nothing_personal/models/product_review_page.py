@@ -1,10 +1,10 @@
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 
 
-class NothingPersonalProductReview(AbstractArticlePage):
+class NothingPersonalProductReviewPage(AbstractArticlePage):
 
     content_panels = AbstractArticlePage.content_panels + [
-        # Placeholder for NothingPersonalProductReview blocks
+        # Placeholder for NothingPersonalProductReviewPage blocks
     ]
 
     parent_page_types = ["core.HomePage"]
