@@ -18,5 +18,6 @@ class FoundationNavigationPageMixin:
             homepage_type = "legacy"
             context = utils.set_main_site_nav_information(self, context, "Homepage")
 
+        request.parent_homepage = homepage_type
         context["parent_homepage"] = homepage_type
         return context
