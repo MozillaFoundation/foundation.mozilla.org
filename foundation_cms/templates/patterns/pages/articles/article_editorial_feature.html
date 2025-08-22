@@ -3,12 +3,12 @@
 {% load static %}
 
 {% block content %}
-<main>
-    <article>
-        <div class="grid-container">
-            <header>
+    <main>
+        <article>
+            <div class="grid-container">
+                <header>
                 {% comment %} placeholder image. replace with <figure> when we have a CMS field for the image {% endcomment %}
-                <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
+                    <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
                 {% comment %}
                 <figure>
                     <picture>
@@ -17,41 +17,41 @@
                     </picture>
                 </figure>
                 {% endcomment %}
-                <h1>The article title</h1>
-            </header>
-            <div class="grid-x">
-                <div class="cell small-12 medium-7 medium-offset-1">
-                    <p>[Lede Text]{{ page.lede_text }}</p>
-                </div>
-                <div class="cell small-12 medium-3 medium-offset-1">
-                    <p>author, published date, share buttons etc</p>
+                    <h1>The article title</h1>
+                </header>
+                <div class="grid-x">
+                    <div class="cell small-12 medium-7 medium-offset-1">
+                        <p>[Lede Text]{{ page.lede_text }}</p>
+                    </div>
+                    <div class="cell small-12 medium-3 medium-offset-1">
+                        <p>author, published date, share buttons etc</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        {% if page.body %}
-        {% include "patterns/components/streamfield.html" with streamfield=page.body %}
-        {% endif %}
+            {% if page.body %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+            {% endif %}
 
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-7 medium-offset-1">
+                        <div>
+                            [Tag Section]
+                        </div>
+                        <div>
+                            [Author Section]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
         <div class="grid-container">
             <div class="grid-x">
-                <div class="cell small-12 medium-7 medium-offset-1">
-                    <div>
-                        [Tag Section]
-                    </div>
-                    <div>
-                        [Author Section]
-                    </div>
+                <div class="cell small-12 medium-10 medium-offset-1">
+                    [More Stories]
                 </div>
             </div>
         </div>
-    </article>
-    <div class="grid-container">
-        <div class="grid-x">
-            <div class="cell small-12 medium-10 medium-offset-1">
-                [More Stories]
-            </div>
-        </div>
-    </div>
-</main>
+    </main>
 {% endblock content %}

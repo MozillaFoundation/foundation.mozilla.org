@@ -3,19 +3,19 @@
 {% load static wagtailimages_tags %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'foundation_cms/_css/nothing_personal_main.compiled.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/nothing_personal_main.compiled.css' %}">
 {% endblock extra_css %}
 
 {% block body_class %}nothing-personal{% endblock body_class %}
 
 {% block brand_banner %}
-<div class="brand-banner" role="banner">
-    <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="Nothing Personal by Mozilla Foundation Logo" width="130" height="99" />
-</div>
+    <div class="brand-banner" role="banner">
+        <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="Nothing Personal by Mozilla Foundation Logo" width="130" height="99" />
+    </div>
 {% endblock brand_banner %}
 
 {% block pre_footer_banner %}
-<div class="pre-footer-banner grid-container">
-    <img class="pre-footer-banner__wordmark" src="{% static 'foundation_cms/_images/nothing-personal/NP-Logomark.svg' %}" alt="Nothing Personal Logomark" />
-</div>
+    <div class="pre-footer-banner grid-container">
+        <img class="pre-footer-banner__wordmark" src="{% static 'foundation_cms/_images/nothing-personal/NP-Logomark.svg' %}" alt="Nothing Personal Logomark" />
+    </div>
 {% endblock pre_footer_banner %}
