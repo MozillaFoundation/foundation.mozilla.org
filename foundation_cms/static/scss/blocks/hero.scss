@@ -1,6 +1,9 @@
+@use "sass:math";
+
 .hero__wrapper {
   padding: 0;
   margin: 0;
+  $video-aspect-ratio: math.div(16, 9);
 
   .hero {
     &__title {
@@ -70,10 +73,15 @@
           border-top-right-radius: 6rem;
         }
 
-        img,
-        video {
+        img {
           width: 100%;
           aspect-ratio: 1 / 1;
+          object-fit: cover;
+        }
+
+        video {
+          width: 100%;
+          aspect-ratio: $video-aspect-ratio;
           object-fit: cover;
         }
       }
