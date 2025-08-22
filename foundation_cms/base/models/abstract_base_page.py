@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -5,8 +6,9 @@ from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
-from wagtail.models import Page
+from wagtail.models import Locale, Page
 from wagtail.snippets.models import register_snippet
+from wagtail_ab_testing.models import AbTest
 
 from foundation_cms.blocks import (
     AudioBlock,
@@ -140,6 +142,66 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
                 return ancestor.theme
 
         return "default"
+
+    def get_donate_banner(self, request):
+        SitewideDonateBannerPage = apps.get_model("core", "SitewideDonateBannerPage")
+
+        # Check if there's a SitewideDonateBannerPage.
+        default_locale = Locale.get_default()
+        donate_banner_page = SitewideDonateBannerPage.objects.filter(locale=default_locale).first()
+        # If there is no SitewideDonateBannerPage or no donate_banner is set, return None.
+        if not donate_banner_page or not donate_banner_page.donate_banner:
+            return None
+
+        # Check if the user has Do Not Track enabled by inspecting the DNT header.
+        dnt_enabled = request.headers.get("DNT") == "1"
+
+        # Check if there's an active A/B test for the SitewideDonateBannerPage.
+        active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
+
+        # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
+        if not active_ab_test or dnt_enabled:
+            donate_banner = donate_banner_page.donate_banner.localized
+            donate_banner.variant_version = "N/A"
+            donate_banner.active_ab_test = "N/A"
+            return donate_banner
+
+        # Check for the cookie related to this A/B test.
+        # In wagtail-ab-testing, the cookie name follows the format:
+        # "wagtail-ab-testing_{ab_test.id}_version".
+        # For details, see the source code here:
+        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
+        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+        test_version = request.COOKIES.get(test_cookie_name)
+
+        # If no version cookie is found, grab a test version for the current user.
+        if not test_version:
+            test_version = active_ab_test.get_new_participant_version()
+
+        if test_version == "variant":
+            is_variant = True
+        else:
+            is_variant = False
+
+        # Attach active test and variant flag to request for {% wagtail_ab_testing_script %} template tag.
+        # This allows wagtail-ab-testing to track events for this test, and set the version cookie if needed.
+        request.wagtail_ab_testing_test = active_ab_test
+        request.wagtail_ab_testing_serving_variant = is_variant
+
+        # Return the appropriate donate banner
+        if is_variant:
+            donate_banner = active_ab_test.variant_revision.as_object().donate_banner.localized
+        else:
+            donate_banner = donate_banner_page.donate_banner.localized
+
+        donate_banner.variant_version = test_version
+        donate_banner.active_ab_test = active_ab_test.name
+        return donate_banner
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["donate_banner"] = self.get_donate_banner(request)
+        return context
 
 
 class TaggedPage(ItemBase):
