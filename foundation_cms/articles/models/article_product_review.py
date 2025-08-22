@@ -13,7 +13,7 @@ class ArticleProductReview(AbstractArticlePage):
     class Meta:
         verbose_name = "Article Product Review"
 
-    template = "patterns/pages/articles/article_product_review.html"
+    template = "patterns/pages/nothing_personal/article_page.html"
 
     def get_context(self, request):
         context = super().get_context(request)
