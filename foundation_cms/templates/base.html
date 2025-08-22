@@ -80,6 +80,11 @@
             <nav aria-label="Breadcrumb">
             </nav>
         {% endwith %}
+        {% block donate_banner %}
+            {% if donate_banner %}
+                {% include "patterns/components/donate_banner.html" with banner=donate_banner %}
+            {% endif %}
+        {% endblock donate_banner %}
         {% include "patterns/components/primary_nav.html" %}
         {% wagtailuserbar %}
         {% block primary_nav %}{% endblock primary_nav %}

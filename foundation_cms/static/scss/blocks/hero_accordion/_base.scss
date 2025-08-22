@@ -48,7 +48,8 @@ $details-section-padding: (
 );
 $details-subsection-gap: (
   small: 0.5rem,
-  large: 4rem,
+  large: 1rem,
+  xlarge: 4rem,
 );
 $corner-radius: (
   small: 1.75rem,
@@ -176,7 +177,7 @@ $image-hover-scale: 105%;
     margin-top: 0;
     margin-bottom: rem-calc(8);
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       margin-bottom: rem-calc(21);
     }
   }
@@ -192,7 +193,7 @@ $image-hover-scale: 105%;
       $header-font-family
     );
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       @include apply-text-style(
         $header-styles,
         "h5",
@@ -206,7 +207,7 @@ $image-hover-scale: 105%;
     margin-top: 0;
     margin-bottom: 0;
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       @include apply-text-style($body-text-styles, "large", "large");
     }
   }
@@ -214,7 +215,7 @@ $image-hover-scale: 105%;
   &__cta {
     @include cta-link(map.get($cta-link-icon-sizes, large), "large");
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
     }
   }
