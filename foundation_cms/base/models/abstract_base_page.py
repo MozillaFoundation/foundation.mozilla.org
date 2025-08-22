@@ -208,8 +208,8 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     def _to_bem_case(self, name):
         """Convert CamelCase to kebab-case"""
-        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', name)
-        return re.sub('([a-z0-9])([A-Z])', r'\1-\2', s1).lower()
+        s1 = re.sub("(.)([A-Z][a-z]+)", r"\1-\2", name)
+        return re.sub("([a-z0-9])([A-Z])", r"\1-\2", s1).lower()
 
 
 class TaggedPage(ItemBase):
