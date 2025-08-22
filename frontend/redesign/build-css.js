@@ -10,9 +10,8 @@ const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
   "redesign_main",
   "redesign_migrated_content",
-  "nothing_personal_main",
   "pages/home_page",
-  "pages/nothing_personal_article_page",
+  "pages/nothing_personal/article_page",
 ];
 
 const inDir = "../../foundation_cms/static/scss";

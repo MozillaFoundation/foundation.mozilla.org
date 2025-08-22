@@ -1,12 +1,4 @@
-@use "sass:map";
-
-@import "../scss/foundation-framework-styles";
-
 body.nothing-personal {
-  .brand-banner {
-    text-align: center;
-  }
-
   .pre-footer-banner {
     &.grid-container {
       text-align: center;

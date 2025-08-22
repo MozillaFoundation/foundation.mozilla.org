@@ -1,9 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 
-@import "../../scss/foundation-framework-styles";
-@import "../../scss/colors";
-@import "../../scss/type";
+@import "../../../scss/nothing_personal_base";
 
 // [TODO:FIXME] update this to the new page model name
 body.article-editorial-feature {
