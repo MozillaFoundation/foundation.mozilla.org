@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/nothing_personal_main.compiled.css' %}">
 {% endblock extra_css %}
 
-{% block body_class %}nothing-personal{% endblock body_class %}
+{% block body_class %}nothing-personal {{ page_type_bem }}{% endblock body_class %}
 
 {% block brand_banner %}
     <div class="brand-banner" role="banner">

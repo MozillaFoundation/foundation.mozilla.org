@@ -1,0 +1,74 @@
+@use "sass:map";
+@use "sass:math";
+
+@import "../../scss/foundation-framework-styles";
+@import "../../scss/colors";
+@import "../../scss/type";
+
+// [TODO:FIXME] update this to the new page model name
+body.article-editorial-feature {
+  main {
+    margin-top: 1rem;
+  }
+
+  header {
+    $highlight-color: color(yellow, "100");
+
+    // [TODO:FIXME] These are just random number I picked. Final header text style TBD
+    $header-font-size: 3rem;
+    $header-line-height: 1.4;
+
+    z-index: 1;
+    position: relative;
+    margin-bottom: calc(-1 * $header-font-size * $header-line-height / 2);
+
+    @include breakpoint(large up) {
+      position: relative;
+      left: -2rem;
+      margin-top: math.div($header-font-size * $header-line-height, 2);
+      margin-bottom: -100%;
+    }
+
+    h1 {
+      display: inline;
+      background-color: $highlight-color;
+      padding: 0 0.75rem 0 0.5rem;
+      font-size: $header-font-size;
+      line-height: $header-line-height;
+      box-decoration-break: clone;
+      margin: 0;
+    }
+
+    .author-wrapper {
+      display: block;
+      margin-top: 0.25rem;
+      position: absolute;
+
+      @include breakpoint(large up) {
+        position: static;
+      }
+    }
+
+    .author {
+      @include mofo-text-style($body-text-styles, "large");
+
+      display: inline;
+      background-color: $highlight-color;
+      padding: 0 0.75rem 0 0.5rem;
+      box-decoration-break: clone;
+      margin: 0;
+    }
+  }
+
+  .lead-image-wrapper {
+    margin-bottom: rem-calc(25);
+
+    @include breakpoint(medium up) {
+      margin-bottom: rem-calc(46);
+    }
+
+    @include breakpoint(large up) {
+      margin-bottom: rem-calc(40);
+    }
+  }
+}

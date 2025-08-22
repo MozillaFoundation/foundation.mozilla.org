@@ -2,29 +2,44 @@
 
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/nothing_personal_main.compiled.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal_article_page.compiled.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
     <main>
         <article>
             <div class="grid-container">
-                <header>
-                {% comment %} placeholder image. replace with <figure> when we have a CMS field for the image {% endcomment %}
-                    <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
-                {% comment %}
-                <figure>
-                    <picture>
-                        <source media="..." srcset="...">
-                        <img ...>
-                    </picture>
-                </figure>
-                {% endcomment %}
-                    <h1>The article title</h1>
-                </header>
+                <div class="grid-x">
+                    <header class="cell small-12 medium-9 medium-offset-1 large-8">
+                        <h1>If this is a really long title it would wrap like this</h1>
+                        <span class="author-wrapper">
+                            <span class="author">Author Name</span>
+                        </span>
+                    </header>
+                </div>
+                <div class="grid-x">
+                    <div class="lead-image-wrapper cell small-12 medium-10 medium-offset-1 large-10">
+                        {% comment %} placeholder image. replace with <figure> when we have a CMS field for the image {% endcomment %}
+                        <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
+                        {% comment %}
+                        <figure>
+                            <picture>
+                                <source media="..." srcset="...">
+                                <img ...>
+                            </picture>
+                        </figure>
+                        {% endcomment %}
+                    </div>
+                </div>
                 <div class="grid-x">
                     <div class="cell small-12 medium-7 medium-offset-1">
-                        <p>[Lede Text]{{ page.lede_text }}</p>
+                        <div>[Lede Text]{{ page.lede_text }}</div>
                     </div>
                     <div class="cell small-12 medium-3 medium-offset-1">
-                        <p>author, published date, share buttons etc</p>
+                        <div>[Published Date]</div>
+                        <div>[Share Buttons]</div>
                     </div>
                 </div>
             </div>
