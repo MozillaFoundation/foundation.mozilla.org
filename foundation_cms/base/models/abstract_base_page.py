@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -140,6 +142,16 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
                 return ancestor.theme
 
         return "default"
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
+        return context
+
+    def _to_bem_case(self, name):
+        """Convert CamelCase to kebab-case"""
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1-\2', s1).lower()
 
 
 class TaggedPage(ItemBase):
