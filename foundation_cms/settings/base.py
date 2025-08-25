@@ -275,7 +275,7 @@ INSTALLED_APPS = list(
             "foundation_cms.base",
             "foundation_cms.core",
             "foundation_cms.blog",
-            "foundation_cms.articles",
+            "foundation_cms.nothing_personal",
             "foundation_cms.profiles",
             "foundation_cms.snippets",
             "foundation_cms.images",
