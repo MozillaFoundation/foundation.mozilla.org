@@ -8,6 +8,7 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
+import { initDonateBanner } from "./components/donate_banner.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
 import { initTabbedContent } from "./blocks/tabbed_content_container.js";
@@ -22,6 +23,7 @@ console.log(
 );
 
 initPrimaryNav();
+initDonateBanner();
 initImpactNumberStatAnimationsOnScroll();
 initAllHorizontalAccordions();
 injectNewsletterSignups(foundationSiteURL);
