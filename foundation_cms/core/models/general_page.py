@@ -21,6 +21,17 @@ class GeneralPage(AbstractGeneralPage):
         blank=True,
     )
 
+    hero_media_type = models.CharField(
+        max_length=20,
+        choices=[
+            ("image", "Image"),
+            ("video", "Video"),
+        ],
+        default="image",
+        verbose_name="Hero Media Type",
+        help_text="Select the media type for Hero Section.",
+    )
+
     hero_image = models.ForeignKey(
         get_image_model_string(),
         null=True,
@@ -35,6 +46,16 @@ class GeneralPage(AbstractGeneralPage):
         blank=True,
         verbose_name="Alt Text",
         help_text="Descriptive text for screen readers. Leave blank to use the image's default title.",
+    )
+
+    hero_video = models.ForeignKey(
+        "wagtailmedia.Media",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Hero Video",
+        help_text="Video for page hero section.",
     )
 
     hero_variant = models.CharField(
@@ -83,8 +104,15 @@ class GeneralPage(AbstractGeneralPage):
                 FieldPanel("hero_background_color"),
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
-                FieldPanel("hero_image"),
-                FieldPanel("hero_image_alt_text"),
+                FieldPanel("hero_media_type"),
+                MultiFieldPanel(
+                    [
+                        FieldPanel("hero_image"),
+                        FieldPanel("hero_image_alt_text"),
+                    ],
+                    heading="Hero Image Settings",
+                ),
+                FieldPanel("hero_video"),
             ],
             heading="Hero Section",
             classname="collapsible",
