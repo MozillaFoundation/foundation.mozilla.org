@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
+
+{% block content %}
+  <div class="grid-container">
+    <h1>Topic: {{ topic.name }}</h1>
+    <p><b>Topic Name:</b> {{ topic.name }}</p>
+    <p><b>Topic Slug:</b> {{ topic.slug }}</p>
+    <p><b>Topic Description:</b> {{ topic.description|default:"(no description)" }}</p>
+    <hr>
+
+    {% if pages %}
+      <p>Here are the pages that include this topic:</p>
+      {% for p in pages %}
+        <p><b>Page Title:</b> <a href="{{ p.url }}">{{ p.title }}</a></p>
+        <p><b> First Published: </b> {{ p.first_published_at }}</p>
+        <p><b> Last Published: </b> {{ p.last_published_at }}</p>
+        <p><b>
+          Page Meta Image:
+        </b>
+          {% if p.search_image %}
+            {{ p.search_image }}
+          {% else %}
+            (none)
+          {% endif %}
+        </p>
+        <p><b> Page Meta Description:</b> {{ p.search_description }}</p>
+        <p>
+          <b> Page topics </b>:
+          {% with other_topics=p.topics.all %}
+            {% for t in other_topics %}
+              {{ t.name }} {% if not forloop.last %}, {% endif %}
+            {% empty %}
+              (none)
+            {% endfor %}
+          {% endwith %}
+        </p>
+        <hr>
+      {% endfor %}
+
+    {% else %}
+      <p>No pages found for this topic.</p>
+    {% endif %}
+  </div>
+{% endblock content %}
