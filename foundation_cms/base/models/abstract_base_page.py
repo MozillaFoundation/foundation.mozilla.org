@@ -2,7 +2,7 @@ from django.apps import apps
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
-from taggit.models import ItemBase, TagBase
+from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
@@ -85,12 +85,18 @@ class Author(models.Model):
 
 
 @register_snippet
-class PageTag(TagBase):
+class Topic(TagBase):
     free_tagging = False
+    description = models.TextField(blank=True, help_text="Optional description shown on topic listing page.")
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("description"),
+    ]
 
     class Meta:
-        verbose_name = "Page Tag (new)"
-        verbose_name_plural = "Page Tags (new)"
+        verbose_name = "Page Topic (new)"
+        verbose_name_plural = "Page Topics (new)"
 
 
 class AbstractBasePage(FoundationMetadataPageMixin, Page):
@@ -106,7 +112,12 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         use_json_field=True,
         blank=True,
     )
-    tags = ClusterTaggableManager(through="base.TaggedPage", blank=True)
+    topics = ClusterTaggableManager(
+        through="base.PageTopic",
+        blank=True,
+        verbose_name="Page Topics",
+        help_text="Add one or more topics. Start typing to search, then press Enter.",
+    )
     author = models.ForeignKey(
         "base.Author",
         null=True,
@@ -119,7 +130,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel("author"),
-                FieldPanel("tags"),
+                FieldPanel("topics"),
             ],
             heading="Additional Metadata",
         )
@@ -204,6 +215,11 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         return context
 
 
-class TaggedPage(ItemBase):
-    tag = models.ForeignKey(PageTag, related_name="tagged_pages", on_delete=models.CASCADE)
-    content_object = ParentalKey(to="wagtailcore.Page", on_delete=models.CASCADE, related_name="base_tagged_items")
+class PageTopic(TaggedItemBase):
+    """
+    Through model connecting a Page to a Topic.
+    """
+
+    # must be named 'tag' for django-taggit to work.
+    tag = models.ForeignKey(Topic, related_name="page_relations", on_delete=models.CASCADE)
+    content_object = ParentalKey(to="wagtailcore.Page", on_delete=models.CASCADE, related_name="topic_relations")
