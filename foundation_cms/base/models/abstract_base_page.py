@@ -178,18 +178,6 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
     def get_preview_template(self, request, mode_name):
         return self.get_template(request)
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        theme = self.get_theme()
-        context["theme"] = theme
-        context["theme_base"] = select_template(
-            [
-                f"base/themes/{theme}/base.html",
-                "base/base.html",
-            ]
-        ).template.name
-        return context
-
     def get_donate_banner(self, request):
         SitewideDonateBannerPage = apps.get_model("core", "SitewideDonateBannerPage")
 
@@ -247,6 +235,14 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        theme = self.get_theme()
+        context["theme"] = theme
+        context["theme_base"] = select_template(
+            [
+                f"base/themes/{theme}/base.html",
+                "base/base.html",
+            ]
+        ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
         return context
 
