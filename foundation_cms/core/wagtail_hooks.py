@@ -3,6 +3,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
+from wagtail_ab_testing.events import BaseEvent
 
 
 # Extended rich text features for our site
@@ -56,3 +57,20 @@ def register_large_feature(features):
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
     features.default_features.append("large")
+
+
+# --------------------------------------------------------------------------------------
+# Custom Wagtail A/B Testing Events:
+# --------------------------------------------------------------------------------------
+
+
+class DonateBannerLinkClick(BaseEvent):
+    name = "Donate Banner Link Click"
+    requires_page = False  # Set to False to create a "Global" event type that could be reached on any page
+
+
+@hooks.register("register_ab_testing_event_types")
+def register_donate_banner_link_click_event_type():
+    return {
+        "donate-banner-link-click": DonateBannerLinkClick,
+    }

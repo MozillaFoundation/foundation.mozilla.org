@@ -3,7 +3,7 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
-
+import { initDonateBanner } from "./components/donate_banner.js";
 let foundationSiteURL = window.location.origin;
 
 console.log(
@@ -11,5 +11,6 @@ console.log(
 );
 
 initPrimaryNav();
+initDonateBanner();
 injectNewsletterSignups(foundationSiteURL);
 initWordmarkVisibilityOnScroll();
