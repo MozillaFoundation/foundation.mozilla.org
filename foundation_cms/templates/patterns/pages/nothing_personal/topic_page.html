@@ -9,37 +9,30 @@
     <p><b>Topic Description:</b> {{ topic.description|default:"(no description)" }}</p>
     <hr>
 
-    {% if pages %}
-      <p>Here are the pages that include this topic:</p>
-      {% for p in pages %}
-        <p><b>Page Title:</b> <a href="{{ p.url }}">{{ p.title }}</a></p>
-        <p><b> First Published: </b> {{ p.first_published_at }}</p>
-        <p><b> Last Published: </b> {{ p.last_published_at }}</p>
-        <p><b>
-          Page Meta Image:
-        </b>
-          {% if p.search_image %}
-            {{ p.search_image }}
-          {% else %}
-            (none)
-          {% endif %}
-        </p>
-        <p><b> Page Meta Description:</b> {{ p.search_description }}</p>
-        <p>
-          <b> Page topics </b>:
-          {% with other_topics=p.topics.all %}
-            {% for t in other_topics %}
-              {{ t.name }} {% if not forloop.last %}, {% endif %}
-            {% empty %}
-              (none)
-            {% endfor %}
-          {% endwith %}
-        </p>
+    <h4>More from Nothing Personal:</h4>
+
+    {% if np_pages %}
+      {% for np_page in np_pages %}
+        {% include "patterns/components/topic_page_listing.html" with page=np_page %}
         <hr>
+      {% endfor %}
+    {% else %}
+      <p>(none)</p>
+      <hr>
+
+    {% endif %}
+
+    <h4>From the rest of Mozilla Foundation:</h4>
+    {% if other_pages %}
+      {% for mofo_page in other_pages %}
+        {% include "patterns/components/topic_page_listing.html" with page=mofo_page %}
+        <hr>
+
       {% endfor %}
 
     {% else %}
-      <p>No pages found for this topic.</p>
+      <p>(none)</p>
+      <hr>
     {% endif %}
   </div>
 {% endblock content %}
