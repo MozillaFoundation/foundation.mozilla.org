@@ -3,8 +3,8 @@
 
 {% block content %}
   <div class="grid-container">
-    <h1>Topic: {{ topic.name }}</h1>
-    <p>Showing {{ total_pages_count }} result{{ total_pages_count|pluralize }} for:"</p>
+    <p>Showing {{ total_pages_count }} result{{ total_pages_count|pluralize }} for:</p>
+    <h1>{{ topic.name }}</h1>
     <p><b>Topic Name:</b> {{ topic.name }}</p>
     <p><b>Topic Slug:</b> {{ topic.slug }}</p>
     <p><b>Topic Description:</b> {{ topic.description|default:"(no description)" }}</p>
