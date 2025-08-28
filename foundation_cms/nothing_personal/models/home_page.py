@@ -41,6 +41,8 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
             .prefetch_related("topics")
         )
 
+        total_pages_count = base_qs.count()
+
         # Separating child pages of the NothingPersonalHomePage from the original queryset.
         np_pages = base_qs.child_of(self)
 
@@ -57,6 +59,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
                 "topic": topic,
                 "np_pages": np_pages,
                 "other_pages": other_pages,
+                "total_pages_count": total_pages_count,
             },
             template="patterns/pages/nothing_personal/topic_page.html",
         )
