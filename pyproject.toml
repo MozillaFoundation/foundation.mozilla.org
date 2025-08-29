@@ -231,7 +231,7 @@ ignore="H017"
 "foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/tags/picture_ratios.html" = "H006"
 # Ignores for Redesign
 "foundation_cms/templates/500.html" = "H030, H031"
-"foundation_cms/templates/base.html" = "H031"
+"foundation_cms/templates/base/base.html" = "H031"
 "foundation_cms/templates/patterns/components/primary_nav.html" = "D018"
 "foundation_cms/templates/patterns/components/footer.html" = "D018"
 
