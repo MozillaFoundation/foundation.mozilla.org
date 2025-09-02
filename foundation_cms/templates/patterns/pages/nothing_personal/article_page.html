@@ -37,7 +37,10 @@
                         <div>[Lede Text]{{ page.lede_text }}</div>
                     </div>
                     <div class="cell small-12 medium-3 medium-offset-1">
-                        <div>[Published Date]</div>
+                        <div class="article-meta-published">
+                            <span class="published-label">PUBLISHED</span>
+                            <p class="published-date">{{ page.first_published_at|date:"F j, Y" }}</p>
+                        </div>
                         <div>[Share Buttons]</div>
                     </div>
                 </div>

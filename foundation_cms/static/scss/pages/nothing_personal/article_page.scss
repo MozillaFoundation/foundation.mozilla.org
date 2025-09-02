@@ -68,4 +68,28 @@ body.nothing-personal.nothing-personal-article-page {
       margin-bottom: rem-calc(40);
     }
   }
+
+  .article-meta-published {
+    margin-bottom: rem-calc(32);
+
+    @include breakpoint(medium up) {
+      margin-bottom: rem-calc(40);
+    }
+
+    .published-label {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      letter-spacing: rem-calc(0.5);
+      margin: 0;
+      display: block;
+    }
+
+    .published-date {
+      @include mofo-text-style($body-text-styles, "large");
+
+      margin: rem-calc(4) 0 0 0;
+      font-weight: map.get($font-weights, regular);
+      line-height: 1.3;
+    }
+  }
 }
