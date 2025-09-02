@@ -1,3 +1,5 @@
+import re
+
 from django.apps import apps
 from django.db import models
 from django.template.loader import select_template
@@ -255,7 +257,13 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
             ]
         ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
+        context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
         return context
+
+    def _to_bem_case(self, name):
+        """Convert CamelCase to kebab-case"""
+        s1 = re.sub("(.)([A-Z][a-z]+)", r"\1-\2", name)
+        return re.sub("([a-z0-9])([A-Z])", r"\1-\2", s1).lower()
 
 
 class PageTopic(TaggedItemBase):
