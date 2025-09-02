@@ -7,9 +7,6 @@ from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 
 
 class GeneralPage(AbstractGeneralPage):
-    # Specify the correct template path
-    template = "patterns/pages/core/general_page.html"
-
     hero_title = models.TextField(
         help_text="Hero Title",
         blank=True,
@@ -104,6 +101,5 @@ class GeneralPage(AbstractGeneralPage):
     class Meta:
         verbose_name = "General Page (new)"
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        return context
+    # keep an explicit fallback in case no themed templates exist
+    template = "patterns/pages/core/general_page.html"
