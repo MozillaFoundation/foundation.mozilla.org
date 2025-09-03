@@ -68,4 +68,27 @@ body.nothing-personal.nothing-personal-article-page {
       margin-bottom: rem-calc(40);
     }
   }
+
+  .article-meta-published {
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include breakpoint(medium up) {
+      margin-top: 0;
+      margin-bottom: rem-calc(29);
+    }
+
+    .published-label {
+      @include mofo-text-style($label-text-styles, "regular");
+    }
+
+    .published-date {
+      @include mofo-text-style($body-text-styles, "large");
+
+      margin: 0;
+    }
+  }
 }
