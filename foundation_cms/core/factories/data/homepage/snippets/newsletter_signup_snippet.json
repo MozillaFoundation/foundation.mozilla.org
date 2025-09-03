@@ -1,25 +1,24 @@
 [
-    {
-      "model": "snippets.newslettersignup",
-      "pk": 1,
-      "fields": {
-        "name": "Main Newsletter",
-        "cta_text": "The internet we deserve starts with you. Join the movement now.",
-        "button_text": "Sign Up",
-        "newsletter": "mozilla-foundation",
-        "layout": "expand_on_focus"
-      }
-    },
   {
-      "model": "snippets.newslettersignup",
-      "pk": 2,
-      "fields": {
-        "name": "Footer Newsletter",
-        "cta_text": "Stay updated with our newsletter",
-        "button_text": "Sign Up",
-        "newsletter": "mozilla-foundation",
-        "layout": "expand_on_focus"
-      }
+    "model": "snippets.newslettersignup",
+    "pk": 1,
+    "fields": {
+      "name": "Main Newsletter",
+      "cta_header": "The internet we deserve starts with you. Join the movement now.",
+      "button_text": "Sign Up",
+      "newsletter": "mozilla-foundation",
+      "layout": "expand_on_focus"
     }
-
-  ]
+  },
+  {
+    "model": "snippets.newslettersignup",
+    "pk": 2,
+    "fields": {
+      "name": "Footer Newsletter",
+      "cta_header": "Stay updated with our newsletter",
+      "button_text": "Sign Up",
+      "newsletter": "mozilla-foundation",
+      "layout": "expand_on_focus"
+    }
+  }
+]

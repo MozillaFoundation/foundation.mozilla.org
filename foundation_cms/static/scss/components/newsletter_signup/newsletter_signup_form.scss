@@ -35,7 +35,7 @@
     gap: 0.5rem;
   }
 
-  &__cta {
+  &__cta-header {
     @include mofo-text-style($header-styles, "h6", $header-font-family);
 
     margin: 0 0 0.5rem;
@@ -43,6 +43,12 @@
     @include breakpoint(medium up) {
       font-size: rem-calc(20);
     }
+  }
+
+  &__cta-description {
+    @include mofo-text-style($body-text-styles, "large");
+
+    margin: 0 0 0.5rem;
   }
 
   &__fieldset {

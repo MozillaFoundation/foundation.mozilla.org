@@ -8,7 +8,10 @@
 
   <form class="newsletter-signup__form" novalidate>
 
-    <p class="newsletter-signup__cta">{{ newsletter_signup.cta_text }}</p>
+    <div>
+      <p class="newsletter-signup__cta-header">{{ newsletter_signup.cta_header }}</p>
+      <p class="newsletter-signup__cta-description">{{ newsletter_signup.cta_description }}</p>
+    </div>
 
     <div class="newsletter-signup__form-grid">
       <div class="newsletter-signup__fieldset">
