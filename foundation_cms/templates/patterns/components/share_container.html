@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="share-container">
+  <h3 class="share-title">Share this!</h3>
+  <div class="share-buttons">
+    <!-- Bluesky -->
+    <a href="https://bsky.app/intent/compose?text={{ page.title|urlencode }}&url={{ request.build_absolute_uri }}" target="_blank" rel="noopener" class="share-btn">
+      <img src="{% static 'foundation_cms/_images/icons/social-bluesky-black.svg' %}" alt="Share on Bluesky">
+    </a>
+
+    <!-- Linkedin -->
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}" target="_blank" rel="noopener" class="share-btn">
+      <img src="{% static 'foundation_cms/_images/icons/social-linkedin-black.svg' %}" alt="Share on Linkedin">
+    </a>
+
+    <!-- Email -->
+    <a href="mailto:?subject={{ page.title|urlencode }}&body={{ request.build_absolute_uri }}" class="share-btn">
+      <img src="{% static 'foundation_cms/_images/icons/social-email-black.svg' %}" alt="Share by Email">
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-btn copy-link-btn" data-copy-url="{{ request.build_absolute_uri }}">
+      <img src="{% static 'foundation_cms/_images/icons/social-copy-path-black.svg' %}" alt="Copy Link">
+    </button>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</div>
