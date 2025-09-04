@@ -41,7 +41,9 @@
     background-color: color(yellow, "200") !important;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
     transform: translateY(rem-calc(20));
     z-index: 10;
 

@@ -11,28 +11,28 @@ const MESSAGES = {
 export default function initShareContainer() {
   const copyButtons = document.querySelectorAll(SELECTORS.copyButton);
   const toast = document.querySelector(SELECTORS.toast);
-  
+
   if (!copyButtons.length || !toast) return;
 
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add("visible");
-    
+
     setTimeout(() => {
       toast.classList.remove("visible");
     }, 2500);
   }
 
-  copyButtons.forEach(btn => {
+  copyButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      
       const url = btn.getAttribute("data-copy-url");
       if (!url) {
         showToast("No URL to copy");
         return;
       }
-            
-      navigator.clipboard.writeText(url)
+
+      navigator.clipboard
+        .writeText(url)
         .then(() => {
           showToast(MESSAGES.success);
         })
@@ -41,5 +41,4 @@ export default function initShareContainer() {
         });
     });
   });
-  
 }
