@@ -1,7 +1,7 @@
 <div class="quote-block">
   <figure>
     <blockquote>
-      <p class="{% block quote_classes %}quote-text-regular{% endblock %}">“{{ value.quote }}”</p>
+      <p class="{% block quote_classes %}quote-text-regular{% endblock quote_classes %}">“{{ value.quote }}”</p>
     </blockquote>
     {% if value.attribution %}
       <figcaption>{{ value.attribution }}</figcaption>
