@@ -74,7 +74,7 @@
         {% endblock onetrust_script %}
     </head>
 
-    <body class="{% block body_class %}{% endblock body_class %} redesign">
+    <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}">
     {# Basic breadcrumbs for dev navigation #}
         {% with self as page %}
             <nav aria-label="Breadcrumb">
@@ -89,7 +89,9 @@
         {% wagtailuserbar %}
         {% block primary_nav %}{% endblock primary_nav %}
         {% block brand_banner %}{% endblock brand_banner %}
+        {% block pre_content %}{% endblock pre_content %}
         {% block content %}{% endblock content %}
+        {% block post_content %}{% endblock post_content %}
         {% block pre_footer_banner %}{% endblock pre_footer_banner %}
         {% include "patterns/components/footer.html" %}
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>

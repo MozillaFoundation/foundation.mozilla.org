@@ -2,6 +2,7 @@ import re
 
 from django.apps import apps
 from django.db import models
+from django.template.loader import select_template
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
@@ -106,7 +107,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         max_length=50,
         blank=True,
         null=True,
-        choices=[("default", "Default"), ("magazine", "Magazine")],
+        choices=[("default", "Default"), ("nothing_personal", "Nothing Personal")],
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
     body = StreamField(
@@ -146,15 +147,49 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         abstract = True
 
     def get_theme(self):
+        # per-instance memoize for this render
+        if hasattr(self, "_resolved_theme"):
+            return self._resolved_theme
+
+        # return if theme is explicitly set on this page
         if self.theme:
-            return self.theme
+            self._resolved_theme = self.theme
+            return self._resolved_theme
 
-        # Traverse ancestors to find a page with an explicitly set theme
-        for ancestor in reversed(self.get_ancestors(inclusive=False).live()):
-            if hasattr(ancestor, "theme") and ancestor.theme:
-                return ancestor.theme
+        # walk up nearest-first ancestor to try to find a theme
+        ancestors = self.get_ancestors(inclusive=False).select_related("content_type").defer_streamfields()
 
-        return "default"
+        for ancestor in reversed(ancestors):
+            sp = ancestor.specific
+            if isinstance(sp, AbstractBasePage):
+                theme = getattr(sp, "theme", None)
+                if theme:
+                    self._resolved_theme = theme
+                    return theme
+
+        # default theme is fallback
+        self._resolved_theme = "default"
+        return self._resolved_theme
+
+    def themed_template_names(self, base_template: str) -> list[str]:
+        """
+        Build a ordered list of page templates. Order matters since wagtail will render the first one it finds.
+        `base_template` can be a full default path (e.g. "patterns/pages/core/general_page.html")
+        or just a filename (e.g. "general_page.html").
+        """
+        filename = base_template.rsplit("/", 1)[-1]
+        theme = self.get_theme()
+
+        return [
+            f"patterns/pages/themes/{theme}/{filename}",
+            (base_template if "/" in base_template else f"patterns/pages/core/{filename}"),
+        ]
+
+    def get_template(self, request, *args, **kwargs):
+        return self.themed_template_names(self.template)
+
+    def get_preview_template(self, request, mode_name):
+        return self.get_template(request)
 
     def get_donate_banner(self, request):
         SitewideDonateBannerPage = apps.get_model("core", "SitewideDonateBannerPage")
@@ -213,13 +248,24 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        theme = self.get_theme()
+        context["theme"] = theme
+        context["theme_base"] = select_template(
+            [
+                f"base/themes/{theme}/base.html",
+                "base/base.html",
+            ]
+        ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
         context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
+        context["theme_class_bem"] = self._to_bem_case(theme) if theme else ""
         return context
 
     def _to_bem_case(self, name):
         """Convert CamelCase to kebab-case"""
         s1 = re.sub("(.)([A-Z][a-z]+)", r"\1-\2", name)
+        """ Replace underscore with just dash """
+        s1 = s1.replace("_", "-")
         return re.sub("([a-z0-9])([A-Z])", r"\1-\2", s1).lower()
 
 
