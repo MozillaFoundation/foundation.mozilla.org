@@ -258,11 +258,14 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
         context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
+        context["theme_class_bem"] = self._to_bem_case(theme) if theme else ""
         return context
 
     def _to_bem_case(self, name):
         """Convert CamelCase to kebab-case"""
         s1 = re.sub("(.)([A-Z][a-z]+)", r"\1-\2", name)
+        """ Replace underscore with just dash """
+        s1 = s1.replace("_", "-")
         return re.sub("([a-z0-9])([A-Z])", r"\1-\2", s1).lower()
 
 
