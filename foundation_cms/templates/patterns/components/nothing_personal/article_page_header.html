@@ -1,4 +1,4 @@
-{% load static %}
+{% load wagtailimages_tags static %}
 
 <div class="grid-x">
     <header class="cell small-12 medium-9 medium-offset-1 large-8">
@@ -10,15 +10,25 @@
 </div>
 <div class="grid-x">
     <div class="lead-image-wrapper cell small-12 medium-10 medium-offset-1 large-10">
-        {% comment %} placeholder image. replace with <figure> when we have a CMS field for the image {% endcomment %}
-        <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
-        {% comment %}
         <figure>
+            {% image page.hero_image fill-1188x792 as img_small %}
+            {% image page.hero_image fill-1788x1192 as img_large %}
+
             <picture>
-                <source media="..." srcset="...">
-                <img ...>
+                <source
+                    media="(max-width: 639px)"
+                    srcset="{{ img_small.url }}"
+                    width="{{ img_small.width }}"
+                    height="{{ img_small.height }}"
+                  >
+                  <img
+                    src="{{ img_large.url }}"
+                    width="{{ img_large.width }}"
+                    height="{{ img_large.height }}"
+                    alt="{{ img_large.alt }}"
+                    loading="lazy"
+                  >
             </picture>
         </figure>
-        {% endcomment %}
     </div>
 </div>
