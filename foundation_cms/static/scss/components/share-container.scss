@@ -8,20 +8,17 @@
   .share-buttons {
     display: flex;
     gap: rem-calc(12);
+    margin-bottom: rem-calc(8);
 
     .share-btn {
-      margin-bottom: rem-calc(53);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: rem-calc(38);
       height: rem-calc(39);
-      border-radius: rem-calc(12);
       background: url("/static/foundation_cms/_images/share-container-yellow.svg")
         no-repeat center / cover;
       cursor: pointer;
-      border: none;
-      text-decoration: none;
       transition: transform 0.2s ease;
 
       &:hover {
@@ -40,7 +37,6 @@
     border-radius: rem-calc(8);
     background-color: color(yellow, "200") !important;
     opacity: 0;
-    pointer-events: none;
     transition:
       opacity 0.3s ease,
       transform 0.3s ease;
@@ -50,7 +46,6 @@
     &.visible {
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto;
     }
   }
 }
