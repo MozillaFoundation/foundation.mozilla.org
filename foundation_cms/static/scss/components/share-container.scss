@@ -2,7 +2,7 @@
   .share-title {
     @include mofo-text-style($body-text-styles, "large");
 
-    margin: rem-calc(6);
+    margin: rem-calc(6) 0;
   }
 
   .share-buttons {
@@ -22,30 +22,29 @@
       transition: transform 0.2s ease;
 
       &:hover {
-        transform: scale(1.05);
+        background: url("/static/foundation_cms/_images/share-container-orange.svg")
+          no-repeat center / cover;
       }
-    }
-  }
 
-  .toast {
-    @include mofo-text-style($label-text-styles, "regular");
+      &.copy-success,
+      &.email-success {
+        background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+          no-repeat center / cover !important;
 
-    position: fixed;
-    bottom: rem-calc(24);
-    right: rem-calc(94);
-    padding: rem-calc(12) rem-calc(16);
-    border-radius: rem-calc(8);
-    background-color: color(yellow, "200") !important;
-    opacity: 0;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-    transform: translateY(rem-calc(20));
-    z-index: 10;
+        img {
+          content: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
+        }
 
-    &.visible {
-      opacity: 1;
-      transform: translateY(0);
+        &:hover {
+          transform: scale(1.05);
+          background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+            no-repeat center / cover;
+        }
+      }
+
+      &.bluesky-share-btn:hover img {
+        content: url("/static/foundation_cms/_images/icons/social-bluesky-orange.svg");
+      }
     }
   }
 }

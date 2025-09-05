@@ -1,44 +1,50 @@
 const SELECTORS = {
-  copyButton: ".copy-link-btn",
-  toast: "#toast",
-};
-
-const MESSAGES = {
-  success: "Link copied to clipboard!",
-  error: "Could not copy link.",
+  copyButton: ".copy-link-share-btn",
+  emailButton: ".email-share-btn",
 };
 
 export default function initShareContainer() {
   const copyButtons = document.querySelectorAll(SELECTORS.copyButton);
-  const toast = document.querySelector(SELECTORS.toast);
+  const emailButtons = document.querySelectorAll(SELECTORS.emailButton);
 
-  if (!copyButtons.length || !toast) return;
+  if (!copyButtons.length && !emailButtons.length) return;
 
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add("visible");
+  /**
+   * Shows success state by adding CSS class
+   * @param {Element} button - Button element to modify
+   * @param {string} successClass - CSS class to add
+   * @param {number} duration - Duration in ms (0 = permanent until page reload by default)
+   */
+  function showSuccess(button, successClass, duration = 0) {
+    button.classList.add(successClass);
 
-    setTimeout(() => {
-      toast.classList.remove("visible");
-    }, 2500);
+    // Remove success state after duration (if specified)
+    if (duration > 0) {
+      setTimeout(() => {
+        button.classList.remove(successClass);
+      }, duration);
+    }
   }
 
   copyButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const url = btn.getAttribute("data-copy-url");
-      if (!url) {
-        showToast("No URL to copy");
-        return;
-      }
+      if (!url) return;
 
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          showToast(MESSAGES.success);
+          showSuccess(btn, "copy-success");
         })
         .catch((error) => {
-          showToast(MESSAGES.error);
+          console.log("Copy failed:", error);
         });
+    });
+  });
+
+  emailButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      showSuccess(btn, "email-success");
     });
   });
 }
