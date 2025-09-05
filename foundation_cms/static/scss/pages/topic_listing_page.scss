@@ -16,11 +16,11 @@ body.topic-listing-page {
       margin: 1rem 0 0;
       position: relative;
 
-      &:before {
+      &::before {
         content: "\2018";
       }
 
-      &:after {
+      &::after {
         content: "\2019";
       }
     }
