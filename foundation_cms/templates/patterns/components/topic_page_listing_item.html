@@ -1,0 +1,42 @@
+{% load wagtailimages_tags %}
+
+<li class="topic-listing__item">
+  <article class="grid-x grid-margin-x topic-card">
+    <div class="cell small-12 medium-5 topic-card__image-wrapper">
+      {% if page.search_image %}
+        {% comment %} 3:2 ratio {% endcomment %}
+        {% image page.search_image fill-600x400 as img_600 %}
+        {% image page.search_image fill-900x600 as img_900 %}
+        {% image page.search_image fill-1200x800 as img_1200 %}
+        {% image page.search_image fill-1800x1200 as img_1800 %}
+        <picture>
+          <img src="{{ img_900.url }}"
+              srcset="{{ img_600.url }} 600w,
+                      {{ img_900.url }} 900w,
+                      {{ img_1200.url }} 1200w,
+                      {{ img_1800.url }} 1800w"
+              sizes="(max-width: 639px) 100vw, 33vw"
+              alt=""
+              class="topic-card__image">
+        </picture>
+      {% endif %}
+    </div>
+    <div class="cell small-12 medium-7">
+      <h3 class="topic-card__title"><a href="{{ page.url }}">{{ page.title }}</a></h3>
+      <div class="topic-card__tags">
+        {% with topics=page.topics.all %}
+          {% if topics %}
+          <ul>
+            {% for topic in topics %}
+              <li>{{ topic.name }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+            (none)
+          {% endif %}
+        {% endwith %}
+      </div>
+      <p class="topic-card__description">{{ page.search_description }}</p>
+    </div>
+  </article>
+</li>

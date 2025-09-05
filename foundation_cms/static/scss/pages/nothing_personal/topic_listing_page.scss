@@ -1,0 +1,75 @@
+@use "sass:map";
+@use "sass:math";
+
+@import "../../../scss/nothing_personal_base";
+
+body.nothing-personal.topic-listing-page {
+  .topic-info {
+    text-align: center;
+    margin: 4rem 0;
+
+    h1 {
+      margin: 1rem 0 0 0;
+    }
+  }
+
+  .topic-listing {
+    &__section {
+      &-heading {
+        @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+        margin-top: 0;
+        margin-bottom: 4rem;
+      }
+
+      &-divider {
+        margin-bottom: 4rem;
+      }
+
+      ul {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        li {
+          list-style: none;
+        }
+      }
+    }
+
+    &__item {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .topic-card {
+    &__image-wrapper {
+      border-top-right-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+      overflow: hidden;
+      background: color(neutral, "200");
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin-bottom: 0;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    &__tags {
+      margin: 1rem 0;
+
+      li {
+        display: inline-block;
+      }
+    }
+
+    &__description {
+      margin: 1rem 0;
+    }
+  }
+}

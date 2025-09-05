@@ -12,6 +12,7 @@ const entries = [
   "redesign_migrated_content",
   "pages/home_page",
   "pages/nothing_personal/article_page",
+  "pages/nothing_personal/topic_listing_page",
 ];
 
 const inDir = "../../foundation_cms/static/scss";

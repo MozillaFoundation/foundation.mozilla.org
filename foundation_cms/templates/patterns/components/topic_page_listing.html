@@ -1,31 +1,14 @@
-<div>
-  <p><b>Page Title:</b> <a href="{{ page.url }}">{{ page.title }}</a></p>
-  <p><b>First Published:</b> {{ page.first_published_at }}</p>
-  <p><b>Last Published:</b> {{ page.last_published_at }}</p>
-  <p><b>Page Meta Image:</b>
-    {% if page.search_image %}
-      {{ page.search_image }}
-    {% else %}
-      (none)
-    {% endif %}
-  </p>
-  <p><b>Page Meta Description:</b> {{ page.search_description }}</p>
-  <p><b>Page Topics:</b>
-    {% with topics=page.topics.all %}
-      {% if topics %}
-        {% for topic in topics %}
-          {{ topic.name }}{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-      {% else %}
-        (none)
-      {% endif %}
-    {% endwith %}
-  </p>
-  <p><b>Page Author:</b>
-    {% if page.author %}
-      {{ page.author }}
-    {% else %}
-      (none)
-    {% endif %}
-  </p>
+{% if pages %}
+<div class="grid-container topic-listing__section">
+  <div class="grid-x">
+    <div class="cell">
+      <h2 class="topic-listing__section-heading">{{ section_title }}</h2>
+    </div>
+  </div>
+  <ul>
+  {% for page in pages %}
+      {% include "patterns/components/topic_page_listing_item.html" with page=page %}
+  {% endfor %}
+  </ul>
 </div>
+{% endif %}
