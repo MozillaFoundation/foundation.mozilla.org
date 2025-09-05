@@ -14,6 +14,15 @@ body.topic-listing-page {
 
     h1 {
       margin: 1rem 0 0;
+      position: relative;
+
+      &:before {
+        content: '\2018';
+      }
+
+      &:after {
+        content: '\2019';
+      }
     }
   }
 
