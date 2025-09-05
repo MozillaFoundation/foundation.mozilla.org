@@ -268,10 +268,10 @@ button.btn-play--vimeo {
 }
 
 // ===================================
-// Tag Link Buttons
+// Topic Link Buttons
 // ===================================
 
-@mixin tag-pill-button-shape {
+@mixin topic-pill-button-shape {
   @include mofo-text-style($body-text-styles, "small");
 
   border-radius: 16px 16px 0;
@@ -279,8 +279,8 @@ button.btn-play--vimeo {
   padding: rem-calc(5) rem-calc(16);
 }
 
-a.btn-tag {
-  @include tag-pill-button-shape;
+a.btn-topic {
+  @include topic-pill-button-shape;
 
   cursor: pointer;
 
