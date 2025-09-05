@@ -41,7 +41,7 @@
                             <span class="published-label">PUBLISHED</span>
                             <p class="published-date">{{ page.first_published_at|date:"F j, Y" }}</p>
                         </div>
-                        <div>[Share Buttons]</div>
+                        {% include "patterns/components/share_container.html" %}
                     </div>
                 </div>
             </div>
