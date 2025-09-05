@@ -1,13 +1,7 @@
-from django import forms
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
-
-
-class RadioSelectBlock(blocks.ChoiceBlock):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.field.widget = forms.RadioSelect(choices=self.field.widget.choices)
+from foundation_cms.blocks.common.radio_select_block import RadioSelectBlock
 
 
 class iFrameBlock(BaseBlock):
