@@ -75,12 +75,15 @@
                 </div>
             </div>
         </article>
-        <div class="grid-container">
-            <div class="grid-x">
-                <div class="cell small-12 medium-10 medium-offset-1">
-                    [More Stories]
+
+        {% if latest_articles|length >= 2 %}
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-10 medium-offset-1">
+                        {% include "patterns/components/nothing_personal/article_page/more_stories.html" %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </main>
 {% endblock content %}
