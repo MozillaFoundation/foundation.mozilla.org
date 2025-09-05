@@ -7,7 +7,7 @@ class NothingPersonalArticlePage(AbstractArticlePage):
         # Placeholder for NothingPersonalArticlePage blocks
     ]
 
-    parent_page_types = ["core.HomePage"]
+    parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
     subpage_types: list[str] = []
 
     class Meta:
