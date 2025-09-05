@@ -15,6 +15,11 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     ]
 
     parent_page_types = ["core.HomePage"]
+    subpage_types = [
+        "nothing_personal.NothingPersonalArticleCollectionPage",
+        "nothing_personal.NothingPersonalArticlePage",
+        "nothing_personal.NothingPersonalProductReviewPage",
+    ]
 
     class Meta:
         verbose_name = "Nothing Personal Home Page"
