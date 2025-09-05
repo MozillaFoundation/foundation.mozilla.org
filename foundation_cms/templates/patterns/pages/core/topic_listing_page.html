@@ -2,7 +2,7 @@
 {% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/topic_listing_page.compiled.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/topic_listing_page.compiled.css' %}">
 {% endblock extra_css %}
 
 {% block pre_content %}{% endblock pre_content %}
@@ -14,9 +14,9 @@
     </div>
 
   </div>
-  {% include "patterns/components/topic_page_listing.html" with pages=np_pages section_title="More from Nothing Personal:" %}
-  {% include "patterns/components/topic_page_listing_divider.html" %}
-  {% include "patterns/components/topic_page_listing.html" with pages=other_pages section_title="From the rest of Mozilla Foundation:" %}
+  {% include "patterns/components/topic_listing/section.html" with pages=np_pages section_title="More from Nothing Personal:" %}
+  {% include "patterns/components/topic_listing/section_divider.html" %}
+  {% include "patterns/components/topic_listing/section.html" with pages=other_pages section_title="From the rest of Mozilla Foundation:" %}
 {% endblock content %}
 
 {% block post_content %}{% endblock post_content %}

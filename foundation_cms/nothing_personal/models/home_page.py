@@ -71,5 +71,5 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
                 "total_pages_count": total_pages_count,
                 "page_type_bem": self._to_bem_case("TopicListingPage"),
             },
-            template="patterns/pages/nothing_personal/topic_listing_page.html",
+            template="patterns/pages/core/topic_listing_page.html",
         )

@@ -1,9 +1,13 @@
 @use "sass:map";
 @use "sass:math";
 
-@import "../../../scss/nothing_personal_base";
+@import "../../scss/foundation-framework-styles";
 
-body.nothing-personal.topic-listing-page {
+// Our custom variables and base styles
+@import "../../scss/colors";
+@import "../../scss/type";
+
+body.topic-listing-page {
   .topic-info {
     text-align: center;
     margin: 4rem 0;
