@@ -267,7 +267,6 @@ button.btn-play--vimeo {
   }
 }
 
-
 // ===================================
 // Tag Link Buttons
 // ===================================
@@ -275,13 +274,13 @@ button.btn-play--vimeo {
 @mixin tag-pill-button-shape {
   @include mofo-text-style($body-text-styles, "small");
 
-  border-radius: 16px 16px 0 16px;
+  border-radius: 16px 16px 0;
   background: color(yellow, "300");
   padding: rem-calc(5) rem-calc(16);
 }
 
 a.btn-tag {
-  @include tag-pill-button-shape();
+  @include tag-pill-button-shape;
 
   cursor: pointer;
 

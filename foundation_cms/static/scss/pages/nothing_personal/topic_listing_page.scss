@@ -9,7 +9,7 @@ body.nothing-personal.topic-listing-page {
     margin: 4rem 0;
 
     h1 {
-      margin: 1rem 0 0 0;
+      margin: 1rem 0 0;
     }
   }
 
@@ -68,21 +68,22 @@ body.nothing-personal.topic-listing-page {
         color: map.get($mofo-colors, black);
 
         &:hover {
-          text-decoration: underline;;
+          text-decoration: underline;
         }
       }
     }
 
     &__tags {
       margin: 1rem 0;
+
       ul {
         display: flex;
         flex-wrap: wrap;
         gap: rem-calc(8);
-      }
 
-      li {
-        display: inline-block;
+        li {
+          display: inline-block;
+        }
       }
     }
 
