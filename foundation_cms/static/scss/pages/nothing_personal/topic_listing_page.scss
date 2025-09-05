@@ -44,24 +44,42 @@ body.nothing-personal.topic-listing-page {
 
   .topic-card {
     &__image-wrapper {
-      border-top-right-radius: 2rem;
-      border-bottom-left-radius: 2rem;
+      border-top-right-radius: 32px;
+      border-bottom-left-radius: 32px;
       overflow: hidden;
       background: color(neutral, "200");
+    }
+
+    &__meta-wrapper {
+      display: flex;
+    }
+
+    &__meta {
+      align-self: center;
     }
 
     &__title {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
 
-      margin-bottom: 0;
+      margin: 0;
 
       a {
         text-decoration: none;
+        color: map.get($mofo-colors, black);
+
+        &:hover {
+          text-decoration: underline;;
+        }
       }
     }
 
     &__tags {
       margin: 1rem 0;
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: rem-calc(8);
+      }
 
       li {
         display: inline-block;
