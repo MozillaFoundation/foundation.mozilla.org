@@ -56,17 +56,27 @@ body.topic-listing-page {
   }
 
   .topic-card {
+    $image-hover-scale: 105%;
+
     &__image-wrapper {
       border-top-right-radius: 32px;
       border-bottom-left-radius: 32px;
       overflow: hidden;
       background: color(neutral, "200");
 
+      &:hover {
+        img {
+          transform: scale($image-hover-scale);
+        }
+      }
+
       img {
         width: 100%;
         height: auto;
         object-fit: cover;
+        transition: transform 0.5s ease;
       }
+
     }
 
     &__meta-wrapper {
