@@ -61,6 +61,12 @@ body.topic-listing-page {
       border-bottom-left-radius: 32px;
       overflow: hidden;
       background: color(neutral, "200");
+
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
     }
 
     &__meta-wrapper {
