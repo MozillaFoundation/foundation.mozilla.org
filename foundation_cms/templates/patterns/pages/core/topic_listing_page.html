@@ -15,7 +15,9 @@
 
   </div>
   {% include "patterns/components/topic_listing/section.html" with pages=np_pages section_title="More from Nothing Personal:" %}
-  {% include "patterns/components/topic_listing/section_divider.html" %}
+  {% if np_pages and other_pages %}
+    {% include "patterns/components/topic_listing/section_divider.html" %}
+  {% endif %}
   {% include "patterns/components/topic_listing/section.html" with pages=other_pages section_title="From the rest of Mozilla Foundation:" %}
 {% endblock content %}
 
