@@ -32,6 +32,7 @@ from foundation_cms.blocks import (
     TitleBlock,
     TwoColumnContainerBlock,
     VideoBlock,
+    iFrameBlock,
 )
 from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixin
 
@@ -53,6 +54,7 @@ base_page_block_options = [
     ("portrait_card_set_block", PortraitCardSetBlock()),
     ("spotlight_card_set_block", SpotlightCardSetBlock()),
     ("spacer_block", SpacerBlock()),
+    ("iframe_block", iFrameBlock()),
     ("impact_numbers", ImpactNumberBlock()),
     ("newsletter_signup", NewsletterSignupBlock()),
     ("timely_activations_cards", TimelyActivationsCardsBlock()),
