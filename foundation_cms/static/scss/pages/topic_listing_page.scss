@@ -86,21 +86,6 @@ body.topic-listing-page {
       align-self: center;
     }
 
-    &__title {
-      @include mofo-text-style($header-styles, "h5", $header-font-family);
-
-      margin: 0;
-
-      a {
-        text-decoration: none;
-        color: map.get($mofo-colors, black);
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
     &__tags {
       margin: 1rem 0;
 
@@ -117,6 +102,21 @@ body.topic-listing-page {
       a {
         color: map.get($mofo-colors, black);
         text-decoration: none;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin: 0;
+
+      a {
+        text-decoration: none;
+        color: map.get($mofo-colors, black);
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
