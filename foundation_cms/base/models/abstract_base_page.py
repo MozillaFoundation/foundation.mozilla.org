@@ -108,12 +108,9 @@ class Topic(TagBase):
         """Get the Nothing Personal listing URL for this topic"""
         from foundation_cms.nothing_personal.models import NothingPersonalHomePage
 
-        try:
-            np_home = NothingPersonalHomePage.objects.live().first()
-            if np_home:
-                return f"{np_home.url}topics/{self.slug}/"
-        except:
-            pass
+        np_home = NothingPersonalHomePage.objects.live().first()
+        if np_home:
+            return f"{np_home.url}topics/{self.slug}/"
         return None
 
 
