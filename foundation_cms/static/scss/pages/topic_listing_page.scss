@@ -64,12 +64,6 @@ body.topic-listing-page {
       overflow: hidden;
       background: color(neutral, "200");
 
-      &:hover {
-        img {
-          transform: scale($image-hover-scale);
-        }
-      }
-
       img {
         width: 100%;
         height: auto;
@@ -77,6 +71,11 @@ body.topic-listing-page {
         transition: transform 0.5s ease;
       }
 
+      &:hover {
+        img {
+          transform: scale($image-hover-scale);
+        }
+      }
     }
 
     &__meta-wrapper {
@@ -113,6 +112,11 @@ body.topic-listing-page {
         li {
           display: inline-block;
         }
+      }
+
+      a {
+        color: map.get($mofo-colors, black);
+        text-decoration: none;
       }
     }
 

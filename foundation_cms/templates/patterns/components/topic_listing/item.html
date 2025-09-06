@@ -30,7 +30,7 @@
             {% if topics %}
               <ul>
                 {% for topic in topics %}
-                  <li><a class="btn-topic">{{ topic.name }}</a></li>
+                  <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
                 {% endfor %}
               </ul>
             {% else %}

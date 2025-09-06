@@ -103,6 +103,19 @@ class Topic(TagBase):
         verbose_name = "Page Topic (new)"
         verbose_name_plural = "Page Topics (new)"
 
+    # TODO:FIXME Topic listing route should not live under the NP tree
+    def get_topic_listing_url(self):
+        """Get the Nothing Personal listing URL for this topic"""
+        from foundation_cms.nothing_personal.models import NothingPersonalHomePage
+
+        try:
+            np_home = NothingPersonalHomePage.objects.live().first()
+            if np_home:
+                return f"{np_home.url}topics/{self.slug}/"
+        except:
+            pass
+        return None
+
 
 class AbstractBasePage(FoundationMetadataPageMixin, Page):
     theme = models.CharField(

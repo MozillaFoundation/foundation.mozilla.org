@@ -34,6 +34,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
         return context
 
+    # TODO:FIXME Topic listing route should not live under the NP tree
     @route(r"^topics/(?P<slug>[-\w]+)/$")
     def topic_listing(self, request, slug):
         (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
