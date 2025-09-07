@@ -91,4 +91,72 @@ body.nothing-personal.nothing-personal-article-page {
       margin: 0;
     }
   }
+
+  .newsletter-signup[data-layout="expand_on_focus"] {
+    @include breakpoint(xlarge up) {
+      margin-top: 3rem;
+      display: block;
+      padding: 2rem;
+    }
+
+    &::before {
+      @include breakpoint(xlarge up) {
+        position: absolute;
+        top: -2rem;
+        left: 2rem;
+        flex-shrink: 1;
+        min-height: 0;
+      }
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(xlarge up) {
+        margin: 0 0 0.5rem;
+        min-height: 0;
+        display: block;
+        align-items: stretch;
+      }
+    }
+
+    .newsletter-signup__form {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+        align-items: stretch;
+        flex: auto;
+        gap: 0.5rem;
+      }
+    }
+
+    .newsletter-signup__form-grid {
+      @include breakpoint(xlarge up) {
+        flex: auto;
+      }
+    }
+
+    .newsletter-signup__fieldset {
+      @include breakpoint(xlarge up) {
+        min-width: 0;
+      }
+    }
+
+    .newsletter-signup__field:has(> label > input[type="checkbox"]) {
+      @include breakpoint(xlarge up) {
+        padding-bottom: 0;
+      }
+    }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+      }
+    }
+
+    .newsletter-signup__error-message {
+      @include breakpoint(xlarge up) {
+        order: 0;
+        width: auto;
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }
