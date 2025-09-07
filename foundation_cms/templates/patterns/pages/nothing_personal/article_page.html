@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static %}
+{% load wagtailimages_tags static %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_page.compiled.css' %}">
@@ -32,11 +32,11 @@
                         {% endcomment %}
                     </div>
                 </div>
-                <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
-                        <div>[Lede Text]{{ page.lede_text }}</div>
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-12 medium-7 medium-offset-1 large-7 large-offset-0">
+                        <div>{{ page.lede_text }}</div>
                     </div>
-                    <div class="cell small-12 medium-3 medium-offset-1">
+                    <div class="cell small-12 medium-3 large-offset-2">
                         <div class="article-meta-published">
                             <span class="published-label">PUBLISHED</span>
                             <p class="published-date">{{ page.first_published_at|date:"F j, Y" }}</p>
@@ -46,31 +46,24 @@
                 </div>
             </div>
 
-            {% comment %} To be removed. Adding this section so it's easier for desginers to review. {% endcomment %}
-            <div class="grid-container">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
-                        <div>
-                            [Streamfield Blocks]
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% comment %} Reminder to remove this section above {% endcomment %}
-
             {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="medium-10 medium-offset-1 large-7 large-offset-0"%}
             {% endif %}
 
             <div class="grid-container">
                 <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
+                    <div class="cell small-12 medium-7 medium-offset-1 large-offset-0">
                         <div>
                             [Tag Section]
                         </div>
-                        <div>
-                            [Author Section]
-                        </div>
+                        {% if page.author %}
+                            <div class="author-info">
+                                <h5 class="author-name">{{ page.author.name }}</h5>
+                                {% if page.author.bio %}
+                                    <p class="author-bio">{{ page.author.bio }}</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

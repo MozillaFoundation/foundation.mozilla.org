@@ -4,7 +4,8 @@
   {% if block.block_type|should_wrap_block %}
     <div class="grid-container">
       <div class="grid-x">
-        <div class="cell">
+        <!-- Insert classnames if any after cell -->
+        <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
           {% include_block block with page_type_bem=page_type_bem %}
         </div>
       </div>

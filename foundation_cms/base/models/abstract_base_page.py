@@ -9,6 +9,7 @@ from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
 from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
@@ -72,7 +73,11 @@ base_page_block_options = [
 class Author(models.Model):
     name = models.CharField(max_length=255)
     image = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="author_image"
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Author image",
     )
     bio = models.TextField(blank=True)
 

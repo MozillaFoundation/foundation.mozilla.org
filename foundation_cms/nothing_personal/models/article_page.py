@@ -1,10 +1,12 @@
+from wagtail.admin.panels import FieldPanel
+
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 
 
 class NothingPersonalArticlePage(AbstractArticlePage):
 
     content_panels = AbstractArticlePage.content_panels + [
-        # Placeholder for NothingPersonalArticlePage blocks
+        FieldPanel("body"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
