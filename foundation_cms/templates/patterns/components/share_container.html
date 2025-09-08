@@ -6,22 +6,22 @@
     <h3 class="share-title">Share this!</h3>
     <div class="share-buttons">
     <!-- Bluesky -->
-      <a href="https://bsky.app/intent/compose?text={{ share_title|urlencode }}&url={{ share_url|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn bluesky-share-btn">
+      <a href="https://bsky.app/intent/compose?text={{ share_title|urlencode }}&url={{ share_url|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn bluesky-share-btn" aria-label="Bluesky">
         <img src="{% static 'foundation_cms/_images/icons/social-bluesky-black.svg' %}" width="18" height="18" alt="Share on Bluesky">
       </a>
 
     <!-- Facebook -->
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode }}&title={{ share_title|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn">
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode }}&title={{ share_title|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Facebook">
         <img src="{% static 'foundation_cms/_images/icons/social-facebook-black.svg' %}" width="18" height="18" alt="Share on Facebook">
       </a>
 
     <!-- Email -->
-      <a href="mailto:?subject={{ share_title|urlencode }}&body={{ share_url|urlencode }}" class="share-btn email-share-btn">
+      <a href="mailto:?subject={{ share_title|urlencode }}&body={{ share_url|urlencode }}" class="share-btn email-share-btn" aria-label="Email">
         <img src="{% static 'foundation_cms/_images/icons/social-email-black.svg' %}" width="18" height="18" alt="Share by Email">
       </a>
 
     <!-- Copy Link -->
-      <button class="share-btn copy-link-share-btn" data-copy-url="{{ share_url }}">
+      <button class="share-btn copy-link-share-btn" data-copy-url="{{ share_url }}" aria-label="Copy Link">
         <img src="{% static 'foundation_cms/_images/icons/social-copy-link-black.svg' %}" width="18" height="18" alt="Copy Link">
       </button>
     </div>
