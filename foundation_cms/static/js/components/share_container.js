@@ -16,7 +16,12 @@ export default function initShareContainer() {
    * @param {number} duration - Duration in ms (0 = permanent until page reload by default)
    * @param {boolean} showCopiedText - Whether to show "Copied" alt text
    */
-  function showSuccess(button, successClass, duration = 0, showCopiedText = false) {
+  function showSuccess(
+    button,
+    successClass,
+    duration = 0,
+    showCopiedText = false,
+  ) {
     button.classList.add(successClass);
 
     // Update img title text and aria-label for copy button
