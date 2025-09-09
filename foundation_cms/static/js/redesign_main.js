@@ -12,6 +12,7 @@ import { initDonateBanner } from "./components/donate_banner.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
 import { initTabbedContent } from "./blocks/tabbed_content_container.js";
+import initShareContainer from "./components/share_container.js";
 import initBackToTopButton from "./components/back_to_top.js";
 
 let foundationSiteURL = window.location.origin;
@@ -32,4 +33,6 @@ initWordmarkVisibilityOnScroll();
 initSpotlightCardCarousels();
 initPillarCardLinks();
 initTabbedContent();
+initShareContainer();
 initBackToTopButton();
+
