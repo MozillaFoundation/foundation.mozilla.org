@@ -20,7 +20,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     display: inline;
     line-height: 1.1 !important;
     margin: 0;
-    padding: 0 0.75rem 0 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     box-decoration-break: clone;
 
     // The highlight effect is created using a linear gradient background image
@@ -51,6 +51,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
 
     @include breakpoint(large up) {
       line-height: 1.2 !important;
+      padding: 0 1rem;
     }
   }
 
@@ -64,7 +65,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
 
     display: inline;
     background-color: $header-highlight-background-color;
-    padding: 0 0.75rem 0 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     box-decoration-break: clone;
     margin: 0;
   }
