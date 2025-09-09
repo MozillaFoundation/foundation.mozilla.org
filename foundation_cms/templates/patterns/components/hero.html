@@ -10,16 +10,16 @@
 
         <div class="hero__text">
           <h1 class="hero__title">{{ page.hero_title }}</h1>
-          {% if page.topics %}
-            <div class="hero__topics body-text-small">
-              <span class="hero__pill">Some</span>
-              <span class="hero__pill">Topics</span>
-              <span class="hero__pill">That</span>
-              <span class="hero__pill">May</span>
-              <span class="hero__pill">Be</span>
-              <span class="hero__pill">Hardcoded</span>
-            </div>
-          {% endif %}
+          {% with topics=page.topics.all %}
+            {% if topics %}
+              <div class="hero__topics body-text-small">
+                {% for topic in topics %}
+                  <span class="hero__pill">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
@@ -42,16 +42,15 @@
       <div class="hero__text">
         <div class="grid-container">
           <h1 class="hero__title">{{ page.hero_title }}</h1>
-          {% if page.topics %}
-            <div class="hero__topics body-text-small">
-              <span class="hero__pill">Some</span>
-              <span class="hero__pill">Topics</span>
-              <span class="hero__pill">That</span>
-              <span class="hero__pill">May</span>
-              <span class="hero__pill">Be</span>
-              <span class="hero__pill">Hardcoded</span>
-            </div>
-          {% endif %}
+          {% with topics=page.topics.all %}
+            {% if topics %}
+              <div class="hero__topics body-text-small">
+                {% for topic in topics %}
+                  <span class="hero__pill">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
