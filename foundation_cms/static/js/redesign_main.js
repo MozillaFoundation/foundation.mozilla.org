@@ -35,4 +35,3 @@ initPillarCardLinks();
 initTabbedContent();
 initShareContainer();
 initBackToTopButton();
-
