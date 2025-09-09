@@ -1,10 +1,1 @@
-{% load wagtailcore_tags %}
-
-<div class="callout-box">
-    <div class="callout-box__heading">
-        {{ value.heading|richtext }}
-    </div>
-    <div class="callout-box__description">
-        {{ value.description|richtext }}
-    </div>
-</div>
+{% extends "../default/callout_block.html" %}
