@@ -1,0 +1,13 @@
+<div>
+    <h3> More Stories </h3>
+
+    {% for article in latest_articles %}
+        <div>
+            <p> <b>Article Title:</b> <a href="{{ article.url }}">{{ article.title }}</a></p>
+            <p> <b>Article Lede Text:</b> {{ article.lede_text }}</p>
+            <p> <b>Published on:</b> {{ article.first_published_at }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+
+</div>
