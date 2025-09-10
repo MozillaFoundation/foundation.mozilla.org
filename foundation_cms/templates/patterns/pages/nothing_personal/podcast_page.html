@@ -25,12 +25,8 @@
                 </div>
             </div>
         </div>
-        <div class="grid-container">
-            [body]
-        </div>
-    </div>
-    <div class="grid-container">
-        [two column block?]
-    </div>
+        {% if page.body %}
+            {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="" %}
+        {% endif %}
     </main>
 {% endblock content %}
