@@ -1,7 +1,7 @@
 /* Mozilla_Headline font declarations */
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-ExtraLight.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-ExtraLight.woff2")
     format("woff2");
   font-weight: 200;
   font-style: normal;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-ExtraLightItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-ExtraLightItalic.woff2")
     format("woff2");
   font-weight: 200;
   font-style: italic;
@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-Light.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-Light.woff2")
     format("woff2");
   font-weight: 300;
   font-style: normal;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-LightItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-LightItalic.woff2")
     format("woff2");
   font-weight: 300;
   font-style: italic;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-Regular.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-Regular.woff2")
     format("woff2");
   font-weight: 400;
   font-style: normal;
@@ -41,7 +41,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-Italic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-Italic.woff2")
     format("woff2");
   font-weight: 400;
   font-style: italic;
@@ -49,7 +49,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-SemiBold.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-SemiBold.woff2")
     format("woff2");
   font-weight: 600;
   font-style: normal;
@@ -57,7 +57,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-SemiBoldItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-SemiBoldItalic.woff2")
     format("woff2");
   font-weight: 600;
   font-style: italic;
@@ -65,7 +65,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-Bold.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-Bold.woff2")
     format("woff2");
   font-weight: 700;
   font-style: normal;
@@ -73,7 +73,7 @@
 
 @font-face {
   font-family: "Mozilla Headline";
-  src: url("../fonts/Mozilla_Headline/MozillaHeadline-BoldItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Headline/MozillaHeadline-BoldItalic.woff2")
     format("woff2");
   font-weight: 700;
   font-style: italic;
@@ -82,14 +82,15 @@
 /* Mozilla_Text font declarations */
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-ExtraLight.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-ExtraLight.woff2")
+    format("woff2");
   font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-ExtraLightItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-ExtraLightItalic.woff2")
     format("woff2");
   font-weight: 200;
   font-style: italic;
@@ -97,14 +98,15 @@
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-Light.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-Light.woff2")
+    format("woff2");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-LightItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-LightItalic.woff2")
     format("woff2");
   font-weight: 300;
   font-style: italic;
@@ -112,28 +114,31 @@
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-Regular.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-Regular.woff2")
+    format("woff2");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-Italic.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-Italic.woff2")
+    format("woff2");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-Medium.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-Medium.woff2")
+    format("woff2");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-MediumItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-MediumItalic.woff2")
     format("woff2");
   font-weight: 500;
   font-style: italic;
@@ -141,14 +146,15 @@
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-SemiBold.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-SemiBold.woff2")
+    format("woff2");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-SemiBoldItalic.woff2")
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-SemiBoldItalic.woff2")
     format("woff2");
   font-weight: 600;
   font-style: italic;
@@ -156,14 +162,16 @@
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-Bold.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-Bold.woff2")
+    format("woff2");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Mozilla Text";
-  src: url("../fonts/Mozilla_Text/MozillaText-BoldItalic.woff2") format("woff2");
+  src: url("/static/foundation_cms/fonts/Mozilla_Text/MozillaText-BoldItalic.woff2")
+    format("woff2");
   font-weight: 700;
   font-style: italic;
 }

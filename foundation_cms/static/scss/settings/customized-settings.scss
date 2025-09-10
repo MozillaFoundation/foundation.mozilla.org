@@ -944,7 +944,9 @@ $grid-margin-gutters: (
 $grid-padding-gutters: $grid-margin-gutters;
 $grid-container-padding: (
   small: 32px,   // 16px on each site
-  medium: 128px, // 64px on each side
+  medium: 128px, // 64px on each side,
+  large: 128px,
+  xlarge: 128px,
 ) !default;
 $grid-container-max: $global-width;
 $xy-block-grid-max: 8;
