@@ -24,7 +24,6 @@
     </a>
     <div class="cell small-12 medium-7 topic-card__meta-wrapper">
       <div class="topic-card__meta">
-        <h3 class="topic-card__title"><a href="{{ page.url }}">{{ page.title }}</a></h3>
         <div class="topic-card__tags">
           {% with topics=page.topics.all %}
             {% if topics %}
@@ -36,6 +35,7 @@
             {% endif %}
           {% endwith %}
         </div>
+        <h3 class="topic-card__title"><a href="{{ page.url }}">{{ page.title }}</a></h3>
         <p class="topic-card__description">{{ page.search_description }}</p>
       </div>
     </div>

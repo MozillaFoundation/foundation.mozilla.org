@@ -10,7 +10,7 @@
 body.topic-listing-page {
   .topic-info {
     text-align: center;
-    margin: 4rem 0;
+    margin: 2rem 0;
 
     h1 {
       margin: 1rem 0 0;
@@ -24,6 +24,10 @@ body.topic-listing-page {
         content: "\2019";
       }
     }
+
+    @include breakpoint(large up) {
+      margin: 4rem 0;
+    }
   }
 
   .topic-listing {
@@ -32,7 +36,11 @@ body.topic-listing-page {
         @include mofo-text-style($header-styles, "h4", $header-font-family);
 
         margin-top: 0;
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
+
+        @include breakpoint(large up) {
+          margin-bottom: 4rem;
+        }
       }
 
       &-divider {
@@ -51,7 +59,11 @@ body.topic-listing-page {
     }
 
     &__item {
-      margin-bottom: 4rem;
+      margin-bottom: 2rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: rem-calc(38);
+      }
     }
   }
 
