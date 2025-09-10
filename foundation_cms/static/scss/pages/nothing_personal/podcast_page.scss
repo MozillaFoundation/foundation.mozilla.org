@@ -2,3 +2,35 @@
 @use "sass:math";
 
 @import "../../../scss/nothing_personal_base";
+
+body.nothing-personal-podcast-page {
+  .hero {
+    margin-top: 2rem;
+
+    @include breakpoint(large up) {
+      margin-top: 4rem;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+    }
+
+    &__topics {
+      margin: 1.5rem 0;
+    }
+
+    .grid-x {
+      gap: 1.5rem;
+
+      @include breakpoint(large up) {
+        gap: 0;
+      }
+    }
+  }
+}

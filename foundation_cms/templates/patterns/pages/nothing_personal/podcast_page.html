@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static %}
+{% load wagtailimages_tags static %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/podcast_page.compiled.css' %}">
@@ -8,6 +8,29 @@
 
 {% block content %}
     <main>
-        Podcast page
+        <div class="hero">
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="hero__text cell small-12 large-6">
+                        <div class="hero__title">{{ page.hero_title }}</div>
+                        <div class="hero__topics">Topics</div>
+                        <div class="hero__description lede-text">{{ page.hero_description}}</div>
+                    </div>
+                    {% if page.hero_image %}
+                        {% image page.hero_image fill-692x692 as img %}
+                        <div class="hero__media cell small-12 large-6">
+                            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__image">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="grid-container">
+            [body]
+        </div>
+    </div>
+    <div class="grid-container">
+        [two column block?]
+    </div>
     </main>
 {% endblock content %}
