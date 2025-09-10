@@ -27,6 +27,10 @@ body {
       pointer-events: auto;
     }
 
+    &:hover {
+      background-image: url("/static/foundation_cms/_images/back-to-top-orange-400.svg");
+    }
+
     &::after {
       content: "";
       display: block;
