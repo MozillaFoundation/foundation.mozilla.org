@@ -1,10 +1,34 @@
+from django.db import models
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.images import get_image_model_string
+
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
-class NothingPersonalProductReviewPage(AbstractArticlePage):
+class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
+
+    updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
+    reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
+    research = models.CharField(max_length=255, blank=True, help_text="Amount of time spent on research.")
 
     content_panels = AbstractArticlePage.content_panels + [
-        # Placeholder for NothingPersonalProductReviewPage blocks
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_image"),
+                FieldPanel("hero_image_alt_text"),
+            ],
+            heading="Hero Image",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("updated"),
+                FieldPanel("reviewed"),
+                FieldPanel("research"),
+            ],
+            heading="Product Review Meta",
+        ),
+        FieldPanel("lede_text"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
