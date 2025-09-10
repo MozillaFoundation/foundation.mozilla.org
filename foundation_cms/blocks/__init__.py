@@ -3,6 +3,7 @@ from .base_card_block import BaseCardBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .hero_accordion import HeroAccordionBlock
+from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
@@ -56,4 +57,5 @@ __all__ = [
     "PillarCardBlock",
     "PillarCardSetBlock",
     "TitleBlock",
+    "iFrameBlock",
 ]

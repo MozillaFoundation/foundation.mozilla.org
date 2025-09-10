@@ -25,7 +25,7 @@
     "CSP_CONNECT_SRC": "*",
     "CSP_DEFAULT_SRC": "'none'",
     "CSP_FRAME_ANCESTORS": "'self'",
-    "CSP_FRAME_SRC": "'self' https://js.tito.io https://www.google.com/recaptcha/ https://*.stripe.com https://pay.google.com https://*.paypal.com https://*.fundraiseup.com",
+    "CSP_FRAME_SRC": "'self' https://player.simplecast.com https://js.tito.io https://www.google.com/recaptcha/ https://*.stripe.com https://pay.google.com https://*.paypal.com https://*.fundraiseup.com",
     "CSP_FONT_SRC": "'self' https://code.cdn.mozilla.net https://*.fundraiseup.com https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/",
     "CSP_IMG_SRC": "* data: blob: https://*.fundraiseup.com https://ucarecdn.com https://pay.google.com https://*.paypalobjects.com",
     "CSP_MEDIA_SRC": "'self' https://s3.amazonaws.com/mofo-assets/foundation/video/",
