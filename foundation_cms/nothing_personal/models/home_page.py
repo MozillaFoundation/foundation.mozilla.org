@@ -1,4 +1,6 @@
+from django.db import models
 from django.shortcuts import get_object_or_404
+from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 
@@ -9,9 +11,11 @@ from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 
 class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     max_count = 1
+    who_we_are_description = models.TextField(blank=True, help_text="Description text for the Who We Are section")
 
     content_panels = AbstractHomePage.content_panels + [
         # Placeholder for NothingPersonalHomePage blocks
+        FieldPanel("who_we_are_description"),
     ]
 
     parent_page_types = ["core.HomePage"]

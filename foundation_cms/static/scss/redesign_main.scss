@@ -32,5 +32,8 @@
 @import "../scss/components/newsletter_signup/newsletter_signup_form";
 @import "../scss/components/share-container";
 
+// Nothing Personal styles
+@import "nothing_personal_base";
+
 // Embed/widget overrides
 @import "../scss/onetrust-override";
