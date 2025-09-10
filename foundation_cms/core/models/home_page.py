@@ -1,5 +1,6 @@
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
+from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import HeroAccordionBlock
@@ -17,6 +18,11 @@ class HomePage(AbstractHomePage):
     content_panels = AbstractHomePage.content_panels + [
         FieldPanel("hero_accordion"),
         FieldPanel("body"),
+    ]
+
+    translatable_fields = AbstractHomePage.translatable_fields + [
+        # Content tab fields
+        TranslatableField("hero_accordion"),
     ]
 
     template = "patterns/pages/core/home_page.html"

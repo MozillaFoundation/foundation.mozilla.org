@@ -12,6 +12,7 @@ from wagtail.fields import StreamField
 from wagtail.models import Locale, Page
 from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks import (
     AudioBlock,
@@ -143,6 +144,22 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel("theme"),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
+        SynchronizedField("author"),
+        SynchronizedField("topics"),
+        # Content tab fields
+        TranslatableField("body"),
+        TranslatableField("title"),
+        # Settings tab fields
+        SynchronizedField("theme"),
     ]
 
     class Meta:
