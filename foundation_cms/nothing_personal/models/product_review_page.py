@@ -8,6 +8,7 @@ from foundation_cms.mixins.hero_image import HeroImageMixin
 
 class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
+    body = None
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
     research = models.CharField(max_length=255, blank=True, help_text="Amount of time spent on research.")
