@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable
@@ -58,9 +59,15 @@ class NothingPersonalProductReviewPage(AbstractArticlePage):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context["products_mentioned"] = self.localized_products_mentioned
         return context
 
-    @property
+    def get_preview_context(self, request, mode_name):
+        context = super().get_preview_context(request, mode_name)
+        context["products_mentioned"] = self.preview_products_mentioned
+        return context
+
+    @cached_property
     def localized_products_mentioned(self):
         products_mentioned = NothingPersonalProductReviewPage.objects.filter(mentioned_in_pages__page=self).order_by(
             "mentioned_in_pages__sort_order"
@@ -69,7 +76,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage):
 
         return localized_products_mentioned.specific()
 
-    @property
+    @cached_property
     def preview_products_mentioned(self):
         """
         Fetches prodcts mentioned updates for CMS page previews.
