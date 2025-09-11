@@ -27,10 +27,6 @@ body {
       pointer-events: auto;
     }
 
-    &:hover {
-      background-image: url("/static/foundation_cms/_images/back-to-top-orange-400.svg");
-    }
-
     &::after {
       content: "";
       display: block;
@@ -46,6 +42,10 @@ body {
     .back-to-top {
       margin-right: 6rem;
     }
+  }
+
+  .back-to-top:hover {
+    background-image: url("/static/foundation_cms/_images/back-to-top-orange-400.svg");
   }
 
   // Extra large viewports should place the button beside the pre-footer banner
