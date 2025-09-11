@@ -3,7 +3,7 @@
 
 @import "../../../scss/nothing_personal_base";
 
-body.nothing-personal-podcast-page {
+body {
   .hero {
     margin-top: 2rem;
 
@@ -25,10 +25,9 @@ body.nothing-personal-podcast-page {
       margin: 1.5rem 0;
     }
 
-    /*&__image {
+    &__image {
       border-radius: 0 100px 0 0 ;
     }
-     */ 
 
     .grid-x {
       gap: 1.5rem;
@@ -39,18 +38,11 @@ body.nothing-personal-podcast-page {
     }
   }
 }
-
+/*
 .hero__image {
   border-radius: 0 100px 0 0 ;
     }
-   .hero__topics {
-      background-color: color(yellow, "200");
-      font-size: small;
-      padding-right: 0.6em;
-      padding-left: 0.6em;
-      border-radius: 10rem 10rem 10rem 0; 
-      display: inline;
-    }
+*/
 .hero-divider {
   position: relative;
   width: 100%;
