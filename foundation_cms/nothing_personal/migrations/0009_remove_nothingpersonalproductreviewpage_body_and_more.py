@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("images", "0001_initial"),
-        ("nothing_personal", "0007_alter_nothingpersonalarticlecollectionpage_body_and_more"),
+        ("nothing_personal", "0008_productmentioned"),
     ]
 
     operations = [
