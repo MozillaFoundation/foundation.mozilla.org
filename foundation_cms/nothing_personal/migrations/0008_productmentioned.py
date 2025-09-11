@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("nothing_personal", "0006_nothingpersonalarticlepage_hero_image_and_more"),
+        ("nothing_personal", "0007_alter_nothingpersonalarticlecollectionpage_body_and_more"),
     ]
 
     operations = [
