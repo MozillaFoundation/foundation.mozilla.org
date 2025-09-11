@@ -11,7 +11,7 @@ body {
     height: $back-to-top-height;
     margin-top: $back-to-top-height * -1; // No vertical block dimension
     margin-left: auto;
-    margin-right: 2rem;
+    margin-right: 1rem;
     bottom: 0;
     transform: translateY(-1rem);
     display: flex;
@@ -21,6 +21,10 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
+
+    @include breakpoint(medium up) {
+      margin-right: 2rem;
+    }
 
     &.visible {
       opacity: 1;
