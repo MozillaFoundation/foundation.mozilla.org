@@ -1,5 +1,3 @@
-from typing import TYPE_CHECKING
-
 from django.conf import settings
 from django.db import models
 from wagtail.models import Locale
