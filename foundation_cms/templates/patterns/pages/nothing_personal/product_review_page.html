@@ -79,5 +79,10 @@
                 </div>
             </div>
         </div>
+        {% block products_mentioned %}
+            {% if page.localized_products_mentioned %}
+                {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products_mentioned=page.localized_products_mentioned %}
+            {% endif %}
+        {% endblock products_mentioned %}
     </main>
 {% endblock content %}
