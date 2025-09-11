@@ -32,7 +32,6 @@ class NothingPersonalArticlePage(AbstractArticlePage):
             heading="Hero Image",
             classname="collapsible",
         ),
-        FieldPanel("body"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
