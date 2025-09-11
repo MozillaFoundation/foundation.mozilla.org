@@ -8,26 +8,28 @@
     </span>
   </header>
 
-  <div class="article-header__hero cell small-12 medium-10 medium-offset-1 large-11 large-offset-1">
-    <figure class="article-header__hero-figure">
-      <picture class="article-header__picture">
-        {% image page.hero_image fill-1172x660 as img_small %}
-        {% image page.hero_image fill-2198x1236 as img_large %}
-        <source
-          media="(max-width: 639px)"
-          srcset="{{ img_small.url }}"
-          width="{{ img_small.width }}"
-          height="{{ img_small.height }}"
-        >
-        <img
-          class="article-header__hero-image"
-          src="{{ img_large.url }}"
-          width="{{ img_large.width }}"
-          height="{{ img_large.height }}"
-          alt="{{ page.hero_image_alt_text|default:img_large.alt }}"
-          loading="lazy"
-        >
-      </picture>
-    </figure>
-  </div>
+  {% if page.hero_image %}
+    <div class="article-header__hero cell small-12 medium-10 medium-offset-1 large-11 large-offset-1">
+      <figure class="article-header__hero-figure">
+        <picture class="article-header__picture">
+          {% image page.hero_image fill-1172x660 as img_small %}
+          {% image page.hero_image fill-2198x1236 as img_large %}
+          <source
+            media="(max-width: 639px)"
+            srcset="{{ img_small.url }}"
+            width="{{ img_small.width }}"
+            height="{{ img_small.height }}"
+          >
+          <img
+            class="article-header__hero-image"
+            src="{{ img_large.url }}"
+            width="{{ img_large.width }}"
+            height="{{ img_large.height }}"
+            alt="{{ page.hero_image_alt_text|default:img_large.alt }}"
+            loading="lazy"
+          >
+        </picture>
+      </figure>
+    </div>
+  {% endif %}
 </div>
