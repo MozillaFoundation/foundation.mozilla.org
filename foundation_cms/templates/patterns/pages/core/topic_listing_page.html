@@ -1,6 +1,10 @@
 {% extends theme_base %}
 {% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
 
+{% block title %}
+  {{ topic.name }}
+{% endblock title %}
+
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/topic_listing_page.compiled.css' %}">
 {% endblock extra_css %}
