@@ -3,7 +3,7 @@ from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.mixins.hero_image import HeroImageMixin
@@ -71,6 +71,11 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     translatable_fields = [
         # Content tab fields
         SynchronizedField("products_mentioned"),
+        SynchronizedField("hero_image"),
+        TranslatableField("hero_image_alt_text"),
+        SynchronizedField("updated"),
+        SynchronizedField("reviewed"),
+        TranslatableField("research"),
     ]
 
     class Meta:
