@@ -26,10 +26,15 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     template = "patterns/pages/nothing_personal/home_page.html"
 
-    def get_context(self, request):
+    def get_context(self, request, virtual_page_name=None):
         context = super().get_context(request)
+
+        if virtual_page_name:
+            context["page_type_bem"] = self._to_bem_case(virtual_page_name)
+
         return context
 
+    # TODO:FIXME Topic listing route should not live under the NP tree
     @route(r"^topics/(?P<slug>[-\w]+)/$")
     def topic_listing(self, request, slug):
         (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
@@ -65,6 +70,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
                 "np_pages": np_pages,
                 "other_pages": other_pages,
                 "total_pages_count": total_pages_count,
+                "page_type_bem": self._to_bem_case("TopicListingPage"),
             },
-            template="patterns/pages/nothing_personal/topic_page.html",
+            template="patterns/pages/core/topic_listing_page.html",
         )
