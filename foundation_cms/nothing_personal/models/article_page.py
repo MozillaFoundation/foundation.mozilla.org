@@ -31,8 +31,8 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
         help_text="Log into Vimeo using 1Password "
         "and upload the desired video. "
         "Then select the video and "
-        'click "Advanced", "Distribution", '
-        'and "Video File Links". Copy and paste the link here.',
+        'click "...", "Video File Links", '
+        'and select "(mp4, 1920 x 1080)". Copy and paste the link here.',
     )
 
     content_panels = AbstractArticlePage.content_panels + [
