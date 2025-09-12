@@ -1,12 +1,12 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.images import get_image_model_string
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
+from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
-class GeneralPage(AbstractGeneralPage):
+class GeneralPage(AbstractGeneralPage, HeroImageMixin):
     hero_title = models.TextField(
         help_text="Hero Title",
         blank=True,
@@ -16,22 +16,6 @@ class GeneralPage(AbstractGeneralPage):
         max_length=120,
         help_text="Hero Description",
         blank=True,
-    )
-
-    hero_image = models.ForeignKey(
-        get_image_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name="Hero Image",
-        help_text="Image for page hero section.",
-    )
-
-    hero_image_alt_text = models.CharField(
-        max_length=255,
-        blank=True,
-        verbose_name="Alt Text",
-        help_text="Descriptive text for screen readers. Leave blank to use the image's default title.",
     )
 
     hero_variant = models.CharField(

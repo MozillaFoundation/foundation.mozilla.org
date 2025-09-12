@@ -3,9 +3,10 @@ from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import get_related_items, localize_queryset
 
 
@@ -34,7 +35,11 @@ class ProductMentioned(Orderable):
         verbose_name_plural = "Products Mentioned"
 
 
-class NothingPersonalProductReviewPage(AbstractArticlePage):
+class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
+    body = None
+    updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
+    reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
+    research = models.CharField(max_length=255, blank=True, help_text="Amount of time spent on research.")
 
     content_panels = AbstractArticlePage.content_panels + [
         # Placeholder for NothingPersonalProductReviewPage blocks
@@ -42,6 +47,22 @@ class NothingPersonalProductReviewPage(AbstractArticlePage):
             [InlinePanel("products_mentioned", max_num=3)],
             heading="Products Mentioned",
         ),
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_image"),
+                FieldPanel("hero_image_alt_text"),
+            ],
+            heading="Hero Image",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("updated"),
+                FieldPanel("reviewed"),
+                FieldPanel("research"),
+            ],
+            heading="Product Review Meta",
+        ),
+        FieldPanel("lede_text"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
@@ -50,6 +71,11 @@ class NothingPersonalProductReviewPage(AbstractArticlePage):
     translatable_fields = [
         # Content tab fields
         SynchronizedField("products_mentioned"),
+        SynchronizedField("hero_image"),
+        TranslatableField("hero_image_alt_text"),
+        SynchronizedField("updated"),
+        SynchronizedField("reviewed"),
+        TranslatableField("research"),
     ]
 
     class Meta:
