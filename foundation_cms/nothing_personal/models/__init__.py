@@ -9,4 +9,5 @@ __all__ = [
     "NothingPersonalArticlePage",
     "NothingPersonalProductReviewPage",
     "NothingPersonalHomePage",
+    "NothingPersonalPodcastPage"
 ]
