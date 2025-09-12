@@ -1,3 +1,5 @@
+
+
 body.nothing-personal.nothing-personal-article-page .article-header {
   $header-highlight-background-color: color(yellow, "100");
   $header-highlight-gap: rem-calc(8);
@@ -93,7 +95,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     display: contents;
   }
 
-  &__hero-image {
+  &__hero-content {
     display: block;
     width: 100%;
     height: 100%;

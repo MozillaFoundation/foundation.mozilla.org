@@ -9,13 +9,36 @@ from foundation_cms.utils import get_default_locale
 
 class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
 
+    displayed_hero_content = models.CharField(
+        max_length=25,
+        choices=[
+            ("image", "Image"),
+            ("video", "Video"),
+            ("none", "None"),
+        ],
+        default="none",
+        help_text="Choose what type of content appears in the hero section.",
+    )
+
+    hero_video = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text="Log into Vimeo using 1Password "
+        "and upload the desired video. "
+        "Then select the video and "
+        'click "Advanced", "Distribution", '
+        'and "Video File Links". Copy and paste the link here.',
+    )
+
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel("displayed_hero_content"),
                 FieldPanel("hero_image"),
                 FieldPanel("hero_image_alt_text"),
+                FieldPanel("hero_video"),
             ],
-            heading="Hero Image",
+            heading="Hero Section",
             classname="collapsible",
         ),
         FieldPanel("lede_text"),
