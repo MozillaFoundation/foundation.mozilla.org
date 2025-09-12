@@ -11,10 +11,6 @@ from foundation_cms.utils import get_related_items, localize_queryset
 
 
 class ProductMentioned(Orderable):
-    body = None
-    updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
-    reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
-    research = models.CharField(max_length=255, blank=True, help_text="Amount of time spent on research.")
 
     page = ParentalKey(
         "nothing_personal.NothingPersonalProductReviewPage",
@@ -45,7 +41,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     body = None
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
-    research = models.CharField(max_length=255, blank=True, help_text="Amount of time spent on research.")
+    research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
 
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
