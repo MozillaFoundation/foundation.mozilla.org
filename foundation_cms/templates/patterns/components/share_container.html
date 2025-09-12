@@ -3,7 +3,9 @@
 
 {% with share_url=page.get_full_url|default:page.full_url|default:request.build_absolute_uri share_title=page.title|default:"Article page" %}
   <div class="share-container">
-    <h3 class="share-title">Share this!</h3>
+    {% if show_title != False %}
+      <h3 class="share-title">{{ title|default:"Share this!" }}</h3>
+    {% endif %}
     <div class="share-buttons">
     <!-- Facebook -->
       <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode }}&title={{ share_title|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Facebook">
