@@ -1,0 +1,69 @@
+@use "sass:map";
+@use "sass:math";
+@import "../../../scss/nothing_personal_base";
+
+.hero {
+  margin-top: 2rem;
+
+  @include breakpoint(large up) {
+    margin-top: 4rem;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h1", $header-font-family);
+  }
+
+  &__topics {
+    width: fit-content;
+  }
+
+  &__image {
+    border-radius: 0 100px 0 0;
+  }
+
+  &__divider {
+    position: relative;
+    width: 100%;
+    height: rem-calc(45);
+    margin: 2rem 0;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      background: {
+        image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-small.svg");
+        repeat: no-repeat;
+        position: center;
+        size: contain;
+      }
+    }
+
+    @include breakpoint(large up) {
+      height: 3.5rem;
+
+      &::before {
+        background-image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-large.svg");
+      }
+    }
+  }
+
+  .grid-x {
+    gap: 1.5rem;
+
+    @include breakpoint(large up) {
+      gap: 0;
+    }
+  }
+}
