@@ -6,10 +6,12 @@ from wagtail.models import Orderable
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import get_related_items, localize_queryset
 
 
 class ProductMentioned(Orderable):
+
     page = ParentalKey(
         "nothing_personal.NothingPersonalProductReviewPage",
         related_name="products_mentioned",
@@ -34,10 +36,30 @@ class ProductMentioned(Orderable):
         verbose_name_plural = "Products Mentioned"
 
 
-class NothingPersonalProductReviewPage(AbstractArticlePage):
+class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
+
+    body = None
+    updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
+    reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
+    research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
 
     content_panels = AbstractArticlePage.content_panels + [
-        # Placeholder for NothingPersonalProductReviewPage blocks
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_image"),
+                FieldPanel("hero_image_alt_text"),
+            ],
+            heading="Hero Image",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("updated"),
+                FieldPanel("reviewed"),
+                FieldPanel("research"),
+            ],
+            heading="Product Review Meta",
+        ),
+        FieldPanel("lede_text"),
         MultiFieldPanel(
             [InlinePanel("products_mentioned", max_num=3)],
             heading="Products Mentioned",
