@@ -73,11 +73,7 @@ base_page_block_options = [
 class Author(models.Model):
     name = models.CharField(max_length=255)
     image = models.ForeignKey(
-        get_image_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name="Author image",
+        get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL, related_name="author_image"
     )
     bio = models.TextField(blank=True)
 
