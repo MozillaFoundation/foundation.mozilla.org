@@ -1,0 +1,66 @@
+body {
+  $back-to-top-height: rem-calc(91);
+  $back-to-top-width: rem-calc(88);
+
+  .back-to-top {
+    background: url("/static/foundation_cms/_images/back-to-top.svg") no-repeat
+      center;
+    position: sticky;
+    z-index: 5;
+    width: $back-to-top-width;
+    height: $back-to-top-height;
+    margin-top: $back-to-top-height * -1; // No vertical block dimension
+    margin-left: auto;
+    margin-right: 1rem;
+    bottom: 0;
+    transform: translateY(-1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 4px 12px rgba(0 0 0 / 12%));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+
+    @include breakpoint(medium up) {
+      margin-right: 2rem;
+    }
+
+    &.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: rem-calc(24);
+      height: rem-calc(24);
+      background: url("/static/foundation_cms/_images/icons/button-arrow-top-black.svg")
+        no-repeat center;
+    }
+  }
+
+  // Adjust position when wagtail userbar is present to avoid overlap
+  &:has(wagtail-userbar) {
+    .back-to-top {
+      margin-right: 6rem;
+    }
+  }
+
+  .back-to-top:hover {
+    background-image: url("/static/foundation_cms/_images/back-to-top-orange-400.svg");
+  }
+
+  // Extra large viewports should place the button beside the pre-footer banner
+  &.nothing-personal {
+    &:has(.pre-footer-banner) {
+      .back-to-top {
+        @include breakpoint(xxlarge up) {
+          margin-top: 0;
+          margin-bottom: $back-to-top-height * -1;
+        }
+      }
+    }
+  }
+}
