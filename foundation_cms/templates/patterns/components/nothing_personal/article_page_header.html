@@ -9,14 +9,14 @@
   </header>
 
   {% if page.displayed_hero_content != "none" %}
-  <div class="article-header__hero cell small-12 medium-10 medium-offset-1 large-11 large-offset-1">
-    <figure class="article-header__hero-figure">
-      {% if page.displayed_hero_content == "video" and page.hero_video %}
-        <video class="article-header__hero-content" playsinline="" muted="" loop="" preload="" autoplay>
-          <source src="{{ page.hero_video }}" type="video/mp4">
-        </video>
-      {% elif page.displayed_hero_content == "image" and page.hero_image %}
-        <picture class="article-header__picture">
+    <div class="article-header__hero cell small-12 medium-10 medium-offset-1 large-11 large-offset-1">
+      <figure class="article-header__hero-figure">
+        {% if page.displayed_hero_content == "video" and page.hero_video %}
+          <video class="article-header__hero-content" playsinline="" muted="" loop="" preload="" autoplay>
+            <source src="{{ page.hero_video_url }}" type="video/mp4">
+          </video>
+        {% elif page.displayed_hero_content == "image" and page.hero_image %}
+          <picture class="article-header__picture">
             {% image page.hero_image fill-1172x660 as img_small %}
             {% image page.hero_image fill-2198x1236 as img_large %}
             <source
@@ -33,9 +33,9 @@
               alt="{{ page.hero_image_alt_text|default:img_large.alt }}"
               loading="lazy"
             >
-        </picture>
-      {% endif %}
-    </figure>
-  </div>
+          </picture>
+        {% endif %}
+      </figure>
+    </div>
   {% endif %}
 </div>
