@@ -8,7 +8,6 @@ from foundation_cms.utils import get_default_locale
 
 HERO_CONTENT_IMAGE = "image"
 HERO_CONTENT_VIDEO = "video"
-HERO_CONTENT_NONE = "none"
 
 
 class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
@@ -18,7 +17,6 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
         choices=[
             (HERO_CONTENT_IMAGE, "Image"),
             (HERO_CONTENT_VIDEO, "Video"),
-            (HERO_CONTENT_NONE, "None"),
         ],
         default=HERO_CONTENT_IMAGE,
         help_text="Choose what type of content appears in the hero section.",
