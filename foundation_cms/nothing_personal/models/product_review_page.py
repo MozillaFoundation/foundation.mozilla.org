@@ -60,26 +60,6 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             heading="Product Review Meta",
         ),
         FieldPanel("lede_text"),
-        MultiFieldPanel(
-            [InlinePanel("products_mentioned", max_num=3)],
-            heading="Products Mentioned",
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("hero_image"),
-                FieldPanel("hero_image_alt_text"),
-            ],
-            heading="Hero Image",
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("updated"),
-                FieldPanel("reviewed"),
-                FieldPanel("research"),
-            ],
-            heading="Product Review Meta",
-        ),
-        FieldPanel("lede_text"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
