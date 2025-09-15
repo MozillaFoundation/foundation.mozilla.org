@@ -27,5 +27,9 @@ class AbstractArticlePage(AbstractBasePage):
         blank=True,
     )
 
+    content_panels = AbstractBasePage.content_panels + [
+        # Universal Article content panels will go here
+    ]
+
     class Meta:
         abstract = True

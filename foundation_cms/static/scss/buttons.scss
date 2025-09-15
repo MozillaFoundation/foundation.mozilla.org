@@ -266,3 +266,25 @@ button.btn-play--vimeo {
     }
   }
 }
+
+// ===================================
+// Topic Link Buttons
+// ===================================
+
+@mixin topic-pill-button-shape {
+  @include mofo-text-style($body-text-styles, "small");
+
+  border-radius: 16px 16px 0;
+  background: color(yellow, "300");
+  padding: rem-calc(5) rem-calc(16);
+}
+
+a.btn-topic {
+  @include topic-pill-button-shape;
+
+  cursor: pointer;
+
+  &:hover {
+    background: color(orange, "200");
+  }
+}

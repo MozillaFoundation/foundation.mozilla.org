@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.images import get_image_model_string
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.mixins.hero_image import HeroImageMixin
