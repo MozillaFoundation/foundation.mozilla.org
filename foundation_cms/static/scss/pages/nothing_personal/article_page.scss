@@ -5,6 +5,10 @@
 @import "../../components/nothing_personal/article_page_header";
 
 body.nothing-personal.nothing-personal-article-page {
+  .brand-banner {
+    margin-bottom: 2rem;
+  }
+
   main {
     margin-top: 1rem;
   }
@@ -88,6 +92,8 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   .more-stories-card {
+    $image-hover-scale: 105%;
+
     margin: 0 0 rem-calc(37);
     flex: 1;
     position: relative;
@@ -98,6 +104,7 @@ body.nothing-personal.nothing-personal-article-page {
       aspect-ratio: math.div(3, 2);
       background-color: color(neutral, "200");
       margin: 0 0 rem-calc(8);
+      overflow: hidden;
 
       picture {
         display: contents;
@@ -106,6 +113,14 @@ body.nothing-personal.nothing-personal-article-page {
       img {
         display: block;
         width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+    }
+
+    &:hover {
+      img {
+        transform: scale($image-hover-scale);
       }
     }
 
