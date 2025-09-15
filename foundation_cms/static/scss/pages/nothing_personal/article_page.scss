@@ -81,8 +81,7 @@ body.nothing-personal.nothing-personal-article-page {
       flex-direction: column;
 
       @include breakpoint(medium up) {
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-flow: row wrap;
         gap: 1rem;
       }
     }
@@ -91,6 +90,7 @@ body.nothing-personal.nothing-personal-article-page {
   .more-stories-card {
     margin: 0 0 rem-calc(37);
     flex: 1;
+    position: relative;
 
     &__image-wrapper {
       width: 100%;
@@ -109,8 +109,32 @@ body.nothing-personal.nothing-personal-article-page {
       }
     }
 
+    &__topics {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: rem-calc(8);
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+        }
+      }
+
+      a {
+        color: map.get($mofo-colors, black);
+        text-decoration: none;
+      }
+    }
+
     &__title {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
+
       margin: 0 0 rem-calc(8);
 
       a {

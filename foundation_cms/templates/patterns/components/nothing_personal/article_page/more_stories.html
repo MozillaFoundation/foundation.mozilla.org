@@ -27,6 +27,17 @@
                         </picture>
                     {% endif %}
                 </a>
+                <div class="more-stories-card__topics">
+                    {% with topics=article.topics.all %}
+                        {% if topics %}
+                            <ul>
+                                {% for topic in topics %}
+                                    <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                </div>
                 <div class="more-stories-card__title"><a href="{{ article.url }}">{{ article.title }}</a></div>
                 <div class="more-stories-card__author-name">By {{ article.author.name }}</div>
             </div>
