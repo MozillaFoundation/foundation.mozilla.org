@@ -238,4 +238,24 @@ body.nothing-personal.nothing-personal-article-page {
       }
     }
   }
+
+  .callout-box {
+    background-color: color(yellow, "100");
+    padding: 2rem 0;
+
+    &__heading {
+      h4,
+      h5,
+      h6,
+      p {
+        margin: 0 0 0.5rem;
+      }
+    }
+
+    &__description {
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
