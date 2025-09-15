@@ -21,7 +21,7 @@ from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
-from .text_image_block import TextImageBlock
+from .text_image_block import NarrowTextImageBlock, TextImageBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -42,6 +42,7 @@ __all__ = [
     "AudioBlock",
     "HeroAccordionBlock",
     "TextImageBlock",
+    "NarrowTextImageBlock",
     "LinkBlock",
     "OptionalLinkBlock",
     "PortraitCardBlock",

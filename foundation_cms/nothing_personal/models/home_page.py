@@ -1,18 +1,30 @@
 from django.shortcuts import get_object_or_404
+from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.fields import StreamField
 from wagtail.models import Page
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
+from foundation_cms.blocks import NarrowTextImageBlock, TwoColumnContainerBlock
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 
 
 class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     max_count = 1
 
-    content_panels = AbstractHomePage.content_panels + [
-        # Placeholder for NothingPersonalHomePage blocks
+    nothing_personal_block_options = [
+        ("two_column_container_block", TwoColumnContainerBlock()),
+        ("narrow_text_image_block", NarrowTextImageBlock()),
+        # NP Text Image Block
+        # product review carousel block
+        # 50/50 block
     ]
+    body = StreamField(
+        nothing_personal_block_options,
+        use_json_field=True,
+        blank=True,
+    )
 
     parent_page_types = ["core.HomePage"]
     subpage_types = [
@@ -20,6 +32,8 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
         "nothing_personal.NothingPersonalArticlePage",
         "nothing_personal.NothingPersonalProductReviewPage",
     ]
+
+    content_panels = AbstractHomePage.content_panels + [FieldPanel("body")]
 
     class Meta:
         verbose_name = "Nothing Personal Home Page"
