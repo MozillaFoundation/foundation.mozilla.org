@@ -41,6 +41,10 @@ body.nothing-personal.nothing-personal-article-page {
   .article-topics {
     margin: 2rem 0;
 
+    @include breakpoint(medium up) {
+      margin: 4rem 0;
+    }
+
     &__title {
       @include mofo-text-style($label-text-styles, "regular");
 
