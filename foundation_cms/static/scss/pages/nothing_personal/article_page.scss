@@ -7,6 +7,11 @@
 body.nothing-personal.nothing-personal-article-page {
   .brand-banner {
     margin-bottom: 2rem;
+
+    @include breakpoint(medium up) {
+      margin-top: 1rem;
+      margin-bottom: rem-calc(51);
+    }
   }
 
   main {
