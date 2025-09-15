@@ -11,7 +11,7 @@
   {% if page.displayed_hero_content != "none" %}
     <div class="article-header__hero cell small-12 medium-10 medium-offset-1 large-11 large-offset-1">
       <figure class="article-header__hero-figure">
-        {% if page.displayed_hero_content == "video" and page.hero_video %}
+        {% if page.displayed_hero_content == "video" and page.hero_video_url %}
           <video class="article-header__hero-content" playsinline="" muted="" loop="" preload="" autoplay>
             <source src="{{ page.hero_video_url }}" type="video/mp4">
           </video>

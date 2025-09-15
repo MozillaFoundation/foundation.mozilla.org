@@ -65,8 +65,8 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
         if self.displayed_hero_content == HERO_CONTENT_IMAGE and not self.hero_image:
             errors["hero_image"] = "Image was chosen as displayed hero content, but no image is set."
 
-        if self.displayed_hero_content == HERO_CONTENT_VIDEO and not self.hero_video:
-            errors["hero_video"] = "Video was chosen as displayed hero content, but no URL is set."
+        if self.displayed_hero_content == HERO_CONTENT_VIDEO and not self.hero_video_url:
+            errors["hero_video_url"] = "Video was chosen as displayed hero content, but no URL is set."
 
         if errors:
             raise ValidationError(errors)
