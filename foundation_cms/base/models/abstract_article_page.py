@@ -15,10 +15,6 @@ article_page_block_options = base_page_block_options + [
 
 class AbstractArticlePage(AbstractBasePage):
 
-    content_panels = AbstractBasePage.content_panels + [
-        # Universal Article content panels will go here
-    ]
-
     lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
 
     body = StreamField(
