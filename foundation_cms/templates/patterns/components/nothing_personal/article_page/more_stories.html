@@ -1,13 +1,36 @@
-<div>
-    <h3> More Stories </h3>
+{% load wagtailimages_tags %}
 
-    {% for article in latest_articles %}
-        <div>
-            <p> <b>Article Title:</b> <a href="{{ article.url }}">{{ article.title }}</a></p>
-            <p> <b>Article Lede Text:</b> {{ article.lede_text }}</p>
-            <p> <b>Published on:</b> {{ article.first_published_at }}</p>
-        </div>
-        <hr>
-    {% endfor %}
+<div class="more-stories">
+    <h3 class="more-stories__title"> More Stories </h3>
+
+    <div class="more-stories__card-grid">
+
+        {% for article in latest_articles %}
+            <div class="more-stories-card">
+                <a href="{{ page.url }}" class="more-stories-card__image-wrapper">
+                    {% if article.search_image %}
+                {% comment %} 3:2 ratio {% endcomment %}
+                        {% image article.search_image fill-600x400 as img_600 %}
+                        {% image article.search_image fill-900x600 as img_900 %}
+                        {% image article.search_image fill-1200x800 as img_1200 %}
+                        {% image article.search_image fill-1800x1200 as img_1800 %}
+                        <picture>
+                            <img src="{{ img_900.url }}"
+                                 srcset="{{ img_600.url }} 600w,
+                                         {{ img_900.url }} 900w,
+                                         {{ img_1200.url }} 1200w,
+                                         {{ img_1800.url }} 1800w"
+                                 sizes="(max-width: 639px) 100vw, 33vw"
+                                 width="{{ img_900.width }}"
+                                 height="{{ img_900.height }}"
+                                 alt="{{ article.search_image.alt }}">
+                        </picture>
+                    {% endif %}
+                </a>
+                <div class="more-stories-card__title"><a href="{{ article.url }}">{{ article.title }}</a></div>
+                <div class="more-stories-card__author-name">By {{ article.author.name }}</div>
+            </div>
+        {% endfor %}
+    </div>
 
 </div>

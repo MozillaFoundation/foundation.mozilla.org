@@ -12,12 +12,12 @@
             <div class="grid-container">
                 {% include "patterns/components/nothing_personal/article_page_header.html" %}
                 <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
-                        <div>[Lede Text]{{ page.lede_text }}</div>
+                    <div class="cell small-12 medium-7 large-offset-0">
+                        <div class="lede-text">{{ page.lede_text }}</div>
                     </div>
-                    <div class="cell small-12 medium-3 large-offset-2">
+                    <div class="cell small-12 medium-3 medium-offset-2">
                         <div class="article-meta-published">
-                            <span class="published-label">PUBLISHED</span>
+                            <span class="published-label">Published</span>
                             <p class="published-date">{{ page.first_published_at|date:"F j, Y" }}</p>
                         </div>
                         {% include "patterns/components/share_container.html" %}
@@ -26,20 +26,29 @@
             </div>
 
             {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="medium-10 medium-offset-1 large-7 large-offset-0" %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="medium-7 body-text-large" %}
             {% endif %}
 
             <div class="grid-container">
                 <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1 large-offset-0">
-                        <div>
-                            [Tag Section]
+                    <div class="cell small-12 medium-7">
+                        <div class="article-topics">
+                            {% with topics=page.topics.all %}
+                                {% if topics %}
+                                    <div class="article-topics__title">Topics</div>
+                                    <ul>
+                                        {% for topic in topics %}
+                                            <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
                         </div>
                         {% if page.author %}
                             <div class="author-info">
                                 <h5 class="author-name">{{ page.author.name }}</h5>
                                 {% if page.author.bio %}
-                                    <p class="author-bio">{{ page.author.bio }}</p>
+                                    <div class="author-bio body-text-large">{{ page.author.bio }}</div>
                                 {% endif %}
                             </div>
                         {% endif %}
@@ -51,7 +60,7 @@
         {% if latest_articles|length >= 2 %}
             <div class="grid-container">
                 <div class="grid-x">
-                    <div class="cell small-12 medium-10 medium-offset-1">
+                    <div class="cell small-12">
                         {% include "patterns/components/nothing_personal/article_page/more_stories.html" %}
                     </div>
                 </div>
