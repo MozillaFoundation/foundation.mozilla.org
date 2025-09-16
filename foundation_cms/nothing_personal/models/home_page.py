@@ -1,4 +1,3 @@
-from django.db import models
 from django.shortcuts import get_object_or_404
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
