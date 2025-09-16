@@ -8,6 +8,7 @@ from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
+from .text_social_block import TextSocialBlock
 from .video_block import VideoBlock
 
 
@@ -20,6 +21,7 @@ class ColumnStreamBlock(StreamBlock):
     list = ListBlock()
     spacer = SpacerBlock()
     quote = QuoteBlock()
+    text_social = TextSocialBlock()
 
 
 class TwoColumnContainerBlock(BaseBlock):
