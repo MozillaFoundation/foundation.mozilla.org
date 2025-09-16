@@ -13,13 +13,13 @@ HERO_CONTENT_VIDEO = "video"
 class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
 
     displayed_hero_content = models.CharField(
+        verbose_name="Select media type from dropdown",
         max_length=25,
         choices=[
             (HERO_CONTENT_IMAGE, "Image"),
             (HERO_CONTENT_VIDEO, "Video"),
         ],
         default=HERO_CONTENT_IMAGE,
-        help_text="Choose what type of content appears in the hero section.",
     )
 
     hero_video_url = models.CharField(
