@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static %}
+{% load static wagtailimages_tags %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_page.compiled.css' %}">
@@ -11,49 +11,23 @@
         <article>
             <div class="grid-container">
                 <div class="grid-x">
-                    <header class="cell small-12 medium-9 medium-offset-1 large-8">
-                        <h1>Product Review placeholder template</h1>
-                        <span class="author-wrapper">
-                            <span class="author">Author Name</span>
-                        </span>
-                    </header>
-                </div>
-                <div class="grid-x">
-                    <div class="lead-image-wrapper cell small-12 medium-10 medium-offset-1 large-10">
-                        {% comment %} placeholder image. replace with <figure> when we have a CMS field for the image {% endcomment %}
-                        <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="Newsletter signup success image" />
-                        {% comment %}
-                        <figure>
-                            <picture>
-                                <source media="..." srcset="...">
-                                <img ...>
-                            </picture>
-                        </figure>
-                        {% endcomment %}
+                    <div class="cell small-12 medium-7">
+                        <div>[Topic Tag Pills]</div>
+                        <h1>{{ page.title }}</h1>
+                        <div>{{ page.updated }} | {{ page.reviewed }} | {{ page.research }}</div>
+                        <div>{{ page.lede_text }}</div>
+                        <div>[In This Review Anchor Links]</div>
                     </div>
-                </div>
-                <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
-                        <div>[Lede Text]{{ page.lede_text }}</div>
-                    </div>
-                    <div class="cell small-12 medium-3 medium-offset-1">
-                        <div>[Published Date]</div>
-                        <div>[Share Buttons]</div>
+                    <div class="cell small-12 medium-3">
+                        {% if page.hero_image %}
+                            {% image page.hero_image fill-692x692 as img %}
+                            <div class="hero__media">
+                                <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-
-            {% comment %} To be removed. Adding this section so it's easier for desginers to review. {% endcomment %}
-            <div class="grid-container">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
-                        <div>
-                            [Streamfield Blocks]
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% comment %} Reminder to remove this section above {% endcomment %}
 
             {% if page.body %}
                 {% include "patterns/components/streamfield.html" with streamfield=page.body %}
@@ -61,23 +35,63 @@
 
             <div class="grid-container">
                 <div class="grid-x">
-                    <div class="cell small-12 medium-7 medium-offset-1">
+                    <div class="cell small-4 medium-4 ">
                         <div>
-                            [Tag Section]
+                            <h2>[Anchor Nav Heading #1]</h2>
                         </div>
+                    </div>
+                    <div class="cell small-7 medium-7 medium-offset-1">
+                        [Anchor Nav Content Part 1]
+                    </div>
+                </div>
+                <div class="grid-x">
+                    <div class="cell small-4 medium-4">
                         <div>
-                            [Author Section]
+                            <h2>[Anchor Nav Heading #2]</h2>
+                        </div>
+                    </div>
+                    <div class="cell small-7 medium-7 medium-offset-1">
+                        [Anchor Nav #2 Content]
+                    </div>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-12">
+                        <div>
+                            [Email CTA]
                         </div>
                     </div>
                 </div>
             </div>
-        </article>
-        <div class="grid-container">
-            <div class="grid-x">
-                <div class="cell small-12 medium-10 medium-offset-1">
-                    [More Stories]
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-4 medium-4">
+                        <div>
+                            <h2>[Anchor Nav Heading #1]</h2>
+                        </div>
+                    </div>
+                    <div class="cell small-7 medium-7 medium-offset-1">
+                        [Anchor Nav Content Part 1]
+                    </div>
+                </div>
+                <div class="grid-x">
+                    <div class="cell small-4 medium-4">
+                        <div>
+                            <h2>[Anchor Nav Heading #2]</h2>
+                        </div>
+                    </div>
+                    <div class="cell small-7 medium-7 medium-offset-1">
+                        [Anchor Nav #2 Content]
+                    </div>
                 </div>
             </div>
-        </div>
+            {% block products_mentioned %}
+                {% if products_mentioned %}
+                    {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+                {% endif %}
+            {% endblock products_mentioned %}
+
+        </article>
     </main>
 {% endblock content %}
