@@ -21,6 +21,7 @@
 @import "../scss/blocks/themes/default/spotlight_card_carousel";
 @import "../scss/blocks/themes/default/spacer_block";
 @import "../scss/blocks/themes/default/tabbed_content_container";
+@import "../scss/blocks/themes/default/text_social_block";
 @import "../scss/blocks/themes/default/timely_activations";
 @import "../scss/blocks/themes/default/title_block";
 @import "../scss/blocks/themes/default/two_column_container_block";
@@ -32,9 +33,6 @@
 @import "../scss/components/newsletter_signup/newsletter_signup_form";
 @import "../scss/components/share-container";
 @import "../scss/components/back_to_top";
-
-// Nothing Personal styles
-@import "nothing_personal_base";
 
 // Embed/widget overrides
 @import "../scss/onetrust-override";

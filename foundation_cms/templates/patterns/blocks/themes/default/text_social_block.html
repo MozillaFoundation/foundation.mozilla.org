@@ -1,0 +1,11 @@
+<div class="text-social-block">
+  {% if value.title %}
+    <p class="text-social-block__title">{{ value.title }}</p>
+  {% endif %}
+  {% if value.text %}
+    <p class="text-social-block__text">{{ value.text }}</p>
+  {% endif %}
+  <div class="text-social-block__share">
+    {% include "patterns/components/share_container.html" with show_title=False %}
+  </div>
+</div>
