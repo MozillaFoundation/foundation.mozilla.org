@@ -37,6 +37,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
     content_panels = AbstractHomePage.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel("hero_title"),
                 FieldPanel("hero_image"),
                 FieldPanel("hero_image_alt_text"),
             ],
