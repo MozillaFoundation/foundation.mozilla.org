@@ -1,0 +1,36 @@
+@use "sass:map";
+
+body.nothing-personal {
+  .who-we-are-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: rem-calc(54);
+    gap: rem-calc(39);
+    width: rem-calc(516);
+    height: rem-calc(493);
+
+    &__title {
+      @include mofo-text-style($body-text-styles, "xlarge");
+
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+    }
+
+    &__description {
+      @include mofo-text-style($body-text-styles, "large");
+
+      line-height: 1.3;
+      text-align: center;
+      margin: 0;
+    }
+
+    &__share {
+      .share-buttons {
+        justify-content: center;
+      }
+    }
+  }
+}

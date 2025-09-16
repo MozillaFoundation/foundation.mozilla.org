@@ -1,5 +1,10 @@
+from django.db import models
 from django.shortcuts import get_object_or_404
+<<<<<<< HEAD
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+=======
+from wagtail.admin.panels import FieldPanel
+>>>>>>> main
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
@@ -13,6 +18,7 @@ from foundation_cms.mixins.hero_image import HeroImageMixin
 
 class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixin):
     max_count = 1
+    who_we_are_description = models.TextField(blank=True, help_text="Description text for the Who We Are section")
 
     nothing_personal_block_options = [
         ("two_column_container_block", TwoColumnContainerBlock()),
@@ -44,6 +50,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
             heading="Hero Image",
         ),
         FieldPanel("body"),
+        FieldPanel("who_we_are_description"),
     ]
 
     class Meta:
