@@ -1,7 +1,16 @@
 {% extends theme_base %}
 
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/home_page.compiled.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
-  <div class="grid-container">
-    <h1> {{ page.title }}</h1>
-  </div>
+  <!-- Main Content -->
+  <main>
+    {% if page.body %}
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
+  </main>
 {% endblock content %}
