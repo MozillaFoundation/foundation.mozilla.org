@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.models import Orderable
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.mixins.hero_image import HeroImageMixin
@@ -60,10 +60,6 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             heading="Product Review Meta",
         ),
         FieldPanel("lede_text"),
-        MultiFieldPanel(
-            [InlinePanel("products_mentioned", max_num=3)],
-            heading="Products Mentioned",
-        ),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
@@ -72,6 +68,11 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     translatable_fields = [
         # Content tab fields
         SynchronizedField("products_mentioned"),
+        SynchronizedField("hero_image"),
+        TranslatableField("hero_image_alt_text"),
+        SynchronizedField("updated"),
+        SynchronizedField("reviewed"),
+        TranslatableField("research"),
     ]
 
     class Meta:
