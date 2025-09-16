@@ -14,7 +14,6 @@ from foundation_cms.mixins.hero_image import HeroImageMixin
 
 class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixin):
     max_count = 1
-    who_we_are_description = models.TextField(blank=True, help_text="Description text for the Who We Are section")
 
     nothing_personal_block_options = [
         ("two_column_container_block", TwoColumnContainerBlock()),
@@ -46,7 +45,6 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
             heading="Hero Image",
         ),
         FieldPanel("body"),
-        FieldPanel("who_we_are_description"),
     ]
 
     class Meta:
