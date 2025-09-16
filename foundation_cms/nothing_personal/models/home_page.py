@@ -1,10 +1,6 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
-<<<<<<< HEAD
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-=======
-from wagtail.admin.panels import FieldPanel
->>>>>>> main
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
