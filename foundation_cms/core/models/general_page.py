@@ -7,10 +7,6 @@ from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
 class GeneralPage(AbstractGeneralPage, HeroImageMixin):
-    hero_title = models.TextField(
-        help_text="Hero Title",
-        blank=True,
-    )
 
     hero_description = models.CharField(
         max_length=120,

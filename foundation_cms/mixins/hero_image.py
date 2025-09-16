@@ -3,6 +3,11 @@ from wagtail.images import get_image_model_string
 
 
 class HeroImageMixin(models.Model):
+    hero_title = models.TextField(
+        help_text="Hero Title",
+        blank=True,
+    )
+
     hero_image = models.ForeignKey(
         get_image_model_string(),
         null=True,
