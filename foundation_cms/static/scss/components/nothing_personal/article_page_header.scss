@@ -7,6 +7,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     position: relative;
     margin-left: rem-calc(-6);
     margin-bottom: rem-calc(-54);
+    height: fit-content;
 
     @include breakpoint(large up) {
       margin-bottom: -100%;
@@ -78,7 +79,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     }
 
     @include breakpoint(large up) {
-      margin-bottom: rem-calc(40);
+      margin-bottom: rem-calc(88);
     }
   }
 
