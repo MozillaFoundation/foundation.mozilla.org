@@ -1,19 +1,46 @@
+from django.core.exceptions import ValidationError
+from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import get_default_locale
 
+HERO_CONTENT_IMAGE = "image"
+HERO_CONTENT_VIDEO = "video"
+
 
 class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
+
+    displayed_hero_content = models.CharField(
+        verbose_name="Select media type from dropdown",
+        max_length=25,
+        choices=[
+            (HERO_CONTENT_IMAGE, "Image"),
+            (HERO_CONTENT_VIDEO, "Video"),
+        ],
+        default=HERO_CONTENT_IMAGE,
+    )
+
+    hero_video_url = models.CharField(
+        blank=True,
+        max_length=500,
+        help_text="Log into Vimeo using 1Password "
+        "and upload the desired video. "
+        "Then select the video and "
+        'click "...", "Video File Links", '
+        'and select "(mp4, 1920 x 1080)". Copy and paste the link here.',
+    )
 
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
             [
+                FieldPanel("displayed_hero_content"),
                 FieldPanel("hero_image"),
                 FieldPanel("hero_image_alt_text"),
+                FieldPanel("hero_video_url"),
             ],
-            heading="Hero Image",
+            heading="Hero Section",
             classname="collapsible",
         ),
         FieldPanel("lede_text"),
@@ -27,6 +54,19 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
         verbose_name = "Nothing Personal Article Page"
 
     template = "patterns/pages/nothing_personal/article_page.html"
+
+    def clean(self):
+        super().clean()
+        errors = {}
+
+        if self.displayed_hero_content == HERO_CONTENT_IMAGE and not self.hero_image:
+            errors["hero_image"] = "Image was chosen as displayed hero content, but no image is set."
+
+        if self.displayed_hero_content == HERO_CONTENT_VIDEO and not self.hero_video_url:
+            errors["hero_video_url"] = "Video was chosen as displayed hero content, but no URL is set."
+
+        if errors:
+            raise ValidationError(errors)
 
     def get_latest_articles(self):
         """
