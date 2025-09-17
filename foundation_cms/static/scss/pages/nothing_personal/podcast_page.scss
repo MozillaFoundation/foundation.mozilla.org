@@ -2,69 +2,103 @@
 @use "sass:math";
 @import "../../../scss/nothing_personal_base";
 
-.hero {
-  margin-top: 2rem;
+body.nothing-personal.nothing-personal-podcast-page {
+  .brand-banner {
+    margin: 0.5rem 0 2rem;
 
-  @include breakpoint(large up) {
-    margin-top: 4rem;
-  }
-
-  &__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  &__title {
-    @include mofo-text-style($header-styles, "h1", $header-font-family);
-  }
-
-  &__topics {
-    width: fit-content;
-    margin: 2rem 0;
-  }
-
-  &__image {
-    border-radius: 0 100px 0 0;
-  }
-
-  &__divider {
-    position: relative;
-    width: 100%;
-    height: rem-calc(45);
-    margin: 2rem 0;
-    z-index: 1;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      height: 100%;
-      background: {
-        image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-small.svg");
-        repeat: no-repeat;
-        position: center;
-        size: contain;
-      }
-    }
-
-    @include breakpoint(large up) {
-      height: 3.5rem;
-
-      &::before {
-        background-image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-large.svg");
-      }
+    @include breakpoint(medium up) {
+      margin: 1.5rem 0 4rem;
     }
   }
 
-  .grid-x {
-    gap: 1.5rem;
+  .hero {
+    margin: 2rem 0;
 
-    @include breakpoint(large up) {
-      gap: 0;
+    @include breakpoint(medium up) {
+      margin: 4rem 0;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+    }
+
+    &__topics {
+      width: fit-content;
+      margin: 2rem 0;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: rem-calc(8);
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+        }
+      }
+
+      a {
+        color: map.get($mofo-colors, black);
+        text-decoration: none;
+      }
+    }
+
+    &__image {
+      border-radius: 0 100px 0 0;
+    }
+
+    &__divider {
+      height: rem-calc(45);
+      background-image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-large.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      margin: 0.5rem 0 0;
+
+      @include breakpoint(medium up) {
+        height: 3.5rem;
+        margin-top: 4rem;
+      }
+    }
+
+    .grid-x {
+      gap: 1.5rem;
+
+      @include breakpoint(medium up) {
+        gap: 0;
+      }
+    }
+  }
+
+  .audio-block {
+    margin-bottom: 1.5rem;
+
+    @include breakpoint(medium up) {
+      width: math.div(2, 3) * 100%;
+    }
+
+    iframe {
+      display: block;
+    }
+  }
+
+  .two-column-container {
+    margin: 2rem 0 0;
+
+    @include breakpoint(medium up) {
+      margin: 4rem 0 0;
+    }
+
+    .newsletter-signup,
+    .list-block {
+      margin-bottom: 0;
     }
   }
 }
