@@ -31,6 +31,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
     subpage_types = [
         "nothing_personal.NothingPersonalArticleCollectionPage",
         "nothing_personal.NothingPersonalArticlePage",
+        "nothing_personal.NothingPersonalPodcastPage",
         "nothing_personal.NothingPersonalProductReviewPage",
     ]
 

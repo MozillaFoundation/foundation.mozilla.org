@@ -1,0 +1,45 @@
+{% extends theme_base %}
+
+{% load wagtailimages_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/podcast_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <div class="hero">
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="hero__text cell small-12 medium-6">
+                        <div class="hero__title">{{ page.hero_title }}</div>
+                        <div class="hero__topics">
+                            {% with topics=page.topics.all %}
+                                {% if topics %}
+                                    <ul>
+                                        {% for topic in topics %}
+                                            <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="hero__description lede-text">{{ page.hero_description }}</div>
+                    </div>
+                    {% if page.hero_image %}
+                        {% image page.hero_image fill-692x692 as img %}
+                        <div class="hero__media cell small-12 medium-6">
+                            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__image">
+                        </div>
+                    {% endif %}
+                    <div class="cell small-12">
+                        <div class="hero__divider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if page.body %}
+            {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+        {% endif %}
+    </main>
+{% endblock content %}
