@@ -1,13 +1,16 @@
 {% extends theme_base %}
 
-{% block content %}
-  <div class="grid-container">
-    <h1> {{ page.title }}</h1>
+{% load static %}
 
-    <div class="cta-section">
-      {% if page.who_we_are_description %}
-        {% include "patterns/components/nothing_personal/who_we_are_section.html" %}
-      {% endif %}
-    </div>
-  </div>
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/home_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <!-- Main Content -->
+  <main>
+    {% if page.body %}
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
+  </main>
 {% endblock content %}
