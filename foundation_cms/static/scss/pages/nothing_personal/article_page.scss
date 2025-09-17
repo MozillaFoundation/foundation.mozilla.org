@@ -5,12 +5,36 @@
 @import "../../components/nothing_personal/article_page_header";
 
 body.nothing-personal.nothing-personal-article-page {
-  .brand-banner {
-    margin-bottom: 2rem;
+  $block-spacing-small: 2rem;
+  $block-spacing-large: 4rem;
+
+  @mixin block-spacing() {
+    margin-bottom: $block-spacing-small;
 
     @include breakpoint(medium up) {
+      margin-bottom: $block-spacing-large;
+    }
+  }
+
+  .brand-banner,
+  .article-intro,
+  .article-topics,
+  .rich-text-block,
+  .image-block,
+  .two-column-container,
+  .newsletter-signup[data-layout="expand_on_focus"],
+  .callout-box,
+  .quote-block {
+    @include block-spacing;
+  }
+
+  ::selection {
+    background: color(yellow, "100");
+  }
+
+  .brand-banner {
+    @include breakpoint(medium up) {
       margin-top: 1rem;
-      margin-bottom: rem-calc(51);
     }
   }
 
@@ -19,15 +43,14 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   .article-meta-published {
-    margin-bottom: 2rem;
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
     @include breakpoint(medium up) {
       margin-top: 0;
-      margin-bottom: rem-calc(29);
+      margin-bottom: 2rem;
     }
 
     .published-label {
@@ -44,12 +67,6 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   .article-topics {
-    margin: 2rem 0;
-
-    @include breakpoint(medium up) {
-      margin: 4rem 0;
-    }
-
     &__title {
       @include mofo-text-style($label-text-styles, "regular");
 
@@ -170,15 +187,41 @@ body.nothing-personal.nothing-personal-article-page {
 
   // Content blocks customization
 
-  .image-block {
-    &__title {
-      font-size: 1rem;
+  .rich-text-block {
+    *:first-child {
+      margin-top: 0;
+    }
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+
+    h2,
+    h3,
+    h4 {
+      margin-bottom: 1.5rem;
     }
   }
 
+  .image-block {
+    &__title {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .two-column-container {
+    .image-block {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  // TODO: Replace this styling with a container query approach
   .newsletter-signup[data-layout="expand_on_focus"] {
+    margin-top: 1rem; // Glyph padding
+
     @include breakpoint(xlarge up) {
-      margin-top: 3rem;
+      margin-top: 2rem; // Glyph padding
       display: block;
       padding: 2rem;
     }
@@ -261,6 +304,12 @@ body.nothing-personal.nothing-personal-article-page {
       p:last-child {
         margin-bottom: 0;
       }
+    }
+  }
+
+  .quote-block {
+    figcaption {
+      font-size: get-text-property($body-text-styles, "small", font-size);
     }
   }
 }
