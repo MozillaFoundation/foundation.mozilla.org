@@ -6,7 +6,11 @@ from wagtail.models import Page
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
-from foundation_cms.blocks import NarrowTextImageBlock, TwoColumnContainerBlock
+from foundation_cms.blocks import (
+    NarrowTextImageBlock,
+    ProductReviewCarouselBlock,
+    TwoColumnContainerBlock,
+)
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 from foundation_cms.mixins.hero_image import HeroImageMixin
 
@@ -17,6 +21,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
     nothing_personal_block_options = [
         ("two_column_container_block", TwoColumnContainerBlock()),
         ("narrow_text_image_block", NarrowTextImageBlock()),
+        ("product_review_carousel_block", ProductReviewCarouselBlock()),
         # NP Text Image Block
         # product review carousel block
         # 50/50 block
@@ -31,6 +36,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
     subpage_types = [
         "nothing_personal.NothingPersonalArticleCollectionPage",
         "nothing_personal.NothingPersonalArticlePage",
+        "nothing_personal.NothingPersonalPodcastPage",
         "nothing_personal.NothingPersonalProductReviewPage",
     ]
 

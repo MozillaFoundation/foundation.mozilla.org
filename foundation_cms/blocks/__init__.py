@@ -14,6 +14,7 @@ from .pillar_card_block import PillarCardBlock
 from .pillar_card_set_block import PillarCardSetBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
+from .product_review_carousel_block import ProductReviewCarouselBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_block import SpotlightCardBlock
@@ -49,6 +50,7 @@ __all__ = [
     "OptionalLinkBlock",
     "PortraitCardBlock",
     "PortraitCardSetBlock",
+    "ProductReviewCarouselBlock",
     "LinkButtonBlock",
     "TimelyActivationsCardsBlock",
     "ImpactNumberBlock",

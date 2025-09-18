@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block block_content %}
+  <div class="audio-block">
+    {{ self.simplecast_embed_code|safe }}
+  </div>
+{% endblock block_content %}

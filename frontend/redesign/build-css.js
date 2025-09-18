@@ -13,6 +13,7 @@ const entries = [
   "pages/home_page",
   "pages/topic_listing_page",
   "pages/nothing_personal/article_page",
+  "pages/nothing_personal/podcast_page",
   "pages/nothing_personal/home_page",
 ];
 
