@@ -1,0 +1,103 @@
+body.nothing-personal.nothing-personal-article-page .article-header {
+  $header-highlight-background-color: color(yellow, "100");
+  $header-highlight-gap: rem-calc(8);
+
+  &__meta {
+    z-index: 1;
+    position: relative;
+    margin-left: rem-calc(-6);
+    margin-bottom: rem-calc(-54);
+    height: fit-content;
+
+    @include breakpoint(large up) {
+      margin-bottom: -100%;
+      margin-top: rem-calc(60);
+    }
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+    display: inline;
+    line-height: 1.1 !important;
+    margin: 0;
+    padding: 0 0.5rem;
+    box-decoration-break: clone;
+
+    // The highlight effect is created using a linear gradient background image
+    // with transparent slices at the top and bottom, and a solid color in the middle.
+    // Using a background color alone would not allow for the gap between lines
+    // of text in multi-line headers.
+    background-image: linear-gradient(
+      to bottom,
+      /* top transparent slice */ transparent 0,
+      transparent calc(#{$header-highlight-gap} / 2),
+      /* yellow body */ $header-highlight-background-color
+        calc(#{$header-highlight-gap} / 2),
+      $header-highlight-background-color
+        calc(100% - #{$header-highlight-gap} / 2),
+      /* bottom transparent slice */ transparent
+        calc(100% - #{$header-highlight-gap} / 2),
+      transparent 100%
+    );
+    background-size: 100%;
+    background-position: 0 1px;
+    background-repeat: repeat-y;
+    background-origin: padding-box;
+    background-clip: padding-box;
+
+    @include breakpoint(medium only) {
+      font-size: rem-calc(56);
+    }
+
+    @include breakpoint(large up) {
+      line-height: 1.2 !important;
+      padding: 0 0.5rem;
+    }
+  }
+
+  &__author-wrapper {
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  &__author {
+    @include mofo-text-style($body-text-styles, "xlarge");
+
+    display: inline;
+    background-color: $header-highlight-background-color;
+    padding: 0 0.25rem;
+    box-decoration-break: clone;
+    margin: 0;
+  }
+
+  &__hero {
+    margin-bottom: rem-calc(25);
+
+    @include breakpoint(medium up) {
+      margin-bottom: rem-calc(46);
+    }
+
+    @include breakpoint(large up) {
+      margin-bottom: rem-calc(88);
+    }
+  }
+
+  &__hero-figure {
+    width: 100%;
+    margin: 0;
+    aspect-ratio: math.div(16, 9);
+    overflow: hidden;
+  }
+
+  &__picture {
+    display: contents;
+  }
+
+  &__hero-content {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

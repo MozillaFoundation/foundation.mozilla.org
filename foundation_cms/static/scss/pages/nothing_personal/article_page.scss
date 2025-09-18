@@ -1,94 +1,315 @@
 @use "sass:map";
 @use "sass:math";
 
-@import "../../../scss/nothing_personal_base";
+@import "../../nothing_personal_base";
+@import "../../components/nothing_personal/article_page_header";
 
 body.nothing-personal.nothing-personal-article-page {
+  $block-spacing-small: 2rem;
+  $block-spacing-large: 4rem;
+
+  @mixin block-spacing() {
+    margin-bottom: $block-spacing-small;
+
+    @include breakpoint(medium up) {
+      margin-bottom: $block-spacing-large;
+    }
+  }
+
+  .brand-banner,
+  .article-intro,
+  .article-topics,
+  .rich-text-block,
+  .image-block,
+  .two-column-container,
+  .newsletter-signup[data-layout="expand_on_focus"],
+  .callout-box,
+  .quote-block {
+    @include block-spacing;
+  }
+
+  ::selection {
+    background: color(yellow, "100");
+  }
+
+  .brand-banner {
+    @include breakpoint(medium up) {
+      margin-top: 1rem;
+    }
+  }
+
   main {
     margin-top: 1rem;
   }
 
-  header {
-    $highlight-color: color(yellow, "100");
-
-    // [TODO:FIXME] These are just random number I picked. Final header text style TBD
-    $header-font-size: 3rem;
-    $header-line-height: 1.4;
-
-    z-index: 1;
-    position: relative;
-    margin-bottom: calc(-1 * $header-font-size * $header-line-height / 2);
-
-    @include breakpoint(large up) {
-      position: relative;
-      left: -2rem;
-      margin-top: math.div($header-font-size * $header-line-height, 2);
-      margin-bottom: -100%;
-    }
-
-    h1 {
-      display: inline;
-      background-color: $highlight-color;
-      padding: 0 0.75rem 0 0.5rem;
-      font-size: $header-font-size;
-      line-height: $header-line-height;
-      box-decoration-break: clone;
-      margin: 0;
-    }
-
-    .author-wrapper {
-      display: block;
-      margin-top: 0.25rem;
-      position: absolute;
-
-      @include breakpoint(large up) {
-        position: static;
-      }
-    }
-
-    .author {
-      @include mofo-text-style($body-text-styles, "large");
-
-      display: inline;
-      background-color: $highlight-color;
-      padding: 0 0.75rem 0 0.5rem;
-      box-decoration-break: clone;
-      margin: 0;
-    }
-  }
-
-  .lead-image-wrapper {
-    margin-bottom: rem-calc(25);
-
-    @include breakpoint(medium up) {
-      margin-bottom: rem-calc(46);
-    }
-
-    @include breakpoint(large up) {
-      margin-bottom: rem-calc(40);
-    }
-  }
-
   .article-meta-published {
-    margin-bottom: 2rem;
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
     @include breakpoint(medium up) {
       margin-top: 0;
-      margin-bottom: rem-calc(29);
+      margin-bottom: 2rem;
     }
 
     .published-label {
       @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
     }
 
     .published-date {
       @include mofo-text-style($body-text-styles, "large");
 
       margin: 0;
+    }
+  }
+
+  .article-topics {
+    &__title {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
+      margin: 0 0 0.5rem;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem-calc(8);
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+      }
+    }
+
+    a {
+      color: map.get($mofo-colors, black);
+      text-decoration: none;
+    }
+  }
+
+  .author-info {
+    background-image: url("/static/foundation_cms/_images/author-info-divider.svg");
+    background-position: top center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    padding: 2.5rem 0 0;
+    margin: 0 0 rem-calc(71);
+
+    h5 {
+      margin: 0 0 1rem;
+    }
+  }
+
+  .more-stories {
+    &__card-grid {
+      display: flex;
+      flex-direction: column;
+
+      @include breakpoint(medium up) {
+        flex-flow: row wrap;
+        gap: 1rem;
+      }
+    }
+  }
+
+  .more-stories-card {
+    $image-hover-scale: 105%;
+
+    margin: 0 0 rem-calc(37);
+    flex: 1;
+    position: relative;
+
+    &__image-wrapper {
+      width: 100%;
+      display: block;
+      aspect-ratio: math.div(3, 2);
+      background-color: color(neutral, "200");
+      margin: 0 0 rem-calc(8);
+      overflow: hidden;
+
+      picture {
+        display: contents;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+    }
+
+    &:hover {
+      img {
+        transform: scale($image-hover-scale);
+      }
+    }
+
+    &__topics {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: rem-calc(8);
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline-block;
+        }
+      }
+
+      a {
+        color: map.get($mofo-colors, black);
+        text-decoration: none;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin: 0 0 rem-calc(8);
+
+      a {
+        text-decoration: none;
+        color: $black;
+      }
+    }
+  }
+
+  // Content blocks customization
+
+  .rich-text-block {
+    *:first-child {
+      margin-top: 0;
+    }
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+
+    h2,
+    h3,
+    h4 {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .image-block {
+    &__title {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .two-column-container {
+    .image-block {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  // TODO: Replace this styling with a container query approach
+  .newsletter-signup[data-layout="expand_on_focus"] {
+    margin-top: 1rem; // Glyph padding
+
+    @include breakpoint(xlarge up) {
+      margin-top: 2rem; // Glyph padding
+      display: block;
+      padding: 2rem;
+    }
+
+    &::before {
+      @include breakpoint(xlarge up) {
+        position: absolute;
+        top: -2rem;
+        left: 2rem;
+        flex-shrink: 1;
+        min-height: 0;
+      }
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(xlarge up) {
+        margin: 0 0 0.5rem;
+        min-height: 0;
+        display: block;
+        align-items: stretch;
+      }
+    }
+
+    .newsletter-signup__form {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+        align-items: stretch;
+        flex: auto;
+        gap: 0.5rem;
+      }
+    }
+
+    .newsletter-signup__form-grid {
+      @include breakpoint(xlarge up) {
+        flex: auto;
+      }
+    }
+
+    .newsletter-signup__fieldset {
+      @include breakpoint(xlarge up) {
+        min-width: 0;
+      }
+    }
+
+    .newsletter-signup__field:has(> label > input[type="checkbox"]) {
+      @include breakpoint(xlarge up) {
+        padding-bottom: 0;
+      }
+    }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+      }
+    }
+
+    .newsletter-signup__error-message {
+      @include breakpoint(xlarge up) {
+        order: 0;
+        width: auto;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .callout-box {
+    background-color: color(yellow, "100");
+    padding: 2rem 0;
+
+    &__heading {
+      h4,
+      h5,
+      h6,
+      p {
+        margin: 0 0 0.5rem;
+      }
+    }
+
+    &__description {
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .quote-block {
+    figcaption {
+      font-size: get-text-property($body-text-styles, "small", font-size);
     }
   }
 }

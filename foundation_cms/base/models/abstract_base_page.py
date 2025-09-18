@@ -9,6 +9,7 @@ from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
 from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
@@ -32,6 +33,7 @@ from foundation_cms.blocks import (
     TitleBlock,
     TwoColumnContainerBlock,
     VideoBlock,
+    iFrameBlock,
 )
 from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixin
 
@@ -53,6 +55,7 @@ base_page_block_options = [
     ("portrait_card_set_block", PortraitCardSetBlock()),
     ("spotlight_card_set_block", SpotlightCardSetBlock()),
     ("spacer_block", SpacerBlock()),
+    ("iframe_block", iFrameBlock()),
     ("impact_numbers", ImpactNumberBlock()),
     ("newsletter_signup", NewsletterSignupBlock()),
     ("timely_activations_cards", TimelyActivationsCardsBlock()),
@@ -70,7 +73,7 @@ base_page_block_options = [
 class Author(models.Model):
     name = models.CharField(max_length=255)
     image = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="author_image"
+        get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL, related_name="author_image"
     )
     bio = models.TextField(blank=True)
 
@@ -100,6 +103,16 @@ class Topic(TagBase):
     class Meta:
         verbose_name = "Page Topic (new)"
         verbose_name_plural = "Page Topics (new)"
+
+    # TODO:FIXME Topic listing route should not live under the NP tree
+    def get_topic_listing_url(self):
+        """Get the Nothing Personal listing URL for this topic"""
+        from foundation_cms.nothing_personal.models import NothingPersonalHomePage
+
+        np_home = NothingPersonalHomePage.objects.live().first()
+        if np_home:
+            return f"{np_home.url}topics/{self.slug}/"
+        return None
 
 
 class AbstractBasePage(FoundationMetadataPageMixin, Page):

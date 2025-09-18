@@ -1,0 +1,14 @@
+{% load l10n wagtailcore_tags %}
+
+<div class="iframe-block">
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell {% if value.iframe_width == "full_width" %} large-12{% elif value.iframe_width == "normal" %} large-8{% endif %}">
+                <div {% if value.height %}style="height: {{ value.height|unlocalize }}px;"
+                     {% endif %}>
+                    <iframe src="{{ value.url }}" class="" {% if value.disable_scroll %}scrolling="no" style="overflow: hidden;"{% endif %}></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
