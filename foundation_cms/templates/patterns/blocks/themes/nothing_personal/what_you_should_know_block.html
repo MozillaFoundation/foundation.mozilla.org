@@ -1,0 +1,53 @@
+<div class="grid-container" id="what-you-should-know">
+    <div class="grid-x">
+        <div class="cell small-4 medium-4">
+            <div>
+                <p>What You Should Know</p>
+            </div>
+        </div>
+        <div class="cell small-7 medium-7 medium-offset-1">
+
+            {% if value.trust_default_settings %}
+                <div class="question-answer">
+                    <p>Should I trust their default settings?</p>
+                    <p><strong>{{ value.trust_default_settings|title }}</strong></p>
+                </div>
+            {% endif %}
+
+            {% if value.give_data_by_default %}
+                <div class="question-answer">
+                    <p>Should I give them my data by default?</p>
+                    <p><strong>{{ value.give_data_by_default|title }}</strong></p>
+                </div>
+            {% endif %}
+
+            {% if value.use_offline %}
+                <div class="question-answer">
+                    <p>Can I use this product/service offline?</p>
+                    <p><strong>{{ value.use_offline|title }}</strong></p>
+                </div>
+            {% endif %}
+
+            {% if value.reconsider_buying %}
+                <div class="question-answer">
+                    <p>Should I reconsider buying this product because of this company's track record + data practices?</p>
+                    <p><strong>{{ value.reconsider_buying|title }}</strong></p>
+                    {% if value.reconsider_buying_explanation %}
+                        {{ value.reconsider_buying_explanation }}
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if value.sells_user_data %}
+                <div class="question-answer">
+                    <p>Does this product/service sell or giveaway user data?</p>
+                    <p><strong>{{ value.sells_user_data|title }}</strong></p>
+                    {% if value.sells_user_data_explanation %}
+                        {{ value.sells_user_data_explanation }}
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
