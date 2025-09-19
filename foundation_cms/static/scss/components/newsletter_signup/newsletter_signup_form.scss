@@ -35,14 +35,26 @@
     gap: 0.5rem;
   }
 
-  &__cta {
+  &__cta-wrapper {
+    @include breakpoint(xlarge up) {
+      align-self: center;
+    }
+  }
+
+  &__cta-header {
     @include mofo-text-style($header-styles, "h6", $header-font-family);
 
-    margin: 0 0 0.5rem;
+    margin: 0;
 
     @include breakpoint(medium up) {
       font-size: rem-calc(20);
     }
+  }
+
+  &__cta-description {
+    @include mofo-text-style($body-text-styles, "large");
+
+    margin: 0;
   }
 
   &__fieldset {
@@ -266,7 +278,7 @@
       display: flex;
       gap: 1rem;
       flex-flow: row wrap;
-      padding: 1rem 5rem;
+      padding: 1rem 3rem;
       align-items: start;
     }
 
@@ -301,15 +313,6 @@
         @include breakpoint(medium up) {
           display: none;
         }
-      }
-    }
-
-    .newsletter-signup__cta {
-      @include breakpoint(xlarge up) {
-        margin-bottom: 0;
-        min-height: rem-calc(54);
-        display: flex;
-        align-items: center;
       }
     }
 
@@ -349,17 +352,19 @@
 
   &[data-layout="expanded"] {
     @include breakpoint(medium up) {
-      padding: 4rem 5rem;
+      padding: 4rem 3rem;
     }
 
-    .newsletter-signup__cta {
+    .newsletter-signup__cta-wrapper {
+      margin-bottom: 0.5rem;
+
       @include breakpoint(medium up) {
         position: relative;
         padding-left: calc(1rem + rem-calc(51));
         min-height: rem-calc(51);
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
         &::before {
           display: block;
@@ -374,6 +379,10 @@
           background-position: center;
           background-repeat: no-repeat;
         }
+      }
+
+      @include breakpoint(xlarge up) {
+        align-self: normal;
       }
     }
 
