@@ -4,7 +4,8 @@
     "pk": 1,
     "fields": {
       "name": "Main Newsletter",
-      "cta_header": "The internet we deserve starts with you. Join the movement now.",
+      "cta_header": "The internet we deserve starts with you",
+      "cta_description": "Join the movement now",
       "button_text": "Sign Up",
       "newsletter": "mozilla-foundation",
       "layout": "expand_on_focus"
