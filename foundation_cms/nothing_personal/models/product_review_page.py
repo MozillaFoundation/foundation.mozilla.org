@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, FieldRowPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -88,6 +88,10 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             help_text="Choose which sections will appear in this product review",
         ),
         FieldPanel("lede_text"),
+        MultiFieldPanel(
+            [InlinePanel("products_mentioned", max_num=3)],
+            heading="Products Mentioned",
+        ),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
