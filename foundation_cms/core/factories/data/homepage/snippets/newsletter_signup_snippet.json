@@ -21,5 +21,13 @@
       "newsletter": "mozilla-foundation",
       "layout": "expand_on_focus"
     }
+  },
+  {
+    "model": "snippets.footernewslettersignup",
+    "pk": 1,
+    "fields": {
+      "site": 1,
+      "newsletter_signup": 2
+    }
   }
 ]
