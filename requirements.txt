@@ -292,7 +292,7 @@ wagtailmedia==0.15.2
     # via -r requirements.in
 wand==0.6.13
     # via -r requirements.in
-whitenoise==6.9.0
+whitenoise==6.10.0
     # via -r requirements.in
 willow[heif]==1.8.0
     # via
