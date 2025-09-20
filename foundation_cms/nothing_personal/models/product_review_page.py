@@ -62,6 +62,14 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         review_sections_block_options,
         use_json_field=True,
         blank=True,
+        block_counts={
+            "what_you_should_know": {"max_num": 1},
+            "newsletter_signup": {"max_num": 1},
+            "reduce_your_risks": {"max_num": 1},
+            "good_and_bad": {"max_num": 1},
+            "bottom_line": {"max_num": 1},
+        },
+        max_num=5,
     )
 
     content_panels = AbstractArticlePage.content_panels + [
