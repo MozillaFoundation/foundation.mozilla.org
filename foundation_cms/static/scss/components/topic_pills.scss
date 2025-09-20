@@ -1,0 +1,24 @@
+// ===================================
+// Topic Pills Container
+// ===================================
+
+@mixin topic-pills-container($gap-size-in-px: 12) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem-calc($gap-size-in-px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline-block;
+  }
+}
+
+ul.topic-pills {
+  @include topic-pills-container();
+
+  &--tight {
+    @include topic-pills-container(8);
+  }
+}
