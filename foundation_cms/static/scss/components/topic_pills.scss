@@ -1,7 +1,5 @@
-// ===================================
-// Topic Pills Container
-// ===================================
-
+// Displays topic pill buttons side-by-side with wrapping support for responsive layouts.
+// Creates a horizontal list container for topic pill buttons
 @mixin topic-pills-container($gap-size-in-px: 12) {
   display: flex;
   flex-wrap: wrap;
