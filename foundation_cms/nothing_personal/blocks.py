@@ -36,7 +36,7 @@ class WhatYouShouldKnowBlock(BaseBlock):
 
     class Meta:
         template_name = "what_you_should_know_block.html"
-        icon = "help-circle"
+        icon = "help"
         label = "What You Should Know"
 
 
@@ -47,7 +47,7 @@ class ReduceYourRisksBlock(BaseBlock):
 
     class Meta:
         template_name = "reduce_your_risks_block.html"
-        icon = "warning-sign"
+        icon = "warning"
         label = "Reduce Your Risks"
 
 
@@ -59,7 +59,7 @@ class GoodAndBadBlock(BaseBlock):
 
     class Meta:
         template_name = "good_and_bad_block.html"
-        icon = "thumbs-up-down"
+        icon = "list-ul"
         label = "The Good and The Bad"
 
 
@@ -70,5 +70,5 @@ class BottomLineBlock(BaseBlock):
 
     class Meta:
         template_name = "bottom_line_block.html"
-        icon = "check-circle"
+        icon = "check"
         label = "The Bottom Line"
