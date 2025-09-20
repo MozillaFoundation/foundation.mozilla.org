@@ -100,21 +100,6 @@ body.topic-listing-page {
 
     &__tags {
       margin: 1.5rem 0 1rem;
-
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: rem-calc(8);
-
-        li {
-          display: inline-block;
-        }
-      }
-
-      a {
-        color: map.get($mofo-colors, black);
-        text-decoration: none;
-      }
     }
 
     &__title {
