@@ -1,7 +1,7 @@
 {% if topics %}
-<ul class="topic-pills {% if style_variation %}topic-pills--{{ style_variation }}{% endif %}">
-{% for topic in topics %}
-    <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
-{% endfor %}
-</ul>
+    <ul class="topic-pills {% if style_variation %}topic-pills--{{ style_variation }}{% endif %}">
+        {% for topic in topics %}
+            <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
+        {% endfor %}
+    </ul>
 {% endif %}
