@@ -2,3 +2,74 @@
 @use "sass:math";
 
 @import "../../nothing_personal_base";
+
+body.nothing-personal-home-page {
+  .brand-banner {
+    margin-bottom: 2rem;
+
+    @include breakpoint(medium up) {
+      margin-top: 1rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .featured-item {
+    $featured-item-highlight-background-color: color(yellow, "100");
+    $featured-item-highlight-gap: rem-calc(8);
+
+    position: relative;
+
+    &__picture {
+      display: contents;
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__text {
+      height: fit-content;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+      @include highlight-effect(
+        $featured-item-highlight-background-color,
+        $featured-item-highlight-gap
+      );
+
+      line-height: 1.1 !important;
+      margin: 0;
+      padding: 0 0.5rem;
+
+      @include breakpoint(medium only) {
+        font-size: rem-calc(56);
+      }
+
+      @include breakpoint(large up) {
+        line-height: 1.2 !important;
+        padding: 0 0.5rem;
+      }
+    }
+
+    &__author-wrapper {
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    &__author {
+      @include mofo-text-style($body-text-styles, "xlarge");
+
+      display: inline;
+      background-color: $featured-item-highlight-background-color;
+      padding: 0 0.25rem;
+      box-decoration-break: clone;
+      margin: 0;
+    }
+  }
+}

@@ -1,5 +1,7 @@
+from django.db import models
 from django.shortcuts import get_object_or_404
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
@@ -12,10 +14,19 @@ from foundation_cms.blocks import (
     TwoColumnContainerBlock,
 )
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
-from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
-class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixin):
+class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
+
+    featured_item = ParentalKey(
+        Page,
+        related_name="featured_post",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text="Select a page to feature in the hero section.",
+    )
+
     max_count = 1
 
     nothing_personal_block_options = [
@@ -41,14 +52,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
     ]
 
     content_panels = AbstractHomePage.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("hero_title"),
-                FieldPanel("hero_image"),
-                FieldPanel("hero_image_alt_text"),
-            ],
-            heading="Hero Image",
-        ),
+        FieldPanel("featured_item"),
         FieldPanel("body"),
     ]
 
