@@ -13,7 +13,7 @@
                 <div class="grid-x">
                     <div class="cell small-12 medium-7">
                         {% with topics=page.topics.all %}
-                            {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+                            {% include "patterns/components/topic_pills.html" with topics=page.topics.all style_variation="loose" %}
                         {% endwith %}
                         <h1>{{ page.title }}</h1>
                         <div>{{ page.updated }} | {{ page.reviewed }} | {{ page.research }}</div>
