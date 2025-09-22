@@ -31,7 +31,7 @@ class WhatYouShouldKnowBlock(BaseBlock):
     sells_user_data_explanation = RichTextBlock(required=False, help_text="Optional explanation for this answer")
 
     class Meta:
-        template_name = "what_you_should_know_block.html"
+        template_name = "product_review_what_you_should_know_block.html"
         icon = "help"
         label = "What You Should Know"
 
@@ -42,7 +42,7 @@ class ReduceYourRisksBlock(BaseBlock):
     content = RichTextBlock(help_text="Advice on how to reduce privacy risks")
 
     class Meta:
-        template_name = "reduce_your_risks_block.html"
+        template_name = "product_review_reduce_your_risks_block.html"
         icon = "warning"
         label = "Reduce Your Risks"
 
@@ -54,7 +54,7 @@ class GoodAndBadBlock(BaseBlock):
     the_bad = RichTextBlock(help_text="Negative aspects of this product")
 
     class Meta:
-        template_name = "good_and_bad_block.html"
+        template_name = "product_review_good_and_bad_block.html"
         icon = "list-ul"
         label = "The Good and The Bad"
 
@@ -65,6 +65,6 @@ class BottomLineBlock(BaseBlock):
     content = RichTextBlock(help_text="Final verdict and recommendation")
 
     class Meta:
-        template_name = "bottom_line_block.html"
+        template_name = "product_review_bottom_line_block.html"
         icon = "check"
         label = "The Bottom Line"
