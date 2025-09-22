@@ -5,5 +5,7 @@
 @import "../../scss/type";
 
 body.maintenance {
-  color: red;
+  .hero__media-image {
+    aspect-ratio: auto;
+  }
 }
