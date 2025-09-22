@@ -14,7 +14,7 @@
 }
 
 ul.topic-pills {
-  @include topic-pills-container();
+  @include topic-pills-container;
 
   &--tight {
     @include topic-pills-container(8);
