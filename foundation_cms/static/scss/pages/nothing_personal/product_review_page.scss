@@ -74,15 +74,15 @@ body.nothing-personal.nothing-personal-product-review-page {
       margin: $intro-subsection-margin-y 0;
     }
 
-    .toc-nav {
-      &__heading {
+    &__toc-nav {
+      &-heading {
         @include mofo-text-style($label-text-styles, "regular");
 
         margin: $intro-subsection-margin-y 0;
         text-transform: uppercase;
       }
 
-      &__list {
+      &-list {
         display: grid;
         grid-template-columns: 1fr;
         row-gap: $intro-subsection-margin-y;
@@ -95,7 +95,7 @@ body.nothing-personal.nothing-personal-product-review-page {
         }
       }
 
-      &__item {
+      &-item {
         a {
           @include mofo-text-style(
             $link-text-styles,
