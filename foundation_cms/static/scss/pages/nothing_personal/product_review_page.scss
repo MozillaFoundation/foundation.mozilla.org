@@ -20,7 +20,7 @@ body.nothing-personal.nothing-personal-product-review-page {
       margin: $intro-subsection-margin-y 0;
     }
 
-    .meta {
+    &__meta {
       $gap: 1rem;
 
       @include mofo-text-style($body-text-styles, "small");
@@ -29,16 +29,9 @@ body.nothing-personal.nothing-personal-product-review-page {
       flex-wrap: wrap;
       margin: $intro-subsection-margin-y 0;
 
-      &__item {
+      &-item {
         display: flex;
         align-items: baseline;
-
-        &--primary {
-          dt,
-          dd {
-            font-weight: bolder;
-          }
-        }
 
         &:not(:last-child) {
           &::after {
@@ -48,29 +41,36 @@ body.nothing-personal.nothing-personal-product-review-page {
             margin-right: $gap;
           }
         }
-      }
 
-      dt {
-        display: inline-block;
+        dt {
+          display: inline-block;
 
-        &::after {
-          content: ":\00a0";
+          &::after {
+            content: ":\00a0";
+          }
         }
-      }
 
-      dd {
-        display: inline-block;
-        margin: 0;
+        dd {
+          display: inline-block;
+          margin: 0;
+        }
+
+        &--primary {
+          dt,
+          dd {
+            font-weight: bolder;
+          }
+        }
       }
     }
 
-    .lede-text {
+    &__lede-text {
       @include mofo-text-style($body-text-styles, "xlarge");
 
       margin: $intro-subsection-margin-y 0;
     }
 
-    .privacy-score {
+    &__privacy-score {
       margin: $intro-subsection-margin-y 0;
     }
 
@@ -97,7 +97,11 @@ body.nothing-personal.nothing-personal-product-review-page {
 
       &__item {
         a {
-          @include mofo-text-style($link-text-styles, "regular", $header-font-family);
+          @include mofo-text-style(
+            $link-text-styles,
+            "regular",
+            $header-font-family
+          );
 
           color: map.get($mofo-colors, black);
 

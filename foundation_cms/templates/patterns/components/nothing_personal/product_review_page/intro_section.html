@@ -1,0 +1,41 @@
+{% load static wagtailimages_tags %}
+
+<div class="grid-container intro-section">
+    <div class="grid-x">
+        <div class="cell small-12 medium-6">
+            {% with topics=page.topics.all %}
+                {% include "patterns/components/topic_pills.html" with topics=page.topics.all style_variation="loose" %}
+            {% endwith %}
+            <h1>{{ page.title }}</h1>
+            <dl class="intro-section__meta">
+                <div class="intro-section__meta-item intro-section__meta-item--primary">
+                    <dt>Updated</dt>
+                    <dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd>
+                </div>
+                <div class="intro-section__meta-item">
+                    <dt>Reviewed</dt>
+                    <dd><time datetime="{{ page.reviewed }}">{{ page.reviewed }}</time></dd>
+                </div>
+                <div class="intro-section__meta-item">
+                    <dt>Research</dt>
+                    <dd><time datetime="{{ page.research }}">{{ page.research }}</time></dd>
+                </div>
+            </dl>
+            <div class="intro-section__lede-text">{{ page.lede_text }}</div>
+            <div class="intro-section__privacy-score" style="background: #ccc;">
+                <span>[field to be added] Privacy Score:</span>
+                <span>{{ page.privacy_score }}</span>
+            </div>
+            <!-- Anchor Navigation -->
+            {% include "patterns/components/nothing_personal/product_review_page/toc_nav.html" %}
+        </div>
+        <div class="cell small-12 medium-offset-1 medium-4">
+            {% if page.hero_image %}
+                {% image page.hero_image fill-692x692 as img %}
+                <div class="hero__media">
+                    <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
