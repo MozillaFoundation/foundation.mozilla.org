@@ -11,23 +11,58 @@ body.nothing-personal.nothing-personal-product-review-page {
   }
 
   .intro-section {
-    $intro-subsection-margin-y: rem-calc(24);
+    $intro-subsection-margin-y: (
+      small: rem-calc(16),
+      large: rem-calc(24),
+    );
 
     margin-top: 4rem;
     margin-bottom: rem-calc(80);
 
+    @mixin responsive-spacing-y($margin-map) {
+      margin-top: map.get($margin-map, small);
+      margin-bottom: map.get($margin-map, small);
+
+      @include breakpoint(large up) {
+        margin-top: map.get($margin-map, large);
+        margin-bottom: map.get($margin-map, large);
+      }
+    }
+
     h1 {
-      margin: $intro-subsection-margin-y 0;
+      @include responsive-spacing-y($intro-subsection-margin-y);
+    }
+
+    > .grid-x {
+      flex-direction: column-reverse;
+
+      @include breakpoint(large up) {
+        flex-direction: column;
+      }
+    }
+
+    &__product-img {
+      picture {
+        img {
+          width: 100%;
+          height: auto;
+          margin-bottom: 4rem;
+
+          @include breakpoint(large up) {
+            margin-bottom: 0;
+          }
+        }
+      }
     }
 
     &__meta {
       $gap: 1rem;
 
       @include mofo-text-style($body-text-styles, "small");
+      @include responsive-spacing-y($intro-subsection-margin-y);
 
       display: flex;
       flex-wrap: wrap;
-      margin: $intro-subsection-margin-y 0;
 
       &-item {
         display: flex;
@@ -66,31 +101,31 @@ body.nothing-personal.nothing-personal-product-review-page {
 
     &__lede-text {
       @include mofo-text-style($body-text-styles, "xlarge");
-
-      margin: $intro-subsection-margin-y 0;
+      @include responsive-spacing-y($intro-subsection-margin-y);
     }
 
     &__privacy-score {
-      margin: $intro-subsection-margin-y 0;
+      @include responsive-spacing-y($intro-subsection-margin-y);
     }
 
     &__toc-nav {
       &-heading {
         @include mofo-text-style($label-text-styles, "regular");
+        @include responsive-spacing-y($intro-subsection-margin-y);
 
-        margin: $intro-subsection-margin-y 0;
         text-transform: uppercase;
       }
 
       &-list {
         display: grid;
         grid-template-columns: 1fr;
-        row-gap: $intro-subsection-margin-y;
+        row-gap: map.get($intro-subsection-margin-y, small);
         list-style: none;
         padding: 0;
         margin: 0;
 
         @include breakpoint(large up) {
+          row-gap: map.get($intro-subsection-margin-y, large);
           grid-template-columns: 1fr 1fr;
         }
       }
@@ -115,11 +150,20 @@ body.nothing-personal.nothing-personal-product-review-page {
 
   .review-section {
     &__inner-wrapper {
-      margin: 4rem 0;
+      margin: rem-calc(56) 0;
+
+      @include breakpoint(large up) {
+        margin: 4rem 0;
+      }
     }
 
-    h2 {
-      margin: 0;
+    &__heading {
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+
+      @include breakpoint(large up) {
+        margin-bottom: 0;
+      }
     }
 
     &__qa-list {
@@ -127,21 +171,36 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
 
     &__qa-item {
-      $padding-y: 2rem;
+      $padding-y: (
+        small: 1rem,
+        large: 2rem,
+      );
 
       &:not(:last-child) {
-        padding-bottom: $padding-y;
+        padding-bottom: map.get($padding-y, small);
         border-bottom: 1px solid color(neutral, "300");
+
+        @include breakpoint(large up) {
+          padding-bottom: map.get($padding-y, large);
+        }
       }
 
       &:not(:first-child) {
-        padding-top: $padding-y;
+        padding-top: map.get($padding-y, small);
+
+        @include breakpoint(large up) {
+          padding-top: map.get($padding-y, large);
+        }
       }
 
       dt {
         @include mofo-text-style($header-styles, "h6", $header-font-family);
 
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+
+        @include breakpoint(large up) {
+          margin-bottom: 1rem;
+        }
       }
 
       dd {
