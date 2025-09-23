@@ -29,7 +29,7 @@
             src="{{ img_large.url }}"
             width="{{ img_large.width }}"
             height="{{ img_large.height }}"
-            alt="{{ page.hero_image_alt_text|default:img_large.alt }}"
+            alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
             loading="lazy"
           >
         </picture>
