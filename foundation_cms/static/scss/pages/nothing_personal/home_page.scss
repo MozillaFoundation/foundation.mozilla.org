@@ -98,15 +98,6 @@ body.nothing-personal-home-page {
       box-decoration-break: clone;
       margin: 0;
     }
-
-    &:hover {
-      .featured-hero-item__media {
-        img,
-        video {
-          transform: scale($image-hover-scale);
-        }
-      }
-    }
   }
 
   &:has(.featured-items) .featured-hero-item {
@@ -128,11 +119,6 @@ body.nothing-personal-home-page {
       display: flex;
       flex-direction: column;
 
-      img,
-      video {
-        transition: transform 0.5s ease;
-      }
-
       img {
         object-fit: cover;
         width: 100%;
@@ -141,6 +127,11 @@ body.nothing-personal-home-page {
       video {
         object-fit: cover;
         height: 100%;
+      }
+
+      img,
+      video {
+        transition: transform 0.5s ease;
       }
     }
 
@@ -159,14 +150,13 @@ body.nothing-personal-home-page {
       margin: 0;
       color: map.get($mofo-colors, black);
     }
+  }
 
-    &:hover {
-      .featured-item__media {
-        img,
-        video {
-          transform: scale($image-hover-scale);
-        }
-      }
+  .featured-hero-item:hover .featured-hero-item__media,
+  .featured-item:hover .featured-item__media {
+    img,
+    video {
+      transform: scale($image-hover-scale);
     }
   }
 }
