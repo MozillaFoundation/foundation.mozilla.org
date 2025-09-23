@@ -1,17 +1,17 @@
 {% if products_mentioned %}
-<div class="products-mentioned-section grid-container">
-    <div class="grid-x">
-        <div class="cell small-12 medium-8 medium-offset-4">
-            <h4 class="products-mentioned-section__heading">[Products Mentioned]</h4>
-            <ul>
-            {% for product in products %}
-                <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
-                <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
-                <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
-                <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
-            {% endfor %}
-            </ul>
+    <div class="products-mentioned-section grid-container">
+        <div class="grid-x">
+            <div class="cell small-12 medium-8 medium-offset-4">
+                <h4 class="products-mentioned-section__heading">[Products Mentioned]</h4>
+                <ul>
+                    {% for product in products %}
+                        <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
+                        <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
+                        <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
+                        <li><b>Product Name:</b> <a href="{{ product.url }}">{{ product.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 {% endif %}
