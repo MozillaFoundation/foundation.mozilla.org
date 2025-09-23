@@ -283,6 +283,8 @@ a.btn-topic {
   @include topic-pill-button-shape;
 
   cursor: pointer;
+  color: map.get($mofo-colors, black);
+  text-decoration: none;
 
   &:hover {
     background: color(orange, "200");
