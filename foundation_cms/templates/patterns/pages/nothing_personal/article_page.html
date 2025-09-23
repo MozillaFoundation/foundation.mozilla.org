@@ -36,12 +36,8 @@
                             {% with topics=page.topics.all %}
                                 {% if topics %}
                                     <div class="article-topics__title">Topics</div>
-                                    <ul>
-                                        {% for topic in topics %}
-                                            <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
                                 {% endif %}
+                                {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
                             {% endwith %}
                         </div>
                         {% if page.author %}

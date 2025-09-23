@@ -25,15 +25,7 @@
     <div class="cell small-12 medium-7 topic-card__meta-wrapper">
       <div class="topic-card__meta">
         <div class="topic-card__tags">
-          {% with topics=page.topics.all %}
-            {% if topics %}
-              <ul>
-                {% for topic in topics %}
-                  <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          {% endwith %}
+          {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
         </div>
         <h3 class="topic-card__title"><a href="{{ page.url }}">{{ page.title }}</a></h3>
         <p class="topic-card__description">{{ page.search_description }}</p>
