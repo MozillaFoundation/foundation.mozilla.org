@@ -1,10 +1,10 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
-from wagtail.models import Page
+from wagtail.models import Orderable, Page
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
@@ -16,16 +16,27 @@ from foundation_cms.blocks import (
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 
 
-class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
+class NothingPersonalFeaturedItem(Orderable):
+    """Orderable child model to allow 0..4 featured pages."""
 
-    featured_item = ParentalKey(
+    page = models.ForeignKey(
         Page,
-        related_name="featured_post",
+        related_name="+",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        help_text="Select a page to feature in the hero section.",
     )
+    home_page = ParentalKey(
+        "nothing_personal.NothingPersonalHomePage",
+        related_name="featured_items",
+    )
+
+    panels = [
+        PageChooserPanel("page"),
+    ]
+
+
+class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     max_count = 1
 
@@ -52,7 +63,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     ]
 
     content_panels = AbstractHomePage.content_panels + [
-        FieldPanel("featured_item"),
+        InlinePanel("featured_items", min_num=0, max_num=4, label="Featured items"),
         FieldPanel("body"),
     ]
 

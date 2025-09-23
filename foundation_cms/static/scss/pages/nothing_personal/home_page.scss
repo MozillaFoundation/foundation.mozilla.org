@@ -7,17 +7,22 @@ body.nothing-personal-home-page {
   .brand-banner {
     margin-bottom: 2rem;
 
-    @include breakpoint(medium up) {
+    @include breakpoint(large up) {
       margin-top: 1rem;
       margin-bottom: 4rem;
     }
   }
 
-  .featured-item {
+  .featured-hero-item {
     $featured-item-highlight-background-color: color(yellow, "100");
     $featured-item-highlight-gap: rem-calc(8);
 
     position: relative;
+    margin-bottom: 2rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: rem-calc(146);
+    }
 
     &__picture {
       display: contents;
@@ -34,6 +39,8 @@ body.nothing-personal-home-page {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      text-decoration: none;
+      color: map.get($mofo-colors, black);
     }
 
     &__title {
@@ -47,7 +54,7 @@ body.nothing-personal-home-page {
       margin: 0;
       padding: 0 0.5rem;
 
-      @include breakpoint(medium only) {
+      @include breakpoint(large only) {
         font-size: rem-calc(56);
       }
 
