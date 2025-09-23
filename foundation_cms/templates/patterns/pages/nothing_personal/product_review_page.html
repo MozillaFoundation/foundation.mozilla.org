@@ -36,9 +36,25 @@
                 {% include "patterns/components/streamfield.html" with streamfield=page.body %}
             {% endif %}
 
-            {% for block in ordered_review_sections %}
-                {% include_block block %}
-            {% endfor %}
+            {% if page.what_you_should_know_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.what_you_should_know_section %}
+            {% endif %}
+
+            {% if page.newsletter_signup_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.newsletter_signup_section %}
+            {% endif %}
+
+            {% if page.good_and_bad_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.good_and_bad_section %}
+            {% endif %}
+
+            {% if page.reduce_your_risks_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.reduce_your_risks_section %}
+            {% endif %}
+
+            {% if page.bottom_line_section and page.products_mentioned.exists %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.bottom_line_section %}
+            {% endif %}
 
         </article>
     </main>

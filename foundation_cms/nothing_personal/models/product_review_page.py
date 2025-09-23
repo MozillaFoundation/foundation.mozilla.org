@@ -50,26 +50,40 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
     research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
-    review_sections_block_options = [
-        ("what_you_should_know", ProductReviewSectionWhatYouShouldKnowBlock()),
-        ("newsletter_signup", NewsletterSignupBlock()),
-        ("reduce_your_risks", ProductReviewSectionReduceYourRisksBlock()),
-        ("good_and_bad", ProductReviewSectionGoodAndBadBlock()),
-        ("bottom_line", ProductReviewSectionBottomLineBlock()),
-    ]
 
-    review_sections = StreamField(
-        review_sections_block_options,
+    what_you_should_know_section = StreamField(
+        [("content", ProductReviewSectionWhatYouShouldKnowBlock())],
+        max_num=1,
         use_json_field=True,
         blank=True,
-        block_counts={
-            "what_you_should_know": {"max_num": 1},
-            "newsletter_signup": {"max_num": 1},
-            "reduce_your_risks": {"max_num": 1},
-            "good_and_bad": {"max_num": 1},
-            "bottom_line": {"max_num": 1},
-        },
-        max_num=5,
+    )
+
+    newsletter_signup_section = StreamField(
+        [("content", NewsletterSignupBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
+    )
+
+    good_and_bad_section = StreamField(
+        [("content", ProductReviewSectionGoodAndBadBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
+    )
+
+    reduce_your_risks_section = StreamField(
+        [("content", ProductReviewSectionReduceYourRisksBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
+    )
+
+    bottom_line_section = StreamField(
+        [("content", ProductReviewSectionBottomLineBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
     )
 
     content_panels = AbstractArticlePage.content_panels + [
@@ -93,7 +107,16 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             [InlinePanel("products_mentioned", max_num=3)],
             heading="Products Mentioned",
         ),
-        FieldPanel("review_sections"),
+        MultiFieldPanel(
+            [
+                FieldPanel("what_you_should_know_section"),
+                FieldPanel("newsletter_signup_section"),
+                FieldPanel("good_and_bad_section"),
+                FieldPanel("reduce_your_risks_section"),
+                FieldPanel("bottom_line_section"),
+            ],
+            heading="Review Sections",
+        ),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
@@ -101,7 +124,11 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
     translatable_fields = [
         # Content tab fields
-        SynchronizedField("review_sections"),
+        SynchronizedField("what_you_should_know_section"),
+        SynchronizedField("newsletter_signup_section"),
+        SynchronizedField("good_and_bad_section"),
+        SynchronizedField("reduce_your_risks_section"),
+        SynchronizedField("bottom_line_section"),
         SynchronizedField("products_mentioned"),
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
@@ -119,63 +146,38 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         context = super().get_context(request)
         context["products_mentioned"] = self.localized_products_mentioned
         context["anchor_sections"] = self.get_anchor_sections()
-        context["ordered_review_sections"] = self.get_ordered_review_sections()
         return context
 
     def get_preview_context(self, request, mode_name):
         context = super().get_preview_context(request, mode_name)
         context["products_mentioned"] = self.preview_products_mentioned
         context["anchor_sections"] = self.get_anchor_sections()
-        context["ordered_review_sections"] = self.get_ordered_review_sections()
         return context
 
-    def get_ordered_review_sections(self):
-        desired_order = [
-            "what_you_should_know",
-            "newsletter_signup",
-            "reduce_your_risks",
-            "good_and_bad",
-            "bottom_line",
+    def get_anchor_sections(self):
+        """Generate anchor sections based on individual page fields"""
+        section_configs = [
+            (
+                "what_you_should_know",
+                self.what_you_should_know_section,
+                "What You Should Know",
+                "what-you-should-know",
+            ),
+            ("good_and_bad", self.good_and_bad_section, "The Good and The Bad", "good-and-bad"),
+            ("reduce_your_risks", self.reduce_your_risks_section, "Reduce Your Risks", "reduce-your-risks"),
+            ("bottom_line", self.bottom_line_section, "The Bottom Line", "bottom-line"),
         ]
 
-        blocks_by_type = {}
-        for block in self.review_sections:
-            blocks_by_type[block.block_type] = block
-
-        has_what_you_should_know = "what_you_should_know" in blocks_by_type
-
-        if not has_what_you_should_know and "newsletter_signup" in blocks_by_type:
-            order_without_what_you_should_know = [
-                "newsletter_signup",
-                "reduce_your_risks",
-                "good_and_bad",
-                "bottom_line",
-            ]
-            desired_order = order_without_what_you_should_know
-
-        ordered_blocks = []
-        for block_type in desired_order:
-            if block_type in blocks_by_type:
-                if block_type == "bottom_line" and not self.products_mentioned.exists():
-                    continue
-                ordered_blocks.append(blocks_by_type[block_type])
-
-        return ordered_blocks
-
-    def get_anchor_sections(self):
-        """Generate anchor sections based on review_sections StreamField"""
         sections = []
+        for section_key, section_field, title, anchor in section_configs:
+            if not section_field:
+                continue
 
-        section_mapping = {
-            "what_you_should_know": {"title": "What You Should Know", "anchor": "what-you-should-know"},
-            "reduce_your_risks": {"title": "Reduce Your Risks", "anchor": "reduce-your-risks"},
-            "good_and_bad": {"title": "The Good and The Bad", "anchor": "good-and-bad"},
-            "bottom_line": {"title": "The Bottom Line", "anchor": "bottom-line"},
-        }
+            # Skip bottom_line if no products mentioned
+            if section_key == "bottom_line" and not self.products_mentioned.exists():
+                continue
 
-        for block in self.get_ordered_review_sections():
-            if block.block_type in section_mapping:
-                sections.append(section_mapping[block.block_type])
+            sections.append({"title": title, "anchor": anchor})
 
         return sections
 
@@ -191,7 +193,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     @cached_property
     def preview_products_mentioned(self):
         """
-        Fetches prodcts mentioned updates for CMS page previews.
+        Fetches products mentioned updates for CMS page previews.
         """
         products_mentioned = get_related_items(
             self.products_mentioned.all(), "mentioned_product", order_by="sort_order"
