@@ -7,14 +7,14 @@ from wagtail.models import Orderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from foundation_cms.blocks import (
+    ProductReviewSectionBottomLineBlock,
+    ProductReviewSectionGoodAndBadBlock,
+    ProductReviewSectionReduceYourRisksBlock,
+    ProductReviewSectionWhatYouShouldKnowBlock,
+)
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.mixins.hero_image import HeroImageMixin
-from foundation_cms.nothing_personal.blocks import (
-    BottomLineBlock,
-    GoodAndBadBlock,
-    ReduceYourRisksBlock,
-    WhatYouShouldKnowBlock,
-)
 from foundation_cms.utils import get_related_items, localize_queryset
 
 
@@ -51,11 +51,11 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
     research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
     review_sections_block_options = [
-        ("what_you_should_know", WhatYouShouldKnowBlock()),
+        ("what_you_should_know", ProductReviewSectionWhatYouShouldKnowBlock()),
         ("newsletter_signup", NewsletterSignupBlock()),
-        ("reduce_your_risks", ReduceYourRisksBlock()),
-        ("good_and_bad", GoodAndBadBlock()),
-        ("bottom_line", BottomLineBlock()),
+        ("reduce_your_risks", ProductReviewSectionReduceYourRisksBlock()),
+        ("good_and_bad", ProductReviewSectionGoodAndBadBlock()),
+        ("bottom_line", ProductReviewSectionBottomLineBlock()),
     ]
 
     review_sections = StreamField(

@@ -12,7 +12,7 @@ class YesNoChoiceBlock(ChoiceBlock):
     ]
 
 
-class WhatYouShouldKnowBlock(BaseBlock):
+class ProductReviewSectionWhatYouShouldKnowBlock(BaseBlock):
     """Block for What You Should Know section with predefined questions"""
 
     trust_default_settings = YesNoChoiceBlock(required=False, help_text="Should I trust their default settings?")
@@ -36,7 +36,7 @@ class WhatYouShouldKnowBlock(BaseBlock):
         label = "What You Should Know"
 
 
-class ReduceYourRisksBlock(BaseBlock):
+class ProductReviewSectionReduceYourRisksBlock(BaseBlock):
     """Simple text block for Reduce Your Risks section"""
 
     content = RichTextBlock(help_text="Advice on how to reduce privacy risks")
@@ -47,7 +47,7 @@ class ReduceYourRisksBlock(BaseBlock):
         label = "Reduce Your Risks"
 
 
-class GoodAndBadBlock(BaseBlock):
+class ProductReviewSectionGoodAndBadBlock(BaseBlock):
     """Block for The Good and The Bad section"""
 
     the_good = RichTextBlock(help_text="Positive aspects of this product")
@@ -59,7 +59,7 @@ class GoodAndBadBlock(BaseBlock):
         label = "The Good and The Bad"
 
 
-class BottomLineBlock(BaseBlock):
+class ProductReviewSectionBottomLineBlock(BaseBlock):
     """Block for The Bottom Line section"""
 
     content = RichTextBlock(help_text="Final verdict and recommendation")
