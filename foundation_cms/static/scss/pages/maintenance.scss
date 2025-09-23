@@ -4,45 +4,37 @@
 @import "../../scss/colors";
 @import "../../scss/type";
 
-  .hero{
-    margin-bottom:4rem
-  }
+.hero {
+  margin-bottom: 4rem;
+}
 body.maintenance {
   .hero__media-image {
     aspect-ratio: auto;
   }
-
 }
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #2d2d2d;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            width: 50%;
-        }
-        
-        .back-button:hover {
-            background-color: #404040;
-        }
-        
-        .back-button:active {
-            background-color: #1a1a1a;
-        }
-        
-        .arrow-icon {
-            width: 16px;
-            height: 16px;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
-        }
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+  color: black;
+  padding: 12px 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-family: var(--Font-family-body-font-family, "Mozilla Text");
+  font-size: var(--Font-size-body-base, 16px);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  line-height: 140%;
+  width: 50%;
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
