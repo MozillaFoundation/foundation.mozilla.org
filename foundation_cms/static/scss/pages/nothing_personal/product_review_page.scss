@@ -1,0 +1,175 @@
+@use "sass:map";
+@use "sass:math";
+
+@import "../../nothing_personal_base";
+
+body.nothing-personal.nothing-personal-product-review-page {
+  main {
+    h2 {
+      @include mofo-text-style($header-styles, "h3", $header-font-family);
+    }
+  }
+
+  .intro-section {
+    $intro-subsection-margin-y: rem-calc(24);
+
+    margin-top: 4rem;
+    margin-bottom: rem-calc(80);
+
+    h1 {
+      margin: $intro-subsection-margin-y 0;
+    }
+
+    .meta {
+      $gap: 1rem;
+
+      @include mofo-text-style($body-text-styles, "small");
+
+      display: flex;
+      flex-wrap: wrap;
+      margin: $intro-subsection-margin-y 0;
+
+      &__item {
+        display: flex;
+        align-items: baseline;
+
+        &--primary {
+          dt,
+          dd {
+            font-weight: bolder;
+          }
+        }
+
+        &:not(:last-child) {
+          &::after {
+            content: "|";
+            display: inline-block;
+            margin-left: $gap;
+            margin-right: $gap;
+          }
+        }
+      }
+
+      dt {
+        display: inline-block;
+
+        &::after {
+          content: ":\00a0";
+        }
+      }
+
+      dd {
+        display: inline-block;
+        margin: 0;
+      }
+    }
+
+    .lede-text {
+      @include mofo-text-style($body-text-styles, "xlarge");
+
+      margin: $intro-subsection-margin-y 0;
+    }
+
+    .privacy-score {
+      margin: $intro-subsection-margin-y 0;
+    }
+
+    .toc-nav {
+      &__heading {
+        @include mofo-text-style($label-text-styles, "regular");
+
+        margin: $intro-subsection-margin-y 0;
+        text-transform: uppercase;
+      }
+
+      &__list {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: $intro-subsection-margin-y;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        @include breakpoint(large up) {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      &__item {
+        a {
+          @include mofo-text-style($link-text-styles, "regular", $header-font-family);
+
+          color: map.get($mofo-colors, black);
+
+          &:hover {
+            color: color(orange, "300");
+          }
+        }
+      }
+    }
+  }
+
+  .review-section {
+    &__inner-wrapper {
+      margin: 4rem 0;
+    }
+
+    h2 {
+      margin: 0;
+    }
+
+    &__qa-list {
+      margin: 0;
+    }
+
+    &__qa-item {
+      $padding-y: 2rem;
+
+      &:not(:last-child) {
+        padding-bottom: $padding-y;
+        border-bottom: 1px solid color(neutral, "300");
+      }
+
+      &:not(:first-child) {
+        padding-top: $padding-y;
+      }
+
+      dt {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+        margin-bottom: 1rem;
+      }
+
+      dd {
+        @include mofo-text-style($body-text-styles, "large");
+
+        margin: 0;
+      }
+    }
+  }
+
+  .products-mentioned-section {
+    &__heading {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+    }
+
+    ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: 1rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      @include breakpoint(large up) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+    }
+  }
+
+  .more-stories-section {
+    h2 {
+      margin-bottom: 2rem;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{% if anchor_sections %}
+  <nav class="toc-nav" aria-labelledby="toc-heading">
+    <h2 id="toc-heading" class="toc-nav__heading">In This Review</h2>
+    <ol class="toc-nav__list">
+      {% for section in anchor_sections %}
+        <li class="toc-nav__item">
+          <a href="#{{ section.anchor }}" class="toc-nav__link">{{ section.title }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}
