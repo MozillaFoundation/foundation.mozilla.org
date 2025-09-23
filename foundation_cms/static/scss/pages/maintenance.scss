@@ -7,11 +7,13 @@
 .hero {
   margin-bottom: 4rem;
 }
+
 body.maintenance {
   .hero__media-image {
     aspect-ratio: auto;
   }
 }
+
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -21,8 +23,8 @@ body.maintenance {
   padding: 12px 20px;
   border: 1px solid;
   border-radius: 4px;
-  font-family: var(--Font-family-body-font-family, "Mozilla Text");
-  font-size: var(--Font-size-body-base, 16px);
+  font-family: var(--font-family-body-font-family, "Mozilla Text");
+  font-size: var(--font-size-body-base, 16px);
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
@@ -34,7 +36,7 @@ body.maintenance {
 .arrow-icon {
   width: 16px;
   height: 16px;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 2;
   fill: none;
 }
