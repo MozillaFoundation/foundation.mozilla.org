@@ -4,6 +4,8 @@
 @import "../../nothing_personal_base";
 
 body.nothing-personal-home-page {
+  $image-hover-scale: 105%;
+
   .brand-banner {
     margin-bottom: 2rem;
 
@@ -31,6 +33,24 @@ body.nothing-personal-home-page {
         display: block;
         width: 100%;
         object-fit: cover;
+      }
+    }
+
+    video {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__media {
+      aspect-ratio: math.div(1, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      img,
+      video {
+        transition: transform 0.5s ease;
       }
     }
 
@@ -77,6 +97,76 @@ body.nothing-personal-home-page {
       padding: 0 0.25rem;
       box-decoration-break: clone;
       margin: 0;
+    }
+
+    &:hover {
+      .featured-hero-item__media {
+        img,
+        video {
+          transform: scale($image-hover-scale);
+        }
+      }
+    }
+  }
+
+  &:has(.featured-items) .featured-hero-item {
+    @include breakpoint(large up) {
+      margin-bottom: rem-calc(52);
+    }
+  }
+
+  .featured-items {
+    justify-content: center;
+    gap: 2rem 0;
+    margin-bottom: 4rem;
+  }
+
+  .featured-item {
+    &__media {
+      aspect-ratio: math.div(3, 2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      img,
+      video {
+        transition: transform 0.5s ease;
+      }
+
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
+
+      video {
+        object-fit: cover;
+        height: 100%;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      display: block;
+      margin: 1rem 0;
+      text-decoration: none;
+      color: map.get($mofo-colors, black);
+    }
+
+    &__author {
+      @include mofo-text-style($body-text-styles, "regular");
+
+      margin: 0;
+      color: map.get($mofo-colors, black);
+    }
+
+    &:hover {
+      .featured-item__media {
+        img,
+        video {
+          transform: scale($image-hover-scale);
+        }
+      }
     }
   }
 }

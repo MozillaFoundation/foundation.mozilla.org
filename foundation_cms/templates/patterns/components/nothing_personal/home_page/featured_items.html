@@ -48,16 +48,40 @@
 
 {% if featured_items|length > 1 %}
   <div class="grid-container">
-    <div class="grid-x featured-items">
+    <div class="grid-x featured-items grid-margin-x">
 
       {% for featured_rel in featured_items|slice:"1:" %}
         {% if featured_rel and featured_rel.page %}
           {% with featured_item=featured_rel.page.specific %}
 
             <div class="cell featured-item small-12 large-4">
-              <a href="{{ featured_item.url }}" class="featured-item__link">
+              <a href="{{ featured_item.url }}" class="featured-item__media">
+                {% if featured_item.displayed_hero_content == "video" and featured_item.hero_video_url %}
+                  <video class="featured-item__video" playsinline="" muted="" loop="" preload="" autoplay>
+                    <source src="{{ featured_item.hero_video_url }}" type="video/mp4">
+                  </video>
+                {% elif featured_item.displayed_hero_content == "image" and featured_item.hero_image %}
+                  <picture class="featured-item__picture">
+                    {% image featured_item.hero_image fill-1200x1200 as img %}
+                    <img
+                      src="{{ img.url }}"
+                      width="{{ img.width }}"
+                      height="{{ img.height }}"
+                      alt="{{ featured_item.hero_image_alt_text|default:img.alt }}"
+                    >
+                  </picture>
+                {% endif %}
+              </a>
+
+              <a href="{{ featured_item.url }}" class="featured-item__title">
                 {{ featured_item.title }}
               </a>
+
+              {% if featured_item.author %}
+                <div class="featured-item__author-wrapper">
+                  <div class="featured-item__author">by {{ featured_item.author.name }}</div>
+                </div>
+              {% endif %}
             </div>
 
           {% endwith %}
