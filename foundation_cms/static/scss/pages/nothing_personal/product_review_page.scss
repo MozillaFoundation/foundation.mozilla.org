@@ -137,12 +137,10 @@ body.nothing-personal.nothing-personal-product-review-page {
             "regular",
             $header-font-family
           );
-
-          color: map.get($mofo-colors, black);
-
-          &:hover {
-            color: color(orange, "300");
-          }
+          @include link-text-color(
+            map.get($mofo-colors, black),
+            color(orange, "300")
+          );
         }
       }
     }
@@ -150,10 +148,10 @@ body.nothing-personal.nothing-personal-product-review-page {
 
   .newsletter-section,
   .review-section__inner-wrapper {
-    margin-bottom:rem-calc(56);
+    margin-bottom: rem-calc(56);
 
     @include breakpoint(large up) {
-      margin-bottom:rem-calc(68);
+      margin-bottom: rem-calc(68);
     }
   }
 
@@ -169,6 +167,7 @@ body.nothing-personal.nothing-personal-product-review-page {
 
     &__subheading {
       @include mofo-text-style($header-styles, "h6", $header-font-family);
+
       margin-top: 0;
       margin-bottom: 0.5rem;
 
@@ -230,7 +229,11 @@ body.nothing-personal.nothing-personal-product-review-page {
       }
 
       a {
-        text-decoration: none;
+        @include image-hover-zoom;
+        @include link-text-hover-underline;
+
+        display: block;
+        overflow: hidden;
       }
     }
 

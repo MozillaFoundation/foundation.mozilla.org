@@ -2,10 +2,11 @@
 @import "../scss/fonts";
 
 // Our custom variables and base styles
+@import "../scss/mixins";
+@import "../scss/utilities";
 @import "../scss/colors";
 @import "../scss/type";
 @import "../scss/buttons";
-@import "../scss/utilities";
 
 // Nothing Personal Components
 @import "../scss/components/nothing_personal/brand_banner";
