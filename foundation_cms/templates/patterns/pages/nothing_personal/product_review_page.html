@@ -12,17 +12,7 @@
             {% include "patterns/components/nothing_personal/product_review_page/intro_section.html" with page=page %}
             {% include "patterns/components/nothing_personal/product_review_page/review_section.html" with header="What You Should Know" %}
 
-            <div class="grid-container">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-12" style="background: #ccc; padding: 2rem;">
-                        <div>
-                            [field to be added] Email CTA
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {% include "patterns/components/nothing_personal/product_review_page/review_section/what_you_should_know.html" %}
+            {% include "patterns/components/nothing_personal/product_review_page/review_section/what_you_should_know.html" with show_newsletter_signup=True %}
             {% include "patterns/components/nothing_personal/product_review_page/review_section/good_and_bad.html" %}
             {% include "patterns/components/nothing_personal/product_review_page/review_section/reduce_your_risk.html" %}
             {% include "patterns/components/nothing_personal/product_review_page/review_section/bottom_line.html" %}

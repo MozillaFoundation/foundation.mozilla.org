@@ -148,21 +148,32 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
   }
 
-  .review-section {
-    &__inner-wrapper {
-      margin: rem-calc(56) 0;
+  .newsletter-section,
+  .review-section__inner-wrapper {
+    margin-bottom:rem-calc(56);
 
-      @include breakpoint(large up) {
-        margin: 4rem 0;
-      }
+    @include breakpoint(large up) {
+      margin-bottom:rem-calc(68);
     }
+  }
 
+  .review-section {
     &__heading {
       margin-top: 0;
       margin-bottom: rem-calc(24);
 
       @include breakpoint(large up) {
         margin-bottom: 0;
+      }
+    }
+
+    &__subheading {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: 1rem;
       }
     }
 
@@ -193,16 +204,6 @@ body.nothing-personal.nothing-personal-product-review-page {
         }
       }
 
-      dt {
-        @include mofo-text-style($header-styles, "h6", $header-font-family);
-
-        margin-bottom: 0.5rem;
-
-        @include breakpoint(large up) {
-          margin-bottom: 1rem;
-        }
-      }
-
       dd {
         @include mofo-text-style($body-text-styles, "large");
 
@@ -212,9 +213,7 @@ body.nothing-personal.nothing-personal-product-review-page {
   }
 
   .products-mentioned {
-    &__heading {
-      @include mofo-text-style($header-styles, "h6", $header-font-family);
-    }
+    margin-top: 4rem;
 
     ul {
       display: grid;
