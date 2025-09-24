@@ -50,6 +50,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
     research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
+    scoring = models.CharField(max_length=255, null=True, blank=True, help_text="Plain text field for product scoring")
 
     what_you_should_know_section = StreamField(
         [("content", ProductReviewSectionWhatYouShouldKnowBlock())],
@@ -99,6 +100,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
                 FieldPanel("updated"),
                 FieldPanel("reviewed"),
                 FieldPanel("research"),
+                FieldPanel("scoring"),
             ],
             heading="Product Review Meta",
         ),
