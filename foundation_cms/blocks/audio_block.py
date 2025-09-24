@@ -5,9 +5,8 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 
 class AudioBlock(BaseBlock):
-    image = ImageBlock(required=False, help_text="Optional image to display at the top of the block.")
     title = blocks.CharBlock()
-    description = blocks.TextBlock(required=False, help_text="Short description of the audio")
+    description = blocks.TextBlock(required=False, help_text="Optional short description of the audio")
     simplecast_embed_code = blocks.CharBlock()
 
     class Meta:
