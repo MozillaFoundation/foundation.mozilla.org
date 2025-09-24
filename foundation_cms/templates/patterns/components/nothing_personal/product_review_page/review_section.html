@@ -1,23 +1,10 @@
 <section class="review-section grid-container">
     <div class="review-section__inner-wrapper grid-x">
-        <div class="cell small-12 medium-3">
-            <h2 class="review-section__heading">{{ header }}</h2>
+        <div class="cell small-12 large-3">
+            <h2 class="review-section__heading">{% block heading_text %}{% endblock%}</h2>
         </div>
-        <div class="cell small-12 medium-8 medium-offset-1">
-            <dl class="review-section__qa-list">
-                <div class="review-section__qa-item">
-                    <dt>Q: I'm the question.</dt>
-                    <dd>A: I'm the description. I'm the description. I'm the description. I'm the description. I'm the description. I'm the description. I'm the description.</dd>
-                </div>
-                <div class="review-section__qa-item">
-                    <dt>Q: I'm the question.</dt>
-                    <dd>A: I'm the description. I'm the description. I'm the description. I'm the description. I'm the description. I'm the description. I'm the description.</dd>
-                </div>
-                <div class="review-section__qa-item">
-                    <dt>Q: I'm the question.</dt>
-                    <dd>A: I'm the description. I'm the description. I'm the description. I'm the description. I'm the description. I'm the description. I'm the description.</dd>
-                </div>
-            </dl>
+        <div class="cell small-12 large-8 large-offset-1">
+            {% block review_content %}{% endblock%}
         </div>
     </div>
 </section>

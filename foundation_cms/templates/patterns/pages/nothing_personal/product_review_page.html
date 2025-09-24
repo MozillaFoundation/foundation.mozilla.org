@@ -22,11 +22,10 @@
                 </div>
             </div>
 
-            {% include "patterns/components/nothing_personal/product_review_page/review_section.html" with header="The Good and the Bad" %}
-            {% include "patterns/components/nothing_personal/product_review_page/review_section.html" with header="Reduce Your Risk" %}
-            {% include "patterns/components/nothing_personal/product_review_page/review_section.html" with header="The Bottom Line" %}
-
-            {% include "patterns/components/nothing_personal/product_review_page/products_mentioned_section.html" with products=products_mentioned %}
+            {% include "patterns/components/nothing_personal/product_review_page/review_section/what_you_should_know.html" %}
+            {% include "patterns/components/nothing_personal/product_review_page/review_section/good_and_bad.html" %}
+            {% include "patterns/components/nothing_personal/product_review_page/review_section/reduce_your_risk.html" %}
+            {% include "patterns/components/nothing_personal/product_review_page/review_section/bottom_line.html" %}
         </article>
     </main>
 {% endblock content %}
