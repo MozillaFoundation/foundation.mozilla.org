@@ -43,12 +43,12 @@
       );
       $bg: (
         1: (
-          img: url("../_images/handdrawn/notched-rectangle.svg"),
+          img: url("/static/foundation_cms/_images/handdrawn/notched-rectangle.svg"),
           position: left calc($offset-to-container-edge + 4rem) top 3rem,
           size: rem-calc(240) auto,
         ),
         2: (
-          img: url("../_images/handdrawn/speech-bubble.svg"),
+          img: url("/static/foundation_cms/_images/handdrawn/speech-bubble.svg"),
           position: right calc($offset-to-container-edge + 4rem) bottom 14rem,
           size: rem-calc(240) auto,
         ),
@@ -160,7 +160,7 @@
 
     @include breakpoint(large up) {
       overflow: unset;
-      background-image: url("../_images/handdrawn/arrow-down.svg");
+      background-image: url("/static/foundation_cms/_images/handdrawn/arrow-down.svg");
       background-repeat: no-repeat;
       background-position: right top
         calc(
@@ -287,7 +287,7 @@
       &[data-carousel-slide="1"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/circle-mask.svg",
+            "/static/foundation_cms/_images/spotlight/circle-mask.svg",
             color(yellow, "200")
           );
         }
@@ -296,7 +296,7 @@
       &[data-carousel-slide="2"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/square-cutout-mask.svg",
+            "/static/foundation_cms/_images/spotlight/square-cutout-mask.svg",
             color(orange, "400")
           );
         }
@@ -305,7 +305,7 @@
       &[data-carousel-slide="3"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/trapezoid-mask.svg",
+            "/static/foundation_cms/_images/spotlight/trapezoid-mask.svg",
             color(blue, "200")
           );
         }

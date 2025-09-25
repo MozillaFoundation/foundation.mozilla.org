@@ -1,6 +1,6 @@
 .featured-card-container {
   padding: 1rem 0;
-  background: url("../_images/featured-card/featured-card-background-small.svg")
+  background: url("/static/foundation_cms/_images/featured-card/featured-card-background-small.svg")
     no-repeat center center;
   background-size: 100% 100%;
   margin: 0;
@@ -8,7 +8,7 @@
   @include breakpoint(large up) {
     margin: 0;
     padding: 4rem 0;
-    background: url("../_images/featured-card/featured-card-background-large.svg");
+    background: url("/static/foundation_cms/_images/featured-card/featured-card-background-large.svg");
     background-size: auto 100%;
     background-position: center;
     background-repeat: repeat-x;
