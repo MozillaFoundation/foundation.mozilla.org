@@ -1,3 +1,5 @@
+@use "sass:map";
+
 .product-review-carousel {
   $card-vertical-offsets: (
     0: rem-calc(76),
