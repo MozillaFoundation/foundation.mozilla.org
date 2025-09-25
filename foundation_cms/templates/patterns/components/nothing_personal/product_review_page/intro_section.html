@@ -9,36 +9,36 @@
             <h1>{{ page.title }}</h1>
             <dl class="intro-section__meta intro-section__meta--small">
                 {% if page.updated %}
-                <div class="intro-section__meta-item intro-section__meta-item--primary">
-                    <dt>Updated</dt>
-                    <dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd>
-                </div>
+                    <div class="intro-section__meta-item intro-section__meta-item--primary">
+                        <dt>Updated</dt>
+                        <dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd>
+                    </div>
                 {% endif %}
                 {% if page.reviewed %}
-                <div class="intro-section__meta-item">
-                    <dt>Reviewed</dt>
-                    <dd><time datetime="{{ page.reviewed }}">{{ page.reviewed }}</time></dd>
-                </div>
+                    <div class="intro-section__meta-item">
+                        <dt>Reviewed</dt>
+                        <dd><time datetime="{{ page.reviewed }}">{{ page.reviewed }}</time></dd>
+                    </div>
                 {% endif %}
                 {% if page.research %}
-                <div class="intro-section__meta-item">
-                    <dt>Research</dt>
-                    <dd><time datetime="{{ page.research }}">{{ page.research }}</time></dd>
-                </div>
+                    <div class="intro-section__meta-item">
+                        <dt>Research</dt>
+                        <dd><time datetime="{{ page.research }}">{{ page.research }}</time></dd>
+                    </div>
                 {% endif %}
             </dl>
 
             {% if page.lede_text %}
-            <p class="intro-section__lede-text">{{ page.lede_text }}</p>
+                <p class="intro-section__lede-text">{{ page.lede_text }}</p>
             {% endif %}
 
             {% if page.scoring %}
-            <dl class="intro-section__meta">
-                <div class="intro-section__meta-item intro-section__meta-item--primary">
-                    <dt>Privacy Score</dt>
-                    <dd>{{ page.scoring }}</dd>
-                </div>
-            </dl>
+                <dl class="intro-section__meta">
+                    <div class="intro-section__meta-item intro-section__meta-item--primary">
+                        <dt>Privacy Score</dt>
+                        <dd>{{ page.scoring }}</dd>
+                    </div>
+                </dl>
             {% endif %}
 
             <!-- Anchor Navigation -->

@@ -1,18 +1,18 @@
 {% load wagtailimages_tags wagtailcore_tags %}
 
 {% if products_mentioned %}
-<div class="products-mentioned">
-    <h3 class="review-section__subheading">Products Mentioned</h3>
-    <ul>
-        {% for product in products %}
-            {% image product.hero_image fill-200x300 as img %}
-            <li>
-                <a href="{% pageurl product %}">
-                    <img src="{{ img.url }}">
-                    <span class="products-mentioned__product-title">{{ product.title }}</span>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
+    <div class="products-mentioned">
+        <h3 class="review-section__subheading">Products Mentioned</h3>
+        <ul>
+            {% for product in products %}
+                {% image product.hero_image fill-200x300 as img %}
+                <li>
+                    <a href="{% pageurl product %}">
+                        <img src="{{ img.url }}">
+                        <span class="products-mentioned__product-title">{{ product.title }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endif %}

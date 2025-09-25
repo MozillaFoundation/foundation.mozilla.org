@@ -68,6 +68,7 @@ body.nothing-personal.nothing-personal-product-review-page {
 
       @include mofo-text-style($header-styles, "h6", $header-font-family);
       @include responsive-spacing-y($intro-subsection-margin-y);
+
       display: flex;
       flex-wrap: wrap;
 

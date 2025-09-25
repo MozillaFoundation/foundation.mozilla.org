@@ -5,12 +5,12 @@
 {% block heading_text %}The Good and The Bad{% endblock heading_text %}
 
 {% block review_content %}
-<dl class="product-review-section__qa-list">
-{% if value.the_good %}
-    {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Good" ans=value.the_good %}
-{% endif %}
+    <dl class="product-review-section__qa-list">
+        {% if value.the_good %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Good" ans=value.the_good %}
+        {% endif %}
 
-{% if value.the_good %}
-    {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Bad" ans=value.the_bad %}
-{% endif %}
+        {% if value.the_good %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Bad" ans=value.the_bad %}
+        {% endif %}
 {% endblock review_content %}

@@ -5,7 +5,7 @@
 {% block heading_text %}Reduce Your Risks{% endblock heading_text %}
 
 {% block review_content %}
-<dl class="product-review-section__qa-list">
-    {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with ans=value.content %}
-</dl>
+    <dl class="product-review-section__qa-list">
+        {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with ans=value.content %}
+    </dl>
 {% endblock review_content %}
