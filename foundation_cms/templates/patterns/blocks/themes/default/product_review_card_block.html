@@ -4,15 +4,16 @@
     <div class="product-review-card">
         <a href="{{ page.url }}">
             {% if page.hero_image %}
-                {% image page.hero_image fill-200x200 as img %}
+                {% image page.hero_image fill-192x288 as img %}
                 <div class="product-review-card__image-container">
                     <img src="{{ img.url }}"
                          alt="{{ page.title }}"
                          class="product-review-card__image"
-                         width="100%"
-                         height="100%">
+                         width="{{ img.width }}"
+                         height="{{ img.height }}">
                 </div>
             {% endif %}
+            <div class="product-review-card__title">{{ page.title }}</div>
         </a>
     </div>
 {% endwith %}

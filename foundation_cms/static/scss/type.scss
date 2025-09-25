@@ -399,7 +399,6 @@ body.redesign {
 // Highlight effect
 // ===================================
 
-// mixin with color param
 @mixin highlight-effect($highlight-color, $highlight-gap) {
   display: inline;
   box-decoration-break: clone;

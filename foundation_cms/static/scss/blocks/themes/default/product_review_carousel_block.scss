@@ -1,3 +1,61 @@
-.product-review-carousel__cards-container {
-  display: flex;
+.product-review-carousel {
+  $card-vertical-offsets: (
+    0: rem-calc(76),
+    1: 0,
+    2: rem-calc(56),
+  );
+
+  margin: 0 0 2rem;
+
+  &__subtitle {
+    @include mofo-text-style($label-text-styles, "regular");
+
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+    margin: 1rem 0;
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(27);
+    }
+  }
+
+  &__text {
+    @include mofo-text-style($body-text-styles, "large");
+
+    margin: 0;
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(27);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__cards-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0 3rem;
+    margin: rem-calc(42) -1rem 0;
+    padding: 0 1rem 1.5rem;
+    overflow-x: auto;
+
+    @include breakpoint(large up) {
+      justify-content: center;
+    }
+
+    .product-review-carousel__card-wrapper {
+      @for $i from 0 through length($card-vertical-offsets) {
+        &:nth-child(#{$i + 1}) {
+          margin-top: map-get($card-vertical-offsets, $i);
+        }
+      }
+    }
+  }
 }
