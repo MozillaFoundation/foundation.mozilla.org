@@ -1,0 +1,57 @@
+@use "sass:map";
+@use "sass:math";
+@import "../../../scss/nothing_personal_base";
+@import "../../../scss/nothing_personal_base";
+
+body.nothing-personal.nothing-personal-product-collection-page {
+  .brand-banner {
+    margin: 0.5rem 0 2rem;
+
+    @include breakpoint(medium up) {
+      margin: 1.5rem 0 4rem;
+    }
+  }
+
+  .hero {
+    margin: 2rem 0;
+
+    @include breakpoint(medium up) {
+      margin: 4rem 0;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+    }
+
+
+    }
+
+    .grid-x {
+      gap: 1.5rem;
+
+      @include breakpoint(medium up) {
+        gap: 0;
+      }
+    }
+  
+
+
+  .two-column-container {
+    margin: 2rem 0 0;
+
+    @include breakpoint(medium up) {
+      margin: 4rem 0 0;
+    }
+
+    .newsletter-signup,
+    .list-block {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -38,6 +38,8 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
         "nothing_personal.NothingPersonalArticlePage",
         "nothing_personal.NothingPersonalPodcastPage",
         "nothing_personal.NothingPersonalProductReviewPage",
+        "nothing_personal.NothingPersonalProductCollectionPage",
+
     ]
 
     content_panels = AbstractHomePage.content_panels + [
