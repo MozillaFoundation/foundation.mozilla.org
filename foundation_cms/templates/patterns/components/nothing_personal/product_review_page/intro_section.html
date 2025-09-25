@@ -9,22 +9,13 @@
             <h1>{{ page.title }}</h1>
             <dl class="intro-section__meta intro-section__meta--small">
                 {% if page.updated %}
-                    <div class="intro-section__meta-item intro-section__meta-item--primary">
-                        <dt>Updated</dt>
-                        <dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd>
-                    </div>
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Updated" time=page.updated style_variation="primary" %}
                 {% endif %}
                 {% if page.reviewed %}
-                    <div class="intro-section__meta-item">
-                        <dt>Reviewed</dt>
-                        <dd><time datetime="{{ page.reviewed }}">{{ page.reviewed }}</time></dd>
-                    </div>
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Reviewed" time=page.reviewed %}
                 {% endif %}
                 {% if page.research %}
-                    <div class="intro-section__meta-item">
-                        <dt>Research</dt>
-                        <dd><time datetime="{{ page.research }}">{{ page.research }}</time></dd>
-                    </div>
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Research" time=page.research %}
                 {% endif %}
             </dl>
 
@@ -34,10 +25,7 @@
 
             {% if page.scoring %}
                 <dl class="intro-section__meta">
-                    <div class="intro-section__meta-item intro-section__meta-item--primary">
-                        <dt>Privacy Score</dt>
-                        <dd>{{ page.scoring }}</dd>
-                    </div>
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Privacy Score" value=page.scoring style_variation="primary" %}
                 </dl>
             {% endif %}
 
