@@ -23,8 +23,12 @@
                 {% include "patterns/components/streamfield.html" with streamfield=page.reduce_your_risks_section %}
             {% endif %}
 
-            {% if page.bottom_line_section and page.products_mentioned.exists %}
+            {% if page.bottom_line_section %}
                 {% include "patterns/components/streamfield.html" with streamfield=page.bottom_line_section %}
+            {% endif %}
+
+            {% if page.products_mentioned.exists %}
+                {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
             {% endif %}
         </article>
     </main>
