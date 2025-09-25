@@ -147,7 +147,7 @@ body.nothing-personal.nothing-personal-product-review-page {
   }
 
   .newsletter-section,
-  .review-section__inner-wrapper {
+  .product-review-section {
     margin-bottom: rem-calc(56);
 
     @include breakpoint(large up) {
@@ -155,7 +155,7 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
   }
 
-  .review-section {
+  .product-review-section {
     &__heading {
       margin-top: 0;
       margin-bottom: rem-calc(24);
@@ -207,6 +207,10 @@ body.nothing-personal.nothing-personal-product-review-page {
         @include mofo-text-style($body-text-styles, "large");
 
         margin: 0;
+
+        > p:first-child {
+          margin-top: 0;
+        }
       }
     }
   }

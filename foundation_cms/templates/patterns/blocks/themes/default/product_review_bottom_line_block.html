@@ -1,17 +1,13 @@
-{% if page.products_mentioned %}
-    <div class="grid-container" id="bottom-line">
-        <div class="grid-x">
-            <div class="cell small-4 medium-4">
-                <div>
-                    <p>The Bottom Line</p>
-                </div>
-            </div>
-            <div class="cell small-7 medium-7 medium-offset-1">
-                {{ value.content }}
-            </div>
-        </div>
-    </div>
+{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
 
-    {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+{% block wrapper_id %}bottom-line{% endblock wrapper_id %}
 
-{% endif %}
+{% block heading_text %}The Bottom Line{% endblock heading_text %}
+
+{% block review_content %}
+<dl class="product-review-section__qa-list">
+    {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with ans=value.content %}
+</dl>
+{% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+
+{% endblock review_content %}

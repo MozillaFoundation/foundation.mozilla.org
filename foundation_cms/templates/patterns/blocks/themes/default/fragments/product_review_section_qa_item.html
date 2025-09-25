@@ -1,0 +1,13 @@
+{% load wagtailcore_tags %}
+
+<div class="product-review-section__qa-item">
+    {% if question %}
+    <dt class="product-review-section__subheading">{{ question }}</dt>
+    {% endif %}
+    <dd>
+        {{ ans }}
+        {% if additional_info %}
+            {{ additional_info|richtext }}
+        {% endif %}
+    </dd>
+</div>
