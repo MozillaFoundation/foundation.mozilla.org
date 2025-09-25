@@ -1,6 +1,10 @@
 {% extends theme_base %}
 
+<<<<<<< HEAD
 {% load static %}
+=======
+{% load static wagtailimages_tags wagtailcore_tags %}
+>>>>>>> upstream/main
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/product_review_page.compiled.css' %}">
@@ -12,10 +16,21 @@
             {% include "patterns/components/nothing_personal/product_review_page/intro_section.html" with page=page %}
             {% include "patterns/components/nothing_personal/product_review_page/review_section.html" with header="What You Should Know" %}
 
-            {% include "patterns/components/nothing_personal/product_review_page/review_section/what_you_should_know.html" with show_newsletter_signup=True %}
-            {% include "patterns/components/nothing_personal/product_review_page/review_section/good_and_bad.html" %}
-            {% include "patterns/components/nothing_personal/product_review_page/review_section/reduce_your_risk.html" %}
-            {% include "patterns/components/nothing_personal/product_review_page/review_section/bottom_line.html" %}
+            {% if page.what_you_should_know_section %}
+                {% include "patterns/components/nothing_personal/product_review_page/review_section/what_you_should_know.html" with show_newsletter_signup=True %}
+            {% endif %}
+
+            {% if page.good_and_bad_section %}
+                {% include "patterns/components/nothing_personal/product_review_page/review_section/good_and_bad.html" %}
+            {% endif %}
+
+            {% if page.reduce_your_risks_section %}
+                {% include "patterns/components/nothing_personal/product_review_page/review_section/reduce_your_risk.html" %}
+            {% endif %}
+
+            {% if page.bottom_line_section and page.products_mentioned.exists %}
+                {% include "patterns/components/nothing_personal/product_review_page/review_section/bottom_line.html" %}
+            {% endif %}
         </article>
     </main>
 {% endblock content %}

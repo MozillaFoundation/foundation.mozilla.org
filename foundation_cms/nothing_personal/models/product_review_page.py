@@ -1,11 +1,19 @@
 from django.db import models
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import StreamField
 from wagtail.models import Orderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from foundation_cms.blocks import (
+    ProductReviewSectionBottomLineBlock,
+    ProductReviewSectionGoodAndBadBlock,
+    ProductReviewSectionReduceYourRisksBlock,
+    ProductReviewSectionWhatYouShouldKnowBlock,
+)
+from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import get_related_items, localize_queryset
 
@@ -42,16 +50,42 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
     research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
-    show_what_you_should_know_section = models.BooleanField(
-        default=False, verbose_name="Show 'What You Should Know' Section"
+    scoring = models.CharField(max_length=255, null=True, blank=True, help_text="Plain text field for product scoring")
+
+    what_you_should_know_section = StreamField(
+        [("content", ProductReviewSectionWhatYouShouldKnowBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
     )
-    show_reduce_your_risks_section = models.BooleanField(
-        default=False, verbose_name="Show 'Reduce Your Risks' Section"
+
+    newsletter_signup_section = StreamField(
+        [("content", NewsletterSignupBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
     )
-    show_the_good_and_the_bad_section = models.BooleanField(
-        default=False, verbose_name="Show 'The Good and The Bad' Section"
+
+    good_and_bad_section = StreamField(
+        [("content", ProductReviewSectionGoodAndBadBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
     )
-    show_the_bottom_line_section = models.BooleanField(default=False, verbose_name="Show 'The Bottom Line' Section")
+
+    reduce_your_risks_section = StreamField(
+        [("content", ProductReviewSectionReduceYourRisksBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
+    )
+
+    bottom_line_section = StreamField(
+        [("content", ProductReviewSectionBottomLineBlock())],
+        max_num=1,
+        use_json_field=True,
+        blank=True,
+    )
 
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
@@ -66,31 +100,24 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
                 FieldPanel("updated"),
                 FieldPanel("reviewed"),
                 FieldPanel("research"),
+                FieldPanel("scoring"),
             ],
             heading="Product Review Meta",
-        ),
-        MultiFieldPanel(
-            [
-                FieldRowPanel(
-                    [
-                        FieldPanel("show_what_you_should_know_section"),
-                        FieldPanel("show_reduce_your_risks_section"),
-                    ]
-                ),
-                FieldRowPanel(
-                    [
-                        FieldPanel("show_the_good_and_the_bad_section"),
-                        FieldPanel("show_the_bottom_line_section"),
-                    ]
-                ),
-            ],
-            heading="Product Review Sections",
-            help_text="Choose which sections will appear in this product review",
         ),
         FieldPanel("lede_text"),
         MultiFieldPanel(
             [InlinePanel("products_mentioned", max_num=3)],
             heading="Products Mentioned",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("what_you_should_know_section"),
+                FieldPanel("newsletter_signup_section"),
+                FieldPanel("good_and_bad_section"),
+                FieldPanel("reduce_your_risks_section"),
+                FieldPanel("bottom_line_section"),
+            ],
+            heading="Review Sections",
         ),
     ]
 
@@ -99,10 +126,11 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
     translatable_fields = [
         # Content tab fields
-        SynchronizedField("show_what_you_should_know_section"),
-        SynchronizedField("show_reduce_your_risks_section"),
-        SynchronizedField("show_the_good_and_the_bad_section"),
-        SynchronizedField("show_the_bottom_line_section"),
+        SynchronizedField("what_you_should_know_section"),
+        SynchronizedField("newsletter_signup_section"),
+        SynchronizedField("good_and_bad_section"),
+        SynchronizedField("reduce_your_risks_section"),
+        SynchronizedField("bottom_line_section"),
         SynchronizedField("products_mentioned"),
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
@@ -129,15 +157,31 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         return context
 
     def get_anchor_sections(self):
-        """Generate anchor sections based on enabled sections"""
-        section_mapping = [
-            (self.show_what_you_should_know_section, "What You Should Know", "what-you-should-know"),
-            (self.show_reduce_your_risks_section, "Reduce Your Risks", "reduce-your-risks"),
-            (self.show_the_good_and_the_bad_section, "The Good and The Bad", "the-good-and-the-bad"),
-            (self.show_the_bottom_line_section, "The Bottom Line", "the-bottom-line"),
+        """Generate anchor sections based on individual page fields"""
+        section_configs = [
+            (
+                "what_you_should_know",
+                self.what_you_should_know_section,
+                "What You Should Know",
+                "what-you-should-know",
+            ),
+            ("good_and_bad", self.good_and_bad_section, "The Good and The Bad", "good-and-bad"),
+            ("reduce_your_risks", self.reduce_your_risks_section, "Reduce Your Risks", "reduce-your-risks"),
+            ("bottom_line", self.bottom_line_section, "The Bottom Line", "bottom-line"),
         ]
 
-        return [{"title": title, "anchor": anchor} for enabled, title, anchor in section_mapping if enabled]
+        sections = []
+        for section_key, section_field, title, anchor in section_configs:
+            if not section_field:
+                continue
+
+            # Skip bottom_line if no products mentioned
+            if section_key == "bottom_line" and not self.products_mentioned.exists():
+                continue
+
+            sections.append({"title": title, "anchor": anchor})
+
+        return sections
 
     @cached_property
     def localized_products_mentioned(self):
@@ -151,7 +195,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     @cached_property
     def preview_products_mentioned(self):
         """
-        Fetches prodcts mentioned updates for CMS page previews.
+        Fetches products mentioned updates for CMS page previews.
         """
         products_mentioned = get_related_items(
             self.products_mentioned.all(), "mentioned_product", order_by="sort_order"
