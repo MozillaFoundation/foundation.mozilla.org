@@ -7,25 +7,40 @@
                 {% include "patterns/components/topic_pills.html" with topics=page.topics.all style_variation="loose" %}
             {% endwith %}
             <h1>{{ page.title }}</h1>
-            <dl class="intro-section__meta">
+            <dl class="intro-section__meta intro-section__meta--small">
+                {% if page.updated %}
                 <div class="intro-section__meta-item intro-section__meta-item--primary">
                     <dt>Updated</dt>
                     <dd><time datetime="{{ page.updated }}">{{ page.updated }}</time></dd>
                 </div>
+                {% endif %}
+                {% if page.reviewed %}
                 <div class="intro-section__meta-item">
                     <dt>Reviewed</dt>
                     <dd><time datetime="{{ page.reviewed }}">{{ page.reviewed }}</time></dd>
                 </div>
+                {% endif %}
+                {% if page.research %}
                 <div class="intro-section__meta-item">
                     <dt>Research</dt>
                     <dd><time datetime="{{ page.research }}">{{ page.research }}</time></dd>
                 </div>
+                {% endif %}
             </dl>
-            <div class="intro-section__lede-text">{{ page.lede_text }}</div>
-            <div class="intro-section__privacy-score" style="background: #ccc;">
-                <span>[field to be added] Privacy Score:</span>
-                <span>{{ page.privacy_score }}</span>
-            </div>
+
+            {% if page.lede_text %}
+            <p class="intro-section__lede-text">{{ page.lede_text }}</p>
+            {% endif %}
+
+            {% if page.scoring %}
+            <dl class="intro-section__meta">
+                <div class="intro-section__meta-item intro-section__meta-item--primary">
+                    <dt>Privacy Score</dt>
+                    <dd>{{ page.scoring }}</dd>
+                </div>
+            </dl>
+            {% endif %}
+
             <!-- Anchor Navigation -->
             {% include "patterns/components/nothing_personal/product_review_page/toc_nav.html" %}
         </div>

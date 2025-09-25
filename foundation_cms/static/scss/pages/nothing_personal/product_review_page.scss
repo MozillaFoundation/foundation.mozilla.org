@@ -28,8 +28,17 @@ body.nothing-personal.nothing-personal-product-review-page {
       }
     }
 
+    .topic-pills,
     h1 {
-      @include responsive-spacing-y($intro-subsection-margin-y);
+      margin-bottom: map.get($intro-subsection-margin-y, small);
+
+      @include breakpoint(large up) {
+        margin-bottom: map.get($intro-subsection-margin-y, large);
+      }
+    }
+
+    h1 {
+      margin-top: 0;
     }
 
     > .grid-x {
@@ -57,11 +66,14 @@ body.nothing-personal.nothing-personal-product-review-page {
     &__meta {
       $gap: 1rem;
 
-      @include mofo-text-style($body-text-styles, "small");
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
       @include responsive-spacing-y($intro-subsection-margin-y);
-
       display: flex;
       flex-wrap: wrap;
+
+      &--small {
+        @include mofo-text-style($body-text-styles, "small");
+      }
 
       &-item {
         display: flex;
@@ -100,10 +112,6 @@ body.nothing-personal.nothing-personal-product-review-page {
 
     &__lede-text {
       @include mofo-text-style($body-text-styles, "xlarge");
-      @include responsive-spacing-y($intro-subsection-margin-y);
-    }
-
-    &__privacy-score {
       @include responsive-spacing-y($intro-subsection-margin-y);
     }
 
