@@ -159,4 +159,60 @@ body.nothing-personal-home-page {
       transform: scale($image-hover-scale);
     }
   }
+
+  .grid-container:has(.narrow-text-image-block) {
+    display: flex;
+    flex-direction: column;
+    background: $white;
+    min-height: 100vh;
+    justify-content: center;
+  }
+
+  .text-image-block {
+    &__text {
+      order: 2;
+
+      @include breakpoint(large up) {
+        order: 1;
+        margin-bottom: rem-calc(180);
+      }
+    }
+
+    &__subtitle {
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h2", $header-font-family);
+
+      margin: 1rem 0;
+    }
+
+    &__link {
+      .cta-link {
+        @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
+
+        font-weight: 700;
+        margin-top: rem-calc(12);
+      }
+    }
+
+    &__image {
+      order: 1;
+      align-content: end;
+
+      .image-block {
+        margin-bottom: rem-calc(24);
+
+        @include breakpoint(large up) {
+          margin-bottom: 0;
+        }
+
+        &__image {
+          border-radius: 0;
+        }
+      }
+    }
+  }
 }

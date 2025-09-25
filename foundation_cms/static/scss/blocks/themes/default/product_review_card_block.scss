@@ -17,5 +17,9 @@
 
     margin: 0.5rem 0 0;
     color: map.get($mofo-colors, black);
+
+    a {
+      color: map.get($mofo-colors, black);
+    }
   }
 }
