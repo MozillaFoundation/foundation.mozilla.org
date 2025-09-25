@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "sass:math";
 
 @import "../../nothing_personal_base";
 
@@ -146,75 +145,6 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
   }
 
-  .newsletter-section,
-  .product-review-section {
-    margin-bottom: rem-calc(56);
-
-    @include breakpoint(large up) {
-      margin-bottom: rem-calc(68);
-    }
-  }
-
-  .product-review-section {
-    &__heading {
-      margin-top: 0;
-      margin-bottom: rem-calc(24);
-
-      @include breakpoint(large up) {
-        margin-bottom: 0;
-      }
-    }
-
-    &__subheading {
-      @include mofo-text-style($header-styles, "h6", $header-font-family);
-
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-
-      @include breakpoint(large up) {
-        margin-bottom: 1rem;
-      }
-    }
-
-    &__qa-list {
-      margin: 0;
-    }
-
-    &__qa-item {
-      $padding-y: (
-        small: 1rem,
-        large: 2rem,
-      );
-
-      &:not(:last-child) {
-        padding-bottom: map.get($padding-y, small);
-        border-bottom: 1px solid color(neutral, "300");
-
-        @include breakpoint(large up) {
-          padding-bottom: map.get($padding-y, large);
-        }
-      }
-
-      &:not(:first-child) {
-        padding-top: map.get($padding-y, small);
-
-        @include breakpoint(large up) {
-          padding-top: map.get($padding-y, large);
-        }
-      }
-
-      dd {
-        @include mofo-text-style($body-text-styles, "large");
-
-        margin: 0;
-
-        > p:first-child {
-          margin-top: 0;
-        }
-      }
-    }
-  }
-
   .products-mentioned {
     margin-top: 4rem;
 
@@ -250,12 +180,6 @@ body.nothing-personal.nothing-personal-product-review-page {
       @include breakpoint(large up) {
         margin-top: 1rem;
       }
-    }
-  }
-
-  .more-stories-section {
-    h2 {
-      margin-bottom: 2rem;
     }
   }
 }
