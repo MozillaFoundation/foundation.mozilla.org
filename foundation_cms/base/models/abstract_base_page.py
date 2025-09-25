@@ -132,7 +132,12 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         through="base.PageTopic",
         blank=True,
         verbose_name="Page Topics",
-        help_text="Add one or more topics. Start typing to search, then press Enter.",
+        help_text=(
+            "Add one or more existing topics. Start typing to search, then press “Down” arrow "
+            "on your keyboard to select topic. If topic is unavailable check if Topic exists by "
+            "going to the left side-nav to Snippet > Page Topics (new) > Check if topic exists. "
+            "If not, click “Add new page topics (new)”."
+        ),
     )
     author = models.ForeignKey(
         "base.Author",
