@@ -53,7 +53,7 @@
     .product-review-carousel__card-wrapper {
       @for $i from 0 through length($card-vertical-offsets) {
         &:nth-child(#{$i + 1}) {
-          margin-top: map-get($card-vertical-offsets, $i);
+          margin-top: map.get($card-vertical-offsets, $i);
         }
       }
     }
