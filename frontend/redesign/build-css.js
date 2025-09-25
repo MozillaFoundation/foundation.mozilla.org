@@ -8,9 +8,9 @@ const __dirname = path.dirname(__filename);
 
 const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
-  "redesign_main",
   "redesign_migrated_content",
   "pages/home_page",
+  "pages/general_page",
   "pages/topic_listing_page",
   "pages/nothing_personal/article_page",
   "pages/nothing_personal/podcast_page",

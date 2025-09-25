@@ -1,5 +1,10 @@
 {% extends theme_base %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/general_page.compiled.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
     <div class="general-page">
         <div class="general-page__body">
