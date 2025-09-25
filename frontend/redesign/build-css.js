@@ -11,7 +11,6 @@ const entries = [
   "redesign_fallback",
   "redesign_migrated_content",
   "pages/home_page",
-  "pages/general_page",
   "pages/topic_listing_page",
   "pages/nothing_personal/article_page",
   "pages/nothing_personal/podcast_page",
