@@ -117,6 +117,12 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
 
     &__toc-nav {
+      margin-top: 2rem;
+
+      @include breakpoint(large up) {
+        margin-top: 4rem;
+      }
+
       &-heading {
         @include mofo-text-style($label-text-styles, "regular");
         @include responsive-spacing-y($intro-subsection-margin-y);
