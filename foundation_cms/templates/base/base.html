@@ -30,7 +30,10 @@
         {% if request.in_preview_panel %}
             <base target="_blank">{% endif %}
     {# Global stylesheets #}
-        {% block extra_css %}{# Override this in templates to add extra stylesheets #}{% endblock extra_css %}
+        {% block extra_css %}
+            {# This is the fallback stylesheet for pages like abstract or error pages. Override this in page templates to add stylesheets #}
+            {% static 'foundation_cms/_css/pages/redesign_fallback.compiled.css' %}
+        {% endblock extra_css %}
 
     {# favicon #}
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "foundation_cms/_images/favicon.png" %}">
