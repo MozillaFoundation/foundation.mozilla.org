@@ -52,11 +52,20 @@
         width: 100%;
       }
 
-      .newsletter-signup__cta {
-        @include mofo-text-style($body-text-styles, "large");
+      .newsletter-signup {
+        &__cta-wrapper {
+          margin-bottom: 0.5rem;
 
-        font-weight: 400;
-        color: $white;
+          @include breakpoint(xlarge up) {
+            margin-bottom: 1rem;
+            align-self: normal;
+          }
+        }
+
+        &__cta-header,
+        &__cta-description {
+          @include mofo-text-style($body-text-styles, "large");
+        }
       }
 
       .newsletter-signup__input {

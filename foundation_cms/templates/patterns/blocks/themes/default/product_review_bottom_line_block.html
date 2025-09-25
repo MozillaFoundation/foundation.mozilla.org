@@ -1,0 +1,17 @@
+{% if page.products_mentioned %}
+    <div class="grid-container" id="bottom-line">
+        <div class="grid-x">
+            <div class="cell small-4 medium-4">
+                <div>
+                    <p>The Bottom Line</p>
+                </div>
+            </div>
+            <div class="cell small-7 medium-7 medium-offset-1">
+                {{ value.content }}
+            </div>
+        </div>
+    </div>
+
+    {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+
+{% endif %}
