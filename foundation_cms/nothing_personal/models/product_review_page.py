@@ -106,10 +106,6 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         ),
         FieldPanel("lede_text"),
         MultiFieldPanel(
-            [InlinePanel("products_mentioned", max_num=3)],
-            heading="Products Mentioned",
-        ),
-        MultiFieldPanel(
             [
                 FieldPanel("what_you_should_know_section"),
                 FieldPanel("newsletter_signup_section"),
@@ -118,6 +114,10 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
                 FieldPanel("bottom_line_section"),
             ],
             heading="Review Sections",
+        ),
+        MultiFieldPanel(
+            [InlinePanel("products_mentioned", max_num=4)],
+            heading="Products Mentioned",
         ),
     ]
 
