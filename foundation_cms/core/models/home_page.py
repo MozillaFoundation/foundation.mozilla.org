@@ -1,13 +1,12 @@
 from django.shortcuts import get_object_or_404
 from wagtail.admin.panels import FieldPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import HeroAccordionBlock
-
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 
 
