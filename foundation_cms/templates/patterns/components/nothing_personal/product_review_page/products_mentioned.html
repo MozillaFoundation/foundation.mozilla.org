@@ -5,10 +5,15 @@
         <h3 class="products-mentioned__heading">Products Mentioned</h3>
         <ul>
             {% for product in products %}
-                {% image product.hero_image fill-200x300 as img %}
+                {% image product.hero_image fill-200x300 as img1x %}
+                {% image product.hero_image fill-400x600 as img2x %}
                 <li>
                     <a href="{% pageurl product %}">
-                        <img src="{{ img.url }}">
+                        <img src="{{ img1x.url }}"
+                             srcset="{{ img1x.url }} 1x, {{ img2x.url }} 2x"
+                             height="{{ img1x.height }}"
+                             width="{{ img1x.width }}"
+                             alt="Product image of {{ product.title }}">
                         <span class="products-mentioned__product-title">{{ product.title }}</span>
                     </a>
                 </li>
