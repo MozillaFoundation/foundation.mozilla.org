@@ -46,7 +46,7 @@
     "esbuild": "^0.25.2",
     "foundation-sites": "^6.9.0",
     "jquery": "^3.7.1",
-    "sass": "^1.86.3"
+    "sass": "^1.93.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
