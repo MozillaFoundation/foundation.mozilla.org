@@ -394,32 +394,3 @@ body.redesign {
 .link-text-regular {
   @include mofo-text-style($link-text-styles, "regular", $header-font-family);
 }
-
-// ===================================
-// Highlight effect
-// ===================================
-
-@mixin highlight-effect($highlight-color, $highlight-gap) {
-  display: inline;
-  box-decoration-break: clone;
-
-  // The highlight effect is created using a linear gradient background image
-  // with transparent slices at the top and bottom, and a solid color in the middle.
-  // Using a background color alone would not allow for the gap between lines
-  // of text in multi-line headers.
-  background-image: linear-gradient(
-    to bottom,
-    /* top transparent slice */ transparent 0,
-    transparent calc(#{$highlight-gap} / 2),
-    /* highlight body */ $highlight-color calc(#{$highlight-gap} / 2),
-    $highlight-color calc(100% - #{$highlight-gap} / 2),
-    /* bottom transparent slice */ transparent
-      calc(100% - #{$highlight-gap} / 2),
-    transparent 100%
-  );
-  background-size: 100%;
-  background-position: 0 1px;
-  background-repeat: repeat-y;
-  background-origin: padding-box;
-  background-clip: padding-box;
-}

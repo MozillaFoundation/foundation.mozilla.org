@@ -69,7 +69,7 @@ body.nothing-personal-home-page {
 
     &__title {
       @include mofo-text-style($header-styles, "h1", $header-font-family);
-      @include highlight-effect(
+      @include np-title-highlight-effect(
         $featured-item-highlight-background-color,
         $featured-item-highlight-gap
       );

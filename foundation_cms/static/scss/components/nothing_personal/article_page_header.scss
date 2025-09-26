@@ -17,7 +17,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
 
   &__title {
     @include mofo-text-style($header-styles, "h1", $header-font-family);
-    @include highlight-effect(
+    @include np-title-highlight-effect(
       $header-highlight-background-color,
       $header-highlight-gap
     );
