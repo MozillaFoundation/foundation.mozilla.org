@@ -31,23 +31,6 @@ body.nothing-personal.nothing-personal-podcast-page {
     &__topics {
       width: fit-content;
       margin: 2rem 0;
-
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: rem-calc(8);
-        margin: 0;
-        padding: 0;
-
-        li {
-          display: inline-block;
-        }
-      }
-
-      a {
-        color: map.get($mofo-colors, black);
-        text-decoration: none;
-      }
     }
 
     &__image {

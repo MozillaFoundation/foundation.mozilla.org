@@ -15,13 +15,7 @@
                         <div class="hero__title">{{ page.hero_title }}</div>
                         <div class="hero__topics">
                             {% with topics=page.topics.all %}
-                                {% if topics %}
-                                    <ul>
-                                        {% for topic in topics %}
-                                            <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
+                                {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
                             {% endwith %}
                         </div>
                         <div class="hero__description lede-text">{{ page.hero_description }}</div>
