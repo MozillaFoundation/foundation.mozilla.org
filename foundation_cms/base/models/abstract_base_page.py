@@ -15,7 +15,6 @@ from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 
 from foundation_cms.blocks import (
-    AudioBlock,
     CustomImageBlock,
     DividerBlock,
     FeaturedCardBlock,
@@ -24,6 +23,7 @@ from foundation_cms.blocks import (
     ListBlock,
     NewsletterSignupBlock,
     PillarCardSetBlock,
+    PodcastBlock,
     PortraitCardSetBlock,
     QuoteBlock,
     SpacerBlock,
@@ -48,7 +48,7 @@ base_page_block_options = [
         ),
     ),
     ("image", CustomImageBlock()),
-    ("audio_block", AudioBlock()),
+    ("podcast_block", PodcastBlock()),
     ("tabbed_content", TabbedContentContainerBlock()),
     ("two_column_container_block", TwoColumnContainerBlock()),
     ("link_button_block", LinkButtonBlock()),
