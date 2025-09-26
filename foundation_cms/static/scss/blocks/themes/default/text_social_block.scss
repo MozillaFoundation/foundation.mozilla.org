@@ -7,8 +7,9 @@
   align-items: center;
   padding: rem-calc(54);
   gap: rem-calc(39);
-  width: rem-calc(516);
   height: rem-calc(493);
+  background-color: color(neutral, "200");
+  border-top-left-radius: rem-calc(88);
 
   &__title {
     @include mofo-text-style($body-text-styles, "xlarge");
