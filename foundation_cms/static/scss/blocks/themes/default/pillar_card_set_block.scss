@@ -12,7 +12,8 @@
     1: (
       rotation: -2.5deg,
       background-color: color(blue, "200"),
-      background-image: url("../_images/handdrawn/arrow-up.png"),
+      background-image:
+        url("/static/foundation_cms/_images/handdrawn/arrow-up.png"),
       background-position: right -1.5rem bottom,
       background-size: (
         small: (
@@ -30,7 +31,8 @@
     2: (
       rotation: 4deg,
       background-color: color(green, "200"),
-      background-image: url("../_images/handdrawn/stairs.png"),
+      background-image:
+        url("/static/foundation_cms/_images/handdrawn/stairs.png"),
       background-position: right -0.7rem bottom -1rem,
       background-size: (
         small: (
@@ -47,7 +49,7 @@
     3: (
       rotation: -2.5deg,
       background-color: color(yellow, "200"),
-      background-image: url("../_images/handdrawn/rays.png"),
+      background-image: url("/static/foundation_cms/_images/handdrawn/rays.png"),
       background-position: right bottom,
       background-size: (
         small: (

@@ -208,7 +208,7 @@ body.redesign {
           top: 100%;
           width: 100%;
           height: 3rem;
-          background-image: url("../_images/timely-activations/separator-blue-300.svg");
+          background-image: url("/static/foundation_cms/_images/timely-activations/separator-blue-300.svg");
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
@@ -251,7 +251,7 @@ body.redesign {
             height: $height;
             top: 0;
             left: calc(100% + $gap);
-            background-image: url("../_images/timely-activations/separator-blue-300-large.svg");
+            background-image: url("/static/foundation_cms/_images/timely-activations/separator-blue-300-large.svg");
           }
         }
 
@@ -268,7 +268,7 @@ body.redesign {
               bottom: 0;
               width: 100%;
               height: rem-calc(40);
-              background-image: url("../_images/timely-activations/mask-orange-200.svg");
+              background-image: url("/static/foundation_cms/_images/timely-activations/mask-orange-200.svg");
               background-size: 100% 100%;
 
               @include breakpoint(medium up) {
@@ -313,7 +313,7 @@ body.redesign {
           top: 100%;
           width: 100%;
           height: 4rem;
-          background-image: url("../_images/timely-activations/separator-blue-600.svg");
+          background-image: url("/static/foundation_cms/_images/timely-activations/separator-blue-600.svg");
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
@@ -352,7 +352,7 @@ body.redesign {
             $width: map.get($dimension, width);
             $height: map.get($dimension, height);
 
-            background-image: url("../_images/timely-activations/separator-blue-600-large.svg");
+            background-image: url("/static/foundation_cms/_images/timely-activations/separator-blue-600-large.svg");
             background-size: 100% 100%;
             width: $width;
             height: $height;
@@ -406,7 +406,7 @@ body.redesign {
           top: 100%;
           width: 100%;
           height: 3rem;
-          background-image: url("../_images/timely-activations/separator-orange-200.svg");
+          background-image: url("/static/foundation_cms/_images/timely-activations/separator-orange-200.svg");
           background-size: 100% calc(100% - 0.5rem);
           background-position: center;
           background-repeat: no-repeat;
@@ -444,7 +444,7 @@ body.redesign {
             $width: map.get($dimension, width);
             $height: map.get($dimension, height);
 
-            background-image: url("../_images/timely-activations/separator-orange-200-large.svg");
+            background-image: url("/static/foundation_cms/_images/timely-activations/separator-orange-200-large.svg");
             transform: none;
             width: $width;
             height: $height;

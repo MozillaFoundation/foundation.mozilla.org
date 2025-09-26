@@ -95,7 +95,7 @@
 
   select.newsletter-signup__input {
     appearance: none;
-    background-image: url("../_images/icons/select-caret-down-black.svg");
+    background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 3rem;
@@ -141,7 +141,7 @@
         background-color: $white;
 
         &:checked {
-          background-image: url("../_images/icons/checkbox-stripe-black.svg");
+          background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
           background-repeat: no-repeat;
           background-position: center;
           background-size: rem-calc(12) auto;
@@ -161,7 +161,7 @@
     color: color(orange, "600");
     margin-top: 0.5rem;
     background-color: color(neutral, "100");
-    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
     background-size: 0.75rem auto;
     background-position: 0.75rem center;
     background-repeat: no-repeat;
@@ -181,7 +181,7 @@
     color: color(orange, "600");
     margin-bottom: 1rem;
     background-color: color(neutral, "100");
-    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
     background-size: 0.75rem auto;
     background-position: 0.75rem 0.66rem;
     background-repeat: no-repeat;
@@ -231,7 +231,7 @@
           display: block;
           width: rem-calc(53px);
           height: rem-calc(44px);
-          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
           background-size: 100% auto;
           background-position: center;
           background-repeat: no-repeat;
@@ -290,7 +290,7 @@
       left: 2rem;
       width: rem-calc(51px);
       height: rem-calc(44px);
-      background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+      background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
       background-size: 100% auto;
       background-position: center;
       background-repeat: no-repeat;
@@ -374,7 +374,7 @@
           top: 0.25rem;
           width: rem-calc(51px);
           height: rem-calc(44px);
-          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
           background-size: 100% auto;
           background-position: center;
           background-repeat: no-repeat;
