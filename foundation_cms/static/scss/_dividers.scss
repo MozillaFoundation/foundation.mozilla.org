@@ -4,7 +4,7 @@
 }
 
 @mixin divider-image($image-path, $height: 5px, $margin-y: 0) {
-  @include divider-base();
+  @include divider-base;
 
   height: $height;
   margin-top: $margin-y;
@@ -16,5 +16,7 @@
 }
 
 hr.divider--straight-line {
-  @include divider-image("/static/foundation_cms/_images/handdrawn/straight-line-divider.svg");
+  @include divider-image(
+    "/static/foundation_cms/_images/handdrawn/straight-line-divider.svg"
+  );
 }

@@ -163,6 +163,7 @@ body.nothing-personal.nothing-personal-product-review-page {
   .products-mentioned {
     &__heading {
       @include mofo-text-style($header-styles, "h6", $header-font-family);
+
       margin-top: 0;
       margin-bottom: 0.5rem;
 
