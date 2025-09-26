@@ -27,7 +27,7 @@ body.nothing-personal-home-page {
     margin-bottom: 2rem;
 
     @include breakpoint(large up) {
-      margin-bottom: rem-calc(146);
+      margin-bottom: 9rem;
     }
 
     &__picture {
@@ -75,7 +75,7 @@ body.nothing-personal-home-page {
       );
 
       line-height: 1.1 !important;
-      margin: 0;
+      margin: 0 0 0 -0.5rem;
       padding: 0 0.5rem;
 
       @include breakpoint(large only) {
@@ -85,6 +85,7 @@ body.nothing-personal-home-page {
       @include breakpoint(large up) {
         line-height: 1.2 !important;
         padding: 0 0.5rem;
+        margin-left: 0;
       }
     }
 
@@ -101,12 +102,6 @@ body.nothing-personal-home-page {
       padding: 0 0.25rem;
       box-decoration-break: clone;
       margin: 0;
-    }
-  }
-
-  &:has(.featured-items) .featured-hero-item {
-    @include breakpoint(large up) {
-      margin-bottom: rem-calc(52);
     }
   }
 
@@ -164,11 +159,21 @@ body.nothing-personal-home-page {
     }
   }
 
+  .featured-item:hover .featured-item__title {
+    text-decoration: underline;
+  }
+
   .grid-container:has(.narrow-text-image-block) {
-    min-height: 100vh;
+    min-height: 115vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-bottom: 20vh;
+
+    @include breakpoint(large up) {
+      min-height: 100vh;
+      padding-bottom: 0;
+    }
   }
 
   .grid-container:has(.two-column-container) {
@@ -194,6 +199,8 @@ body.nothing-personal-home-page {
     }
 
     &__subtitle {
+      @include mofo-text-style($label-text-styles, "regular");
+
       text-transform: uppercase;
       margin: 0;
     }
