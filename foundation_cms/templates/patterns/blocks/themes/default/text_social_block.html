@@ -1,9 +1,9 @@
 <div class="text-social-block">
   {% if value.title %}
-    <p class="text-social-block__title">{{ value.title }}</p>
+    <div class="text-social-block__title">{{ value.title }}</div>
   {% endif %}
   {% if value.text %}
-    <p class="text-social-block__text">{{ value.text }}</p>
+    <div class="text-social-block__text">{{ value.text }}</div>
   {% endif %}
   <div class="text-social-block__share">
     {% include "patterns/components/share_container.html" with show_title=False %}
