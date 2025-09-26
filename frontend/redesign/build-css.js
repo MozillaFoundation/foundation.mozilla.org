@@ -14,6 +14,7 @@ const entries = [
   "pages/topic_listing_page",
   "pages/nothing_personal/article_page",
   "pages/nothing_personal/podcast_page",
+  "pages/nothing_personal/product_review_page",
   "pages/nothing_personal/home_page",
 ];
 

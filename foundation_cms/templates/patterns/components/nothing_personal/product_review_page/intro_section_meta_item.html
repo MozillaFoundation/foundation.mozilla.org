@@ -1,0 +1,10 @@
+<div class="intro-section__meta-item {% if style_variation %}intro-section__meta-item--{{ style_variation }}{% endif %}">
+    <dt>{{ label }}</dt>
+    <dd>
+        {% if time %}
+            <time datetime="{{ time }}">{{ time }}</time>
+        {% else %}
+            {{ value }}
+        {% endif %}
+    </dd>
+</div>

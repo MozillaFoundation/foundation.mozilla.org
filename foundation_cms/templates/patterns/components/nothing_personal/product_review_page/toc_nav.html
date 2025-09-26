@@ -1,0 +1,13 @@
+{% if anchor_sections %}
+  <nav class="intro-section__toc-nav" aria-labelledby="toc-heading">
+    <hr class="divider--straight-line">
+    <h2 id="toc-heading" class="intro-section__toc-nav-heading">In This Review</h2>
+    <ol class="intro-section__toc-nav-list">
+      {% for section in anchor_sections %}
+        <li class="intro-section__toc-nav-item">
+          <a href="#{{ section.anchor }}" class="intro-section__toc-nav-ink">{{ section.title }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+{% endif %}
