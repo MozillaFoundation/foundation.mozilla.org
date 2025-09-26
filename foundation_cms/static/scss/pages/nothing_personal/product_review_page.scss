@@ -2,7 +2,15 @@
 
 @import "../../nothing_personal_base";
 
+html:has(body.nothing-personal.nothing-personal-product-review-page) {
+  scroll-behavior: smooth;
+}
+
 body.nothing-personal.nothing-personal-product-review-page {
+  [id] {
+    scroll-margin-top: 100px;
+  }
+
   main {
     h2 {
       @include mofo-text-style($header-styles, "h3", $header-font-family);
