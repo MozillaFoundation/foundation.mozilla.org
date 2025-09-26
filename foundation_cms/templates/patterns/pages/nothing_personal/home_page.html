@@ -9,6 +9,9 @@
 {% block content %}
   <!-- Main Content -->
   <main>
+    {% if page.featured_items %}
+      {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
+    {% endif %}
     {% if page.body %}
       {% include "patterns/components/streamfield.html" with streamfield=page.body %}
     {% endif %}

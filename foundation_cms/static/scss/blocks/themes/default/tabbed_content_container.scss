@@ -123,87 +123,87 @@
       }
     }
   }
-}
 
-.text-image-block {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
-  @include breakpoint(large up) {
-    flex-direction: row;
-    align-items: center;
-    gap: 4rem;
-  }
-
-  &__text {
-    order: 2;
+  .text-image-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 
     @include breakpoint(large up) {
-      order: 1;
-      max-width: 50%;
+      flex-direction: row;
+      align-items: center;
+      gap: 4rem;
     }
-  }
 
-  &__subtitle {
-    @include mofo-text-style($label-text-styles, "small");
-
-    margin: 0 0 1rem;
-
-    @include breakpoint(large up) {
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  &__title {
-    @include mofo-text-style($header-styles, "h4", $header-font-family);
-  }
-
-  &__link {
-    @include breakpoint(large up) {
-      margin-top: 1.5rem;
-    }
-  }
-
-  &__image {
-    order: 1;
-
-    @include breakpoint(large up) {
+    &__text {
       order: 2;
-      flex-basis: 1;
-      min-width: 54%;
-    }
-
-    // Using default image block but overriding aspect ratios
-    .image-block {
-      margin: 0;
 
       @include breakpoint(large up) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        order: 1;
+        max-width: 50%;
+      }
+    }
+
+    &__subtitle {
+      @include mofo-text-style($label-text-styles, "small");
+
+      margin: 0 0 1rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
+    }
+
+    &__link {
+      @include breakpoint(large up) {
+        margin-top: 1.5rem;
+      }
+    }
+
+    &__image {
+      order: 1;
+
+      @include breakpoint(large up) {
+        order: 2;
+        flex-basis: 1;
+        min-width: 54%;
       }
 
-      &__image {
-        border-bottom-left-radius: rem-calc(28);
-        border-top-right-radius: rem-calc(28);
+      // Using default image block but overriding aspect ratios
+      .image-block {
+        margin: 0;
 
         @include breakpoint(large up) {
-          border-top-right-radius: rem-calc(92);
-          border-bottom-left-radius: rem-calc(92);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
-      }
 
-      &--landscape {
-        .image-block__image {
-          aspect-ratio: math.div(3, 2);
+        &__image {
+          border-bottom-left-radius: rem-calc(28);
+          border-top-right-radius: rem-calc(28);
+
+          @include breakpoint(large up) {
+            border-top-right-radius: rem-calc(92);
+            border-bottom-left-radius: rem-calc(92);
+          }
         }
-      }
 
-      &--portrait {
-        .image-block__image {
-          max-width: rem-calc(300);
-          aspect-ratio: math.div(2, 3);
+        &--landscape {
+          .image-block__image {
+            aspect-ratio: math.div(3, 2);
+          }
+        }
+
+        &--portrait {
+          .image-block__image {
+            max-width: rem-calc(300);
+            aspect-ratio: math.div(2, 3);
+          }
         }
       }
     }
