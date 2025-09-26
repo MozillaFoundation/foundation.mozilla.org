@@ -27,9 +27,58 @@
     margin: 0;
   }
 
-  &__share {
-    .share-buttons {
+  &__buttons {
+    justify-content: center;
+    display: flex;
+    gap: rem-calc(12);
+
+    a {
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
+      width: rem-calc(38);
+      height: rem-calc(39);
+      background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+        no-repeat center / contain;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        background: url("/static/foundation_cms/_images/share-container-orange.svg")
+          no-repeat center / contain;
+      }
     }
+  }
+
+  [class*="icon-"] {
+    width: rem-calc(18);
+    height: rem-calc(18);
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    line-height: 100%;
+    position: relative;
+    top: 1px;
+  }
+
+  .icon-bluesky {
+    background-image: url("../_images/icons/social-bluesky-black.svg");
+  }
+
+  .icon-instagram {
+    background-image: url("../_images/icons/social-instagram-black.svg");
+  }
+
+  .icon-linkedin {
+    background-image: url("../_images/icons/social-linkedin-black.svg");
+  }
+
+  .icon-spotify {
+    background-image: url("../_images/icons/social-spotify-black.svg");
+  }
+
+  .icon-tiktok {
+    background-image: url("../_images/icons/social-tiktok-black.svg");
   }
 }
