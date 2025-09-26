@@ -42,17 +42,19 @@
                 {% image page.hero_image fill-760x1140 as img_desktop_2x %}
 
                 <div class="intro-section__product-img">
-                    <picture>
-                        <source media="(min-width: 1024px)"
-                                srcset="{{ img_desktop.url }}, {{ img_desktop_2x.url }} 2x">
-                        <source media="(min-width: 640px)"
-                                srcset="{{ img_tablet.url }}, {{ img_tablet_2x.url }} 2x">
-                        <source srcset="{{ img_mobile.url }}, {{ img_mobile_2x.url }} 2x">
-                        <img src="{{ img_mobile.url }}"
-                             alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
-                             width="{{ img_mobile.width }}"
-                             height="{{ img_mobile.height }}">
-                    </picture>
+                    <img src="{{ img_mobile.url }}"
+                         srcset="{{ img_mobile.url }} 162w,
+                                 {{ img_mobile_2x.url }} 324w,
+                                 {{ img_tablet.url }} 340w,
+                                 {{ img_tablet_2x.url }} 680w,
+                                 {{ img_desktop.url }} 380w,
+                                 {{ img_desktop_2x.url }} 760w"
+                         sizes="(min-width: 1024px) 380px,
+                                (min-width: 640px) 340px,
+                                162px"
+                         alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
+                         width="{{ img_mobile.width }}"
+                         height="{{ img_mobile.height }}">
                 </div>
             {% endif %}
         </div>
