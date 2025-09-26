@@ -15,7 +15,11 @@ from foundation_cms.blocks import (
 )
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.mixins.hero_image import HeroImageMixin
-from foundation_cms.utils import get_related_items, localize_queryset
+from foundation_cms.utils import (
+    get_default_locale,
+    get_related_items,
+    localize_queryset,
+)
 
 
 class ProductMentioned(Orderable):
@@ -147,6 +151,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     def get_context(self, request):
         context = super().get_context(request)
         context["products_mentioned"] = self.localized_products_mentioned
+        context["latest_product_reviews"] = self.get_latest_product_reviews()
         context["anchor_sections"] = self.get_anchor_sections()
         return context
 
@@ -155,6 +160,24 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         context["products_mentioned"] = self.preview_products_mentioned
         context["anchor_sections"] = self.get_anchor_sections()
         return context
+
+    def get_latest_product_reviews(self):
+        """
+        Returns the 2 latest `NothingPersonalProductReviewPage` objects.
+        """
+        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+
+        results = (
+            NothingPersonalProductReviewPage.objects.live()
+            .public()
+            .filter(locale=DEFAULT_LOCALE)
+            .exclude(id=self.id)
+            .order_by("-first_published_at")[:2]
+        )
+
+        localized_results = [p.localized for p in results]
+
+        return localized_results
 
     def get_anchor_sections(self):
         """Generate anchor sections based on individual page fields"""
