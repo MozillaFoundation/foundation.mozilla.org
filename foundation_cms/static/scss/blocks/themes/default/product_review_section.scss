@@ -1,10 +1,23 @@
 @use "sass:map";
 
 .product-review-section {
+    $qa-item-padding-y: (
+      small: 1rem,
+      large: 2rem,
+    );
+
     margin-bottom: rem-calc(56);
 
     @include breakpoint(large up) {
       margin-bottom: rem-calc(68);
+    }
+
+    @mixin item-padding-y($side: top) {
+      padding-#{$side}: map.get($qa-item-padding-y, small);
+
+      @include breakpoint(large up) {
+        padding-#{$side}: map.get($qa-item-padding-y, large);
+      }
     }
 
     &__heading {
@@ -32,26 +45,13 @@
     }
 
     &__qa-item {
-      $padding-y: (
-        small: 1rem,
-        large: 2rem,
-      );
-
       &:not(:last-child) {
-        padding-bottom: map.get($padding-y, small);
+        @include item-padding-y(bottom);
         border-bottom: 1px solid color(neutral, "300");
-
-        @include breakpoint(large up) {
-          padding-bottom: map.get($padding-y, large);
-        }
       }
 
       &:not(:first-child) {
-        padding-top: map.get($padding-y, small);
-
-        @include breakpoint(large up) {
-          padding-top: map.get($padding-y, large);
-        }
+        @include item-padding-y(top);
       }
 
       dd {
@@ -63,6 +63,10 @@
           margin-top: 0;
         }
       }
+    }
+
+    &__additional-info {
+      @include item-padding-y(top);
     }
 }
 
