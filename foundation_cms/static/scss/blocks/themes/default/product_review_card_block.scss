@@ -3,6 +3,10 @@
 .product-review-card {
   width: 12rem;
 
+  a {
+    color: map.get($mofo-colors, black);
+  }
+
   &__image-container {
     img {
       width: 100%;
@@ -17,9 +21,5 @@
 
     margin: 0.5rem 0 0;
     color: map.get($mofo-colors, black);
-
-    a {
-      color: map.get($mofo-colors, black);
-    }
   }
 }

@@ -3,8 +3,13 @@
 
 @import "../../nothing_personal_base";
 
+html:has(body.nothing-personal-home-page) {
+  scroll-behavior: smooth;
+}
+
 body.nothing-personal-home-page {
   $image-hover-scale: 105%;
+  $primary-nav-height: rem-calc(88);
 
   .brand-banner {
     margin-bottom: 2rem;
@@ -161,11 +166,23 @@ body.nothing-personal-home-page {
   }
 
   .grid-container:has(.narrow-text-image-block) {
+    min-height: calc(100vh - $primary-nav-height);
     display: flex;
     flex-direction: column;
-    background: $white;
-    min-height: 100vh;
     justify-content: center;
+  }
+
+  .grid-container:has(.two-column-container) {
+    padding-top: 4rem;
+  }
+
+  // Stacked parallax
+  .grid-container:has(.two-column-container),
+  .grid-container:has(.narrow-text-image-block) {
+    background: $white;
+    position: sticky;
+    top: $primary-nav-height;
+    z-index: 2;
   }
 
   .text-image-block {
@@ -217,7 +234,12 @@ body.nothing-personal-home-page {
   }
 
   .newsletter-signup {
+    margin-top: 1rem;
     margin-bottom: 0;
     border-bottom-left-radius: 0;
+
+    @include breakpoint(large up) {
+      margin-top: 0;
+    }
   }
 }
