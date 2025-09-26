@@ -9,7 +9,6 @@ html:has(body.nothing-personal-home-page) {
 
 body.nothing-personal-home-page {
   $image-hover-scale: 105%;
-  $primary-nav-height: rem-calc(88);
 
   .brand-banner {
     margin-bottom: 2rem;
@@ -166,7 +165,7 @@ body.nothing-personal-home-page {
   }
 
   .grid-container:has(.narrow-text-image-block) {
-    min-height: calc(100vh - $primary-nav-height);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -181,8 +180,7 @@ body.nothing-personal-home-page {
   .grid-container:has(.narrow-text-image-block) {
     background: $white;
     position: sticky;
-    top: $primary-nav-height;
-    z-index: 2;
+    top: 0;
   }
 
   .text-image-block {
