@@ -36,17 +36,6 @@
             {% if page.products_mentioned.exists %}
                 {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
             {% endif %}
-
-            {% if latest_product_reviews|length >= 2 %}
-                <div class="grid-container more-content-container">
-                    <div class="grid-x">
-                        <div class="cell small-12">
-                            {% include "patterns/components/nothing_personal/related_content.html" with heading="More Reviews" items=latest_product_reviews %}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-
         </article>
     </main>
 {% endblock content %}
