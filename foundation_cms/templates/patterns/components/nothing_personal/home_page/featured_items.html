@@ -6,7 +6,7 @@
       <div class="grid-container">
         <div class="grid-x featured-hero-item">
 
-          <a class="featured-hero-item__media cell small-12 large-6 large-offset-3" href="{{ featured_item.url }}">
+          <a class="featured-hero-item__media cell small-12 large-6 large-offset-3" href="{{ featured_item.url }}" aria-label=" featured_item.hero_image_alt_text">
             {% if featured_item.displayed_hero_content == "video" and featured_item.hero_video_url %}
               <video class="featured-hero-item__video" playsinline="" muted="" loop="" preload="" autoplay>
                 <source src="{{ featured_item.hero_video_url }}" type="video/mp4">

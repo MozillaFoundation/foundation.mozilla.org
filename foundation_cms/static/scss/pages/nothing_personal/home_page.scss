@@ -109,6 +109,10 @@ body.nothing-personal-home-page {
     justify-content: center;
     gap: 2rem 0;
     margin-bottom: 4rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 9rem;
+    }
   }
 
   .featured-item {
