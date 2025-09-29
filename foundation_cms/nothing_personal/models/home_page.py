@@ -1,8 +1,10 @@
+from django.db import models
 from django.shortcuts import get_object_or_404
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
-from wagtail.models import Page
+from wagtail.models import Orderable, Page
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
@@ -12,10 +14,30 @@ from foundation_cms.blocks import (
     TwoColumnContainerBlock,
 )
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
-from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
-class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixin):
+class NothingPersonalFeaturedItem(Orderable):
+    """Orderable child model to allow 0..4 featured pages."""
+
+    page = models.ForeignKey(
+        Page,
+        related_name="+",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    home_page = ParentalKey(
+        "nothing_personal.NothingPersonalHomePage",
+        related_name="featured_items",
+    )
+
+    panels = [
+        PageChooserPanel("page"),
+    ]
+
+
+class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
+
     max_count = 1
 
     nothing_personal_block_options = [
@@ -41,14 +63,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage, HeroImageMixi
     ]
 
     content_panels = AbstractHomePage.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("hero_title"),
-                FieldPanel("hero_image"),
-                FieldPanel("hero_image_alt_text"),
-            ],
-            heading="Hero Image",
-        ),
+        InlinePanel("featured_items", min_num=0, max_num=4, label="Featured items"),
         FieldPanel("body"),
     ]
 
