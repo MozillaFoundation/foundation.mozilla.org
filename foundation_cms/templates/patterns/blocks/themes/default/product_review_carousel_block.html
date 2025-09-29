@@ -1,9 +1,11 @@
 {% load wagtailcore_tags %}
 
-<section class="product-review-carousel">
+<div class="product-review-carousel">
     <div class="product-review-carousel__subtitle">{{ self.subtitle }}</div>
-    <div class="product-review-carousel__title">{{ self.title }}</div>
-    <div class="product-review-carousel__text">{{ self.text }}</div>
+    <div class="grid-x">
+        <div class="product-review-carousel__title cell small-12 large-7">{{ self.title }}</div>
+        <div class="product-review-carousel__text cell small-12 large-4 large-offset-1">{{ self.text }}</div>
+    </div>
     <div class="product-review-carousel__cards-container">
         {% for card_item in self.cards %}
             <div class="product-review-carousel__card-wrapper">
@@ -14,4 +16,4 @@
     {% if self.cta_link %}
         {% include "patterns/blocks/themes/default/cta_link_block.html" with link=self.cta_link.0 %}
     {% endif %}
-</section>
+</div>
