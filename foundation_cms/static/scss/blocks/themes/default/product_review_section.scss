@@ -62,19 +62,19 @@
     }
   }
 
-  &__ans {
-    > p:first-child {
-      margin-top: 0;
-    }
-
+  &__additional-info {
     > p {
       margin-bottom: 0;
     }
   }
 
-  &__additional-info {
+  &__ans {
     > p {
       margin-bottom: 0;
+    }
+
+    > p:first-child {
+      margin-top: 0;
     }
   }
 }
