@@ -1,4 +1,6 @@
 @mixin image-hover-zoom($scale: 1.05, $duration: 0.3s) {
+  overflow: hidden;
+
   img {
     transition: transform $duration ease-out;
   }
@@ -10,7 +12,10 @@
   }
 }
 
-@mixin link-text-hover-underline() {
+@mixin link-text-hover-underline(
+  $default-color: map.get($mofo-colors, black),
+  $hover-color: map.get($mofo-colors, black)
+) {
   text-decoration: none;
 
   &:hover {
