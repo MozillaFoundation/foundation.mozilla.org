@@ -24,10 +24,10 @@ body.nothing-personal-home-page {
     $featured-item-highlight-gap: rem-calc(8);
 
     position: relative;
-    margin-bottom: 2rem;
+    margin-bottom: rem-calc(41);
 
     @include breakpoint(large up) {
-      margin-bottom: 9rem;
+      margin-bottom: rem-calc(52);
     }
 
     &__picture {
@@ -92,6 +92,11 @@ body.nothing-personal-home-page {
     &__author-wrapper {
       display: block;
       margin-top: 0.25rem;
+      margin-left: -0.5rem;
+
+      @include breakpoint(large up) {
+        margin-left: 0;
+      }
     }
 
     &__author {
