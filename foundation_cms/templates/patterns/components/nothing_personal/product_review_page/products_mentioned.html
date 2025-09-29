@@ -10,11 +10,13 @@
                     {% image product.hero_image fill-400x600 as img2x %}
                     <li>
                         <a href="{% pageurl product %}">
-                            <img src="{{ img1x.url }}"
-                                 srcset="{{ img1x.url }} 1x, {{ img2x.url }} 2x"
-                                 height="{{ img1x.height }}"
-                                 width="{{ img1x.width }}"
-                                 alt="Product image of {{ product.title }}">
+                            <div class="products-mentioned__image-container">
+                                <img src="{{ img1x.url }}"
+                                    srcset="{{ img1x.url }} 1x, {{ img2x.url }} 2x"
+                                    height="{{ img1x.height }}"
+                                    width="{{ img1x.width }}"
+                                    alt="Product image of {{ product.title }}">
+                            </div>
                             <span class="products-mentioned__product-title">{{ product.title }}</span>
                         </a>
                     </li>
