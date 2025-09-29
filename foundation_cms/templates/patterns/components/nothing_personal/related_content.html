@@ -1,0 +1,49 @@
+{% load wagtailimages_tags %}
+
+<div class="related-content">
+    <h3 class="related-content__heading">{{ heading }}</h3>
+
+    <div class="related-content__card-grid">
+
+        {% for item in items %}
+            <div class="content-card">
+                <a href="{{ item.url }}" class="content-card__image-wrapper">
+                    {% if item.search_image %}
+                {% comment %} 3:2 ratio {% endcomment %}
+                        {% image item.search_image fill-600x400 as img_600 %}
+                        {% image item.search_image fill-900x600 as img_900 %}
+                        {% image item.search_image fill-1200x800 as img_1200 %}
+                        {% image item.search_image fill-1800x1200 as img_1800 %}
+                        <picture>
+                            <img src="{{ img_900.url }}"
+                                 srcset="{{ img_600.url }} 600w,
+                                         {{ img_900.url }} 900w,
+                                         {{ img_1200.url }} 1200w,
+                                         {{ img_1800.url }} 1800w"
+                                 sizes="(max-width: 639px) 100vw, 33vw"
+                                 width="{{ img_900.width }}"
+                                 height="{{ img_900.height }}"
+                                 alt="{{ img_900.alt }}">
+                        </picture>
+                    {% endif %}
+                </a>
+                <div class="content-card__topics">
+                    {% with topics=item.topics.all %}
+                        {% if topics %}
+                            <ul>
+                                {% for topic in topics %}
+                                    <li><a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="content-card__title"><a href="{{ item.url }}">{{ item.title }}</a></div>
+                {% if item.author %}
+                    <div class="content-card__author-name">By {{ item.author.name }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+</div>

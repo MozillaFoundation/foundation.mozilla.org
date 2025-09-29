@@ -1,0 +1,88 @@
+.related-content {
+  &__heading {
+    @include mofo-text-style($header-styles, "h3", $header-font-family);
+    margin: rem-calc(24) 0;
+
+    @include breakpoint(large up) {
+      margin: 2rem 0;
+    }
+  }
+
+  &__card-grid {
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint(medium up) {
+      flex-flow: row wrap;
+      gap: 1rem;
+    }
+  }
+}
+
+.content-card {
+  $image-hover-scale: 105%;
+
+  margin: 0 0 rem-calc(37);
+  flex: 1;
+  position: relative;
+
+  &__image-wrapper {
+    width: 100%;
+    display: block;
+    aspect-ratio: math.div(3, 2);
+    background-color: color(neutral, "200");
+    margin: 0 0 rem-calc(8);
+    overflow: hidden;
+
+    picture {
+      display: contents;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+  }
+
+  &:hover {
+    img {
+      transform: scale($image-hover-scale);
+    }
+  }
+
+  &__topics {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem-calc(8);
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+      }
+    }
+
+    a {
+      color: map.get($mofo-colors, black);
+      text-decoration: none;
+    }
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+    margin: 0 0 rem-calc(8);
+
+    a {
+      text-decoration: none;
+      color: $black;
+    }
+  }
+}
