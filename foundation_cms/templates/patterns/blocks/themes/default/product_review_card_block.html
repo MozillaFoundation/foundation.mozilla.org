@@ -9,7 +9,7 @@
                     {% image page.hero_image fill-384x576 as img_2x %}
                     <img src="{{ img_1x.url }}"
                          srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
-                         alt="{{ page.title }}"
+                         alt="{{ page.hero_image_alt_text }}"
                          class="product-review-card__image"
                          width="{{ img_1x.width }}"
                          height="{{ img_1x.height }}">

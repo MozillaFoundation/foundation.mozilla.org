@@ -55,7 +55,7 @@
           {% with featured_item=featured_rel.page.specific %}
 
             <div class="cell featured-item small-12 large-4">
-              <a href="{{ featured_item.url }}" class="featured-item__media">
+              <a href="{{ featured_item.url }}" class="featured-item__media" aria-label="{{ featured_item.hero_image_alt_text }}">
                 {% if featured_item.displayed_hero_content == "video" and featured_item.hero_video_url %}
                   <video class="featured-item__video" playsinline="" muted="" loop="" preload="" autoplay>
                     <source src="{{ featured_item.hero_video_url }}" type="video/mp4">
