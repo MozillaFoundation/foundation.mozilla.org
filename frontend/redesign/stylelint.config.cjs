@@ -31,5 +31,7 @@ module.exports = {
     "scss/dollar-variable-colon-space-after": null,
     // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
+    // Disable leading underscore error for partial imports (e.g. @import 'scss/_mixins';)
+    "scss/at-import-no-partial-leading-underscore": null,
   },
 };
