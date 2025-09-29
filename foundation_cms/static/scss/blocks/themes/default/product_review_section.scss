@@ -59,15 +59,21 @@
       @include mofo-text-style($body-text-styles, "large");
 
       margin: 0;
+    }
+  }
 
-      > p:first-child {
-        margin-top: 0;
-      }
+  &__ans {
+    > p:first-child {
+      margin-top: 0;
+    }
+
+    > p {
+      margin-bottom: 0;
     }
   }
 
   &__additional-info {
-   > p {
+    > p {
       margin-bottom: 0;
     }
   }
