@@ -30,6 +30,10 @@ body.nothing-personal-home-page {
       margin-bottom: rem-calc(52);
     }
 
+    a {
+      color: map.get($mofo-colors, black);
+    }
+
     &__picture {
       display: contents;
 
@@ -121,6 +125,10 @@ body.nothing-personal-home-page {
   }
 
   .featured-item {
+    a {
+      color: map.get($mofo-colors, black);
+    }
+
     &__media {
       aspect-ratio: math.div(3, 2);
       overflow: hidden;
