@@ -38,12 +38,10 @@
             {% endif %}
 
             {% if latest_product_reviews|length >= 2 %}
-                <div class="grid-container">
+                <div class="grid-container more-content-container">
                     <div class="grid-x">
                         <div class="cell small-12">
-                            {% for product_review in latest_product_reviews %}
-                                <p> Page Title: {{ product_review.title }} </p>
-                            {% endfor %}
+                            {% include "patterns/components/nothing_personal/related_content.html" with heading="More Reviews" items=latest_product_reviews %}
                         </div>
                     </div>
                 </div>

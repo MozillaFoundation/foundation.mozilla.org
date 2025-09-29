@@ -2,6 +2,7 @@
 @use "sass:math";
 
 @import "../../nothing_personal_base";
+@import "../../components/nothing_personal/related_content";
 
 html:has(body.nothing-personal.nothing-personal-product-review-page) {
   scroll-behavior: smooth;
@@ -224,5 +225,9 @@ body.nothing-personal.nothing-personal-product-review-page {
         margin-top: 1rem;
       }
     }
+  }
+
+  .more-content-container {
+    margin-top: rem-calc(50);
   }
 }
