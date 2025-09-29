@@ -67,6 +67,8 @@
   }
 
   &__additional-info {
-    @include item-padding-y(top);
+   > p {
+      margin-bottom: 0;
+    }
   }
 }
