@@ -1,6 +1,7 @@
 .related-content {
   &__heading {
     @include mofo-text-style($header-styles, "h3", $header-font-family);
+
     margin: rem-calc(24) 0;
 
     @include breakpoint(large up) {
