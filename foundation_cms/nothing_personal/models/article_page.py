@@ -3,6 +3,7 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from foundation_cms.core.panels.hero_media_panel import HeroMediaPanel
 from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import get_default_locale
 
@@ -33,15 +34,25 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroImageMixin):
     )
 
     content_panels = AbstractArticlePage.content_panels + [
-        MultiFieldPanel(
+        HeroMediaPanel(
             [
                 FieldPanel("displayed_hero_content"),
-                FieldPanel("hero_image"),
-                FieldPanel("hero_image_alt_text"),
-                FieldPanel("hero_video_url"),
+                FieldPanel(
+                    "hero_image",
+                    attrs={"data-hero-media-target": "field", "data-condition": HERO_CONTENT_IMAGE},
+                ),
+                FieldPanel(
+                    "hero_image_alt_text",
+                    attrs={"data-hero-media-target": "field", "data-condition": HERO_CONTENT_IMAGE},
+                ),
+                FieldPanel(
+                    "hero_video_url",
+                    attrs={"data-hero-media-target": "field", "data-condition": HERO_CONTENT_VIDEO},
+                ),
             ],
             heading="Hero Section",
             classname="collapsible",
+            trigger_field="displayed_hero_content",
         ),
         FieldPanel("lede_text"),
         FieldPanel("body"),
