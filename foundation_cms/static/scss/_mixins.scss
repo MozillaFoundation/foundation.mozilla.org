@@ -13,17 +13,20 @@
 }
 
 @mixin link-text-hover-underline(
-  $default-color: map.get($mofo-colors, black),
-  $hover-color: map.get($mofo-colors, black)
+  $underline-color: map.get($mofo-colors, black)
 ) {
   text-decoration: none;
 
   &:hover {
     text-decoration: underline;
+    text-decoration-color: $underline-color;
   }
 }
 
-@mixin link-text-color($default-color, $hover-color) {
+@mixin link-text-color(
+  $default-color: map.get($mofo-colors, black),
+  $hover-color: map.get($mofo-colors, black)
+) {
   color: $default-color;
 
   &:hover {
