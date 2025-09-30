@@ -1,6 +1,6 @@
 from django.db import models
-from wagtail_localize.fields import TranslatableField
 from wagtail.fields import StreamField
+from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import (
     AbstractBasePage,
@@ -31,6 +31,7 @@ class AbstractArticlePage(AbstractBasePage):
     translatable_fields = AbstractBasePage.translatable_fields + [
         # Content tab fields
         TranslatableField("lede_text"),
+        TranslatableField("body"),
     ]
 
     class Meta:

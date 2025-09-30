@@ -1,7 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 from foundation_cms.mixins.hero_image import HeroImageMixin

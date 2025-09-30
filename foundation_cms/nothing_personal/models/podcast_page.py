@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.images import get_image_model_string
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 
@@ -45,6 +46,15 @@ class NothingPersonalPodcastPage(AbstractBasePage):
             classname="collapsible",
         ),
         FieldPanel("body"),
+    ]
+
+    translatable_fields = AbstractBasePage.translatable_fields + [
+        # Content tab fields
+        TranslatableField("hero_title"),
+        TranslatableField("hero_description"),
+        SynchronizedField("hero_image"),
+        TranslatableField("hero_image_alt_text"),
+        TranslatableField("body"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
