@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.core.panels.hero_media_panel import HeroMediaPanel
