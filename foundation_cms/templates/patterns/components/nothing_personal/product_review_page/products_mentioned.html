@@ -1,7 +1,13 @@
+{% load wagtailimages_tags i18n %}
+
 <div class="grid-container">
     <div class="grid-x">
         <div class="cell small-12 medium-10 medium-offset-1">
-            <h3>[Products Mentioned]</h3>
+            <h3>
+                {% blocktrans %}
+                    [Products Mentioned]
+                {% endblocktrans %}
+            </h3>
             {% for product in products %}
                 <div>
                     <p> <b>Product Title:</b> <a href="{{ product.url }}">{{ product.title }}</a></p>
