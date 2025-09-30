@@ -1,0 +1,25 @@
+@use "sass:map";
+
+.product-review-card {
+  width: 12rem;
+
+  a {
+    color: map.get($mofo-colors, black);
+  }
+
+  &__image-container {
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    @include mofo-text-style($body-text-styles, "small");
+
+    margin: 0.5rem 0 0;
+    color: map.get($mofo-colors, black);
+  }
+}

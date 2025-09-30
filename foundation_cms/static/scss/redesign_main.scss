@@ -6,6 +6,7 @@
 @import "../scss/type";
 @import "../scss/buttons";
 @import "../scss/utilities";
+@import "../scss/mixins";
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
@@ -16,11 +17,14 @@
 @import "../scss/blocks/themes/default/list_block";
 @import "../scss/blocks/themes/default/portrait_card_set";
 @import "../scss/blocks/themes/default/pillar_card_set_block";
+@import "../scss/blocks/themes/default/product_review_card_block";
+@import "../scss/blocks/themes/default/product_review_carousel_block";
 @import "../scss/blocks/themes/default/video_block";
 @import "../scss/blocks/themes/default/quote_block";
 @import "../scss/blocks/themes/default/spotlight_card_carousel";
 @import "../scss/blocks/themes/default/spacer_block";
 @import "../scss/blocks/themes/default/tabbed_content_container";
+@import "../scss/blocks/themes/default/text_social_block";
 @import "../scss/blocks/themes/default/timely_activations";
 @import "../scss/blocks/themes/default/title_block";
 @import "../scss/blocks/themes/default/two_column_container_block";
@@ -31,6 +35,8 @@
 @import "../scss/components/footer";
 @import "../scss/components/newsletter_signup/newsletter_signup_form";
 @import "../scss/components/share-container";
+@import "../scss/components/topic_pills";
+@import "../scss/components/back_to_top";
 
 // Embed/widget overrides
 @import "../scss/onetrust-override";

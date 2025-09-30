@@ -9,13 +9,13 @@ from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
+from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
 from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks import (
-    AudioBlock,
     CustomImageBlock,
     DividerBlock,
     FeaturedCardBlock,
@@ -24,6 +24,7 @@ from foundation_cms.blocks import (
     ListBlock,
     NewsletterSignupBlock,
     PillarCardSetBlock,
+    PodcastBlock,
     PortraitCardSetBlock,
     QuoteBlock,
     SpacerBlock,
@@ -48,7 +49,7 @@ base_page_block_options = [
         ),
     ),
     ("image", CustomImageBlock()),
-    ("audio_block", AudioBlock()),
+    ("podcast_block", PodcastBlock()),
     ("tabbed_content", TabbedContentContainerBlock()),
     ("two_column_container_block", TwoColumnContainerBlock()),
     ("link_button_block", LinkButtonBlock()),
@@ -73,7 +74,7 @@ base_page_block_options = [
 class Author(models.Model):
     name = models.CharField(max_length=255)
     image = models.ForeignKey(
-        "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="author_image"
+        get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL, related_name="author_image"
     )
     bio = models.TextField(blank=True)
 
@@ -104,6 +105,16 @@ class Topic(TagBase):
         verbose_name = "Page Topic (new)"
         verbose_name_plural = "Page Topics (new)"
 
+    # TODO:FIXME Topic listing route should not live under the NP tree
+    def get_topic_listing_url(self):
+        """Get the Nothing Personal listing URL for this topic"""
+        from foundation_cms.nothing_personal.models import NothingPersonalHomePage
+
+        np_home = NothingPersonalHomePage.objects.live().first()
+        if np_home:
+            return f"{np_home.url}topics/{self.slug}/"
+        return None
+
 
 class AbstractBasePage(FoundationMetadataPageMixin, Page):
     theme = models.CharField(
@@ -122,7 +133,12 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         through="base.PageTopic",
         blank=True,
         verbose_name="Page Topics",
-        help_text="Add one or more topics. Start typing to search, then press Enter.",
+        help_text=(
+            "Add one or more existing topics. Start typing to search, then press “Down” arrow "
+            "on your keyboard to select topic. If topic is unavailable check if Topic exists by "
+            "going to the left side-nav to Snippet > Page Topics (new) > Check if topic exists. "
+            "If not, click “Add new page topics (new)”."
+        ),
     )
     author = models.ForeignKey(
         "base.Author",
