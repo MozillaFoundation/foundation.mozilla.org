@@ -1,14 +1,17 @@
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
+from wagtail.admin.panels import FieldPanel
 
 
 class NothingPersonalArticleCollectionPage(AbstractArticlePage):
 
     content_panels = AbstractArticlePage.content_panels + [
-        # Placeholder for NothingPersonalArticleCollectionPage blocks
+        FieldPanel("lede_text"),
     ]
+
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
     subpage_types: list[str] = []
+    
 
     class Meta:
         verbose_name = "Nothing Personal Article Collection Page"
