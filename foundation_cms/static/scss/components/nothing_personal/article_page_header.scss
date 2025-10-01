@@ -17,34 +17,14 @@ body.nothing-personal.nothing-personal-article-page .article-header {
 
   &__title {
     @include mofo-text-style($header-styles, "h1", $header-font-family);
+    @include np-title-highlight-effect(
+      $header-highlight-background-color,
+      $header-highlight-gap
+    );
 
-    display: inline;
     line-height: 1.1 !important;
     margin: 0;
     padding: 0 0.5rem;
-    box-decoration-break: clone;
-
-    // The highlight effect is created using a linear gradient background image
-    // with transparent slices at the top and bottom, and a solid color in the middle.
-    // Using a background color alone would not allow for the gap between lines
-    // of text in multi-line headers.
-    background-image: linear-gradient(
-      to bottom,
-      /* top transparent slice */ transparent 0,
-      transparent calc(#{$header-highlight-gap} / 2),
-      /* yellow body */ $header-highlight-background-color
-        calc(#{$header-highlight-gap} / 2),
-      $header-highlight-background-color
-        calc(100% - #{$header-highlight-gap} / 2),
-      /* bottom transparent slice */ transparent
-        calc(100% - #{$header-highlight-gap} / 2),
-      transparent 100%
-    );
-    background-size: 100%;
-    background-position: 0 1px;
-    background-repeat: repeat-y;
-    background-origin: padding-box;
-    background-clip: padding-box;
 
     @include breakpoint(medium only) {
       font-size: rem-calc(56);
