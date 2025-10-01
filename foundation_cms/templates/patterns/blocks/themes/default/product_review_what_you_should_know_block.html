@@ -1,53 +1,31 @@
-<div class="grid-container" id="what-you-should-know">
-    <div class="grid-x">
-        <div class="cell small-4 medium-4">
-            <div>
-                <p>What You Should Know</p>
-            </div>
-        </div>
-        <div class="cell small-7 medium-7 medium-offset-1">
+{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
 
-            {% if value.trust_default_settings %}
-                <div class="question-answer">
-                    <p>Should I trust their default settings?</p>
-                    <p>{{ value.trust_default_settings|title }}</p>
-                </div>
-            {% endif %}
+{% block wrapper_id %}what-you-should-know{% endblock wrapper_id %}
 
-            {% if value.give_data_by_default %}
-                <div class="question-answer">
-                    <p>Should I give them my data by default?</p>
-                    <p>{{ value.give_data_by_default|title }}</p>
-                </div>
-            {% endif %}
+{% block heading_text %}What You Should Know{% endblock heading_text %}
 
-            {% if value.use_offline %}
-                <div class="question-answer">
-                    <p>Can I use this product/service offline?</p>
-                    <p>{{ value.use_offline|title }}</p>
-                </div>
-            {% endif %}
+{% block review_content %}
 
-            {% if value.reconsider_buying %}
-                <div class="question-answer">
-                    <p>Should I reconsider buying this product because of this company's track record + data practices?</p>
-                    <p>{{ value.reconsider_buying|title }}</p>
-                    {% if value.reconsider_buying_explanation %}
-                        {{ value.reconsider_buying_explanation }}
-                    {% endif %}
-                </div>
-            {% endif %}
+    <dl class="product-review-section__qa-list">
+        {% if value.trust_default_settings %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I trust their default settings?" ans=value.trust_default_settings|title %}
+        {% endif %}
 
-            {% if value.sells_user_data %}
-                <div class="question-answer">
-                    <p>Does this product/service sell or giveaway user data?</p>
-                    <p>{{ value.sells_user_data|title }}</p>
-                    {% if value.sells_user_data_explanation %}
-                        {{ value.sells_user_data_explanation }}
-                    {% endif %}
-                </div>
-            {% endif %}
+        {% if value.give_data_by_default %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I give them my data by default?" ans=value.give_data_by_default|title %}
+        {% endif %}
 
-        </div>
-    </div>
-</div>
+        {% if value.use_offline %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Can I use this product/service offline?" ans=value.use_offline|title %}
+        {% endif %}
+
+        {% if value.reconsider_buying %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I reconsider buying this product because of this company's track record + data practices?" ans=value.reconsider_buying|title additional_info=value.reconsider_buying_explanation %}
+        {% endif %}
+
+        {% if value.sells_user_data %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Does this product/service sell or giveaway user data?" ans=value.sells_user_data|title additional_info=value.sells_user_data_explanation %}
+        {% endif %}
+    </dl>
+
+{% endblock review_content %}
