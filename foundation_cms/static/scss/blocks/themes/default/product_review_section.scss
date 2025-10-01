@@ -63,6 +63,8 @@
   }
 
   &__additional-info {
+    @include mofo-text-style($body-text-styles, "regular");
+
     > p {
       margin-bottom: 0;
     }
