@@ -12,7 +12,6 @@ from foundation_cms.blocks import (
     ProductReviewCarouselBlock,
     TwoColumnContainerBlock,
 )
-
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 
 
