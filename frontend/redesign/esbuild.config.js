@@ -37,6 +37,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  admin_controllers: {
+    source: "admin_controllers.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {
