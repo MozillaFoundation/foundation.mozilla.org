@@ -1,0 +1,19 @@
+{% load wagtailimages_tags %}
+{% if value.orientation %}
+    <div class="media-block media-block--{{ value.orientation }}">
+        {% if value.content == "image" and value.image %}
+            {% image value.image width-600 as img %}
+            <img src="{{ img.url }}"
+                 alt="{{ img.alt }}"
+                 height="{{ img.height }}"
+                 width="{{ img.width }}"
+                 class="media-block__image">
+
+        {% elif value.content == "video" and value.video_url %}
+            <video class="media-block__video" playsinline="" muted="" loop="" preload="" autoplay>
+                <source src="{{ value.video_url }}" type="video/mp4">
+            </video>
+        {% endif %}
+        {% if value.title %}<p class="media-block__title">{{ value.title }}</p>{% endif %}
+    </div>
+{% endif %}

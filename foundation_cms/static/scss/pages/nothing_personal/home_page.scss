@@ -180,7 +180,7 @@ body.nothing-personal-home-page {
     text-decoration: underline;
   }
 
-  .grid-container:has(.narrow-text-image-block) {
+  .grid-container:has(.narrow-text-media-block) {
     min-height: 115vh;
     display: flex;
     flex-direction: column;
@@ -199,13 +199,13 @@ body.nothing-personal-home-page {
 
   // Stacked parallax
   .grid-container:has(.two-column-container),
-  .grid-container:has(.narrow-text-image-block) {
+  .grid-container:has(.narrow-text-media-block) {
     background: $white;
     position: sticky;
     top: 0;
   }
 
-  .text-image-block {
+  .text-media-block {
     &__text {
       order: 2;
 
@@ -241,7 +241,7 @@ body.nothing-personal-home-page {
       order: 1;
       align-content: end;
 
-      .image-block {
+      .media-block {
         margin-bottom: rem-calc(24);
 
         @include breakpoint(large up) {

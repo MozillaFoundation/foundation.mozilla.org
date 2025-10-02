@@ -15,7 +15,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 
 from foundation_cms.blocks import (
-    CustomImageBlock,
+    CustomMediaBlock,
     DividerBlock,
     FeaturedCardBlock,
     ImpactNumberBlock,
@@ -47,7 +47,7 @@ base_page_block_options = [
             template="patterns/blocks/themes/default/rich_text_block.html",
         ),
     ),
-    ("image", CustomImageBlock()),
+    ("media", CustomMediaBlock()),
     ("podcast_block", PodcastBlock()),
     ("tabbed_content", TabbedContentContainerBlock()),
     ("two_column_container_block", TwoColumnContainerBlock()),

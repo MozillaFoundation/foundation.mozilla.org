@@ -1,10 +1,11 @@
 @import "../../../../../../node_modules/foundation-sites/scss/util/util";
 
-// Image block styles
-.image-block {
+// Media block styles
+.media-block {
   margin-bottom: 2rem;
 
-  &__image {
+  &__image,
+  &__video {
     width: 100%;
     border-bottom-left-radius: 2rem;
     object-fit: cover;
@@ -32,19 +33,22 @@
   }
 
   &--square {
-    .image-block__image {
+    .media-block__image,
+    .media-block__video {
       aspect-ratio: 1 / 1;
     }
   }
 
   &--landscape {
-    .image-block__image {
+    .media-block__image,
+    .media-block__video {
       aspect-ratio: 4 / 3;
     }
   }
 
   &--portrait {
-    .image-block__image {
+    .media-block__image,
+    .media-block__video {
       aspect-ratio: 3 / 4;
     }
   }

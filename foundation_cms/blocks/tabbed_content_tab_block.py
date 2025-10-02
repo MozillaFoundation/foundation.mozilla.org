@@ -1,7 +1,7 @@
 from wagtail import blocks
 
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
-from .text_image_block import TextImageBlock
+from .text_media_block import TextMediaBlock
 
 
 class TabbedContentTabBlock(blocks.StructBlock):
@@ -10,7 +10,7 @@ class TabbedContentTabBlock(blocks.StructBlock):
     content = blocks.StreamBlock(
         [
             ("rich_text", blocks.RichTextBlock()),
-            ("text_image", TextImageBlock()),
+            ("text_media", TextMediaBlock()),
             ("tab_card_set", TabbedContentCardSetBlock()),
         ],
         required=True,
