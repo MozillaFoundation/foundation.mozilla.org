@@ -32,7 +32,7 @@
     {# Global stylesheets #}
         {% block extra_css %}
             {# This is the fallback stylesheet for pages like abstract or error pages. Override this in page templates to add stylesheets #}
-            {% static 'foundation_cms/_css/redesign_fallback.compiled.css' %}
+            <link rel="stylesheet" href="{% static 'foundation_cms/_css/redesign_fallback.compiled.css' %}">
         {% endblock extra_css %}
 
     {# favicon #}
