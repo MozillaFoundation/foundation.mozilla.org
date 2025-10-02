@@ -1,22 +1,17 @@
-<div class="grid-container" id="good-and-bad">
-    <div class="grid-x">
-        <div class="cell small-4 medium-4">
-            <div>
-                <p>The Good and The Bad</p>
-            </div>
-        </div>
-        <div class="cell small-7 medium-7 medium-offset-1">
+{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
 
-            <div class="good-section">
-                <p>The Good</p>
-                {{ value.the_good }}
-            </div>
+{% block wrapper_id %}good-and-bad{% endblock wrapper_id %}
 
-            <div class="bad-section">
-                <p>The Bad</p>
-                {{ value.the_bad }}
-            </div>
+{% block heading_text %}The Good and The Bad{% endblock heading_text %}
 
-        </div>
-    </div>
-</div>
+{% block review_content %}
+    <dl class="product-review-section__qa-list">
+        {% if value.the_good %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Good" ans=value.the_good %}
+        {% endif %}
+
+        {% if value.the_good %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Bad" ans=value.the_bad %}
+        {% endif %}
+    </dl>
+{% endblock review_content %}

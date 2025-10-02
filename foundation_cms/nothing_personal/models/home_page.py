@@ -1,20 +1,17 @@
 from django.db import models
-from django.shortcuts import get_object_or_404
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import (
     NarrowTextImageBlock,
     ProductReviewCarouselBlock,
     TwoColumnContainerBlock,
 )
-from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 
 
 class NothingPersonalFeaturedItem(Orderable):
@@ -86,44 +83,3 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
             context["page_type_bem"] = self._to_bem_case(virtual_page_name)
 
         return context
-
-    # TODO:FIXME Topic listing route should not live under the NP tree
-    @route(r"^topics/(?P<slug>[-\w]+)/$")
-    def topic_listing(self, request, slug):
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
-
-        topic = get_object_or_404(Topic, slug=slug)
-
-        # Grabbing all pages in the DB with this topic, in the default locale.
-        base_qs = (
-            Page.objects.live()
-            .public()
-            .filter(locale_id=DEFAULT_LOCALE_ID)
-            .filter(topic_relations__tag=topic)
-            .select_related("search_image")
-            .prefetch_related("topics")
-        )
-
-        total_pages_count = base_qs.count()
-
-        # Separating child pages of the NothingPersonalHomePage from the original queryset.
-        np_pages = base_qs.child_of(self)
-
-        # All other pages with this topic, excluding the above child pages.
-        other_pages = base_qs.exclude(id__in=np_pages.values_list("id", flat=True))
-
-        # Ordering both querysets by most recently published first, and converting to specific.
-        np_pages = np_pages.order_by("-last_published_at").specific()
-        other_pages = other_pages.order_by("-last_published_at").specific()
-
-        return self.render(
-            request,
-            context_overrides={
-                "topic": topic,
-                "np_pages": np_pages,
-                "other_pages": other_pages,
-                "total_pages_count": total_pages_count,
-                "page_type_bem": self._to_bem_case("TopicListingPage"),
-            },
-            template="patterns/pages/core/topic_listing_page.html",
-        )

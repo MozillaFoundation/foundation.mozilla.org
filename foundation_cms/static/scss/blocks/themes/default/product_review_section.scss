@@ -1,0 +1,78 @@
+@use "sass:map";
+
+.product-review-section {
+  $qa-item-padding-y: (
+    small: 1rem,
+    large: 2rem,
+  );
+
+  margin-bottom: rem-calc(56);
+
+  @include breakpoint(large up) {
+    margin-bottom: rem-calc(68);
+  }
+
+  @mixin item-padding-y($side: top) {
+    padding-#{$side}: map.get($qa-item-padding-y, small);
+
+    @include breakpoint(large up) {
+      padding-#{$side}: map.get($qa-item-padding-y, large);
+    }
+  }
+
+  &__heading {
+    margin-top: 0;
+    margin-bottom: rem-calc(24);
+
+    @include breakpoint(large up) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__subheading {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__qa-list {
+    margin: 0;
+  }
+
+  &__qa-item {
+    &:not(:last-child) {
+      @include item-padding-y(bottom);
+
+      border-bottom: 1px solid color(neutral, "300");
+    }
+
+    &:not(:first-child) {
+      @include item-padding-y(top);
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+
+  &__additional-info {
+    > p {
+      margin-bottom: 0;
+    }
+  }
+
+  &__ans {
+    > p {
+      margin-bottom: 0;
+    }
+
+    > p:first-child {
+      margin-top: 0;
+    }
+  }
+}
