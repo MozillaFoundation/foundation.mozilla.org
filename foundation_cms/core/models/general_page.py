@@ -82,6 +82,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         TranslatableField("hero_image_alt_text"),
         TranslatableField("button_title"),
         TranslatableField("button_url"),
+        TranslatableField("body"),
     ]
 
     class Meta:
