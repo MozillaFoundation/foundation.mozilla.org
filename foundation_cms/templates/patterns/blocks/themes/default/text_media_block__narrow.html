@@ -24,10 +24,9 @@
   </div>
 
   {# Right: Image (2/3) #}
-  <div class="text-media-block__image cell small-12 large-6 large-offset-1">
-    {% if value.image and value.image.image %}
-      {% image value.image.image original as img %}
-      {% include "patterns/blocks/themes/default/image_block.html" with value=value.image %}
+  <div class="text-media-block__media cell small-12 large-6 large-offset-1">
+    {% if value.media %}
+      {% include "patterns/blocks/themes/default/media_block.html" with value=value.media %}
     {% endif %}
   </div>
 

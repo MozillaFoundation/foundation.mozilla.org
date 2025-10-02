@@ -237,7 +237,7 @@ body.nothing-personal-home-page {
       }
     }
 
-    &__image {
+    &__media {
       order: 1;
       align-content: end;
 
@@ -248,7 +248,8 @@ body.nothing-personal-home-page {
           margin-bottom: 0;
         }
 
-        &__image {
+        &__image,
+        &__video {
           border-radius: 0;
         }
       }
