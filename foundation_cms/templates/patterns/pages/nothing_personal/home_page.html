@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static %}
+{% load static wagtailcore_tags %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/home_page.compiled.css' %}">
@@ -9,6 +9,13 @@
 {% block content %}
   <!-- Main Content -->
   <main>
+    {% if page.tagline  %}
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell tag-line small-12 large-6 large-offset-3">{{ page.tagline|richtext }}</div>
+        </div>
+      </div>
+    {% endif %}
     {% if page.featured_items %}
       {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
     {% endif %}
