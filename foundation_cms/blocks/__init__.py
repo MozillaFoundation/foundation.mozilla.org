@@ -1,4 +1,3 @@
-from .audio_block import AudioBlock
 from .base_card_block import BaseCardBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
@@ -12,6 +11,7 @@ from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 from .pillar_card_block import PillarCardBlock
 from .pillar_card_set_block import PillarCardSetBlock
+from .podcast_block import PodcastBlock
 from .portrait_card_block import PortraitCardBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .product_review_carousel_block import ProductReviewCarouselBlock
@@ -47,7 +47,7 @@ __all__ = [
     "TabbedContentTabBlock",
     "TwoColumnContainerBlock",
     "CustomImageBlock",
-    "AudioBlock",
+    "PodcastBlock",
     "HeroAccordionBlock",
     "TextImageBlock",
     "TextSocialBlock",
