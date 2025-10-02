@@ -34,6 +34,7 @@ class ProductMentioned(Orderable):
         on_delete=models.SET_NULL,
         null=True,
         related_name="mentioned_in_pages",
+        verbose_name="Product",
     )
 
     panels = [
