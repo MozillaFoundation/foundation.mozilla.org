@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-
 from wagtail.blocks import CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
 
