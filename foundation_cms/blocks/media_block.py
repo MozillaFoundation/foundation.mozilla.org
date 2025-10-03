@@ -1,5 +1,9 @@
+from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.functional import cached_property
+from wagtail.telepath import register
 from wagtail.blocks import CharBlock, ChoiceBlock
+from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
@@ -47,6 +51,11 @@ class CustomMediaBlock(BaseBlock):
         icon = "image"
         template_name = "media_block.html"
         label = "Media"
+        form_template = "patterns/blocks/themes/default/media_block_form.html"
+        form_attrs = {
+            "data-controller": "media",
+            "data-media-trigger-field-value": "content",
+        }
 
     # Custom validation to ensure required fields are set based on content type
     def clean(self, value):
@@ -63,3 +72,15 @@ class CustomMediaBlock(BaseBlock):
             raise ValidationError(errors)
 
         return cleaned_data
+
+
+class CustomMediaBlockAdapter(StructBlockAdapter):
+    @cached_property
+    def media(self):
+        structblock_media = super().media
+        return forms.Media(
+            js=structblock_media._js + ["foundation_cms/_js/admin_controllers.compiled.js"]
+        )
+
+
+register(CustomMediaBlockAdapter(), CustomMediaBlock)

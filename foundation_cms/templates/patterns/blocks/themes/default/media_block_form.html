@@ -1,0 +1,49 @@
+{% load wagtailadmin_tags %}
+
+<div class="{{ classname }}" data-controller="media" data-media-trigger-field-value="content">
+    {% if help_text %}
+        <span>
+            <div class="help">
+                {% icon name="help" classname="default" %}
+                {{ help_text }}
+            </div>
+        </span>
+    {% endif %}
+
+    {% for child in children.values %}
+        {% if child.block.name == "image" %}
+            <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
+                <div data-media-target="field" data-condition="image">
+                    {% if child.block.label %}
+                        <label class="w-field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>
+                            {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
+                        </label>
+                    {% endif %}
+                    {{ child.render_form }}
+                </div>
+            </div>
+
+        {% elif child.block.name == "video_url" %}
+            <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
+                <div data-media-target="field" data-condition="video">
+                    {% if child.block.label %}
+                        <label class="w-field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>
+                            {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
+                        </label>
+                    {% endif %}
+                    {{ child.render_form }}
+                </div>
+            </div>
+
+        {% else %}
+            <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
+                {% if child.block.label %}
+                    <label class="w-field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>
+                        {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
+                    </label>
+                {% endif %}
+                {{ child.render_form }}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
