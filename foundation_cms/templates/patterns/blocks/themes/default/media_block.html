@@ -1,6 +1,9 @@
 {% load wagtailimages_tags %}
 {% if value.orientation %}
     <div class="media-block media-block--{{ value.orientation }}">
+        {% if link %}
+            <a href="{{ link.0.url }}" class="media-block__link" {% if link.0.target %} target="{{ link.0.target }}"{% endif %}>
+        {% endif %}
         {% if value.content == "image" and value.image %}
             {% image value.image width-600 as img_1x %}
             {% image value.image width-1200 as img_2x %}
@@ -15,6 +18,9 @@
             <video class="media-block__video" playsinline="" muted="" loop="" preload="" autoplay>
                 <source src="{{ value.video_url }}" type="video/mp4">
             </video>
+        {% endif %}
+        {% if link %}
+            </a>
         {% endif %}
         {% if value.title %}<p class="media-block__title">{{ value.title }}</p>{% endif %}
     </div>
