@@ -15,7 +15,20 @@ body.nothing-personal-home-page {
 
     @include breakpoint(large up) {
       margin-top: 1rem;
-      margin-bottom: 4rem;
+    }
+  }
+
+  .tag-line {
+    text-align: center;
+    margin-bottom: rem-calc(40);
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: map.get($mofo-colors, black);
+      text-decoration: underline;
     }
   }
 
