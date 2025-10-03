@@ -50,7 +50,7 @@
           <label>
             <input type="checkbox" name="privacy">
             <span>
-              {% blocktrans with privacy_link='https://www.mozilla.org/privacy/websites/' %}
+              {% blocktrans with privacy_link='https://www.mozilla.org/privacy/websites/' trimmed %}
                 I'm okay with Mozilla handling my info as explained in this
                 <a href="{{ privacy_link }}" target="_blank" class="newsletter-signup__link">Privacy Notice</a>.
               {% endblocktrans %}
@@ -91,7 +91,7 @@
           {% endblocktrans %}
         </p>
         <p>
-          {% blocktrans with newsletter_recovery_link='https://www.mozilla.org/newsletter/recovery/' %}
+          {% blocktrans with newsletter_recovery_link='https://www.mozilla.org/newsletter/recovery/' trimmed %}
             If you have already confirmed your opt-in to receive Mozilla-related emails, you can now
             <a href="{{ newsletter_recovery_link }}" target="_blank" class="newsletter-signup__link">
               manage your subscriptions
