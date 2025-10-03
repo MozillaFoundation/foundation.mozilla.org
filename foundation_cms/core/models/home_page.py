@@ -3,6 +3,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
+from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
@@ -22,6 +23,11 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
     content_panels = AbstractHomePage.content_panels + [
         FieldPanel("hero_accordion"),
         FieldPanel("body"),
+    ]
+
+    translatable_fields = AbstractHomePage.translatable_fields + [
+        # Content tab fields
+        TranslatableField("hero_accordion"),
     ]
 
     template = "patterns/pages/core/home_page.html"

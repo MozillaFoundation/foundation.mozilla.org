@@ -1,4 +1,5 @@
 from wagtail.admin.panels import FieldPanel
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.core.panels.hero_media_panel import HeroMediaPanel
@@ -15,6 +16,16 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
         HeroMediaPanel.create_default(),
         FieldPanel("lede_text"),
         FieldPanel("body"),
+    ]
+
+    translatable_fields = AbstractArticlePage.translatable_fields + [
+        # Content tab fields
+        SynchronizedField("displayed_hero_content"),
+        SynchronizedField("hero_image"),
+        TranslatableField("hero_image_alt_text"),
+        SynchronizedField("hero_video_url"),
+        TranslatableField("lede_text"),
+        TranslatableField("body"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]

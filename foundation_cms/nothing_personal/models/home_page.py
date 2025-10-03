@@ -2,8 +2,9 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import (
@@ -51,6 +52,12 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
         blank=True,
     )
 
+    tagline = RichTextField(
+        blank=True,
+        features=["bold", "italic", "link"],
+        help_text="Tagline displayed above the featured articles (max ~150 chars).",
+    )
+
     parent_page_types = ["core.HomePage"]
     subpage_types = [
         "nothing_personal.NothingPersonalArticleCollectionPage",
@@ -60,8 +67,15 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     ]
 
     content_panels = AbstractHomePage.content_panels + [
+        FieldPanel("tagline"),
         InlinePanel("featured_items", min_num=0, max_num=4, label="Featured items"),
         FieldPanel("body"),
+    ]
+
+    translatable_fields = AbstractHomePage.translatable_fields + [
+        # Content tab fields
+        TranslatableField("body"),
+        SynchronizedField("featured_items"),
     ]
 
     class Meta:
