@@ -129,7 +129,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
     subpage_types: list[str] = []
 
-    translatable_fields = [
+    translatable_fields = AbstractArticlePage.translatable_fields + [
         # Content tab fields
         SynchronizedField("what_you_should_know_section"),
         SynchronizedField("newsletter_signup_section"),
@@ -141,6 +141,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         TranslatableField("hero_image_alt_text"),
         SynchronizedField("updated"),
         SynchronizedField("reviewed"),
+        SynchronizedField("scoring"),
         TranslatableField("research"),
     ]
 
