@@ -1,19 +1,19 @@
-{% load wagtailimages_tags i18n l10n %}
+{% load wagtailimages_tags wagtailcore_tags i18n l10n %}
 
-<div class="more-stories">
-    <h3 class="more-stories__title">{% trans "More Stories" %}</h3>
+<div class="related-content">
+    <h3 class="related-content__heading">{{ heading }}</h3>
 
-    <div class="more-stories__card-grid">
+    <div class="related-content__card-grid">
 
-        {% for article in latest_articles %}
-            <div class="more-stories-card">
-                <a href="{{ page.url }}" class="more-stories-card__image-wrapper">
-                    {% if article.search_image %}
+        {% for item in items %}
+            <div class="content-card">
+                <a href="{% pageurl item %}" class="content-card__image-wrapper">
+                    {% if item.search_image %}
                 {% comment %} 3:2 ratio {% endcomment %}
-                        {% image article.search_image fill-600x400 as img_600 %}
-                        {% image article.search_image fill-900x600 as img_900 %}
-                        {% image article.search_image fill-1200x800 as img_1200 %}
-                        {% image article.search_image fill-1800x1200 as img_1800 %}
+                        {% image item.search_image fill-600x400 as img_600 %}
+                        {% image item.search_image fill-900x600 as img_900 %}
+                        {% image item.search_image fill-1200x800 as img_1200 %}
+                        {% image item.search_image fill-1800x1200 as img_1800 %}
                         <picture>
                             <img src="{{ img_900.url }}"
                                  srcset="{{ img_600.url }} 600w,
@@ -27,8 +27,8 @@
                         </picture>
                     {% endif %}
                 </a>
-                <div class="more-stories-card__topics">
-                    {% with topics=article.topics.all %}
+                <div class="content-card__topics">
+                    {% with topics=item.topics.all %}
                         {% if topics %}
                             <ul>
                                 {% for topic in topics %}
@@ -38,8 +38,10 @@
                         {% endif %}
                     {% endwith %}
                 </div>
-                <div class="more-stories-card__title"><a href="{{ article.url }}">{{ article.title }}</a></div>
-                <div class="more-stories-card__author-name">By {{ article.author.name }}</div>
+                <div class="content-card__title"><a href="{% pageurl item %}">{{ item.title }}</a></div>
+                {% if item.author %}
+                    <div class="content-card__author-name">By {{ item.author.name }}</div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

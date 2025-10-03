@@ -1,17 +1,27 @@
-{% load wagtailimages_tags i18n l10n %}
+{% load wagtailimages_tags wagtailcore_tags i18n l10n %}
 
-<div class="grid-container">
+<section class="products-mentioned grid-container">
     <div class="grid-x">
-        <div class="cell small-12 medium-10 medium-offset-1">
-            <h3>
-                {% trans "Products Mentioned" %}
-            </h3>
-            {% for product in products %}
-                <div>
-                    <p> <b>Product Title:</b> <a href="{{ product.url }}">{{ product.title }}</a></p>
-                </div>
-                <hr>
-            {% endfor %}
+        <div class="cell small-12 large-8 large-offset-4">
+            <h3 class="products-mentioned__heading">{% trans "Products Mentioned" %}</h3>
+            <ul>
+                {% for product in products %}
+                    {% image product.hero_image fill-200x300 as img1x %}
+                    {% image product.hero_image fill-400x600 as img2x %}
+                    <li>
+                        <a href="{% pageurl product %}">
+                            <div class="products-mentioned__image-container">
+                                <img src="{{ img1x.url }}"
+                                     srcset="{{ img1x.url }} 1x, {{ img2x.url }} 2x"
+                                     height="{{ img1x.height }}"
+                                     width="{{ img1x.width }}"
+                                     alt="Product image of {{ product.title }}">
+                            </div>
+                            <span class="products-mentioned__product-title">{{ product.title }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
-</div>
+</section>
