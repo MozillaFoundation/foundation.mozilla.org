@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load wagtailimages_tags static i18n %}
+{% load wagtailimages_tags static i18n l10n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_page.compiled.css' %}">
@@ -18,7 +18,7 @@
                     <div class="cell small-12 medium-3 medium-offset-2">
                         <div class="article-meta-published">
                             <span class="published-label">{% trans "Published" %}</span>
-                            <p class="published-date">{{ page.first_published_at|date:"F j, Y" }}</p>
+                            <p class="published-date">{{ page.first_published_at|date:"DATE_FORMAT" }}</p>
                         </div>
                         {% include "patterns/components/share_container.html" %}
                     </div>

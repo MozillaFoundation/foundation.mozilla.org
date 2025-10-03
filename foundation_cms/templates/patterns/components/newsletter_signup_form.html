@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n l10n %}
 
 <div class="newsletter-signup" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
 
@@ -85,16 +85,18 @@
       <h4 class="newsletter-signup__success-title">{% trans "Thank you!" %}</h4>
       <div>
         <p>
-          {% blocktrans with newsletter_recovery_link='https://www.mozilla.org/newsletter/recovery/' %}
+          {% blocktrans trimmed %}
             If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.
             <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.
-            </p>
-            <p>
-              If you have already confirmed your opt-in to receive Mozilla-related emails, you can now
-              <a href="{{ newsletter_recovery_link }}" target="_blank" class="newsletter-signup__link">
-                manage your subscriptions
-              </a>
-              and update your email preferences.
+          {% endblocktrans %}
+        </p>
+        <p>
+          {% blocktrans with newsletter_recovery_link='https://www.mozilla.org/newsletter/recovery/' %}
+            If you have already confirmed your opt-in to receive Mozilla-related emails, you can now
+            <a href="{{ newsletter_recovery_link }}" target="_blank" class="newsletter-signup__link">
+              manage your subscriptions
+            </a>
+            and update your email preferences.
           {% endblocktrans %}
         </p>
       </div>

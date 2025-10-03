@@ -1,9 +1,9 @@
-{% load i18n %}
+{% load i18n l10n %}
 
 <div class="listing-header">
     <p>
-        {% blocktrans %}
-            Showing <span id="result-count">{{ items|length }}</span> results for:
+        {% blocktrans trimmed with items_length={{ items|length }} %}
+            Showing <span id="result-count">{{ items_length }}</span> results for:
         {% endblocktrans %}
     </p>
 
