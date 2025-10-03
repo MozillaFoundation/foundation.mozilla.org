@@ -35,7 +35,7 @@ for (const entry of entries) {
 
   try {
     // Compile SCSS to unprocessed CSS
-    execSync(`sass ${input} ${tempOutput} --style=compressed`, {
+    execSync(`sass ${input} ${tempOutput} --style=compressed --quiet`, {
       stdio: "inherit",
     });
 
