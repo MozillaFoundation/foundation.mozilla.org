@@ -1,7 +1,12 @@
+{% load i18n l10n %}
+
 <div class="listing-header">
     <p>
-        Showing <span id="result-count">{{ items|length }}</span> results for:
+        {% blocktrans trimmed with items_length={{ items|length }} %}
+            Showing <span id="result-count">{{ items_length }}</span> results for:
+        {% endblocktrans %}
     </p>
+
     <h1>
         <span id="tag-name">{{ active_tag }}</span>
     </h1>
