@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from wagtail.blocks import CharBlock, ChoiceBlock
 from wagtail.images.blocks import ImageBlock
 
@@ -46,3 +48,19 @@ class CustomMediaBlock(BaseBlock):
         icon = "image"
         template_name = "media_block.html"
         label = "Media"
+
+    # Custom validation to ensure required fields are set based on content type
+    def clean(self, value):
+        cleaned_data = super().clean(value)
+        errors = {}
+
+        if cleaned_data["content"] == "image" and not cleaned_data.get("image"):
+            errors["image"] = "Image was chosen as content type, but no image is set."
+
+        if cleaned_data["content"] == "video" and not cleaned_data.get("video_url"):
+            errors["video_url"] = "Video was chosen as content type, but no URL is set."
+
+        if errors:
+            raise ValidationError(errors)
+
+        return cleaned_data
