@@ -2,11 +2,13 @@
 {% if value.orientation %}
     <div class="media-block media-block--{{ value.orientation }}">
         {% if value.content == "image" and value.image %}
-            {% image value.image width-600 as img %}
-            <img src="{{ img.url }}"
-                 alt="{{ img.alt }}"
-                 height="{{ img.height }}"
-                 width="{{ img.width }}"
+            {% image value.image width-600 as img_1x %}
+            {% image value.image width-1200 as img_2x %}
+            <img src="{{ img_1x.url }}"
+                 srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
+                 alt="{{ img_1x.alt }}"
+                 height="{{ img_1x.height }}"
+                 width="{{ img_1x.width }}"
                  class="media-block__image">
 
         {% elif value.content == "video" and value.video_url %}
