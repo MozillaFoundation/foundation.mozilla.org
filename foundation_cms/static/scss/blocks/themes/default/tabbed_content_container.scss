@@ -140,7 +140,6 @@
 
       @include breakpoint(large up) {
         order: 1;
-        max-width: 50%;
         flex-grow: 1;
       }
     }
@@ -170,8 +169,9 @@
 
       @include breakpoint(large up) {
         order: 2;
-        flex-basis: auto;
+        flex: 0 0 54%;
         max-width: 54%;
+        width: 54%;
       }
 
       // Using custom media block but overriding aspect ratios
