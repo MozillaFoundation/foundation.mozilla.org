@@ -8,7 +8,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import (
-    NarrowTextImageBlock,
+    NarrowTextMediaBlock,
     ProductReviewCarouselBlock,
     TwoColumnContainerBlock,
 )
@@ -40,7 +40,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     nothing_personal_block_options = [
         ("two_column_container_block", TwoColumnContainerBlock()),
-        ("narrow_text_image_block", NarrowTextImageBlock()),
+        ("narrow_text_media_block", NarrowTextMediaBlock()),
         ("product_review_carousel_block", ProductReviewCarouselBlock()),
         # NP Text Image Block
         # product review carousel block

@@ -1,11 +1,11 @@
-import HeroMediaController from "./controllers/hero_media_controller.js";
+import MediaController from "./controllers/media_controller.js";
 
 if (window.StimulusModule) {
   window.stimulusApp =
     window.stimulusApp || window.StimulusModule.Application.start();
 
   const adminControllers = [
-    { name: "hero-media", controller: HeroMediaController },
+    { name: "media", controller: MediaController },
     // Add other admin controllers here
   ];
 
