@@ -42,6 +42,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  nothing_personal_home_page: {
+    source: "pages/nothing_personal/home_page.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {

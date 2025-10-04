@@ -11,5 +11,6 @@ def should_wrap_block(block_type):
         "portrait_card_set_block",
         "featured_card_block",
         "callout",
+        "product_review_carousel_block",
     }
     return block_type not in NO_WRAP_BLOCKS
