@@ -51,7 +51,7 @@ class CustomMediaBlock(BaseBlock):
         icon = "image"
         template_name = "media_block.html"
         label = "Media"
-        form_template = "patterns/blocks/themes/default/media_block_form.html"
+        form_template = "patterns/admin/media_block_form.html"
         form_attrs = {
             "data-controller": "media",
             "data-media-trigger-field-value": "content",
