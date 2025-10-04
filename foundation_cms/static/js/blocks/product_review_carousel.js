@@ -27,7 +27,7 @@ class ProductReviewCarousel {
     this.hovered = false; // hover pause state
     this.rafId = null;
     this.lastTs = null;
-    this.pxPerSecond = this.readSpeedFromAttr() ?? 60; // scroll speed (px/s)
+    this.pxPerSecond = 30; // scroll speed (px/s)
     this.originalHTML = null;
     this.originalCount = 0;
     this.groupAdvance = 0; // distance to advance before recycling (gap-aware)
@@ -91,13 +91,6 @@ class ProductReviewCarousel {
       isPaused ? "Play carousel" : "Pause carousel",
     );
     this.pauseBtn.classList.toggle("is-paused", isPaused);
-  }
-
-  readSpeedFromAttr() {
-    const v = this.root.getAttribute("data-speed");
-    if (!v) return null;
-    const n = Number(v);
-    return Number.isFinite(n) && n > 0 ? n : null;
   }
 
   toggleForViewport() {
