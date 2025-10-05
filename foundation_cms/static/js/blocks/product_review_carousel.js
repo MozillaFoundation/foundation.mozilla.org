@@ -49,6 +49,18 @@ class ProductReviewCarousel {
   init() {
     if (!this.container) return;
 
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduce) {
+      this.destroyed = true;
+      if (this.pauseBtn) {
+        this.pauseBtn.style.display = "none";
+      }
+      return;
+    }
+
     // Save pristine markup to restore when disabling
     this.originalHTML = this.container.innerHTML;
     this.originalCount = this.container.children.length;
