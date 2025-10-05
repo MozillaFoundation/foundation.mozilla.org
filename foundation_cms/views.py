@@ -2,6 +2,7 @@ import json
 import logging
 
 import basket
+import requests
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
@@ -78,6 +79,15 @@ def process_lang_code(lang):
     return lang
 
 
+NEWSLETTER_ENDPOINTS = {
+    "mozilla-foundation": settings.FOUNDATION_NEWSLETTER_ENDPOINT,
+    "mozfest": settings.MOZFEST_NEWSLETTER_ENDPOINT,
+    "common-voice": settings.COMMONVOICE_NEWSLETTER_ENDPOINT,
+}
+
+REQUEST_TIMEOUT_SECONDS = getattr(settings, "NEWSLETTER_SUBSCRIBE_TIMEOUT", 8)
+
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def newsletter_signup_submission_view(request, pk):
@@ -107,7 +117,7 @@ def newsletter_signup_submission_view(request, pk):
     return newsletter_signup_submission(request, signup)
 
 
-# handle Salesforce newsletter signup data
+# handle newsletter signup data
 def newsletter_signup_submission(request, signup):
     rq = request.data
 
@@ -126,12 +136,20 @@ def newsletter_signup_submission(request, signup):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    # rewrite payload for basket
+    newsletter = signup.newsletter.strip().lower()
+    endpoint_url = NEWSLETTER_ENDPOINTS.get(newsletter)
+    if not endpoint_url:
+        return JsonResponse(
+            {"error": f"Unsupported newsletter '{newsletter}'"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # rewrite payload
     data = {
         "email": email,
         "format": "html",
         "source_url": source,
-        "newsletters": signup.newsletter,
+        "newsletters": newsletter,
         "lang": process_lang_code(rq.get("lang", "en")),
         "country": rq.get("country", ""),
         # Empty string instead of None due to Basket issues
@@ -139,15 +157,32 @@ def newsletter_signup_submission(request, signup):
         "last_name": "",
     }
 
-    # Subscribing to newsletter using basket.
-    # https://basket-client.readthedocs.io/en/latest/usage.html
-    basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
+    newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
 
-    if data["country"] != "":
-        basket_additional["country"] = data["country"]
+    if newsletter_signup_method == "BASKET":
+        # Subscribing to newsletter using basket.
+        # https://basket-client.readthedocs.io/en/latest/usage.html
+        basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
+        if data["country"] != "":
+            basket_additional["country"] = data["country"]
 
-    response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
-    if response["status"] == "ok":
-        return JsonResponse(data, status=status.HTTP_201_CREATED)
+        response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
 
-    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+        if response["status"] == "ok":
+            return JsonResponse(data, status=status.HTTP_201_CREATED)
+        return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+
+    else:
+        # New endpoint: doesn't want "newsletters"
+        data.pop("newsletters", None)
+        resp = requests.post(
+            endpoint_url,
+            json=data,
+            timeout=8,
+            headers={"Content-Type": "application/json"},
+        )
+
+        if resp.status_code == 200:
+            return JsonResponse(data, status=status.HTTP_201_CREATED)
+
+        return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
