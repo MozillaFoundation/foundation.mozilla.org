@@ -98,9 +98,19 @@ class ProductReviewCarousel {
       return;
     }
 
-    // Snapshot pristine content to restore on disable
-    this.originalHTML = this.container.innerHTML;
+    // Snapshot pristine content and index children for stable modulo math
     this.originalCount = this.container.children.length;
+    // Assign stable data-index once (0..n-1) so modulo math is deterministic
+    Array.from(this.container.children).forEach((el, i) => {
+      el.setAttribute("data-index", String(i));
+    });
+    // Persist modulo and a detached snapshot for cloning later
+    this.itemsModulo = this.originalCount;
+    this.originalNodes = Array.from(this.container.children).map((el) =>
+      el.cloneNode(true),
+    );
+    // Capture pristine HTML after adding data-index so re-enables keep attributes
+    this.originalHTML = this.container.innerHTML;
 
     // Pointer hover pause (delegated to cards)
     this.container.addEventListener("mouseover", this.onMouseOver, {
@@ -149,24 +159,18 @@ class ProductReviewCarousel {
     if (this.enabled || this.destroyed) return;
     if (!this.container || this.originalCount === 0) return;
 
-    // Rebuild from pristine markup preserving author order
-    const originalNodes = Array.from(
-      new DOMParser().parseFromString(
-        `<div>${this.originalHTML}</div>`,
-        "text/html",
-      ).body.firstElementChild.children,
-    );
-    this.itemsModulo = originalNodes.length;
-    this.originalNodes = originalNodes;
-    this.container.innerHTML = this.originalHTML;
-
-    // Assign stable data-index for modulo math
-    Array.from(this.container.children).forEach((el, i) => {
-      el.setAttribute("data-index", String(i % originalNodes.length));
-    });
-
-    // Update pristine HTML so re-enables keep data-index attributes
-    this.originalHTML = this.container.innerHTML;
+    // Restore container from pristine HTML (already includes data-index)
+    if (this.originalHTML != null) {
+      this.container.innerHTML = this.originalHTML;
+    }
+    // Ensure snapshot exists (fallback for legacy state)
+    if (!this.originalNodes || this.originalNodes.length === 0) {
+      const children = Array.from(this.container.children);
+      this.itemsModulo = children.length;
+      this.originalNodes = children.map((el) => el.cloneNode(true));
+    } else {
+      this.itemsModulo = this.originalNodes.length;
+    }
 
     // Build inner track (the transform target)
     const cs = window.getComputedStyle(this.container);
