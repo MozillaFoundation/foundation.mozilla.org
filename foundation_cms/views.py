@@ -164,7 +164,7 @@ def newsletter_signup_submission(request, signup):
         )
 
         # If user is already subscribed, return an error.
-        if lookup.status_code == 200:
+        if lookup.status_code == 500:
             return JsonResponse(
                 {"status": "error", "message": "Already subscribed"},
                 status=status.HTTP_400_BAD_REQUEST,
