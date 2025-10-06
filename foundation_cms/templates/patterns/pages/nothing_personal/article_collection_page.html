@@ -2,9 +2,6 @@
 
 {% load wagtailimages_tags static %}
 
-{% block extra_css %}
-{% endblock extra_css %}
-
 {% block content %}
     <main>
         <article>
@@ -23,6 +20,11 @@
                 <div class="grid-x">
                     <div class="cell small-12 medium-12">
                         <div class="collection-products">
+                            {% for review in product_reviews %}
+                                <article>
+                                    <h2><a href="{{ review.url }}">{{ review.title }}</a></h2>
+                                </article>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
