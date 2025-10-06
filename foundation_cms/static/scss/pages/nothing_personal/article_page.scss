@@ -21,7 +21,7 @@ body.nothing-personal.nothing-personal-article-page {
   .article-intro,
   .article-topics,
   .rich-text-block,
-  .media-block,
+  .image-block,
   .two-column-container,
   .newsletter-signup[data-layout="expand_on_focus"],
   .callout-box,
@@ -107,7 +107,7 @@ body.nothing-personal.nothing-personal-article-page {
     }
   }
 
-  .media-block {
+  .image-block {
     &__title {
       font-size: 1rem;
       margin-bottom: 0;
@@ -115,7 +115,7 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   .two-column-container {
-    .media-block {
+    .image-block {
       margin-bottom: 0 !important;
     }
   }

@@ -3,6 +3,7 @@ from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .hero_accordion import HeroAccordionBlock
 from .iframe_block import iFrameBlock
+from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
@@ -28,7 +29,7 @@ from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
-from .text_media_block import NarrowTextMediaBlock, TextMediaBlock
+from .text_image_block import TextImageBlock, TextMediaBlock
 from .text_social_block import TextSocialBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
@@ -46,12 +47,13 @@ __all__ = [
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",
     "TwoColumnContainerBlock",
+    "CustomImageBlock",
     "CustomMediaBlock",
     "PodcastBlock",
     "HeroAccordionBlock",
+    "TextImageBlock",
     "TextMediaBlock",
     "TextSocialBlock",
-    "NarrowTextMediaBlock",
     "LinkBlock",
     "OptionalLinkBlock",
     "PortraitCardBlock",

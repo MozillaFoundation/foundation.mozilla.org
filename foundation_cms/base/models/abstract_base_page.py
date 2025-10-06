@@ -16,7 +16,7 @@ from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks import (
-    CustomMediaBlock,
+    CustomImageBlock,
     DividerBlock,
     FeaturedCardBlock,
     ImpactNumberBlock,
@@ -48,7 +48,7 @@ base_page_block_options = [
             template="patterns/blocks/themes/default/rich_text_block.html",
         ),
     ),
-    ("media", CustomMediaBlock()),
+    ("image", CustomImageBlock()),
     ("podcast_block", PodcastBlock()),
     ("tabbed_content", TabbedContentContainerBlock()),
     ("two_column_container_block", TwoColumnContainerBlock()),

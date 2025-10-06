@@ -2,7 +2,7 @@
 
 <div class="text-media-block {% block variant_class %}{% endblock variant_class %}">
 
-  {# Left: Subtitle, Title, Text, and Link (1/3) #}
+  {# Left: Subtitle, Title, Text, and Link #}
   <div class="text-media-block__text">
     {% if value.subtitle %}
       <div class="text-media-block__subtitle">{{ value.subtitle }}</div>
@@ -23,7 +23,7 @@
     {% endif %}
   </div>
 
-  {# Right: Media (2/3) #}
+  {# Right: Media #}
   <div class="text-media-block__media">
     {% if value.media %}
       {% include "patterns/blocks/themes/default/media_block.html" with value=value.media %}

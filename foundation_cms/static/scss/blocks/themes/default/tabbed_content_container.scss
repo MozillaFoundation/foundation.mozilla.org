@@ -124,7 +124,7 @@
     }
   }
 
-  .text-media-block {
+  .text-image-block {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -164,7 +164,7 @@
       }
     }
 
-    &__media {
+    &__image {
       order: 1;
 
       @include breakpoint(large up) {
@@ -174,8 +174,8 @@
         width: 54%;
       }
 
-      // Using custom media block but overriding aspect ratios
-      .media-block {
+      // Using custom image block but overriding aspect ratios
+      .image-block {
         margin: 0;
 
         @include breakpoint(large up) {
@@ -196,13 +196,13 @@
         }
 
         &--landscape {
-          .media-block__media {
+          .image-block__image {
             aspect-ratio: math.div(3, 2);
           }
         }
 
         &--portrait {
-          .media-block__media {
+          .image-block__image {
             max-width: rem-calc(300);
             aspect-ratio: math.div(2, 3);
           }
@@ -284,7 +284,7 @@
     width: calc((100% / #{$large-card-count}) - $gap-adjustment-large);
   }
 
-  &__media {
+  &__image {
     margin-bottom: 1rem;
 
     img {

@@ -193,7 +193,7 @@ body.nothing-personal-home-page {
     text-decoration: underline;
   }
 
-  .grid-container:has(.narrow-text-media-block) {
+  .grid-container:has(.text-media-block) {
     min-height: 115vh;
     display: flex;
     flex-direction: column;
@@ -212,7 +212,7 @@ body.nothing-personal-home-page {
 
   // Stacked parallax
   .grid-container:has(.two-column-container),
-  .grid-container:has(.narrow-text-media-block) {
+  .grid-container:has(.text-media-block) {
     background: $white;
     position: sticky;
     top: 0;
