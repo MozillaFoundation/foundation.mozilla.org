@@ -81,7 +81,7 @@ def process_lang_code(lang):
 
 NEWSLETTER_ENDPOINTS = {
     "mozilla-foundation": settings.FOUNDATION_NEWSLETTER_ENDPOINT,
-    "mozfest": settings.MOZFEST_NEWSLETTER_ENDPOINT,
+    "mozilla-festival": settings.MOZFEST_NEWSLETTER_ENDPOINT,
     "common-voice": settings.COMMONVOICE_NEWSLETTER_ENDPOINT,
     "unsubscribe": settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
 }
@@ -154,7 +154,7 @@ def newsletter_signup_submission(request, signup):
             return JsonResponse({email: "test"}, status=status.HTTP_400_BAD_REQUEST)
 
     else:
-
+        print("Checking existing subscription")
         # Make request to check if email is already subscribed
         lookup = requests.get(
             settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT,
@@ -162,16 +162,22 @@ def newsletter_signup_submission(request, signup):
             headers={"X-API-Key": settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT_KEY},
             timeout=8,
         )
+        lookup_json = lookup.json()
+        print(lookup_json)
 
         # If user is already subscribed, return an error.
-        if lookup.status_code == 500:
+        if lookup.status_code == 200 and (lookup_json.get("data") or {}).get("newsletters"):
             return JsonResponse(
                 {"status": "error", "message": "Already subscribed"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
         # if 404 or anything else, just proceed with normal subscription flow
 
         else:
+            print("ELSE")
+            print("ELSE")
+            print("ELSE")
             if not endpoint_url:
                 return JsonResponse(
                     {"error": f"Unsupported newsletter '{newsletter}'"},
@@ -207,6 +213,7 @@ def newsletter_signup_submission(request, signup):
                 return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
             else:
+                print("Subscribing using direct POST")
                 # New endpoint: doesn't want "newsletters"
                 data.pop("newsletters", None)
                 resp = requests.post(
@@ -215,6 +222,8 @@ def newsletter_signup_submission(request, signup):
                     timeout=8,
                     headers={"Content-Type": "application/json"},
                 )
+                print(resp.status_code)
+                print(resp.json())
 
                 if resp.status_code == 200:
                     return JsonResponse(data, status=status.HTTP_201_CREATED)
