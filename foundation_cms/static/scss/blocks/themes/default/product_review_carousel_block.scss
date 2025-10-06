@@ -12,6 +12,7 @@
     large: rem-calc(83),
   );
   $carousel-bottom-margin: (
+    small: rem-calc(24),
     large: rem-calc(44),
   );
   $carousel-card-horizontal-gap: 3rem;
@@ -59,16 +60,15 @@
     padding-left: 1rem;
     padding-right: 1rem;
     gap: 0 $carousel-card-horizontal-gap;
-    margin-top: map.get($map: $carousel-top-margin, $key: small);
+    padding-top: map.get($carousel-top-margin, small);
+    padding-bottom: map.get($carousel-bottom-margin, small);
     overflow-x: auto;
     scrollbar-width: none;
 
     @include breakpoint(large up) {
       justify-content: center;
-
-      // Replace margin with padding to allow zoomed card image to be visible
-      margin-top: calc(map.get($carousel-top-margin, large) - 1rem);
-      padding: 1rem 0 map.get($carousel-bottom-margin, large);
+      padding-top: map.get($carousel-top-margin, large);
+      padding-bottom: map.get($carousel-bottom-margin, large);
     }
 
     .product-review-carousel__card-wrapper {
