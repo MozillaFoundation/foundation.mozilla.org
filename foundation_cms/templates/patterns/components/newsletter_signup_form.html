@@ -31,7 +31,7 @@
             Please enter a valid email address.
           </div>
         </div>
-
+        {% if newsletter_signup.newsletter != "unsubscribe" %}
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
           <select class="newsletter-signup__input" name="country" aria-label="Country" required>
               <!-- Country options rendered in through newsletter-signup.js -->
@@ -45,6 +45,8 @@
             <option value="en">English</option>
           </select>
         </div>
+
+        {% endif %}
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
           <label>
