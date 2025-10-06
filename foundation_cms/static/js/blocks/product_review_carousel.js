@@ -1,3 +1,11 @@
+/**
+ * ProductReviewCarousel
+ * - Autoscrolls a horizontally overflowing track of cards.
+ * - Recycles cards in GROUP_SIZE batches to create an infinite loop.
+ * - Observes reduced motion, pauses on hover/focus/user toggle, offscreen, and tab hidden.
+ * - Uses ResizeObserver + IntersectionObserver and avoids per-frame layout reads.
+ */
+
 const SELECTORS = {
   root: ".product-review-carousel",
   cardsContainer: ".product-review-carousel__cards-container",
@@ -12,16 +20,18 @@ const CLASSNAMES = {
 };
 
 const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
-const GROUP_SIZE = 3; // Maintain 3-card cadence to match nth-child styling
-// Behavioral constants
-const PREFILL_MULTIPLIER = 2.5; // how much wider than viewport to prefill
-const PREFILL_MAX_LOOPS = 10; // cap prefill iterations
-const RECYCLE_SAFETY_MAX = 6; // max groups recycled per frame
-const FRACTION_EPSILON = 0.0005; // min delta to update transform
+const GROUP_SIZE = 3; // keep 3-card cadence to match nth-child styling
+
+// Behavior constants
+const PREFILL_MULTIPLIER = 2.5; // % of viewport width to prefill
+const PREFILL_MAX_LOOPS = 10; // cap on prefill batches
+const RECYCLE_SAFETY_MAX = 6; // max groups recycled in a single frame
+const FRACTION_EPSILON = 0.0005; // min delta to update fractional transform
 
 export function initProductReviewCarousels() {
-  const carousels = document.querySelectorAll(SELECTORS.root);
-  carousels.forEach((carousel) => new ProductReviewCarousel(carousel));
+  document
+    .querySelectorAll(SELECTORS.root)
+    .forEach((el) => new ProductReviewCarousel(el));
 }
 
 class ProductReviewCarousel {
@@ -33,19 +43,38 @@ class ProductReviewCarousel {
     // Runtime state
     this.enabled = false;
     this.destroyed = false;
-    this.paused = false; // effective pause state (derived)
-    this.userPaused = false; // explicit pause from button
-    this.hovered = false; // hover pause state
+    this.paused = false;
+    this.userPaused = false;
+    this.hovered = false;
+    this._offscreen = false;
+
+    // Animation state
     this.rafId = null;
     this.lastTs = null;
-    this.pxPerSecond = 20; // scroll speed (px/s)
-    this._fractionalRemainder = 0; // subpixel remainder applied via transform
-    this.track = null; // inner track translated for fractional movement
+    this.pxPerSecond = 20;
+    this._fractionalRemainder = 0;
+
+    // DOM/structure state
+    this.track = null;
     this.originalHTML = null;
     this.originalCount = 0;
-    this.groupAdvance = 0; // distance to advance before recycling (gap-aware)
-    this.itemsModulo = 0; // number of unique items (for index math/logging)
-    this.originalNodes = []; // templates for cloning
+    this.originalNodes = [];
+    this.itemsModulo = 0;
+
+    // Recycling/metrics
+    this.groupAdvance = 0;
+    this.gapPx = null; // null = unknown; 0 is valid
+    this.cardWidthPx = null; // null = unknown; 0 is valid
+
+    // Layout guards
+    this._origPaddingTop = null;
+    this._origPaddingBottom = null;
+
+    // Observer helpers
+    this.ro = null;
+    this.io = null;
+    this._resizeScheduled = false;
+    this._usingWindowResize = false;
 
     // Bind handlers once
     this.onMouseOver = this.onMouseOver.bind(this);
@@ -55,16 +84,7 @@ class ProductReviewCarousel {
     this.onPauseToggle = this.onPauseToggle.bind(this);
     this.updatePaused = this.updatePaused.bind(this);
     this.updateButtonUI = this.updateButtonUI.bind(this);
-    // Cache one bound tick to avoid re-binding every RAF
     this.boundTick = this.tick.bind(this);
-    // Cached layout metrics
-    this.gapPx = 0;
-    this.cardWidthPx = 0;
-    // Resize observer instance
-    this.ro = null;
-    // Intersection observer instance
-    this.io = null;
-    this._offscreen = false;
 
     this.init();
   }
@@ -72,56 +92,56 @@ class ProductReviewCarousel {
   init() {
     if (!this.container) return;
 
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reduce) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       this.destroyed = true;
-      if (this.pauseBtn) {
-        this.pauseBtn.style.display = "none";
-      }
+      if (this.pauseBtn) this.pauseBtn.style.display = "none";
       return;
     }
 
-    // Save pristine markup to restore when disabling
+    // Snapshot pristine content to restore on disable
     this.originalHTML = this.container.innerHTML;
     this.originalCount = this.container.children.length;
 
-    // Listeners
-    // Pause only when hovering actual cards, not gaps (use delegation)
+    // Pointer hover pause (delegated to cards)
     this.container.addEventListener("mouseover", this.onMouseOver, {
       passive: true,
     });
     this.container.addEventListener("mouseout", this.onMouseOut, {
       passive: true,
     });
+
+    // Tab visibility pause
     document.addEventListener("visibilitychange", this.onVisibilityChange);
-    // Stop ticking when offscreen to save work
+
+    // Offscreen pause
     if ("IntersectionObserver" in window) {
       this.io = new IntersectionObserver(
-        (entries) => {
-          const entry = entries && entries[0];
-          const offscreen = !entry || !entry.isIntersecting;
-          this._offscreen = offscreen;
+        ([entry]) => {
+          this._offscreen = !(
+            entry &&
+            entry.isIntersecting &&
+            entry.intersectionRatio > 0.01
+          );
           this.updatePaused();
         },
-        { root: null, threshold: 0 },
+        { root: null, rootMargin: "50px 0px", threshold: [0, 0.01, 0.1] },
       );
       this.io.observe(this.root);
     }
-    // Prefer ResizeObserver to minimize full rebuilds
+
+    // Resize (container-driven) enable/disable + metric recompute
     if ("ResizeObserver" in window) {
       this.ro = new ResizeObserver(() => this.onResizeObserved());
       this.ro.observe(this.root);
     } else {
       window.addEventListener("resize", this.onResize, { passive: true });
-    }
-    if (this.pauseBtn) {
-      this.pauseBtn.addEventListener("click", this.onPauseToggle);
+      this._usingWindowResize = true;
     }
 
-    // Initial sizing/enable
+    // Pause/play button
+    this.pauseBtn?.addEventListener("click", this.onPauseToggle);
+
+    // First pass
     this.onResizeObserved();
   }
 
@@ -129,7 +149,7 @@ class ProductReviewCarousel {
     if (this.enabled || this.destroyed) return;
     if (!this.container || this.originalCount === 0) return;
 
-    // Rebuild base from pristine markup (start with the author-provided order)
+    // Rebuild from pristine markup preserving author order
     const originalNodes = Array.from(
       new DOMParser().parseFromString(
         `<div>${this.originalHTML}</div>`,
@@ -140,80 +160,49 @@ class ProductReviewCarousel {
     this.originalNodes = originalNodes;
     this.container.innerHTML = this.originalHTML;
 
-    // Tag initial children with a stable data-index based on the original order
+    // Assign stable data-index for modulo math
     Array.from(this.container.children).forEach((el, i) => {
       el.setAttribute("data-index", String(i % originalNodes.length));
     });
 
-    // Persist pristine HTML after indices are added so re-enables keep data-index
+    // Update pristine HTML so re-enables keep data-index attributes
     this.originalHTML = this.container.innerHTML;
 
-    // Build an inner track to translate (preserves native scrolling on container)
-    const buildTrack = () => {
-      const track = document.createElement("div");
-      track.className = CLASSNAMES.track;
-      track.style.display = "flex";
-      // will-change toggled when animating to avoid long-lived layers
-      const cs = window.getComputedStyle(this.container);
-      const gapVal = cs.columnGap || cs.gap || "";
-      if (gapVal) {
-        track.style.columnGap = gapVal;
-      }
-      // transfer padding to track to avoid cut-off during transform
-      track.style.paddingTop = cs.paddingTop || "";
-      track.style.paddingBottom = cs.paddingBottom || "";
-      this.container.style.paddingTop = "0";
-      this.container.style.paddingBottom = "0";
-      // isolate layout/paint of the track subtree
-      try {
-        track.style.contain = "content";
-      } catch {}
-      while (this.container.firstChild) {
-        track.appendChild(this.container.firstChild);
-      }
-      this.container.appendChild(track);
-      this.track = track;
-    };
-    buildTrack();
+    // Build inner track (the transform target)
+    const cs = window.getComputedStyle(this.container);
+    const track = document.createElement("div");
+    track.className = CLASSNAMES.track;
+    track.style.display = "flex";
+    if (cs.columnGap || cs.gap) track.style.columnGap = cs.columnGap || cs.gap;
 
-    // Pre-compute group advance once (card width and gap are fixed)
+    // Move vertical padding to track to prevent clipping when transformed
+    if (this._origPaddingTop == null)
+      this._origPaddingTop = cs.paddingTop || "";
+    if (this._origPaddingBottom == null)
+      this._origPaddingBottom = cs.paddingBottom || "";
+    track.style.paddingTop = cs.paddingTop || "";
+    track.style.paddingBottom = cs.paddingBottom || "";
+    this.container.style.paddingTop = "0";
+    this.container.style.paddingBottom = "0";
+
+    try {
+      track.style.contain = "content";
+    } catch {}
+
+    while (this.container.firstChild)
+      track.appendChild(this.container.firstChild);
+    this.container.appendChild(track);
+    this.track = track;
+
+    // Compute group advance once and prefill to target width
     this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
-
-    // Ensure we have enough content to overflow for smooth motion
-    const ensureOverflow = () => {
-      const viewport = this.container.clientWidth || window.innerWidth;
-      const target = viewport * PREFILL_MULTIPLIER;
-      const current = this.container.scrollWidth;
-      const adv =
-        this.groupAdvance || this.computeGroupAdvanceStatic(GROUP_SIZE) || 1; // avoid div-by-zero
-      const deficit = Math.max(0, target - current);
-      const groupsNeeded = Math.min(
-        PREFILL_MAX_LOOPS,
-        Math.ceil(deficit / adv),
-      );
-      if (groupsNeeded > 0) {
-        const totalCards = groupsNeeded * GROUP_SIZE;
-        const start = this.computeNextStartIndex();
-        this.appendCardsFromStart(start, totalCards);
-      }
-    };
-    ensureOverflow();
+    this.ensureOverflow();
 
     // Ensure children count is a multiple of GROUP_SIZE
-    const ensureMultipleOfGroupSize = () => {
-      const totalChildren = this.track.children.length;
-      const remainder = totalChildren % GROUP_SIZE;
-      if (remainder !== 0) {
-        const needed = GROUP_SIZE - remainder;
-        this.appendCards(needed);
-      }
-    };
-    ensureMultipleOfGroupSize();
+    const remainder = this.track.children.length % GROUP_SIZE;
+    if (remainder) this.appendCards(GROUP_SIZE - remainder);
 
-    // Compute the distance to recycle using width+gap math first (no layout),
-    this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
-
-    // Start from the beginning
+    // Reset animation state and start
     this.container.scrollLeft = 0;
     this.lastTs = null;
     this._fractionalRemainder = 0;
@@ -222,32 +211,26 @@ class ProductReviewCarousel {
     this.enabled = true;
     this.updatePaused();
     this.updateButtonUI();
-    this.tick();
+    this.rafId = requestAnimationFrame(this.boundTick);
   }
 
   disable() {
     if (!this.enabled) return;
     this.enabled = false;
     this.cancelTick();
-    // Restore original markup
-    if (this.originalHTML != null) {
-      this.container.innerHTML = this.originalHTML;
-    }
+
+    if (this.originalHTML != null) this.container.innerHTML = this.originalHTML;
     this.container.scrollLeft = 0;
     this._fractionalRemainder = 0;
-    // drop hint to release any composited layer
-    this.track.style.willChange = "auto";
-    this.track = null;
-  }
 
-  // Public API
-  toggleForViewport() {
-    const shouldEnable = window.innerWidth >= DISABLE_CAROUSEL_MIN_WIDTH;
-    if (shouldEnable && !this.enabled) {
-      this.enable();
-    } else if (!shouldEnable && this.enabled) {
-      this.disable();
-    }
+    // Restore container paddings
+    if (this._origPaddingTop != null)
+      this.container.style.paddingTop = this._origPaddingTop;
+    if (this._origPaddingBottom != null)
+      this.container.style.paddingBottom = this._origPaddingBottom;
+
+    if (this.track) this.track.style.willChange = "auto";
+    this.track = null;
   }
 
   onPauseToggle() {
@@ -256,18 +239,21 @@ class ProductReviewCarousel {
     this.updateButtonUI();
   }
 
-  // State/UI helpers
   updatePaused() {
     const newPaused =
       this.userPaused || this.hovered || document.hidden || this._offscreen;
-    if (newPaused !== this.paused) {
-      this.paused = newPaused;
-      // Reset timer to avoid jumps after pause/unpause
-      this.lastTs = null;
-      if (this.track) {
-        this.track.style.willChange = this.paused ? "auto" : "transform";
-      }
-      if (!this.paused && this.enabled && this.rafId == null) this.tick();
+    if (newPaused === this.paused) return;
+
+    this.paused = newPaused;
+    this.lastTs = null;
+    if (this.track)
+      this.track.style.willChange = this.paused ? "auto" : "transform";
+
+    if (this.paused && this.rafId != null) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    } else if (!this.paused && this.enabled && this.rafId == null) {
+      this.rafId = requestAnimationFrame(this.boundTick);
     }
   }
 
@@ -282,12 +268,9 @@ class ProductReviewCarousel {
     this.pauseBtn.classList.toggle(CLASSNAMES.paused, isPaused);
   }
 
-  // Event handlers
-  // Delegated hover handling: pause only when pointer is over an actual product card (not whitespace)
+  // Hover pause only when pointer is on a card (not whitespace)
   onMouseOver(e) {
-    const el = e.target && e.target.closest(SELECTORS.productCard);
-    if (!el) return;
-    if (!this.hovered) {
+    if (e.target && e.target.closest(SELECTORS.productCard) && !this.hovered) {
       this.hovered = true;
       this.updatePaused();
     }
@@ -310,93 +293,107 @@ class ProductReviewCarousel {
   }
 
   onResize() {
-    const shouldEnable = window.innerWidth >= DISABLE_CAROUSEL_MIN_WIDTH;
-    if (shouldEnable) {
-      if (this.enabled) this.disable();
-      this.enable();
-    } else if (this.enabled) {
-      this.disable();
-    }
-    this.updatePaused();
-    this.updateButtonUI();
+    // Fallback path when ResizeObserver isn't available
+    this.onResizeObserved();
   }
 
+  /**
+   * ResizeObserver callback (debounced to an rAF).
+   * - Enables/disables based on container width threshold.
+   * - Recomputes cached metrics & overflow when enabled.
+   */
   onResizeObserved() {
-    const width = this.root.clientWidth;
-    const shouldEnable = width >= DISABLE_CAROUSEL_MIN_WIDTH;
-    if (shouldEnable && !this.enabled) {
-      this.enable();
-    } else if (!shouldEnable && this.enabled) {
-      this.disable();
-    }
-    if (this.enabled) {
-      // Recompute cached metrics and overflow solely on size changes
-      const styles = window.getComputedStyle(this.track);
-      this.gapPx = parseFloat(styles.columnGap || styles.gap || "0") || 0;
-      const first = this.track.children[0];
-      this.cardWidthPx = first ? first.offsetWidth || 0 : 0;
-      this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
-      // Ensure enough content if container grew
-      const viewport = this.container.clientWidth || window.innerWidth;
-      const target = viewport * PREFILL_MULTIPLIER;
-      if (this.container.scrollWidth < target) {
-        const adv = this.groupAdvance || 1;
-        const deficit = Math.max(0, target - this.container.scrollWidth);
-        const groupsNeeded = Math.min(
-          PREFILL_MAX_LOOPS,
-          Math.ceil(deficit / adv),
-        );
-        if (groupsNeeded > 0) {
-          const totalCards = groupsNeeded * GROUP_SIZE;
-          const start = this.computeNextStartIndex();
-          this.appendCardsFromStart(start, totalCards);
-        }
+    if (this._resizeScheduled) return;
+    this._resizeScheduled = true;
+    requestAnimationFrame(() => {
+      this._resizeScheduled = false;
+
+      const shouldEnable = this.root.clientWidth >= DISABLE_CAROUSEL_MIN_WIDTH;
+      if (shouldEnable && !this.enabled) this.enable();
+      else if (!shouldEnable && this.enabled) this.disable();
+
+      if (this.enabled) {
+        // Refresh cached metrics
+        const styles = window.getComputedStyle(this.track);
+        this.gapPx = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+        const first = this.track.children[0];
+        this.cardWidthPx = first ? first.offsetWidth || 0 : 0;
+        this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
+
+        // Top up if container grew
+        const viewport = this.container.clientWidth || window.innerWidth;
+        const target = viewport * PREFILL_MULTIPLIER;
+        if (this.container.scrollWidth < target) this.ensureOverflow();
       }
-    }
-    this.updatePaused();
-    this.updateButtonUI();
+
+      this.updatePaused();
+      this.updateButtonUI();
+    });
   }
 
-  // Static measurement (card width and gap assumed fixed)
+  /**
+   * Compute the pixel distance after which we recycle one group.
+   * Uses cached width/gap when available to avoid layout reads.
+   */
   computeGroupAdvanceStatic(groupSize) {
+    if (this.cardWidthPx != null && this.gapPx != null) {
+      return groupSize * this.cardWidthPx + groupSize * this.gapPx;
+    }
     const track = this.track;
     const first = track.children[0];
-    // Prefer cached metrics when available to avoid layout reads
+
     let gap = this.gapPx;
-    if (!(gap > 0)) {
+    if (gap == null) {
       const styles = window.getComputedStyle(track);
       gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+      this.gapPx = gap;
     }
-    const cardWidth =
-      this.cardWidthPx && this.cardWidthPx > 0
-        ? this.cardWidthPx
-        : first.offsetWidth || 0;
-    // Equal-width cards assumed; include internal gaps (groupSize - 1)
-    // plus trailing gap to next group (1) => groupSize total gaps
-    const total = groupSize * cardWidth + groupSize * gap;
+
+    const cardWidth = this.cardWidthPx ?? (first ? first.offsetWidth || 0 : 0);
+    if (this.cardWidthPx == null) this.cardWidthPx = cardWidth;
+
+    const total = groupSize * cardWidth + groupSize * gap; // includes trailing gap
     return total > 0 ? total : 0;
   }
 
-  // DOM helpers
-  // Compute next start index using data-index of current last element
+  /**
+   * Ensure track width >= PREFILL_MULTIPLIER * viewport by appending
+   * whole groups in a single fragment (O(1) math; no loops over layout reads).
+   */
+  ensureOverflow() {
+    const viewport = this.container.clientWidth || window.innerWidth;
+    const target = viewport * PREFILL_MULTIPLIER;
+    const current = this.container.scrollWidth;
+    const adv = Math.max(
+      1,
+      this.groupAdvance || this.computeGroupAdvanceStatic(GROUP_SIZE),
+    );
+    const deficit = Math.max(0, target - current);
+    const groupsNeeded = Math.min(PREFILL_MAX_LOOPS, Math.ceil(deficit / adv));
+    if (groupsNeeded > 0) {
+      const totalCards = groupsNeeded * GROUP_SIZE;
+      const start = this.computeNextStartIndex();
+      this.appendCardsFromStart(start, totalCards);
+    }
+  }
+
+  // ----- DOM helpers -----
+
+  // Next start index is (data-index of last child + 1) % itemsModulo
   computeNextStartIndex() {
     const len = this.itemsModulo || 0;
-    if (len === 0) return 0;
+    if (!len) return 0;
     const children = this.track.children;
-    const lastChild = children[children.length - 1];
-    const lastStr = lastChild ? lastChild.getAttribute("data-index") : null;
-    const lastIdx = lastStr != null ? parseInt(lastStr, 10) : -1;
+    const last = children[children.length - 1];
+    const lastIdx = last ? parseInt(last.getAttribute("data-index"), 10) : -1;
     return Number.isFinite(lastIdx) && lastIdx >= 0 ? (lastIdx + 1) % len : 0;
   }
 
-  // Append a specific count starting from a given index (wrapping modulo unique items)
   appendCardsFromStart(start, count) {
     const len = this.itemsModulo || 0;
-    if (len === 0 || count <= 0 || !Array.isArray(this.originalNodes))
-      return [];
-    const appended = [];
-    const parent = this.track;
+    if (!len || count <= 0 || !Array.isArray(this.originalNodes)) return [];
     const frag = document.createDocumentFragment();
+    const appended = [];
     for (let i = 0; i < count; i++) {
       const idx = (start + i) % len;
       const node = this.originalNodes[idx].cloneNode(true);
@@ -404,89 +401,109 @@ class ProductReviewCarousel {
       frag.appendChild(node);
       appended.push(idx);
     }
-    parent.appendChild(frag);
+    this.track.appendChild(frag);
     return appended;
   }
 
-  // Helper used during initial overflow/population
   appendCards(count) {
-    const len = this.itemsModulo || 0;
-    if (len === 0 || count <= 0) return;
+    if (!this.itemsModulo || count <= 0) return;
     const start = this.computeNextStartIndex();
-
-    const appended = this.appendCardsFromStart(start, count);
+    this.appendCardsFromStart(start, count);
   }
 
   removeFirstGroup(groupSize) {
     for (let i = 0; i < groupSize; i++) {
-      const parent = this.track;
-      const first = parent.firstElementChild;
+      const first = this.track.firstElementChild;
       if (!first) break;
-      parent.removeChild(first);
+      first.remove();
     }
   }
 
-  // Animation loop
+  // ----- Animation loop -----
+
   tick(ts) {
     if (!this.enabled) return;
-    this.rafId = requestAnimationFrame(this.boundTick);
-    if (this.paused) return;
-
-    if (this.lastTs == null) {
-      this.lastTs = ts ?? performance.now();
+    if (this.paused) {
+      this.rafId = null;
       return;
     }
 
     const nowMs = ts ?? performance.now();
-    // Clamp elapsed to reduce large jumps after tab throttling (~20 FPS cap on catch-up)
+    if (this.lastTs == null) this.lastTs = nowMs;
+
+    // Clamp to avoid big jumps after tab throttling
     const elapsedMs = Math.max(0, Math.min(nowMs - this.lastTs, 48));
     this.lastTs = nowMs;
 
     const deltaPx = (this.pxPerSecond * elapsedMs) / 1000;
-    // Merge user scroll (integer) with our fractional remainder
     const base = this.container.scrollLeft;
     let next = base + (this._fractionalRemainder || 0) + deltaPx;
 
-    // Recycle groups of 3 gap-aware; use precomputed threshold for fewer layout reads
-    let safetyCounter = 0;
-    let threshold = this.groupAdvance;
-    while (safetyCounter < RECYCLE_SAFETY_MAX) {
+    // Recycle forward in GROUP_SIZE batches when crossing the threshold
+    let safety = 0;
+    const threshold = this.groupAdvance;
+    while (safety < RECYCLE_SAFETY_MAX) {
       const children = this.track.children;
       if (children.length < GROUP_SIZE + 1) break;
       if (!(threshold > 0) || next < threshold) break;
 
-      // Append new group based on index method, then remove first group
-      try {
-        const start = this.computeNextStartIndex();
-        const appended = this.appendCardsFromStart(start, GROUP_SIZE);
-      } catch {}
+      const start = this.computeNextStartIndex();
+      this.appendCardsFromStart(start, GROUP_SIZE);
       next -= threshold;
       this.removeFirstGroup(GROUP_SIZE);
-      safetyCounter++;
+      safety++;
     }
-    // Split into integer scroll and fractional transform so native scrolling remains intact
+
+    // Split integer/frac so we keep native scrolling for the int part
     const intPart = Math.floor(next);
     const fracPart = next - intPart;
 
-    // Only update DOM when values actually change
-    const prevFrac = this._fractionalRemainder || 0;
-    if (Math.abs(fracPart - prevFrac) > FRACTION_EPSILON) {
+    if (
+      Math.abs(fracPart - (this._fractionalRemainder || 0)) > FRACTION_EPSILON
+    ) {
       this.track.style.transform = `translate3d(${-fracPart}px, 0, 0)`;
     }
-
-    // Avoid redundant writes when nothing changed
-    if (this.container.scrollLeft !== intPart) {
+    if (this.container.scrollLeft !== intPart)
       this.container.scrollLeft = intPart;
-    }
 
     this._fractionalRemainder = fracPart;
+
+    // Continue animating while active
+    if (!this.paused && this.enabled) {
+      this.rafId = requestAnimationFrame(this.boundTick);
+    } else {
+      this.rafId = null;
+    }
   }
 
   cancelTick() {
-    if (this.rafId != null) {
-      cancelAnimationFrame(this.rafId);
-      this.rafId = null;
-    }
+    if (this.rafId != null) cancelAnimationFrame(this.rafId);
+    this.rafId = null;
     this.lastTs = null;
+  }
+
+  /**
+   * Cleanup to prevent observer/listener leaks when the carousel node is removed.
+   * Currently unused, available for future use.
+   */
+  destroy() {
+    if (this.destroyed) return;
+    this.cancelTick();
+    try {
+      this.io?.disconnect?.();
+    } catch {}
+    try {
+      this.ro?.disconnect?.();
+    } catch {}
+    document.removeEventListener("visibilitychange", this.onVisibilityChange);
+    try {
+      this.container?.removeEventListener("mouseover", this.onMouseOver);
+      this.container?.removeEventListener("mouseout", this.onMouseOut);
+      if (this._usingWindowResize)
+        window.removeEventListener("resize", this.onResize);
+      this.pauseBtn?.removeEventListener("click", this.onPauseToggle);
+    } catch {}
+    if (this.enabled) this.disable();
+    this.destroyed = true;
   }
 }
