@@ -8,6 +8,11 @@ const SELECTORS = {
 
 const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
 const GROUP_SIZE = 3; // Maintain 3-card cadence to match nth-child styling
+// Behavioral constants
+const PREFILL_MULTIPLIER = 2.5; // how much wider than viewport to prefill
+const PREFILL_MAX_LOOPS = 10; // cap prefill iterations
+const RECYCLE_SAFETY_MAX = 6; // max groups recycled per frame
+const FRACTION_EPSILON = 0.0005; // min delta to update transform
 
 export function initProductReviewCarousels() {
   const carousels = document.querySelectorAll(SELECTORS.root);
@@ -28,7 +33,7 @@ class ProductReviewCarousel {
     this.hovered = false; // hover pause state
     this.rafId = null;
     this.lastTs = null;
-    this.pxPerSecond = 15; // scroll speed (px/s)
+    this.pxPerSecond = 20; // scroll speed (px/s)
     this._fractionalRemainder = 0; // subpixel remainder applied via transform
     this.track = null; // inner track translated for fractional movement
     this.originalHTML = null;
@@ -38,8 +43,6 @@ class ProductReviewCarousel {
     this.originalNodes = []; // templates for cloning
 
     // Bind handlers once
-    this.onMouseEnter = this.onMouseEnter.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onVisibilityChange = this.onVisibilityChange.bind(this);
@@ -82,42 +85,6 @@ class ProductReviewCarousel {
 
     // Initial enable/disable per viewport
     this.toggleForViewport();
-  }
-
-  onPauseToggle() {
-    this.userPaused = !this.userPaused;
-    this.updatePaused();
-    this.updateButtonUI();
-  }
-
-  updatePaused() {
-    const newPaused = this.userPaused || this.hovered || document.hidden;
-    if (newPaused !== this.paused) {
-      this.paused = newPaused;
-      // Reset timer to avoid jumps after pause/unpause
-      this.lastTs = null;
-      if (!this.paused && this.enabled && this.rafId == null) this.tick();
-    }
-  }
-
-  updateButtonUI() {
-    if (!this.pauseBtn) return;
-    const isPaused = this.userPaused;
-    this.pauseBtn.setAttribute("aria-pressed", String(isPaused));
-    this.pauseBtn.setAttribute(
-      "aria-label",
-      isPaused ? "Play carousel" : "Pause carousel",
-    );
-    this.pauseBtn.classList.toggle("is-paused", isPaused);
-  }
-
-  toggleForViewport() {
-    const shouldEnable = window.innerWidth >= DISABLE_CAROUSEL_MIN_WIDTH;
-    if (shouldEnable && !this.enabled) {
-      this.enable();
-    } else if (!shouldEnable && this.enabled) {
-      this.disable();
-    }
   }
 
   enable() {
@@ -166,7 +133,10 @@ class ProductReviewCarousel {
     const ensureOverflow = () => {
       const viewport = this.container.clientWidth || window.innerWidth;
       let safety = 0;
-      while (this.container.scrollWidth < viewport * 2.5 && safety < 10) {
+      while (
+        this.container.scrollWidth < viewport * PREFILL_MULTIPLIER &&
+        safety < PREFILL_MAX_LOOPS
+      ) {
         // Append just one group at a time to maintain 3-card cadence
         this.appendCards(GROUP_SIZE);
         safety++;
@@ -186,12 +156,9 @@ class ProductReviewCarousel {
     };
     ensureMultipleOfGroupSize();
 
-    // Compute the distance to recycle (gap-aware)
-    this.groupAdvance = this.measureGroupAdvance(GROUP_SIZE);
-    // Fallback: compute by widths + gaps, including trailing gap to the next group
-    if (!this.groupAdvance || !Number.isFinite(this.groupAdvance)) {
-      this.groupAdvance = this.measureGroupAdvanceByWidths(GROUP_SIZE);
-    }
+    // Compute the distance to recycle using width+gap math first (no layout),
+    // fallback to offsetLeft if needed
+    this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
 
     // Start from the beginning
     this.container.scrollLeft = 0;
@@ -217,16 +184,45 @@ class ProductReviewCarousel {
     this.track = null;
   }
 
-  onMouseEnter() {
-    this.hovered = true;
-    this.updatePaused();
+  // Public API
+  toggleForViewport() {
+    const shouldEnable = window.innerWidth >= DISABLE_CAROUSEL_MIN_WIDTH;
+    if (shouldEnable && !this.enabled) {
+      this.enable();
+    } else if (!shouldEnable && this.enabled) {
+      this.disable();
+    }
   }
 
-  onMouseLeave() {
-    this.hovered = false;
+  onPauseToggle() {
+    this.userPaused = !this.userPaused;
     this.updatePaused();
+    this.updateButtonUI();
   }
 
+  // State/UI helpers
+  updatePaused() {
+    const newPaused = this.userPaused || this.hovered || document.hidden;
+    if (newPaused !== this.paused) {
+      this.paused = newPaused;
+      // Reset timer to avoid jumps after pause/unpause
+      this.lastTs = null;
+      if (!this.paused && this.enabled && this.rafId == null) this.tick();
+    }
+  }
+
+  updateButtonUI() {
+    if (!this.pauseBtn) return;
+    const isPaused = this.userPaused;
+    this.pauseBtn.setAttribute("aria-pressed", String(isPaused));
+    this.pauseBtn.setAttribute(
+      "aria-label",
+      isPaused ? "Play carousel" : "Pause carousel",
+    );
+    this.pauseBtn.classList.toggle("is-paused", isPaused);
+  }
+
+  // Event handlers
   // Delegated hover handling: pause only when pointer is over an actual product card (not whitespace)
   onMouseOver(e) {
     const el = e.target && e.target.closest(SELECTORS.productCard);
@@ -265,29 +261,22 @@ class ProductReviewCarousel {
     this.updateButtonUI();
   }
 
-  measureGroupAdvance(groupSize) {
-    const children = this.track.children;
-    if (children.length < groupSize + 1) return 0;
-    const first = children[0];
-    const nextGroupFirst = children[groupSize];
-    return Math.max(0, nextGroupFirst.offsetLeft - first.offsetLeft);
-  }
-
-  measureGroupAdvanceByWidths(groupSize) {
-    const children = this.track.children;
-    if (children.length < groupSize) return 0;
-    const styles = window.getComputedStyle(this.track);
-    // column-gap holds the horizontal spacing in our flex row
+  // Static measurement (card width and gap assumed fixed)
+  computeGroupAdvanceStatic(groupSize) {
+    const track = this.track;
+    if (!track) return 0;
+    const first = track.children && track.children[0];
+    if (!first) return 0;
+    const styles = window.getComputedStyle(track);
     const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
-    let widthSum = 0;
-    for (let i = 0; i < groupSize; i++) {
-      widthSum += children[i].offsetWidth;
-    }
-    // Include internal gaps (groupSize - 1) and the trailing gap to the next group (1) => groupSize total gaps
-    const gaps = gap * groupSize;
-    return widthSum + gaps;
+    const cardWidth = first.offsetWidth || 0;
+    // Equal-width cards assumed; include internal gaps (groupSize - 1)
+    // plus trailing gap to next group (1) => groupSize total gaps
+    const total = groupSize * cardWidth + groupSize * gap;
+    return total > 0 ? total : 0;
   }
 
+  // DOM helpers
   // Compute next start index using data-index of current last element
   computeNextStartIndex() {
     const len = this.itemsModulo || 0;
@@ -316,7 +305,7 @@ class ProductReviewCarousel {
     return appended;
   }
 
-  // Public helper used during initial overflow/population
+  // Helper used during initial overflow/population
   appendCards(count) {
     const len = this.itemsModulo || 0;
     if (len === 0 || count <= 0) return;
@@ -334,6 +323,7 @@ class ProductReviewCarousel {
     }
   }
 
+  // Animation loop
   tick(ts) {
     if (!this.enabled) return;
     this.rafId = requestAnimationFrame(this.tick.bind(this));
@@ -356,13 +346,7 @@ class ProductReviewCarousel {
     // Recycle groups of 3 gap-aware; use precomputed threshold for fewer layout reads
     let safetyCounter = 0;
     let threshold = this.groupAdvance;
-    if (!(threshold > 0)) {
-      threshold =
-        this.measureGroupAdvance(GROUP_SIZE) ||
-        this.measureGroupAdvanceByWidths(GROUP_SIZE) ||
-        0;
-    }
-    while (safetyCounter < 6) {
+    while (safetyCounter < RECYCLE_SAFETY_MAX) {
       const children = this.track.children; // Invariant: exists while enabled
       if (children.length < GROUP_SIZE + 1) break;
       if (!(threshold > 0) || next < threshold) break;
@@ -383,7 +367,7 @@ class ProductReviewCarousel {
 
     // Only update DOM when values actually change
     const prevFrac = this._fractionalRemainder || 0;
-    if (Math.abs(fracPart - prevFrac) > 0.0005) {
+    if (Math.abs(fracPart - prevFrac) > FRACTION_EPSILON) {
       this.track.style.transform = `translate3d(${-fracPart}px, 0, 0)`;
     }
 
