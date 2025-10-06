@@ -9,7 +9,6 @@
 const SELECTORS = {
   root: ".product-review-carousel",
   cardsContainer: ".product-review-carousel__cards-container",
-  cardWrapper: ".product-review-carousel__card-wrapper",
   productCard: ".product-review-card",
   pauseButton: ".product-review-carousel__pause-button",
 };
@@ -163,14 +162,6 @@ class ProductReviewCarousel {
     if (this.originalHTML != null) {
       this.container.innerHTML = this.originalHTML;
     }
-    // Ensure snapshot exists (fallback for legacy state)
-    if (!this.originalNodes || this.originalNodes.length === 0) {
-      const children = Array.from(this.container.children);
-      this.itemsModulo = children.length;
-      this.originalNodes = children.map((el) => el.cloneNode(true));
-    } else {
-      this.itemsModulo = this.originalNodes.length;
-    }
 
     // Build inner track (the transform target)
     const cs = window.getComputedStyle(this.container);
@@ -189,9 +180,7 @@ class ProductReviewCarousel {
     this.container.style.paddingTop = "0";
     this.container.style.paddingBottom = "0";
 
-    try {
-      track.style.contain = "content";
-    } catch {}
+    track.style.contain = "content";
 
     while (this.container.firstChild)
       track.appendChild(this.container.firstChild);
@@ -395,18 +384,15 @@ class ProductReviewCarousel {
 
   appendCardsFromStart(start, count) {
     const len = this.itemsModulo || 0;
-    if (!len || count <= 0 || !Array.isArray(this.originalNodes)) return [];
+    if (!len || count <= 0 || !Array.isArray(this.originalNodes)) return;
     const frag = document.createDocumentFragment();
-    const appended = [];
     for (let i = 0; i < count; i++) {
       const idx = (start + i) % len;
       const node = this.originalNodes[idx].cloneNode(true);
       node.setAttribute("data-index", String(idx));
       frag.appendChild(node);
-      appended.push(idx);
     }
     this.track.appendChild(frag);
-    return appended;
   }
 
   appendCards(count) {
@@ -488,7 +474,6 @@ class ProductReviewCarousel {
 
   /**
    * Cleanup to prevent observer/listener leaks when the carousel node is removed.
-   * Currently unused, available for future use.
    */
   destroy() {
     if (this.destroyed) return;
