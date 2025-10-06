@@ -1,6 +1,38 @@
-// ===================================
-// Mixins
-// ===================================
+@mixin image-hover-zoom($scale: 1.05, $duration: 0.3s) {
+  overflow: hidden;
+
+  img {
+    transition: transform $duration ease-out;
+  }
+
+  &:hover {
+    img {
+      transform: scale($scale);
+    }
+  }
+}
+
+@mixin link-text-hover-underline(
+  $underline-color: map.get($mofo-colors, black)
+) {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: $underline-color;
+  }
+}
+
+@mixin link-text-color(
+  $default-color: map.get($mofo-colors, black),
+  $hover-color: map.get($mofo-colors, black)
+) {
+  color: $default-color;
+
+  &:hover {
+    color: $hover-color;
+  }
+}
 
 // ===================================
 // Nothing Personal Titles Highlight effect

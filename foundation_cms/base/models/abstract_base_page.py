@@ -13,6 +13,7 @@ from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
 from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks import (
     CustomImageBlock,
@@ -104,15 +105,8 @@ class Topic(TagBase):
         verbose_name = "Page Topic (new)"
         verbose_name_plural = "Page Topics (new)"
 
-    # TODO:FIXME Topic listing route should not live under the NP tree
     def get_topic_listing_url(self):
-        """Get the Nothing Personal listing URL for this topic"""
-        from foundation_cms.nothing_personal.models import NothingPersonalHomePage
-
-        np_home = NothingPersonalHomePage.objects.live().first()
-        if np_home:
-            return f"{np_home.url}topics/{self.slug}/"
-        return None
+        return f"/topics/{self.slug}/"
 
 
 class AbstractBasePage(FoundationMetadataPageMixin, Page):
@@ -159,6 +153,22 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel("theme"),
+    ]
+
+    translatable_fields = [
+        # Promote tab fields
+        SynchronizedField("slug"),
+        TranslatableField("seo_title"),
+        SynchronizedField("show_in_menus"),
+        TranslatableField("search_description"),
+        SynchronizedField("search_image"),
+        SynchronizedField("author"),
+        SynchronizedField("topics"),
+        # Content tab fields
+        TranslatableField("body"),
+        TranslatableField("title"),
+        # Settings tab fields
+        SynchronizedField("theme"),
     ]
 
     class Meta:

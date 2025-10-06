@@ -34,6 +34,7 @@ class ProductMentioned(Orderable):
         on_delete=models.SET_NULL,
         null=True,
         related_name="mentioned_in_pages",
+        verbose_name="Product",
     )
 
     panels = [
@@ -110,10 +111,6 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         ),
         FieldPanel("lede_text"),
         MultiFieldPanel(
-            [InlinePanel("products_mentioned", max_num=3)],
-            heading="Products Mentioned",
-        ),
-        MultiFieldPanel(
             [
                 FieldPanel("what_you_should_know_section"),
                 FieldPanel("newsletter_signup_section"),
@@ -123,12 +120,16 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             ],
             heading="Review Sections",
         ),
+        MultiFieldPanel(
+            [InlinePanel("products_mentioned", max_num=4)],
+            heading="Products Mentioned",
+        ),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
     subpage_types: list[str] = []
 
-    translatable_fields = [
+    translatable_fields = AbstractArticlePage.translatable_fields + [
         # Content tab fields
         SynchronizedField("what_you_should_know_section"),
         SynchronizedField("newsletter_signup_section"),
@@ -140,6 +141,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         TranslatableField("hero_image_alt_text"),
         SynchronizedField("updated"),
         SynchronizedField("reviewed"),
+        SynchronizedField("scoring"),
         TranslatableField("research"),
     ]
 
