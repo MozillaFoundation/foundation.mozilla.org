@@ -14,7 +14,7 @@ class NothingPersonalPodcastPage(AbstractBasePage):
 
     hero_description = models.CharField(
         max_length=120,
-        help_text="Hero Description",
+        help_text="Brief description of the hero (max 120 characters)",
         blank=True,
     )
 
