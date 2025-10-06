@@ -57,18 +57,16 @@
   &__cards-container {
     display: flex;
     flex-direction: row;
-    padding-left: 1rem;
-    padding-right: 1rem;
     gap: 0 $carousel-card-horizontal-gap;
-    padding-top: map.get($carousel-top-margin, small);
-    padding-bottom: map.get($carousel-bottom-margin, small);
+    padding: map.get($carousel-top-margin, small) 1rem
+      map.get($carousel-bottom-margin, small);
     overflow-x: auto;
     scrollbar-width: none;
 
     @include breakpoint(large up) {
       justify-content: center;
-      padding-top: map.get($carousel-top-margin, large);
-      padding-bottom: map.get($carousel-bottom-margin, large);
+      padding: map.get($carousel-top-margin, large) 0
+        map.get($carousel-bottom-margin, large);
     }
 
     .product-review-carousel__card-wrapper {
