@@ -42,7 +42,11 @@
     @include mofo-text-style($header-styles, "h2", $header-font-family);
     @include product-review-carousel-headline-gap;
 
-    margin: 1rem 0 0;
+    margin: 1rem 0;
+
+    @include breakpoint(large up) {
+      margin-bottom: 0;
+    }
   }
 
   &__text {
