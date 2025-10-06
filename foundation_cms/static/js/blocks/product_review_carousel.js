@@ -2,6 +2,7 @@ const SELECTORS = {
   root: ".product-review-carousel",
   cardsContainer: ".product-review-carousel__cards-container",
   cardWrapper: ".product-review-carousel__card-wrapper",
+  productCard: ".product-review-card",
   pauseButton: ".product-review-carousel__pause-button",
 };
 
@@ -27,7 +28,9 @@ class ProductReviewCarousel {
     this.hovered = false; // hover pause state
     this.rafId = null;
     this.lastTs = null;
-    this.pxPerSecond = 30; // scroll speed (px/s)
+    this.pxPerSecond = 15; // scroll speed (px/s)
+    this._fractionalRemainder = 0; // subpixel remainder applied via transform
+    this.track = null; // inner track translated for fractional movement
     this.originalHTML = null;
     this.originalCount = 0;
     this.groupAdvance = 0; // distance to advance before recycling (gap-aware)
@@ -37,6 +40,8 @@ class ProductReviewCarousel {
     // Bind handlers once
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.onVisibilityChange = this.onVisibilityChange.bind(this);
     this.onResize = this.onResize.bind(this);
     this.onPauseToggle = this.onPauseToggle.bind(this);
@@ -66,8 +71,9 @@ class ProductReviewCarousel {
     this.originalCount = this.container.children.length;
 
     // Listeners
-    this.container.addEventListener("mouseenter", this.onMouseEnter);
-    this.container.addEventListener("mouseleave", this.onMouseLeave);
+    // Pause only when hovering actual cards, not gaps (use delegation)
+    this.container.addEventListener("mouseover", this.onMouseOver);
+    this.container.addEventListener("mouseout", this.onMouseOut);
     document.addEventListener("visibilitychange", this.onVisibilityChange);
     window.addEventListener("resize", this.onResize, { passive: true });
     if (this.pauseBtn) {
@@ -137,6 +143,25 @@ class ProductReviewCarousel {
     // Persist pristine HTML after indices are added so re-enables keep data-index
     this.originalHTML = this.container.innerHTML;
 
+    // Build an inner track to translate (preserves native scrolling on container)
+    const buildTrack = () => {
+      const track = document.createElement("div");
+      track.className = "product-review-carousel__track";
+      track.style.display = "flex";
+      track.style.willChange = "transform";
+      const cs = window.getComputedStyle(this.container);
+      const gapVal = cs.columnGap || cs.gap || "";
+      if (gapVal) {
+        track.style.columnGap = gapVal;
+      }
+      while (this.container.firstChild) {
+        track.appendChild(this.container.firstChild);
+      }
+      this.container.appendChild(track);
+      this.track = track;
+    };
+    buildTrack();
+
     // Ensure we have enough content to overflow for smooth motion
     const ensureOverflow = () => {
       const viewport = this.container.clientWidth || window.innerWidth;
@@ -151,7 +176,8 @@ class ProductReviewCarousel {
 
     // Ensure children count is a multiple of GROUP_SIZE
     const ensureMultipleOfGroupSize = () => {
-      const totalChildren = this.container.children.length;
+      // Invariant: track exists while enabled
+      const totalChildren = this.track.children.length;
       const remainder = totalChildren % GROUP_SIZE;
       if (remainder !== 0) {
         const needed = GROUP_SIZE - remainder;
@@ -170,6 +196,8 @@ class ProductReviewCarousel {
     // Start from the beginning
     this.container.scrollLeft = 0;
     this.lastTs = null;
+    this._fractionalRemainder = 0;
+    this.track.style.transform = "translate3d(0px,0,0)";
     this.enabled = true;
     this.updatePaused();
     this.updateButtonUI();
@@ -185,6 +213,8 @@ class ProductReviewCarousel {
       this.container.innerHTML = this.originalHTML;
     }
     this.container.scrollLeft = 0;
+    this._fractionalRemainder = 0;
+    this.track = null;
   }
 
   onMouseEnter() {
@@ -195,6 +225,28 @@ class ProductReviewCarousel {
   onMouseLeave() {
     this.hovered = false;
     this.updatePaused();
+  }
+
+  // Delegated hover handling: pause only when pointer is over an actual product card (not whitespace)
+  onMouseOver(e) {
+    const el = e.target && e.target.closest(SELECTORS.productCard);
+    if (!el) return;
+    if (!this.hovered) {
+      this.hovered = true;
+      this.updatePaused();
+    }
+  }
+
+  onMouseOut(e) {
+    const fromCard = e.target && e.target.closest(SELECTORS.productCard);
+    if (!fromCard) return;
+    const to = e.relatedTarget;
+    const stillInCard =
+      to && this.container.contains(to) && to.closest(SELECTORS.productCard);
+    if (!stillInCard && this.hovered) {
+      this.hovered = false;
+      this.updatePaused();
+    }
   }
 
   onVisibilityChange() {
@@ -214,7 +266,7 @@ class ProductReviewCarousel {
   }
 
   measureGroupAdvance(groupSize) {
-    const children = this.container.children;
+    const children = this.track.children;
     if (children.length < groupSize + 1) return 0;
     const first = children[0];
     const nextGroupFirst = children[groupSize];
@@ -222,9 +274,9 @@ class ProductReviewCarousel {
   }
 
   measureGroupAdvanceByWidths(groupSize) {
-    const children = this.container.children;
+    const children = this.track.children;
     if (children.length < groupSize) return 0;
-    const styles = window.getComputedStyle(this.container);
+    const styles = window.getComputedStyle(this.track);
     // column-gap holds the horizontal spacing in our flex row
     const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
     let widthSum = 0;
@@ -240,7 +292,7 @@ class ProductReviewCarousel {
   computeNextStartIndex() {
     const len = this.itemsModulo || 0;
     if (len === 0) return 0;
-    const children = this.container.children;
+    const children = this.track.children; // Invariant: exists while enabled
     const lastChild = children[children.length - 1];
     const lastStr = lastChild ? lastChild.getAttribute("data-index") : null;
     const lastIdx = lastStr != null ? parseInt(lastStr, 10) : -1;
@@ -253,11 +305,12 @@ class ProductReviewCarousel {
     if (len === 0 || count <= 0 || !Array.isArray(this.originalNodes))
       return [];
     const appended = [];
+    const parent = this.track; // Invariant: exists while enabled
     for (let i = 0; i < count; i++) {
       const idx = (start + i) % len;
       const node = this.originalNodes[idx].cloneNode(true);
       node.setAttribute("data-index", String(idx));
-      this.container.appendChild(node);
+      parent.appendChild(node);
       appended.push(idx);
     }
     return appended;
@@ -274,9 +327,10 @@ class ProductReviewCarousel {
 
   removeFirstGroup(groupSize) {
     for (let i = 0; i < groupSize; i++) {
-      const first = this.container.firstElementChild;
+      const parent = this.track; // Invariant: exists while enabled
+      const first = parent.firstElementChild;
       if (!first) break;
-      this.container.removeChild(first);
+      parent.removeChild(first);
     }
   }
 
@@ -295,19 +349,22 @@ class ProductReviewCarousel {
     this.lastTs = nowMs;
 
     const deltaPx = (this.pxPerSecond * elapsedMs) / 1000;
-    let next = this.container.scrollLeft + deltaPx;
+    // Merge user scroll (integer) with our fractional remainder
+    const base = this.container.scrollLeft;
+    let next = base + (this._fractionalRemainder || 0) + deltaPx;
 
-    // Recycle groups of 3 gap-aware; compute exact threshold from current offsets
+    // Recycle groups of 3 gap-aware; use precomputed threshold for fewer layout reads
     let safetyCounter = 0;
+    let threshold = this.groupAdvance;
+    if (!(threshold > 0)) {
+      threshold =
+        this.measureGroupAdvance(GROUP_SIZE) ||
+        this.measureGroupAdvanceByWidths(GROUP_SIZE) ||
+        0;
+    }
     while (safetyCounter < 6) {
-      const children = this.container.children;
+      const children = this.track.children; // Invariant: exists while enabled
       if (children.length < GROUP_SIZE + 1) break;
-      const first = children[0];
-      const nextGroupFirst = children[GROUP_SIZE];
-      const threshold = Math.max(
-        0,
-        nextGroupFirst.offsetLeft - first.offsetLeft,
-      );
       if (!(threshold > 0) || next < threshold) break;
 
       // Append new group based on index method, then remove first group
@@ -320,8 +377,21 @@ class ProductReviewCarousel {
       this.removeFirstGroup(GROUP_SIZE);
       safetyCounter++;
     }
+    // Split into integer scroll and fractional transform so native scrolling remains intact
+    const intPart = Math.floor(next);
+    const fracPart = next - intPart;
 
-    this.container.scrollLeft = next;
+    // Only update DOM when values actually change
+    const prevFrac = this._fractionalRemainder || 0;
+    if (Math.abs(fracPart - prevFrac) > 0.0005) {
+      this.track.style.transform = `translate3d(${-fracPart}px, 0, 0)`;
+    }
+
+    if (this.container.scrollLeft !== intPart) {
+      this.container.scrollLeft = intPart;
+    }
+
+    this._fractionalRemainder = fracPart;
   }
 
   cancelTick() {
