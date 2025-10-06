@@ -108,7 +108,7 @@
             bottom: -1px;
             width: 100%;
             height: 1px;
-            background-color: color(orange, "300");
+            background-color: color(orange, "600");
             transform: scaleX(0);
             transform-origin: right;
             transition: transform 0.4s ease-out;
@@ -119,7 +119,7 @@
           transform: scale($scale);
 
           .product-review-card__title {
-            color: color(orange, "300");
+            color: color(orange, "600");
 
             &::after {
               transform: scaleX(1);
