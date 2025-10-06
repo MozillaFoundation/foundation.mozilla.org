@@ -16,6 +16,9 @@ const SELECTORS = {
   successMessage: ".newsletter-signup__success-message",
   errorMessage: ".newsletter-signup__error-message",
   expandableField: ".newsletter-signup__field--hidden",
+  submitButton: ".newsletter-signup__button",
+  loadingMessage: ".loading-message",
+  rolltext: ".btn-primary__rolltext",
 };
 
 /**
@@ -55,7 +58,7 @@ async function submitDataToApi(signupUrl, formData) {
     });
 
     return res.status === 201;
-  } catch (err) {
+  } catch (_err) {
     return false;
   }
 }
@@ -180,15 +183,45 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       if (!isValid) return;
 
       const formData = { email, country, language };
+      const submitBtn   = container.querySelector(SELECTORS.submitButton);
+      const loadingEl   = submitBtn?.querySelector(SELECTORS.loadingMessage);
+      const rolltextEl  = submitBtn?.querySelector(SELECTORS.rolltext);
 
-      submitDataToApi(signupUrl, formData).then((success) => {
-        if (success) {
-          form.classList.add(CLASSNAMES.formHidden);
-          successMessage?.classList.remove(CLASSNAMES.successHidden);
-        } else {
-          errorMessage?.classList.remove(CLASSNAMES.errorHidden);
-        }
-      });
+      // show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.setAttribute("aria-busy", "true");
+      }
+      if (loadingEl) {
+        // override SCSS default (display: none)
+        loadingEl.style.display = "inline";
+      }
+      if (rolltextEl) {
+        rolltextEl.style.display = "none";
+      }
+
+      submitDataToApi(signupUrl, formData)
+        .then((success) => {
+          if (success) {
+            form.classList.add(CLASSNAMES.formHidden);
+            successMessage?.classList.remove(CLASSNAMES.successHidden);
+          } else {
+            errorMessage?.classList.remove(CLASSNAMES.errorHidden);
+          }
+        })
+        .finally(() => {
+          // restore button state
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute("aria-busy");
+          }
+          if (loadingEl) {
+            loadingEl.style.display = "none";
+          }
+          if (rolltextEl) {
+            rolltextEl.style.display = "";
+          }
+        });
     });
   });
 }
