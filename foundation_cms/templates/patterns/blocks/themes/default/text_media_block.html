@@ -1,9 +1,9 @@
 {% load wagtailimages_tags wagtailcore_tags %}
 
-<div class="text-media-block {% block variant_class %}{% endblock variant_class %}">
+<div class="text-media-block grid-x">
 
   {# Left: Subtitle, Title, Text, and Link #}
-  <div class="text-media-block__text">
+  <div class="text-media-block__text cell small-12 large-5">
     {% if value.subtitle %}
       <div class="text-media-block__subtitle">{{ value.subtitle }}</div>
     {% endif %}
@@ -24,7 +24,7 @@
   </div>
 
   {# Right: Media #}
-  <div class="text-media-block__media">
+  <div class="text-media-block__media cell small-12 large-6 large-offset-1">
     {% if value.media %}
       {% include "patterns/blocks/themes/default/media_block.html" with value=value.media %}
     {% endif %}
