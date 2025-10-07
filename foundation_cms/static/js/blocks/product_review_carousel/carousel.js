@@ -86,15 +86,17 @@ export default class ProductReviewCarousel {
       return;
     }
 
-    // Snapshot pristine content and index children for deterministic modulo math
-    this.originalCount = this.container.children.length;
-    Array.from(this.container.children).forEach((el, i) => {
+    // Use pre-rendered track; snapshot pristine content and index children for deterministic modulo math
+    this.track = this.container.querySelector(`.${CLASSNAMES.track}`);
+    if (!this.track) return;
+    this.originalCount = this.track.children.length;
+    Array.from(this.track.children).forEach((el, i) => {
       el.setAttribute("data-index", String(i));
     });
-    this.originalNodes = Array.from(this.container.children).map((el) =>
+    this.originalNodes = Array.from(this.track.children).map((el) =>
       el.cloneNode(true),
     );
-    this.originalHTML = this.container.innerHTML;
+    this.originalHTML = this.track.innerHTML;
 
     // Hover pause (delegated to cards)
     this.container.addEventListener("mouseover", this.onMouseOver, {
@@ -145,34 +147,10 @@ export default class ProductReviewCarousel {
     if (this.enabled || this.destroyed) return;
     if (!this.container || this.originalCount === 0) return;
 
-    // Restore pristine children (with data-index)
+    // Restore pristine track children (with data-index)
     if (this.originalHTML != null) {
-      this.container.innerHTML = this.originalHTML;
+      this.track.innerHTML = this.originalHTML;
     }
-
-    // Build transform target track
-    const cs = window.getComputedStyle(this.container);
-    const track = document.createElement("div");
-    track.className = CLASSNAMES.track;
-    track.style.display = "flex";
-    if (cs.columnGap || cs.gap) track.style.columnGap = cs.columnGap || cs.gap;
-
-    // Move vertical padding to the track so transforms won't clip content
-    if (this._origPaddingTop == null)
-      this._origPaddingTop = cs.paddingTop || "";
-    if (this._origPaddingBottom == null)
-      this._origPaddingBottom = cs.paddingBottom || "";
-    track.style.paddingTop = cs.paddingTop || "";
-    track.style.paddingBottom = cs.paddingBottom || "";
-    this.container.style.paddingTop = "0";
-    this.container.style.paddingBottom = "0";
-
-    track.style.contain = "content";
-
-    while (this.container.firstChild)
-      track.appendChild(this.container.firstChild);
-    this.container.appendChild(track);
-    this.track = track;
 
     // Distance one group travels before recycling
     this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
@@ -204,18 +182,11 @@ export default class ProductReviewCarousel {
     this.enabled = false;
     this.cancelTick();
 
-    if (this.originalHTML != null) this.container.innerHTML = this.originalHTML;
+    if (this.originalHTML != null) this.track.innerHTML = this.originalHTML;
     this.container.scrollLeft = 0;
     this._fractionalRemainder = 0;
 
-    // Restore container paddings
-    if (this._origPaddingTop != null)
-      this.container.style.paddingTop = this._origPaddingTop;
-    if (this._origPaddingBottom != null)
-      this.container.style.paddingBottom = this._origPaddingBottom;
-
-    if (this.track) this.track.style.willChange = "auto";
-    this.track = null;
+    this.track.style.willChange = "auto";
   }
 
   /** Toggle user pause via the button. */
@@ -233,8 +204,7 @@ export default class ProductReviewCarousel {
 
     this.paused = newPaused;
     this.lastTs = null;
-    if (this.track)
-      this.track.style.willChange = this.paused ? "auto" : "transform";
+    this.track.style.willChange = this.paused ? "auto" : "transform";
 
     if (this.paused && this.rafId != null) {
       cancelAnimationFrame(this.rafId);
@@ -399,7 +369,7 @@ export default class ProductReviewCarousel {
   // ---------- Animation loop ----------
 
   tick(ts) {
-    if (!this.enabled || !this.track) return;
+    if (!this.enabled) return;
     if (this.paused) {
       this.rafId = null;
       return;

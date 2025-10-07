@@ -58,19 +58,28 @@
     }
   }
 
-  &__cards-container {
+  &__track {
     display: flex;
     flex-direction: row;
     gap: 0 $carousel-card-horizontal-gap;
     padding: map.get($carousel-top-margin, small) 1rem
       map.get($carousel-bottom-margin, small);
+    contain: content;
+
+    @include breakpoint(large up) {
+      padding: map.get($carousel-top-margin, large) 0
+        map.get($carousel-bottom-margin, large);
+    }
+  }
+
+  &__cards-container {
+    display: flex;
+    flex-direction: row;
     overflow-x: auto;
     scrollbar-width: none;
 
     @include breakpoint(large up) {
       justify-content: center;
-      padding: map.get($carousel-top-margin, large) 0
-        map.get($carousel-bottom-margin, large);
     }
 
     .product-review-carousel__card-wrapper {
