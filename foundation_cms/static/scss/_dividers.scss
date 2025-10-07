@@ -1,0 +1,22 @@
+@mixin divider-base() {
+  border: none;
+  width: 100%;
+}
+
+@mixin divider-image($image-path, $height: 5px, $margin-y: 0) {
+  @include divider-base;
+
+  height: $height;
+  margin-top: $margin-y;
+  margin-bottom: $margin-y;
+  background-image: url($image-path);
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 100%;
+}
+
+hr.divider--straight-line {
+  @include divider-image(
+    "/static/foundation_cms/_images/handdrawn/straight-line-divider.svg"
+  );
+}

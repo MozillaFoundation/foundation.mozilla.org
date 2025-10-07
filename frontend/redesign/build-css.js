@@ -8,13 +8,14 @@ const __dirname = path.dirname(__filename);
 
 const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
-  "redesign_main",
+  "redesign_fallback",
   "redesign_migrated_content",
   "pages/home_page",
   "pages/maintenance",
   "pages/topic_listing_page",
   "pages/nothing_personal/article_page",
   "pages/nothing_personal/podcast_page",
+  "pages/nothing_personal/product_review_page",
   "pages/nothing_personal/home_page",
 ];
 
@@ -35,7 +36,7 @@ for (const entry of entries) {
 
   try {
     // Compile SCSS to unprocessed CSS
-    execSync(`sass ${input} ${tempOutput} --style=compressed`, {
+    execSync(`sass ${input} ${tempOutput} --style=compressed --quiet`, {
       stdio: "inherit",
     });
 

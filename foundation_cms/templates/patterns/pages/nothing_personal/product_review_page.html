@@ -1,110 +1,41 @@
 {% extends theme_base %}
 
-{% load static wagtailimages_tags %}
+{% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_page.compiled.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/product_review_page.compiled.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
     <main>
         <article>
-            <div class="grid-container">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-7">
-                        {% with topics=page.topics.all %}
-                            {% include "patterns/components/topic_pills.html" with topics=page.topics.all style_variation="loose" %}
-                        {% endwith %}
-                        <h1>{{ page.title }}</h1>
-                        <div>{{ page.updated }} | {{ page.reviewed }} | {{ page.research }}</div>
-                        <div>{{ page.lede_text }}</div>
-                        <!-- Anchor Navigation -->
-                        {% include "patterns/components/nothing_personal/anchor_navigation.html" %}
-                    </div>
-                    <div class="cell small-12 medium-3">
-                        {% if page.hero_image %}
-                            {% image page.hero_image fill-692x692 as img %}
-                            <div class="hero__media">
-                                <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
+            {% include "patterns/components/nothing_personal/product_review_page/intro_section.html" with page=page %}
 
-            {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+            {% if page.what_you_should_know_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.what_you_should_know_section %}
             {% endif %}
 
-            <div class="grid-container">
-                {% if page.show_what_you_should_know_section %}
-                    <div class="grid-x" id="what-you-should-know">
-                        <div class="cell small-4 medium-4 ">
-                            <div>
-                                <h2>[Anchor Nav Heading #1]</h2>
-                            </div>
-                        </div>
-                        <div class="cell small-7 medium-7 medium-offset-1">
-                            [Anchor Nav Content Part 1]
-                        </div>
-                    </div>
-                {% endif %}
-
-                {% if page.show_reduce_your_risks_section %}
-                    <div class="grid-x" id="reduce-your-risks">
-                        <div class="cell small-4 medium-4">
-                            <div>
-                                <h2>[Anchor Nav Heading #2]</h2>
-                            </div>
-                        </div>
-                        <div class="cell small-7 medium-7 medium-offset-1">
-                            [Anchor Nav #2 Content]
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="grid-container">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-12">
-                        <div>
-                            [Email CTA]
-                        </div>
-                    </div>
+            {% if page.newsletter_signup_section %}
+                <div class="product-review-section">
+                    {% include "patterns/components/streamfield.html" with streamfield=page.newsletter_signup_section %}
                 </div>
-            </div>
-            <div class="grid-container">
-                {% if page.show_the_good_and_the_bad_section %}
-                    <div class="grid-x" id="the-good-and-the-bad">
-                        <div class="cell small-4 medium-4">
-                            <div>
-                                <h2>[Anchor Nav Heading #1]</h2>
-                            </div>
-                        </div>
-                        <div class="cell small-7 medium-7 medium-offset-1">
-                            [Anchor Nav Content Part 1]
-                        </div>
-                    </div>
-                {% endif %}
+            {% endif %}
 
-                {% if page.show_the_bottom_line_section %}
-                    <div class="grid-x" id="the-bottom-line">
-                        <div class="cell small-4 medium-4">
-                            <div>
-                                <h2>[Anchor Nav Heading #2]</h2>
-                            </div>
-                        </div>
-                        <div class="cell small-7 medium-7 medium-offset-1">
-                            [Anchor Nav #2 Content]
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-            {% block products_mentioned %}
-                {% if products_mentioned %}
-                    {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
-                {% endif %}
-            {% endblock products_mentioned %}
+            {% if page.good_and_bad_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.good_and_bad_section %}
+            {% endif %}
 
+            {% if page.reduce_your_risks_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.reduce_your_risks_section %}
+            {% endif %}
+
+            {% if page.bottom_line_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.bottom_line_section %}
+            {% endif %}
+
+            {% if page.products_mentioned.exists %}
+                {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+            {% endif %}
         </article>
     </main>
 {% endblock content %}
