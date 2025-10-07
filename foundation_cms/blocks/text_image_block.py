@@ -24,7 +24,7 @@ class TextImageBlock(BaseBlock):
     class Meta:
         icon = "image"
         label = "Text & Image"
-        template_name = "text_media_block.html"
+        template_name = "text_image_block.html"
 
 
 class TextMediaBlock(TextImageBlock):
