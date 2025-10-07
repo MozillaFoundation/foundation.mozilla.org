@@ -156,16 +156,6 @@ def newsletter_signup_submission(request, signup):
             return JsonResponse({email: "test"}, status=status.HTTP_400_BAD_REQUEST)
 
     else:
-        print("Checking existing subscription")
-        # Make request to check if email is already subscribed
-        lookup = requests.get(
-            settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT,
-            params={"email": email},
-            headers={"X-API-Key": settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT_KEY},
-            timeout=8,
-        )
-        lookup_json = lookup.json()
-        print(lookup_json)
 
         if not endpoint_url:
             return JsonResponse(
