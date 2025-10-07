@@ -37,10 +37,10 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
 
     def assign_homepage_as_site_root(self, homepage, hostname, port):
-            site = Site.objects.get(is_default_site=True)
-            site.root_page = homepage
-            site.hostname = hostname
-            site.port = port
-            site.site_name = "Redesign Homepage"
-            site.save()
-            self.stdout.write(self.style.SUCCESS("Created new default Site"))
+        site = Site.objects.get(is_default_site=True)
+        site.root_page = homepage
+        site.hostname = hostname
+        site.port = port
+        site.site_name = "Redesign Homepage"
+        site.save()
+        self.stdout.write(self.style.SUCCESS("Created new default Site"))
