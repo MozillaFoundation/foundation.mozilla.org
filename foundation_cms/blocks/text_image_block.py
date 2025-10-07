@@ -1,3 +1,5 @@
+from typing import cast
+
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
@@ -37,7 +39,10 @@ class TextMediaBlock(TextImageBlock):
     """
 
     media = CustomMediaBlock(required=False)
-    image = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.child_blocks.pop("image", None)
 
     class Meta:
         icon = "image"
