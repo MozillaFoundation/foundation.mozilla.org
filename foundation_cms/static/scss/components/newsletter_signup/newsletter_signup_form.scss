@@ -117,6 +117,16 @@
     &:focus-visible {
       outline: 2px solid $white;
     }
+
+    .loading-message {
+      display: none;
+    }
+
+    .btn-primary__rolltext {
+      &--hidden {
+        display: none;
+      }
+    }
   }
 
   &__field {
