@@ -474,8 +474,9 @@ class ProductReviewCarousel {
    * @param {number} count
    */
   appendCardsFromStart(start, count) {
-    const len = this.originalCount || 0;
-    if (!len || count <= 0 || !Array.isArray(this.originalNodes)) return;
+    if (!this.originalCount || count <= 0) return;
+    if (!Array.isArray(this.originalNodes)) return;
+    const len = this.originalCount;
     const frag = document.createDocumentFragment();
     for (let i = 0; i < count; i++) {
       const idx = (start + i) % len;
