@@ -1,83 +1,20 @@
-/**
- * ProductReviewCarousel
- *
- * Autoscrolls a horizontally overflowing track of cards and recycles DOM nodes
- * in fixed-size groups to simulate an infinite loop. It:
- *  - respects prefers-reduced-motion
- *  - pauses on hover/focus, offscreen, tab-hidden, and via a user toggle
- *  - uses ResizeObserver + IntersectionObserver
- *  - avoids per-frame layout reads (width/gap are cached)
- *
- * Markup (simplified):
- *  <div class="product-review-carousel">
- *    <div class="product-review-carousel__cards-container"> ...cards... </div>
- *    <button class="product-review-carousel__pause-button" aria-pressed="false" aria-label="Pause carousel"></button>
- *  </div>
- *
- * Accessibility:
- *  - Pause button toggles aria-pressed and aria-label ("Pause carousel" / "Play carousel").
- */
+import {
+  SELECTORS,
+  CLASSNAMES,
+  DISABLE_CAROUSEL_MIN_WIDTH,
+  GROUP_SIZE,
+  PREFILL_MULTIPLIER,
+  PREFILL_MAX_LOOPS,
+  RECYCLE_SAFETY_MAX,
+  FRACTION_EPSILON,
+  IO_ROOT_MARGIN,
+  IO_THRESHOLDS,
+  MIN_INTERSECTION_RATIO,
+  MAX_FRAME_MS,
+  DEFAULT_PX_PER_SECOND,
+} from "./config.js";
 
-const SELECTORS = {
-  root: ".product-review-carousel",
-  cardsContainer: ".product-review-carousel__cards-container",
-  productCard: ".product-review-card",
-  pauseButton: ".product-review-carousel__pause-button",
-};
-
-const CLASSNAMES = {
-  paused: "is-paused",
-  track: "product-review-carousel__track",
-};
-
-const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
-
-/**
- * DESIGN INVARIANT — DO NOT CHANGE WITHOUT UPDATING SCSS
- *
- * Cards are styled using three vertical offset tracks via
- * :nth-child(3n+1), :nth-child(3n+2), :nth-child(3n+3).
- *
- * To preserve those offsets, we must recycle cards in **batches of 3** and keep
- * the track’s child count a **multiple of 3**. If we remove any number of
- * elements from the **start** that is **not** a multiple of 3, the remaining
- * elements are re-indexed into different nth-child buckets and will visibly
- * “jump” from their initial offset to whatever the new nth position dictates.
- */
-const GROUP_SIZE = 3; // equals the number of vertical offset tracks in the design
-
-/**
- * Prefill/recycling guards:
- *  - PREFILL_MULTIPLIER: target width as a multiple of viewport
- *  - PREFILL_MAX_LOOPS: cap on groups appended in one go
- *  - RECYCLE_SAFETY_MAX: cap on groups recycled in a single frame
- *
- * Fractional movement:
- *  Use native `scrollLeft` for integer pixels and `translate3d()` for the leftover
- *  fraction. This preserves scroll semantics and avoids sub-pixel jitter.
- *  FRACTION_EPSILON skips no-op transform updates.
- */
-const PREFILL_MULTIPLIER = 2.5;
-const PREFILL_MAX_LOOPS = 10;
-const RECYCLE_SAFETY_MAX = 6;
-const FRACTION_EPSILON = 0.125;
-
-// Intersection/Visibility + timing constants
-const IO_ROOT_MARGIN = "50px 0px";
-const IO_THRESHOLDS = [0, 0.01, 0.1];
-const MIN_INTERSECTION_RATIO = 0.01; // consider element visible when >= 1%
-const MAX_FRAME_MS = 48; // clamp large rAF gaps (tab throttling, etc.)
-
-/**
- * Initialize all carousels in the document.
- */
-export function initProductReviewCarousels() {
-  document
-    .querySelectorAll(SELECTORS.root)
-    .forEach((el) => new ProductReviewCarousel(el));
-}
-
-class ProductReviewCarousel {
+export default class ProductReviewCarousel {
   /**
    * @param {HTMLElement} rootEl
    */
@@ -97,7 +34,7 @@ class ProductReviewCarousel {
     // Animation state
     this.rafId = null;
     this.lastTs = null;
-    this.pxPerSecond = 20;
+    this.pxPerSecond = DEFAULT_PX_PER_SECOND;
     this._fractionalRemainder = 0;
 
     // DOM/structure
@@ -244,7 +181,6 @@ class ProductReviewCarousel {
     this.ensureOverflow();
 
     // Keep child count a multiple of GROUP_SIZE to avoid nth-child re-index jumps.
-    // Removing a non-multiple-of-3 from the head would re-bucket offsets.
     const remainder = this.track.children.length % GROUP_SIZE;
     if (remainder) this.appendCards(GROUP_SIZE - remainder);
 
@@ -262,9 +198,7 @@ class ProductReviewCarousel {
     this.rafId = requestAnimationFrame(this.boundTick);
   }
 
-  /**
-   * Disable and restore pristine DOM.
-   */
+  /** Disable and restore pristine DOM. */
   disable() {
     if (!this.enabled) return;
     this.enabled = false;
@@ -284,18 +218,14 @@ class ProductReviewCarousel {
     this.track = null;
   }
 
-  /**
-   * Toggle user pause via the button.
-   */
+  /** Toggle user pause via the button. */
   onPauseToggle() {
     this.userPaused = !this.userPaused;
     this.updatePaused();
     this.updateButtonUI();
   }
 
-  /**
-   * Derive effective paused state and start/stop RAF accordingly.
-   */
+  /** Derive effective paused state and start/stop RAF accordingly. */
   updatePaused() {
     const newPaused =
       this.userPaused || this.hovered || document.hidden || this._offscreen;
@@ -314,9 +244,7 @@ class ProductReviewCarousel {
     }
   }
 
-  /**
-   * Sync button UI (aria-pressed + aria-label) with userPaused.
-   */
+  /** Sync button UI (aria-pressed + aria-label) with userPaused. */
   updateButtonUI() {
     if (!this.pauseBtn) return;
     const isPaused = this.userPaused;
@@ -328,10 +256,7 @@ class ProductReviewCarousel {
     this.pauseBtn.classList.toggle(CLASSNAMES.paused, isPaused);
   }
 
-  /**
-   * Pause when pointer is over a card (not whitespace).
-   * @param {MouseEvent} e
-   */
+  /** Pause on mouseover of a card. */
   onMouseOver(e) {
     if (e.target && e.target.closest(SELECTORS.productCard) && !this.hovered) {
       this.hovered = true;
@@ -339,10 +264,7 @@ class ProductReviewCarousel {
     }
   }
 
-  /**
-   * Resume when pointer leaves cards entirely (not moving between cards).
-   * @param {MouseEvent} e
-   */
+  /** Resume when pointer leaves cards entirely. */
   onMouseOut(e) {
     const fromCard = e.target && e.target.closest(SELECTORS.productCard);
     if (!fromCard) return;
@@ -355,25 +277,15 @@ class ProductReviewCarousel {
     }
   }
 
-  /**
-   * Handle document visibility changes.
-   */
   onVisibilityChange() {
     this.updatePaused();
   }
 
-  /**
-   * Fallback resize handler when ResizeObserver is unavailable.
-   */
   onResize() {
     this.onResizeObserved();
   }
 
-  /**
-   * ResizeObserver callback (debounced to rAF):
-   * - Toggle enabled based on width threshold
-   * - Refresh cached metrics and top-up overflow
-   */
+  /** Debounced ResizeObserver handler. */
   onResizeObserved() {
     if (this._resizeScheduled) return;
     this._resizeScheduled = true;
@@ -405,12 +317,7 @@ class ProductReviewCarousel {
     });
   }
 
-  /**
-   * Compute the pixel distance equal to one GROUP_SIZE batch (cards + gaps).
-   * Uses cached widths/gaps when available to avoid layout reads.
-   * @param {number} groupSize
-   * @returns {number}
-   */
+  /** Compute pixel distance equal to one GROUP_SIZE batch (cards + gaps). */
   computeGroupAdvanceStatic(groupSize) {
     if (this.cardWidthPx != null && this.gapPx != null) {
       return groupSize * this.cardWidthPx + groupSize * this.gapPx;
@@ -432,10 +339,7 @@ class ProductReviewCarousel {
     return total > 0 ? total : 0;
   }
 
-  /**
-   * Ensure total track width >= PREFILL_MULTIPLIER × viewport by appending
-   * whole groups in one go (minimizes later DOM churn).
-   */
+  /** Prefill to target width by appending whole groups. */
   ensureOverflow() {
     const viewport = this.container.clientWidth || window.innerWidth;
     const target = viewport * PREFILL_MULTIPLIER;
@@ -455,10 +359,6 @@ class ProductReviewCarousel {
 
   // ---------- DOM helpers ----------
 
-  /**
-   * Next logical start index based on the last child's data-index.
-   * @returns {number}
-   */
   computeNextStartIndex() {
     const len = this.originalCount || 0;
     if (!len) return 0;
@@ -468,11 +368,6 @@ class ProductReviewCarousel {
     return Number.isFinite(lastIdx) && lastIdx >= 0 ? (lastIdx + 1) % len : 0;
   }
 
-  /**
-   * Append `count` cards starting from `start`, wrapping modulo the original set.
-   * @param {number} start
-   * @param {number} count
-   */
   appendCardsFromStart(start, count) {
     if (!this.originalCount || count <= 0) return;
     if (!Array.isArray(this.originalNodes)) return;
@@ -487,22 +382,12 @@ class ProductReviewCarousel {
     this.track.appendChild(frag);
   }
 
-  /**
-   * Append `count` cards using the computed next start index.
-   * @param {number} count
-   */
   appendCards(count) {
     if (!this.originalCount || count <= 0) return;
     const start = this.computeNextStartIndex();
     this.appendCardsFromStart(start, count);
   }
 
-  /**
-   * Remove the first `groupSize` cards (recycling step).
-   * Always call with GROUP_SIZE (3). Removing a non-multiple of 3 from the start
-   * reindexes remaining elements and breaks the 3-track nth-child offsets.
-   * @param {number} groupSize
-   */
   removeFirstGroup(groupSize) {
     for (let i = 0; i < groupSize; i++) {
       const first = this.track.firstElementChild;
@@ -513,14 +398,6 @@ class ProductReviewCarousel {
 
   // ---------- Animation loop ----------
 
-  /**
-   * rAF loop:
-   *  - Convert elapsed time to pixel delta
-   *  - When `next` >= `groupAdvance`, append next GROUP_SIZE, subtract threshold,
-   *    and remove first GROUP_SIZE (preserves :nth-child(3n+*) cadence)
-   *  - Apply integer pixels via scrollLeft, fractional via translate3d()
-   * @param {DOMHighResTimeStamp} [ts]
-   */
   tick(ts) {
     if (!this.enabled || !this.track) return;
     if (this.paused) {
@@ -540,7 +417,6 @@ class ProductReviewCarousel {
     let next = base + (this._fractionalRemainder || 0) + deltaPx;
 
     // Recycle strictly in GROUP_SIZE batches to preserve nth-child cadence.
-    // Removing a non-multiple-of-3 from the start would reindex and cause visual jumps.
     let safety = 0;
     const threshold = this.groupAdvance;
     while (safety < RECYCLE_SAFETY_MAX) {
@@ -576,18 +452,12 @@ class ProductReviewCarousel {
     }
   }
 
-  /**
-   * Stop RAF and reset timestamps.
-   */
   cancelTick() {
     if (this.rafId != null) cancelAnimationFrame(this.rafId);
     this.rafId = null;
     this.lastTs = null;
   }
 
-  /**
-   * Cleanup observers/listeners; restore DOM if enabled.
-   */
   destroy() {
     if (this.destroyed) return;
     this.cancelTick();
