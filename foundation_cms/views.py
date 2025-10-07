@@ -167,67 +167,54 @@ def newsletter_signup_submission(request, signup):
         lookup_json = lookup.json()
         print(lookup_json)
 
-        # If user is already subscribed, return an error.
-        if lookup.status_code == 200 and (lookup_json.get("data") or {}).get("newsletters"):
+        if not endpoint_url:
             return JsonResponse(
-                {"status": "error", "message": "Already subscribed"},
+                {"error": f"Unsupported newsletter '{newsletter}'"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # if 404 or anything else, just proceed with normal subscription flow
+        # rewrite payload
+        data = {
+            "email": email,
+            "format": "html",
+            "source_url": source,
+            "newsletters": newsletter,
+            "lang": process_lang_code(rq.get("lang", "en")),
+            "country": rq.get("country", ""),
+            # Empty string instead of None due to Basket issues
+            "first_name": "",
+            "last_name": "",
+        }
+
+        newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
+
+        if newsletter_signup_method == "BASKET":
+            # Subscribing to newsletter using basket.
+            # https://basket-client.readthedocs.io/en/latest/usage.html
+            basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
+            if data["country"] != "":
+                basket_additional["country"] = data["country"]
+
+            response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
+
+            if response["status"] == "ok":
+                return JsonResponse(data, status=status.HTTP_201_CREATED)
+            return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
         else:
-            print("ELSE")
-            print("ELSE")
-            print("ELSE")
-            if not endpoint_url:
-                return JsonResponse(
-                    {"error": f"Unsupported newsletter '{newsletter}'"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
+            print("Subscribing using direct POST")
+            # New endpoint: doesn't want "newsletters"
+            data.pop("newsletters", None)
+            resp = requests.post(
+                endpoint_url,
+                json=data,
+                timeout=8,
+                headers={"Content-Type": "application/json"},
+            )
+            print(resp.status_code)
+            print(resp.json())
 
-            # rewrite payload
-            data = {
-                "email": email,
-                "format": "html",
-                "source_url": source,
-                "newsletters": newsletter,
-                "lang": process_lang_code(rq.get("lang", "en")),
-                "country": rq.get("country", ""),
-                # Empty string instead of None due to Basket issues
-                "first_name": "",
-                "last_name": "",
-            }
+            if resp.status_code == 200:
+                return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-            newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
-
-            if newsletter_signup_method == "BASKET":
-                # Subscribing to newsletter using basket.
-                # https://basket-client.readthedocs.io/en/latest/usage.html
-                basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
-                if data["country"] != "":
-                    basket_additional["country"] = data["country"]
-
-                response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
-
-                if response["status"] == "ok":
-                    return JsonResponse(data, status=status.HTTP_201_CREATED)
-                return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
-
-            else:
-                print("Subscribing using direct POST")
-                # New endpoint: doesn't want "newsletters"
-                data.pop("newsletters", None)
-                resp = requests.post(
-                    endpoint_url,
-                    json=data,
-                    timeout=8,
-                    headers={"Content-Type": "application/json"},
-                )
-                print(resp.status_code)
-                print(resp.json())
-
-                if resp.status_code == 200:
-                    return JsonResponse(data, status=status.HTTP_201_CREATED)
-
-                return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
