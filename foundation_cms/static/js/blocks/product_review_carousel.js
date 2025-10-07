@@ -60,7 +60,13 @@ const GROUP_SIZE = 3; // equals the number of vertical offset tracks in the desi
 const PREFILL_MULTIPLIER = 2.5;
 const PREFILL_MAX_LOOPS = 10;
 const RECYCLE_SAFETY_MAX = 6;
-const FRACTION_EPSILON = 0.0005;
+const FRACTION_EPSILON = 0.125;
+
+// Intersection/Visibility + timing constants
+const IO_ROOT_MARGIN = "50px 0px";
+const IO_THRESHOLDS = [0, 0.01, 0.1];
+const MIN_INTERSECTION_RATIO = 0.01; // consider element visible when >= 1%
+const MAX_FRAME_MS = 48; // clamp large rAF gaps (tab throttling, etc.)
 
 /**
  * Initialize all carousels in the document.
@@ -171,11 +177,11 @@ class ProductReviewCarousel {
           this._offscreen = !(
             entry &&
             entry.isIntersecting &&
-            entry.intersectionRatio > 0.01
+            entry.intersectionRatio > MIN_INTERSECTION_RATIO
           );
           this.updatePaused();
         },
-        { root: null, rootMargin: "50px 0px", threshold: [0, 0.01, 0.1] },
+        { root: null, rootMargin: IO_ROOT_MARGIN, threshold: IO_THRESHOLDS },
       );
       this.io.observe(this.root);
     }
@@ -515,7 +521,7 @@ class ProductReviewCarousel {
    * @param {DOMHighResTimeStamp} [ts]
    */
   tick(ts) {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.track) return;
     if (this.paused) {
       this.rafId = null;
       return;
@@ -525,7 +531,7 @@ class ProductReviewCarousel {
     if (this.lastTs == null) this.lastTs = nowMs;
 
     // Clamp to avoid big jumps after tab throttling
-    const elapsedMs = Math.max(0, Math.min(nowMs - this.lastTs, 48));
+    const elapsedMs = Math.max(0, Math.min(nowMs - this.lastTs, MAX_FRAME_MS));
     this.lastTs = nowMs;
 
     const deltaPx = (this.pxPerSecond * elapsedMs) / 1000;
@@ -586,12 +592,8 @@ class ProductReviewCarousel {
     this.cancelTick();
     try {
       this.io?.disconnect?.();
-    } catch {}
-    try {
       this.ro?.disconnect?.();
-    } catch {}
-    document.removeEventListener("visibilitychange", this.onVisibilityChange);
-    try {
+      document.removeEventListener("visibilitychange", this.onVisibilityChange);
       this.container?.removeEventListener("mouseover", this.onMouseOver);
       this.container?.removeEventListener("mouseout", this.onMouseOut);
       if (this._usingWindowResize)
