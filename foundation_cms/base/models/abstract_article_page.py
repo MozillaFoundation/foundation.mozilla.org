@@ -31,7 +31,6 @@ class AbstractArticlePage(AbstractBasePage):
     translatable_fields = AbstractBasePage.translatable_fields + [
         # Content tab fields
         TranslatableField("lede_text"),
-        TranslatableField("body"),
     ]
 
     class Meta:

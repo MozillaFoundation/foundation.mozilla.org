@@ -165,7 +165,6 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         SynchronizedField("author"),
         SynchronizedField("topics"),
         # Content tab fields
-        TranslatableField("body"),
         TranslatableField("title"),
         # Settings tab fields
         SynchronizedField("theme"),
