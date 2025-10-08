@@ -174,7 +174,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             .public()
             .filter(locale=DEFAULT_LOCALE)
             .exclude(id=self.id)
-            .order_by("-first_published_at")[:2]
+            .order_by("-first_published_at")[:5]
         )
 
         localized_results = [p.localized for p in results]
