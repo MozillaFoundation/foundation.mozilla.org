@@ -4,7 +4,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.core.panels.hero_media_panel import HeroMediaPanel
 from foundation_cms.mixins.hero_media import HeroMediaMixin
-from foundation_cms.utils import get_default_locale
 
 HERO_CONTENT_IMAGE = "image"
 HERO_CONTENT_VIDEO = "video"

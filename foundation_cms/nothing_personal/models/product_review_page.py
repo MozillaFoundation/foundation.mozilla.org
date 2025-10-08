@@ -16,7 +16,6 @@ from foundation_cms.blocks import (
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import (
-    get_default_locale,
     get_related_items,
     localize_queryset,
 )
