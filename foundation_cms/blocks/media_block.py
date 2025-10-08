@@ -1,12 +1,13 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
-from wagtail.blocks import CharBlock, ChoiceBlock
+from wagtail.blocks import CharBlock, ChoiceBlock, StructBlockValidationError
 from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.images.blocks import ImageBlock
 from wagtail.telepath import register
 
 from foundation_cms.base.models.base_block import BaseBlock
+from foundation_cms.validators import validate_vimeo_mp4_url
 
 
 class CustomMediaBlock(BaseBlock):
@@ -60,16 +61,27 @@ class CustomMediaBlock(BaseBlock):
     # Custom validation to ensure required fields are set based on content type
     def clean(self, value):
         cleaned_data = super().clean(value)
-        errors = {}
+        validation_errors = {}
 
+        # Image-specific validation
         if cleaned_data["content"] == "image" and not cleaned_data.get("image"):
-            errors["image"] = "Image was chosen as content type, but no image is set."
+            validation_errors["image"] = ValidationError("Image was chosen as content type, but no image is set.")
 
-        if cleaned_data["content"] == "video" and not cleaned_data.get("video_url"):
-            errors["video_url"] = "Video was chosen as content type, but no URL is set."
+        # Video-specific validation, including Vimeo MP4 URL format
+        if cleaned_data["content"] == "video":
+            video_url = cleaned_data.get("video_url")
+            if not video_url:
+                validation_errors["video_url"] = ValidationError(
+                    "Video was chosen as content type, but no URL is set."
+                )
+            else:
+                try:
+                    validate_vimeo_mp4_url(video_url)
+                except ValidationError as e:
+                    validation_errors["video_url"] = ValidationError(e)
 
-        if errors:
-            raise ValidationError(errors)
+        if validation_errors:
+            raise StructBlockValidationError(validation_errors)
 
         return cleaned_data
 
