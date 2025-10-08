@@ -26,7 +26,6 @@
   {# Right: Image (2/3) #}
   <div class="text-image-block__image">
     {% if value.image and value.image.image %}
-      {% image value.image.image original as img %}
       {% include "patterns/blocks/themes/default/image_block.html" with value=value.image %}
     {% endif %}
   </div>

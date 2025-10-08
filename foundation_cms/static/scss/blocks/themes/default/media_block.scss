@@ -1,0 +1,55 @@
+@import "../../../../../../node_modules/foundation-sites/scss/util/util";
+
+// Media block styles
+.media-block {
+  margin-bottom: 2rem;
+
+  &__image,
+  &__video {
+    width: 100%;
+    border-bottom-left-radius: 2rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__title {
+    text-align: left;
+    width: 100%;
+    padding-left: 2rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -0.25rem;
+      width: rem-calc(27);
+      height: rem-calc(18);
+      background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &--square {
+    .media-block__image,
+    .media-block__video {
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  &--landscape {
+    .media-block__image,
+    .media-block__video {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  &--portrait {
+    .media-block__image,
+    .media-block__video {
+      aspect-ratio: 3 / 4;
+    }
+  }
+}
