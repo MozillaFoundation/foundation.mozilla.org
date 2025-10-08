@@ -41,6 +41,6 @@ class Command(BaseCommand):
         site.root_page = homepage
         site.hostname = hostname
         site.port = port
-        site.site_name = "Redesign Homepage"
+        site.site_name = "Mozilla Foundation"
         site.save()
         self.stdout.write(self.style.SUCCESS("Created new default Site"))
