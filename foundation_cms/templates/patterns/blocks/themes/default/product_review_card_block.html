@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
 
 {% with page=self.product_review %}
-    <div class="product-review-card">
+    <div class="product-review-card{% if orientation %} product-review-card--{{ orientation }}{% else %} product-review-card--portrait{% endif %}">
         <a href="{{ page.url }}">
             {% if page.hero_image %}
                 <div class="product-review-card__image-container">

@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 from foundation_cms.mixins.hero_image import HeroImageMixin
@@ -71,11 +71,18 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         FieldPanel("body"),
     ]
 
-    translatable_fields = [
+    translatable_fields = AbstractGeneralPage.translatable_fields + [
+        # Content tab fields
+        SynchronizedField("show_hero"),
+        SynchronizedField("hero_variant"),
+        SynchronizedField("hero_background_color"),
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
-        TranslatableField("button_title"),
+        SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
+        TranslatableField("button_title"),
+        TranslatableField("button_url"),
+        TranslatableField("body"),
     ]
 
     class Meta:
