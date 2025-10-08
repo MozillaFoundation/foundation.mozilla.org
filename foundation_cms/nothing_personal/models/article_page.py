@@ -2,7 +2,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
-from foundation_cms.core.panels.hero_media_panel import HeroMediaPanel
+from foundation_cms.core.panels.media_panel import MediaPanel
 from foundation_cms.mixins.hero_media import HeroMediaMixin
 
 HERO_CONTENT_IMAGE = "image"
@@ -12,7 +12,13 @@ HERO_CONTENT_VIDEO = "video"
 class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
 
     content_panels = AbstractArticlePage.content_panels + [
-        HeroMediaPanel.create_default(),
+        MediaPanel.create_default(
+            heading="Hero Section",
+            classname="collapsible",
+            trigger_field="displayed_hero_content",
+            image_field="hero_image",
+            video_field="hero_video_url",
+        ),
         FieldPanel("lede_text"),
         FieldPanel("body"),
     ]

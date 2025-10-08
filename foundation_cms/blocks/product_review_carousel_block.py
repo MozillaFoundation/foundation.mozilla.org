@@ -16,6 +16,16 @@ class ProductReviewCardBlock(BaseBlock):
         help_text="Select a Product Review",
     )
 
+    orientation = blocks.ChoiceBlock(
+        choices=[
+            ("square", "Square"),
+            ("portrait", "Portrait"),
+        ],
+        default="portrait",
+        label="Card Orientation",
+        help_text="Select the orientation for the product review card.",
+    )
+
     class Meta:
         icon = "image"
         template_name = "product_review_card_block.html"
