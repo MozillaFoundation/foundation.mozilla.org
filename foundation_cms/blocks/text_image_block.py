@@ -4,6 +4,7 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 from .image_block import CustomImageBlock
 from .link_block import OptionalLinkBlock
+from .media_block import CustomMediaBlock
 
 
 class TextImageBlock(BaseBlock):
@@ -24,18 +25,24 @@ class TextImageBlock(BaseBlock):
         template_name = "text_image_block.html"
 
 
-class NarrowTextImageBlock(TextImageBlock):
+class TextMediaBlock(TextImageBlock):
     """
-    A narrower variant of TextImageBlock, currently used only on the NP Homepage.
+    A variant of TextImageBlock with video support, currently used only on the NP Homepage.
 
     Notes:
         - NP Homepage needs something separate in case Text & Image block is used later.
-        - We don’t foresee needing this narrower layout elsewhere right now.
+        - We don’t foresee needing this layout elsewhere right now.
         - If variants expand in the future, consider refactoring into a single
           TextImageBlock with a `ChoiceBlock` for style/variant selection.
     """
 
+    media = CustomMediaBlock(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.child_blocks.pop("image", None)
+
     class Meta:
         icon = "image"
-        label = "Text & Image (Narrow)"
-        template_name = "text_image_block__narrow.html"
+        label = "Text & Media"
+        template_name = "text_media_block.html"
