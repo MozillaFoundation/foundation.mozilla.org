@@ -1,5 +1,4 @@
 from django import template
-from django.core.exceptions import ValidationError
 
 register = template.Library()
 
@@ -44,7 +43,7 @@ def responsive_image(image, ratio="3:2", base_width=300, sizes="(max-width: 639p
 
         if width_ratio <= 0 or height_ratio <= 0:
             raise ValueError("Ratio values must be positive")
-    except (ValueError, IndexError) as e:
+    except (ValueError, IndexError):
         # Fall back to default ratio on error
         width_ratio, height_ratio = 3, 2
 
