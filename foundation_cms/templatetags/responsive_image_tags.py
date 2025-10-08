@@ -10,7 +10,7 @@ def colon_to_slash(value):
 
 
 @register.inclusion_tag("patterns/components/responsive_image.html")
-def responsive_image(image, ratio="3:2", base_width=300, sizes="(max-width: 639px) 100vw, 33vw"):
+def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100vw, 33vw"):
     """
     Generate responsive images with configurable dimensions.
 
@@ -32,6 +32,9 @@ def responsive_image(image, ratio="3:2", base_width=300, sizes="(max-width: 639p
     if not image:
         return {}
 
+    if not ratio:
+        raise ValueError("ratio parameter is required")
+
     # Parse and validate ratio
     try:
         ratio_parts = ratio.split(":")
@@ -43,9 +46,8 @@ def responsive_image(image, ratio="3:2", base_width=300, sizes="(max-width: 639p
 
         if width_ratio <= 0 or height_ratio <= 0:
             raise ValueError("Ratio values must be positive")
-    except (ValueError, IndexError):
-        # Fall back to default ratio on error
-        width_ratio, height_ratio = 3, 2
+    except (ValueError, IndexError) as e:
+        raise ValueError(f"Error parsing ratio '{ratio}': {str(e)}")
 
     # Calculate dimensions and generate renditions
     multipliers = [1, 1.5, 2, 3]
