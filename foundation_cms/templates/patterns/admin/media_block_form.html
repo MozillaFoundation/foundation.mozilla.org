@@ -14,11 +14,7 @@
         {% if child.block.name == "image" %}
             <div class="w-field" data-field data-contentpath="image">
                 <div data-media-target="field" data-condition="image">
-                    {% if child.block.label %}
-                        <label class="w-field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>
-                            {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
-                        </label>
-                    {% endif %}
+                    {# The ImageChooser renders its own label; avoid duplicating it here. #}
                     {{ child.render_form }}
                 </div>
             </div>
