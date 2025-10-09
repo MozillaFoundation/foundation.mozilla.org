@@ -8,23 +8,16 @@
 
     <dl class="product-review-section__qa-list">
         {% if value.trust_default_settings %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I trust their default settings?" ans=value.trust_default_settings|title %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I trust their default settings?" ans=value.trust_default_settings %}
         {% endif %}
-
-        {% if value.give_data_by_default %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I give them my data by default?" ans=value.give_data_by_default|title %}
+        {% if value.what_personal_data_they_have %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="What personal data do they have?" ans=value.what_personal_data_they_have %}
         {% endif %}
-
-        {% if value.use_offline %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Can I use this product/service offline?" ans=value.use_offline|title %}
+        {% if value.track_record %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Track record" ans=value.track_record %}
         {% endif %}
-
-        {% if value.reconsider_buying %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I reconsider buying this product because of this company's track record + data practices?" ans=value.reconsider_buying|title additional_info=value.reconsider_buying_explanation %}
-        {% endif %}
-
-        {% if value.sells_user_data %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Does this product/service sell or giveaway user data?" ans=value.sells_user_data|title additional_info=value.sells_user_data_explanation %}
+        {% if value.sells_or_shares_user_data %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Does this product sell or share user data?" ans=value.sells_or_shares_user_data %}
         {% endif %}
     </dl>
 
