@@ -9,6 +9,13 @@
     <p><b>Banner Text Color:</b> {{ banner.text_color }}</p>
     <p><b>Banner Button Color:</b> {{ banner.button_color }}</p>
     <p><b>Banner Button Text and Link:</b> <a id="banner-cta-button" href="{{ banner.cta_link }}">{{ banner.cta_button_text }}</a></p>
-    <p><b>Banner Active AB Test (If Applicable):</b> {{ banner.active_ab_test }}</p>
+    <p><b>Banner Active AB Test (If applicable):</b> {{ banner.active_ab_test }}</p>
     <p><b>Banner Variant Version (If active AB test):</b> {{ banner.variant_version }}</p>
+    <div>
+        <p><b>Banner FRU Thermometer: (If applicable) </b></p> {{ banner.fru_thermometer_embed_code|safe }}
+    </div>
+    <br>
+    <div>
+        <p><b>Banner FRU Stat Counter: (If applicable) </b></p> {{ banner.fru_stat_counter_embed_code|safe }} {{ banner.fru_stat_counter_caption }}
+    </div>
 </div>
