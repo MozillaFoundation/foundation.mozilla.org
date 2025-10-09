@@ -4,7 +4,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import (
