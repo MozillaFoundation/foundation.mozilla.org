@@ -1,15 +1,18 @@
-{% load static %}
+{% load static i18n l10n %}
 
-<div class="pagination-controls" role="group" aria-label="{{ aria_label|default:'Pagination controls' }}">
-  <button type="button" class="button pagination-controls__prev" aria-label="{{ prev_label|default:'Previous' }}" data-direction="prev">
-    <img src="{% static 'foundation_cms/_images/icons/button-arrow-left-white.svg' %}" alt="Next arrow" width="16" height="16" />
+{% trans "Pagination controls" as pagination_controls %}
+<div class="pagination-controls" role="group" aria-label="{{ aria_label|default:pagination_controls }}">
+  {% trans "Previous" as previous_label %}
+  <button type="button" class="button pagination-controls__prev" aria-label="{{ prev_label|default:previous_label }}" data-direction="prev">
+    <img src="{% static 'foundation_cms/_images/icons/button-arrow-left-white.svg' %}" alt="{% trans 'Previous arrow' %}" width="16" height="16" />
   </button>
   <div class="pagination-controls__counter">
     <span class="pagination-controls__current" data-active-index>1</span>
     <span class="pagination-controls__separator">/</span>
     <span class="pagination-controls__total">{{ total }}</span>
   </div>
-  <button type="button" class="button pagination-controls__next" aria-label="{{ next_label|default:'Next' }}" data-direction="next">
-    <img src="{% static 'foundation_cms/_images/icons/button-arrow-right-white.svg' %}" alt="Next arrow" width="16" height="16" />
+  {% trans "Next" as next_label %}
+  <button type="button" class="button pagination-controls__next" aria-label="{{ next_label|default:next_label }}" data-direction="next">
+    <img src="{% static 'foundation_cms/_images/icons/button-arrow-right-white.svg' %}" alt="{% trans 'Next arrow' %}" width="16" height="16" />
   </button>
 </div>

@@ -514,9 +514,14 @@ class SpotlightCarousel {
 
     cardsToUpdate.forEach((card, i) => {
       const logicalIndex = i + 1;
+      let ariaText = interpolate(
+        gettext("Card %(index)s of %(total)s"),
+        { index: logicalIndex, total: this.totalCards },
+        true
+      );
       card.setAttribute(
         "aria-label",
-        `Card ${logicalIndex} of ${this.totalCards}`,
+        ariaText,
       );
 
       if (this.isMobile) {

@@ -244,7 +244,7 @@ export default class ProductReviewCarousel {
     this.pauseBtn.setAttribute("aria-pressed", String(isPaused));
     this.pauseBtn.setAttribute(
       "aria-label",
-      isPaused ? "Play carousel" : "Pause carousel",
+      isPaused ? gettext("Play carousel") : gettext("Pause carousel"),
     );
 
     this.pauseBtn.classList.toggle(CLASSNAMES.paused, isPaused);

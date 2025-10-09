@@ -3,7 +3,8 @@
 
 <div class="share-container">
   {% if show_title != False %}
-    <div class="share-title">{{ title|default:"Share this!" }}</div>
+    {% trans "Share this!" as share_this %}
+    <div class="share-title">{{ title|default:share_this }}</div>
   {% endif %}
   <div class="share-buttons">
     <!-- Facebook -->

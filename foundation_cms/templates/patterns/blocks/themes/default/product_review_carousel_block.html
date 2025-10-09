@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n l10n %}
 
 <div class="product-review-carousel">
     <div class="grid-container product-review-carousel__header">
@@ -24,8 +24,8 @@
                     {% include "patterns/blocks/themes/default/cta_link_block.html" with link=self.cta_link.0 %}
                 {% endif %}
                 <div>
-                    <button class="product-review-carousel__pause-button" aria-label="Pause carousel autoplay">
-                        <span class="show-for-sr">Pause carousel autoplay</span>
+                    <button class="product-review-carousel__pause-button" aria-label="{% trans 'Pause carousel autoplay' %}">
+                        <span class="show-for-sr">{% trans "Pause carousel autoplay" %}</span>
                     </button>
                 </div>
             </div>
