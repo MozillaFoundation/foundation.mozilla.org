@@ -1,19 +1,19 @@
 {% extends "base/base.html" %}
-{% load static %}
+{% load static i18n l10n %}
 
 {% block extra_css %}
 {% endblock extra_css %}
 
-{% block body_class %} {{ page_type_bem }}{% endblock body_class %}
+{% block body_class %}{{ page_type_bem }}{% endblock body_class %}
 
 {% block pre_content %}
     <div class="precontent brand-banner" role="banner">
-        <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="Nothing Personal by Mozilla Foundation Logo" width="130" height="99" />
+        <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="{% trans "Nothing Personal by Mozilla Foundation Logo" %}" width="130" height="99" />
     </div>
 {% endblock pre_content %}
 
 {% block post_content %}
     <div class="postcontent pre-footer-banner grid-container">
-        <img class="pre-footer-banner__wordmark" src="{% static 'foundation_cms/_images/nothing-personal/NP-Logomark.svg' %}" alt="Nothing Personal Logomark" width="100%" height="auto" />
+        <img class="pre-footer-banner__wordmark" src="{% static 'foundation_cms/_images/nothing-personal/NP-Logomark.svg' %}" alt="{% trans "Nothing Personal Logomark" %}" width="100%" height="auto" />
     </div>
 {% endblock post_content %}

@@ -1,19 +1,34 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n l10n %}
 
 <div class="product-review-carousel">
-    <div class="product-review-carousel__subtitle">{{ self.subtitle }}</div>
-    <div class="grid-x">
-        <div class="product-review-carousel__title cell small-12 large-7">{{ self.title }}</div>
-        <div class="product-review-carousel__text cell small-12 large-4 large-offset-1">{{ self.text }}</div>
+    <div class="grid-container product-review-carousel__header">
+        <div class="grid-x">
+            <div class="product-review-carousel__subtitle cell small-12">{{ self.subtitle }}</div>
+            <div class="product-review-carousel__title cell small-12 large-7">{{ self.title }}</div>
+            <div class="product-review-carousel__text cell small-12 large-4 large-offset-1">{{ self.text }}</div>
+        </div>
     </div>
     <div class="product-review-carousel__cards-container">
-        {% for card_item in self.cards %}
-            <div class="product-review-carousel__card-wrapper">
-                {% include_block card_item %}
-            </div>
-        {% endfor %}
+        <div class="product-review-carousel__track">
+            {% for card_item in self.cards %}
+                <div class="product-review-carousel__card-wrapper">
+                    {% include_block card_item with orientation=card_item.value.orientation %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    {% if self.cta_link %}
-        {% include "patterns/blocks/themes/default/cta_link_block.html" with link=self.cta_link.0 %}
-    {% endif %}
+    <div class="grid-container product-review-carousel__footer">
+        <div class="grid-x">
+            <div class="cell small-12">
+                {% if self.cta_link %}
+                    {% include "patterns/blocks/themes/default/cta_link_block.html" with link=self.cta_link.0 %}
+                {% endif %}
+                <div>
+                    <button class="product-review-carousel__pause-button" aria-label="{% trans "Pause carousel autoplay" %}">
+                        <span class="show-for-sr">{% trans "Pause carousel autoplay" %}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
