@@ -6,7 +6,7 @@
     <figure class="spotlight-card__image">
       {% image card.image fill-1600x1600 %}
     </figure>
-    <figcaption class="show-for-sr">Image of {{ card.title }}</figcaption>
+    <figcaption class="show-for-sr">{% blocktrans with title=card.title %}Image of {{ title }}{% endblocktrans %}</figcaption>
   {% endif %}
 
   <div class="spotlight-card__content">

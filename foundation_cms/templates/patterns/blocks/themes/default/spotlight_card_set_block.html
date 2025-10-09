@@ -1,10 +1,10 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n l10n %}
 
 <div class="spotlight-card-set">
   <div class="grid-container large-down-padding-0">
     <div class="grid-x">
       <div class="cell large-8 large-offset-2">
-        <div class="spotlight-card-carousel" tabindex="0" role="region" aria-label="Spotlight Carousel" aria-roledescription="carousel">
+        <div class="spotlight-card-carousel" tabindex="0" role="region" aria-label="{% trans 'Spotlight Carousel' %}" aria-roledescription="carousel">
           <ol class="spotlight-card-carousel__slides">
             {% for card in self.cards %}
               <li>{% include "./spotlight_card.html" with card=card index=forloop.counter0|add:"1" %}</li>

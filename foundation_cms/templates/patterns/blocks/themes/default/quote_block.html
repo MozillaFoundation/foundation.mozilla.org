@@ -1,7 +1,8 @@
+{% load i18n l10n %}
 <div class="quote-block">
   <figure>
     <blockquote>
-      <p class="{% block quote_classes %}quote-text-regular{% endblock quote_classes %}">“{{ value.quote }}”</p>
+      <p class="{% block quote_classes %}quote-text-regular{% endblock quote_classes %}">{% blocktrans with quote=value.quote %}“{{ quote }}”{% endblocktrans %}</p>
     </blockquote>
     {% if value.attribution %}
       <figcaption>{{ value.attribution }}</figcaption>

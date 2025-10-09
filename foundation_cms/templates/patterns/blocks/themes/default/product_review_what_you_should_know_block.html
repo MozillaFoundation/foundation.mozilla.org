@@ -2,29 +2,34 @@
 
 {% block wrapper_id %}what-you-should-know{% endblock wrapper_id %}
 
-{% block heading_text %}What You Should Know{% endblock heading_text %}
+{% block heading_text %}{% trans "What You Should Know" %}{% endblock heading_text %}
 
 {% block review_content %}
 
     <dl class="product-review-section__qa-list">
         {% if value.trust_default_settings %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I trust their default settings?" ans=value.trust_default_settings|title %}
+            {% trans "Should I trust their default settings?" as localized_trust_default_settings %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_trust_default_settings ans=value.trust_default_settings|title %}
         {% endif %}
 
         {% if value.give_data_by_default %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I give them my data by default?" ans=value.give_data_by_default|title %}
+            {% trans "Should I give them my data by default?" as localized_give_data_by_default %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_give_data_by_default ans=value.give_data_by_default|title %}
         {% endif %}
 
         {% if value.use_offline %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Can I use this product/service offline?" ans=value.use_offline|title %}
+            {% trans "Can I use this product/service offline?" as localized_use_offline %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_use_offline ans=value.use_offline|title %}
         {% endif %}
 
         {% if value.reconsider_buying %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I reconsider buying this product because of this company's track record + data practices?" ans=value.reconsider_buying|title additional_info=value.reconsider_buying_explanation %}
+            {% trans "Should I reconsider buying this product because of this company’s track record + data practices?" as localized_reconsider_buying %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_reconsider_buying ans=value.reconsider_buying|title additional_info=value.reconsider_buying_explanation %}
         {% endif %}
 
         {% if value.sells_user_data %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Does this product/service sell or giveaway user data?" ans=value.sells_user_data|title additional_info=value.sells_user_data_explanation %}
+            {% trans "Does this product/service sell or giveaway user data?" as localized_sells_user_data %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_sells_user_data ans=value.sells_user_data|title additional_info=value.sells_user_data_explanation %}
         {% endif %}
     </dl>
 
