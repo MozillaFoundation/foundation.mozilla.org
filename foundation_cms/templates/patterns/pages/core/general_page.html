@@ -1,7 +1,7 @@
-{% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
-{% block content %}
+{% extends theme_base %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
+{% block content %}
     <div class="general-page">
         <div class="general-page__body">
             {% if page.show_hero %}

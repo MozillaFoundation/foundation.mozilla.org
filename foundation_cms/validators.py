@@ -46,3 +46,16 @@ def validate_vimeo_url(url):
     pattern = r"^https?://(www\.)?(vimeo\.com|player\.vimeo\.com/video)/\d+"
     if not re.match(pattern, url):
         raise ValidationError(VIMEO_HELP_TEXT)
+
+
+VIMEO_MP4_URL_HELP_TEXT = (
+    "Please enter a valid Vimeo mp4 URL (e.g. "
+    "https://player.vimeo.com/progressive_redirect/playback/123456789/"
+    "rendition/1080p/file.mp4...)."
+)
+
+
+def validate_vimeo_mp4_url(url):
+    pattern = r"^https?://player\.vimeo\.com/progressive_redirect/playback/\d+/rendition/\d+p/file\.mp4"
+    if not re.match(pattern, url):
+        raise ValidationError(VIMEO_MP4_URL_HELP_TEXT)

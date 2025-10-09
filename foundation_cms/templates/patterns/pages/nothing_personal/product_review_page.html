@@ -1,0 +1,41 @@
+{% extends theme_base %}
+
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/product_review_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <article>
+            {% include "patterns/components/nothing_personal/product_review_page/intro_section.html" with page=page %}
+
+            {% if page.what_you_should_know_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.what_you_should_know_section %}
+            {% endif %}
+
+            {% if page.newsletter_signup_section %}
+                <div class="product-review-section">
+                    {% include "patterns/components/streamfield.html" with streamfield=page.newsletter_signup_section %}
+                </div>
+            {% endif %}
+
+            {% if page.good_and_bad_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.good_and_bad_section %}
+            {% endif %}
+
+            {% if page.reduce_your_risks_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.reduce_your_risks_section %}
+            {% endif %}
+
+            {% if page.bottom_line_section %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.bottom_line_section %}
+            {% endif %}
+
+            {% if page.products_mentioned.exists %}
+                {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+            {% endif %}
+        </article>
+    </main>
+{% endblock content %}

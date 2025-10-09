@@ -10,16 +10,16 @@
 
         <div class="hero__text">
           <h1 class="hero__title">{{ page.hero_title }}</h1>
-          {% if page.topics %}
-            <div class="hero__topics body-text-small">
-              <span class="hero__pill">Some</span>
-              <span class="hero__pill">Topics</span>
-              <span class="hero__pill">That</span>
-              <span class="hero__pill">May</span>
-              <span class="hero__pill">Be</span>
-              <span class="hero__pill">Hardcoded</span>
-            </div>
-          {% endif %}
+          {% with topics=page.topics.all %}
+            {% if topics %}
+              <div class="hero__topics body-text-small">
+                {% for topic in topics %}
+                  <span class="hero__pill">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
@@ -28,7 +28,7 @@
         {% if page.hero_image %}
           {% image page.hero_image fill-692x692 as img %}
           <div class="hero__media">
-            <img src="{{ img.url }}" alt="{{ img.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
           </div>
         {% endif %}
 
@@ -42,16 +42,15 @@
       <div class="hero__text">
         <div class="grid-container">
           <h1 class="hero__title">{{ page.hero_title }}</h1>
-          {% if page.topics %}
-            <div class="hero__topics body-text-small">
-              <span class="hero__pill">Some</span>
-              <span class="hero__pill">Topics</span>
-              <span class="hero__pill">That</span>
-              <span class="hero__pill">May</span>
-              <span class="hero__pill">Be</span>
-              <span class="hero__pill">Hardcoded</span>
-            </div>
-          {% endif %}
+          {% with topics=page.topics.all %}
+            {% if topics %}
+              <div class="hero__topics body-text-small">
+                {% for topic in topics %}
+                  <span class="hero__pill">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
@@ -62,7 +61,7 @@
         {% image page.hero_image fill-1408x791 as img %}
         <div class="grid-container">
           <div class="hero__media">
-            <img src="{{ img.url }}" alt="{{ img.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
+            <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
           </div>
         </div>
       {% endif %}

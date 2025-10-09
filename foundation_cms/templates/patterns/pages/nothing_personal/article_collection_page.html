@@ -1,0 +1,34 @@
+{% extends theme_base %}
+
+{% load wagtailimages_tags static %}
+
+{% block content %}
+    <main>
+        <article>
+            <div class="grid-container collection-intro">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-6 large-offset-0">
+                        <h1 class="collection-title">{{ page.title }}</h1>
+                    </div>
+                    <div class="cell small-12 medium-5 large-offset-1">
+                        <div class="lede-text">{{ page.lede_text }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-12">
+                        <div class="collection-products">
+                            {% for review in product_reviews %}
+                                <article>
+                                    <h2><a href="{{ review.url }}">{{ review.title }}</a></h2>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock content %}

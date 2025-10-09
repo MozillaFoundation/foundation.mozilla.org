@@ -58,6 +58,7 @@ env = environ.Env(
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     PNI_STATS_DB_URL=(str, None),
+    PROD_HOSTNAMES=(str, ""),
     PULSE_API_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
@@ -72,6 +73,7 @@ env = environ.Env(
     SOCIAL_AUTH_AUTH0_SECRET=(str, None),
     SOCIAL_AUTH_RAISE_EXCEPTIONS=(bool, False),
     SSL_REDIRECT=bool,
+    STAGING_HOSTNAMES=(str, ""),
     STATIC_HOST=(str, ""),
     TARGET_DOMAINS=(list, []),
     USE_COMMENTO=(bool, False),
@@ -126,6 +128,11 @@ if SENTRY_DSN:
 REVIEW_APP = env("REVIEW_APP", default=False)
 
 APP_ENVIRONMENT = env("APP_ENVIRONMENT")
+
+# Used when copying the PROD DB to the STAGING site DB.
+# This will make sure that staging sites still point to staging hostnames.
+PROD_HOSTNAMES = env("PROD_HOSTNAMES")
+STAGING_HOSTNAMES = env("STAGING_HOSTNAMES")
 
 # Apple Pay domain association
 APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION")
@@ -275,7 +282,7 @@ INSTALLED_APPS = list(
             "foundation_cms.base",
             "foundation_cms.core",
             "foundation_cms.blog",
-            "foundation_cms.articles",
+            "foundation_cms.nothing_personal",
             "foundation_cms.profiles",
             "foundation_cms.snippets",
             "foundation_cms.images",
@@ -504,6 +511,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
     os.path.join(BASE_DIR, "legacy_apps/locale"),
     os.path.join(BASE_DIR, "legacy_apps/templates/pages/buyersguide/about/locale"),
     os.path.join(BASE_DIR, "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale"),

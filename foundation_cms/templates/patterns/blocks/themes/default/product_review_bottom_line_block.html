@@ -1,0 +1,11 @@
+{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
+
+{% block wrapper_id %}bottom-line{% endblock wrapper_id %}
+
+{% block heading_text %}The Bottom Line{% endblock heading_text %}
+
+{% block review_content %}
+    <dl class="product-review-section__qa-list">
+        {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with ans=value.content %}
+    </dl>
+{% endblock review_content %}

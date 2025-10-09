@@ -2,24 +2,26 @@ from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from .audio_block import AudioBlock  # Just as an example second block
 from .image_block import CustomImageBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
+from .podcast_block import PodcastBlock  # Just as an example second block
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
+from .text_social_block import TextSocialBlock
 from .video_block import VideoBlock
 
 
 class ColumnStreamBlock(StreamBlock):
     rich_text = RichTextBlock()
-    audio = AudioBlock()
+    podcast = PodcastBlock()
     image = CustomImageBlock()
     newsletter_signup = NewsletterSignupBlock()
     video = VideoBlock()
     list = ListBlock()
     spacer = SpacerBlock()
     quote = QuoteBlock()
+    text_social = TextSocialBlock()
 
 
 class TwoColumnContainerBlock(BaseBlock):

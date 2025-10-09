@@ -4,6 +4,23 @@
 // @import "../../../scss/type";
 
 .spotlight-card-set {
+  --mobile-card-width: 70vw;
+  --mobile-slide-gap: 1rem;
+  --mobile-cards-in-set: 3;
+  --mobile-card-sets: 3;
+
+  /* prettier-ignore */
+  --mobile-total-cards: var(--mobile-cards-in-set) * var(--mobile-card-sets);
+
+  /* prettier-ignore */
+  --mobile-total-cards-width: var(--mobile-total-cards) * var(--mobile-card-width);
+
+  /* prettier-ignore */
+  --mobile-total-gaps-width: (var(--mobile-total-cards) - 1) * var(--mobile-slide-gap);
+
+  /* prettier-ignore */
+  --mobile-infinite-slides-width: calc(var(--mobile-total-cards-width) + var(--mobile-total-gaps-width));
+
   $image-hover-scale: 105%;
 
   position: relative;
@@ -26,14 +43,15 @@
       );
       $bg: (
         1: (
-          img: url("../_images/handdrawn/notched-rectangle.svg"),
-          position: left calc($offset-to-container-edge + 3rem) top 3rem,
-          size: rem-calc(320) auto,
+          img:
+            url("/static/foundation_cms/_images/handdrawn/notched-rectangle.svg"),
+          position: left calc($offset-to-container-edge + 4rem) top 3rem,
+          size: rem-calc(240) auto,
         ),
         2: (
-          img: url("../_images/handdrawn/speech-bubble.svg"),
-          position: right calc($offset-to-container-edge + 3rem) bottom 15rem,
-          size: rem-calc(302) auto,
+          img: url("/static/foundation_cms/_images/handdrawn/speech-bubble.svg"),
+          position: right calc($offset-to-container-edge + 4rem) bottom 14rem,
+          size: rem-calc(240) auto,
         ),
       );
       $bg1: map.get($bg, 1);
@@ -58,9 +76,6 @@
     $transition: (
       duration: 0.5s,
       timing-function: ease,
-    );
-    $mobile-container-width: calc(
-      100vw - map.get($grid-margin-gutters, small) * 2
     );
 
     // returns the percentage width of N columns
@@ -101,6 +116,13 @@
       )
     );
 
+    // Calculate mobile card left/right margin based on $grid-container-padding
+    // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
+    @function mobile-side-margin($padding-key: small) {
+      $padding: map.get($grid-container-padding, $padding-key);
+      @return calc($padding / 2);
+    }
+
     @mixin desktop-display-style($index) {
       $style: map.get($positions, $index);
       $image: map.get($style, image);
@@ -131,24 +153,29 @@
 
     position: relative;
     overflow: hidden;
+    margin-left: mobile-side-margin(small);
+
+    @include breakpoint(medium up) {
+      margin-left: mobile-side-margin(medium);
+    }
 
     @include breakpoint(large up) {
       overflow: unset;
-      background-image: url("../_images/handdrawn/arrow-down.svg");
+      background-image: url("/static/foundation_cms/_images/handdrawn/arrow-down.svg");
       background-repeat: no-repeat;
-      background-position: right 1rem top
+      background-position: right top
         calc(
           var(--last-image-height) / 2 + map.get($right-half-offset-y, large)
         );
-      background-size: rem-calc(120) auto;
+      background-size: rem-calc(90) auto;
     }
 
     &__slides {
       list-style: none;
       margin: 0;
       padding: 0;
-      width: calc(100vw * 3);
       display: flex;
+      gap: var(--mobile-slide-gap);
       transition: transform map.get($transition, duration)
         map.get($transition, timing-function);
 
@@ -193,13 +220,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: $mobile-container-width;
-      margin: 0 map.get($grid-margin-gutters, small);
+      width: var(--mobile-card-width);
       transition: all map.get($transition, duration)
         map.get($transition, timing-function);
 
       @include breakpoint(large up) {
         position: absolute;
+        margin: 0;
 
         &[data-display-position="1"] {
           @include desktop-display-style(1);
@@ -255,13 +282,13 @@
       }
 
       &__content {
-        padding: map.get($grid-margin-gutters, small);
+        padding: map.get($grid-margin-gutters, small) 0;
       }
 
       &[data-carousel-slide="1"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/circle-mask.svg",
+            "/static/foundation_cms/_images/spotlight/circle-mask.svg",
             color(yellow, "200")
           );
         }
@@ -270,7 +297,7 @@
       &[data-carousel-slide="2"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/square-cutout-mask.svg",
+            "/static/foundation_cms/_images/spotlight/square-cutout-mask.svg",
             color(orange, "400")
           );
         }
@@ -279,7 +306,7 @@
       &[data-carousel-slide="3"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/trapezoid-mask.svg",
+            "/static/foundation_cms/_images/spotlight/trapezoid-mask.svg",
             color(blue, "200")
           );
         }

@@ -55,6 +55,13 @@ export function initTabbedContentCardSets() {
     SELECTORS.tabbedContentCardSetPanels,
   );
 
+  // helper to get the panel page width
+  const getPanelPageWidth = (panel) => {
+    const firstPage = panel.querySelector(`.${CLASSNAMES.tabCardPage}`);
+    const gap = parseInt(window.getComputedStyle(panel).gap || "0", 10);
+    return firstPage ? firstPage.clientWidth + gap : 0;
+  };
+
   cardSetPanels.forEach((panel) => {
     const cards = panel.querySelectorAll(SELECTORS.tabbedContentCard);
 
@@ -101,34 +108,32 @@ export function initTabbedContentCardSets() {
     // Detect initial page index based on scroll position
     let currentPageIndex = 0;
     const initialScrollLeft = panel.scrollLeft;
-    const firstPage = panel.querySelector(`.${CLASSNAMES.tabCardPage}`);
-    const pageWidth = firstPage ? firstPage.clientWidth : 0;
+    const pageWidth = getPanelPageWidth(panel);
 
     if (initialScrollLeft > 0) {
       currentPageIndex = Math.floor(initialScrollLeft / pageWidth);
       currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
     }
 
+    const updatePanelPage = () => {
+      const newPageWidth = getPanelPageWidth(panel);
+      panel.scrollTo({
+        left: newPageWidth * currentPageIndex,
+        behavior: "smooth",
+      });
+      currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
+    };
+
     const nextPage = () => {
-      if (currentPageIndex < pages - 1) {
-        currentPageIndex++;
-        panel.scrollTo({
-          left: panel.clientWidth * currentPageIndex,
-          behavior: "smooth",
-        });
-        currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
-      }
+      if (currentPageIndex >= pages - 1) return;
+      currentPageIndex++;
+      updatePanelPage();
     };
 
     const prevPage = () => {
-      if (currentPageIndex > 0) {
-        currentPageIndex--;
-        panel.scrollTo({
-          left: panel.clientWidth * currentPageIndex,
-          behavior: "smooth",
-        });
-        currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
-      }
+      if (currentPageIndex <= 0) return;
+      currentPageIndex--;
+      updatePanelPage();
     };
 
     nextButton.addEventListener("click", nextPage);

@@ -4,6 +4,7 @@ from wagtail import blocks
 
 
 class BaseBlock(blocks.StructBlock):
+
     def get_theme(self, context):
         page = context.get("page")
         if hasattr(page, "get_theme"):

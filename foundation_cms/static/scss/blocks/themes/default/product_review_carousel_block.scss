@@ -1,0 +1,170 @@
+@use "sass:list";
+@use "sass:map";
+
+.product-review-carousel {
+  $card-vertical-offsets: (
+    0: rem-calc(76),
+    1: 0,
+    2: rem-calc(40),
+  );
+  $carousel-top-margin: (
+    small: rem-calc(42),
+    large: rem-calc(64),
+  );
+  $carousel-bottom-margin: (
+    small: rem-calc(24),
+    large: rem-calc(44),
+  );
+  $carousel-card-horizontal-gap: 3rem;
+
+  // Uniform headline gap for second row cells in the grid
+  @mixin product-review-carousel-headline-gap() {
+    @include breakpoint(large up) {
+      margin-top: rem-calc(27);
+    }
+  }
+
+  margin: 0 0 2rem;
+  min-height: 100vh;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__subtitle {
+    @include mofo-text-style($label-text-styles, "regular");
+
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h2", $header-font-family);
+    @include product-review-carousel-headline-gap;
+
+    margin: 1rem 0;
+
+    @include breakpoint(large up) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__text {
+    @include mofo-text-style($body-text-styles, "regular");
+    @include product-review-carousel-headline-gap;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__track {
+    display: flex;
+    flex-direction: row;
+    gap: 0 $carousel-card-horizontal-gap;
+    padding: map.get($carousel-top-margin, small) 1rem
+      map.get($carousel-bottom-margin, small);
+    contain: content;
+
+    @include breakpoint(large up) {
+      padding: map.get($carousel-top-margin, large) 0
+        map.get($carousel-bottom-margin, large);
+    }
+  }
+
+  &__cards-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    @include breakpoint(large up) {
+      justify-content: center;
+    }
+
+    .product-review-carousel__card-wrapper {
+      $scale: 1.05;
+      $duration: 0.3s;
+      $cycle: list.length(map.keys($card-vertical-offsets));
+      @for $i from 0 to $cycle {
+        $b: $i + 1;
+        &:nth-child(#{$cycle}n + #{$b}) {
+          margin-top: map.get($card-vertical-offsets, $i);
+        }
+      }
+
+      .product-review-card {
+        transition: transform $duration ease-out;
+
+        a {
+          text-decoration: none;
+        }
+
+        &__image-container {
+          img {
+            box-shadow: 0 4px 10px 0 rgba(0 0 0 / 10%);
+          }
+        }
+
+        &__title {
+          position: relative;
+          display: inline-block;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 1px;
+            background-color: color(orange, "600");
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease-out;
+          }
+        }
+
+        &:hover {
+          transform: scale($scale);
+
+          .product-review-card__title {
+            color: color(orange, "600");
+
+            &::after {
+              transform: scaleX(1);
+              transform-origin: left;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    width: 100%;
+  }
+
+  &__pause-button {
+    $pause-button-size: rem-calc(48);
+
+    display: none;
+    width: $pause-button-size;
+    height: $pause-button-size;
+    border-radius: 50%;
+    cursor: pointer;
+    background: color(neutral, "200")
+      url("/static/foundation_cms/_images/icons/pause-black.svg") no-repeat
+      center;
+
+    @include breakpoint(large up) {
+      display: inline-block;
+    }
+
+    &.is-paused {
+      background-image: url("/static/foundation_cms/_images/icons/play-black.svg");
+
+      // offset center by 1 rem to the right to visually center the triangle
+      background-position: calc(50% + 0.2rem) center;
+    }
+  }
+}

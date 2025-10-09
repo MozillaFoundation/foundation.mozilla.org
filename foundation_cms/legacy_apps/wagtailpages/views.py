@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render
 from django.utils import translation
 from wagtail.models import Site
 
+from foundation_cms.core.models.home_page import HomePage as RedesignHomePage
+
 
 def custom404_view(request, exception):
     """
@@ -18,12 +20,24 @@ def custom404_view(request, exception):
     belongs to which site, as "a site" is not tied to "a django
     app" in the wagtail way of things.
     """
-    if Site.find_for_request(request).hostname == "www.mozillafestival.org":
+
+    site = Site.find_for_request(request)
+
+    if site.hostname == "www.mozillafestival.org":
         html = render(request, "mozfest/404.html")
-        return HttpResponseNotFound(html.content)
+
     else:
-        html = render(request, "404.html")
-        return HttpResponseNotFound(html.content)
+        site_root = site.root_page.specific
+        if isinstance(site_root, RedesignHomePage):
+            parent_homepage = "redesign"
+        else:
+            parent_homepage = "legacy"
+        context = {
+            "parent_homepage": parent_homepage,
+        }
+        html = render(request, "404.html", context)
+
+    return HttpResponseNotFound(html.content)
 
 
 def localized_redirect(request, subpath, destination_path):
