@@ -16,15 +16,21 @@
 {% block content %}
   <div class="grid-container">
     <div class="topic-info">
-      Showing {{ total_pages_count }} result{{ total_pages_count|pluralize }} for: <h1>{{ topic.name }}</h1>
+      {% blocktrans count counter=total_pages_count trimmed %}
+        Showing {{ total_pages_count }} result for: <h1>{{ topic.name }}</h1>
+      {% plural %}
+        Showing {{ total_pages_count }} results for: <h1>{{ topic.name }}</h1>
+      {% endblocktrans %}
     </div>
 
   </div>
-  {% include "patterns/components/topic_listing/section.html" with pages=np_pages section_title="More from Nothing Personal:" %}
+  {% trans "More from Nothing Personal:" as np_section_title %}
+  {% include "patterns/components/topic_listing/section.html" with pages=np_pages section_title=np_section_title %}
   {% if np_pages and other_pages %}
     {% include "patterns/components/topic_listing/section_divider.html" %}
   {% endif %}
-  {% include "patterns/components/topic_listing/section.html" with pages=other_pages section_title="From the rest of Mozilla Foundation:" %}
+  {% trans "From the rest of Mozilla Foundation:" as mofo_title %}
+  {% include "patterns/components/topic_listing/section.html" with pages=other_pages section_title=mofo_title %}
 {% endblock content %}
 
 {% block post_content %}{% endblock post_content %}

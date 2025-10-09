@@ -1,23 +1,29 @@
 {% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
 
+{% load static i18n %}
+
 {% block wrapper_id %}what-you-should-know{% endblock wrapper_id %}
 
-{% block heading_text %}What You Should Know{% endblock heading_text %}
+{% block heading_text %}{% trans "What You Should Know" %}{% endblock heading_text %}
 
 {% block review_content %}
 
     <dl class="product-review-section__qa-list">
         {% if value.trust_default_settings %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Should I trust their default settings?" ans=value.trust_default_settings %}
+            {% trans "Should I trust their default settings?" as localized_trust_default_settings %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_trust_default_settings ans=value.trust_default_settings %}
         {% endif %}
         {% if value.what_personal_data_they_have %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="What personal data do they have?" ans=value.what_personal_data_they_have %}
+            {% trans "What personal data do they have?" as localized_what_personal_data_they_have %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_what_personal_data_they_have ans=value.what_personal_data_they_have %}
         {% endif %}
         {% if value.track_record %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Track record" ans=value.track_record %}
+            {% trans "Track record" as localized_track_record %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_track_record ans=value.track_record %}
         {% endif %}
         {% if value.sells_or_shares_user_data %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="Does this product sell or share user data?" ans=value.sells_or_shares_user_data %}
+            {% trans "Does this product sell or share user data?" as localized_sells_or_shares_user_data %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_sells_or_shares_user_data ans=value.sells_or_shares_user_data %}
         {% endif %}
     </dl>
 

@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags i18n l10n %}
 
 {% with featured_rel=featured_items.first %}
   {% if featured_rel and featured_rel.page %}
@@ -79,7 +79,7 @@
 
               {% if featured_item.author %}
                 <div class="featured-item__author-wrapper">
-                  <div class="featured-item__author">by {{ featured_item.author.name }}</div>
+                  <div class="featured-item__author">{% blocktrans with author=featured_item.author.name %}by {{ author }}{% endblocktrans %}</div>
                 </div>
               {% endif %}
             </div>

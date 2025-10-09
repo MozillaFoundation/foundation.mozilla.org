@@ -2,16 +2,18 @@
 
 {% block wrapper_id %}good-and-bad{% endblock wrapper_id %}
 
-{% block heading_text %}The Good and The Bad{% endblock heading_text %}
+{% block heading_text %}{% trans "The Good and The Bad" %}{% endblock heading_text %}
 
 {% block review_content %}
     <dl class="product-review-section__qa-list">
         {% if value.the_good %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Good" ans=value.the_good %}
+            {% trans "The Good" as localized_the_good %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_the_good ans=value.the_good %}
         {% endif %}
 
         {% if value.the_good %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question="The Bad" ans=value.the_bad %}
+            {% trans "The Bad" as localized_the_bad %}
+            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_the_bad ans=value.the_bad %}
         {% endif %}
     </dl>
 {% endblock review_content %}

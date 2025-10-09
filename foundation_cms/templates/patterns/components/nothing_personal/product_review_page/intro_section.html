@@ -1,4 +1,5 @@
-{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% load static wagtailimages_tags wagtailcore_tags i18n l10n %}
 
 <div class="grid-container intro-section">
     <div class="grid-x">
@@ -9,10 +10,12 @@
             <h1>{{ page.title }}</h1>
             <dl class="intro-section__meta intro-section__meta--small">
                 {% if page.updated %}
-                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Updated" time=page.updated style_variation="primary" %}
+                    {% trans "Updated" as updated %}
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=updated time=page.updated style_variation="primary" %}
                 {% endif %}
                 {% if page.reviewed %}
-                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Reviewed" time=page.reviewed %}
+                    {% trans "Reviewed" as reviewed %}
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=reviewed time=page.reviewed %}
                 {% endif %}
             </dl>
 
