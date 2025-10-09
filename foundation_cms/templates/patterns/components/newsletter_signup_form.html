@@ -23,8 +23,8 @@
             class="newsletter-signup__input"
             type="email"
             name="email"
-            placeholder="{% trans 'Email' %}"
-            aria-label="{% trans 'Email' %}"
+            placeholder="{% trans "Email" %}"
+            aria-label="{% trans "Email" %}"
             required
           >
           <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden email-error-message">
@@ -33,14 +33,14 @@
         </div>
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
-          <select class="newsletter-signup__input" name="country" aria-label="{% trans 'Country' %}" required>
+          <select class="newsletter-signup__input" name="country" aria-label="{% trans "Country" %}" required>
               <!-- Country options rendered in through newsletter-signup.js -->
             <option value="" disabled selected>{% trans "Your country" %}</option>
           </select>
         </div>
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
-          <select class="newsletter-signup__input" name="language" aria-label="{% trans 'Language' %}" required>
+          <select class="newsletter-signup__input" name="language" aria-label="{% trans "Language" %}" required>
               <!-- Language options rendered in through newsletter-signup.js -->
             <option value="en">English</option>
           </select>
@@ -103,7 +103,7 @@
     </div>
 
     <div class="newsletter-signup__success-media">
-      <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="{% trans 'Newsletter signup success image' %}" />
+      <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="{% trans "Newsletter signup success image" %}" />
     </div>
 
   </div>

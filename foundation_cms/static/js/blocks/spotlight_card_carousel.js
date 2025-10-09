@@ -517,12 +517,9 @@ class SpotlightCarousel {
       let ariaText = interpolate(
         gettext("Card %(index)s of %(total)s"),
         { index: logicalIndex, total: this.totalCards },
-        true
+        true,
       );
-      card.setAttribute(
-        "aria-label",
-        ariaText,
-      );
+      card.setAttribute("aria-label", ariaText);
 
       if (this.isMobile) {
         const currentCardIndex = this.currentStep - 1; // becuz currentStep is 1-based
