@@ -15,11 +15,7 @@ from foundation_cms.blocks import (
 )
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.mixins.hero_image import HeroImageMixin
-from foundation_cms.utils import (
-    get_default_locale,
-    get_related_items,
-    localize_queryset,
-)
+from foundation_cms.utils import get_related_items, localize_queryset
 
 
 class ProductMentioned(Orderable):
@@ -165,19 +161,28 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
     def get_latest_product_reviews(self):
         """
-        Returns the 2 latest `NothingPersonalProductReviewPage` objects.
+        Returns the 5 latest `NothingPersonalProductReviewPage` objects.
+        Uses current locale if available, falls back to default locale.
         """
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        from wagtail.models import Locale
 
-        results = (
+        current_locale = self.locale
+        default_locale = Locale.get_default()
+
+        default_reviews = (
             NothingPersonalProductReviewPage.objects.live()
             .public()
-            .filter(locale=DEFAULT_LOCALE)
+            .filter(locale=default_locale)
             .exclude(id=self.id)
-            .order_by("-first_published_at")[:2]
+            .order_by("-first_published_at")[:5]
         )
 
-        localized_results = [p.localized for p in results]
+        # Get the best available version for each review
+        localized_results = []
+        for review in default_reviews:
+            best_version = review.get_translation(locale=current_locale)
+            if best_version and best_version.live:
+                localized_results.append(best_version)
 
         return localized_results
 
