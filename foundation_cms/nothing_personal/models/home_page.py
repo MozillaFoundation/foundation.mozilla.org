@@ -74,7 +74,6 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     translatable_fields = AbstractHomePage.translatable_fields + [
         # Content tab fields
-        TranslatableField("body"),
         SynchronizedField("featured_items"),
     ]
 
