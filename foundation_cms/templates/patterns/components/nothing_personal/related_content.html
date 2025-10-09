@@ -25,7 +25,7 @@
                 </div>
                 <div class="content-card__title"><a href="{% pageurl item %}">{{ item.title }}</a></div>
                 {% if item.author %}
-                    <div class="content-card__author-name">By {{ item.author.name }}</div>
+                    <div class="content-card__author-name">{% blocktrans with author=item.author.name %}By {{ author }}{% endblocktrans %}</div>
                 {% endif %}
             </div>
         {% endfor %}

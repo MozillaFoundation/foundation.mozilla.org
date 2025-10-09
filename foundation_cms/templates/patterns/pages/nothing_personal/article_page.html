@@ -57,7 +57,8 @@
             <div class="grid-container">
                 <div class="grid-x">
                     <div class="cell small-12">
-                        {% include "patterns/components/nothing_personal/related_content.html" with heading="More Stories" items=latest_articles image_ratio="3:2" %}
+                        {% trans "More Stories" as localized_more_stories %}
+                        {% include "patterns/components/nothing_personal/related_content.html" with heading=localized_more_stories items=latest_articles image_ratio="3:2" %}
                     </div>
                 </div>
             </div>
