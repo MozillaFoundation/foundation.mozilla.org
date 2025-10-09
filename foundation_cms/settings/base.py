@@ -397,6 +397,7 @@ TEMPLATES = [
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
                 "streamfield_tags": "foundation_cms.templatetags.streamfield_tags",
+                "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),

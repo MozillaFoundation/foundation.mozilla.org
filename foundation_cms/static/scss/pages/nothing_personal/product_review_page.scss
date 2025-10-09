@@ -229,5 +229,19 @@ body.nothing-personal.nothing-personal-product-review-page {
 
   .more-content-container {
     margin-top: rem-calc(50);
+
+    .related-content {
+      .content-card {
+        margin-bottom: 0;
+
+        &__title {
+          @include mofo-text-style($body-text-styles, "xlarge");
+
+          a {
+            @include link-text-hover-underline;
+          }
+        }
+      }
+    }
   }
 }
