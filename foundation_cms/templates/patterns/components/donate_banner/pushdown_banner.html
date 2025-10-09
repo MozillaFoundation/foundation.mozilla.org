@@ -1,15 +1,8 @@
-{% load settings_value i18n static wagtailimages_tags %}
-
-<div data-banner-id="{{ banner.id }}"
-     data-banner-title="{{ banner.title }}"
-     data-banner-name="{{ banner.name }}"
-     data-banner-variant-version="{{ banner.variant_version }}"
-     data-banner-active-ab-test="{{ banner.active_ab_test }}"
-     class="donate-banner"
-     style="border: 1px solid black; padding-left:20px;"
->
+<div>
+    <h4> This banner is using the <b>Pushdown</b> style. </h4>
     <p><b>Banner Name:</b> {{ banner.name }}</p>
     <p><b>Banner Title:</b> {{ banner.title }}</p>
+    <p><b>Banner Style:</b> {{ banner.banner_style }}</p>
     <p><b>Banner Subtitle:</b> {{ banner.subtitle }}</p>
     <p><b>Banner Foreground Image:</b> {{ banner.foreground_image }}</p>
     <p><b>Banner Background Image:</b> {{ banner.background_image }}</p>

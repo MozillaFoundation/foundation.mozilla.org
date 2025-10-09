@@ -104,9 +104,21 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         help_text="Button color for the banner",
     )
 
+    BANNER_STYLES = [
+        ("legacy", "Legacy"),
+        ("pushdown", "Pushdown"),
+    ]
+
+    banner_style = models.CharField(
+        max_length=20,
+        choices=BANNER_STYLES,
+        default="legacy",
+        help_text="Style of the banner to display",
+    )
     panels = [
         HelpPanel(content="To enable banner on site, visit the DonateBannerPage that is a child of the Homepage."),
         FieldPanel("name"),
+        FieldPanel("banner_style"),
         FieldPanel("title"),
         FieldPanel("subtitle"),
         FieldPanel("cta_button_text"),
@@ -125,6 +137,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     ]
 
     translatable_fields = [
+        SynchronizedField("banner_style"),
         TranslatableField("title"),
         TranslatableField("subtitle"),
         TranslatableField("cta_button_text"),

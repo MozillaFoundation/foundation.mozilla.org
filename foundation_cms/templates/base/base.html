@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags %}
+e{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +84,7 @@
         {% endwith %}
         {% block donate_banner %}
             {% if donate_banner %}
-                {% include "patterns/components/donate_banner.html" with banner=donate_banner %}
+                {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner %}
             {% endif %}
         {% endblock donate_banner %}
         {% include "patterns/components/primary_nav.html" %}
