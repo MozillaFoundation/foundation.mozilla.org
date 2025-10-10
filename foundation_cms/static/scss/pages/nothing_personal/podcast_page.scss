@@ -11,7 +11,7 @@ body.nothing-personal.nothing-personal-podcast-page {
     }
   }
 
-  a {
+  main a {
     @include link-text-color(
       map.get($mofo-colors, black),
       color(orange, "600")
