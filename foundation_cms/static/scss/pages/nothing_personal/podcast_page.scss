@@ -11,6 +11,13 @@ body.nothing-personal.nothing-personal-podcast-page {
     }
   }
 
+  a {
+    @include link-text-color(
+      map.get($mofo-colors, black),
+      color(orange, "600")
+    );
+  }
+
   .hero {
     margin: 2rem 0;
 
