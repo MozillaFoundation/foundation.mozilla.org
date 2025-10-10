@@ -64,7 +64,6 @@ body.nothing-personal.nothing-personal-podcast-page {
     margin-bottom: 1.5rem;
 
     @include breakpoint(medium up) {
-      width: math.div(2, 3) * 100%;
     }
 
     iframe {
