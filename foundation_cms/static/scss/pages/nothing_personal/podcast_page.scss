@@ -80,4 +80,10 @@ body.nothing-personal.nothing-personal-podcast-page {
       margin-bottom: 0;
     }
   }
+
+  .cell.large-8:has(.two-column-container) {
+    @include breakpoint(large up) {
+      width: 100%;
+    }
+  }
 }
