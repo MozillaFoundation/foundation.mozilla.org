@@ -46,7 +46,7 @@ html-void-elements==0.1.0
     # via djlint
 iniconfig==2.0.0
     # via pytest
-isort==5.13.2
+isort==6.1.0
     # via -r dev-requirements.in
 jsbeautifier==1.14.7
     # via
@@ -127,3 +127,5 @@ typing-extensions==4.4.0
     # via
     #   -c requirements.txt
     #   mypy
+wheel==0.45.1
+    # via -r dev-requirements.in
