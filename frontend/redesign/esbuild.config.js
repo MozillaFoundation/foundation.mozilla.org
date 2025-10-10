@@ -47,6 +47,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  nothing_personal_product_review_page: {
+    source: "pages/nothing_personal/product_review_page.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {

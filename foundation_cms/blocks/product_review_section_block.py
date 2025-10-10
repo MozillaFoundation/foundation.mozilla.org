@@ -1,40 +1,31 @@
-from wagtail.blocks import ChoiceBlock, RichTextBlock
+from wagtail.blocks import RichTextBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 from foundation_cms.constants import RICH_TEXT_FEATURES_NO_HEADINGS
 
 
-class YesNoChoiceBlock(ChoiceBlock):
-    """Choice block for Yes/No answers"""
-
-    choices = [
-        ("yes", "Yes"),
-        ("no", "No"),
-    ]
-
-
 class ProductReviewSectionWhatYouShouldKnowBlock(BaseBlock):
     """Block for What You Should Know section with predefined questions"""
 
-    trust_default_settings = YesNoChoiceBlock(required=False, help_text="Should I trust their default settings?")
-    give_data_by_default = YesNoChoiceBlock(required=False, help_text="Should I give them my data by default?")
-    use_offline = YesNoChoiceBlock(required=False, help_text="Can I use this product/service offline?")
-
-    reconsider_buying = YesNoChoiceBlock(
+    trust_default_settings = RichTextBlock(
         required=False,
-        help_text="Should I reconsider buying this product because of this company's track record + data practices?",
-    )
-    reconsider_buying_explanation = RichTextBlock(
-        required=False,
-        help_text="Optional explanation for this answer",
+        help_text="Should I trust their default settings?",
         features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
-
-    sells_user_data = YesNoChoiceBlock(
-        required=False, help_text="Does this product/service sell or giveaway user data?"
+    what_personal_data_they_have = RichTextBlock(
+        required=False,
+        help_text="What personal data do they have?",
+        features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
-    sells_user_data_explanation = RichTextBlock(
-        required=False, help_text="Optional explanation for this answer", features=RICH_TEXT_FEATURES_NO_HEADINGS
+    track_record = RichTextBlock(
+        required=False,
+        help_text="Track record",
+        features=RICH_TEXT_FEATURES_NO_HEADINGS,
+    )
+    sells_or_shares_user_data = RichTextBlock(
+        required=False,
+        help_text="Does this product sell or share user data?",
+        features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
 
     class Meta:
