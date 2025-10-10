@@ -9,8 +9,20 @@ def colon_to_slash(value):
     return value.replace(":", "/")
 
 
+@register.simple_tag
+def orientation_to_ratio(orientation):
+    """Map orientation keywords to aspect ratios"""
+    mapping = {
+        "landscape": "3:2",
+        "portrait": "2:3",
+        "square": "1:1",
+        "widescreen": "16:9",
+    }
+    return mapping.get(orientation, "3:2")  # Default to 3:2 if unknown
+
+
 @register.inclusion_tag("patterns/components/responsive_image.html")
-def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100vw, 33vw"):
+def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100vw, 33vw", classnames=""):
     """
     Generate responsive images with configurable dimensions.
 
@@ -19,6 +31,7 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
         ratio: Aspect ratio as string (e.g., "3:2", "2:3", "16:9", "1:1")
         base_width: Base width for scaling (smallest size)
         sizes: HTML sizes attribute for responsive behavior
+        classnames: Optional CSS classes to apply to the <img>
 
     Returns:
         dict: Template context containing:
@@ -28,6 +41,7 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
 
     Example:
         {% responsive_image page.hero_image ratio="16:9" base_width=400 %}
+        {% responsive_image page.hero_image ratio="3:2" classnames="image-block__image" %}
     """
     if not image:
         return {}
@@ -74,4 +88,5 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
         "renditions": renditions,
         "sizes": sizes,
         "primary_rendition": primary_rendition,
+        "classnames": classnames,
     }
