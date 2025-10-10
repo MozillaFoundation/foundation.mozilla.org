@@ -35,14 +35,26 @@
     gap: 0.5rem;
   }
 
-  &__cta {
+  &__cta-wrapper {
+    @include breakpoint(xlarge up) {
+      align-self: center;
+    }
+  }
+
+  &__cta-header {
     @include mofo-text-style($header-styles, "h6", $header-font-family);
 
-    margin: 0 0 0.5rem;
+    margin: 0;
 
     @include breakpoint(medium up) {
       font-size: rem-calc(20);
     }
+  }
+
+  &__cta-description {
+    @include mofo-text-style($body-text-styles, "large");
+
+    margin: 0;
   }
 
   &__fieldset {
@@ -83,7 +95,7 @@
 
   select.newsletter-signup__input {
     appearance: none;
-    background-image: url("../_images/icons/select-caret-down-black.svg");
+    background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 3rem;
@@ -100,6 +112,7 @@
     line-height: 150%;
     text-wrap: nowrap;
     justify-content: center;
+    color: $white;
 
     &:focus-visible {
       outline: 2px solid $white;
@@ -129,7 +142,7 @@
         background-color: $white;
 
         &:checked {
-          background-image: url("../_images/icons/checkbox-stripe-black.svg");
+          background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
           background-repeat: no-repeat;
           background-position: center;
           background-size: rem-calc(12) auto;
@@ -149,7 +162,7 @@
     color: color(orange, "600");
     margin-top: 0.5rem;
     background-color: color(neutral, "100");
-    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
     background-size: 0.75rem auto;
     background-position: 0.75rem center;
     background-repeat: no-repeat;
@@ -169,7 +182,7 @@
     color: color(orange, "600");
     margin-bottom: 1rem;
     background-color: color(neutral, "100");
-    background-image: url("../_images/icons/input-feedback-error.svg");
+    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
     background-size: 0.75rem auto;
     background-position: 0.75rem 0.66rem;
     background-repeat: no-repeat;
@@ -219,7 +232,7 @@
           display: block;
           width: rem-calc(53px);
           height: rem-calc(44px);
-          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
           background-size: 100% auto;
           background-position: center;
           background-repeat: no-repeat;
@@ -266,7 +279,7 @@
       display: flex;
       gap: 1rem;
       flex-flow: row wrap;
-      padding: 1rem 5rem;
+      padding: 1rem 3rem;
       align-items: start;
     }
 
@@ -278,7 +291,7 @@
       left: 2rem;
       width: rem-calc(51px);
       height: rem-calc(44px);
-      background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+      background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
       background-size: 100% auto;
       background-position: center;
       background-repeat: no-repeat;
@@ -301,15 +314,6 @@
         @include breakpoint(medium up) {
           display: none;
         }
-      }
-    }
-
-    .newsletter-signup__cta {
-      @include breakpoint(xlarge up) {
-        margin-bottom: 0;
-        min-height: rem-calc(54);
-        display: flex;
-        align-items: center;
       }
     }
 
@@ -349,17 +353,19 @@
 
   &[data-layout="expanded"] {
     @include breakpoint(medium up) {
-      padding: 4rem 5rem;
+      padding: 4rem 3rem;
     }
 
-    .newsletter-signup__cta {
+    .newsletter-signup__cta-wrapper {
+      margin-bottom: 0.5rem;
+
       @include breakpoint(medium up) {
         position: relative;
         padding-left: calc(1rem + rem-calc(51));
         min-height: rem-calc(51);
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
         &::before {
           display: block;
@@ -369,11 +375,15 @@
           top: 0.25rem;
           width: rem-calc(51px);
           height: rem-calc(44px);
-          background-image: url("../_images/handdrawn/rays-newsletter-signup.svg");
+          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
           background-size: 100% auto;
           background-position: center;
           background-repeat: no-repeat;
         }
+      }
+
+      @include breakpoint(xlarge up) {
+        align-self: normal;
       }
     }
 

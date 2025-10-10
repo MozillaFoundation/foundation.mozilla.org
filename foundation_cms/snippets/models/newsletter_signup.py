@@ -11,7 +11,10 @@ class NewsletterSignup(models.Model):
         max_length=100,
         help_text="The name of this newsletter signup form.",
     )
-    cta_text = models.CharField(max_length=255, default="Stay updated with our latest news and updates.")
+    cta_header = models.CharField(max_length=255, default="Stay updated with our latest news and updates.")
+    cta_description = models.CharField(
+        blank=True, max_length=255, help_text="Additional description text below the header."
+    )
     button_text = models.CharField(max_length=50, default="Sign Up", help_text="Text to display on the signup button.")
     newsletter = models.CharField(
         max_length=100,
@@ -30,7 +33,8 @@ class NewsletterSignup(models.Model):
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("cta_text"),
+        FieldPanel("cta_header"),
+        FieldPanel("cta_description"),
         FieldPanel("button_text"),
         FieldPanel("newsletter"),
         FieldPanel("layout"),

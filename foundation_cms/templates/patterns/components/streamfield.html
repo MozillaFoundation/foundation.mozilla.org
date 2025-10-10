@@ -4,12 +4,12 @@
   {% if block.block_type|should_wrap_block %}
     <div class="grid-container">
       <div class="grid-x">
-        <div class="cell">
-          {% include_block block %}
+        <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
+          {% include_block block with page_type_bem=page_type_bem %}
         </div>
       </div>
     </div>
   {% else %}
-    {% include_block block %}
+    {% include_block block with page_type_bem=page_type_bem %}
   {% endif %}
 {% endfor %}

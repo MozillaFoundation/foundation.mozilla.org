@@ -1,0 +1,219 @@
+@use "sass:map";
+@use "sass:math";
+
+@import "../../nothing_personal_base";
+@import "../../components/nothing_personal/article_page_header";
+@import "../../components/nothing_personal/related_content";
+
+body.nothing-personal.nothing-personal-article-page {
+  $block-spacing-small: 2rem;
+  $block-spacing-large: 4rem;
+
+  @mixin block-spacing() {
+    margin-bottom: $block-spacing-small;
+
+    @include breakpoint(medium up) {
+      margin-bottom: $block-spacing-large;
+    }
+  }
+
+  .brand-banner,
+  .article-intro,
+  .article-topics,
+  .rich-text-block,
+  .image-block,
+  .two-column-container,
+  .newsletter-signup[data-layout="expand_on_focus"],
+  .callout-box,
+  .quote-block {
+    @include block-spacing;
+  }
+
+  ::selection {
+    background: color(yellow, "100");
+  }
+
+  .brand-banner {
+    @include breakpoint(medium up) {
+      margin-top: 1rem;
+    }
+  }
+
+  main {
+    margin-top: 1rem;
+  }
+
+  .article-meta-published {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include breakpoint(medium up) {
+      margin-top: 0;
+      margin-bottom: 2rem;
+    }
+
+    .published-label {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
+    }
+
+    .published-date {
+      @include mofo-text-style($body-text-styles, "large");
+
+      margin: 0;
+    }
+  }
+
+  .article-topics {
+    &__title {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  .author-info {
+    background-image: url("/static/foundation_cms/_images/author-info-divider.svg");
+    background-position: top center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    padding: 2.5rem 0 0;
+    margin: 0 0 rem-calc(71);
+
+    h5 {
+      margin: 0 0 1rem;
+    }
+  }
+
+  // Content blocks customization
+
+  .rich-text-block {
+    *:first-child {
+      margin-top: 0;
+    }
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+
+    h2,
+    h3,
+    h4 {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .image-block {
+    &__title {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .two-column-container {
+    .image-block {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  // TODO: Replace this styling with a container query approach
+  .newsletter-signup[data-layout="expand_on_focus"] {
+    margin-top: 1rem; // Glyph padding
+
+    @include breakpoint(xlarge up) {
+      margin-top: 2rem; // Glyph padding
+      display: block;
+      padding: 2rem;
+    }
+
+    &::before {
+      @include breakpoint(xlarge up) {
+        position: absolute;
+        top: -2rem;
+        left: 2rem;
+        flex-shrink: 1;
+        min-height: 0;
+      }
+    }
+
+    .newsletter-signup__cta {
+      @include breakpoint(xlarge up) {
+        margin: 0 0 0.5rem;
+        min-height: 0;
+        display: block;
+        align-items: stretch;
+      }
+    }
+
+    .newsletter-signup__form {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+        align-items: stretch;
+        flex: auto;
+        gap: 0.5rem;
+      }
+    }
+
+    .newsletter-signup__form-grid {
+      @include breakpoint(xlarge up) {
+        flex: auto;
+      }
+    }
+
+    .newsletter-signup__fieldset {
+      @include breakpoint(xlarge up) {
+        min-width: 0;
+      }
+    }
+
+    .newsletter-signup__field:has(> label > input[type="checkbox"]) {
+      @include breakpoint(xlarge up) {
+        padding-bottom: 0;
+      }
+    }
+
+    .newsletter-signup__success-message {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+      }
+    }
+
+    .newsletter-signup__error-message {
+      @include breakpoint(xlarge up) {
+        order: 0;
+        width: auto;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .callout-box {
+    background-color: color(yellow, "100");
+    padding: 2rem 0;
+
+    &__heading {
+      h4,
+      h5,
+      h6,
+      p {
+        margin: 0 0 0.5rem;
+      }
+    }
+
+    &__description {
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .quote-block {
+    figcaption {
+      font-size: get-text-property($body-text-styles, "small", font-size);
+    }
+  }
+}

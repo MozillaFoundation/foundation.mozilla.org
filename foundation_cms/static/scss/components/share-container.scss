@@ -1,0 +1,45 @@
+.share-container {
+  .share-title {
+    @include mofo-text-style($body-text-styles, "large");
+
+    margin: rem-calc(6) 0;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: rem-calc(12);
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: rem-calc(38);
+      height: rem-calc(39);
+      background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+        no-repeat center / cover;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        background: url("/static/foundation_cms/_images/share-container-orange.svg")
+          no-repeat center / cover;
+      }
+
+      &.copy-success,
+      &.email-success {
+        background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+          no-repeat center / cover !important;
+
+        img {
+          content: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
+        }
+
+        &:hover {
+          transform: scale(1.05);
+          background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+            no-repeat center / cover;
+        }
+      }
+    }
+  }
+}

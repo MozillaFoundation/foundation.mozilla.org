@@ -1,0 +1,30 @@
+{% extends theme_base %}
+
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/home_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <!-- Main Content -->
+  <main>
+    {% if page.tagline %}
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell tag-line small-12 large-6 large-offset-3">{{ page.tagline|richtext }}</div>
+        </div>
+      </div>
+    {% endif %}
+    {% if page.featured_items %}
+      {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
+    {% endif %}
+    {% if page.body %}
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
+  </main>
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'foundation_cms/_js/pages/nothing_personal/home_page.compiled.js' %}"></script>
+{% endblock extra_js %}

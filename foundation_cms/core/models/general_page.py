@@ -1,40 +1,17 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.images import get_image_model_string
-from wagtail_localize.fields import TranslatableField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
+from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
-class GeneralPage(AbstractGeneralPage):
-    # Specify the correct template path
-    template = "patterns/pages/core/general_page.html"
-
-    hero_title = models.TextField(
-        help_text="Hero Title",
-        blank=True,
-    )
+class GeneralPage(AbstractGeneralPage, HeroImageMixin):
 
     hero_description = models.CharField(
         max_length=120,
         help_text="Hero Description",
         blank=True,
-    )
-
-    hero_image = models.ForeignKey(
-        get_image_model_string(),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name="Hero Image",
-        help_text="Image for page hero section.",
-    )
-
-    hero_image_alt_text = models.CharField(
-        max_length=255,
-        blank=True,
-        verbose_name="Alt Text",
-        help_text="Descriptive text for screen readers. Leave blank to use the image's default title.",
     )
 
     hero_variant = models.CharField(
@@ -94,16 +71,22 @@ class GeneralPage(AbstractGeneralPage):
         FieldPanel("body"),
     ]
 
-    translatable_fields = [
+    translatable_fields = AbstractGeneralPage.translatable_fields + [
+        # Content tab fields
+        SynchronizedField("show_hero"),
+        SynchronizedField("hero_variant"),
+        SynchronizedField("hero_background_color"),
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
-        TranslatableField("button_title"),
+        SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
+        TranslatableField("button_title"),
+        TranslatableField("button_url"),
+        TranslatableField("body"),
     ]
 
     class Meta:
         verbose_name = "General Page (new)"
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        return context
+    # keep an explicit fallback in case no themed templates exist
+    template = "patterns/pages/core/general_page.html"

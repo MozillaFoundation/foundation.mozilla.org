@@ -1,0 +1,39 @@
+{% load wagtailimages_tags static %}
+
+<div class="article-header grid-x">
+  <header class="article-header__meta cell small-12 medium-10 medium-offset-1 large-8">
+    <h1 class="article-header__title">{{ page.title }}</h1>
+    <span class="article-header__author-wrapper">
+      <span class="article-header__author">{{ page.author.name }}</span>
+    </span>
+  </header>
+
+  <div class="article-header__hero cell small-12 medium-10 medium-offset-2 large-11 large-offset-1">
+    <figure class="article-header__hero-figure">
+      {% if page.displayed_hero_content == "video" and page.hero_video_url %}
+        <video class="article-header__hero-content" playsinline="" muted="" loop="" preload="" autoplay>
+          <source src="{{ page.hero_video_url }}" type="video/mp4">
+        </video>
+      {% elif page.displayed_hero_content == "image" and page.hero_image %}
+        <picture class="article-header__picture">
+          {% image page.hero_image fill-1172x660 as img_small %}
+          {% image page.hero_image fill-2198x1236 as img_large %}
+          <source
+            media="(max-width: 639px)"
+            srcset="{{ img_small.url }}"
+            width="{{ img_small.width }}"
+            height="{{ img_small.height }}"
+          >
+          <img
+            class="article-header__hero-content"
+            src="{{ img_large.url }}"
+            width="{{ img_large.width }}"
+            height="{{ img_large.height }}"
+            alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
+            loading="lazy"
+          >
+        </picture>
+      {% endif %}
+    </figure>
+  </div>
+</div>

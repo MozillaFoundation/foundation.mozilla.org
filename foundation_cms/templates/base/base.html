@@ -1,0 +1,103 @@
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if page.seo_title %}
+                    {{ page.seo_title }}
+                {% else %}
+                    {{ page.title }}
+                {% endif %}
+            {% endblock title %}
+            {% block title_suffix %}
+                {% wagtail_site as current_site %}
+                {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock title_suffix %}
+        </title>
+        {% if page.search_description %}
+            <meta name="description" content="{{ page.search_description }}" />{% endif %}
+
+        {% block wagtail_metadata %}
+            {% meta_tags %}
+        {% endblock wagtail_metadata %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+            <base target="_blank">{% endif %}
+    {# Global stylesheets #}
+        {% block extra_css %}
+            {# This is the fallback stylesheet for pages like abstract or error pages. Override this in page templates to add stylesheets #}
+            <link rel="stylesheet" href="{% static 'foundation_cms/_css/redesign_fallback.compiled.css' %}">
+        {% endblock extra_css %}
+
+    {# favicon #}
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{% static "foundation_cms/_images/favicon.png" %}">
+        <link rel="icon" type="image/png" sizes="196x196" href="{% static "foundation_cms/_images/favicon.png" %}">
+        <link rel="shortcut icon" href="{% static "foundation_cms/_images/favicon.png" %}">
+
+    {# Global third-party scripts #}
+        {% block ga_identifier %}
+            <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
+            <meta name="gtm-identifier" content="GTM-PQQ8H6PM">
+            <script nonce="{{ request.csp_nonce }}">window.dataLayer = window.dataLayer || [];</script>
+            <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                                                          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PQQ8H6PM');</script>
+        {% endblock ga_identifier %}
+
+        {% block fundraiseup_script %}
+            <script nonce="{{ request.csp_nonce }}">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
+                    .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
+                        :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
+                j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
+                t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
+                for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
+            })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
+        {% endblock fundraiseup_script %}
+
+        {% block onetrust_script %}
+            <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="{% onetrust_data_domain %}" ></script>
+            <script nonce="{{ request.csp_nonce }}">function OptanonWrapper() {
+                if (document.getElementById('onetrust-banner-sdk')) {
+                    var acceptBtn = document.getElementById("onetrust-accept-btn-handler");
+                    var declineBtn = document.getElementById("onetrust-reject-all-handler");
+                    var cookieSettingsBtn = document.getElementById("onetrust-pc-btn-handler");
+                    var btnContainer = document.getElementById("onetrust-button-group");
+                    btnContainer.append(acceptBtn, declineBtn, cookieSettingsBtn);
+                }
+            };</script>
+        {% endblock onetrust_script %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}">
+    {# Basic breadcrumbs for dev navigation #}
+        {% with self as page %}
+            <nav aria-label="Breadcrumb">
+            </nav>
+        {% endwith %}
+        {% block donate_banner %}
+            {% if donate_banner %}
+                {% include "patterns/components/donate_banner.html" with banner=donate_banner %}
+            {% endif %}
+        {% endblock donate_banner %}
+        {% include "patterns/components/primary_nav.html" %}
+        {% wagtailuserbar %}
+        {% block primary_nav %}{% endblock primary_nav %}
+        {% block brand_banner %}{% endblock brand_banner %}
+        {% block pre_content %}{% endblock pre_content %}
+        {% block content %}{% endblock content %}
+        {% block post_content %}{% endblock post_content %}
+        {% block pre_footer_banner %}{% endblock pre_footer_banner %}
+        {% include "patterns/components/footer.html" %}
+        <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
+        {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock extra_js %}
+    </body>
+
+</html>
