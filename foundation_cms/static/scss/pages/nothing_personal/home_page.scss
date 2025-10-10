@@ -64,10 +64,17 @@ body.nothing-personal-home-page {
     }
 
     &__media {
-      aspect-ratio: math.div(1, 1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+
+      &--square {
+        aspect-ratio: math.div(1, 1);
+      }
+
+      &--landscape {
+        aspect-ratio: math.div(16, 9);
+      }
 
       img,
       video {
