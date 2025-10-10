@@ -29,6 +29,7 @@ locale_abstraction_instructions = " ".join(
         "--ignore=foundation_cms/legacy_apps/wagtailcustomization/*",
         "--ignore=foundation_cms/settings/base.py",
         "--ignore=foundation_cms/legacy_apps/wagtailpages/templates/wagtailpages/pages/dear_internet_page.html",
+        "--ignore=foundation_cms/templates/patterns/pages/core/welcome_page.html",
         "--ignore=dockerpythonvenv/*",
     ]
 )
