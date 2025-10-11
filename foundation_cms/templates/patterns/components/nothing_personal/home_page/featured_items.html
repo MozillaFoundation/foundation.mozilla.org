@@ -1,93 +1,45 @@
 {% load wagtailimages_tags i18n l10n %}
 
-{% with featured_rel=featured_items.first %}
-  {% if featured_rel and featured_rel.page %}
-    {% with featured_item=featured_rel.page.specific %}
-      <div class="grid-container">
-        <div class="grid-x featured-hero-item">
+<div class="grid-container">
+  <div class="grid-x featured-items grid-margin-x">
 
-          <a class="featured-hero-item__media cell small-12 large-6 large-offset-3" href="{{ featured_item.url }}" aria-label=" featured_item.hero_image_alt_text">
-            {% if featured_item.displayed_hero_content == "video" and featured_item.hero_video_url %}
-              <video class="featured-hero-item__video" playsinline="" muted="" loop="" preload="" autoplay>
-                <source src="{{ featured_item.hero_video_url }}" type="video/mp4">
-              </video>
-            {% elif featured_item.displayed_hero_content == "image" and featured_item.hero_image %}
-              <picture class="featured-hero-item__picture">
-                {% image featured_item.hero_image fill-1172x1172 as img_small %}
-                {% image featured_item.hero_image fill-2198x2198 as img_large %}
-                <source
-                  media="(max-width: 639px)"
-                  srcset="{{ img_small.url }}"
-                  width="{{ img_small.width }}"
-                  height="{{ img_small.height }}"
-                >
-                <img
-                  src="{{ img_large.url }}"
-                  width="{{ img_large.width }}"
-                  height="{{ img_large.height }}"
-                  alt="{{ featured_item.hero_image_alt_text|default:img_large.alt }}"
-                >
-              </picture>
-            {% endif %}
-          </a>
+    {% for featured_rel in featured_items %}
+      {% if featured_rel and featured_rel.page %}
+        {% with featured_item=featured_rel.page.specific %}
 
-          <a class="featured-hero-item__text cell small-12 large-8 large-offset-2" href="{{ featured_item.url }}">
-            <h1 class="featured-hero-item__title">{{ featured_item.title }}</h1>
+          <div class="cell featured-item small-12 large-4">
+            <a href="{{ featured_item.url }}" class="featured-item__media" aria-label="{{ featured_item.hero_image_alt_text }}">
+              {% if featured_item.displayed_hero_content == "video" and featured_item.hero_video_url %}
+                <video class="featured-item__video" playsinline="" muted="" loop="" preload="" autoplay>
+                  <source src="{{ featured_item.hero_video_url }}" type="video/mp4">
+                </video>
+              {% elif featured_item.displayed_hero_content == "image" and featured_item.hero_image %}
+                <picture class="featured-item__picture">
+                  {% image featured_item.hero_image fill-1200x1200 as img %}
+                  <img
+                    src="{{ img.url }}"
+                    width="{{ img.width }}"
+                    height="{{ img.height }}"
+                    alt="{{ featured_item.hero_image_alt_text|default:img.alt }}"
+                  >
+                </picture>
+              {% endif %}
+            </a>
+
+            <a href="{{ featured_item.url }}" class="featured-item__title">
+              {{ featured_item.title }}
+            </a>
+
             {% if featured_item.author %}
-              <div class="featured-hero-item__author-wrapper">
-                <div class="featured-hero-item__author">{{ featured_item.author.name }}</div>
+              <div class="featured-item__author-wrapper">
+                <div class="featured-item__author">{% blocktrans with author=featured_item.author.name %}by {{ author }}{% endblocktrans %}</div>
               </div>
             {% endif %}
-          </a>
+          </div>
 
-        </div>
-      </div>
-    {% endwith %}
-  {% endif %}
-{% endwith %}
+        {% endwith %}
+      {% endif %}
+    {% endfor %}
 
-{% if featured_items|length > 1 %}
-  <div class="grid-container">
-    <div class="grid-x featured-items grid-margin-x">
-
-      {% for featured_rel in featured_items|slice:"1:" %}
-        {% if featured_rel and featured_rel.page %}
-          {% with featured_item=featured_rel.page.specific %}
-
-            <div class="cell featured-item small-12 large-4">
-              <a href="{{ featured_item.url }}" class="featured-item__media" aria-label="{{ featured_item.hero_image_alt_text }}">
-                {% if featured_item.displayed_hero_content == "video" and featured_item.hero_video_url %}
-                  <video class="featured-item__video" playsinline="" muted="" loop="" preload="" autoplay>
-                    <source src="{{ featured_item.hero_video_url }}" type="video/mp4">
-                  </video>
-                {% elif featured_item.displayed_hero_content == "image" and featured_item.hero_image %}
-                  <picture class="featured-item__picture">
-                    {% image featured_item.hero_image fill-1200x1200 as img %}
-                    <img
-                      src="{{ img.url }}"
-                      width="{{ img.width }}"
-                      height="{{ img.height }}"
-                      alt="{{ featured_item.hero_image_alt_text|default:img.alt }}"
-                    >
-                  </picture>
-                {% endif %}
-              </a>
-
-              <a href="{{ featured_item.url }}" class="featured-item__title">
-                {{ featured_item.title }}
-              </a>
-
-              {% if featured_item.author %}
-                <div class="featured-item__author-wrapper">
-                  <div class="featured-item__author">{% blocktrans with author=featured_item.author.name %}by {{ author }}{% endblocktrans %}</div>
-                </div>
-              {% endif %}
-            </div>
-
-          {% endwith %}
-        {% endif %}
-      {% endfor %}
-
-    </div>
   </div>
-{% endif %}
+</div>
