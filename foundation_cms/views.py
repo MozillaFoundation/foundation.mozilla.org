@@ -151,7 +151,10 @@ def newsletter_signup_submission(request, signup):
         print(unsubscribe_request.json())
 
         if unsubscribe_request.status_code == 200:
-            return JsonResponse({"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL}, status=status.HTTP_201_CREATED)
+            return JsonResponse(
+                {"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL},
+                status=status.HTTP_201_CREATED,
+            )
         else:
             return JsonResponse({email: "test"}, status=status.HTTP_400_BAD_REQUEST)
 

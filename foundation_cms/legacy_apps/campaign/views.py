@@ -2,13 +2,13 @@ import json
 import logging
 
 import basket
+import requests
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from rest_framework import status
-from django.conf import settings
-import requests
 
 from foundation_cms.legacy_apps.wagtailpages.models import Signup
 
@@ -32,7 +32,6 @@ NEWSLETTER_ENDPOINTS = {
 }
 
 REQUEST_TIMEOUT_SECONDS = getattr(settings, "NEWSLETTER_SUBSCRIBE_TIMEOUT", 8)
-
 
 
 @csrf_exempt
@@ -85,7 +84,6 @@ def signup_submission(request, signup):
 
     newsletter = signup.newsletter.strip().lower()
     endpoint_url = NEWSLETTER_ENDPOINTS.get(newsletter)
-
 
     if not endpoint_url:
         return JsonResponse(

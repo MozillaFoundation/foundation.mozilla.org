@@ -32,19 +32,19 @@
           </div>
         </div>
         {% if newsletter_signup.newsletter != "unsubscribe" %}
-        <div class="newsletter-signup__field newsletter-signup__field--hidden">
-          <select class="newsletter-signup__input" name="country" aria-label="Country" required>
+          <div class="newsletter-signup__field newsletter-signup__field--hidden">
+            <select class="newsletter-signup__input" name="country" aria-label="Country" required>
               <!-- Country options rendered in through newsletter-signup.js -->
-            <option value="" disabled selected>Your country</option>
-          </select>
-        </div>
+              <option value="" disabled selected>Your country</option>
+            </select>
+          </div>
 
-        <div class="newsletter-signup__field newsletter-signup__field--hidden">
-          <select class="newsletter-signup__input" name="language" aria-label="Language" required>
+          <div class="newsletter-signup__field newsletter-signup__field--hidden">
+            <select class="newsletter-signup__input" name="language" aria-label="Language" required>
               <!-- Language options rendered in through newsletter-signup.js -->
-            <option value="en">English</option>
-          </select>
-        </div>
+              <option value="en">English</option>
+            </select>
+          </div>
 
         {% endif %}
 
