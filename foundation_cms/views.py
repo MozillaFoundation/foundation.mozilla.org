@@ -79,16 +79,6 @@ def process_lang_code(lang):
     return lang
 
 
-NEWSLETTER_ENDPOINTS = {
-    "mozilla-foundation": settings.FOUNDATION_NEWSLETTER_ENDPOINT,
-    "mozilla-festival": settings.MOZFEST_NEWSLETTER_ENDPOINT,
-    "common-voice": settings.COMMONVOICE_NEWSLETTER_ENDPOINT,
-    "unsubscribe": settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
-}
-
-REQUEST_TIMEOUT_SECONDS = getattr(settings, "NEWSLETTER_SUBSCRIBE_TIMEOUT", 8)
-
-
 @csrf_exempt
 @require_http_methods(["POST"])
 def newsletter_signup_submission_view(request, pk):
@@ -138,76 +128,60 @@ def newsletter_signup_submission(request, signup):
         )
 
     newsletter = signup.newsletter.strip().lower()
-    endpoint_url = NEWSLETTER_ENDPOINTS.get(newsletter)
 
-    if newsletter == "unsubscribe":
-        unsubscribe_request = requests.post(
-            settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
-            json={"email": email, "unsubscribe_all": True},
-            headers={"X-API-Key": settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT_KEY},
-            timeout=8,
-        )
-        print(unsubscribe_request.status_code)
-        print(unsubscribe_request.json())
+    # rewrite payload
+    data = {
+        "email": email,
+        "format": "html",
+        "source_url": source,
+        "newsletters": newsletter,
+        "lang": process_lang_code(rq.get("lang", "en")),
+        "country": rq.get("country", ""),
+        # Empty string instead of None due to Basket issues
+        "first_name": "",
+        "last_name": "",
+    }
 
-        if unsubscribe_request.status_code == 200:
-            return JsonResponse(
-                {"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL},
-                status=status.HTTP_201_CREATED,
-            )
-        else:
-            return JsonResponse({email: "test"}, status=status.HTTP_400_BAD_REQUEST)
+    newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
+
+    if newsletter_signup_method == "BASKET":
+        return subscribe_to_basket_newsletter(data)
 
     else:
+        return subscribe_to_camo_newsletter(data)
 
-        if not endpoint_url:
-            return JsonResponse(
-                {"error": f"Unsupported newsletter '{newsletter}'"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
 
-        # rewrite payload
-        data = {
-            "email": email,
-            "format": "html",
-            "source_url": source,
-            "newsletters": newsletter,
-            "lang": process_lang_code(rq.get("lang", "en")),
-            "country": rq.get("country", ""),
-            # Empty string instead of None due to Basket issues
-            "first_name": "",
-            "last_name": "",
-        }
+def subscribe_to_basket_newsletter(data):
+    # Subscribing to newsletter using basket.
+    # https://basket-client.readthedocs.io/en/latest/usage.html
+    basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
+    if data["country"] != "":
+        basket_additional["country"] = data["country"]
 
-        newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
+    response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
 
-        if newsletter_signup_method == "BASKET":
-            # Subscribing to newsletter using basket.
-            # https://basket-client.readthedocs.io/en/latest/usage.html
-            basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
-            if data["country"] != "":
-                basket_additional["country"] = data["country"]
+    if response["status"] == "ok":
+        return JsonResponse(data, status=status.HTTP_201_CREATED)
+    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
-            response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
 
-            if response["status"] == "ok":
-                return JsonResponse(data, status=status.HTTP_201_CREATED)
-            return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+def subscribe_to_camo_newsletter(data):
+    # New endpoint doesn't want "newsletters" in data.
+    # We can just tell it what newsletter to subscribe to based on the endpoint URL.
+    newsletter = data.pop("newsletters", None)
+    endpoint_url = f"{settings.CAMO_NEWSLETTER_ENDPOINT}/{newsletter}"
 
-        else:
-            print("Subscribing using direct POST")
-            # New endpoint: doesn't want "newsletters"
-            data.pop("newsletters", None)
-            resp = requests.post(
-                endpoint_url,
-                json=data,
-                timeout=8,
-                headers={"Content-Type": "application/json"},
-            )
-            print(resp.status_code)
-            print(resp.json())
+    print("Subscribing using direct POST")
+    resp = requests.post(
+        endpoint_url,
+        json=data,
+        timeout=8,
+        headers={"Content-Type": "application/json"},
+    )
+    print(resp.status_code)
+    print(resp.json())
 
-            if resp.status_code == 200:
-                return JsonResponse(data, status=status.HTTP_201_CREATED)
+    if resp.status_code == 200:
+        return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-            return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
