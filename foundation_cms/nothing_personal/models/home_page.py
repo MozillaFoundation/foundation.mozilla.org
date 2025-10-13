@@ -1,6 +1,11 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
@@ -8,14 +13,14 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import (
-    NarrowTextImageBlock,
     ProductReviewCarouselBlock,
+    TextMediaBlock,
     TwoColumnContainerBlock,
 )
 
 
 class NothingPersonalFeaturedItem(Orderable):
-    """Orderable child model to allow 0..4 featured pages."""
+    """Orderable child model to allow 0..3 featured pages."""
 
     page = models.ForeignKey(
         Page,
@@ -40,7 +45,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     nothing_personal_block_options = [
         ("two_column_container_block", TwoColumnContainerBlock()),
-        ("narrow_text_image_block", NarrowTextImageBlock()),
+        ("text_media_block", TextMediaBlock()),
         ("product_review_carousel_block", ProductReviewCarouselBlock()),
         # NP Text Image Block
         # product review carousel block
@@ -58,6 +63,23 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
         help_text="Tagline displayed above the featured articles (max ~150 chars).",
     )
 
+    hero_item = models.ForeignKey(
+        Page,
+        related_name="+",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+
+    hero_item_orientation = models.CharField(
+        max_length=20,
+        choices=[
+            ("square", "Square"),
+            ("landscape", "Landscape"),
+        ],
+        default="square",
+    )
+
     parent_page_types = ["core.HomePage"]
     subpage_types = [
         "nothing_personal.NothingPersonalArticleCollectionPage",
@@ -68,13 +90,23 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     content_panels = AbstractHomePage.content_panels + [
         FieldPanel("tagline"),
-        InlinePanel("featured_items", min_num=0, max_num=4, label="Featured items"),
+        MultiFieldPanel(
+            [
+                PageChooserPanel("hero_item"),
+                FieldPanel("hero_item_orientation"),
+            ],
+            heading="Hero item",
+        ),
+        InlinePanel("featured_items", min_num=0, max_num=3, label="Featured items"),
         FieldPanel("body"),
     ]
 
     translatable_fields = AbstractHomePage.translatable_fields + [
         # Content tab fields
         TranslatableField("body"),
+        TranslatableField("tagline"),
+        SynchronizedField("hero_item"),
+        SynchronizedField("hero_item_orientation"),
         SynchronizedField("featured_items"),
     ]
 

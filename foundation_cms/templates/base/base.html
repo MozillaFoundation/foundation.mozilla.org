@@ -96,6 +96,7 @@
         {% block post_content %}{% endblock post_content %}
         {% block pre_footer_banner %}{% endblock pre_footer_banner %}
         {% include "patterns/components/footer.html" %}
+        <script src="{% url "javascript-catalog" %}"></script>
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
         {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock extra_js %}
     </body>
