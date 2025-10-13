@@ -69,7 +69,6 @@ def cta(context, page):
     if cta["cta_type"] == "petition":
         source_url = context["request"].build_absolute_uri()
         cta["source_url"] = source_url
-        # Env Variable telling us whether to use BASKET or CAMO FA form. Options are "BASKET" or "CAMO"
         cta["thank_you_url"] = _generate_thank_you_url(source_url)
         cta["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
         cta["csp_nonce"] = context["request"].csp_nonce
