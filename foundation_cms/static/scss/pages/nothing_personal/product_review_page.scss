@@ -60,14 +60,20 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
 
     &__product-img {
+      aspect-ratio: math.div(2, 3);
+      overflow: hidden;
+      margin-bottom: 4rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: 0;
+      }
+
       img {
         width: 100%;
-        height: auto;
-        margin-bottom: 4rem;
-
-        @include breakpoint(large up) {
-          margin-bottom: 0;
-        }
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
       }
     }
 

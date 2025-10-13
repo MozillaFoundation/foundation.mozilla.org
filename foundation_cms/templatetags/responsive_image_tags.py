@@ -3,6 +3,14 @@ from django import template
 register = template.Library()
 
 
+@register.filter
+def is_webp(image):
+    """Check if an image file is a WebP format"""
+    if not image or not hasattr(image, "file") or not hasattr(image.file, "name"):
+        return False
+    return image.file.name.lower().endswith(".webp")
+
+
 @register.simple_tag
 def colon_to_slash(value):
     """Convert colon-separated ratio to slash format (e.g., '2:3' to '2/3')"""
@@ -79,6 +87,11 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
             }
         )
 
+    # Check if the image is WebP
+    is_webp_image = (
+        image.file.name.lower().endswith(".webp") if hasattr(image, "file") and hasattr(image.file, "name") else False
+    )
+
     # Use the second rendition (1.5x) as the primary/default src
     # 1.5x provides good quality for most devices while keeping file size reasonable
     # The browser can still choose higher resolutions from srcset when needed
@@ -89,4 +102,6 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
         "sizes": sizes,
         "primary_rendition": primary_rendition,
         "classnames": classnames,
+        "image": image,
+        "is_webp": is_webp_image,
     }

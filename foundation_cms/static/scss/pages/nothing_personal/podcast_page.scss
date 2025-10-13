@@ -35,6 +35,16 @@ body.nothing-personal.nothing-personal-podcast-page {
 
     &__image {
       border-radius: 0 100px 0 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__media {
+      aspect-ratio: math.div(1, 1);
+      overflow: hidden;
+      display: flex;
     }
 
     &__divider {
