@@ -3,6 +3,14 @@ from django import template
 register = template.Library()
 
 
+@register.filter
+def is_webp(image):
+    """Check if an image file is a WebP format"""
+    if not image or not hasattr(image, 'file') or not hasattr(image.file, 'name'):
+        return False
+    return image.file.name.lower().endswith('.webp')
+
+
 @register.simple_tag
 def colon_to_slash(value):
     """Convert colon-separated ratio to slash format (e.g., '2:3' to '2/3')"""
