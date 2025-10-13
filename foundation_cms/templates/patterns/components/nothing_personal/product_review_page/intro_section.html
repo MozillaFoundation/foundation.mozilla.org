@@ -36,17 +36,19 @@
                     {% if page.hours_tested or page.type_of_testing %}
                         <dl class="intro-section__details-meta intro-section__meta intro-section__meta--small">
                             {% if page.hours_tested %}
-                                {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Hours Tested" value=page.hours_tested %}
+                                {% trans "Hours Tested" as hours_tested %}
+                                {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=hours_tested value=page.hours_tested %}
                             {% endif %}
                             {% if page.type_of_testing %}
-                                {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label="Type of Testing" value=page.type_of_testing %}
+                                {% trans "Type of Testing" as type_of_testing %}
+                                {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=type_of_testing value=page.type_of_testing %}
                             {% endif %}
                         </dl>
                     {% endif %}
 
                     {% if page.who_am_i %}
                         <div class="intro-section__who-am-i">{{ page.who_am_i|richtext }}</div>
-                        <a href="#" class="intro-section__who-am-i-toggle" data-toggles="intro-section__who-am-i">More details +</a>
+                        <a href="#" class="intro-section__who-am-i-toggle" data-toggles="intro-section__who-am-i">{% trans "More details +" %}</a>
                     {% endif %}
                 </div>
             </div>
