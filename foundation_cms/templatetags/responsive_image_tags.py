@@ -6,9 +6,9 @@ register = template.Library()
 @register.filter
 def is_webp(image):
     """Check if an image file is a WebP format"""
-    if not image or not hasattr(image, 'file') or not hasattr(image.file, 'name'):
+    if not image or not hasattr(image, "file") or not hasattr(image.file, "name"):
         return False
-    return image.file.name.lower().endswith('.webp')
+    return image.file.name.lower().endswith(".webp")
 
 
 @register.simple_tag
