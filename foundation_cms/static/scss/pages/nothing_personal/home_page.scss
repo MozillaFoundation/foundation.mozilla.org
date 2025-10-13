@@ -53,7 +53,9 @@ body.nothing-personal-home-page {
       img {
         display: block;
         width: 100%;
+        height: 100%;
         object-fit: cover;
+        object-position: center;
       }
     }
 
@@ -158,6 +160,8 @@ body.nothing-personal-home-page {
       img {
         object-fit: cover;
         width: 100%;
+        height: 100%;
+        object-position: center;
       }
 
       video {
@@ -168,6 +172,18 @@ body.nothing-personal-home-page {
       img,
       video {
         transition: transform 0.5s ease;
+      }
+    }
+
+    &__picture {
+      display: contents;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
     }
 
