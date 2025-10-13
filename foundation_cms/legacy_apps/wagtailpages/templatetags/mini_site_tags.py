@@ -1,6 +1,7 @@
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from django import template
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from foundation_cms.legacy_apps.wagtailpages.models import CTA
@@ -20,6 +21,15 @@ def mini_site_sidebar(context, page):
 @register.inclusion_tag("wagtailpages/tags/mini_site_horizontal_nav.html", takes_context=True)
 def mini_site_horizontal_nav(context, page):
     return get_mini_side_nav_data(context, page)
+
+
+@register.simple_tag
+def newsletter_signup_method():
+    """
+    Return the configured signup method for newsletter signups.
+    Defaults to 'BASKET' if not set.
+    """
+    return str(getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET"))
 
 
 def _generate_thank_you_url(url):
@@ -58,8 +68,8 @@ def cta(context, page):
 
     if cta["cta_type"] == "petition":
         source_url = context["request"].build_absolute_uri()
-
         cta["source_url"] = source_url
+        # Env Variable telling us whether to use BASKET or CAMO FA form. Options are "BASKET" or "CAMO"
         cta["thank_you_url"] = _generate_thank_you_url(source_url)
         cta["show_formassembly_thank_you"] = context["request"].GET.get("thank_you") == "true"
         cta["csp_nonce"] = context["request"].csp_nonce

@@ -3,62 +3,26 @@
 {% comment %}
 *** IMPORTANT ***
 
-Please follow the steps below every time after you paste a new version of FormAssembly code.
+The code below has been copied directly over from FormAssembly. 
 
-1. Replace everything starting from <!-- FORM: BODY SECTION -->
+This code is the BODY section of https://mozillafoundation.tfaforms.net/forms/view/187, which is a direct copy of https://mozillafoundation.tfaforms.net/forms/view/9,
+just updated to send the data to CaMo rather than Basket. 
 
-2. Run `inv format-html` in terminal
+The code snippet below is based on FormAssembly form revision #2
 
-3. Plug in values into several fields
-    - Go to petition.html and look for this line {% include "../../fragments/formassembly_body.html"
-    - Update the variable names to they match the new FormAssembly field names
-    - Plug in those variables into corresponding form fields in formassembly_body.html
-    
-4. If form field names are changed:
-    (Field ref: https://mozillafoundation.tfaforms.net/forms/builder/5.0.0/9 and click on "OUTLINE" tab)
-    - Update the bottom section of formassembly_override.scss to reflect new field names
-    - Update FA_FIELDS and FA_HIDDEN_FIELDS in tests/integration/petition/utility.js to reflect new field names
-
-5. Wrap country field, postal code field, and comment field in {% if %} tag
-    - for country field:     {% if show_country_field %} ... {% endif %}
-    - for postal code field: {% if show_postal_code_field %}  ... {% endif %}
-    - for comment field:     {% if show_comment_field %} ... {% endif %}
-
-6. If using a required checkbox field, add the classname 'reqMark' to the label wrapping the
-   span element with the classname of `input-checkbox-faux`. This will ensure that the
-   "required" asterisk renders to the right of the checkbox text.
-
-7. Get localization working again.
-    - Localize form fields. e.g., {% trans "text to be translated" %} or {% blocktrans %} ... {% endblocktrans %}
-    - Localize "title" attribute and label text for the following fields:
-        - first name, last name, email, country, postal code, comments, privacy notice, email subscription
-    - Localize "value" attribute for <input type="submit" ...>
-    - Go to formassembly_head.html and make sure everything has been updated according to the instructions
-
-8. Add nonce="{{ csp_nonce }}" to all <script> tags in this file
-
-9. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
-
-10. Update the privacy_notice value to include an {%if %} tag and default value
-    - {% if privacy_notice %}{% blocktrans with privacy_notice=privacy_notice|richtext %}{{ privacy_notice }}{% endblocktrans %}{% else %}{% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I’m okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}{% endif %}
-
-The code snippet below is based on FormAssembly form revision #32
-
-*** NOTE ***
-We have added a custom label that states "* indicates a required field" to the template (i.e., in `petition.html`).
-Please remember to take this into account when designing/implementing new forms.
+If there are any updates to this form (which is unlikely), please follow the instructions found on "formassembly_body_legacy.html".
 
 {% endcomment %}
 
 <!-- FORM: BODY SECTION -->
 <div class="wFormContainer" style="max-width: 100%; width:auto;">
     <div class="wFormHeader"></div>
-    <style type="text/css"></style><div class=""><div class="wForm" id="9-WRPR" dir="ltr">
+    <style type="text/css"></style><div class=""><div class="wForm" id="187-WRPR" dir="ltr">
         <div class="codesection" id="code-9"><script nonce="{{ csp_nonce }}">
             wFORMS.behaviors.paging.isConditionalSubmitAllowed = true;
             wFORMS.behaviors.condition.isConditionalSubmitAllowed = true;
         </script></div>
-        <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="9" role="form">
+        <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="187" role="form">
             <input type="hidden" id="tfa_500" name="tfa_500" value="{{ thank_you_url_tfa_500 }}" class=""><input type="hidden" id="tfa_1" name="tfa_1" value="{{ campaign_id_tfa_1 }}" class=""><input type="hidden" id="tfa_498" name="tfa_498" value="{{ source_url_tfa_498 }}" class=""><input type="hidden" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" class=""><input type="hidden" id="tfa_501" name="tfa_501" value="mozilla-foundation" class=""><div class="oneField field-container-D    " id="tfa_28-D">
                 <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="{% trans "First Name" %}" class="required"></div>
             </div>
@@ -326,9 +290,9 @@ Please remember to take this into account when designing/implementing new forms.
             <div class="oneField field-container-D    " id="tfa_494-D" role="group" aria-labelledby="tfa_494-L" data-tfa-labelledby="-L tfa_494-L">
                 <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>{% trans "Yes, I want to receive email updates about Mozilla’s campaigns." %}</label></span></span></div>
             </div>
-            <div class="actions" id="9-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="{% trans "Add my name" %}"></div>
+            <div class="actions" id="187-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="{% trans "Add my name" %}"></div>
             <div style="clear:both"></div>
-            <input type="hidden" value="9" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="98d919a837a24531e4bbc050cdedb961" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="32" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
+            <input type="hidden" value="187" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="1d193b59297af95a7c351558364b25ac" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="32" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
         </form>
     </div></div><div class="wFormFooter"><p class="supportInfo"><br></p></div>
     <p class="supportInfo" >
