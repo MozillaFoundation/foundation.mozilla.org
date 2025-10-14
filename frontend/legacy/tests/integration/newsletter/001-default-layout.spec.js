@@ -123,6 +123,10 @@ test.describe("Blog body newsletter signup form", () => {
     }) => {
       // wait for the request before submitting the form
       const apiUrl = await moduleContainer.getAttribute("data-api-url");
+      console.log("API URL:", apiUrl);
+      console.log("API URL:", apiUrl);
+      console.log("API URL:", apiUrl);
+      console.log("API URL:", apiUrl);
       const fetchRequest = page.waitForRequest(apiUrl);
 
       await submitButton.dispatchEvent("click");
