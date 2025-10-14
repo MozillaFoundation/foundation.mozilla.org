@@ -54,4 +54,12 @@
       aspect-ratio: 3 / 4;
     }
   }
+
+  &--widescreen {
+    .media-block__image,
+    .media-block__video {
+      aspect-ratio: 16 / 9;
+      border-bottom-left-radius: 0;
+    }
+  }
 }
