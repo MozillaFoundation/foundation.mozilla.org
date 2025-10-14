@@ -43,7 +43,11 @@ async function submitDataToApi(unsubscribeUrl, formData) {
     });
 
     let body = {};
-    try { body = await res.json(); } catch { /* non-JSON */ }
+    try {
+      body = await res.json();
+    } catch {
+      /* non-JSON */
+    }
 
     return {
       ok: res.status === 201 || res.ok || body.status === "ok",
@@ -58,10 +62,7 @@ async function submitDataToApi(unsubscribeUrl, formData) {
 /**
  * Validates the newsletter unsubscribe form inputs.
  */
-function validateForm({
-  email,
-  emailErrorMessage,
-}) {
+function validateForm({ email, emailErrorMessage }) {
   let isValid = true;
   const emailRegex = /^[^@]+@[^.@]+(\.[^.@]+)+$/;
 
@@ -101,8 +102,8 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       if (!isValid) return;
 
       const formData = { email };
-      const submitBtn  = container.querySelector(SELECTORS.submitButton);
-      const loadingEl  = submitBtn?.querySelector(SELECTORS.loadingMessage);
+      const submitBtn = container.querySelector(SELECTORS.submitButton);
+      const loadingEl = submitBtn?.querySelector(SELECTORS.loadingMessage);
       const rolltextEl = submitBtn?.querySelector(SELECTORS.rolltext);
 
       // show loading state

@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("nothing_personal", "0022_add_verbose_name_to_product_mentioned"),
+        ("nothing_personal", "0028_nothingpersonalhomepage_hero_item_and_more"),
     ]
 
     operations = [

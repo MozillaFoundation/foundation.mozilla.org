@@ -182,8 +182,8 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       if (!isValid) return;
 
       const formData = { email, country, language };
-      const submitBtn  = container.querySelector(SELECTORS.submitButton);
-      const loadingEl  = submitBtn?.querySelector(SELECTORS.loadingMessage);
+      const submitBtn = container.querySelector(SELECTORS.submitButton);
+      const loadingEl = submitBtn?.querySelector(SELECTORS.loadingMessage);
       const rolltextEl = submitBtn?.querySelector(SELECTORS.rolltext);
 
       // show loading state
@@ -193,7 +193,6 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       }
       if (loadingEl) loadingEl.style.display = "inline";
       if (rolltextEl) rolltextEl.style.display = "none";
-
 
       submitDataToApi(signupUrl, formData).then((success) => {
         if (success) {

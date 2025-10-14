@@ -191,16 +191,7 @@ def subscribe_to_camo_newsletter(data):
 @require_http_methods(["POST"])
 def newsletter_unsubscribe_view(request):
     new_body = request.body.decode("utf-8")
-    print(new_body)
-    try:
-        data = json.loads(new_body)
-    except ValueError:
-        return JsonResponse(
-            {
-                "error": "Could not validate incoming data",
-            },
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+    data = json.loads(new_body)
 
     # payload validation
     email = data.get("email")
@@ -213,7 +204,7 @@ def newsletter_unsubscribe_view(request):
     unsubscribe_request = requests.post(
         settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
         json={"email": email, "unsubscribe_all": True},
-        headers={"X-API-Key": settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT_KEY},
+        headers={"X-API-Key": settings.CAMO_ENDPOINT_KEY},
     )
 
     print(unsubscribe_request.status_code)
