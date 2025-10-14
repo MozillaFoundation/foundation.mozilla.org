@@ -45,23 +45,13 @@ export default {
     "Thanks!": `Thanks!`,
     "confirm your email opt-in": (
       <Fragment>
-        If you haven’t previously confirmed your opt-in to a Mozilla-related
+        If you haven’t previously confirmed your opt-in to a Mozilla Foundation-related
         email subscription you may have to do so now.{" "}
         <strong>
           Please check your inbox or spam filter for an email from us to click
           and confirm your subscription
         </strong>
         .
-      </Fragment>
-    ),
-    "manage your subscriptions": (
-      <Fragment>
-        If you have already confirmed your opt-in to receive Mozilla-related
-        emails, you can now{" "}
-        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          manage your subscriptions
-        </a>{" "}
-        and update your email preferences.
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
@@ -107,22 +97,12 @@ export default {
     "Thanks!": `Danke!`,
     "confirm your email opt-in": (
       <Fragment>
-        Wenn Sie Ihre Anmeldung für ein Mozilla-E-Mail-Abonnement noch nicht
+        Wenn Sie Ihre Anmeldung für ein Mozilla Foundation-E-Mail-Abonnement noch nicht
         bestätigt haben, müssen Sie dies möglicherweise jetzt tun.{" "}
         <strong>
           Bitte sehen Sie in Ihrem Posteingang oder Spam-Filter nach einer
           E-Mail von uns und bestätigen Sie Ihr Abonnement per Mausklick.
         </strong>
-      </Fragment>
-    ),
-    "manage your subscriptions": (
-      <Fragment>
-        Wenn Sie Ihre Anmeldung zum Empfang von Mozilla-bezogenen E-Mails
-        bereits bestätigt haben, können Sie jetzt{" "}
-        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          Ihre Abonnements verwalten
-        </a>{" "}
-        und Ihre E-Mail-Einstellungen aktualisieren.
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
@@ -168,7 +148,7 @@ export default {
     "confirm your email opt-in": (
       <Fragment>
         Si no has confirmado previamente tu aceptación a una suscripción de
-        correo electrónico relacionada con Mozilla, es posible que debas hacerlo
+        correo electrónico relacionada con Mozilla Foundation, es posible que debas hacerlo
         ahora.{" "}
         <strong>
           Revisa tu bandeja de entrada o filtro de correo no deseado para
@@ -176,16 +156,6 @@ export default {
           confirmes tu suscripción.
         </strong>
         .
-      </Fragment>
-    ),
-    "manage your subscriptions": (
-      <Fragment>
-        Si ya has confirmado tu aceptación para recibir correos electrónicos
-        relacionados con Mozilla, ahora puedes{" "}
-        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          administrar tus suscripciones
-        </a>{" "}
-        y actualizar tus preferencias de correo electrónico.
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
@@ -230,22 +200,12 @@ export default {
     "confirm your email opt-in": (
       <Fragment>
         Si vous n’avez pas précédemment confirmé votre abonnement aux e-mails
-        liés à Mozilla, vous devrez peut-être le faire maintenant.{" "}
+        liés à Mozilla Foundation, vous devrez peut-être le faire maintenant.{" "}
         <strong>
           Veuillez vérifier votre boîte de réception ou vos courriers
           indésirables et recherchez un message de notre part pour confirmer
           votre abonnement.
         </strong>
-      </Fragment>
-    ),
-    "manage your subscriptions": (
-      <Fragment>
-        Si vous avez déjà confirmé votre abonnement aux e-mails liés à Mozilla,
-        vous pouvez maintenant{" "}
-        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          gérer vos abonnements
-        </a>{" "}
-        et modifier vos préférences de messagerie.
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
@@ -290,21 +250,11 @@ export default {
     "confirm your email opt-in": (
       <Fragment>
         Jeśli jeszcze nigdy nie potwierdzono zgody na subskrypcję wiadomości od
-        Mozilli, to możesz musieć zrobić to teraz.{" "}
+        Fundacji Mozilli, to możesz musieć zrobić to teraz.{" "}
         <strong>
           Sprawdź, czy w skrzynce odbiorczej lub spamie jest wiadomość od nas,
           aby kliknąć i potwierdzić subskrypcję.
         </strong>
-      </Fragment>
-    ),
-    "manage your subscriptions": (
-      <Fragment>
-        Jeśli już potwierdzono zgodę na otrzymywanie wiadomości od Mozilli, to
-        można teraz{" "}
-        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          zarządzać swoimi subskrypcjami
-        </a>{" "}
-        i zaktualizować preferencje.
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
@@ -350,21 +300,11 @@ export default {
     "confirm your email opt-in": (
       <Fragment>
         Se você não confirmou anteriormente sua inscrição em uma assinatura de
-        e-mail relacionada à Mozilla, pode ser necessário fazê-lo agora.{" "}
+        e-mail relacionada à Mozilla Foundation, pode ser necessário fazê-lo agora.{" "}
         <strong>
           Verifique se há um e-mail nosso, na caixa de entrada ou no filtro de
           spam, para clicar e confirmar sua assinatura.
         </strong>
-      </Fragment>
-    ),
-    "manage your subscriptions": (
-      <Fragment>
-        Se você já confirmou sua inscrição para receber e-mails relacionados à
-        Mozilla, agora pode{" "}
-        <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank">
-          gerenciar suas assinaturas
-        </a>{" "}
-        e atualizar suas preferências de e-mail.
       </Fragment>
     ),
     "Something went wrong and your signup wasn't completed. Please try again later.":
