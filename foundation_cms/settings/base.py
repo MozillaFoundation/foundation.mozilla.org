@@ -403,6 +403,7 @@ TEMPLATES = [
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
                 "streamfield_tags": "foundation_cms.templatetags.streamfield_tags",
+                "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
@@ -517,6 +518,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
     os.path.join(BASE_DIR, "legacy_apps/locale"),
     os.path.join(BASE_DIR, "legacy_apps/templates/pages/buyersguide/about/locale"),
     os.path.join(BASE_DIR, "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale"),

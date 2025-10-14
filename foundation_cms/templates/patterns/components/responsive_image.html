@@ -1,0 +1,17 @@
+{% if is_webp %}
+    <img src="{{ image.file.url }}"
+         width="{{ image.width }}"
+         height="{{ image.height }}"
+         alt="{{ image.title }}"
+         class="{{ classnames }}"
+         loading="lazy">
+{% elif renditions %}
+    <img src="{{ primary_rendition.url }}"
+         srcset="{% for item in renditions %}{{ item.rendition.url }} {{ item.width }}w{% if not forloop.last %}, {% endif %}{% endfor %}"
+         sizes="{{ sizes }}"
+         width="{{ primary_rendition.width }}"
+         height="{{ primary_rendition.height }}"
+         alt="{{ primary_rendition.alt }}"
+         class="{{ classnames }}"
+         loading="lazy">
+{% endif %}

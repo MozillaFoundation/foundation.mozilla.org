@@ -15,7 +15,20 @@ body.nothing-personal-home-page {
 
     @include breakpoint(large up) {
       margin-top: 1rem;
-      margin-bottom: 4rem;
+    }
+  }
+
+  .tag-line {
+    text-align: center;
+    margin-bottom: rem-calc(40);
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: map.get($mofo-colors, black);
+      text-decoration: underline;
     }
   }
 
@@ -40,7 +53,9 @@ body.nothing-personal-home-page {
       img {
         display: block;
         width: 100%;
+        height: 100%;
         object-fit: cover;
+        object-position: center;
       }
     }
 
@@ -51,10 +66,17 @@ body.nothing-personal-home-page {
     }
 
     &__media {
-      aspect-ratio: math.div(1, 1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+
+      &--square {
+        aspect-ratio: math.div(1, 1);
+      }
+
+      &--landscape {
+        aspect-ratio: math.div(16, 9);
+      }
 
       img,
       video {
@@ -138,6 +160,8 @@ body.nothing-personal-home-page {
       img {
         object-fit: cover;
         width: 100%;
+        height: 100%;
+        object-position: center;
       }
 
       video {
@@ -148,6 +172,18 @@ body.nothing-personal-home-page {
       img,
       video {
         transition: transform 0.5s ease;
+      }
+    }
+
+    &__picture {
+      display: contents;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
     }
 
@@ -180,7 +216,7 @@ body.nothing-personal-home-page {
     text-decoration: underline;
   }
 
-  .grid-container:has(.narrow-text-image-block) {
+  .grid-container:has(.text-media-block) {
     min-height: 115vh;
     display: flex;
     flex-direction: column;
@@ -199,13 +235,13 @@ body.nothing-personal-home-page {
 
   // Stacked parallax
   .grid-container:has(.two-column-container),
-  .grid-container:has(.narrow-text-image-block) {
+  .grid-container:has(.text-media-block) {
     background: $white;
     position: sticky;
     top: 0;
   }
 
-  .text-image-block {
+  .text-media-block {
     &__text {
       order: 2;
 
@@ -237,18 +273,19 @@ body.nothing-personal-home-page {
       }
     }
 
-    &__image {
+    &__media {
       order: 1;
       align-content: end;
 
-      .image-block {
+      .media-block {
         margin-bottom: rem-calc(24);
 
         @include breakpoint(large up) {
           margin-bottom: 0;
         }
 
-        &__image {
+        &__image,
+        &__video {
           border-radius: 0;
         }
       }

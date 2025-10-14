@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 
 .product-review-card {
   width: 12rem;
@@ -8,11 +9,16 @@
   }
 
   &__image-container {
+    // Default to 2:3 portrait aspect ratio (matches 192x288 rendition)
+    aspect-ratio: math.div(2, 3);
+    overflow: hidden;
+
     img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       object-fit: cover;
+      object-position: center;
     }
   }
 
@@ -21,5 +27,11 @@
 
     margin: 0.5rem 0 0;
     color: map.get($mofo-colors, black);
+  }
+
+  &--square {
+    .product-review-card__image-container {
+      aspect-ratio: math.div(1, 1);
+    }
   }
 }

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import "../../../../../../node_modules/foundation-sites/scss/util/util";
 
 // Image block styles
@@ -24,7 +26,7 @@
       top: -0.25rem;
       width: rem-calc(27);
       height: rem-calc(18);
-      background-image: url("../_images/icons/image-caption-arrow-black.svg");
+      background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -33,19 +35,19 @@
 
   &--square {
     .image-block__image {
-      aspect-ratio: 1 / 1;
+      aspect-ratio: math.div(1, 1);
     }
   }
 
   &--landscape {
     .image-block__image {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: math.div(3, 2);
     }
   }
 
   &--portrait {
     .image-block__image {
-      aspect-ratio: 3 / 4;
+      aspect-ratio: math.div(2, 3);
     }
   }
 }

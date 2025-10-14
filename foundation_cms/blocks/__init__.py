@@ -8,6 +8,7 @@ from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
+from .media_block import CustomMediaBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 from .newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from .pillar_card_block import PillarCardBlock
@@ -29,7 +30,7 @@ from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
-from .text_image_block import NarrowTextImageBlock, TextImageBlock
+from .text_image_block import TextImageBlock, TextMediaBlock
 from .text_social_block import TextSocialBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
@@ -48,11 +49,12 @@ __all__ = [
     "TabbedContentTabBlock",
     "TwoColumnContainerBlock",
     "CustomImageBlock",
+    "CustomMediaBlock",
     "PodcastBlock",
     "HeroAccordionBlock",
     "TextImageBlock",
+    "TextMediaBlock",
     "TextSocialBlock",
-    "NarrowTextImageBlock",
     "LinkBlock",
     "OptionalLinkBlock",
     "PortraitCardBlock",

@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static %}
+{% load static wagtailcore_tags %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/home_page.compiled.css' %}">
@@ -9,6 +9,16 @@
 {% block content %}
   <!-- Main Content -->
   <main>
+    {% if page.tagline %}
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell tag-line small-12 large-6 large-offset-3">{{ page.tagline|richtext }}</div>
+        </div>
+      </div>
+    {% endif %}
+    {% if page.hero_item %}
+      {% include "patterns/components/nothing_personal/home_page/hero_item.html" with hero_item=page.hero_item orientation=page.hero_item_orientation %}
+    {% endif %}
     {% if page.featured_items %}
       {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
     {% endif %}
@@ -17,3 +27,7 @@
     {% endif %}
   </main>
 {% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'foundation_cms/_js/pages/nothing_personal/home_page.compiled.js' %}"></script>
+{% endblock extra_js %}

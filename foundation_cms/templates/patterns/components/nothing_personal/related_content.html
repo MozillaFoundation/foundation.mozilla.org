@@ -1,30 +1,15 @@
-{% load wagtailimages_tags wagtailcore_tags %}
+{% load wagtailimages_tags wagtailcore_tags i18n l10n responsive_image_tags %}
 
 <div class="related-content">
     <h3 class="related-content__heading">{{ heading }}</h3>
 
-    <div class="related-content__card-grid">
+    <div class="related-content__card-grid" {% if items_per_row %}style="--items-per-row: {{ items_per_row }}"{% endif %}>
 
         {% for item in items %}
             <div class="content-card">
-                <a href="{% pageurl item %}" class="content-card__image-wrapper">
+                <a href="{% pageurl item %}" class="content-card__image-wrapper" style="--aspect-ratio: {% colon_to_slash image_ratio %}">
                     {% if item.search_image %}
-                {% comment %} 3:2 ratio {% endcomment %}
-                        {% image item.search_image fill-600x400 as img_600 %}
-                        {% image item.search_image fill-900x600 as img_900 %}
-                        {% image item.search_image fill-1200x800 as img_1200 %}
-                        {% image item.search_image fill-1800x1200 as img_1800 %}
-                        <picture>
-                            <img src="{{ img_900.url }}"
-                                 srcset="{{ img_600.url }} 600w,
-                                         {{ img_900.url }} 900w,
-                                         {{ img_1200.url }} 1200w,
-                                         {{ img_1800.url }} 1800w"
-                                 sizes="(max-width: 639px) 100vw, 33vw"
-                                 width="{{ img_900.width }}"
-                                 height="{{ img_900.height }}"
-                                 alt="{{ img_900.alt }}">
-                        </picture>
+                        {% responsive_image item.search_image ratio=image_ratio %}
                     {% endif %}
                 </a>
                 <div class="content-card__topics">
@@ -40,7 +25,7 @@
                 </div>
                 <div class="content-card__title"><a href="{% pageurl item %}">{{ item.title }}</a></div>
                 {% if item.author %}
-                    <div class="content-card__author-name">By {{ item.author.name }}</div>
+                    <div class="content-card__author-name">{% blocktrans with author=item.author.name %}By {{ author }}{% endblocktrans %}</div>
                 {% endif %}
             </div>
         {% endfor %}

@@ -140,7 +140,7 @@
 
       @include breakpoint(large up) {
         order: 1;
-        max-width: 50%;
+        flex-grow: 1;
       }
     }
 
@@ -169,11 +169,12 @@
 
       @include breakpoint(large up) {
         order: 2;
-        flex-basis: 1;
-        min-width: 54%;
+        flex: 0 0 54%;
+        max-width: 54%;
+        width: 54%;
       }
 
-      // Using default image block but overriding aspect ratios
+      // Using custom image block but overriding aspect ratios
       .image-block {
         margin: 0;
 
@@ -183,7 +184,8 @@
           align-items: center;
         }
 
-        &__image {
+        &__image,
+        &__video {
           border-bottom-left-radius: rem-calc(28);
           border-top-right-radius: rem-calc(28);
 

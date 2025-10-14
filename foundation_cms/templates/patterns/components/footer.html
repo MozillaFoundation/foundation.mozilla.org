@@ -1,11 +1,11 @@
-{% load wagtailsettings_tags static %}
+{% load wagtailsettings_tags static i18n l10n %}
 <footer class="site-footer-ns">
   <div class="grid-container">
     <div class="site-footer-ns__grid">
       <div class="site-footer-ns__grid-cell">
         <div class="site-footer-ns__logo">
           <a href="/">
-            <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="Mozilla Foundation Logo" width="440" height="92" />
+            <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="{% trans "Mozilla Foundation Logo" %}" width="440" height="92" />
           </a>
         </div>
         <div class="site-footer-ns__newsletter-form">
@@ -18,25 +18,30 @@
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__links body-text-regular">
         <ul class="internal">
-          <li><a href="/meet-mozilla/website-licensing/">Licensing</a></li>
-          <li><a href="/meet-mozilla/annual-reports-and-financials/">Annual Reports &amp; Financials</a></li>
-          <li><a href="/meet-mozilla/press-center/">Press Center</a></li>
+          <li><a href="/meet-mozilla/website-licensing/">{% trans "Licensing" %}</a></li>
+          <li><a href="/meet-mozilla/annual-reports-and-financials/">{% trans "Annual Reports & Financials" %}</a></li>
+          <li><a href="/meet-mozilla/press-center/">{% trans "Press Center" %}</a></li>
         </ul>
         <ul class="external">
-          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation">Careers</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">Privacy</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">Cookies</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/legal/terms/mozilla/">Legal</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/governance/policies/participation/">Participation guidelines</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation">{% trans "Careers" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">{% trans "Privacy" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">{% trans "Cookies" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/legal/terms/mozilla/">{% trans "Legal" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/governance/policies/participation/">{% trans "Participation guidelines" %}</a></li>
         </ul>
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__cta">
-        {% include "patterns/components/button.html" with classnames="dark-mode" url="?form=donate-footer" label="Donate now" button_style="btn-primary" %}
+        {% translate "Donate" as localized_donate_label %}
+        {% include "patterns/components/button.html" with classnames="dark-mode" url="?form=donate-footer" label=localized_donate_label button_style="btn-primary" %}
       </div>
     </div>
     <div class="site-footer-ns__legals body-text-xsmall">
       <div class="site-footer-ns__grid-cell">
-        <p>Mozilla Foundation is a global non-profit and parent of the <a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/" class="site-footer-ns__link site-footer-ns__link--legal">Mozilla Corporation</a>. Most content available under a <a href="/meet-mozilla/website-licensing/" class="site-footer-ns__link site-footer-ns__link--legal">Creative Commons license</a>.</p>
+        <p>
+          {% blocktrans with moco_url='https://www.mozilla.org/' meet_mozilla_url='/meet-mozilla/website-licensing/' trimmed %}
+            Mozilla Foundation is a global non-profit and parent of the <a target="_blank" rel="noopener noreferrer" href="{{ moco_url }}" class="site-footer-ns__link site-footer-ns__link--legal">Mozilla Corporation</a>. Most content available under a <a href="{{ meet_mozilla_url }}" class="site-footer-ns__link site-footer-ns__link--legal">Creative Commons license</a>.
+          {% endblocktrans %}
+        </p>
       </div>
       <div class="site-footer-ns__grid-cell">
         <ul class="social-links">

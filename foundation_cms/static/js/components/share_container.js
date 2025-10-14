@@ -28,9 +28,9 @@ export default function initShareContainer() {
     if (showCopiedText) {
       const img = button.querySelector("img");
       if (img) {
-        img.title = "Copied";
+        img.title = gettext("Copied");
       }
-      button.setAttribute("aria-label", "Copied");
+      button.setAttribute("aria-label", gettext("Copied"));
     }
 
     // Remove success state after duration (if specified)
@@ -42,9 +42,9 @@ export default function initShareContainer() {
         if (showCopiedText) {
           const img = button.querySelector("img");
           if (img) {
-            img.title = "Copy Link";
+            img.title = gettext("Copy Link");
           }
-          button.setAttribute("aria-label", "Copy Link");
+          button.setAttribute("aria-label", gettext("Copy Link"));
         }
       }, duration);
     }
