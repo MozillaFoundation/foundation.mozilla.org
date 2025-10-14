@@ -45,8 +45,8 @@ export default {
     "Thanks!": `Thanks!`,
     "confirm your email opt-in": (
       <Fragment>
-        If you haven’t previously confirmed your opt-in to a Mozilla Foundation-related
-        email subscription you may have to do so now.{" "}
+        If you haven’t previously confirmed your opt-in to a Mozilla
+        Foundation-related email subscription you may have to do so now.{" "}
         <strong>
           Please check your inbox or spam filter for an email from us to click
           and confirm your subscription
@@ -97,8 +97,8 @@ export default {
     "Thanks!": `Danke!`,
     "confirm your email opt-in": (
       <Fragment>
-        Wenn Sie Ihre Anmeldung für ein Mozilla Foundation-E-Mail-Abonnement noch nicht
-        bestätigt haben, müssen Sie dies möglicherweise jetzt tun.{" "}
+        Wenn Sie Ihre Anmeldung für ein Mozilla Foundation-E-Mail-Abonnement
+        noch nicht bestätigt haben, müssen Sie dies möglicherweise jetzt tun.{" "}
         <strong>
           Bitte sehen Sie in Ihrem Posteingang oder Spam-Filter nach einer
           E-Mail von uns und bestätigen Sie Ihr Abonnement per Mausklick.
@@ -148,8 +148,8 @@ export default {
     "confirm your email opt-in": (
       <Fragment>
         Si no has confirmado previamente tu aceptación a una suscripción de
-        correo electrónico relacionada con Mozilla Foundation, es posible que debas hacerlo
-        ahora.{" "}
+        correo electrónico relacionada con Mozilla Foundation, es posible que
+        debas hacerlo ahora.{" "}
         <strong>
           Revisa tu bandeja de entrada o filtro de correo no deseado para
           encontrar un correo electrónico nuestro para que hagas clic y
@@ -300,7 +300,8 @@ export default {
     "confirm your email opt-in": (
       <Fragment>
         Se você não confirmou anteriormente sua inscrição em uma assinatura de
-        e-mail relacionada à Mozilla Foundation, pode ser necessário fazê-lo agora.{" "}
+        e-mail relacionada à Mozilla Foundation, pode ser necessário fazê-lo
+        agora.{" "}
         <strong>
           Verifique se há um e-mail nosso, na caixa de entrada ou no filtro de
           spam, para clicar e confirmar sua assinatura.

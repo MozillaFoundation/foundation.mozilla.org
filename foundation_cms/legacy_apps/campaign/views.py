@@ -1,8 +1,5 @@
 import json
 import logging
-
-import basket
-import requests
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
@@ -97,9 +94,6 @@ def signup_submission(request, signup):
     newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
 
     if newsletter_signup_method == "BASKET":
-        if data["country"] != "":
-            basket_additional["country"] = data["country"]
         return subscribe_to_basket_newsletter(data)
-
     else:
         return subscribe_to_camo_newsletter(data)
