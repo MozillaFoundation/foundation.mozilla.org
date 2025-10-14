@@ -2,7 +2,7 @@
  * CSS selectors used to locate key DOM elements in the newsletter unsubscribe component.
  */
 const SELECTORS = {
-  container: ".newsletter-unsubscribe-form",
+  container: ".newsletter-unsubscribe__container",
   form: ".newsletter-signup__form",
   emailInput: "input[name='email']",
   emailErrorMessage: ".email-error-message",
@@ -56,7 +56,7 @@ async function submitDataToApi(unsubscribeUrl, formData) {
 }
 
 /**
- * Validates the newsletter signup form inputs.
+ * Validates the newsletter unsubscribe form inputs.
  */
 function validateForm({
   email,
@@ -74,51 +74,36 @@ function validateForm({
 }
 
 /**
- * Injects newsletter signup form behavior into all instances on the page.
+ * Injects newsletter unsubscribe form behavior into all instances on the page.
  */
 export default function injectNewsletterSignups(foundationSiteURL) {
-  console.log("injectNewsletterSignups");
   const formContainers = document.querySelectorAll(SELECTORS.container);
-  console.log(`Found ${formContainers.length} newsletter signup forms on the page.`);
 
   formContainers.forEach((container) => {
     const form = container.querySelector(SELECTORS.form);
-    console.log("Found form:", form);
     const emailInput = form.querySelector(SELECTORS.emailInput);
-    console.log("Found email input:", emailInput);
 
     const emailErrorMessage = form.querySelector(SELECTORS.emailErrorMessage);
-    console.log("Found email error message:", emailErrorMessage);
     const errorMessage = container.querySelector(SELECTORS.errorMessage);
-    console.log("Found general error message:", errorMessage);
 
     const unsubscribeUrl = `${foundationSiteURL}/newsletter-unsubscribe/`;
-    console.log("Using unsubscribeUrl URL:", unsubscribeUrl);    
 
     form.addEventListener("submit", function (e) {
-    console.log("Form submit event triggered");
       e.preventDefault();
 
       const email = emailInput.value.trim();
-      console.log("Form submitted with email:", email);
 
       const isValid = validateForm({
         email,
         emailErrorMessage,
       });
 
-      console.log("Form validation result:", isValid);
-
       if (!isValid) return;
 
       const formData = { email };
-      console.log("Prepared form data for submission:", formData);
       const submitBtn  = container.querySelector(SELECTORS.submitButton);
-      console.log("Found submit button:", submitBtn);
       const loadingEl  = submitBtn?.querySelector(SELECTORS.loadingMessage);
-      console.log("Found loading element:", loadingEl);
       const rolltextEl = submitBtn?.querySelector(SELECTORS.rolltext);
-      console.log("Found rolltext element:", rolltextEl);   
 
       // show loading state
       if (submitBtn) {

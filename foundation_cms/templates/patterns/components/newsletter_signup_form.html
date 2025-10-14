@@ -1,6 +1,6 @@
 {% load static i18n l10n %}
 
-<div class="newsletter-signup" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
+<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
 
   <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
     {% trans "Something went wrong and your signup wasn't completed. Please try again later." %}
@@ -45,8 +45,6 @@
               <option value="en">English</option>
             </select>
           </div>
-
-        {% endif %}
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
           <label>

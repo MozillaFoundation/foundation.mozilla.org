@@ -5,7 +5,7 @@ import { COUNTRY_OPTIONS } from "./data/country-options.js";
  * CSS selectors used to locate key DOM elements in the newsletter signup component.
  */
 const SELECTORS = {
-  container: ".newsletter-signup",
+  container: ".newsletter-signup__container",
   form: ".newsletter-signup__form",
   emailInput: "input[name='email']",
   countryInput: "select[name='country']",
@@ -37,7 +37,7 @@ const CLASSNAMES = {
  *
  * @param {string} signupUrl - The API URL to send the signup data to.
  * @param {Object} formData - An object containing email, country, and language values.
- * @returns {Promise<{ok: boolean, redirect?: string}>}
+ * @returns {Promise<boolean>} Resolves to `true` if submission is successful, otherwise `false`.
  */
 async function submitDataToApi(signupUrl, formData) {
   const payload = {
@@ -57,21 +57,17 @@ async function submitDataToApi(signupUrl, formData) {
       body: JSON.stringify(payload),
     });
 
-    let body = {};
-    try { body = await res.json(); } catch { /* non-JSON */ }
-
-    return {
-      ok: res.status === 201 || res.ok || body.status === "ok",
-      redirect: body.redirect,
-    };
-  } catch (_err) {
-    // always return an object so callers can safely read .ok / .redirect
-    return { ok: false };
+    return res.status === 201;
+  } catch (err) {
+    return false;
   }
 }
 
 /**
  * Populates a <select> element with provided options.
+ *
+ * @param {HTMLSelectElement} selectEl - The select element to populate.
+ * @param {Array<{value: string, label: string}>} options - An array of option objects.
  */
 function populateSelectOptions(selectEl, options) {
   selectEl.innerHTML = "";
@@ -85,6 +81,10 @@ function populateSelectOptions(selectEl, options) {
 
 /**
  * Applies layout behavior to reveal additional fields either on focus or immediately.
+ *
+ * @param {HTMLFormElement} form - The form element containing the fields.
+ * @param {string} layout - The layout type ('default' or 'expanded').
+ * @param {HTMLInputElement} emailInput - The email input field that triggers expansion.
  */
 function applyLayoutBehavior(form, layout, emailInput) {
   const expandableFields = form.querySelectorAll(SELECTORS.expandableField);
@@ -104,6 +104,12 @@ function applyLayoutBehavior(form, layout, emailInput) {
 
 /**
  * Validates the newsletter signup form inputs.
+ *
+ * @param {string} email - The email address to validate.
+ * @param {boolean} privacyChecked - Whether the privacy checkbox is checked.
+ * @param {HTMLElement} emailErrorMessage - Element to show if email is invalid.
+ * @param {HTMLElement} privacyErrorMessage - Element to show if privacy is unchecked.
+ * @returns {boolean} `true` if form is valid, otherwise `false`.
  */
 function validateForm({
   email,
@@ -129,6 +135,8 @@ function validateForm({
 
 /**
  * Injects newsletter signup form behavior into all instances on the page.
+ *
+ * @param {string} foundationSiteURL - The base URL of the site, used to construct the API endpoint.
  */
 export default function injectNewsletterSignups(foundationSiteURL) {
   const formContainers = document.querySelectorAll(SELECTORS.container);
@@ -136,12 +144,14 @@ export default function injectNewsletterSignups(foundationSiteURL) {
   formContainers.forEach((container) => {
     const form = container.querySelector(SELECTORS.form);
     const emailInput = form.querySelector(SELECTORS.emailInput);
-    const countryInput = form.querySelector(SELECTORS.countryInput);     // may be null for unsubscribe
-    const languageInput = form.querySelector(SELECTORS.languageInput);   // may be null for unsubscribe
+    const countryInput = form.querySelector(SELECTORS.countryInput);
+    const languageInput = form.querySelector(SELECTORS.languageInput);
     const privacyCheckbox = form.querySelector(SELECTORS.privacyCheckbox);
 
     const emailErrorMessage = form.querySelector(SELECTORS.emailErrorMessage);
-    const privacyErrorMessage = form.querySelector(SELECTORS.privacyErrorMessage);
+    const privacyErrorMessage = form.querySelector(
+      SELECTORS.privacyErrorMessage,
+    );
     const successMessage = container.querySelector(SELECTORS.successMessage);
     const errorMessage = container.querySelector(SELECTORS.errorMessage);
 
@@ -149,9 +159,8 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     const layout = container.dataset.layout;
     const signupUrl = `${foundationSiteURL}/newsletter-signup/${signupId}/`;
 
-    // ✅ Only populate selects if they exist in this variant
-    if (languageInput) populateSelectOptions(languageInput, LANGUAGE_OPTIONS);
-    if (countryInput)  populateSelectOptions(countryInput, COUNTRY_OPTIONS);
+    populateSelectOptions(languageInput, LANGUAGE_OPTIONS);
+    populateSelectOptions(countryInput, COUNTRY_OPTIONS);
 
     applyLayoutBehavior(form, layout, emailInput);
 
@@ -159,8 +168,8 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       e.preventDefault();
 
       const email = emailInput.value.trim();
-      const country = countryInput?.value || "";     // safe when null
-      const language = languageInput?.value || "";   // safe when null
+      const country = countryInput?.value || "";
+      const language = languageInput?.value || "";
       const privacyChecked = privacyCheckbox?.checked || false;
 
       const isValid = validateForm({
@@ -185,30 +194,15 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       if (loadingEl) loadingEl.style.display = "inline";
       if (rolltextEl) rolltextEl.style.display = "none";
 
-      submitDataToApi(signupUrl, formData)
-        .then((result) => {
-          // follow server-directed redirect if present
-          if (result && result.redirect) {
-            window.location.assign(result.redirect);
-            return;
-          }
 
-          if (result && result.ok) {
-            form.classList.add(CLASSNAMES.formHidden);
-            successMessage?.classList.remove(CLASSNAMES.successHidden);
-          } else {
-            errorMessage?.classList.remove(CLASSNAMES.errorHidden);
-          }
-        })
-        .finally(() => {
-          // restore button state
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.removeAttribute("aria-busy");
-          }
-          if (loadingEl) loadingEl.style.display = "none";
-          if (rolltextEl) rolltextEl.style.display = "";
-        });
+      submitDataToApi(signupUrl, formData).then((success) => {
+        if (success) {
+          form.classList.add(CLASSNAMES.formHidden);
+          successMessage?.classList.remove(CLASSNAMES.successHidden);
+        } else {
+          errorMessage?.classList.remove(CLASSNAMES.errorHidden);
+        }
+      });
     });
   });
 }
