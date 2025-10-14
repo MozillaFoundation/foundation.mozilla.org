@@ -87,3 +87,4 @@ jobs:
         run: yarn workspace legacy percy
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_REPOSITORY_SLUG: "MozillaFoundation/foundation.mozilla.org"
