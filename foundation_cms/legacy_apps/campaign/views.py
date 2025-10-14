@@ -89,6 +89,11 @@ def signup_submission(request, signup):
         "last_name": rq.get("surname", ""),
     }
 
+    # add the campaign id to this payload, if there is one.
+    cid = signup.campaign_id
+    if cid is not None and cid != "":
+        data["campaign_id"] = cid
+
     newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
 
     if newsletter_signup_method == "BASKET":
