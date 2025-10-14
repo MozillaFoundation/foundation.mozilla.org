@@ -225,4 +225,12 @@ body.nothing-personal.nothing-personal-article-page {
       color(orange, "600")
     );
   }
+
+  .cell.medium-7 {
+    &:has(.media-block--widescreen) {
+      @include breakpoint(medium up) {
+        width: 100%;
+      }
+    }
+  }
 }
