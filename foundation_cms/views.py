@@ -171,15 +171,12 @@ def subscribe_to_camo_newsletter(data):
     newsletter = data.pop("newsletters", None)
     endpoint_url = f"{settings.CAMO_NEWSLETTER_ENDPOINT}/{newsletter}"
 
-    print("Subscribing using direct POST")
     resp = requests.post(
         endpoint_url,
         json=data,
         timeout=8,
         headers={"Content-Type": "application/json"},
     )
-    print(resp.status_code)
-    print(resp.json())
 
     if resp.status_code == 200:
         return JsonResponse(data, status=status.HTTP_201_CREATED)
@@ -206,9 +203,6 @@ def newsletter_unsubscribe_view(request):
         json={"email": email, "unsubscribe_all": True},
         headers={"X-API-Key": settings.CAMO_ENDPOINT_KEY},
     )
-
-    print(unsubscribe_request.status_code)
-    print(unsubscribe_request.json())
 
     if unsubscribe_request.status_code == 200:
         return JsonResponse(
