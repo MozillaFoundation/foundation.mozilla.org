@@ -19,153 +19,7 @@ If there are any updates to this form (which is unlikely), please follow the ins
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="referrer" content="no-referrer-when-downgrade">
 <!-- THIS SCRIPT NEEDS TO BE LOADED FIRST BEFORE wforms.js -->
-<script nonce="{{ request.csp_nonce }}" type="text/javascript" data-for="FA__DOMContentLoadedEventDispatch" src="https://mozillafoundation.tfaforms.net/js/FA__DOMContentLoadedEventDispatcher.js" defer></script>
-<style>
-    .captcha {
-        padding-bottom: 1em !important;
-    }
-    .wForm .captcha .oneField {
-        margin: 0;
-        padding: 0;
-    }
-</style>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}">
-                // initialize our variables
-    var captchaReady = 0;
-    var wFORMSReady = 0;
-    var isConditionalSubmitEnabled = false;
-
-                // when wForms is loaded call this
-    var wformsReadyCallback = function () {
-                    // using this var to denote if wForms is loaded
-        wFORMSReady = 1;
-        isConditionalSubmitEnabled = document.getElementById('submit_button').hasAttribute('data-condition');
-                    // call our recaptcha function which is dependent on both
-                    // wForms and an async call to google
-                    // note the meat of this function wont fire until both
-                    // wFORMSReady = 1 and captchaReady = 1
-        onloadCallback();
-    }
-    var gCaptchaReadyCallback = function() {
-                    // using this var to denote if captcha is loaded
-        captchaReady = 1;
-        isConditionalSubmitEnabled = document.getElementById('submit_button').hasAttribute('data-condition');
-                    // call our recaptcha function which is dependent on both
-                    // wForms and an async call to google
-                    // note the meat of this function wont fire until both
-                    // wFORMSReady = 1 and captchaReady = 1
-        onloadCallback();
-    };
-
-                // add event listener to fire when wForms is fully loaded
-    document.addEventListener("wFORMSLoaded", wformsReadyCallback);
-
-    var enableSubmitButton = function() {
-        var submitButton = document.getElementById('submit_button');
-        var explanation = document.getElementById('disabled-explanation');
-        var isConditionalSubmitConditionMet = wFORMS.behaviors.condition.isConditionalSubmitConditionMet;
-        if (
-            submitButton != null &&
-            (isConditionalSubmitEnabled && isConditionalSubmitConditionMet) ||
-            !isConditionalSubmitEnabled
-        )
-        {
-            submitButton.removeAttribute('disabled');
-            if (explanation != null) {
-                explanation.style.display = 'none';
-            }
-        }
-    };
-    var disableSubmitButton = function() {
-        var submitButton = document.getElementById('submit_button');
-        var explanation = document.getElementById('disabled-explanation');
-        if (submitButton != null) {
-            submitButton.disabled = true;
-            if (explanation != null) {
-                explanation.style.display = 'block';
-            }
-        }
-    };
-
-                // call this on both captcha async complete and wforms fully
-                // initialized since we can't be sure which will complete first
-                // and we need both done for this to function just check that they are
-                // done to fire the functionality
-    var onloadCallback = function () {
-                    // if our captcha is ready (async call completed)
-                    // and wFORMS is completely loaded then we are ready to add
-                    // the captcha to the page
-        if (captchaReady && wFORMSReady) {
-            grecaptcha.enterprise.render('g-recaptcha-render-div', {
-                'sitekey': '6LfMg_EaAAAAAMhDNLMlgqDChzmtYHlx1yU2y7GI',
-                'theme': 'light',
-                'size': 'normal',
-                'callback': 'enableSubmitButton',
-                'expired-callback': 'disableSubmitButton'
-            })
-            var oldRecaptchaCheck = parseInt('1');
-            if (oldRecaptchaCheck === -1) {
-                var standardCaptcha = document.getElementById("tfa_captcha_text");
-                standardCaptcha = standardCaptcha.parentNode.parentNode.parentNode;
-                standardCaptcha.parentNode.removeChild(standardCaptcha);
-            }
-
-            if (!wFORMS.instances['paging']) {
-                document.getElementById("g-recaptcha-render-div").parentNode.parentNode.parentNode.style.display = "block";
-                            //document.getElementById("g-recaptcha-render-div").parentNode.parentNode.parentNode.removeAttribute("hidden");
-            }
-            document.getElementById("g-recaptcha-render-div").getAttributeNode('id').value = 'tfa_captcha_text';
-
-            var captchaError = '';
-            if (captchaError == '1') {
-                var errMsgText = 'The CAPTCHA was not completed successfully.';
-                var errMsgDiv = document.createElement('div');
-                errMsgDiv.id = "tfa_captcha_text-E";
-                errMsgDiv.className = "err errMsg";
-                errMsgDiv.innerText = errMsgText;
-                var loc = document.querySelector('.g-captcha-error');
-                loc.insertBefore(errMsgDiv, loc.childNodes[0]);
-
-                            /* See wFORMS.behaviors.paging.applyTo for origin of this code */
-                if (wFORMS.instances['paging']) {
-                    var b = wFORMS.instances['paging'][0];
-                    var pp = base2.DOM.Element.querySelector(document, wFORMS.behaviors.paging.CAPTCHA_ERROR);
-                    if (pp) {
-                        var lastPage = 1;
-                        for (var i = 1; i < 100; i++) {
-                            if (b.behavior.isLastPageIndex(i)) {
-                                lastPage = i;
-                                break;
-                            }
-                        }
-                        b.jumpTo(lastPage);
-                    }
-                }
-            }
-        }
-    }
-</script>
-<script src='https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl={{ LANGUAGE_CODE }}' nonce="{{ request.csp_nonce }}" async
-        defer></script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}">
-    document.addEventListener("DOMContentLoaded", function() {
-        var warning = document.getElementById("javascript-warning");
-        if (warning != null) {
-            warning.parentNode.removeChild(warning);
-        }
-        var oldRecaptchaCheck = parseInt('1');
-        if (oldRecaptchaCheck !== -1) {
-            var explanation = document.getElementById('disabled-explanation');
-            var submitButton = document.getElementById('submit_button');
-            if (submitButton != null) {
-                submitButton.disabled = true;
-                if (explanation != null) {
-                    explanation.style.display = 'block';
-                }
-            }
-        }
-    });
-</script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" data-for="FA__DOMContentLoadedEventDispatch" src="https://mozillafoundation.tfaforms.net/js/FA__DOMContentLoadedEventDispatcher.js" defer></script>
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     document.addEventListener("FA__DOMContentLoaded", function(){
         const FORM_TIME_START = Math.floor((new Date).getTime()/1000);
@@ -202,12 +56,24 @@ If there are any updates to this form (which is unlikely), please follow the ins
     });
 </script>
 
-<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98" rel="stylesheet" type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=b728b5289de57a6909816b7c620c867342b20ec5" rel="stylesheet" type="text/css" />
 
-<link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-27.css" rel="stylesheet" type="text/css" />
-<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
+<link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-23.css" rel="stylesheet" type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=b728b5289de57a6909816b7c620c867342b20ec5" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=b728b5289de57a6909816b7c620c867342b20ec5"></script>
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     wFORMS.behaviors.prefill.skip = false;
 </script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=910ede8cddaa51d331c5781cd8fc809dbb1cdd98"></script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=b728b5289de57a6909816b7c620c867342b20ec5"></script>
+
+<script type="text/javascript" nonce="{{ request.csp_nonce }}">
+    // [TO FIX]
+    // hot fix for source url bug on petition form
+    // see GitHub ticket: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10901
+    document.addEventListener("DOMContentLoaded", () => {
+        let sourceUrlField = document.querySelector(".wFormContainer #tfa_498");
+        if (sourceUrlField) {
+            sourceUrlField.value = decodeURIComponent(document.URL);
+        }
+    });
+</script>
