@@ -234,6 +234,13 @@ body.nothing-personal.nothing-personal-product-review-page {
     }
   }
 
+  .product-review-section a {
+    @include link-text-color(
+      map.get($mofo-colors, black),
+      color(orange, "600")
+    );
+  }
+
   .products-mentioned {
     &__heading {
       @include mofo-text-style($header-styles, "h6", $header-font-family);

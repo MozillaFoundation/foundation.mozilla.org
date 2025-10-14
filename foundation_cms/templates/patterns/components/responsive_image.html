@@ -3,7 +3,9 @@
          width="{{ image.width }}"
          height="{{ image.height }}"
          alt="{{ image.title }}"
-         class="{{ classnames }}"
+         {% if classnames %}
+             class="{{ classnames }}"
+         {% endif %}
          loading="lazy">
 {% elif renditions %}
     <img src="{{ primary_rendition.url }}"
@@ -12,6 +14,8 @@
          width="{{ primary_rendition.width }}"
          height="{{ primary_rendition.height }}"
          alt="{{ primary_rendition.alt }}"
-         class="{{ classnames }}"
+         {% if classnames %}
+             class="{{ classnames }}"
+         {% endif %}
          loading="lazy">
 {% endif %}
