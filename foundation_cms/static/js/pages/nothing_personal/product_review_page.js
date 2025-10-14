@@ -16,10 +16,10 @@ function initProductReviewMetaToggle() {
 
       // Toggle with grow animation using maxheight + scrollHeight
       if (targetElement.classList.contains("is-active")) {
-        link.textContent = link.getAttribute("data-text-less");
+        link.textContent = gettext("Less details -");
         targetElement.style.maxHeight = targetElement.scrollHeight + "px";
       } else {
-        link.textContent = link.getAttribute("data-text-more");
+        link.textContent = gettext("More details +");
         targetElement.style.maxHeight = null;
       }
     });
