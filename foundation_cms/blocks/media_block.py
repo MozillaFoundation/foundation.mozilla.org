@@ -43,6 +43,7 @@ class CustomMediaBlock(BaseBlock):
             ("portrait", "Portrait"),
             ("landscape", "Landscape"),
             ("square", "Square"),
+            ("widescreen", "Widescreen 16:9 (12 columns wide)"),
         ],
         default="landscape",
         help_text="Select the orientation of this media",
