@@ -16,11 +16,12 @@
 {% block content %}
   <div class="grid-container">
     <div class="topic-info">
-      {% blocktrans count counter=total_pages_count with topic_name=topic.name trimmed %}
-        Showing {{ total_pages_count }} result for: <h1>{{ topic_name }}</h1>
+      {% blocktrans count counter=total_pages_count trimmed %}
+        Showing {{ total_pages_count }} result for:
       {% plural %}
-        Showing {{ total_pages_count }} results for: <h1>{{ topic_name }}</h1>
+        Showing {{ total_pages_count }} results for:
       {% endblocktrans %}
+      <h1>{{ topic.name }}</h1>
     </div>
 
   </div>
