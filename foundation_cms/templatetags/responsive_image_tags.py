@@ -71,31 +71,35 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
     except (ValueError, IndexError) as e:
         raise ValueError(f"Error parsing ratio '{ratio}': {str(e)}")
 
-    # Calculate dimensions and generate renditions
-    multipliers = [1, 1.5, 2, 3]
-    renditions = []
-
-    for mult in multipliers:
-        width = int(base_width * mult)
-        height = int(width * height_ratio / width_ratio)
-
-        rendition = image.get_rendition(f"fill-{width}x{height}")
-        renditions.append(
-            {
-                "rendition": rendition,
-                "width": width,
-            }
-        )
-
-    # Check if the image is WebP
+    # Check if the image is WebP first to avoid unnecessary rendition generation
     is_webp_image = (
         image.file.name.lower().endswith(".webp") if hasattr(image, "file") and hasattr(image.file, "name") else False
     )
 
-    # Use the second rendition (1.5x) as the primary/default src
+    # Only generate renditions for non-WebP images
+    renditions = []
+    if not is_webp_image:
+        # Calculate dimensions and generate renditions
+        multipliers = [1, 1.5, 2, 3]
+
+        for mult in multipliers:
+            width = int(base_width * mult)
+            height = int(width * height_ratio / width_ratio)
+
+            rendition = image.get_rendition(f"fill-{width}x{height}")
+            renditions.append(
+                {
+                    "rendition": rendition,
+                    "width": width,
+                }
+            )
+
+    # Use the second rendition (1.5x) as the primary/default src for non-WebP images
     # 1.5x provides good quality for most devices while keeping file size reasonable
     # The browser can still choose higher resolutions from srcset when needed
-    primary_rendition = renditions[1]["rendition"] if len(renditions) > 1 else renditions[0]["rendition"]
+    primary_rendition = None
+    if renditions:
+        primary_rendition = renditions[1]["rendition"] if len(renditions) > 1 else renditions[0]["rendition"]
 
     return {
         "renditions": renditions,

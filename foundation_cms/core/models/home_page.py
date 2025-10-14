@@ -58,6 +58,7 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
         total_pages_count = base_qs.count()
 
         # Separating child pages of the NothingPersonalHomePage from the original queryset.
+        # todo: Ensure this self reference extracts the correct page.
         np_pages = base_qs.child_of(self)
 
         # All other pages with this topic, excluding the above child pages.
