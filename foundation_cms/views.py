@@ -185,3 +185,43 @@ def subscribe_to_camo_newsletter(data):
         return JsonResponse(data, status=status.HTTP_201_CREATED)
 
     return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def newsletter_unsubscribe_view(request):
+    new_body = request.body.decode("utf-8")
+    print(new_body)
+    try:
+        data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse(
+            {
+                "error": "Could not validate incoming data",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # payload validation
+    email = data.get("email")
+    if email is None:
+        return JsonResponse(
+            {"error": "Signup requires an email address"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    unsubscribe_request = requests.post(
+        settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
+        json={"email": email, "unsubscribe_all": True},
+        headers={"X-API-Key": settings.EXISTING_NEWSLETTER_SUBSCRIPTION_CHECK_ENDPOINT_KEY},
+    )
+
+    print(unsubscribe_request.status_code)
+    print(unsubscribe_request.json())
+
+    if unsubscribe_request.status_code == 200:
+        return JsonResponse(
+            {"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL}, status=status.HTTP_200_OK
+        )
+    else:
+        return JsonResponse({email: "test"}, status=status.HTTP_400_BAD_REQUEST)
