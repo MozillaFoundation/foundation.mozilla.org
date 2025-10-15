@@ -78,9 +78,14 @@ def register_donate_banner_link_click_event_type():
     }
 
 
-@hooks.register("construct_notification_recipients_for_revision")
-def custom_notification_recipients(revision, notification, recipients):
+@hooks.register("construct_notification_recipients")
+def custom_notification_recipients(recipients, notification, context):
     """
     Hook that filters recipients respecting user preferences and configuration.
     """
+    revision = context.get("revision")
+
+    if not revision:
+        return recipients
+
     return filter_notification_recipients(revision, notification, recipients)
