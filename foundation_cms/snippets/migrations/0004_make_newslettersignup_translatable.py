@@ -3,28 +3,27 @@ import uuid
 
 import django.db.models.deletion
 from django.db import migrations, models
-from wagtail.models import Locale
 
 
 def backfill_newslettersignup_locale_and_key(apps, schema_editor):
     NewsletterSignup = apps.get_model("snippets", "NewsletterSignup")
-
-    default_locale = Locale.get_default()
+    Locale = apps.get_model("wagtailcore", "Locale")
+    default_locale = Locale.objects.filter(id=1).first()
 
     # Assign a new unique translation key to every existing newsletter signup, and set the Locale to the default locale. (English)
     # This avoids the error "DETAIL: Key (translation_key, locale_id)=(<UUID>, 1) is duplicated.",
     # that occurs if we try to set this through django's migrations helper.
-    for obj in NewsletterSignup.objects.all().only("id", "translation_key", "locale_id").iterator():
+    for signup in NewsletterSignup.objects.all():
         changed_fields = []
-        obj.translation_key = uuid.uuid4()
+        signup.translation_key = uuid.uuid4()
         changed_fields.append("translation_key")
 
-        if obj.locale_id is None:
-            obj.locale = default_locale
+        if signup.locale_id is None:
+            signup.locale = default_locale
             changed_fields.append("locale")
 
         if changed_fields:
-            obj.save(update_fields=changed_fields)
+            signup.save(update_fields=changed_fields)
 
 
 class Migration(migrations.Migration):
