@@ -6,11 +6,12 @@ from foundation_cms.base.models.abstract_base_page import (
     AbstractBasePage,
     base_page_block_options,
 )
-from foundation_cms.blocks.callout_block import CalloutBlock
+from foundation_cms.blocks import CalloutBlock, CustomMediaBlock
 
 # Article page-specific blocks that extend the base blocks
 article_page_block_options = base_page_block_options + [
     ("callout", CalloutBlock()),
+    ("custom_media", CustomMediaBlock()),
 ]
 
 

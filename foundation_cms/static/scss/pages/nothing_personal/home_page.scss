@@ -40,7 +40,7 @@ body.nothing-personal-home-page {
     margin-bottom: rem-calc(41);
 
     @include breakpoint(large up) {
-      margin-bottom: rem-calc(52);
+      margin-bottom: 4rem;
     }
 
     a {
@@ -53,7 +53,9 @@ body.nothing-personal-home-page {
       img {
         display: block;
         width: 100%;
+        height: 100%;
         object-fit: cover;
+        object-position: center;
       }
     }
 
@@ -64,10 +66,17 @@ body.nothing-personal-home-page {
     }
 
     &__media {
-      aspect-ratio: math.div(1, 1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+
+      &--square {
+        aspect-ratio: math.div(1, 1);
+      }
+
+      &--landscape {
+        aspect-ratio: math.div(16, 9);
+      }
 
       img,
       video {
@@ -131,10 +140,6 @@ body.nothing-personal-home-page {
     justify-content: center;
     gap: 2rem 0;
     margin-bottom: 4rem;
-
-    @include breakpoint(large up) {
-      margin-bottom: 9rem;
-    }
   }
 
   .featured-item {
@@ -151,6 +156,8 @@ body.nothing-personal-home-page {
       img {
         object-fit: cover;
         width: 100%;
+        height: 100%;
+        object-position: center;
       }
 
       video {
@@ -161,6 +168,18 @@ body.nothing-personal-home-page {
       img,
       video {
         transition: transform 0.5s ease;
+      }
+    }
+
+    &__picture {
+      display: contents;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
     }
 
@@ -201,7 +220,7 @@ body.nothing-personal-home-page {
     padding-bottom: 20vh;
 
     @include breakpoint(large up) {
-      min-height: 100vh;
+      min-height: min(100vh, 60rem);
       padding-bottom: 0;
     }
   }

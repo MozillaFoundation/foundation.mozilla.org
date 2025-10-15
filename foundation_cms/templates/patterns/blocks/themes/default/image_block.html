@@ -1,12 +1,8 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags responsive_image_tags %}
 {% if value.orientation %}
     <div class="image-block image-block--{{ value.orientation }}">
-        {% image value.image width-600 as img %}
-        <img src="{{ img.url }}"
-             alt="{{ img.alt }}"
-             height="{{ img.height }}"
-             width="{{ img.width }}"
-             class="image-block__image">
+        {% orientation_to_ratio value.orientation as ratio %}
+        {% responsive_image value.image ratio=ratio classnames="image-block__image" base_width=600 %}
         {% if value.title %}<p class="image-block__title">{{ value.title }}</p>{% endif %}
     </div>
 {% endif %}
