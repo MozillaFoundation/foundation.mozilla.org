@@ -40,7 +40,7 @@ body.nothing-personal-home-page {
     margin-bottom: rem-calc(41);
 
     @include breakpoint(large up) {
-      margin-bottom: rem-calc(48);
+      margin-bottom: 4rem;
     }
 
     a {
