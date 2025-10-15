@@ -84,6 +84,9 @@ jobs:
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
       - name: Percy Test
-        run: yarn workspace legacy percy
+        timeout-minutes: 10
+        run: |
+          yarn workspace legacy percy
+          echo "Percy exit code: $?"
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
