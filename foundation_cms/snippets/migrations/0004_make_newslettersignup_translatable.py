@@ -56,16 +56,18 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="newslettersignup",
             name="translation_key",
-            field=models.UUIDField(editable=False, db_index=True, null=False),
+            field=models.UUIDField(default=uuid.uuid4, null=False, editable=False),
         ),
         migrations.AlterField(
             model_name="newslettersignup",
             name="locale",
             field=models.ForeignKey(
-                to="wagtailcore.locale",
+                editable=False,
+                null=False,
                 on_delete=django.db.models.deletion.PROTECT,
                 related_name="+",
-                null=False,
+                to="wagtailcore.locale",
+                verbose_name="locale",
             ),
         ),
         # 4) Add the uniqueness constraint required by TranslatableMixin
