@@ -4,31 +4,27 @@
 {% comment %}
 *** IMPORTANT ***
 
-The code below has been copied directly over from FormAssembly. 
-
 Please follow the steps below every time after you paste a new version of FormAssembly code.
 
 1. Replace everything starting from <!-- FORM: HEAD SECTION -->
 
 2. Run `inv format-html` in terminal
 
-3. Add nonce="{{ csp_nonce }}" to all script tags in this file
-
-4. Get localization working again.
+3. Get localization working again.
     - Update script file name https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=...
         with {% fa_locale_code %}
         e.g., https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=...
-    - Update script file name https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl=en_US...
-        with {{ LANGUAGE_CODE }}
-        e.g., https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl={{ LANGUAGE_CODE }}...
     - Go to formassembly_body.html and make sure everything has been updated according to the instructions
 
-5. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/12
+4. Until we find a better solution, remember to include hot fix for source url field like what we did in https://github.com/MozillaFoundation/foundation.mozilla.org/pull/10902
 
-The code snippet below is based on FormAssembly form revision #46
+5. Add nonce="{{ request.csp_nonce }}" to all <script> tags in this file
+
+6. Update the revision note on the next line. Revision number can be found on https://mozillafoundation.tfaforms.net/versions/index/9
+
+The code snippet below is based on FormAssembly form revision #32
 
 {% endcomment %}
-endcomment %}
 
 <!-- FORM: HEAD SECTION -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -71,15 +67,15 @@ endcomment %}
     });
 </script>
 
-<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=b728b5289de57a6909816b7c620c867342b20ec5" rel="stylesheet" type="text/css" />
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-layout.css?v=127d5d34f78f067204f2463a3699a1688fbf2ca7" rel="stylesheet" type="text/css" />
 
 <link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-23.css" rel="stylesheet" type="text/css" />
-<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=b728b5289de57a6909816b7c620c867342b20ec5" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=b728b5289de57a6909816b7c620c867342b20ec5"></script>
+<link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=127d5d34f78f067204f2463a3699a1688fbf2ca7" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     wFORMS.behaviors.prefill.skip = false;
 </script>
-<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=b728b5289de57a6909816b7c620c867342b20ec5"></script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=127d5d34f78f067204f2463a3699a1688fbf2ca7"></script>
 
 <script type="text/javascript" nonce="{{ request.csp_nonce }}">
     // [TO FIX]
