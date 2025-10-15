@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("nothing_personal", "0028_nothingpersonalhomepage_hero_item_and_more"),
+        ("nothing_personal", "0029_alter_nothingpersonalarticlecollectionpage_body_and_more"),
     ]
 
     operations = [
