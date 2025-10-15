@@ -83,9 +83,7 @@ jobs:
           python ./manage.py block_inventory
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
-      # TODO: Percy is currently experiencing "stuck processing" issues
-      # Re-enable this step once the issues are fixed
-      # - name: Percy Test
-      #   run: yarn workspace legacy percy
-      #   env:
-      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      - name: Percy Test
+        run: yarn workspace legacy percy
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
