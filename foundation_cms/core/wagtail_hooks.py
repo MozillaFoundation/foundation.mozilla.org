@@ -5,6 +5,8 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail_ab_testing.events import BaseEvent
 
+from foundation_cms.core.notifications import filter_notification_recipients
+
 
 # Extended rich text features for our site
 @hooks.register("register_rich_text_features")
@@ -74,3 +76,11 @@ def register_donate_banner_link_click_event_type():
     return {
         "donate-banner-link-click": DonateBannerLinkClick,
     }
+
+
+@hooks.register("construct_notification_recipients_for_revision")
+def custom_notification_recipients(revision, notification, recipients):
+    """
+    Hook that filters recipients respecting user preferences and configuration.
+    """
+    return filter_notification_recipients(revision, notification, recipients)
