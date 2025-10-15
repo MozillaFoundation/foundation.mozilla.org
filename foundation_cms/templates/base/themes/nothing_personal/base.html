@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load static i18n l10n %}
+{% load static i18n l10n nothing_personal_tags %}
 
 {% block extra_css %}
 {% endblock extra_css %}
@@ -8,7 +8,14 @@
 
 {% block pre_content %}
     <div class="precontent brand-banner" role="banner">
-        <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="{% trans "Nothing Personal by Mozilla Foundation Logo" %}" width="130" height="99" />
+        {% nothing_personal_homepage_url as np_url %}
+        {% if np_url %}
+            <a href="{{ np_url }}">
+                <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="{% trans "Nothing Personal by Mozilla Foundation Logo" %}" width="130" height="99" />
+            </a>
+        {% else %}
+            <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="{% trans "Nothing Personal by Mozilla Foundation Logo" %}" width="130" height="99" />
+        {% endif %}
     </div>
 {% endblock pre_content %}
 

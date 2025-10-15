@@ -1,18 +1,26 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags responsive_image_tags %}
 {% if value.orientation %}
     <div class="media-block media-block--{{ value.orientation }}">
         {% if link %}
             <a href="{{ link.0.url }}" class="media-block__link" {% if link.0.target %} target="{{ link.0.target }}"{% endif %}>
         {% endif %}
         {% if value.content == "image" and value.image %}
-            {% image value.image width-600 as img_1x %}
-            {% image value.image width-1200 as img_2x %}
-            <img src="{{ img_1x.url }}"
-                 srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
-                 alt="{{ img_1x.alt }}"
-                 height="{{ img_1x.height }}"
-                 width="{{ img_1x.width }}"
-                 class="media-block__image">
+            {% if value.image|is_webp %}
+                <img src="{{ value.image.file.url }}"
+                     alt="{{ value.image.title }}"
+                     height="{{ value.image.height }}"
+                     width="{{ value.image.width }}"
+                     class="media-block__image">
+            {% else %}
+                {% image value.image width-1072 as img_1x %}
+                {% image value.image width-2144 as img_2x %}
+                <img src="{{ img_1x.url }}"
+                     srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
+                     alt="{{ img_1x.alt }}"
+                     height="{{ img_1x.height }}"
+                     width="{{ img_1x.width }}"
+                     class="media-block__image">
+            {% endif %}
 
         {% elif value.content == "video" and value.video_url %}
             <video class="media-block__video" playsinline="" muted="" loop="" preload="" autoplay>
