@@ -8,7 +8,9 @@
         {% for item in items %}
             <div class="content-card">
                 <a href="{% pageurl item %}" class="content-card__image-wrapper" style="--aspect-ratio: {% colon_to_slash image_ratio %}">
-                    {% if item.search_image %}
+                    {% if image_field == "hero_image" and item.hero_image %}
+                        {% responsive_image item.hero_image ratio=image_ratio %}
+                    {% elif item.search_image %}
                         {% responsive_image item.search_image ratio=image_ratio %}
                     {% endif %}
                 </a>
@@ -24,7 +26,7 @@
                     {% endwith %}
                 </div>
                 <div class="content-card__title"><a href="{% pageurl item %}">{{ item.title }}</a></div>
-                {% if item.author %}
+                {% if show_author != False and item.author %}
                     <div class="content-card__author-name">{% blocktrans with author=item.author.name %}By {{ author }}{% endblocktrans %}</div>
                 {% endif %}
             </div>
