@@ -209,4 +209,4 @@ def newsletter_unsubscribe_view(request):
             {"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL}, status=status.HTTP_200_OK
         )
     else:
-        return JsonResponse({email: "test"}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"error": "There was an error unsubscribing"}, status=status.HTTP_400_BAD_REQUEST)
