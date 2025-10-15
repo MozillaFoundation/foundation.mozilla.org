@@ -12,8 +12,8 @@
                      width="{{ value.image.width }}"
                      class="media-block__image">
             {% else %}
-                {% image value.image width-600 as img_1x %}
-                {% image value.image width-1200 as img_2x %}
+                {% image value.image width-1072 as img_1x %}
+                {% image value.image width-2144 as img_2x %}
                 <img src="{{ img_1x.url }}"
                      srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
                      alt="{{ img_1x.alt }}"

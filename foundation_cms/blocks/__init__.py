@@ -1,4 +1,5 @@
 from .base_card_block import BaseCardBlock
+from .callout_block import CalloutBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .hero_accordion import HeroAccordionBlock
@@ -41,6 +42,7 @@ from .video_block import VideoBlock
 __all__ = [
     "BaseCardBlock",
     "DividerBlock",
+    "CalloutBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
