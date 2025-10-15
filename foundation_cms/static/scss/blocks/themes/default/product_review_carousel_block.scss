@@ -25,11 +25,14 @@
   }
 
   margin: 0 0 2rem;
-  min-height: 100vh;
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @include breakpoint(large up) {
+    margin: 0 0 4rem;
+  }
 
   &__subtitle {
     @include mofo-text-style($label-text-styles, "regular");

@@ -220,7 +220,7 @@ body.nothing-personal-home-page {
     padding-bottom: 20vh;
 
     @include breakpoint(large up) {
-      min-height: 100vh;
+      min-height: min(100vh, 60rem);
       padding-bottom: 0;
     }
   }
