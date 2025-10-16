@@ -2,6 +2,7 @@ import json
 import logging
 
 import basket
+import requests
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
@@ -107,7 +108,7 @@ def newsletter_signup_submission_view(request, pk):
     return newsletter_signup_submission(request, signup)
 
 
-# handle Salesforce newsletter signup data
+# handle newsletter signup data
 def newsletter_signup_submission(request, signup):
     rq = request.data
 
@@ -126,12 +127,14 @@ def newsletter_signup_submission(request, signup):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    # rewrite payload for basket
+    newsletter = signup.newsletter.strip().lower()
+
+    # rewrite payload
     data = {
         "email": email,
         "format": "html",
         "source_url": source,
-        "newsletters": signup.newsletter,
+        "newsletters": newsletter,
         "lang": process_lang_code(rq.get("lang", "en")),
         "country": rq.get("country", ""),
         # Empty string instead of None due to Basket issues
@@ -139,15 +142,71 @@ def newsletter_signup_submission(request, signup):
         "last_name": "",
     }
 
+    newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
+
+    if newsletter_signup_method == "BASKET":
+        return subscribe_to_basket_newsletter(data)
+
+    else:
+        return subscribe_to_camo_newsletter(data)
+
+
+def subscribe_to_basket_newsletter(data):
     # Subscribing to newsletter using basket.
     # https://basket-client.readthedocs.io/en/latest/usage.html
     basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
-
     if data["country"] != "":
         basket_additional["country"] = data["country"]
 
     response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
+
     if response["status"] == "ok":
+        return JsonResponse(data, status=status.HTTP_201_CREATED)
+    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+def subscribe_to_camo_newsletter(data):
+    # New endpoint doesn't want "newsletters" in data.
+    # We can just tell it what newsletter to subscribe to based on the endpoint URL.
+    newsletter = data.pop("newsletters", None)
+    endpoint_url = f"{settings.CAMO_NEWSLETTER_ENDPOINT}/{newsletter}"
+
+    resp = requests.post(
+        endpoint_url,
+        json=data,
+        timeout=8,
+        headers={"Content-Type": "application/json"},
+    )
+
+    if resp.status_code == 200:
         return JsonResponse(data, status=status.HTTP_201_CREATED)
 
     return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def newsletter_unsubscribe_view(request):
+    new_body = request.body.decode("utf-8")
+    data = json.loads(new_body)
+
+    # payload validation
+    email = data.get("email")
+    if email is None:
+        return JsonResponse(
+            {"error": "Signup requires an email address"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    unsubscribe_request = requests.post(
+        settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
+        json={"email": email, "unsubscribe_all": True},
+        headers={"X-API-Key": settings.CAMO_ENDPOINT_KEY},
+    )
+
+    if unsubscribe_request.status_code == 200:
+        return JsonResponse(
+            {"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL}, status=status.HTTP_200_OK
+        )
+    else:
+        return JsonResponse({"error": "There was an error unsubscribing"}, status=status.HTTP_400_BAD_REQUEST)
