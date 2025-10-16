@@ -29,40 +29,40 @@
         console.log("Wagtail AB Testing script running");
         {
         // Read values from the DOM
-        const registerParticipantUrl = JSON.parse(document.getElementById('abtesting-register-participant-url').textContent);
-        const goalReachedUrl = JSON.parse(document.getElementById('abtesting-goal-reached-url').textContent);
+            const registerParticipantUrl = JSON.parse(document.getElementById('abtesting-register-participant-url').textContent);
+            const goalReachedUrl = JSON.parse(document.getElementById('abtesting-goal-reached-url').textContent);
 
-        window.wagtailAbTesting = {
-            urls :{
-                registerParticipant: registerParticipantUrl,
-                goalReached: goalReachedUrl
+            window.wagtailAbTesting = {
+                urls :{
+                    registerParticipant: registerParticipantUrl,
+                    goalReached: goalReachedUrl
+                }
+            };
+
+            if (document.getElementById('abtesting-page-id')) {
+                const pageId = JSON.parse(document.getElementById('abtesting-page-id').textContent);
+                window.wagtailAbTesting.pageId = pageId;
             }
-        };
 
-        if (document.getElementById('abtesting-page-id')) {
-            const pageId = JSON.parse(document.getElementById('abtesting-page-id').textContent);
-            window.wagtailAbTesting.pageId = pageId;
-        }
+            let testId = null;
+            let version = null;
 
-        let testId = null;
-        let version = null;
+            if (document.getElementById('abtesting-test-id')) {
+                testId = JSON.parse(document.getElementById('abtesting-test-id').textContent);
+            }
 
-        if (document.getElementById('abtesting-test-id')) {
-            testId = JSON.parse(document.getElementById('abtesting-test-id').textContent);
-        }
+            if (document.getElementById('abtesting-version')) {
+                version = JSON.parse(document.getElementById('abtesting-version').textContent);
+            }
 
-        if (document.getElementById('abtesting-version')) {
-            version = JSON.parse(document.getElementById('abtesting-version').textContent);
-        }
-
-        if (testId && version) {
-            const goalEvent = JSON.parse(document.getElementById('abtesting-goal-event').textContent);
-            const goalPageId = JSON.parse(document.getElementById('abtesting-goal-page-id').textContent);
-            window.wagtailAbTesting.testId = testId;
-            window.wagtailAbTesting.version = version;
-            window.wagtailAbTesting.goalEvent = goalEvent;
-            window.wagtailAbTesting.goalPageId = goalPageId;
-        }
+            if (testId && version) {
+                const goalEvent = JSON.parse(document.getElementById('abtesting-goal-event').textContent);
+                const goalPageId = JSON.parse(document.getElementById('abtesting-goal-page-id').textContent);
+                window.wagtailAbTesting.testId = testId;
+                window.wagtailAbTesting.version = version;
+                window.wagtailAbTesting.goalEvent = goalEvent;
+                window.wagtailAbTesting.goalPageId = goalPageId;
+            }
     </script>
 
     <script nonce="{{ request.csp_nonce }}" src="{% static 'wagtail_ab_testing/js/tracker.js' %}" defer async></script>
