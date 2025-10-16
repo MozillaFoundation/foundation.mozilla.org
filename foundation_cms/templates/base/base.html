@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,6 +74,8 @@
                 }
             };</script>
         {% endblock onetrust_script %}
+
+        {% wagtail_ab_testing_script %}
     </head>
 
     <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}">
@@ -97,7 +99,6 @@
         {% block pre_footer_banner %}{% endblock pre_footer_banner %}
         {% include "patterns/components/footer.html" %}
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
-        {% wagtail_ab_testing_script %}
         {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock extra_js %}
     </body>
 
