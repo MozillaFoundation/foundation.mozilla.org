@@ -29,10 +29,5 @@ class AbstractArticlePage(AbstractBasePage):
         # Universal Article content panels will go here
     ]
 
-    translatable_fields = AbstractBasePage.translatable_fields + [
-        # Content tab fields
-        TranslatableField("lede_text"),
-    ]
-
     class Meta:
         abstract = True
