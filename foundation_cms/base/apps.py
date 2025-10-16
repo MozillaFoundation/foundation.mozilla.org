@@ -6,4 +6,4 @@ class FoundationCMSConfig(AppConfig):
 
     def ready(self):
         # Import a patch for wagtail-localize image blocks
-        import foundation_cms.base.patches.wagtail_localize_image_block
+        import foundation_cms.base.patches.wagtail_localize_image_block  # noqa: F401
