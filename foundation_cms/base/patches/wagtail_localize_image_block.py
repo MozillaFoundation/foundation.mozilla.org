@@ -1,5 +1,5 @@
-from wagtail_localize.segments.extract import StreamFieldSegmentExtractor
 from wagtail import blocks
+from wagtail_localize.segments.extract import StreamFieldSegmentExtractor
 
 
 def safe_handle_image_block(self, block, image_block_value, raw_value=None):
