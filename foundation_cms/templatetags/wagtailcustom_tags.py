@@ -1,6 +1,7 @@
 from wagtail_ab_testing.models import AbTest
 from wagtail_ab_testing.utils import request_is_trackable
 
+
 @register.inclusion_tag("wagtail_ab_testing/script.html", takes_context=True)
 def wagtail_ab_testing_script(context):
     request = context["request"]
