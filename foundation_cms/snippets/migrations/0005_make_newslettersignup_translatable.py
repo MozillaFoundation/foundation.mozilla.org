@@ -29,7 +29,7 @@ def backfill_newslettersignup_locale_and_key(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("snippets", "0003_newsletter_add_cta_description_and_rename_cta_text"),
+        ("snippets", "0004_newsletterunsubscribe"),
     ]
 
     operations = [
