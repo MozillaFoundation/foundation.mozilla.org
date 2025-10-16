@@ -10,12 +10,13 @@
   }
 
   &__card-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 
     @include breakpoint(medium up) {
-      flex-flow: row wrap;
-      gap: 1rem;
+      grid-template-columns: repeat(var(--items-per-row, 2), 1fr);
+      gap: 2rem;
     }
   }
 }
@@ -30,7 +31,7 @@
   &__image-wrapper {
     width: 100%;
     display: block;
-    aspect-ratio: math.div(3, 2);
+    aspect-ratio: var(--aspect-ratio, math.div(3, 2));
     background-color: color(neutral, "200");
     margin: 0 0 rem-calc(8);
     overflow: hidden;
@@ -45,11 +46,11 @@
       object-fit: cover;
       transition: transform 0.5s ease;
     }
-  }
 
-  &:hover {
-    img {
-      transform: scale($image-hover-scale);
+    &:hover {
+      img {
+        transform: scale($image-hover-scale);
+      }
     }
   }
 

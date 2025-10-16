@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -15,11 +15,7 @@ from foundation_cms.blocks import (
 )
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.mixins.hero_image import HeroImageMixin
-from foundation_cms.utils import (
-    get_default_locale,
-    get_related_items,
-    localize_queryset,
-)
+from foundation_cms.utils import get_related_items, localize_queryset
 
 
 class ProductMentioned(Orderable):
@@ -54,7 +50,12 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     body = None
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")
-    research = models.CharField(max_length=255, null=True, blank=True, help_text="Amount of time spent on research.")
+    hours_tested = models.CharField(
+        max_length=255, null=True, blank=True, help_text="Number of hours tested (e.g. '20')"
+    )
+    type_of_testing = models.CharField(max_length=255, null=True, blank=True, help_text="Type of testing")
+    byline = models.CharField(max_length=100, null=True, blank=True, help_text="Byline")
+    who_am_i = RichTextField(blank=True, help_text="Who am I? (rich text)")
     scoring = models.CharField(max_length=255, null=True, blank=True, help_text="Plain text field for product scoring")
 
     what_you_should_know_section = StreamField(
@@ -104,7 +105,10 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             [
                 FieldPanel("updated"),
                 FieldPanel("reviewed"),
-                FieldPanel("research"),
+                FieldPanel("hours_tested"),
+                FieldPanel("type_of_testing"),
+                FieldPanel("byline"),
+                FieldPanel("who_am_i"),
                 FieldPanel("scoring"),
             ],
             heading="Product Review Meta",
@@ -142,7 +146,10 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         SynchronizedField("updated"),
         SynchronizedField("reviewed"),
         SynchronizedField("scoring"),
-        TranslatableField("research"),
+        TranslatableField("hours_tested"),
+        TranslatableField("type_of_testing"),
+        TranslatableField("byline"),
+        TranslatableField("who_am_i"),
     ]
 
     class Meta:
@@ -165,19 +172,28 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
     def get_latest_product_reviews(self):
         """
-        Returns the 2 latest `NothingPersonalProductReviewPage` objects.
+        Returns the 5 latest `NothingPersonalProductReviewPage` objects.
+        Uses current locale if available, falls back to default locale.
         """
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        from wagtail.models import Locale
 
-        results = (
+        current_locale = self.locale
+        default_locale = Locale.get_default()
+
+        default_reviews = (
             NothingPersonalProductReviewPage.objects.live()
             .public()
-            .filter(locale=DEFAULT_LOCALE)
+            .filter(locale=default_locale)
             .exclude(id=self.id)
-            .order_by("-first_published_at")[:2]
+            .order_by("-first_published_at")[:5]
         )
 
-        localized_results = [p.localized for p in results]
+        # Get the best available version for each review
+        localized_results = []
+        for review in default_reviews:
+            best_version = review.get_translation(locale=current_locale)
+            if best_version and best_version.live:
+                localized_results.append(best_version)
 
         return localized_results
 
@@ -198,10 +214,6 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         sections = []
         for section_key, section_field, title, anchor in section_configs:
             if not section_field:
-                continue
-
-            # Skip bottom_line if no products mentioned
-            if section_key == "bottom_line" and not self.products_mentioned.exists():
                 continue
 
             sections.append({"title": title, "anchor": anchor})

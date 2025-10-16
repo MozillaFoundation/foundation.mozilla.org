@@ -5,7 +5,7 @@
         <dt class="product-review-section__subheading">{{ question }}</dt>
     {% endif %}
     <dd>
-        <div class="product-review-section__ans">{{ ans }}</div>
+        <div class="product-review-section__ans">{{ ans|richtext }}</div>
         {% if additional_info %}
             <div class="product-review-section__additional-info">{{ additional_info|richtext }}</div>
         {% endif %}

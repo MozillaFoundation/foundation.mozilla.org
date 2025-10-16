@@ -1,6 +1,7 @@
 import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
 
-let countryDefault = { value: "", label: "Your Country" };
+let localized_your_country = gettext("Your Country");
+let countryDefault = { value: "", label: localized_your_country };
 let countryOptions = Object.keys(SALESFORCE_COUNTRY_LIST).map((code) => {
   return {
     value: code,
