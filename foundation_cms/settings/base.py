@@ -34,6 +34,8 @@ env = environ.Env(
     BASKET_URL=(str, ""),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, "200/hour"),
     CONTENT_TYPE_NO_SNIFF=bool,
+    CAMO_ENDPOINT_KEY=(str, ""),
+    CAMO_NEWSLETTER_ENDPOINT=(str, ""),
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
     CSP_INCLUDE_NONCE_IN=(list, []),
@@ -43,8 +45,8 @@ env = environ.Env(
     DEBUG=(bool, False),
     DEBUG_TOOLBAR_ENABLED=(bool, False),
     DJANGO_LOG_LEVEL=(str, "INFO"),
-    FEED_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
+    FEED_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     FEED_LIMIT=(int, 10),
     FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ""),
@@ -57,6 +59,7 @@ env = environ.Env(
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
+    NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PROD_HOSTNAMES=(str, ""),
     PULSE_API_DOMAIN=(str, ""),
@@ -75,6 +78,7 @@ env = environ.Env(
     SSL_REDIRECT=bool,
     STAGING_HOSTNAMES=(str, ""),
     STATIC_HOST=(str, ""),
+    SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL=(str, ""),
     TARGET_DOMAINS=(list, []),
     USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
@@ -91,6 +95,7 @@ env = environ.Env(
     WAGTAILADMIN_BASE_URL=(str, ""),
     PATTERN_LIBRARY_ENABLED=(bool, False),
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
+    UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
 )
 
 # Read in the environment
@@ -395,6 +400,7 @@ TEMPLATES = [
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
                 "app_environment_tags": "foundation_cms.templatetags.app_environment_tags",
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
+                "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
                 "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
                 "streamfield_tags": "foundation_cms.templatetags.streamfield_tags",
                 "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
@@ -832,3 +838,14 @@ EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
 
 # Notification emails are sent to moderators and superusers by default.
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = True
+
+# Newsletter subscription method and endpoints
+
+# Choices are "BASKET" or "CAMO"
+NEWSLETTER_SIGNUP_METHOD = env("NEWSLETTER_SIGNUP_METHOD")
+
+# Endpoints for subscribing users to our newsletters
+CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
+CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
+UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
+SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")

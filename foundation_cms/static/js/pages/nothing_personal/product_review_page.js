@@ -14,12 +14,12 @@ function initProductReviewMetaToggle() {
 
       targetElement.classList.toggle("is-active");
 
-      // Toggle with grow animation usting maxheight + scrollHeight
+      // Toggle with grow animation using maxheight + scrollHeight
       if (targetElement.classList.contains("is-active")) {
-        link.textContent = "Less details -";
+        link.textContent = gettext("Less detail -");
         targetElement.style.maxHeight = targetElement.scrollHeight + "px";
       } else {
-        link.textContent = "More details +";
+        link.textContent = gettext("More detail +");
         targetElement.style.maxHeight = null;
       }
     });

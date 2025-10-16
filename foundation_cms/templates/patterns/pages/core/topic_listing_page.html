@@ -1,5 +1,5 @@
 {% extends theme_base %}
-{% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags i18n l10n %}
 
 {% block title %}
   {{ topic.name }}
@@ -17,10 +17,11 @@
   <div class="grid-container">
     <div class="topic-info">
       {% blocktrans count counter=total_pages_count trimmed %}
-        Showing {{ total_pages_count }} result for: <h1>{{ topic.name }}</h1>
+        Showing {{ total_pages_count }} result for:
       {% plural %}
-        Showing {{ total_pages_count }} results for: <h1>{{ topic.name }}</h1>
+        Showing {{ total_pages_count }} results for:
       {% endblocktrans %}
+      <h1>{{ topic.name }}</h1>
     </div>
 
   </div>

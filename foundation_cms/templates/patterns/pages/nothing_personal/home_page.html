@@ -19,7 +19,7 @@
     {% if page.hero_item %}
       {% include "patterns/components/nothing_personal/home_page/hero_item.html" with hero_item=page.hero_item orientation=page.hero_item_orientation %}
     {% endif %}
-    {% if page.featured_items %}
+    {% if page.featured_items.all %}
       {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
     {% endif %}
     {% if page.body %}

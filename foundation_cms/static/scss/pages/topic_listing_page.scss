@@ -71,10 +71,12 @@ body.topic-listing-page {
       border-bottom-left-radius: 32px;
       overflow: hidden;
       background: color(neutral, "200");
+      aspect-ratio: math.div(3, 2);
+      display: block;
 
       img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
       }

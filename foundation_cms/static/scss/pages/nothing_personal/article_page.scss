@@ -216,4 +216,21 @@ body.nothing-personal.nothing-personal-article-page {
       font-size: get-text-property($body-text-styles, "small", font-size);
     }
   }
+
+  .rich-text-block a,
+  .podcast-block a,
+  .callout-box a {
+    @include link-text-color(
+      map.get($mofo-colors, black),
+      color(orange, "600")
+    );
+  }
+
+  .cell.medium-7 {
+    &:has(.media-block--widescreen) {
+      @include breakpoint(medium up) {
+        width: 100%;
+      }
+    }
+  }
 }

@@ -1,25 +1,10 @@
-{% load wagtailimages_tags %}
+{% load responsive_image_tags %}
 
 <li class="topic-listing__item">
   <article class="grid-x grid-margin-x topic-card">
     <a href="{{ page.url }}" class="cell small-12 medium-5 topic-card__image-wrapper">
       {% if page.search_image %}
-        {% comment %} 3:2 ratio {% endcomment %}
-        {% image page.search_image fill-600x400 as img_600 %}
-        {% image page.search_image fill-900x600 as img_900 %}
-        {% image page.search_image fill-1200x800 as img_1200 %}
-        {% image page.search_image fill-1800x1200 as img_1800 %}
-        <picture>
-          <img src="{{ img_900.url }}"
-               srcset="{{ img_600.url }} 600w,
-                       {{ img_900.url }} 900w,
-                       {{ img_1200.url }} 1200w,
-                       {{ img_1800.url }} 1800w"
-               sizes="(max-width: 639px) 100vw, 33vw"
-               width="{{ img_900.width }}"
-               height="{{ img_900.height }}"
-               alt="">
-        </picture>
+        {% responsive_image page.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
       {% endif %}
     </a>
     <div class="cell small-12 medium-7 topic-card__meta-wrapper">
