@@ -1,5 +1,8 @@
+from django import template
 from wagtail_ab_testing.models import AbTest
 from wagtail_ab_testing.utils import request_is_trackable
+
+register = template.Library()
 
 
 @register.inclusion_tag("wagtail_ab_testing/script.html", takes_context=True)
