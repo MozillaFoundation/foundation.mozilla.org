@@ -67,7 +67,7 @@
   @include mofo-text-style($header-styles, "h1", $header-font-family);
   @include np-title-highlight-effect(color(yellow, "100"), rem-calc(8));
 
-  line-height: 1.1 !important;
+  line-height: 1.1;
   margin: 0;
   padding: 0 0.5rem;
 
@@ -76,7 +76,7 @@
   }
 
   @include breakpoint(large up) {
-    line-height: 1.2 !important;
+    line-height: 1.2;
     padding: 0 0.5rem;
   }
 }
