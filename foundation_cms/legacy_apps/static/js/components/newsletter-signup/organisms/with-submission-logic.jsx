@@ -235,7 +235,6 @@ function withSubmissionLogic(WrappedComponent) {
         message = (
           <>
             <p>{getText(`confirm your email opt-in`)}</p>
-            <p>{getText(`manage your subscriptions`)}</p>
           </>
         );
       }
