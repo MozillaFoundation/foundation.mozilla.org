@@ -9,5 +9,7 @@ class AbstractGeneralPage(AbstractBasePage):
         FieldPanel("body"),
     ]
 
+    translatable_fields = AbstractBasePage.translatable_fields
+
     class Meta:
         abstract = True

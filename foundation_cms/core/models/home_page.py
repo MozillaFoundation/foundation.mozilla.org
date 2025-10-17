@@ -28,6 +28,7 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
     translatable_fields = AbstractHomePage.translatable_fields + [
         # Content tab fields
         TranslatableField("hero_accordion"),
+        TranslatableField("body"),
     ]
 
     template = "patterns/pages/core/home_page.html"
