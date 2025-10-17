@@ -11,6 +11,7 @@ from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .media_block import CustomMediaBlock
 from .newsletter_signup_block import NewsletterSignupBlock
+from .newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from .pillar_card_block import PillarCardBlock
 from .pillar_card_set_block import PillarCardSetBlock
 from .podcast_block import PodcastBlock
@@ -66,6 +67,7 @@ __all__ = [
     "ImpactNumberBlock",
     "SpacerBlock",
     "NewsletterSignupBlock",
+    "NewsletterUnsubscribeBlock",
     "QuoteBlock",
     "ListBlock",
     "VideoBlock",
