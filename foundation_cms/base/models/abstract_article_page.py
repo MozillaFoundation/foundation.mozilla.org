@@ -1,6 +1,5 @@
 from django.db import models
 from wagtail.fields import StreamField
-from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import (
     AbstractBasePage,
