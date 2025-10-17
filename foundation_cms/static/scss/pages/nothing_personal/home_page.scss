@@ -33,9 +33,6 @@ body.nothing-personal-home-page {
   }
 
   .featured-hero-item {
-    $featured-item-highlight-background-color: color(yellow, "100");
-    $featured-item-highlight-gap: rem-calc(8);
-
     position: relative;
     margin-bottom: rem-calc(41);
 
@@ -89,50 +86,22 @@ body.nothing-personal-home-page {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      margin-left: rem-calc(-8);
       text-decoration: none;
       color: map.get($mofo-colors, black);
     }
 
     &__title {
-      @include mofo-text-style($header-styles, "h1", $header-font-family);
-      @include np-title-highlight-effect(
-        $featured-item-highlight-background-color,
-        $featured-item-highlight-gap
-      );
-
-      line-height: 1.1 !important;
-      margin: 0 0 0 -0.5rem;
-      padding: 0 0.5rem;
-
-      @include breakpoint(large only) {
-        font-size: rem-calc(56);
-      }
-
-      @include breakpoint(large up) {
-        line-height: 1.2 !important;
-        padding: 0 0.5rem;
-        margin-left: 0;
-      }
+      @include np-highlighted-title();
     }
 
     &__author-wrapper {
       display: block;
       margin-top: 0.25rem;
-      margin-left: -0.5rem;
-
-      @include breakpoint(large up) {
-        margin-left: 0;
-      }
     }
 
     &__author {
-      @include mofo-text-style($body-text-styles, "xlarge");
-
-      display: inline;
-      background-color: $featured-item-highlight-background-color;
-      padding: 0 0.25rem;
-      box-decoration-break: clone;
-      margin: 0;
+      @include np-highlighted-author();
     }
   }
 

@@ -16,24 +16,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__title {
-    @include mofo-text-style($header-styles, "h1", $header-font-family);
-    @include np-title-highlight-effect(
-      $header-highlight-background-color,
-      $header-highlight-gap
-    );
-
-    line-height: 1.1 !important;
-    margin: 0;
-    padding: 0 0.5rem;
-
-    @include breakpoint(medium only) {
-      font-size: rem-calc(56);
-    }
-
-    @include breakpoint(large up) {
-      line-height: 1.2 !important;
-      padding: 0 0.5rem;
-    }
+    @include np-highlighted-title();
   }
 
   &__author-wrapper {
@@ -42,13 +25,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__author {
-    @include mofo-text-style($body-text-styles, "xlarge");
-
-    display: inline;
-    background-color: $header-highlight-background-color;
-    padding: 0 0.25rem;
-    box-decoration-break: clone;
-    margin: 0;
+    @include np-highlighted-author();
   }
 
   &__hero {

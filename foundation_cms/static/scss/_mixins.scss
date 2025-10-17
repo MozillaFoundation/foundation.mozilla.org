@@ -35,7 +35,7 @@
 }
 
 // ===================================
-// Nothing Personal Titles Highlight effect
+// Nothing Personal Mixins
 // ===================================
 
 @mixin np-title-highlight-effect($highlight-color, $highlight-gap) {
@@ -61,4 +61,32 @@
   background-repeat: repeat-y;
   background-origin: padding-box;
   background-clip: padding-box;
+}
+
+@mixin np-highlighted-title() {
+  @include mofo-text-style($header-styles, "h1", $header-font-family);
+  @include np-title-highlight-effect(color(yellow, "100"), rem-calc(8));
+
+  line-height: 1.1 !important;
+  margin: 0;
+  padding: 0 0.5rem;
+
+  @include breakpoint(medium only) {
+    font-size: rem-calc(56);
+  }
+
+  @include breakpoint(large up) {
+    line-height: 1.2 !important;
+    padding: 0 0.5rem;
+  }
+}
+
+@mixin np-highlighted-author() {
+  @include mofo-text-style($body-text-styles, "xlarge");
+
+  display: inline;
+  background-color: color(yellow, "100");
+  padding: 0 0.25rem;
+  box-decoration-break: clone;
+  margin: 0;
 }
