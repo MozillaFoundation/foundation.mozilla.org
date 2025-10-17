@@ -16,7 +16,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__title {
-    @include np-highlighted-title();
+    @include np-highlighted-title;
   }
 
   &__author-wrapper {
@@ -25,7 +25,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__author {
-    @include np-highlighted-author();
+    @include np-highlighted-author;
   }
 
   &__hero {

@@ -92,7 +92,7 @@ body.nothing-personal-home-page {
     }
 
     &__title {
-      @include np-highlighted-title();
+      @include np-highlighted-title;
     }
 
     &__author-wrapper {
@@ -101,7 +101,7 @@ body.nothing-personal-home-page {
     }
 
     &__author {
-      @include np-highlighted-author();
+      @include np-highlighted-author;
     }
   }
 
