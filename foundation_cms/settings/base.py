@@ -95,6 +95,7 @@ env = environ.Env(
     WAGTAILADMIN_BASE_URL=(str, ""),
     PATTERN_LIBRARY_ENABLED=(bool, False),
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
+    WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
 )
 
@@ -836,8 +837,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env("WAGTAIL_NOTIFICATION_EMAIL")
 EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
 
-# Notification emails are sent to moderators and superusers by default.
-WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = True
+# Controls whether superusers should receive Wagtail admin notifications.
+# This variable is used internally in Wagtail's native logic.
+WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = env("WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS")
 
 # Newsletter subscription method and endpoints
 
