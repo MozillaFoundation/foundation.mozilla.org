@@ -21,7 +21,7 @@
     "build:js": "node esbuild.config.js --node-env production",
     "build:images": "run-s copy:images",
     "build": "run-s clean copy-fonts build:css build:js build:images",
-    "watch:css": "NODE_ENV=development run-s build:css && chokidar '../../foundation_cms/static/scss/**/*.scss' -c 'NODE_ENV=development yarn build:css'",
+    "watch:css": "NODE_ENV=development node build-css.js && chokidar '../../foundation_cms/static/scss/**/*.scss' -c 'NODE_ENV=development node build-css.js'",
     "watch:js": "node esbuild.config.js --node-env development",
     "watch:images": "run-s build:images && chokidar '../../foundation_cms/static/images/**/*' -c 'yarn clean:images && yarn build:images'",
     "predev": "yarn clean",
