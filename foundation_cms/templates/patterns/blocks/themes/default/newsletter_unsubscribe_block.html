@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+    {% include "patterns/components/newsletter_unsubscribe_form.html" with newsletter_unsubscribe=self.newsletter_unsubscribe.localized %}
+{% endblock block_content %}
+
