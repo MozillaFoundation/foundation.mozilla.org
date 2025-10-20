@@ -60,7 +60,7 @@ jobs:
         with:
           fetch-depth: 0  # This fetches full Git history. Percy needs Git history to find the base commit for comparisons.
       - name: Fetch base branch for Percy
-        if: github.event_name == "pull_request" || github.event_name == "pull_request_review"
+        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_review'
         run: |
           # Fetch enough of the base branch history for Percy to find the merge base
           git fetch --depth=50 origin ${{ github.base_ref || 'main' }}
