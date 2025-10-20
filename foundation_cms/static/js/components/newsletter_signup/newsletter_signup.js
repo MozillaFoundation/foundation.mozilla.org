@@ -5,7 +5,7 @@ import { COUNTRY_OPTIONS } from "./data/country-options.js";
  * CSS selectors used to locate key DOM elements in the newsletter signup component.
  */
 const SELECTORS = {
-  container: ".newsletter-signup",
+  container: ".newsletter-signup__container",
   form: ".newsletter-signup__form",
   emailInput: "input[name='email']",
   countryInput: "select[name='country']",
@@ -16,6 +16,9 @@ const SELECTORS = {
   successMessage: ".newsletter-signup__success-message",
   errorMessage: ".newsletter-signup__error-message",
   expandableField: ".newsletter-signup__field--hidden",
+  submitButton: ".newsletter-signup__button",
+  loadingMessage: ".loading-message",
+  rolltext: ".btn-primary__rolltext",
 };
 
 /**
@@ -68,7 +71,6 @@ async function submitDataToApi(signupUrl, formData) {
  */
 function populateSelectOptions(selectEl, options) {
   selectEl.innerHTML = "";
-
   options.forEach(({ value, label }) => {
     const option = document.createElement("option");
     option.value = value;
@@ -180,6 +182,17 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       if (!isValid) return;
 
       const formData = { email, country, language };
+      const submitBtn = container.querySelector(SELECTORS.submitButton);
+      const loadingEl = submitBtn?.querySelector(SELECTORS.loadingMessage);
+      const rolltextEl = submitBtn?.querySelector(SELECTORS.rolltext);
+
+      // show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.setAttribute("aria-busy", "true");
+      }
+      if (loadingEl) loadingEl.style.display = "inline";
+      if (rolltextEl) rolltextEl.style.display = "none";
 
       submitDataToApi(signupUrl, formData).then((success) => {
         if (success) {

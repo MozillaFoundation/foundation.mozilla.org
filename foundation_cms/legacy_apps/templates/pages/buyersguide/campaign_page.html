@@ -5,7 +5,12 @@
 {% block body_id %}campaign{% endblock %}
 
 {% block extended_head %}
-    {% include "../../wagtailpages/fragments/formassembly_head.html" %}
+    {% newsletter_signup_method as signup_method %}
+    {% if signup_method == "BASKET" %}
+        {% include "../../wagtailpages/fragments/formassembly_head_legacy.html" %}
+    {% else %}
+        {% include "../../wagtailpages/fragments/formassembly_head_camo.html" %}
+    {% endif %}
 {% endblock %}
 
 {% block guts %}

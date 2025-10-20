@@ -9,7 +9,12 @@
 
 {% block extended_head %}
     {% if page.cta %}
-        {% include "./fragments/formassembly_head.html" %}
+        {% newsletter_signup_method as signup_method %}
+        {% if signup_method == "BASKET" %}
+            {% include "./fragments/formassembly_head_legacy.html" %}
+        {% else %}
+            {% include "./fragments/formassembly_head_camo.html" %}
+        {% endif %}
     {% endif %}
 {% endblock %}
 

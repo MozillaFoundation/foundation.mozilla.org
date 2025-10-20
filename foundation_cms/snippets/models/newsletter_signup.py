@@ -1,11 +1,13 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 
 @register_snippet
-class NewsletterSignup(models.Model):
+class NewsletterSignup(TranslatableMixin, models.Model):
     name = models.CharField(
         default="",
         max_length=100,
@@ -42,6 +44,15 @@ class NewsletterSignup(models.Model):
 
     def __str__(self):
         return self.name
+
+    translatable_fields = [
+        SynchronizedField("name"),
+        TranslatableField("cta_header"),
+        TranslatableField("cta_description"),
+        TranslatableField("button_text"),
+        SynchronizedField("newsletter"),
+        SynchronizedField("layout"),
+    ]
 
 
 @register_setting(icon="mail")
