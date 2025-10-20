@@ -61,6 +61,7 @@ Disallow: /
 User-Agent: *
 Disallow: /*/artifacts/thimble
 Disallow: /artifacts/thimble
+Disallow: /*?form=
 crawl-delay: 10
 """.strip()
 
