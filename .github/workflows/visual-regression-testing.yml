@@ -57,6 +57,8 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # This fetches full Git history. Percy needs Git history to find the base commit for comparisons.
       - uses: actions/setup-python@v4
         with:
           python-version: 3.11
