@@ -97,10 +97,18 @@ jobs:
           PERCY_EXIT_CODE=$?
           echo "Percy exit code: $PERCY_EXIT_CODE"
 
-          # Kill any hanging processes but preserve exit code
-          pkill -f percy || true
+          # Debug what's still running
+          echo "=== Processes still running ==="
+          ps aux | grep -E "(percy|playwright|chromium|node)" | grep -v grep
 
-          # Exit with Percy's actual exit code
+          # Give processes time to clean up naturally
+          echo "Waiting for natural cleanup..."
+          sleep 10
+
+          # Check again
+          echo "=== After waiting ==="
+          ps aux | grep -E "(percy|playwright|chromium|node)" | grep -v grep
+
           exit $PERCY_EXIT_CODE
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
