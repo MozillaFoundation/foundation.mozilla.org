@@ -86,8 +86,26 @@ jobs:
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
       - name: Percy Test
-        timeout-minutes: 15  # Percy typically takes ~14 minutes
+        timeout-minutes: 15
         run: |
-          yarn workspace legacy percy
+          # Use server:silent to avoid output issues
+          cd frontend/legacy
+          npm run server:silent &
+          SERVER_PID=$!
+          echo "Started server with PID: $SERVER_PID"
+
+          # Give server time to start
+          sleep 10
+
+          # Run visual tests directly (skip the percy/playwright wrappers)
+          npx percy exec -t 750 -- npx playwright test ./tests/visual.spec.js
+          PERCY_EXIT=$?
+
+          echo "Percy exit code: $PERCY_EXIT"
+
+          # Kill the server
+          kill $SERVER_PID 2>/dev/null || true
+
+          exit $PERCY_EXIT
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
