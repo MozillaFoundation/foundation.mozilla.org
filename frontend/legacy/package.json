@@ -50,7 +50,7 @@
     "optimize:legacy:svg": "svgo --multipass --folder ./../../foundation_cms/legacy_apps/static/images/ --recursive",
     "optimize:legacy:jpg": "find ../../foundation_cms/legacy_apps/static/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
     "optimize:legacy:png": "find ../../foundation_cms/legacy_apps/static/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
-    "percy": "run-p percy:legacy",
+    "percy": "npm run percy:legacy",
     "percy:legacy": "percy exec -t 750 -- npm run playwright:legacy:percy",
     "playwright": "run-p playwright:legacy",
     "playwright:ci": "run-p playwright:legacy:ci",
