@@ -59,11 +59,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # This fetches full Git history. Percy needs Git history to find the base commit for comparisons.
-      - name: Fetch base branch for Percy
-        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_review'
-        run: |
-          # Fetch enough of the base branch history for Percy to find the merge base
-          git fetch --depth=50 origin ${{ github.base_ref || 'main' }}
       - uses: actions/setup-python@v4
         with:
           python-version: 3.11
@@ -91,45 +86,8 @@ jobs:
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
       - name: Percy Test
-        timeout-minutes: 20
+        timeout-minutes: 15  # Percy typically takes ~14 minutes
         run: |
-          # Monitor processes every 30 seconds in the background
-          (
-            echo "=== Starting process monitor ==="
-            for i in {1..20}; do
-              sleep 30
-              echo "=== Process check $i at $(date) ==="
-              ps aux | grep -E "(percy|playwright|chromium|node|yarn)" | grep -v grep || echo "No processes found"
-            done
-          ) &
-          MONITOR_PID=$!
-
-          # Run Percy and capture its PID
-          echo "Starting Percy tests at $(date)"
-          yarn workspace legacy percy &
-          PERCY_PID=$!
-
-          # Wait for Percy to complete
-          wait $PERCY_PID
-          PERCY_EXIT_CODE=$?
-
-          echo "Percy completed with exit code: $PERCY_EXIT_CODE at $(date)"
-
-          # Kill the monitor
-          kill $MONITOR_PID 2>/dev/null || true
-
-          # Final check - what's still running?
-          echo "=== Final process check ==="
-          ps aux | grep -E "(percy|playwright|chromium|node|yarn)" | grep -v grep
-
-          # Give it 5 seconds to clean up
-          echo "Waiting 5 seconds for cleanup..."
-          sleep 5
-
-          # Force kill any stragglers
-          pkill -f percy || true
-          pkill -f playwright || true
-
-          exit $PERCY_EXIT_CODE
+          yarn workspace legacy percy
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
