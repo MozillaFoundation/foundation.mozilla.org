@@ -91,23 +91,44 @@ jobs:
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
       - name: Percy Test
-        timeout-minutes: 10
+        timeout-minutes: 20
         run: |
-          yarn workspace legacy percy
+          # Monitor processes every 30 seconds in the background
+          (
+            echo "=== Starting process monitor ==="
+            for i in {1..20}; do
+              sleep 30
+              echo "=== Process check $i at $(date) ==="
+              ps aux | grep -E "(percy|playwright|chromium|node|yarn)" | grep -v grep || echo "No processes found"
+            done
+          ) &
+          MONITOR_PID=$!
+
+          # Run Percy and capture its PID
+          echo "Starting Percy tests at $(date)"
+          yarn workspace legacy percy &
+          PERCY_PID=$!
+
+          # Wait for Percy to complete
+          wait $PERCY_PID
           PERCY_EXIT_CODE=$?
-          echo "Percy exit code: $PERCY_EXIT_CODE"
 
-          # Debug what's still running
-          echo "=== Processes still running ==="
-          ps aux | grep -E "(percy|playwright|chromium|node)" | grep -v grep
+          echo "Percy completed with exit code: $PERCY_EXIT_CODE at $(date)"
 
-          # Give processes time to clean up naturally
-          echo "Waiting for natural cleanup..."
-          sleep 10
+          # Kill the monitor
+          kill $MONITOR_PID 2>/dev/null || true
 
-          # Check again
-          echo "=== After waiting ==="
-          ps aux | grep -E "(percy|playwright|chromium|node)" | grep -v grep
+          # Final check - what's still running?
+          echo "=== Final process check ==="
+          ps aux | grep -E "(percy|playwright|chromium|node|yarn)" | grep -v grep
+
+          # Give it 5 seconds to clean up
+          echo "Waiting 5 seconds for cleanup..."
+          sleep 5
+
+          # Force kill any stragglers
+          pkill -f percy || true
+          pkill -f playwright || true
 
           exit $PERCY_EXIT_CODE
         env:
