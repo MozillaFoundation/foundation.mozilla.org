@@ -56,7 +56,7 @@
     "playwright:ci": "run-p playwright:legacy:ci",
     "playwright:install": "playwright install chromium firefox webkit",
     "playwright:legacy": "run-p playwright:legacy:integration",
-    "playwright:legacy:percy": "run-p --race server playwright:legacy:visual",
+    "playwright:legacy:percy": "npm run server & npm run playwright:legacy:visual",
     "playwright:legacy:urls": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/urls.spec.js",
     "playwright:legacy:visual": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/visual.spec.js",
     "playwright:legacy:ci": "run-p --race server playwright:legacy:integration",
