@@ -88,24 +88,10 @@ jobs:
       - name: Percy Test
         timeout-minutes: 15
         run: |
-          # Use server:silent to avoid output issues
+          # CI-specific approach to avoid hanging
           cd frontend/legacy
-          npm run server:silent &
-          SERVER_PID=$!
-          echo "Started server with PID: $SERVER_PID"
-
-          # Give server time to start
-          sleep 10
-
-          # Run visual tests directly (skip the percy/playwright wrappers)
+          npm run server &
+          npx wait-on -t 30000 http://127.0.0.1:8000/cms
           npx percy exec -t 750 -- npx playwright test ./tests/visual.spec.js
-          PERCY_EXIT=$?
-
-          echo "Percy exit code: $PERCY_EXIT"
-
-          # Kill the server
-          kill $SERVER_PID 2>/dev/null || true
-
-          exit $PERCY_EXIT
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
