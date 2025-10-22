@@ -167,7 +167,6 @@ $primary-nav-height: rem-calc(88);
 
     @include breakpoint(large up) {
       width: 1.5rem;
-      height: 3.5rem;
       margin: 0.7rem 0;
     }
 
@@ -232,6 +231,7 @@ $primary-nav-height: rem-calc(88);
           flex: none;
           font-family: "Mozilla Text", sans-serif;
           text-decoration: none;
+          align-items: center;
         }
 
         &:hover {
@@ -290,5 +290,21 @@ body.primary-nav-ns-open {
 
   .primary-nav-ns {
     position: fixed;
+  }
+}
+
+html[lang="de"] body .primary-nav-ns {
+  .primary-nav-ns__menu-item > a {
+    @include breakpoint(large up) {
+      max-width: 8.5rem;
+    }
+  }
+}
+
+html[lang="fr"] body .primary-nav-ns {
+  .primary-nav-ns__menu-item > a {
+    @include breakpoint(large up) {
+      max-width: 8rem;
+    }
   }
 }
