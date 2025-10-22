@@ -23,7 +23,10 @@ from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
 )
 from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
 from foundation_cms.search import views as search_views
-from foundation_cms.views import newsletter_signup_submission_view
+from foundation_cms.views import (
+    newsletter_signup_submission_view,
+    newsletter_unsubscribe_view,
+)
 
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -58,6 +61,7 @@ Disallow: /
 User-Agent: *
 Disallow: /*/artifacts/thimble
 Disallow: /artifacts/thimble
+Disallow: /*?form=
 crawl-delay: 10
 """.strip()
 
@@ -133,6 +137,7 @@ urlpatterns = list(
             re_path(
                 r"^newsletter-signup/(?P<pk>[0-9]+)/", newsletter_signup_submission_view, name="signup-submission"
             ),
+            path("newsletter-unsubscribe/", newsletter_unsubscribe_view, name="newsletter-unsubscribe"),
         ],
     )
 )

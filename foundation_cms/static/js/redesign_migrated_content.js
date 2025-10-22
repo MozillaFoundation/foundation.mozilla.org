@@ -1,4 +1,5 @@
 import injectNewsletterSignups from "./components/newsletter_signup/newsletter_signup.js";
+import injectNewsletterUnsubscribes from "./components/newsletter_unsubscribe.js";
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
@@ -13,4 +14,5 @@ console.log(
 initPrimaryNav();
 initDonateBanner();
 injectNewsletterSignups(foundationSiteURL);
+injectNewsletterUnsubscribes(foundationSiteURL);
 initWordmarkVisibilityOnScroll();
