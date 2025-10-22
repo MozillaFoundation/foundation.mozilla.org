@@ -6,6 +6,7 @@ $hamburger-bar-spacing: 0.8rem;
 @import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
 
 $primary-nav-height: rem-calc(88);
+$primary-nav-margin: 0.7rem;
 
 .primary-nav-ns {
   position: sticky;
@@ -226,12 +227,14 @@ $primary-nav-height: rem-calc(88);
         @include breakpoint(large up) {
           width: auto;
           font-size: 1rem;
-          padding: 1rem 0;
-          margin: 0.7rem 0;
+          padding: 0;
+          height: calc($primary-nav-height - #{$primary-nav-margin * 2});
+          margin: $primary-nav-margin 0;
           flex: none;
           font-family: "Mozilla Text", sans-serif;
           text-decoration: none;
           align-items: center;
+          line-height: 1;
         }
 
         &:hover {
