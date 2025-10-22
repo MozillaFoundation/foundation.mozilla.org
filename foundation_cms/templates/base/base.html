@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,6 +74,8 @@
                 }
             };</script>
         {% endblock onetrust_script %}
+
+        {% wagtail_ab_testing_script %}
     </head>
 
     <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}">
@@ -84,7 +86,7 @@
         {% endwith %}
         {% block donate_banner %}
             {% if donate_banner %}
-                {% include "patterns/components/donate_banner.html" with banner=donate_banner %}
+                {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner %}
             {% endif %}
         {% endblock donate_banner %}
         {% include "patterns/components/primary_nav.html" %}
