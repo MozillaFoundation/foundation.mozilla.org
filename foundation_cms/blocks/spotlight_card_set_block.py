@@ -3,8 +3,10 @@ from wagtail import blocks
 from foundation_cms.base.models.base_block import BaseBlock
 
 from . import SpotlightCardBlock
+from .decorators import full_bleed_on
 
 
+@full_bleed_on("*")
 class SpotlightCardSetBlock(BaseBlock):
 
     cards = blocks.ListBlock(

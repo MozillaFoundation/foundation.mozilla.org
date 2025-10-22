@@ -1,15 +1,20 @@
 {% load wagtailcore_tags streamfield_tags %}
 
 {% for block in streamfield %}
-  {% if block.block_type|should_wrap_block %}
+  {% get_block_context_value block page 'full_bleed_wrapper' as is_full_bleed %}
+
+  {% if not is_full_bleed %}
     <div class="grid-container">
       <div class="grid-x">
         <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
           {% include_block block with page_type_bem=page_type_bem %}
-        </div>
+        </div>a
       </div>
     </div>
   {% else %}
-    {% include_block block with page_type_bem=page_type_bem %}
+    <div class="full-bleed-block-wrapper">
+      {% include_block block with page_type_bem=page_type_bem %}
+    </div>
   {% endif %}
+
 {% endfor %}
