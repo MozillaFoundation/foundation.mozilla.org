@@ -1,0 +1,21 @@
+<div>
+    <h4> This banner is using the <b>Pushdown</b> style. </h4>
+    <p><b>Banner Name:</b> {{ banner.name }}</p>
+    <p><b>Banner Title:</b> {{ banner.title }}</p>
+    <p><b>Banner Style:</b> {{ banner.banner_style }}</p>
+    <p><b>Banner Subtitle:</b> {{ banner.subtitle }}</p>
+    <p><b>Banner Foreground Image:</b> {{ banner.foreground_image }}</p>
+    <p><b>Banner Background Image:</b> {{ banner.background_image }}</p>
+    <p><b>Banner Text Color:</b> {{ banner.text_color }}</p>
+    <p><b>Banner Button Color:</b> {{ banner.button_color }}</p>
+    <p><b>Banner Button Text and Link:</b> <a id="banner-cta-button" href="{{ banner.cta_link }}">{{ banner.cta_button_text }}</a></p>
+    <p><b>Banner Active AB Test (If applicable):</b> {{ banner.active_ab_test }}</p>
+    <p><b>Banner Variant Version (If active AB test):</b> {{ banner.variant_version }}</p>
+    <div>
+        <p><b>Banner FRU Thermometer (If applicable):</b></p> {{ banner.fru_thermometer_embed_code|safe }}
+    </div>
+    <br>
+    <div>
+        <p><b>Banner FRU Stat Counter (If applicable):</b></p> {{ banner.fru_stat_counter_embed_code|safe }} {{ banner.fru_stat_counter_caption }}
+    </div>
+</div>
