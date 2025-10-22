@@ -7,13 +7,13 @@
     <div class="grid-container">
       <div class="grid-x">
         <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
-          {% include_block block with page_type_bem=page_type_bem %}
+          {% include_block block %}
         </div>
       </div>
     </div>
   {% else %}
     <div class="full-bleed-block-wrapper">
-      {% include_block block with page_type_bem=page_type_bem %}
+      {% include_block block %}
     </div>
   {% endif %}
 
