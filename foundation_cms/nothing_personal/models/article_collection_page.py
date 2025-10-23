@@ -1,4 +1,5 @@
 from wagtail.admin.panels import FieldPanel
+from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.nothing_personal.models.product_review_page import (
@@ -11,6 +12,12 @@ class NothingPersonalArticleCollectionPage(AbstractArticlePage):
 
     content_panels = AbstractArticlePage.content_panels + [
         FieldPanel("lede_text"),
+    ]
+
+    translatable_fields = AbstractArticlePage.translatable_fields + [
+        # Content tab fields
+        TranslatableField("body"),
+        TranslatableField("lede_text"),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
