@@ -4,7 +4,7 @@ def skip_default_wrapper_on(*page_types):
     Use "*" to indicate all pages should have full bleed.
 
     Usage:
-        @skip_default_wrapper_on("HomePage", "LandingPage")
+        @skip_default_wrapper_on("HomePage", "NothingPersonalHomePage")
         class MyBlock(BaseBlock):
             pass
 
@@ -17,7 +17,7 @@ def skip_default_wrapper_on(*page_types):
     def decorator(block_class):
         # Create a mixin class dynamically inside the decorator
         # This allows us to inject behavior without modifying the original class
-        class FullBleedMixin:
+        class SkipDefaultWrapperMixin:
             def get_context(self, value, parent_context=None):
                 context = super().get_context(value, parent_context)
                 page = parent_context.get("page") if parent_context else None
@@ -33,7 +33,7 @@ def skip_default_wrapper_on(*page_types):
 
         # Combine mixin with original block
         # Mixin goes first so our get_context runs before the block's
-        class DecoratedBlock(FullBleedMixin, block_class):
+        class DecoratedBlock(SkipDefaultWrapperMixin, block_class):
             pass
 
         # Preserve the original class's identity
