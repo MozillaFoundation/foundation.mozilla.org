@@ -2,7 +2,7 @@ from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from .decorators import full_bleed_on
+from .decorators import skip_default_wrapper_on
 from .link_block import OptionalLinkBlock
 
 
@@ -33,7 +33,7 @@ class ProductReviewCardBlock(BaseBlock):
         label = "Product Review Card"
 
 
-@full_bleed_on("*")
+@skip_default_wrapper_on("*")
 class ProductReviewCarouselBlock(BaseBlock):
     """
     Block container for displaying product review cards in a carousel.

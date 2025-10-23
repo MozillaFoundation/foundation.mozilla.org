@@ -3,11 +3,11 @@ from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from .decorators import full_bleed_on
+from .decorators import skip_default_wrapper_on
 from .link_button_block import LinkButtonBlock
 
 
-@full_bleed_on("*")
+@skip_default_wrapper_on("*")
 class FeaturedCardBlock(BaseBlock):
     heading = CharBlock(required=True, max_length=50, label="Heading")
     description = RichTextBlock(required=True, max_length=500, label="Description", features=["bold", "italic"])

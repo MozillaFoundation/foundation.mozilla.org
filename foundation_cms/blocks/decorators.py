@@ -1,15 +1,15 @@
-def full_bleed_on(*page_types):
+def skip_default_wrapper_on(*page_types):
     """
-    Decorator that adds full bleed behavior to blocks.
+    Decorator that adds skip default wrapper behavior to blocks.
     Use "*" to indicate all pages should have full bleed.
 
     Usage:
-        @full_bleed_on("HomePage", "LandingPage")
+        @skip_default_wrapper_on("HomePage", "LandingPage")
         class MyBlock(BaseBlock):
             pass
 
     Side effects:
-        - Adds 'full_bleed_wrapper' to the block's template context
+        - Adds 'skip_default_wrapper' to the block's template context
         - Modifies the class's MRO (Method Resolution Order)
         - Replaces the original class with an enhanced version. The original class becomes a parent of the new class.
     """
@@ -23,11 +23,11 @@ def full_bleed_on(*page_types):
                 page = parent_context.get("page") if parent_context else None
 
                 if "*" in page_types:
-                    context["full_bleed_wrapper"] = True
+                    context["skip_default_wrapper"] = True
                 elif page:
-                    context["full_bleed_wrapper"] = page.specific_class.__name__ in page_types
+                    context["skip_default_wrapper"] = page.specific_class.__name__ in page_types
                 else:
-                    context["full_bleed_wrapper"] = False
+                    context["skip_default_wrapper"] = False
 
                 return context
 

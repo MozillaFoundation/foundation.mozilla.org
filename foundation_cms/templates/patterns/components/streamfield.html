@@ -1,9 +1,10 @@
 {% load wagtailcore_tags streamfield_tags %}
 
 {% for block in streamfield %}
-  {% get_block_context_value block page 'full_bleed_wrapper' as is_full_bleed %}
+  {% get_block_context_value block page 'skip_default_wrapper' as skip_default_wrapper %}
 
-  {% if not is_full_bleed %}
+  <div class="streamfield-block-wrapper" data-block-type="{{ block.block_type }}">
+  {% if not skip_default_wrapper %}
     <div class="grid-container">
       <div class="grid-x">
         <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
@@ -12,9 +13,8 @@
       </div>
     </div>
   {% else %}
-    <div class="full-bleed-block-wrapper">
-      {% include_block block %}
-    </div>
+    {% include_block block %}
   {% endif %}
+  </div>
 
 {% endfor %}

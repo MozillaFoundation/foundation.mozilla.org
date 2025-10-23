@@ -2,10 +2,10 @@ from wagtail.blocks import RichTextBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-from .decorators import full_bleed_on
+from .decorators import skip_default_wrapper_on
 
 
-@full_bleed_on("*")
+@skip_default_wrapper_on("*")
 class CalloutBlock(BaseBlock):
 
     heading = RichTextBlock(required=True, features=["h4", "h5", "h6"], help_text="Callout box title")
