@@ -1,6 +1,5 @@
 from django.db import models
 from wagtail.fields import StreamField
-from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import (
     AbstractBasePage,
@@ -29,10 +28,7 @@ class AbstractArticlePage(AbstractBasePage):
         # Universal Article content panels will go here
     ]
 
-    translatable_fields = AbstractBasePage.translatable_fields + [
-        # Content tab fields
-        TranslatableField("lede_text"),
-    ]
+    translatable_fields = AbstractBasePage.translatable_fields
 
     class Meta:
         abstract = True
