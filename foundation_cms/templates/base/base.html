@@ -1,7 +1,9 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization %}
+
+{% get_current_language as lang_code %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang_code }}">
 
     <head>
         <meta charset="utf-8" />
