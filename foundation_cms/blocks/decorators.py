@@ -1,7 +1,6 @@
 def skip_default_wrapper_on(*page_types):
     """
     Decorator that adds skip default wrapper behavior to blocks.
-    Use "*" to indicate all pages should have full bleed.
 
     Usage:
         @skip_default_wrapper_on("HomePage", "NothingPersonalHomePage")
