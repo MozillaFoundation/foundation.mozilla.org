@@ -4,17 +4,17 @@
   {% get_block_context_value block page 'skip_default_wrapper' as skip_default_wrapper %}
 
   <div class="streamfield-block-wrapper" data-block-type="{{ block.block_type }}">
-  {% if not skip_default_wrapper %}
-    <div class="grid-container">
-      <div class="grid-x">
-        <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
-          {% include_block block %}
+    {% if not skip_default_wrapper %}
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
+            {% include_block block %}
+          </div>
         </div>
       </div>
-    </div>
-  {% else %}
-    {% include_block block %}
-  {% endif %}
+    {% else %}
+      {% include_block block %}
+    {% endif %}
   </div>
 
 {% endfor %}
