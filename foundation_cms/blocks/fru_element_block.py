@@ -9,6 +9,7 @@ class FruElementBlock(BaseBlock):
         ("donation-form", "Donation Form"),
         ("donor-map", "Donor Map"),
         ("top-locations", "Top Locations"),
+        ("donation-levels", "Donation Levels"),
     ]
 
     fru_element_type = ChoiceBlock(
