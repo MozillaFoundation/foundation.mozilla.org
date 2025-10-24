@@ -85,6 +85,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
         "nothing_personal.NothingPersonalArticleCollectionPage",
         "nothing_personal.NothingPersonalArticlePage",
         "nothing_personal.NothingPersonalPodcastPage",
+        "nothing_personal.NothingPersonalProductCollectionPage",
         "nothing_personal.NothingPersonalProductReviewPage",
     ]
 
