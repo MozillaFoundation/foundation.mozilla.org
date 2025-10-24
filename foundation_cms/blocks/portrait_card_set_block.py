@@ -3,10 +3,8 @@ from wagtail import blocks
 from foundation_cms.base.models.base_block import BaseBlock
 
 from . import PortraitCardBlock
-from .decorators import skip_default_wrapper_on
 
 
-@skip_default_wrapper_on("*")
 class PortraitCardSetBlock(BaseBlock):
 
     cards = blocks.ListBlock(

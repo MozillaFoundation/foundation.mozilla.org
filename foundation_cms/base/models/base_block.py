@@ -4,6 +4,14 @@ from wagtail import blocks
 
 
 class BaseBlock(blocks.StructBlock):
+    """
+    Theme-aware base block that takes an optional
+    `skip_default_wrapper` argument (default False).
+    """
+
+    def __init__(self, *args, skip_default_wrapper: bool = False, **kwargs):
+        self._skip_default_wrapper = bool(skip_default_wrapper)
+        super().__init__(*args, **kwargs)
 
     def get_theme(self, context):
         page = context.get("page")
@@ -23,6 +31,22 @@ class BaseBlock(blocks.StructBlock):
         # If not, return the default template.
         except TemplateDoesNotExist:
             return f"patterns/blocks/themes/default/{template_name}"
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context)
+        if self._skip_default_wrapper:
+            context["skip_default_wrapper"] = True
+        return context
+
+    def deconstruct(self):
+        """
+        Recommended when introducing custom arguments into the constructor. See:
+        https://docs.wagtail.org/en/stable/advanced_topics/customization/streamfield_blocks.html#handling-block-definitions-within-migrations
+        """
+        path, args, kwargs = super().deconstruct()
+        if self._skip_default_wrapper:
+            kwargs["skip_default_wrapper"] = True
+        return path, args, kwargs
 
     class Meta:
         abstract = True
