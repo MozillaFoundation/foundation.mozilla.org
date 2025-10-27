@@ -2,7 +2,7 @@ from .base_card_block import BaseCardBlock
 from .callout_block import CalloutBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
-from .fru_donate_form_block import FruDonateFormBlock
+from .fru_element_block import FruElementBlock
 from .hero_accordion import HeroAccordionBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
@@ -47,7 +47,7 @@ __all__ = [
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
-    "FruDonateFormBlock",
+    "FruElementBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",
