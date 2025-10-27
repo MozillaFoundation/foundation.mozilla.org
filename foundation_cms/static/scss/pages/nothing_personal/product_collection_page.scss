@@ -49,7 +49,6 @@ body.nothing-personal.nothing-personal-product-collection-page {
         gap: 1.75rem,
       ),
     );
-
     $row-gaps: (
       small: 1.5rem,
       large: 2.75rem,
@@ -64,29 +63,30 @@ body.nothing-personal.nothing-personal-product-collection-page {
 
     display: flex;
     flex-flow: row wrap;
-    gap: map-get($row-gaps, small)
-      map-get(map-get($grid-breakpoints, small), gap);
+    gap: map.get($row-gaps, small)
+      map.get(map.get($grid-breakpoints, small), gap);
     margin-bottom: 2rem;
 
     @include breakpoint(large up) {
-      gap: map-get($row-gaps, large)
-        map-get(map-get($grid-breakpoints, large), gap);
+      gap: map.get($row-gaps, large)
+        map.get(map.get($grid-breakpoints, large), gap);
       margin-bottom: 4rem;
     }
 
     .product-review-card {
-      $small-config: map-get($grid-breakpoints, small);
+      $small-config: map.get($grid-breakpoints, small);
+
       flex: 0 0
         calc-flex-basis(
-          map-get($small-config, columns),
-          map-get($small-config, gap)
+          map.get($small-config, columns),
+          map.get($small-config, gap)
         );
 
       @each $breakpoint, $config in $grid-breakpoints {
         @if $breakpoint != small {
           @include breakpoint(#{$breakpoint} up) {
             flex: 0 0
-              calc-flex-basis(map-get($config, columns), map-get($config, gap));
+              calc-flex-basis(map.get($config, columns), map.get($config, gap));
           }
         }
       }
