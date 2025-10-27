@@ -31,6 +31,7 @@ body.nothing-personal.nothing-personal-product-collection-page {
 
   .collection-products {
     // Configuration variables
+    $image-hover-scale: 105%;
     $grid-breakpoints: (
       small: (
         columns: 2,
@@ -91,16 +92,26 @@ body.nothing-personal.nothing-personal-product-collection-page {
         }
       }
 
+      &__title {
+        @include mofo-text-style($body-text-styles, "xlarge");
+
+        @include breakpoint(large up) {
+          margin-top: 1rem;
+        }
+      }
+
       &__image-container {
         overflow: hidden;
         position: relative;
 
         img {
           transition: transform 0.5s ease;
+        }
+      }
 
-          &:hover {
-            transform: scale(105%);
-          }
+      &:hover {
+        .product-review-card__image-container img {
+          transform: scale($image-hover-scale);
         }
       }
     }
