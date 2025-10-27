@@ -19,7 +19,7 @@ from foundation_cms.blocks import (
     CustomImageBlock,
     DividerBlock,
     FeaturedCardBlock,
-    FruDonateFormBlock,
+    FruElementBlock,
     ImpactNumberBlock,
     LinkButtonBlock,
     ListBlock,
@@ -68,7 +68,7 @@ base_page_block_options = [
     ("video_block", VideoBlock()),
     ("pillar_card_set", PillarCardSetBlock()),
     ("featured_card_block", FeaturedCardBlock()),
-    ("fru_donate_form_block", FruDonateFormBlock()),
+    ("fru_element_block", FruElementBlock()),
     ("divider", DividerBlock()),
     ("title_block", TitleBlock()),
 ]
