@@ -4,6 +4,8 @@ let primaryNav = {
     let elNarrowMenu = document.querySelector(`.narrow-screen-menu`);
     let menuOpen = false;
 
+    if (!elBurger || !elNarrowMenu) return;
+
     function setNarrowMenuState(openMenu) {
       if (openMenu) {
         elNarrowMenu.classList.remove(`hidden`);

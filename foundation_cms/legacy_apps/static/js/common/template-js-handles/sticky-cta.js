@@ -6,6 +6,8 @@ export default () => {
   let ticking = false;
   let elBurgerWrapper = document.querySelector(`.wrapper-burger`);
 
+  if (!elBurgerWrapper) return;
+
   let adjustNavbar = (scrollPosition) => {
     if (scrollPosition > 0) {
       elBurgerWrapper.classList.add(`scrolled`);
