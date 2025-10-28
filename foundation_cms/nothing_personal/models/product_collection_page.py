@@ -47,7 +47,4 @@ class NothingPersonalProductCollectionPage(AbstractArticlePage):
         localized_reviews = localize_queryset(product_reviews, preserve_order=True)
         context["product_reviews"] = localized_reviews.specific()
 
-        # Create cards array with product_review property for template compatibility
-        context["cards"] = [ProductReviewCard(review) for review in localized_reviews.specific()]
-
         return context
