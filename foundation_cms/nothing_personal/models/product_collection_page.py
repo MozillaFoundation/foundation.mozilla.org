@@ -8,13 +8,6 @@ from foundation_cms.nothing_personal.models.product_review_page import (
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 
-class ProductReviewCard:
-    """Simple object to mimic a block with product_review property"""
-
-    def __init__(self, product_review):
-        self.product_review = product_review
-
-
 class NothingPersonalProductCollectionPage(AbstractArticlePage):
 
     content_panels = AbstractArticlePage.content_panels + [
