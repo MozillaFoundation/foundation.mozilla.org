@@ -11,7 +11,7 @@ on:
 jobs:
   visual_regression_tests:
     name: Percy CI
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.event.label.name == 'run visual regression tests') || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'run visual regression tests') || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     runs-on: ubuntu-22.04
     services:
       postgres:
@@ -57,6 +57,8 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # This fetches full Git history. Percy needs Git history to find the base commit for comparisons.
       - uses: actions/setup-python@v4
         with:
           python-version: 3.11
@@ -84,6 +86,12 @@ jobs:
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
       - name: Percy Test
-        run: yarn workspace legacy percy
+        timeout-minutes: 15
+        run: |
+          # CI-specific approach to avoid hanging
+          cd frontend/legacy
+          npm run server &
+          npx wait-on -t 30000 http://127.0.0.1:8000/cms
+          npx percy exec -t 750 -- npx playwright test ./tests/visual.spec.js
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

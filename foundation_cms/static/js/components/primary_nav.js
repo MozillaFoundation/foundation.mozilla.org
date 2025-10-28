@@ -33,8 +33,6 @@ const DESKTOP_BREAKPOINT = 1024;
  * Sets up mobile and desktop navigation behaviors, including dropdowns and hamburger menu.
  */
 export function initPrimaryNav() {
-  console.log("Initializing primary navigation...");
-
   const hamburger = document.querySelector(SELECTORS.hamburger);
   const nav = document.querySelector(SELECTORS.primaryNav);
   const dropdowns = document.querySelectorAll(SELECTORS.dropdown);

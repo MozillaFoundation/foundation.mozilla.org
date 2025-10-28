@@ -1,6 +1,8 @@
 from .base_card_block import BaseCardBlock
+from .callout_block import CalloutBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
+from .fru_element_block import FruElementBlock
 from .hero_accordion import HeroAccordionBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
@@ -10,6 +12,7 @@ from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .media_block import CustomMediaBlock
 from .newsletter_signup_block import NewsletterSignupBlock
+from .newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from .pillar_card_block import PillarCardBlock
 from .pillar_card_set_block import PillarCardSetBlock
 from .podcast_block import PodcastBlock
@@ -40,9 +43,11 @@ from .video_block import VideoBlock
 __all__ = [
     "BaseCardBlock",
     "DividerBlock",
+    "CalloutBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
+    "FruElementBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",
@@ -64,6 +69,7 @@ __all__ = [
     "ImpactNumberBlock",
     "SpacerBlock",
     "NewsletterSignupBlock",
+    "NewsletterUnsubscribeBlock",
     "QuoteBlock",
     "ListBlock",
     "VideoBlock",
