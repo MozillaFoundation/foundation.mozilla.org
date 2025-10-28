@@ -2,7 +2,6 @@
 
 {% for streamchild in streamfield %}
   <div class="streamfield-block-wrapper" data-block-type="{{ streamchild.block_type }}">
-     {{ streamchild.block.block_class_name }}
     {% if not streamchild.block.skip_default_wrapper %}
       <div class="grid-container">
         <div class="grid-x">
