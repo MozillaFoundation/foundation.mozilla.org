@@ -182,8 +182,12 @@ HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
 if HEROKU_APP_NAME:
-    herokuAppHost = env("HEROKU_APP_NAME") + ".herokuapp.com"
+    herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
     ALLOWED_HOSTS.append(herokuAppHost)
+    if APP_ENVIRONMENT == "Review":
+        TARGET_DOMAINS.append(herokuAppHost)
+        TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
+        TARGET_DOMAINS.append("legacy-" + herokuAppHost)
 
 SITE_ID = 1
 

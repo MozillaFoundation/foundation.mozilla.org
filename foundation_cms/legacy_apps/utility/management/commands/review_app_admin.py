@@ -88,7 +88,7 @@ class Command(BaseCommand):
                                     "type": "plain_text",
                                     "text": "View review app",
                                 },
-                                "url": f"https://{reviewapp_name}.herokuapp.com",
+                                "url": f"https://{reviewapp_name}.mofostaging.net",
                             },
                             {
                                 "type": "button",
