@@ -184,6 +184,7 @@ HEROKU_BRANCH = env("HEROKU_BRANCH")
 if HEROKU_APP_NAME:
     herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
     ALLOWED_HOSTS.append(herokuAppHost)
+    TARGET_DOMAINS.append(herokuAppHost)
 
 SITE_ID = 1
 
