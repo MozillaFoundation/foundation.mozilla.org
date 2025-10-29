@@ -350,6 +350,7 @@ if SOCIAL_SIGNIN:
         "foundation_cms.pipeline.associate_by_email",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
+        "foundation_cms.pipeline.assign_default_role",
         "social_core.pipeline.social_auth.associate_user",
         "social_core.pipeline.social_auth.load_extra_data",
         "social_core.pipeline.user.user_details",
