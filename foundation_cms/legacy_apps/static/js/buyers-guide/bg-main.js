@@ -69,7 +69,7 @@ let main = {
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {
-        networkSiteURL = `https://${env.HEROKU_APP_NAME}.herokuapp.com`;
+        networkSiteURL = `https://${env.HEROKU_APP_NAME}.mofostaging.net`;
       }
 
       this.injectReactComponents();

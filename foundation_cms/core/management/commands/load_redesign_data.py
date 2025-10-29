@@ -19,7 +19,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         homepage_slug = "redesign-home"
         REVIEW_APP_NAME = getattr(settings, "HEROKU_APP_NAME", None)
-        hostname = f"{REVIEW_APP_NAME}.herokuapp.com" if REVIEW_APP_NAME else "localhost"
+        hostname = f"{REVIEW_APP_NAME}.mofostaging.net" if REVIEW_APP_NAME else "localhost"
         port = 80 if REVIEW_APP_NAME else 8000
 
         root = Page.get_first_root_node()

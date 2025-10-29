@@ -182,8 +182,12 @@ HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
 if HEROKU_APP_NAME:
-    herokuAppHost = env("HEROKU_APP_NAME") + ".herokuapp.com"
+    herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
     ALLOWED_HOSTS.append(herokuAppHost)
+    if APP_ENVIRONMENT == "Review":
+        TARGET_DOMAINS.append(herokuAppHost)
+        TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
+        TARGET_DOMAINS.append("legacy-" + herokuAppHost)
 
 SITE_ID = 1
 
@@ -350,6 +354,7 @@ if SOCIAL_SIGNIN:
         "foundation_cms.pipeline.associate_by_email",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
+        "foundation_cms.pipeline.assign_default_role",
         "social_core.pipeline.social_auth.associate_user",
         "social_core.pipeline.social_auth.load_extra_data",
         "social_core.pipeline.user.user_details",
