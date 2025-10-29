@@ -615,10 +615,10 @@
     "@percy/sdk-utils" "1.31.3"
     systeminformation "^5.25.11"
 
-"@percy/playwright@^1.0.7":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@percy/playwright/-/playwright-1.0.8.tgz#ff1849eb626c1ceb21ad923da9f629b39ba1e014"
-  integrity sha512-v70IKPVy15mDxis5+of2S62AJHdeG99BlA08oj/XpK68CVyNUSE6I8I54EUm3PbEeKxdZLWTdhX+8I69UkxPjA==
+"@percy/playwright@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@percy/playwright/-/playwright-1.0.9.tgz#3a4f4af04cc5a3f146e9d1fc9a6e3623bd070211"
+  integrity sha512-t74a0hZcAR+ssNpbcL6vnYU5mwEGcdRByLYFb12yFQUq4n250YUAX76jI4OHzH440Tikp84hml4JnbXrvgEmFQ==
 
 "@percy/sdk-utils@1.31.3":
   version "1.31.3"
