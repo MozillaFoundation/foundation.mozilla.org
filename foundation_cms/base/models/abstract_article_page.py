@@ -9,7 +9,7 @@ from foundation_cms.blocks import CalloutBlock, CustomMediaBlock
 
 # Article page-specific blocks that extend the base blocks
 article_page_block_options = base_page_block_options + [
-    ("callout", CalloutBlock()),
+    ("callout", CalloutBlock(skip_default_wrapper=True)),
     ("custom_media", CustomMediaBlock()),
 ]
 
