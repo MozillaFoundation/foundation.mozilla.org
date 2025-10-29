@@ -30,11 +30,11 @@ class NothingPersonalProductCollectionPage(AbstractArticlePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        (DEFAULT_LOCALE, _) = get_default_locale()
+        (default_locale, _) = get_default_locale()
         product_reviews = (
             NothingPersonalProductReviewPage.objects.live()
             .public()
-            .filter(locale=DEFAULT_LOCALE)
+            .filter(locale=default_locale)
             .order_by("-first_published_at")
         )
         localized_reviews = localize_queryset(product_reviews, preserve_order=True)
