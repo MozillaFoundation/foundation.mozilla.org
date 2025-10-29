@@ -28,6 +28,7 @@ class ProductReviewCardBlock(BaseBlock):
 
     class Meta:
         icon = "image"
+        template_name = "product_review_card_block.html"
         label = "Product Review Card"
 
 

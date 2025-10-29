@@ -12,7 +12,7 @@
         <div class="product-review-carousel__track">
             {% for card_item in self.cards %}
                 <div class="product-review-carousel__card-wrapper">
-                    {% include "patterns/blocks/themes/default/product_review_card_block.html" with page=card_item.value.product_review orientation=card_item.value.orientation %}
+                    {% include_block card_item with page=card_item.value.product_review orientation=card_item.value.orientation %}
                 </div>
             {% endfor %}
         </div>
