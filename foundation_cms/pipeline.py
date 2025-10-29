@@ -1,3 +1,6 @@
+import logging
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
@@ -30,13 +33,18 @@ def associate_by_email(backend, details, uid, user=None, *args, **kwargs):
 def assign_default_role(backend, user, is_new=False, **kwargs):
     if not is_new:
         return
+
+    is_review_app = getattr(settings, "REVIEW_APP_DOMAIN", None)
+    group_name = "Administrators" if is_review_app else DEFAULT_GROUP_NAME
+
     with transaction.atomic():
         try:
-            group = Group.objects.get(name=DEFAULT_GROUP_NAME)
+            group = Group.objects.get(name=group_name)
+            user.groups.add(group)
         except ObjectDoesNotExist:
-            import logging
-
-            logging.warning(f"Default group '{DEFAULT_GROUP_NAME}' not found; user {user} not assigned.")
+            logging.warning(
+                "Default group '%s' not found; user %s not assigned.",
+                group_name,
+                user,
+            )
             return
-
-        user.groups.add(group)
