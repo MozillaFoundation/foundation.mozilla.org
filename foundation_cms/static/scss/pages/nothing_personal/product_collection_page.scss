@@ -30,68 +30,29 @@ body.nothing-personal.nothing-personal-product-collection-page {
   }
 
   .collection-products {
-    // Configuration variables
-    $grid-breakpoints: (
-      small: (
-        columns: 2,
-        gap: 1rem,
-      ),
-      medium: (
-        columns: 3,
-        gap: 1rem,
-      ),
-      large: (
-        columns: 4,
-        gap: 1.75rem,
-      ),
-      xlarge: (
-        columns: 5,
-        gap: 1.75rem,
-      ),
-    );
-    $row-gaps: (
-      small: 1.5rem,
-      large: 2.75rem,
-    );
-
-    // Function to calculate flex-basis
-    @function calc-flex-basis($columns, $gap) {
-      @return calc(
-        #{100% / $columns} - (#{$gap} * #{$columns - 1} / #{$columns})
-      );
-    }
-
-    display: flex;
-    flex-flow: row wrap;
-    gap: map.get($row-gaps, small)
-      map.get(map.get($grid-breakpoints, small), gap);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1rem;
     margin-bottom: 2rem;
 
+    @include breakpoint(medium up) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     @include breakpoint(large up) {
-      gap: map.get($row-gaps, large)
-        map.get(map.get($grid-breakpoints, large), gap);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.75rem 1.75rem;
       margin-bottom: 4rem;
+    }
+
+    @include breakpoint(xlarge up) {
+      grid-template-columns: repeat(5, 1fr);
     }
 
     .product-review-card {
       @include image-hover-zoom;
 
-      $small-config: map.get($grid-breakpoints, small);
-
-      flex: 0 0
-        calc-flex-basis(
-          map.get($small-config, columns),
-          map.get($small-config, gap)
-        );
-
-      @each $breakpoint, $config in $grid-breakpoints {
-        @if $breakpoint != small {
-          @include breakpoint(#{$breakpoint} up) {
-            flex: 0 0
-              calc-flex-basis(map.get($config, columns), map.get($config, gap));
-          }
-        }
-      }
+      width: 100%;
 
       &__title {
         @include mofo-text-style($body-text-styles, "xlarge");
@@ -99,11 +60,6 @@ body.nothing-personal.nothing-personal-product-collection-page {
         @include breakpoint(large up) {
           margin-top: 1rem;
         }
-      }
-
-      &__image-container {
-        overflow: hidden;
-        position: relative;
       }
     }
   }
