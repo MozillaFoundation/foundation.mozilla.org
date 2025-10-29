@@ -54,6 +54,10 @@ body.nothing-personal.nothing-personal-product-collection-page {
 
       width: 100%;
 
+      a {
+        @include link-text-hover-underline;
+      }
+
       &__title {
         @include mofo-text-style($body-text-styles, "xlarge");
 
