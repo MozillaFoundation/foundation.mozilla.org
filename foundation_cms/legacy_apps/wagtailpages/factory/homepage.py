@@ -62,11 +62,10 @@ def generate(seed):
     reseed(seed)
 
     print("Creating a legacy site record in Wagtail")
-    tds = settings.TARGET_DOMAINS
-    # @TODO Need a more future-proof check that doesn't require incrementing as we add sites.
-    if tds and len(tds) > 1:
-        # Assume that tds[0] is the main mofo domain, and tds[1] is the legacy domain
-        hostname = tds[1]
+    
+    # if review app
+    if settings.APP_ENVIRONMENT == "Review":
+        hostname = "legacy-" + REVIEW_APP_HOSTNAME
         port = 80
     else:
         # use a localhost domain (must be set in /etc/hosts)
