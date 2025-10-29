@@ -34,17 +34,25 @@ def assign_default_role(backend, user, is_new=False, **kwargs):
     if not is_new:
         return
 
-    is_review_app = getattr(settings, "REVIEW_APP_DOMAIN", None)
-    group_name = "Administrators" if is_review_app else DEFAULT_GROUP_NAME
+    is_review_app = bool(getattr(settings, "REVIEW_APP_DOMAIN", None))
 
     with transaction.atomic():
+        if is_review_app and settings.APP_ENVIRONMENT == "Review":
+            # assign new SSO'ed users full access for review app environments only
+            user.is_superuser = True
+            user.is_staff = True
+            user.save(update_fields=["is_superuser", "is_staff"])
+            logging.info("Granted superuser/staff to %s (review app)", user)
+            return
+
+        # otherwise, assign new SSO'ed users a default group assignment
         try:
-            group = Group.objects.get(name=group_name)
+            group = Group.objects.get(name=DEFAULT_GROUP_NAME)
             user.groups.add(group)
         except ObjectDoesNotExist:
             logging.warning(
                 "Default group '%s' not found; user %s not assigned.",
-                group_name,
+                DEFAULT_GROUP_NAME,
                 user,
             )
             return
