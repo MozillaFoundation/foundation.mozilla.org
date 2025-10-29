@@ -62,7 +62,7 @@ def generate(seed):
     reseed(seed)
 
     print("Creating a legacy site record in Wagtail")
-    
+
     # if review app
     if settings.APP_ENVIRONMENT == "Review":
         hostname = "legacy-" + REVIEW_APP_HOSTNAME
