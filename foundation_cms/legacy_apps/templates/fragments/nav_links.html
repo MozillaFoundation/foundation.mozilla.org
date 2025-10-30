@@ -2,7 +2,7 @@
 
 {% for item in menu_items %}
     {% if menu_root.title == "Mozilla Festival" and item.title == "Schedule" %}
-        {{ pre }}<a class="" href="https://schedule.mozillafestival.org/plaza">{{ item.title }}</a>{{ post }}
+        {{ pre }}<a href="https://schedule.mozillafestival.org/plaza">{{ item.title }}</a>{{ post }}
     {% else %}
         {{ pre }}<a class="{% primary_active_nav request menu_root.full_url item.full_url %}" href="{{ item.url }}">{{ item.title }}</a>{{ post }}
     {% endif %}
