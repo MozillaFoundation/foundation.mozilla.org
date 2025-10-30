@@ -1,0 +1,70 @@
+@use "sass:map";
+
+@import "../../nothing_personal_base";
+
+body.nothing-personal.nothing-personal-product-collection-page {
+  .brand-banner {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+
+    @include breakpoint(large up) {
+      margin-top: 1.5rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .collection-title {
+    margin: 0 0 1rem;
+  }
+
+  .collection-description {
+    @include mofo-text-style($body-text-styles, "xlarge");
+  }
+
+  .grid-container:has(.collection-title) {
+    margin-bottom: 3.5rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 4.5rem;
+    }
+  }
+
+  .collection-products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1rem;
+    margin-bottom: 2rem;
+
+    @include breakpoint(medium up) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include breakpoint(large up) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.75rem 1.75rem;
+      margin-bottom: 4rem;
+    }
+
+    @include breakpoint(xlarge up) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .product-review-card {
+      @include image-hover-zoom;
+
+      width: 100%;
+
+      a {
+        @include link-text-hover-underline;
+      }
+
+      &__title {
+        @include mofo-text-style($body-text-styles, "xlarge");
+
+        @include breakpoint(large up) {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+}

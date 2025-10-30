@@ -1,29 +1,27 @@
 {% load wagtailimages_tags responsive_image_tags %}
 
-{% with page=self.product_review %}
-    <div class="product-review-card{% if orientation %} product-review-card--{{ orientation }}{% else %} product-review-card--portrait{% endif %}">
-        <a href="{{ page.url }}">
-            {% if page.hero_image %}
-                <div class="product-review-card__image-container">
-                    {% if page.hero_image|is_webp %}
-                        <img src="{{ page.hero_image.file.url }}"
-                             alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
-                             class="product-review-card__image"
-                             width="{{ page.hero_image.width }}"
-                             height="{{ page.hero_image.height }}">
-                    {% else %}
-                        {% image page.hero_image fill-192x288 as img_1x %}
-                        {% image page.hero_image fill-384x576 as img_2x %}
-                        <img src="{{ img_1x.url }}"
-                             srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
-                             alt="{{ page.hero_image_alt_text }}"
-                             class="product-review-card__image"
-                             width="{{ img_1x.width }}"
-                             height="{{ img_1x.height }}">
-                    {% endif %}
-                </div>
-            {% endif %}
-            <div class="product-review-card__title">{{ page.title }}</div>
-        </a>
-    </div>
-{% endwith %}
+<div class="product-review-card{% if orientation %} product-review-card--{{ orientation }}{% else %} product-review-card--portrait{% endif %}">
+    <a href="{{ page.url }}">
+        {% if page.hero_image %}
+            <div class="product-review-card__image-container">
+                {% if page.hero_image|is_webp %}
+                    <img src="{{ page.hero_image.file.url }}"
+                         alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
+                         class="product-review-card__image"
+                         width="{{ page.hero_image.width }}"
+                         height="{{ page.hero_image.height }}">
+                {% else %}
+                    {% image page.hero_image fill-192x288 as img_1x %}
+                    {% image page.hero_image fill-384x576 as img_2x %}
+                    <img src="{{ img_1x.url }}"
+                         srcset="{{ img_1x.url }} 1x, {{ img_2x.url }} 2x"
+                         alt="{{ page.hero_image_alt_text }}"
+                         class="product-review-card__image"
+                         width="{{ img_1x.width }}"
+                         height="{{ img_1x.height }}">
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="product-review-card__title">{{ page.title }}</div>
+    </a>
+</div>
