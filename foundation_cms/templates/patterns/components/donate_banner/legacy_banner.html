@@ -1,21 +1,29 @@
-<div>
-    <h4> This banner is using the <b>Legacy</b> style. </h4>
-    <p><b>Banner Name:</b> {{ banner.name }}</p>
-    <p><b>Banner Title:</b> {{ banner.title }}</p>
-    <p><b>Banner Style:</b> {{ banner.banner_style }}</p>
-    <p><b>Banner Subtitle:</b> {{ banner.subtitle }}</p>
-    <p><b>Banner Foreground Image:</b> {{ banner.foreground_image }}</p>
-    <p><b>Banner Background Image:</b> {{ banner.background_image }}</p>
-    <p><b>Banner Text Color:</b> {{ banner.text_color }}</p>
-    <p><b>Banner Button Color:</b> {{ banner.button_color }}</p>
-    <p><b>Banner Button Text and Link:</b> <a id="banner-cta-button" href="{{ banner.cta_link }}">{{ banner.cta_button_text }}</a></p>
-    <p><b>Banner Active AB Test (If applicable):</b> {{ banner.active_ab_test }}</p>
-    <p><b>Banner Variant Version (If active AB test):</b> {{ banner.variant_version }}</p>
-    <div>
-        <p><b>Banner FRU Thermometer: (If applicable) </b></p> {{ banner.fru_thermometer_embed_code|safe }}
-    </div>
-    <br>
-    <div>
-        <p><b>Banner FRU Stat Counter: (If applicable) </b></p> {{ banner.fru_stat_counter_embed_code|safe }} {{ banner.fru_stat_counter_caption }}
+{% load responsive_image_tags %}
+
+<div class="grid-container donate-banner__inner-wrapper">
+    <div class="grid-x grid-margin-x">
+        <div class="cell small-12 xlarge-6 donate-banner__section">
+            <h1 class="donate-banner__title">{{ banner.title }}</h1>
+            <p>{{ banner.subtitle }}</p>
+            {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" %}
+
+            {% if banner.fru_thermometer_embed_code %}
+            <div class="donate-banner__fru-thermometer">
+                {{ banner.fru_thermometer_embed_code|safe }}
+            </div>
+            {% endif %}
+
+            {% if banner.fru_stat_counter_embed_code %}
+            <div class="donate-banner__fru-counter">
+                {{ banner.fru_stat_counter_embed_code|safe }}  {{ banner.fru_stat_counter_caption }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="cell small-12 xlarge-6 donate-banner__section">
+            <div><b>Banner Style:</b> {{ banner.banner_style }}</div>
+            <div><b>Banner Active AB Test (If applicable):</b> {{ banner.active_ab_test }}</div>
+            <div><b>Banner Variant Version (If active AB test):</b> {{ banner.variant_version }}</div>
+            {% responsive_image banner.foreground_image ratio="3:2" base_width=600 %}
+        </div>
     </div>
 </div>
