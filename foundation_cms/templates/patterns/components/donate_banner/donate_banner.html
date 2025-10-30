@@ -1,16 +1,5 @@
-{% load settings_value i18n static wagtailimages_tags %}
-
-<div class="donate-banner"
-     data-banner-id="{{ banner.id }}"
-     data-banner-title="{{ banner.title }}"
-     data-banner-name="{{ banner.name }}"
-     data-banner-variant-version="{{ banner.variant_version }}"
-     data-banner-active-ab-test="{{ banner.active_ab_test }}"
-     data-banner-style="{{ banner.banner_style }}"
->
-    {% if banner.banner_style == "legacy" %}
-        {% include "./legacy_banner.html" with banner=banner %}
-    {% else %}
-        {% include "./pushdown_banner.html" with banner=banner %}
-    {% endif %}
-</div>
+{% if banner.banner_style == "legacy" %}
+    {% include "./legacy_banner.html" with banner=banner %}
+{% else %}
+    {% include "./pushdown_banner.html" with banner=banner %}
+{% endif %}
