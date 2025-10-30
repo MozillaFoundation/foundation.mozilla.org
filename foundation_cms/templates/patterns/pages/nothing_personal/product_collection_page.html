@@ -1,0 +1,36 @@
+{% extends theme_base %}
+
+{% load wagtailimages_tags static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/product_collection_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <article>
+            <div class="grid-container collection-intro">
+                <div class="grid-x">
+                    <div class="cell small-12 large-7">
+                        <h1 class="collection-title">{{ page.title }}</h1>
+                    </div>
+                    <div class="cell small-12 large-5">
+                        <div class="collection-description">{{ page.lede_text }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12">
+                        <div class="collection-products">
+                            {% for review in product_reviews %}
+                                {% include "patterns/blocks/themes/default/product_review_card_block.html" with page=review %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock content %}
