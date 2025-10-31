@@ -17,7 +17,7 @@
                     {% block mobile_top_button_wrapper %}{% endblock mobile_top_button_wrapper %}
                 </div>
                 <p>{{ banner.subtitle }}</p>
-                {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" %}
+                {% include "patterns/components/button.html" with id="donate-banner-cta-button" url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" %}
 
                 {% if banner.fru_thermometer_embed_code %}
                     <div class="donate-banner__fru-thermometer">
@@ -27,7 +27,7 @@
 
                 {% if banner.fru_stat_counter_embed_code %}
                     <div class="donate-banner__fru-counter">
-                        {{ banner.fru_stat_counter_embed_code|safe }}  {{ banner.fru_stat_counter_caption }}
+                        {{ banner.fru_stat_counter_embed_code|safe }} {{ banner.fru_stat_counter_caption }}
                     </div>
                 {% endif %}
             </div>

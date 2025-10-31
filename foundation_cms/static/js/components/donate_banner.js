@@ -3,7 +3,7 @@
  */
 const SELECTORS = {
   donateBanner: ".donate-banner",
-  ctaButton: "#banner-cta-button",
+  ctaButton: "#donate-banner-cta-button",
   closeButton: "[data-donate-banner-close-button]",
   skipButton: "[data-donate-banner-skip-button]",
   skipTarget: "nav.primary-nav-ns",

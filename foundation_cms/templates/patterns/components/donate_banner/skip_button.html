@@ -1,4 +1,4 @@
-{% load i18n l10n %}
+{% load static i18n l10n %}
 
 {% with skip_down_label=_("Skip Down") %}
     <div class="donate-banner__skip">
@@ -8,7 +8,7 @@
             class="donate-banner__skip-button"
             aria-label="{{ skip_down_label }}"
         >
-            ⌄
+            <img src="{% static 'foundation_cms/_images/icons/button-scroll-down.svg' %}" alt="" width="50" height="50" />
         </button>
     </div>
 {% endwith %}

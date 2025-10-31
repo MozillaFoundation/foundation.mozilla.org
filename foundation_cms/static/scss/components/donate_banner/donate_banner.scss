@@ -56,9 +56,12 @@
 
     text-transform: uppercase;
     cursor: pointer;
-    background: map.get($mofo-colors, white);
-    height: rem-calc(48);
-    width: rem-calc(48);
+    height: rem-calc(50);
+    width: rem-calc(50);
+
+    &:hover {
+      filter: invert(100%);
+    }
   }
 
   &__skip-button-label {
