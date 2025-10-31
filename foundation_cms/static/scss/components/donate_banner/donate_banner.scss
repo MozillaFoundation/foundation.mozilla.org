@@ -36,6 +36,10 @@
     align-content: center;
   }
 
+  &__cta-button {
+    background-color: blue; // to be replaced by a brand color
+  }
+
   &__close-button {
     text-transform: uppercase;
     cursor: pointer;

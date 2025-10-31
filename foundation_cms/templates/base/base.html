@@ -88,7 +88,7 @@
         {% endwith %}
         {% block donate_banner %}
             {% if donate_banner %}
-                {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner %}
+                {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner cta_button_data=donate_banner.cta_button_data %}
             {% endif %}
         {% endblock donate_banner %}
         {% include "patterns/components/primary_nav.html" %}
