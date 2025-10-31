@@ -238,11 +238,18 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         # Check if there's an active A/B test for the SitewideDonateBannerPage.
         active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
 
+        # Data attributes for donate banner CTA button
+        # These are rendered as data-* attributes on the button element and used by JS
+        cta_button_data = {
+            "donate-banner-cta-button": "",  # flag for JS event listeners
+        }
+
         # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
         if not active_ab_test or dnt_enabled:
             donate_banner = donate_banner_page.donate_banner.localized
             donate_banner.variant_version = "N/A"
             donate_banner.active_ab_test = "N/A"
+            donate_banner.cta_button_data = cta_button_data
             return donate_banner
 
         # Check for the cookie related to this A/B test.
@@ -275,6 +282,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
         donate_banner.variant_version = test_version
         donate_banner.active_ab_test = active_ab_test.name
+        donate_banner.cta_button_data = cta_button_data
         return donate_banner
 
     def get_context(self, request):

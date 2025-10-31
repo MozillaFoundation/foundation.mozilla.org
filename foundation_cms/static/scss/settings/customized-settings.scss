@@ -124,7 +124,7 @@ $breakpoints-hidpi: (
   "hidpi-3": 3
 );
 $print-breakpoint: large;
-$breakpoint-classes: (small medium large);
+$breakpoint-classes: (small medium large xlarge xxlarge xxxlarge);
 
 // 3. The Grid
 // -----------
@@ -939,7 +939,11 @@ $grid-container: $global-width;
 $grid-columns: 12;
 $grid-margin-gutters: (
   "small": 16px,
-  "medium": 32px
+  "medium": 32px,
+  "large": 32px,
+  "xlarge": 32px,
+  "xxlarge": 32px,
+  "xxxlarge": 32px,
 );
 $grid-padding-gutters: $grid-margin-gutters;
 $grid-container-padding: (
@@ -947,6 +951,8 @@ $grid-container-padding: (
   medium: 128px, // 64px on each side,
   large: 128px,
   xlarge: 128px,
+  xxlarge: 128px,
+  xxxlarge: 128px,
 ) !default;
 $grid-container-max: $global-width;
 $xy-block-grid-max: 8;
