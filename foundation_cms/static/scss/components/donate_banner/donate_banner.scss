@@ -37,10 +37,51 @@
   }
 
   &__close-button {
-    @include mofo-text-style($body-text-styles, "small");
-
     text-transform: uppercase;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 1rem;
+
+    &-content {
+      $black: map.get($mofo-colors, black);
+      $hover-transition-duration: 0.4s;
+
+      display: inline-flex;
+      align-items: center;
+      background-image: linear-gradient(to right, $black 0%, $black 100%);
+      background-size: 0% 1px;
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      transition: background-size $hover-transition-duration ease-out;
+      margin-bottom: rem-calc(7);
+    }
+
+    &:hover {
+      .donate-banner__close-button-content {
+        background-size: 100% 1px;
+      }
+    }
+
+    &-text {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: inline;
+
+      @include breakpoint(large up) {
+        @include mofo-text-style($body-text-styles, "small");
+      }
+    }
+
+    &-image {
+      width: 24px;
+      height: 24px;
+
+      @include breakpoint(large up) {
+        width: 32px;
+        height: 32px;
+      }
+    }
   }
 
   &__skip {
