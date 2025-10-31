@@ -8,23 +8,27 @@
      data-banner-active-ab-test="{{ banner.active_ab_test }}"
      data-banner-style="{{ banner.banner_style }}"
 >
+    {% block top_button_wrapper %}{% endblock top_button_wrapper %}
     <div class="grid-container donate-banner__inner-wrapper">
         <div class="grid-x grid-margin-x">
             <div class="cell small-12 xlarge-6 donate-banner__section">
-                <h1 class="donate-banner__title">{{ banner.title }}</h1>
+                <div class="donate-banner__title-wrapper">
+                    <h1 class="donate-banner__title">{{ banner.title }}</h1>
+                    {% block mobile_top_button_wrapper %}{% endblock mobile_top_button_wrapper %}
+                </div>
                 <p>{{ banner.subtitle }}</p>
                 {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" %}
 
                 {% if banner.fru_thermometer_embed_code %}
-                <div class="donate-banner__fru-thermometer">
-                    {{ banner.fru_thermometer_embed_code|safe }}
-                </div>
+                    <div class="donate-banner__fru-thermometer">
+                        {{ banner.fru_thermometer_embed_code|safe }}
+                    </div>
                 {% endif %}
 
                 {% if banner.fru_stat_counter_embed_code %}
-                <div class="donate-banner__fru-counter">
-                    {{ banner.fru_stat_counter_embed_code|safe }}  {{ banner.fru_stat_counter_caption }}
-                </div>
+                    <div class="donate-banner__fru-counter">
+                        {{ banner.fru_stat_counter_embed_code|safe }}  {{ banner.fru_stat_counter_caption }}
+                    </div>
                 {% endif %}
             </div>
             <div class="cell small-12 xlarge-6 donate-banner__section">
@@ -35,4 +39,5 @@
             </div>
         </div>
     </div>
+    {% block bottom_button_wrapper %}{% endblock bottom_button_wrapper %}
 </div>

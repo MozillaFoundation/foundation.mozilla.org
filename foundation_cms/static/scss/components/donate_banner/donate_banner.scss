@@ -1,25 +1,72 @@
 @use "sass:map";
 
 .donate-banner {
+  $banner-standard-padding-y: (
+    large: calc(map.get($grid-container-padding, large) / 2),
+  );
+  $banner-larger-padding-bottom: (
+    large: rem-calc(100),
+  );
+
   background: color(orange, "300");
+  position: relative;
 
   @include breakpoint(large up) {
-    padding-top: calc(map.get($grid-container-padding, large) / 2);
-    padding-bottom: calc(map.get($grid-container-padding, large) / 2);
+    padding-top: map.get($banner-standard-padding-y, large);
+    padding-bottom: map.get($banner-standard-padding-y, large);
+  }
+
+  &:has(.donate-banner__button-wrapper--bottom) {
+    padding-bottom: map.get($banner-larger-padding-bottom, large);
   }
 
   &__inner-wrapper {
     background: map.get($mofo-colors, white);
 
     @include breakpoint(large up) {
+      $border-radius: rem-calc(24);
       padding-top: calc(map.get($grid-container-padding, large) / 2);
       padding-bottom: calc(map.get($grid-container-padding, large) / 2);
-      border-radius: rem-calc(24) 0 rem-calc(24) 0;
+      border-radius: $border-radius 0;
     }
+  }
+
+  &__section {
+    align-content: center;
+  }
+
+  &__close-button {
+    @include mofo-text-style($body-text-styles, "small");
+
+    text-transform: uppercase;
+  }
+
+  &__skip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: rem-calc(4);
+  }
+
+  &__skip-button {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    text-transform: uppercase;
+    background: map.get($mofo-colors, white);
+    height: rem-calc(48);
+    width: rem-calc(48);
+  }
+
+  &__skip-button-label {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    text-transform: uppercase;
   }
 
   &__title {
     @include mofo-text-style($header-styles, "h2", $header-font-family);
+
     margin-top: 0;
     margin-bottom: 1rem;
 
@@ -28,7 +75,53 @@
     }
   }
 
-  &__section {
-    align-content: center;
+  &__title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .donate-banner__title {
+      flex: 1 1 auto;
+    }
+
+    .donate-banner__close-button {
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+  }
+
+  &__button-wrapper {
+    &--top-mobile {
+      @include breakpoint(xlarge up) {
+        display: none;
+      }
+    }
+
+    &--top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: map.get($banner-standard-padding-y, large);
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 1rem;
+
+      @include breakpoint(large down) {
+        display: none;
+      }
+    }
+
+    &--bottom {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: map.get($banner-larger-padding-bottom, large);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: rem-calc(4);
+    }
+
   }
 }

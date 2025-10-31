@@ -1,1 +1,13 @@
 {% extends "../donate_banner/donate_banner_base.html" %}
+
+{% block top_button_wrapper %}
+    <div class="donate-banner__button-wrapper donate-banner__button-wrapper--top">
+        {% include "patterns/components/donate_banner/close_button.html" %}
+    </div>
+{% endblock top_button_wrapper %}
+
+{% block mobile_top_button_wrapper %}
+    <div class="donate-banner__button-wrapper donate-banner__button-wrapper--top-mobile">
+        {% include "patterns/components/donate_banner/close_button.html" %}
+    </div>
+{% endblock mobile_top_button_wrapper %}

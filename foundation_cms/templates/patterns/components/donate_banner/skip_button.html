@@ -1,0 +1,14 @@
+{% load i18n l10n %}
+
+{% with skip_down_label=_("Skip Down") %}
+    <div class="donate-banner__skip">
+        <span class="donate-banner__skip-button-label">{{ skip_down_label }}</span>
+        <button
+            data-donate-banner-skip-button
+            class="donate-banner__skip-button"
+            aria-label="{{ skip_down_label }}"
+        >
+            ⌄
+        </button>
+    </div>
+{% endwith %}
