@@ -2,10 +2,10 @@
   <a href="{{ url }}"
      {% if value.new_window %}target="_blank"{% endif %}
      {% if data_attrs %}
-      {% for key, value in data_attrs.items %}
-        data-{{ key }}="{{ value }}"
-      {% endfor %}
-    {% endif %}
+       {% for key, value in data_attrs.items %}
+         data-{{ key }}="{{ value }}"
+       {% endfor %}
+     {% endif %}
      class="{{ button_style }} {{ classnames }}">
     <span class="{{ button_style }}__roller">
       <span class="{{ button_style }}__rolltext">
