@@ -45,7 +45,7 @@
   &__section {
     align-content: center;
     background: $white;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem 1rem;
 
     @include breakpoint(medium up) {
       padding: 0;
@@ -132,26 +132,32 @@
   }
 
   h1.donate-banner__title {
+    @include apply-text-style(
+      $header-styles,
+      "h4",
+      "small",
+      $header-font-family
+    );
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    @include breakpoint(large up) {
       @include apply-text-style(
         $header-styles,
-        "h4",
-        "small",
+        "h2",
+        "large",
         $header-font-family
       );
 
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+    }
+  }
 
-      @include breakpoint(large up) {
-        @include apply-text-style(
-            $header-styles,
-            "h2",
-            "large",
-            $header-font-family
-          );
-        margin-top: 0;
-        margin-bottom: rem-calc(24);
-      }
+  &__subtitle {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
   }
 
   &__title-wrapper {
