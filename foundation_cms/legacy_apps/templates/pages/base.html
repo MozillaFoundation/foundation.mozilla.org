@@ -112,7 +112,9 @@
 
         {% block donate_banner %}
             {% if donate_banner %}
-                {% include "patterns/components/donate_banner.html" with banner=donate_banner %}
+                {% if parent_homepage == "redesign" %}
+                    {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner %}
+                {% endif %}
             {% endif %}
         {% endblock %}
 
