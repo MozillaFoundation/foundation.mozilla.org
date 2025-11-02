@@ -11,7 +11,7 @@
     {% block top_button_wrapper %}{% endblock top_button_wrapper %}
     <div class="grid-container donate-banner__inner-wrapper">
         <div class="grid-x grid-margin-x">
-            <div class="cell small-12 xlarge-6 donate-banner__section">
+            <div class="cell small-12 medium-6 donate-banner__section">
                 <div class="donate-banner__title-wrapper">
                     <h1 class="donate-banner__title">{{ banner.title }}</h1>
                     {% block mobile_top_button_wrapper %}{% endblock mobile_top_button_wrapper %}
@@ -32,7 +32,7 @@
 
                 {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" classnames="donate-banner__cta-button" data_attrs=cta_button_data %}
             </div>
-            <div class="cell small-12 xlarge-6 donate-banner__section">
+            <div class="cell small-12 medium-6 donate-banner__section">
                 <div><b>Banner Style:</b> {{ banner.banner_style }}</div>
                 <div><b>Banner Active AB Test (If applicable):</b> {{ banner.active_ab_test }}</div>
                 <div><b>Banner Variant Version (If active AB test):</b> {{ banner.variant_version }}</div>
