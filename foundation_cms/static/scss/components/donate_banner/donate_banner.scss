@@ -8,11 +8,14 @@
     medium: calc(map.get($grid-container-padding, large) / 2),
   );
   $banner-larger-padding-bottom: (
+    small: rem-calc(100),
     medium: rem-calc(100),
   );
 
   background: $orange;
   position: relative;
+  padding-top: calc(map.get($grid-container-padding, small) / 2);
+  padding-bottom: calc(map.get($grid-container-padding, small) / 2);
 
   @include breakpoint(medium up) {
     padding-top: map.get($banner-standard-padding-y, medium);
@@ -20,12 +23,14 @@
   }
 
   &:has(.donate-banner__button-wrapper--bottom) {
-    padding-bottom: map.get($banner-larger-padding-bottom, medium);
+    padding-bottom: map.get($banner-larger-padding-bottom, small);
+    @include breakpoint(medium up) {
+      padding-bottom: map.get($banner-larger-padding-bottom, medium);
+    }
   }
 
   &__inner-wrapper {
     background: $orange;
-    padding-top: calc(map.get($grid-container-padding, small) / 2);
 
     @include breakpoint(medium up) {
       $border-radius: rem-calc(24);
