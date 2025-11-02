@@ -17,7 +17,7 @@ export function initDonateBanner() {
   if (!banner) return;
 
   const ctaButton = banner.querySelector(SELECTORS.ctaButton);
-  const closeButton = banner.querySelector(SELECTORS.closeButton);
+  const closeButtons = banner.querySelectorAll(SELECTORS.closeButton);
   const skipButton = banner.querySelector(SELECTORS.skipButton);
 
   if (window.wagtailAbTesting) {
@@ -26,14 +26,16 @@ export function initDonateBanner() {
     });
   }
 
-  closeButton?.addEventListener(
-    "click",
-    (e) => {
-      e.preventDefault();
-      banner.remove();
-    },
-    { once: true },
-  );
+  closeButtons.forEach((btn) => {
+    btn.addEventListener(
+      "click",
+      (e) => {
+        e.preventDefault();
+        banner.remove();
+      },
+      { once: true },
+    );
+  });
 
   skipButton?.addEventListener("click", (e) => {
     e.preventDefault();
