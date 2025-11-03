@@ -33,9 +33,6 @@
                 {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" classnames="donate-banner__cta-button" data_attrs=cta_button_data %}
             </div>
             <div class="cell small-12 medium-6 donate-banner__section">
-                <div><b>Banner Style:</b> {{ banner.banner_style }}</div>
-                <div><b>Banner Active AB Test (If applicable):</b> {{ banner.active_ab_test }}</div>
-                <div><b>Banner Variant Version (If active AB test):</b> {{ banner.variant_version }}</div>
                 {% responsive_image banner.foreground_image ratio="3:2" base_width=600 %}
             </div>
         </div>

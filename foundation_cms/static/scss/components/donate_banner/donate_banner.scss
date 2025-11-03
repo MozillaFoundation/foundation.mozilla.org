@@ -4,6 +4,7 @@
   $white: map.get($mofo-colors, white);
   $black: map.get($mofo-colors, black);
   $orange: color(orange, "300");
+  $cta-button-background: color(blue, "500");
   $banner-standard-padding-y: (
     medium: calc(map.get($grid-container-padding, large) / 2),
   );
@@ -32,6 +33,14 @@
   &__inner-wrapper {
     background: $orange;
 
+    @include breakpoint(medium only) {
+      max-width: 91vw;
+    }
+
+    @include breakpoint(large only) {
+      max-width: 89vw;
+    }
+
     @include breakpoint(medium up) {
       $border-radius: rem-calc(24);
 
@@ -52,9 +61,11 @@
     }
   }
 
-  &__cta-button {
-    background-color: blue; // to be replaced by a brand color
+  &__cta-button.btn-primary {
+    background-color: $cta-button-background;
+    border: none;
     margin-bottom: 0;
+    font-weight: 600;
   }
 
   &__close-button {
@@ -94,11 +105,11 @@
     }
 
     &-image {
-      width: 24px;
+      width: 18px;
       height: 24px;
 
       @include breakpoint(large up) {
-        width: 32px;
+        width: 24px;
         height: 32px;
       }
     }
@@ -145,7 +156,7 @@
     @include breakpoint(large up) {
       @include apply-text-style(
         $header-styles,
-        "h2",
+        "h3",
         "large",
         $header-font-family
       );
