@@ -1,0 +1,6 @@
+@use "sass:map";
+
+.main-content-wrapper {
+  background-color: map.get($mofo-colors, white);
+}
+

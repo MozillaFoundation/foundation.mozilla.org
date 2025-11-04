@@ -8,6 +8,7 @@
 @import "../scss/dividers";
 @import "../scss/utilities";
 @import "../scss/mixins";
+@import "../scss/layout";
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
@@ -44,7 +45,3 @@
 
 // Embed/widget overrides
 @import "../scss/onetrust-override";
-
-.main-content-wrapper {
-  background-color: map.get($mofo-colors, white);
-}
