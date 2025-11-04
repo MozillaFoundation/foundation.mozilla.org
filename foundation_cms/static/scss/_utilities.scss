@@ -9,3 +9,6 @@
     }
   }
 }
+
+// Generate background-color utility classes (e.g. .bg-blue-100)
+@include generate-bg-utilities($mofo-colors);
