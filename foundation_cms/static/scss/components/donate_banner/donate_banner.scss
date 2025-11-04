@@ -1,0 +1,230 @@
+@use "sass:map";
+
+.donate-banner {
+  $white: map.get($mofo-colors, white);
+  $black: map.get($mofo-colors, black);
+  $orange: color(orange, "300");
+  $cta-button-background: color(blue, "500");
+  $banner-standard-padding-y: (
+    medium: calc(map.get($grid-container-padding, large) / 2),
+  );
+  $banner-larger-padding-bottom: (
+    small: rem-calc(100),
+    medium: rem-calc(100),
+  );
+
+  background: $orange;
+  position: relative;
+  padding-top: calc(map.get($grid-container-padding, small) / 2);
+  padding-bottom: calc(map.get($grid-container-padding, small) / 2);
+
+  @include breakpoint(medium up) {
+    padding-top: map.get($banner-standard-padding-y, medium);
+    padding-bottom: map.get($banner-standard-padding-y, medium);
+  }
+
+  &:has(.donate-banner__button-wrapper--bottom) {
+    padding-bottom: map.get($banner-larger-padding-bottom, small);
+    @include breakpoint(medium up) {
+      padding-bottom: map.get($banner-larger-padding-bottom, medium);
+    }
+  }
+
+  &[data-banner-style="pushdown"] {
+    position: sticky;
+    top: 0;
+
+    ~ .main-content-wrapper {
+      position: relative;
+    }
+  }
+
+  &__inner-wrapper {
+    background: $orange;
+
+    @include breakpoint(medium only) {
+      max-width: 91vw;
+    }
+
+    @include breakpoint(large only) {
+      max-width: 89vw;
+    }
+
+    @include breakpoint(medium up) {
+      $border-radius: rem-calc(24);
+
+      background: $white;
+      padding-top: calc(map.get($grid-container-padding, medium) / 2);
+      padding-bottom: calc(map.get($grid-container-padding, medium) / 2);
+      border-radius: $border-radius 0;
+    }
+  }
+
+  &__section {
+    align-content: center;
+    background: $white;
+    padding: 0 1rem 1rem;
+
+    @include breakpoint(medium up) {
+      padding: 0;
+    }
+  }
+
+  &__cta-button.btn-primary {
+    background-color: $cta-button-background;
+    border: none;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+
+  &__close-button {
+    text-transform: uppercase;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 1rem;
+
+    &-content {
+      $hover-transition-duration: 0.4s;
+
+      display: inline-flex;
+      align-items: center;
+      background-image: linear-gradient(to right, $black 0%, $black 100%);
+      background-size: 0% 1px;
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      transition: background-size $hover-transition-duration ease-out;
+      margin-bottom: rem-calc(7);
+    }
+
+    &:hover {
+      .donate-banner__close-button-content {
+        background-size: 100% 1px;
+      }
+    }
+
+    &-text {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: inline;
+
+      @include breakpoint(large up) {
+        @include mofo-text-style($body-text-styles, "small");
+      }
+    }
+
+    &-image {
+      width: 18px;
+      height: 24px;
+
+      @include breakpoint(large up) {
+        width: 24px;
+        height: 32px;
+      }
+    }
+  }
+
+  &__skip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: rem-calc(4);
+  }
+
+  &__skip-button {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    text-transform: uppercase;
+    cursor: pointer;
+    height: rem-calc(50);
+    width: rem-calc(50);
+
+    &:hover {
+      filter: invert(100%);
+    }
+  }
+
+  &__skip-button-label {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    text-transform: uppercase;
+  }
+
+  h1.donate-banner__title {
+    @include apply-text-style(
+      $header-styles,
+      "h4",
+      "small",
+      $header-font-family
+    );
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    @include breakpoint(large up) {
+      @include apply-text-style(
+        $header-styles,
+        "h3",
+        "large",
+        $header-font-family
+      );
+
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+    }
+  }
+
+  &__subtitle {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    gap: 1rem;
+
+    .donate-banner__title {
+      flex: 1 1 auto;
+    }
+
+    .donate-banner__close-button {
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+  }
+
+  &__button-wrapper {
+    &--top-mobile {
+      @include breakpoint(medium up) {
+        display: none;
+      }
+    }
+
+    &--top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: map.get($banner-standard-padding-y, medium);
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 1rem;
+
+      @include breakpoint(small down) {
+        display: none;
+      }
+    }
+
+    &--bottom {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: map.get($banner-larger-padding-bottom, medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: rem-calc(4);
+    }
+  }
+}
