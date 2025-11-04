@@ -199,9 +199,8 @@ body.nothing-personal-home-page {
   }
 
   // Stacked parallax
-  .grid-container:has(.two-column-container),
-  .grid-container:has(.text-media-block) {
-    background: $white;
+  .streamfield-block-wrapper[data-block-type="two_column_container_block"],
+  .streamfield-block-wrapper[data-block-type="text_media_block"] {
     position: sticky;
     top: 0;
   }

@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 {% for streamchild in streamfield %}
-  <div class="streamfield-block-wrapper" data-block-type="{{ streamchild.block_type }}">
+  <div class="streamfield-block-wrapper {% if streamchild.value.background_color %} bg-{{ streamchild.value.background_color }}{% endif %}" data-block-type="{{ streamchild.block_type }}">
     {% if not streamchild.block.skip_default_wrapper %}
       <div class="grid-container">
         <div class="grid-x">
