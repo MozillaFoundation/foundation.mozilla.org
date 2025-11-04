@@ -58,51 +58,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         models.PROTECT,
         related_name="+",
     )
-    background_image = models.ForeignKey(
-        get_image_model_string(),
-        models.PROTECT,
-        related_name="+",
-        null=True,
-        blank=True,
-    )
-
-    BACKGROUND_COLORS = [
-        ("red", "Red"),
-        ("blue", "Blue"),
-        ("green", "Green"),
-        ("white", "White"),
-        ("black", "Black"),
-    ]
-
-    background_color = models.CharField(
-        max_length=20,
-        choices=BACKGROUND_COLORS,
-        default="blue",
-        help_text="Background color for the banner",
-        null=True,
-        blank=True,
-    )
-
-    TEXT_COLORS = [
-        ("white", "White"),
-        ("black", "Black"),
-    ]
-
-    text_color = models.CharField(
-        max_length=20, choices=TEXT_COLORS, default="white", help_text="Text color for the banner"
-    )
-
-    BUTTON_COLORS = [
-        ("blue", "Blue"),
-        ("green", "Green"),
-    ]
-
-    button_color = models.CharField(
-        max_length=50,
-        choices=BUTTON_COLORS,
-        default="blue",
-        help_text="Button color for the banner",
-    )
 
     BANNER_STYLES = [
         ("legacy", "Legacy"),
@@ -140,16 +95,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("cta_button_text"),
         FieldPanel("cta_link"),
         FieldPanel("foreground_image"),
-        MultiFieldPanel(
-            [
-                HelpPanel(content="Select either an image or a color to serve as the background for the banner."),
-                FieldPanel("background_image"),
-                FieldPanel("background_color"),
-            ],
-            heading="Background",
-        ),
-        FieldPanel("text_color"),
-        FieldPanel("button_color"),
         MultiFieldPanel(
             [
                 FieldPanel("fru_thermometer_embed_code"),
