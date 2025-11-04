@@ -6,7 +6,8 @@ const SELECTORS = {
   ctaButton: "[data-data-donate-banner-cta-button]",
   closeButton: "[data-donate-banner-close-button]",
   skipButton: "[data-donate-banner-skip-button]",
-  skipTarget: "nav.primary-nav-ns",
+  skipTargetLegacy: "main",
+  skipTargetRedesign: "nav.primary-nav-ns",
 };
 
 /**
@@ -41,7 +42,12 @@ export function initDonateBanner() {
   if (bannerStyle == "pushdown") {
     skipButton?.addEventListener("click", (e) => {
       e.preventDefault();
-      const target = document.querySelector(SELECTORS.skipTarget);
+      const skipTargetSelector = document
+        .querySelector("body")
+        .classList.contains("legacy")
+        ? "skipTargetLegacy"
+        : "skipTargetRedesign";
+      const target = document.querySelector(SELECTORS[skipTargetSelector]);
       target?.scrollIntoView({ behavior: "smooth" });
     });
   }
