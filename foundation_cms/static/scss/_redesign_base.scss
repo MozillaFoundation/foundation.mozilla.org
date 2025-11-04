@@ -44,3 +44,7 @@
 
 // Embed/widget overrides
 @import "../scss/onetrust-override";
+
+.main-content-wrapper {
+  background-color: map.get($mofo-colors, white);
+}

@@ -16,6 +16,7 @@ export function initDonateBanner() {
   const banner = document.querySelector(SELECTORS.donateBanner);
   if (!banner) return;
 
+  const bannerStyle = banner.dataset.bannerStyle;
   const ctaButton = banner.querySelector(SELECTORS.ctaButton);
   const closeButtons = banner.querySelectorAll(SELECTORS.closeButton);
   const skipButton = banner.querySelector(SELECTORS.skipButton);
@@ -37,9 +38,11 @@ export function initDonateBanner() {
     );
   });
 
-  skipButton?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const target = document.querySelector(SELECTORS.skipTarget);
-    target?.scrollIntoView({ behavior: "smooth" });
-  });
+  if (bannerStyle == "pushdown") {
+    skipButton?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.querySelector(SELECTORS.skipTarget);
+      target?.scrollIntoView({ behavior: "smooth" });
+    });
+  }
 }

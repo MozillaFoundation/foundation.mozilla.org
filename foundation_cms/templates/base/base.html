@@ -93,13 +93,15 @@
         {% endblock donate_banner %}
         {% include "patterns/components/primary_nav.html" %}
         {% wagtailuserbar %}
-        {% block primary_nav %}{% endblock primary_nav %}
-        {% block brand_banner %}{% endblock brand_banner %}
-        {% block pre_content %}{% endblock pre_content %}
-        {% block content %}{% endblock content %}
-        {% block post_content %}{% endblock post_content %}
-        {% block pre_footer_banner %}{% endblock pre_footer_banner %}
-        {% include "patterns/components/footer.html" %}
+        <div class="main-content-wrapper">
+            {% block primary_nav %}{% endblock primary_nav %}
+            {% block brand_banner %}{% endblock brand_banner %}
+            {% block pre_content %}{% endblock pre_content %}
+            {% block content %}{% endblock content %}
+            {% block post_content %}{% endblock post_content %}
+            {% block pre_footer_banner %}{% endblock pre_footer_banner %}
+            {% include "patterns/components/footer.html" %}
+        </div>
         <script src="{% url "javascript-catalog" %}"></script>
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
         {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock extra_js %}

@@ -30,6 +30,15 @@
     }
   }
 
+  &[data-banner-style="pushdown"] {
+    position: sticky;
+    top: 0;
+
+    ~ .main-content-wrapper {
+      position: relative;
+    }
+  }
+
   &__inner-wrapper {
     background: $orange;
 
