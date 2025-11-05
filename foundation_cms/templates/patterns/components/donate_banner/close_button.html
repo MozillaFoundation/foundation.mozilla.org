@@ -1,0 +1,12 @@
+{% load static i18n l10n %}
+
+<button
+    data-donate-banner-close-button
+    class="donate-banner__close-button"
+    aria-label="{% trans "Close" %}"
+>
+    <span class="donate-banner__close-button-content">
+        <span class="donate-banner__close-button-text">{% trans "Close" %}</span>
+        <img class="donate-banner__close-button-image" src="{% static 'foundation_cms/_images/icons/cropped-x.svg' %}" alt="" width="24" height="32" />
+    </span>
+</button>

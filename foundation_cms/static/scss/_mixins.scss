@@ -34,6 +34,24 @@
   }
 }
 
+// Generates .bg-* background color utility classes
+// from a our color map $mofo-colors (defined in _colors.scss)
+@mixin generate-bg-utilities($colors) {
+  @each $group, $value in $colors {
+    @if type-of($value) == "map" {
+      @each $shade, $hex in $value {
+        .bg-#{$group}-#{$shade} {
+          background-color: #{$hex};
+        }
+      }
+    } @else {
+      .bg-#{$group} {
+        background-color: #{$value};
+      }
+    }
+  }
+}
+
 // ===================================
 // Nothing Personal Mixins
 // ===================================

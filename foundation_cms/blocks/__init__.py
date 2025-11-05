@@ -1,5 +1,6 @@
 from .base_card_block import BaseCardBlock
 from .callout_block import CalloutBlock
+from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .fru_element_block import FruElementBlock
@@ -42,6 +43,7 @@ from .video_block import VideoBlock
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
     "BaseCardBlock",
+    "BackgroundColorChoiceBlock",
     "DividerBlock",
     "CalloutBlock",
     "SpotlightCardBlock",
