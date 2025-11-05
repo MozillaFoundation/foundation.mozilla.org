@@ -1,15 +1,18 @@
-{% load wagtailcore_tags streamfield_tags %}
+{% load wagtailcore_tags %}
 
-{% for block in streamfield %}
-  {% if block.block_type|should_wrap_block %}
-    <div class="grid-container">
-      <div class="grid-x">
-        <div class="cell{% if classnames %} {{ classnames }}{% endif %}">
-          {% include_block block with page_type_bem=page_type_bem %}
+{% for streamchild in streamfield %}
+  <div class="streamfield-block-wrapper {% if streamchild.value.background_color %} bg-{{ streamchild.value.background_color }}{% endif %}" data-block-type="{{ streamchild.block_type }}">
+    {% if not streamchild.block.skip_default_wrapper %}
+      <div class="grid-container">
+        <div class="grid-x">
+          <div class="cell {% if classnames %} {{ classnames }}{% endif %}">
+            {% include_block streamchild %}
+          </div>
         </div>
       </div>
-    </div>
-  {% else %}
-    {% include_block block with page_type_bem=page_type_bem %}
-  {% endif %}
+    {% else %}
+      {% include_block streamchild %}
+    {% endif %}
+  </div>
+
 {% endfor %}

@@ -46,7 +46,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     nothing_personal_block_options = [
         ("two_column_container_block", TwoColumnContainerBlock()),
         ("text_media_block", TextMediaBlock()),
-        ("product_review_carousel_block", ProductReviewCarouselBlock()),
+        ("product_review_carousel_block", ProductReviewCarouselBlock(skip_default_wrapper=True)),
         # NP Text Image Block
         # product review carousel block
         # 50/50 block
@@ -85,6 +85,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
         "nothing_personal.NothingPersonalArticleCollectionPage",
         "nothing_personal.NothingPersonalArticlePage",
         "nothing_personal.NothingPersonalPodcastPage",
+        "nothing_personal.NothingPersonalProductCollectionPage",
         "nothing_personal.NothingPersonalProductReviewPage",
     ]
 
