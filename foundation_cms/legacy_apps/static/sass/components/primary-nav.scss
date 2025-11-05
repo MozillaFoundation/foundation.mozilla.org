@@ -104,6 +104,15 @@
       &.active {
         border-color: $black;
       }
+
+      &.external {
+        &::after {
+          content: url(../_images/glyphs/external-dark-theme.svg);
+          display: inline-block;
+          margin-left: 0.5rem;
+          vertical-align: middle;
+        }
+      }
     }
   }
 
@@ -292,6 +301,15 @@
 
           &.active {
             border-bottom-color: $white;
+          }
+
+          &.external {
+            &::after {
+              content: url(../_images/glyphs/external.svg);
+              display: inline-block;
+              margin-left: 0.5rem;
+              vertical-align: middle;
+            }
           }
         }
       }
