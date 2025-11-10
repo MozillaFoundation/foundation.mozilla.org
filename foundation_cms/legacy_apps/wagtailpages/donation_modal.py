@@ -127,8 +127,9 @@ class DonationModals(TranslatableMixin, models.Model):
     )
 
     def to_simple_dict(self):
-        modal = DonationModal.objects.get(campaign=self)
-        return modal.to_simple_dict()
+        if self.donation_modal:
+            return self.donation_modal.to_simple_dict()
+        return {}
 
     panels = [
         FieldPanel("donation_modal"),
