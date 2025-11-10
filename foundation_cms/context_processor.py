@@ -17,3 +17,7 @@ def canonical_path(request):
 
 def canonical_site_url(request):
     return {"CANONICAL_SITE_URL": request.scheme + "://" + request.get_host()}
+
+
+def mozfest_schedule_url(request):
+    return {"MOZFEST_SCHEDULE_URL": settings.MOZFEST_SCHEDULE_URL}

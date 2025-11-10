@@ -58,6 +58,7 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
+    MOZFEST_SCHEDULE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
@@ -171,6 +172,8 @@ TARGET_DOMAINS = env("TARGET_DOMAINS")
 
 # Temporary Redirect for Mozilla Festival domain
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
+# Mozilla Festival Schedule redirect URL override
+MOZFEST_SCHEDULE_URL = env("MOZFEST_SCHEDULE_URL")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
@@ -385,6 +388,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.review_app",
                         "foundation_cms.context_processor.canonical_path",
                         "foundation_cms.context_processor.canonical_site_url",
+                        "foundation_cms.context_processor.mozfest_schedule_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
