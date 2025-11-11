@@ -1,12 +1,23 @@
 import json
+
 from django.db import models
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from django.shortcuts import redirect, render
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.fields import StreamField
 from wagtail.models import Page
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail_localize.fields import (
+    StreamFieldPanel,
+    SynchronizedField,
+    TranslatableField,
+)
 
 from foundation_cms.base.models import AbstractBasePage
-from foundation_cms.snippets.models import DonateBanner
-from .cta_base import CTA
+from foundation_cms.campaigns.blocks import (
+    PetitionShareBlock,
+    PetitionSignedBlock,
+    PetitionThankYouBlock,
+)
+from foundation_cms.campaigns.models import CTA
 
 
 class CampaignPage(AbstractBasePage):
@@ -22,16 +33,45 @@ class CampaignPage(AbstractBasePage):
         on_delete=models.SET_NULL,
         help_text="Choose one of our call-to-action snippets, or create a new one.",
     )
-    
+
+    state_signed_content = StreamField(
+        [
+            ("panel", PetitionSignedBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    state_share_content = StreamField(
+        [
+            ("panel", PetitionShareBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    state_thank_you_content = StreamField(
+        [
+            ("panel", PetitionThankYouBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
-        InlinePanel("donation_modals", label="Campaign Donation Modals", max_num=4),
         FieldPanel("body"),
+        StreamFieldPanel("state_signed_content"),
+        StreamFieldPanel("state_share_content"),
+        StreamFieldPanel("state_thank_you_content"),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
-        TranslatableField("donation_modals"),
+        TranslatableField("cta"),
+        SynchronizedField("state_signed_content"),
+        SynchronizedField("state_share_content"),
+        SynchronizedField("state_thank_you_content"),
     ]
 
     subpage_types = [
@@ -39,34 +79,33 @@ class CampaignPage(AbstractBasePage):
         "core.GeneralPage",
     ]
 
-    template = "campaigns/campaign_page.html"
+    # State managed via URL param ?state=
+    def serve(self, request):
+        state = request.GET.get("state", "start")
 
-    def get_donation_modal_json(self):
-        """
-        Safe method for React compatibility
-        Returns JSON that maps DonateBanner data to legacy modal format
-        """
-        modals = self.donation_modals.all()
-        if not modals.exists():
-            return "[]"
-        
-        try:
-            modals_json = [modal.to_simple_dict() for modal in modals]
-            return json.dumps(modals_json)
-        except Exception as e:
-            print(f"Error serializing donation modals: {e}")
-            return "[]"
+        if request.method == "POST":
+            action = request.POST.get("action")
 
-    def get_context(self, request, *args, **kwargs):
-        """Add both global banner and campaign modals"""
-        context = super().get_context(request, *args, **kwargs)
-        
-        context.update({
-            'donation_modal_json': self.get_donation_modal_json(),
-            'has_campaign_modals': self.donation_modals.exists(),
-        })
-        
-        return context
+            if action == "sign":
+                return redirect(f"{self.url}?state=signed")
+
+            if action == "share":
+                return redirect(f"{self.url}?state=sharing")
+
+            if action == "donate":
+                return redirect(f"{self.url}?state=donate")
+
+            if action == "dismiss":
+                return redirect(self.url)
+
+        return render(
+            request,
+            self.get_template(request),
+            {
+                "page": self,
+                "state": state,
+            },
+        )
 
     class Meta:
         verbose_name = "Campaign Page (New)"

@@ -1,10 +1,9 @@
-from .cta_base import CTABase, CTA
-from .petition import Petition
 from .campaign_page import CampaignPage
+from .cta_base import CTA, CTABase
 from .donation_modal import CampaignDonationModal
+from .petition import Petition
 
 __all__ = [
-    "CampaignDonationModal",
     "CampaignPage",
     "CTA",
     "CTABase",

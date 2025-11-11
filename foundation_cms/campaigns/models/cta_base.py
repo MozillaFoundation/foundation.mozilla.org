@@ -21,10 +21,7 @@ class CTABase(models.Model):
         blank=True,
     )
 
-    description = RichTextField(
-        help_text="Body (richtext) of component", 
-        blank=True
-    )
+    description = RichTextField(help_text="Body (richtext) of component", blank=True)
 
     privacy_notice = RichTextField(
         help_text="This optional privacy notice field will overwrite the default privacy notice text. "
@@ -69,6 +66,7 @@ class CTABase(models.Model):
 
 class CTA(CTABase):
     """Concrete CTA base for other CTAs"""
+
     panels = CTABase.panels
 
     class Meta:

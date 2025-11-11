@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+  <div class="campaign-body">
+    {{ page.body|richtext }}
+  </div>
+
+  {% if state == "start" %}
+    <form method="POST">
+      {% csrf_token %}
+      <button name="action" value="sign">Sign Petition</button>
+    </form>
+
+  {% elif state == "signed" %}
+    {% for block in page.state_signed_content %}
+      {% include_block block %}
+    {% endfor %}
+
+  {% elif state == "sharing" %}
+    {% for block in page.state_share_content %}
+      {% include_block block %}
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}
