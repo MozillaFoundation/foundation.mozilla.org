@@ -30,9 +30,9 @@ class PetitionSignedBlock(BaseBlock):
         default="No, I will share instead",
     )
 
-    dismiss_button_text = CharBlock(
+    skip_button_text = CharBlock(
         max_length=150,
-        help_text="Dismiss button label",
+        help_text="Skip button label",
         default="Sorry, not right now",
     )
 
@@ -54,9 +54,9 @@ class PetitionShareBlock(BaseBlock):
         "like you to carry out this work. Can you share this petition?",
     )
 
-    dismiss_button_text = CharBlock(
+    skip_button_text = CharBlock(
         max_length=150,
-        help_text="Dismiss button label",
+        help_text="Skip button label",
         default="Sorry, not right now",
     )
 

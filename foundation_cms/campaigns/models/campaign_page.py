@@ -2,7 +2,7 @@ import json
 
 from django.db import models
 from django.shortcuts import redirect, render
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
 from wagtail_localize.fields import (
@@ -40,6 +40,7 @@ class CampaignPage(AbstractBasePage):
         ],
         use_json_field=True,
         blank=True,
+        help_text="Content shown after petition is signed"
     )
 
     state_share_content = StreamField(
@@ -48,6 +49,7 @@ class CampaignPage(AbstractBasePage):
         ],
         use_json_field=True,
         blank=True,
+        help_text="Content shown when user chooses to share"
     )
 
     state_thank_you_content = StreamField(
@@ -56,15 +58,18 @@ class CampaignPage(AbstractBasePage):
         ],
         use_json_field=True,
         blank=True,
+        help_text="Final thank you content"
     )
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
         FieldPanel("body"),
-        StreamFieldPanel("state_signed_content"),
-        StreamFieldPanel("state_share_content"),
-        StreamFieldPanel("state_thank_you_content"),
+        MultiFieldPanel([
+            StreamFieldPanel("state_signed_content"),
+            StreamFieldPanel("state_share_content"),
+            StreamFieldPanel("state_thank_you_content"),
+        ], heading="Petition Flow Content"),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
@@ -87,16 +92,18 @@ class CampaignPage(AbstractBasePage):
             action = request.POST.get("action")
 
             if action == "sign":
+                # TODO: Save signature to your DB or external CRM
                 return redirect(f"{self.url}?state=signed")
 
             if action == "share":
                 return redirect(f"{self.url}?state=sharing")
 
             if action == "donate":
+                # TODO: Handle donation logic
                 return redirect(f"{self.url}?state=donate")
 
-            if action == "dismiss":
-                return redirect(self.url)
+            if action == "skip":
+                return redirect(f"{self.url}?state=end")
 
         return render(
             request,

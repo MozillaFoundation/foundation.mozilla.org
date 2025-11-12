@@ -2,8 +2,12 @@
 
   {{ self.header|escape }}
   {{ self.body|richtext }}
-  {{ self.donate_button_text|escape }}
-  {{ self.share_button_text|escape }}
-  {{ self.dismiss_button_text|escape }}
+
+  <form method="POST">
+    {% csrf_token %}
+    <button name="action" value="donate">{{ self.donate_button_text }}</button>
+    <button name="action" value="share">{{ self.share_button_text }}</button>
+    <button name="action" value="skip">{{ self.skip_button_text }}</button>
+  </form>
 
 </div>

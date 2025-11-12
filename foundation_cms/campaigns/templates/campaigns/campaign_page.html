@@ -24,4 +24,10 @@
     {% endfor %}
   {% endif %}
 
+  {% elif state == "end" %}
+    {% for block in page.state_thank_you_content %}
+      {% include_block block %}
+    {% endfor %}
+  {% endif %}
+
 {% endblock %}

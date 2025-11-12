@@ -1,6 +1,10 @@
 <div class="petition-share">
   {{ self.header|escape }}
   {{ self.body|richtext }}
-  {{ self.dismiss_button_text|escape }}
+
+  <form method="POST">
+    {% csrf_token %}
+    <button name="action" value="skip">{{ self.skip_button_text }}</button>
+  </form>
   <!-- Sharing buttons: FB / X / Blusky -->
 </div>
