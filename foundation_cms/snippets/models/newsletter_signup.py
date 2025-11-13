@@ -21,7 +21,7 @@ class NewsletterSignup(TranslatableMixin, models.Model):
     newsletter = models.CharField(
         max_length=100,
         help_text="The (pre-existing) newsletter to sign up for.",
-        default="mozilla-foundation",
+        default="mozillafoundationorg",
     )
     layout = models.CharField(
         max_length=20,
