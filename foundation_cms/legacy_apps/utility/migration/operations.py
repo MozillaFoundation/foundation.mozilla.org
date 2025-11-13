@@ -1,7 +1,4 @@
-import inspect
-
 from django.utils.deconstruct import deconstructible
-from django.utils.module_loading import import_string
 from wagtail.blocks.migrations.operations import BaseBlockOperation
 
 
@@ -35,6 +32,7 @@ class AlterStreamChildBlockDataOperation(BaseBlockOperation):
             else:
                 mapped_block_value.append(child_block)
         return mapped_block_value
+
     @property
     def operation_name_fragment(self):
         return f"alter_stream_child_data_from_{self.block}"
