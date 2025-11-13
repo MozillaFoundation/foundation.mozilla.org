@@ -1,10 +1,14 @@
+import inspect
+
+from django.utils.deconstruct import deconstructible
+from django.utils.module_loading import import_string
 from wagtail.blocks.migrations.operations import BaseBlockOperation
 
 
+@deconstructible
 class AlterStreamChildBlockDataOperation(BaseBlockOperation):
     def __init__(self, block, operation):
         """Alter the data of a child block in a StreamField.
-
         Args:
             block (str): The key of the block type to alter.
             operation (callable): A function that takes a block value and returns a
@@ -13,6 +17,14 @@ class AlterStreamChildBlockDataOperation(BaseBlockOperation):
         super().__init__()
         self.block = block
         self.operation = operation
+
+    def deconstruct(self):
+        # Return (import_path, args, kwargs) so Django can rebuild this op
+        return (
+            "foundation_cms.legacy_apps.utility.migration.operations.AlterStreamChildBlockDataOperation",
+            [self.block, self.operation],
+            {},
+        )
 
     def apply(self, block_value):
         mapped_block_value = []
@@ -23,7 +35,6 @@ class AlterStreamChildBlockDataOperation(BaseBlockOperation):
             else:
                 mapped_block_value.append(child_block)
         return mapped_block_value
-
     @property
     def operation_name_fragment(self):
         return f"alter_stream_child_data_from_{self.block}"
