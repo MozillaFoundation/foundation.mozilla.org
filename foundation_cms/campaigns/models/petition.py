@@ -35,47 +35,26 @@ class Petition(TranslatableMixin, CTA):
         help_text="This toggles the visibility of the optional comment field.",
     )
 
-    share_link = models.URLField(
-        max_length=1024,
-        help_text="Link that will be put in share button",
-        blank=True,
-        editable=False,
-    )
-
-    share_bluesky = models.CharField(
-        max_length=20,
-        help_text="Share Progress id for bluesky button",
-        blank=True,
-    )
-
-    share_facebook = models.CharField(
-        max_length=20,
-        help_text="Share Progress id for facebook button",
-        blank=True,
-    )
-
-    share_email = models.CharField(
-        max_length=20,
-        help_text="Share Progress id for email button",
-        blank=True,
-    )
-
     thank_you = models.CharField(
         max_length=140,
         help_text="Message to show after thanking people for signing",
         default="Thank you for signing too!",
     )
 
+    cta_button_text = models.CharField(
+        max_length=50,
+        default="Sign the Petition",
+        help_text="Text for the petition submission button",
+    )
+
     translatable_fields = [
         SynchronizedField("show_country_field"),
         SynchronizedField("show_postal_code_field"),
         SynchronizedField("show_comment_field"),
-        SynchronizedField("share_bluesky"),
-        SynchronizedField("share_facebook"),
-        SynchronizedField("share_email"),
         TranslatableField("thank_you"),
         TranslatableField("header"),
         TranslatableField("description"),
+        TranslatableField("cta_button_text"),
     ]
 
     search_fields = CTA.search_fields + [
@@ -91,10 +70,8 @@ class Petition(TranslatableMixin, CTA):
         FieldPanel("show_country_field"),
         FieldPanel("show_postal_code_field"),
         FieldPanel("show_comment_field"),
-        FieldPanel("share_bluesky"),
-        FieldPanel("share_facebook"),
-        FieldPanel("share_email"),
         FieldPanel("thank_you"),
+        FieldPanel("cta_button_text"),
     ]
 
     class Meta(TranslatableMixin.Meta):

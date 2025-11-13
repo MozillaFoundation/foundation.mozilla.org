@@ -1,0 +1,100 @@
+{% load i18n l10n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<form method="POST" action="{% url 'campaigns:petition_submit' %}" class="petition-form" id="petitionForm">
+    {% csrf_token %}
+
+    <!-- Hidden fields for tracking -->
+    <input type="hidden" name="campaign_id" value="{{ cta.campaign_id }}">
+    <input type="hidden" name="source_url" value="{{ request.build_absolute_uri }}">
+    <input type="hidden" name="lang" value="{{ LANGUAGE_CODE }}">
+    <input type="hidden" name="newsletter" value="{{ cta.newsletter }}">
+    <input type="hidden" name="petition_id" value="{{ cta.id }}">
+
+    <!-- Name fields -->
+    <div class="form-row">
+        <div class="form-group">
+            <label for="first_name" class="required">{% trans "First Name" %} *</label>
+            <input type="text" id="first_name" name="first_name" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name" class="required">{% trans "Last Name" %} *</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
+    </div>
+
+    <!-- Email field -->
+    <div class="form-group">
+        <label for="email" class="required">{% trans "Email" %} *</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <!-- Optional fields based on petition configuration -->
+    {% if cta.show_country_field %}
+        <div class="form-group">
+            <label for="country">{% trans "Country" %}</label>
+            <select id="country" name="country">
+                <option value="">{% trans "Please select..." %}</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="ES">Spain</option>
+                <option value="IT">Italy</option>
+                <option value="NL">Netherlands</option>
+                <option value="AU">Australia</option>
+                <option value="JP">Japan</option>
+            </select>
+        </div>
+    {% endif %}
+
+    {% if cta.show_postal_code_field %}
+        <div class="form-group">
+            <label for="postal_code">{% trans "Postal Code" %}</label>
+            <input type="text" id="postal_code" name="postal_code">
+        </div>
+    {% endif %}
+
+    {% if cta.show_comment_field %}
+        <div class="form-group">
+            <label for="comment">{% trans "Comments" %}</label>
+            <textarea id="comment" name="comment" maxlength="500"></textarea>
+        </div>
+    {% endif %}
+
+    <!-- Privacy agreement -->
+    <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+            <input type="checkbox" name="privacy" required>
+            {% if cta.privacy_notice %}
+                {{ cta.privacy_notice|richtext }}
+            {% else %}
+                {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}
+                    I'm okay with Mozilla handling my info as explained in this
+                    <a href="{{ link }}" target="_blank">Privacy Notice</a>. *
+                {% endblocktrans %}
+            {% endif %}
+        </label>
+    </div>
+
+    <!-- Newsletter subscription -->
+    <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+            <input type="checkbox" name="email_subscription" checked>
+            {% trans "Yes, I want to receive email updates about Mozilla's campaigns." %}
+        </label>
+    </div>
+
+    <!-- Submit button -->
+    <!--
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            {% trans "Add my name" %}
+        </button>
+    </div>
+    -->
+    <div class="form-actions">
+        {% include "patterns/components/button.html" with label=cta.cta_button_text button_style="btn-primary" type="submit" %}
+    </div>
+</form>

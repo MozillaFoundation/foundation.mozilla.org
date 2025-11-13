@@ -1,33 +1,115 @@
-{% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% extends "base/base.html" %}
+{% load wagtailcore_tags static i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'campaigns/css/petition-form.css' %}">
+{% endblock %}
+
+{% block extra_head %}
+    {% if page.cta and state == "start" %}
+        {% include "campaigns/components/camo_head.html" %}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
+    <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
 
-  <div class="campaign-body">
-    {{ page.body|richtext }}
-  </div>
+        <div class="campaign-content">
+            {% if page.header %}
+                {{ page.header }}
+            {% else %}
+                {{ page.title }}
+            {% endif %}
 
-  {% if state == "start" %}
-    <form method="POST">
-      {% csrf_token %}
-      <button name="action" value="sign">Sign Petition</button>
-    </form>
+            {% for block in page.body %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
 
-  {% elif state == "signed" %}
-    {% for block in page.state_signed_content %}
-      {% include_block block %}
-    {% endfor %}
+        {% if page.cta and state == "start" %}
+            <div class="petition-cta-container">
+                {% if page.cta.header %}
+                    <h3>{{ page.cta.header }}</h3>
+                {% endif %}
 
-  {% elif state == "sharing" %}
-    {% for block in page.state_share_content %}
-      {% include_block block %}
-    {% endfor %}
-  {% endif %}
+                {% if page.cta.description %}
+                    <div class="petition-description">
+                        {{ page.cta.description|richtext }}
+                    </div>
+                {% endif %}
 
-  {% elif state == "end" %}
-    {% for block in page.state_thank_you_content %}
-      {% include_block block %}
-    {% endfor %}
-  {% endif %}
+                <div class="petition-form-wrapper">
+                    <p class="form-notice">
+                        <small>{% trans "* indicates a required field" %}</small>
+                    </p>
+                <!-- Petition Form -->
+                    {% include "campaigns/components/petition_form.html" with cta=page.cta %}
+                </div>
+            </div>
+        {% endif %}
 
+    <!-- State-based content for flow steps -->
+        {% if state == "signed" %}
+            {% for block in page.state_signed_content %}
+                {% include_block block %}
+            {% endfor %}
+
+        {% elif state == "sharing" %}
+            {% for block in page.state_share_content %}
+                {% include_block block %}
+            {% endfor %}
+
+        {% elif state == "end" %}
+            {% for block in page.state_thank_you_content %}
+                {% include_block block %}
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script nonce="{{ request.csp_nonce }}">
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('petitionForm');
+
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(this);
+                    const button = form.querySelector('button[type="submit"]');
+                    const originalText = button.textContent;
+
+                    button.disabled = true;
+                    button.textContent = '{% trans "Submitting..." %}';
+
+                    try {
+                        const response = await fetch('{% url "campaigns:petition_submit" %}', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            }
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            window.location.href = '?state=signed';
+                        } else {
+                            alert(data.message || '{% trans "Error. Please try again." %}');
+                        }
+                    } catch (error) {
+                        console.error('Petition submission error:', error);
+                        alert('{% trans "Error. Please try again." %}');
+                    } finally {
+                        button.disabled = false;
+                        button.textContent = originalText;
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}

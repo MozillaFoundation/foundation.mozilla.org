@@ -5,11 +5,7 @@ from django.shortcuts import redirect, render
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
-from wagtail_localize.fields import (
-    StreamFieldPanel,
-    SynchronizedField,
-    TranslatableField,
-)
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models import AbstractBasePage
 from foundation_cms.campaigns.blocks import (
@@ -17,13 +13,16 @@ from foundation_cms.campaigns.blocks import (
     PetitionSignedBlock,
     PetitionThankYouBlock,
 )
-from foundation_cms.campaigns.models import CTA
+
+from .cta_base import CTA
 
 
 class CampaignPage(AbstractBasePage):
     """
     These pages come with sign-a-petition CTAs
     """
+
+    header = models.CharField(max_length=250, blank=True, help_text="Header for the campaign page")
 
     cta = models.ForeignKey(
         CTA,
@@ -40,7 +39,7 @@ class CampaignPage(AbstractBasePage):
         ],
         use_json_field=True,
         blank=True,
-        help_text="Content shown after petition is signed"
+        help_text="Content shown after petition is signed",
     )
 
     state_share_content = StreamField(
@@ -49,7 +48,7 @@ class CampaignPage(AbstractBasePage):
         ],
         use_json_field=True,
         blank=True,
-        help_text="Content shown when user chooses to share"
+        help_text="Content shown when user chooses to share",
     )
 
     state_thank_you_content = StreamField(
@@ -58,18 +57,21 @@ class CampaignPage(AbstractBasePage):
         ],
         use_json_field=True,
         blank=True,
-        help_text="Final thank you content"
+        help_text="Final thank you content",
     )
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
         FieldPanel("body"),
-        MultiFieldPanel([
-            StreamFieldPanel("state_signed_content"),
-            StreamFieldPanel("state_share_content"),
-            StreamFieldPanel("state_thank_you_content"),
-        ], heading="Petition Flow Content"),
+        MultiFieldPanel(
+            [
+                FieldPanel("state_signed_content"),
+                FieldPanel("state_share_content"),
+                FieldPanel("state_thank_you_content"),
+            ],
+            heading="Petition Flow Content",
+        ),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
@@ -84,26 +86,27 @@ class CampaignPage(AbstractBasePage):
         "core.GeneralPage",
     ]
 
-    # State managed via URL param ?state=
+    # State managed via URL param ?state=&medium=
     def serve(self, request):
         state = request.GET.get("state", "start")
+        medium = request.GET.get("medium", "web")
 
         if request.method == "POST":
             action = request.POST.get("action")
 
             if action == "sign":
                 # TODO: Save signature to your DB or external CRM
-                return redirect(f"{self.url}?state=signed")
+                return redirect(f"{self.url}?state=signed&medium={medium}")
 
             if action == "share":
-                return redirect(f"{self.url}?state=sharing")
+                return redirect(f"{self.url}?state=sharing&medium={medium}")
 
             if action == "donate":
                 # TODO: Handle donation logic
-                return redirect(f"{self.url}?state=donate")
+                return redirect(f"{self.url}?state=donate&medium={medium}")
 
             if action == "skip":
-                return redirect(f"{self.url}?state=end")
+                return redirect(f"{self.url}?state=end&medium={medium}")
 
         return render(
             request,
