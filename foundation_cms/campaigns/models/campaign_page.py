@@ -1,5 +1,3 @@
-import json
-
 from django.db import models
 from django.shortcuts import redirect, render
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel

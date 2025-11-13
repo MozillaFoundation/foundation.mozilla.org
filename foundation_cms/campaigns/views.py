@@ -1,11 +1,9 @@
-import json
-
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+# from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
 
-from .models.petition import Petition
+# from .models.petition import Petition
 
 
 @require_http_methods(["POST"])
@@ -16,7 +14,7 @@ def petition_submit(request):
         if not petition_id:
             return JsonResponse({"success": False, "message": _("Invalid petition.")}, status=400)
 
-        petition = get_object_or_404(Petition, id=petition_id)
+        # petition = get_object_or_404(Petition, id=petition_id)
 
         # Extract form data
         form_data = {
@@ -56,7 +54,7 @@ def petition_submit(request):
 
     except Exception as e:
         return JsonResponse(
-            {"success": False, "message": _("Error processing submission. Please try again.")}, status=500
+            {"success": False, "error": str(e), "message": _("Error processing submission.")}, status=500
         )
 
 
