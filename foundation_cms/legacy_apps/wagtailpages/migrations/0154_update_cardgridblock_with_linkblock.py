@@ -10283,54 +10283,7 @@ class Migration(migrations.Migration):
                 use_json_field=True,
             ),
         ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="articlepage",
-            field_name="body",
-            operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="blogpage",
-            field_name="body",
-            operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="buyersguidearticlepage",
-            field_name="body",
-            operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="buyersguidecampaignpage",
-            field_name="body",
-            operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="modularpage",
-            field_name="body",
-            operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
-            ],
-        ),
-        MigrateStreamData(
-            app_name="wagtailpages",
-            model_name="primarypage",
-            field_name="body",
-            operations_and_block_paths=[
-                (AlterStreamChildBlockDataOperation(block="card_grid", operation=migrate_card_grid_block_cards), ""),
-            ],
-        ),
+        
         migrations.AlterField(
             model_name="articlepage",
             name="body",
