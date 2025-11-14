@@ -36,9 +36,10 @@ streamfield_fields = [
 
 Faker.add_provider(StreamfieldProvider)
 
-is_review_app = False
+   
 if settings.HEROKU_APP_NAME:
-    is_review_app = True
+    REVIEW_APP_NAME = settings.HEROKU_APP_NAME
+    REVIEW_APP_HOSTNAME = f"{REVIEW_APP_NAME}.mofostaging.net"
 
 
 class MozfestPrimaryPageFactory(PageFactory):
@@ -117,12 +118,10 @@ def generate(seed):
     reseed(seed)
 
     print("Creating MozFest Site record in Wagtail")
-    tds = settings.TARGET_DOMAINS
-    # @TODO Need a more future-proof check that doesn't require incrementing as we add sites.
-    if tds and len(tds) > 2:
-        # Assume that tds[0] is the main mofo domain, tds[1] is the legacy domain, and tds[2] is the Mozfest domain
-        hostname = tds[2]
+    if settings.APP_ENVIRONMENT == "Review":
+        hostname = "mozfest-" + REVIEW_APP_HOSTNAME
         port = 80
+
     else:
         # use a localhost domain (must be set in /etc/hosts)
         hostname = "mozfest.localhost"
