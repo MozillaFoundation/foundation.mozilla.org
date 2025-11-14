@@ -1,8 +1,7 @@
 import json
 
-from wagtail.fields import StreamField as WagtailStreamfield
-
 from django.db import models
+from wagtail.fields import StreamField as WagtailStreamfield
 
 
 class ExtendedBoolean(models.CharField):
@@ -63,6 +62,7 @@ class ExtendedYesNoField(models.CharField):
         del kwargs["max_length"]
         return name, path, args, kwargs
 
+
 # Source: https://gist.github.com/zerolab/cbd19becd21a5ab12a711674d5979157
 # In order to cut down on massive streamfield migrations pre-wagtail 6.2
 # that are causing memory issues spinning up review apps.
@@ -72,7 +72,7 @@ class StreamField(WagtailStreamfield):
         Overrides StreamField.__init__() to account for `block_types` no longer
         being received as an arg when migrating (because there is no longer a
         `block_types` value in the migration to provide).
-        Usage: 
+        Usage:
         import this StreamField instead of `from wagtail.fields import StreamField` for usage in your models
         """
         if args:

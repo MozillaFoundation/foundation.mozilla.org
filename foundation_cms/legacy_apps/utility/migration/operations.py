@@ -1,7 +1,9 @@
+import inspect
+
 from django.utils.deconstruct import deconstructible
 from django.utils.module_loading import import_string
 from wagtail.blocks.migrations.operations import BaseBlockOperation
-import inspect
+
 
 def _to_dotted(fn_or_path: object) -> str:
     # Accept a dotted path or a function object; always return dotted path
@@ -13,6 +15,7 @@ def _to_dotted(fn_or_path: object) -> str:
             raise ValueError("Operation must be an importable function, not a lambda/closure.")
         return f"{fn_or_path.__module__}.{fn_or_path.__name__}"
     raise TypeError("operation must be a dotted path string or a function")
+
 
 @deconstructible
 class AlterStreamChildBlockDataOperation(BaseBlockOperation):
