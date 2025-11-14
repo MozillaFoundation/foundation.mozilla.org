@@ -206,6 +206,11 @@ USE_S3 = env("USE_S3")
 # Detect if Django is running normally, or in test mode through "manage.py test"
 TESTING = "test" in sys.argv or "pytest" in sys.argv
 
+# Override streamfield via monkey patch
+# Useful to compress massive streamfield migrations that cause memory issues on review apps
+# Not for regular use, as it could impact data migrations
+TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
+
 # Django Pattern Library
 # Do not enable for production!
 PATTERN_LIBRARY_ENABLED = env("PATTERN_LIBRARY_ENABLED")
