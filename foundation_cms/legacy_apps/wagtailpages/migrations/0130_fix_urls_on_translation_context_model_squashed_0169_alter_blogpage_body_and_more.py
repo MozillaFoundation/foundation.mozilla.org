@@ -684,26 +684,6 @@ class Migration(migrations.Migration):
             field=wagtail.fields.StreamField([]),
         ),
         migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
             model_name="rcclandingpage",
             name="aside_cta",
             field=wagtail.fields.StreamField([], blank=True, null=True),
@@ -825,31 +805,6 @@ class Migration(migrations.Migration):
             model_name="primarypage",
             name="zen_nav",
         ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
             model_name="blogpage",
@@ -924,61 +879,6 @@ class Migration(migrations.Migration):
             ],
             revisions_from=None,
             chunk_size=1024,
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
@@ -1069,66 +969,6 @@ class Migration(migrations.Migration):
             ],
             revisions_from=None,
             chunk_size=1024,
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
@@ -1250,36 +1090,6 @@ class Migration(migrations.Migration):
             name="hero_subheading",
             field=models.CharField(blank=True, help_text="Hero story subheadline", max_length=250),
         ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
             model_name="articlepage",
@@ -1369,46 +1179,6 @@ class Migration(migrations.Migration):
             ],
             revisions_from=None,
             chunk_size=1024,
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
@@ -1440,26 +1210,6 @@ class Migration(migrations.Migration):
             revisions_from=None,
             chunk_size=1024,
         ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
             model_name="modularpage",
@@ -1490,46 +1240,6 @@ class Migration(migrations.Migration):
             revisions_from=None,
             chunk_size=1024,
         ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
             model_name="articlepage",
@@ -1619,46 +1329,6 @@ class Migration(migrations.Migration):
             ],
             revisions_from=None,
             chunk_size=1024,
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
@@ -1702,26 +1372,6 @@ class Migration(migrations.Migration):
             revisions_from=None,
             chunk_size=1024,
         ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
             model_name="modularpage",
@@ -1751,16 +1401,6 @@ class Migration(migrations.Migration):
             ],
             revisions_from=None,
             chunk_size=1024,
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         migrations.AddField(
             model_name="dearinternetpage",
@@ -1898,11 +1538,6 @@ class Migration(migrations.Migration):
             field=wagtail.fields.StreamField([], blank=True),
         ),
         migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
             model_name="blogindexpage",
             name="callout_box",
             field=wagtail.fields.StreamField(
@@ -1910,34 +1545,9 @@ class Migration(migrations.Migration):
             ),
         ),
         migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
             model_name="dearinternetpage",
             name="cta_button",
             field=wagtail.fields.StreamField([], blank=True),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         migrations.AlterField(
             model_name="rcclandingpage",
@@ -1950,16 +1560,6 @@ class Migration(migrations.Migration):
             field=wagtail.fields.StreamField([], blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
             model_name="buyersguidearticlepage",
             name="body",
             field=wagtail.fields.StreamField([], null=True),
@@ -2068,36 +1668,6 @@ class Migration(migrations.Migration):
             ],
             revisions_from=None,
             chunk_size=1024,
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         migrations.AddField(
             model_name="homepagetakeactioncards",
@@ -2122,31 +1692,6 @@ class Migration(migrations.Migration):
         migrations.RunPython(
             code=set_existing_records_to_true,
             reverse_code=django.db.migrations.operations.special.RunPython.noop,
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         migrations.AddField(
             model_name="buyersguidecalltoaction",
@@ -2210,11 +1755,6 @@ class Migration(migrations.Migration):
                 to="wagtailimages.image",
             ),
         ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
             model_name="ArticlePage",
@@ -2256,36 +1796,6 @@ class Migration(migrations.Migration):
             model_name="homepage",
             name="hero_intro_link",
             field=wagtail.fields.StreamField([], blank=True),
-        ),
-        migrations.AlterField(
-            model_name="articlepage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
         wagtail.blocks.migrations.migrate_operation.MigrateStreamData(
             app_name="wagtailpages",
@@ -3024,55 +2534,5 @@ class Migration(migrations.Migration):
                 to="wagtailcore.locale",
                 verbose_name="locale",
             ),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="blogpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidearticlepage",
-            name="body",
-            field=wagtail.fields.StreamField([], null=True),
-        ),
-        migrations.AlterField(
-            model_name="buyersguidecampaignpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="modularpage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
-        ),
-        migrations.AlterField(
-            model_name="primarypage",
-            name="body",
-            field=wagtail.fields.StreamField([]),
         ),
     ]
