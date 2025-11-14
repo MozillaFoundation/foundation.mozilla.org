@@ -18,6 +18,7 @@ class CloudflareAPI:
     def _build_headers(self):
         return {
             "Authorization": f"Bearer {CLOUDFLARE_TOKEN}",
+            "Content-Type": "application/json",
         }
 
     def create_record(self, *, zone, hostname, type, content):
