@@ -168,7 +168,7 @@ XROBOTSTAG_ENABLED = env("XROBOTSTAG_ENABLED")
 
 # Force permanent redirects to the domains specified in TARGET_DOMAINS
 DOMAIN_REDIRECT_MIDDLEWARE_ENABLED = env("DOMAIN_REDIRECT_MIDDLEWARE_ENABLED")
-TARGET_DOMAINS = env("TARGET_DOMAINS")
+TARGET_DOMAINS = env.list("TARGET_DOMAINS", default=[])
 
 # Temporary Redirect for Mozilla Festival domain
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
@@ -184,13 +184,11 @@ HEROKU_APP_NAME = env("HEROKU_APP_NAME")
 HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
-if HEROKU_APP_NAME:
+if HEROKU_APP_NAME and APP_ENVIRONMENT == "Review":
     herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
-    ALLOWED_HOSTS.append(herokuAppHost)
-    if APP_ENVIRONMENT == "Review":
-        TARGET_DOMAINS.append(herokuAppHost)
-        TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
-        TARGET_DOMAINS.append("legacy-" + herokuAppHost)
+    TARGET_DOMAINS.append(herokuAppHost)
+    TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
+    TARGET_DOMAINS.append("legacy-" + herokuAppHost)
 
 SITE_ID = 1
 
