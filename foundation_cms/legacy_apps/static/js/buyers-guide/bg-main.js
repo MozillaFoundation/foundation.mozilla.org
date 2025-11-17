@@ -22,6 +22,7 @@ import HomepageSlider from "./template-js-handler/homepage-c-slider.js";
 import NewsletterBox from "./template-js-handler/newsletter-box.js";
 import PNIMobileCategoryNav from "./template-js-handler/mobile-category-nav.js";
 import AnalyticsEvents from "./analytics-events.js";
+import { initDonateBanner } from "../../../../static/js/components/donate_banner.js";
 
 // Initializing component a11y browser console logging
 if (process.env.NODE_ENV === "development") {
@@ -43,6 +44,7 @@ let main = {
    */
   init() {
     GoogleAnalytics.init();
+    initDonateBanner();
 
     this.fetchEnv((envData) => {
       env = envData;
