@@ -112,7 +112,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
         SynchronizedField("foreground_image"),
-        SynchronizedField("background_image"),
         SynchronizedField("fru_thermometer_embed_code"),
         SynchronizedField("fru_stat_counter_embed_code"),
         TranslatableField("fru_stat_counter_caption"),
@@ -138,25 +137,3 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         if self.site_donate_banner.exists():
             return True
         return False
-
-    def clean(self):
-        super().clean()
-
-        both_selected_error = "Please select either a background image or a background color for the banner."
-        none_selected_error = "Please select a background image or a background color for the banner."
-
-        # Validate that either background_image or background_color is set, not both.
-        if self.background_image and self.background_color:
-            raise ValidationError(
-                {
-                    "background_image": ValidationError(both_selected_error),
-                    "background_color": ValidationError(both_selected_error),
-                }
-            )
-        if not self.background_image and not self.background_color:
-            raise ValidationError(
-                {
-                    "background_image": ValidationError(none_selected_error),
-                    "background_color": ValidationError(none_selected_error),
-                }
-            )
