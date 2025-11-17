@@ -138,7 +138,6 @@ urlpatterns = list(
                 r"^newsletter-signup/(?P<pk>[0-9]+)/", newsletter_signup_submission_view, name="signup-submission"
             ),
             path("newsletter-unsubscribe/", newsletter_unsubscribe_view, name="newsletter-unsubscribe"),
-            path("campaigns/", include("foundation_cms.campaigns.urls")),
         ],
     )
 )

@@ -1,16 +1,12 @@
 from django.db import models
 from django.shortcuts import redirect, render
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models import AbstractBasePage
-from foundation_cms.campaigns.blocks import (
-    PetitionShareBlock,
-    PetitionSignedBlock,
-    PetitionThankYouBlock,
-)
+from foundation_cms.blocks import CustomImageBlock
 
 from .cta_base import CTA
 
@@ -31,32 +27,53 @@ class CampaignPage(AbstractBasePage):
         help_text="Choose one of our call-to-action snippets, or create a new one.",
     )
 
-    state_signed_content = StreamField(
-        [
-            ("panel", PetitionSignedBlock()),
-        ],
-        use_json_field=True,
-        blank=True,
-        help_text="Content shown after petition is signed",
+    # --- SIGNED STATE FIELDS ---
+    signed_header = models.CharField(
+        max_length=200, default="Thank you for signing", help_text="Header shown after petition is signed"
     )
 
-    state_share_content = StreamField(
-        [
-            ("panel", PetitionShareBlock()),
-        ],
-        use_json_field=True,
-        blank=True,
-        help_text="Content shown when user chooses to share",
+    signed_donation_question = models.CharField(
+        max_length=200,
+        default="Would you like to support our work with a donation?",
+        help_text="Donation question shown after petition is signed",
     )
 
-    state_thank_you_content = StreamField(
-        [
-            ("panel", PetitionThankYouBlock()),
-        ],
-        use_json_field=True,
-        blank=True,
-        help_text="Final thank you content",
+    signed_body = RichTextField(
+        default="Thanks so much for signing this petition asking "
+        "for transparency on data used to train AI tool! Can you "
+        "add a donation to support Mozilla's  non-profit work for trustworthy AI?",
+        help_text="Content shown after signing",
     )
+
+    # --- SHARING STATE FIELDS ---
+    share_header = models.CharField(
+        max_length=200, default="Share this with at least one other person", help_text="Header for sharing step"
+    )
+
+    share_body = RichTextField(
+        default="Mozilla is a nonprofit organization fighting for "
+        "a healthy internet, where privacy is included by "
+        "design and you have more control over your personal "
+        "information. We depend on contributions from people "
+        "like you to carry out this work. Can you share this petition?",
+        help_text="Content for sharing step",
+    )
+
+    # --- THANK YOU STATE FIELDS ---
+    thank_you_header = models.CharField(
+        max_length=200, default="All done here!", help_text="Final thank you message header"
+    )
+
+    thank_you_body = RichTextField(
+        default="Mozilla is a nonprofit organization fighting for "
+        "a healthy internet, where privacy is included by "
+        "design and you have more control over your personal "
+        "information. We depend on contributions from people "
+        "like you to carry out this work. Thank you for helping us!",
+        help_text="Final thank you message",
+    )
+
+    thank_you_image = CustomImageBlock(required=False, help_text="Optional image to show in the thank you step")
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
@@ -64,19 +81,40 @@ class CampaignPage(AbstractBasePage):
         FieldPanel("body"),
         MultiFieldPanel(
             [
-                FieldPanel("state_signed_content"),
-                FieldPanel("state_share_content"),
-                FieldPanel("state_thank_you_content"),
+                FieldPanel("signed_header"),
+                FieldPanel("signed_donation_question"),
+                FieldPanel("signed_body"),
             ],
-            heading="Petition Flow Content",
+            heading="After Signing Content",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("share_header"),
+                FieldPanel("share_body"),
+            ],
+            heading="Sharing Step Content",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("thank_you_header"),
+                FieldPanel("thank_you_body"),
+            ],
+            heading="Thank You Content",
+            classname="collapsible",
         ),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
         TranslatableField("cta"),
-        SynchronizedField("state_signed_content"),
-        SynchronizedField("state_share_content"),
-        SynchronizedField("state_thank_you_content"),
+        SynchronizedField("signed_header"),
+        SynchronizedField("signed_donation_question"),
+        SynchronizedField("signed_body"),
+        SynchronizedField("share_header"),
+        SynchronizedField("share_body"),
+        SynchronizedField("thank_you_header"),
+        SynchronizedField("thank_you_body"),
     ]
 
     subpage_types = [
@@ -92,16 +130,8 @@ class CampaignPage(AbstractBasePage):
         if request.method == "POST":
             action = request.POST.get("action")
 
-            if action == "sign":
-                # TODO: Save signature to your DB or external CRM
-                return redirect(f"{self.url}?state=signed&medium={medium}")
-
             if action == "share":
                 return redirect(f"{self.url}?state=sharing&medium={medium}")
-
-            if action == "donate":
-                # TODO: Handle donation logic
-                return redirect(f"{self.url}?state=donate&medium={medium}")
 
             if action == "skip":
                 return redirect(f"{self.url}?state=end&medium={medium}")
@@ -112,6 +142,7 @@ class CampaignPage(AbstractBasePage):
             {
                 "page": self,
                 "state": state,
+                "medium": medium,
             },
         )
 

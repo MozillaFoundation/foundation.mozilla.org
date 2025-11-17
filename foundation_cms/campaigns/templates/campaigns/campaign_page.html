@@ -1,16 +1,6 @@
 {% extends "base/base.html" %}
 {% load wagtailcore_tags static i18n %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'campaigns/css/petition-form.css' %}">
-{% endblock %}
-
-{% block extra_head %}
-    {% if page.cta and state == "start" %}
-        {% include "campaigns/components/camo_head.html" %}
-    {% endif %}
-{% endblock %}
-
 {% block content %}
     <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
 
@@ -26,10 +16,23 @@
             {% endfor %}
         </div>
 
+        <!-- PETITION FORM STATE -->
         {% if page.cta and state == "start" %}
             <div class="petition-cta-container">
+                {% if page.cta.share_bluesky %}
+                    <div id="share-progress-bs" class='{{ page.cta.share_bluesky }} sp_bs_small d-none'></div>
+                {% endif %}
+
+                {% if page.cta.share_facebook %}
+                    <div id="share-progress-fb" class='{{ page.cta.share_facebook }} sp_fb_small d-none'></div>
+                {% endif %}
+
+                {% if page.cta.share_email %}
+                    <div id="share-progress-em" class='{{ page.cta.share_email }} sp_em_small bs-hidden'></div>
+                {% endif %}
+
                 {% if page.cta.header %}
-                    <h3>{{ page.cta.header }}</h3>
+                    {{ page.cta.header }}
                 {% endif %}
 
                 {% if page.cta.description %}
@@ -40,29 +43,92 @@
 
                 <div class="petition-form-wrapper">
                     <p class="form-notice">
-                        <small>{% trans "* indicates a required field" %}</small>
+                        <small>{% trans "* Indicates a required field" %}</small>
                     </p>
-                <!-- Petition Form -->
+                    <!-- Petition Form -->
                     {% include "campaigns/components/petition_form.html" with cta=page.cta %}
                 </div>
             </div>
         {% endif %}
 
-    <!-- State-based content for flow steps -->
+        <!-- SIGNED STATE - After petition is signed -->
         {% if state == "signed" %}
-            {% for block in page.state_signed_content %}
-                {% include_block block %}
-            {% endfor %}
+            <div class="petition-signed">
+                {{ page.signed_header }}
+                {% if page.signed_donation_question %}
+                    {{ page.signed_donation_question }}
+                {% endif %}
+                {{ page.signed_body|richtext }}
 
+                <div class="petition-actions">
+                    {% if page.cta.donate_url %}
+                        {% include "patterns/components/button.html" with classnames="with-heart-icon donation-button" url=page.cta.donate_url label=page.cta.donate_text button_style="btn-primary" %}
+                    {% endif %}
+
+                    <form method="POST" class="petition-actions-form" style="display: inline-block;">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            name="action"
+                            value="share"
+                            class="btn btn-secondary share-button"
+                            data-label="No, I will share instead">
+                            {% trans "No, I will share instead" %}
+                        </button>
+                    </form>
+
+                    <form method="POST" class="petition-actions-form" style="display: inline-block;">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            name="action"
+                            value="skip"
+                            class="btn btn-link skip-button"
+                            data-label="Sorry, not right now">
+                            {% trans "Sorry, not right now" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        <!-- SHARING STATE -->
         {% elif state == "sharing" %}
-            {% for block in page.state_share_content %}
-                {% include_block block %}
-            {% endfor %}
+            <div class="petition-share">
+                {{ page.share_header }}
+                {{ page.share_body|richtext }}
 
+                <!-- Social sharing buttons -->
+                {% if page.cta.share_bluesky %}
+                    <div id="share-progress-bs" class='{{ page.cta.share_bluesky }} sp_bs_small'></div>
+                {% endif %}
+
+                {% if page.cta.share_facebook %}
+                    <div id="share-progress-fb" class='{{ page.cta.share_facebook }} sp_fb_small'></div>
+                {% endif %}
+
+                {% if page.cta.share_email %}
+                    <div id="share-progress-em" class='{{ page.cta.share_email }} sp_em_small'></div>
+                {% endif %}
+
+                <form method="POST" class="petition-actions-form">
+                    {% csrf_token %}
+                    <button
+                        type="submit"
+                        name="action"
+                        value="skip"
+                        class="btn btn-primary skip-button"
+                        data-label="Sorry, not right now">
+                    </button>
+                </form>
+            </div>
+
+        <!-- THANK YOU STATE -->
         {% elif state == "end" %}
-            {% for block in page.state_thank_you_content %}
-                {% include_block block %}
-            {% endfor %}
+            <div class="petition-thank-you">
+                {{ page.thank_you_header }}
+                {{ page.thank_you_body|richtext }}
+                <img src="{{ page.thank_you_image.url }}" alt="{{ page.thank_you_header|escape }}" max-width="100%" max-height="auto">
+            </div>
 
         {% endif %}
 
@@ -70,46 +136,33 @@
 {% endblock %}
 
 {% block extra_js %}
+    <script src="https://c.shpg.org/352/sp.js"></script>
+
     <script nonce="{{ request.csp_nonce }}">
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('petitionForm');
+            {% if state == "sharing" %}
+                if (window.ShareProgress) {
+                    window.ShareProgress.init();
+                }
+            {% endif %}
 
-            if (form) {
-                form.addEventListener('submit', async function(e) {
-                    e.preventDefault();
+            document.querySelectorAll('button[data-label]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const label = this.getAttribute('data-label');
+                    const action = this.getAttribute('name') === 'action' ? this.value : 'click';
 
-                    const formData = new FormData(this);
-                    const button = form.querySelector('button[type="submit"]');
-                    const originalText = button.textContent;
-
-                    button.disabled = true;
-                    button.textContent = '{% trans "Submitting..." %}';
-
-                    try {
-                        const response = await fetch('{% url "campaigns:petition_submit" %}', {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-                            }
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'petition_flow_button', {
+                            'action': action,
+                            'label': label,
+                            'page_id': '{{ page.id }}',
+                            'state': '{{ state }}'
                         });
-
-                        const data = await response.json();
-
-                        if (data.success) {
-                            window.location.href = '?state=signed';
-                        } else {
-                            alert(data.message || '{% trans "Error. Please try again." %}');
-                        }
-                    } catch (error) {
-                        console.error('Petition submission error:', error);
-                        alert('{% trans "Error. Please try again." %}');
-                    } finally {
-                        button.disabled = false;
-                        button.textContent = originalText;
                     }
+
+                    console.log(`Button clicked: ${label} (${action})`);
                 });
-            }
+            });
         });
     </script>
 {% endblock %}

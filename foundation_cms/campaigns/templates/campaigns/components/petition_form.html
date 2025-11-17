@@ -1,100 +1,97 @@
 {% load i18n l10n %}
 {% get_current_language as LANGUAGE_CODE %}
 
-<form method="POST" action="{% url 'campaigns:petition_submit' %}" class="petition-form" id="petitionForm">
-    {% csrf_token %}
+<form
+    method="post"
+    action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor"
+    class="petition-form"
+    id="petitionForm">
 
-    <!-- Hidden fields for tracking -->
-    <input type="hidden" name="campaign_id" value="{{ cta.campaign_id }}">
-    <input type="hidden" name="source_url" value="{{ request.build_absolute_uri }}">
-    <input type="hidden" name="lang" value="{{ LANGUAGE_CODE }}">
-    <input type="hidden" name="newsletter" value="{{ cta.newsletter }}">
-    <input type="hidden" name="petition_id" value="{{ cta.id }}">
+    <!-- Hidden FormAssembly fields (same as legacy) -->
+    <input type="hidden" name="tfa_500" value="{{ request.build_absolute_uri }}?state=signed&medium=email" class="">
+    <input type="hidden" name="tfa_1" value="{{ cta.campaign_id }}" class="">
+    <input type="hidden" name="tfa_498" value="{{ request.build_absolute_uri }}" class="">
+    <input type="hidden" name="tfa_499" value="{{ LANGUAGE_CODE }}" class="">
+    <input type="hidden" name="tfa_501" value="{{ cta.newsletter }}" class="">
 
-    <!-- Name fields -->
-    <div class="form-row">
-        <div class="form-group">
-            <label for="first_name" class="required">{% trans "First Name" %} *</label>
-            <input type="text" id="first_name" name="first_name" required>
-        </div>
-        <div class="form-group">
-            <label for="last_name" class="required">{% trans "Last Name" %} *</label>
-            <input type="text" id="last_name" name="last_name" required>
-        </div>
+    <!-- Use CaMo form ID by default -->
+    <input type="hidden" value="187" name="tfa_dbFormId" id="tfa_dbFormId">
+    <input type="hidden" value="1d193b59297af95a7c351558364b25ac" name="tfa_dbControl" id="tfa_dbControl">
+    <input type="hidden" value="32" name="tfa_dbVersionId" id="tfa_dbVersionId">
+
+    <!-- Standard hidden FormAssembly fields -->
+    <input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId">
+    <input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid">
+    <input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
+
+    <!-- User input fields with FormAssembly field names -->
+    <div class="form-group">
+        <label for="tfa_28">{% trans "First Name" %} *</label>
+        <input type="text" id="tfa_28" name="tfa_28" required aria-required="true" title="{% trans 'First Name' %}" class="required">
     </div>
 
-    <!-- Email field -->
     <div class="form-group">
-        <label for="email" class="required">{% trans "Email" %} *</label>
-        <input type="email" id="email" name="email" required>
+        <label for="tfa_30">{% trans "Last Name" %} *</label>
+        <input type="text" id="tfa_30" name="tfa_30" required aria-required="true" title="{% trans 'Last Name' %}" class="required">
+    </div>
+
+    <div class="form-group">
+        <label for="tfa_31">{% trans "Email" %} *</label>
+        <input type="email" id="tfa_31" name="tfa_31" required aria-required="true" title="{% trans 'Email' %}" class="validate-email required">
     </div>
 
     <!-- Optional fields based on petition configuration -->
     {% if cta.show_country_field %}
         <div class="form-group">
-            <label for="country">{% trans "Country" %}</label>
-            <select id="country" name="country">
+            <label for="tfa_254">{% trans "Country" %}</label>
+            <select id="tfa_254" name="tfa_254" title="{% trans 'Country' %}">
                 <option value="">{% trans "Please select..." %}</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="GB">United Kingdom</option>
-                <option value="DE">Germany</option>
-                <option value="FR">France</option>
-                <option value="ES">Spain</option>
-                <option value="IT">Italy</option>
-                <option value="NL">Netherlands</option>
-                <option value="AU">Australia</option>
-                <option value="JP">Japan</option>
+                <option value="tfa_478">United States</option>
+                <option value="tfa_292">Canada</option>
+                <option value="tfa_477">United Kingdom</option>
+                <option value="tfa_335">Germany</option>
+                <option value="tfa_328">France</option>
             </select>
         </div>
     {% endif %}
 
     {% if cta.show_postal_code_field %}
         <div class="form-group">
-            <label for="postal_code">{% trans "Postal Code" %}</label>
-            <input type="text" id="postal_code" name="postal_code">
+            <label for="tfa_496">{% trans "Postal Code" %}</label>
+            <input type="text" id="tfa_496" name="tfa_496" title="{% trans 'Postal Code' %}">
         </div>
     {% endif %}
 
     {% if cta.show_comment_field %}
         <div class="form-group">
-            <label for="comment">{% trans "Comments" %}</label>
-            <textarea id="comment" name="comment" maxlength="500"></textarea>
+            <label for="tfa_497">{% trans "Comments" %}</label>
+            <textarea id="tfa_497" name="tfa_497" maxlength="500" title="{% trans 'Comments' %}"></textarea>
         </div>
     {% endif %}
 
     <!-- Privacy agreement -->
-    <div class="form-group checkbox-group">
-        <label class="checkbox-label">
-            <input type="checkbox" name="privacy" required>
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="tfa_493" value="tfa_493" required aria-required="true" class="calc-DefaultName">
             {% if cta.privacy_notice %}
-                {{ cta.privacy_notice|richtext }}
+                {% for block in cta.privacy_notice %}
+                    {% include_block block %}
+                {% endfor %}
             {% else %}
-                {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}
-                    I'm okay with Mozilla handling my info as explained in this
-                    <a href="{{ link }}" target="_blank">Privacy Notice</a>. *
-                {% endblocktrans %}
+                {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I'm okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}
             {% endif %}
         </label>
     </div>
 
-    <!-- Newsletter subscription -->
-    <div class="form-group checkbox-group">
-        <label class="checkbox-label">
-            <input type="checkbox" name="email_subscription" checked>
+    <!-- Newsletter opt-in -->
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="tfa_495" value="tfa_495" class="">
             {% trans "Yes, I want to receive email updates about Mozilla's campaigns." %}
         </label>
     </div>
 
-    <!-- Submit button -->
-    <!--
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary">
-            {% trans "Add my name" %}
-        </button>
-    </div>
-    -->
-    <div class="form-actions">
-        {% include "patterns/components/button.html" with label=cta.cta_button_text button_style="btn-primary" type="submit" %}
-    </div>
+    <button type="submit" class="btn btn-primary">
+        {{ cta.cta_button_text|default:"Add my name" }}
+    </button>
 </form>
