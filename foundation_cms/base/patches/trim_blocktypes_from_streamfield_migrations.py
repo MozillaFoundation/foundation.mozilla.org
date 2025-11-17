@@ -1,4 +1,4 @@
-# via https://cynthiakiser.com/blog/2022/01/06/trimming-wagtail-migration-cruft.html?utm_source=chatgpt.com
+# via https://cynthiakiser.com/blog/2022/01/06/trimming-wagtail-migration-cruft.html
 # see convo github.com/wagtail/wagtail/issues/4298
 
 # this will strip block_type out of streamfield migrations, keeping them light.
