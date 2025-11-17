@@ -14,6 +14,11 @@ const LEGACY_SELECTORS = {
   skipTarget: "main",
 };
 
+const PNI_SELECTORS = {
+  ctaButton: ".donate-banner__cta-button",
+  skipTarget: ".primary-nav-container-wrapper",
+};
+
 /**
  * Initializes the donate banner component.
  */
@@ -24,16 +29,17 @@ export function initDonateBanner() {
   const bannerStyle = banner.dataset.bannerStyle;
   const closeButtons = banner.querySelectorAll(SELECTORS.closeButton);
   const skipButton = banner.querySelector(SELECTORS.skipButton);
-  const isLegacyPage = document
-    .querySelector("body")
-    .classList.contains("legacy");
+  const siteType = document.querySelector("body").dataset.siteType;
 
   let ctaButton = banner.querySelector(SELECTORS.ctaButton);
   let skipTargetSelector = SELECTORS.skipTarget;
 
-  if (isLegacyPage) {
+  if (siteType === "legacy") {
     ctaButton = banner.querySelector(LEGACY_SELECTORS.ctaButton);
     skipTargetSelector = LEGACY_SELECTORS.skipTarget;
+  } else if (siteType === "pni") {
+    ctaButton = banner.querySelector(PNI_SELECTORS.ctaButton);
+    skipTargetSelector = PNI_SELECTORS.skipTarget;
   }
 
   if (window.wagtailAbTesting) {

@@ -80,7 +80,7 @@
         {% wagtail_ab_testing_script %}
     </head>
 
-    <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}">
+    <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}" data-site-type="redesign">
     {# Basic breadcrumbs for dev navigation #}
         {% with self as page %}
             <nav aria-label="Breadcrumb">
