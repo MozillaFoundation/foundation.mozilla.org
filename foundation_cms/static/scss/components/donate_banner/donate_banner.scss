@@ -33,10 +33,10 @@
   &[data-banner-style="pushdown"] {
     position: sticky;
     top: 0;
-
-    ~ .main-content-wrapper {
-      position: relative;
-    }
+    // Fix for Safari: proper layer stacking with sticky elements because z-index alone doesn't work with position: sticky
+    z-index: z("pushdown-donate-banner");
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
   }
 
   &__inner-wrapper {

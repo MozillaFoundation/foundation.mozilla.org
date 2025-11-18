@@ -1,0 +1,17 @@
+$z-layers: (
+  // Sticky/fixed elements that should be below main content when scrolling
+  "pushdown-donate-banner": 1,
+
+  // Main site navigation and primary UI elements
+  "primary-nav-ns": 10,
+  "main-content-wrapper": 10,
+);
+
+// Helper function to get z-index values
+// Example usage: z("main-content-wrapper");
+@function z($layer) {
+  @if not map-has-key($z-layers, $layer) {
+    @error "No z-index defined for layer: #{$layer}";
+  }
+  @return map-get($z-layers, $layer);
+}
