@@ -4,6 +4,17 @@ const SELECTORS = {
   mainContent: ".main-content-wrapper",
 };
 
+/**
+ * Fixes Safari-specific bug where sticky elements ignore z-index stacking.
+ *
+ * Safari renders sticky positioned elements in a special paint phase that doesn't
+ * respect z-index values from other elements. This causes the sticky donate banner
+ * to appear above navigation and content when scrolling.
+ *
+ * Solution uses extreme 3D transforms to force proper layer separation:
+ *  - Banner: translateZ(-9999px) pushes it far back
+ *  - Nav/Content: translateZ(1px) brings them forward
+ */
 export function initSafariStickyFix() {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
@@ -21,10 +32,6 @@ export function initSafariStickyFix() {
       window.addEventListener(
         "scroll",
         () => {
-          // Safari sticky fix:
-          //   Create massive 3D separation between layers.
-          //   Banner at far back can't paint over nav/content at front.
-          //   This overrides Safari's buggy sticky element rendering.
           if (window.scrollY > SCROLL_THRESHOLD) {
             const bannerTransZ = `translateZ(${BANNER_Z_DISTANCE}px)`;
             const navTransZ = `translateZ(${CONTENT_Z_DISTANCE}px)`;
