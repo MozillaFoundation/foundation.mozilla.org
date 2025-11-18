@@ -1,5 +1,13 @@
-{% load i18n l10n %}
+{% load i18n l10n wagtailcore_tags %}
 {% get_current_language as LANGUAGE_CODE %}
+
+<!-- To avoid linting messages while using trans tags without double quotes -->
+{% trans "First Name" as first_name_label %}
+{% trans "Last Name" as last_name_label %}
+{% trans "Email" as email_label %}
+{% trans "Country" as country_label %}
+{% trans "Postal Code" as postal_code_label %}
+{% trans "Comments" as comments_label %}
 
 <form
     method="post"
@@ -9,10 +17,10 @@
 
     <!-- Hidden FormAssembly fields (same as legacy) -->
     <input type="hidden" name="tfa_500" value="{{ request.build_absolute_uri }}?state=signed&medium=email" class="">
-    <input type="hidden" name="tfa_1" value="{{ cta.campaign_id }}" class="">
+    <input type="hidden" name="tfa_1" value="{{ petition_cta.campaign_id }}" class="">
     <input type="hidden" name="tfa_498" value="{{ request.build_absolute_uri }}" class="">
     <input type="hidden" name="tfa_499" value="{{ LANGUAGE_CODE }}" class="">
-    <input type="hidden" name="tfa_501" value="{{ cta.newsletter }}" class="">
+    <input type="hidden" name="tfa_501" value="{{ petition_cta.newsletter }}" class="">
 
     <!-- Use CaMo form ID by default -->
     <input type="hidden" value="187" name="tfa_dbFormId" id="tfa_dbFormId">
@@ -26,26 +34,26 @@
 
     <!-- User input fields with FormAssembly field names -->
     <div class="form-group">
-        <label for="tfa_28">{% trans "First Name" %} *</label>
-        <input type="text" id="tfa_28" name="tfa_28" required aria-required="true" title="{% trans 'First Name' %}" class="required">
+        <label for="tfa_28">{{ first_name_label }} *</label>
+        <input type="text" id="tfa_28" name="tfa_28" required aria-required="true" title="{{ first_name_label }}" class="required">
     </div>
 
     <div class="form-group">
-        <label for="tfa_30">{% trans "Last Name" %} *</label>
-        <input type="text" id="tfa_30" name="tfa_30" required aria-required="true" title="{% trans 'Last Name' %}" class="required">
+        <label for="tfa_30">{{ last_name_label }} *</label>
+        <input type="text" id="tfa_30" name="tfa_30" required aria-required="true" title="{{ last_name_label }}" class="required">
     </div>
 
     <div class="form-group">
-        <label for="tfa_31">{% trans "Email" %} *</label>
-        <input type="email" id="tfa_31" name="tfa_31" required aria-required="true" title="{% trans 'Email' %}" class="validate-email required">
+        <label for="tfa_31">{{ email_label }} *</label>
+        <input type="email" id="tfa_31" name="tfa_31" required aria-required="true" title="{{ email_label }}" class="validate-email required">
     </div>
 
     <!-- Optional fields based on petition configuration -->
-    {% if cta.show_country_field %}
+    {% if petition_cta.show_country_field %}
         <div class="form-group">
-            <label for="tfa_254">{% trans "Country" %}</label>
-            <select id="tfa_254" name="tfa_254" title="{% trans 'Country' %}">
-                <option value="">{% trans "Please select..." %}</option>
+            <label for="tfa_254">{{ country_label }}</label>
+            <select id="tfa_254" name="tfa_254" title="{{ country_label }}">
+                <option value="">{{ "Please select..." }}</option>
                 <option value="tfa_478">United States</option>
                 <option value="tfa_292">Canada</option>
                 <option value="tfa_477">United Kingdom</option>
@@ -55,43 +63,41 @@
         </div>
     {% endif %}
 
-    {% if cta.show_postal_code_field %}
+    {% if petition_cta.show_postal_code_field %}
         <div class="form-group">
-            <label for="tfa_496">{% trans "Postal Code" %}</label>
-            <input type="text" id="tfa_496" name="tfa_496" title="{% trans 'Postal Code' %}">
+            <label for="tfa_496">{{ postal_code_label }}</label>
+            <input type="text" id="tfa_496" name="tfa_496" title="{{ postal_code_label }}">
         </div>
     {% endif %}
 
-    {% if cta.show_comment_field %}
+    {% if petition_cta.show_comment_field %}
         <div class="form-group">
-            <label for="tfa_497">{% trans "Comments" %}</label>
-            <textarea id="tfa_497" name="tfa_497" maxlength="500" title="{% trans 'Comments' %}"></textarea>
+            <label for="tfa_497">{{ comments_label }}</label>
+            <textarea id="tfa_497" name="tfa_497" maxlength="500" title="{{ comments_label }}"></textarea>
         </div>
     {% endif %}
-
-    <!-- Privacy agreement -->
-    <div class="form-group">
-        <label>
-            <input type="checkbox" name="tfa_493" value="tfa_493" required aria-required="true" class="calc-DefaultName">
-            {% if cta.privacy_notice %}
-                {% for block in cta.privacy_notice %}
-                    {% include_block block %}
-                {% endfor %}
-            {% else %}
-                {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}I'm okay with Mozilla handling my info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}
-            {% endif %}
-        </label>
-    </div>
 
     <!-- Newsletter opt-in -->
     <div class="form-group">
         <label>
-            <input type="checkbox" name="tfa_495" value="tfa_495" class="">
+            <input type="checkbox" name="tfa_495" value="tfa_495">
             {% trans "Yes, I want to receive email updates about Mozilla's campaigns." %}
         </label>
     </div>
 
+    <!-- Privacy agreement -->
+    <div class="form-group">
+        <label>
+            {% if petition_cta.privacy_notice %}
+                {{ petition_cta.privacy_notice|safe }}
+            {% else %}
+                {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}By signing, you accept to Mozilla handling your info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>.{% endblocktrans %}
+            {% endif %}
+        </label>
+    </div>
+
     <button type="submit" class="btn btn-primary">
-        {{ cta.cta_button_text|default:"Add my name" }}
+        {{ petition_cta.cta_button_text|default:"Add my name" }}
     </button>
+
 </form>

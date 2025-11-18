@@ -6,9 +6,13 @@ from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models import AbstractBasePage
-from foundation_cms.blocks import CustomImageBlock
+from foundation_cms.nothing_personal.models.article_page import (
+    NothingPersonalArticlePage,
+)
+from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .cta_base import CTA
+from .petition import Petition
 
 
 class CampaignPage(AbstractBasePage):
@@ -34,6 +38,7 @@ class CampaignPage(AbstractBasePage):
 
     signed_donation_question = models.CharField(
         max_length=200,
+        blank=True,
         default="Would you like to support our work with a donation?",
         help_text="Donation question shown after petition is signed",
     )
@@ -73,7 +78,14 @@ class CampaignPage(AbstractBasePage):
         help_text="Final thank you message",
     )
 
-    thank_you_image = CustomImageBlock(required=False, help_text="Optional image to show in the thank you step")
+    thank_you_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Optional image to show in the thank you step",
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("header"),
@@ -100,6 +112,7 @@ class CampaignPage(AbstractBasePage):
             [
                 FieldPanel("thank_you_header"),
                 FieldPanel("thank_you_body"),
+                FieldPanel("thank_you_image"),
             ],
             heading="Thank You Content",
             classname="collapsible",
@@ -115,6 +128,7 @@ class CampaignPage(AbstractBasePage):
         SynchronizedField("share_body"),
         SynchronizedField("thank_you_header"),
         SynchronizedField("thank_you_body"),
+        SynchronizedField("thank_you_image"),
     ]
 
     subpage_types = [
@@ -126,6 +140,7 @@ class CampaignPage(AbstractBasePage):
     def serve(self, request):
         state = request.GET.get("state", "start")
         medium = request.GET.get("medium", "web")
+        user_email = request.GET.get("email", "")
 
         if request.method == "POST":
             action = request.POST.get("action")
@@ -136,15 +151,47 @@ class CampaignPage(AbstractBasePage):
             if action == "skip":
                 return redirect(f"{self.url}?state=end&medium={medium}")
 
-        return render(
-            request,
-            self.get_template(request),
+        context = self.get_context(request)
+        context.update(
             {
-                "page": self,
                 "state": state,
                 "medium": medium,
-            },
+                "user_email": user_email,
+            }
         )
+
+        return render(request, self.get_template(request), context)
+
+    def get_context(self, request, *args, **kwargs):
+        """Override get_context to add latest articles for More Stories section"""
+        context = super().get_context(request, *args, **kwargs)
+
+        petition_cta = None
+        if self.cta:
+            try:
+                petition_cta = Petition.objects.get(id=self.cta.id)
+            except Petition.DoesNotExist:
+                petition_cta = self.cta
+
+        (default_locale, _) = get_default_locale()
+
+        default_articles = (
+            NothingPersonalArticlePage.objects.live()
+            .public()
+            .filter(locale=default_locale)
+            .order_by("-first_published_at")
+        )
+        latest_articles = localize_queryset(default_articles, preserve_order=True)
+
+        context.update(
+            {
+                "page": self,
+                "latest_articles": latest_articles.specific(),
+                "petition_cta": petition_cta,
+            }
+        )
+
+        return context
 
     class Meta:
         verbose_name = "Campaign Page (New)"

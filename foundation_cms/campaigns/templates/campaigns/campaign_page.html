@@ -1,8 +1,19 @@
 {% extends "base/base.html" %}
-{% load wagtailcore_tags static i18n %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
 
 {% block content %}
     <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
+
+        {% if medium == "email" %}
+            <div class="email-confirmation-notice alert alert-warning">
+                <strong>{% trans "IMPORTANT" %}:</strong>
+                {% if user_email %}
+                    {% blocktrans with email=user_email %}For your signature to be counted, you have to confirm it. Click on the email we just sent to {{ email }} to confirm your signature.{% endblocktrans %}
+                {% else %}
+                    {% blocktrans %}For your signature to be counted, you have to confirm it. Click on the email we just sent to confirm your signature.{% endblocktrans %}
+                {% endif %}
+            </div>
+        {% endif %}
 
         <div class="campaign-content">
             {% if page.header %}
@@ -19,18 +30,6 @@
         <!-- PETITION FORM STATE -->
         {% if page.cta and state == "start" %}
             <div class="petition-cta-container">
-                {% if page.cta.share_bluesky %}
-                    <div id="share-progress-bs" class='{{ page.cta.share_bluesky }} sp_bs_small d-none'></div>
-                {% endif %}
-
-                {% if page.cta.share_facebook %}
-                    <div id="share-progress-fb" class='{{ page.cta.share_facebook }} sp_fb_small d-none'></div>
-                {% endif %}
-
-                {% if page.cta.share_email %}
-                    <div id="share-progress-em" class='{{ page.cta.share_email }} sp_em_small bs-hidden'></div>
-                {% endif %}
-
                 {% if page.cta.header %}
                     {{ page.cta.header }}
                 {% endif %}
@@ -45,8 +44,7 @@
                     <p class="form-notice">
                         <small>{% trans "* Indicates a required field" %}</small>
                     </p>
-                    <!-- Petition Form -->
-                    {% include "campaigns/components/petition_form.html" with cta=page.cta %}
+                    <!-- Petition Form -->{% include "campaigns/components/petition_form.html" with petition_cta=petition_cta %}
                 </div>
             </div>
         {% endif %}
@@ -65,7 +63,7 @@
                         {% include "patterns/components/button.html" with classnames="with-heart-icon donation-button" url=page.cta.donate_url label=page.cta.donate_text button_style="btn-primary" %}
                     {% endif %}
 
-                    <form method="POST" class="petition-actions-form" style="display: inline-block;">
+                    <form method="post" class="petition-actions-form">
                         {% csrf_token %}
                         <button
                             type="submit"
@@ -77,7 +75,7 @@
                         </button>
                     </form>
 
-                    <form method="POST" class="petition-actions-form" style="display: inline-block;">
+                    <form method="post" class="petition-actions-form">
                         {% csrf_token %}
                         <button
                             type="submit"
@@ -97,27 +95,47 @@
                 {{ page.share_header }}
                 {{ page.share_body|richtext }}
 
-                <!-- Social sharing buttons -->
-                {% if page.cta.share_bluesky %}
-                    <div id="share-progress-bs" class='{{ page.cta.share_bluesky }} sp_bs_small'></div>
-                {% endif %}
+                <div class="social-sharing-buttons">
 
-                {% if page.cta.share_facebook %}
-                    <div id="share-progress-fb" class='{{ page.cta.share_facebook }} sp_fb_small'></div>
-                {% endif %}
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary">
+                        {% trans "Facebook" %}
+                    </a>
 
-                {% if page.cta.share_email %}
-                    <div id="share-progress-em" class='{{ page.cta.share_email }} sp_em_small'></div>
-                {% endif %}
+                    <!-- Bluesky -->
+                    <a href="https://bsky.app/intent/compose?text={{ page.title|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary">
+                        {% trans "Bluesky" %}
+                    </a>
 
-                <form method="POST" class="petition-actions-form">
+                    <!-- Email -->
+                    {% trans "Check out this petition:" as email_message %}
+                    <a href="mailto:?subject={{ page.title|urlencode }}&body={{ email_message|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+                       class="btn btn-primary">
+                        {% trans "Email" %}
+                    </a>
+
+                    <!-- Copy Link -->
+                    <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')"
+                            class="btn btn-primary">
+                        {% trans "Copy Link" %}
+                    </button>
+                </div>
+
+                <form method="post" class="petition-actions-form">
                     {% csrf_token %}
                     <button
                         type="submit"
                         name="action"
                         value="skip"
-                        class="btn btn-primary skip-button"
+                        class="btn btn-link skip-button"
                         data-label="Sorry, not right now">
+                        {% trans "Sorry, not right now" %}
                     </button>
                 </form>
             </div>
@@ -127,25 +145,53 @@
             <div class="petition-thank-you">
                 {{ page.thank_you_header }}
                 {{ page.thank_you_body|richtext }}
-                <img src="{{ page.thank_you_image.url }}" alt="{{ page.thank_you_header|escape }}" max-width="100%" max-height="auto">
+
+                {% if page.thank_you_image %}
+                    <div class="thank-you-image">
+                        {% image page.thank_you_image fill-600x400 as thank_you_img %}
+                        <img src="{{ thank_you_img.url }}"
+                             alt="{{ page.thank_you_image.title }}"
+                             class="img-responsive"
+                             max-width="600" max-height="400">
+                    </div>
+                {% endif %}
+
+                {% if latest_articles|length >= 2 %}
+                    <div class="grid-container">
+                        <div class="grid-x">
+                            <div class="cell small-12">
+                                {% trans "Keep Contributing" as localized_latest_stories %}
+                                {% with heading=localized_latest_stories items=latest_articles image_ratio="3:2" show_author=True image_field="search_image" %}
+                                    {% include "patterns/components/nothing_personal/related_content.html" %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
         {% endif %}
 
     </div>
-{% endblock %}
+{% endblock content %}
 
 {% block extra_js %}
-    <script src="https://c.shpg.org/352/sp.js"></script>
-
     <script nonce="{{ request.csp_nonce }}">
-        document.addEventListener('DOMContentLoaded', function() {
-            {% if state == "sharing" %}
-                if (window.ShareProgress) {
-                    window.ShareProgress.init();
-                }
-            {% endif %}
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link copied!');
+            }).catch(function() {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Link copied!');
+            });
+        }
 
+        document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('button[data-label]').forEach(button => {
                 button.addEventListener('click', function() {
                     const label = this.getAttribute('data-label');
@@ -165,4 +211,4 @@
             });
         });
     </script>
-{% endblock %}
+{% endblock extra_js %}

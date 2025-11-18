@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -35,12 +35,30 @@ class CTABase(models.Model):
         default="mozilla-foundation",
     )
 
+    donate_text = models.CharField(
+        max_length=150,
+        help_text="Donate button label",
+        default="Yes, I'll chip in $10",
+        blank=True,
+    )
+
+    donate_url = models.CharField(
+        max_length=255,
+        default="?form=donate",
+        blank=True,
+        help_text=(
+            "Donate button URL. Use ?form=donate for Mozilla donate form, " "or full URL for external donation page."
+        ),
+    )
+
     translatable_fields = [
         TranslatableField("name"),
         TranslatableField("header"),
         TranslatableField("description"),
         TranslatableField("privacy_notice"),
         SynchronizedField("newsletter"),
+        TranslatableField("donate_text"),
+        SynchronizedField("donate_url"),
     ]
 
     panels = [
@@ -49,6 +67,14 @@ class CTABase(models.Model):
         FieldPanel("header"),
         FieldPanel("description"),
         FieldPanel("privacy_notice"),
+        MultiFieldPanel(
+            [
+                FieldPanel("donate_text"),
+                FieldPanel("donate_url"),
+            ],
+            heading="Donation Settings",
+            classname="collapsible",
+        ),
     ]
 
     search_fields = [
