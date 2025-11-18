@@ -2,6 +2,7 @@
 
 .main-content-wrapper {
   background-color: map.get($mofo-colors, white);
+
   // Fix for Safari: proper layer stacking with sticky elements because z-index alone doesn''t work with position: sticky
   position: relative;
   z-index: z("main-content-wrapper");

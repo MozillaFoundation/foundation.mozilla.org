@@ -20,6 +20,7 @@ $primary-nav-margin: 0.7rem;
   overflow: hidden;
   will-change: height;
   transition: height 0.3s ease-in-out;
+
   // Fix for Safari: proper layer stacking with sticky elements because z-index alone doesn't work with position: sticky
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
