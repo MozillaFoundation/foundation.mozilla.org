@@ -1,6 +1,7 @@
 @use "sass:map";
 
 .main-content-wrapper {
+  padding-top: 1px; // prevents child margin from collapsing
   background-color: map.get($mofo-colors, white);
 
   // Fix for Safari: proper layer stacking with sticky elements because z-index alone doesn''t work with position: sticky
