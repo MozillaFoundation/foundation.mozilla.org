@@ -860,3 +860,8 @@ CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
 CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
 UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
 SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
+
+# Override streamfield via monkey patch in apps.py
+# Useful to compress massive legacy streamfield migrations that cause memory issues on review apps
+# Not for regular use, as it has data migrations implications
+TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
