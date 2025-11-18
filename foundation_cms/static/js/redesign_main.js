@@ -10,6 +10,7 @@ import {
   initWordmarkVisibilityOnScroll,
 } from "./components/primary_nav";
 import { initDonateBanner } from "./components/donate_banner.js";
+import { initSafariStickyFix } from "./components/safari_sticky_donate_banner_fix.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
 import { initTabbedContent } from "./blocks/tabbed_content_container.js";
@@ -26,6 +27,7 @@ console.log(
 
 initPrimaryNav();
 initDonateBanner();
+initSafariStickyFix();
 initImpactNumberStatAnimationsOnScroll();
 initAllHorizontalAccordions();
 injectNewsletterSignups(foundationSiteURL);
