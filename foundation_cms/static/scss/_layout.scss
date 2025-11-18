@@ -1,5 +1,6 @@
 @use "sass:map";
 
 .main-content-wrapper {
+  padding-top: 1px; // prevents child margin from collapsing
   background-color: map.get($mofo-colors, white);
 }
