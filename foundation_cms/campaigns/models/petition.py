@@ -1,6 +1,5 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
-from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField

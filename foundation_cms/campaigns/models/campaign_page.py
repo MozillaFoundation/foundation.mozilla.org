@@ -6,7 +6,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models import AbstractBasePage
 from foundation_cms.nothing_personal.models.article_page import (
@@ -14,7 +14,6 @@ from foundation_cms.nothing_personal.models.article_page import (
 )
 from foundation_cms.utils import get_default_locale, localize_queryset
 
-from .cta_base import CTA
 from .petition import Petition
 
 
