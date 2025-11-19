@@ -861,7 +861,7 @@ class Migration(migrations.Migration):
                 (
                     "signed_body",
                     wagtail.fields.RichTextField(
-                        default="Thanks so much for signing this petition asking for transparency on data used to train AI tool! Can you add a donation to support Mozilla's  non-profit work for trustworthy AI?",
+                        default="Thank you for signing this petition! Your voice matters in the fight for a healthier internet. Would you like to support Mozilla's nonprofit work with a donation?",
                         help_text="Content shown after signing",
                     ),
                 ),
