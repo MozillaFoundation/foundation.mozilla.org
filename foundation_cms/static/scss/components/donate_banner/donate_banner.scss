@@ -17,6 +17,11 @@
   position: relative;
   padding-top: calc(map.get($grid-container-padding, small) / 2);
   padding-bottom: calc(map.get($grid-container-padding, small) / 2);
+  display: none;
+
+  &--visible {
+    display: block;
+  }
 
   @include breakpoint(medium up) {
     padding-top: map.get($banner-standard-padding-y, medium);
