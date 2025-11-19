@@ -19,7 +19,7 @@ class FeaturedContainerBlock(TwoColumnContainerBlock):
         default="none",
         help_text="Make one column sticky on scroll",
     )
-    
+
     left_column = ColumnStreamBlock(label="Left Column", required=False)
     right_column = ColumnStreamBlock(label="Right Column", required=False)
 
