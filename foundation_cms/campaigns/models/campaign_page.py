@@ -1,7 +1,10 @@
+from urllib.parse import urlencode
+
 from django.db import models
 from django.shortcuts import redirect, render
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -13,7 +16,6 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .cta_base import CTA
 from .petition import Petition
-from urllib.parse import urlencode
 
 
 class CampaignPage(AbstractBasePage):
@@ -24,7 +26,7 @@ class CampaignPage(AbstractBasePage):
     header = models.CharField(max_length=250, blank=True, help_text="Header for the campaign page")
 
     cta = models.ForeignKey(
-        CTA,
+        Petition,
         related_name="campaign_page_for_cta",
         blank=True,
         null=True,
@@ -80,7 +82,7 @@ class CampaignPage(AbstractBasePage):
     )
 
     thank_you_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -188,8 +190,8 @@ class CampaignPage(AbstractBasePage):
             {
                 "page": self,
                 "latest_articles": latest_articles.specific(),
-                "petition_cta": petition_cta,
-                "petition_signed_url": self.get_petition_signed_url(request)
+                "petition_cta": petition_cta.localized,
+                "petition_signed_url": self.get_petition_signed_url(request),
             }
         )
 

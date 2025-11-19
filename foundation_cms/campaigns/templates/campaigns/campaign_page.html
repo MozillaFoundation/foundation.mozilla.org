@@ -35,15 +35,15 @@
         </div>
 
         <!-- PETITION FORM STATE -->
-        {% if page.cta and state == "start" %}
+        {% if petition_cta and state == "start" %}
             <div class="petition-cta-container">
-                {% if page.cta.header %}
-                    {{ page.cta.header }}
+                {% if petition_cta.header %}
+                    {{ petition_cta.header }}
                 {% endif %}
 
-                {% if page.cta.description %}
+                {% if petition_cta.description %}
                     <div class="petition-description">
-                        {{ page.cta.description|richtext }}
+                        {{ petition_cta.description|richtext }}
                     </div>
                 {% endif %}
 

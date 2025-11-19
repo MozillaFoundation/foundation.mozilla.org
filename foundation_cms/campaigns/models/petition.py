@@ -9,7 +9,7 @@ from .cta_base import CTA
 
 
 @register_snippet
-class Petition(TranslatableMixin, CTA):
+class Petition(CTA):
     campaign_id = models.CharField(
         max_length=20,
         help_text="Which Salesforce Campaign ID should this petition be tied to?",
@@ -66,7 +66,7 @@ class Petition(TranslatableMixin, CTA):
         FieldPanel("cta_button_text"),
     ]
 
-    class Meta(TranslatableMixin.Meta):
+    class Meta:
         ordering = ["-id"]
         verbose_name = "Petition (New)"
         verbose_name_plural = "Petitions (New)"
