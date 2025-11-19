@@ -2,11 +2,9 @@
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 
-
 {% block extended_head %}
     {% include "campaigns/components/formassembly_head.html" %}
-{% endblock %}
-
+{% endblock extended_head %}
 
 {% block content %}
     <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
