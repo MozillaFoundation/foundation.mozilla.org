@@ -4,7 +4,7 @@
 {% block content %}
     <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
 
-        {% if medium == "email" %}
+        {% if medium != "email" %}
             <div class="email-confirmation-notice alert alert-warning">
                 <strong>{% trans "IMPORTANT" %}:</strong>
                 {% if user_email %}

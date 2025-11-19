@@ -179,7 +179,7 @@ class CampaignPage(AbstractBasePage):
             NothingPersonalArticlePage.objects.live()
             .public()
             .filter(locale=default_locale)
-            .order_by("-first_published_at")
+            .order_by("-first_published_at")[:2]
         )
         latest_articles = localize_queryset(default_articles, preserve_order=True)
 
