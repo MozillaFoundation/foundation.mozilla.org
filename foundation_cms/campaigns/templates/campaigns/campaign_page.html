@@ -1,5 +1,12 @@
 {% extends "base/base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+
+{% block extended_head %}
+    {% include "campaigns/components/formassembly_head.html" %}
+{% endblock %}
+
 
 {% block content %}
     <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
@@ -28,15 +35,15 @@
         </div>
 
         <!-- PETITION FORM STATE -->
-        {% if page.cta and state == "start" %}
+        {% if petition_cta and state == "start" %}
             <div class="petition-cta-container">
-                {% if page.cta.header %}
-                    {{ page.cta.header }}
+                {% if petition_cta.header %}
+                    {{ petition_cta.header }}
                 {% endif %}
 
-                {% if page.cta.description %}
+                {% if petition_cta.description %}
                     <div class="petition-description">
-                        {{ page.cta.description|richtext }}
+                        {{ petition_cta.description|richtext }}
                     </div>
                 {% endif %}
 
@@ -45,7 +52,9 @@
                         <small>{% trans "* Indicates a required field" %}</small>
                     </p>
                     <!-- Petition Form -->
-                    {% include "campaigns/components/petition_form.html" with petition_cta=petition_cta %}
+                    {% with cta=petition_cta %}
+                        {% include "campaigns/components/formassembly_body.html" with csp_nonce=csp_nonce show_country_field=cta.show_country_field show_postal_code_field=cta.show_postal_code_field show_comment_field=cta.show_comment_field campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=LANGUAGE_CODE petition_signed_url_tfa_500=petition_signed_url privacy_notice=cta.privacy_notice %}
+                    {% endwith %}
                 </div>
             </div>
         {% endif %}

@@ -1,7 +1,10 @@
+from urllib.parse import urlencode
+
 from django.db import models
 from django.shortcuts import redirect, render
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail.models import Page
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -23,7 +26,7 @@ class CampaignPage(AbstractBasePage):
     header = models.CharField(max_length=250, blank=True, help_text="Header for the campaign page")
 
     cta = models.ForeignKey(
-        CTA,
+        Petition,
         related_name="campaign_page_for_cta",
         blank=True,
         null=True,
@@ -79,7 +82,7 @@ class CampaignPage(AbstractBasePage):
     )
 
     thank_you_image = models.ForeignKey(
-        "wagtailimages.Image",
+        get_image_model_string(),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -120,7 +123,7 @@ class CampaignPage(AbstractBasePage):
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
-        TranslatableField("cta"),
+        SynchronizedField("cta"),
         SynchronizedField("signed_header"),
         SynchronizedField("signed_donation_question"),
         SynchronizedField("signed_body"),
@@ -187,11 +190,19 @@ class CampaignPage(AbstractBasePage):
             {
                 "page": self,
                 "latest_articles": latest_articles.specific(),
-                "petition_cta": petition_cta,
+                "petition_cta": petition_cta.localized,
+                "petition_signed_url": self.get_petition_signed_url(request),
             }
         )
 
         return context
+
+    def get_petition_signed_url(self, request):
+        base_url = self.get_full_url()
+        existing_params = request.GET.dict()
+        existing_params["state"] = "signed"
+        petition_signed_url = base_url + "?" + urlencode(existing_params)
+        return petition_signed_url
 
     class Meta:
         verbose_name = "Campaign Page (New)"

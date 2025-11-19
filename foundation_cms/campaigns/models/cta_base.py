@@ -1,13 +1,15 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.constants import RICH_TEXT_BASE_OPTIONS
 
 
-class CTABase(models.Model):
+class CTABase(TranslatableMixin, models.Model):
     name = models.CharField(
         default="",
         max_length=100,
@@ -85,16 +87,17 @@ class CTABase(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         abstract = True
 
 
+@register_snippet
 class CTA(CTABase):
     """Concrete CTA base for other CTAs"""
 
     panels = CTABase.panels
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         ordering = ["-id"]
         verbose_name = "CTA (New)"
         verbose_name_plural = "CTAs (New)"
