@@ -13,6 +13,7 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .cta_base import CTA
 from .petition import Petition
+from urllib.parse import urlencode
 
 
 class CampaignPage(AbstractBasePage):
@@ -120,7 +121,7 @@ class CampaignPage(AbstractBasePage):
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
-        TranslatableField("cta"),
+        SynchronizedField("cta"),
         SynchronizedField("signed_header"),
         SynchronizedField("signed_donation_question"),
         SynchronizedField("signed_body"),
@@ -188,10 +189,18 @@ class CampaignPage(AbstractBasePage):
                 "page": self,
                 "latest_articles": latest_articles.specific(),
                 "petition_cta": petition_cta,
+                "petition_signed_url": self.get_petition_signed_url(request)
             }
         )
 
         return context
+
+    def get_petition_signed_url(self, request):
+        base_url = self.get_full_url()
+        existing_params = request.GET.dict()
+        existing_params["state"] = "signed"
+        petition_signed_url = base_url + "?" + urlencode(existing_params)
+        return petition_signed_url
 
     class Meta:
         verbose_name = "Campaign Page (New)"
