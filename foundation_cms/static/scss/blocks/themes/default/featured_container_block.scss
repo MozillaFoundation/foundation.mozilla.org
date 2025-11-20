@@ -1,10 +1,11 @@
 .featured-container {
-  $container-padding: 5rem;
+  $container-padding: 8rem;
   $sticky-top-offset: $container-padding + 3rem;
 
   display: flex;
   flex-direction: column;
-  padding: 2rem 0;
+  padding: 3rem 0;
+  gap: $global-padding;
 
   @include breakpoint(medium up) {
     flex-direction: row;
