@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+
+<div class="featured-container featured-container--{{ self.vertical_alignment }} featured-container--sticky-{{ self.sticky }}">
+
+  <div class="featured-container__column featured-container__column--left">
+    {% for block in self.left_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+
+  <div class="featured-container__column featured-container__column--right">
+    {% for block in self.right_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+
+</div>
