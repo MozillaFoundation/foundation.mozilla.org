@@ -58,6 +58,7 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
+    MOZFEST_SCHEDULE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
@@ -171,6 +172,8 @@ TARGET_DOMAINS = env("TARGET_DOMAINS")
 
 # Temporary Redirect for Mozilla Festival domain
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
+# Mozilla Festival Schedule redirect URL override
+MOZFEST_SCHEDULE_URL = env("MOZFEST_SCHEDULE_URL")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
@@ -290,6 +293,7 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.project_styleguide",
             # Redesign Site Apps
             "foundation_cms.base",
+            "foundation_cms.campaigns",
             "foundation_cms.core",
             "foundation_cms.blog",
             "foundation_cms.nothing_personal",
@@ -385,6 +389,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.review_app",
                         "foundation_cms.context_processor.canonical_path",
                         "foundation_cms.context_processor.canonical_site_url",
+                        "foundation_cms.context_processor.mozfest_schedule_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -855,3 +860,8 @@ CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
 CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
 UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
 SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
+
+# Override streamfield via monkey patch in apps.py
+# Useful to compress massive legacy streamfield migrations that cause memory issues on review apps
+# Not for regular use, as it has data migrations implications
+TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)

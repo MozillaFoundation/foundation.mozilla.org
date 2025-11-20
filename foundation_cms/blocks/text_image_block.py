@@ -36,6 +36,27 @@ class TextMediaBlock(TextImageBlock):
           TextImageBlock with a `ChoiceBlock` for style/variant selection.
     """
 
+    background_color = blocks.ChoiceBlock(
+        choices=[
+            ("white", "White"),
+            ("neutral-100", "Grey 100"),
+            ("neutral-200", "Grey 200"),
+            ("neutral-300", "Grey 300"),
+            ("blue-100", "Blue 100"),
+            ("blue-200", "Blue 200"),
+            ("blue-300", "Blue 300"),
+            ("green-100", "Green 100"),
+            ("green-200", "Green 200"),
+            ("green-300", "Green 300"),
+            ("orange-100", "Orange 100"),
+            ("orange-200", "Orange 200"),
+            ("orange-300", "Orange 300"),
+            ("yellow-100", "Yellow 100"),
+            ("yellow-200", "Yellow 200"),
+            ("yellow-300", "Yellow 300"),
+        ],
+        default="white",
+    )
     media = CustomMediaBlock(required=False)
 
     def __init__(self, *args, **kwargs):

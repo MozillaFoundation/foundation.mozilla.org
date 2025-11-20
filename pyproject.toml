@@ -235,6 +235,7 @@ ignore="H017"
 "foundation_cms/templates/base/base.html" = "H031"
 "foundation_cms/templates/patterns/components/primary_nav.html" = "D018"
 "foundation_cms/templates/patterns/components/footer.html" = "D018"
+"foundation_cms/campaigns/templates/campaigns/components/formassembly_body.html" = "H021, H026"
 
 [tool.isort]
 profile = "black"

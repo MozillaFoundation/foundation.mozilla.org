@@ -2,6 +2,7 @@ from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
+from .common.background_color_block import BackgroundColorChoiceBlock
 from .image_block import CustomImageBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
@@ -25,6 +26,7 @@ class ColumnStreamBlock(StreamBlock):
 
 
 class TwoColumnContainerBlock(BaseBlock):
+    background_color = BackgroundColorChoiceBlock()
     vertical_alignment = ChoiceBlock(
         choices=[
             ("top", "Top"),
