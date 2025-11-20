@@ -169,11 +169,15 @@ class CampaignPage(AbstractBasePage):
         context = super().get_context(request, *args, **kwargs)
 
         petition_cta = None
+        petition_cta_localized = None
         if self.cta:
             try:
                 petition_cta = Petition.objects.get(id=self.cta.id)
             except Petition.DoesNotExist:
                 petition_cta = self.cta
+
+            if petition_cta:
+                petition_cta_localized = petition_cta.localized
 
         (default_locale, _) = get_default_locale()
 
@@ -181,15 +185,16 @@ class CampaignPage(AbstractBasePage):
             NothingPersonalArticlePage.objects.live()
             .public()
             .filter(locale=default_locale)
-            .order_by("-first_published_at")[:2]
+            .order_by("-first_published_at")
         )
         latest_articles = localize_queryset(default_articles, preserve_order=True)
+        latest_articles_list = list(latest_articles.specific()[:2])
 
         context.update(
             {
                 "page": self,
-                "latest_articles": latest_articles.specific(),
-                "petition_cta": petition_cta.localized,
+                "latest_articles": latest_articles_list,
+                "petition_cta": petition_cta_localized,
                 "petition_signed_url": self.get_petition_signed_url(request),
             }
         )
