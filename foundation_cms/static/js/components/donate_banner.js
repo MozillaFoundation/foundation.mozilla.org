@@ -20,6 +20,25 @@ const PNI_SELECTORS = {
 };
 
 /**
+ * Legacy-style dismiss helpers
+ */
+const DISMISS_KEY = "donate banner dismiss day";
+
+function getDismissDate() {
+  return localStorage.getItem(DISMISS_KEY);
+}
+
+function setDismissDate() {
+  const today = new Date();
+  localStorage.setItem(DISMISS_KEY, today.toDateString());
+}
+
+function shouldHideBanner() {
+  const today = new Date();
+  return getDismissDate() === today.toDateString();
+}
+
+/**
  * Initializes the donate banner component.
  */
 export function initDonateBanner() {
@@ -42,6 +61,20 @@ export function initDonateBanner() {
     skipTargetSelector = PNI_SELECTORS.skipTarget;
   }
 
+  if (bannerStyle !== "pushdown") {
+    const hideBanner = shouldHideBanner();
+
+    if (hideBanner) {
+      // If we should hide the banner, remove it from the DOM to prevent it
+      // from creating unexpected behavior due to its absolute positioning.
+      banner.remove();
+      return;
+    }
+
+    // if not dismissed today, ensure it's visible
+    banner.classList.add("donate-banner--visible");
+  }
+
   if (window.wagtailAbTesting) {
     ctaButton?.addEventListener("click", (e) => {
       wagtailAbTesting.triggerEvent("donate-banner-link-click");
@@ -53,6 +86,12 @@ export function initDonateBanner() {
       "click",
       (e) => {
         e.preventDefault();
+
+        // For non-pushdown banners, set the dismiss date so it won't reappear today
+        if (bannerStyle !== "pushdown") {
+          setDismissDate();
+        }
+
         banner.remove();
       },
       { once: true },
