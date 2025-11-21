@@ -1,6 +1,7 @@
 from .base_card_block import BaseCardBlock
 from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
+from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .fru_element_block import FruElementBlock
@@ -46,6 +47,7 @@ __all__ = [
     "BackgroundColorChoiceBlock",
     "DividerBlock",
     "CalloutBlock",
+    "CustomRichTextBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",

@@ -3,12 +3,13 @@ from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
+from .custom_rich_text_block import CustomRichTextBlock
 from .link_button_block import LinkButtonBlock
 
 
 class FeaturedCardBlock(BaseBlock):
     heading = CharBlock(required=True, max_length=50, label="Heading")
-    description = RichTextBlock(required=True, max_length=500, label="Description", features=["bold", "italic"])
+    description = CustomRichTextBlock(required=True, max_length=500, label="Description", features=["bold", "italic"])
     image = ImageBlock(required=True, label="Image", help_text="Image for the card")
     button = LinkButtonBlock(required=False, label="Button", help_text="Link button for the card.")
 

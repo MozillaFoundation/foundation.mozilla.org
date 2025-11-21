@@ -7,7 +7,6 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
@@ -17,6 +16,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks import (
     CustomImageBlock,
+    CustomRichTextBlock,
     DividerBlock,
     FeaturedCardBlock,
     FruElementBlock,
@@ -44,12 +44,7 @@ from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixi
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
 base_page_block_options = [
     # [TODO/FIXME] consider ordering or grouping these blocks
-    (
-        "rich_text",
-        RichTextBlock(
-            template="patterns/blocks/themes/default/rich_text_block.html",
-        ),
-    ),
+    ("rich_text", CustomRichTextBlock()),
     ("image", CustomImageBlock()),
     ("podcast_block", PodcastBlock()),
     ("tabbed_content", TabbedContentContainerBlock()),
