@@ -3,6 +3,7 @@ from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
 from foundation_cms.base.models.base_block import BaseBlock
 
 from .common.background_color_block import BackgroundColorChoiceBlock
+from .fru_element_block import FruElementBlock
 from .image_block import CustomImageBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
@@ -25,6 +26,7 @@ class ColumnStreamBlock(StreamBlock):
     quote = QuoteBlock()
     text_social = TextSocialBlock()
     link_button = LinkButtonBlock()
+    fru_element = FruElementBlock()
 
 
 class TwoColumnContainerBlock(BaseBlock):
