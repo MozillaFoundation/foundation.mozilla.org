@@ -5,6 +5,7 @@ from foundation_cms.base.models.base_block import BaseBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .image_block import CustomImageBlock
 from .list_block import ListBlock
+from .media_block import CustomMediaBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 from .podcast_block import PodcastBlock  # Just as an example second block
 from .quote_block import QuoteBlock
@@ -23,6 +24,7 @@ class ColumnStreamBlock(StreamBlock):
     spacer = SpacerBlock()
     quote = QuoteBlock()
     text_social = TextSocialBlock()
+    custom_media = CustomMediaBlock()
 
 
 class TwoColumnContainerBlock(BaseBlock):
