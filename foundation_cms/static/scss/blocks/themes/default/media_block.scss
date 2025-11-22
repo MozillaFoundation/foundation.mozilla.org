@@ -63,3 +63,12 @@
     }
   }
 }
+
+// CustomMediaBlock: Widescreen full-width behavior
+.cell.medium-7 {
+  &:has(.media-block--widescreen) {
+    @include breakpoint(medium up) {
+      width: 100%;
+    }
+  }
+}

@@ -5,9 +5,15 @@
     {% if not streamchild.block.skip_default_wrapper %}
       <div class="grid-container">
         <div class="grid-x">
-          <div class="cell {% if classnames %} {{ classnames }}{% endif %}">
-            {% include_block streamchild %}
-          </div>
+          {% if streamchild.block_type == 'custom_media' %}
+            <div class="cell medium-7 body-text-large">
+              {% include_block streamchild %}
+            </div>
+          {% else %}
+            <div class="cell {% if classnames %} {{ classnames }}{% endif %}">
+              {% include_block streamchild %}
+            </div>
+          {% endif %}
         </div>
       </div>
     {% else %}
