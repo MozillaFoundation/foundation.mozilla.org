@@ -69,6 +69,7 @@
     align-content: center;
     background: $white;
     padding: 0 1rem 1rem;
+    align-self: center;
 
     @include breakpoint(medium up) {
       padding: 0;

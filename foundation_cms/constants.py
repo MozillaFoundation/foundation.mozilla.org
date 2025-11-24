@@ -14,3 +14,6 @@ RICH_TEXT_FEATURES_NO_HEADINGS = [
     "document-link",
     "image",
 ]
+
+# Rich text features for basic formatting options
+RICH_TEXT_BASE_OPTIONS = ["bold", "italic", "link"]

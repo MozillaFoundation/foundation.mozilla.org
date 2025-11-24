@@ -3,4 +3,11 @@
 .main-content-wrapper {
   padding-top: 1px; // prevents child margin from collapsing
   background-color: map.get($mofo-colors, white);
+
+  // Safari-only fix for sticky element z-index bug
+  // This forces main-content-wrapper to be rendered on its own layer,
+  // which makes Safari respect stacking order with sticky elements
+  @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+    transform: translate3d(0, 0, 0);
+  }
 }
