@@ -10,6 +10,7 @@ class FruElementBlock(BaseBlock):
         ("donor-map", "Donor Map"),
         ("top-locations", "Top Locations"),
         ("donation-levels", "Donation Levels"),
+        ("donate-button", "Donate Button"),
     ]
 
     fru_element_type = ChoiceBlock(
