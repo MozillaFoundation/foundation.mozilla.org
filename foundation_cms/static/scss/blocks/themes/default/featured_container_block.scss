@@ -60,6 +60,10 @@
 
   .media-block {
     margin: 0;
+
+    & + .media-block {
+      margin-top: $global-padding;
+    }
   }
 
   .media-block__image,
@@ -69,5 +73,15 @@
 
   &__column :first-child {
     margin-top: 0;
+  }
+}
+
+.streamfield-block-wrapper[data-block-type="featured_container"] {
+  + .streamfield-block-wrapper:not([data-block-type="featured_container"]) {
+    margin-top: 3rem;
+
+    @include breakpoint(medium up) {
+      margin-top: 4rem;
+    }
   }
 }
