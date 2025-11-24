@@ -1,4 +1,11 @@
 .fru-element-block {
   display: flex;
+
+
   justify-content: center;
+
+  &.fru-donate-button {
+    justify-content: flex-start;
+  }
+
 }
