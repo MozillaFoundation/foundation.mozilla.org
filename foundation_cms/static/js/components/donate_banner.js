@@ -20,6 +20,25 @@ const PNI_SELECTORS = {
 };
 
 /**
+ * Legacy-style dismiss helpers
+ */
+const DISMISS_KEY = "donate banner dismiss day";
+
+function getDismissDate() {
+  return localStorage.getItem(DISMISS_KEY);
+}
+
+function setDismissDate() {
+  const today = new Date();
+  localStorage.setItem(DISMISS_KEY, today.toDateString());
+}
+
+function shouldHideBanner() {
+  const today = new Date();
+  return getDismissDate() === today.toDateString();
+}
+
+/**
  * Initializes the donate banner component.
  */
 export function initDonateBanner() {
@@ -42,6 +61,20 @@ export function initDonateBanner() {
     skipTargetSelector = PNI_SELECTORS.skipTarget;
   }
 
+  // Handle legacy banner visibility based on dismissal date.
+  if (bannerStyle === "legacy") {
+    const hideBanner = shouldHideBanner();
+    if (hideBanner) {
+      // If we should hide the banner, remove it from the DOM to prevent it
+      // from creating unexpected behavior due to its absolute positioning.
+      banner.remove();
+      return;
+    }
+
+    // if not dismissed today, ensure it's visible
+    banner.classList.add("donate-banner--visible");
+  }
+
   if (window.wagtailAbTesting) {
     ctaButton?.addEventListener("click", (e) => {
       wagtailAbTesting.triggerEvent("donate-banner-link-click");
@@ -53,13 +86,19 @@ export function initDonateBanner() {
       "click",
       (e) => {
         e.preventDefault();
+
+        // Only the legacy banner is dismissible for the day.
+        if (bannerStyle === "legacy") {
+          setDismissDate();
+        }
+
         banner.remove();
       },
       { once: true },
     );
   });
 
-  if (bannerStyle == "pushdown") {
+  if (bannerStyle === "pushdown") {
     skipButton?.addEventListener("click", (e) => {
       e.preventDefault();
 
