@@ -71,7 +71,7 @@
     border-bottom-left-radius: 0;
   }
 
-  &__column :first-child {
+  &__column > :first-child {
     margin-top: 0;
   }
 }
