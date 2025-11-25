@@ -61,9 +61,9 @@ export function initDonateBanner() {
     skipTargetSelector = PNI_SELECTORS.skipTarget;
   }
 
-  if (bannerStyle !== "pushdown") {
+  // Handle legacy banner visibility based on dismissal date.
+  if (bannerStyle === "legacy") {
     const hideBanner = shouldHideBanner();
-
     if (hideBanner) {
       // If we should hide the banner, remove it from the DOM to prevent it
       // from creating unexpected behavior due to its absolute positioning.
@@ -87,8 +87,8 @@ export function initDonateBanner() {
       (e) => {
         e.preventDefault();
 
-        // For non-pushdown banners, set the dismiss date so it won't reappear today
-        if (bannerStyle !== "pushdown") {
+        // Only the legacy banner is dismissible for the day.
+        if (bannerStyle === "legacy") {
           setDismissDate();
         }
 
@@ -98,7 +98,7 @@ export function initDonateBanner() {
     );
   });
 
-  if (bannerStyle == "pushdown") {
+  if (bannerStyle === "pushdown") {
     skipButton?.addEventListener("click", (e) => {
       e.preventDefault();
 

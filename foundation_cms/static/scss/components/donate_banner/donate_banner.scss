@@ -17,11 +17,6 @@
   position: relative;
   padding-top: calc(map.get($grid-container-padding, small) / 2);
   padding-bottom: calc(map.get($grid-container-padding, small) / 2);
-  display: none;
-
-  &--visible {
-    display: block;
-  }
 
   @include breakpoint(medium up) {
     padding-top: map.get($banner-standard-padding-y, medium);
@@ -32,6 +27,14 @@
     padding-bottom: map.get($banner-larger-padding-bottom, small);
     @include breakpoint(medium up) {
       padding-bottom: map.get($banner-larger-padding-bottom, medium);
+    }
+  }
+
+  &[data-banner-style="legacy"] {
+    display: none;
+
+    &.donate-banner--visible {
+      display: block;
     }
   }
 
