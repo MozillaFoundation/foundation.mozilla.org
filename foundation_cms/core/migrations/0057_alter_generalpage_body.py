@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0055_alter_generalpage_body_alter_homepage_body"),
+        ("core", "0056_add_donatebutton_to_frublock"),
     ]
 
     operations = [
