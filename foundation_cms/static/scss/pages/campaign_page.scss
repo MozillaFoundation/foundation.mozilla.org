@@ -1,0 +1,110 @@
+@use "sass:map";
+@use "sass:math";
+
+@import "../redesign_base";
+@import "../components/nothing_personal/related_content"; // [FIXME:TODO] move related_content html and scss out of nothing_personal
+
+body.template-campaign-page {
+  $underlay-offset: rem-calc(32);
+  $orange: color(orange, "100");
+  $yellow: color(yellow, "200");
+  $blue: color(blue, "300");
+
+  main {
+    $padding-y: rem-calc(64);
+
+    padding: $padding-y 0 calc($padding-y + 2 * $underlay-offset) 0;
+  }
+
+  .confirmation-notice-banner {
+    background: $orange;
+    padding: rem-calc(24) 0;
+  }
+
+  .campaign-header {
+    @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+    margin-top: 0;
+  }
+
+  .petition {
+    $border-radius: rem-calc(92);
+    $box-width: calc(100% - 2 * $underlay-offset);
+
+    &__outer-box {
+      position: relative;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        background: $yellow;
+        width: 75%;
+        height: rem-calc(546);
+        border-top-right-radius: $border-radius;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 2 * -$underlay-offset;
+        background: $blue;
+        width: $box-width;
+        height: calc(100% - rem-calc(114));
+      }
+    }
+
+    &__inner-box {
+      position: relative;
+      min-height: rem-calc(672);
+      padding: rem-calc(64);
+      border-top-right-radius: $border-radius;
+      z-index: 1;
+      left: $underlay-offset;
+      top: $underlay-offset;
+      width: $box-width;
+      background: $orange;
+    }
+
+    &__header {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+    }
+
+    &__required-note {
+      @include mofo-text-style($body-text-styles, "small");
+    }
+
+    &__action-wrapper {
+      text-align: center;
+    }
+
+    &__share-button-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      .btn {
+        margin: 0;
+      }
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    button[value="skip"] {
+      display: block;
+      margin: 0 auto;
+      text-decoration: underline;
+    }
+  }
+
+  .related-content-wrapper {
+    margin-bottom: rem-calc(64);
+  }
+}

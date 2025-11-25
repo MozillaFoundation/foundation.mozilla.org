@@ -1,0 +1,17 @@
+{% load wagtailcore_tags i18n %}
+
+<div class="petition-signed">
+    <div class="petition__header">{{ page.signed_header }}</div>
+    {% if page.signed_donation_question %}
+        {{ page.signed_donation_question }}
+    {% endif %}
+    {{ page.signed_body|richtext }}
+
+    <div class="petition__action-wrapper">
+        {% if page.cta.donate_url %}
+            {% include "patterns/components/button.html" with classnames="without-icon" url=page.cta.donate_url label=page.cta.donate_text button_style="btn-primary" %}
+        {% endif %}
+        {% include "campaigns/components/campaign_page/action/share.html" %}
+        {% include "campaigns/components/campaign_page/action/skip.html" %}
+    </div>
+</div>

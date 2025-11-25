@@ -103,6 +103,12 @@ $cta-link-icon-sizes: (
     }
   }
 
+  &.without-icon {
+    &::after {
+      display: none;
+    }
+  }
+
   &.dark-mode {
     background-color: color(orange, "100");
     color: color(neutral, "600");
@@ -127,6 +133,12 @@ $cta-link-icon-sizes: (
 
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+  }
+
+  &.without-icon {
+    &::after {
+      display: none;
+    }
   }
 }
 
