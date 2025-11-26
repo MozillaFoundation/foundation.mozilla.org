@@ -100,7 +100,6 @@ test.describe("FormAssembly petition form", () => {
     await firstNameInput.fill("Integration");
     await lastNameInput.fill("Test");
     await emailInput.fill(`test-${TIMESTAMP}-${localeToTest}@example.com`);
-    await privacyInput.dispatchEvent("click");
 
     // Update campaign id to TEST_CAMPAIGN_ID so this test can be submitted to FormAssembly
     // We can't use locator because the campaign id field is hidden
