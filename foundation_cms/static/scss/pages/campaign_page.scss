@@ -2,6 +2,7 @@
 @use "sass:math";
 
 @import "../redesign_base";
+@import "../components/campaign_page/step_indicator";
 @import "../components/nothing_personal/related_content"; // [FIXME:TODO] move related_content html and scss out of nothing_personal
 
 body.template-campaign-page {
@@ -104,74 +105,6 @@ body.template-campaign-page {
       display: block;
       margin: 0 auto;
       text-decoration: underline;
-    }
-
-    .step-indicator {
-      $stroke-size: 1.5px;
-      $item-height: 2rem;
-      $item-width: $item-height;
-      $gap: 0.5rem;
-
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      padding-left: 0;
-      margin-bottom: 1rem;
-      list-style: none;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: $item-height / 2;
-        left: $item-width + $gap;
-        right: $item-width + $gap;
-        height: $stroke-size;
-        background: $black;
-      }
-
-      &__label {
-        width: $item-width;
-        height: $item-height;
-        border-radius: 50%;
-        border: $stroke-size solid $black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      &__checked {
-        display: none;
-      }
-
-      &__item {
-        z-index: 1;
-        background: $petition-box-background;
-
-        &:not(:first-child) {
-          padding-left: $gap;
-        }
-
-        &:not(:last-child) {
-          padding-right: $gap;
-        }
-
-        &--completed {
-          .step-indicator__number {
-            display: none;
-          }
-
-          .step-indicator__checked {
-            display: inline-block;
-          }
-        }
-
-        &--current {
-          .step-indicator__label {
-            color: $white;
-            background: $black;
-          }
-        }
-      }
     }
   }
 
