@@ -289,7 +289,11 @@ If there are any updates to this form (which is unlikely), please follow the ins
             </div>
             <div class="actions" id="187-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="{% trans "Add my name" %}"></div>
             <div style="clear:both"></div>
-            <div class="htmlSection" id="tfa_502"><div class="htmlContent" id="tfa_502-HTML">By signing you accept Mozilla handling your info as explained in this <a href="https://www.mozilla.org/privacy/websites/" data-prosemirror-content-type="mark" data-prosemirror-mark-name="link">Privacy Notice</a>*</div></div>
+            <div class="htmlSection" id="tfa_502">
+                <div class="htmlContent" id="tfa_502-HTML">
+                    {% blocktrans with link="https://www.mozilla.org/privacy/websites/" %}By signing you accept Mozilla handling your info as explained in this <a href="{{ link }}" target="_blank">Privacy Notice</a>*{% endblocktrans %}
+                </div>
+            </div>
             <input type="hidden" value="187" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="1d193b59297af95a7c351558364b25ac" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="32" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
         </form>
     </div></div><div class="wFormFooter"><p class="supportInfo"><br></p></div>
