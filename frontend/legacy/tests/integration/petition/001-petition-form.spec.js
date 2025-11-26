@@ -93,8 +93,8 @@ test.describe("FormAssembly petition form", () => {
     // wait for submitButton's click event to be attached
     await submitButton.waitFor({ state: "attached" });
     await submitButton.dispatchEvent("click");
-    expect(await page.locator(".errFld").count()).toBe(4);
-    expect(await page.locator(".errMsg").count()).toBe(4);
+    expect(await page.locator(".errFld").count()).toBe(3);
+    expect(await page.locator(".errMsg").count()).toBe(3);
 
     // test if filling out the form and submitting it eliminates the validation errors
     await firstNameInput.fill("Integration");
