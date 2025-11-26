@@ -51,7 +51,7 @@ test.describe("FormAssembly petition form", () => {
     expect(await emailInput.inputValue()).toBe("");
 
     const privacyInput = wFormContainer.locator(utility.FA_FIELDS.privacy);
-    expect(await privacyInput.count()).toBe(0);
+    expect(await privacyInput.count()).toBe(0); // We have decided to replace this checkbox by plain text. See https://github.com/MozillaFoundation/foundation.mozilla.org/issues/15022
 
     // test if hidden fields exist and are indeed hidden
     const campaignIdInput = wFormContainer.locator(
