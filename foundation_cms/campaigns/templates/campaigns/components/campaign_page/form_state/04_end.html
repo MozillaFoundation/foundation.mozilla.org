@@ -1,6 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 <div class="petition-thank-you">
+    {% include "campaigns/components/campaign_page/step_indicator/step_indicator.html" with current_step=4 %}
+
     <div class="petition__header">{{ page.thank_you_header }}</div>
     {{ page.thank_you_body|richtext }}
 

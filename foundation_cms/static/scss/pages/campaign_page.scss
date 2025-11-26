@@ -9,6 +9,9 @@ body.template-campaign-page {
   $orange: color(orange, "100");
   $yellow: color(yellow, "200");
   $blue: color(blue, "300");
+  $black: map.get($mofo-colors, black);
+  $white: map.get($mofo-colors, white);
+  $petition-box-background: $orange;
 
   main {
     $padding-y: rem-calc(64);
@@ -65,7 +68,7 @@ body.template-campaign-page {
       left: $underlay-offset;
       top: $underlay-offset;
       width: $box-width;
-      background: $orange;
+      background: $petition-box-background;
     }
 
     &__header {
@@ -101,6 +104,74 @@ body.template-campaign-page {
       display: block;
       margin: 0 auto;
       text-decoration: underline;
+    }
+
+    .step-indicator {
+      $stroke-size: 1.5px;
+      $item-height: 2rem;
+      $item-width: $item-height;
+      $gap: 0.5rem;
+
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      padding-left: 0;
+      margin-bottom: 1rem;
+      list-style: none;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: $item-height / 2;
+        left: $item-width + $gap;
+        right: $item-width + $gap;
+        height: $stroke-size;
+        background: $black;
+      }
+
+      &__label {
+        width: $item-width;
+        height: $item-height;
+        border-radius: 50%;
+        border: $stroke-size solid $black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &__checked {
+        display: none;
+      }
+
+      &__item {
+        z-index: 1;
+        background: $petition-box-background;
+
+        &:not(:first-child) {
+          padding-left: $gap;
+        }
+
+        &:not(:last-child) {
+          padding-right: $gap;
+        }
+
+        &--completed {
+          .step-indicator__number {
+            display: none;
+          }
+
+          .step-indicator__checked {
+            display: inline-block;
+          }
+        }
+
+        &--current {
+          .step-indicator__label {
+            color: $white;
+            background: $black;
+          }
+        }
+      }
     }
   }
 
