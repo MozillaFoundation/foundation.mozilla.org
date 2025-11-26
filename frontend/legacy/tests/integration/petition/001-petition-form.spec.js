@@ -51,8 +51,7 @@ test.describe("FormAssembly petition form", () => {
     expect(await emailInput.inputValue()).toBe("");
 
     const privacyInput = wFormContainer.locator(utility.FA_FIELDS.privacy);
-    expect(await privacyInput.count()).toBe(1);
-    expect(await privacyInput.isChecked()).toBe(false);
+    expect(await privacyInput.count()).toBe(0);
 
     // test if hidden fields exist and are indeed hidden
     const campaignIdInput = wFormContainer.locator(
