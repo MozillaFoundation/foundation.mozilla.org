@@ -51,8 +51,7 @@ test.describe("FormAssembly petition form", () => {
     expect(await emailInput.inputValue()).toBe("");
 
     const privacyInput = wFormContainer.locator(utility.FA_FIELDS.privacy);
-    expect(await privacyInput.count()).toBe(1);
-    expect(await privacyInput.isChecked()).toBe(false);
+    expect(await privacyInput.count()).toBe(0); // We have decided to replace this checkbox by plain text. See https://github.com/MozillaFoundation/foundation.mozilla.org/issues/15022
 
     // test if hidden fields exist and are indeed hidden
     const campaignIdInput = wFormContainer.locator(
@@ -94,14 +93,13 @@ test.describe("FormAssembly petition form", () => {
     // wait for submitButton's click event to be attached
     await submitButton.waitFor({ state: "attached" });
     await submitButton.dispatchEvent("click");
-    expect(await page.locator(".errFld").count()).toBe(4);
-    expect(await page.locator(".errMsg").count()).toBe(4);
+    expect(await page.locator(".errFld").count()).toBe(3);
+    expect(await page.locator(".errMsg").count()).toBe(3);
 
     // test if filling out the form and submitting it eliminates the validation errors
     await firstNameInput.fill("Integration");
     await lastNameInput.fill("Test");
     await emailInput.fill(`test-${TIMESTAMP}-${localeToTest}@example.com`);
-    await privacyInput.dispatchEvent("click");
 
     // Update campaign id to TEST_CAMPAIGN_ID so this test can be submitted to FormAssembly
     // We can't use locator because the campaign id field is hidden
