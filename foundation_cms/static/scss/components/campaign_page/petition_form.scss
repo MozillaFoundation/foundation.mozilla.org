@@ -27,6 +27,7 @@
 
     select {
       @include shared-style;
+      @include custom-select-dropdown;
     }
 
     label[for="tfa_28"],  // label for first name field
