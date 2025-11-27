@@ -6,13 +6,15 @@
 @import "../components/nothing_personal/related_content"; // [FIXME:TODO] move related_content html and scss out of nothing_personal
 
 body.template-campaign-page {
-  $underlay-offset: rem-calc(32);
-  $orange: color(orange, "100");
+  $orange: color(orange, "300");
   $yellow: color(yellow, "200");
-  $blue: color(blue, "300");
   $black: map.get($mofo-colors, black);
   $white: map.get($mofo-colors, white);
-  $petition-box-background: $orange;
+
+  $petition-box-bg: $white;
+  $petition-box-border: 2px solid $orange;
+  $petition-box-underlay-bg: $orange;
+  $underlay-offset: rem-calc(32);
 
   main {
     $padding-y: rem-calc(64);
@@ -21,7 +23,7 @@ body.template-campaign-page {
   }
 
   .confirmation-notice-banner {
-    background: $orange;
+    background: $yellow;
     padding: rem-calc(24) 0;
   }
 
@@ -42,7 +44,7 @@ body.template-campaign-page {
         content: "";
         display: block;
         position: absolute;
-        background: $yellow;
+        background: $petition-box-underlay-bg;
         width: 75%;
         height: rem-calc(546);
         border-top-right-radius: $border-radius;
@@ -54,7 +56,7 @@ body.template-campaign-page {
         position: absolute;
         right: 0;
         bottom: 2 * -$underlay-offset;
-        background: $blue;
+        background: $petition-box-underlay-bg;
         width: $box-width;
         height: calc(100% - rem-calc(114));
       }
@@ -69,7 +71,8 @@ body.template-campaign-page {
       left: $underlay-offset;
       top: $underlay-offset;
       width: $box-width;
-      background: $petition-box-background;
+      background: $petition-box-bg;
+      border: $petition-box-border;
     }
 
     &__header {

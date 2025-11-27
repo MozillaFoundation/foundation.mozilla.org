@@ -1,12 +1,16 @@
 .step-indicator {
-  $orange: color(orange, "100");
   $black: map.get($mofo-colors, black);
   $white: map.get($mofo-colors, white);
-  $petition-box-background: $orange;
-  $stroke-size: 1.5px;
+  $blue: color(blue, "200");
+
+  $stroke-size: 1px;
   $item-height: 2rem;
   $item-width: $item-height;
   $gap: 0.5rem;
+  $petition-box-bg: $white;
+  $default-step-bg: $petition-box-bg;
+  $completed-step-bg: $blue;
+  $current-step-bg: $blue;
 
   position: relative;
   display: flex;
@@ -41,7 +45,7 @@
 
   &__item {
     z-index: 1;
-    background: $petition-box-background;
+    background: $default-step-bg;
 
     &:not(:first-child) {
       padding-left: $gap;
@@ -52,6 +56,11 @@
     }
 
     &--completed {
+      .step-indicator__label {
+        background: $completed-step-bg;
+        border-color: $current-step-bg;
+      }
+
       .step-indicator__number {
         display: none;
       }
@@ -63,8 +72,8 @@
 
     &--current {
       .step-indicator__label {
-        color: $white;
-        background: $black;
+        background: $current-step-bg;
+        border-color: $current-step-bg;
       }
     }
   }
