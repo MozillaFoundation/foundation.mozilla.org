@@ -2,6 +2,7 @@
 @use "sass:math";
 
 @import "../redesign_base";
+@import "../components/campaign_page/petition_form";
 @import "../components/campaign_page/step_indicator";
 @import "../components/nothing_personal/related_content"; // [FIXME:TODO] move related_content html and scss out of nothing_personal
 
@@ -72,6 +73,20 @@ body.template-campaign-page {
       width: $box-width;
       background: $petition-box-bg;
       border: $petition-box-border;
+
+      &::after {
+        content: "";
+        background-image: url("/static/foundation_cms/_images/icons/loop-line.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: rem-calc(231);
+        height: rem-calc(115);
+        display: block;
+        position: absolute;
+        top: -9%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
 
     &__header {

@@ -1,0 +1,48 @@
+/* stylelint-disable selector-id-pattern,selector-class-pattern -- because we have to target elements with FormAssembly defined selectors  */
+
+.petition__form-wrapper {
+  $black: map.get($mofo-colors, black);
+  $white: map.get($mofo-colors, white);
+
+  @mixin shared-style {
+    border: 1px solid $black;
+    background: $white;
+    width: 100%;
+    padding: 1rem;
+    margin: 0 0 1rem;
+
+    &::placeholder {
+      color: $black;
+      opacity: 1;
+    }
+  }
+
+  // FormAssembly elements
+  .wFormContainer {
+    input[type="text"] {
+      all: unset;
+      box-sizing: border-box;
+      @include shared-style;
+    }
+
+    select {
+      @include shared-style;
+    }
+
+    label[for="tfa_28"],  // label for first name field
+    label[for="tfa_28"] + br,
+    label[for="tfa_30"],  // label for last name field
+    label[for="tfa_30"] + br,
+    label[for="tfa_31"],  // label for email field
+    label[for="tfa_31"] + br,
+    label[for="tfa_254"], // label for country field
+    label[for="tfa_254"] + br,
+    label[for="tfa_496"], // label for postal code field
+    label[for="tfa_496"] + br,
+    label#tfa_494-L, // label for email subscription checkbox field
+    label#tfa_494-L + br {
+      display: none;
+    }
+
+  }
+}
