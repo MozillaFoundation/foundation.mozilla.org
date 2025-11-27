@@ -3,7 +3,9 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block extended_head %}
-    {% include "campaigns/components/formassembly_head.html" %}
+    {% if petition_cta and state == "start" %}
+        {% include "campaigns/components/formassembly_head.html" %}
+    {% endif %}
 {% endblock extended_head %}
 
 {% block extra_css %}
@@ -23,9 +25,11 @@
                 <div class="cell small-12 large-6">
                     {% include "campaigns/components/campaign_page/campaign_details.html" %}
                 </div>
+                {% if petition_cta %}
                 <div class="cell small-12 large-6">
                     {% include "campaigns/components/campaign_page/petition.html" with csp_nonce=csp_nonce page=page state=state petition_cta=petition_cta %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </main>
