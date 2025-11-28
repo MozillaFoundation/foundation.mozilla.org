@@ -23,8 +23,22 @@ body.template-campaign-page {
   }
 
   .confirmation-notice-banner {
+    $icon-width: 2rem;
+    $padding-y: rem-calc(24);
+    $padding-offset-y: rem-calc(5); // to fix icon-text alignment
+
     background: $yellow;
-    padding: rem-calc(24) 0;
+    padding: calc($padding-y - $padding-offset-y) 0;
+
+    &__inner-wrapper {
+      padding-left: $icon-width;
+      padding-top: $padding-offset-y;
+      padding-bottom: $padding-offset-y;
+      background-image: url("/static/foundation_cms/_images/icons/input-feedback-error-black.svg");
+      background-size: $icon-width $icon-width;
+      background-position: top left;
+      background-repeat: no-repeat;
+    }
   }
 
   .campaign-header {
