@@ -27,6 +27,10 @@
       @include shared-style;
     }
 
+    textarea {
+      @include shared-style;
+    }
+
     select {
       @include shared-style;
       @include custom-select-dropdown;
@@ -37,6 +41,11 @@
 
       margin-top: rem-calc(4);
       color: $error-color;
+    }
+
+    .wFormFooter,
+    .supportInfo {
+      display: none;
     }
 
     // label for first name field
@@ -54,6 +63,9 @@
     // label for postal code field
     label[for="tfa_496"],
     label[for="tfa_496"] + br,
+    // label for comment field
+    label[for="tfa_497"],
+    label[for="tfa_497"] + br,
     // label for email subscription checkbox field
     label#tfa_494-L,
     label#tfa_494-L + br {
