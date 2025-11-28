@@ -45,5 +45,46 @@
       display: none;
     }
 
+    label#tfa_495-L, // label for email subscription checkbox field
+    #tfa_502 {
+      // for privacy notice text
+      @include mofo-text-style($body-text-styles, "small");
+    }
+
+    #tfa_494-D {
+      // email subscription checkbox field container
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+
+      .inputWrapper .oneChoice {
+        display: flex;
+        align-items: center;
+        gap: rem-calc(9);
+      }
+    }
+
+    input#tfa_495 {
+      // email subscription checkbox field
+      appearance: none;
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      display: inline-block;
+      position: relative;
+      background-color: $white;
+      border: 1px solid color(neutral, "600");
+      cursor: pointer;
+
+      &:checked {
+        background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: rem-calc(12) auto;
+      }
+    }
   }
 }
