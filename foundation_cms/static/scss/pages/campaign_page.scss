@@ -14,17 +14,30 @@ body.template-campaign-page {
   $petition-box-bg: $white;
   $petition-box-border: 2px solid $orange;
   $petition-box-underlay-bg: $orange;
-  $underlay-offset: rem-calc(32);
+  $petition-mobile-box-width-side-offset: map.get($grid-margin-gutters, small);
+  $petition-underlay-offset-x: (
+    small: $petition-mobile-box-width-side-offset,
+    large: rem-calc(32),
+  );
+  $petition-underlay-offset-y: (
+    small: rem-calc(34.5),
+    large: rem-calc(32),
+  );
 
   main {
-    $padding-y: rem-calc(64);
+    padding: 2rem 0;
 
-    padding: $padding-y 0 calc($padding-y + 2 * $underlay-offset) 0;
+    @include breakpoint(large up) {
+      $padding-y: rem-calc(64);
+
+      padding: $padding-y 0
+        calc($padding-y + 2 * map.get($petition-underlay-offset-y, "large")) 0;
+    }
   }
 
   .confirmation-notice-banner {
     $icon-width: 2rem;
-    $padding-y: rem-calc(24);
+    $padding-y: 1.5rem;
     $padding-offset-y: rem-calc(5); // to fix icon-text alignment
 
     background: $yellow;
@@ -45,13 +58,45 @@ body.template-campaign-page {
     @include mofo-text-style($header-styles, "h4", $header-font-family);
 
     margin-top: 0;
+    margin-bottom: 2rem;
+
+    @include breakpoint(large up) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .campaign-details {
+    &--mobile {
+      margin-top: 6rem;
+
+      @include breakpoint(large up) {
+        display: none;
+      }
+    }
+
+    &--desktop {
+      @include breakpoint(medium down) {
+        display: none;
+      }
+    }
   }
 
   .petition {
-    $border-radius: rem-calc(92);
-    $box-width: calc(100% - 2 * $underlay-offset);
+    $box-width-desktop: calc(
+      100% - 2 * map.get($petition-underlay-offset-x, "large")
+    );
+
+    margin-left: -1 * $petition-mobile-box-width-side-offset;
+    margin-right: -1 * $petition-mobile-box-width-side-offset;
+
+    @include breakpoint(large up) {
+      margin-left: 0;
+      margin-right: 0;
+    }
 
     &__outer-box {
+      $top-underlay-height-mobile: rem-calc(362);
+
       position: relative;
 
       &::before {
@@ -59,47 +104,65 @@ body.template-campaign-page {
         display: block;
         position: absolute;
         background: $petition-box-underlay-bg;
-        width: 75%;
-        height: rem-calc(546);
-        border-top-right-radius: $border-radius;
+        width: 80%;
+        height: $top-underlay-height-mobile;
+        border-top-right-radius: rem-calc(92);
+
+        @include breakpoint(large up) {
+          height: rem-calc(546);
+          width: 75%;
+        }
       }
 
       &::after {
+        $offset-y-mobile: map.get($petition-underlay-offset-y, "small");
+
         content: "";
         display: block;
         position: absolute;
         right: 0;
-        bottom: 2 * -$underlay-offset;
+        bottom: 2 * -1 * map.get($petition-underlay-offset-y, "large");
         background: $petition-box-underlay-bg;
-        width: $box-width;
-        height: calc(100% - rem-calc(114));
+        width: $box-width-desktop;
+        height: calc(100% - $top-underlay-height-mobile + 2 * $offset-y-mobile);
+
+        @include breakpoint(large up) {
+          height: calc(100% - rem-calc(114));
+        }
       }
     }
 
     &__inner-box {
       position: relative;
       min-height: rem-calc(672);
-      padding: rem-calc(64);
-      border-top-right-radius: $border-radius;
+      padding: 2rem 1rem;
+      border-top-right-radius: rem-calc(28);
       z-index: 1;
-      left: $underlay-offset;
-      top: $underlay-offset;
-      width: $box-width;
+      left: map.get($petition-underlay-offset-x, "small");
+      top: map.get($petition-underlay-offset-y, "small");
+      width: calc(100% - 2 * $petition-mobile-box-width-side-offset);
       background: $petition-box-bg;
       border: $petition-box-border;
 
-      &::after {
-        content: "";
-        background-image: url("/static/foundation_cms/_images/icons/loop-line.svg");
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: rem-calc(231);
-        height: rem-calc(115);
-        display: block;
-        position: absolute;
-        top: -9%;
-        left: 50%;
-        transform: translateX(-50%);
+      @include breakpoint(large up) {
+        padding: rem-calc(64);
+        width: $box-width-desktop;
+        left: map.get($petition-underlay-offset-x, "large");
+        border-top-right-radius: rem-calc(92);
+
+        &::after {
+          content: "";
+          background-image: url("/static/foundation_cms/_images/icons/loop-line.svg");
+          background-size: contain;
+          background-repeat: no-repeat;
+          width: rem-calc(231);
+          height: rem-calc(115);
+          display: block;
+          position: absolute;
+          top: -9%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
       }
     }
 
@@ -115,11 +178,33 @@ body.template-campaign-page {
       text-align: center;
     }
 
+    &__donate-btn {
+      margin: 1.5rem 0 0.5rem 0;
+
+      @include breakpoint(large up) {
+        margin: 1rem 0;
+      }
+    }
+
+    &__go-to-share-btn {
+      @include breakpoint(medium down) {
+        margin: 0 0 1.5rem 0;
+        border: none;
+      }
+    }
+
     &__share-button-wrapper {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      @include breakpoint(large up) {
+        grid-template-columns: 1fr 1fr;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
 
       .btn {
         margin: 0;
@@ -136,6 +221,14 @@ body.template-campaign-page {
       display: block;
       margin: 0 auto;
       text-decoration: underline;
+    }
+  }
+
+  .petition-thank-you__image {
+    margin-top: 1.5rem;
+
+    @include breakpoint(large up) {
+      margin-top: 2rem;
     }
   }
 

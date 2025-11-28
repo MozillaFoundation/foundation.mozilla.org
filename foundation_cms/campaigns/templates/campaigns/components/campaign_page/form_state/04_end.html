@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags i18n responsive_image_tags %}
 
 <div class="petition-thank-you">
     {% include "campaigns/components/campaign_page/step_indicator/step_indicator.html" with current_step=4 %}
@@ -7,12 +7,8 @@
     {{ page.thank_you_body|richtext }}
 
     {% if page.thank_you_image %}
-        <div class="thank-you-image">
-            {% image page.thank_you_image fill-600x400 as thank_you_img %}
-            <img src="{{ thank_you_img.url }}"
-                 alt="{{ page.thank_you_image.title }}"
-                 class="img-responsive"
-                 max-width="600" max-height="400">
+        <div class="petition-thank-you__image">
+            {% responsive_image page.thank_you_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
         </div>
     {% endif %}
 </div>

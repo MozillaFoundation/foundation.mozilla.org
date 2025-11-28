@@ -18,6 +18,14 @@
   margin-bottom: 2rem;
   list-style: none;
 
+  margin-top: 0;
+  margin-bottom: rem-calc(24);
+
+  @include breakpoint(large up) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
   &::before {
     content: "";
     position: absolute;

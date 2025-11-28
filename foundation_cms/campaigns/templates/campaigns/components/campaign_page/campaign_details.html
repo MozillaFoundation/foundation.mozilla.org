@@ -1,10 +1,6 @@
 {% load wagtailcore_tags %}
 
-<h1 class="campaign-header">
-    {% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
-</h1>
-
-<div class="campaign-details">
+<div class="campaign-details {% if variant %}campaign-details--{{ variant }}{% endif %}">
     {% for block in page.body %}
         {% include_block block %}
     {% endfor %}

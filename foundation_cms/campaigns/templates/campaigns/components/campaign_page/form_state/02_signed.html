@@ -10,7 +10,7 @@
 
     <div class="petition__action-wrapper">
         {% if page.cta.donate_url %}
-            {% include "patterns/components/button.html" with classnames="without-icon" url=page.cta.donate_url label=page.cta.donate_text button_style="btn-primary" %}
+            {% include "patterns/components/button.html" with classnames="without-icon petition__donate-btn" url=page.cta.donate_url label=page.cta.donate_text button_style="btn-primary" %}
         {% endif %}
         {% include "campaigns/components/campaign_page/action/share.html" %}
         {% include "campaigns/components/campaign_page/action/skip.html" %}
