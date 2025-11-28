@@ -3,13 +3,15 @@
 .petition__form-wrapper {
   $black: map.get($mofo-colors, black);
   $white: map.get($mofo-colors, white);
+  $error-color: color(orange, "600");
+  $field-gap: 1rem;
 
   @mixin shared-style {
     border: 1px solid $black;
     background: $white;
     width: 100%;
     padding: 1rem;
-    margin: 0 0 1rem;
+    margin: $field-gap 0 0;
 
     &::placeholder {
       color: $black;
@@ -30,35 +32,53 @@
       @include custom-select-dropdown;
     }
 
-    label[for="tfa_28"],  // label for first name field
+    .errMsg {
+      @include mofo-text-style($body-text-styles, "small");
+
+      margin-top: rem-calc(4);
+      color: $error-color;
+    }
+
+    // label for first name field
+    label[for="tfa_28"],
     label[for="tfa_28"] + br,
-    label[for="tfa_30"],  // label for last name field
+    // label for last name field
+    label[for="tfa_30"],
     label[for="tfa_30"] + br,
-    label[for="tfa_31"],  // label for email field
+    // label for email field
+    label[for="tfa_31"],
     label[for="tfa_31"] + br,
-    label[for="tfa_254"], // label for country field
+    // label for country field
+    label[for="tfa_254"],
     label[for="tfa_254"] + br,
-    label[for="tfa_496"], // label for postal code field
+    // label for postal code field
+    label[for="tfa_496"],
     label[for="tfa_496"] + br,
-    label#tfa_494-L, // label for email subscription checkbox field
+    // label for email subscription checkbox field
+    label#tfa_494-L,
     label#tfa_494-L + br {
       display: none;
     }
 
-    label#tfa_495-L, // label for email subscription checkbox field
+    // label for email subscription checkbox field
+    label#tfa_495-L,
+    // for privacy notice text
     #tfa_502 {
-      // for privacy notice text
       @include mofo-text-style($body-text-styles, "small");
     }
 
-    #tfa_494-D {
-      // email subscription checkbox field container
-      @include mofo-text-style($body-text-styles, "xsmall");
+    // first name field
+    input#tfa_28 {
+      margin-top: 0;
+    }
 
+    // email subscription checkbox field container
+    #tfa_494-D {
       display: flex;
       align-items: center;
       gap: 0.75rem;
       cursor: pointer;
+      margin-top: $field-gap;
 
       .inputWrapper .oneChoice {
         display: flex;
@@ -67,8 +87,8 @@
       }
     }
 
+    // email subscription checkbox field
     input#tfa_495 {
-      // email subscription checkbox field
       appearance: none;
       flex-shrink: 0;
       width: 1.5rem;
