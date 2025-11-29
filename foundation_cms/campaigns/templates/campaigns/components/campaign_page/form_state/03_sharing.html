@@ -1,0 +1,40 @@
+{% load wagtailcore_tags i18n %}
+
+<div class="petition-share">
+    {% include "campaigns/components/campaign_page/step_indicator/step_indicator.html" with current_step=3 %}
+    <div class="petition__header">{{ page.share_header }}</div>
+    {{ page.share_body|richtext }}
+
+    <div class="petition__share-button-wrapper">
+        <!-- Copy Link -->
+        <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')"
+                class="btn btn-primary without-icon">
+            {% trans "Copy Link" %}
+        </button>
+
+        <!-- Bluesky -->
+        <a href="https://bsky.app/intent/compose?text={{ page.title|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-primary without-icon">
+            {% trans "Bluesky" %}
+        </a>
+
+        <!-- Email -->
+        {% trans "Check out this petition:" as email_message %}
+        <a href="mailto:?subject={{ page.title|urlencode }}&body={{ email_message|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+           class="btn btn-primary without-icon">
+            {% trans "Email" %}
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-primary without-icon">
+            {% trans "Facebook" %}
+        </a>
+    </div>
+
+    {% include "campaigns/components/campaign_page/action/skip.html" %}
+</div>

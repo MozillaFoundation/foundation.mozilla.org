@@ -1,0 +1,12 @@
+{% load static i18n %}
+
+<li {% if current_step == index %}aria-current="step"{% endif %}
+    class="step-indicator__item {% if current_step == index %}step-indicator__item--current{% elif current_step > index %}step-indicator__item--completed{% endif %}">
+    <div class="step-indicator__label">
+        <span class="step-indicator__number">{{ index }}</span>
+        <span class="step-indicator__checked">
+            <img src="{% static 'foundation_cms/_images/icons/check-mark.svg' %}" alt="{% trans "Completed" %}" width="32" height="32" />
+        </span>
+    </div>
+    <span class="show-for-sr">{% trans sr_label %}</span>
+</li>

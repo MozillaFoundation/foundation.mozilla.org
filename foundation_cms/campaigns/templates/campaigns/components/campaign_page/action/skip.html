@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<form method="post">
+    {% csrf_token %}
+    <button
+        type="submit"
+        name="action"
+        value="skip"
+        class="btn btn-link skip-button"
+        data-label="Sorry, not right now">
+        {% trans "Sorry, not right now" %}
+    </button>
+</form>
