@@ -4,12 +4,15 @@
     <div class="grid-container">
         <div class="grid-x">
             <div class="cell small-12 confirmation-notice-banner__inner-wrapper">
-                <strong>{% trans "IMPORTANT" %}</strong><span>:</span>
-                {% if user_email %}
-                    {% blocktrans with email=user_email %}Please click on the email we just sent to {{ email }} to confirm your newsletter subscription.{% endblocktrans %}
-                {% else %}
-                    {% blocktrans with email=user_email %}Please click on the email we just sent to confirm your newsletter subscription.{% endblocktrans %}
-                {% endif %}
+                <div class="confirmation-notice-banner__text">
+                    <strong>{% trans "IMPORTANT" %}</strong><span>:</span>
+                    {% if user_email %}
+                        {% blocktrans with email=user_email %}Please click on the email we just sent to {{ email }} to confirm your newsletter subscription.{% endblocktrans %}
+                    {% else %}
+                        {% blocktrans with email=user_email %}Please click on the email we just sent to confirm your newsletter subscription.{% endblocktrans %}
+                    {% endif %}
+                </div>
+                {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-banner-close-button" %}
             </div>
         </div>
     </div>

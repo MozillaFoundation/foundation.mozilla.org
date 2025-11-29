@@ -32,6 +32,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  campaign_page: {
+    source: "pages/campaign_page.js",
+    jsx: false,
+    bundle: true,
+  },
   redesign_migrated_content: {
     source: "redesign_migrated_content.js",
     jsx: false,

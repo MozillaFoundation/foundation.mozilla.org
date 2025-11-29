@@ -54,6 +54,7 @@
 {% endblock content %}
 
 {% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/campaign_page.compiled.js' %}"></script>
     <script nonce="{{ request.csp_nonce }}">
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(function() {

@@ -37,13 +37,40 @@ body.template-campaign-page {
 
   .confirmation-notice-banner {
     $icon-width: 2rem;
-    $padding-y: 1.5rem;
+    $padding-y: (
+      small: 0.5rem,
+      large: 1.5rem,
+    );
     $padding-offset-y: rem-calc(5); // to fix icon-text alignment
 
     background: $yellow;
-    padding: calc($padding-y - $padding-offset-y) 0;
+    padding: calc(map.get($padding-y, "small") - $padding-offset-y) 0;
+
+    @include breakpoint(large up) {
+      margin-bottom: 1.5rem;
+      padding: calc(map.get($padding-y, "large") - $padding-offset-y) 0;
+    }
 
     &__inner-wrapper {
+      @include breakpoint(medium down) {
+        position: relative;
+        padding-bottom: rem-calc(25);
+
+        .btn-close {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+      }
+
+      @include breakpoint(large up) {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+    }
+
+    &__text {
       padding-left: $icon-width;
       padding-top: $padding-offset-y;
       padding-bottom: $padding-offset-y;
@@ -179,7 +206,7 @@ body.template-campaign-page {
     }
 
     &__donate-btn {
-      margin: 1.5rem 0 0.5rem 0;
+      margin: 1.5rem 0 0.5rem;
 
       @include breakpoint(large up) {
         margin: 1rem 0;
@@ -188,7 +215,7 @@ body.template-campaign-page {
 
     &__go-to-share-btn {
       @include breakpoint(medium down) {
-        margin: 0 0 1.5rem 0;
+        margin: 0 0 1.5rem;
         border: none;
       }
     }
