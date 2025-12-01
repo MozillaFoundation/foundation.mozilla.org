@@ -65,7 +65,7 @@ def get_localized_featured_items(context, page):
 
                 localized_items.append(localized_item)
 
-            except:
+            except Exception:
                 localized_items.append(item)
         else:
             localized_items.append(item)
