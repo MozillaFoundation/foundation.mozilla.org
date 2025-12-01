@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags nothing_personal_tags %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/home_page.compiled.css' %}">
@@ -19,9 +19,12 @@
     {% if page.hero_item %}
       {% include "patterns/components/nothing_personal/home_page/hero_item.html" with hero_item=page.hero_item orientation=page.hero_item_orientation %}
     {% endif %}
-    {% if page.featured_items.all %}
-      {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
+
+    {% get_localized_featured_items page as localized_items %}
+    {% if localized_items %}
+      {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=localized_items %}
     {% endif %}
+
     {% if page.body %}
       {% include "patterns/components/streamfield.html" with streamfield=page.body %}
     {% endif %}
