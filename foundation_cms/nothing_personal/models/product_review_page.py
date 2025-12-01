@@ -135,21 +135,22 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
     translatable_fields = AbstractArticlePage.translatable_fields + [
         # Content tab fields
-        SynchronizedField("what_you_should_know_section"),
+        TranslatableField("what_you_should_know_section"),
         SynchronizedField("newsletter_signup_section"),
-        SynchronizedField("good_and_bad_section"),
-        SynchronizedField("reduce_your_risks_section"),
-        SynchronizedField("bottom_line_section"),
+        TranslatableField("good_and_bad_section"),
+        TranslatableField("reduce_your_risks_section"),
+        TranslatableField("bottom_line_section"),
         SynchronizedField("products_mentioned"),
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
         SynchronizedField("updated"),
         SynchronizedField("reviewed"),
-        SynchronizedField("scoring"),
+        TranslatableField("scoring"),
         TranslatableField("hours_tested"),
         TranslatableField("type_of_testing"),
         TranslatableField("byline"),
         TranslatableField("who_am_i"),
+        TranslatableField("lede_text"),
     ]
 
     class Meta:

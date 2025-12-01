@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
@@ -58,51 +57,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         models.PROTECT,
         related_name="+",
     )
-    background_image = models.ForeignKey(
-        get_image_model_string(),
-        models.PROTECT,
-        related_name="+",
-        null=True,
-        blank=True,
-    )
-
-    BACKGROUND_COLORS = [
-        ("red", "Red"),
-        ("blue", "Blue"),
-        ("green", "Green"),
-        ("white", "White"),
-        ("black", "Black"),
-    ]
-
-    background_color = models.CharField(
-        max_length=20,
-        choices=BACKGROUND_COLORS,
-        default="blue",
-        help_text="Background color for the banner",
-        null=True,
-        blank=True,
-    )
-
-    TEXT_COLORS = [
-        ("white", "White"),
-        ("black", "Black"),
-    ]
-
-    text_color = models.CharField(
-        max_length=20, choices=TEXT_COLORS, default="white", help_text="Text color for the banner"
-    )
-
-    BUTTON_COLORS = [
-        ("blue", "Blue"),
-        ("green", "Green"),
-    ]
-
-    button_color = models.CharField(
-        max_length=50,
-        choices=BUTTON_COLORS,
-        default="blue",
-        help_text="Button color for the banner",
-    )
 
     BANNER_STYLES = [
         ("legacy", "Legacy"),
@@ -142,16 +96,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         FieldPanel("foreground_image"),
         MultiFieldPanel(
             [
-                HelpPanel(content="Select either an image or a color to serve as the background for the banner."),
-                FieldPanel("background_image"),
-                FieldPanel("background_color"),
-            ],
-            heading="Background",
-        ),
-        FieldPanel("text_color"),
-        FieldPanel("button_color"),
-        MultiFieldPanel(
-            [
                 FieldPanel("fru_thermometer_embed_code"),
                 FieldPanel("fru_stat_counter_embed_code"),
                 FieldPanel("fru_stat_counter_caption"),
@@ -167,7 +111,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
         SynchronizedField("foreground_image"),
-        SynchronizedField("background_image"),
         SynchronizedField("fru_thermometer_embed_code"),
         SynchronizedField("fru_stat_counter_embed_code"),
         TranslatableField("fru_stat_counter_caption"),
@@ -193,25 +136,3 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         if self.site_donate_banner.exists():
             return True
         return False
-
-    def clean(self):
-        super().clean()
-
-        both_selected_error = "Please select either a background image or a background color for the banner."
-        none_selected_error = "Please select a background image or a background color for the banner."
-
-        # Validate that either background_image or background_color is set, not both.
-        if self.background_image and self.background_color:
-            raise ValidationError(
-                {
-                    "background_image": ValidationError(both_selected_error),
-                    "background_color": ValidationError(both_selected_error),
-                }
-            )
-        if not self.background_image and not self.background_color:
-            raise ValidationError(
-                {
-                    "background_image": ValidationError(none_selected_error),
-                    "background_color": ValidationError(none_selected_error),
-                }
-            )

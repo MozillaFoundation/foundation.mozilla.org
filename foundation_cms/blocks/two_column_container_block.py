@@ -2,7 +2,10 @@ from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
+from .common.background_color_block import BackgroundColorChoiceBlock
+from .fru_element_block import FruElementBlock
 from .image_block import CustomImageBlock
+from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 from .podcast_block import PodcastBlock  # Just as an example second block
@@ -22,9 +25,12 @@ class ColumnStreamBlock(StreamBlock):
     spacer = SpacerBlock()
     quote = QuoteBlock()
     text_social = TextSocialBlock()
+    link_button = LinkButtonBlock()
+    fru_element = FruElementBlock()
 
 
 class TwoColumnContainerBlock(BaseBlock):
+    background_color = BackgroundColorChoiceBlock()
     vertical_alignment = ChoiceBlock(
         choices=[
             ("top", "Top"),

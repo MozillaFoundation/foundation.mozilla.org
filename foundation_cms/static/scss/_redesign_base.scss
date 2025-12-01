@@ -4,14 +4,17 @@
 // Our custom variables and base styles
 @import "../scss/colors";
 @import "../scss/type";
+@import "../scss/mixins";
 @import "../scss/buttons";
 @import "../scss/dividers";
 @import "../scss/utilities";
-@import "../scss/mixins";
+@import "../scss/layout";
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
 @import "../scss/blocks/themes/default/featured_card_block";
+@import "../scss/blocks/themes/default/featured_container_block";
+@import "../scss/blocks/themes/default/fru_element_block";
 @import "../scss/blocks/themes/default/iframe_block";
 @import "../scss/blocks/themes/default/image_block";
 @import "../scss/blocks/themes/default/impact_number_block";
@@ -34,6 +37,7 @@
 @import "../scss/blocks/hero";
 
 // Site-wide Components
+@import "../scss/components/donate_banner/donate_banner";
 @import "../scss/components/primary_nav";
 @import "../scss/components/footer";
 @import "../scss/components/newsletter_signup/newsletter_signup_form";

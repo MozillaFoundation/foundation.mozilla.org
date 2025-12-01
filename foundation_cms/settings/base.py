@@ -58,6 +58,7 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
+    MOZFEST_SCHEDULE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
     NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
@@ -171,6 +172,8 @@ TARGET_DOMAINS = env("TARGET_DOMAINS")
 
 # Temporary Redirect for Mozilla Festival domain
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
+# Mozilla Festival Schedule redirect URL override
+MOZFEST_SCHEDULE_URL = env("MOZFEST_SCHEDULE_URL")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
@@ -182,8 +185,12 @@ HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
 if HEROKU_APP_NAME:
-    herokuAppHost = env("HEROKU_APP_NAME") + ".herokuapp.com"
+    herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
     ALLOWED_HOSTS.append(herokuAppHost)
+    if APP_ENVIRONMENT == "Review":
+        TARGET_DOMAINS.append(herokuAppHost)
+        TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
+        TARGET_DOMAINS.append("legacy-" + herokuAppHost)
 
 SITE_ID = 1
 
@@ -286,6 +293,7 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.project_styleguide",
             # Redesign Site Apps
             "foundation_cms.base",
+            "foundation_cms.campaigns",
             "foundation_cms.core",
             "foundation_cms.blog",
             "foundation_cms.nothing_personal",
@@ -350,6 +358,7 @@ if SOCIAL_SIGNIN:
         "foundation_cms.pipeline.associate_by_email",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
+        "foundation_cms.pipeline.assign_default_role",
         "social_core.pipeline.social_auth.associate_user",
         "social_core.pipeline.social_auth.load_extra_data",
         "social_core.pipeline.user.user_details",
@@ -380,6 +389,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.review_app",
                         "foundation_cms.context_processor.canonical_path",
                         "foundation_cms.context_processor.canonical_site_url",
+                        "foundation_cms.context_processor.mozfest_schedule_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -403,7 +413,6 @@ TEMPLATES = [
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
                 "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
-                "streamfield_tags": "foundation_cms.templatetags.streamfield_tags",
                 "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
@@ -851,3 +860,8 @@ CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
 CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
 UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
 SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
+
+# Override streamfield via monkey patch in apps.py
+# Useful to compress massive legacy streamfield migrations that cause memory issues on review apps
+# Not for regular use, as it has data migrations implications
+TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)

@@ -1,0 +1,222 @@
+{% extends "base/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block extended_head %}
+    {% include "campaigns/components/formassembly_head.html" %}
+{% endblock extended_head %}
+
+{% block content %}
+    <div class="campaign-page" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
+
+        {% if medium != "email" %}
+            <div class="email-confirmation-notice alert alert-warning">
+                <strong>{% trans "IMPORTANT" %}:</strong>
+                {% if user_email %}
+                    {% blocktrans with email=user_email %}For your signature to be counted, you have to confirm it. Click on the email we just sent to {{ email }} to confirm your signature.{% endblocktrans %}
+                {% else %}
+                    {% blocktrans %}For your signature to be counted, you have to confirm it. Click on the email we just sent to confirm your signature.{% endblocktrans %}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="campaign-content">
+            {% if page.header %}
+                {{ page.header }}
+            {% else %}
+                {{ page.title }}
+            {% endif %}
+
+            {% for block in page.body %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+
+        <!-- PETITION FORM STATE -->
+        {% if petition_cta and state == "start" %}
+            <div class="petition-cta-container">
+                {% if petition_cta.header %}
+                    {{ petition_cta.header }}
+                {% endif %}
+
+                {% if petition_cta.description %}
+                    <div class="petition-description">
+                        {{ petition_cta.description|richtext }}
+                    </div>
+                {% endif %}
+
+                <div class="petition-form-wrapper">
+                    <p class="form-notice">
+                        <small>{% trans "* Indicates a required field" %}</small>
+                    </p>
+                    <!-- Petition Form -->
+                    {% with cta=petition_cta %}
+                        {% include "campaigns/components/formassembly_body.html" with csp_nonce=csp_nonce show_country_field=cta.show_country_field show_postal_code_field=cta.show_postal_code_field show_comment_field=cta.show_comment_field campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=LANGUAGE_CODE petition_signed_url_tfa_500=petition_signed_url privacy_notice=cta.privacy_notice %}
+                    {% endwith %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- SIGNED STATE - After petition is signed -->
+        {% if state == "signed" %}
+            <div class="petition-signed">
+                {{ page.signed_header }}
+                {% if page.signed_donation_question %}
+                    {{ page.signed_donation_question }}
+                {% endif %}
+                {{ page.signed_body|richtext }}
+
+                <div class="petition-actions">
+                    {% if page.cta.donate_url %}
+                        {% include "patterns/components/button.html" with classnames="with-heart-icon donation-button" url=page.cta.donate_url label=page.cta.donate_text button_style="btn-primary" %}
+                    {% endif %}
+
+                    <form method="post" class="petition-actions-form">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            name="action"
+                            value="share"
+                            class="btn btn-secondary share-button"
+                            data-label="No, I will share instead">
+                            {% trans "No, I will share instead" %}
+                        </button>
+                    </form>
+
+                    <form method="post" class="petition-actions-form">
+                        {% csrf_token %}
+                        <button
+                            type="submit"
+                            name="action"
+                            value="skip"
+                            class="btn btn-link skip-button"
+                            data-label="Sorry, not right now">
+                            {% trans "Sorry, not right now" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        <!-- SHARING STATE -->
+        {% elif state == "sharing" %}
+            <div class="petition-share">
+                {{ page.share_header }}
+                {{ page.share_body|richtext }}
+
+                <div class="social-sharing-buttons">
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary">
+                        {% trans "Facebook" %}
+                    </a>
+
+                    <!-- Bluesky -->
+                    <a href="https://bsky.app/intent/compose?text={{ page.title|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary">
+                        {% trans "Bluesky" %}
+                    </a>
+
+                    <!-- Email -->
+                    {% trans "Check out this petition:" as email_message %}
+                    <a href="mailto:?subject={{ page.title|urlencode }}&body={{ email_message|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+                       class="btn btn-primary">
+                        {% trans "Email" %}
+                    </a>
+
+                    <!-- Copy Link -->
+                    <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')"
+                            class="btn btn-primary">
+                        {% trans "Copy Link" %}
+                    </button>
+                </div>
+
+                <form method="post" class="petition-actions-form">
+                    {% csrf_token %}
+                    <button
+                        type="submit"
+                        name="action"
+                        value="skip"
+                        class="btn btn-link skip-button"
+                        data-label="Sorry, not right now">
+                        {% trans "Sorry, not right now" %}
+                    </button>
+                </form>
+            </div>
+
+        <!-- THANK YOU STATE -->
+        {% elif state == "end" %}
+            <div class="petition-thank-you">
+                {{ page.thank_you_header }}
+                {{ page.thank_you_body|richtext }}
+
+                {% if page.thank_you_image %}
+                    <div class="thank-you-image">
+                        {% image page.thank_you_image fill-600x400 as thank_you_img %}
+                        <img src="{{ thank_you_img.url }}"
+                             alt="{{ page.thank_you_image.title }}"
+                             class="img-responsive"
+                             max-width="600" max-height="400">
+                    </div>
+                {% endif %}
+
+                {% if latest_articles|length >= 2 %}
+                    <div class="grid-container">
+                        <div class="grid-x">
+                            <div class="cell small-12">
+                                {% trans "Keep Contributing" as localized_latest_stories %}
+                                {% with heading=localized_latest_stories items=latest_articles image_ratio="3:2" show_author=True image_field="search_image" %}
+                                    {% include "patterns/components/nothing_personal/related_content.html" %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        {% endif %}
+
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script nonce="{{ request.csp_nonce }}">
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link copied!');
+            }).catch(function() {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Link copied!');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[data-label]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const label = this.getAttribute('data-label');
+                    const action = this.getAttribute('name') === 'action' ? this.value : 'click';
+
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'petition_flow_button', {
+                            'action': action,
+                            'label': label,
+                            'page_id': '{{ page.id }}',
+                            'state': '{{ state }}'
+                        });
+                    }
+
+                    console.log(`Button clicked: ${label} (${action})`);
+                });
+            });
+        });
+    </script>
+{% endblock extra_js %}

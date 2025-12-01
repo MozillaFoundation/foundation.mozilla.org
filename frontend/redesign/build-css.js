@@ -15,6 +15,7 @@ const entries = [
   "pages/topic_listing_page",
   "pages/nothing_personal/article_page",
   "pages/nothing_personal/podcast_page",
+  "pages/nothing_personal/product_collection_page",
   "pages/nothing_personal/product_review_page",
   "pages/nothing_personal/home_page",
 ];
@@ -23,7 +24,7 @@ const inDir = "../../foundation_cms/static/scss";
 const tempDir = "../../foundation_cms/static/temp";
 const outDir = "../../foundation_cms/static/compiled/_css";
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== "production";
 
 for (const entry of entries) {
   const input = path.resolve(__dirname, `${inDir}/${entry}.scss`);
