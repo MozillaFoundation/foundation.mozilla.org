@@ -19,7 +19,7 @@
         {% include "campaigns/components/campaign_page/confirmation_notice_banner.html" with user_email=user_email %}
     {% endif %}
 
-    <main>
+    <main data-petition-state={{ state }}>
         <div class="grid-container">
             <div class="grid-x grid-margin-x">
                 <div class="cell small-12 large-6">

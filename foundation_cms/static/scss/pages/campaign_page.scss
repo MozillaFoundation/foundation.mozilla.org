@@ -82,13 +82,24 @@ body.template-campaign-page {
   }
 
   .campaign-header {
-    @include mofo-text-style($header-styles, "h4", $header-font-family);
+    @include apply-text-style(
+      $header-styles,
+      "h2",
+      "small",
+      $header-font-family
+    );
 
     margin-top: 0;
     margin-bottom: 2rem;
 
     @include breakpoint(large up) {
       margin-bottom: 1.5rem;
+      @include apply-text-style(
+        $header-styles,
+        "h4",
+        "large",
+        $header-font-family
+      );
     }
   }
 
@@ -108,13 +119,30 @@ body.template-campaign-page {
     }
   }
 
+  main:not([data-petition-state="start"], [data-petition-state=""]) {
+    @include breakpoint(medium down) {
+      padding-bottom: 6rem;
+
+      .campaign-header,
+      .campaign-details {
+        display: none;
+      }
+    }
+  }
+
   .petition {
     $box-width-desktop: calc(
       100% - 2 * map.get($petition-underlay-offset-x, "large")
     );
+    $tablet-max-width: rem-calc(500);
 
     margin-left: -1 * $petition-mobile-box-width-side-offset;
     margin-right: -1 * $petition-mobile-box-width-side-offset;
+
+    @include breakpoint(medium only) {
+      margin: 0 auto;
+      max-width: $tablet-max-width;
+    }
 
     @include breakpoint(large up) {
       margin-left: 0;
@@ -209,14 +237,17 @@ body.template-campaign-page {
       margin: 1.5rem 0 0.5rem;
 
       @include breakpoint(large up) {
-        margin: 1rem 0;
+        margin: 1rem 0 0.5rem;
       }
     }
 
     &__go-to-share-btn {
       @include breakpoint(medium down) {
         margin: 0 0 1.5rem;
-        border: none;
+      }
+
+      @include breakpoint(large up) {
+        margin-top: 0.5rem;
       }
     }
 
