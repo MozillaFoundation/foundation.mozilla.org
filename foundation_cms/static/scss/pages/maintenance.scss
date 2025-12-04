@@ -9,9 +9,18 @@
 }
 
 body.maintenance {
+  .hero__media {
+    display: flex;
+    justify-content: center;
+  }
   .hero__media-image {
     aspect-ratio: auto;
     padding: 1rem;
+    max-width: rem-calc(520);
+
+    @include breakpoint(large up) {
+      max-width: none;
+    }
   }
 }
 
