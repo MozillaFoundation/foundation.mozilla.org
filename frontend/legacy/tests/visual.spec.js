@@ -16,44 +16,89 @@ async function waitForReactAndImagesToLoad(page) {
 }
 
 async function waitForCookieBanner(page) {
-  // Wait for OneTrust banner to be visible
-  await page.waitForSelector("#onetrust-banner-sdk", {
-    state: "visible",
-    timeout: 5000,
-  });
+  const BUTTON_IDS = {
+    accept: "onetrust-accept-btn-handler",
+    decline: "onetrust-reject-all-handler",
+    settings: "onetrust-pc-btn-handler",
+  };
+  const CONTAINER_ID = "onetrust-button-group";
 
-  // Wait for button texts to stop getting updated
-  // See the "onetrust_script" block in foundation_cms/legacy_apps/templates/pages/base.html for more selector info
-  await page.waitForFunction(() => {
-    const getText = (id) => document.getElementById(id)?.textContent.trim();
-
-    const acceptBtnText = getText("onetrust-accept-btn-handler");
-    const declineBtnText = getText("onetrust-reject-all-handler");
-    const settingsBtnText = getText("onetrust-pc-btn-handler");
-
-    // Store texts for comparison
-    return new Promise((resolve) => {
-      const previousText = {
-        accept: acceptBtnText,
-        decline: declineBtnText,
-        settings: settingsBtnText,
-      };
-      setTimeout(() => {
-        const newAcceptText = getText("onetrust-accept-btn-handler");
-        const newDeclineText = getText("onetrust-reject-all-handler");
-        const newSettingsText = getText("onetrust-pc-btn-handler");
-
-        resolve(
-          newAcceptText === previousText.accept &&
-            newDeclineText === previousText.decline &&
-            newSettingsText === previousText.settings
-        );
-      }, 500); // Adjust delay as needed
+  try {
+    // Wait for OneTrust banner to be visible
+    await page.waitForSelector("#onetrust-banner-sdk", {
+      state: "visible",
+      timeout: 10000,
     });
-  });
 
-  // Ensure all network requests are complete before snapshot
-  await page.waitForLoadState("networkidle");
+    // Wait for buttons to have actual text content
+    await page.waitForFunction(
+      ({ buttonIds }) => {
+        const buttons = Object.values(buttonIds).map((id) =>
+          document.getElementById(id)
+        );
+
+        return buttons.every((btn) => btn && btn.textContent.trim().length > 0);
+      },
+      { timeout: 10000 },
+      { buttonIds: BUTTON_IDS }
+    );
+
+    // Wait for OptanonWrapper to rearrange buttons
+    await page.waitForFunction(
+      ({ buttonIds, containerId }) => {
+        const container = document.getElementById(containerId);
+        if (!container) return false;
+
+        return Object.values(buttonIds).every((id) => {
+          const btn = document.getElementById(id);
+          return btn && container.contains(btn);
+        });
+      },
+      { timeout: 5000 },
+      { buttonIds: BUTTON_IDS, containerId: CONTAINER_ID }
+    );
+
+    // Wait for text to stabilize
+    await page.waitForFunction(
+      ({ buttonIds }) => {
+        const getText = (id) =>
+          document.getElementById(id)?.textContent.trim() || "";
+
+        const getButtonTexts = () => ({
+          accept: getText(buttonIds.accept),
+          decline: getText(buttonIds.decline),
+          settings: getText(buttonIds.settings),
+        });
+
+        return new Promise((resolve) => {
+          const previousTexts = getButtonTexts();
+
+          setTimeout(() => {
+            const currentTexts = getButtonTexts();
+
+            // Check all texts are unchanged and non-empty
+            const isStable = Object.keys(previousTexts).every(
+              (key) =>
+                currentTexts[key] === previousTexts[key] &&
+                currentTexts[key].length > 0
+            );
+
+            resolve(isStable);
+          }, 500);
+        });
+      },
+      { timeout: 10000 },
+      { buttonIds: BUTTON_IDS }
+    );
+
+    // Add extra safety delay for any CSS transitions
+    await page.waitForTimeout(1000);
+
+    // Ensure all network requests are complete
+    await page.waitForLoadState("networkidle");
+  } catch (error) {
+    console.error(`Cookie banner wait failed: ${error.message}`);
+  }
 }
 
 /**
