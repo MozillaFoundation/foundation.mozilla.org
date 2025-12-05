@@ -168,6 +168,21 @@ class CampaignPage(AbstractBasePage):
         """Override get_context to add latest articles for More Stories section"""
         context = super().get_context(request, *args, **kwargs)
 
+        localized_cta = self.get_localized_cta()
+        latest_articles_list = self.get_keep_contributing_pages()
+
+        context.update(
+            {
+                "page": self,
+                "latest_articles": latest_articles_list,
+                "petition_cta": localized_cta,
+                "petition_signed_url": self.get_petition_signed_url(request),
+            }
+        )
+
+        return context
+
+    def get_localized_cta(self):
         petition_cta = None
         petition_cta_localized = None
         if self.cta:
@@ -179,8 +194,10 @@ class CampaignPage(AbstractBasePage):
             if petition_cta:
                 petition_cta_localized = petition_cta.localized
 
-        (default_locale, _) = get_default_locale()
+        return petition_cta_localized
 
+    def get_keep_contributing_pages(self):
+        (default_locale, _) = get_default_locale()
         default_articles = (
             NothingPersonalArticlePage.objects.live()
             .public()
@@ -190,16 +207,7 @@ class CampaignPage(AbstractBasePage):
         latest_articles = localize_queryset(default_articles, preserve_order=True)
         latest_articles_list = list(latest_articles.specific()[:2])
 
-        context.update(
-            {
-                "page": self,
-                "latest_articles": latest_articles_list,
-                "petition_cta": petition_cta_localized,
-                "petition_signed_url": self.get_petition_signed_url(request),
-            }
-        )
-
-        return context
+        return latest_articles_list
 
     def get_petition_signed_url(self, request):
         base_url = self.get_full_url()
