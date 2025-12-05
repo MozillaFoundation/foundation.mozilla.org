@@ -3,6 +3,9 @@ name: Visual Regression Tests - Legacy
 on:
   pull_request:
     types: [labeled]
+    paths:
+      - 'foundation_cms/legacy_apps/**'
+      - 'frontend/legacy/**'
   pull_request_review:
     types: [submitted]
   push:
