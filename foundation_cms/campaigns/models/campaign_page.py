@@ -169,12 +169,12 @@ class CampaignPage(AbstractBasePage):
         context = super().get_context(request, *args, **kwargs)
 
         localized_cta = self.get_localized_cta()
-        latest_articles_list = self.get_keep_contributing_pages()
+        keep_contributing_pages = self.get_keep_contributing_pages()
 
         context.update(
             {
                 "page": self,
-                "latest_articles": latest_articles_list,
+                "keep_contributing_pages": keep_contributing_pages,
                 "petition_cta": localized_cta,
                 "petition_signed_url": self.get_petition_signed_url(request),
             }
@@ -198,16 +198,13 @@ class CampaignPage(AbstractBasePage):
 
     def get_keep_contributing_pages(self):
         (default_locale, _) = get_default_locale()
-        default_articles = (
-            NothingPersonalArticlePage.objects.live()
-            .public()
-            .filter(locale=default_locale)
-            .order_by("-first_published_at")
+        default_campaigns = (
+            CampaignPage.objects.live().public().filter(locale=default_locale).order_by("-first_published_at")
         )
-        latest_articles = localize_queryset(default_articles, preserve_order=True)
-        latest_articles_list = list(latest_articles.specific()[:2])
+        latest_campaigns = localize_queryset(default_campaigns, preserve_order=True)
+        latest_campaigns_list = list(latest_campaigns.specific()[:2])
 
-        return latest_articles_list
+        return latest_campaigns_list
 
     def get_petition_signed_url(self, request):
         base_url = self.get_full_url()
