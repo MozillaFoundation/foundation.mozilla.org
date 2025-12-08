@@ -1,8 +1,5 @@
 // Our list of foundation site URLS to check
 module.exports = {
-  homepage: "",
-  "What you can do": "/what-you-can-do",
-  "Who we are": "/who-we-are",
   "Blog index": "/blog",
   "Blog index (filtered on tag)": "/blog/tags/iot",
   "Blog index (non-existent tag)":
@@ -27,8 +24,6 @@ module.exports = {
   PNI: "/privacynotincluded",
   "PNI (filtered for category)": "/privacynotincluded/categories/toys-games",
   "PNI general product page": "/privacynotincluded/general-percy-product",
-  "YouTube regrets": "/campaigns/youtube-regrets",
-  "YouTube regrets  reporter": "/campaigns/regrets-reporter",
   "Research hub landing page": "/research",
   "Research hub library page": "/research/library",
   "Research hub detail page":
