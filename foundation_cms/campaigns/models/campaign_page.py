@@ -274,7 +274,7 @@ class CampaignPage(AbstractBasePage):
         tag_related_pages = (
             Page.objects.live()
             .public()
-            .filter(locale=default_locale, topics=first_topic)
+            .filter(locale=default_locale, topic_relations__tag=first_topic)
             .exclude(id=self.id)
             .order_by("-first_published_at")
         )
@@ -315,7 +315,7 @@ class CampaignPage(AbstractBasePage):
 
         # If no user selected pages exist, try to get pages that share this page's first topic.
         tag_related_pages = self.get_tag_related_pages()
-        if tag_related_pages:
+        if len(tag_related_pages) == 2:
             return tag_related_pages
 
         # If no tags exist, fall back to the 2 latest campaigns.
