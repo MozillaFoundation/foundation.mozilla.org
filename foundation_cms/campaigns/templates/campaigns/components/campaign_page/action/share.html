@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<form method="post">
+    {% csrf_token %}
+    <button
+        type="submit"
+        name="action"
+        value="share"
+        class="btn btn-secondary without-icon petition__go-to-share-btn"
+        data-label="No, I will share instead">
+        {% trans "No, I will share instead" %}
+    </button>
+</form>
