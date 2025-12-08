@@ -1,0 +1,7 @@
+{% load static %}
+
+<ol class="step-indicator" aria-label="Petition signing process">
+    {% include "campaigns/components/campaign_page/step_indicator/step_indicator_item.html" with index=1 sr_label="Sign petition" current_step=current_step %}
+    {% include "campaigns/components/campaign_page/step_indicator/step_indicator_item.html" with index=2 sr_label="Donate (optional)" current_step=current_step %}
+    {% include "campaigns/components/campaign_page/step_indicator/step_indicator_item.html" with index=3 sr_label="Share (optional)" current_step=current_step %}
+</ol>

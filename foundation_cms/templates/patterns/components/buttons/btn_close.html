@@ -1,0 +1,12 @@
+{% load static i18n l10n %}
+
+<button
+    {% if data_attr_for_js_to_target %}{{ data_attr_for_js_to_target }}{% endif %}
+    class="btn-close"
+    aria-label="{% trans "Close" %}"
+>
+    <span class="btn-close__content">
+        <span class="btn-close__text">{% trans "Close" %}</span>
+        <img class="btn-close__image" src="{% static 'foundation_cms/_images/icons/x.svg' %}" alt="" width="32" height="32" />
+    </span>
+</button>

@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+<div class="campaign-details {% if variant %}campaign-details--{{ variant }}{% endif %}">
+    {% for block in page.body %}
+        {% include_block block %}
+    {% endfor %}
+</div>
