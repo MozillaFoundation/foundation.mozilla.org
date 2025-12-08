@@ -24,17 +24,17 @@ If there are any updates to this form (which is unlikely), please follow the ins
         </script></div>
         <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="187" role="form">
             <input type="hidden" id="tfa_500" name="tfa_500" value="{{ petition_signed_url_tfa_500 }}" class=""><input type="hidden" id="tfa_1" name="tfa_1" value="{{ campaign_id_tfa_1 }}" class=""><input type="hidden" id="tfa_498" name="tfa_498" value="{{ source_url_tfa_498 }}" class=""><input type="hidden" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" class=""><input type="hidden" id="tfa_501" name="tfa_501" value="mozilla-foundation" class=""><div class="oneField field-container-D    " id="tfa_28-D">
-                <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="{% trans "First Name" %}" class="required"></div>
+                <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="{% trans "First Name" %}" placeholder="{% trans "First Name" %}*" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_30-D">
-                <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">{% trans "Last Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="{% trans "Last Name" %}" class="required"></div>
+                <label id="tfa_30-L" class="label preField reqMark" for="tfa_30">{% trans "Last Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_30" name="tfa_30" value="" title="{% trans "Last Name" %}"  placeholder="{% trans "Last Name" %}*"  class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_31-D">
-                <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="{% trans "Email" %}" class="validate-email required"></div>
+                <label id="tfa_31-L" class="label preField reqMark" for="tfa_31">{% trans "Email" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_31" name="tfa_31" value="" title="{% trans "Email" %}" placeholder="{% trans "Email" %}*" class="validate-email required"></div>
             </div>
             {% if show_country_field %}
                 <div class="oneField field-container-D    " id="tfa_254-D">
-                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="{% trans "Country" %}" class=""><option value="">{% trans "Please select..." %}</option>
+                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="{% trans "Country" %}" placeholder="{% trans "Country" %}" class=""><option value="">{% trans "Please select..." %}</option>
                         <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
                         <option value="tfa_256" id="tfa_256" class="">Albania</option>
                         <option value="tfa_257" id="tfa_257" class="">Algeria</option>
@@ -276,18 +276,18 @@ If there are any updates to this form (which is unlikely), please follow the ins
             {% endif %}
             {% if show_postal_code_field %}
                 <div class="oneField field-container-D    " id="tfa_496-D">
-                    <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="{% trans "Postal Code" %}" class=""></div>
+                    <label id="tfa_496-L" class="label preField " for="tfa_496">{% trans "Postal Code" %}</label><br><div class="inputWrapper"><input type="text" id="tfa_496" name="tfa_496" value="" title="{% trans "Postal Code" %}" placeholder="{% trans "Postal Code" %}" class=""></div>
                 </div>
             {% endif %}
             {% if show_comment_field %}
                 <div class="oneField field-container-D    " id="tfa_497-D">
-                    <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="{% trans "Comments" %}" class=""></textarea></div>
+                    <label id="tfa_497-L" class="label preField " for="tfa_497">{% trans "Comments" %}</label><br><div class="inputWrapper"><textarea maxlength="500" id="tfa_497" name="tfa_497" title="{% trans "Comments" %}" placeholder="{% trans "Comments" %}" class=""></textarea></div>
                 </div>
             {% endif %}
             <div class="oneField field-container-D    " id="tfa_494-D" role="group" aria-labelledby="tfa_494-L" data-tfa-labelledby="-L tfa_494-L">
                 <label id="tfa_494-L" class="label preField ">Email Subscription</label><br><div class="inputWrapper"><span id="tfa_494" class="choices vertical "><span class="oneChoice"><input type="checkbox" value="tfa_495" class="" id="tfa_495" name="tfa_495" aria-labelledby="tfa_495-L" data-tfa-labelledby="tfa_494-L tfa_495-L"><label class="label postField" id="tfa_495-L" for="tfa_495"><span class="input-checkbox-faux"></span>{% trans "Yes, I want to receive email updates about Mozilla’s campaigns." %}</label></span></span></div>
             </div>
-            <div class="actions" id="187-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="primaryAction" id="submit_button" value="{% trans "Add my name" %}"></div>
+            <div class="actions" id="187-A" data-contentid="submit_button"><input type="submit" data-label="Add my name" class="btn btn-primary primaryAction" id="submit_button" value="{% trans "Add my name" %}"></div>
             <div style="clear:both"></div>
             <div class="htmlSection" id="tfa_502">
                 <div class="htmlContent" id="tfa_502-HTML">
