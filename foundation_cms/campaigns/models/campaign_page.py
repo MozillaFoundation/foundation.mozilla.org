@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel,
+    HelpPanel,
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
@@ -16,9 +17,6 @@ from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models import AbstractBasePage
-from foundation_cms.nothing_personal.models.article_page import (
-    NothingPersonalArticlePage,
-)
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .petition import Petition
@@ -34,7 +32,7 @@ class CampaignPageKeepContributingRelation(TranslatableMixin, Orderable):
         Page,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="+",
+        related_name="keep_contributing_relations",
         help_text="Select a page to feature as a keep-contributing link.",
     )
 
@@ -141,25 +139,33 @@ class CampaignPage(AbstractBasePage):
                 FieldPanel("thank_you_header"),
                 FieldPanel("thank_you_body"),
                 FieldPanel("thank_you_image"),
+                MultiFieldPanel(
+                    [
+                        HelpPanel(
+                            content=(
+                                "<p>"
+                                "This section can be populated in one of three ways:<br>"
+                                "1. If you select two pages below, they will be shown in the Keep "
+                                "Contributing section.<br>"
+                                "2. If you don’t select any pages but this page has topics set in the "
+                                "`Promote` panel, the two most recent pages that share the <b>first</b> "
+                                "topic in the list will appear.<br>"
+                                "3. If no pages are selected and there are no topics set, the two latest "
+                                "campaign pages will be used."
+                                "</p>"
+                            )
+                        ),
+                        InlinePanel(
+                            "keep_contributing_pages",
+                            label="Keep contributing pages",
+                            max_num=2,
+                        ),
+                    ],
+                    heading="Keep Contributing Section",
+                ),
             ],
             heading="Thank You Content",
             classname="collapsible",
-        ),
-        MultiFieldPanel(
-            [
-                InlinePanel(
-                    "keep_contributing_pages",
-                    label="Keep contributing pages",
-                    max_num=2,
-                    help_text=(
-                        "Optional: Choose up to two pages to feature here. "
-                        "If left empty and this page has tags, the two most recent pages "
-                        "with matching tags will appear. If no tags match, the two latest "
-                        "campaigns will be used instead."
-                    ),
-                )
-            ],
-            heading="Keep contributing Section",
         ),
     ]
 
@@ -239,15 +245,81 @@ class CampaignPage(AbstractBasePage):
 
         return petition_cta_localized
 
-    def get_keep_contributing_pages(self):
-        (default_locale, _) = get_default_locale()
-        default_campaigns = (
-            CampaignPage.objects.live().public().filter(locale=default_locale).order_by("-first_published_at")
+    @property
+    def localized_selected_keep_contributing_pages(self):
+        selected_keep_contributing_pages = Page.objects.filter(keep_contributing_relations__page=self).order_by(
+            "keep_contributing_relations__sort_order"
         )
-        latest_campaigns = localize_queryset(default_campaigns, preserve_order=True)
-        latest_campaigns_list = list(latest_campaigns.specific()[:2])
 
-        return latest_campaigns_list
+        localized_selected_keep_contributing_pages = localize_queryset(
+            selected_keep_contributing_pages,
+            preserve_order=True,
+        )
+
+        return localized_selected_keep_contributing_pages.specific()
+
+    def get_tag_related_pages(self):
+        """
+        Return the two latest pages that share this page's first topic,
+        in their localized versions. If there are no topics, returns an empty list.
+        """
+        # Get this page's first Topic
+        first_topic = self.topics.first()
+        if not first_topic:
+            return []
+
+        (default_locale, _) = get_default_locale()
+
+        # Find other pages that share this Topic
+        tag_related_pages = (
+            Page.objects.live()
+            .public()
+            .filter(locale=default_locale, topics=first_topic)
+            .exclude(id=self.id)
+            .order_by("-first_published_at")
+        )
+
+        localized_tag_related_pages = localize_queryset(
+            tag_related_pages,
+            preserve_order=True,
+        )
+
+        return list(localized_tag_related_pages.specific()[:2])
+
+    def get_fallback_latest_campaigns(self):
+        """
+        Return the two latest CampaignPages in their localized versions
+        """
+        (default_locale, _) = get_default_locale()
+
+        default_campaigns = (
+            CampaignPage.objects.live()
+            .public()
+            .filter(locale=default_locale)
+            .exclude(id=self.id)
+            .order_by("-first_published_at")
+        )
+
+        localized_campaigns = localize_queryset(
+            default_campaigns,
+            preserve_order=True,
+        )
+
+        return list(localized_campaigns.specific()[:2])
+
+    def get_keep_contributing_pages(self):
+        # If pages have been manually selected for this section, use those.
+        selected_pages = self.localized_selected_keep_contributing_pages
+        if selected_pages:
+            return selected_pages
+
+        # If no user selected pages exist, try to get pages that share this page's first topic.
+        tag_related_pages = self.get_tag_related_pages()
+        if tag_related_pages:
+            return tag_related_pages
+
+        # If no tags exist, fall back to the 2 latest campaigns.
+        return self.get_fallback_latest_campaigns()
 
     def get_petition_signed_url(self, request):
         base_url = self.get_full_url()
