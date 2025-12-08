@@ -1,20 +1,44 @@
 from urllib.parse import urlencode
 
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.db import models
 from django.shortcuts import redirect, render
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import (
+    FieldPanel,
+    HelpPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
-from wagtail.models import Page
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models import AbstractBasePage
-from foundation_cms.nothing_personal.models.article_page import (
-    NothingPersonalArticlePage,
-)
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .petition import Petition
+
+
+class CampaignPageKeepContributingRelation(TranslatableMixin, Orderable):
+    page = ParentalKey(
+        "campaigns.CampaignPage",
+        related_name="keep_contributing_pages",
+        on_delete=models.CASCADE,
+    )
+    keep_contributing_page = models.ForeignKey(
+        Page,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="keep_contributing_relations",
+        help_text="Select a page to feature as a keep-contributing link.",
+    )
+
+    panels = [
+        PageChooserPanel("keep_contributing_page"),
+    ]
 
 
 class CampaignPage(AbstractBasePage):
@@ -89,6 +113,14 @@ class CampaignPage(AbstractBasePage):
         help_text="Optional image to show in the thank you step",
     )
 
+    keep_contributing_topic = models.ForeignKey(
+        "base.Topic",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
@@ -115,6 +147,32 @@ class CampaignPage(AbstractBasePage):
                 FieldPanel("thank_you_header"),
                 FieldPanel("thank_you_body"),
                 FieldPanel("thank_you_image"),
+                MultiFieldPanel(
+                    [
+                        HelpPanel(
+                            content=(
+                                "<p>"
+                                "This section can be populated in one of three ways:<br>"
+                                "1. <b>Select two pages below</b> — these pages will be shown in the Keep "
+                                "Contributing section.<br>"
+                                "2. <b>Select a Topic</b> — the two most recent pages that share this topic "
+                                "will be shown.<br>"
+                                "3. <b>Leave both fields empty</b> — the two latest campaign pages will be "
+                                "used as a fallback.<br>"
+                                "<b>Note:</b> you may select either two pages <u>or</u> a topic, but not "
+                                "both."
+                                "</p>"
+                            )
+                        ),
+                        InlinePanel(
+                            "keep_contributing_pages",
+                            label="Keep contributing pages",
+                            max_num=2,
+                        ),
+                        FieldPanel("keep_contributing_topic"),
+                    ],
+                    heading="Keep Contributing Section",
+                ),
             ],
             heading="Thank You Content",
             classname="collapsible",
@@ -131,6 +189,8 @@ class CampaignPage(AbstractBasePage):
         SynchronizedField("thank_you_header"),
         SynchronizedField("thank_you_body"),
         SynchronizedField("thank_you_image"),
+        SynchronizedField("keep_contributing_pages"),
+        SynchronizedField("keep_contributing_topic"),
     ]
 
     subpage_types = [
@@ -168,6 +228,21 @@ class CampaignPage(AbstractBasePage):
         """Override get_context to add latest articles for More Stories section"""
         context = super().get_context(request, *args, **kwargs)
 
+        localized_cta = self.get_localized_cta()
+        keep_contributing_pages = self.get_keep_contributing_pages()
+
+        context.update(
+            {
+                "page": self,
+                "keep_contributing_pages": keep_contributing_pages,
+                "petition_cta": localized_cta,
+                "petition_signed_url": self.get_petition_signed_url(request),
+            }
+        )
+
+        return context
+
+    def get_localized_cta(self):
         petition_cta = None
         petition_cta_localized = None
         if self.cta:
@@ -179,27 +254,75 @@ class CampaignPage(AbstractBasePage):
             if petition_cta:
                 petition_cta_localized = petition_cta.localized
 
+        return petition_cta_localized
+
+    def get_selected_keep_contributing_pages(self):
+        selected_keep_contributing_pages = Page.objects.filter(keep_contributing_relations__page=self).order_by(
+            "keep_contributing_relations__sort_order"
+        )
+
+        localized_selected_keep_contributing_pages = localize_queryset(
+            selected_keep_contributing_pages,
+            preserve_order=True,
+        )
+
+        return localized_selected_keep_contributing_pages.specific()
+
+    def get_tag_related_pages(self):
+        """
+        Return the two latest pages that share this page's keep_contributing_topic.
+        """
+        topic = self.keep_contributing_topic
         (default_locale, _) = get_default_locale()
 
-        default_articles = (
-            NothingPersonalArticlePage.objects.live()
+        tag_related_pages = (
+            Page.objects.live()
             .public()
-            .filter(locale=default_locale)
+            .filter(locale=default_locale, topic_relations__tag=topic)
+            .exclude(id=self.id)
             .order_by("-first_published_at")
         )
-        latest_articles = localize_queryset(default_articles, preserve_order=True)
-        latest_articles_list = list(latest_articles.specific()[:2])
 
-        context.update(
-            {
-                "page": self,
-                "latest_articles": latest_articles_list,
-                "petition_cta": petition_cta_localized,
-                "petition_signed_url": self.get_petition_signed_url(request),
-            }
+        localized = localize_queryset(tag_related_pages, preserve_order=True)
+        return list(localized.specific()[:2])
+
+    def get_fallback_latest_campaigns(self):
+        """
+        Return the two latest CampaignPages in their localized versions
+        """
+        (default_locale, _) = get_default_locale()
+
+        default_campaigns = (
+            CampaignPage.objects.live()
+            .public()
+            .filter(locale=default_locale)
+            .exclude(id=self.id)
+            .order_by("-first_published_at")
         )
 
-        return context
+        localized_campaigns = localize_queryset(
+            default_campaigns,
+            preserve_order=True,
+        )
+
+        return list(localized_campaigns.specific()[:2])
+
+    def get_keep_contributing_pages(self):
+        keep_contributing_pages = None
+
+        # 1. If pages have been manually selected for this section, use those.
+        if self.keep_contributing_pages.exists():
+            keep_contributing_pages = self.get_selected_keep_contributing_pages
+
+        # 2. Else, if a topic is set, use topic-related pages.
+        elif self.keep_contributing_topic:
+            keep_contributing_pages = self.get_tag_related_pages()
+
+        # 3. Else, fall back to the 2 latest campaigns.
+        else:
+            keep_contributing_pages = self.get_fallback_latest_campaigns()
+
+        return keep_contributing_pages
 
     def get_petition_signed_url(self, request):
         base_url = self.get_full_url()
@@ -207,6 +330,28 @@ class CampaignPage(AbstractBasePage):
         existing_params["state"] = "signed"
         petition_signed_url = base_url + "?" + urlencode(existing_params)
         return petition_signed_url
+
+    def clean(self):
+        super().clean()
+
+        pages_count = self.keep_contributing_pages.count()
+        has_topic = self.keep_contributing_topic is not None
+
+        # Cannot have both a topic and any pages selected
+        if has_topic and pages_count > 0:
+            raise ValidationError(
+                {
+                    NON_FIELD_ERRORS: [
+                        "You must select either Keep Contributing pages or a Keep Contributing topic, but not both."
+                    ]
+                }
+            )
+
+        # If using pages (and no topic), enforce exactly 2 pages
+        if not has_topic and pages_count == 1:
+            raise ValidationError(
+                {NON_FIELD_ERRORS: ['You must select either 0 or 2 pages for the "Keep Contributing" section.']}
+            )
 
     class Meta:
         verbose_name = "Campaign Page (New)"
