@@ -113,6 +113,14 @@ class CampaignPage(AbstractBasePage):
         help_text="Optional image to show in the thank you step",
     )
 
+    keep_contributing_topic = models.ForeignKey(
+        "base.Topic",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
@@ -145,13 +153,14 @@ class CampaignPage(AbstractBasePage):
                             content=(
                                 "<p>"
                                 "This section can be populated in one of three ways:<br>"
-                                "1. If you select two pages below, they will be shown in the Keep "
+                                "1. <b>Select two pages below</b> — these pages will be shown in the Keep "
                                 "Contributing section.<br>"
-                                "2. If you don’t select any pages but this page has topics set in the "
-                                "`Promote` panel, the two most recent pages that share the <b>first</b> "
-                                "topic in the list will appear.<br>"
-                                "3. If no pages are selected and there are no topics set, the two latest "
-                                "campaign pages will be used."
+                                "2. <b>Select a Topic</b> — the two most recent pages that share this topic "
+                                "will be shown.<br>"
+                                "3. <b>Leave both fields empty</b> — the two latest campaign pages will be "
+                                "used as a fallback.<br>"
+                                "<b>Note:</b> you may select either two pages <u>or</u> a topic, but not "
+                                "both."
                                 "</p>"
                             )
                         ),
@@ -160,6 +169,7 @@ class CampaignPage(AbstractBasePage):
                             label="Keep contributing pages",
                             max_num=2,
                         ),
+                        FieldPanel("keep_contributing_topic"),
                     ],
                     heading="Keep Contributing Section",
                 ),
@@ -180,6 +190,7 @@ class CampaignPage(AbstractBasePage):
         SynchronizedField("thank_you_body"),
         SynchronizedField("thank_you_image"),
         SynchronizedField("keep_contributing_pages"),
+        SynchronizedField("keep_contributing_topic"),
     ]
 
     subpage_types = [
@@ -245,8 +256,7 @@ class CampaignPage(AbstractBasePage):
 
         return petition_cta_localized
 
-    @property
-    def localized_selected_keep_contributing_pages(self):
+    def get_selected_keep_contributing_pages(self):
         selected_keep_contributing_pages = Page.objects.filter(keep_contributing_relations__page=self).order_by(
             "keep_contributing_relations__sort_order"
         )
@@ -260,31 +270,21 @@ class CampaignPage(AbstractBasePage):
 
     def get_tag_related_pages(self):
         """
-        Return the two latest pages that share this page's first topic,
-        in their localized versions. If there are no topics, returns an empty list.
+        Return the two latest pages that share this page's keep_contributing_topic.
         """
-        # Get this page's first Topic
-        first_topic = self.topics.first()
-        if not first_topic:
-            return []
-
+        topic = self.keep_contributing_topic
         (default_locale, _) = get_default_locale()
 
-        # Find other pages that share this Topic
         tag_related_pages = (
             Page.objects.live()
             .public()
-            .filter(locale=default_locale, topic_relations__tag=first_topic)
+            .filter(locale=default_locale, topic_relations__tag=topic)
             .exclude(id=self.id)
             .order_by("-first_published_at")
         )
 
-        localized_tag_related_pages = localize_queryset(
-            tag_related_pages,
-            preserve_order=True,
-        )
-
-        return list(localized_tag_related_pages.specific()[:2])
+        localized = localize_queryset(tag_related_pages, preserve_order=True)
+        return list(localized.specific()[:2])
 
     def get_fallback_latest_campaigns(self):
         """
@@ -308,18 +308,21 @@ class CampaignPage(AbstractBasePage):
         return list(localized_campaigns.specific()[:2])
 
     def get_keep_contributing_pages(self):
-        # If pages have been manually selected for this section, use those.
-        selected_pages = self.localized_selected_keep_contributing_pages
-        if selected_pages:
-            return selected_pages
+        keep_contributing_pages = None
 
-        # If no user selected pages exist, try to get pages that share this page's first topic.
-        tag_related_pages = self.get_tag_related_pages()
-        if len(tag_related_pages) == 2:
-            return tag_related_pages
+        # 1. If pages have been manually selected for this section, use those.
+        if self.keep_contributing_pages.exists():
+            keep_contributing_pages = self.get_selected_keep_contributing_pages
 
-        # If no tags exist, fall back to the 2 latest campaigns.
-        return self.get_fallback_latest_campaigns()
+        # 2. Else, if a topic is set, use topic-related pages.
+        elif self.keep_contributing_topic:
+            keep_contributing_pages = self.get_tag_related_pages()
+
+        # 3. Else, fall back to the 2 latest campaigns.
+        else:
+            keep_contributing_pages = self.get_fallback_latest_campaigns()
+
+        return keep_contributing_pages
 
     def get_petition_signed_url(self, request):
         base_url = self.get_full_url()
@@ -330,8 +333,25 @@ class CampaignPage(AbstractBasePage):
 
     def clean(self):
         super().clean()
-        if self.keep_contributing_pages.count() == 1:
-            raise ValidationError({NON_FIELD_ERRORS: ['You must select 2 pages for the "Keep Contributing" section.']})
+
+        pages_count = self.keep_contributing_pages.count()
+        has_topic = self.keep_contributing_topic is not None
+
+        # Cannot have both a topic and any pages selected
+        if has_topic and pages_count > 0:
+            raise ValidationError(
+                {
+                    NON_FIELD_ERRORS: [
+                        "You must select either Keep Contributing pages or a Keep Contributing topic, but not both."
+                    ]
+                }
+            )
+
+        # If using pages (and no topic), enforce exactly 2 pages
+        if not has_topic and pages_count == 1:
+            raise ValidationError(
+                {NON_FIELD_ERRORS: ['You must select either 0 or 2 pages for the "Keep Contributing" section.']}
+            )
 
     class Meta:
         verbose_name = "Campaign Page (New)"
