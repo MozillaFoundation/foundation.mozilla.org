@@ -1,11 +1,18 @@
 from urllib.parse import urlencode
 
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.db import models
 from django.shortcuts import redirect, render
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
-from wagtail.models import Page
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models import AbstractBasePage
@@ -15,6 +22,25 @@ from foundation_cms.nothing_personal.models.article_page import (
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .petition import Petition
+
+
+class CampaignPageKeepContributingRelation(TranslatableMixin, Orderable):
+    page = ParentalKey(
+        "campaigns.CampaignPage",
+        related_name="keep_contributing_pages",
+        on_delete=models.CASCADE,
+    )
+    keep_contributing_page = models.ForeignKey(
+        Page,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="+",
+        help_text="Select a page to feature as a keep-contributing link.",
+    )
+
+    panels = [
+        PageChooserPanel("keep_contributing_page"),
+    ]
 
 
 class CampaignPage(AbstractBasePage):
@@ -119,6 +145,22 @@ class CampaignPage(AbstractBasePage):
             heading="Thank You Content",
             classname="collapsible",
         ),
+        MultiFieldPanel(
+            [
+                InlinePanel(
+                    "keep_contributing_pages",
+                    label="Keep contributing pages",
+                    max_num=2,
+                    help_text=(
+                        "Optional: Choose up to two pages to feature here. "
+                        "If left empty and this page has tags, the two most recent pages "
+                        "with matching tags will appear. If no tags match, the two latest "
+                        "campaigns will be used instead."
+                    ),
+                )
+            ],
+            heading="Keep contributing Section",
+        ),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
@@ -131,6 +173,7 @@ class CampaignPage(AbstractBasePage):
         SynchronizedField("thank_you_header"),
         SynchronizedField("thank_you_body"),
         SynchronizedField("thank_you_image"),
+        SynchronizedField("keep_contributing_pages"),
     ]
 
     subpage_types = [
@@ -212,6 +255,11 @@ class CampaignPage(AbstractBasePage):
         existing_params["state"] = "signed"
         petition_signed_url = base_url + "?" + urlencode(existing_params)
         return petition_signed_url
+
+    def clean(self):
+        super().clean()
+        if self.keep_contributing_pages.count() == 1:
+            raise ValidationError({NON_FIELD_ERRORS: ['You must select 2 pages for the "Keep Contributing" section.']})
 
     class Meta:
         verbose_name = "Campaign Page (New)"
