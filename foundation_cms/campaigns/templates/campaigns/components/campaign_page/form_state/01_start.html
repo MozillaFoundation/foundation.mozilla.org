@@ -1,0 +1,19 @@
+{% load wagtailcore_tags i18n %}
+
+{% if petition_cta.header %}
+    <div class="petition__header">{{ petition_cta.header }}</div>
+{% endif %}
+
+{% if petition_cta.description %}
+    <div class="petition__description">
+        {{ petition_cta.description|richtext }}
+    </div>
+{% endif %}
+
+<div class="petition__form-wrapper">
+    <p class="petition__required-note">{% trans "* Indicates a required field" %}</p>
+    <!-- Petition Form -->
+    {% with cta=petition_cta %}
+        {% include "campaigns/components/formassembly_body.html" with csp_nonce=csp_nonce show_country_field=cta.show_country_field show_postal_code_field=cta.show_postal_code_field show_comment_field=cta.show_comment_field campaign_id_tfa_1=cta.campaign_id source_url_tfa_498=source_url lang_tfa_499=LANGUAGE_CODE petition_signed_url_tfa_500=petition_signed_url privacy_notice=cta.privacy_notice %}
+    {% endwith %}
+</div>

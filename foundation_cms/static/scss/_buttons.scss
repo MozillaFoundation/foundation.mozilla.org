@@ -103,6 +103,12 @@ $cta-link-icon-sizes: (
     }
   }
 
+  &.without-icon {
+    &::after {
+      display: none;
+    }
+  }
+
   &.dark-mode {
     background-color: color(orange, "100");
     color: color(neutral, "600");
@@ -127,6 +133,12 @@ $cta-link-icon-sizes: (
 
   &::after {
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+  }
+
+  &.without-icon {
+    &::after {
+      display: none;
+    }
   }
 }
 
@@ -263,6 +275,52 @@ button.btn-play--vimeo {
       .icon {
         fill: map.get($mofo-colors, black);
       }
+    }
+  }
+}
+
+// ===================================
+// Close Button
+// ===================================
+
+.btn-close {
+  text-transform: uppercase;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &__content {
+    $hover-transition-duration: 0.4s;
+
+    display: inline-flex;
+    align-items: center;
+    background-image: linear-gradient(to right, $black 0%, $black 100%);
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size $hover-transition-duration ease-out;
+  }
+
+  &__text {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    display: inline;
+    text-decoration: underline;
+    padding: rem-calc(5) 0;
+
+    @include breakpoint(large up) {
+      @include mofo-text-style($body-text-styles, "small");
+    }
+  }
+
+  &__image {
+    width: 18px;
+    height: 24px;
+
+    @include breakpoint(large up) {
+      width: 24px;
+      height: 32px;
     }
   }
 }
