@@ -2,6 +2,7 @@ from urllib.parse import urlencode
 
 from django.db import models
 from django.shortcuts import redirect, render
+from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel,
@@ -153,8 +154,8 @@ class CampaignPage(AbstractBasePage):
                                 "<p>"
                                 "This section determines which pages appear in the Keep Contributing area. "
                                 "It resolves in the following order:<br><br>"
-                                "1. <b>Selected pages</b> — if you choose two pages below, those will always be "
-                                "shown.<br>"
+                                "1. <b>Selected pages</b> — if you choose <b>two</b> pages below, "
+                                "those will always beshown.<br>"
                                 "2. <b>Selected topic</b> — if no pages are chosen but a topic is set, the "
                                 "two most recent pages that share that topic will be shown.<br>"
                                 "3. <b>Fallback</b> — if neither pages nor a topic are provided, the two "
@@ -254,6 +255,7 @@ class CampaignPage(AbstractBasePage):
 
         return petition_cta_localized
 
+    @cached_property
     def get_selected_keep_contributing_pages(self):
         selected_keep_contributing_pages = Page.objects.filter(keep_contributing_relations__page=self).order_by(
             "keep_contributing_relations__sort_order"
@@ -307,7 +309,7 @@ class CampaignPage(AbstractBasePage):
 
     def get_keep_contributing_pages(self):
         # 1. If pages have been manually selected for this section, use those.
-        if self.keep_contributing_pages.exists():
+        if self.keep_contributing_pages.count() == 2:
             return self.get_selected_keep_contributing_pages()
 
         # 2. Else, if a topic is set, use topic-related pages.
