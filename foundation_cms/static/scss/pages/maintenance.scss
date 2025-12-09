@@ -1,0 +1,53 @@
+@import "../../scss/foundation-framework-styles";
+
+// Our custom variables and base styles
+@import "../../scss/colors";
+@import "../../scss/type";
+
+.hero {
+  margin-bottom: 4rem;
+}
+
+body.maintenance {
+  .hero__media {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__media-image {
+    aspect-ratio: auto;
+    padding: 1rem;
+    max-width: rem-calc(520);
+
+    @include breakpoint(large up) {
+      max-width: none;
+    }
+  }
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+  color: black;
+  padding: 12px 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-family: var(--font-family-body-font-family, "Mozilla Text");
+  font-size: var(--font-size-body-base, 16px);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  line-height: 140%;
+  max-width: 65%;
+}
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentcolor;
+  stroke-width: 2;
+  fill: none;
+}

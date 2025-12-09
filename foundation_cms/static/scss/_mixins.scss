@@ -52,6 +52,33 @@
   }
 }
 
+// Custom style for `select` with white borders and custom arrow icon
+@mixin custom-select-dropdown($theme: "light") {
+  appearance: none;
+  border-radius: 0;
+  padding: calc(1rem - 2px) 1.25rem;
+  line-height: 150%;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+
+  @if $theme == "dark" {
+    background-color: transparent;
+    background-image: url("/static/foundation_cms/_images/icons/select-caret-down-white.svg");
+    color: $white;
+    border: 1px solid $white;
+  } @else {
+    background-color: $white;
+    background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
+    color: $black;
+    border: 1px solid $black;
+  }
+
+  option {
+    color: color(neutral, "600");
+  }
+}
+
 // ===================================
 // Nothing Personal Mixins
 // ===================================
