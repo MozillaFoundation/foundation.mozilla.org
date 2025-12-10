@@ -5,8 +5,6 @@ from http import HTTPStatus
 from django import http, test
 from django.core import management
 from django.utils import timezone
-from taggit import models as tag_models
-from wagtail import rich_text
 from wagtail.models import PageViewRestriction
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
@@ -14,10 +12,7 @@ from foundation_cms.legacy_apps.wagtailpages.factory import (
     profiles as profile_factories,
 )
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import blog as blog_models
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import (
-    blog_index,
-    blog_topic,
-)
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import blog_index
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.legacy_apps.wagtailpages.utils import titlecase
 
