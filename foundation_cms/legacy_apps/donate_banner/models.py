@@ -138,12 +138,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         SynchronizedField("background_image"),
     ]
 
-    search_fields = [
-        index.SearchField("name"),
-        index.SearchField("title"),
-        index.FilterField("locale_id"),
-    ]
-
     def __str__(self):
         return self.name
 

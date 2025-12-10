@@ -220,35 +220,6 @@ class BlogPage(BasePage):
         SynchronizedField("first_published_at"),
     ]
 
-    search_fields = Page.search_fields + [
-        index.SearchField(field_name="title", boost=10),
-        index.RelatedFields(
-            field_name="topics",
-            fields=[
-                index.SearchField(field_name="title", boost=7),
-            ],
-        ),
-        index.RelatedFields(
-            field_name="authors",
-            fields=[
-                index.RelatedFields(
-                    field_name="author",
-                    fields=[
-                        index.SearchField(field_name="name", boost=7),
-                    ],
-                ),
-            ],
-        ),
-        index.RelatedFields(
-            field_name="tags",
-            fields=[
-                index.SearchField(field_name="name", boost=7),
-            ],
-        ),
-        index.SearchField(field_name="search_description", boost=4),
-        index.SearchField(field_name="body", boost=1),
-    ]
-
     subpage_types: list = []
 
     page_ptr = models.OneToOneField(

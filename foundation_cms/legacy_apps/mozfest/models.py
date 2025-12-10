@@ -88,10 +88,6 @@ class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
         SynchronizedField("background_image"),
     ]
 
-    search_fields = campaign_models.CTA.search_fields + [
-        index.FilterField("locale_id"),
-    ]
-
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Mozfest Newsletter Signup"
