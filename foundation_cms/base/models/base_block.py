@@ -19,7 +19,7 @@ class BaseBlock(blocks.StructBlock):
             return page.get_theme()
         return context.get("theme", "default")
 
-    def get_template(self, context=None):
+    def get_template(self, value, context=None):
         theme = self.get_theme(context or {})
         template_name = self.meta.template_name
         themed_path = f"patterns/blocks/themes/{theme}/{template_name}"
