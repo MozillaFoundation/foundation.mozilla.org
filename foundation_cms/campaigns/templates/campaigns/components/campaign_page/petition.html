@@ -1,0 +1,22 @@
+<div class="petition" data-page-id="{{ page.id }}" data-state="{{ state|default:'start' }}">
+    <div class="petition__outer-box">
+        <div class="petition__inner-box">
+            <!-- START STATE -->
+            {% if state == "start" %}
+                {% include "campaigns/components/campaign_page/form_state/01_start.html" with csp_nonce=csp_nonce state=state petition_cta=petition_cta %}
+
+            <!-- SIGNED STATE - After petition is signed -->
+            {% elif state == "signed" %}
+                {% include "campaigns/components/campaign_page/form_state/02_signed.html" with page=page %}
+
+            <!-- SHARING STATE -->
+            {% elif state == "sharing" %}
+                {% include "campaigns/components/campaign_page/form_state/03_sharing.html" with page=page request=request %}
+
+            <!-- THANK YOU STATE -->
+            {% elif state == "end" %}
+                {% include "campaigns/components/campaign_page/form_state/04_end.html" with page=page %}
+            {% endif %}
+        </div>
+    </div>
+</div>
