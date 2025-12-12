@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel,
@@ -17,6 +18,7 @@ from foundation_cms.blocks import (
     TextMediaBlock,
     TwoColumnContainerBlock,
 )
+from foundation_cms.utils import localize_queryset
 
 
 class NothingPersonalFeaturedItem(Orderable):
@@ -24,7 +26,7 @@ class NothingPersonalFeaturedItem(Orderable):
 
     page = models.ForeignKey(
         Page,
-        related_name="+",
+        related_name="nothing_personal_featured_items",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -118,8 +120,21 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     def get_context(self, request, virtual_page_name=None):
         context = super().get_context(request)
+        context["localized_featured_pages"] = self.get_localized_featured_pages
 
         if virtual_page_name:
             context["page_type_bem"] = self._to_bem_case(virtual_page_name)
 
         return context
+
+    @cached_property
+    def get_localized_featured_pages(self):
+        """
+        Return the localized versions of the featured pages.
+        """
+        featured_pages = Page.objects.filter(nothing_personal_featured_items__home_page=self).order_by(
+            "nothing_personal_featured_items__sort_order"
+        )
+
+        localized_featured_pages = localize_queryset(featured_pages, preserve_order=True)
+        return localized_featured_pages.specific()
