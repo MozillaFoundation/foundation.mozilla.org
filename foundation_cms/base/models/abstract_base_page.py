@@ -15,63 +15,40 @@ from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.blocks import (
-    CustomImageBlock,
-    DividerBlock,
-    FeaturedCardBlock,
-    FruElementBlock,
-    ImpactNumberBlock,
-    LinkButtonBlock,
-    ListBlock,
-    NewsletterSignupBlock,
-    NewsletterUnsubscribeBlock,
-    PillarCardSetBlock,
-    PodcastBlock,
-    PortraitCardSetBlock,
-    QuoteBlock,
-    SpacerBlock,
-    SpotlightCardSetBlock,
-    TabbedContentContainerBlock,
-    TimelyActivationsCardsBlock,
-    TitleBlock,
-    TwoColumnContainerBlock,
-    VideoBlock,
-    iFrameBlock,
-)
+from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixin
+
+BASE_BLOCK_NAMES = sorted(
+    [
+        "rich_text",
+        "image",
+        "podcast_block",
+        "tabbed_content",
+        "two_column_container_block",
+        "link_button_block",
+        "portrait_card_set_block",
+        "spotlight_card_set_block",
+        "spacer_block",
+        "iframe_block",
+        "impact_numbers",
+        "newsletter_signup",
+        "newsletter_unsubscribe",
+        "timely_activations_cards",
+        "quote",
+        "list_block",
+        "video_block",
+        "pillar_card_set",
+        "featured_card_block",
+        "fru_element_block",
+        "divider",
+        "title_block",
+    ]
+)
+
 
 # Shared StreamField block types for use across pages that inherit from AbstractBasePage.
 # Extend this list in specific page models (e.g., HomePage) to add more blocks as needed.
-base_page_block_options = [
-    # [TODO/FIXME] consider ordering or grouping these blocks
-    (
-        "rich_text",
-        RichTextBlock(
-            template="patterns/blocks/themes/default/rich_text_block.html",
-        ),
-    ),
-    ("image", CustomImageBlock()),
-    ("podcast_block", PodcastBlock()),
-    ("tabbed_content", TabbedContentContainerBlock()),
-    ("two_column_container_block", TwoColumnContainerBlock()),
-    ("link_button_block", LinkButtonBlock()),
-    ("portrait_card_set_block", PortraitCardSetBlock(skip_default_wrapper=True)),
-    ("spotlight_card_set_block", SpotlightCardSetBlock(skip_default_wrapper=True)),
-    ("spacer_block", SpacerBlock()),
-    ("iframe_block", iFrameBlock()),
-    ("impact_numbers", ImpactNumberBlock()),
-    ("newsletter_signup", NewsletterSignupBlock()),
-    ("newsletter_unsubscribe", NewsletterUnsubscribeBlock()),
-    ("timely_activations_cards", TimelyActivationsCardsBlock()),
-    ("quote", QuoteBlock()),
-    ("list_block", ListBlock()),
-    ("video_block", VideoBlock()),
-    ("pillar_card_set", PillarCardSetBlock()),
-    ("featured_card_block", FeaturedCardBlock(skip_default_wrapper=True)),
-    ("fru_element_block", FruElementBlock()),
-    ("divider", DividerBlock()),
-    ("title_block", TitleBlock()),
-]
+base_page_block_options = BlockRegistry.get_blocks(BASE_BLOCK_NAMES)
 
 
 @register_snippet
