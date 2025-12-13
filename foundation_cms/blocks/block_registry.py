@@ -8,7 +8,6 @@ from .fru_element_block import FruElementBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
 from .impact_number_block import ImpactNumberBlock
-from .link_block import LinkBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .media_block import CustomMediaBlock

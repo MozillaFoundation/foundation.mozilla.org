@@ -7,7 +7,6 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.blocks import RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
