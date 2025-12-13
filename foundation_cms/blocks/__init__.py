@@ -43,6 +43,9 @@ from .video_block import VideoBlock
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
+    "BlockRegistry",
+    "BlockGroups",
+    # blocks
     "BaseCardBlock",
     "BackgroundColorChoiceBlock",
     "DividerBlock",
