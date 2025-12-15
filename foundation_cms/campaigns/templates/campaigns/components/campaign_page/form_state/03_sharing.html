@@ -12,9 +12,9 @@
          When a user clicks email, twitter, or facebook, these are actually clicked via JS. 
         -->
         <div class="share-progress-targets">
-            <div id="share-progress-tw" class='{{ petition_cta.share_twitter }} sp_tw_small'></div>
-            <div id="share-progress-fb" class='{{ petition_cta.share_facebook }} sp_fb_small'></div>
-            <div id="share-progress-em" class='{{ petition_cta.share_email }} sp_em_small'></div>
+            <div id="share-progress-tw" class="{{ petition_cta.share_twitter }} sp_tw_small"></div>
+            <div id="share-progress-fb" class="{{ petition_cta.share_facebook }} sp_fb_small'"></div>
+            <div id="share-progress-em" class="{{ petition_cta.share_email }} sp_em_small"></div>
         </div>
 
         <!-- Copy Link -->
@@ -35,7 +35,7 @@
         <!-- Email -->
         {% trans "Check out this petition:" as email_message %}
         <a href="mailto:?subject={{ page.title|urlencode }}&body={{ email_message|urlencode }} {{ request.build_absolute_uri|urlencode }}"
-           data-sp-target="share-progress-em"    
+           data-sp-target="share-progress-em"
            class="btn btn-primary without-icon">
             {% trans "Email" %}
         </a>
