@@ -6,23 +6,36 @@
     {{ page.share_body|richtext }}
 
     <div class="petition__share-button-wrapper">
+
+        <!-- 
+        "Hidden" buttons embedded by ShareProgress.
+         When a user clicks email, twitter, or facebook, these are actually clicked via JS. 
+        -->
+        <div class="share-progress-targets">
+            <div id="share-progress-tw" class='{{ petition_cta.share_twitter }} sp_tw_small'></div>
+            <div id="share-progress-fb" class='{{ petition_cta.share_facebook }} sp_fb_small'></div>
+            <div id="share-progress-em" class='{{ petition_cta.share_email }} sp_em_small'></div>
+        </div>
+
         <!-- Copy Link -->
         <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')"
                 class="btn btn-primary without-icon">
             {% trans "Copy Link" %}
         </button>
 
-        <!-- Bluesky -->
-        <a href="https://bsky.app/intent/compose?text={{ page.title|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+        <!-- Twitter -->
+        <a href="https://twitter.com/intent/tweet?text={{ page.title|urlencode }} {{ request.build_absolute_uri|urlencode }}"
            target="_blank"
            rel="noopener noreferrer"
+           data-sp-target="share-progress-tw"
            class="btn btn-primary without-icon">
-            {% trans "Bluesky" %}
+            {% trans "Twitter" %}
         </a>
 
         <!-- Email -->
         {% trans "Check out this petition:" as email_message %}
         <a href="mailto:?subject={{ page.title|urlencode }}&body={{ email_message|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+           data-sp-target="share-progress-em"    
            class="btn btn-primary without-icon">
             {% trans "Email" %}
         </a>
@@ -31,6 +44,7 @@
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
            target="_blank"
            rel="noopener noreferrer"
+           data-sp-target="share-progress-fb"
            class="btn btn-primary without-icon">
             {% trans "Facebook" %}
         </a>
@@ -38,3 +52,4 @@
 
     {% include "campaigns/components/campaign_page/action/skip.html" %}
 </div>
+<script src="https://c.shpg.org/352/sp.js"></script>
