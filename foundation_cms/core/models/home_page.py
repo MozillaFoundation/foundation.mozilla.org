@@ -3,6 +3,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
+from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import Topic
@@ -29,6 +30,22 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
         # Content tab fields
         TranslatableField("hero_accordion"),
         TranslatableField("body"),
+    ]
+
+    search_fields = AbstractHomePage.search_fields + [
+        index.SearchField("body", boost=8),
+
+        # Hero accordion content indexing
+        index.RelatedFields(
+            "hero_accordion",
+            [
+                index.SearchField("title", boost=5),
+                index.SearchField("body", boost=3),
+            ],
+        ),
+
+        # Homepage filters
+        index.FilterField("first_published_at"),
     ]
 
     template = "patterns/pages/core/home_page.html"

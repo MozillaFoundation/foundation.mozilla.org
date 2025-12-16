@@ -1,4 +1,5 @@
 from wagtail.admin.panels import FieldPanel
+from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
@@ -18,6 +19,11 @@ class NothingPersonalProductCollectionPage(AbstractArticlePage):
         # Content tab fields
         TranslatableField("body"),
         TranslatableField("lede_text"),
+    ]
+
+    search_fields = AbstractArticlePage.search_fields + [
+        index.SearchField("lede_text", boost=5),
+        index.SearchField("body", boost=4),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]

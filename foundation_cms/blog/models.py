@@ -2,6 +2,7 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
+from wagtail.search import index
 
 from foundation_cms.profiles.models import Profile
 
@@ -16,6 +17,10 @@ class BlogIndexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("body", boost=4),
     ]
 
     def get_context(self, request):
@@ -45,6 +50,19 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("author"),
         FieldPanel("body"),
+    ]
+
+    search_fields = Page.search_fields + [
+        # Blog content
+        index.SearchField("body", boost=6),
+
+        # Author information
+        index.RelatedFields("author", [
+            index.SearchField("title", boost=3),
+        ]),
+
+        # Blog filters
+        index.FilterField("first_published_at"),
     ]
 
     def author_name(self):

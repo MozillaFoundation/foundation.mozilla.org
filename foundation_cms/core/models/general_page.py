@@ -1,5 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
@@ -83,6 +84,11 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         TranslatableField("button_title"),
         TranslatableField("button_url"),
         TranslatableField("body"),
+    ]
+
+    search_fields = AbstractGeneralPage.search_fields + [
+        index.SearchField("body", boost=5),  # Main content
+        index.SearchField("hero_image_alt_text", boost=2),
     ]
 
     class Meta:
