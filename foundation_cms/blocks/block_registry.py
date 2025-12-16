@@ -27,11 +27,11 @@ from .video_block import VideoBlock
 
 
 class BlockGroups:
-    TEXT = "Text & Typography"
+    TEXT = "Text"
     MEDIA = "Media & Embeds"
-    LAYOUT = "Layout & Structure"
+    LAYOUT = "Layout"
     CARDS = "Card Collections"
-    ENGAGEMENT = "Engagement & Actions"
+    ENGAGEMENT = "Engagement"
     DATA = "Data Display"
 
 
@@ -57,6 +57,10 @@ class BlockRegistry:
         "spotlight_card_set_block": {
             "class": SpotlightCardSetBlock,
             "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.CARDS,
+        },
+        "tabbed_content": {
+            "class": TabbedContentContainerBlock,
             "group": BlockGroups.CARDS,
         },
         # Data Display
@@ -100,10 +104,6 @@ class BlockRegistry:
         },
         "spacer_block": {
             "class": SpacerBlock,
-            "group": BlockGroups.LAYOUT,
-        },
-        "tabbed_content": {
-            "class": TabbedContentContainerBlock,
             "group": BlockGroups.LAYOUT,
         },
         "two_column_container_block": {
