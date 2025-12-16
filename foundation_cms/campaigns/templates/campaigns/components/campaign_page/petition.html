@@ -11,7 +11,7 @@
 
             <!-- SHARING STATE -->
             {% elif state == "sharing" %}
-                {% include "campaigns/components/campaign_page/form_state/03_sharing.html" with page=page request=request %}
+                {% include "campaigns/components/campaign_page/form_state/03_sharing.html" with page=page request=request petition_cta=petition_cta %}
 
             <!-- THANK YOU STATE -->
             {% elif state == "end" %}
