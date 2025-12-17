@@ -54,11 +54,12 @@ class SitewideDonateBannerPage(Page):
             [
                 index.SearchField("name", boost=6),
                 index.SearchField("title", boost=6),
-                index.SearchField("donate_text", boost=4),
+                index.SearchField("subtitle", boost=5),
+                index.SearchField("cta_button_text", boost=4),
             ],
         ),
-        # Specific filters for donate banners
         index.FilterField("id"),
+        index.FilterField("locale_id"),
     ]
 
     promote_panels: list = []

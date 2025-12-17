@@ -195,7 +195,6 @@ class CampaignPage(AbstractBasePage):
 
     search_fields = AbstractBasePage.search_fields + [
         index.SearchField("body", boost=6),
-
         # Campaign topic relationships
         index.RelatedFields(
             "keep_contributing_topic",
@@ -203,7 +202,6 @@ class CampaignPage(AbstractBasePage):
                 index.SearchField("name", boost=4),
             ],
         ),
-
         # Campaign filters
         index.FilterField("first_published_at"),
         index.FilterField("live"),

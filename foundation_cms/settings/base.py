@@ -605,7 +605,6 @@ WAGTAILSEARCH_BACKENDS = {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
         "AUTO_UPDATE": True,
-        "ATOMIC_REBUILD": True,
     }
 }
 

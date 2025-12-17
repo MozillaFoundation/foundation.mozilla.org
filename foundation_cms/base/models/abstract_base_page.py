@@ -180,19 +180,21 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         index.SearchField("search_description", boost=8),
         index.SearchField("body", boost=5),
         index.SearchField("title", boost=3),
-        # Locale filtering based on current locale ID, e.g. to filter to only pages in 'en' locale
+        # Locale filtering based on current locale ID
         index.FilterField("locale_id"),
         # Related fields searching
         index.RelatedFields(
             "author",
             [
                 index.SearchField("name", boost=2),
+                index.SearchField("bio", boost=1),
             ],
         ),
         index.RelatedFields(
             "topics",
             [
                 index.SearchField("name", boost=3),
+                index.SearchField("description", boost=2),
             ],
         ),
     ]

@@ -55,12 +55,13 @@ class BlogPage(Page):
     search_fields = Page.search_fields + [
         # Blog content
         index.SearchField("body", boost=6),
-
         # Author information
-        index.RelatedFields("author", [
-            index.SearchField("title", boost=3),
-        ]),
-
+        index.RelatedFields(
+            "author",
+            [
+                index.SearchField("title", boost=3),
+            ],
+        ),
         # Blog filters
         index.FilterField("first_published_at"),
     ]

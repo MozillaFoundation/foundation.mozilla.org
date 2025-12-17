@@ -87,7 +87,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
     ]
 
     search_fields = AbstractGeneralPage.search_fields + [
-        index.SearchField("body", boost=5),  # Main content
+        index.SearchField("body", boost=5),
         index.SearchField("hero_image_alt_text", boost=2),
     ]
 
