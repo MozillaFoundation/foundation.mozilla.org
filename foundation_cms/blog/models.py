@@ -64,6 +64,8 @@ class BlogPage(Page):
         ),
         # Blog filters
         index.FilterField("first_published_at"),
+        index.FilterField("author"),
+        index.FilterField("locale_id"),
     ]
 
     def author_name(self):

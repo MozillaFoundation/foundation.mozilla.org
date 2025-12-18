@@ -1,5 +1,16 @@
-{% extends "base.html" %}
+{% extends "base/base.html" %}
 {% load static wagtailcore_tags %}
+
+{% block wagtail_metadata %}
+    <meta property="og:title" content="Search{% if search_query %} - {{ search_query }}{% endif %} | Mozilla Foundation">
+    <meta property="og:description" content="Search Mozilla Foundation{% if search_query %} for {{ search_query }}{% endif %}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@mozilla">
+    <meta name="twitter:title" content="Search{% if search_query %} - {{ search_query }}{% endif %} | Mozilla Foundation">
+    <meta name="twitter:description" content="Search Mozilla Foundation{% if search_query %} for {{ search_query }}{% endif %}">
+{% endblock wagtail_metadata %}
+
 {% block body_class %}template-searchresults{% endblock body_class %}
 {% block title %}Search{% endblock title %}
 {% block extra_css %}
