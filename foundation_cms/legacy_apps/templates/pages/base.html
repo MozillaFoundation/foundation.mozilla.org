@@ -14,6 +14,7 @@
         <meta charset="utf-8">
         <title>
             {% block page_title %}
+                Hello!
                 {% environment_prefix %}
                 {% if page.specifics.seo_title %}{{ page.specifics.seo_title }}{% else %}{{ page.title }}{% endif %} - {% trans "Mozilla Foundation" %}
             {% endblock %}
