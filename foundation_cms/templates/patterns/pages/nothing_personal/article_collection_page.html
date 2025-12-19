@@ -32,7 +32,20 @@
                                     <p> <b> Meta/Search Description:</b> {{ article_page.meta_description }}</p>
                                     <p> <b> First Published At:</b> {{ article_page.first_published_at }}</p>
                                     <p> <b> Search Image:</b> {{ article_page.search_image }}</p>
-                                    <p> <b> Topics:</b> {{ article_page.topics.all }}</p>
+                                    <p>
+                                        <b> Topics:</b>
+                                        {% with topics=article_page.topics.all %}
+                                            {% if topics %}
+                                                <ul>
+                                                    {% for topic in topics %}
+                                                        <a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        {% endwith %}
+                                    </p>
                                     <p><b> Link to Page:</b> <a href="{{ article_page.url }}">{{ article_page.title }}</a></p>
                                 </article>
                             {% endfor %}
