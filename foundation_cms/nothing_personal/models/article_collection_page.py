@@ -2,8 +2,9 @@ from wagtail.admin.panels import FieldPanel
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
-from foundation_cms.nothing_personal.models.article_page import NothingPersonalArticlePage
-
+from foundation_cms.nothing_personal.models.article_page import (
+    NothingPersonalArticlePage,
+)
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 
