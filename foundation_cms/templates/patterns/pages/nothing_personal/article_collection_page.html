@@ -2,6 +2,11 @@
 
 {% load wagtailimages_tags static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_collection_page.compiled.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/product_collection_page.compiled.css' %}"> -->
+{% endblock extra_css %}
+
 {% block content %}
     <main>
         <article>
@@ -19,10 +24,17 @@
             <div class="grid-container">
                 <div class="grid-x">
                     <div class="cell small-12 medium-12">
+                        <p> Showing {{ article_page_results_count }} results for: <b> Articles </b></p>
+
                         <div class="collection-products">
-                            {% for review in product_reviews %}
+                            {% for article_page in localized_article_pages %}
                                 <article>
-                                    <h2><a href="{{ review.url }}">{{ review.title }}</a></h2>
+                                    <h5><a href="{{ article_page.url }}">{{ article_page.title }}</a></h5>
+                                    <p> <b> Meta/Search Description:</b> {{ article_page.meta_description }}</p>
+                                    <p> <b> First Published At:</b> {{ article_page.first_published_at }}</p>
+                                    <p> <b> Search Image:</b> {{ article_page.search_image }}</p>
+                                    <p> <b> Topics:</b> {{ article_page.topics.all }}</p>
+                                    <p><b> Link to Page:</b> <a href="{{ article_page.url }}">{{ article_page.title }}</a></p>
                                 </article>
                             {% endfor %}
                         </div>
