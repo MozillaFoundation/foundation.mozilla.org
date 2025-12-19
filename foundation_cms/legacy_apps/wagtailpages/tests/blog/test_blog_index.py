@@ -5,8 +5,6 @@ from http import HTTPStatus
 from django import http, test
 from django.core import management
 from django.utils import timezone
-from taggit import models as tag_models
-from wagtail import rich_text
 from wagtail.models import PageViewRestriction
 
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
@@ -14,10 +12,7 @@ from foundation_cms.legacy_apps.wagtailpages.factory import (
     profiles as profile_factories,
 )
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import blog as blog_models
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import (
-    blog_index,
-    blog_topic,
-)
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog import blog_index
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.legacy_apps.wagtailpages.utils import titlecase
 
@@ -628,190 +623,6 @@ class TestBlogIndexSearch(BlogIndexTestCase):
 
         self.assertIn(match_post, results)
         self.assertNotIn(other_post, results)
-
-    def test_get_search_entries_topic_match(self):
-        topic = blog_topic.BlogPageTopic.objects.create(title=self.search_term)
-        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        match_post.topics.add(topic)
-        match_post.save()
-        self.assertIn(topic, match_post.topics.all())
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        self.assertIn(match_post, results)
-        self.assertNotIn(other_post, results)
-
-    def test_get_search_entries_author_match(self):
-        author_profile = profile_factories.ProfileFactory(name=self.search_term)
-        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        blog_models.BlogAuthors.objects.create(page=match_post, author=author_profile)
-        self.assertEqual(match_post.authors.first().author, author_profile)
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        self.update_index()
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        self.assertIn(match_post, results)
-        self.assertNotIn(other_post, results)
-
-    def test_get_search_entries_tags_match(self):
-        tag = tag_models.Tag.objects.create(name=self.search_term)
-        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        match_post.tags.add(tag)
-        match_post.save()
-        self.assertIn(tag, match_post.tags.all())
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        self.assertIn(match_post, results)
-        self.assertNotIn(other_post, results)
-
-    def test_get_search_entries_description_match(self):
-        match_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            search_description=f"Something including the {self.search_term}",
-        )
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        self.assertIn(match_post, results)
-        self.assertNotIn(other_post, results)
-
-    def test_get_search_entries_body_match(self):
-        match_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        match_post.body.append(
-            (
-                "paragraph",
-                rich_text.RichText(
-                    f"<p>Some richtext containing the { self.search_term }</p>",
-                ),
-            )
-        )
-        match_post.save()
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        self.assertIn(match_post, results)
-        self.assertNotIn(other_post, results)
-
-    def test_get_search_entries_ranking(self):
-        """
-        Test ranking of the search results.
-
-        With Postgres database search, we only have 4 weights that can be used to
-        rank search results. This means within these groups we do not have fine-grained
-        control over the ranking. Therefore, it is necessary to group fields and only
-        check the relative position of the groups.
-
-        """
-        # Post with match in title
-        title_post = blog_factories.BlogPageFactory(parent=self.blog_index, title=self.search_term)
-        # Post with match in topic
-        topic = blog_topic.BlogPageTopic.objects.create(title=self.search_term)
-        topic_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        topic_post.topics.add(topic)
-        topic_post.save()
-        # Post with match in author
-        author_profile = profile_factories.ProfileFactory(name=self.search_term)
-        author_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        blog_models.BlogAuthors.objects.create(page=author_post, author=author_profile)
-        # Post with match in tag
-        tag = tag_models.Tag.objects.create(name=self.search_term)
-        tag_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        tag_post.tags.add(tag)
-        tag_post.save()
-        # Post with match in description
-        description_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            search_description=self.search_term,
-        )
-        # Post with match in body
-        body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        body_post.body.append(
-            (
-                "paragraph",
-                rich_text.RichText(self.search_term),
-            )
-        )
-        body_post.save()
-        # Non-matching post
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        self.update_index()
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        # All expected results are returned
-        self.assertIn(title_post, results)
-        self.assertIn(topic_post, results)
-        self.assertIn(author_post, results)
-        self.assertIn(tag_post, results)
-        self.assertIn(description_post, results)
-        self.assertIn(body_post, results)
-        self.assertNotIn(other_post, results)
-
-        # The expected results are in the right order
-        results_list = list(results)
-        title_post_index = results_list.index(title_post)
-        topic_post_index = results_list.index(topic_post)
-        author_post_index = results_list.index(author_post)
-        tag_post_index = results_list.index(tag_post)
-        description_post_index = results_list.index(description_post)
-        body_post_index = results_list.index(body_post)
-        self.assertLess(title_post_index, topic_post_index)
-        self.assertLess(title_post_index, author_post_index)
-        self.assertLess(title_post_index, tag_post_index)
-        # The following assertion fails sometimes unexpectedly, but sometimes passes too.
-        # I am not sure at this time what causes this inconsistent behaviour.
-        # self.assertLess(topic_post_index, description_post_index)
-        self.assertLess(author_post_index, description_post_index)
-        self.assertLess(tag_post_index, description_post_index)
-        self.assertLess(description_post_index, body_post_index)
-
-    def test_get_search_entries_ranking_non_related(self):
-        """
-        Test ranking of the search results based on non-related fields.
-
-        With Postgres database search, we only have 4 weights that can be used to
-        rank search results. At the moment we only have 3 fields (that not related
-        fields) that we want to rank, we can test the order of the matches directly.
-
-        """
-        # Post with match in title
-        title_post = blog_factories.BlogPageFactory(parent=self.blog_index, title=self.search_term)
-        # Post with match in description
-        description_post = blog_factories.BlogPageFactory(
-            parent=self.blog_index,
-            search_description=self.search_term,
-        )
-        # Post with match in body
-        body_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        body_post.body.append(
-            (
-                "paragraph",
-                rich_text.RichText(self.search_term),
-            )
-        )
-        body_post.save()
-        # Non-matching post
-        other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
-        self.update_index()
-
-        results = self.blog_index.get_search_entries(query=self.search_term)
-
-        # All expected results are returned
-        self.assertIn(title_post, results)
-        self.assertIn(description_post, results)
-        self.assertIn(body_post, results)
-        self.assertNotIn(other_post, results)
-
-        # The expected results are in the right order
-        self.assertEqual(title_post, results[0])
-        self.assertEqual(description_post, results[1])
-        self.assertEqual(body_post, results[2])
 
     def test_search_entries_route_without_page_parameter(self):
         url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search_entries")

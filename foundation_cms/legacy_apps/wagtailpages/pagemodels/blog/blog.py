@@ -19,7 +19,6 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Orderable, Page, TranslatableMixin
 from wagtail.rich_text import get_text_for_indexing
-from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.wagtailpages.forms import BlogPageForm
@@ -218,35 +217,6 @@ class BlogPage(BasePage):
         SynchronizedField("feature_author_details"),
         SynchronizedField("feature_comments"),
         SynchronizedField("first_published_at"),
-    ]
-
-    search_fields = Page.search_fields + [
-        index.SearchField(field_name="title", boost=10),
-        index.RelatedFields(
-            field_name="topics",
-            fields=[
-                index.SearchField(field_name="title", boost=7),
-            ],
-        ),
-        index.RelatedFields(
-            field_name="authors",
-            fields=[
-                index.RelatedFields(
-                    field_name="author",
-                    fields=[
-                        index.SearchField(field_name="name", boost=7),
-                    ],
-                ),
-            ],
-        ),
-        index.RelatedFields(
-            field_name="tags",
-            fields=[
-                index.SearchField(field_name="name", boost=7),
-            ],
-        ),
-        index.SearchField(field_name="search_description", boost=4),
-        index.SearchField(field_name="body", boost=1),
     ]
 
     subpage_types: list = []

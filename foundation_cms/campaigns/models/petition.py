@@ -40,6 +40,18 @@ class Petition(CTA):
         help_text="Text for the petition submission button",
     )
 
+    share_twitter = models.CharField(
+        max_length=20, help_text="Share Progress id for twitter button, including the sp_... prefix", null=True
+    )
+
+    share_facebook = models.CharField(
+        max_length=20, help_text="Share Progress id for facebook button, including the sp_... prefix", null=True
+    )
+
+    share_email = models.CharField(
+        max_length=20, help_text="Share Progress id for email button, including the sp_... prefix", null=True
+    )
+
     translatable_fields = [
         SynchronizedField("show_country_field"),
         SynchronizedField("show_postal_code_field"),
@@ -47,6 +59,9 @@ class Petition(CTA):
         TranslatableField("header"),
         TranslatableField("description"),
         TranslatableField("cta_button_text"),
+        SynchronizedField("share_twitter"),
+        SynchronizedField("share_facebook"),
+        SynchronizedField("share_email"),
     ]
 
     search_fields = CTA.search_fields + [
@@ -63,6 +78,9 @@ class Petition(CTA):
         FieldPanel("show_postal_code_field"),
         FieldPanel("show_comment_field"),
         FieldPanel("cta_button_text"),
+        FieldPanel("share_twitter"),
+        FieldPanel("share_facebook"),
+        FieldPanel("share_email"),
     ]
 
     class Meta:
