@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load wagtailimages_tags static %}
+{% load wagtailimages_tags static responsive_image_tags %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_collection_page.compiled.css' %}">
@@ -30,8 +30,10 @@
                                 <article>
                                     <h5><a href="{{ article_page.url }}">{{ article_page.title }}</a></h5>
                                     <p> <b> Meta/Search Description:</b> {{ article_page.meta_description }}</p>
-                                    <p> <b> First Published At:</b> {{ article_page.first_published_at }}</p>
+                                    <p> <b> Lede Text:</b> {{ article_page.lede_text }}</p>
+                                    <p> <b> First Published At:</b> {{ article_page.first_published_at|date:"M j, Y" }}</p>
                                     <p> <b> Search Image:</b> {{ article_page.search_image }}</p>
+                                    {% responsive_image article_page.search_image ratio="3:2" %}
                                     <p>
                                         <b> Topics:</b>
                                         {% with topics=article_page.topics.all %}
