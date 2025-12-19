@@ -27,7 +27,7 @@
 
                         <div class="collection-products">
                             {% for article_page in localized_article_pages %}
-                                <article>
+                                <div>
                                     <h5><a href="{{ article_page.url }}">{{ article_page.title }}</a></h5>
                                     <p> <b> Meta/Search Description:</b> {{ article_page.meta_description }}</p>
                                     <p> <b> Lede Text:</b> {{ article_page.lede_text }}</p>
@@ -49,7 +49,7 @@
                                         {% endwith %}
                                     </p>
                                     <p><b> Link to Page:</b> <a href="{{ article_page.url }}">{{ article_page.title }}</a></p>
-                                </article>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
