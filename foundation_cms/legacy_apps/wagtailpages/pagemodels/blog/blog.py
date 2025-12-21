@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms import CheckboxSelectMultiple
@@ -230,7 +229,6 @@ class BlogPage(BasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["show_comments"] = settings.USE_COMMENTO and self.feature_comments
 
         related_posts = [post.related_post for post in self.related_posts.all()]
         if request.is_preview:
