@@ -5,15 +5,12 @@ from foundation_cms.base.models.base_block import BaseBlock
 
 class PodcastBlock(BaseBlock):
     title = blocks.CharBlock(
-        help_text=(
-            'Title of the podcast. '
-            '<strong>Note:</strong> Does not render on "NothingPersonal" pages.'
-        )
+        help_text=('Title of the podcast. <strong>Note:</strong> Does not render on "NothingPersonal" pages.')
     )
     description = blocks.TextBlock(
         required=False,
         help_text=(
-            'Optional short description of the podcast. '
+            "Optional short description of the podcast. "
             '<strong>Note:</strong> Does not render on "NothingPersonal" pages.'
         ),
     )
