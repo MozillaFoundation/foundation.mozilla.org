@@ -1,6 +1,8 @@
-{% load static i18n l10n %}
+{% load static i18n l10n localization %}
 
-<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
+{% get_current_language as current_language %}
+
+<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}" data-current-language="{{ current_language }}">
 
   <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
     {% trans "Something went wrong and your signup wasn't completed. Please try again later." %}
