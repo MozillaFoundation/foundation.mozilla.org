@@ -4,6 +4,8 @@ from django.template.response import TemplateResponse
 from wagtail.models import Locale, Page
 from wagtail.search.query import PlainText
 
+from foundation_cms.utils import get_default_locale, localize_queryset
+
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
 # uncomment the following line and the lines indicated in the search function
@@ -37,14 +39,44 @@ def search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
+    # Keep contributing pages when there are no results
+    keep_contributing_pages = []
+    if search_query and not search_results.object_list:
+        keep_contributing_pages = get_keep_contributing_pages()
+
     return TemplateResponse(
         request,
         "search/search.html",
         {
             "search_query": search_query,
             "search_results": search_results,
+            "keep_contributing_pages": keep_contributing_pages,
         },
     )
+
+
+def get_keep_contributing_pages():
+    """
+    Get suggested pages following the same pattern as CampaignPage.
+    Returns the most recent localized pages.
+    """
+    (default_locale, _) = get_default_locale()
+
+    # Get recent pages in the default language
+    recent_pages = (
+        Page.objects.live()
+        .public()
+        .filter(locale=default_locale)
+        .exclude(depth__lte=2)
+        .order_by("-first_published_at")
+    )
+
+    localized_pages = localize_queryset(
+        recent_pages,
+        preserve_order=True,
+    )
+
+    return list(localized_pages.specific()[:2])
 
 
 def search_autocomplete(request):
