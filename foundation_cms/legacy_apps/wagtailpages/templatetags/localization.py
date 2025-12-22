@@ -56,7 +56,11 @@ def get_local_language_names():
 # Get the url for a page, but with the locale code removed.
 @register.simple_tag()
 def get_unlocalized_url(page, locale):
-    return page.get_url().replace(f"/{locale}/", "/", 1)
+    url = page.get_url()
+    if url:
+        return url.replace(f"/{locale}/", "/", 1)
+
+    return "/"
 
 
 def relocalize_url(url, locale_code):
