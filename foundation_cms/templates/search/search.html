@@ -46,6 +46,17 @@
         <div id="autocomplete-container" class="autocomplete-suggestions"></div>
     </form>
     {% if search_results %}
+        <div class="search-summary">
+            {% if search_results.paginator.count > 0 %}
+                {% with start_index=search_results.start_index end_index=search_results.end_index total=search_results.paginator.count %}
+                    <p>{{ start_index }}-{{ end_index }} of {{ total }} result{{ total|pluralize }} for "{{ search_query }}"</p>
+                {% endwith %}
+            {% endif %}
+
+            {% if search_results.paginator.num_pages > 1 %}
+                <p>Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}</p>
+            {% endif %}
+        </div>
         <ul class="search-results">
             {% for result in search_results %}
                 <li>

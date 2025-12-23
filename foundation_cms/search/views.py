@@ -17,10 +17,12 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 def search(request):
     search_query = request.GET.get("query", None)
     page = request.GET.get("page", 1)
+    total_search_results = 0
 
     # Search
     if search_query:
         search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
+        total_search_results = search_results.count()
 
         # To log this query for use with the "Promoted search results" module:
 
@@ -50,6 +52,7 @@ def search(request):
         {
             "search_query": search_query,
             "search_results": search_results,
+            "total_search_results": total_search_results,
             "keep_contributing_pages": keep_contributing_pages,
         },
     )
