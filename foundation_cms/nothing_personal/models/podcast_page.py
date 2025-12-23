@@ -1,6 +1,7 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.images import get_image_model_string
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
@@ -55,6 +56,12 @@ class NothingPersonalPodcastPage(AbstractBasePage):
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
         TranslatableField("body"),
+    ]
+
+    search_fields = AbstractBasePage.search_fields + [
+        index.SearchField("hero_title", boost=8),
+        index.SearchField("hero_description", boost=6),
+        index.SearchField("hero_image_alt_text", boost=2),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]

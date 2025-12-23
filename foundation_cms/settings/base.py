@@ -603,6 +603,8 @@ WAGTAILEMBEDS_FINDERS = [
 WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "english",
+        "AUTO_UPDATE": True,
     }
 }
 
