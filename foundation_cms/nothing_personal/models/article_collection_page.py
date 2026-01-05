@@ -22,7 +22,7 @@ class NothingPersonalArticleCollectionPage(AbstractArticlePage):
     ]
 
     search_fields = AbstractArticlePage.search_fields + [
-        index.SearchField("lede_text", boost=5),
+        index.SearchField("lede_text", boost=6),
         index.SearchField("body", boost=4),
     ]
 

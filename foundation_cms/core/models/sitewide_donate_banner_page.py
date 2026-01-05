@@ -54,7 +54,7 @@ class SitewideDonateBannerPage(Page):
             [
                 index.SearchField("name", boost=6),
                 index.SearchField("title", boost=6),
-                index.SearchField("subtitle", boost=5),
+                index.SearchField("subtitle", boost=4),
                 index.SearchField("cta_button_text", boost=4),
             ],
         ),

@@ -104,7 +104,7 @@ class Highlight(TranslatableMixin, SortableMixin):
     ]
 
     search_fields = [
-        index.SearchField("title", boost=10),
+        index.SearchField("title", boost=4),
         index.SearchField("link_label"),
         index.FilterField("locale_id"),
     ]

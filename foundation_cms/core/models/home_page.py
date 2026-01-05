@@ -38,8 +38,8 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
         index.RelatedFields(
             "hero_accordion",
             [
-                index.SearchField("label", boost=5),
-                index.SearchField("heading", boost=4),
+                index.SearchField("label", boost=6),
+                index.SearchField("heading", boost=6),
             ],
         ),
         # Homepage filters

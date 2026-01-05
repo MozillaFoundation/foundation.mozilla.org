@@ -20,7 +20,7 @@ class BlogIndexPage(Page):
     ]
 
     search_fields = Page.search_fields + [
-        index.SearchField("body", boost=4),
+        index.SearchField("body", boost=5),
     ]
 
     def get_context(self, request):
@@ -53,13 +53,16 @@ class BlogPage(Page):
     ]
 
     search_fields = Page.search_fields + [
+        index.SearchField("title", boost=10),
+        index.SearchField("seo_title", boost=8),
+        index.SearchField("search_description", boost=8),
         # Blog content
-        index.SearchField("body", boost=6),
+        index.SearchField("body", boost=5),
         # Author information
         index.RelatedFields(
             "author",
             [
-                index.SearchField("title", boost=3),
+                index.SearchField("title", boost=4),
             ],
         ),
         # Blog filters
