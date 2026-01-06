@@ -19,9 +19,11 @@
     {% if page.hero_item %}
       {% include "patterns/components/nothing_personal/home_page/hero_item.html" with hero_item=page.hero_item orientation=page.hero_item_orientation %}
     {% endif %}
-    {% if page.featured_items.all %}
-      {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=page.featured_items.all %}
+
+    {% if localized_featured_pages %}
+      {% include "patterns/components/nothing_personal/home_page/featured_items.html" with featured_items=localized_featured_pages %}
     {% endif %}
+
     {% if page.body %}
       {% include "patterns/components/streamfield.html" with streamfield=page.body %}
     {% endif %}

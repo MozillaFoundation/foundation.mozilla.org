@@ -1,17 +1,28 @@
-name: Visual Regression Tests
+name: Visual Regression Tests - Legacy
 
 on:
   pull_request:
     types: [labeled]
+    paths:
+      - 'foundation_cms/legacy_apps/**'
+      - 'frontend/legacy/**'
   pull_request_review:
     types: [submitted]
   push:
     branches:
       - "main"
+      - "2025-code-freeze" # [TODO:FIXME] remove this line after code freeze ends
+    paths:
+      - 'foundation_cms/legacy_apps/**'
+      - 'frontend/legacy/**'
 jobs:
   visual_regression_tests:
-    name: Percy CI
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'run visual regression tests') || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
+    name: Percy CI - Legacy
+    if: |
+      # [TODO:FIXME] remove github.event.ref == 'refs/heads/2025-code-freeze' after code freeze ends
+      (github.event_name == 'push' && (github.event.ref == 'refs/heads/main' || github.event.ref == 'refs/heads/2025-code-freeze')) ||
+      (github.event_name == 'pull_request' && github.event.label.name == 'run:visual-regression:legacy') ||
+      (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     runs-on: ubuntu-22.04
     services:
       postgres:
