@@ -408,6 +408,10 @@ body:has(.search-input-container.search-open) {
     flex-direction: row;
     align-items: stretch; /* optional */
     gap: 1rem;
+
+    form {
+      display: contents;
+    }
   }
 
   &__input {
