@@ -10,6 +10,9 @@ const SELECTORS = {
   dropdown: ".primary-nav-ns__dropdown",
   toggle: ".primary-nav-ns__dropdown-toggle",
   kineticTypeWordmark: ".kinetic-type-wordmark",
+  searchToggle: ".primary-nav-ns__search-icon .search-toggle",
+  searchInputContainer: ".search-input-container",
+  searchInput: ".search-input-container input",
 };
 
 /**
@@ -19,6 +22,8 @@ const CLASSNAMES = {
   navOpen: "primary-nav-ns-open",
   hidden: "hidden",
   hiddenWordmark: "hidden-wordmark",
+  searchOpen: "search-open",
+  searchOpenBackdrop: "search-open-backdrop",
 };
 
 /**
@@ -201,4 +206,68 @@ export function initWordmarkVisibilityOnScroll() {
   );
 
   observer.observe(kineticTypeWordmark);
+}
+
+/**
+ * Initializes the search input toggle functionality, toggling visibility on search icon click.
+ */
+export function initSearchToggle() {
+  const searchToggle = document.querySelector(SELECTORS.searchToggle);
+  const searchInputContainer = document.querySelector(
+    SELECTORS.searchInputContainer,
+  );
+  const searchInput = document.querySelector(SELECTORS.searchInput);
+
+  if (!searchToggle || !searchInputContainer || !searchInput) return;
+
+  // Create backdrop element
+  const backdrop = document.createElement("div");
+  backdrop.classList.add(CLASSNAMES.searchOpenBackdrop);
+  searchInputContainer.parentNode.insertBefore(backdrop, searchInputContainer);
+
+  function toggleSearchInputVisibility() {
+    if (searchInputContainer.classList.contains(CLASSNAMES.searchOpen)) {
+      searchToggle.classList.remove(CLASSNAMES.searchOpen);
+      searchInputContainer.classList.remove(CLASSNAMES.searchOpen);
+      searchInputContainer.style.maxHeight = null;
+      searchInputContainer.setAttribute("aria-expanded", "false");
+      return;
+    }
+
+    searchToggle.classList.add(CLASSNAMES.searchOpen);
+    searchInputContainer.classList.add(CLASSNAMES.searchOpen);
+    searchInputContainer.style.maxHeight =
+      searchInputContainer.scrollHeight + "px";
+    searchInputContainer.setAttribute("aria-expanded", "true");
+    searchInput.focus({ preventScroll: true });
+  }
+
+  searchToggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleSearchInputVisibility();
+  });
+
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      toggleSearchInputVisibility();
+      searchToggle.focus({ preventScroll: true });
+    }
+  });
+
+  backdrop.addEventListener("click", () => {
+    toggleSearchInputVisibility();
+    searchToggle.focus({ preventScroll: true });
+  });
+
+  document.body.addEventListener("keydown", (e) => {
+    if (
+      e.key === "Escape" &&
+      searchInputContainer.classList.contains(CLASSNAMES.searchOpen)
+    ) {
+      e.preventDefault();
+      toggleSearchInputVisibility();
+      searchToggle.focus({ preventScroll: true });
+    }
+  });
 }
