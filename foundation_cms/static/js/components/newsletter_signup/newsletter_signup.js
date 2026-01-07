@@ -162,6 +162,13 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     populateSelectOptions(languageInput, LANGUAGE_OPTIONS);
     populateSelectOptions(countryInput, COUNTRY_OPTIONS);
 
+    const currentLanguage = container.dataset.currentLanguage;
+    const supportedLanguages = LANGUAGE_OPTIONS.map((opt) => opt.value);
+
+    languageInput.value = supportedLanguages.includes(currentLanguage)
+      ? currentLanguage
+      : "en";
+
     applyLayoutBehavior(form, layout, emailInput);
 
     form.addEventListener("submit", function (e) {
