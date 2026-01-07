@@ -16,7 +16,6 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail_ab_testing import urls as ab_testing_urls
 from wagtail_footnotes import urls as footnotes_urls
 
-from foundation_cms.core import views as core_views
 from foundation_cms.legacy_apps.utility import watail_core_url_override as wagtail_urls
 from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
     urlpatterns as image_url_tag_urls,
