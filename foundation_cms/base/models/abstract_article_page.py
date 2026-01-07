@@ -13,6 +13,7 @@ ARTICLE_BLOCK_NAMES = sorted(
     + [
         "callout",
         "custom_media",
+        "featured_container",
     ]
 )
 article_page_block_options = BlockRegistry.get_blocks(ARTICLE_BLOCK_NAMES)
