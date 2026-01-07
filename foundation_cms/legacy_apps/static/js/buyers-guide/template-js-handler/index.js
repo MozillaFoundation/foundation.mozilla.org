@@ -4,7 +4,6 @@ import mobileSearchBar from "./mobile-search-bar";
 import desktopSearchBar from "./desktop-search-bar";
 import diveDeeperListExpansionHandler from "./product-page-dive-deeper-list";
 import categoryDropdown from "./pni-category-dropdown";
-import productCommentGaEventHandler from "./product-page-comment-handler";
 import parallaxBackground from "./parallax-background";
 
 /**
@@ -18,5 +17,4 @@ export const bindEventHandlers = () => {
   desktopSearchBar();
   diveDeeperListExpansionHandler();
   categoryDropdown();
-  productCommentGaEventHandler();
 };
