@@ -86,7 +86,7 @@
   "dependencies": {
     "@sentry/browser": "^8.54.0",
     "@tailwindcss/forms": "^0.5.10",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.23",
     "axe-core": "^4.10.3",
     "bootstrap": "^4.6.0",
     "chart.js": "4.4.9",
