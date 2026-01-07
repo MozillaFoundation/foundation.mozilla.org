@@ -1,3 +1,5 @@
+import { act } from "react";
+
 /**
  * Css selectors for primary navigation elements.
  */
@@ -24,6 +26,8 @@ const CLASSNAMES = {
   hiddenWordmark: "hidden-wordmark",
   searchOpen: "search-open",
   searchOpenBackdrop: "search-open-backdrop",
+  open: "open",
+  active: "active",
 };
 
 /**
@@ -46,15 +50,30 @@ export function initPrimaryNav() {
 
   // Mobile nav
   hamburger.addEventListener("click", () => {
-    nav.classList.toggle("open");
-    hamburger.classList.toggle("active");
+    nav.classList.toggle(CLASSNAMES.open);
+    hamburger.classList.toggle(CLASSNAMES.active);
 
-    if (nav.classList.contains("open")) {
+    if (nav.classList.contains(CLASSNAMES.open)) {
       document.body.classList.add(CLASSNAMES.navOpen);
     } else {
       setTimeout(() => {
         document.body.classList.remove(CLASSNAMES.navOpen);
       }, TRANSITION_DURATION); // Allow time for transition
+    }
+
+    // If search input is open, close it when opening mobile nav
+    const searchInputContainer = document.querySelector(
+      SELECTORS.searchInputContainer,
+    );
+    const searchToggle = document.querySelector(SELECTORS.searchToggle);
+    if (
+      nav.classList.contains(CLASSNAMES.open) &&
+      searchInputContainer.classList.contains(CLASSNAMES.searchOpen)
+    ) {
+      searchInputContainer.classList.remove(CLASSNAMES.searchOpen);
+      searchToggle.classList.remove(CLASSNAMES.searchOpen);
+      searchInputContainer.style.maxHeight = null;
+      searchInputContainer.setAttribute("aria-expanded", "false");
     }
   });
 
@@ -217,6 +236,8 @@ export function initSearchToggle() {
     SELECTORS.searchInputContainer,
   );
   const searchInput = document.querySelector(SELECTORS.searchInput);
+  const primaryNav = document.querySelector(SELECTORS.primaryNav);
+  const hamburger = document.querySelector(SELECTORS.hamburger);
 
   if (!searchToggle || !searchInputContainer || !searchInput) return;
 
@@ -232,6 +253,15 @@ export function initSearchToggle() {
       searchInputContainer.style.maxHeight = null;
       searchInputContainer.setAttribute("aria-expanded", "false");
       return;
+    }
+
+    // If mobile navigation is open, close it before opening search drawer
+    if (primaryNav.classList.contains(CLASSNAMES.open)) {
+      primaryNav.classList.remove(CLASSNAMES.open);
+      hamburger.classList.remove(CLASSNAMES.active);
+      setTimeout(() => {
+        document.body.classList.remove(CLASSNAMES.navOpen);
+      }, TRANSITION_DURATION); // Allow time for transition
     }
 
     searchToggle.classList.add(CLASSNAMES.searchOpen);

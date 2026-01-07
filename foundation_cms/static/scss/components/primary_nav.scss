@@ -34,7 +34,7 @@ $primary-nav-margin: 0.7rem;
     transition: all 0.3s ease-in-out;
 
     @include breakpoint(large up) {
-      gap: 3rem;
+      gap: 1.5rem;
 
       &:not(.hidden-wordmark) {
         padding-left: calc(229px + 3rem);
@@ -276,6 +276,7 @@ $primary-nav-margin: 0.7rem;
 
         @include breakpoint(large up) {
           width: auto;
+          max-width: 7rem;
           font-size: 1rem;
           padding: 0;
           height: calc($primary-nav-height - #{$primary-nav-margin * 2});
@@ -285,6 +286,10 @@ $primary-nav-margin: 0.7rem;
           text-decoration: none;
           align-items: center;
           line-height: 1.2;
+        }
+
+        @include breakpoint(xlarge up) {
+          max-width: none;
         }
 
         &:hover {
@@ -423,6 +428,7 @@ body:has(.search-input-container.search-open) {
     background-position: left rem-calc(24) center;
     background-size: rem-calc(16) rem-calc(16);
     flex: 1 1 auto;
+    min-width: 0;
 
     &::placeholder {
       color: color(neutral, "400");
