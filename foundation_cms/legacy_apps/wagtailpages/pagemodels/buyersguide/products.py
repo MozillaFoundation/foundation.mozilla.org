@@ -864,7 +864,6 @@ class ProductPage(BasePage):
         context["product"] = self
         context["featured_cta"] = self.get_featured_cta()
         context["mediaUrl"] = settings.MEDIA_URL
-        context["use_commento"] = settings.USE_COMMENTO
         context["pageTitle"] = f"{self.title} | " + gettext("Privacy & security guide") + " | Mozilla Foundation"
         return context
 
