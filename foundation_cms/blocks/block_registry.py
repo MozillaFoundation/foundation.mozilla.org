@@ -27,12 +27,12 @@ from .video_block import VideoBlock
 
 
 class BlockGroups:
-    TEXT = "Text"
-    MEDIA = "Media & Embeds"
-    LAYOUT = "Layout"
     CARDS = "Card Collections"
-    ENGAGEMENT = "Engagement"
     DATA = "Data Display"
+    ENGAGEMENT = "Engagement"
+    LAYOUT = "Layout"
+    MEDIA = "Media & Embeds"
+    TEXT = "Text"
 
 
 class BlockRegistry:
@@ -72,7 +72,7 @@ class BlockRegistry:
             "class": ListBlock,
             "group": BlockGroups.DATA,
         },
-        # Engagement & Actions
+        # Engagement
         "fru_element_block": {
             "class": FruElementBlock,
             "group": BlockGroups.ENGAGEMENT,
@@ -93,7 +93,7 @@ class BlockRegistry:
             "class": TimelyActivationsCardsBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
-        # Layout & Structure
+        # Layout
         "divider": {
             "class": DividerBlock,
             "group": BlockGroups.LAYOUT,
