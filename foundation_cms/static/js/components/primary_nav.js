@@ -1,5 +1,3 @@
-import { act } from "react";
-
 /**
  * Css selectors for primary navigation elements.
  */
