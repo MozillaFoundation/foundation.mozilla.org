@@ -4,7 +4,6 @@ from django.dispatch import receiver
 from django.utils.safestring import mark_safe
 from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.models import Page
-from wagtail.search import index
 
 from foundation_cms.core.models.home_page import HomePage
 from foundation_cms.snippets.models.donate_banner import DonateBanner
@@ -46,20 +45,6 @@ class SitewideDonateBannerPage(Page):
             heading="Donate Banner",
             classname="collapsible",
         ),
-    ]
-
-    search_fields = Page.search_fields + [
-        index.RelatedFields(
-            "donate_banner",
-            [
-                index.SearchField("name", boost=6),
-                index.SearchField("title", boost=6),
-                index.SearchField("subtitle", boost=4),
-                index.SearchField("cta_button_text", boost=4),
-            ],
-        ),
-        index.FilterField("id"),
-        index.FilterField("locale_id"),
     ]
 
     promote_panels: list = []

@@ -4,6 +4,7 @@ from django.template.response import TemplateResponse
 from wagtail.models import Locale, Page
 from wagtail.search.query import PlainText
 
+from foundation_cms.campaigns.models.campaign_page import CampaignPage
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 # To enable logging of search queries for use with the "Promoted search results" module
@@ -60,19 +61,13 @@ def search(request):
 
 def get_keep_contributing_pages():
     """
-    Get suggested pages following the same pattern as CampaignPage.
-    Returns the most recent localized pages.
+    Get the two latest CampaignPages in their localized versions.
+    Follows the same pattern as CampaignPage.get_fallback_latest_campaigns().
     """
     (default_locale, _) = get_default_locale()
 
     # Get recent pages in the default language
-    recent_pages = (
-        Page.objects.live()
-        .public()
-        .filter(locale=default_locale)
-        .exclude(depth__lte=2)
-        .order_by("-first_published_at")
-    )
+    recent_pages = CampaignPage.objects.live().public().filter(locale=default_locale).order_by("-first_published_at")
 
     localized_pages = localize_queryset(
         recent_pages,

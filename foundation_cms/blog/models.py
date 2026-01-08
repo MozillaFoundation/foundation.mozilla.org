@@ -2,7 +2,6 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
-from wagtail.search import index
 
 from foundation_cms.profiles.models import Profile
 
@@ -10,6 +9,19 @@ from foundation_cms.profiles.models import Profile
 class BlogIndexPage(Page):
     """
     BlogIndexPage serves as a parent for BlogPage instances.
+
+    TODO: FUTURE IMPLEMENTATION NOTES
+    When implementing the real blog functionality, this model should be updated to:
+
+    1. Inherit from any of our base models(such as AbstractBasePage, AbstractArticlePage) instead of Page directly:
+
+    2. Review and potentially remove/modify current fields that may conflict.
+
+    3. Add appropriate search_fields once inheriting from base models, for example:
+       search_fields = AbstractBasePage.search_fields + [
+           index.SearchField("body", boost=4),
+           # Additional blog-specific search fields
+       ]
     """
 
     subpage_types = ["blog.BlogPage"]  # Restrict child pages to BlogPage only
@@ -17,10 +29,6 @@ class BlogIndexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("body"),
-    ]
-
-    search_fields = Page.search_fields + [
-        index.SearchField("body", boost=5),
     ]
 
     def get_context(self, request):
@@ -50,25 +58,6 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("author"),
         FieldPanel("body"),
-    ]
-
-    search_fields = Page.search_fields + [
-        index.SearchField("title", boost=10),
-        index.SearchField("seo_title", boost=8),
-        index.SearchField("search_description", boost=8),
-        # Blog content
-        index.SearchField("body", boost=5),
-        # Author information
-        index.RelatedFields(
-            "author",
-            [
-                index.SearchField("title", boost=4),
-            ],
-        ),
-        # Blog filters
-        index.FilterField("first_published_at"),
-        index.FilterField("author"),
-        index.FilterField("locale_id"),
     ]
 
     def author_name(self):
