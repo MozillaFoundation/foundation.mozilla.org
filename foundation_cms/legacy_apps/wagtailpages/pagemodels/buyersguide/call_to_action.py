@@ -55,9 +55,9 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
     ]
 
     search_fields = [
-        index.SearchField("title", boost=10),
-        index.AutocompleteField("title", boost=10),
-        index.SearchField("link_label"),
+        index.SearchField("title", boost=4),
+        index.AutocompleteField("title", boost=4),
+        index.SearchField("link_label", boost=2),
         index.FilterField("locale_id"),
     ]
 
