@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==4.2.25
+django==4.2.27
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -250,7 +250,7 @@ typing-extensions==4.4.0
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
-urllib3==1.26.19
+urllib3==2.6.0
     # via
     #   botocore
     #   requests
