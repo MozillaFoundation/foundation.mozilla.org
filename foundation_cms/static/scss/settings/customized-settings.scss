@@ -950,9 +950,9 @@ $grid-container-padding: (
   small: 32px,   // 16px on each site
   medium: 128px, // 64px on each side,
   large: 128px,
-  xlarge: 128px,
-  xxlarge: 128px,
-  xxxlarge: 128px,
+  xlarge: 0,
+  xxlarge: 0,
+  xxxlarge: 0,
 ) !default;
 $grid-container-max: $global-width;
 $xy-block-grid-max: 8;
