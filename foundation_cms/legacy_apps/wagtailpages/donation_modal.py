@@ -93,8 +93,8 @@ class DonationModal(TranslatableMixin, models.Model):
     ]
 
     search_fields = [
-        index.SearchField("name", boost=10),
-        index.SearchField("donate_text"),
+        index.SearchField("name", boost=4),
+        index.SearchField("donate_text", boost=2),
         index.FilterField("locale_id"),
     ]
 

@@ -10,6 +10,7 @@ from wagtail.admin.panels import (
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
@@ -111,6 +112,23 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
         SynchronizedField("hero_item"),
         SynchronizedField("hero_item_orientation"),
         SynchronizedField("featured_items"),
+    ]
+
+    search_fields = AbstractHomePage.search_fields + [
+        index.SearchField("tagline", boost=6),
+        index.SearchField("body", boost=5),
+        index.RelatedFields(
+            "hero_item",
+            [
+                index.SearchField("title", boost=4),
+            ],
+        ),
+        index.RelatedFields(
+            "featured_items",
+            [
+                index.SearchField("page__title", boost=3),
+            ],
+        ),
     ]
 
     class Meta:
