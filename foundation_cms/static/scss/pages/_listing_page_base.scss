@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 
-body.topic-listing-page {
+@mixin listing-page-base-styles {
   .topic-info {
     text-align: center;
     margin: 2rem 0;

@@ -1,2 +1,6 @@
 @import "../redesign_base";
 @import "listing_page_base";
+
+body.topic-listing-page {
+  @include listing-page-base-styles;
+}
