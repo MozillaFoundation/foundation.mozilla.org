@@ -1,0 +1,17 @@
+{% extends theme_base %}
+{% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags i18n l10n %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="topic-info">
+      {% blocktrans count counter=total_pages_count trimmed %}
+        Showing {{ total_pages_count }} result for:
+      {% plural %}
+        Showing {{ total_pages_count }} results for:
+      {% endblocktrans %}
+      <h1>{% block listing_title %}{% endblock listing_title %}</h1>
+    </div>
+
+  </div>
+  {% block listing_result %}{% endblock listing_result %}
+{% endblock content %}

@@ -1,13 +1,15 @@
 {% if pages %}
   <div class="grid-container topic-listing__section">
+    {% if section_title %}
     <div class="grid-x">
       <div class="cell">
         <h2 class="topic-listing__section-heading">{{ section_title }}</h2>
       </div>
     </div>
+    {% endif %}
     <ul>
       {% for page in pages %}
-        {% include "patterns/components/topic_listing/item.html" with page=page %}
+        {% include "patterns/components/listing_page/item.html" with page=page %}
       {% endfor %}
     </ul>
   </div>
