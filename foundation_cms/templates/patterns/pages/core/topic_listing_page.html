@@ -16,11 +16,11 @@
 {% block listing_title %}{{ topic.name }}{% endblock listing_title %}
 
 {% block listing_result %}
-    {% trans "More from Nothing Personal:" as np_section_title %}
-    {% include "patterns/components/listing_page/section.html" with pages=np_pages section_title=np_section_title %}
-    {% if np_pages and other_pages %}
-        {% include "patterns/components/listing_page/section_divider.html" %}
-    {% endif %}
-    {% trans "From the rest of Mozilla Foundation:" as mofo_title %}
-    {% include "patterns/components/listing_page/section.html" with pages=other_pages section_title=mofo_title %}
-  {% endblock listing_result %}
+  {% trans "More from Nothing Personal:" as np_section_title %}
+  {% include "patterns/components/listing_page/section.html" with pages=np_pages section_title=np_section_title %}
+  {% if np_pages and other_pages %}
+    {% include "patterns/components/listing_page/section_divider.html" %}
+  {% endif %}
+  {% trans "From the rest of Mozilla Foundation:" as mofo_title %}
+  {% include "patterns/components/listing_page/section.html" with pages=other_pages section_title=mofo_title %}
+{% endblock listing_result %}

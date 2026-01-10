@@ -1,2 +1,8 @@
 @use "sass:map";
+
 @import "../../nothing_personal_base";
+@import "../listing_page_base";
+
+body.article-collection-page {
+  @include listing-page-base-styles;
+}

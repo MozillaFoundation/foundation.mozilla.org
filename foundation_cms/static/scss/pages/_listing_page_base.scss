@@ -2,7 +2,7 @@
 @use "sass:math";
 
 @mixin listing-page-base-styles {
-  .topic-info {
+  .listing-header {
     text-align: center;
     margin: 2rem 0;
 
@@ -24,7 +24,7 @@
     }
   }
 
-  .topic-listing {
+  .listing-content {
     &__section {
       &-heading {
         @include mofo-text-style($header-styles, "h4", $header-font-family);
@@ -61,8 +61,27 @@
     }
   }
 
-  .topic-card {
+  .page-card {
     $image-hover-scale: 105%;
+
+    &__media-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      @include breakpoint(large up) {
+        flex-direction: row;
+        gap: 4rem;
+      }
+    }
+
+    &__published-date {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      @include breakpoint(large up) {
+        align-self: center;
+      }
+    }
 
     &__image-wrapper {
       border-top-right-radius: 32px;
@@ -70,7 +89,9 @@
       overflow: hidden;
       background: color(neutral, "200");
       aspect-ratio: math.div(3, 2);
+      height: rem-calc(200);
       display: block;
+      align-self: center;
 
       img {
         width: 100%;

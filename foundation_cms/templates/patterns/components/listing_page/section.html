@@ -1,11 +1,11 @@
 {% if pages %}
-  <div class="grid-container topic-listing__section">
+  <div class="grid-container listing-content__section">
     {% if section_title %}
-    <div class="grid-x">
-      <div class="cell">
-        <h2 class="topic-listing__section-heading">{{ section_title }}</h2>
+      <div class="grid-x">
+        <div class="cell">
+          <h2 class="listing-content__section-heading">{{ section_title }}</h2>
+        </div>
       </div>
-    </div>
     {% endif %}
     <ul>
       {% for page in pages %}

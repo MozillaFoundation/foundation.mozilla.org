@@ -1,9 +1,9 @@
 {% extends theme_base %}
-{% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags i18n l10n %}
+{% load i18n %}
 
 {% block content %}
   <div class="grid-container">
-    <div class="topic-info">
+    <div class="listing-header">
       {% blocktrans count counter=total_pages_count trimmed %}
         Showing {{ total_pages_count }} result for:
       {% plural %}
