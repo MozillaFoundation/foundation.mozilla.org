@@ -1,0 +1,143 @@
+@use "sass:map";
+@use "sass:math";
+
+@mixin listing-page-base-styles {
+  .listing-header {
+    text-align: center;
+    margin: 2rem 0;
+
+    h1 {
+      margin: 1rem 0 0;
+      position: relative;
+
+      &::before {
+        content: "\2018";
+      }
+
+      &::after {
+        content: "\2019";
+      }
+    }
+
+    @include breakpoint(large up) {
+      margin: 4rem 0;
+    }
+  }
+
+  .listing-content {
+    &__section {
+      &-heading {
+        @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+        margin-top: 0;
+        margin-bottom: 2rem;
+
+        @include breakpoint(large up) {
+          margin-bottom: 4rem;
+        }
+      }
+
+      &-divider {
+        margin-bottom: 4rem;
+      }
+
+      ul {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        li {
+          list-style: none;
+        }
+      }
+    }
+
+    &__item {
+      margin-bottom: 2rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: rem-calc(38);
+      }
+    }
+  }
+
+  .page-card {
+    $image-hover-scale: 105%;
+
+    &__media-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      @include breakpoint(large up) {
+        flex-direction: row;
+        gap: 4rem;
+      }
+    }
+
+    &__published-date {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      @include breakpoint(large up) {
+        align-self: center;
+      }
+    }
+
+    &__image-wrapper {
+      border-top-right-radius: 32px;
+      border-bottom-left-radius: 32px;
+      overflow: hidden;
+      background: color(neutral, "200");
+      aspect-ratio: math.div(3, 2);
+      height: rem-calc(200);
+      display: block;
+      align-self: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      &:hover {
+        img {
+          transform: scale($image-hover-scale);
+        }
+      }
+    }
+
+    &__meta-wrapper {
+      display: flex;
+    }
+
+    &__meta {
+      align-self: center;
+    }
+
+    &__tags {
+      margin: 1.5rem 0 1rem;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+      @include text-line-clamp(2);
+
+      margin: 0;
+
+      a {
+        text-decoration: none;
+        color: map.get($mofo-colors, black);
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &__description {
+      @include text-line-clamp(3);
+      margin: 0.5rem 0 1rem;
+    }
+  }
+}
