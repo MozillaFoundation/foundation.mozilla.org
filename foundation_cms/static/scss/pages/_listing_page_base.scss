@@ -121,6 +121,7 @@
 
     &__title {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
+      @include text-line-clamp(2);
 
       margin: 0;
 
@@ -135,6 +136,7 @@
     }
 
     &__description {
+      @include text-line-clamp(3);
       margin: 0.5rem 0 1rem;
     }
   }
