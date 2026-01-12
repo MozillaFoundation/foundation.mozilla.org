@@ -9,7 +9,7 @@
       {% plural %}
         Showing {{ total_pages_count }} results for:
       {% endblocktrans %}
-      <h1>{% block listing_title %}{% endblock listing_title %}</h1>
+      <h1 {% if show_quoted_title %}class="show-quote-mark"{% endif %}>{% block listing_title %}{% endblock listing_title %}</h1>
     </div>
 
   </div>

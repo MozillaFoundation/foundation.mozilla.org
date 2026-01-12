@@ -5,4 +5,12 @@
 
 body.article-collection-page {
   @include listing-page-base-styles;
+
+  .listing-content__item {
+    @include breakpoint(large up) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-bottom: rem-calc(48);
+    }
+  }
 }

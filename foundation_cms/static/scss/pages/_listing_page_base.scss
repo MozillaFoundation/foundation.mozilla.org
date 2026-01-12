@@ -6,7 +6,7 @@
     text-align: center;
     margin: 2rem 0;
 
-    h1 {
+    h1.show-quote-mark {
       margin: 1rem 0 0;
       position: relative;
 
@@ -61,8 +61,16 @@
     }
   }
 
+  .listing-content__section:last-of-type
+    > ul
+    > .listing-content__item:last-child {
+    margin-bottom: rem-calc(86);
+  }
+
   .page-card {
     $image-hover-scale: 105%;
+
+    align-items: center;
 
     &__media-wrapper {
       display: flex;
@@ -70,6 +78,7 @@
       gap: 0.5rem;
 
       @include breakpoint(large up) {
+        align-self: center;
         flex-direction: row;
         gap: 4rem;
       }
@@ -89,9 +98,13 @@
       overflow: hidden;
       background: color(neutral, "200");
       aspect-ratio: math.div(3, 2);
-      height: rem-calc(200);
       display: block;
       align-self: center;
+
+      @include breakpoint(medium up) {
+        width: 100%;
+        height: auto;
+      }
 
       img {
         width: 100%;
@@ -113,10 +126,15 @@
 
     &__meta {
       align-self: center;
+      margin: 1rem 0;
     }
 
     &__tags {
-      margin: 1.5rem 0 1rem;
+      margin: 0.5rem 0;
+
+      @include breakpoint(large up) {
+        margin: 1rem 0;
+      }
     }
 
     &__title {
@@ -137,7 +155,11 @@
 
     &__description {
       @include text-line-clamp(3);
-      margin: 0.5rem 0 1rem;
+
+      margin: 0.5rem 0;
+      @include breakpoint(large up) {
+        margin: 0.5rem 0 1rem;
+      }
     }
   }
 }
