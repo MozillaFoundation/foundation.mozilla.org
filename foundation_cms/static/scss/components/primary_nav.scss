@@ -1,5 +1,7 @@
 @import "../colors";
 
+@use "sass:list";
+
 $hamburger-bar-spacing: 0.8rem;
 
 @import "../../../../node_modules/delicious-hamburgers/scss/base";
@@ -7,6 +9,24 @@ $hamburger-bar-spacing: 0.8rem;
 
 $primary-nav-height: rem-calc(88);
 $primary-nav-margin: 0.7rem;
+
+// Set max-widths for top-level menu links by item order at a given breakpoint.
+// Usage:
+// @include primary-nav-menu-item-max-widths(large, 7rem, 6rem, 5rem, 8rem);
+// Pass `null` to skip an item index.
+@mixin primary-nav-menu-item-max-widths($bp, $widths...) {
+  @include breakpoint(#{$bp} up) {
+    @for $i from 1 through list.length($widths) {
+      $w: list.nth($widths, $i);
+
+      @if $w {
+        .primary-nav-ns__menu-item:nth-child(#{$i}) > a {
+          max-width: $w;
+        }
+      }
+    }
+  }
+}
 
 .primary-nav-ns {
   position: sticky;
@@ -35,6 +55,7 @@ $primary-nav-margin: 0.7rem;
 
     @include breakpoint(large up) {
       gap: 1.5rem;
+      flex-flow: row nowrap;
 
       &:not(.hidden-wordmark) {
         padding-left: calc(229px + 3rem);
@@ -351,20 +372,21 @@ body.primary-nav-ns-open {
   }
 }
 
+// Language-specific max-widths for top-level menu items
+// This is coupled with the order of menu items in each language.
 html[lang="de"] body .primary-nav-ns {
-  .primary-nav-ns__menu-item > a {
-    @include breakpoint(large up) {
-      max-width: 8.5rem;
-    }
-  }
+  @include primary-nav-menu-item-max-widths(large, 6rem, 4rem, 4rem, 5rem);
+  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
 }
 
 html[lang="fr"] body .primary-nav-ns {
-  .primary-nav-ns__menu-item > a {
-    @include breakpoint(large up) {
-      max-width: 8rem;
-    }
-  }
+  @include primary-nav-menu-item-max-widths(large, 6rem, 5rem, 5rem, 5rem);
+  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
+}
+
+html[lang="nl"] body .primary-nav-ns {
+  @include primary-nav-menu-item-max-widths(large, 6rem, 5rem, 5rem, 5rem);
+  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
 }
 
 .search-open-backdrop {
