@@ -9,7 +9,7 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
   initSearchToggle,
-} from "./components/primary_nav";
+} from "./components/primary_nav/primary_nav.js";
 import { initDonateBanner } from "./components/donate_banner.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
