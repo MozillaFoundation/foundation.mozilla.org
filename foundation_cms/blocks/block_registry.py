@@ -29,7 +29,7 @@ from .video_block import VideoBlock
 class BlockGroups:
     CARDS = "Card Collections"
     DATA = "Data Display"
-    ENGAGEMENT = "Engagement"
+    ENGAGEMENT = "Engagement & Buttons"
     LAYOUT = "Layout"
     MEDIA = "Media & Embeds"
     TEXT = "Text"
@@ -63,6 +63,10 @@ class BlockRegistry:
             "class": TabbedContentContainerBlock,
             "group": BlockGroups.CARDS,
         },
+        "timely_activations_cards": {
+            "class": TimelyActivationsCardsBlock,
+            "group": BlockGroups.CARDS,
+        },
         # Data Display
         "impact_numbers": {
             "class": ImpactNumberBlock,
@@ -87,10 +91,6 @@ class BlockRegistry:
         },
         "newsletter_unsubscribe": {
             "class": NewsletterUnsubscribeBlock,
-            "group": BlockGroups.ENGAGEMENT,
-        },
-        "timely_activations_cards": {
-            "class": TimelyActivationsCardsBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         # Layout
@@ -131,7 +131,7 @@ class BlockRegistry:
             "class": VideoBlock,
             "group": BlockGroups.MEDIA,
         },
-        # Text & Typography
+        # Text
         "callout": {
             "class": CalloutBlock,
             "kwargs": {"skip_default_wrapper": True},
