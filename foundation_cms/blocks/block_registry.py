@@ -1,3 +1,4 @@
+from django.conf import settings
 from wagtail.blocks import RichTextBlock
 
 from .callout_block import CalloutBlock
