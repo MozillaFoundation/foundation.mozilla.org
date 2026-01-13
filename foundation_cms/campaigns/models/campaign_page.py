@@ -213,30 +213,19 @@ class CampaignPage(AbstractBasePage):
     ]
 
     # State managed via URL param ?state=&medium=
-    def serve(self, request):
-        state = request.GET.get("state", "start")
-        medium = request.GET.get("medium", "web")
-        user_email = request.GET.get("email", "")
 
+    def serve(self, request, *args, **kwargs):
         if request.method == "POST":
             action = request.POST.get("action")
 
-            if action == "share":
-                return redirect(f"{self.url}?state=sharing&medium={medium}")
+            if action in {"share", "skip"}:
+                next_state = "sharing" if action == "share" else "end"
 
-            if action == "skip":
-                return redirect(f"{self.url}?state=end&medium={medium}")
+                medium = request.GET.get("medium", "web")
 
-        context = self.get_context(request)
-        context.update(
-            {
-                "state": state,
-                "medium": medium,
-                "user_email": user_email,
-            }
-        )
+                return redirect(f"{self.url}?state={next_state}&medium={medium}")
 
-        return render(request, self.get_template(request), context)
+        return super().serve(request, *args, **kwargs)
 
     def get_context(self, request, *args, **kwargs):
         """Override get_context to add latest articles for More Stories section"""
@@ -251,6 +240,9 @@ class CampaignPage(AbstractBasePage):
                 "keep_contributing_pages": keep_contributing_pages,
                 "petition_cta": localized_cta,
                 "petition_signed_url": self.get_petition_signed_url(request),
+                "state": request.GET.get("state", "start"),
+                "medium": request.GET.get("medium", "web"),
+                "user_email": request.GET.get("email", ""),
             }
         )
 
