@@ -164,6 +164,8 @@ class BlockRegistry:
 
         for name in block_names:
             if name not in cls.BLOCKS:
+                if settings.DEBUG:
+                    raise KeyError(f"Block '{name}' not registered in BlockRegistry.BLOCKS")
                 continue
 
             block_info = cls.BLOCKS[name]
