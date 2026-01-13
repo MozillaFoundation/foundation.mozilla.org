@@ -1,6 +1,12 @@
 import { CLASSNAMES, EVENTS, SELECTORS } from "./config.js";
 
+/**
+ * Controls the open/close state for the primary-nav search drawer.
+ */
 class PrimaryNavSearchDrawerController {
+  /**
+   * @param {{ searchToggleEl: HTMLElement, searchInputContainerEl: HTMLElement, searchInputEl: HTMLInputElement }} options
+   */
   constructor({ searchToggleEl, searchInputContainerEl, searchInputEl }) {
     this.searchToggleEl = searchToggleEl;
     this.searchInputContainerEl = searchInputContainerEl;
@@ -44,6 +50,11 @@ class PrimaryNavSearchDrawerController {
     this.open();
   }
 
+  /**
+   * Ensures a backdrop element exists adjacent to the search drawer.
+   *
+   * @returns {HTMLElement | null}
+   */
   ensureBackdrop() {
     const parentEl = this.searchInputContainerEl.parentNode;
     if (!parentEl) return null;

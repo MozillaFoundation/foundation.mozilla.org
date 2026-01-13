@@ -4,7 +4,7 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
   initSearchToggle,
-} from "./components/primary_nav/primary_nav.js";
+} from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
 let foundationSiteURL = window.location.origin;
 

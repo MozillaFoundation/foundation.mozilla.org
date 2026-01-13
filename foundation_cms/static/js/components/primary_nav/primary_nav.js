@@ -7,9 +7,47 @@ import {
   TRANSITION_DURATION,
 } from "./config.js";
 
-export { initSearchToggle } from "./search.js";
+const dropdownControllers = new WeakMap();
 
+/**
+ * Gets a cached dropdown controller for a menu, creating it if needed.
+ *
+ * @param {{ menuEl: HTMLElement, dropdownEl: HTMLElement, toggleEl: HTMLElement }} options
+ * @returns {PrimaryNavDropdownController}
+ */
+function getDropdownController({ menuEl, dropdownEl, toggleEl }) {
+  const existing = dropdownControllers.get(menuEl);
+  if (existing) return existing;
+
+  const controller = new PrimaryNavDropdownController({
+    menuEl,
+    dropdownEl,
+    toggleEl,
+  });
+  dropdownControllers.set(menuEl, controller);
+  return controller;
+}
+
+function closeDropdownMenu(menuEl) {
+  const existing = dropdownControllers.get(menuEl);
+  if (existing) {
+    existing.close();
+    return;
+  }
+
+  const dropdownEl = menuEl.querySelector(SELECTORS.dropdown);
+  const toggleEl = menuEl.querySelector(SELECTORS.toggle);
+  if (!dropdownEl || !toggleEl) return;
+  new PrimaryNavDropdownController({ menuEl, dropdownEl, toggleEl }).close();
+}
+
+/**
+ * Controls the open/close state of the mobile primary nav drawer.
+ */
 class PrimaryNavDrawerController {
+  /**
+   * @param {{ navEl: HTMLElement, hamburgerEl: HTMLElement }} options
+   */
   constructor({ navEl, hamburgerEl }) {
     this.navEl = navEl;
     this.hamburgerEl = hamburgerEl;
@@ -46,7 +84,13 @@ class PrimaryNavDrawerController {
   }
 }
 
+/**
+ * Controls the open/close state of a single primary-nav dropdown.
+ */
 class PrimaryNavDropdownController {
+  /**
+   * @param {{ menuEl: HTMLElement, dropdownEl: HTMLElement, toggleEl: HTMLElement }} options
+   */
   constructor({ menuEl, dropdownEl, toggleEl }) {
     this.menuEl = menuEl;
     this.dropdownEl = dropdownEl;
@@ -76,20 +120,97 @@ class PrimaryNavDropdownController {
   }
 }
 
+/**
+ * Closes all currently-open dropdown menus, except (optionally) a specific menu.
+ *
+ * @param {HTMLElement | null} currentMenuEl
+ */
 function closeAllOpenDropdownsExcept(currentMenuEl) {
   document
     .querySelectorAll(`${SELECTORS.menuItem}.${CLASSNAMES.open}`)
     .forEach((openMenuEl) => {
       if (currentMenuEl && openMenuEl === currentMenuEl) return;
-      const dropdownEl = openMenuEl.querySelector(SELECTORS.dropdown);
-      const toggleEl = openMenuEl.querySelector(SELECTORS.toggle);
-      if (!dropdownEl || !toggleEl) return;
-      new PrimaryNavDropdownController({
-        menuEl: openMenuEl,
-        dropdownEl,
-        toggleEl,
-      }).close();
+      closeDropdownMenu(openMenuEl);
     });
+}
+
+/**
+ * Initializes a single primary-nav dropdown menu.
+ * Adds mobile toggle behavior plus desktop hover behavior.
+ *
+ * @param {Element} dropdownEl
+ */
+function initPrimaryNavDropdown(dropdownEl) {
+  if (!(dropdownEl instanceof HTMLElement)) return;
+
+  const toggle = document.createElement("div");
+  const menu = dropdownEl.parentElement;
+  const anchor = menu?.querySelector("a");
+
+  if (!menu || !anchor) return;
+
+  // Assign a pseudo random id to the dropdown in order to link it with the toggle via aria-controls.
+  const dropdownId =
+    dropdownEl.id || `dropdown-${Math.random().toString(36).slice(2, 8)}`;
+  dropdownEl.id = dropdownId;
+
+  // Mobile toggle
+  toggle.classList.add(SELECTORS.toggle.replace(".", ""));
+
+  toggle.setAttribute("role", "button");
+  toggle.setAttribute("tabindex", "0");
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-controls", dropdownId);
+  dropdownEl.setAttribute("aria-hidden", "true");
+  dropdownEl.setAttribute("inert", "");
+
+  anchor.insertAdjacentElement("afterend", toggle);
+
+  const dropdownController = getDropdownController({
+    menuEl: menu,
+    dropdownEl: dropdownEl,
+    toggleEl: toggle,
+  });
+
+  const toggleDropdown = () => {
+    if (dropdownController.isOpen()) {
+      dropdownController.close();
+      return;
+    }
+
+    closeAllOpenDropdownsExcept(menu);
+    dropdownController.open();
+  };
+
+  toggle.addEventListener("click", () => {
+    toggleDropdown();
+  });
+
+  toggle.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+
+    toggleDropdown();
+  });
+
+  // Desktop nav mouse enter/leave events with debounce
+  let showTimeout, hideTimeout;
+
+  menu.addEventListener("mouseenter", () => {
+    if (window.innerWidth < DESKTOP_BREAKPOINT) return;
+    clearTimeout(hideTimeout);
+    showTimeout = setTimeout(() => {
+      dropdownController.open();
+    }, DROPDOWN_DELAY);
+  });
+
+  menu.addEventListener("mouseleave", () => {
+    if (window.innerWidth < DESKTOP_BREAKPOINT) return;
+    clearTimeout(showTimeout);
+    hideTimeout = setTimeout(() => {
+      dropdownController.close();
+    }, DROPDOWN_DELAY);
+  });
 }
 
 /**
@@ -119,90 +240,7 @@ export function initPrimaryNav() {
   });
 
   // Menu dropdowns
-  dropdowns.forEach((dropdown) => {
-    const toggle = document.createElement("div");
-    const menu = dropdown.parentElement;
-    const anchor = menu.querySelector("a");
-
-    // Assign a pseudo random id to the dropdown in order to link it with the toggle via aria-controls.
-    const dropdownId =
-      dropdown.id || `dropdown-${Math.random().toString(36).slice(2, 8)}`;
-    dropdown.id = dropdownId;
-
-    // Mobile toggle
-    toggle.classList.add(SELECTORS.toggle.replace(".", ""));
-
-    toggle.setAttribute("role", "button");
-    toggle.setAttribute("tabindex", "0");
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-controls", dropdownId);
-    dropdown.setAttribute("aria-hidden", "true");
-    dropdown.setAttribute("inert", "");
-
-    anchor.insertAdjacentElement("afterend", toggle);
-
-    toggle.addEventListener("click", () => {
-      const dropdownController = new PrimaryNavDropdownController({
-        menuEl: menu,
-        dropdownEl: dropdown,
-        toggleEl: toggle,
-      });
-
-      if (dropdownController.isOpen()) {
-        dropdownController.close();
-        return;
-      }
-
-      closeAllOpenDropdownsExcept(menu);
-      dropdownController.open();
-    });
-
-    toggle.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      e.preventDefault();
-
-      const dropdownController = new PrimaryNavDropdownController({
-        menuEl: menu,
-        dropdownEl: dropdown,
-        toggleEl: toggle,
-      });
-
-      if (dropdownController.isOpen()) {
-        dropdownController.close();
-        return;
-      }
-
-      closeAllOpenDropdownsExcept(menu);
-      dropdownController.open();
-    });
-
-    // Desktop nav mouse enter/leave events with debounce
-    let showTimeout, hideTimeout;
-
-    menu.addEventListener("mouseenter", () => {
-      if (window.innerWidth < DESKTOP_BREAKPOINT) return;
-      clearTimeout(hideTimeout);
-      showTimeout = setTimeout(() => {
-        new PrimaryNavDropdownController({
-          menuEl: menu,
-          dropdownEl: dropdown,
-          toggleEl: toggle,
-        }).open();
-      }, DROPDOWN_DELAY);
-    });
-
-    menu.addEventListener("mouseleave", () => {
-      if (window.innerWidth < DESKTOP_BREAKPOINT) return;
-      clearTimeout(showTimeout);
-      hideTimeout = setTimeout(() => {
-        new PrimaryNavDropdownController({
-          menuEl: menu,
-          dropdownEl: dropdown,
-          toggleEl: toggle,
-        }).close();
-      }, DROPDOWN_DELAY);
-    });
-  });
+  dropdowns.forEach(initPrimaryNavDropdown);
 
   // Esc key closes all menus
   document.addEventListener("keydown", (e) => {
