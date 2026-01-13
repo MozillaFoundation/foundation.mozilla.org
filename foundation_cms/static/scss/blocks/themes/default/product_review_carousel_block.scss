@@ -24,14 +24,15 @@
     }
   }
 
-  margin: 0 0 2rem;
+  margin: 0;
   padding-top: 5rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   @include breakpoint(large up) {
-    margin: 0 0 4rem;
+    padding-bottom: 4rem;
   }
 
   &__subtitle {
@@ -170,4 +171,9 @@
       background-position: calc(50% + 0.2rem) center;
     }
   }
+}
+
+.streamfield-block-wrapper[data-block-type="product_review_carousel_block"] {
+  background-color: $white;
+  position: relative;
 }
