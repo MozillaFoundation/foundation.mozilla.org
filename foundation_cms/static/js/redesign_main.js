@@ -8,7 +8,8 @@ import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
-} from "./components/primary_nav";
+  initSearchToggle,
+} from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
@@ -37,3 +38,4 @@ initPillarCardLinks();
 initTabbedContent();
 initShareContainer();
 initBackToTopButton();
+initSearchToggle();
