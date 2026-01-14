@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("base", "0006_alter_topic_options"),
+        ("base", "0006_remove_new_from_verbose_names"),
         ("nothing_personal", "0040_update_helptext_on_podcastblock"),
     ]
 
