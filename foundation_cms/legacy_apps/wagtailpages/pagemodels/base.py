@@ -194,6 +194,10 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
         context = get_page_tree_information(self, context)
         return context
 
+    class Meta:
+        verbose_name = "Primary Page (Legacy)"
+        verbose_name_plural = "Primary Pages (Legacy)"
+
 
 class InitiativeSection(TranslatableMixin, models.Model):
     page = ParentalKey(
@@ -321,6 +325,10 @@ class InitiativesPage(PrimaryPage):
     @property
     def ordered_featured_highlights(self):
         return InitiativesHighlights.objects.filter(page=self).select_related("highlight").order_by("sort_order")
+
+    class Meta:
+        verbose_name = "Initiatives Page (Legacy)"
+        verbose_name_plural = "Initiatives Pages (Legacy)"
 
 
 class ParticipatePage2(PrimaryPage):
@@ -514,6 +522,10 @@ class ParticipatePage2(PrimaryPage):
     def ordered_featured_highlights2(self):
         return self.featured_highlights2.select_related("highlight").order_by("sort_order")
 
+    class Meta:
+        verbose_name = "Participate Page 2 (Legacy)"
+        verbose_name_plural = "Participate Pages 2 (Legacy)"
+
 
 class Styleguide(PrimaryPage):
     max_count = 1
@@ -533,6 +545,9 @@ class Styleguide(PrimaryPage):
     ]
 
     subpage_types: list = []
+
+    class Meta:
+        verbose_name = "Styleguide (Legacy)"
 
 
 class HomepageIdeasPosts(TranslatableMixin, WagtailOrderable):
@@ -631,8 +646,8 @@ class CTABase(WagtailOrderable, models.Model):
 
     class Meta(WagtailOrderable.Meta):
         abstract = True
-        verbose_name = "cta"
-        verbose_name_plural = "ctas"
+        verbose_name = "cta (Legacy)"
+        verbose_name_plural = "ctas (Legacy)"
 
     def __str__(self):
         return self.page.title + "->" + self.highlight.title
@@ -718,8 +733,8 @@ class FocusArea(TranslatableMixin, models.Model):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Area of focus"
-        verbose_name_plural = "Areas of focus"
+        verbose_name = "Area of focus (Legacy)"
+        verbose_name_plural = "Areas of focus (Legacy)"
 
 
 class HomepageFocusAreas(TranslatableMixin, WagtailOrderable):
@@ -1118,3 +1133,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         if self.partner_page:
             context["localized_partner_page"] = self.partner_page.localized
         return context
+
+    class Meta:
+        verbose_name = "Homepage (Legacy)"
+        verbose_name_plural = "Homepages (Legacy)"

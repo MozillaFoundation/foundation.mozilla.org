@@ -34,8 +34,8 @@ class BuyersGuideContentCategory(wagtail_models.TranslatableMixin, models.Model)
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
         ordering = ["title"]
-        verbose_name = "Buyers Guide Content Category"
-        verbose_name_plural = "Buyers Guide Content Categories"
+        verbose_name = "Buyers Guide Content Category (Legacy)"
+        verbose_name_plural = "Buyers Guide Content Categories (Legacy)"
         unique_together = wagtail_models.TranslatableMixin.Meta.unique_together + [
             ("locale", "slug"),
         ]

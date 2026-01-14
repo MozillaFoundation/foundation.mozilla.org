@@ -69,3 +69,7 @@ class DearInternetPage(BasePage):
     ]
 
     template = "wagtailpages/pages/dear_internet_page.html"
+
+    class Meta:
+        verbose_name = "Dear Internet Page (Legacy)"
+        verbose_name_plural = "Dear Internet Pages (Legacy)"

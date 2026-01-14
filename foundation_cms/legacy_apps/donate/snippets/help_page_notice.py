@@ -52,3 +52,7 @@ class HelpPageNotice(TranslatableMixin, models.Model):
             raise ValidationError({"notice_image_alt_text": "Image must include alt text."})
         if self.notice_image_alt_text and not self.notice_image:
             raise ValidationError({"notice_image": "Alt text must have an associated image."})
+
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = "Donate Help Page Notice (Legacy)"
+        verbose_name_plural = "Donate Help Page Notices (Legacy)"

@@ -106,8 +106,8 @@ class RelatedBlogPosts(Orderable):
         return self.related_post.title
 
     class Meta(Orderable.Meta):
-        verbose_name = "Related blog posts"
-        verbose_name_plural = "Related blog posts"
+        verbose_name = "Related blog posts (Legacy)"
+        verbose_name_plural = "Related blog posts (Legacy)"
 
 
 class BlogPage(BasePage):
@@ -312,3 +312,7 @@ class BlogPage(BasePage):
                 return truncatechars(text, 153)
 
         return super().get_meta_description()
+
+    class Meta:
+        verbose_name = "Blog Page (Legacy)"
+        verbose_name_plural = "Blog Pages (Legacy)"

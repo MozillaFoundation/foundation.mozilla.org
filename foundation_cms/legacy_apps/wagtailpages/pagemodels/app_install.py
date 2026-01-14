@@ -88,3 +88,7 @@ class AppInstallPage(CampaignPage):
     ]
 
     parent_page_types = ["BanneredCampaignPage", "Homepage"]
+
+    class Meta:
+        verbose_name = "App Install Page (Legacy)"
+        verbose_name_plural = "App Install Pages (Legacy)"

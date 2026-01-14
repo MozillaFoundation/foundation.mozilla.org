@@ -306,3 +306,7 @@ class PublicationPage(BasePage):
                 pages.append({"child": page, "grandchildren": page.get_children().live()})
         context["child_pages"] = pages
         return context
+
+    class Meta:
+        verbose_name = "Publication Page (Legacy)"
+        verbose_name_plural = "Publication Pages (Legacy)"
