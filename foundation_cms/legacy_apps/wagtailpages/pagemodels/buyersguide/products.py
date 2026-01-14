@@ -403,8 +403,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
-        verbose_name = "Buyers Guide Product Update"
-        verbose_name_plural = "Buyers Guide Product Updates"
+        verbose_name = "Buyers Guide Product Update (Legacy)"
+        verbose_name_plural = "Buyers Guide Product Updates (Legacy)"
 
 
 class ProductUpdates(TranslatableMixin, Orderable):

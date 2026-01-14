@@ -141,6 +141,7 @@ class Callpower(TranslatableMixin, CTA):
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
         verbose_name = "Callpower (Legacy)"
+        verbose_name_plural = "Callpowers (Legacy)"
 
 
 class Signup(TranslatableMixin, CTA):
