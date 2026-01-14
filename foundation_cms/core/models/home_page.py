@@ -34,7 +34,7 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
     template = "patterns/pages/core/home_page.html"
 
     class Meta:
-        verbose_name = "Home Page (new)"
+        verbose_name = "Home Page"
 
     def get_context(self, request):
         context = super().get_context(request)
