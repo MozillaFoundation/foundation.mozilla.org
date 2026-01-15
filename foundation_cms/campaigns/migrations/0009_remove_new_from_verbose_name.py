@@ -8,31 +8,24 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("base", "0006_remove_new_from_verbose_names"),
-        ("core", "0058_update_helptext_on_podcastblock"),
+        ("campaigns", "0008_alter_campaignpage_body"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name="generalpage",
-            options={"verbose_name": "General Page"},
+            name="campaignpage",
+            options={"verbose_name": "Campaign Page", "verbose_name_plural": "Campaign Pages"},
         ),
         migrations.AlterModelOptions(
-            name="homepage",
-            options={"verbose_name": "Home Page"},
+            name="cta",
+            options={"ordering": ["-id"], "verbose_name": "CTA", "verbose_name_plural": "CTAs"},
+        ),
+        migrations.AlterModelOptions(
+            name="petition",
+            options={"ordering": ["-id"], "verbose_name": "Petition", "verbose_name_plural": "Petitions"},
         ),
         migrations.AlterField(
-            model_name="generalpage",
-            name="topics",
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(
-                blank=True,
-                help_text="Add one or more existing topics. Start typing to search, then press “Down” arrow on your keyboard to select topic. If topic is unavailable check if Topic exists by going to the left side-nav to Snippet > Page Topics > Check if topic exists. If not, click “Add new page topics”.",
-                through="base.PageTopic",
-                to="base.Topic",
-                verbose_name="Page Topics",
-            ),
-        ),
-        migrations.AlterField(
-            model_name="homepage",
+            model_name="campaignpage",
             name="topics",
             field=modelcluster.contrib.taggit.ClusterTaggableManager(
                 blank=True,
