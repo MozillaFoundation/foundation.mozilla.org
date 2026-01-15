@@ -10,14 +10,7 @@ from .base_signup_form import BaseSignupForm
 
 @register_snippet
 class NewsletterSignup(BaseSignupForm):
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("cta_header"),
-        FieldPanel("cta_description"),
-        FieldPanel("button_text"),
-        FieldPanel("newsletter"),
-        FieldPanel("layout"),
-    ]
+    panels = BaseSignupForm.panels
 
     def get_form_type(self):
         return "newsletter"

@@ -2,7 +2,7 @@
 
 {% get_current_language as current_language %}
 
-<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}" data-current-language="{{ current_language }}">
+<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}" data-current-language="{{ current_language }}" data-form-type="{{ newsletter_signup.get_form_type }}">
 
   <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
     {% trans "Something went wrong and your signup wasn't completed. Please try again later." %}
@@ -14,6 +14,12 @@
       <p class="newsletter-signup__cta-header">{{ newsletter_signup.cta_header }}</p>
       {% if newsletter_signup.cta_description %}
         <p class="newsletter-signup__cta-description">{{ newsletter_signup.cta_description }}</p>
+      {% endif %}
+
+      {% if newsletter_signup.get_form_type == "pdf_download" %}
+        <div class="newsletter-signup__pdf-info">
+          <!-- Placeholder for PDF download information if needed -->
+        </div>
       {% endif %}
     </div>
 

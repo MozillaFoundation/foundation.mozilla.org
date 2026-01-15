@@ -11,15 +11,9 @@ class PdfDownloadSignup(BaseSignupForm):
     pdf_title = models.CharField(max_length=255, help_text="Title of the PDF document", default="")
     pdf_description = models.TextField(blank=True, help_text="Description of the PDF content")
 
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("cta_header"),
-        FieldPanel("cta_description"),
-        FieldPanel("button_text"),
-        FieldPanel("newsletter"),
+    panels = BaseSignupForm.panels + [
         FieldPanel("pdf_title"),
         FieldPanel("pdf_description"),
-        FieldPanel("layout"),
     ]
 
     def get_form_type(self):

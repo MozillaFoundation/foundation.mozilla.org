@@ -1,4 +1,5 @@
 from django.db import models
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -32,6 +33,15 @@ class BaseSignupForm(TranslatableMixin, models.Model):
         default="expanded",
         help_text="Controls how the form is displayed.",
     )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("cta_header"),
+        FieldPanel("cta_description"),
+        FieldPanel("button_text"),
+        FieldPanel("newsletter"),
+        FieldPanel("layout"),
+    ]
 
     class Meta:
         abstract = True
