@@ -16,6 +16,7 @@ from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks import (
+    AccordionBlock,
     CustomImageBlock,
     DividerBlock,
     FeaturedCardBlock,
@@ -71,6 +72,7 @@ base_page_block_options = [
     ("fru_element_block", FruElementBlock()),
     ("divider", DividerBlock()),
     ("title_block", TitleBlock()),
+    ("accordion_block", AccordionBlock()),
 ]
 
 
