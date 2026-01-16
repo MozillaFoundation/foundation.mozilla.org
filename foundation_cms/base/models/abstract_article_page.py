@@ -2,16 +2,21 @@ from django.db import models
 from wagtail.fields import StreamField
 
 from foundation_cms.base.models.abstract_base_page import (
+    BASE_BLOCK_NAMES,
     AbstractBasePage,
-    base_page_block_options,
 )
-from foundation_cms.blocks import CalloutBlock, CustomMediaBlock
+from foundation_cms.blocks.block_registry import BlockRegistry
 
 # Article page-specific blocks that extend the base blocks
-article_page_block_options = base_page_block_options + [
-    ("callout", CalloutBlock(skip_default_wrapper=True)),
-    ("custom_media", CustomMediaBlock()),
-]
+ARTICLE_BLOCK_NAMES = sorted(
+    BASE_BLOCK_NAMES
+    + [
+        "callout",
+        "custom_media",
+        "featured_container",
+    ]
+)
+article_page_block_options = BlockRegistry.get_blocks(ARTICLE_BLOCK_NAMES)
 
 
 class AbstractArticlePage(AbstractBasePage):

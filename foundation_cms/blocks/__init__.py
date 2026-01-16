@@ -4,6 +4,7 @@ from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
+from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
 from .hero_accordion import HeroAccordionBlock
 from .iframe_block import iFrameBlock
@@ -85,4 +86,5 @@ __all__ = [
     "ProductReviewSectionGoodAndBadBlock",
     "ProductReviewSectionReduceYourRisksBlock",
     "ProductReviewSectionWhatYouShouldKnowBlock",
+    "FeaturedContainerBlock",
 ]

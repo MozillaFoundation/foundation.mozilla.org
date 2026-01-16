@@ -1,0 +1,76 @@
+{% load i18n formassembly_helper %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% comment %}
+*** IMPORTANT ***
+
+The code below has been copied directly over from FormAssembly. 
+
+This code is the HEAD section of https://mozillafoundation.tfaforms.net/forms/view/187, which is a direct copy of https://mozillafoundation.tfaforms.net/forms/view/9,
+just updated to send the data to CaMo rather than Basket. 
+
+The code snippet below is based on FormAssembly form revision #2
+
+If there are any updates to this form (which is unlikely), please follow the instructions found on "formassembly_head_legacy.html".
+
+{% endcomment %}
+
+<!-- FORM: HEAD SECTION -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="referrer" content="no-referrer-when-downgrade">
+<!-- THIS SCRIPT NEEDS TO BE LOADED FIRST BEFORE wforms.js -->
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" data-for="FA__DOMContentLoadedEventDispatch" src="https://mozillafoundation.tfaforms.net/js/FA__DOMContentLoadedEventDispatcher.js" defer></script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}">
+    document.addEventListener("FA__DOMContentLoaded", function(){
+        const FORM_TIME_START = Math.floor((new Date).getTime()/1000);
+        let formElement = document.getElementById("tfa_0");
+        if (null === formElement) {
+            formElement = document.getElementById("0");
+        }
+        let appendJsTimerElement = function(){
+            let formTimeDiff = Math.floor((new Date).getTime()/1000) - FORM_TIME_START;
+            let cumulatedTimeElement = document.getElementById("tfa_dbCumulatedTime");
+            if (null !== cumulatedTimeElement) {
+                let cumulatedTime = parseInt(cumulatedTimeElement.value);
+                if (null !== cumulatedTime && cumulatedTime > 0) {
+                    formTimeDiff += cumulatedTime;
+                }
+            }
+            let jsTimeInput = document.createElement("input");
+            jsTimeInput.setAttribute("type", "hidden");
+            jsTimeInput.setAttribute("value", formTimeDiff.toString());
+            jsTimeInput.setAttribute("name", "tfa_dbElapsedJsTime");
+            jsTimeInput.setAttribute("id", "tfa_dbElapsedJsTime");
+            jsTimeInput.setAttribute("autocomplete", "off");
+            if (null !== formElement) {
+                formElement.appendChild(jsTimeInput);
+            }
+        };
+        if (null !== formElement) {
+            if(formElement.addEventListener){
+                formElement.addEventListener('submit', appendJsTimerElement, false);
+            } else if(formElement.attachEvent){
+                formElement.attachEvent('onsubmit', appendJsTimerElement);
+            }
+        }
+    });
+</script>
+
+
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=b728b5289de57a6909816b7c620c867342b20ec5"></script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}">
+    wFORMS.behaviors.prefill.skip = false;
+</script>
+<script type="text/javascript" nonce="{{ request.csp_nonce }}" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=b728b5289de57a6909816b7c620c867342b20ec5"></script>
+
+<script type="text/javascript" nonce="{{ request.csp_nonce }}">
+    // [TO FIX]
+    // hot fix for source url bug on petition form
+    // see GitHub ticket: https://github.com/MozillaFoundation/foundation.mozilla.org/issues/10901
+    document.addEventListener("DOMContentLoaded", () => {
+        let sourceUrlField = document.querySelector(".wFormContainer #tfa_498");
+        if (sourceUrlField) {
+            sourceUrlField.value = decodeURIComponent(document.URL);
+        }
+    });
+</script>

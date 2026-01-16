@@ -226,8 +226,10 @@ body.nothing-personal.nothing-personal-article-page {
     );
   }
 
+  // Full-grid width block adjustments
   .cell.medium-7 {
-    &:has(.media-block--widescreen) {
+    &:has(.media-block--widescreen),
+    &:has(.featured-container) {
       @include breakpoint(medium up) {
         width: 100%;
       }

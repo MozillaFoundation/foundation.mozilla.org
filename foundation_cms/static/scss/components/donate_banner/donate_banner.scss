@@ -30,6 +30,14 @@
     }
   }
 
+  &[data-banner-style="legacy"] {
+    display: none;
+
+    &.donate-banner--visible {
+      display: block;
+    }
+  }
+
   &[data-banner-style="pushdown"] {
     position: sticky;
     top: 0;
@@ -64,6 +72,7 @@
     align-content: center;
     background: $white;
     padding: 0 1rem 1rem;
+    align-self: center;
 
     @include breakpoint(medium up) {
       padding: 0;

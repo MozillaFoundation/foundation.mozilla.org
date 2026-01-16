@@ -10,8 +10,11 @@ const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
   "redesign_fallback",
   "redesign_migrated_content",
+  "pages/campaign_page",
   "pages/home_page",
+  "pages/maintenance",
   "pages/topic_listing_page",
+  "pages/nothing_personal/article_collection_page",
   "pages/nothing_personal/article_page",
   "pages/nothing_personal/podcast_page",
   "pages/nothing_personal/product_collection_page",
