@@ -2,14 +2,19 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 
 from foundation_cms.base.models.abstract_base_page import (
+    BASE_BLOCK_NAMES,
     AbstractBasePage,
-    base_page_block_options,
 )
-from foundation_cms.blocks import CustomMediaBlock
+from foundation_cms.blocks.block_registry import BlockRegistry
 
-general_page_block_options = base_page_block_options + [
-    ("custom_media", CustomMediaBlock()),
-]
+# General page-specific blocks that extend the base blocks
+GENERAL_PAGE_BLOCK_NAMES = sorted(
+    BASE_BLOCK_NAMES
+    + [
+        "custom_media",
+    ]
+)
+general_page_block_options = BlockRegistry.get_blocks(GENERAL_PAGE_BLOCK_NAMES)
 
 
 class AbstractGeneralPage(AbstractBasePage):

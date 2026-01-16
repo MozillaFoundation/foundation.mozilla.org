@@ -57,9 +57,12 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
 
     @route(r"^topics/(?P<slug>[-\w]+)/$")
     def topic_listing(self, request, slug):
+        from foundation_cms.nothing_personal.models import NothingPersonalHomePage
+
         (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
 
         topic = get_object_or_404(Topic, slug=slug)
+        np_home = NothingPersonalHomePage.objects.live().first()
 
         # Grabbing all pages in the DB with this topic, in the default locale.
         base_qs = (
@@ -73,12 +76,13 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
 
         total_pages_count = base_qs.count()
 
-        # Separating child pages of the NothingPersonalHomePage from the original queryset.
-        # todo: Ensure this self reference extracts the correct page.
-        np_pages = base_qs.child_of(self)
-
-        # All other pages with this topic, excluding the above child pages.
-        other_pages = base_qs.exclude(id__in=np_pages.values_list("id", flat=True))
+        if np_home:
+            np_pages = base_qs.child_of(np_home)
+            # All other pages with this topic, excluding the NP child pages.
+            other_pages = base_qs.exclude(id__in=np_pages.values_list("id", flat=True))
+        else:
+            np_pages = Page.objects.none()
+            other_pages = base_qs
 
         # Ordering both querysets by most recently published first, and converting to specific.
         np_pages = np_pages.order_by("-last_published_at").specific()
