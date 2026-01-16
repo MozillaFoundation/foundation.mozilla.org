@@ -81,7 +81,7 @@ export class AccordionBlock {
 
     // Force reflow so the browser acknowledges the start height
     // (this is intentional; it makes the transition reliable)
-     
+
     panel.offsetHeight;
 
     // Animate to closed
