@@ -83,6 +83,7 @@ class TestBlogIndex(BlogIndexTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, template_name="wagtailpages/blog_index_page.html")
         self.assertTemplateUsed(response, template_name="wagtailpages/fragments/entry_cards_item_loop.html")
+        self.assertTemplateUsed(response, template_name="wagtailpages/fragments/blog_card.html")
 
     def test_page_with_single_entry(self):
         blog_page = blog_factories.BlogPageFactory(parent=self.blog_index)
