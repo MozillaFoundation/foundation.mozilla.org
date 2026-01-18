@@ -261,6 +261,68 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         donate_banner.cta_button_data = cta_button_data
         return donate_banner
 
+    def get_footer_newsletter_signup(self, request):
+        SitewideFooterNewsletterSignupPage = apps.get_model("core", "SitewideFooterNewsletterSignupPage")
+
+        # Check if there's a SitewideFooterNewsletterSignupPage.
+        default_locale = Locale.get_default()
+        newsletter_signup_page = SitewideFooterNewsletterSignupPage.objects.filter(locale=default_locale).first()
+        # If there is no SitewideFooterNewsletterSignupPage or no newsletter_signup is set, return None.
+        if not newsletter_signup_page or not newsletter_signup_page.newsletter_signup:
+            return None
+
+        # Check if the user has Do Not Track enabled by inspecting the DNT header.
+        dnt_enabled = request.headers.get("DNT") == "1"
+
+        # Check if there's an active A/B test for the SitewideFooterNewsletterSignupPage.
+        active_ab_test = AbTest.objects.filter(page=newsletter_signup_page, status=AbTest.STATUS_RUNNING).first()
+        # Data attributes for newsletter signup CTA button
+        # These are rendered as data-* attributes on the button element and used by JS
+        cta_button_data = {
+            "newsletter-signup-cta-button": "",  # flag for JS event listeners
+        }
+
+        # If there's no A/B test found or DNT is enabled, return the page's newsletter_signup field as usual.
+        if not active_ab_test or dnt_enabled:
+            newsletter_signup = newsletter_signup_page.newsletter_signup.localized
+            newsletter_signup.variant_version = "N/A"
+            newsletter_signup.active_ab_test = "N/A"
+            newsletter_signup.cta_button_data = cta_button_data
+            return newsletter_signup
+
+        # Check for the cookie related to this A/B test.
+        # In wagtail-ab-testing, the cookie name follows the format:
+        # "wagtail-ab-testing_{ab_test.id}_version".
+        # For details, see the source code here:
+        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
+        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+        test_version = request.COOKIES.get(test_cookie_name)
+
+        # If no version cookie is found, grab a test version for the current user.
+        if not test_version:
+            test_version = active_ab_test.get_new_participant_version()
+
+        if test_version == "variant":
+            is_variant = True
+        else:
+            is_variant = False
+
+        # Attach active test and variant flag to request for {% wagtail_ab_testing_script %} template tag.
+        # This allows wagtail-ab-testing to track events for this test, and set the version cookie if needed.
+        request.wagtail_ab_testing_test = active_ab_test
+        request.wagtail_ab_testing_serving_variant = is_variant
+
+        # Return the appropriate newsletter signup
+        if is_variant:
+            newsletter_signup = active_ab_test.variant_revision.as_object().newsletter_signup.localized
+        else:
+            newsletter_signup = newsletter_signup_page.newsletter_signup.localized
+
+        newsletter_signup.variant_version = test_version
+        newsletter_signup.active_ab_test = active_ab_test.name
+        newsletter_signup.cta_button_data = cta_button_data
+        return newsletter_signup
+
     def get_context(self, request):
         context = super().get_context(request)
         theme = self.get_theme()
@@ -272,6 +334,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
             ]
         ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
+        context["footer_newsletter_signup"] = self.get_footer_newsletter_signup(request)
         context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
         context["theme_class_bem"] = self._to_bem_case(theme) if theme else ""
         return context
