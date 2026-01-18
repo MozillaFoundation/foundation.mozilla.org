@@ -53,7 +53,7 @@ class SitewideFooterNewsletterSignupPage(Page):
 
     parent_page_types = [HomePage]
 
-    template = "patterns/components/previews/newsletter_signup.html"
+    template = "patterns/components/previews/footer_newsletter_signup.html"
 
     class Meta:
         verbose_name = "Footer Newsletter Signup Page"
