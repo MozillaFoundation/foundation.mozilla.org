@@ -24,17 +24,17 @@
         <!-- Email -->
         {% trans "Check out this petition:" as email_message %}
         <button
-           data-sp-target="share-progress-em"
-           class="btn btn-secondary btn-secondary--no-arrow btn-secondary--email">
+            data-sp-target="share-progress-em"
+            class="btn btn-secondary btn-secondary--no-arrow btn-secondary--email">
             {% trans "Email" %}
         </button>
 
         <!-- Facebook -->
         <button href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
-           target="_blank"
-           rel="noopener noreferrer"
-           data-sp-target="share-progress-fb"
-           class="btn btn-secondary btn-secondary--no-arrow btn-secondary--facebook">
+                target="_blank"
+                rel="noopener noreferrer"
+                data-sp-target="share-progress-fb"
+                class="btn btn-secondary btn-secondary--no-arrow btn-secondary--facebook">
             {% trans "Facebook" %}
         </button>
     </div>
