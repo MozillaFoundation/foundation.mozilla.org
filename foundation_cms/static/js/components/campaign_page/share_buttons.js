@@ -74,9 +74,6 @@ function handleShareButtonClick(event) {
 export function initShareButtons() {
   const shareButtons = document.querySelectorAll(SELECTORS.shareButtons);
   shareButtons.forEach((shareButton) => {
-    shareButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      handleShareButtonClick(e);
-    });
+    shareButton.addEventListener("click", handleShareButtonClick);
   });
 }

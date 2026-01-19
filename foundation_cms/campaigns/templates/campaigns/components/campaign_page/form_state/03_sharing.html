@@ -17,26 +17,26 @@
         </div>
 
         <!-- Copy Link -->
-        <button class="btn btn-secondary without-icon">
+        <button class="btn btn-secondary without-arrow-icon with-link-icon">
             {% trans "Copy Link" %}
         </button>
 
         <!-- Email -->
         {% trans "Check out this petition:" as email_message %}
-        <a href="mailto:?subject={{ page.title|urlencode }}&body={{ email_message|urlencode }} {{ request.build_absolute_uri|urlencode }}"
+        <button
            data-sp-target="share-progress-em"
-           class="btn btn-secondary without-icon">
+           class="btn btn-secondary without-arrow-icon with-email-icon">
             {% trans "Email" %}
-        </a>
+        </button>
 
         <!-- Facebook -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+        <button href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
            target="_blank"
            rel="noopener noreferrer"
            data-sp-target="share-progress-fb"
-           class="btn btn-secondary without-icon">
+           class="btn btn-secondary without-arrow-icon with-facebook-icon">
             {% trans "Facebook" %}
-        </a>
+        </button>
     </div>
 
     {% include "campaigns/components/campaign_page/action/skip.html" %}
