@@ -158,15 +158,21 @@ $cta-link-icon-sizes: (
   }
 
   &--link {
-    @include button-with-left-icon("/static/foundation_cms/_images/icons/link.svg");
+    @include button-with-left-icon(
+      "/static/foundation_cms/_images/icons/link.svg"
+    );
   }
 
   &--email {
-    @include button-with-left-icon("/static/foundation_cms/_images/icons/email.svg");
+    @include button-with-left-icon(
+      "/static/foundation_cms/_images/icons/email.svg"
+    );
   }
 
   &--facebook {
-    @include button-with-left-icon("/static/foundation_cms/_images/icons/facebook.svg");
+    @include button-with-left-icon(
+      "/static/foundation_cms/_images/icons/facebook.svg"
+    );
   }
 }
 
