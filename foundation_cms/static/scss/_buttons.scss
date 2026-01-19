@@ -113,13 +113,13 @@ $cta-link-icon-sizes: (
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
   }
 
-  &.with-heart-icon {
+  &--heart {
     &::after {
       background-image: url("/static/foundation_cms/_images/icons/button-heart-white.svg");
     }
   }
 
-  &.without-arrow-icon {
+  &--no-arrow {
     &::after {
       display: none;
     }
@@ -151,21 +151,21 @@ $cta-link-icon-sizes: (
     background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
   }
 
-  &.without-arrow-icon {
+  &--no-arrow {
     &::after {
       display: none;
     }
   }
 
-  &.with-link-icon {
+  &--link {
     @include button-with-left-icon("/static/foundation_cms/_images/icons/link.svg");
   }
 
-  &.with-email-icon {
+  &--email {
     @include button-with-left-icon("/static/foundation_cms/_images/icons/email.svg");
   }
 
-  &.with-facebook-icon {
+  &--facebook {
     @include button-with-left-icon("/static/foundation_cms/_images/icons/facebook.svg");
   }
 }
