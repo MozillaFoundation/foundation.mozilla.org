@@ -85,5 +85,5 @@ class Petition(CTA):
 
     class Meta:
         ordering = ["-id"]
-        verbose_name = "Petition (New)"
-        verbose_name_plural = "Petitions (New)"
+        verbose_name = "Petition"
+        verbose_name_plural = "Petitions"

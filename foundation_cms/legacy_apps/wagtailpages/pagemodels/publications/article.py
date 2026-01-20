@@ -324,3 +324,7 @@ class ArticlePage(BasePage):
         # menu_items is required for zen_nav in the templates
         context["get_titles"] = get_plaintext_titles(request, self.body, "content")
         return context
+
+    class Meta:
+        verbose_name = "Article Page (Legacy)"
+        verbose_name_plural = "Article Pages (Legacy)"

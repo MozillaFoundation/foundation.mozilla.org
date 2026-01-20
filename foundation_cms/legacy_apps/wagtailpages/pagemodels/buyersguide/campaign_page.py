@@ -120,3 +120,7 @@ class BuyersGuideCampaignPage(BasePage):
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
     ]
+
+    class Meta:
+        verbose_name = "Buyers Guide Campaign Page (Legacy)"
+        verbose_name_plural = "Buyers Guide Campaign Pages (Legacy)"

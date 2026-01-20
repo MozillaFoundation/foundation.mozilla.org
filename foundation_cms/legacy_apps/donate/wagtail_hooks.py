@@ -16,8 +16,8 @@ class DonateBannerViewSet(SnippetViewSet):
     model = DonateBanner
     icon = "form"  # change as required
     menu_order = 100
-    description = "Donation Banner"
-    menu_label = "Donation Banners"
+    description = "Donation Banner (Legacy)"
+    menu_label = "Donation Banners (Legacy)"
     list_display = (
         "name",
         "title",
@@ -46,7 +46,7 @@ def register_donate_banner_chooser_viewset():
 class HelpPageNoticeViewSet(SnippetViewSet):
     model = HelpPageNotice
     icon = "form"
-    menu_label = "Help Page Notices"
+    menu_label = "Help Page Notices (Legacy)"
     list_display = (
         "name",
         UpdatedAtColumn(),
@@ -62,8 +62,8 @@ class DonationModalSnippetViewSet(SnippetViewSet):
     model = DonationModal
     icon = "newspaper"
     menu_order = 200
-    menu_label = "Donate Modals"
-    menu_name = "Donate Modals"
+    menu_label = "Donate Modals (Legacy)"
+    menu_name = "Donate Modals (Legacy)"
     list_display = (
         "name",
         "donate_text",
@@ -84,8 +84,8 @@ class DonateViewSetGroup(SnippetViewSetGroup):
         HelpPageNoticeViewSet,
     )
     menu_icon = "heart"
-    menu_label = "Donate"
-    menu_name = "Donate"
+    menu_label = "Donate (Legacy)"
+    menu_name = "Donate (Legacy)"
     menu_order = 1000
 
 

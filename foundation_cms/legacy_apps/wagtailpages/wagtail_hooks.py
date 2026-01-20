@@ -175,8 +175,8 @@ class BlogPageTopicSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BlogPageTopic
     icon = "tag"
     menu_order = 000
-    menu_label = "Topics"
-    menu_name = "Topics"
+    menu_label = "Topics (Legacy)"
+    menu_name = "Topics (Legacy)"
     list_display = ("name",)
     search_fields = (
         "name",
@@ -189,8 +189,8 @@ class BlogSignupSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BlogSignup
     icon = "newspaper"
     menu_order = 100
-    menu_label = "Newsletter Signups"
-    menu_name = "Newsletter Signups"
+    menu_label = "Newsletter Signups (Legacy)"
+    menu_name = "Newsletter Signups (Legacy)"
     list_display = (
         "name",
         "newsletter",
@@ -202,8 +202,8 @@ class BlogSignupSnippetViewSet(SnippetViewSet):
 class BlogViewSetGroup(SnippetViewSetGroup):
     items = (BlogPageTopicSnippetViewSet, BlogSignupSnippetViewSet)
     menu_icon = "bold"
-    menu_label = "Blog"
-    menu_name = "Blog"
+    menu_label = "Blog (Legacy)"
+    menu_name = "Blog (Legacy)"
     menu_order = 1400
 
 
@@ -214,8 +214,8 @@ class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BuyersGuideProductCategory
     icon = "list-ul"
     menu_order = 000
-    menu_label = "Product Categories"
-    menu_name = "Product Categories"
+    menu_label = "Product Categories (Legacy)"
+    menu_name = "Product Categories (Legacy)"
     list_display = (
         "name",
         "parent",
@@ -239,8 +239,8 @@ class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BuyersGuideContentCategory
     icon = "tag"
     menu_order = 100
-    menu_label = "Content Categories"
-    menu_name = "Content Categories"
+    menu_label = "Content Categories (Legacy)"
+    menu_name = "Content Categories (Legacy)"
     list_display = (
         "title",
         "slug",
@@ -253,8 +253,8 @@ class BuyersGuideUpdateSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Update
     icon = "history"
     menu_order = 200
-    menu_label = "Product Updates"
-    menu_name = "Product Updates"
+    menu_label = "Product Updates (Legacy)"
+    menu_name = "Product Updates (Legacy)"
     list_display = (
         "title",
         "author",
@@ -282,8 +282,8 @@ class BuyersGuideCTASnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BuyersGuideCallToAction
     icon = "link-external"
     menu_order = 300
-    menu_label = "CTAs"
-    menu_name = "CTAs"
+    menu_label = "CTAs (Legacy)"
+    menu_name = "CTAs (Legacy)"
     list_display = (
         "title",
         "link_label",
@@ -304,8 +304,8 @@ class BuyersGuideViewSetGroup(SnippetViewSetGroup):
         BuyersGuideCTASnippetViewSet,
     )
     menu_icon = "pni"
-    menu_label = "*PNI"
-    menu_name = "*PNI"
+    menu_label = "*PNI (Legacy)"
+    menu_name = "*PNI (Legacy)"
     menu_order = 1500
 
     def get_submenu_items(self):
@@ -321,8 +321,8 @@ class ResearchTopicsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.ResearchTopic
     icon = "tag"
     menu_order = 000
-    menu_label = "Topics"
-    menu_name = "Topics"
+    menu_label = "Topics (Legacy)"
+    menu_name = "Topics (Legacy)"
     list_display = ("name", "slug")
     search_fields = ("name",)
     ordering = ("name",)
@@ -332,8 +332,8 @@ class ResearchRegionsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.ResearchRegion
     icon = "globe"
     menu_order = 100
-    menu_label = "Regions"
-    menu_name = "Regions"
+    menu_label = "Regions (Legacy)"
+    menu_name = "Regions (Legacy)"
     list_display = ("name", "slug")
     search_fields = ("name",)
     ordering = ("name",)
@@ -342,8 +342,8 @@ class ResearchRegionsSnippetViewSet(SnippetViewSet):
 class ResearchSetGroup(SnippetViewSetGroup):
     items = (ResearchTopicsSnippetViewSet, ResearchRegionsSnippetViewSet)
     menu_icon = "flask"
-    menu_label = "Research Hub"
-    menu_name = "Research Hub"
+    menu_label = "Research Hub (Legacy)"
+    menu_name = "Research Hub (Legacy)"
     menu_order = 1500
 
 
@@ -354,8 +354,8 @@ class RCCContentTypeSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.RCCContentType
     icon = "clipboard-list"
     menu_order = 000
-    menu_label = "Content Types"
-    menu_name = "Content Types"
+    menu_label = "Content Types (Legacy)"
+    menu_name = "Content Types (Legacy)"
     list_display = ("name", "slug")
     search_fields = ("name",)
     ordering = ("name",)
@@ -365,8 +365,8 @@ class RCCCurricularAreaSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.RCCCurricularArea
     icon = "doc-full"
     menu_order = 100
-    menu_label = "Curricular Areas"
-    menu_name = "Curricular Areas"
+    menu_label = "Curricular Areas (Legacy)"
+    menu_name = "Curricular Areas (Legacy)"
     list_display = ("name", "slug")
     search_fields = ("name",)
     ordering = ("name",)
@@ -376,8 +376,8 @@ class RCCTopicsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.RCCTopic
     icon = "tag"
     menu_order = 200
-    menu_label = "Topics"
-    menu_name = "Topics"
+    menu_label = "Topics (Legacy)"
+    menu_name = "Topics (Legacy)"
     list_display = ("name", "slug")
     search_fields = ("name",)
     ordering = ("name",)
@@ -386,8 +386,8 @@ class RCCTopicsSnippetViewSet(SnippetViewSet):
 class RCCSetGroup(SnippetViewSetGroup):
     items = (RCCContentTypeSnippetViewSet, RCCCurricularAreaSnippetViewSet, RCCTopicsSnippetViewSet)
     menu_icon = "desktop"
-    menu_label = "RCC"
-    menu_name = "RCC"
+    menu_label = "RCC (Legacy)"
+    menu_name = "RCC (Legacy)"
     menu_order = 1600
 
 
@@ -398,8 +398,8 @@ class PetitionsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Petition
     icon = "comment"
     menu_order = 1700
-    menu_label = "Petitions"
-    menu_name = "Petitions"
+    menu_label = "Petitions (Legacy)"
+    menu_name = "Petitions (Legacy)"
     add_to_admin_menu = True
     list_display = (
         "name",
@@ -433,8 +433,8 @@ class ProfilesSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Profile
     icon = "user"
     menu_order = 1800
-    menu_label = "Profiles"
-    menu_name = "Profiles"
+    menu_label = "Profiles (Legacy)"
+    menu_name = "Profiles (Legacy)"
     add_to_admin_menu = True
     list_display = ("name", "tagline", "slug")
     search_fields = ("name",)
@@ -448,8 +448,8 @@ class CTASnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.CTA
     icon = "link-external"
     menu_order = 1900
-    menu_label = "CTAs"
-    menu_name = "CTAs"
+    menu_label = "CTAs (Legacy)"
+    menu_name = "CTAs (Legacy)"
     add_to_admin_menu = True
     list_display = ("name", "header", "newsletter")
     search_fields = (
@@ -466,8 +466,8 @@ class SignupSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Signup
     icon = "newspaper"
     menu_order = 2000
-    menu_label = "Signups"
-    menu_name = "Signups"
+    menu_label = "Signups (Legacy)"
+    menu_name = "Signups (Legacy)"
     add_to_admin_menu = True
     list_display = (
         "name",
@@ -492,8 +492,8 @@ class AreasOfFocusViewSet(SnippetViewSet):
     model = wagtailpages_models.FocusArea
     icon = "view"
     menu_order = 000
-    menu_label = "Areas of Focus"
-    menu_name = "Areas of Focus"
+    menu_label = "Areas of Focus (Legacy)"
+    menu_name = "Areas of Focus (Legacy)"
     list_display = ("name", "interest_icon")
     search_fields = ("name",)
     ordering = ("name",)
@@ -503,8 +503,8 @@ class CallpowersViewSet(SnippetViewSet):
     model = Callpower
     icon = "chain-broken"
     menu_order = 100
-    menu_label = "Callpowers"
-    menu_name = "Callpowers"
+    menu_label = "Callpowers (Legacy)"
+    menu_name = "Callpowers (Legacy)"
     list_display = ("name", "header", "newsletter", "campaign_id", "call_button_label")
     search_fields = (
         "name",
@@ -518,6 +518,8 @@ class HighlightSnippetViewSet(SnippetViewSet):
     model = Highlight
     icon = "date"
     menu_order = 200
+    menu_label = "Highlights (Legacy)"
+    menu_name = "Highlights (Legacy)"
     list_display = (
         "title",
         "link_label",
@@ -531,6 +533,8 @@ class NewsSnippetViewSet(SnippetViewSet):
     model = News
     icon = "doc-full-inverse"
     menu_order = 300
+    menu_label = "News (Legacy)"
+    menu_name = "News (Legacy)"
     list_display = (
         "headline",
         "outlet",
@@ -551,8 +555,8 @@ class PulseFiltersViewSet(SnippetViewSet):
     model = wagtailpages_models.PulseFilter
     icon = "cross"
     menu_order = 400
-    menu_label = "Pulse Filters"
-    menu_name = "Pulse Filters"
+    menu_label = "Pulse Filters (Legacy)"
+    menu_name = "Pulse Filters (Legacy)"
     list_display = ("name", "filter_key", "filter_key_label")
     search_fields = ("name",)
     list_filter = ("filter_key",)
@@ -562,8 +566,8 @@ class PulseFiltersViewSet(SnippetViewSet):
 class ArchiveSetGroup(SnippetViewSetGroup):
     items = (AreasOfFocusViewSet, CallpowersViewSet, HighlightSnippetViewSet, NewsSnippetViewSet, PulseFiltersViewSet)
     menu_icon = "folder-open-1"
-    menu_label = "Archived"
-    menu_name = "Archived"
+    menu_label = "Archived (Legacy)"
+    menu_name = "Archived (Legacy)"
     menu_order = 2100
 
 

@@ -74,5 +74,5 @@ class FooterNewsletterSignup(BaseSiteSetting):
     ]
 
     class Meta:
-        verbose_name = "Footer Newsletter Signup (New)"
-        verbose_name_plural = "Footer Newsletter Signups (New)"
+        verbose_name = "Footer Newsletter Signup"
+        verbose_name_plural = "Footer Newsletter Signups"
