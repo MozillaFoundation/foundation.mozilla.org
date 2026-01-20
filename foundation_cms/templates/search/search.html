@@ -61,20 +61,9 @@
                                         </div>
                                         <h4 class="page-card__title"><a href="{{ result.url }}">{{ result.title }}</a></h4>
                                         {% if result.specific.authors.all %}
-                                            <span class="page-card__author">By
-                                                {% for author in result.specific.authors.all %}
-                                                    {% if author.name %}
-                                                        {{ author.name }}
-                                                    {% else %}
-                                                        {{ author }}
-                                                    {% endif %}
-                                                    {% if not forloop.last %}, {% endif %}
-                                                {% endfor %}
-                                            </span>
+                                            <span class="page-card__author">By {% for author in result.specific.authors.all %}{% firstof author.name author %}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
                                         {% elif result.specific.author %}
-                                            <span class="page-card__author">By
-                                                {{ result.specific.author.name }}
-                                            </span>
+                                            <span class="page-card__author">By {{ result.specific.author.name }}</span>
                                         {% endif %}
                                         {% if result.first_published_at %}
                                             <span class="page-card__date"> | {{ result.first_published_at|date:"F j, Y" }}</span>
