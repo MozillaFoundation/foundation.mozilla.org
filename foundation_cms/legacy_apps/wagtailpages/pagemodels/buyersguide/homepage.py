@@ -422,7 +422,8 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         )
 
     class Meta:
-        verbose_name = "Buyers Guide Page"
+        verbose_name = "Buyers Guide Page (Legacy)"
+        verbose_name_plural = "Buyers Guide Pages (Legacy)"
 
 
 class BuyersGuidePageHeroSupportingPageRelation(TranslatableMixin, Orderable):

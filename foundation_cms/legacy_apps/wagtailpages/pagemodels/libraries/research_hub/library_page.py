@@ -87,3 +87,7 @@ class ResearchLibraryPage(base_library_page.BaseLibraryPage):
             research_detail_pages = research_detail_pages.filter(original_publication_date__year=year)
 
         return research_detail_pages
+
+    class Meta:
+        verbose_name = "Research Library Page (Legacy)"
+        verbose_name_plural = "Research Library Pages (Legacy)"

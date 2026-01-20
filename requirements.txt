@@ -39,7 +39,7 @@ cffi==1.16.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==43.0.1
+cryptography==44.0.1
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -169,7 +169,7 @@ psutil==5.9.0
     # via scout-apm
 psycopg2-binary==2.9.11
     # via -r requirements.in
-pyasn1==0.6.1
+pyasn1==0.6.2
     # via
     #   python-jose
     #   rsa
@@ -200,7 +200,7 @@ pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r requirements.in
     #   basket-client

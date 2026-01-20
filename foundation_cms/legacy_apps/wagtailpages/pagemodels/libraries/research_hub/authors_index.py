@@ -49,3 +49,7 @@ class ResearchAuthorsIndexPage(base_authors_index_page.BaseAuthorsIndexPage):
             template="pages/libraries/research_hub/author_detail_page.html",
             context_overrides=context_overrides,
         )
+
+    class Meta:
+        verbose_name = "Research Authors index page (Legacy)"
+        verbose_name_plural = "Research Authors index pages (Legacy)"

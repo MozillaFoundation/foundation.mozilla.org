@@ -12,8 +12,8 @@ class TitoEventSnippetViewSet(SnippetViewSet):
     model = TitoEvent
     icon = "tito"
     menu_order = 000
-    menu_label = "Tito"
-    menu_name = "Tito"
+    menu_label = "Tito (Legacy)"
+    menu_name = "Tito (Legacy)"
     list_display = (
         "title",
         "event_id",
@@ -27,8 +27,8 @@ class TicketSnippetViewSet(SnippetViewSet):
     model = Ticket
     icon = "ticket"
     menu_order = 100
-    menu_label = "Tickets"
-    menu_name = "Tickets"
+    menu_label = "Tickets (Legacy)"
+    menu_name = "Tickets (Legacy)"
     list_display = (
         "name",
         "cost",
@@ -44,8 +44,8 @@ class NewsletterSignupWithBackgroundSnippetViewSet(SnippetViewSet):
     model = NewsletterSignupWithBackground
     icon = "newspaper"
     menu_order = 200
-    menu_label = "Newsletter Signups"
-    menu_name = "Newsletter Signups"
+    menu_label = "Newsletter Signups (Legacy)"
+    menu_name = "Newsletter Signups (Legacy)"
     list_display = (
         "name",
         "newsletter",
@@ -57,8 +57,8 @@ class NewsletterSignupWithBackgroundSnippetViewSet(SnippetViewSet):
 class MozfestViewSetGroup(SnippetViewSetGroup):
     items = (TitoEventSnippetViewSet, TicketSnippetViewSet, NewsletterSignupWithBackgroundSnippetViewSet)
     menu_icon = "mozfest"
-    menu_label = "Mozfest"
-    menu_name = "Mozfest"
+    menu_label = "Mozfest (Legacy)"
+    menu_name = "Mozfest (Legacy)"
     menu_order = 1300
 
 
