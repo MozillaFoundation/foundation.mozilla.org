@@ -72,7 +72,8 @@ class CTA(CTABase):
 
     class Meta:
         ordering = ["-id"]
-        verbose_name_plural = "CTA"
+        verbose_name = "CTA (Legacy)"
+        verbose_name_plural = "CTAs (Legacy)"
 
 
 class Callpower(TranslatableMixin, CTA):
@@ -139,7 +140,8 @@ class Callpower(TranslatableMixin, CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Callpower"
+        verbose_name = "Callpower (Legacy)"
+        verbose_name_plural = "Callpowers (Legacy)"
 
 
 class Signup(TranslatableMixin, CTA):
@@ -168,7 +170,8 @@ class Signup(TranslatableMixin, CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Signup"
+        verbose_name = "Signup (Legacy)"
+        verbose_name_plural = "Signups (Legacy)"
 
 
 class BlogSignup(TranslatableMixin, CTABase):
@@ -178,8 +181,8 @@ class BlogSignup(TranslatableMixin, CTABase):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Blog Signup"
-        verbose_name_plural = "Blog Signups"
+        verbose_name = "Blog Signup (Legacy)"
+        verbose_name_plural = "Blog Signups (Legacy)"
 
 
 class OpportunityPage(MiniSiteNameSpace):
@@ -206,8 +209,8 @@ class OpportunityPage(MiniSiteNameSpace):
     ]
 
     class Meta:
-        verbose_name = "Default Page"
-        verbose_name_plural = "Default pages"
+        verbose_name = "Default Page (Legacy)"
+        verbose_name_plural = "Default pages (Legacy)"
 
 
 class Petition(TranslatableMixin, CTA):
@@ -317,7 +320,8 @@ class Petition(TranslatableMixin, CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["-id"]
-        verbose_name = "Petition"
+        verbose_name = "Petition (Legacy)"
+        verbose_name_plural = "Petitions (Legacy)"
 
 
 class CampaignPage(MiniSiteNameSpace):
@@ -377,6 +381,10 @@ class CampaignPage(MiniSiteNameSpace):
         "YoutubeRegretsReporterPage",
         "OpportunityPage",
     ]
+
+    class Meta:
+        verbose_name = "Campaign Page (Legacy)"
+        verbose_name_plural = "Campaign Pages (Legacy)"
 
 
 class BanneredCampaignTag(TaggedItemBase):
@@ -475,5 +483,5 @@ class BanneredCampaignPage(PrimaryPage):
         return get_page_tree_information(self, context)
 
     class Meta:
-        verbose_name = "Banner Page"
-        verbose_name_plural = "Banner pages"
+        verbose_name = "Banner Page (Legacy)"
+        verbose_name_plural = "Banner pages (Legacy)"

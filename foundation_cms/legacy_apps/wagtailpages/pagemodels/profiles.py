@@ -61,3 +61,5 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
+        verbose_name = "Profile (Legacy)"
+        verbose_name_plural = "Profiles (Legacy)"

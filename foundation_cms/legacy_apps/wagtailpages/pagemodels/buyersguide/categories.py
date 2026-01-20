@@ -181,8 +181,8 @@ class BuyersGuideProductCategory(
     ]
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = "Buyers Guide Product Category"
-        verbose_name_plural = "Buyers Guide Product Categories"
+        verbose_name = "Buyers Guide Product Category (Legacy)"
+        verbose_name_plural = "Buyers Guide Product Categories (Legacy)"
         ordering = [
             F("parent__name").asc(nulls_first=True),
             "name",
@@ -227,8 +227,8 @@ class BuyersGuideCategoryNavRelation(Orderable):
     panels = [FieldPanel("category")]
 
     class Meta:
-        verbose_name = "Category Navigation Relation"
-        verbose_name_plural = "Category Navigation Relations"
+        verbose_name = "Category Navigation Relation (Legacy)"
+        verbose_name_plural = "Category Navigation Relations (Legacy)"
         ordering = ["sort_order"]
         unique_together = [("nav", "category")]
 
@@ -245,5 +245,5 @@ class BuyersGuideCategoryNav(BaseGenericSetting, ClusterableModel):
         return "*PNI categories navbar"
 
     class Meta:
-        verbose_name = "*PNI categories navbar"
-        verbose_name_plural = "*PNI categories navbar"
+        verbose_name = "*PNI categories navbar (Legacy)"
+        verbose_name_plural = "*PNI categories navbar (Legacy)"

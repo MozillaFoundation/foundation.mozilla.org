@@ -94,7 +94,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
     ]
 
     class Meta:
-        verbose_name = "General Page (new)"
+        verbose_name = "General Page"
 
     # keep an explicit fallback in case no themed templates exist
     template = "patterns/pages/core/general_page.html"

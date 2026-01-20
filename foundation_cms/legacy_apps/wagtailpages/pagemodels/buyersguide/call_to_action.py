@@ -63,8 +63,8 @@ class BuyersGuideCallToAction(index.Indexed, TranslatableMixin, models.Model):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
-        verbose_name = "Buyers Guide Call To Action"
-        verbose_name_plural = "Buyers Guide Call To Actions"
+        verbose_name = "Buyers Guide Call To Action (Legacy)"
+        verbose_name_plural = "Buyers Guide Call To Actions (Legacy)"
 
     def __str__(self):
         return self.title

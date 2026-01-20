@@ -343,5 +343,5 @@ class CampaignPage(AbstractBasePage):
         return petition_signed_url
 
     class Meta:
-        verbose_name = "Campaign Page (New)"
-        verbose_name_plural = "Campaign Pages (New)"
+        verbose_name = "Campaign Page"
+        verbose_name_plural = "Campaign Pages"

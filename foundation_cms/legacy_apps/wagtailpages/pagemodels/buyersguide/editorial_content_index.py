@@ -153,6 +153,10 @@ class BuyersGuideEditorialContentIndexPage(
             "article",
         )
 
+    class Meta:
+        verbose_name = "Buyers Guide Editorial Content Index Page (Legacy)"
+        verbose_name_plural = "Buyers Guide Editorial Content Index Pages (Legacy)"
+
 
 class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin, Orderable):
     page = ParentalKey(

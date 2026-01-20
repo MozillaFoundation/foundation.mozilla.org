@@ -152,6 +152,10 @@ class BuyersGuideArticlePage(BasePage):
         #        directly from the database.
         return [a.localized for a in related_articles]
 
+    class Meta:
+        verbose_name = "Buyers Guide Article Page (Legacy)"
+        verbose_name_plural = "Buyers Guide Article Pages (Legacy)"
+
 
 class BuyersGuideArticlePageAuthorProfileRelation(
     wagtail_models.TranslatableMixin,

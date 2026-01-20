@@ -112,7 +112,8 @@ class Highlight(TranslatableMixin, SortableMixin):
     objects = HighlightQuerySet.as_manager()
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name_plural = "highlights"
+        verbose_name = "highlight (Legacy)"
+        verbose_name_plural = "highlights (Legacy)"
         ordering = ("order",)
 
     def __str__(self):
