@@ -66,7 +66,11 @@
                                             <span class="page-card__author">By {{ result.specific.author.name }}</span>
                                         {% endif %}
                                         {% if result.first_published_at %}
-                                            <span class="page-card__date"> | {{ result.first_published_at|date:"F j, Y" }}</span>
+                                            {% if result.specific.authors.all or result.specific.author %}
+                                                <span class="page-card__date"> | {{ result.first_published_at|date:"F j, Y" }}</span>
+                                            {% else %}
+                                                <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
+                                            {% endif %}
                                         {% endif %}
                                         <p class="page-card__description">{{ result.search_description }}</p>
                                     </div>
@@ -86,7 +90,28 @@
                     </div>
                 {% endif %}
             {% elif search_query %}
-                <p>No results found for "{{ search_query }}"</p>
+                <div class="cell small-12">
+                    <div class="search-summary">
+                        <p><b>0 results</b> for:</p>
+                        <h2 class="h1-style">"{{ search_query }}"</h2>
+                    </div>
+                </div>
+                <div class="cell small-12 large-8 large-offset-2 search-form-wrapper">
+                    <form action="{% url 'search' %}" method="get" class="search-form" role="search">
+                        <input type="text" name="query" class="search-form__input" placeholder="{% trans "Search" %}" {% if search_query %}value="{{ search_query }}"{% endif %}>
+                        <button type="submit" class="search-form__submit-button btn-primary">
+                            <span class="btn-primary__roller">
+                                <span class="btn-primary__rolltext">
+                                    <span class="btn-primary__text">{% trans "Search" %}</span>
+                                    <span class="btn-primary__text btn-primary__text--roll-in">{% trans "Search" %}</span>
+                                </span>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+                <div class="cell small-12 search-no-results-topics">
+                    <p>We couldn’t find what you’re looking for! Try these popular topic tags:</p>
+                </div>
 
                 {% if keep_contributing_pages|length >= 2 %}
                     <div class="grid-container related-content-wrapper">
