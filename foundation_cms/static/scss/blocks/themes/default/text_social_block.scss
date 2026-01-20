@@ -1,0 +1,84 @@
+@use "sass:map";
+
+.text-social-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: rem-calc(54);
+  gap: rem-calc(39);
+  height: rem-calc(493);
+  background-color: color(neutral, "200");
+  border-top-left-radius: rem-calc(88);
+
+  &__title {
+    @include mofo-text-style($body-text-styles, "xlarge");
+
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__text {
+    @include mofo-text-style($body-text-styles, "large");
+
+    line-height: 1.3;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__buttons {
+    justify-content: center;
+    display: flex;
+    gap: rem-calc(12);
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: rem-calc(38);
+      height: rem-calc(39);
+      background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+        no-repeat center / contain;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        background: url("/static/foundation_cms/_images/share-container-orange.svg")
+          no-repeat center / contain;
+      }
+    }
+  }
+
+  [class*="icon-"] {
+    width: rem-calc(18);
+    height: rem-calc(18);
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    line-height: 100%;
+    position: relative;
+    top: 1px;
+  }
+
+  .icon-bluesky {
+    background-image: url("/static/foundation_cms/_images/icons/social-bluesky-black.svg");
+  }
+
+  .icon-instagram {
+    background-image: url("/static/foundation_cms/_images/icons/social-instagram-black.svg");
+  }
+
+  .icon-linkedin {
+    background-image: url("/static/foundation_cms/_images/icons/social-linkedin-black.svg");
+  }
+
+  .icon-spotify {
+    background-image: url("/static/foundation_cms/_images/icons/social-spotify-black.svg");
+  }
+
+  .icon-tiktok {
+    background-image: url("/static/foundation_cms/_images/icons/social-tiktok-black.svg");
+  }
+}

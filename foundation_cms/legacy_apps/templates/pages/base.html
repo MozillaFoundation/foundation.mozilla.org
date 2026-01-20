@@ -74,8 +74,6 @@
 
         {% wagtail_ab_testing_script %}
 
-        {% block commento_meta %}{% endblock %}
-
         {% block stylesheets %}
             <link rel="stylesheet" href="{% static "legacy_apps/_css/main.compiled.css" %}">
             <link rel="stylesheet" href="{% static "legacy_apps/_fonts/css/base.min.css" %}">
@@ -99,7 +97,7 @@
             <base target="_blank">
         {% endif %}
     </head>
-    <body class="{% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}">
+    <body class="legacy {% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}" data-site-type="{% block dataSiteType %}legacy{% endblock dataSiteType %}">
         {% if user.is_authenticated %}
             {% wagtailuserbar 'bottom-right' %}
         {% endif %}
@@ -112,21 +110,27 @@
 
         {% block donate_banner %}
             {% if donate_banner %}
-                {% include "fragments/donate_banner.html" with banner=donate_banner %}
+                {% if parent_homepage == "redesign" %}
+                    {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner %}
+                {% endif %}
             {% endif %}
         {% endblock %}
 
         {% block body_wrapped %}
-            <div class="wrapper">
+            <div class="wrapper main-content-wrapper">
                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
-                        {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
-                            {% if nav_menu %}
-                                {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
-                            {% else %}
-                                {% include "fragments/primary_nav.html" with background="simple-background" %}
-                            {% endif %}
-                        {% endwith %}
+                        {% if parent_homepage == "redesign" %}
+                            {% include "patterns/components/primary_nav.html" %}
+                        {% else %}
+                            {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
+                                {% if nav_menu %}
+                                    {% include "fragments/nav/menu.html" with menu=nav_menu.localized %}
+                                {% else %}
+                                    {% include "fragments/primary_nav.html" with background="simple-background" %}
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
                     {% endblock %}
                 </div>
 
@@ -145,7 +149,11 @@
                 {% block prefooter %}{% endblock %}
 
                 {% block footer_block %}
-                    {% include "fragments/footer.html" %}
+                    {% if parent_homepage == "redesign" %}
+                        {% include "patterns/components/footer.html" %}
+                    {% else %}
+                        {% include "fragments/footer.html" %}
+                    {% endif %}
                 {% endblock %}
             </div>
         {% endblock %}
@@ -153,6 +161,7 @@
         {% block script_bundle %}
             <script src="{% url "javascript-catalog" %}"></script>
             <script src="{% static "legacy_apps/_js/main.compiled.js" %}"></script>
+            <script src="{% static "foundation_cms/_js/redesign_migrated_content.compiled.js" %}"></script>
         {% endblock %}
 
         {% block extra_scripts %}{% endblock %}

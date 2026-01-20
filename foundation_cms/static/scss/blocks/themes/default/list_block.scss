@@ -1,0 +1,62 @@
+body.redesign {
+  .list-block {
+    background-color: color(yellow, "200");
+    border-top-right-radius: rem-calc(18);
+    border-bottom-left-radius: rem-calc(18);
+    padding: 2rem 2rem 1rem;
+
+    @include breakpoint(large up) {
+      padding: 4rem 4rem 3rem;
+      border-top-right-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+      margin: 0 0 0.5rem;
+    }
+
+    &__description {
+      @include mofo-text-style($body-text-styles, "xlarge");
+
+      margin: 0 0 1rem;
+    }
+
+    &__items {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title + .list-block__items {
+      margin-top: 1rem;
+    }
+
+    &__link {
+      @include mofo-text-style($body-text-styles, "regular");
+
+      justify-content: space-between;
+      text-decoration: none;
+      width: 100%;
+      padding-right: 2rem;
+      position: relative;
+      text-wrap: wrap;
+
+      &::after {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        right: 0;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &__item {
+      border-top: 1px solid #a3a3a3;
+      padding: 1rem 1rem 1rem 0;
+    }
+  }
+}

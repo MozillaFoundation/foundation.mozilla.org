@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% load static i18n l10n nothing_personal_tags %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block body_class %}{{ page_type_bem }}{% endblock body_class %}
+
+{% block pre_content %}
+    <div class="precontent brand-banner" role="banner">
+        {% nothing_personal_homepage_url as np_url %}
+        {% if np_url %}
+            <a href="{{ np_url }}">
+                <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="{% trans "Nothing Personal by Mozilla Foundation Logo" %}" width="130" height="99" />
+            </a>
+        {% else %}
+            <img src="{% static 'foundation_cms/_images/nothing-personal/NP-logo.svg' %}" alt="{% trans "Nothing Personal by Mozilla Foundation Logo" %}" width="130" height="99" />
+        {% endif %}
+    </div>
+{% endblock pre_content %}
+
+{% block post_content %}
+    <div class="postcontent pre-footer-banner grid-container">
+        <img class="pre-footer-banner__wordmark" src="{% static 'foundation_cms/_images/nothing-personal/NP-Logomark.svg' %}" alt="{% trans "Nothing Personal Logomark" %}" width="100%" height="auto" />
+    </div>
+{% endblock post_content %}

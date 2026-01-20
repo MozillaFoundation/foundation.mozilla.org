@@ -1,70 +1,74 @@
-{% load wagtailsettings_tags static %}
+{% load wagtailsettings_tags static i18n l10n %}
 <footer class="site-footer-ns">
   <div class="grid-container">
     <div class="site-footer-ns__grid">
       <div class="site-footer-ns__grid-cell">
         <div class="site-footer-ns__logo">
-          <a href="#">
-            <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="Mozilla Foundation Logo" width="440" height="92" />
+          <a href="/">
+            <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="{% trans "Mozilla Foundation Logo" %}" width="440" height="92" />
           </a>
         </div>
         <div class="site-footer-ns__newsletter-form">
           {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
             {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
-              {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
+              {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup.localized %}
             {% endwith %}
           {% endif %}
         </div>
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__links body-text-regular">
         <ul class="internal">
-          <li><a href="#">Meet Mozilla</a></li>
-          <li><a href="#">Leadership</a></li>
-          <li><a href="#">Public Records</a></li>
-          <li><a href="#">Licensing</a></li>
-          <li><a href="#">Press Center</a></li>
-          <li><a href="#">Contact us</a></li>
+          <li><a href="/meet-mozilla/website-licensing/">{% trans "Licensing" %}</a></li>
+          <li><a href="/meet-mozilla/annual-reports-and-financials/">{% trans "Annual Reports & Financials" %}</a></li>
+          <li><a href="/meet-mozilla/press-center/">{% trans "Press Center" %}</a></li>
+          <li><a href="/what-we-do/grantmaking/">{% trans "Grantmaking" %}</a></li>
         </ul>
         <ul class="external">
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Cookies</a></li>
-          <li><a href="#">Legal</a></li>
-          <li><a href="#">Participation guidelines</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation">{% trans "Careers" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">{% trans "Privacy" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">{% trans "Cookies" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/legal/terms/mozilla/">{% trans "Legal" %}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/governance/policies/participation/">{% trans "Participation guidelines" %}</a></li>
         </ul>
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__cta">
-        {% include "patterns/components/button.html" with classnames="dark-mode" url="/donate" label="Donate now" button_style="btn-primary" %}
+        {% translate "Donate" as localized_donate_label %}
+        {% include "patterns/components/button.html" with classnames="dark-mode" url="?form=donate-footer" label=localized_donate_label button_style="btn-primary" %}
+        {% include "patterns/components/language_switcher.html" %}
       </div>
     </div>
     <div class="site-footer-ns__legals body-text-xsmall">
       <div class="site-footer-ns__grid-cell">
-        <p>Mozilla Foundation is a global non-profit and parent of the <a href="#" class="site-footer-ns__link site-footer-ns__link--legal">Mozilla Corporation</a>. Most content available under a <a href="#" class="site-footer-ns__link site-footer-ns__link--legal">Creative Commons license</a>.</p>
+        <p>
+          {% blocktrans with moco_url='https://www.mozilla.org/' meet_mozilla_url='/meet-mozilla/website-licensing/' trimmed %}
+            Mozilla Foundation is a global non-profit and parent of the <a target="_blank" rel="noopener noreferrer" href="{{ moco_url }}" class="site-footer-ns__link site-footer-ns__link--legal">Mozilla Corporation</a>. Most content available under a <a href="{{ meet_mozilla_url }}" class="site-footer-ns__link site-footer-ns__link--legal">Creative Commons license</a>.
+          {% endblocktrans %}
+        </p>
       </div>
       <div class="site-footer-ns__grid-cell">
         <ul class="social-links">
           <li>
-            <a href="https://bsky.app/profile/mozilla.org" class="site-footer-ns__social-link" aria-label="Bluesky">
+            <a target="_blank" rel="noopener noreferrer" href="https://bsky.app/profile/mozilla.org" class="site-footer-ns__social-link" aria-label="Bluesky">
               <i class="icon-bluesky"></i>
             </a>
           </li>
           <li>
-            <a href="https://www.instagram.com/mozilla/" class="site-footer-ns__social-link" aria-label="Instagram">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/mozilla/" class="site-footer-ns__social-link" aria-label="Instagram">
               <i class="icon-instagram"></i>
             </a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/company/mozilla-corporation/" class="site-footer-ns__social-link" aria-label="LinkedIn">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/mozilla-corporation/" class="site-footer-ns__social-link" aria-label="LinkedIn">
               <i class="icon-linkedin"></i>
             </a>
           </li>
           <li>
-            <a href="#" class="site-footer-ns__social-link"  aria-label="Spotify">
+            <a target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/show/0vT7LJMeVDxyQ2ZamHKu08 " class="site-footer-ns__social-link"  aria-label="Spotify">
               <i class="icon-spotify"></i>
             </a>
           </li>
           <li>
-            <a href="https://www.tiktok.com/@mozilla" class="site-footer-ns__social-link" aria-label="TikTok">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@mozilla" class="site-footer-ns__social-link" aria-label="TikTok">
               <i class="icon-tiktok"></i>
             </a>
           </li>

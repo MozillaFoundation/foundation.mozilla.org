@@ -2,7 +2,7 @@ basket-client
 beautifulsoup4
 boto3
 cached_property==2.0.1
-Django==4.2.20
+Django==4.2.27
 dj-database-url
 djangorestframework
 django-admin-sortable==2.3
@@ -30,7 +30,7 @@ wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories
 wagtail-footnotes
-wagtail-localize==1.11.3
+wagtail-localize==1.12.2
 wagtail-localize-git
 wagtail-inventory
 wagtailmedia

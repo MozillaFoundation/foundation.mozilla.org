@@ -52,10 +52,20 @@
         width: 100%;
       }
 
-      .newsletter-signup__cta {
-        @include mofo-text-style($body-text-styles, "large");
+      .newsletter-signup {
+        &__cta-wrapper {
+          margin-bottom: 0.5rem;
 
-        font-weight: 400;
+          @include breakpoint(xlarge up) {
+            margin-bottom: 1rem;
+            align-self: normal;
+          }
+        }
+
+        &__cta-header,
+        &__cta-description {
+          @include mofo-text-style($body-text-styles, "large");
+        }
       }
 
       .newsletter-signup__input {
@@ -83,7 +93,7 @@
           background-color: transparent;
 
           &:checked {
-            background-image: url("../_images/icons/checkbox-stripe-white.svg");
+            background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-white.svg");
           }
 
           &:hover {
@@ -102,6 +112,18 @@
           outline: 1px solid $white;
           outline-offset: 2px;
         }
+      }
+
+      .newsletter-signup__success-title {
+        padding-left: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      .newsletter-signup__success-media {
+        display: none;
       }
     }
   }
@@ -137,13 +159,13 @@
             content: "";
             width: rem-calc(12px);
             height: rem-calc(12px);
-            background-image: url("../_images/icons/link-external-white.svg");
+            background-image: url("/static/foundation_cms/_images/icons/link-external-white.svg");
             margin-left: 0.5rem;
           }
 
           &:hover {
             &::after {
-              background-image: url("../_images/icons/link-external-orange.svg");
+              background-image: url("/static/foundation_cms/_images/icons/link-external-orange.svg");
             }
           }
         }
@@ -166,8 +188,15 @@
       }
     }
 
-    @include breakpoint(large up) {
-      padding-right: 2rem;
+    #language-switcher-form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+
+      #language-switcher {
+        @include custom-select-dropdown("dark");
+      }
     }
   }
 
@@ -189,6 +218,7 @@
 
     p {
       margin: 0;
+      color: $white;
     }
 
     .site-footer-ns__link--legal {
@@ -226,42 +256,42 @@
         }
 
         .icon-bluesky {
-          background-image: url("../_images/icons/social-bluesky-white.svg");
+          background-image: url("/static/foundation_cms/_images/icons/social-bluesky-white.svg");
 
           &:hover {
-            background-image: url("../_images/icons/social-bluesky-orange.svg");
+            background-image: url("/static/foundation_cms/_images/icons/social-bluesky-orange.svg");
           }
         }
 
         .icon-instagram {
-          background-image: url("../_images/icons/social-instagram-white.svg");
+          background-image: url("/static/foundation_cms/_images/icons/social-instagram-white.svg");
 
           &:hover {
-            background-image: url("../_images/icons/social-instagram-orange.svg");
+            background-image: url("/static/foundation_cms/_images/icons/social-instagram-orange.svg");
           }
         }
 
         .icon-linkedin {
-          background-image: url("../_images/icons/social-linkedin-white.svg");
+          background-image: url("/static/foundation_cms/_images/icons/social-linkedin-white.svg");
 
           &:hover {
-            background-image: url("../_images/icons/social-linkedin-orange.svg");
+            background-image: url("/static/foundation_cms/_images/icons/social-linkedin-orange.svg");
           }
         }
 
         .icon-spotify {
-          background-image: url("../_images/icons/social-spotify-white.svg");
+          background-image: url("/static/foundation_cms/_images/icons/social-spotify-white.svg");
 
           &:hover {
-            background-image: url("../_images/icons/social-spotify-orange.svg");
+            background-image: url("/static/foundation_cms/_images/icons/social-spotify-orange.svg");
           }
         }
 
         .icon-tiktok {
-          background-image: url("../_images/icons/social-tiktok-white.svg");
+          background-image: url("/static/foundation_cms/_images/icons/social-tiktok-white.svg");
 
           &:hover {
-            background-image: url("../_images/icons/social-tiktok-orange.svg");
+            background-image: url("/static/foundation_cms/_images/icons/social-tiktok-orange.svg");
           }
         }
       }

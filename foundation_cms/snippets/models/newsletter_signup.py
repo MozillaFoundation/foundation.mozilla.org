@@ -1,22 +1,27 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 
 @register_snippet
-class NewsletterSignup(models.Model):
+class NewsletterSignup(TranslatableMixin, models.Model):
     name = models.CharField(
         default="",
         max_length=100,
         help_text="The name of this newsletter signup form.",
     )
-    cta_text = models.CharField(max_length=255, default="Stay updated with our latest news and updates.")
+    cta_header = models.CharField(max_length=255, default="Stay updated with our latest news and updates.")
+    cta_description = models.CharField(
+        blank=True, max_length=255, help_text="Additional description text below the header."
+    )
     button_text = models.CharField(max_length=50, default="Sign Up", help_text="Text to display on the signup button.")
     newsletter = models.CharField(
         max_length=100,
         help_text="The (pre-existing) newsletter to sign up for.",
-        default="mozilla-foundation",
+        default="mozillafoundationorg",
     )
     layout = models.CharField(
         max_length=20,
@@ -30,7 +35,8 @@ class NewsletterSignup(models.Model):
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("cta_text"),
+        FieldPanel("cta_header"),
+        FieldPanel("cta_description"),
         FieldPanel("button_text"),
         FieldPanel("newsletter"),
         FieldPanel("layout"),
@@ -38,6 +44,15 @@ class NewsletterSignup(models.Model):
 
     def __str__(self):
         return self.name
+
+    translatable_fields = [
+        SynchronizedField("name"),
+        TranslatableField("cta_header"),
+        TranslatableField("cta_description"),
+        TranslatableField("button_text"),
+        SynchronizedField("newsletter"),
+        SynchronizedField("layout"),
+    ]
 
 
 @register_setting(icon="mail")

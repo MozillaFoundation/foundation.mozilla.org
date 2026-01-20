@@ -34,6 +34,8 @@ env = environ.Env(
     BASKET_URL=(str, ""),
     BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, "200/hour"),
     CONTENT_TYPE_NO_SNIFF=bool,
+    CAMO_ENDPOINT_KEY=(str, ""),
+    CAMO_NEWSLETTER_ENDPOINT=(str, ""),
     CORS_ALLOWED_ORIGIN_REGEXES=(tuple, ()),
     CORS_ALLOWED_ORIGINS=(tuple, ()),
     CSP_INCLUDE_NONCE_IN=(list, []),
@@ -43,8 +45,8 @@ env = environ.Env(
     DEBUG=(bool, False),
     DEBUG_TOOLBAR_ENABLED=(bool, False),
     DJANGO_LOG_LEVEL=(str, "INFO"),
-    FEED_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     DOMAIN_REDIRECT_MIDDLEWARE_ENABLED=(bool, False),
+    FEED_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     FEED_LIMIT=(int, 10),
     FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ""),
@@ -56,8 +58,11 @@ env = environ.Env(
     HEROKU_RELEASE_VERSION=(str, None),
     INDEX_PAGE_CACHE_TIMEOUT=(int, 60 * 60 * 24),
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
+    MOZFEST_SCHEDULE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
+    NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
+    PROD_HOSTNAMES=(str, ""),
     PULSE_API_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
@@ -72,9 +77,10 @@ env = environ.Env(
     SOCIAL_AUTH_AUTH0_SECRET=(str, None),
     SOCIAL_AUTH_RAISE_EXCEPTIONS=(bool, False),
     SSL_REDIRECT=bool,
+    STAGING_HOSTNAMES=(str, ""),
     STATIC_HOST=(str, ""),
+    SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL=(str, ""),
     TARGET_DOMAINS=(list, []),
-    USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WAGTAILIMAGES_INDEX_PAGE_SIZE=(int, 60),
@@ -89,6 +95,8 @@ env = environ.Env(
     WAGTAILADMIN_BASE_URL=(str, ""),
     PATTERN_LIBRARY_ENABLED=(bool, False),
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
+    WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
+    UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
 )
 
 # Read in the environment
@@ -127,6 +135,11 @@ REVIEW_APP = env("REVIEW_APP", default=False)
 
 APP_ENVIRONMENT = env("APP_ENVIRONMENT")
 
+# Used when copying the PROD DB to the STAGING site DB.
+# This will make sure that staging sites still point to staging hostnames.
+PROD_HOSTNAMES = env("PROD_HOSTNAMES")
+STAGING_HOSTNAMES = env("STAGING_HOSTNAMES")
+
 # Apple Pay domain association
 APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION")
 APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST")
@@ -158,6 +171,8 @@ TARGET_DOMAINS = env("TARGET_DOMAINS")
 
 # Temporary Redirect for Mozilla Festival domain
 MOZFEST_DOMAIN_REDIRECT_ENABLED = env("MOZFEST_DOMAIN_REDIRECT_ENABLED")
+# Mozilla Festival Schedule redirect URL override
+MOZFEST_SCHEDULE_URL = env("MOZFEST_SCHEDULE_URL")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
@@ -169,8 +184,12 @@ HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
 if HEROKU_APP_NAME:
-    herokuAppHost = env("HEROKU_APP_NAME") + ".herokuapp.com"
+    herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
     ALLOWED_HOSTS.append(herokuAppHost)
+    if APP_ENVIRONMENT == "Review":
+        TARGET_DOMAINS.append(herokuAppHost)
+        TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
+        TARGET_DOMAINS.append("legacy-" + herokuAppHost)
 
 SITE_ID = 1
 
@@ -273,9 +292,10 @@ INSTALLED_APPS = list(
             "foundation_cms.legacy_apps.project_styleguide",
             # Redesign Site Apps
             "foundation_cms.base",
+            "foundation_cms.campaigns",
             "foundation_cms.core",
             "foundation_cms.blog",
-            "foundation_cms.articles",
+            "foundation_cms.nothing_personal",
             "foundation_cms.profiles",
             "foundation_cms.snippets",
             "foundation_cms.images",
@@ -337,6 +357,7 @@ if SOCIAL_SIGNIN:
         "foundation_cms.pipeline.associate_by_email",
         "social_core.pipeline.user.get_username",
         "social_core.pipeline.user.create_user",
+        "foundation_cms.pipeline.assign_default_role",
         "social_core.pipeline.social_auth.associate_user",
         "social_core.pipeline.social_auth.load_extra_data",
         "social_core.pipeline.user.user_details",
@@ -367,6 +388,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.review_app",
                         "foundation_cms.context_processor.canonical_path",
                         "foundation_cms.context_processor.canonical_site_url",
+                        "foundation_cms.context_processor.mozfest_schedule_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -386,8 +408,11 @@ TEMPLATES = [
                 "nav_tags": "foundation_cms.legacy_apps.nav.templatetags.nav_tags",
                 "primary_page_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
+                "app_environment_tags": "foundation_cms.templatetags.app_environment_tags",
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
-                "streamfield_tags": "foundation_cms.templatetags.streamfield_tags",
+                "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
+                "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
+                "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
@@ -502,6 +527,7 @@ USE_I18N = True
 USE_TZ = True
 
 LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
     os.path.join(BASE_DIR, "legacy_apps/locale"),
     os.path.join(BASE_DIR, "legacy_apps/templates/pages/buyersguide/about/locale"),
     os.path.join(BASE_DIR, "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale"),
@@ -731,9 +757,6 @@ PETITION_TEST_CAMPAIGN_ID = env("PETITION_TEST_CAMPAIGN_ID")
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env("BUYERS_GUIDE_VOTE_RATE_LIMIT")
 
-# Commento.io flag
-USE_COMMENTO = env("USE_COMMENTO")
-
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
 
@@ -819,5 +842,22 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env("WAGTAIL_NOTIFICATION_EMAIL")
 EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
 
-# Notification emails are sent to moderators and superusers by default.
-WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = True
+# Controls whether superusers should receive Wagtail admin notifications.
+# This variable is used internally in Wagtail's native logic.
+WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = env("WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS")
+
+# Newsletter subscription method and endpoints
+
+# Choices are "BASKET" or "CAMO"
+NEWSLETTER_SIGNUP_METHOD = env("NEWSLETTER_SIGNUP_METHOD")
+
+# Endpoints for subscribing users to our newsletters
+CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
+CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
+UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
+SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
+
+# Override streamfield via monkey patch in apps.py
+# Useful to compress massive legacy streamfield migrations that cause memory issues on review apps
+# Not for regular use, as it has data migrations implications
+TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)

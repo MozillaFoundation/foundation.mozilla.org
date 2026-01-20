@@ -10,7 +10,7 @@
 
 # if settings.HEROKU_APP_NAME:
 #     REVIEW_APP_NAME = settings.HEROKU_APP_NAME
-#     REVIEW_APP_HOSTNAME = f"{REVIEW_APP_NAME}.herokuapp.com"
+#     REVIEW_APP_HOSTNAME = f"{REVIEW_APP_NAME}.mofostaging.net"
 
 
 # class HomePageFactory(PageFactory):

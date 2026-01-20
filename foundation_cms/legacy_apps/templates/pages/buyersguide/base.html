@@ -39,6 +39,7 @@
 {% block stylesheets %}
     {% if debug %}<link rel="stylesheet" href="{% static "legacy_apps/_css/tailwind.compiled.css" %}">{% endif %}
     <link rel="stylesheet" href="{% static "legacy_apps/_css/buyers-guide.compiled.css" %}">
+    <link rel="stylesheet" href="{% static "foundation_cms/_css/redesign_migrated_content.compiled.css" %}">
     <link rel="stylesheet" href="{% static "legacy_apps/_fonts/css/base.min.css" %}">
 {% endblock %}
 
@@ -71,6 +72,7 @@
 
 
 {% block bodyclass %}pni{% endblock %}
+{% block dataSiteType %}pni{% endblock dataSiteType %}
 
 
 {% block script_bundle %}
@@ -101,7 +103,7 @@
     {% endblock %}
 
     <!-- Need to position relatives to deal with potential CSS transformations that change some stacking context of elements -->
-    <div class="tw-relative">
+    <div class="tw-relative tw-bg-white">
         <div class="tw-relative tw-z-10">
             {% block hero %}{% endblock %}
 
@@ -114,9 +116,16 @@
 
         {% block background_parallax %}
         {% endblock %}
-        <div class="tw-relative tw-z-10">
-            {% include "fragments/buyersguide/footer.html" %}
-        </div>
+        {% block footer_block %}
+            <div class="tw-relative tw-z-10">
+
+                {% if parent_homepage == "redesign" %}
+                    {% include "patterns/components/footer.html" %}
+                {% else %}
+                    {% include "fragments/buyersguide/footer.html" %}
+                {% endif %}
+            </div>
+        {% endblock %}
     </div>
 
 

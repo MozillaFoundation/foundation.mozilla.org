@@ -7,7 +7,6 @@ from taggit.models import TaggedItemBase
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
-from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_content_related_by_tag, get_page_tree_information
@@ -42,7 +41,7 @@ class CTABase(models.Model):
     newsletter = models.CharField(
         max_length=100,
         help_text="The (pre-existing) newsletter to sign up for",
-        default="mozilla-foundation",
+        default="mozillafoundationorg",
     )
 
     translatable_fields = [
@@ -59,11 +58,6 @@ class CTABase(models.Model):
         FieldPanel("header"),
         FieldPanel("description"),
         FieldPanel("privacy_notice"),
-    ]
-
-    search_fields = [
-        index.SearchField("name", boost=10),
-        index.SearchField("newsletter"),
     ]
 
     def __str__(self):
@@ -133,11 +127,6 @@ class Callpower(TranslatableMixin, CTA):
         SynchronizedField("share_email"),
     ]
 
-    search_fields = CTA.search_fields + [
-        index.SearchField("campaign_id", boost=2),
-        index.FilterField("locale_id"),
-    ]
-
     panels = CTA.panels + [
         FieldPanel("campaign_id"),
         FieldPanel("call_button_label"),
@@ -170,12 +159,6 @@ class Signup(TranslatableMixin, CTA):
     translatable_fields = CTA.translatable_fields + [
         SynchronizedField("campaign_id"),
         SynchronizedField("ask_name"),
-    ]
-
-    search_fields = CTA.search_fields + [
-        index.SearchField("campaign_id", boost=2),
-        index.FilterField("locale_id"),
-        index.FilterField("ask_name"),
     ]
 
     panels = CTA.panels + [
@@ -319,14 +302,6 @@ class Petition(TranslatableMixin, CTA):
         # Fields from the CTA model
         TranslatableField("header"),
         TranslatableField("description"),
-    ]
-
-    search_fields = CTA.search_fields + [
-        index.SearchField("campaign_id", boost=2),
-        index.FilterField("locale_id"),
-        index.FilterField("show_country_field"),
-        index.FilterField("show_postal_code_field"),
-        index.FilterField("show_comment_field"),
     ]
 
     panels = CTA.panels + [

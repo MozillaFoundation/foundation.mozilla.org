@@ -16,14 +16,16 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail_ab_testing import urls as ab_testing_urls
 from wagtail_footnotes import urls as footnotes_urls
 
-from foundation_cms.core import views as core_views
 from foundation_cms.legacy_apps.utility import watail_core_url_override as wagtail_urls
 from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
     urlpatterns as image_url_tag_urls,
 )
 from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
 from foundation_cms.search import views as search_views
-from foundation_cms.views import newsletter_signup_submission_view
+from foundation_cms.views import (
+    newsletter_signup_submission_view,
+    newsletter_unsubscribe_view,
+)
 
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -58,6 +60,7 @@ Disallow: /
 User-Agent: *
 Disallow: /*/artifacts/thimble
 Disallow: /artifacts/thimble
+Disallow: /*?form=
 crawl-delay: 10
 """.strip()
 
@@ -133,6 +136,7 @@ urlpatterns = list(
             re_path(
                 r"^newsletter-signup/(?P<pk>[0-9]+)/", newsletter_signup_submission_view, name="signup-submission"
             ),
+            path("newsletter-unsubscribe/", newsletter_unsubscribe_view, name="newsletter-unsubscribe"),
         ],
     )
 )
@@ -142,7 +146,6 @@ urlpatterns = list(
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
     path("search/", search_views.search, name="search"),
-    path("listing_page/", core_views.listing_page, name="listing_page"),
     path("search/autocomplete/", search_views.search_autocomplete, name="search_autocomplete"),
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),

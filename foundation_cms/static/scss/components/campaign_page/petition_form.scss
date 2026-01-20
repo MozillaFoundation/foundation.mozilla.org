@@ -1,0 +1,122 @@
+/* stylelint-disable selector-id-pattern,selector-class-pattern -- because we have to target elements with FormAssembly defined selectors  */
+
+.petition__form-wrapper {
+  $black: map.get($mofo-colors, black);
+  $white: map.get($mofo-colors, white);
+  $error-color: color(orange, "600");
+  $field-gap: 1rem;
+
+  @mixin shared-style {
+    border: 1px solid $black;
+    background: $white;
+    width: 100%;
+    padding: 1rem;
+    margin: $field-gap 0 0;
+
+    &::placeholder {
+      color: $black;
+      opacity: 1;
+    }
+  }
+
+  // FormAssembly elements
+  .wFormContainer {
+    input[type="text"] {
+      all: unset;
+      box-sizing: border-box;
+      @include shared-style;
+    }
+
+    textarea {
+      @include shared-style;
+    }
+
+    select {
+      @include shared-style;
+      @include custom-select-dropdown;
+    }
+
+    .errMsg {
+      @include mofo-text-style($body-text-styles, "small");
+
+      margin-top: rem-calc(4);
+      color: $error-color;
+    }
+
+    .wFormFooter,
+    .supportInfo {
+      display: none;
+    }
+
+    // label for first name field
+    label[for="tfa_28"],
+    label[for="tfa_28"] + br,
+    // label for last name field
+    label[for="tfa_30"],
+    label[for="tfa_30"] + br,
+    // label for email field
+    label[for="tfa_31"],
+    label[for="tfa_31"] + br,
+    // label for country field
+    label[for="tfa_254"],
+    label[for="tfa_254"] + br,
+    // label for postal code field
+    label[for="tfa_496"],
+    label[for="tfa_496"] + br,
+    // label for comment field
+    label[for="tfa_497"],
+    label[for="tfa_497"] + br,
+    // label for email subscription checkbox field
+    label#tfa_494-L,
+    label#tfa_494-L + br {
+      display: none;
+    }
+
+    // label for email subscription checkbox field
+    label#tfa_495-L,
+    // for privacy notice text
+    #tfa_502 {
+      @include mofo-text-style($body-text-styles, "small");
+    }
+
+    // first name field
+    input#tfa_28 {
+      margin-top: 0;
+    }
+
+    // email subscription checkbox field container
+    #tfa_494-D {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      margin-top: $field-gap;
+
+      .inputWrapper .oneChoice {
+        display: flex;
+        align-items: center;
+        gap: rem-calc(9);
+      }
+    }
+
+    // email subscription checkbox field
+    input#tfa_495 {
+      appearance: none;
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 1.5rem;
+      display: inline-block;
+      position: relative;
+      background-color: $white;
+      border: 1px solid color(neutral, "600");
+      cursor: pointer;
+
+      &:checked {
+        background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: rem-calc(12) auto;
+      }
+    }
+  }
+}

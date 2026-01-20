@@ -1,14 +1,23 @@
 {% load wagtailimages_tags %}
 
-<div class="tab-card-set">
-    <div class="tab-card-set__image">
-        {% image value.image original as img %}
-        <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
+<div class="tab-card">
+    <div class="tab-card__image">
+        {% image value.image fill-500x500 as img %}
+        {% if value.link %}
+            <a href="{{ value.link.0.url }}">
+                <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
+            </a>
+        {% else %}
+            <img src="{{ img.url }}" height="{{ img.height }}" width="{{ img.width }}" alt="{{ value.title }}">
+        {% endif %}
     </div>
-    <div class="tab-card-set__title">
+    <div class="tab-card__title">
         {{ value.title }}
     </div>
-    <div class="tab-card-set__subtitle">
+    <div class="tab-card__subtitle">
         {{ value.subtitle }}
     </div>
+    {% if value.link %}
+        {% include "patterns/blocks/themes/default/cta_link_block.html" with link=value.link.0 classnames="tab-card__link" %}
+    {% endif %}
 </div>

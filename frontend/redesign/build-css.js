@@ -8,14 +8,25 @@ const __dirname = path.dirname(__filename);
 
 const entries = [
   // List of base .scss file names located in `inDir` (omit the .scss extension)
-  "redesign_main",
+  "redesign_fallback",
   "redesign_migrated_content",
+  "pages/campaign_page",
   "pages/home_page",
+  "pages/maintenance",
+  "pages/topic_listing_page",
+  "pages/nothing_personal/article_collection_page",
+  "pages/nothing_personal/article_page",
+  "pages/nothing_personal/podcast_page",
+  "pages/nothing_personal/product_collection_page",
+  "pages/nothing_personal/product_review_page",
+  "pages/nothing_personal/home_page",
 ];
 
 const inDir = "../../foundation_cms/static/scss";
 const tempDir = "../../foundation_cms/static/temp";
 const outDir = "../../foundation_cms/static/compiled/_css";
+
+const isDev = process.env.NODE_ENV !== "production";
 
 for (const entry of entries) {
   const input = path.resolve(__dirname, `${inDir}/${entry}.scss`);
@@ -29,16 +40,19 @@ for (const entry of entries) {
   );
 
   try {
-    // Compile SCSS to unprocessed CSS
-    execSync(`sass ${input} ${tempOutput} --style=compressed`, {
-      stdio: "inherit",
-    });
+    // Compile SCSS to unprocessed CSS with source maps in dev
+    const sassCmd = isDev
+      ? `sass ${input} ${tempOutput} --source-map --quiet`
+      : `sass ${input} ${tempOutput} --style=compressed --quiet`;
 
-    // Process with PostCSS
-    execSync(
-      `postcss ${tempOutput} -o ${finalOutput} --config ./postcss.config.js`,
-      { stdio: "inherit" },
-    );
+    execSync(sassCmd, { stdio: "inherit" });
+
+    // Process with PostCSS, preserving source maps in dev
+    const postcssCmd = isDev
+      ? `postcss ${tempOutput} -o ${finalOutput} --config ./postcss.config.js --map`
+      : `postcss ${tempOutput} -o ${finalOutput} --config ./postcss.config.js`;
+
+    execSync(postcssCmd, { stdio: "inherit" });
 
     console.log(`Built CSS: ${entry}`);
   } catch (err) {

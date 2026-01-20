@@ -17,9 +17,11 @@
                     <!-- Details -->
                     <div class="impact-stat__details">
                         <h3 class="impact-stat__heading">{{ stat.stat_heading }}</h3>
-                        <p class="impact-stat__description">
-                            {{ stat.stat_description }}
-                        </p>
+                        {% if stat.stat_description %}
+                            <p class="impact-stat__description">
+                                {{ stat.stat_description }}
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

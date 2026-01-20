@@ -1,14 +1,16 @@
-{% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
-{% block content %}
+{% extends theme_base %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
+{% block content %}
     <div class="general-page">
         <div class="general-page__body">
             {% if page.show_hero %}
                 {% include "patterns/components/hero.html" %}
             {% endif %}
             <div class="container">
-                {{ page.body }}
+                {% if page.body %}
+                    {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,0 +1,93 @@
+{% extends "base/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block extended_head %}
+    {% if petition_cta and state == "start" %}
+        {% include "campaigns/components/formassembly_head.html" %}
+    {% endif %}
+{% endblock extended_head %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/campaign_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}template-campaign-page{% endblock body_class %}
+
+{% block content %}
+    {% if state == "signed" and medium != "email" %}
+        {% include "campaigns/components/campaign_page/confirmation_notice_banner.html" with user_email=user_email %}
+    {% endif %}
+
+    <main data-petition-state={{ state }}>
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 large-6">
+                    <h1 class="campaign-header">
+                        {% if page.header %}{{ page.header }}{% else %}{{ page.title }}{% endif %}
+                    </h1>
+                    {% include "campaigns/components/campaign_page/campaign_details.html" with variant="desktop" %}
+                </div>
+                {% if petition_cta %}
+                    <div class="cell small-12 large-6">
+                        {% include "campaigns/components/campaign_page/petition.html" with csp_nonce=csp_nonce page=page state=state petition_cta=petition_cta %}
+                        {% include "campaigns/components/campaign_page/campaign_details.html" with variant="mobile" %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    {% if state == "end" %}
+        {% if keep_contributing_pages|length >= 2 %}
+            <div class="grid-container related-content-wrapper">
+                <div class="grid-x">
+                    <div class="cell small-12">
+                        {% trans "Keep Contributing" as localized_keep_contributing_heading %}
+                        {% with heading=localized_keep_contributing_heading items=keep_contributing_pages image_ratio="3:2" show_author=True image_field="search_image" %}
+                            {% include "patterns/components/nothing_personal/related_content.html" %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/campaign_page.compiled.js' %}"></script>
+    <script nonce="{{ request.csp_nonce }}">
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link copied!');
+            }).catch(function() {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Link copied!');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[data-label]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const label = this.getAttribute('data-label');
+                    const action = this.getAttribute('name') === 'action' ? this.value : 'click';
+
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'petition_flow_button', {
+                            'action': action,
+                            'label': label,
+                            'page_id': '{{ page.id }}',
+                            'state': '{{ state }}'
+                        });
+                    }
+
+                    console.log(`Button clicked: ${label} (${action})`);
+                });
+            });
+        });
+    </script>
+{% endblock extra_js %}

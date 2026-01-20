@@ -44,7 +44,11 @@
 
         {# padding bottom to give space for navigation not included in locomotives total scroll height #}
         <div class="tw-pb-[78px]" data-scroll-section>
-            {% include "fragments/footer.html" %}
+            {% if parent_homepage == "redesign" %}
+                {% include "patterns/components/footer.html" %}
+            {% else %}
+                {% include "fragments/footer.html" %}
+            {% endif %}
         </div>
     </div>
 

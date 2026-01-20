@@ -1,0 +1,93 @@
+
+{% load static wagtailimages_tags wagtailcore_tags i18n l10n responsive_image_tags %}
+
+<div class="grid-container intro-section">
+    <div class="grid-x">
+        <div class="cell small-12 large-7">
+            {% with topics=page.topics.all %}
+                {% include "patterns/components/topic_pills.html" with topics=page.topics.all style_variation="loose" %}
+            {% endwith %}
+            <h1>{{ page.title }}</h1>
+            <dl class="intro-section__meta intro-section__meta--small">
+                {% if page.updated %}
+                    {% trans "Updated" as updated %}
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=updated time=page.updated style_variation="primary" %}
+                {% endif %}
+                {% if page.reviewed %}
+                    {% trans "Reviewed" as reviewed %}
+                    {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=reviewed time=page.reviewed %}
+                {% endif %}
+            </dl>
+
+            {% if page.lede_text %}
+                <p class="intro-section__lede-text">{{ page.lede_text }}</p>
+            {% endif %}
+
+            <div class="intro-section__details-box">
+                {% if page.scoring %}
+                    <div class="intro-section__scoring">{{ page.scoring }}</div>
+                {% endif %}
+
+                <div class="intro-section__details-text">
+                    {% if page.byline %}
+                        <div class="intro-section__byline">{{ page.byline }}</div>
+                    {% endif %}
+
+                    {% if page.hours_tested or page.type_of_testing %}
+                        <dl class="intro-section__details-meta intro-section__meta intro-section__meta--small">
+                            {% if page.hours_tested %}
+                                {% trans "Hours Tested" as hours_tested %}
+                                {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=hours_tested value=page.hours_tested %}
+                            {% endif %}
+                            {% if page.type_of_testing %}
+                                {% trans "Type of Testing" as type_of_testing %}
+                                {% include "patterns/components/nothing_personal/product_review_page/intro_section_meta_item.html" with label=type_of_testing value=page.type_of_testing %}
+                            {% endif %}
+                        </dl>
+                    {% endif %}
+
+                    {% if page.who_am_i %}
+                        <div class="intro-section__who-am-i">{{ page.who_am_i|richtext }}</div>
+                        <a href="#" class="intro-section__who-am-i-toggle"
+                           data-toggles="intro-section__who-am-i">{% trans "More detail +" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Anchor Navigation -->
+            {% include "patterns/components/nothing_personal/product_review_page/toc_nav.html" %}
+        </div>
+        <div class="cell small-6 small-offset-3 large-4 large-offset-1">
+            {% if page.hero_image %}
+                <div class="intro-section__product-img">
+                    {% if page.hero_image|is_webp %}
+                        <img src="{{ page.hero_image.file.url }}"
+                             alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
+                             width="{{ page.hero_image.width }}"
+                             height="{{ page.hero_image.height }}">
+                    {% else %}
+                        {% image page.hero_image fill-162x243 as img_mobile %}
+                        {% image page.hero_image fill-324x486 as img_mobile_2x %}
+                        {% image page.hero_image fill-340x510 as img_tablet %}
+                        {% image page.hero_image fill-680x1020 as img_tablet_2x %}
+                        {% image page.hero_image fill-380x570 as img_desktop %}
+                        {% image page.hero_image fill-760x1140 as img_desktop_2x %}
+                        <img src="{{ img_mobile.url }}"
+                             srcset="{{ img_mobile.url }} 162w,
+                                     {{ img_mobile_2x.url }} 324w,
+                                     {{ img_tablet.url }} 340w,
+                                     {{ img_tablet_2x.url }} 680w,
+                                     {{ img_desktop.url }} 380w,
+                                     {{ img_desktop_2x.url }} 760w"
+                             sizes="(min-width: 1024px) 380px,
+                                    (min-width: 640px) 340px,
+                                    162px"
+                             alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}"
+                             width="{{ img_mobile.width }}"
+                             height="{{ img_mobile.height }}">
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

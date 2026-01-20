@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-{% load static %}
-{% load wagtailcore_tags %}
+{% extends theme_base %}
+{% load static wagtailcore_tags %}
 
 {% block body_class %}template-homepage{% endblock body_class %}
 
@@ -11,7 +10,7 @@
 {% block content %}
   <div class="grid-container">
     <div class="grid-x">
-      <div class="cell small-12 large-7">
+      <div class="cell small-10 medium-9">
         {% include "patterns/components/home_page/kinetic_type_wordmark.html" %}
       </div>
       <div class="cell small-12">
@@ -29,7 +28,6 @@
       {% include "patterns/components/streamfield.html" with streamfield=page.body %}
     {% endif %}
   </main>
-
 {% endblock content %}
 
 {% block extra_js %}

@@ -24,11 +24,13 @@ $panel-transition: (
   duration: 0.5s,
   timing-function: ease,
 );
-$panel-height: (
-  small: rem-calc(400),
-  medium: rem-calc(500),
+
+// panel heights for desktop layout (horizontal instead of stacked)
+$panel-heights: (
   large: rem-calc(500),
   xlarge: rem-calc(600),
+  xxlarge: rem-calc(700),
+  xxxlarge: rem-calc(800),
 );
 $panel-colors: (
   1: color(orange, "300"),
@@ -46,7 +48,8 @@ $details-section-padding: (
 );
 $details-subsection-gap: (
   small: 0.5rem,
-  large: 4rem,
+  large: 1rem,
+  xlarge: 4rem,
 );
 $corner-radius: (
   small: 1.75rem,
@@ -80,17 +83,15 @@ $image-hover-scale: 105%;
 // Mixins
 // ===================================
 
-@mixin text-details-position-even($size) {
-  $height: map.get($panel-height, $size);
+@mixin text-details-position($breakpoint, $type: "even") {
+  $height: map.get($panel-heights, $breakpoint);
 
-  transform: translateX(calc-panel-offset($height));
-  width: calc-panel-width($height);
-}
+  @if $type == "even" {
+    transform: translateX(calc-panel-offset($height));
+  } @else {
+    transform: translateX(calc-panel-offset($height, -1));
+  }
 
-@mixin text-details-position-odd($size) {
-  $height: map.get($panel-height, $size);
-
-  transform: translateX(calc-panel-offset($height, -1));
   width: calc-panel-width($height);
 }
 
@@ -133,6 +134,14 @@ $image-hover-scale: 105%;
   }
 }
 
+@mixin responsive-panel-heights($map) {
+  @each $breakpoint, $height in $map {
+    @include breakpoint(#{$breakpoint} up) {
+      height: $height;
+    }
+  }
+}
+
 .hero-accordion {
   // ===================================
   // CSS Variables
@@ -151,17 +160,14 @@ $image-hover-scale: 105%;
   flex-direction: column;
   width: 100%;
   overflow: visible;
-  margin: 3rem 0;
+  margin-bottom: 3rem;
 
   @include breakpoint(large up) {
     flex-direction: row;
-    height: map.get($panel-height, large);
-    margin: rem-calc(48) 0 rem-calc(64) 0;
+    margin: 1rem 0 rem-calc(64) 0;
   }
 
-  @include breakpoint(xlarge up) {
-    height: map.get($panel-height, xlarge);
-  }
+  @include responsive-panel-heights($panel-heights);
 
   // ===================================
   // Text Elements
@@ -171,7 +177,7 @@ $image-hover-scale: 105%;
     margin-top: 0;
     margin-bottom: rem-calc(8);
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       margin-bottom: rem-calc(21);
     }
   }
@@ -187,7 +193,7 @@ $image-hover-scale: 105%;
       $header-font-family
     );
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       @include apply-text-style(
         $header-styles,
         "h5",
@@ -201,7 +207,7 @@ $image-hover-scale: 105%;
     margin-top: 0;
     margin-bottom: 0;
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       @include apply-text-style($body-text-styles, "large", "large");
     }
   }
@@ -209,7 +215,7 @@ $image-hover-scale: 105%;
   &__cta {
     @include cta-link(map.get($cta-link-icon-sizes, large), "large");
 
-    @include breakpoint(large up) {
+    @include breakpoint(xlarge up) {
       @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
     }
   }

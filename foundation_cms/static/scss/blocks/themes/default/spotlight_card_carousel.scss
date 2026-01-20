@@ -1,10 +1,32 @@
 @use "sass:map";
 @use "sass:math";
 
-.spotlight-card-set {
-  position: relative;
+// @import "../../../scss/type";
 
-  @include breakpoint(xxlarge up) {
+.spotlight-card-set {
+  --mobile-card-width: 70vw;
+  --mobile-slide-gap: 1rem;
+  --mobile-cards-in-set: 3;
+  --mobile-card-sets: 3;
+
+  /* prettier-ignore */
+  --mobile-total-cards: var(--mobile-cards-in-set) * var(--mobile-card-sets);
+
+  /* prettier-ignore */
+  --mobile-total-cards-width: var(--mobile-total-cards) * var(--mobile-card-width);
+
+  /* prettier-ignore */
+  --mobile-total-gaps-width: (var(--mobile-total-cards) - 1) * var(--mobile-slide-gap);
+
+  /* prettier-ignore */
+  --mobile-infinite-slides-width: calc(var(--mobile-total-cards-width) + var(--mobile-total-gaps-width));
+
+  $image-hover-scale: 105%;
+
+  position: relative;
+  margin-bottom: 2.5rem;
+
+  @include breakpoint(large up) {
     &::before {
       content: "";
       position: absolute;
@@ -21,14 +43,15 @@
       );
       $bg: (
         1: (
-          img: url("../_images/handdrawn/notched-rectangle.svg"),
-          position: left calc($offset-to-container-edge - 4rem) top 5rem,
-          size: rem-calc(256) auto,
+          img:
+            url("/static/foundation_cms/_images/handdrawn/notched-rectangle.svg"),
+          position: left calc($offset-to-container-edge + 4rem) top 3rem,
+          size: rem-calc(240) auto,
         ),
         2: (
-          img: url("../_images/handdrawn/speech-bubble.svg"),
-          position: right calc($offset-to-container-edge - 2.5rem) bottom 8rem,
-          size: rem-calc(180) auto,
+          img: url("/static/foundation_cms/_images/handdrawn/speech-bubble.svg"),
+          position: right calc($offset-to-container-edge + 4rem) bottom 14rem,
+          size: rem-calc(240) auto,
         ),
       );
       $bg1: map.get($bg, 1);
@@ -54,7 +77,6 @@
       duration: 0.5s,
       timing-function: ease,
     );
-    $mobile-container-width: 100vw;
 
     // returns the percentage width of N columns
     @function display-width($columns) {
@@ -94,6 +116,13 @@
       )
     );
 
+    // Calculate mobile card left/right margin based on $grid-container-padding
+    // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
+    @function mobile-side-margin($padding-key: small) {
+      $padding: map.get($grid-container-padding, $padding-key);
+      @return calc($padding / 2);
+    }
+
     @mixin desktop-display-style($index) {
       $style: map.get($positions, $index);
       $image: map.get($style, image);
@@ -124,28 +153,29 @@
 
     position: relative;
     overflow: hidden;
+    margin-left: mobile-side-margin(small);
+
+    @include breakpoint(medium up) {
+      margin-left: mobile-side-margin(medium);
+    }
 
     @include breakpoint(large up) {
       overflow: unset;
-      background-image: url("../_images/handdrawn/arrow-down.svg");
+      background-image: url("/static/foundation_cms/_images/handdrawn/arrow-down.svg");
       background-repeat: no-repeat;
-      background-position: right 1rem top
+      background-position: right top
         calc(
           var(--last-image-height) / 2 + map.get($right-half-offset-y, large)
         );
-      background-size: rem-calc(150) auto;
-    }
-
-    @include breakpoint(xxlarge up) {
-      background-size: rem-calc(180) auto;
+      background-size: rem-calc(90) auto;
     }
 
     &__slides {
       list-style: none;
       margin: 0;
       padding: 0;
-      width: calc(100vw * 3);
       display: flex;
+      gap: var(--mobile-slide-gap);
       transition: transform map.get($transition, duration)
         map.get($transition, timing-function);
 
@@ -165,14 +195,13 @@
         left: 0;
         top: var(--featured-image-height);
         width: display-width($featured-columns);
-        padding: 2rem 5rem;
+        padding: rem-calc(24) 2rem 2rem 0;
       }
     }
 
     &__controls {
       display: flex;
       justify-content: end;
-      margin-top: 1rem;
 
       @include breakpoint(large up) {
         $total-image-height: calc(
@@ -183,6 +212,7 @@
         position: absolute;
         right: 0;
         top: calc($total-image-height + $offset);
+        margin-top: 1rem;
       }
     }
 
@@ -190,12 +220,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: $mobile-container-width;
+      width: var(--mobile-card-width);
       transition: all map.get($transition, duration)
         map.get($transition, timing-function);
 
       @include breakpoint(large up) {
         position: absolute;
+        margin: 0;
 
         &[data-display-position="1"] {
           @include desktop-display-style(1);
@@ -215,14 +246,29 @@
       }
 
       &__name {
-        margin: 1rem 0;
+        margin: 0.5rem 0;
+
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "small",
+          $header-font-family
+        );
+
+        @include breakpoint(large up) {
+          @include apply-text-style(
+            $header-styles,
+            "h4",
+            "large",
+            $header-font-family
+          );
+        }
       }
 
       &__image {
         width: 100%;
         aspect-ratio: math.div(1, 1);
         margin: 0;
-        cursor: pointer;
 
         img {
           display: block;
@@ -230,17 +276,19 @@
           height: 100%;
           object-fit: cover;
           object-position: center;
+          transition: transform map.get($transition, duration)
+            map.get($transition, timing-function);
         }
       }
 
       &__content {
-        padding: map.get($grid-margin-gutters, small);
+        padding: map.get($grid-margin-gutters, small) 0;
       }
 
       &[data-carousel-slide="1"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/circle-mask.svg",
+            "/static/foundation_cms/_images/spotlight/circle-mask.svg",
             color(yellow, "200")
           );
         }
@@ -249,7 +297,7 @@
       &[data-carousel-slide="2"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/square-cutout-mask.svg",
+            "/static/foundation_cms/_images/spotlight/square-cutout-mask.svg",
             color(orange, "400")
           );
         }
@@ -258,9 +306,19 @@
       &[data-carousel-slide="3"] {
         .spotlight-card__image {
           @include svg-mask-overlay(
-            "../_images/spotlight/trapezoid-mask.svg",
+            "/static/foundation_cms/_images/spotlight/trapezoid-mask.svg",
             color(blue, "200")
           );
+        }
+      }
+
+      &[data-display-position]:not([data-display-position="1"]) {
+        &:hover {
+          cursor: pointer;
+
+          img {
+            transform: scale($image-hover-scale);
+          }
         }
       }
     }

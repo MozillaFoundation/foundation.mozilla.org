@@ -1,12 +1,21 @@
-<div class="newsletter-signup" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}">
+{% load static i18n l10n localization %}
+
+{% get_current_language as current_language %}
+
+<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}" data-current-language="{{ current_language }}">
 
   <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
-    Something went wrong and your signup wasn't completed. Please try again later.
+    {% trans "Something went wrong and your signup wasn't completed. Please try again later." %}
   </div>
 
   <form class="newsletter-signup__form" novalidate>
 
-    <p class="newsletter-signup__cta">{{ newsletter_signup.cta_text }}</p>
+    <div class="newsletter-signup__cta-wrapper">
+      <p class="newsletter-signup__cta-header">{{ newsletter_signup.cta_header }}</p>
+      {% if newsletter_signup.cta_description %}
+        <p class="newsletter-signup__cta-description">{{ newsletter_signup.cta_description }}</p>
+      {% endif %}
+    </div>
 
     <div class="newsletter-signup__form-grid">
       <div class="newsletter-signup__fieldset">
@@ -16,23 +25,24 @@
             class="newsletter-signup__input"
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="{% trans "Email" %}"
+            aria-label="{% trans "Email" %}"
             required
           >
           <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden email-error-message">
-            Please enter a valid email address.
+            {% trans "Please enter a valid email address." %}
           </div>
         </div>
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
-          <select class="newsletter-signup__input" name="country" required>
+          <select class="newsletter-signup__input" name="country" aria-label="{% trans "Country" %}" required>
               <!-- Country options rendered in through newsletter-signup.js -->
-            <option value="" disabled selected>Your country</option>
+            <option value="" disabled selected>{% trans "Your country" %}</option>
           </select>
         </div>
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
-          <select class="newsletter-signup__input" name="language" required>
+          <select class="newsletter-signup__input" name="language" aria-label="{% trans "Language" %}" required>
               <!-- Language options rendered in through newsletter-signup.js -->
             <option value="en">English</option>
           </select>
@@ -42,12 +52,14 @@
           <label>
             <input type="checkbox" name="privacy">
             <span>
-              I'm okay with Mozilla handling my info as explained in this
-              <a href="https://www.mozilla.org/privacy/websites/" target="_blank" class="newsletter-signup__link">Privacy Notice</a>.
+              {% blocktrans with privacy_link='https://www.mozilla.org/privacy/websites/' trimmed %}
+                I'm okay with Mozilla handling my info as explained in this
+                <a href="{{ privacy_link }}" target="_blank" class="newsletter-signup__link">Privacy Notice</a>.
+              {% endblocktrans %}
             </span>
           </label>
           <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden privacy-error-message">
-            Please check this box if you want to proceed.
+            {% trans "Please check this box if you want to proceed." %}
           </div>
         </div>
 
@@ -57,6 +69,9 @@
         <!-- todo: Implement button component with button tag to use in forms -->
         <button type="submit" class="newsletter-signup__button btn-primary">
           <span class="btn-primary__roller">
+            <span class="loading-message">
+              {% trans "Loading..." %}
+            </span>
             <span class="btn-primary__rolltext">
               <span class="btn-primary__text">{{ newsletter_signup.button_text }}</span>
               <span class="btn-primary__text btn-primary__text--roll-in">{{ newsletter_signup.button_text }}</span>
@@ -70,21 +85,23 @@
   </form>
 
   <div class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
-    <div>
-      <h4 class="newsletter-signup__success-title">Thanks!</h4>
+
+    <div class="newsletter-signup__success-content">
+      <h4 class="newsletter-signup__success-title">{% trans "Thank you!" %}</h4>
       <div>
         <p>
-          If you haven’t previously confirmed your opt-in to a Mozilla-related email subscription you may have to do so now.
-          <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.
-        </p>
-        <p>
-          If you have already confirmed your opt-in to receive Mozilla-related emails, you can now
-          <a href="https://www.mozilla.org/newsletter/recovery/" target="_blank" class="newsletter-signup__link">
-            manage your subscriptions
-          </a>
-          and update your email preferences.
+          {% blocktrans trimmed %}
+            If you haven’t previously confirmed your opt-in to a Mozilla Foundation-related email subscription you may have to do so now.
+            <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.
+          {% endblocktrans %}
         </p>
       </div>
     </div>
+
+    <div class="newsletter-signup__success-media">
+      <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="{% trans "Newsletter signup success image" %}" />
+    </div>
+
   </div>
+
 </div>

@@ -1,9 +1,8 @@
 import { context, build } from "esbuild";
 import path from "path";
 import { fileURLToPath } from "url";
-import { createRequire } from 'module';
+import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-
 
 // __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -33,6 +32,31 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  campaign_page: {
+    source: "pages/campaign_page.js",
+    jsx: false,
+    bundle: true,
+  },
+  redesign_migrated_content: {
+    source: "redesign_migrated_content.js",
+    jsx: false,
+    bundle: true,
+  },
+  admin_controllers: {
+    source: "admin_controllers.js",
+    jsx: false,
+    bundle: true,
+  },
+  nothing_personal_home_page: {
+    source: "pages/nothing_personal/home_page.js",
+    jsx: false,
+    bundle: true,
+  },
+  nothing_personal_product_review_page: {
+    source: "pages/nothing_personal/product_review_page.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {
@@ -53,7 +77,7 @@ const base = {
 // live outside the directory that contains node_modules (/frontend/redesign/node_modules).
 
 const aliasPlugin = {
-  name: 'auto-alias-plugin',
+  name: "auto-alias-plugin",
 
   setup(build) {
     build.onResolve({ filter: /^[^./].*/ }, (args) => {

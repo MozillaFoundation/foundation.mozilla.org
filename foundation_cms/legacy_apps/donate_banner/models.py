@@ -8,10 +8,12 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
 from wagtail.images import get_image_model_string
 from wagtail.models import Page, PreviewableMixin, TranslatableMixin
-from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.wagtailpages.constants import url_or_query_regex
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.mixin.foundation_navigation import (
+    FoundationNavigationPageMixin,
+)
 
 
 class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
@@ -135,12 +137,6 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         SynchronizedField("background_image"),
     ]
 
-    search_fields = [
-        index.SearchField("name"),
-        index.SearchField("title"),
-        index.FilterField("locale_id"),
-    ]
-
     def __str__(self):
         return self.name
 
@@ -178,7 +174,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
             )
 
 
-class DonateBannerPage(Page):
+class DonateBannerPage(FoundationNavigationPageMixin, Page):
     max_count = 1
 
     donate_banner = models.ForeignKey(

@@ -1,0 +1,13 @@
+{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
+
+{% load static i18n %}
+
+{% block wrapper_id %}reduce-your-risks{% endblock wrapper_id %}
+
+{% block heading_text %}{% trans "Reduce Your Risks" %}{% endblock heading_text %}
+
+{% block review_content %}
+    <dl class="product-review-section__qa-list">
+        {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with ans=value.content %}
+    </dl>
+{% endblock review_content %}

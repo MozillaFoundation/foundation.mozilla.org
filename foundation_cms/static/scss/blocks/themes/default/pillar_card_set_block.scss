@@ -1,6 +1,7 @@
 @use "sass:map";
 
 @import "../../../colors";
+@import "../../../buttons";
 
 .pillar-card-set {
   $corner-radius: (
@@ -11,14 +12,18 @@
     1: (
       rotation: -2.5deg,
       background-color: color(blue, "200"),
-      background-image: url("../_images/handdrawn/arrow-up.svg"),
+      background-image:
+        url("/static/foundation_cms/_images/handdrawn/arrow-up.png"),
+      background-position: right -1.5rem bottom,
       background-size: (
-        small: auto rem-calc(70),
-        large: auto rem-calc(120),
-      ),
-      background-position: (
-        small: right 1rem bottom 1rem,
-        large: right 3rem bottom 2rem,
+        small: (
+          width: rem-calc(110),
+          height: auto,
+        ),
+        large: (
+          width: rem-calc(110),
+          height: auto,
+        ),
       ),
       border-top-left-radius: $corner-radius,
       border-top-right-radius: $corner-radius,
@@ -26,37 +31,41 @@
     2: (
       rotation: 4deg,
       background-color: color(green, "200"),
-      background-image: url("../_images/handdrawn/stairs.svg"),
+      background-image:
+        url("/static/foundation_cms/_images/handdrawn/stairs.png"),
+      background-position: right -0.7rem bottom -1rem,
       background-size: (
-        small: auto rem-calc(60),
-        large: auto rem-calc(120),
-      ),
-      background-position: (
-        small: right 1rem bottom 1rem,
-        large: right 2rem bottom 2rem,
+        small: (
+          width: rem-calc(110),
+          height: auto,
+        ),
+        large: (
+          width: rem-calc(110),
+          height: auto,
+        ),
       ),
       border-bottom-left-radius: $corner-radius,
-      top-offset: (
-        large: 2rem,
-      ),
     ),
     3: (
       rotation: -2.5deg,
       background-color: color(yellow, "200"),
-      background-image: url("../_images/handdrawn/rays.svg"),
+      background-image: url("/static/foundation_cms/_images/handdrawn/rays.png"),
+      background-position: right bottom,
       background-size: (
-        small: auto rem-calc(80),
-        large: auto rem-calc(120),
-      ),
-      background-position: (
-        small: right 1rem bottom 1rem,
-        large: right 2rem bottom 2rem,
+        small: (
+          width: rem-calc(96),
+          height: auto,
+        ),
+        large: (
+          width: rem-calc(96),
+          height: auto,
+        ),
       ),
       border-top-right-radius: $corner-radius,
     ),
   );
   $card-padding: (
-    small: 1rem,
+    small: rem-calc(20),
     large: 2rem,
   );
 
@@ -71,15 +80,10 @@
 
   @mixin card-style($index) {
     $style: map.get($cards, $index);
-    $background-size: map.get($style, background-size);
-    $background-position: map.get($style, background-position);
 
-    background-repeat: no-repeat;
     background-color: map.get($style, background-color);
-    background-image: map.get($style, background-image);
-    background-size: map.get($background-size, small);
-    background-position: map.get($background-position, small);
     transform: rotate(map.get($style, rotation));
+    transition: transform 0.1s ease;
 
     @include apply-border-radius(
       top-left,
@@ -102,18 +106,33 @@
       transform: rotate(0);
     }
 
-    @include breakpoint(large up) {
-      background-size: map.get($background-size, large);
-      background-position: map.get($background-position, large);
+    .pillar-card-set__card-illu-wrapper {
+      $background-sizes: map.get($style, background-size);
+      $bg-size-small: map.get($background-sizes, small);
+      $bg-size-large: map.get($background-sizes, large);
+      $background-position: map.get($style, background-position);
 
-      @if map.get($style, top-offset) {
-        $top-offset: map.get($style, top-offset);
-        @if map.get($top-offset, large) {
-          position: relative;
-          top: map.get($top-offset, large);
-        }
+      width: rem-calc(100);
+      height: rem-calc(100);
+      background-repeat: no-repeat;
+      background-image: map.get($style, background-image);
+      background-size: map.get($bg-size-small, width)
+        map.get($bg-size-small, height);
+      background-position: $background-position;
+
+      @include breakpoint(large up) {
+        width: rem-calc(95);
+        height: rem-calc(120);
+        background-size: map.get($bg-size-large, width)
+          map.get($bg-size-large, height);
       }
     }
+  }
+
+  padding: 2rem 0 3rem;
+
+  @include breakpoint(large up) {
+    padding: 3rem 0 5rem;
   }
 
   &__card-container {
@@ -147,12 +166,52 @@
     }
 
     &-headline {
+      @include apply-text-style(
+        $header-styles,
+        "h4",
+        "small",
+        $header-font-family
+      );
+
       margin-top: 0;
-      margin-bottom: rem-calc(154);
+      margin-bottom: 0;
+
+      @include breakpoint(large up) {
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "large",
+          $header-font-family
+        );
+      }
     }
 
     &-link {
       @include cta-link(map.get($cta-link-icon-sizes, large), "large");
+    }
+
+    &[data-href] {
+      &:hover {
+        .pillar-card-set__card-link {
+          @include cta-link-hover-state;
+        }
+      }
+    }
+  }
+
+  &__card-bottom-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    .pillar-card-set__card-link-wrapper {
+      margin-top: 5rem;
+
+      @include breakpoint(large up) {
+        margin-top: rem-calc(120);
+      }
     }
   }
 }

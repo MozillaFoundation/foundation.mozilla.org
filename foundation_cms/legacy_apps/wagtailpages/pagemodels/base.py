@@ -11,6 +11,10 @@ from wagtail.search import index
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.core.models.home_page import HomePage as NewHomePage
+from foundation_cms.core.models.sitewide_donate_banner_page import (
+    SitewideDonateBannerPage,
+)
 from foundation_cms.legacy_apps.donate_banner.models import DonateBannerPage
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.link_block import (
     LinkBlock,
@@ -34,14 +38,21 @@ hero_intro_body_default_text = (
 )
 
 
-class BasePage(FoundationMetadataPageMixin, FoundationNavigationPageMixin, Page):
+class BasePage(FoundationNavigationPageMixin, FoundationMetadataPageMixin, Page):
     class Meta:
         abstract = True
 
     def get_donate_banner(self, request):
+        # Decide legacy vs redesign from the FoundationNavigationPageMixin
+        parent_homepage = getattr(request, "parent_homepage", None)
+
         # Check if there's a DonateBannerPage.
         default_locale = Locale.get_default()
-        donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
+
+        if parent_homepage == "redesign":
+            donate_banner_page = SitewideDonateBannerPage.objects.filter(locale=default_locale).first()
+        else:
+            donate_banner_page = DonateBannerPage.objects.filter(locale=default_locale).first()
 
         # If there is no DonateBannerPage or no donate_banner is set, return None.
         if not donate_banner_page or not donate_banner_page.donate_banner:
@@ -1077,6 +1088,7 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ArticlePage",
         "donate.DonateLandingPage",
         "donate_banner.DonateBannerPage",
+        NewHomePage,
     ]
 
     page_ptr = models.OneToOneField(

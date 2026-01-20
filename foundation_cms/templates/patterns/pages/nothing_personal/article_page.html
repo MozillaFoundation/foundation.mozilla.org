@@ -1,0 +1,71 @@
+{% extends theme_base %}
+
+{% load wagtailimages_tags static i18n l10n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <article>
+            <div class="grid-container article-intro">
+                {% include "patterns/components/nothing_personal/article_page_header.html" %}
+                <div class="grid-x">
+                    <div class="cell small-12 medium-7 large-offset-0">
+                        <div class="lede-text">{{ page.lede_text }}</div>
+                    </div>
+                    <div class="cell small-12 medium-3 medium-offset-2">
+                        <div class="article-meta-published">
+                            <span class="published-label">{% trans "Published" %}</span>
+                            <p class="published-date">{{ page.first_published_at|date:"DATE_FORMAT" }}</p>
+                        </div>
+                        {% include "patterns/components/share_container.html" %}
+                    </div>
+                </div>
+            </div>
+
+            {% if page.body %}
+                {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="medium-7 body-text-large" %}
+            {% endif %}
+
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-7">
+                        <div class="article-topics">
+                            {% with topics=page.topics.all %}
+                                {% if topics %}
+                                    <div class="article-topics__title">{% trans "Topics" %}</div>
+                                {% endif %}
+                                {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+                            {% endwith %}
+                        </div>
+                        {% if page.author %}
+                            <div class="author-info">
+                                <h5 class="author-name">{{ page.author.name }}</h5>
+                                {% if page.author.bio %}
+                                    <div class="author-bio body-text-large">{{ page.author.bio }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        {% if latest_articles|length >= 2 %}
+            <div class="grid-container">
+                <div class="grid-x">
+                    <div class="cell small-12">
+                        {% trans "More Stories" as localized_more_stories %}
+                        {% with heading=localized_more_stories items=latest_articles image_ratio="3:2" show_author=True image_field="search_image" %}
+                            {% include "patterns/components/nothing_personal/related_content.html" %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+    <!-- Back to Top Link -->
+    {% include "patterns/components/back_to_top.html" %}
+{% endblock content %}

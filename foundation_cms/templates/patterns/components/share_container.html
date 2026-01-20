@@ -1,0 +1,26 @@
+{% load static i18n l10n %}
+{% load wagtailcore_tags %}
+
+<div class="share-container">
+  {% if show_title != False %}
+    {% trans "Share this!" as share_this %}
+    <div class="share-title">{{ title|default:share_this }}</div>
+  {% endif %}
+  <div class="share-buttons">
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url|urlencode }}&title={{ page.title|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Facebook">
+      <img src="{% static 'foundation_cms/_images/icons/social-facebook-black.svg' %}" width="18" height="18" alt="{% trans "Share on Facebook" %}">
+    </a>
+
+    <!-- Email -->
+    <a href="mailto:?subject={{ page.title|urlencode }}&body={{ page.url|urlencode }}" class="share-btn email-share-btn" aria-label="{% trans "Email" %}">
+      <img src="{% static 'foundation_cms/_images/icons/social-email-black.svg' %}" width="18" height="18" alt="{% trans "Share by Email" %}">
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-btn copy-link-share-btn" data-copy-url="{{ page.url }}" aria-label="{% trans "Copy Link" %}">
+      <img src="{% static 'foundation_cms/_images/icons/social-copy-link-black.svg' %}" width="18" height="18" alt="{% trans "Copy Link" %}" title="{% trans "Copy Link" %}">
+    </button>
+  </div>
+
+</div>

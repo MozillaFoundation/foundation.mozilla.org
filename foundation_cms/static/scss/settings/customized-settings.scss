@@ -67,7 +67,7 @@
 // ---------
 
 $global-font-size: 100%;
-$global-width: rem-calc(1440);
+$global-width: rem-calc(1200);
 $global-lineheight: 1.5;
 $foundation-palette: (
   "primary": #1779ba,
@@ -109,11 +109,12 @@ $print-hrefs: true;
 
 $-zf-size: null;
 $breakpoints: (
-  "small": 0,        // phones
-  "medium": 640px,   // tablets
-  "large": 1024px,   // laptops, small desktops
-  "xlarge": 1200px,  // standard desktops
-  "xxlarge": 1440px, // large desktops, ultrawide
+  "small": 0,          // phones
+  "medium": 640px,     // large phones, small tablets
+  "large": 1024px,     // tablets, small laptops
+  "xlarge": 1200px,    // laptops, small desktops
+  "xxlarge": 1440px,   // standard desktops
+  "xxxlarge": 1920px,  // large desktops, full HD displays
 );
 $breakpoints-hidpi: (
   "hidpi-1": 1,
@@ -123,7 +124,7 @@ $breakpoints-hidpi: (
   "hidpi-3": 3
 );
 $print-breakpoint: large;
-$breakpoint-classes: (small medium large);
+$breakpoint-classes: (small medium large xlarge xxlarge xxxlarge);
 
 // 3. The Grid
 // -----------
@@ -152,22 +153,22 @@ $header-styles: (
   small: (
     'h1': (
       'font-size': rem-calc(40),
-      'line-height': 0.95,
-      'font-weight': 200,
+      'line-height': 0.9,
+      'font-weight': 600,
     ),
     'h2': (
       'font-size': rem-calc(32),
-      'line-height': 1,
-      'font-weight': 300,
+      'line-height': 0.9,
+      'font-weight': 600,
     ),
     'h3': (
       'font-size': rem-calc(28),
-      'line-height': 1,
-      'font-weight': 400,
+      'line-height': 0.9,
+      'font-weight': 600,
     ),
     'h4': (
       'font-size': rem-calc(24),
-      'line-height': 1.1,
+      'line-height': 1,
       'font-weight': 600,
     ),
     'h5': (
@@ -177,39 +178,39 @@ $header-styles: (
     ),
     'h6': (
       'font-size': rem-calc(18),
-      'line-height': 1.2,
+      'line-height': 1.1,
       'font-weight': 700,
     ),
   ),
   large: (
     'h1': (
-      'font-size': rem-calc(92),
-      'line-height': 0.95,
-      'font-weight': 200,
+      'font-size': rem-calc(64),
+      'line-height': 0.9,
+      'font-weight': 600,
     ),
     'h2': (
-      'font-size': rem-calc(68),
-      'line-height': 1,
-      'font-weight': 300,
+      'font-size': rem-calc(52),
+      'line-height': 0.9,
+      'font-weight': 600,
     ),
     'h3': (
-      'font-size': rem-calc(52),
-      'line-height': 1,
-      'font-weight': 400,
+      'font-size': rem-calc(40),
+      'line-height': 0.9,
+      'font-weight': 600,
     ),
     'h4': (
-      'font-size': rem-calc(40),
-      'line-height': 1.1,
+      'font-size': rem-calc(32),
+      'line-height': 1,
       'font-weight': 600,
     ),
     'h5': (
-      'font-size': rem-calc(28),
+      'font-size': rem-calc(24),
       'line-height': 1.1,
       'font-weight': 700,
     ),
     'h6': (
       'font-size': rem-calc(20),
-      'line-height': 1.2,
+      'line-height': 1.1,
       'font-weight': 700,
     ),
   ),
@@ -938,10 +939,21 @@ $grid-container: $global-width;
 $grid-columns: 12;
 $grid-margin-gutters: (
   "small": 16px,
-  "medium": 32px
+  "medium": 32px,
+  "large": 32px,
+  "xlarge": 32px,
+  "xxlarge": 32px,
+  "xxxlarge": 32px,
 );
 $grid-padding-gutters: $grid-margin-gutters;
-$grid-container-padding: 32px;
+$grid-container-padding: (
+  small: 32px,   // 16px on each site
+  medium: 128px, // 64px on each side,
+  large: 128px,
+  xlarge: 0,
+  xxlarge: 0,
+  xxxlarge: 0,
+) !default;
 $grid-container-max: $global-width;
 $xy-block-grid-max: 8;
 

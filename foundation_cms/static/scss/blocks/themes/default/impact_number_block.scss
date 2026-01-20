@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 
 .impact-number-block {
   // ===================================
@@ -18,9 +19,16 @@
       "shape-color": color(orange, "200"),
     ),
   );
+  $layout-breakpoint: medium;
   $digit-height: (
-    small: get-text-property($display-text-styles, "2", "line-height", "small"),
-    large: get-text-property($display-text-styles, "1", "line-height", "large"),
+    small: math.max(
+        get-text-property($header-styles, "h2", "line-height", "small"),
+        1
+      ),
+    large: math.max(
+        get-text-property($header-styles, "h1", "line-height", "large"),
+        1
+      ),
   );
 
   // ===================================
@@ -30,7 +38,7 @@
   display: flex;
   flex-direction: column;
 
-  @include breakpoint(large up) {
+  @include breakpoint($layout-breakpoint up) {
     flex-direction: row;
   }
 
@@ -44,7 +52,7 @@
       flex-direction: row;
       width: 100%;
 
-      @include breakpoint(large up) {
+      @include breakpoint($layout-breakpoint up) {
         flex-direction: column;
       }
     }
@@ -60,7 +68,7 @@
       background-position: center;
       background-size: 85% auto;
 
-      @include breakpoint(large up) {
+      @include breakpoint($layout-breakpoint up) {
         flex: unset;
       }
     }
@@ -72,8 +80,11 @@
       flex-direction: column;
       justify-content: center;
 
-      @include breakpoint(large up) {
+      @include breakpoint($layout-breakpoint up) {
         flex: unset;
+      }
+
+      @include breakpoint(large up) {
         padding: rem-calc(24);
         justify-content: normal;
       }
@@ -104,33 +115,35 @@
 
       @include apply-text-style($body-text-styles, "xsmall", "small");
 
-      @include breakpoint(large up) {
+      @include breakpoint($layout-breakpoint up) {
         margin-top: 1rem;
+      }
 
+      @include breakpoint(large up) {
         @include apply-text-style($body-text-styles, "large", "large");
       }
     }
 
     &__digit-window {
-      height: #{map.get($digit-height, small)}em;
-      display: inline-block;
-
       @include apply-text-style(
-        $display-text-styles,
-        "2",
+        $header-styles,
+        "h2",
         "small",
-        $display-text-font-family
+        $header-font-family
       );
 
-      @include breakpoint(large up) {
-        height: #{map.get($digit-height, large)}em;
+      display: inline-block;
+      height: #{map.get($digit-height, small)}em;
 
+      @include breakpoint(large up) {
         @include apply-text-style(
-          $display-text-styles,
-          "1",
+          $header-styles,
+          "h1",
           "large",
-          $display-text-font-family
+          $header-font-family
         );
+
+        height: #{map.get($digit-height, large)}em;
       }
 
       &--animated {
@@ -139,25 +152,28 @@
     }
 
     &__digit {
+      @include apply-text-style(
+        $header-styles,
+        "h2",
+        "small",
+        $header-font-family
+      );
+
       word-break: break-all;
       display: block;
       width: min-content;
       text-align: center;
-
-      @include apply-text-style(
-        $display-text-styles,
-        "2",
-        "small",
-        $display-text-font-family
-      );
+      line-height: map.get($digit-height, small);
 
       @include breakpoint(large up) {
         @include apply-text-style(
-          $display-text-styles,
-          "1",
+          $header-styles,
+          "h1",
           "large",
-          $display-text-font-family
+          $header-font-family
         );
+
+        line-height: map.get($digit-height, large);
       }
 
       &::before {
@@ -185,21 +201,21 @@
   .impact-stat:nth-child(3n + 1) {
     .impact-stat__number {
       background-color: map.get(map.get($stat-colors, 1), "background-color");
-      background-image: url("../_images/shapes/blue/blue200-1.svg");
+      background-image: url("/static/foundation_cms/_images/shapes/blue/blue200-1.svg");
     }
   }
 
   .impact-stat:nth-child(3n + 2) {
     .impact-stat__number {
       background-color: map.get(map.get($stat-colors, 2), "background-color");
-      background-image: url("../_images/shapes/green/green200-1.svg");
+      background-image: url("/static/foundation_cms/_images/shapes/green/green200-1.svg");
     }
   }
 
   .impact-stat:nth-child(3n + 3) {
     .impact-stat__number {
       background-color: map.get(map.get($stat-colors, 3), "background-color");
-      background-image: url("../_images/shapes/orange/orange200-1.svg");
+      background-image: url("/static/foundation_cms/_images/shapes/orange/orange200-1.svg");
     }
   }
 

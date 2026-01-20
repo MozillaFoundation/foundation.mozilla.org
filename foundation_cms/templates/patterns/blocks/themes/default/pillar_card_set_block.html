@@ -3,20 +3,29 @@
   <div class="pillar-card-set">
     <div class="pillar-card-set__card-container">
       {% for card in self.cards %}
-        <div class="pillar-card-set__card">
-          <p class="pillar-card-set__card-headline h3-style">{{ card.headline }}</p>
-          {% if card.cta_link %}
-            <div>
-              {% with link=card.cta_link.0 %}
-                <a class="pillar-card-set__card-link"
-                   href="{{ link.url }}"
-                   {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                  {{ link.label }}
-                </a>
-              {% endwith %}
+        {% with link=card.cta_link.0 target=card.cta_link.0.new_window|yesno:"_blank," %}
+          <div class="pillar-card-set__card"
+               {% if link %}
+                 data-href="{{ link.url }}"
+                 {% if target %}data-target="{{ target }}"{% endif %}
+               {% endif %}>
+            <p class="pillar-card-set__card-headline">{{ card.headline }}</p>
+            <div class="pillar-card-set__card-bottom-wrapper">
+              {% if link %}
+                <div class="pillar-card-set__card-link-wrapper">
+                  <a class="pillar-card-set__card-link"
+                     href="{{ link.url }}"
+                     {% if target %}target="{{ target }}" rel="noopener noreferrer"{% endif %}>
+                    {{ link.label }}
+                  </a>
+                </div>
+              {% endif %}
+              <div class="pillar-card-set__card-illu-wrapper">
+
+              </div>
             </div>
-          {% endif %}
-        </div>
+          </div>
+        {% endwith %}
       {% endfor %}
     </div>
   </div>

@@ -3,7 +3,7 @@ body.redesign {
   .title-block {
     &__title {
       margin: 0;
-      font-family: $display-text-font-family;
+      font-family: $header-font-family;
       position: relative;
     }
 
@@ -33,7 +33,7 @@ body.redesign {
           height: rem-calc(45);
           left: 1rem;
           top: -2rem;
-          background-image: url("../_images/handdrawn/title-rays.svg");
+          background-image: url("/static/foundation_cms/_images/handdrawn/title-rays.svg");
           background-position: center;
           background-repeat: no-repeat;
           background-size: contain;
@@ -66,6 +66,7 @@ body.redesign {
 
     &--loop-line {
       padding-top: 3.5rem;
+      margin-top: 3.5rem;
       margin-bottom: 1rem;
       position: relative;
 
@@ -81,7 +82,7 @@ body.redesign {
         width: 100%;
         height: rem-calc(45);
         top: 0;
-        background-image: url("../_images/handdrawn/title-loop-line-large.svg");
+        background-image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-large.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: auto 100%;

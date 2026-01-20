@@ -1,0 +1,37 @@
+{% extends theme_base %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags i18n l10n %}
+
+{% block title %}
+  {{ topic.name }}
+{% endblock title %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/topic_listing_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}topic-listing-page{% endblock body_class %}
+
+{% block pre_content %}{% endblock pre_content %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="topic-info">
+      {% blocktrans count counter=total_pages_count trimmed %}
+        Showing {{ total_pages_count }} result for:
+      {% plural %}
+        Showing {{ total_pages_count }} results for:
+      {% endblocktrans %}
+      <h1>{{ topic.name }}</h1>
+    </div>
+
+  </div>
+  {% trans "More from Nothing Personal:" as np_section_title %}
+  {% include "patterns/components/topic_listing/section.html" with pages=np_pages section_title=np_section_title %}
+  {% if np_pages and other_pages %}
+    {% include "patterns/components/topic_listing/section_divider.html" %}
+  {% endif %}
+  {% trans "From the rest of Mozilla Foundation:" as mofo_title %}
+  {% include "patterns/components/topic_listing/section.html" with pages=other_pages section_title=mofo_title %}
+{% endblock content %}
+
+{% block post_content %}{% endblock post_content %}
