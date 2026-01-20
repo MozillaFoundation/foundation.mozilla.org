@@ -433,7 +433,7 @@ body:has(.search-input-container.search-open) {
   &__inner {
     display: flex;
     flex-direction: row;
-    align-items: stretch; /* optional */
+    align-items: stretch;
     gap: 1rem;
 
     form {
