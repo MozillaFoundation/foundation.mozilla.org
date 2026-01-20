@@ -1,6 +1,5 @@
 $accordion-border: color(neutral, "300");
 
-
 .accordion-block {
   margin: 2rem 0;
 
@@ -18,9 +17,9 @@ $accordion-border: color(neutral, "300");
   }
 
   &__heading {
-     @include mofo-text-style($body-text-styles, "xlarge");
+    @include mofo-text-style($body-text-styles, "xlarge");
 
-     font-weight: bold;
+    font-weight: bold;
   }
 
   &__button {
@@ -31,18 +30,17 @@ $accordion-border: color(neutral, "300");
     cursor: pointer;
 
     &-text {
-     padding: 1.8rem 0;
-
+      padding: 1.8rem 0;
     }
   }
 
   &__panel {
-  overflow: hidden;
-  height: 0;
+    overflow: hidden;
+    height: 0;
 
     &-inner p {
-        margin: -.4rem 0 1.6rem;
-      }
+      margin: -0.4rem 0 1.6rem;
+    }
   }
 
   &__icon {
@@ -64,7 +62,6 @@ $accordion-border: color(neutral, "300");
       background-image: url("data:image/svg+xml,%3Csvg width='24' height='15' viewBox='0 0 24 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.9602 0.949951L12.0002 10.91L2.04019 0.949951L0.450195 2.53995L12.0002 14.09L23.5502 2.53995L21.9602 0.949951Z' fill='%23141414'/%3E%3C/svg%3E%0A");
       transition: transform 0.3s ease-in-out;
     }
-
   }
 
   &__button[aria-expanded="true"] .accordion__icon::after {
