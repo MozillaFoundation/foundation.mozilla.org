@@ -43,3 +43,7 @@ class ConsumerCreepometerPage(BasePage):
         bg_page = self.get_parent().get_parent().specific
         context["methodology_url"] = bg_page.url + bg_page.reverse_subpage("methodology-view")
         return context
+
+    class Meta:
+        verbose_name = "Consumer Creepometer Page (Legacy)"
+        verbose_name_plural = "Consumer Creepometer Pages (Legacy)"

@@ -39,7 +39,7 @@ cffi==1.16.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==43.0.1
+cryptography==44.0.1
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -167,9 +167,9 @@ polib==1.1.1
     # via wagtail-localize
 psutil==5.9.0
     # via scout-apm
-psycopg2-binary==2.9.10
+psycopg2-binary==2.9.11
     # via -r requirements.in
-pyasn1==0.4.8
+pyasn1==0.6.2
     # via
     #   python-jose
     #   rsa
@@ -186,7 +186,7 @@ python-dateutil==2.8.2
     #   botocore
     #   faker
     #   heroku3
-python-jose==3.4.0
+python-jose==3.5.0
     # via -r requirements.in
 python-slugify==8.0.4
     # via -r requirements.in
@@ -200,7 +200,7 @@ pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r requirements.in
     #   basket-client
@@ -250,7 +250,7 @@ typing-extensions==4.4.0
     #   wagtail-localize
 ua-parser==0.18.0
     # via user-agents
-urllib3==2.6.0
+urllib3==2.6.3
     # via
     #   botocore
     #   requests

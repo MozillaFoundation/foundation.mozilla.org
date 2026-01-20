@@ -23,7 +23,3 @@ The production URLs are:
 ## Domain Redirect
 
 Enable domain redirection by setting `DOMAIN_REDIRECT_MIDDLEWARE_ENABLED` to `True`. This will enable a middleware function that checks every request, and returns a 307 redirect to the first listed domain in `TARGET_DOMAINS` if the host header does not match one of the domains specified there.
-
-## Special purposes Environment Variables
-
-- `USE_COMMENTO`: If Commento.io commenting is to be enabled, set this to `True`. Don't forget to add the js domain to your CSP directives for script-src and child-src

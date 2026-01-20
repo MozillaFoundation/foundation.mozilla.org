@@ -28,3 +28,5 @@ class TitoEvent(models.Model):
 
     class Meta:
         ordering = ["title"]
+        verbose_name = "Tito Event (Legacy)"
+        verbose_name_plural = "Tito Events (Legacy)"

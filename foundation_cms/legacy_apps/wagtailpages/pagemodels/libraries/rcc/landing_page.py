@@ -36,8 +36,8 @@ class RCCLandingPage(base_landing_page.BaseLandingPage):
     ]
 
     class Meta(base_landing_page.BaseLandingPage.Meta):
-        verbose_name = "RCC landing page"
-        verbose_name_plural = "RCC landing pages"
+        verbose_name = "RCC landing page (Legacy)"
+        verbose_name_plural = "RCC landing pages (Legacy)"
 
     @cached_property
     def library_page(self):

@@ -108,7 +108,8 @@ class DonationModal(TranslatableMixin, models.Model):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name_plural = "Donation CTA"
+        verbose_name = "Donation CTA (Legacy)"
+        verbose_name_plural = "Donation CTAs (Legacy)"
 
 
 class DonationModals(TranslatableMixin, models.Model):
@@ -135,5 +136,5 @@ class DonationModals(TranslatableMixin, models.Model):
     ]
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = "Donation Modals"
-        verbose_name_plural = "Donation Modals"
+        verbose_name = "Donation Modals (Legacy)"
+        verbose_name_plural = "Donation Modals (Legacy)"

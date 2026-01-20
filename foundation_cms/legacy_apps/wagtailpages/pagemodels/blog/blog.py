@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms import CheckboxSelectMultiple
@@ -107,8 +106,8 @@ class RelatedBlogPosts(Orderable):
         return self.related_post.title
 
     class Meta(Orderable.Meta):
-        verbose_name = "Related blog posts"
-        verbose_name_plural = "Related blog posts"
+        verbose_name = "Related blog posts (Legacy)"
+        verbose_name_plural = "Related blog posts (Legacy)"
 
 
 class BlogPage(BasePage):
@@ -230,7 +229,6 @@ class BlogPage(BasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["show_comments"] = settings.USE_COMMENTO and self.feature_comments
 
         related_posts = [post.related_post for post in self.related_posts.all()]
         if request.is_preview:
@@ -314,3 +312,7 @@ class BlogPage(BasePage):
                 return truncatechars(text, 153)
 
         return super().get_meta_description()
+
+    class Meta:
+        verbose_name = "Blog Page (Legacy)"
+        verbose_name_plural = "Blog Pages (Legacy)"

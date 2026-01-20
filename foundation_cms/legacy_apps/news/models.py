@@ -101,8 +101,8 @@ class News(TranslatableMixin, models.Model):
     class Meta(TranslatableMixin.Meta):
         """Meta settings for news model"""
 
-        verbose_name = "news article"
-        verbose_name_plural = "news"
+        verbose_name = "news article (Legacy)"
+        verbose_name_plural = "news (Legacy)"
         ordering = ("-date",)
 
     def __str__(self):

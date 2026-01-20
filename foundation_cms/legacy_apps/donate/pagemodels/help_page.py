@@ -69,3 +69,7 @@ class DonateHelpPage(BaseDonationPage):
         existing_params["thank_you"] = "true"
         thank_you_url = base_url + "?" + urlencode(existing_params)
         return thank_you_url
+
+    class Meta:
+        verbose_name = "Donate Help Page (Legacy)"
+        verbose_name_plural = "Donate Help Pages (Legacy)"

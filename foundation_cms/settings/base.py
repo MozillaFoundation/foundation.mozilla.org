@@ -81,7 +81,6 @@ env = environ.Env(
     STATIC_HOST=(str, ""),
     SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL=(str, ""),
     TARGET_DOMAINS=(list, []),
-    USE_COMMENTO=(bool, False),
     USE_S3=(bool, True),
     USE_X_FORWARDED_HOST=(bool, False),
     WAGTAILIMAGES_INDEX_PAGE_SIZE=(int, 60),
@@ -759,9 +758,6 @@ PETITION_TEST_CAMPAIGN_ID = env("PETITION_TEST_CAMPAIGN_ID")
 
 # Buyers Guide Rate Limit Setting
 BUYERS_GUIDE_VOTE_RATE_LIMIT = env("BUYERS_GUIDE_VOTE_RATE_LIMIT")
-
-# Commento.io flag
-USE_COMMENTO = env("USE_COMMENTO")
 
 # privacynotincluded statistics DB
 PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")

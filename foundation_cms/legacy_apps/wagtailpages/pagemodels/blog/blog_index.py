@@ -140,6 +140,10 @@ class BlogIndexPage(IndexPage):
 
     template = "wagtailpages/blog_index_page.html"
 
+    class Meta:
+        verbose_name = "Blog Index Page (Legacy)"
+        verbose_name_plural = "Blog Index Pages (Legacy)"
+
     def get_context(self, request):
         context = super().get_context(request)
         context["related_topics"] = self.get_related_topics()

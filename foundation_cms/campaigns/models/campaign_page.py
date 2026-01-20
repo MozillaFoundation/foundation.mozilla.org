@@ -325,7 +325,7 @@ class CampaignPage(AbstractBasePage):
     def get_keep_contributing_pages(self):
         # 1. If pages have been manually selected for this section, use those.
         if self.keep_contributing_pages.count() == 2:
-            return self.get_selected_keep_contributing_pages()
+            return self.get_selected_keep_contributing_pages
 
         # 2. Else, if a topic is set, use topic-related pages.
         elif self.keep_contributing_topic:
@@ -343,5 +343,5 @@ class CampaignPage(AbstractBasePage):
         return petition_signed_url
 
     class Meta:
-        verbose_name = "Campaign Page (New)"
-        verbose_name_plural = "Campaign Pages (New)"
+        verbose_name = "Campaign Page"
+        verbose_name_plural = "Campaign Pages"
