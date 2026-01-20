@@ -520,6 +520,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
             parent=self.blog_index,
             title=self.search_term,
         )
+        self.update_index()
         url = self.blog_index.get_url() + self.blog_index.reverse_subpage("search") + f"?q={ self.search_term }"
 
         response = self.client.get(path=url)
@@ -619,6 +620,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         match_post = blog_factories.BlogPageFactory(parent=self.blog_index, title=self.search_term)
         other_post = blog_factories.BlogPageFactory(parent=self.blog_index)
 
+        self.update_index()
         results = self.blog_index.get_search_entries(query=self.search_term)
 
         self.assertIn(match_post, results)
@@ -749,6 +751,8 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         first_page_of_matches = match_blog_pages[0 : self.page_size]
         second_page_of_matches = match_blog_pages[self.page_size :]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
+
+        self.update_index()
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
@@ -777,6 +781,8 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         first_page_of_matches = match_blog_pages[0 : self.page_size]
         second_page_of_matches = match_blog_pages[self.page_size :]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
+
+        self.update_index()
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
