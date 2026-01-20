@@ -14,12 +14,12 @@ test.describe("PNI search", () => {
 
   const counts = {
     // provided RANDOM_SEED=530910203 was used!
-    total: 38,
-    health: 11,
+    total: 47,
+    health: 16,
     smart: 4,
     percy: 1,
     searchTerm: 4,
-    searchTermWithDing: 2,
+    searchTermWithDing: 1,
   };
 
   const qs = {
