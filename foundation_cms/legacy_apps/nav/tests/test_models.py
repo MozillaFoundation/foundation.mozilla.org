@@ -131,11 +131,11 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
 
         # Translate topics:
         self.translate_snippet(topic_a, self.fr_locale)
-        topic_a_fr = topic_a.get_translation(self.fr_locale)
+        topic_a_fr = topic_a.get_translation(self.fr_locale)  # type: ignore[attr-defined]
         self.translate_snippet(topic_b, self.fr_locale)
-        topic_b_fr = topic_b.get_translation(self.fr_locale)
+        topic_b_fr = topic_b.get_translation(self.fr_locale)  # type: ignore[attr-defined]
         self.translate_snippet(topic_c, self.fr_locale)
-        topic_c_fr = topic_c.get_translation(self.fr_locale)
+        topic_c_fr = topic_c.get_translation(self.fr_locale)  # type: ignore[attr-defined]
 
         # Translate the menu:
         self.translate_snippet(self.menu, self.fr_locale)
@@ -188,22 +188,22 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
 
         # Translate topics a and c (but not b) and associate them with the menu:
         self.translate_snippet(topic_a, self.fr_locale)
-        topic_a_fr = topic_a.get_translation(self.fr_locale)
+        topic_a_fr = topic_a.get_translation(self.fr_locale)  # type: ignore[attr-defined]
         self.translate_snippet(topic_c, self.fr_locale)
-        topic_c_fr = topic_c.get_translation(self.fr_locale)
+        topic_c_fr = topic_c.get_translation(self.fr_locale)  # type: ignore[attr-defined]
 
         nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
             menu=menu_fr,
             topic=topic_a_fr,
             sort_order=2,
-            translation_key=rel_a.translation_key,
+            translation_key=rel_a.translation_key,  # type: ignore[attr-defined]
             locale=self.fr_locale,
         )
         nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
             menu=menu_fr,
             topic=topic_b,
             sort_order=1,
-            translation_key=rel_b.translation_key,
+            translation_key=rel_b.translation_key,  # type: ignore[attr-defined]
             locale=self.fr_locale,
         )
 
@@ -379,7 +379,7 @@ class TestNavMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
 
         # Get the page links:
         with self.assertNumQueries(1):
-            page_references = menu.page_references_per_dropdown
+            page_references = menu.page_references_per_dropdown  # type: ignore[attr-defined]
             self.assertDictEqual(page_references, expected)
 
         # Get a flat list of page ids:
@@ -424,7 +424,7 @@ class TestNavMenuPageReferences(test_base.WagtailpagesTestCase):
 
         # Get the page links:
         with self.assertNumQueries(1):
-            page_references = menu.page_references
+            page_references = menu.page_references  # type: ignore[attr-defined]
             self.assertDictEqual(page_references, expected)
 
         self.assertIn(page_a.id, page_references.keys())

@@ -38,7 +38,7 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         page_a_author_profiles = []
         page_a = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page, authors=[])
         page_b = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
-        page_b_author_profile = page_b.authors.first().author_profile
+        page_b_author_profile = page_b.authors.first().author_profile  # type: ignore[attr-defined]
 
         for _ in range(3):
             research_author_relation = relations_factory.ResearchAuthorRelationFactory(detail_page=page_a)
@@ -58,7 +58,7 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         this method should return it in the active locale.
         """
         detail_page = detail_page_factory.ResearchDetailPageFactory(parent=self.library_page)
-        profile_en = detail_page.authors.first().author_profile
+        profile_en = detail_page.authors.first().author_profile  # type: ignore[attr-defined]
         self.synchronize_tree()
         # Translating both the page and the research author profile
         detail_page_fr = research_test_utils.translate_detail_page(detail_page, self.fr_locale)
@@ -109,7 +109,7 @@ class TestResearchLibraryDetailPage(research_test_base.ResearchHubTestCase):
         detail_page = detail_page_factory.ResearchDetailPageFactory(
             parent=self.library_page,
         )
-        profile_en = detail_page.authors.first().author_profile
+        profile_en = detail_page.authors.first().author_profile  # type: ignore[attr-defined]
         self.synchronize_tree()
 
         translation.activate(self.fr_locale.language_code)
