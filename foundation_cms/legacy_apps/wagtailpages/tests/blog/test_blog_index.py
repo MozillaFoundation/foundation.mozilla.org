@@ -751,6 +751,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         first_page_of_matches = match_blog_pages[0 : self.page_size]
         second_page_of_matches = match_blog_pages[self.page_size :]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
+        self.update_index()
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
@@ -779,6 +780,7 @@ class TestBlogIndexSearch(BlogIndexTestCase):
         first_page_of_matches = match_blog_pages[0 : self.page_size]
         second_page_of_matches = match_blog_pages[self.page_size :]
         nonmatch_blog_pages = self.fill_index_pages_with_blog_pages(2, base_title="Othertitle")
+        self.update_index()
         url = (
             self.blog_index.get_url()
             + self.blog_index.reverse_subpage("search_entries")
