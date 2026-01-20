@@ -2,10 +2,10 @@
 
 <section class="accordion-block" >
   {% if self.accordion_block_title %}
-    <div class="accordion__title h5-style">{{ self.accordion_block_title }}</div>
+    <div class="accordion-block__title h5-style">{{ self.accordion_block_title }}</div>
   {% endif %}
 
-  <div class="accordion__items" data-accordion-id="acc-{{ forloop.counter }}">
+  <div class="accordion-block__items" data-accordion-id="acc-{{ forloop.counter }}">
     {% for item in self.accordion_items %}
       {% include "./accordion_block_item.html" with item=item index=forloop.counter acc_id=forloop.parentloop.counter only %}
     {% endfor %}

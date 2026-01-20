@@ -1,8 +1,8 @@
 const SELECTORS = {
-  root: ".accordion__items",
-  item: ".accordion__item",
-  trigger: ".accordion__button",
-  panel: ".accordion__panel",
+  root: ".accordion-block__items",
+  item: ".accordion-item",
+  trigger: ".accordion-item__button",
+  panel: ".accordion-item__panel",
 };
 
 const TRANSITION_MS = 300;
