@@ -64,7 +64,7 @@ $accordion-border: color(neutral, "300");
     }
   }
 
-  &__button[aria-expanded="true"] .accordion__icon::after {
+  &__button[aria-expanded="true"] .accordion-item__icon::after {
     transform: rotate(-180deg);
   }
 }
