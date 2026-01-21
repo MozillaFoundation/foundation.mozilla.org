@@ -68,6 +68,10 @@ class YoutubeRegretsPage(BasePage):
 
     template = "wagtailpages/pages/youtube_regrets_page.html"
 
+    class Meta:
+        verbose_name = "YouTube Regrets Page (Legacy)"
+        verbose_name_plural = "YouTube Regrets Pages (Legacy)"
+
 
 class YoutubeRegretsReporterPage(BasePage):
     headline = models.CharField(
@@ -112,6 +116,10 @@ class YoutubeRegretsReporterPage(BasePage):
 
     template = "wagtailpages/pages/youtube_regrets_reporter_page.html"
 
+    class Meta:
+        verbose_name = "YouTube Regrets Reporter Page (Legacy)"
+        verbose_name_plural = "YouTube Regrets Reporter Pages (Legacy)"
+
 
 class YoutubeRegrets2021Page(BasePage):
     template = "wagtailpages/pages/youtube-regrets-2021/youtube_regrets_2021.html"
@@ -129,8 +137,8 @@ class YoutubeRegrets2021Page(BasePage):
     ]
 
     class Meta:
-        verbose_name = "YouTube Regrets 2021 Page"
-        verbose_name_plural = "YouTube Regrets 2021 Pages"
+        verbose_name = "YouTube Regrets 2021 Page (Legacy)"
+        verbose_name_plural = "YouTube Regrets 2021 Pages (Legacy)"
 
 
 class YoutubeRegrets2022Page(BasePage):
@@ -149,5 +157,5 @@ class YoutubeRegrets2022Page(BasePage):
     ]
 
     class Meta:
-        verbose_name = "YouTube Regrets 2022 Page"
-        verbose_name_plural = "YouTube Regrets 2022 Pages"
+        verbose_name = "YouTube Regrets 2022 Page (Legacy)"
+        verbose_name_plural = "YouTube Regrets 2022 Pages (Legacy)"

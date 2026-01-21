@@ -71,6 +71,10 @@ class ResearchDetailPage(base_detail_page.LibraryDetailPage):
     def related_topic_names(self):
         return [rt.topic.name for rt in self.related_topics.all()]
 
+    class Meta:
+        verbose_name = "Research Detail Page (Legacy)"
+        verbose_name_plural = "Research Detail Pages (Legacy)"
+
 
 class ResearchDetailLink(base_detail_page.LibraryDetailLinkBase):
     detail_page = cluster_fields.ParentalKey(

@@ -70,7 +70,8 @@ class Ticket(TranslatableMixin):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Ticket"
+        verbose_name = "Ticket (Legacy)"
+        verbose_name_plural = "Tickets (Legacy)"
 
 
 class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
@@ -90,7 +91,8 @@ class NewsletterSignupWithBackground(TranslatableMixin, campaign_models.CTA):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]
-        verbose_name = "Mozfest Newsletter Signup"
+        verbose_name = "MozFest Newsletter Signup (Legacy)"
+        verbose_name_plural = "MozFest Newsletter Signups (Legacy)"
 
 
 class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanceMixin, Page):
@@ -264,6 +266,10 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
         return context
 
+    class Meta:
+        verbose_name = "MozFest Primary Page (Legacy)"
+        verbose_name_plural = "MozFest Primary Pages (Legacy)"
+
 
 class MozfestHomepage(MozfestPrimaryPage):
     """
@@ -364,6 +370,10 @@ class MozfestHomepage(MozfestPrimaryPage):
     def get_template(self, request):
         return "mozfest/mozfest_homepage.html"
 
+    class Meta:
+        verbose_name = "MozFest Homepage (Legacy)"
+        verbose_name_plural = "MozFest Homepages (Legacy)"
+
 
 class MozfestLandingPage(MozfestPrimaryPage):
     # As this class inherits MozfestPrimaryPage, we need to make sure we don't
@@ -435,3 +445,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
 
     def get_template(self, request):
         return "mozfest/mozfest_landing_page.html"
+
+    class Meta:
+        verbose_name = "MozFest Landing Page (Legacy)"
+        verbose_name_plural = "MozFest Landing Pages (Legacy)"

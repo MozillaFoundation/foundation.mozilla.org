@@ -40,3 +40,7 @@ class DonateLandingPage(BaseDonationPage):
         SynchronizedField("featured_image"),
         TranslatableField("intro"),
     ]
+
+    class Meta:
+        verbose_name = "Donate Landing Page (Legacy)"
+        verbose_name_plural = "Donate Landing Pages (Legacy)"

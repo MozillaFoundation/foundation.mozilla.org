@@ -403,8 +403,8 @@ class Update(TranslatableMixin, index.Indexed, models.Model):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["title"]
-        verbose_name = "Buyers Guide Product Update"
-        verbose_name_plural = "Buyers Guide Product Updates"
+        verbose_name = "Buyers Guide Product Update (Legacy)"
+        verbose_name_plural = "Buyers Guide Product Updates (Legacy)"
 
 
 class ProductUpdates(TranslatableMixin, Orderable):
@@ -944,7 +944,8 @@ class ProductPage(BasePage):
         return obj
 
     class Meta:
-        verbose_name = "Product Page"
+        verbose_name = "Product Page (Legacy)"
+        verbose_name_plural = "Product Pages (Legacy)"
 
 
 class BuyersGuideProductPageArticlePageRelation(TranslatableMixin, Orderable):
@@ -1236,7 +1237,8 @@ class GeneralProductPage(ProductPage):
         return "general"
 
     class Meta:
-        verbose_name = "General Product Page"
+        verbose_name = "General Product Page (Legacy)"
+        verbose_name_plural = "General Product Pages (Legacy)"
 
 
 @receiver(post_save, sender=GeneralProductPage)
