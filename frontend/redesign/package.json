@@ -57,7 +57,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-scss": "^4.0.9",
-    "prettier": "^3.5.3",
+    "prettier": "^3.8.1",
     "shx": "^0.4.0",
     "stylelint": "15.10.3",
     "stylelint-config-prettier": "^9.0.5",
