@@ -4,7 +4,9 @@ from .newsletter_unsubscribe import NewsletterUnsubscribe
 
 # Add "unused" import to _all_ for flake8 linting
 __all__ = [
+    "BaseSignupForm",
     "NewsletterSignup",
     "NewsletterUnsubscribe",
     "DonateBanner",
+    "PdfDownloadSignup",
 ]
