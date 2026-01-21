@@ -115,7 +115,7 @@
     "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
-    "@axe-core/react": "^4.10.1",
+    "@axe-core/react": "^4.11.0",
     "@percy/cli": "^1.31.3",
     "@percy/playwright": "^1.0.9",
     "@playwright/test": "^1.56.1",
