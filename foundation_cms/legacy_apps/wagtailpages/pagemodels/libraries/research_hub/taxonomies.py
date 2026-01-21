@@ -5,7 +5,9 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.taxonomy import BaseTaxo
 
 
 class ResearchRegion(BaseTaxonomy):
-    pass
+    class Meta(BaseTaxonomy.Meta):
+        verbose_name = "Research Region (Legacy)"
+        verbose_name_plural = "Research Regions (Legacy)"
 
 
 class ResearchTopic(BaseTaxonomy):
@@ -14,3 +16,7 @@ class ResearchTopic(BaseTaxonomy):
     panels = BaseTaxonomy.panels + [
         wagtail_panels.FieldPanel("description"),
     ]
+
+    class Meta(BaseTaxonomy.Meta):
+        verbose_name = "Research Topic (Legacy)"
+        verbose_name_plural = "Research Topics (Legacy)"

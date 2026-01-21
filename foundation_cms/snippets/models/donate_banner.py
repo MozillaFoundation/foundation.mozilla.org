@@ -123,8 +123,8 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     ]
 
     class Meta(TranslatableMixin.Meta):
-        verbose_name = "Donate Banner (New)"
-        verbose_name_plural = "Donate Banners (New)"
+        verbose_name = "Donate Banner"
+        verbose_name_plural = "Donate Banners"
 
     def __str__(self):
         return self.name

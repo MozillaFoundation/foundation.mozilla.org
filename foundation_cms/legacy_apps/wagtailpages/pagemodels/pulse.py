@@ -42,6 +42,8 @@ class PulseFilter(ClusterableModel):
 
     class Meta(ClusterableModel.Meta):
         ordering = ["name"]
+        verbose_name = "Pulse Filter (Legacy)"
+        verbose_name_plural = "Pulse Filters (Legacy)"
 
 
 class PulseFilterOption(models.Model):

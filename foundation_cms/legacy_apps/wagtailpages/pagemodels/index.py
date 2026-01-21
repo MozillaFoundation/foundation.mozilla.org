@@ -271,3 +271,7 @@ class IndexPage(RoutablePageMixin, BasePage):
         """
         self.extract_tag_information(tag)
         return IndexPage.serve(self, request, *args, **kwargs)
+
+    class Meta:
+        verbose_name = "Index Page (Legacy)"
+        verbose_name_plural = "Index Pages (Legacy)"

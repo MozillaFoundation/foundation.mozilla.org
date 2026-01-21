@@ -173,6 +173,10 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
                 }
             )
 
+    class Meta(TranslatableMixin.Meta):
+        verbose_name = "Donate Banner (Legacy)"
+        verbose_name_plural = "Donate Banners (Legacy)"
+
 
 class DonateBannerPage(FoundationNavigationPageMixin, Page):
     max_count = 1
@@ -225,6 +229,10 @@ class DonateBannerPage(FoundationNavigationPageMixin, Page):
         context = super().get_context(request)
         context["object"] = self.donate_banner
         return context
+
+    class Meta:
+        verbose_name = "Donate Banner Page (Legacy)"
+        verbose_name_plural = "Donate Banner Pages (Legacy)"
 
 
 @receiver(post_delete, sender=DonateBannerPage)
