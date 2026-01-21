@@ -21,12 +21,21 @@ from .webp import utils as webp_utils
 
 # The custom image model for the Foundation site
 class FoundationCustomImage(AbstractImage):
-
     # Add an animated_webp field to the Image model, where webp versions of
     # .gif files are stored and linked to the image.
+
+    # store the original GIF (if the upload was a GIF) so we can link to it
+    original_gif = models.FileField(
+        upload_to="images/original_gif/",
+        blank=True,
+        null=True,
+        help_text="Original uploaded GIF (stored for reference).",
+    )
+
+    # WebP versions of .gif files are stored here.
     animated_webp = models.FileField(upload_to="images/converted_webp/", blank=True, null=True)
 
-    admin_form_fields = Image.admin_form_fields + ("animated_webp",)
+    admin_form_fields = Image.admin_form_fields + ("animated_webp", "original_gif")
 
     @cached_property
     def animated_webp_ready(self):
@@ -47,18 +56,37 @@ class FoundationCustomImage(AbstractImage):
         image is a gif.
         """
 
+        # wagtail image save
         super().save(*args, **kwargs)
 
-        # A temporary flag for migrate_legacy_images.py to skip the webp conversion
-        skip_webp = getattr(self, "_skip_webp", False)
+        is_gif = self.file and self.file.name.lower().endswith(".gif")
 
-        # If it's a .gif, convert a copy to .webp and save that to animated_webp.
-        if not skip_webp and self.file.name.lower().endswith((".gif")) and not self.animated_webp:
+        # capture original gif
+        if is_gif and not self.original_gif:
+            # Ensure we read from the start
+            try:
+                self.file.open("rb")
+                self.file.seek(0)
+                original_name = os.path.basename(self.file.name)
+                self.original_gif.save(
+                    original_name,
+                    ContentFile(self.file.read()),
+                    save=False,
+                )
+            finally:
+                try:
+                    self.file.close()
+                except Exception:
+                    pass
+            super().save(update_fields=["original_gif"])
+
+        # gif -> animated WebP conversion step
+        if is_gif and not self.animated_webp:
             webp_path = webp_utils.convert_gif_to_webp(self.file)
             if webp_path:
                 with open(webp_path, "rb") as f:
                     self.animated_webp.save(os.path.basename(webp_path), ContentFile(f.read()), save=False)
-                self.save(update_fields=["animated_webp"])
+                super().save(update_fields=["animated_webp"])
 
     def get_rendition(self, *args, **kwargs):
         """
@@ -144,6 +172,11 @@ class NullRendition:
 def image_delete(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
+    # Check and also delete derived files
+    if instance.animated_webp:
+        instance.animated_webp.delete(False)
+    if instance.original_gif:
+        instance.original_gif.delete(False)
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
