@@ -60,6 +60,12 @@ class FoundationCustomImage(AbstractImage):
         super().save(*args, **kwargs)
 
         is_gif = self.file and self.file.name.lower().endswith(".gif")
+        is_webp = self.file and self.file.name.lower().endswith(".webp")
+
+        # if an animated WebP is uploaded directly, ensure it is also saved to the animated_webp field
+        if is_webp and not self.animated_webp and webp_utils.is_animated_webp(self.file):
+            self.animated_webp = self.file
+            super().save(update_fields=["animated_webp"])
 
         # capture original gif
         if is_gif and not self.original_gif:
