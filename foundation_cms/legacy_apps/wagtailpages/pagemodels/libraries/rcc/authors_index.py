@@ -24,8 +24,8 @@ class RCCAuthorsIndexPage(base_authors_index_page.BaseAuthorsIndexPage):
     template = "pages/libraries/rcc/authors_index_page.html"
 
     class Meta(base_authors_index_page.BaseAuthorsIndexPage.Meta):
-        verbose_name = "RCC authors index page"
-        verbose_name_plural = "RCC authors index pages"
+        verbose_name = "RCC authors index page (Legacy)"
+        verbose_name_plural = "RCC authors index pages (Legacy)"
 
     @cached_property
     def author_profiles(self):

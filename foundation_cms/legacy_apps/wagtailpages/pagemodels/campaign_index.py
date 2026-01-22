@@ -84,3 +84,7 @@ class CampaignIndexPage(IndexPage):
         entries = self.get_entries()
         context["entries"] = entries[0 : self.page_size]
         return context
+
+    class Meta:
+        verbose_name = "Campaign Index Page (Legacy)"
+        verbose_name_plural = "Campaign Index Pages (Legacy)"

@@ -29,7 +29,7 @@ class BlogIndexPage(Page):
         return context
 
     class Meta:
-        verbose_name = "Blog Index Page (new)"
+        verbose_name = "Blog Index Page"
 
 
 class BlogPage(Page):
@@ -51,4 +51,4 @@ class BlogPage(Page):
         return self.author.title if self.author else "Mozilla Foundation"
 
     class Meta:
-        verbose_name = "Blog Page (new)"
+        verbose_name = "Blog Page"

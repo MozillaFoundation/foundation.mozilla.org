@@ -99,5 +99,5 @@ class CTA(CTABase):
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["-id"]
-        verbose_name = "CTA (New)"
-        verbose_name_plural = "CTAs (New)"
+        verbose_name = "CTA"
+        verbose_name_plural = "CTAs"

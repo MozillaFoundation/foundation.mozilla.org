@@ -82,8 +82,8 @@ class Topic(TagBase):
     ]
 
     class Meta:
-        verbose_name = "Page Topic (new)"
-        verbose_name_plural = "Page Topics (new)"
+        verbose_name = "Page Topic"
+        verbose_name_plural = "Page Topics"
 
     def get_topic_listing_url(self):
         return f"/topics/{self.slug}/"
@@ -109,8 +109,8 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         help_text=(
             "Add one or more existing topics. Start typing to search, then press “Down” arrow "
             "on your keyboard to select topic. If topic is unavailable check if Topic exists by "
-            "going to the left side-nav to Snippet > Page Topics (new) > Check if topic exists. "
-            "If not, click “Add new page topics (new)”."
+            "going to the left side-nav to Snippet > Page Topics > Check if topic exists. "
+            "If not, click “Add new page topics”."
         ),
     )
     author = models.ForeignKey(

@@ -1,7 +1,7 @@
 {% for entry in entries %}
     {% with type=entry.specific_class.get_verbose_name|lower %}
         <li class="tw-m-0 tw-p-0 {% if type == "blog page" %} tw-pt-12 {% endif %}">
-            {% if type == "blog page" %}
+            {% if type == "blog page (legacy)" %}
                 {% include "./blog_card.html" with page=entry %}
             {% else %}
                 {% include "./generic_card.html" with page=entry %}

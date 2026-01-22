@@ -51,8 +51,8 @@ class NavMenuFeaturedBlogTopicRelationship(wagtail_models.TranslatableMixin, wag
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta, wagtail_models.Orderable.Meta):
-        verbose_name = "Featured Blog Topic"
-        verbose_name_plural = "Featured Blog Topics"
+        verbose_name = "Featured Blog Topic (Legacy)"
+        verbose_name_plural = "Featured Blog Topics (Legacy)"
 
     def __str__(self) -> str:
         return f"{self.menu} - {self.topic}"
@@ -136,8 +136,8 @@ class NavMenu(
     ]
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
-        verbose_name = "Navigation Menu"
-        verbose_name_plural = "Navigation Menus"
+        verbose_name = "Navigation Menu (Legacy)"
+        verbose_name_plural = "Navigation Menus (Legacy)"
 
     def __str__(self) -> str:
         return self.title
@@ -268,5 +268,5 @@ class SiteNavMenu(BaseSiteSetting):
     ]
 
     class Meta:
-        verbose_name = "Navigation Menu"
-        verbose_name_plural = "Navigation Menus"
+        verbose_name = "Navigation Menu (Legacy)"
+        verbose_name_plural = "Navigation Menus (Legacy)"

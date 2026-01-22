@@ -102,8 +102,8 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
         return [ct.content_type.name for ct in self.related_content_types.all()]
 
     class Meta(base_detail_page.LibraryDetailPage.Meta):
-        verbose_name = "RCC detail page"
-        verbose_name_plural = "RCC detail pages"
+        verbose_name = "RCC detail page (Legacy)"
+        verbose_name_plural = "RCC detail pages (Legacy)"
 
 
 class RCCDetailLink(base_detail_page.LibraryDetailLinkBase):
