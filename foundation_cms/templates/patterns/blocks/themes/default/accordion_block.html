@@ -1,9 +1,6 @@
 {% load wagtailcore_tags %}
 
 <section class="accordion-block" >
-  {% if self.accordion_block_title %}
-    <div class="accordion-block__title h5-style">{{ self.accordion_block_title }}</div>
-  {% endif %}
 
   <div class="accordion-block__items" data-accordion-id="acc-{{ forloop.counter }}">
     {% for item in self.accordion_items %}

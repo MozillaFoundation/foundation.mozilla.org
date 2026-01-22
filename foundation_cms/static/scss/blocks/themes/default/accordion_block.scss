@@ -2,11 +2,6 @@ $accordion-border: color(neutral, "300");
 
 .accordion-block {
   margin: 2rem 0;
-
-  &__title {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid $accordion-border;
-  }
 }
 
 .accordion-item {

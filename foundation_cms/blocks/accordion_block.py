@@ -21,10 +21,6 @@ class AccordionBlockItem(BaseBlock):
 
 
 class AccordionBlock(BaseBlock):
-    accordion_block_title = CharBlock(
-        required=False,
-        help_text="Heading for the Accordion Section",
-    )
     accordion_items = ListBlock(AccordionBlockItem(), min_num=1)
 
     class Meta:
