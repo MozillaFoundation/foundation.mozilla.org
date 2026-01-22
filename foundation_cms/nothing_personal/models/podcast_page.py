@@ -57,8 +57,8 @@ class NothingPersonalPodcastPage(AbstractBasePage):
         TranslatableField("body"),
     ]
 
-    parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
-    subpage_types: list[str] = []
+    parent_page_types = ["nothing_personal.NothingPersonalHomePage", "nothing_personal.NothingPersonalPodcastPage"]
+    subpage_types: list[str] = ["nothing_personal.NothingPersonalPodcastPage"]
 
     class Meta:
         verbose_name = "Nothing Personal Podcast Page"
