@@ -224,18 +224,18 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         if not page:
             return None
 
-        # Get the field we care about from the page (e.g. donate_banner or newsletter_signup).
-        control_value = getattr(page, field_name)
+        # Get the field we want from the page (e.g. donate_banner or newsletter_signup).
+        field_value = getattr(page, field_name)
 
         # If the field is not set on the page, return None.
-        if not control_value:
+        if not field_value:
             return None
 
         # Check if the user has Do Not Track enabled by inspecting the DNT header.
         dnt_enabled = request.headers.get("DNT") == "1"
 
-        # Default values (assume control / no test).
-        served_value = control_value
+        # Default values (whats served if there is no AB test or DNT is enabled).
+        served_value = field_value
         variant_version = "N/A"
         active_ab_test_name = "N/A"
 
@@ -267,7 +267,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
                 request.wagtail_ab_testing_test = active_ab_test
                 request.wagtail_ab_testing_serving_variant = is_variant
 
-                # If the user is in the variant, pull the value from the variant revision.
+                # If the user is supposed to be served the variant, pull the value from the variant revision.
                 if is_variant:
                     variant_page = active_ab_test.variant_revision.as_object()
                     served_value = getattr(variant_page, field_name)

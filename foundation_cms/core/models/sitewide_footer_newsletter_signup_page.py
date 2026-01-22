@@ -19,8 +19,8 @@ class SitewideFooterNewsletterSignupPage(Page):
         on_delete=models.SET_NULL,
         related_name="sitewide_footer_newsletter_signup",
         help_text=(
-            "CTA Banner rendered at the top of the page site-wide. "
-            "Note: A/B testing of this banner will also be site-wide and across all locales."
+            "Newsletter signup form rendered on the footer site-wide. "
+            "Note: A/B testing of this newsletter signup will also be site-wide and across all locales."
         ),
     )
 
