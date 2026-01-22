@@ -2,18 +2,18 @@
 
 {% get_current_language as current_language %}
 
-<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ newsletter_signup.id }}" data-layout="{{ newsletter_signup.layout }}" data-current-language="{{ current_language }}">
+<div class="newsletter-signup newsletter-signup__container" data-signup-id="{{ pdf_download_signup.id }}" data-layout="{{ pdf_download_signup.layout }}" data-current-language="{{ current_language }}" data-form-type="pdf_download">
 
   <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
-    {% trans "Something went wrong and your signup wasn't completed. Please try again later." %}
+    {% trans "Something went wrong and your download wasn't completed. Please try again later." %}
   </div>
 
   <form class="newsletter-signup__form" novalidate>
 
     <div class="newsletter-signup__cta-wrapper">
-      <p class="newsletter-signup__cta-header">{{ newsletter_signup.cta_header }}</p>
-      {% if newsletter_signup.cta_description %}
-        <p class="newsletter-signup__cta-description">{{ newsletter_signup.cta_description }}</p>
+      <p class="newsletter-signup__cta-header">{{ pdf_download_signup.cta_header }}</p>
+      {% if pdf_download_signup.cta_description %}
+        <p class="newsletter-signup__cta-description">{{ pdf_download_signup.cta_description }}</p>
       {% endif %}
     </div>
 
@@ -36,14 +36,12 @@
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
           <select class="newsletter-signup__input" name="country" aria-label="{% trans "Country" %}" required>
-              <!-- Country options rendered in through newsletter-signup.js -->
             <option value="" disabled selected>{% trans "Your country" %}</option>
           </select>
         </div>
 
         <div class="newsletter-signup__field newsletter-signup__field--hidden">
           <select class="newsletter-signup__input" name="language" aria-label="{% trans "Language" %}" required>
-              <!-- Language options rendered in through newsletter-signup.js -->
             <option value="en">English</option>
           </select>
         </div>
@@ -53,8 +51,8 @@
             <input type="checkbox" name="privacy">
             <span>
               {% blocktrans with privacy_link='https://www.mozilla.org/privacy/websites/' trimmed %}
-                I'm okay with Mozilla handling my info as explained in this
-                <a href="{{ privacy_link }}" target="_blank" class="newsletter-signup__link">Privacy Notice</a>.
+                I agree to Mozilla's <a href="{{ privacy_link }}" target="_blank" class="newsletter-signup__link">Privacy Policy</a>
+                and understand that Mozilla will send me the requested content via email.
               {% endblocktrans %}
             </span>
           </label>
@@ -66,15 +64,14 @@
       </div>
 
       <div class="newsletter-signup__button-wrapper">
-        <!-- todo: Implement button component with button tag to use in forms -->
         <button type="submit" class="newsletter-signup__button btn-primary">
           <span class="btn-primary__roller">
             <span class="loading-message">
-              {% trans "Loading..." %}
+              {% trans "Processing..." %}
             </span>
             <span class="btn-primary__rolltext">
-              <span class="btn-primary__text">{{ newsletter_signup.button_text }}</span>
-              <span class="btn-primary__text btn-primary__text--roll-in">{{ newsletter_signup.button_text }}</span>
+              <span class="btn-primary__text">{{ pdf_download_signup.button_text }}</span>
+              <span class="btn-primary__text btn-primary__text--roll-in">{{ pdf_download_signup.button_text }}</span>
             </span>
           </span>
         </button>
@@ -85,23 +82,21 @@
   </form>
 
   <div class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
-
     <div class="newsletter-signup__success-content">
       <h4 class="newsletter-signup__success-title">{% trans "Thank you!" %}</h4>
       <div>
         <p>
           {% blocktrans trimmed %}
-            If you haven’t previously confirmed your opt-in to a Mozilla Foundation-related email subscription you may have to do so now.
-            <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.
+            Your download link will be sent to your email address shortly.
+            <strong>Please check your inbox and spam folder for an email from us</strong>.
           {% endblocktrans %}
         </p>
       </div>
     </div>
 
     <div class="newsletter-signup__success-media">
-      <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="{% trans "Newsletter signup success image" %}" />
+      <img src="{% static 'foundation_cms/_images/newsletter-signup-success.jpg' %}" width="100%" height="100%" alt="{% trans "PDF download success image" %}" />
     </div>
-
   </div>
 
 </div>

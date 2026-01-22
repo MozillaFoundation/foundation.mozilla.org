@@ -1,21 +1,39 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
-from wagtail_localize.fields import SynchronizedField, TranslatableField
+from wagtail_localize.fields import SynchronizedField
 
 from .base_signup_form import BaseSignupForm
 
 
 @register_snippet
 class NewsletterSignup(BaseSignupForm):
-    panels = BaseSignupForm.panels
+    newsletter = models.CharField(
+        max_length=100,
+        help_text="The (pre-existing) newsletter to sign up for.",
+        default="mozillafoundationorg",
+    )
+
+    panels = BaseSignupForm.panels + [
+        FieldPanel("newsletter"),
+    ]
 
     def get_form_type(self):
         return "newsletter"
 
-    translatable_fields = BaseSignupForm.base_translatable_fields
+    translatable_fields = BaseSignupForm.base_translatable_fields + [
+        SynchronizedField("newsletter"),
+    ]
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("translation_key", "locale"), name="unique_translation_key_locale_snippets_newslettersignup"
+            )
+        ]
+        verbose_name = "Newsletter Signup"
+        verbose_name_plural = "Newsletter Signups"
 
 
 @register_setting(icon="mail")

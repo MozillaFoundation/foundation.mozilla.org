@@ -16,6 +16,7 @@ from wagtail.models import Site
 from foundation_cms.legacy_apps.mozfest.models import MozfestHomepage
 from foundation_cms.legacy_apps.wagtailpages.models import Homepage
 from foundation_cms.snippets.models.newsletter_signup import NewsletterSignup
+from foundation_cms.snippets.models.pdf_download_signup import PdfDownloadSignup
 
 logger = logging.getLogger(__name__)
 
@@ -210,3 +211,71 @@ def newsletter_unsubscribe_view(request):
         )
     else:
         return JsonResponse({"error": "There was an error unsubscribing"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def pdf_download_request_view(request, pk):
+    new_body = request.body.decode("utf-8")
+    try:
+        request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse(
+            {"error": "Could not validate incoming data"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+    try:
+        signup = PdfDownloadSignup.objects.get(id=pk)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error": "PDF signup not found"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    return pdf_download_submission(request, signup)
+
+
+def pdf_download_submission(request, signup):
+    rq = request.data
+
+    email = rq.get("email")
+    if email is None:
+        return JsonResponse(
+            {"error": "PDF download requires an email address"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    pdf_data = {
+        "to": email,
+        "smart_email_id": signup.smart_email_id,
+    }
+
+    try:
+        resp = requests.post(
+            settings.CAMO_PDF_DOWNLOAD_ENDPOINT,
+            json=pdf_data,
+            timeout=10,
+            headers={
+                "X-API-Key": settings.CAMO_ENDPOINT_KEY,
+                "Content-Type": "application/json",
+            },
+        )
+
+        if resp.status_code == 200:
+            response_data = {
+                "email": email,
+                "smart_email_id": signup.smart_email_id,
+                "status": "success",
+                "message": "PDF download request sent successfully",
+            }
+            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+        else:
+            logger.error(f"PDF download request failed: {resp.status_code} - {resp.text}")
+            return JsonResponse({"error": "PDF download request failed"}, status=status.HTTP_400_BAD_REQUEST)
+
+    except requests.exceptions.RequestException as e:
+        logger.error(f"PDF download request error: {e}")
+        return JsonResponse(
+            {"error": "PDF service unavailable. Please try again later."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )

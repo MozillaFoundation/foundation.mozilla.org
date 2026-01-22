@@ -25,6 +25,7 @@ from foundation_cms.search import views as search_views
 from foundation_cms.views import (
     newsletter_signup_submission_view,
     newsletter_unsubscribe_view,
+    pdf_download_request_view,
 )
 
 from .redirects import foundation_redirects
@@ -136,6 +137,7 @@ urlpatterns = list(
             re_path(
                 r"^newsletter-signup/(?P<pk>[0-9]+)/", newsletter_signup_submission_view, name="signup-submission"
             ),
+            re_path(r"^pdf-download-request/(?P<pk>[0-9]+)/", pdf_download_request_view, name="pdf-download-request"),
             path("newsletter-unsubscribe/", newsletter_unsubscribe_view, name="newsletter-unsubscribe"),
         ],
     )

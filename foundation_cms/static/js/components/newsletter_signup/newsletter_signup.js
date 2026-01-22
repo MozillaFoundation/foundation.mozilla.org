@@ -4,7 +4,7 @@ import { COUNTRY_OPTIONS } from "./data/country-options.js";
 /**
  * CSS selectors used to locate key DOM elements in the newsletter signup component.
  */
-const SELECTORS = {
+export const SELECTORS = {
   container: ".newsletter-signup__container",
   form: ".newsletter-signup__form",
   emailInput: "input[name='email']",
@@ -24,7 +24,7 @@ const SELECTORS = {
 /**
  * CSS class names used to toggle visibility or styling of DOM elements.
  */
-const CLASSNAMES = {
+export const CLASSNAMES = {
   formHidden: "newsletter-signup__form--hidden",
   successHidden: "newsletter-signup__success-message--hidden",
   errorHidden: "newsletter-signup__error-message--hidden",
@@ -39,7 +39,7 @@ const CLASSNAMES = {
  * @param {Object} formData - An object containing email, country, and language values.
  * @returns {Promise<boolean>} Resolves to `true` if submission is successful, otherwise `false`.
  */
-async function submitDataToApi(signupUrl, formData) {
+export async function submitDataToApi(signupUrl, formData) {
   const payload = {
     email: formData.email,
     country: formData.country,
@@ -69,7 +69,7 @@ async function submitDataToApi(signupUrl, formData) {
  * @param {HTMLSelectElement} selectEl - The select element to populate.
  * @param {Array<{value: string, label: string}>} options - An array of option objects.
  */
-function populateSelectOptions(selectEl, options) {
+export function populateSelectOptions(selectEl, options) {
   selectEl.innerHTML = "";
   options.forEach(({ value, label }) => {
     const option = document.createElement("option");
@@ -86,7 +86,7 @@ function populateSelectOptions(selectEl, options) {
  * @param {string} layout - The layout type ('default' or 'expanded').
  * @param {HTMLInputElement} emailInput - The email input field that triggers expansion.
  */
-function applyLayoutBehavior(form, layout, emailInput) {
+export function applyLayoutBehavior(form, layout, emailInput) {
   const expandableFields = form.querySelectorAll(SELECTORS.expandableField);
 
   const revealHiddenFields = () => {
@@ -111,7 +111,7 @@ function applyLayoutBehavior(form, layout, emailInput) {
  * @param {HTMLElement} privacyErrorMessage - Element to show if privacy is unchecked.
  * @returns {boolean} `true` if form is valid, otherwise `false`.
  */
-function validateForm({
+export function validateForm({
   email,
   privacyChecked,
   emailErrorMessage,
@@ -139,7 +139,7 @@ function validateForm({
  * @param {string} foundationSiteURL - The base URL of the site, used to construct the API endpoint.
  */
 export default function injectNewsletterSignups(foundationSiteURL) {
-  const formContainers = document.querySelectorAll(SELECTORS.container);
+  const formContainers = document.querySelectorAll(`${SELECTORS.container}:not([data-form-type="pdf_download"])`);
 
   formContainers.forEach((container) => {
     const form = container.querySelector(SELECTORS.form);

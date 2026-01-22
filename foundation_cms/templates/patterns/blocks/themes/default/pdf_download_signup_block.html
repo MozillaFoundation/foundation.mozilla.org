@@ -1,5 +1,5 @@
 {% load wagtailcore_tags %}
 
 {% block block_content %}
-    {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=self.pdf_download_signup.localized %}
+    {% include "patterns/components/pdf_download_signup_form.html" with pdf_download_signup=self.pdf_download_signup.localized %}
 {% endblock block_content %}

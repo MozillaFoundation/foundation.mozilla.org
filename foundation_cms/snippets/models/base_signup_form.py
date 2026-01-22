@@ -19,11 +19,6 @@ class BaseSignupForm(TranslatableMixin, models.Model):
         blank=True, max_length=255, help_text="Additional description text below the header."
     )
     button_text = models.CharField(max_length=50, default="Sign Up", help_text="Text to display on the button.")
-    newsletter = models.CharField(
-        max_length=100,
-        help_text="The (pre-existing) newsletter to sign up for.",
-        default="mozillafoundationorg",
-    )
     layout = models.CharField(
         max_length=20,
         choices=[
@@ -39,7 +34,6 @@ class BaseSignupForm(TranslatableMixin, models.Model):
         FieldPanel("cta_header"),
         FieldPanel("cta_description"),
         FieldPanel("button_text"),
-        FieldPanel("newsletter"),
         FieldPanel("layout"),
     ]
 
@@ -58,6 +52,5 @@ class BaseSignupForm(TranslatableMixin, models.Model):
         TranslatableField("cta_header"),
         TranslatableField("cta_description"),
         TranslatableField("button_text"),
-        SynchronizedField("newsletter"),
         SynchronizedField("layout"),
     ]
