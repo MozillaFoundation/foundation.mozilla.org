@@ -44,7 +44,7 @@ class FoundationCustomImage(AbstractImage):
         if not self.animated_webp and self.file.name.lower().endswith(".webp"):
             if webp_utils.is_animated_webp(self.file):
                 self.animated_webp = self.file
-                self.save(update_fields=["animated_webp"])
+                super().save(update_fields=["animated_webp"]) # no need to convert, run super().save
         return self.animated_webp
 
     class Meta:
@@ -52,8 +52,8 @@ class FoundationCustomImage(AbstractImage):
 
     def save(self, *args, **kwargs):
         """
-        Save the image the wagtail way then extend to generate a .webp file if the
-        image is a gif.
+        Custom self.save() method for when the image is an animated gif.
+        Save the image the wagtail way first then extend to generate a .webp file.
         """
 
         # wagtail image save
@@ -91,6 +91,7 @@ class FoundationCustomImage(AbstractImage):
             webp_path = webp_utils.convert_gif_to_webp(self.file)
             if webp_path:
                 with open(webp_path, "rb") as f:
+                    # write file to storage but do not save model yet
                     self.animated_webp.save(os.path.basename(webp_path), ContentFile(f.read()), save=False)
                 super().save(update_fields=["animated_webp"])
 
