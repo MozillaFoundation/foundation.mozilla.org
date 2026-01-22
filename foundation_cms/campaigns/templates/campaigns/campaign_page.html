@@ -15,7 +15,7 @@
 {% block body_class %}template-campaign-page{% endblock body_class %}
 
 {% block content %}
-    {% if state == "signed" and medium != "email" %}
+    {% if state == "signed" and medium != "email" and newsletter_optin == "true" %}
         {% include "campaigns/components/campaign_page/confirmation_notice_banner.html" with user_email=user_email %}
     {% endif %}
 
