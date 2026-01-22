@@ -7,10 +7,6 @@ $accordion-border: color(neutral, "300");
 .accordion-item {
   border-top: 1px solid $accordion-border;
 
-  &:first-child {
-    border-top: none;
-  }
-
   &__button {
     width: 100%;
     display: flex;
