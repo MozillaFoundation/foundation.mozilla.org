@@ -2,6 +2,7 @@ from django.conf import settings
 from wagtail.blocks import RichTextBlock
 
 from .callout_block import CalloutBlock
+from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
@@ -143,8 +144,7 @@ class BlockRegistry:
             "group": BlockGroups.TEXT,
         },
         "rich_text": {
-            "class": RichTextBlock,
-            "kwargs": {"template": "patterns/blocks/themes/default/rich_text_block.html"},
+            "class": CustomRichTextBlock,
             "group": BlockGroups.TEXT,
         },
         "title_block": {
