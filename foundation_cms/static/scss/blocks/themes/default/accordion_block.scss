@@ -16,12 +16,6 @@ $accordion-border: color(neutral, "300");
     border-top: none;
   }
 
-  &__heading {
-    @include mofo-text-style($body-text-styles, "xlarge");
-
-    font-weight: bold;
-  }
-
   &__button {
     width: 100%;
     display: flex;
@@ -30,7 +24,16 @@ $accordion-border: color(neutral, "300");
     cursor: pointer;
 
     &-text {
-      padding: 1.8rem 0;
+      @include mofo-text-style($body-text-styles, "xlarge");
+      @include breakpoint(small up) {
+          font-weight: 700;
+        }
+      @include breakpoint(large up) {
+          font-weight: 700;
+      }
+
+      text-align: left;
+      padding: 2rem 0;
     }
   }
 
@@ -39,7 +42,7 @@ $accordion-border: color(neutral, "300");
     height: 0;
 
     &-inner p {
-      margin: -0.4rem 0 1.6rem;
+      margin: 0 0 2rem;
     }
   }
 
@@ -50,6 +53,8 @@ $accordion-border: color(neutral, "300");
     justify-content: center;
     flex: 0 0 auto;
     font-weight: normal;
+    padding: 2rem 0;
+    margin-left: 2rem;
 
     &::after {
       content: "";
