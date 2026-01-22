@@ -44,7 +44,7 @@ class FoundationCustomImage(AbstractImage):
         if not self.animated_webp and self.file.name.lower().endswith(".webp"):
             if webp_utils.is_animated_webp(self.file):
                 self.animated_webp = self.file
-                super().save(update_fields=["animated_webp"]) # no need to convert, run super().save
+                super().save(update_fields=["animated_webp"])  # no need to convert, run super().save
         return self.animated_webp
 
     class Meta:
