@@ -10,8 +10,10 @@ from wagtail.models import Locale, Page, Site
 
 from foundation_cms.base.models.abstract_base_page import Author, Topic
 from foundation_cms.base.utils.helpers import to_streamfield_value
-from foundation_cms.nothing_personal.models import NothingPersonalArticlePage, NothingPersonalHomePage
-
+from foundation_cms.nothing_personal.models import (
+    NothingPersonalArticlePage,
+    NothingPersonalHomePage,
+)
 
 DEFAULT_KEYWORD = "NP_PAGINATION_TEST"
 DEFAULT_COUNT = 70
