@@ -79,7 +79,8 @@ $cta-link-icon-sizes: (
 }
 
 @mixin button-with-left-icon($iconPath) {
-  gap: rem-calc(12);
+  padding: rem-calc(12) rem-calc(16);
+  gap: rem-calc(4);
 
   &::before {
     content: "";
@@ -87,8 +88,8 @@ $cta-link-icon-sizes: (
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    width: rem-calc(16);
-    height: rem-calc(16);
+    width: rem-calc(32);
+    height: rem-calc(32);
     display: inline-block;
     flex-shrink: 0;
   }
