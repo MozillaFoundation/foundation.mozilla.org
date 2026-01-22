@@ -30,8 +30,8 @@ class RCCLibraryPage(base_library_page.BaseLibraryPage):
     template = "pages/libraries/rcc/library_page.html"
 
     class Meta(base_library_page.BaseLibraryPage.Meta):
-        verbose_name = "RCC library page"
-        verbose_name_plural = "RCC library pages"
+        verbose_name = "RCC library page (Legacy)"
+        verbose_name_plural = "RCC library pages (Legacy)"
 
     @property
     def filter_form(self) -> "forms.Form":

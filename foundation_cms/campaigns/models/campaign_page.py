@@ -202,6 +202,7 @@ class CampaignPage(AbstractBasePage):
         state = request.GET.get("state", "start")
         medium = request.GET.get("medium", "web")
         user_email = request.GET.get("email", "")
+        newsletter_optin = request.GET.get("newsletter_optin", "")
 
         if request.method == "POST":
             action = request.POST.get("action")
@@ -218,6 +219,7 @@ class CampaignPage(AbstractBasePage):
                 "state": state,
                 "medium": medium,
                 "user_email": user_email,
+                "newsletter_optin": newsletter_optin,
             }
         )
 
@@ -328,5 +330,5 @@ class CampaignPage(AbstractBasePage):
         return petition_signed_url
 
     class Meta:
-        verbose_name = "Campaign Page (New)"
-        verbose_name_plural = "Campaign Pages (New)"
+        verbose_name = "Campaign Page"
+        verbose_name_plural = "Campaign Pages"

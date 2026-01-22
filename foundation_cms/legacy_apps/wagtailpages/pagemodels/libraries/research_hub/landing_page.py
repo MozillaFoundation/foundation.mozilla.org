@@ -52,3 +52,7 @@ class ResearchLandingPage(base_landing_page.BaseLandingPage):
     @cached_property
     def authors_index_page(self):
         return authors_index.ResearchAuthorsIndexPage.objects.first()
+
+    class Meta:
+        verbose_name = "Research Landing Page (Legacy)"
+        verbose_name_plural = "Research Landing Pages (Legacy)"
