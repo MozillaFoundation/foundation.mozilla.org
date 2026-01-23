@@ -80,7 +80,7 @@
       @include breakpoint(large up) {
         align-self: center;
         flex-direction: row;
-        gap: 4rem;
+        gap: 2rem;
       }
     }
 
@@ -88,6 +88,7 @@
       @include mofo-text-style($label-text-styles, "regular");
 
       @include breakpoint(large up) {
+        width: rem-calc(150);
         align-self: center;
       }
     }

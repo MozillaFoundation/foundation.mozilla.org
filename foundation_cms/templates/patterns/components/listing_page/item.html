@@ -4,7 +4,7 @@
   <article class="grid-x grid-margin-x page-card">
     <div class="cell small-12 medium-5 page-card__media-wrapper">
       {% if show_published_date %}
-        <div class="page-card__published-date">{{ page.first_published_at|date:"M j, Y" }}</div>
+        <div class="page-card__published-date">{{ page.first_published_at|date:"DATE_FORMAT" }}</div>
       {% endif %}
       <a href="{{ page.url }}" class="page-card__image-wrapper">
         {% if page.search_image %}
