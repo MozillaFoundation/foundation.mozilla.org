@@ -77,82 +77,142 @@ body.template-search-results {
     &__item {
       margin-bottom: 2rem;
     }
+  }
 
-    .page-card {
-      $image-hover-scale: 105%;
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 4rem;
 
-      gap: 1rem 0;
+    @include breakpoint(medium up) {
+      margin: 0 0 8rem;
+    }
 
-      &__image-wrapper {
-        border-top-right-radius: 32px;
-        border-bottom-left-radius: 32px;
-        overflow: hidden;
-        background: color(neutral, "200");
-        aspect-ratio: math.div(3, 2);
-        display: block;
-        align-self: center;
-        width: 100%;
-        height: auto;
+    &__pages {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
 
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.5s ease;
+    .btn-secondary {
+      margin: 0;
+
+      @include breakpoint(small only) {
+        padding: 1rem;
+      }
+
+      &__roller {
+        @include breakpoint(small only) {
+          display: none;
         }
+      }
+    }
+
+    &__page a,
+    &__page span,
+    &__ellipsis span {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      color: $black;
+      text-decoration: none;
+      width: 2rem;
+
+      @include breakpoint(medium up) {
+        width: rem-calc(56);
+      }
+
+      &.current {
+        background: color(neutral, "200");
+      }
+    }
+
+    &__previous a {
+      flex-direction: row-reverse;
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .page-card {
+    $image-hover-scale: 105%;
+
+    gap: 1rem 0;
+
+    &__image-wrapper {
+      border-top-right-radius: 32px;
+      border-bottom-left-radius: 32px;
+      overflow: hidden;
+      background: color(neutral, "200");
+      aspect-ratio: math.div(3, 2);
+      display: block;
+      align-self: center;
+      width: 100%;
+      height: auto;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      &:hover {
+        img {
+          transform: scale($image-hover-scale);
+        }
+      }
+    }
+
+    &__meta-wrapper {
+      display: flex;
+    }
+
+    &__meta {
+      margin: 0;
+    }
+
+    &__tags {
+      margin: 0 0 1rem;
+
+      @include breakpoint(medium up) {
+        margin: 0 0 1.5rem;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+      // @include text-line-clamp(2);
+
+      margin: 0 0 1rem;
+
+      > a {
+        text-decoration: none;
+        color: map.get($mofo-colors, black);
 
         &:hover {
-          img {
-            transform: scale($image-hover-scale);
-          }
+          text-decoration: underline;
         }
       }
+    }
 
-      &__meta-wrapper {
-        display: flex;
-      }
+    &__author,
+    &__date {
+      @include mofo-text-style($body-text-styles, "small");
+    }
 
-      &__meta {
-        margin: 0;
-      }
+    &__description {
+      // @include text-line-clamp(3);
 
-      &__tags {
-        margin: 0 0 1rem;
-
-        @include breakpoint(medium up) {
-          margin: 0 0 1.5rem;
-        }
-      }
-
-      &__title {
-        @include mofo-text-style($header-styles, "h4", $header-font-family);
-
-        // @include text-line-clamp(2);
-
-        margin: 0 0 1rem;
-
-        a {
-          text-decoration: none;
-          color: map.get($mofo-colors, black);
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-
-      &__author,
-      &__date {
-        @include mofo-text-style($body-text-styles, "small");
-      }
-
-      &__description {
-        // @include text-line-clamp(3);
-
-        margin: 0.5rem 0;
-        @include breakpoint(medium up) {
-          margin: 1.5rem 0 1rem;
-        }
+      margin: 0.5rem 0;
+      @include breakpoint(medium up) {
+        margin: 1.5rem 0 1rem;
       }
     }
   }
