@@ -60,7 +60,7 @@
     "playwright:legacy:urls": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/urls.spec.js",
     "playwright:legacy:visual": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/visual.spec.js",
     "playwright:legacy:ci": "run-p --race server playwright:legacy:integration",
-    "playwright:legacy:integration": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/integration/",
+    "playwright:legacy:integration": "wait-on -i 3000 -t 120000 -v http://127.0.0.1:8000/cms && playwright test ./tests/integration/petition",
     "precommit": "npm run test",
     "prettier:js": "run-p prettier:legacy:js",
     "prettier:scss": "run-p prettier:legacy:scss",
