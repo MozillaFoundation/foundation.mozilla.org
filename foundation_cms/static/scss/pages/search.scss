@@ -2,6 +2,7 @@
 @use "sass:math";
 
 @import "../redesign_base";
+@import "../components/nothing_personal/related_content";
 
 body.template-search-results {
   .search-summary {
