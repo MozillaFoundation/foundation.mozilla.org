@@ -20,6 +20,7 @@ from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixi
 
 BASE_BLOCK_NAMES = sorted(
     [
+        "accordion_block",
         "rich_text",
         "image",
         "podcast_block",
