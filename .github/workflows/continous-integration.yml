@@ -191,7 +191,7 @@ jobs:
         run: yarn workspace legacy playwright:ci
       - name: Upload test artifacts
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-test-results
           path: |
