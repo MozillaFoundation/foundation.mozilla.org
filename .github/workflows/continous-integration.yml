@@ -184,5 +184,8 @@ jobs:
           python ./manage.py block_inventory
           python ./manage.py load_redesign_data
           python ./manage.py legacy_load_fake_data
+      - name: Setup hosts
+        run: |
+          echo "127.0.0.1 legacy.localhost" | sudo tee -a /etc/hosts
       - name: Integration Tests
         run: yarn workspace legacy playwright:ci
