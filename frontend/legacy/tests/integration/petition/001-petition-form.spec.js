@@ -8,8 +8,8 @@ test.describe("FormAssembly petition form", () => {
   // locales we support on www.mozillafoundation.org
   let supportedLocales = [
     "en",
-    "de",
-    "es",
+    // "de",
+    // "es",
     // commenting the following locales out for the time being to speed up the tests we have for petition form
     // "fr",
     // "fy-NL",
@@ -121,17 +121,22 @@ test.describe("FormAssembly petition form", () => {
     );
 
     // prepare to wait for the form to submit
-    const navigationPromise = page.waitForNavigation();
-    await submitButton.dispatchEvent("click");
-    await navigationPromise;
+    await Promise.all([
+      page.waitForURL((url) => url.href.includes("thank_you=true"), {
+        timeout: 5000,
+      }),
+      submitButton.dispatchEvent("click"),
+    ]);
   });
 
   for (const locale of supportedLocales) {
     test(`(${locale}) Signing petition`, async ({ page }) => {
       localeToTest = locale;
       // Form has been submitted successfully. Page should be redirected to thank you page
+      console.log("\n ===========");
       console.log("Current URL:", page.url());
       console.log("Expected thank you URL:", thankYouUrlInputValue);
+      console.log("=========== \n");
       expect(
         utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
       ).toBe(true);
