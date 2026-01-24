@@ -120,13 +120,28 @@ test.describe("FormAssembly petition form", () => {
       }
     );
 
+    const thankYouUrl = await page
+      .locator(utility.FA_HIDDEN_FIELDS.thankYouUrl)
+      .inputValue();
+    console.log("\n ********");
+    console.log("Thank you URL sent to FormAssembly:", thankYouUrl);
+    console.log("Current page URL before submit:", page.url());
+
     // prepare to wait for the form to submit
-    await Promise.all([
-      page.waitForURL((url) => url.href.includes("thank_you=true"), {
-        timeout: 15000,
-      }),
-      submitButton.dispatchEvent("click"),
-    ]);
+    try {
+      await Promise.all([
+        page.waitForURL((url) => url.href.includes("thank_you=true"), {
+          timeout: 15000,
+        }),
+        submitButton.dispatchEvent("click"),
+      ]);
+    } catch (error) {
+      console.log("Screenshot saved. Current URL:", page.url());
+      throw error;
+    }
+
+    console.log("Final URL after submit:", page.url());
+    console.log("******** \n");
   });
 
   for (const locale of supportedLocales) {

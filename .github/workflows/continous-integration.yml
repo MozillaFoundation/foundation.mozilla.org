@@ -189,3 +189,12 @@ jobs:
           echo "127.0.0.1 legacy.localhost" | sudo tee -a /etc/hosts
       - name: Integration Tests
         run: yarn workspace legacy playwright:ci
+      - name: Upload test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-test-results
+          path: |
+            frontend/legacy/test-results/
+            frontend/legacy/playwright-report/
+          retention-days: 1
