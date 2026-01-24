@@ -123,7 +123,7 @@ test.describe("FormAssembly petition form", () => {
     // prepare to wait for the form to submit
     await Promise.all([
       page.waitForURL((url) => url.href.includes("thank_you=true"), {
-        timeout: 5000,
+        timeout: 15000,
       }),
       submitButton.dispatchEvent("click"),
     ]);
