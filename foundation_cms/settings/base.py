@@ -600,9 +600,14 @@ WAGTAILEMBEDS_FINDERS = [
 # Wagtail search
 
 WAGTAILSEARCH_BACKENDS = {
-    "default": {
+    "en": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
+        "AUTO_UPDATE": True,
+    },
+    "de": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "german",
         "AUTO_UPDATE": True,
     },
     "es": {
@@ -615,22 +620,17 @@ WAGTAILSEARCH_BACKENDS = {
         "SEARCH_CONFIG": "french",
         "AUTO_UPDATE": True,
     },
-    "de": {
-        "BACKEND": "wagtail.search.backends.database",
-        "SEARCH_CONFIG": "german",
-        "AUTO_UPDATE": True,
-    },
     "nl": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "dutch",
         "AUTO_UPDATE": True,
     },
-    "pt": {
+    "pt-BR": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "portuguese",
         "AUTO_UPDATE": True,
     },
-    "simple": {
+    "default": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "simple",  # Support pl, fy-NL, sw
         "AUTO_UPDATE": True,
