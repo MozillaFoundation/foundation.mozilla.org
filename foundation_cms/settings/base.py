@@ -604,7 +604,37 @@ WAGTAILSEARCH_BACKENDS = {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
         "AUTO_UPDATE": True,
-    }
+    },
+    "es": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "spanish",
+        "AUTO_UPDATE": True,
+    },
+    "fr": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "french",
+        "AUTO_UPDATE": True,
+    },
+    "de": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "german",
+        "AUTO_UPDATE": True,
+    },
+    "nl": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "dutch",
+        "AUTO_UPDATE": True,
+    },
+    "pt": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "portuguese",
+        "AUTO_UPDATE": True,
+    },
+    "simple": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "simple",  # Support pl, fy-NL, sw
+        "AUTO_UPDATE": True,
+    },
 }
 
 # Wagtail redirects

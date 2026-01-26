@@ -6,6 +6,10 @@ from wagtail.search.query import PlainText
 
 from foundation_cms.campaigns.models.campaign_page import CampaignPage
 from foundation_cms.utils import get_default_locale, localize_queryset
+from foundation_cms.search.utils import (
+    get_search_backend_for_locale,
+    should_use_locale_backend,
+)
 
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
@@ -22,7 +26,19 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
+        # Get current locale and base queryset
+        current_locale = Locale.get_active()
+        locale_code = current_locale.language_code
+        base_queryset = Page.objects.live().filter(locale=current_locale)
+
+        # Use appropriate search backend
+        if should_use_locale_backend(locale_code):
+            search_backend, backend_type = get_search_backend_for_locale(locale_code)
+            search_results = search_backend.search(search_query, base_queryset)
+        else:
+            # Use default search with 'simple' configuration for unsupported languages
+            search_results = base_queryset.search(search_query)
+
         total_search_results = search_results.count()
 
         # To log this query for use with the "Promoted search results" module:
@@ -55,6 +71,7 @@ def search(request):
             "search_results": search_results,
             "total_search_results": total_search_results,
             "keep_contributing_pages": keep_contributing_pages,
+            "current_locale": current_locale.language_code,
         },
     )
 
