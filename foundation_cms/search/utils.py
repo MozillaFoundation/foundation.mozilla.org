@@ -1,6 +1,6 @@
 from django.conf import settings
 from wagtail.models import Locale
-from wagtail.search import get_search_backend
+from wagtail.search.backends import get_search_backend
 
 SUPPORTED_SEARCH_LANGUAGES = {
     "en": "english",
@@ -26,10 +26,3 @@ def get_search_backend_for_locale(locale_code=None):
 
     # Fallback to default backend
     return get_search_backend(), "default"
-
-
-def should_use_locale_backend(locale_code):
-    """
-    Check if we should use a locale-specific backend for search.
-    """
-    return locale_code in SUPPORTED_SEARCH_LANGUAGES
