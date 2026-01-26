@@ -9,9 +9,8 @@
       {% plural %}
         Showing {{ total_pages_count }} results for:
       {% endblocktrans %}
-      <h1 {% if show_quoted_title %}class="show-quote-mark"{% endif %}>{% block listing_title %}{% endblock listing_title %}</h1>
+      <h1 {% if show_quoted_title %}class="listing-header__title--quoted"{% endif %}>{% block listing_title %}{% endblock listing_title %}</h1>
     </div>
-
   </div>
   {% block listing_result %}{% endblock listing_result %}
 {% endblock content %}

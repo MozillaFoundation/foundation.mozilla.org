@@ -6,16 +6,24 @@
     text-align: center;
     margin: 2rem 0;
 
-    h1.show-quote-mark {
-      margin: 1rem 0 0;
-      position: relative;
+    h1 {
+      margin-top: 1.5rem;
 
-      &::before {
-        content: "\2018";
+      @include breakpoint(large up) {
+        margin-top: 2rem;
       }
 
-      &::after {
-        content: "\2019";
+      &.listing-header__title--quoted {
+        margin: 1rem 0 0;
+        position: relative;
+
+        &::before {
+          content: "\2018";
+        }
+
+        &::after {
+          content: "\2019";
+        }
       }
     }
 
@@ -75,7 +83,7 @@
     &__media-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
 
       @include breakpoint(large up) {
         align-self: center;
@@ -131,7 +139,7 @@
     }
 
     &__tags {
-      margin: 0.5rem 0;
+      margin-bottom: 1rem;
 
       @include breakpoint(large up) {
         margin: 1rem 0;
@@ -140,7 +148,6 @@
 
     &__title {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
-      @include text-line-clamp(2);
 
       margin: 0;
 
@@ -157,7 +164,7 @@
     &__description {
       @include text-line-clamp(3);
 
-      margin: 0.5rem 0;
+      margin: 1rem 0;
       @include breakpoint(large up) {
         margin: 0.5rem 0 1rem;
       }
