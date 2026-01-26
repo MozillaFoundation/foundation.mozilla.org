@@ -16,10 +16,10 @@ $carousel-transition: transform 0.3s ease;
   $rotate-pos: 3deg;
   $rotate-neg: -3deg;
   $cardset-colors: (
-    1: color(blue, "300"),
-    2: color(yellow, "300"),
-    3: color(green, "300"),
-    4: color(orange, "200"),
+    1: color(orange, "200"),
+    2: color(blue, "300"),
+    3: color(yellow, "300"),
+    4: color(green, "300"),
   );
 
   @include breakpoint(large up) {
