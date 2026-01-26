@@ -260,7 +260,6 @@ body.template-campaign-page {
       margin-bottom: 1.5rem;
 
       @include breakpoint(large up) {
-        grid-template-columns: 1fr 1fr;
         margin-top: 2rem;
         margin-bottom: 2rem;
       }
