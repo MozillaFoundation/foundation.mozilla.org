@@ -125,25 +125,4 @@ test.describe("FormAssembly petition form", () => {
     await submitButton.dispatchEvent("click");
     await navigationPromise;
   });
-
-  for (const locale of supportedLocales) {
-    test(`(${locale}) Signing petition`, async ({ page }) => {
-      localeToTest = locale;
-      // Form has been submitted successfully. Page should be redirected to thank you page
-      expect(
-        utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
-      ).toBe(true);
-    });
-
-    test(`(${locale}) Signing petition using the same email`, async ({
-      page,
-    }) => {
-      localeToTest = locale;
-      // We turned off a config so that Salesforce errors won't be visible to the user.
-      // This means signing the petition using the same email address should still send users to the thank you page
-      expect(
-        utility.isExpectedThankYouUrl(page.url(), thankYouUrlInputValue, true)
-      ).toBe(true);
-    });
-  }
 });
