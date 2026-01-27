@@ -20,11 +20,10 @@ def search(request):
     search_query = request.GET.get("query", None)
     page = request.GET.get("page", 1)
     total_search_results = 0
+    current_locale = Locale.get_active()
 
     # Search
     if search_query:
-        # Get current locale and base queryset
-        current_locale = Locale.get_active()
         locale_code = current_locale.language_code
         base_queryset = Page.objects.live().filter(locale=current_locale)
 
