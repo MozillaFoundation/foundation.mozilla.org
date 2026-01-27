@@ -18,7 +18,6 @@ def get_search_backend_for_locale(locale_code=None):
     # Check if we have a specific backend for this language
     if locale_code in SUPPORTED_SEARCH_LANGUAGES:
         try:
-            print(f"Using search backend for locale: {locale_code}")
             return get_search_backend(backend=locale_code), locale_code
         except Exception:
             pass
