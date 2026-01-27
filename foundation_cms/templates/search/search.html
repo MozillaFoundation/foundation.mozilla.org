@@ -99,7 +99,7 @@
                                 <ol class="pagination__pages">
                                     <li class="pagination__page">
                                         {% if current == 1 %}
-                                            <span aria-current="page">1</span>
+                                            <span class="current" aria-current="page">1</span>
                                         {% else %}
                                             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page=1">1</a>
                                         {% endif %}
@@ -129,7 +129,7 @@
 
                                     <li class="pagination__page">
                                         {% if current == last %}
-                                            <span aria-current="page">{{ last }}</span>
+                                            <span class="current" aria-current="page">{{ last }}</span>
                                         {% else %}
                                             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ last }}">{{ last }}</a>
                                         {% endif %}
@@ -158,7 +158,7 @@
                         <h2 class="h1-style">"{{ search_query }}"</h2>
                     </div>
                 </div>
-                <div class="cell small-12 large-8 large-offset-2 search-form-wrapper">
+                <div class="cell small-12 large-8 large-offset-2 search-form-wrapper no-results">
                     <form action="{% url 'search' %}" method="get" class="search-form" role="search">
                         <input type="text" name="query" class="search-form__input" placeholder="{% trans "Search" %}" {% if search_query %}value="{{ search_query }}"{% endif %}>
                         <button type="submit" class="search-form__submit-button btn-primary">

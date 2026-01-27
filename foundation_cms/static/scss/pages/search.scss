@@ -23,6 +23,14 @@ body.template-search-results {
     flex-direction: row;
     align-items: stretch;
     gap: 1rem;
+
+    &.no-results {
+      margin-bottom: 2rem;
+
+      @include breakpoint(medium up) {
+        margin-bottom: 4rem;
+      }
+    }
   }
 
   .search-form {
@@ -77,66 +85,6 @@ body.template-search-results {
 
     &__item {
       margin-bottom: 2rem;
-    }
-  }
-
-  .pagination {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 0 0 4rem;
-
-    @include breakpoint(medium up) {
-      margin: 0 0 8rem;
-    }
-
-    &__pages {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-    }
-
-    .btn-secondary {
-      margin: 0;
-
-      @include breakpoint(small only) {
-        padding: 1rem;
-      }
-
-      &__roller {
-        @include breakpoint(medium down) {
-          display: none;
-        }
-      }
-    }
-
-    &__page a,
-    &__page span,
-    &__ellipsis span {
-      display: flex;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-      color: $black;
-      text-decoration: none;
-      width: 2rem;
-
-      @include breakpoint(medium up) {
-        width: rem-calc(56);
-      }
-
-      &.current {
-        background: color(neutral, "200");
-      }
-    }
-
-    &__previous a {
-      flex-direction: row-reverse;
-
-      &::after {
-        transform: rotate(180deg);
-      }
     }
   }
 
@@ -207,11 +155,11 @@ body.template-search-results {
         text-decoration: none;
         color: map.get($mofo-colors, black);
 
-        &:hover {
+        &:where(:hover) {
           text-decoration: underline color(orange, "300");
         }
 
-        &:focus-visible {
+        &:where(:focus-visible) {
           text-decoration: underline color(orange, "300");
           outline: none;
         }
@@ -230,6 +178,88 @@ body.template-search-results {
       @include breakpoint(medium up) {
         margin: 1.5rem 0 1rem;
       }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 4rem;
+
+    @include breakpoint(medium up) {
+      margin: 0 0 8rem;
+    }
+
+    &__pages {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+
+    .btn-secondary {
+      margin: 0;
+
+      @include breakpoint(small only) {
+        padding: 1rem;
+      }
+
+      &__roller {
+        @include breakpoint(medium down) {
+          display: none;
+        }
+      }
+    }
+
+    &__page a,
+    &__page span,
+    &__ellipsis span {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      color: $black;
+      text-decoration: none;
+      width: 2rem;
+
+      @include breakpoint(medium up) {
+        width: rem-calc(56);
+      }
+
+      &.current {
+        background: color(neutral, "200");
+      }
+    }
+
+    &__previous a {
+      flex-direction: row-reverse;
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__page a:hover {
+      color: color(orange, "300");
+      text-decoration: underline color(orange, "300");
+    }
+
+    &__previous a:hover,
+    &__next a:hover {
+      background: $black;
+      color: color(neutral, "100");
+      text-decoration: none;
+
+      &::after {
+        background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
+      }
+    }
+
+    &__page a:focus-visible,
+    &__previous a:focus-visible,
+    &__next a:focus-visible {
+      outline: 2px solid color(orange, "300");
     }
   }
 
