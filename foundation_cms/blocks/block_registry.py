@@ -1,5 +1,6 @@
 from django.conf import settings
 
+from .accordion_block import AccordionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
@@ -133,6 +134,10 @@ class BlockRegistry:
             "group": BlockGroups.MEDIA,
         },
         # Text
+        "accordion_block": {
+            "class": AccordionBlock,
+            "group": BlockGroups.TEXT,
+        },
         "callout": {
             "class": CalloutBlock,
             "kwargs": {"skip_default_wrapper": True},
