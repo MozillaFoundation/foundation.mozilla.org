@@ -105,7 +105,7 @@ body.template-search-results {
       }
 
       &__roller {
-        @include breakpoint(small only) {
+        @include breakpoint(medium down) {
           display: none;
         }
       }
@@ -163,6 +163,10 @@ body.template-search-results {
         transition: transform 0.5s ease;
       }
 
+      &:focus-visible {
+        outline: 2px solid color(orange, "300");
+      }
+
       &:hover {
         img {
           transform: scale($image-hover-scale);
@@ -184,6 +188,12 @@ body.template-search-results {
       @include breakpoint(medium up) {
         margin: 0 0 1.5rem;
       }
+
+      .btn-topic {
+        &:focus-visible {
+          outline: 2px solid color(orange, "300");
+        }
+      }
     }
 
     &__title {
@@ -198,7 +208,12 @@ body.template-search-results {
         color: map.get($mofo-colors, black);
 
         &:hover {
-          text-decoration: underline;
+          text-decoration: underline color(orange, "300");
+        }
+
+        &:focus-visible {
+          text-decoration: underline color(orange, "300");
+          outline: none;
         }
       }
     }

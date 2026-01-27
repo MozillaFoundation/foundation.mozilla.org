@@ -418,7 +418,7 @@ body:has(.search-input-container.search-open) {
   position: fixed;
   z-index: 9;
   top: $primary-nav-height;
-  width: 100%;
+  width: 100vw;
 
   .grid-container {
     padding-top: rem-calc(104);
@@ -472,7 +472,7 @@ body:has(.search-input-container.search-open) {
     .btn-primary__roller {
       display: none;
 
-      @include breakpoint(large up) {
+      @include breakpoint(medium up) {
         display: inline-block;
       }
     }
