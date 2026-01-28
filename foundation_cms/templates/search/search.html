@@ -67,7 +67,8 @@
                                         {% endif %}
                                         {% if result.first_published_at %}
                                             {% if result.specific.authors.all or result.specific.author %}
-                                                <span class="page-card__date"> | {{ result.first_published_at|date:"F j, Y" }}</span>
+                                                <span class="page-card__separator" aria-hidden="true">|</span>
+                                                <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
                                             {% else %}
                                                 <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
                                             {% endif %}
@@ -80,7 +81,7 @@
                     {% endfor %}
                 </ul>
                 {% if search_results.paginator.num_pages > 1 %}
-                    <div class="small-12 medium-8 medium-offset-2 pagination-wrapper">
+                    <div class="small-12 large-8 large-offset-2 pagination-wrapper">
                         {% with current=search_results.number last=search_results.paginator.num_pages %}
                             {% url 'search' as search_base_url %}
                             <nav class="pagination" aria-label="Pagination">

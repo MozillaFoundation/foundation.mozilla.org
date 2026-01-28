@@ -131,6 +131,10 @@ body.template-search-results {
 
     &__meta {
       margin: 0;
+
+      @include breakpoint(medium up) {
+        padding-top: 1px;
+      }
     }
 
     &__tags {
@@ -170,8 +174,15 @@ body.template-search-results {
     }
 
     &__author,
+    &__separator,
     &__date {
       @include mofo-text-style($body-text-styles, "small");
+    }
+
+    &__separator {
+      color: color(neutral, "400");
+      margin: 0 0.5rem;
+      display: inline-block;
     }
 
     &__description {
