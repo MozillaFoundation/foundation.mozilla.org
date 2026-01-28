@@ -7,10 +7,10 @@
     margin: 2rem 0;
 
     h1 {
-      margin-top: 1.5rem;
+      margin-top: 0.5rem;
 
       @include breakpoint(large up) {
-        margin-top: 2rem;
+        margin-top: 1rem;
       }
 
       &.listing-header__title--quoted {
