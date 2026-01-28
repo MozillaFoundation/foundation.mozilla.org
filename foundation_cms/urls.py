@@ -122,7 +122,7 @@ urlpatterns = list(
             # browser errors just fine.
             path("sentry-debug", lambda r: 1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
             # set up set language redirect view
-            path("i18n/setlang/", csrf_exempt(set_language), name="set_language"),
+            path("i18n/setlang/", set_language, name="set_language"),
             path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
             # Wagtail Footnotes package
             path("footnotes/", include(footnotes_urls)),
