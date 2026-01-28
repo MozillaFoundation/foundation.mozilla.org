@@ -95,7 +95,11 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         max_length=50,
         blank=True,
         null=True,
-        choices=[("default", "Default"), ("nothing_personal", "Nothing Personal")],
+        choices=[
+            ("default", "Default"),
+            ("nothing_personal", "Nothing Personal"),
+            ("mozilla_festival", "Mozilla Festival"),
+        ],
         help_text="Optional. If unset, theme will be inherited from section root.",
     )
     body = StreamField(

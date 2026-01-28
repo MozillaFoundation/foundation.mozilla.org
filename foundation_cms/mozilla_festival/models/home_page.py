@@ -14,7 +14,7 @@ class MozfestHomePage(AbstractHomePage):
         TranslatableField("body"),
     ]
 
-    template = "patterns/pages/core/home_page.html"
+    template = "patterns/pages/mozilla_festival/home_page.html"
 
     class Meta:
         verbose_name = "Mozfest Home Page"
