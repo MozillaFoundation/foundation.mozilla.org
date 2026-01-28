@@ -106,19 +106,19 @@
       border-bottom-left-radius: 32px;
       overflow: hidden;
       background: color(neutral, "200");
-      aspect-ratio: math.div(3, 2);
       display: block;
-      align-self: center;
-
-      @include breakpoint(medium up) {
-        width: 100%;
-        height: auto;
-      }
+      position: relative;
+      width: 100%;
+      aspect-ratio: math.div(3, 2);
 
       img {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         transition: transform 0.5s ease;
       }
 
