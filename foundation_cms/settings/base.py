@@ -295,6 +295,7 @@ INSTALLED_APPS = list(
             "foundation_cms.campaigns",
             "foundation_cms.core",
             "foundation_cms.blog",
+            "foundation_cms.mozilla_festival",
             "foundation_cms.nothing_personal",
             "foundation_cms.profiles",
             "foundation_cms.snippets",
