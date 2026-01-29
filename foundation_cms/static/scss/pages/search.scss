@@ -5,6 +5,8 @@
 @import "../components/nothing_personal/related_content";
 
 body.template-search-results {
+  $highlight-color: color(orange, "300");
+
   .search-summary {
     text-align: center;
     margin: rem-calc(32) 0;
@@ -55,7 +57,7 @@ body.template-search-results {
       }
 
       &:focus-visible {
-        outline: 2px solid color(orange, "300");
+        outline: 2px solid $highlight-color;
       }
     }
 
@@ -64,7 +66,7 @@ body.template-search-results {
       margin: 0 !important;
 
       &:focus-visible {
-        outline: 2px solid color(orange, "300");
+        outline: 2px solid $highlight-color;
       }
 
       .btn-primary__roller {
@@ -115,7 +117,7 @@ body.template-search-results {
       }
 
       &:focus-visible {
-        outline: 2px solid color(orange, "300");
+        outline: 2px solid $highlight-color;
       }
 
       &:hover {
@@ -146,7 +148,7 @@ body.template-search-results {
 
       .btn-topic {
         &:focus-visible {
-          outline: 2px solid color(orange, "300");
+          outline: 2px solid $highlight-color;
         }
       }
     }
@@ -163,11 +165,11 @@ body.template-search-results {
         color: map.get($mofo-colors, black);
 
         &:where(:hover) {
-          text-decoration: underline color(orange, "300");
+          text-decoration: underline $highlight-color;
         }
 
         &:where(:focus-visible) {
-          text-decoration: underline color(orange, "300");
+          text-decoration: underline $highlight-color;
           outline: none;
         }
       }
@@ -255,8 +257,8 @@ body.template-search-results {
     }
 
     &__page a:hover {
-      color: color(orange, "300");
-      text-decoration: underline color(orange, "300");
+      color: $highlight-color;
+      text-decoration: underline $highlight-color;
     }
 
     &__previous a:hover,
@@ -273,7 +275,7 @@ body.template-search-results {
     &__page a:focus-visible,
     &__previous a:focus-visible,
     &__next a:focus-visible {
-      outline: 2px solid color(orange, "300");
+      outline: 2px solid $highlight-color;
     }
   }
 
