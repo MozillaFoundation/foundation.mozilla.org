@@ -4,7 +4,6 @@
 {% get_local_language_names as languages %}
 
 <form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
-  {% csrf_token %}
   <input type="hidden" name="next" id="language-next" value="" />
 
   <label for="language-switcher">{% trans "Language" %}</label>
