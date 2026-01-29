@@ -3,7 +3,16 @@
 
 {% block body_class %}{{ page_type_bem }}{% endblock body_class %}
 
+{% block primary_nav %}
+    {% include "patterns/components/mozilla_festival/primary_nav.html" %}
+{% endblock primary_nav %}
+
+{% block footer %}
+    {% include "patterns/components/mozilla_festival/footer.html" %}
+{% endblock footer %}
+
 {% block pre_content %}
+    <p> (This page is using the Mozilla Festival theme)</p>
 {% endblock pre_content %}
 
 {% block post_content %}
