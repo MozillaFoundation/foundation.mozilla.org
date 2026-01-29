@@ -1,60 +1,15 @@
-{% extends theme_base %}
+{% extends "patterns/pages/listing_page_base.html" %}
 
-{% load wagtailimages_tags static responsive_image_tags %}
+{% load static i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/nothing_personal/article_collection_page.compiled.css' %}">
 {% endblock extra_css %}
 
-{% block content %}
-    <main>
-        <article>
-            <div class="grid-container collection-intro">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-6 large-offset-0">
-                        <h1 class="collection-title">{{ page.title }}</h1>
-                    </div>
-                    <div class="cell small-12 medium-5 large-offset-1">
-                        <div class="lede-text">{{ page.lede_text }}</div>
-                    </div>
-                </div>
-            </div>
+{% block body_class %}article-collection-page{% endblock body_class %}
 
-            <div class="grid-container">
-                <div class="grid-x">
-                    <div class="cell small-12 medium-12">
-                        <p> Showing {{ article_page_results_count }} results for: <b> Articles </b></p>
+{% block listing_title %}{% trans "Articles" %}{% endblock listing_title %}
 
-                        <div class="collection-products">
-                            {% for article_page in localized_article_pages %}
-                                <div>
-                                    <h5><a href="{{ article_page.url }}">{{ article_page.title }}</a></h5>
-                                    <p> <b> Meta/Search Description:</b> {{ article_page.meta_description }}</p>
-                                    <p> <b> Lede Text:</b> {{ article_page.lede_text }}</p>
-                                    <p> <b> First Published At:</b> {{ article_page.first_published_at|date:"M j, Y" }}</p>
-                                    <p> <b> Search Image:</b> {{ article_page.search_image }}</p>
-                                    {% responsive_image article_page.search_image ratio="3:2" %}
-                                    <p>
-                                        <b> Topics:</b>
-                                        {% with topics=article_page.topics.all %}
-                                            {% if topics %}
-                                                <ul>
-                                                    {% for topic in topics %}
-                                                        <a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a>
-                                                    {% endfor %}
-                                                </ul>
-                                            {% else %}
-                                                N/A
-                                            {% endif %}
-                                        {% endwith %}
-                                    </p>
-                                    <p><b> Link to Page:</b> <a href="{{ article_page.url }}">{{ article_page.title }}</a></p>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </article>
-    </main>
-{% endblock content %}
+{% block listing_result %}
+    {% include "patterns/components/listing_page/section.html" with pages=localized_article_pages show_published_date=True %}
+{% endblock listing_result %}
