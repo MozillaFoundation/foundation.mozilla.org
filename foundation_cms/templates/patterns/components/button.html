@@ -1,17 +1,40 @@
 {% if button_style == "btn-primary" or button_style == "btn-secondary" %}
-  <a href="{{ url }}"
-     {% if value.new_window %}target="_blank"{% endif %}
-     {% if data_attrs %}
-       {% for key, value in data_attrs.items %}
-         data-{{ key }}="{{ value }}"
-       {% endfor %}
-     {% endif %}
-     class="{{ button_style }} {{ classnames }}">
-    <span class="{{ button_style }}__roller">
-      <span class="{{ button_style }}__rolltext">
-        <span class="{{ button_style }}__text">{{ label }}</span>
-        <span class="{{ button_style }}__text {{ button_style }}__text--roll-in">{{ label }}</span>
-      </span>
-    </span>
-  </a>
+  {% with tag=tag|default:"a" %}
+    {% if tag == "button" %}
+      <button
+        type="{{ button_type|default:'button' }}"
+        {% if name %}name="{{ name }}"{% endif %}
+        {% if button_value %}value="{{ button_value }}"{% endif %}
+        {% if disabled %}disabled{% endif %}
+        {% if data_attrs %}
+          {% for key, value in data_attrs.items %}
+            data-{{ key }}="{{ value }}"
+          {% endfor %}
+        {% endif %}
+        class="{{ button_style }} {{ classnames }}">
+        <span class="{{ button_style }}__roller">
+          <span class="{{ button_style }}__rolltext">
+            <span class="{{ button_style }}__text">{{ label }}</span>
+            <span class="{{ button_style }}__text {{ button_style }}__text--roll-in">{{ label }}</span>
+          </span>
+        </span>
+      </button>
+    {% else %}
+      <a href="{{ url }}"
+         {% if value.new_window %}target="_blank"{% endif %}
+         {% if data_attrs %}
+           {% for key, value in data_attrs.items %}
+             data-{{ key }}="{{ value }}"
+           {% endfor %}
+         {% endif %}
+         class="{{ button_style }} {{ classnames }}">
+        <span class="{{ button_style }}__roller">
+          <span class="{{ button_style }}__rolltext">
+            <span class="{{ button_style }}__text">{{ label }}</span>
+            <span class="{{ button_style }}__text {{ button_style }}__text--roll-in">{{ label }}</span>
+          </span>
+        </span>
+      </a>
+    {% endif %}
+  {% endwith %}
 {% endif %}

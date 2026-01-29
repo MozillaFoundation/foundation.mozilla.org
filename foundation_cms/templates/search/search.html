@@ -4,7 +4,7 @@
 
 {% block wagtail_metadata %} {% endblock wagtail_metadata %}
 
-{% block title %}Search{% endblock title %}
+{% block title %}{% trans "Search" %}{% endblock title %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/search.compiled.css' %}">
@@ -33,14 +33,8 @@
                 <div class="cell small-12 large-8 large-offset-2 search-form-wrapper">
                     <form action="{% url 'search' %}" method="get" class="search-form" role="search">
                         <input type="text" name="query" class="search-form__input" placeholder="{% trans "Search" %}" {% if search_query %}value="{{ search_query }}"{% endif %}>
-                        <button type="submit" class="search-form__submit-button btn-primary">
-                            <span class="btn-primary__roller">
-                                <span class="btn-primary__rolltext">
-                                    <span class="btn-primary__text">{% trans "Search" %}</span>
-                                    <span class="btn-primary__text btn-primary__text--roll-in">{% trans "Search" %}</span>
-                                </span>
-                            </span>
-                        </button>
+                        {% trans "Search" as search_label %}
+                        {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_label button_style="btn-primary" classnames="search-form__submit-button" %}
                     </form>
                 </div>
                 <ul class="search-results cell small-12">
@@ -162,14 +156,8 @@
                 <div class="cell small-12 large-8 large-offset-2 search-form-wrapper no-results">
                     <form action="{% url 'search' %}" method="get" class="search-form" role="search">
                         <input type="text" name="query" class="search-form__input" placeholder="{% trans "Search" %}" {% if search_query %}value="{{ search_query }}"{% endif %}>
-                        <button type="submit" class="search-form__submit-button btn-primary">
-                            <span class="btn-primary__roller">
-                                <span class="btn-primary__rolltext">
-                                    <span class="btn-primary__text">{% trans "Search" %}</span>
-                                    <span class="btn-primary__text btn-primary__text--roll-in">{% trans "Search" %}</span>
-                                </span>
-                            </span>
-                        </button>
+                        {% trans "Search" as search_label %}
+                        {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_label button_style="btn-primary" classnames="search-form__submit-button" %}
                     </form>
                 </div>
 
