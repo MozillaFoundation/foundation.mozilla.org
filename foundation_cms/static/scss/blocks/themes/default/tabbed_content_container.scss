@@ -44,6 +44,7 @@
 
     &.is-active {
       border-top-right-radius: rem-calc(18);
+
       @include breakpoint(large up) {
         border-top-right-radius: 2rem;
       }

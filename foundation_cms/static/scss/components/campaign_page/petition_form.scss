@@ -24,6 +24,7 @@
     input[type="text"] {
       all: unset;
       box-sizing: border-box;
+
       @include shared-style;
     }
 

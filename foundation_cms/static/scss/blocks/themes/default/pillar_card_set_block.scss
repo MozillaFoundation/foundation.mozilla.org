@@ -1,5 +1,4 @@
 @use "sass:map";
-
 @import "../../../colors";
 @import "../../../buttons";
 
@@ -72,6 +71,7 @@
   @mixin apply-border-radius($corner-name, $radius-value) {
     @if $radius-value {
       border-#{$corner-name}-radius: map.get($radius-value, small);
+
       @include breakpoint(large up) {
         border-#{$corner-name}-radius: map.get($radius-value, large);
       }
