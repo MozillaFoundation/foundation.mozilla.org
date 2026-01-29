@@ -207,6 +207,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
 
+        self.update_index()
         research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
         self.assertEqual(len(research_detail_pages), 1)
         self.assertIn(apple_page, research_detail_pages)
@@ -228,6 +229,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
 
+        self.update_index()
         research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
@@ -250,6 +252,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="",
         )
 
+        self.update_index()
         research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
@@ -272,6 +275,7 @@ class TestResearchLibraryPageSearch(TestResearchLibraryPage):
             collaborators="Banana",
         )
 
+        self.update_index()
         research_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(research_detail_pages), 1)
