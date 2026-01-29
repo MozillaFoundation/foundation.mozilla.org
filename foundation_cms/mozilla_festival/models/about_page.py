@@ -2,6 +2,8 @@ from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 
 
 class MozfestAboutPage(AbstractGeneralPage):
+    parent_page_types = ["mozilla_festival.MozfestHomePage"]
+
     content_panels = AbstractGeneralPage.content_panels + [
         # Add any additional panels specific to the Mozfest About Page here
     ]

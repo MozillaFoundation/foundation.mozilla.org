@@ -5,6 +5,8 @@ from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 
 
 class MozfestHomePage(AbstractHomePage):
+    max_count = 1
+
     content_panels = AbstractHomePage.content_panels + [
         FieldPanel("body"),
     ]
