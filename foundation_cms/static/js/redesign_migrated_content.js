@@ -3,7 +3,8 @@ import injectNewsletterUnsubscribes from "./components/newsletter_unsubscribe.js
 import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
-} from "./components/primary_nav";
+  initSearchToggle,
+} from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
 let foundationSiteURL = window.location.origin;
 
@@ -16,3 +17,4 @@ initDonateBanner();
 injectNewsletterSignups(foundationSiteURL);
 injectNewsletterUnsubscribes(foundationSiteURL);
 initWordmarkVisibilityOnScroll();
+initSearchToggle();

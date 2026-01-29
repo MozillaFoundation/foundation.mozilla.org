@@ -4,6 +4,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
@@ -151,6 +152,29 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
         TranslatableField("byline"),
         TranslatableField("who_am_i"),
         TranslatableField("lede_text"),
+    ]
+
+    search_fields = AbstractArticlePage.search_fields + [
+        # Specific fields for Nothing Personal Product Review Page
+        index.SearchField("lede_text", boost=6),
+        index.SearchField("byline", boost=2),
+        index.SearchField("who_am_i", boost=4),
+        index.SearchField("scoring", boost=4),
+        index.SearchField("type_of_testing", boost=2),
+        # Content of the review sections
+        index.SearchField("what_you_should_know_section", boost=6),
+        index.SearchField("good_and_bad_section", boost=6),
+        index.SearchField("reduce_your_risks_section", boost=6),
+        index.SearchField("bottom_line_section", boost=6),
+        index.RelatedFields(
+            "products_mentioned",
+            [
+                index.SearchField("mentioned_product__title", boost=4),
+            ],
+        ),
+        # Useful filters for product reviews
+        index.FilterField("reviewed"),
+        index.FilterField("updated"),
     ]
 
     class Meta:

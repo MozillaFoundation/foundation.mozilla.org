@@ -18,7 +18,7 @@ class TitoEvent(models.Model):
     )
 
     search_fields = [
-        index.SearchField("title", boost=10),
+        index.SearchField("title", boost=4),
         index.SearchField("event_id"),
         index.SearchField("newsletter_question_id"),
     ]
