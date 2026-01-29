@@ -4,27 +4,31 @@
 {% get_local_language_names as languages %}
 
 <form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
-  {% if page %}
-    <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}">
-  {% else %}
-    <input name="next" type="hidden" value="{{ request.path }}">
-  {% endif %}
+  <input type="hidden" name="next" id="language-next" value="" />
 
   <label for="language-switcher">{% trans "Language" %}</label>
   <select name="language" id="language-switcher">
     {% for language_code, language_name in languages %}
-      <option value="{{ language_code }}"{% if language_code == current_language %} selected{% endif %}>
-        {{ language_name | capfirst }}
-      </option>
+      {% language language_code %}
+        {% pageurl page.localized as localized_url %}
+        <option value="{{ language_code }}"
+                data-url="{{ localized_url }}"
+                {% if language_code == current_language %}selected{% endif %}>
+          {{ language_name | capfirst }}
+        </option>
+      {% endlanguage %}
     {% endfor %}
   </select>
 </form>
 
 <script nonce="{{ request.csp_nonce }}">
-  const form = document.getElementById('language-switcher-form')
-  const languageSelector = document.getElementById('language-switcher')
-  languageSelector.addEventListener(`change`, (e) => {
-    e.preventDefault();
-    form.submit()
+  const form = document.getElementById('language-switcher-form');
+  const selector = document.getElementById('language-switcher');
+  const nextInput = document.getElementById('language-next');
+
+  selector.addEventListener('change', () => {
+    const opt = selector.options[selector.selectedIndex];
+    nextInput.value = opt.dataset.url || "/";
+    form.submit();
   });
 </script>
