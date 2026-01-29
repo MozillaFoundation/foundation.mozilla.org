@@ -1,0 +1,13 @@
+{% extends theme_base %}
+
+{% load static wagtailcore_tags %}
+
+{% block content %}
+  <!-- Main Content -->
+  <main>
+    {% if page.body %}
+      {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
+  </main>
+{% endblock content %}
+
