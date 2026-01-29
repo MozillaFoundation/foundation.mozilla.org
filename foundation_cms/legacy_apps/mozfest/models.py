@@ -4,7 +4,7 @@ from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
-from wagtail.models import Locale, Page, TranslatableMixin
+from wagtail.models import Locale, Page, Site, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -26,6 +26,9 @@ from foundation_cms.legacy_apps.wagtailpages.utils import (
     get_page_tree_information,
     map_language_code_to_tito_supported_language_code,
     set_main_site_nav_information,
+)
+from foundation_cms.mozilla_festival.models.home_page import (
+    MozfestHomePage as RedesignMozfestHomePage,
 )
 
 
@@ -248,21 +251,31 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
     def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
-        context = set_main_site_nav_information(self, context, "MozfestHomepage")
+
+        # Determine if the parent homepage is either the redesigned Mozfest homepage or the legacy.
+        # Used to decide which nav and footer to render.
+        site = Site.find_for_request(request)
+        site_root = site.root_page.specific
+        if isinstance(site_root, RedesignMozfestHomePage):
+            homepage_type = "redesign"
+        else:
+            homepage_type = "legacy"
+            context = set_main_site_nav_information(self, context, "MozfestHomepage")
+            if not bypass_menu_buildstep:
+                context = set_main_site_nav_information(self, context, "MozfestHomepage")
+
+            # primary nav information
+            context["menu_root"] = self
+            context["menu_items"] = self.get_children().live().in_menu()
+
+            # Also make sure that these pages always tap into the mozfest newsletter for the footer!
+            context["mozfest_footer"] = self.get_mozfest_footer()
+
+        context["parent_homepage"] = homepage_type
         context = get_page_tree_information(self, context)
 
         request_language_code = get_language_from_request(context["request"])
         context["tito_widget_lang_code"] = map_language_code_to_tito_supported_language_code(request_language_code)
-
-        # primary nav information
-        context["menu_root"] = self
-        context["menu_items"] = self.get_children().live().in_menu()
-
-        # Also make sure that these pages always tap into the mozfest newsletter for the footer!
-        context["mozfest_footer"] = self.get_mozfest_footer()
-
-        if not bypass_menu_buildstep:
-            context = set_main_site_nav_information(self, context, "MozfestHomepage")
 
         return context
 
