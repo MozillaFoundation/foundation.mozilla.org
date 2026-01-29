@@ -13,6 +13,7 @@ const entries = [
   "pages/campaign_page",
   "pages/home_page",
   "pages/maintenance",
+  "pages/search",
   "pages/topic_listing_page",
   "pages/nothing_personal/article_collection_page",
   "pages/nothing_personal/article_page",
