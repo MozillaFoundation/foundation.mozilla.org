@@ -220,7 +220,7 @@ scipy==1.10.0
     # via wagtail-ab-testing
 scout-apm==3.2.1
     # via -r requirements.in
-sentry-sdk==2.25.0
+sentry-sdk==2.51.0
     # via -r requirements.in
 six==1.16.0
     # via
@@ -298,6 +298,8 @@ wand==0.6.13
 whitenoise==6.9.0
     # via -r requirements.in
 willow[heif]==1.11.0
-    # via wagtail
+    # via
+    #   wagtail
+    #   willow
 wrapt==1.16.0
     # via scout-apm
