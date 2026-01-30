@@ -231,7 +231,9 @@ def insert_panels_after(panels, after_label, additional_panels):
     """
     Insert wagtail panels somewhere in another set of panels
     """
-    position = next((i for i, item in enumerate(panels) if item.heading == after_label), None)
+    position = next(
+        (i for i, item in enumerate(panels) if hasattr(item, "heading") and item.heading == after_label), None
+    )
 
     if position is not None:
         cut = position + 1

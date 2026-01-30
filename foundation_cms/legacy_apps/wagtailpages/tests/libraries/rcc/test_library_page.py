@@ -200,6 +200,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="",
         )
 
+        self.update_index()
         rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
         self.assertEqual(len(rcc_detail_pages), 1)
         self.assertIn(apple_page, rcc_detail_pages)
@@ -221,6 +222,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="",
         )
 
+        self.update_index()
         rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
@@ -243,6 +245,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="",
         )
 
+        self.update_index()
         rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
@@ -265,6 +268,7 @@ class TestRCCLibraryPageSearch(TestRCCLibraryPage):
             collaborators="Banana",
         )
 
+        self.update_index()
         rcc_detail_pages = self.library_page.get_sorted_filtered_detail_pages(search_query="Apple")
 
         self.assertEqual(len(rcc_detail_pages), 1)
