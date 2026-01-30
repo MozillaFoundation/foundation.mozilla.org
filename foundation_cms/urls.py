@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import include, path, re_path
 from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from django.views.i18n import JavaScriptCatalog, set_language
@@ -121,7 +122,7 @@ urlpatterns = list(
             # browser errors just fine.
             path("sentry-debug", lambda r: 1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
             # set up set language redirect view
-            path("i18n/setlang/", set_language, name="set_language"),
+            path("i18n/setlang/", csrf_exempt(set_language), name="set_language"),
             path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
             # Wagtail Footnotes package
             path("footnotes/", include(footnotes_urls)),
