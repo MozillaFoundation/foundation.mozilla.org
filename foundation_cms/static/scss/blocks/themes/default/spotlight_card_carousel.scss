@@ -82,7 +82,7 @@
     @function display-width($columns) {
       $total: $grid-column-count;
 
-      @return percentage($columns / $total);
+      @return math.percentage($columns / $total);
     }
 
     // key starts from 1

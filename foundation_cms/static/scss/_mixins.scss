@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 @mixin image-hover-zoom($scale: 1.05, $duration: 0.3s) {
   overflow: hidden;
 
@@ -38,7 +40,7 @@
 // from a our color map $mofo-colors (defined in _colors.scss)
 @mixin generate-bg-utilities($colors) {
   @each $group, $value in $colors {
-    @if type-of($value) == "map" {
+    @if meta.type-of($value) == "map" {
       @each $shade, $hex in $value {
         .bg-#{$group}-#{$shade} {
           background-color: #{$hex};
