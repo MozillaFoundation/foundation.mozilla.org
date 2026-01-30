@@ -90,6 +90,7 @@
       $scale: 1.05;
       $duration: 0.3s;
       $cycle: list.length(map.keys($card-vertical-offsets));
+
       @for $i from 0 to $cycle {
         $b: $i + 1;
         &:nth-child(#{$cycle}n + #{$b}) {

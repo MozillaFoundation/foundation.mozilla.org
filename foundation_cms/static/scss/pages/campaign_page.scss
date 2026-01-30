@@ -1,6 +1,5 @@
 @use "sass:map";
 @use "sass:math";
-
 @import "../redesign_base";
 @import "../components/campaign_page/petition_form";
 @import "../components/campaign_page/step_indicator";
@@ -94,6 +93,7 @@ body.template-campaign-page {
 
     @include breakpoint(large up) {
       margin-bottom: 1.5rem;
+
       @include apply-text-style(
         $header-styles,
         "h4",

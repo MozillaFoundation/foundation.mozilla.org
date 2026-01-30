@@ -81,7 +81,8 @@
     // returns the percentage width of N columns
     @function display-width($columns) {
       $total: $grid-column-count;
-      @return percentage($columns / $total);
+
+      @return math.percentage($columns / $total);
     }
 
     // key starts from 1
@@ -120,6 +121,7 @@
     // @param $padding-key  one of the keys in the `$grid-container-padding` map (e.g. small, medium etc)
     @function mobile-side-margin($padding-key: small) {
       $padding: map.get($grid-container-padding, $padding-key);
+
       @return calc($padding / 2);
     }
 

@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $mofo-colors: (
   black: #000,
   white: #fff,
@@ -46,5 +48,5 @@ $mofo-colors: (
 // Example usage:
 //   background-color: color(orange, "500");
 @function color($group, $shade) {
-  @return map-get(map-get($mofo-colors, $group), $shade);
+  @return map.get(map.get($mofo-colors, $group), $shade);
 }

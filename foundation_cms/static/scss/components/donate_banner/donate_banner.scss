@@ -25,6 +25,7 @@
 
   &:has(.donate-banner__button-wrapper--bottom) {
     padding-bottom: map.get($banner-larger-padding-bottom, small);
+
     @include breakpoint(medium up) {
       padding-bottom: map.get($banner-larger-padding-bottom, medium);
     }

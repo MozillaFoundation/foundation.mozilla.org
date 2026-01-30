@@ -1,5 +1,5 @@
 @use "sass:map";
-
+@use "sass:list";
 @import "../../../colors";
 @import "../../../buttons";
 
@@ -72,6 +72,7 @@
   @mixin apply-border-radius($corner-name, $radius-value) {
     @if $radius-value {
       border-#{$corner-name}-radius: map.get($radius-value, small);
+
       @include breakpoint(large up) {
         border-#{$corner-name}-radius: map.get($radius-value, large);
       }
@@ -155,7 +156,7 @@
     padding: map.get($card-padding, small);
     box-shadow: 0 4px 10px rgba(map.get($mofo-colors, black), 0.1);
 
-    @for $i from 1 through length($cards) {
+    @for $i from 1 through list.length($cards) {
       &:nth-child(#{$i}) {
         @include card-style($i);
       }

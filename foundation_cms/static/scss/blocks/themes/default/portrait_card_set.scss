@@ -138,6 +138,7 @@ $carousel-transition: transform 0.3s ease;
     &__cta {
       text-decoration: underline;
       margin-top: auto;
+
       @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
     }
 
