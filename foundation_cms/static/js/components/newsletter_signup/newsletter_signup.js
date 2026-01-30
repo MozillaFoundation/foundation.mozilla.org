@@ -193,6 +193,10 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       const loadingEl = submitBtn?.querySelector(SELECTORS.loadingMessage);
       const rolltextEl = submitBtn?.querySelector(SELECTORS.rolltext);
 
+      if (window.wagtailAbTesting) {
+        wagtailAbTesting.triggerEvent("footer-newsletter-signup-submission");
+      }
+
       // show loading state
       if (submitBtn) {
         submitBtn.disabled = true;
