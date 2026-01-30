@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "sass:meta";
 
 @mixin image-hover-zoom($scale: 1.05, $duration: 0.3s) {
