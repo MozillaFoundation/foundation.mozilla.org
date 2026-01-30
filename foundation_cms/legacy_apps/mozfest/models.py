@@ -59,9 +59,9 @@ class Ticket(TranslatableMixin):
     ]
 
     search_fields = [
-        index.SearchField("name", boost=10),
-        index.SearchField("description"),
-        index.SearchField("group"),
+        index.SearchField("name", boost=4),
+        index.SearchField("description", boost=2),
+        index.SearchField("group", boost=2),
         index.FilterField("locale_id"),
     ]
 

@@ -80,8 +80,10 @@ class CTABase(TranslatableMixin, models.Model):
     ]
 
     search_fields = [
-        index.SearchField("name", boost=10),
-        index.SearchField("newsletter"),
+        index.SearchField("name", boost=6),
+        index.SearchField("header", boost=6),
+        index.SearchField("description", boost=4),
+        index.SearchField("newsletter", boost=2),
     ]
 
     def __str__(self):
