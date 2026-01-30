@@ -18,5 +18,9 @@
 {% block bootstrap_width %}col-lg-12{% endblock bootstrap_width %}
 
 {% block footer_block %}
-    {% include "partials/mozfest_footer.html" %}
+    {% if parent_homepage == "redesign" %}
+        {% include "patterns/components/footer.html" %}
+    {% else %}
+        {% include "partials/mozfest_footer.html" %}
+    {% endif %}
 {% endblock footer_block %}
