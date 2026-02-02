@@ -135,7 +135,7 @@ gitdb==4.0.9
     # via gitpython
 gitpython==3.1.41
     # via wagtail-localize-git
-gunicorn==23.0.0
+gunicorn==25.0.0
     # via -r requirements.in
 heroku3==5.2.1
     # via -r requirements.in
@@ -298,6 +298,8 @@ wand==0.6.13
 whitenoise==6.9.0
     # via -r requirements.in
 willow[heif]==1.11.0
-    # via wagtail
+    # via
+    #   wagtail
+    #   willow
 wrapt==1.16.0
     # via scout-apm
