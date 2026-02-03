@@ -45,5 +45,5 @@ class NothingPersonalArticleCollectionPage(AbstractArticlePage):
         )
         localized_article_pages = localize_queryset(article_pages, preserve_order=True)
         context["localized_article_pages"] = localized_article_pages.specific()
-        context["article_page_results_count"] = localized_article_pages.count()
+        context["total_pages_count"] = localized_article_pages.count()
         return context

@@ -1,0 +1,25 @@
+{% load responsive_image_tags %}
+
+<li class="listing-content__item">
+  <article class="grid-x grid-margin-x page-card">
+    <div class="cell small-12 medium-5 page-card__media-wrapper">
+      {% if show_published_date %}
+        <div class="page-card__published-date">{{ page.first_published_at|date:"SHORT_DATE_FORMAT" }}</div>
+      {% endif %}
+      <a href="{{ page.url }}" class="page-card__image-wrapper">
+        {% if page.search_image %}
+          {% responsive_image page.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
+        {% endif %}
+      </a>
+    </div>
+    <div class="cell small-12 medium-7 page-card__meta-wrapper">
+      <div class="page-card__meta">
+        <div class="page-card__tags">
+          {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+        </div>
+        <h3 class="page-card__title"><a href="{{ page.url }}">{{ page.title }}</a></h3>
+        <p class="page-card__description">{{ page.search_description }}</p>
+      </div>
+    </div>
+  </article>
+</li>
