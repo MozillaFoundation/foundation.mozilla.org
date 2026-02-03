@@ -60,11 +60,7 @@
                                             <span class="page-card__author">By {{ result.specific.author.name }}</span>
                                         {% endif %}
                                         {% if result.first_published_at %}
-                                            {% if result.specific.authors.all or result.specific.author %}
-                                                <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
-                                            {% else %}
-                                                <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
-                                            {% endif %}
+                                            <span class="page-card__date">{{ result.first_published_at|date:"DATE_FORMAT" }}</span>
                                         {% endif %}
                                         <p class="page-card__description">{{ result.search_description }}</p>
                                     </div>
