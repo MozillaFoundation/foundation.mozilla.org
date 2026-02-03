@@ -12,12 +12,7 @@
           {% endfor %}
         {% endif %}
         class="{{ button_style }} {{ classnames }}">
-        <span class="{{ button_style }}__roller">
-          <span class="{{ button_style }}__rolltext">
-            <span class="{{ button_style }}__text">{{ label }}</span>
-            <span class="{{ button_style }}__text {{ button_style }}__text--roll-in">{{ label }}</span>
-          </span>
-        </span>
+        {% include "patterns/components/_button_roller.html" %}
       </button>
     {% else %}
       <a href="{{ url }}"
@@ -28,12 +23,7 @@
            {% endfor %}
          {% endif %}
          class="{{ button_style }} {{ classnames }}">
-        <span class="{{ button_style }}__roller">
-          <span class="{{ button_style }}__rolltext">
-            <span class="{{ button_style }}__text">{{ label }}</span>
-            <span class="{{ button_style }}__text {{ button_style }}__text--roll-in">{{ label }}</span>
-          </span>
-        </span>
+        {% include "patterns/components/_button_roller.html" %}
       </a>
     {% endif %}
   {% endwith %}
