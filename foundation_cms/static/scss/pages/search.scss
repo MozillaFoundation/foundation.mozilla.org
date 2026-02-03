@@ -176,12 +176,12 @@ body.template-search-results {
     }
 
     &__author,
-    &__separator,
     &__date {
       @include mofo-text-style($body-text-styles, "small");
     }
 
-    &__separator {
+    &__author + .page-card__date::before {
+      content: "|";
       color: color(neutral, "400");
       margin: 0 0.5rem;
       display: inline-block;
