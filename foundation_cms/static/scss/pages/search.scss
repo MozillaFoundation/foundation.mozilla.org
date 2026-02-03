@@ -63,7 +63,7 @@ body.template-search-results {
 
     &__submit-button {
       line-height: 1.5;
-      margin: 0 !important;
+      margin: 0;
 
       &:focus-visible {
         outline: 2px solid $highlight-color;
