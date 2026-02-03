@@ -61,7 +61,6 @@
                                         {% endif %}
                                         {% if result.first_published_at %}
                                             {% if result.specific.authors.all or result.specific.author %}
-                                                <span class="page-card__separator" aria-hidden="true">|</span>
                                                 <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
                                             {% else %}
                                                 <span class="page-card__date">{{ result.first_published_at|date:"F j, Y" }}</span>
