@@ -217,6 +217,10 @@ body.template-search-results {
     .btn-secondary {
       margin: 0;
 
+      &.hidden {
+        visibility: hidden;
+      }
+
       @include breakpoint(small only) {
         padding: 1rem;
       }
