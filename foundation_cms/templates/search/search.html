@@ -77,6 +77,8 @@
                                     {% if search_results.has_previous %}
                                         {% url_with_query 'search' query=search_query page=search_results.previous_page_number as prev_url %}
                                         {% include "patterns/components/button.html" with url=prev_url label="Previous page" button_style="btn-secondary" %}
+                                    {% else %}
+                                        {% include "patterns/components/button.html" with url="#" label="Previous page" button_style="btn-secondary" classnames="hidden" %}
                                     {% endif %}
                                 </div>
 
@@ -124,6 +126,8 @@
                                     {% if search_results.has_next %}
                                         {% url_with_query 'search' query=search_query page=search_results.next_page_number as next_url %}
                                         {% include "patterns/components/button.html" with url=next_url label="Next page" button_style="btn-secondary" %}
+                                    {% else %}
+                                        {% include "patterns/components/button.html" with url="#" label="Next page" button_style="btn-secondary" classnames="hidden" %}
                                     {% endif %}
                                 </div>
                             </nav>
