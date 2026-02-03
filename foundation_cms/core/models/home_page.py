@@ -95,6 +95,7 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
                 "np_pages": np_pages,
                 "other_pages": other_pages,
                 "total_pages_count": total_pages_count,
+                "show_quoted_title": True,
                 "page_type_bem": self._to_bem_case("TopicListingPage"),
             },
             template="patterns/pages/core/topic_listing_page.html",

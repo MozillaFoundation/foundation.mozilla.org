@@ -1,5 +1,5 @@
-{% extends theme_base %}
-{% load static wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags i18n l10n %}
+{% extends "patterns/pages/listing_page_base.html" %}
+{% load static i18n l10n %}
 
 {% block title %}
   {{ topic.name }}
@@ -13,25 +13,14 @@
 
 {% block pre_content %}{% endblock pre_content %}
 
-{% block content %}
-  <div class="grid-container">
-    <div class="topic-info">
-      {% blocktrans count counter=total_pages_count trimmed %}
-        Showing {{ total_pages_count }} result for:
-      {% plural %}
-        Showing {{ total_pages_count }} results for:
-      {% endblocktrans %}
-      <h1>{{ topic.name }}</h1>
-    </div>
+{% block listing_title %}{{ topic.name }}{% endblock listing_title %}
 
-  </div>
+{% block listing_result %}
   {% trans "More from Nothing Personal:" as np_section_title %}
-  {% include "patterns/components/topic_listing/section.html" with pages=np_pages section_title=np_section_title %}
+  {% include "patterns/components/listing_page/section.html" with pages=np_pages section_title=np_section_title %}
   {% if np_pages and other_pages %}
-    {% include "patterns/components/topic_listing/section_divider.html" %}
+    {% include "patterns/components/listing_page/section_divider.html" %}
   {% endif %}
   {% trans "From the rest of Mozilla Foundation:" as mofo_title %}
-  {% include "patterns/components/topic_listing/section.html" with pages=other_pages section_title=mofo_title %}
-{% endblock content %}
-
-{% block post_content %}{% endblock post_content %}
+  {% include "patterns/components/listing_page/section.html" with pages=other_pages section_title=mofo_title %}
+{% endblock listing_result %}
