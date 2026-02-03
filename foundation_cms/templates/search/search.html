@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load wagtailcore_tags wagtailimages_tags responsive_image_tags static i18n %}
+{% load wagtailcore_tags wagtailimages_tags responsive_image_tags static i18n url_query %}
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block wagtail_metadata %} {% endblock wagtail_metadata %}
@@ -72,17 +72,11 @@
                 {% if search_results.paginator.num_pages > 1 %}
                     <div class="small-12 large-8 large-offset-2 pagination-wrapper">
                         {% with current=search_results.number last=search_results.paginator.num_pages %}
-                            {% url 'search' as search_base_url %}
                             <nav class="pagination" aria-label="Pagination">
                                 <div class="pagination__previous">
                                     {% if search_results.has_previous %}
-                                        {% with q=search_query|urlencode %}
-                                            {% with prev_page=search_results.previous_page_number|stringformat:"s" %}
-                                                {% with prev_url=search_base_url|add:"?query="|add:q|add:"&page="|add:prev_page %}
-                                                    {% include "patterns/components/button.html" with url=prev_url label="Previous page" button_style="btn-secondary" %}
-                                                {% endwith %}
-                                            {% endwith %}
-                                        {% endwith %}
+                                        {% url_with_query 'search' query=search_query page=search_results.previous_page_number as prev_url %}
+                                        {% include "patterns/components/button.html" with url=prev_url label="Previous page" button_style="btn-secondary" %}
                                     {% endif %}
                                 </div>
 
@@ -91,7 +85,7 @@
                                         {% if current == 1 %}
                                             <span class="current" aria-current="page">1</span>
                                         {% else %}
-                                            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page=1">1</a>
+                                            <a href="{% url_with_query 'search' query=search_query page=1 %}">1</a>
                                         {% endif %}
                                     </li>
 
@@ -106,7 +100,7 @@
                                                     {% if page_num == current %}
                                                         <span class="current" aria-current="page">{{ page_num }}</span>
                                                     {% else %}
-                                                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ page_num }}">{{ page_num }}</a>
+                                                        <a href="{% url_with_query 'search' query=search_query page=page_num %}">{{ page_num }}</a>
                                                     {% endif %}
                                                 </li>
                                             {% endif %}
@@ -121,20 +115,15 @@
                                         {% if current == last %}
                                             <span class="current" aria-current="page">{{ last }}</span>
                                         {% else %}
-                                            <a href="{% url 'search' %}?query={{ search_query|urlencode }}&page={{ last }}">{{ last }}</a>
+                                            <a href="{% url_with_query 'search' query=search_query page=last %}">{{ last }}</a>
                                         {% endif %}
                                     </li>
                                 </ol>
 
                                 <div class="pagination__next">
                                     {% if search_results.has_next %}
-                                        {% with q=search_query|urlencode %}
-                                            {% with next_page=search_results.next_page_number|stringformat:"s" %}
-                                                {% with next_url=search_base_url|add:"?query="|add:q|add:"&page="|add:next_page %}
-                                                    {% include "patterns/components/button.html" with url=next_url label="Next page" button_style="btn-secondary" %}
-                                                {% endwith %}
-                                            {% endwith %}
-                                        {% endwith %}
+                                        {% url_with_query 'search' query=search_query page=search_results.next_page_number as next_url %}
+                                        {% include "patterns/components/button.html" with url=next_url label="Next page" button_style="btn-secondary" %}
                                     {% endif %}
                                 </div>
                             </nav>
