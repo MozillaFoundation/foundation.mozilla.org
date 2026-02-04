@@ -10,7 +10,11 @@
   <select name="language" id="language-switcher">
     {% for language_code, language_name in languages %}
       {% language language_code %}
-        {% pageurl page.localized as localized_url %}
+        {% if page and page.localized %}
+          {% pageurl page.localized as localized_url %}
+        {% else %}
+          {% url 'home' as localized_url %}
+        {% endif %}
         <option value="{{ language_code }}"
                 data-url="{{ localized_url }}"
                 {% if language_code == current_language %}selected{% endif %}>
