@@ -88,7 +88,7 @@
                         {% with current=search_results.number last=search_results.paginator.num_pages %}
                             {% translate "Previous page" context "Pagination button" as previous_page_label %}
                             {% translate "Next page" context "Pagination button" as next_page_label %}
-                            <nav class="pagination" aria-label="{% trans 'Pagination' %}">
+                            <nav class="pagination" aria-label="{% trans "Pagination" %}">
                                 <div class="pagination__previous">
                                     {% if search_results.has_previous %}
                                         {% url_with_query 'search' query=search_query page=search_results.previous_page_number as prev_url %}
