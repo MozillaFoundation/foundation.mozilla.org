@@ -73,7 +73,7 @@ class HeroAccordionBlock(blocks.StreamBlock):
     image_text_panel = ImageTextPanelBlock()
 
     def clean(self, value, ignore_required_constraints=False):
-        cleaned = super().clean(value)
+        cleaned = super().clean(value, ignore_required_constraints)
         video_count = sum(1 for block in cleaned if block.block_type == "video_panel")
 
         if len(cleaned) < self.min_panels:
