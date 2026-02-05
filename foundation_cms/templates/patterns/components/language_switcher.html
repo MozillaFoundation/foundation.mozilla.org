@@ -1,4 +1,4 @@
-{% load i18n localization wagtailcore_tags %}
+{% load i18n localization wagtailcore_tags language_switcher_tags %}
 
 {% get_current_language as current_language %}
 {% get_local_language_names as languages %}
@@ -13,7 +13,7 @@
         {% if page and page.localized %}
           {% pageurl page.localized as localized_url %}
         {% else %}
-          {% url 'home' as localized_url %}
+          {% localized_url request.get_full_path language_code as localized_url %}
         {% endif %}
         <option value="{{ language_code }}"
                 data-url="{{ localized_url }}"
