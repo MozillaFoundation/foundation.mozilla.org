@@ -60,11 +60,10 @@ class Petition(CTA):
     ]
 
     search_fields = CTA.search_fields + [
+        index.SearchField("description", boost=6),
         index.SearchField("campaign_id", boost=2),
+        # Petition filters
         index.FilterField("locale_id"),
-        index.FilterField("show_country_field"),
-        index.FilterField("show_postal_code_field"),
-        index.FilterField("show_comment_field"),
     ]
 
     panels = CTA.panels + [
