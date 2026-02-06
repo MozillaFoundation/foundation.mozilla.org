@@ -1,5 +1,4 @@
 from wagtail.blocks import RichTextBlock
-
 from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
 
 
