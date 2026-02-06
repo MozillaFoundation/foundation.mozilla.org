@@ -1,6 +1,5 @@
 from foundation_cms.base.models.base_block import BaseBlock
 from foundation_cms.blocks.custom_rich_text_block import CustomRichTextBlock
-from foundation_cms.constants import RICH_TEXT_FEATURES_NO_HEADINGS
 
 
 class ProductReviewSectionWhatYouShouldKnowBlock(BaseBlock):
@@ -9,22 +8,18 @@ class ProductReviewSectionWhatYouShouldKnowBlock(BaseBlock):
     trust_default_settings = CustomRichTextBlock(
         required=False,
         help_text="Should I trust their default settings?",
-        features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
     what_personal_data_they_have = CustomRichTextBlock(
         required=False,
         help_text="What personal data do they have?",
-        features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
     track_record = CustomRichTextBlock(
         required=False,
         help_text="Track record",
-        features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
     sells_or_shares_user_data = CustomRichTextBlock(
         required=False,
         help_text="Does this product sell or share user data?",
-        features=RICH_TEXT_FEATURES_NO_HEADINGS,
     )
 
     class Meta:
@@ -37,7 +32,7 @@ class ProductReviewSectionReduceYourRisksBlock(BaseBlock):
     """Simple text block for Reduce Your Risks section"""
 
     content = CustomRichTextBlock(
-        help_text="Advice on how to reduce privacy risks", features=RICH_TEXT_FEATURES_NO_HEADINGS
+        help_text="Advice on how to reduce privacy risks",
     )
 
     class Meta:
@@ -49,12 +44,8 @@ class ProductReviewSectionReduceYourRisksBlock(BaseBlock):
 class ProductReviewSectionGoodAndBadBlock(BaseBlock):
     """Block for The Good and The Bad section"""
 
-    the_good = CustomRichTextBlock(
-        help_text="Positive aspects of this product", features=RICH_TEXT_FEATURES_NO_HEADINGS
-    )
-    the_bad = CustomRichTextBlock(
-        help_text="Negative aspects of this product", features=RICH_TEXT_FEATURES_NO_HEADINGS
-    )
+    the_good = CustomRichTextBlock(help_text="Positive aspects of this product")
+    the_bad = CustomRichTextBlock(help_text="Negative aspects of this product")
 
     class Meta:
         template_name = "product_review_good_and_bad_block.html"
@@ -66,7 +57,7 @@ class ProductReviewSectionBottomLineBlock(BaseBlock):
     """Block for The Bottom Line section"""
 
     content = CustomRichTextBlock(
-        help_text="Final verdict and recommendation", features=RICH_TEXT_FEATURES_NO_HEADINGS
+        help_text="Final verdict and recommendation",
     )
 
     class Meta:
