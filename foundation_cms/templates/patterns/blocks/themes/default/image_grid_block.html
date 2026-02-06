@@ -34,7 +34,7 @@
             {% endif %}
 
             {% image item.image original as img %}
-            <img src="{{ img.url }}" alt="{{ img.alt }}" class="grid-image">
+            <img src="{{ img.url }}" alt="{{ img.alt }}" class="grid-image" width="{{ img.width }}" height="{{ img.height }}">
 
             {% if item.caption %}
               <div class="grid-caption">{{ item.caption|richtext }}</div>
