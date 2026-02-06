@@ -1,6 +1,7 @@
-from wagtail.blocks import CharBlock, ListBlock, RichTextBlock, StreamBlock
+from wagtail.blocks import CharBlock, ListBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
+from foundation_cms.blocks.custom_rich_text_block import CustomRichTextBlock
 from foundation_cms.constants import RICH_TEXT_FEATURES_NO_HEADINGS
 
 
@@ -8,7 +9,7 @@ class AccordionBlockItem(BaseBlock):
     title = CharBlock(required=True, help_text="Heading for the Accordion Item")
     content = StreamBlock(
         [
-            ("rich_text", RichTextBlock(features=RICH_TEXT_FEATURES_NO_HEADINGS)),
+            ("rich_text", CustomRichTextBlock(features=RICH_TEXT_FEATURES_NO_HEADINGS)),
         ],
         required=False,
         use_json_field=True,

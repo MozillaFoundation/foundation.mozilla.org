@@ -2,6 +2,7 @@ from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
 
+from .custom_rich_text_block import CustomRichTextBlock
 from .link_block import OptionalLinkBlock
 
 
@@ -39,7 +40,7 @@ class ProductReviewCarouselBlock(BaseBlock):
 
     subtitle = blocks.CharBlock(required=False, help_text="Optional subtitle for the contianer")
     title = blocks.CharBlock(required=False, help_text="Optional title for the container")
-    text = blocks.RichTextBlock(required=False, help_text="Optional description text for the container")
+    text = CustomRichTextBlock(required=False, help_text="Optional description text for the container")
     cta_link = OptionalLinkBlock(required=False, label="Link", help_text="Optional link for the container.")
 
     cards = blocks.StreamBlock(
