@@ -1,0 +1,28 @@
+{% load wagtailcore_tags %}
+
+<div class="accordion-item">
+  <div class="accordion-item__heading">
+    <button
+      id="btn-{{ acc_id }}-{{ index }}"
+      class="accordion-item__button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="panel-{{ acc_id }}-{{ index }}"
+    >
+      <span class="accordion-item__button-text">{{ item.title }}</span>
+      <span class="accordion-item__icon" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div
+    id="panel-{{ acc_id }}-{{ index }}"
+    class="accordion-item__panel"
+    role="region"
+    aria-labelledby="btn-{{ acc_id }}-{{ index }}"
+    hidden
+  >
+    <div class="accordion-item__panel-inner">
+      {% include_block item.content %}
+    </div>
+  </div>
+</div>

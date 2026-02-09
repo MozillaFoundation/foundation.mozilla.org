@@ -40,7 +40,7 @@ env = environ.Env(
     CORS_ALLOWED_ORIGINS=(tuple, ()),
     CSP_INCLUDE_NONCE_IN=(list, []),
     CSRF_TRUSTED_ORIGINS=(list, []),
-    DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 2500),
+    DATA_UPLOAD_MAX_NUMBER_FIELDS=(int, 10000),
     DATABASE_URL=(str, None),
     DEBUG=(bool, False),
     DEBUG_TOOLBAR_ENABLED=(bool, False),
@@ -416,6 +416,7 @@ TEMPLATES = [
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
+                "language_switcher_tags": "foundation_cms.templatetags.language_switcher_tags",
             },
             "builtins": ["pattern_library.loader_tags"],
         },

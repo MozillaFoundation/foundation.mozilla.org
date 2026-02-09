@@ -1,7 +1,8 @@
 from django.conf import settings
-from wagtail.blocks import RichTextBlock
 
+from .accordion_block import AccordionBlock
 from .callout_block import CalloutBlock
+from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
@@ -133,6 +134,10 @@ class BlockRegistry:
             "group": BlockGroups.MEDIA,
         },
         # Text
+        "accordion_block": {
+            "class": AccordionBlock,
+            "group": BlockGroups.TEXT,
+        },
         "callout": {
             "class": CalloutBlock,
             "kwargs": {"skip_default_wrapper": True},
@@ -143,8 +148,7 @@ class BlockRegistry:
             "group": BlockGroups.TEXT,
         },
         "rich_text": {
-            "class": RichTextBlock,
-            "kwargs": {"template": "patterns/blocks/themes/default/rich_text_block.html"},
+            "class": CustomRichTextBlock,
             "group": BlockGroups.TEXT,
         },
         "title_block": {
