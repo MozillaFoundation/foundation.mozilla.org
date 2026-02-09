@@ -1,22 +1,6 @@
 from wagtail.blocks import RichTextBlock
 
-DEFAULT_RICH_TEXT_FEATURES = [
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "bold",
-    "italic",
-    "large",
-    "ol",
-    "ul",
-    "hr",
-    "embed",
-    "link",
-    "document-link",
-    "image",
-]
+from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
 
 
 class CustomRichTextBlock(RichTextBlock):

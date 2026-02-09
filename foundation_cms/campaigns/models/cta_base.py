@@ -6,7 +6,7 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.constants import RICH_TEXT_BASE_OPTIONS
+from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES, RICH_TEXT_BASE_OPTIONS
 
 
 class CTABase(TranslatableMixin, models.Model):
@@ -22,7 +22,11 @@ class CTABase(TranslatableMixin, models.Model):
         blank=True,
     )
 
-    description = RichTextField(help_text="Body (richtext) of component", blank=True)
+    description = RichTextField(
+        help_text="Body (richtext) of component",
+        blank=True,
+        features=DEFAULT_RICH_TEXT_FEATURES,
+    )
 
     privacy_notice = RichTextField(
         help_text="This optional privacy notice field will overwrite the default privacy notice text. "

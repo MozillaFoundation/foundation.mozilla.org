@@ -17,6 +17,7 @@ from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models import AbstractBasePage
+from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 from .petition import Petition
@@ -74,6 +75,7 @@ class CampaignPage(AbstractBasePage):
         "Your voice matters in the fight for a healthier internet. "
         "Would you like to support Mozilla's nonprofit work with a donation?",
         help_text="Content shown after signing",
+        features=DEFAULT_RICH_TEXT_FEATURES,
     )
 
     # --- SHARING STATE FIELDS ---
@@ -88,6 +90,7 @@ class CampaignPage(AbstractBasePage):
         "information. We depend on contributions from people "
         "like you to carry out this work. Can you share this petition?",
         help_text="Content for sharing step",
+        features=DEFAULT_RICH_TEXT_FEATURES,
     )
 
     # --- THANK YOU STATE FIELDS ---
@@ -102,6 +105,7 @@ class CampaignPage(AbstractBasePage):
         "information. We depend on contributions from people "
         "like you to carry out this work. Thank you for helping us!",
         help_text="Final thank you message",
+        features=DEFAULT_RICH_TEXT_FEATURES,
     )
 
     thank_you_image = models.ForeignKey(

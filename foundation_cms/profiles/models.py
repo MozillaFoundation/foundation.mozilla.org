@@ -5,6 +5,7 @@ from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 
 from .blocks import BlogAuthorRoleBlock, GranteeRoleBlock, ResearcherRoleBlock
+from .constants import DEFAULT_RICH_TEXT_FEATURES
 
 
 @register_snippet
@@ -57,7 +58,7 @@ class ProfilePage(Page):
         on_delete=models.SET_NULL,
         related_name="profile_page",
     )
-    bio = RichTextField(blank=True)
+    bio = RichTextField(blank=True, features=DEFAULT_RICH_TEXT_FEATURES)
 
     content_panels = Page.content_panels + [
         FieldPanel("profile"),
