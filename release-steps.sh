@@ -39,22 +39,30 @@ SQL
   echo "Site bindings updated."
 }
 
+db_already_init() {
+  # If wagtailcore_site exists and has at least 1 row, assume snapshot already applied
+  psql "$DATABASE_URL" -tAc "SELECT 1 FROM wagtailcore_site LIMIT 1;" 2>/dev/null | grep -q 1
+}
+
 # Restore review app backup
 # Only run if a review app snapshot URL is provided
 if [ -n "${RA_SNAPSHOT_URL:-}" ]; then
-  echo "RA_SNAPSHOT_URL set. Restoring database."
+  if db_already_init; then
+    echo "Database already appears to be initialized and seeded. Skipping DB restore."
+  else
+    echo "RA_SNAPSHOT_URL set and DB not seeded. Restoring database."
 
-  echo "Downloading snapshot..."
-  curl -fSL "$RA_SNAPSHOT_URL" -o /tmp/review.dump
+    echo "Downloading snapshot..."
+    curl -fSL "$RA_SNAPSHOT_URL" -o /tmp/review.dump
 
-  echo "Restoring to DATABASE_URL..."
-  # Use pg_restore for custom format dumps (-F c)
-  pg_restore --verbose --clean --if-exists --no-comments --no-acl --no-owner -d "$DATABASE_URL" /tmp/review.dump
+    echo "Restoring to DATABASE_URL..."
+    # Use pg_restore for custom format dumps (-F c)
+    pg_restore --verbose --clean --if-exists --no-comments --no-acl --no-owner -d "$DATABASE_URL" /tmp/review.dump
 
-  echo "DB restore complete."
-  echo "Updating site bindings..."
-  update_site_bindings
-  echo "Site bindings update complete."
+    echo "DB restore complete."
+    echo "Updating site bindings..."
+    update_site_bindings
+    echo "Site bindings update complete."
 else
   echo "REVIEW_DUMP_URL not set. Skipping DB restore."
 fi
