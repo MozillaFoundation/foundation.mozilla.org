@@ -5,7 +5,10 @@
   "addons": ["heroku-postgresql:basic --version=15"],
   "formation": {
     "web": {
-      "quantity": 1
+      "quantity": 1, "size": "basic"
+    },
+    "release": {
+      "quantity": 1, "size": "standard-1x"
     }
   },
   "env": {
