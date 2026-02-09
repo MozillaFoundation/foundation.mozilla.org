@@ -63,6 +63,7 @@ if [ -n "${RA_SNAPSHOT_URL:-}" ]; then
     echo "Updating site bindings..."
     update_site_bindings
     echo "Site bindings update complete."
+  fi
 else
   echo "REVIEW_DUMP_URL not set. Skipping DB restore."
 fi
