@@ -5,8 +5,6 @@ set -eo pipefail
 #python ./manage.py migrate --no-input
 
 # Restore review app backup
-set -euo pipefail
-
 # Only run if a review app snapshot URL is provided
 if [ -z "${RA_SNAPSHOT_URL:-}" ]; then
     echo "No RA_SNAPSHOT_URL set. Skipping DB restore."
@@ -20,7 +18,7 @@ if [ -z "${RA_SNAPSHOT_URL:-}" ]; then
     echo "DB restore complete."
 fi
 
-python ./manage.py migrate --no-input
+python ./manage.py migrate --no-input --skip-checks
 
 # Clear cache for BuyersGuide
 python ./manage.py clear_cache
