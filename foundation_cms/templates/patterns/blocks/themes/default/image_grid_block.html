@@ -1,0 +1,49 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<style>
+  .image-grid-wrapper {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+  .grid-image { width: 100%; height: auto; }
+</style>
+
+<div class="image-grid-container">
+  {% for section in value.sections %}
+    <div class="image-grid-section image-grid-section--{{ section.section_orientation }}">
+      {% if section.heading %}
+        <h3>{{ section.heading }}</h3>
+      {% endif %}
+
+      <p> Secton orientation: {{ section.section_orientation }} </p>
+      <p> Items per row: {{ section.items_per_row }} </p>
+
+      <div class="image-grid-wrapper grid-{{ section.items_per_row }}">
+        {% for item in section.items %}
+          <div class="image-grid-item">
+            {% if item.link %}
+              {% with link=item.link.0 %}
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank"{% endif %}>
+              {% endwith %}
+            {% endif %}
+
+            {% image item.image original as img %}
+            <img src="{{ img.url }}" alt="{{ img.alt }}" class="grid-image" width="{{ img.width }}" height="{{ img.height }}">
+
+            {% if item.caption %}
+              <div class="grid-caption">{{ item.caption|richtext }}</div>
+            {% endif %}
+
+            {% if item.link %}</a>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
