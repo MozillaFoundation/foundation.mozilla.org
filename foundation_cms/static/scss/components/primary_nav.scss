@@ -131,10 +131,11 @@ $primary-nav-margin: 0.7rem;
     opacity: 0;
 
     @include breakpoint(large up) {
-      width: auto;
       position: absolute;
       top: calc(100% + 1rem);
-      left: -2rem;
+      right: 0;
+      width: max-content;
+      max-width: rem-calc(200);
       background: $white;
       border: 1px solid color(orange, "100");
       border-radius: 1rem;
@@ -151,7 +152,7 @@ $primary-nav-margin: 0.7rem;
 
       @include breakpoint(large up) {
         margin: 0;
-        padding: 0.5rem 4rem 0.5rem 2rem;
+        padding: 0.5rem 2rem;
         text-decoration: none;
         font-family: "Mozilla Text", sans-serif;
         font-size: 1rem;
