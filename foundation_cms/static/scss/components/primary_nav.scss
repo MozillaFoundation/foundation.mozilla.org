@@ -121,6 +121,8 @@ $primary-nav-margin: 0.7rem;
   }
 
   &__dropdown {
+    $side-padding-desktop: 2rem;
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -133,9 +135,9 @@ $primary-nav-margin: 0.7rem;
     @include breakpoint(large up) {
       position: absolute;
       top: calc(100% + 1rem);
-      right: 0;
+      left: -$side-padding-desktop;
       width: max-content;
-      max-width: rem-calc(200);
+      max-width: rem-calc(224);
       background: $white;
       border: 1px solid color(orange, "100");
       border-radius: 1rem;
@@ -152,7 +154,7 @@ $primary-nav-margin: 0.7rem;
 
       @include breakpoint(large up) {
         margin: 0;
-        padding: 0.5rem 2rem;
+        padding: 0.5rem $side-padding-desktop;
         text-decoration: none;
         font-family: "Mozilla Text", sans-serif;
         font-size: 1rem;
