@@ -76,14 +76,11 @@ restore_review_app_backup() {
   echo "Site bindings update complete."
 }
 
-
 if [ "${INIT_DB_FROM_SNAPSHOT:-}" = "True" ]; then
   restore_review_app_backup
 else
   echo "INIT_DB_FROM_SNAPSHOT is not True. Skipping DB restore, continue to migrate."
 fi
-
-
 
 # Django Migrations
 python ./manage.py migrate --no-input
