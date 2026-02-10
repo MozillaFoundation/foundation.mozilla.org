@@ -9,6 +9,7 @@ from .fru_element_block import FruElementBlock
 from .hero_accordion import HeroAccordionBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
+from .image_grid_block import ImageGridBlock, ImageGridItemBlock, ImageGridSectionBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
@@ -58,6 +59,9 @@ __all__ = [
     "TabbedContentTabBlock",
     "TwoColumnContainerBlock",
     "CustomImageBlock",
+    "ImageGridBlock",
+    "ImageGridItemBlock",
+    "ImageGridSectionBlock",
     "CustomMediaBlock",
     "PodcastBlock",
     "HeroAccordionBlock",
