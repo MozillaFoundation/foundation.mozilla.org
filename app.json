@@ -39,7 +39,7 @@
   },
   "buildpacks": [
     {
-      "url": "heroku/heroku-buildpack-awscli"
+      "url": "heroku-community/awscli"
     },
     {
       "url": "heroku/python"
