@@ -55,13 +55,13 @@ restore_review_app_backup_if_needed() {
   s3_uri="s3://${AWS_REVIEW_APP_SNAPSHOT_BUCKET}/${AWS_REVIEW_APP_SNAPSHOT_PATH}"
 
   echo "Generating presigned URL for snapshot: ${s3_uri}"
-  
+
   # Generate presigned URL using the snapshot-specific credentials, scoped to this command only
   SNAPSHOT_URL="$(
     AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID_REVIEW_APP_SNAPSHOT}" \
     AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY_REVIEW_APP_SNAPSHOT}" \
     AWS_DEFAULT_REGION="${AWS_REVIEW_APP_SNAPSHOT_REGION}" \
-    aws s3 presign "${s3_uri}" --expires-in "${PRESIGN_EXPIRES_SECONDS:-3600}"
+    aws s3 presign "${s3_uri}" --expires-in "300"
   )"
 
   echo "Downloading snapshot..."
