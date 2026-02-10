@@ -22,6 +22,7 @@ BASE_BLOCK_NAMES = sorted(
         "accordion_block",
         "rich_text",
         "image",
+        "image_grid",
         "podcast_block",
         "tabbed_content",
         "two_column_container_block",
