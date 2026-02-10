@@ -40,14 +40,6 @@ db_already_init() {
   psql "$DATABASE_URL" -tAc "SELECT 1 FROM wagtailcore_site LIMIT 1;" 2>/dev/null | grep -q 1
 }
 
-presign_snapshot_url() {
-  local s3_uri="s3://${AWS_REVIEW_APP_SNAPSHOT_BUCKET}/${AWS_REVIEW_APP_SNAPSHOT_PATH}"
-
-  AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID_REVIEW_APP_SNAPSHOT}" \
-  AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY_REVIEW_APP_SNAPSHOT}" \
-  AWS_DEFAULT_REGION="${AWS_REVIEW_APP_SNAPSHOT_REGION}" \
-  aws s3 presign "${s3_uri}" --expires-in "300"
-}
 
 restore_review_app_backup_if_needed() {
 
@@ -58,9 +50,19 @@ restore_review_app_backup_if_needed() {
 
   echo "DB not initialized. Restoring database."
 
-  echo "Generating presigned URL for snapshot: ${s3_uri}"
 
-  SNAPSHOT_URL="$(presign_snapshot_url)"
+  local s3_uri
+  s3_uri="s3://${AWS_REVIEW_APP_SNAPSHOT_BUCKET}/${AWS_REVIEW_APP_SNAPSHOT_PATH}"
+
+  echo "Generating presigned URL for snapshot: ${s3_uri}"
+  
+  # Generate presigned URL using the snapshot-specific credentials, scoped to this command only
+  SNAPSHOT_URL="$(
+    AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID_REVIEW_APP_SNAPSHOT}" \
+    AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY_REVIEW_APP_SNAPSHOT}" \
+    AWS_DEFAULT_REGION="${AWS_REVIEW_APP_SNAPSHOT_REGION}" \
+    aws s3 presign "${s3_uri}" --expires-in "${PRESIGN_EXPIRES_SECONDS:-3600}"
+  )"
 
   echo "Downloading snapshot..."
   curl -fSL "$SNAPSHOT_URL" -o /tmp/review.dump
