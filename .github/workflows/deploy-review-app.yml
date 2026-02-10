@@ -1,0 +1,80 @@
+name: Deploy Heroku Review App (snapshot restore)
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  deploy-review-app:
+    if: github.event.label.name == 'run:deploy-review-app'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    env:
+      AWS_REGION: us-east-1
+      S3_BUCKET: ${{ env.AWS_SNAPSHOT_BUCKET }}
+      S3_KEY: ${{ env.AWS_SNAPSHOT_PATH }}
+      PRESIGN_EXPIRES_SECONDS: "3600"
+
+      HEROKU_APP_NAME_PREFIX: pr
+      HEROKU_PIPELINE_NAME: foundation-site
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_REVIEW_APP_SNAPSHOT }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_REVIEW_APP_SNAPSHOT }}
+          aws-region: ${{ env.AWS_SNAPSHOT_REGION }}
+
+      - name: Install AWS CLI
+        run: |
+          python -m pip install --upgrade pip
+          pip install awscli
+
+      - name: Create presigned URL for snapshot
+        id: presign
+        run: |
+          URL=$(aws s3 presign "s3://${S3_BUCKET}/${S3_KEY}" --expires-in "${PRESIGN_EXPIRES_SECONDS}")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Install Heroku CLI
+        run: |
+          curl -fsSL https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Heroku auth
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_DEPLOYMENT_USER_API_TOKEN }}
+        run: |
+          heroku auth:whoami
+
+      - name: Create review app from pipeline
+        id: reviewapp
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_DEPLOYMENT_USER_API_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          APP_NAME="${HEROKU_APP_NAME_PREFIX}-${PR_NUMBER}"
+          echo "app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
+
+          # Creates a review app tied to the PR branch
+          heroku pipelines:reviewapps:create \
+            -p "${HEROKU_PIPELINE_NAME}" \
+            -b "${PR_HEAD_REF}" \
+            -s "${APP_NAME}" || true
+
+          # If it already exists, this is fine
+          heroku apps:info -a "${APP_NAME}"
+
+      - name: Set DB snapshot URL config var on review app
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku config:set \
+            DB_SNAPSHOT_URL='${{ steps.presign.outputs.url }}' \
+            -a '${{ steps.reviewapp.outputs.app_name }}'
