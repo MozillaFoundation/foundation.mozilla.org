@@ -1,0 +1,6 @@
+{% load i18n %}
+<form action="{% url 'search' %}" method="get" class="{{ form_class }}" role="search">
+  <input type="text" name="query" class="{{ input_class }}" placeholder="{% trans "Search" %}" {% if search_query %}value="{{ search_query }}"{% endif %}>
+  {% trans "Search" as search_label %}
+  {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_label button_style="btn-primary" classnames=submit_classnames %}
+</form>
