@@ -41,7 +41,7 @@ db_already_init() {
 }
 
 
-restore_review_app_backup_if_needed() {
+restore_review_app_backup() {
 
   if db_already_init; then
     echo "Database already appears to be initialized and seeded. Skipping DB restore."
@@ -76,8 +76,14 @@ restore_review_app_backup_if_needed() {
   echo "Site bindings update complete."
 }
 
-# Restore DB (if needed) before migrations
-restore_review_app_backup_if_needed
+
+if [ "${INIT_DB_FROM_SNAPSHOT:-}" = "True" ]; then
+  restore_review_app_backup
+else
+  echo "INIT_DB_FROM_SNAPSHOT is not True. Skipping DB restore, continue to migrate."
+fi
+
+
 
 # Django Migrations
 python ./manage.py migrate --no-input
