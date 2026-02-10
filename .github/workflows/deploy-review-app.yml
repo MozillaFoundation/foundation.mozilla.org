@@ -13,9 +13,9 @@ jobs:
       contents: read
 
     env:
-      AWS_REGION: us-east-1
-      S3_BUCKET: ${{ env.AWS_SNAPSHOT_BUCKET }}
-      S3_KEY: ${{ env.AWS_SNAPSHOT_PATH }}
+      AWS_REGION: ${{ vars.AWS_SNAPSHOT_REGION }}
+      S3_BUCKET: ${{ vars.AWS_SNAPSHOT_BUCKET }}
+      S3_KEY: ${{ vars.AWS_SNAPSHOT_PATH }}
       PRESIGN_EXPIRES_SECONDS: "3600"
 
       HEROKU_APP_NAME_PREFIX: pr
@@ -30,7 +30,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_REVIEW_APP_SNAPSHOT }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_REVIEW_APP_SNAPSHOT }}
-          aws-region: ${{ env.AWS_SNAPSHOT_REGION }}
+          aws-region: ${{ vars.AWS_SNAPSHOT_REGION }}
 
       - name: Install AWS CLI
         run: |
