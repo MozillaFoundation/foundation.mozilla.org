@@ -2,6 +2,7 @@
 @use "sass:math";
 
 @import "../redesign_base";
+@import "../_mixins";
 @import "../components/search_form";
 @import "../components/nothing_personal/related_content";
 
@@ -128,8 +129,6 @@ body.template-search-results {
     &__title {
       @include mofo-text-style($header-styles, "h4", $header-font-family);
 
-      // @include text-line-clamp(2);
-
       margin: 0 0 1rem;
 
       > a {
@@ -160,7 +159,7 @@ body.template-search-results {
     }
 
     &__description {
-      // @include text-line-clamp(3);
+      @include text-line-clamp(4);
 
       margin: 0.5rem 0;
       @include breakpoint(medium up) {
