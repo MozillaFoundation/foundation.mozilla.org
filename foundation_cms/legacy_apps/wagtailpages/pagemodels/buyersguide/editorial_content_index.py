@@ -165,7 +165,7 @@ class BuyersGuideEditorialContentIndexPageArticlePageRelation(TranslatableMixin,
     )
     article = models.ForeignKey(
         "wagtailpages.BuyersGuideArticlePage",
-        on_delete=wagtail_models.models.CASCADE,
+        on_delete=models.CASCADE,
         null=False,
         blank=False,
     )
