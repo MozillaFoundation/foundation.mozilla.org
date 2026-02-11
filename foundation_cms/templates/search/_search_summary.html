@@ -1,41 +1,37 @@
 {% load i18n %}
-<div class="cell small-12">
-  <div class="search-summary">
+<div class="search-summary">
+  <p>
     {% if total_search_results|default:0 > 0 %}
       {% with start_index=search_results.start_index end_index=search_results.end_index total=total_search_results %}
-        <p>
-          {{ start_index }}-{{ end_index }} {% trans "of" %}
-          <b>
-            {% blocktrans count total_results=total %}
-              {{ total_results }} result
-            {% plural %}
-              {{ total_results }} results
-            {% endblocktrans %}
-          </b>
-          {% trans "for:" %}
-        </p>
-        <h2 class="h1-style">"{{ search_query }}"</h2>
-      {% endwith %}
-    {% else %}
-      <p>
-        <b>
-          {% blocktrans count total_results=0 %}
+        {{ start_index }}-{{ end_index }} {% trans "of" %}
+        <strong>
+          {% blocktrans count total_results=total %}
             {{ total_results }} result
           {% plural %}
             {{ total_results }} results
           {% endblocktrans %}
-        </b>
+        </strong>
         {% trans "for:" %}
-      </p>
-      <h2 class="h1-style">"{{ search_query }}"</h2>
-    {% endif %}
-
-    {% if total_search_results|default:0 > 0 and search_results.paginator.num_pages > 1 %}
-      <p>
-        {% blocktrans trimmed with page_number=search_results.number total_pages=search_results.paginator.num_pages %}
-          Page {{ page_number }} of {{ total_pages }}
+      {% endwith %}
+    {% else %}
+      <strong>
+        {% blocktrans count total_results=0 %}
+          {{ total_results }} result
+        {% plural %}
+          {{ total_results }} results
         {% endblocktrans %}
-      </p>
+      </strong>
+      {% trans "for:" %}
     {% endif %}
-  </div>
+  </p>
+
+  <h2 class="h1-style">"{{ search_query }}"</h2>
+
+  {% if total_search_results|default:0 > 0 and search_results.paginator.num_pages > 1 %}
+    <p>
+      {% blocktrans trimmed with page_number=search_results.number total_pages=search_results.paginator.num_pages %}
+        Page {{ page_number }} of {{ total_pages }}
+      {% endblocktrans %}
+    </p>
+  {% endif %}
 </div>
