@@ -133,6 +133,6 @@
     "stylelint-config-standard": "^40.0.0",
     "stylelint-prettier": "^5.0.3",
     "svgo": "^4.0.0",
-    "wait-on": "^8"
+    "wait-on": "^9"
   }
 }
