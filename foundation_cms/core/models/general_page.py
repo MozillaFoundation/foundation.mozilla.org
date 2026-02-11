@@ -4,6 +4,7 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 from foundation_cms.mixins.hero_image import HeroImageMixin
+from foundation_cms.core.panels.media_panel import MediaPanel
 
 
 class GeneralPage(AbstractGeneralPage, HeroImageMixin):
@@ -53,18 +54,29 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
 
     content_panels = [
         FieldPanel("title"),
-        MultiFieldPanel(
+        MediaPanel(
             [
                 FieldPanel("show_hero"),
                 FieldPanel("hero_variant"),
-                FieldPanel("hero_background_color"),
+                FieldPanel(
+                    "hero_background_color",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": "top-to-bottom"
+                    },
+                ),
+
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
-                FieldPanel("hero_image"),
+                FieldPanel(
+                    "hero_image",
+                    help_text="Top to Bottom variant crops image to 16:9; Side by Side variant crops image to 1:1.",
+                ),
                 FieldPanel("hero_image_alt_text"),
             ],
             heading="Hero Section",
             classname="collapsible",
+            trigger_field="hero_variant",
         ),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
