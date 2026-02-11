@@ -84,16 +84,19 @@
 
     .fill-m-left {
       fill: map.get($fill-colors, m-left);
+
       @include wipe-reveal("bottom");
     }
 
     .fill-m-middle {
       fill: map.get($fill-colors, m-middle);
+
       @include wipe-reveal("top");
     }
 
     .fill-m-right {
       fill: map.get($fill-colors, m-right);
+
       @include wipe-reveal("bottom");
     }
 
@@ -107,6 +110,7 @@
 
     .fill-f-bottom {
       fill: map.get($fill-colors, f-bottom);
+
       @include wipe-reveal("right");
     }
 
@@ -116,11 +120,13 @@
 
     .fill-u-inner {
       fill: map.get($fill-colors, u-inner);
+
       @include wipe-reveal("top");
     }
 
     .fill-n-inner {
       fill: map.get($fill-colors, n-inner);
+
       @include wipe-reveal("bottom");
     }
 
@@ -134,6 +140,7 @@
 
     .fill-t-right {
       fill: map.get($fill-colors, t-right);
+
       @include wipe-reveal("right");
     }
 
@@ -143,6 +150,7 @@
 
     .fill-n2-inner {
       fill: map.get($fill-colors, n2-inner);
+
       @include wipe-reveal("bottom");
     }
 
