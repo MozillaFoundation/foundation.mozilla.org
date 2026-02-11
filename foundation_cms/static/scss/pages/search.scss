@@ -2,7 +2,7 @@
 @use "sass:math";
 
 @import "../redesign_base";
-@import "../_mixins";
+@import "../mixins";
 @import "../components/search_form";
 @import "../components/nothing_personal/related_content";
 
@@ -37,18 +37,6 @@ body.template-search-results {
       @include breakpoint(medium up) {
         margin-bottom: 4rem;
       }
-    }
-  }
-
-  .search-form {
-    @include mofo-search-form-contents;
-
-    &__input {
-      @include mofo-search-text-input($highlight-color);
-    }
-
-    &__submit-button {
-      @include mofo-search-submit-button($highlight-color);
     }
   }
 

@@ -436,17 +436,5 @@ body:has(.search-input-container.search-open) {
     flex-direction: row;
     align-items: stretch;
     gap: 1rem;
-
-    form {
-      @include mofo-search-form-contents;
-    }
-  }
-
-  &__input {
-    @include mofo-search-text-input(color(orange, "300"));
-  }
-
-  &__submit-button {
-    @include mofo-search-submit-button(color(orange, "300"));
   }
 }
