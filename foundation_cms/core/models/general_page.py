@@ -3,8 +3,8 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
-from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.core.panels.media_panel import MediaPanel
+from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
 class GeneralPage(AbstractGeneralPage, HeroImageMixin):
@@ -60,12 +60,8 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
                 FieldPanel("hero_variant"),
                 FieldPanel(
                     "hero_background_color",
-                    attrs={
-                        "data-media-target": "field",
-                        "data-condition": "top-to-bottom"
-                    },
+                    attrs={"data-media-target": "field", "data-condition": "top-to-bottom"},
                 ),
-
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
                 FieldPanel(
