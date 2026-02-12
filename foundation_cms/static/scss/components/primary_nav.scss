@@ -1,5 +1,4 @@
 @use "sass:list";
-
 @import "../colors";
 
 $hamburger-bar-spacing: 0.8rem;
@@ -421,7 +420,7 @@ body:has(.search-input-container.search-open) {
   position: fixed;
   z-index: 9;
   top: $primary-nav-height;
-  width: 100%;
+  width: 100vw;
 
   .grid-container {
     padding-top: rem-calc(104);
@@ -436,48 +435,7 @@ body:has(.search-input-container.search-open) {
   &__inner {
     display: flex;
     flex-direction: row;
-    align-items: stretch; /* optional */
+    align-items: stretch;
     gap: 1rem;
-
-    form {
-      display: contents;
-    }
-  }
-
-  &__input {
-    border-radius: 0;
-    border: 1px solid $black;
-    padding: rem-calc(8) rem-calc(16) rem-calc(8) rem-calc(60);
-    background-image: url("/static/foundation_cms/_images/icons/search-black.svg");
-    background-repeat: no-repeat;
-    background-position: left rem-calc(24) center;
-    background-size: rem-calc(16) rem-calc(16);
-    flex: 1 1 auto;
-    min-width: 0;
-
-    &::placeholder {
-      color: color(neutral, "400");
-    }
-
-    &:focus-visible {
-      outline: 2px solid color(orange, "300");
-    }
-  }
-
-  &__submit-button {
-    line-height: 1.5;
-    margin: 0 !important;
-
-    &:focus-visible {
-      outline: 2px solid color(orange, "300");
-    }
-
-    .btn-primary__roller {
-      display: none;
-
-      @include breakpoint(large up) {
-        display: inline-block;
-      }
-    }
   }
 }

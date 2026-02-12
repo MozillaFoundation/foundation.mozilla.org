@@ -1,0 +1,69 @@
+{% load i18n url_query %}
+
+{% if search_results.paginator.num_pages > 1 %}
+  <div class="small-12 large-8 large-offset-2 pagination-wrapper">
+    {% with current=search_results.number last=search_results.paginator.num_pages %}
+      {% translate "Previous page" context "Pagination button" as previous_page_label %}
+      {% translate "Next page" context "Pagination button" as next_page_label %}
+      <nav class="pagination" aria-label="{% trans "Pagination" %}">
+        <div class="pagination__previous">
+          {% if search_results.has_previous %}
+            {% url_with_query 'search' query=search_query page=search_results.previous_page_number as prev_url %}
+            {% include "patterns/components/button.html" with url=prev_url label=previous_page_label button_style="btn-secondary" %}
+          {% else %}
+            {% include "patterns/components/button.html" with url="#" label=previous_page_label button_style="btn-secondary" classnames="hidden" %}
+          {% endif %}
+        </div>
+
+        <ol class="pagination__pages">
+          <li class="pagination__page">
+            {% if current == 1 %}
+              <span class="current" aria-current="page">1</span>
+            {% else %}
+              <a href="{% url_with_query 'search' query=search_query page=1 %}">1</a>
+            {% endif %}
+          </li>
+
+          {% if current > 3 %}
+            <li class="pagination__ellipsis" aria-hidden="true"><span>…</span></li>
+          {% endif %}
+
+          {% for page_num in search_results.paginator.page_range %}
+            {% if page_num != 1 and page_num != last %}
+              {% if page_num >= current|add:"-1" and page_num <= current|add:"1" %}
+                <li class="pagination__page">
+                  {% if page_num == current %}
+                    <span class="current" aria-current="page">{{ page_num }}</span>
+                  {% else %}
+                    <a href="{% url_with_query 'search' query=search_query page=page_num %}">{{ page_num }}</a>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if current < last|add:"-2" %}
+            <li class="pagination__ellipsis" aria-hidden="true"><span>…</span></li>
+          {% endif %}
+
+          <li class="pagination__page">
+            {% if current == last %}
+              <span class="current" aria-current="page">{{ last }}</span>
+            {% else %}
+              <a href="{% url_with_query 'search' query=search_query page=last %}">{{ last }}</a>
+            {% endif %}
+          </li>
+        </ol>
+
+        <div class="pagination__next">
+          {% if search_results.has_next %}
+            {% url_with_query 'search' query=search_query page=search_results.next_page_number as next_url %}
+            {% include "patterns/components/button.html" with url=next_url label=next_page_label button_style="btn-secondary" %}
+          {% else %}
+            {% include "patterns/components/button.html" with url="#" label=next_page_label button_style="btn-secondary" classnames="hidden" %}
+          {% endif %}
+        </div>
+      </nav>
+    {% endwith %}
+  </div>
+{% endif %}

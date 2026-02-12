@@ -57,7 +57,7 @@ def search(request):
 
     return TemplateResponse(
         request,
-        "search/search.html",
+        "search/search_page.html",
         {
             "search_query": search_query,
             "search_results": search_results,
