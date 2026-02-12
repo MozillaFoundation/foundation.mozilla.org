@@ -1,6 +1,5 @@
 @use "sass:map";
 @use "sass:math";
-
 @import "../redesign_base";
 @import "../components/nothing_personal/related_content";
 
@@ -148,6 +147,7 @@ body.template-search-results {
       @include text-line-clamp(4);
 
       margin: 0.5rem 0;
+
       @include breakpoint(medium up) {
         margin: 1.5rem 0 1rem;
       }
