@@ -12,9 +12,11 @@ $accordion-border: color(neutral, "300");
 
     &-text {
       @include mofo-text-style($body-text-styles, "xlarge");
+
       @include breakpoint(small up) {
         font-weight: 700;
       }
+
       @include breakpoint(large up) {
         font-weight: 700;
       }

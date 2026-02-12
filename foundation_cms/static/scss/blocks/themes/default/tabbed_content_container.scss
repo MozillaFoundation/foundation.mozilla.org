@@ -1,5 +1,6 @@
 @use "sass:math";
 @use "sass:map";
+@use "sass:list";
 
 // Tabbed content - simplified
 
@@ -44,12 +45,13 @@
 
     &.is-active {
       border-top-right-radius: rem-calc(18);
+
       @include breakpoint(large up) {
         border-top-right-radius: 2rem;
       }
     }
 
-    @for $i from 0 through length($tab-colors) - 1 {
+    @for $i from 0 through list.length($tab-colors) - 1 {
       &:nth-child(#{$i + 1}) {
         background-color: map.get($tab-colors, $i);
       }
@@ -86,7 +88,7 @@
       display: block;
     }
 
-    @for $i from 0 through length($tab-colors) - 1 {
+    @for $i from 0 through list.length($tab-colors) - 1 {
       &:nth-child(#{$i + 1}) {
         background-color: map.get($tab-colors, $i);
       }
