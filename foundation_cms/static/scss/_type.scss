@@ -202,6 +202,7 @@ $link-text-styles: (
 // Example: $desktop-body-large-size: get-text-property($body-text-styles, "large", "font-size", "large");
 @function get-text-property($map-name, $key, $property, $breakpoint: "small") {
   $styles: get-text-styles($map-name, $key, $breakpoint);
+
   @return map.get($styles, $property);
 }
 
@@ -240,6 +241,7 @@ $link-text-styles: (
 
   // Check if key exists for this breakpoint
   $breakpoint-styles: map.get($map-name, $breakpoint);
+
   @if not map.has-key($breakpoint-styles, $key) {
     @error "Key '#{$key}' not found at '#{$breakpoint}' breakpoint. Available keys: #{map.keys($breakpoint-styles)}";
   }
@@ -252,6 +254,7 @@ $link-text-styles: (
     @warn "No styles found for #{$key} at #{$breakpoint} breakpoint";
   } @else {
     font-family: $font-family;
+
     @each $property, $value in $styles {
       #{$property}: $value;
     }

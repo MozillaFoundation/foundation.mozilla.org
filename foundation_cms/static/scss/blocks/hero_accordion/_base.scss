@@ -4,7 +4,6 @@
 
 @use "sass:math";
 @use "sass:map";
-
 @import "../../settings/customized-settings";
 @import "../../../../../node_modules/foundation-sites/scss/util/util";
 @import "../../../../../node_modules/foundation-sites/scss/util/breakpoint";
@@ -164,7 +163,7 @@ $image-hover-scale: 105%;
 
   @include breakpoint(large up) {
     flex-direction: row;
-    margin: 1rem 0 rem-calc(64) 0;
+    margin: 1rem 0 rem-calc(64);
   }
 
   @include responsive-panel-heights($panel-heights);
