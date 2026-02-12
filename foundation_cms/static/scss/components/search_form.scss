@@ -31,7 +31,7 @@
 .search-form__submit-button,
 .search-input-container__submit-button {
   line-height: 1.5;
-  margin: 0;
+  margin: 0 !important; // Override default button margin
 
   &:focus-visible {
     outline: 2px solid color(orange, "300");
