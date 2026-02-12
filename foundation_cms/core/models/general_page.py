@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 from wagtail.admin.panels import FieldPanel
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -31,7 +32,8 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
             ("orange-200", "Orange"),
             ("yellow-200", "Yellow"),
         ],
-        default="orange-200",
+        blank=True,
+        default="",
         help_text="Select the color of the hero background, only for 'Top to Bottom' variant.",
     )
 
@@ -95,6 +97,19 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
 
     class Meta:
         verbose_name = "General Page"
+
+    def clean(self):
+        super().clean()
+        errors = {}
+
+        if self.hero_variant == "side-by-side":
+            self.hero_background_color = ""
+
+        if self.hero_variant == "top-to-bottom" and not self.hero_background_color:
+            errors["hero_background_color"] = "Background color is required when variant is 'Top to Bottom'."
+
+        if errors:
+            raise ValidationError(errors)
 
     # keep an explicit fallback in case no themed templates exist
     template = "patterns/pages/core/general_page.html"
