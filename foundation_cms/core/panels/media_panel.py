@@ -15,6 +15,7 @@ class MediaPanel(MultiFieldPanel):
         super().__init__(children, **kwargs)
 
     def clone_kwargs(self):
+        """Method to ensure trigger_field is included when cloning the panel for use in StreamField."""
         kwargs = super().clone_kwargs()
         kwargs["trigger_field"] = self.trigger_field
         return kwargs
