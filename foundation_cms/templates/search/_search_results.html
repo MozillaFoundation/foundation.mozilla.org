@@ -15,7 +15,7 @@
             <div class="page-card__tags">
               {% include "patterns/components/topic_pills.html" with topics=result.specific.topics.all %}
             </div>
-            <h3 class="page-card__title"><a href="{{ result.url }}">{{ result.title }}</a></h3>
+            <h3 class="page-card__title"><a href="{% pageurl result %}">{{ result.title }}</a></h3>
             {% if result.specific.authors.all %}
               <span class="page-card__author">{% translate "By" context "Byline prefix" %} {% for author in result.specific.authors.all %}{% firstof author.name author %}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
             {% elif result.specific.author %}

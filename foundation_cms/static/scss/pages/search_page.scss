@@ -2,8 +2,6 @@
 @use "sass:math";
 
 @import "../redesign_base";
-@import "../mixins";
-@import "../components/search_form";
 @import "../components/nothing_personal/related_content";
 
 body.template-search-results {
