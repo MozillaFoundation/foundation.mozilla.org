@@ -118,7 +118,7 @@
     "@axe-core/react": "^4.10.1",
     "@percy/cli": "^1.31.8",
     "@percy/playwright": "^1.0.9",
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.58.2",
     "browser-sync": "^3.0.4",
     "browserslist": "^4.24.4",
     "chokidar-cli": "^3.0.0",

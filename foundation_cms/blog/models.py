@@ -9,6 +9,19 @@ from foundation_cms.profiles.models import Profile
 class BlogIndexPage(Page):
     """
     BlogIndexPage serves as a parent for BlogPage instances.
+
+    TODO: FUTURE IMPLEMENTATION NOTES
+    When implementing the real blog functionality, this model should be updated to:
+
+    1. Inherit from any of our base models(such as AbstractBasePage, AbstractArticlePage) instead of Page directly:
+
+    2. Review and potentially remove/modify current fields that may conflict.
+
+    3. Add appropriate search_fields once inheriting from base models, for example:
+       search_fields = AbstractBasePage.search_fields + [
+           index.SearchField("body", boost=4),
+           # Additional blog-specific search fields
+       ]
     """
 
     subpage_types = ["blog.BlogPage"]  # Restrict child pages to BlogPage only
