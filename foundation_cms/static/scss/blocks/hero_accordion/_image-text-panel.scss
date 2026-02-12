@@ -1,7 +1,6 @@
 @use "sass:math";
 @use "sass:map";
 @use "./base" as base;
-
 @import "../../settings/customized-settings";
 @import "../../../../../node_modules/foundation-sites/scss/util/util";
 @import "../../../../../node_modules/foundation-sites/scss/util/breakpoint";
@@ -69,6 +68,7 @@
     @mixin responsive-translate-x($panel-height-map, $negative: true) {
       @each $breakpoint, $height in $panel-height-map {
         $width: $height;
+
         @include breakpoint(#{$breakpoint} up) {
           @if $negative {
             transform: translateX(calc(-1 * #{$width}));
@@ -396,6 +396,7 @@
           @include breakpoint(large up) {
             flex-basis: unset;
           }
+
           @include responsive-square(base.$panel-heights);
 
           &::before {
@@ -453,7 +454,6 @@
 
       .hero-accordion__details {
         @include base.active-details-visible;
-
         @include responsive-translate-x(base.$panel-heights);
       }
     }
