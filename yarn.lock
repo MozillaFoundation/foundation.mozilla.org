@@ -6024,10 +6024,10 @@ svgo@^4.0.0:
     picocolors "^1.1.1"
     sax "^1.4.1"
 
-swiper@^11.2.6:
-  version "11.2.10"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.2.10.tgz#ed0b17286b56f7fe8d4b46ed61e6e0bd8daaccad"
-  integrity sha512-RMeVUUjTQH+6N3ckimK93oxz6Sn5la4aDlgPzB+rBrG/smPdCTicXyhxa+woIpopz+jewEloiEE3lKo1h9w2YQ==
+swiper@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.1.0.tgz#5e020f3bdbbff6fc9d9be01714d0ad5452050a58"
+  integrity sha512-BD4CpAOOyEvZ2f0CDx362ea+vmOwukVcmbsQx+0BhRIaBUz8wvcCd//E7RFmvBZCrfyqXCHUVqmgUwts6ywlxw==
 
 synckit@^0.11.12:
   version "0.11.12"
