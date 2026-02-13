@@ -17,7 +17,15 @@
             </div>
             <h3 class="page-card__title"><a href="{% pageurl result %}">{{ result.title }}</a></h3>
             {% if result.specific.authors.all %}
-              <span class="page-card__author">{% translate "By" context "Byline prefix" %} {% for author in result.specific.authors.all %}{% firstof author.name author %}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+              <span class="page-card__author">
+                {% translate "By" context "Byline prefix" %}
+                {% for author in result.specific.authors.all %}
+                  {% firstof author.name author.author_profile.name author as author_name %}
+                  {% if author_name %}
+                    {{ author_name }}{% if not forloop.last %}, {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </span>
             {% elif result.specific.author %}
               <span class="page-card__author">{% translate "By" context "Byline prefix" %} {{ result.specific.author.name }}</span>
             {% endif %}
