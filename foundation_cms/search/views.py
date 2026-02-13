@@ -55,7 +55,7 @@ def search(request):
     keep_contributing_pages = []
     if search_query and not search_results.object_list:
         # TODO: Temporary hardcoded page IDs via env var until we have enough pages to auto pull.
-        #       Revert to get_keep_contributing_pages() when ready.
+        #       Revert to keep_contributing_pages = get_keep_contributing_pages() when ready.
         hardcoded_pages = Page.objects.live().filter(id__in=settings.TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS)
         localized_pages = localize_queryset(hardcoded_pages, preserve_order=True)
         keep_contributing_pages = list(localized_pages.specific()[:2])
