@@ -12,9 +12,12 @@
         </div>
         <div class="cell small-12 medium-8 page-card__meta-wrapper">
           <div class="page-card__meta">
+            {% comment %} Comment out the tag pill buttons for now because of https://mozilla-hub.atlassian.net/browse/TP1-3655 {% endcomment %}
+            {% comment %}
             <div class="page-card__tags">
               {% include "patterns/components/topic_pills.html" with topics=result.specific.topics.all %}
             </div>
+            {% endcomment %}
             <h3 class="page-card__title"><a href="{% pageurl result %}">{{ result.title }}</a></h3>
             {% if result.specific.authors.all %}
               {% spaceless %}

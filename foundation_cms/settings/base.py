@@ -97,6 +97,7 @@ env = environ.Env(
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
+    TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS=(list, []),
 )
 
 # Read in the environment
@@ -819,6 +820,9 @@ REVIEW_APP_HEROKU_API_KEY = env("REVIEW_APP_HEROKU_API_KEY", default=None)
 REVIEW_APP_CLOUDFLARE_ZONE_ID = env("REVIEW_APP_CLOUDFLARE_ZONE_ID", default=None)
 REVIEW_APP_CLOUDFLARE_TOKEN = env("REVIEW_APP_CLOUDFLARE_TOKEN", default=None)
 REVIEW_APP_DOMAIN = env("REVIEW_APP_DOMAIN", default=None)
+
+# TODO: Temporary solution until we have enough pages to auto pull and showcase there
+TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS = [int(id) for id in env("TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS") if id]
 
 # Make sure the docker internal IP is a known internal IP, so that "debug" in templates works
 if DEBUG:

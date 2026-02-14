@@ -32,7 +32,7 @@
     width: 100%;
     display: block;
     aspect-ratio: var(--aspect-ratio, math.div(3, 2));
-    background-color: color(neutral, "200");
+    background: color(orange, "300");
     margin: 0 0 rem-calc(8);
     overflow: hidden;
 
