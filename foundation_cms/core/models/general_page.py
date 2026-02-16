@@ -1,9 +1,11 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from django.forms import ValidationError
+from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
+from foundation_cms.core.panels.media_panel import MediaPanel
 from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
@@ -31,7 +33,8 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
             ("orange-200", "Orange"),
             ("yellow-200", "Yellow"),
         ],
-        default="orange-200",
+        blank=True,
+        default="",
         help_text="Select the color of the hero background, only for 'Top to Bottom' variant.",
     )
 
@@ -54,18 +57,25 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
 
     content_panels = [
         FieldPanel("title"),
-        MultiFieldPanel(
+        MediaPanel(
             [
                 FieldPanel("show_hero"),
                 FieldPanel("hero_variant"),
-                FieldPanel("hero_background_color"),
+                FieldPanel(
+                    "hero_background_color",
+                    attrs={"data-media-target": "field", "data-condition": "top-to-bottom"},
+                ),
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
-                FieldPanel("hero_image"),
+                FieldPanel(
+                    "hero_image",
+                    help_text="Top to Bottom variant crops image to 16:9; Side by Side variant crops image to 1:1.",
+                ),
                 FieldPanel("hero_image_alt_text"),
             ],
             heading="Hero Section",
             classname="collapsible",
+            trigger_field="hero_variant",
         ),
         FieldPanel("button_title"),
         FieldPanel("button_url"),
@@ -95,6 +105,19 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
 
     class Meta:
         verbose_name = "General Page"
+
+    def clean(self):
+        super().clean()
+        errors = {}
+
+        if self.hero_variant == "side-by-side":
+            self.hero_background_color = ""
+
+        if self.hero_variant == "top-to-bottom" and not self.hero_background_color:
+            errors["hero_background_color"] = "Background color is required when variant is 'Top to Bottom'."
+
+        if errors:
+            raise ValidationError(errors)
 
     # keep an explicit fallback in case no themed templates exist
     template = "patterns/pages/core/general_page.html"
