@@ -1,5 +1,6 @@
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import tarfile
@@ -276,6 +277,37 @@ def manage(ctx, command, stop=False):
     """
     command = f"python ./manage.py {command}"
     pyrun(ctx, command, stop=stop)
+
+
+@task(aliases=["np-fake-articles"])
+def load_np_fake_articles(
+    ctx,
+    count=70,
+    keyword="NP_PAGINATION_TEST",
+    seed=None,
+    delete=False,
+    update_index=False,
+    stop=False,
+):
+    """
+    Generate fake Nothing Personal articles for testing search pagination.
+
+    Example:
+    - inv load-np-fake-articles --count=70 --keyword=NP_PAGINATION_TEST --delete
+    """
+    parts = [
+        "load_np_fake_articles",
+        f"--count {int(count)}",
+        f"--keyword {shlex.quote(str(keyword))}",
+    ]
+    if seed is not None and str(seed) != "":
+        parts.append(f"--seed {int(seed)}")
+    if delete:
+        parts.append("--delete")
+    if update_index:
+        parts.append("--update-index")
+
+    manage(ctx, " ".join(parts), stop=stop)
 
 
 @task(aliases=["docker-djcheck"])

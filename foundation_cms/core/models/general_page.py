@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ValidationError
 from wagtail.admin.panels import FieldPanel
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
@@ -93,6 +94,13 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         TranslatableField("button_title"),
         TranslatableField("button_url"),
         TranslatableField("body"),
+    ]
+
+    search_fields = AbstractGeneralPage.search_fields + [
+        index.SearchField("body", boost=6),
+        index.SearchField("hero_title", boost=4),
+        index.SearchField("hero_description", boost=4),
+        index.SearchField("hero_image_alt_text", boost=2),
     ]
 
     class Meta:
