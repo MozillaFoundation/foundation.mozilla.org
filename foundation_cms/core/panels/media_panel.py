@@ -14,6 +14,12 @@ class MediaPanel(MultiFieldPanel):
         kwargs.pop("video_field", None)
         super().__init__(children, **kwargs)
 
+    def clone_kwargs(self):
+        """Method to ensure trigger_field is included when cloning the panel for use in StreamField."""
+        kwargs = super().clone_kwargs()
+        kwargs["trigger_field"] = self.trigger_field
+        return kwargs
+
     @classmethod
     def create_default(cls, **kwargs):
         """Factory method to create a default MediaPanel instance."""
