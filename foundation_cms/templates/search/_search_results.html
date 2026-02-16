@@ -1,4 +1,12 @@
-{% load wagtailcore_tags wagtailimages_tags responsive_image_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags responsive_image_tags i18n static %}
+
+{% static 'foundation_cms/_images/fallbacks/listing-page-1.png' as listing_page_fallback_1 %}
+{% static 'foundation_cms/_images/fallbacks/listing-page-2.png' as listing_page_fallback_2 %}
+{% static 'foundation_cms/_images/fallbacks/listing-page-3.png' as listing_page_fallback_3 %}
+{% static 'foundation_cms/_images/fallbacks/listing-page-4.png' as listing_page_fallback_4 %}
+{% static 'foundation_cms/_images/fallbacks/listing-page-5.png' as listing_page_fallback_5 %}
+{% static 'foundation_cms/_images/fallbacks/listing-page-6.png' as listing_page_fallback_6 %}
+
 <ul class="search-results cell small-12">
   {% for result in search_results %}
     <li class="search-results__item">
@@ -7,6 +15,11 @@
           <a href="{% pageurl result %}" class="page-card__image-wrapper">
             {% if result.specific.search_image %}
               {% responsive_image result.specific.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
+            {% else %}
+              <img
+                src="{% cycle listing_page_fallback_1 listing_page_fallback_2 listing_page_fallback_3 listing_page_fallback_4 listing_page_fallback_5 listing_page_fallback_6 %}"
+                alt="{% translate 'Illustration placeholder' %}"
+              />
             {% endif %}
           </a>
         </div>
