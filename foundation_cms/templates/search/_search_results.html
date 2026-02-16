@@ -18,7 +18,9 @@
             {% else %}
               <img
                 src="{% cycle listing_page_fallback_1 listing_page_fallback_2 listing_page_fallback_3 listing_page_fallback_4 listing_page_fallback_5 listing_page_fallback_6 %}"
-                alt="{% translate 'Illustration placeholder' %}"
+                alt='{% translate "Illustration placeholder" %}'
+                width="600"
+                height="400"
               />
             {% endif %}
           </a>
