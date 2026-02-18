@@ -35,6 +35,7 @@
     "REVIEW_APP": "True",
     "SECURE_CROSS_ORIGIN_OPENER_POLICY": "same-origin-allow-popups",
     "SECURE_REFERRER_POLICY": "strict-origin-when-cross-origin",
+    "TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS": "",
     "XROBOTSTAG_ENABLED": "True"
   },
   "buildpacks": [

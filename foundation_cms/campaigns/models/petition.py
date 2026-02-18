@@ -41,11 +41,17 @@ class Petition(CTA):
     )
 
     share_facebook = models.CharField(
-        max_length=20, help_text="Share Progress id for facebook button, including the sp_... prefix", null=True
+        max_length=20,
+        help_text="Share Progress id for facebook button, including the sp_... prefix",
+        null=True,
+        blank=True,
     )
 
     share_email = models.CharField(
-        max_length=20, help_text="Share Progress id for email button, including the sp_... prefix", null=True
+        max_length=20,
+        help_text="Share Progress id for email button, including the sp_... prefix",
+        null=True,
+        blank=True,
     )
 
     translatable_fields = [

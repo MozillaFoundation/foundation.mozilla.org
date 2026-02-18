@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
@@ -53,7 +54,11 @@ def search(request):
     # Keep contributing pages when there are no results
     keep_contributing_pages = []
     if search_query and not search_results.object_list:
-        keep_contributing_pages = get_keep_contributing_pages()
+        # TODO: Temporary hardcoded page IDs via env var until we have enough pages to auto pull.
+        #       Revert to keep_contributing_pages = get_keep_contributing_pages() when ready.
+        hardcoded_pages = Page.objects.live().filter(id__in=settings.TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS)
+        localized_pages = localize_queryset(hardcoded_pages, preserve_order=True)
+        keep_contributing_pages = list(localized_pages.specific()[:2])
 
     return TemplateResponse(
         request,
