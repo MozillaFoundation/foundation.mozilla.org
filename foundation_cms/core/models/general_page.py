@@ -101,6 +101,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
         SynchronizedField("hero_image"),
+        SynchronizedField("hero_image_rounded_corners"),
         TranslatableField("hero_image_alt_text"),
         TranslatableField("button_title"),
         TranslatableField("button_url"),
