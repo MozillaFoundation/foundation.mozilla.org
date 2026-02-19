@@ -4,8 +4,9 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 
+from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
+
 from .blocks import BlogAuthorRoleBlock, GranteeRoleBlock, ResearcherRoleBlock
-from .constants import DEFAULT_RICH_TEXT_FEATURES
 
 
 @register_snippet
