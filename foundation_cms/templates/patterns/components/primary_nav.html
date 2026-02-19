@@ -38,8 +38,8 @@
             <a href="/what-we-do/" class="nav-link">{% trans "What We Do" %}</a>
 
             <div class="primary-nav-ns__dropdown">
-              <a href="/what-we-do/inspire/" class="nav-link">{% trans "Imagine" %}</a>
-              <a href="/what-we-do/make/" class="nav-link">{% trans "Co-create" %}</a>
+              <a href="/what-we-do/imagine/" class="nav-link">{% trans "Imagine" %}</a>
+              <a href="/what-we-do/co-create/" class="nav-link">{% trans "Co-create" %}</a>
               <a href="/what-we-do/mobilize/" class="nav-link">{% trans "Mobilize" %}</a>
             </div>
           </div>
@@ -55,6 +55,16 @@
         </div>
       </div>
 
+      <!-- Search input -->
+      <div class="primary-nav-ns__grid-cell primary-nav-ns__search-icon">
+        <a href="#" class="search-toggle" aria-label="{% trans "Toggle search input" %}">
+          <div class="search-toggle__inner">
+            <img class="search-toggle__open" src="{% static 'foundation_cms/_images/icons/search-black.svg' %}" alt="{% trans "Search" %}" width="24" height="24" />
+            <img class="search-toggle__close" src="{% static 'foundation_cms/_images/icons/search-close.svg' %}" alt="{% trans "Close" %}" width="24" height="24" />
+          </div>
+        </a>
+      </div>
+
       <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
         {% translate "Donate" as localized_donate_label %}
         {% include "patterns/components/button.html" with classnames="btn-primary--heart" url="?form=donate-header" label=localized_donate_label button_style="btn-primary" %}
@@ -63,3 +73,13 @@
     </div>
   </div>
 </nav>
+
+<div class="search-input-container">
+  <div class="grid-container">
+    <div class="grid-x">
+      <div class="cell small-12 large-8 large-offset-2 search-input-container__inner">
+        {% include "search/_search_form.html" with form_class="search-input-container__form" input_class="search-input-container__input" submit_classnames="search-input-container__submit-button" %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,266 @@
+@use "sass:map";
+@use "sass:math";
+@import "../redesign_base";
+@import "../components/nothing_personal/related_content";
+
+body.template-search-results {
+  $highlight-color: color(orange, "300");
+
+  .search-summary {
+    text-align: center;
+    margin: rem-calc(32) 0;
+
+    @include breakpoint(medium up) {
+      margin: rem-calc(64) 0;
+    }
+
+    h2 {
+      margin: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  }
+
+  .search-form-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1rem;
+
+    &.no-results {
+      margin-bottom: 2rem;
+
+      @include breakpoint(medium up) {
+        margin-bottom: 4rem;
+      }
+    }
+  }
+
+  .search-results {
+    margin: rem-calc(32) 0;
+    padding: 0;
+    list-style-type: none;
+
+    @include breakpoint(medium up) {
+      margin: rem-calc(64) 0;
+    }
+
+    &__item {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .page-card {
+    $image-hover-scale: 105%;
+
+    gap: 1rem 0;
+
+    &__image-wrapper {
+      border-top-right-radius: 32px;
+      border-bottom-left-radius: 32px;
+      overflow: hidden;
+      background: $highlight-color;
+      aspect-ratio: math.div(3, 2);
+      display: block;
+      align-self: center;
+      width: 100%;
+      height: auto;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $highlight-color;
+      }
+
+      &:hover {
+        img {
+          transform: scale($image-hover-scale);
+        }
+      }
+    }
+
+    &__meta-wrapper {
+      display: flex;
+    }
+
+    &__meta {
+      margin: 0;
+
+      @include breakpoint(medium up) {
+        padding-top: 1px;
+      }
+    }
+
+    &__tags {
+      margin: 0 0 1rem;
+
+      @include breakpoint(medium up) {
+        margin: 0 0 1.5rem;
+      }
+
+      .btn-topic {
+        &:focus-visible {
+          outline: 2px solid $highlight-color;
+        }
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+      margin: 0 0 1rem;
+
+      > a {
+        text-decoration: none;
+        color: map.get($mofo-colors, black);
+
+        &:where(:hover) {
+          text-decoration: underline $highlight-color;
+        }
+
+        &:where(:focus-visible) {
+          text-decoration: underline $highlight-color;
+          outline: none;
+        }
+      }
+    }
+
+    &__author,
+    &__date {
+      @include mofo-text-style($body-text-styles, "small");
+    }
+
+    &__author + .page-card__date::before {
+      content: "|";
+      color: color(neutral, "400");
+      margin: 0 0.5rem;
+      display: inline-block;
+    }
+
+    &__description {
+      @include text-line-clamp(4);
+
+      margin: 0.5rem 0;
+
+      @include breakpoint(medium up) {
+        margin: 1.5rem 0 1rem;
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 4rem;
+
+    @include breakpoint(medium up) {
+      margin: 0 0 8rem;
+    }
+
+    &__pages {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+
+    .btn-secondary {
+      margin: 0;
+
+      &.hidden {
+        visibility: hidden;
+      }
+
+      @include breakpoint(small only) {
+        padding: 1rem;
+      }
+
+      &__roller {
+        @include breakpoint(medium down) {
+          display: none;
+        }
+      }
+    }
+
+    &__page a,
+    &__page span,
+    &__ellipsis span {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      color: $black;
+      text-decoration: none;
+      width: 2rem;
+
+      @include breakpoint(medium up) {
+        width: rem-calc(56);
+      }
+
+      &.current {
+        background: color(neutral, "200");
+      }
+    }
+
+    &__previous a {
+      flex-direction: row-reverse;
+
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__page a:hover {
+      color: $highlight-color;
+      text-decoration: underline $highlight-color;
+    }
+
+    &__previous a:hover,
+    &__next a:hover {
+      background: $black;
+      color: color(neutral, "100");
+      text-decoration: none;
+
+      &::after {
+        background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
+      }
+    }
+
+    &__page a:focus-visible,
+    &__previous a:focus-visible,
+    &__next a:focus-visible {
+      outline: 2px solid $highlight-color;
+    }
+  }
+
+  .search-no-results-topics {
+    margin: rem-calc(32) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include breakpoint(medium up) {
+      margin: rem-calc(64) 0;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .related-content-wrapper {
+    margin-bottom: 2rem;
+
+    @include breakpoint(medium up) {
+      margin-bottom: 4rem;
+    }
+  }
+}

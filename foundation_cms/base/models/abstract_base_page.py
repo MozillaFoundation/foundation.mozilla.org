@@ -10,6 +10,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -22,6 +23,7 @@ BASE_BLOCK_NAMES = sorted(
         "accordion_block",
         "rich_text",
         "image",
+        "image_grid",
         "podcast_block",
         "tabbed_content",
         "two_column_container_block",
@@ -149,6 +151,30 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         TranslatableField("title"),
         # Settings tab fields
         SynchronizedField("theme"),
+    ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField("title", boost=10),
+        index.SearchField("seo_title", boost=8),
+        index.SearchField("search_description", boost=8),
+        index.SearchField("body", boost=5),
+        # Locale filtering based on current locale ID
+        index.FilterField("locale_id"),
+        # Related fields searching
+        index.RelatedFields(
+            "author",
+            [
+                index.SearchField("name", boost=4),
+                index.SearchField("bio", boost=2),
+            ],
+        ),
+        index.RelatedFields(
+            "topics",
+            [
+                index.SearchField("name", boost=4),
+                index.SearchField("description", boost=2),
+            ],
+        ),
     ]
 
     class Meta:

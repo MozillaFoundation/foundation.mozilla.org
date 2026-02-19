@@ -1,3 +1,4 @@
+@use "sass:list";
 @import "../colors";
 
 $hamburger-bar-spacing: 0.8rem;
@@ -7,6 +8,24 @@ $hamburger-bar-spacing: 0.8rem;
 
 $primary-nav-height: rem-calc(88);
 $primary-nav-margin: 0.7rem;
+
+// Set max-widths for top-level menu links by item order at a given breakpoint.
+// Usage:
+// @include primary-nav-menu-item-max-widths(large, 7rem, 6rem, 5rem, 8rem);
+// Pass `null` to skip an item index.
+@mixin primary-nav-menu-item-max-widths($bp, $widths...) {
+  @include breakpoint(#{$bp} up) {
+    @for $i from 1 through list.length($widths) {
+      $w: list.nth($widths, $i);
+
+      @if $w {
+        .primary-nav-ns__menu-item:nth-child(#{$i}) > a {
+          max-width: $w;
+        }
+      }
+    }
+  }
+}
 
 .primary-nav-ns {
   position: sticky;
@@ -34,7 +53,8 @@ $primary-nav-margin: 0.7rem;
     transition: all 0.3s ease-in-out;
 
     @include breakpoint(large up) {
-      gap: 3rem;
+      gap: 1.5rem;
+      flex-flow: row nowrap;
 
       &:not(.hidden-wordmark) {
         padding-left: calc(229px + 3rem);
@@ -100,11 +120,61 @@ $primary-nav-margin: 0.7rem;
     }
   }
 
+  &__search-icon {
+    @include breakpoint(large up) {
+      order: 2;
+    }
+
+    .search-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      cursor: pointer;
+
+      &__inner {
+        width: rem-calc(24);
+        height: rem-calc(24);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+
+        img {
+          transition: transform 0.3s ease-in-out;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+
+      &__close {
+        padding: rem-calc(4);
+        transform: translateY(100%);
+      }
+
+      &.search-open {
+        .search-toggle__open {
+          transform: translateY(-100%);
+        }
+
+        .search-toggle__close {
+          transform: translateY(0%);
+        }
+
+        border-bottom: 1px solid color(orange, "300");
+      }
+    }
+  }
+
   &__donate {
     order: 1;
 
     @include breakpoint(large up) {
-      order: 2;
+      order: 3;
     }
   }
 
@@ -121,6 +191,8 @@ $primary-nav-margin: 0.7rem;
   }
 
   &__dropdown {
+    $side-padding-desktop: 2rem;
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -131,10 +203,11 @@ $primary-nav-margin: 0.7rem;
     opacity: 0;
 
     @include breakpoint(large up) {
-      width: auto;
       position: absolute;
       top: calc(100% + 1rem);
-      left: -2rem;
+      left: -$side-padding-desktop;
+      width: max-content;
+      max-width: rem-calc(224);
       background: $white;
       border: 1px solid color(orange, "100");
       border-radius: 1rem;
@@ -151,7 +224,7 @@ $primary-nav-margin: 0.7rem;
 
       @include breakpoint(large up) {
         margin: 0;
-        padding: 0.5rem 4rem 0.5rem 2rem;
+        padding: 0.5rem $side-padding-desktop;
         text-decoration: none;
         font-family: "Mozilla Text", sans-serif;
         font-size: 1rem;
@@ -226,6 +299,7 @@ $primary-nav-margin: 0.7rem;
 
         @include breakpoint(large up) {
           width: auto;
+          max-width: 7rem;
           font-size: 1rem;
           padding: 0;
           height: calc($primary-nav-height - #{$primary-nav-margin * 2});
@@ -235,6 +309,10 @@ $primary-nav-margin: 0.7rem;
           text-decoration: none;
           align-items: center;
           line-height: 1.2;
+        }
+
+        @include breakpoint(xlarge up) {
+          max-width: none;
         }
 
         &:hover {
@@ -296,18 +374,68 @@ body.primary-nav-ns-open {
   }
 }
 
+// Language-specific max-widths for top-level menu items
+// This is coupled with the order of menu items in each language.
 html[lang="de"] body .primary-nav-ns {
-  .primary-nav-ns__menu-item > a {
-    @include breakpoint(large up) {
-      max-width: 8.5rem;
-    }
-  }
+  @include primary-nav-menu-item-max-widths(large, 6rem, 4rem, 4rem, 5rem);
+  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
 }
 
 html[lang="fr"] body .primary-nav-ns {
-  .primary-nav-ns__menu-item > a {
+  @include primary-nav-menu-item-max-widths(large, 6rem, 5rem, 5rem, 5rem);
+  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
+}
+
+html[lang="nl"] body .primary-nav-ns {
+  @include primary-nav-menu-item-max-widths(large, 6rem, 5rem, 5rem, 5rem);
+  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
+}
+
+.search-open-backdrop {
+  position: fixed;
+  top: $primary-nav-height;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - #{$primary-nav-height});
+  background: rgba(0 0 0 / 30%);
+  z-index: 8;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  opacity: 0;
+}
+
+body:has(.search-input-container.search-open) {
+  .search-open-backdrop {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+.search-input-container {
+  background: $white;
+  max-height: 0;
+  will-change: max-height;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9;
+  top: $primary-nav-height;
+  width: 100vw;
+
+  .grid-container {
+    padding-top: rem-calc(104);
+    padding-bottom: rem-calc(104);
+
     @include breakpoint(large up) {
-      max-width: 8rem;
+      padding-top: rem-calc(122);
+      padding-bottom: rem-calc(122);
     }
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1rem;
   }
 }

@@ -130,8 +130,8 @@ class BuyersGuideProductCategory(
     ]
 
     search_fields = [
-        index.SearchField("name", boost=10),
-        index.AutocompleteField("name", boost=10),
+        index.SearchField("name", boost=4),
+        index.AutocompleteField("name", boost=4),
         index.FilterField("locale_id"),
         index.FilterField("featured"),
         index.FilterField("hidden"),

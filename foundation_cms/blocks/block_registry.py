@@ -9,6 +9,7 @@ from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
+from .image_grid_block import ImageGridBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
@@ -76,6 +77,10 @@ class BlockRegistry:
         },
         "timely_activations_cards": {
             "class": TimelyActivationsCardsBlock,
+            "group": BlockGroups.CARDS,
+        },
+        "image_grid": {
+            "class": ImageGridBlock,
             "group": BlockGroups.CARDS,
         },
         # Data Display

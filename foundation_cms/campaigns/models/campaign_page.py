@@ -14,6 +14,7 @@ from wagtail.admin.panels import (
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page, TranslatableMixin
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models import AbstractBasePage
@@ -194,6 +195,20 @@ class CampaignPage(AbstractBasePage):
         SynchronizedField("thank_you_image"),
         SynchronizedField("keep_contributing_pages"),
         SynchronizedField("keep_contributing_topic"),
+    ]
+
+    search_fields = AbstractBasePage.search_fields + [
+        index.SearchField("body", boost=8),
+        # Campaign topic relationships
+        index.RelatedFields(
+            "keep_contributing_topic",
+            [
+                index.SearchField("name", boost=4),
+            ],
+        ),
+        # Campaign filters
+        index.FilterField("first_published_at"),
+        index.FilterField("live"),
     ]
 
     subpage_types = [

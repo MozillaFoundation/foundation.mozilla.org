@@ -161,4 +161,17 @@
       }
     }
   }
+
+  &--sharp-corners {
+    // Side by side: remove border-radius from the top-right corner of the media container
+    &.hero__wrapper--side-by-side .hero__media {
+      border-top-right-radius: 0;
+    }
+
+    // Top to bottom: remove border-radius from the media container
+    &.hero__wrapper--top-to-bottom .hero__media {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
 }
