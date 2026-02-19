@@ -46,7 +46,8 @@ class BlockRegistry:
     It manages blocks that content editors can choose to add to StreamFields.
 
     Note:
-    This registry is NOT needed for blocks used as fields within StructBlocks or embedded StreamBlocks inside other blocks.
+    This registry is NOT needed for blocks used as fields within StructBlocks
+    or embedded StreamBlocks inside other blocks.
     Those should be instantiated directly with their specific configuration.
     """
 
