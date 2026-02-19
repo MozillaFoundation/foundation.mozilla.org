@@ -44,6 +44,16 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         help_text="Check to display the hero section on this page.",
     )
 
+    hero_image_rounded_corners = models.BooleanField(
+        default=True,
+        verbose_name="Hero Image Rounded Corners",
+        help_text=(
+            "By default, rounded corners are applied "
+            "(top-right corner for 'Side by Side', both top corners for 'Top to Bottom'). "
+            "Uncheck to remove rounded corners."
+        ),
+    )
+
     button_title = models.CharField(
         verbose_name="Button Text",
         max_length=250,
@@ -72,6 +82,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
                     help_text="Top to Bottom variant crops image to 16:9; Side by Side variant crops image to 1:1.",
                 ),
                 FieldPanel("hero_image_alt_text"),
+                FieldPanel("hero_image_rounded_corners"),
             ],
             heading="Hero Section",
             classname="collapsible",
@@ -90,6 +101,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
         SynchronizedField("hero_image"),
+        SynchronizedField("hero_image_rounded_corners"),
         TranslatableField("hero_image_alt_text"),
         TranslatableField("button_title"),
         TranslatableField("button_url"),
