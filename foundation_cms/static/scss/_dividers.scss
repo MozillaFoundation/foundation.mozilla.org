@@ -16,11 +16,11 @@
     @include divider-base;
   }
 
-  @if $height != null {
+  @if $height {
     height: $height;
   }
 
-  @if $margin-y != null {
+  @if $margin-y {
     margin-top: $margin-y;
     margin-bottom: $margin-y;
   }
@@ -51,7 +51,9 @@ $loop-line-image: "/static/foundation_cms/_images/handdrawn/loop-line-divider.sv
   $size: auto 100%
 ) {
   @include divider-base;
+
   height: $mobile-height;
+
   @include loop-line-divider-bg($size);
 
   @include breakpoint(large up) {

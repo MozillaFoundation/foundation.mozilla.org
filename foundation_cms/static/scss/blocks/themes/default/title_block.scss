@@ -82,6 +82,7 @@ body.redesign {
         width: 100%;
         height: rem-calc(45);
         top: 0;
+
         @include loop-line-divider-bg;
 
         @include breakpoint(large up) {

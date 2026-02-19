@@ -49,6 +49,7 @@ body.nothing-personal.nothing-personal-podcast-page {
 
     &__divider {
       @include loop-line-divider;
+
       margin: 0.5rem 0 0;
 
       @include breakpoint(medium up) {

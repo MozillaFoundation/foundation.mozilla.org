@@ -1,6 +1,7 @@
 hr.divider {
   &--loop-line {
     border: none;
+
     @include loop-line-divider;
   }
 }
