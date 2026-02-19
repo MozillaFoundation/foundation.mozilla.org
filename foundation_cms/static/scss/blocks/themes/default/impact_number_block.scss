@@ -5,20 +5,6 @@
   // ===================================
   // Variables
   // ===================================
-  $stat-colors: (
-    1: (
-      "background-color": color(orange, "400"),
-      "shape-color": color(blue, "200"),
-    ),
-    2: (
-      "background-color": color(yellow, "200"),
-      "shape-color": color(green, "200"),
-    ),
-    3: (
-      "background-color": color(blue, "600"),
-      "shape-color": color(orange, "200"),
-    ),
-  );
   $layout-breakpoint: medium;
   $digit-height: (
     small: math.max(
