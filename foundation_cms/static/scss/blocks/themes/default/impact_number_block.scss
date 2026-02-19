@@ -26,7 +26,7 @@
         1
       ),
     large: math.max(
-        get-text-property($header-styles, "h1", "line-height", "large"),
+        get-text-property($header-styles, "h2", "line-height", "large"),
         1
       ),
   );
@@ -87,6 +87,7 @@
       @include breakpoint(large up) {
         padding: rem-calc(24);
         justify-content: normal;
+        text-align: center;
       }
     }
 
@@ -95,7 +96,7 @@
 
       @include apply-text-style(
         $header-styles,
-        "h6",
+        "h4",
         "small",
         $header-font-family
       );
@@ -103,7 +104,7 @@
       @include breakpoint(large up) {
         @include apply-text-style(
           $header-styles,
-          "h5",
+          "h4",
           "large",
           $header-font-family
         );
@@ -138,7 +139,7 @@
       @include breakpoint(large up) {
         @include apply-text-style(
           $header-styles,
-          "h1",
+          "h2",
           "large",
           $header-font-family
         );
@@ -168,7 +169,7 @@
       @include breakpoint(large up) {
         @include apply-text-style(
           $header-styles,
-          "h1",
+          "h2",
           "large",
           $header-font-family
         );
@@ -200,22 +201,19 @@
 
   .impact-stat:nth-child(3n + 1) {
     .impact-stat__number {
-      background-color: map.get(map.get($stat-colors, 1), "background-color");
-      background-image: url("/static/foundation_cms/_images/shapes/blue/blue200-1.svg");
+      background-image: url("/static/foundation_cms/_images/shapes/orange/orange300-1.svg");
     }
   }
 
   .impact-stat:nth-child(3n + 2) {
     .impact-stat__number {
-      background-color: map.get(map.get($stat-colors, 2), "background-color");
-      background-image: url("/static/foundation_cms/_images/shapes/green/green200-1.svg");
+      background-image: url("/static/foundation_cms/_images/shapes/yellow/yellow300-1.svg");
     }
   }
 
   .impact-stat:nth-child(3n + 3) {
     .impact-stat__number {
-      background-color: map.get(map.get($stat-colors, 3), "background-color");
-      background-image: url("/static/foundation_cms/_images/shapes/orange/orange200-1.svg");
+      background-image: url("/static/foundation_cms/_images/shapes/blue/blue300-1.svg");
     }
   }
 
