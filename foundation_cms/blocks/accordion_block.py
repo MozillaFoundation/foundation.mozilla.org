@@ -8,7 +8,7 @@ class AccordionBlockItem(BaseBlock):
     title = CharBlock(required=True, help_text="Heading for the Accordion Item")
     content = StreamBlock(
         [
-            ("rich_text", CustomRichTextBlock),
+            ("rich_text", CustomRichTextBlock()),
         ],
         required=False,
         use_json_field=True,
