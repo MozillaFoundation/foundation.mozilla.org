@@ -48,15 +48,10 @@ body.nothing-personal.nothing-personal-podcast-page {
     }
 
     &__divider {
-      height: rem-calc(45);
-      background-image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-large.svg");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: auto 100%;
+      @include loop-line-divider;
       margin: 0.5rem 0 0;
 
       @include breakpoint(medium up) {
-        height: 3.5rem;
         margin-top: 4rem;
       }
     }

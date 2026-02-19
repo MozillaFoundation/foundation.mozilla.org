@@ -47,6 +47,10 @@
 
       &-divider {
         margin-bottom: 4rem;
+
+        .loop-line-divider {
+          @include loop-line-divider;
+        }
       }
 
       ul {
