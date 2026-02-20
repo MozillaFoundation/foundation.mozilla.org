@@ -40,7 +40,11 @@
 {% block donate_banner %}{% endblock %}
 
 {% block primary_nav %}
-    {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
+    {% if parent_homepage == "redesign" %}
+        {% include "patterns/components/primary_nav.html" %}
+    {% else %}
+        {% include "partials/primary_mozfest_nav.html" with background="simple-background" %}
+    {% endif %}
 {% endblock %}
 
 
@@ -63,7 +67,11 @@
 
 
 {% block footer_block %}
-    {% include "../partials/mozfest_footer.html" %}
+    {% if parent_homepage == "redesign" %}
+        {% include "patterns/components/footer.html" %}
+    {% else %}
+        {% include "../partials/mozfest_footer.html" %}
+    {% endif %}
 {% endblock %}
 
 
@@ -72,4 +80,5 @@
     {# This uses the mofo main.js for now, to make sure "things work" until we (maybe never?) create a separate bundle #}
     <script src="{% static "legacy_apps/_js/main.compiled.js" %}"></script>
     <script src="{% static "legacy_apps/_js/mozfest.compiled.js" %}"></script>
+    <script src="{% static "foundation_cms/_js/redesign_migrated_content.compiled.js" %}"></script>
 {% endblock %}
