@@ -7,9 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailcore", "0094_alter_page_locale"),
-        ("snippets", "0009_remove_new_from_verbose_name"),
-        ("core", "0062_alter_generalpage_body_alter_homepage_body"),
+        ("core", "0065_generalpage_hero_image_rounded_corners"),
     ]
 
     operations = [
