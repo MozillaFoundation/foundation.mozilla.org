@@ -3,7 +3,6 @@ from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
-from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.nav import blocks as nav_blocks
@@ -38,24 +37,12 @@ class NavMenu(
         TranslatableField("dropdowns"),
     ]
 
-    search_fields = [
-        index.SearchField("title"),
-    ]
-
     class Meta(wagtail_models.TranslatableMixin.Meta):
         verbose_name = "Navigation Menu"
         verbose_name_plural = "Navigation Menus"
 
     def __str__(self) -> str:
         return self.title
-
-    def get_preview_template(self, request, mode_name):
-        return "previews/nav/menu.html"
-
-    def get_preview_context(self, request, mode_name):
-        context = super().get_preview_context(request, mode_name)
-        return context
-
 @register_setting(icon="nav-menu")
 class SiteNavMenu(BaseSiteSetting):
     select_related = ["active_nav_menu"]
