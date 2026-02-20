@@ -1,0 +1,11 @@
+<div class="primary-nav-ns__menu-item">
+  {% include "patterns/components/link.html" with value=value.header classnames="nav-link" %}
+
+  {% if value.dropdown_items %}
+    <div class="primary-nav-ns__dropdown">
+      {% for item in value.dropdown_items %}
+        {% include "patterns/components/link.html" with value=item classnames="nav-link" %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
