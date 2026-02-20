@@ -47,8 +47,9 @@ def register_large_feature(features):
             'span[class="body-text-large"]': InlineStyleElementHandler(type_),
             'span[class="tw-body-large body-text-large"]': InlineStyleElementHandler(type_),
             'span[class="body-text-large tw-body-large"]': InlineStyleElementHandler(type_),
+            'span[class="rich-text-large"]': InlineStyleElementHandler(type_),
         },
-        "to_database_format": {"style_map": {type_: 'span class="tw-body-large body-text-large"'}},
+        "to_database_format": {"style_map": {type_: 'span class="rich-text-large"'}},
     }
 
     # 5. Call register_converter_rule to register the content transformation conversion.
