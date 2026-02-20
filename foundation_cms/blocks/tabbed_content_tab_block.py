@@ -1,5 +1,6 @@
 from wagtail import blocks
 
+from .custom_rich_text_block import CustomRichTextBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .text_image_block import TextImageBlock
 
@@ -9,7 +10,7 @@ class TabbedContentTabBlock(blocks.StructBlock):
     subtitle = blocks.CharBlock(required=False, help_text="Subtitle shown under the title on the tab")
     content = blocks.StreamBlock(
         [
-            ("rich_text", blocks.RichTextBlock()),
+            ("rich_text", CustomRichTextBlock()),
             ("text_image", TextImageBlock()),
             ("tab_card_set", TabbedContentCardSetBlock()),
         ],

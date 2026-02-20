@@ -19,6 +19,7 @@ from foundation_cms.blocks import (
     TextMediaBlock,
     TwoColumnContainerBlock,
 )
+from foundation_cms.constants import RICH_TEXT_BASE_OPTIONS
 from foundation_cms.utils import localize_queryset
 
 
@@ -62,7 +63,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     tagline = RichTextField(
         blank=True,
-        features=["bold", "italic", "link"],
+        features=RICH_TEXT_BASE_OPTIONS,
         help_text="Tagline displayed above the featured articles (max ~150 chars).",
     )
 
