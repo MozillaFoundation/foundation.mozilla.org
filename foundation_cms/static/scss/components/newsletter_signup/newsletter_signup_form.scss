@@ -1,11 +1,11 @@
 @use "sass:math";
 
+// Newsletter signup form stylings
+// The form is currently used in the newsletter signup block, and the site footer.
 .newsletter-signup {
-  &__link {
-    color: inherit;
-    text-decoration: none;
-  }
+  margin-bottom: 2rem;
 
+  // Form / Layout Stylings
   &__form {
     &--hidden {
       display: none;
@@ -18,29 +18,64 @@
     gap: 0.5rem;
   }
 
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include breakpoint(medium up) {
+      flex: 1;
+    }
+
+    @include breakpoint(xlarge up) {
+      min-width: 17rem;
+    }
+  }
+
   &__cta-wrapper {
     @include breakpoint(xlarge up) {
       align-self: center;
     }
   }
 
-  &__error-message {
-    @include mofo-text-style($body-text-styles, "xsmall");
+  &__link {
+    color: inherit;
+    text-decoration: none;
+  }
 
-    color: color(orange, "600");
-    margin-bottom: 1rem;
-    background-color: color(neutral, "100");
-    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
-    background-size: 0.75rem auto;
-    background-position: 0.75rem 0.66rem;
-    background-repeat: no-repeat;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem 0.5rem 2rem;
+  // Input and  Stylings
+  &__input {
+    background: $white;
+    border: 1px solid $white;
+    border-radius: 0;
+    width: 100%;
+    padding: calc(1rem - 2px) 1.25rem;
     line-height: 150%;
 
-    &--hidden {
-      display: none;
+    &::placeholder {
+      color: $black;
+    }
+
+    &:hover {
+      border: 1px solid color(neutral, "600");
+    }
+
+    &:focus-visible {
+      outline: none;
+      border: 1px solid color(neutral, "600");
+    }
+  }
+
+  select.newsletter-signup__input {
+    appearance: none;
+    background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+    color: $black;
+
+    option {
+      color: color(neutral, "600");
     }
   }
 
@@ -67,28 +102,86 @@
     }
   }
 
-  &__input {
-    background: $white;
-    border: 1px solid $white;
-    border-radius: 0;
-    width: 100%;
-    padding: calc(1rem - 2px) 1.25rem;
+  // Error message stylings
+  &__error-message {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    color: color(orange, "600");
+    margin-bottom: 1rem;
+    background-color: color(neutral, "100");
+    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
+    background-size: 0.75rem auto;
+    background-position: 0.75rem 0.66rem;
+    background-repeat: no-repeat;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem 0.5rem 2rem;
     line-height: 150%;
 
-    &::placeholder {
-      color: $black;
-    }
-
-    &:hover {
-      border: 1px solid color(neutral, "600");
-    }
-
-    &:focus-visible {
-      outline: none;
-      border: 1px solid color(neutral, "600");
+    &--hidden {
+      display: none;
     }
   }
 
+  &__field-error {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
+    color: color(orange, "600");
+    margin-top: 0.5rem;
+    background-color: color(neutral, "100");
+    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
+    background-size: 0.75rem auto;
+    background-position: 0.75rem center;
+    background-repeat: no-repeat;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    line-height: 150%;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  // Field styling (checkbox + label)
+  &__field {
+    &--hidden {
+      display: none;
+    }
+
+    label {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        appearance: none;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
+        position: relative;
+        background-color: $white;
+
+        &:checked {
+          background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: rem-calc(12) auto;
+        }
+
+        &:hover {
+          border: 1px solid color(neutral, "600");
+          box-shadow: 1px 1px 0 0 color(neutral, "600");
+        }
+      }
+    }
+  }
+
+  // Success state (post-submit layout)
   &__success-message {
     display: flex;
     flex-direction: column;
@@ -162,43 +255,6 @@
     }
   }
 
-  &__field {
-    &--hidden {
-      display: none;
-    }
-
-    label {
-      @include mofo-text-style($body-text-styles, "xsmall");
-
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      cursor: pointer;
-
-      input[type="checkbox"] {
-        appearance: none;
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 1.5rem;
-        display: inline-block;
-        position: relative;
-        background-color: $white;
-
-        &:checked {
-          background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: rem-calc(12) auto;
-        }
-
-        &:hover {
-          border: 1px solid color(neutral, "600");
-          box-shadow: 1px 1px 0 0 color(neutral, "600");
-        }
-      }
-    }
-  }
-
   .newsletter-signup__form-grid {
     @include breakpoint(medium up) {
       flex-direction: row;
@@ -209,6 +265,7 @@
     }
   }
 
+  // "Expand On Focus" form specific stylings
   &[data-layout="expand_on_focus"] {
     &:has(> .newsletter-signup__form--hidden) {
       &::before {
@@ -232,57 +289,9 @@
       }
     }
   }
-
-  select.newsletter-signup__input {
-    appearance: none;
-    background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 3rem;
-    color: $black;
-
-    option {
-      color: color(neutral, "600");
-    }
-  }
-
-  &__field-error {
-    @include mofo-text-style($body-text-styles, "xsmall");
-
-    color: color(orange, "600");
-    margin-top: 0.5rem;
-    background-color: color(neutral, "100");
-    background-image: url("/static/foundation_cms/_images/icons/input-feedback-error.svg");
-    background-size: 0.75rem auto;
-    background-position: 0.75rem center;
-    background-repeat: no-repeat;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem 0.5rem 2rem;
-    line-height: 150%;
-
-    &--hidden {
-      display: none;
-    }
-  }
-
-  &__fieldset {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    @include breakpoint(medium up) {
-      flex: 1;
-    }
-
-    @include breakpoint(xlarge up) {
-      min-width: 17rem;
-    }
-  }
-
-  margin-bottom: 2rem;
 }
 
+// Newsletter signup block specific stylings
 .newsletter-signup-block .newsletter-signup {
   background-color: color(orange, "100");
   border-top-right-radius: 1.5rem;
@@ -296,6 +305,7 @@
     padding: 2rem;
   }
 
+  // Block-specific typography
   &__cta-header {
     @include mofo-text-style($header-styles, "h6", $header-font-family);
 
@@ -312,6 +322,17 @@
     margin: 0;
   }
 
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  // "Expand On Focus" form specific stylings
   &[data-layout="expand_on_focus"] {
     .newsletter-signup__form {
       @include breakpoint(xlarge up) {
@@ -335,6 +356,7 @@
       align-items: start;
     }
 
+    // Decorative rays for the block variant.
     &::before {
       display: block;
       content: "";
@@ -370,6 +392,7 @@
     }
   }
 
+  // "Expanded" form specific stylings
   &[data-layout="expanded"] {
     @include breakpoint(medium up) {
       padding: 4rem 3rem;
@@ -386,6 +409,7 @@
         flex-direction: column;
         justify-content: center;
 
+        // Decorative rays for the block variant.
         &::before {
           display: block;
           content: "";
@@ -411,16 +435,6 @@
         padding: 0;
         margin: -2rem 0;
       }
-    }
-  }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    &--hidden {
-      display: none;
     }
   }
 }
