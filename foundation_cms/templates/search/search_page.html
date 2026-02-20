@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+{% load static i18n %}
+
+{% block wagtail_metadata %} {% endblock wagtail_metadata %}
+
+{% block title %}{% trans "Search" %}{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/search_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}template-search-results{% endblock body_class %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="grid-x">
+            {% if search_query %}
+                <div class="cell small-12">
+                    {% include "search/_search_summary.html" %}
+                </div>
+
+                <div class="cell small-12 large-8 large-offset-2 search-form-wrapper{% if not search_results %} no-results{% endif %}">
+                    {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
+                </div>
+
+                {% if search_results %}
+                    {% include "search/_search_results.html" %}
+                    {% include "search/_pagination.html" %}
+                {% else %}
+                    {% if keep_contributing_pages|length >= 2 %}
+                        <div class="cell small-12 related-content-wrapper">
+                            {% trans "Latest Stories" as localized_suggested_heading %}
+                            {% with heading=localized_suggested_heading items=keep_contributing_pages image_ratio="3:2" show_author=True image_field="search_image" %}
+                                {% include "patterns/components/nothing_personal/related_content.html" %}
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

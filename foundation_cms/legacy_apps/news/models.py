@@ -91,9 +91,9 @@ class News(TranslatableMixin, models.Model):
     objects = NewsQuerySet.as_manager()
 
     search_fields = [
-        index.SearchField("headline", boost=10),
-        index.SearchField("outlet"),
-        index.SearchField("author"),
+        index.SearchField("headline", boost=4),
+        index.SearchField("outlet", boost=2),
+        index.SearchField("author", boost=2),
         index.FilterField("locale_id"),
         index.FilterField("is_video"),
     ]

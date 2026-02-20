@@ -1,4 +1,5 @@
 from wagtail.admin.panels import FieldPanel
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
@@ -31,6 +32,11 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
         SynchronizedField("hero_video_url"),
         TranslatableField("lede_text"),
         TranslatableField("body"),
+    ]
+
+    search_fields = AbstractArticlePage.search_fields + [
+        index.SearchField("lede_text", boost=6),
+        index.SearchField("hero_image_alt_text", boost=2),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]

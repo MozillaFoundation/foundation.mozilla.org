@@ -97,6 +97,7 @@ env = environ.Env(
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
+    TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS=(list, []),
 )
 
 # Read in the environment
@@ -413,6 +414,7 @@ TEMPLATES = [
                 "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
                 "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
                 "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
+                "url_query": "foundation_cms.templatetags.url_query",
                 "wagtailcustom_tags": (
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
@@ -601,9 +603,41 @@ WAGTAILEMBEDS_FINDERS = [
 # Wagtail search
 
 WAGTAILSEARCH_BACKENDS = {
+    "en": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "english",
+        "AUTO_UPDATE": True,
+    },
+    "de": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "german",
+        "AUTO_UPDATE": True,
+    },
+    "es": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "spanish",
+        "AUTO_UPDATE": True,
+    },
+    "fr": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "french",
+        "AUTO_UPDATE": True,
+    },
+    "nl": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "dutch",
+        "AUTO_UPDATE": True,
+    },
+    "pt-BR": {
+        "BACKEND": "wagtail.search.backends.database",
+        "SEARCH_CONFIG": "portuguese",
+        "AUTO_UPDATE": True,
+    },
     "default": {
         "BACKEND": "wagtail.search.backends.database",
-    }
+        "SEARCH_CONFIG": "simple",  # Support pl, fy-NL, sw
+        "AUTO_UPDATE": True,
+    },
 }
 
 # Wagtail redirects
@@ -786,6 +820,9 @@ REVIEW_APP_HEROKU_API_KEY = env("REVIEW_APP_HEROKU_API_KEY", default=None)
 REVIEW_APP_CLOUDFLARE_ZONE_ID = env("REVIEW_APP_CLOUDFLARE_ZONE_ID", default=None)
 REVIEW_APP_CLOUDFLARE_TOKEN = env("REVIEW_APP_CLOUDFLARE_TOKEN", default=None)
 REVIEW_APP_DOMAIN = env("REVIEW_APP_DOMAIN", default=None)
+
+# TODO: Temporary solution until we have enough pages to auto pull and showcase there
+TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS = [int(id) for id in env("TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS") if id]
 
 # Make sure the docker internal IP is a known internal IP, so that "debug" in templates works
 if DEBUG:

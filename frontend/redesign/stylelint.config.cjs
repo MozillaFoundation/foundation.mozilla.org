@@ -1,15 +1,10 @@
 // Using CommonJS (.cjs) to avoid the need for --config-type=module (only in Stylelint v16+).
-// We're on Stylelint v15 for compatibility with stylelint-scss, since v5.3.x breaks on Node 20.
-// This avoids runtime issues and works better with Yarn v1, CI, and cross-platform setups.
+// We're on Stylelint v17 with stylelint-scss v7 for the latest features and Node 20+ support.
 
 module.exports = {
   customSyntax: "postcss-scss",
   extends: [
     "stylelint-config-standard-scss",
-    // Add "stylelint-config-prettier" last to disable any Stylelint rules that would conflict with Prettier's formatting.
-    // This ensures that Prettier handles all code style decisions (e.g., spacing, indentation, line breaks),
-    // and Stylelint focuses only on code quality and SCSS best practices — not formatting.
-    "stylelint-config-prettier",
   ],
   ignoreFiles: [
     "../../foundation_cms/static/scss/settings/customized-settings.scss",
@@ -29,6 +24,8 @@ module.exports = {
     ],
     // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
+    // Disable deprecated rule
+    "scss/at-import-no-partial-leading-underscore": null,
     // Disallow relative image paths
     "declaration-property-value-disallowed-list": [
       {
@@ -45,5 +42,6 @@ module.exports = {
         message: "Use absolute paths (starting with /) for images instead of relative paths",
       }
     ],
+    "no-descending-specificity": null,
   },
 };

@@ -1,0 +1,50 @@
+// Shared search form styles used by:
+// - Search results page: .search-form__*
+// - Primary nav: .search-input-container__*
+
+.search-form,
+.search-input-container__inner form {
+  display: contents;
+}
+
+.search-form__input,
+.search-input-container__input {
+  border-radius: 0;
+  border: 1px solid $black;
+  padding: rem-calc(8) rem-calc(16) rem-calc(8) rem-calc(60);
+  background-image: url("/static/foundation_cms/_images/icons/search-black.svg");
+  background-repeat: no-repeat;
+  background-position: left rem-calc(24) center;
+  background-size: rem-calc(16) rem-calc(16);
+  flex: 1 1 auto;
+  min-width: 0;
+
+  &::placeholder {
+    color: color(neutral, "400");
+  }
+
+  &:focus-visible {
+    outline: 2px solid color(orange, "300");
+  }
+}
+
+.search-form__submit-button,
+.search-input-container__submit-button {
+  line-height: 1.5;
+
+  &.btn-primary {
+    margin: 0;
+  }
+
+  &:focus-visible {
+    outline: 2px solid color(orange, "300");
+  }
+
+  .btn-primary__roller {
+    display: none;
+
+    @include breakpoint(medium up) {
+      display: inline-block;
+    }
+  }
+}
