@@ -38,6 +38,7 @@ class NavDropdownValue(blocks.StructValue):
     def dropdown_items(self):
         return self.get("items") or []
 
+
 class NavDropdown(blocks.StructBlock):
     """
     One dropdown in the top nav.

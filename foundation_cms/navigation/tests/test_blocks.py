@@ -1,6 +1,6 @@
 import wagtail_factories
 from django.test import TestCase
-from wagtail.blocks import StructBlockValidationError, StreamBlockValidationError
+from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
 from wagtail.models import Locale, Page
 
 from foundation_cms.navigation import blocks as nav_blocks
@@ -63,7 +63,6 @@ class TestNavLinkFactory(TestCase):
         # URL should resolve to page.url
         self.assertEqual(block.url, page.url)
 
-
     def test_invalid_without_target(self):
         """NavLink should fail validation if no link target is provided."""
         # Build an explicit invalid payload with no target URL or page.
@@ -77,6 +76,7 @@ class TestNavLinkFactory(TestCase):
         # The NavLink.clean method raises StreamBlockValidationError for this case.
         with self.assertRaises(StreamBlockValidationError):
             nav_blocks.NavLink().clean(invalid_payload)
+
 
 class TestNavDropdownFactory(TestCase):
     def test_default_factory_is_valid(self):

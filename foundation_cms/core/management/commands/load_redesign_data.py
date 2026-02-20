@@ -5,8 +5,11 @@ from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
 from foundation_cms.core.factories.homepage import HomePageFactory
-
-from foundation_cms.navigation.factories import NavigationMenuFactory, NavDropdownFactory, NavLinkFactory
+from foundation_cms.navigation.factories import (
+    NavDropdownFactory,
+    NavigationMenuFactory,
+    NavLinkFactory,
+)
 from foundation_cms.navigation.models import SiteNavigationMenu
 
 BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"

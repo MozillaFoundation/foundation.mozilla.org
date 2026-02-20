@@ -3,9 +3,9 @@ import wagtail_factories
 from factory.django import DjangoModelFactory
 from wagtail import models as wagtail_models
 
+from foundation_cms.base.utils.helpers import reseed
 from foundation_cms.navigation import blocks as nav_blocks
 from foundation_cms.navigation import models as nav_models
-from foundation_cms.base.utils.helpers import reseed
 
 
 class NavLinkFactory(wagtail_factories.StructBlockFactory):
@@ -92,7 +92,6 @@ class NavigationMenuFactory(DjangoModelFactory):
         },
     )
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
-
 
 
 def generate(seed):

@@ -43,6 +43,8 @@ class NavigationMenu(
 
     def __str__(self) -> str:
         return self.title
+
+
 @register_setting(icon="nav-menu")
 class SiteNavigationMenu(BaseSiteSetting):
     select_related = ["active_navigation_menu"]

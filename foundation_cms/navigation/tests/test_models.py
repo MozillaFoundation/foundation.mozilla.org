@@ -1,10 +1,10 @@
 import wagtail_factories
+from wagtail import models as wagtail_models
 from wagtail.blocks import StreamBlockValidationError
 
+from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.navigation import factories as nav_factories
 from foundation_cms.navigation import models as nav_models
-from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
-from wagtail import models as wagtail_models
 
 
 class NavigationMenuTests(test_base.WagtailpagesTestCase):
@@ -34,6 +34,7 @@ class NavigationMenuTests(test_base.WagtailpagesTestCase):
 
         with self.assertRaises(StreamBlockValidationError):
             stream_block.clean(python_payload)
+
 
 class SiteNavigationMenuSettingTests(test_base.WagtailpagesTestCase):
     def test_site_navigation_menu_setting_can_point_to_navigation_menu(self):
