@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ("wagtailcore", "0094_alter_page_locale"),
         ("snippets", "0009_remove_new_from_verbose_name"),
-        ("core", "0060_remove_new_from_verbose_name"),
+        ("core", "0062_alter_generalpage_body_alter_homepage_body"),
     ]
 
     operations = [
