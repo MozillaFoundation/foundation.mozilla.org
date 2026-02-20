@@ -27,7 +27,7 @@ def register_nav_menu_chooser_viewset():
 
 class NavMenuViewSet(SnippetViewSet):
     model = NavMenu
-    icon = "nav-dropdown"
+    icon = "nav-menu"
     menu_order = 100
     menu_label = "Navigation Menus"
     list_display = ("title",)
@@ -35,7 +35,7 @@ class NavMenuViewSet(SnippetViewSet):
     ordering = ("title",)
 
 
-class NavDropdownViewSetGroup(SnippetViewSetGroup):
+class NavMenuViewSetGroup(SnippetViewSetGroup):
     items = (NavMenuViewSet,)
     menu_label = "Main Navigation"
     menu_name = "Main Navigation"
@@ -43,5 +43,4 @@ class NavDropdownViewSetGroup(SnippetViewSetGroup):
     add_to_admin_menu = True
     menu_order = 1600
 
-
-register_snippet(NavDropdownViewSetGroup)
+register_snippet(NavMenuViewSetGroup)
