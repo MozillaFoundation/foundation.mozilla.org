@@ -3,7 +3,7 @@
 @include block-wrapper("rich_text") {
   .rich-text-block {
     @include breakpoint(large up) {
-      width: math.div(2, 3) * 100%;
+      width: math.div(8, 12) * 100%;
     }
   }
 }
