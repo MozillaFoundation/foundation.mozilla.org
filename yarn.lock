@@ -7,12 +7,12 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@axe-core/react@^4.10.1":
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/@axe-core/react/-/react-4.11.0.tgz#a2032b9f6d2b7f933d652e2452802005e0e71d4f"
-  integrity sha512-ko5hYRmdLzbsxagsb0u3GD8IqtZa+vUJZ4K4+z8qjsHGrHBNBps5Sy0EIfSL8whzyIKBQ3xYa1reK1QenIAkyw==
+"@axe-core/react@^4.11.1":
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/@axe-core/react/-/react-4.11.1.tgz#6eb2db1001faec6cd7d44aeb57826ee49f4a1d55"
+  integrity sha512-tjTsYVQw0YhmVDpayb/r55Xbda/Og3l6UCvBZ26C+MtmuSTyQ47PKzq8z3QMgKCJ0RB7lsdiDy4HwO2SKiNuHg==
   dependencies:
-    axe-core "~4.11.0"
+    axe-core "~4.11.1"
     requestidlecallback "^0.3.0"
 
 "@babel/code-frame@^7.0.0":
@@ -1048,7 +1048,7 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axe-core@^4.10.0, axe-core@^4.10.3, axe-core@~4.11.0:
+axe-core@^4.10.0, axe-core@^4.10.3, axe-core@~4.11.1:
   version "4.11.1"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.11.1.tgz#052ff9b2cbf543f5595028b583e4763b40c78ea7"
   integrity sha512-BASOg+YwO2C+346x3LZOeoovTIoTrRqEsqMa6fmfAV0P+U9mFr9NsyOEpiYvFjbc64NMrSswhV50WdXzdb/Z5A==
