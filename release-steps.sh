@@ -50,7 +50,6 @@ restore_review_app_backup() {
 
   echo "DB not initialized. Restoring database."
 
-
   local s3_uri
   s3_uri="s3://${AWS_REVIEW_APP_SNAPSHOT_BUCKET}/${AWS_REVIEW_APP_SNAPSHOT_PATH}"
 
@@ -71,6 +70,14 @@ restore_review_app_backup() {
   pg_restore --verbose --clean --if-exists --no-comments --no-acl --no-owner -d "$DATABASE_URL" /tmp/review.dump
 
   echo "DB restore complete."
+
+  echo "Removing snapshot admin user (if present)..."
+
+  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c \
+    "DELETE FROM auth_user WHERE username = 'admin';"
+
+  echo "Admin cleanup complete."
+
   echo "Updating site bindings..."
   update_site_bindings
   echo "Site bindings update complete."
