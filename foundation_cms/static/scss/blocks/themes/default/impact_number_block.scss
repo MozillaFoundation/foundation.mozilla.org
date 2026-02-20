@@ -99,6 +99,7 @@
 
     &__description {
       margin-top: rem-calc(4);
+      margin-bottom: 0;
 
       @include apply-text-style($body-text-styles, "xsmall", "small");
 
