@@ -3,8 +3,8 @@ from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
 from wagtail.models import Locale, Page
 
-from foundation_cms.legacy_apps.nav import blocks as nav_blocks
-from foundation_cms.legacy_apps.nav import factories as nav_factories
+from foundation_cms.navigation import blocks as nav_blocks
+from foundation_cms.navigation import factories as nav_factories
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 
 

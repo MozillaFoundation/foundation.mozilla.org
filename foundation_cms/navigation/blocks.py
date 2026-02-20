@@ -31,13 +31,12 @@ register(BaseLinkBlockAdapter(), NavLink)
 
 class NavDropdownValue(blocks.StructValue):
     @property
-    def header(self) -> NavLinkValue:
+    def header_value(self):
         return self.get("header")
 
     @property
-    def items(self) -> list[NavLinkValue]:
+    def dropdown_items(self):
         return self.get("items") or []
-
 
 class NavDropdown(blocks.StructBlock):
     """

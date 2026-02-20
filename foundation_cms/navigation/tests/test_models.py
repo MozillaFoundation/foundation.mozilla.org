@@ -4,8 +4,8 @@ from django.test import TestCase, override_settings
 from django.utils import translation
 from wagtail.blocks import StreamBlockValidationError
 
-from foundation_cms.legacy_apps.nav import factories as nav_factories
-from foundation_cms.legacy_apps.nav import models as nav_models
+from foundation_cms.navigation import factories as nav_factories
+from foundation_cms.navigation import models as nav_models
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factories
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
@@ -14,21 +14,21 @@ from foundation_cms.legacy_apps.wagtailpages.tests.blog.test_blog_index import (
 )
 
 
-class NavMenuTests(TestCase):
+class NavigationMenuTests(TestCase):
     def test_default_factory(self):
-        """Test that the default factory creates a NavMenu with 4 dropdowns."""
-        menu = nav_factories.NavMenuFactory()
-        self.assertIsInstance(menu, nav_models.NavMenu)
+        """Test that the default factory creates a NavigationMenu with 4 dropdowns."""
+        menu = nav_factories.NavigationMenuFactory()
+        self.assertIsInstance(menu, nav_models.NavigationMenu)
         self.assertEqual(len(menu.dropdowns), 4)
 
     def test_cannot_create_nav_menu_without_dropdowns(self):
         with self.assertRaises(StreamBlockValidationError):
-            menu = nav_factories.NavMenuFactory(dropdowns={})
+            menu = nav_factories.NavigationMenuFactory(dropdowns={})
             menu.dropdowns.stream_block.clean([])
 
     def test_cannot_create_nav_menu_with_more_than_five_dropdowns(self):
         with self.assertRaises(StreamBlockValidationError):
-            menu = nav_factories.NavMenuFactory(
+            menu = nav_factories.NavigationMenuFactory(
                 dropdowns__0="dropdown",
                 dropdowns__1="dropdown",
                 dropdowns__2="dropdown",
@@ -38,10 +38,10 @@ class NavMenuTests(TestCase):
             menu.dropdowns.stream_block.clean([])
 
 
-class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
+class TestNavigationMenuFeaturedTopics(test_base.WagtailpagesTestCase):
     def setUp(self):
         super().setUp()
-        self.menu = nav_factories.NavMenuFactory(locale=self.default_locale)
+        self.menu = nav_factories.NavigationMenuFactory(locale=self.default_locale)
         self.login()
         self.homepage.copy_for_translation(self.fr_locale)
         self.blog_index_page = blog_factories.BlogIndexPageFactory(locale=self.default_locale, parent=self.homepage)
@@ -57,12 +57,12 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         topic_c = blog_factories.BlogPageTopicFactory(locale=self.default_locale, name="Topic C")
 
         # Associate the topics with the menu:
-        nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic_a,
             sort_order=2,
         )
-        nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic_b,
             sort_order=1,
@@ -97,7 +97,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
 
         # Associate the topics with the menu:
         for idx, topic in enumerate(topics):
-            nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+            nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
                 menu=self.menu,
                 topic=topic,
                 sort_order=idx,
@@ -118,12 +118,12 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         topic_c = blog_factories.BlogPageTopicFactory(locale=self.default_locale, name="Topic C")
 
         # Associate the topics with the menu:
-        nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic_a,
             sort_order=2,
         )
-        nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic_b,
             sort_order=1,
@@ -175,12 +175,12 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         menu_fr = self.menu.get_translation(self.fr_locale)
 
         # Associate the topics with the menu:
-        rel_a = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        rel_a = nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic_a,
             sort_order=2,
         )
-        rel_b = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        rel_b = nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic_b,
             sort_order=1,
@@ -192,14 +192,14 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         self.translate_snippet(topic_c, self.fr_locale)
         topic_c_fr = topic_c.get_translation(self.fr_locale)
 
-        nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=menu_fr,
             topic=topic_a_fr,
             sort_order=2,
             translation_key=rel_a.translation_key,
             locale=self.fr_locale,
         )
-        nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=menu_fr,
             topic=topic_b,
             sort_order=1,
@@ -238,7 +238,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
         svg_icon = ImageFactory(file__filename="icon.svg", file__extension="svg")
 
         # Create the relationship instance but do not save it yet
-        topic_with_svg = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        topic_with_svg = nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic,
             icon=svg_icon,
@@ -258,7 +258,7 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
 
         # Simulate uploading a non-SVG file
         jpg_image = ImageFactory(file__filename="image.jpg", file__extension="jpg")
-        topic_with_jpg = nav_factories.NavMenuFeaturedBlogTopicRelationshipFactory(
+        topic_with_jpg = nav_factories.NavigationMenuFeaturedBlogTopicRelationshipFactory(
             menu=self.menu,
             topic=topic,
             icon=jpg_image,
@@ -273,10 +273,10 @@ class TestNavMenuFeaturedTopics(test_base.WagtailpagesTestCase):
 
 
 @override_settings(CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}})
-class TestNavMenuFeaturedPosts(BlogIndexTestCase):
+class TestNavigationMenuFeaturedPosts(BlogIndexTestCase):
     def setUp(self):
         super().setUp()
-        self.menu = nav_factories.NavMenuFactory(locale=self.default_locale)
+        self.menu = nav_factories.NavigationMenuFactory(locale=self.default_locale)
         self.blog_pages = blog_factories.BlogPageFactory.create_batch(5)
         for i, blog_page in enumerate(self.blog_pages):
             blog_factories.FeaturedBlogPagesFactory(
@@ -300,7 +300,7 @@ class TestNavMenuFeaturedPosts(BlogIndexTestCase):
         self.assertNotIn(self.blog_pages[4], posts)
 
 
-class TestNavMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
+class TestNavigationMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
     def test_page_references_per_dropdown_property(self) -> None:
         # Create some pages:
         # pages ax linking to the first dropdown
@@ -319,7 +319,7 @@ class TestNavMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
         page_d = wagtail_factories.PageFactory(parent=self.homepage, title="Page D")
 
         # Create a menu with links to the pages:
-        menu = nav_factories.NavMenuFactory(
+        menu = nav_factories.NavigationMenuFactory(
             # First dropdown | First Column | First link (page A1)
             dropdowns__0__dropdown__columns__0__nav_items__0__link_to="page",
             dropdowns__0__dropdown__columns__0__nav_items__0__page=page_a1,
@@ -396,7 +396,7 @@ class TestNavMenuPageReferencesPerDropdown(test_base.WagtailpagesTestCase):
         self.assertNotIn(page_d.id, page_ids)
 
 
-class TestNavMenuPageReferences(test_base.WagtailpagesTestCase):
+class TestNavigationMenuPageReferences(test_base.WagtailpagesTestCase):
     def test_page_references_property(self) -> None:
         # Create some pages:
         page_a = wagtail_factories.PageFactory(parent=self.homepage, title="Page A")
@@ -405,7 +405,7 @@ class TestNavMenuPageReferences(test_base.WagtailpagesTestCase):
         page_d = wagtail_factories.PageFactory(parent=self.homepage, title="Page D")
 
         # Create a menu with links to the pages:
-        menu = nav_factories.NavMenuFactory(
+        menu = nav_factories.NavigationMenuFactory(
             dropdowns__0__dropdown__columns__0__nav_items__0__link_to="page",
             dropdowns__0__dropdown__columns__0__nav_items__0__page=page_a,
             dropdowns__0__dropdown__columns__0__nav_items__1__external_url_link=True,

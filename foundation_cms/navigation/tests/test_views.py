@@ -6,16 +6,16 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
 
-from foundation_cms.legacy_apps.nav import factories as nav_factories
-from foundation_cms.legacy_apps.nav import models as nav_models
+from foundation_cms.navigation import factories as nav_factories
+from foundation_cms.navigation import models as nav_models
 
 
-class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
+class TestNavigationMenuSnippetChooser(WagtailTestUtils, TestCase):
     def is_nav_menu_chooser_viewset(self, viewset):
-        return viewset.model == nav_models.NavMenu and issubclass(viewset.__class__, ChooserViewSet)
+        return viewset.model == nav_models.NavigationMenu and issubclass(viewset.__class__, ChooserViewSet)
 
     def get_chooser_viewset(self):
-        # Get the last registered ChooserViewSet for the NavMenu model.
+        # Get the last registered ChooserViewSet for the NavigationMenu model.
         # Note: There can be multiple ChooserViewSets registered for a model.
         wagtail_admin_viewsets.populate()
         model_viewsets = [x for x in wagtail_admin_viewsets.viewsets if self.is_nav_menu_chooser_viewset(x)]
@@ -34,18 +34,18 @@ class TestNavMenuSnippetChooser(WagtailTestUtils, TestCase):
 
         self.default_locale = Locale.get_default()
         self.fr_locale = Locale.objects.create(language_code="fr")
-        nav_models.NavMenu.objects.all().delete()
+        nav_models.NavigationMenu.objects.all().delete()
         self.menus = [
-            nav_factories.NavMenuFactory.create(title="Generic"),
-            nav_factories.NavMenuFactory.create(title="Foundation"),
-            nav_factories.NavMenuFactory.create(title="Mozfest"),
+            nav_factories.NavigationMenuFactory.create(title="Generic"),
+            nav_factories.NavigationMenuFactory.create(title="Foundation"),
+            nav_factories.NavigationMenuFactory.create(title="Mozfest"),
         ]
 
     def test_menu_chooser_exclude_locale(self):
         translated_menu = self.menus[0].copy_for_translation(self.fr_locale)
         translated_menu.save()
-        all_menus = nav_models.NavMenu.objects.all()
-        default_menus = nav_models.NavMenu.objects.filter(locale=self.default_locale)
+        all_menus = nav_models.NavigationMenu.objects.all()
+        default_menus = nav_models.NavigationMenu.objects.filter(locale=self.default_locale)
         response = self.client.get(self.chooser_url)
         results = response.context["results"]
 

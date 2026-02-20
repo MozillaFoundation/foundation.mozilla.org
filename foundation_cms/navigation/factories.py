@@ -77,9 +77,9 @@ class NavDropdownFactory(wagtail_factories.StructBlockFactory):
     )
 
 
-class NavMenuFactory(DjangoModelFactory):
+class NavigationMenuFactory(DjangoModelFactory):
     class Meta:
-        model = nav_models.NavMenu
+        model = nav_models.NavigationMenu
 
     title = factory.Faker("sentence", nb_words=3)
     dropdowns = wagtail_factories.StreamFieldFactory(
@@ -98,7 +98,7 @@ class NavMenuFactory(DjangoModelFactory):
 def generate(seed):
     reseed(seed)
 
-    menu, created = nav_models.NavMenu.objects.get_or_create(
+    menu, created = nav_models.NavigationMenu.objects.get_or_create(
         title="Main Navigation",
         defaults={
             "dropdowns": wagtail_factories.StreamFieldFactory(
@@ -122,6 +122,6 @@ def generate(seed):
     # Activate menu
     print("Activating Main Navigation")
     site = wagtail_models.Site.objects.first()
-    site_active_nav = nav_models.SiteNavMenu.for_site(site)
-    site_active_nav.active_nav_menu = menu
+    site_active_nav = nav_models.SiteNavigationMenu.for_site(site)
+    site_active_nav.active_navigation_menu = menu
     site_active_nav.save()

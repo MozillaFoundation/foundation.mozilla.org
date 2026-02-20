@@ -5,10 +5,10 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.legacy_apps.nav import blocks as nav_blocks
+from foundation_cms.navigation import blocks as nav_blocks
 
 
-class NavMenu(
+class NavigationMenu(
     wagtail_models.PreviewableMixin,
     wagtail_models.DraftStateMixin,
     wagtail_models.RevisionMixin,
@@ -44,20 +44,20 @@ class NavMenu(
     def __str__(self) -> str:
         return self.title
 @register_setting(icon="nav-menu")
-class SiteNavMenu(BaseSiteSetting):
-    select_related = ["active_nav_menu"]
+class SiteNavigationMenu(BaseSiteSetting):
+    select_related = ["active_navigation_menu"]
 
-    active_nav_menu = models.ForeignKey(
-        "nav.NavMenu",
+    active_navigation_menu = models.ForeignKey(
+        "navigation.NavigationMenu",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="site_nav_menu",
+        related_name="site_navigation_menu",
         verbose_name="Active Navigation Menu",
     )
 
     content_panels = [
-        panels.FieldPanel("active_nav_menu"),
+        panels.FieldPanel("active_navigation_menu"),
     ]
 
     class Meta:
