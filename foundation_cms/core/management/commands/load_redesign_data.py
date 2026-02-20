@@ -6,6 +6,9 @@ from wagtail.models import Page, Site
 
 from foundation_cms.core.factories.homepage import HomePageFactory
 
+from foundation_cms.navigation.factories import NavigationMenuFactory, NavDropdownFactory, NavLinkFactory
+from foundation_cms.navigation.models import SiteNavigationMenu
+
 BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"
 HOMEPAGE_DIR = BASE_DIR / "homepage"
 
@@ -33,7 +36,12 @@ class Command(BaseCommand):
 
         # Assign Site root
         self.stdout.write(self.style.SUCCESS("Assigning redesign HomePage as default."))
-        self.assign_homepage_as_site_root(homepage, hostname, port)
+        site = self.assign_homepage_as_site_root(homepage, hostname, port)
+
+        self.stdout.write("Generating Navigation Menu via factory...")
+        nav_menu = self.create_nav_menu(site)
+        self.stdout.write(self.style.SUCCESS(f'Navigation Menu active: "{nav_menu.title}"'))
+
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
 
     def assign_homepage_as_site_root(self, homepage, hostname, port):
@@ -44,3 +52,20 @@ class Command(BaseCommand):
         site.site_name = "Mozilla Foundation"
         site.save()
         self.stdout.write(self.style.SUCCESS("Created new default Site"))
+        return site
+
+    def create_nav_menu(self, site):
+        """
+        Create a Navigation Menu and set it as the active menu in SiteNavigationMenu.
+        """
+        settings_obj = SiteNavigationMenu.for_site(site)
+
+        # Create a menu with dropdowns via factory
+        nav_menu = NavigationMenuFactory.create(
+            title="Main Navigation",
+            locale=site.root_page.locale,
+        )
+        settings_obj.active_navigation_menu = nav_menu
+        settings_obj.save()
+
+        return nav_menu

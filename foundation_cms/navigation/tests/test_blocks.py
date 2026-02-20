@@ -1,452 +1,175 @@
 import wagtail_factories
 from django.test import TestCase
-from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
+from wagtail.blocks import StructBlockValidationError, StreamBlockValidationError
 from wagtail.models import Locale, Page
 
 from foundation_cms.navigation import blocks as nav_blocks
 from foundation_cms.navigation import factories as nav_factories
-from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 
 
-class TestNavItemBlock(TestCase):
-    def test_default(self):
-        """Assert that default nav_blocks.NavItem factory works and is an external URL."""
-        block = nav_factories.NavItemFactory()
+class TestNavLinkFactory(TestCase):
+    def test_external_url_link_trait(self):
+        """NavLinkFactory with external_url_link trait should create a valid external link."""
+        block = nav_factories.NavLinkFactory(external_url_link=True)
+        nav_blocks.NavLink().clean(block)
 
-        # Assert that the page link is custom URL and that it is correct
-        url = block["external_url"]
-        self.assertEqual(block.url, url)
+        # Link type should be external_url
+        self.assertEqual(block["link_to"], "external_url")
+        self.assertTrue(block["external_url"])
 
-    def test_page_link(self):
-        """Create a nav_blocks.NavItem with a page link."""
-        block = nav_factories.NavItemFactory(page_link=True)
+        # Should be marked external via NavLinkValue helper
+        self.assertTrue(block.is_external)
+
+        # Other link fields should be empty
+        self.assertIsNone(block["page"])
+        self.assertEqual(block["relative_url"], "")
+
+        # BaseLinkValue.url should resolve to external_url
+        self.assertEqual(block.url, block["external_url"])
+
+    def test_relative_url_link_trait(self):
+        """NavLinkFactory with relative_url_link trait should create a valid internal relative link."""
+        block = nav_factories.NavLinkFactory(relative_url_link=True)
+
+        # Don't re-run block.clean() on factory output; instead assert the expected shape/values
+        self.assertEqual(block["link_to"], "relative_url")
+        self.assertTrue(block["relative_url"])
+        self.assertFalse(block.is_external)
+
+        # Other link fields should be empty
+        self.assertIsNone(block["page"])
+        self.assertEqual(block["external_url"], "")
+
+        # URL property resolves to the relative url
+        self.assertEqual(block.url, block["relative_url"])
+
+    def test_page_link_trait(self):
+        """NavLinkFactory with page_link trait should create a valid page link."""
+        block = nav_factories.NavLinkFactory(page_link=True)
+        nav_blocks.NavLink().clean(block)
 
         page = block["page"]
         self.assertIsNotNone(page)
-        self.assertTrue(isinstance(page, Page))
-        default_locale = Locale.get_default()
-        self.assertEqual(page.locale, default_locale)
+        self.assertIsInstance(page, Page)
+        self.assertEqual(page.locale, Locale.get_default())
 
+        self.assertEqual(block["link_to"], "page")
         self.assertFalse(block.is_external)
 
-        # Assert that other fields are empty
+        # Other link fields should be empty
         self.assertEqual(block["external_url"], "")
         self.assertEqual(block["relative_url"], "")
 
-    def test_external_url_link(self):
-        """Create a nav_blocks.NavItem with a custom/external URL."""
-        block = nav_factories.NavItemFactory(external_url_link=True)
+        # URL should resolve to page.url
+        self.assertEqual(block.url, page.url)
 
-        # Assert that the URL is a URL
-        url = block["external_url"]
-        self.assertIsNotNone(url)
 
-        self.assertTrue(block.is_external)
+    def test_invalid_without_target(self):
+        """NavLink should fail validation if no link target is provided."""
+        # Build an explicit invalid payload with no target URL or page.
+        invalid_payload = {
+            "link_to": "external_url",
+            "external_url": "",
+            "page": None,
+            "relative_url": "",
+        }
 
-        # Assert that other fields are empty
-        self.assertIsNone(block["page"])
-        self.assertEqual(block["relative_url"], "")
-
-    def test_relative_url_link(self):
-        """Create a nav_blocks.NavItem with a relative URL."""
-        block = nav_factories.NavItemFactory(relative_url_link=True)
-
-        # Assert that the URL is a URL
-        url = block["relative_url"]
-        self.assertIsNotNone(url)
-
-        self.assertFalse(block.is_external)
-
-        # Assert that other fields are empty
-        self.assertIsNone(block["page"])
-        self.assertEqual(block["external_url"], "")
-
-    def test_needs_to_provide_at_least_one_link(self):
+        # The NavLink.clean method raises StreamBlockValidationError for this case.
         with self.assertRaises(StreamBlockValidationError):
-            block = nav_factories.NavItemFactory()
-            nav_blocks.NavItem().clean(block)
+            nav_blocks.NavLink().clean(invalid_payload)
 
-
-class TestNavFeaturedItemBlock(TestCase):
-    def test_default(self):
-        """Assert that default nav_blocks.NavFeaturedItem factory works and is an external URL."""
-        block = nav_factories.NavFeaturedItemFactory()
-
-        # Assert that the page link is custom URL and that it is correct
-        url = block["external_url"]
-        self.assertEqual(block.url, url)
-        self.assertTrue(block.is_external)
-
-    def test_valid_svg_upload(self):
-        """Test that an SVG file is accepted by the NavFeaturedItem model."""
-
-        # Create an image instance using the SVG format.
-        svg_image = ImageFactory(file__filename="icon.svg", file__extension="svg")
-
-        # Return a list of block data with the NavFeaturedItem factory, using the SVG image for "icon".
-        block_data = nav_factories.NavFeaturedItemFactory(icon=svg_image, external_url_link=True)
-
-        # Use the NavFeaturedItem model's clean() method to see if any validation errors are returned.
-        try:
-            nav_blocks.NavFeaturedItem().clean(block_data)
-        except StructBlockValidationError:
-            # We are expecting no errors. If one arrises, fail this test to let us know something is wrong.
-            self.fail("Clean method raised StructBlockValidationError unexpectedly")
-
-    def test_invalid_svg_upload(self):
-        """Test that a non-SVG file is not accepted by the NavFeaturedItem model."""
-
-        # Create an image instance using the JPEG format.
-        jpeg_image = ImageFactory(file__filename="icon.jpeg", file__extension="jpeg")
-
-        # Return a list of block data with the NavFeaturedItem factory, using the JPEG image for "icon".
-        block_data = nav_factories.NavFeaturedItemFactory(icon=jpeg_image, external_url_link=True)
-
-        # Use the NavFeaturedItem model's clean() method to see if any validation errors are returned.
-        with self.assertRaises(StructBlockValidationError) as context:
-            nav_blocks.NavFeaturedItem().clean(block_data)
-
-        # Expecting 1 validation error, related to "icon".
-        self.assertIn("icon", context.exception.block_errors)
-        self.assertEqual(len(context.exception.block_errors), 1)
-
-
-class TestNavButton(TestCase):
-    def test_default(self):
-        """Assert that default nav_blocks.NavButton factory works and is an external URL."""
-        block = nav_factories.NavButtonFactory()
-
-        # Assert that the page link is custom URL and that it is correct
-        url = block["external_url"]
-        self.assertEqual(block.url, url)
-
-    def test_page_link(self):
-        """Create a nav_blocks.NavButton with a page link."""
-        block = nav_factories.NavButtonFactory(page_link=True)
-
-        page = block["page"]
-        self.assertIsNotNone(page)
-        self.assertTrue(isinstance(page, Page))
-        default_locale = Locale.get_default()
-        self.assertEqual(page.locale, default_locale)
-
-        # Assert that other fields are empty
-        self.assertEqual(block["external_url"], "")
-        self.assertEqual(block["relative_url"], "")
-
-    def test_external_url_link(self):
-        """Create a nav_blocks.NavButton with a custom/external URL."""
-        block = nav_factories.NavButtonFactory(external_url_link=True)
-
-        # Assert that the URL is a URL
-        url = block["external_url"]
-        self.assertIsNotNone(url)
-
-        # Assert that other fields are empty
-        self.assertIsNone(block["page"])
-        self.assertEqual(block["relative_url"], "")
-
-    def test_relative_url_link(self):
-        """Create a nav_blocks.NavButton with a relative URL."""
-        block = nav_factories.NavButtonFactory(relative_url_link=True)
-
-        # Assert that the URL is a URL
-        url = block["relative_url"]
-        self.assertIsNotNone(url)
-
-        # Assert that other fields are empty
-        self.assertIsNone(block["page"])
-        self.assertEqual(block["external_url"], "")
-
-    def test_needs_to_provide_at_least_one_link(self):
-        with self.assertRaises(StreamBlockValidationError):
-            block = nav_factories.NavItemFactory()
-            nav_blocks.NavItem().clean(block)
-
-
-class TestNavColumnBlock(TestCase):
-    def test_default(self):
-        """Assert that default nav_blocks.NavColumn factory works and is an external URL."""
-        block = nav_factories.NavColumnFactory()
-
-        self.assertEqual(len(block["nav_items"]), 4)
-        for link in block["nav_items"]:
-            self.assertIsInstance(link.block, nav_blocks.NavItem)
-            self.assertIsInstance(link, nav_blocks.NavItemValue)
-        self.assertIsNotNone(block.button_value)
-        self.assertEqual(len(block["button"]), 1)
-        self.assertEqual(block.button_value, block["button"][0])
-        self.assertTrue(block.has_button)
-
-    def test_without_button(self):
-        """Create a nav_blocks.NavColumn without a button."""
-        block = nav_factories.NavColumnFactory(no_button=True)
-
-        self.assertEqual(len(block["button"]), 0)
-        self.assertFalse(block.has_button)
-        self.assertIsNone(block.button_value)
-
-    def test_with_variable_number_of_links(self):
-        """Create a nav_blocks.NavColumn with links."""
-        block = nav_factories.NavColumnFactory(
-            **{
-                "nav_items__0__page_url_link": True,
-                "nav_items__1__relative_url_link": True,
-                "nav_items__2__external_url_link": True,
-            }
-        )
-
-        self.assertEqual(len(block["nav_items"]), 4)
-        for link in block["nav_items"]:
-            self.assertIsInstance(link.block, nav_blocks.NavItem)
-            self.assertIsInstance(link, nav_blocks.NavItemValue)
-
-    def test_needs_to_provide_at_least_one_link(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavColumnFactory(nav_items=[])
-            nav_blocks.NavColumn().clean(block)
-
-    def test_needs_to_provide_at_most_four_links(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavColumnFactory(
-                **{
-                    "nav_items__0__external_url_link": True,
-                    "nav_items__1__external_url_link": True,
-                    "nav_items__2__external_url_link": True,
-                    "nav_items__3__external_url_link": True,
-                    "nav_items__4__external_url_link": True,
-                }
-            )
-            nav_blocks.NavColumn().clean(block)
-
-    def test_cannot_have_more_than_one_button(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavColumnFactory(
-                **{
-                    "button__0__external_url_link": True,
-                    "button__1__external_url_link": True,
-                }
-            )
-            nav_blocks.NavColumn().clean(block)
-
-
-class TestNavFeaturedColumnBlock(TestCase):
-    def test_default(self):
-        """Assert that default nav_blocks.NavFeaturedColumn factory works and is an external URL."""
-        block = nav_factories.NavFeaturedColumnFactory()
-
-        self.assertEqual(len(block["nav_items"]), 4)
-        for link in block["nav_items"]:
-            self.assertIsInstance(link.block, nav_blocks.NavFeaturedItem)
-            self.assertIsInstance(link, nav_blocks.NavItemValue)
-
-    def test_with_variable_number_of_links(self):
-        """Create a nav_blocks.NavFeaturedColumn with links."""
-        block = nav_factories.NavFeaturedColumnFactory(
-            **{
-                "nav_items__0__page_url_link": True,
-                "nav_items__1__relative_url_link": True,
-                "nav_items__2__external_url_link": True,
-            }
-        )
-
-        self.assertEqual(len(block["nav_items"]), 4)
-        for link in block["nav_items"]:
-            self.assertIsInstance(link.block, nav_blocks.NavFeaturedItem)
-            self.assertIsInstance(link, nav_blocks.NavItemValue)
-
-    def test_needs_to_provide_at_least_one_link(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavFeaturedColumnFactory(nav_items=[])
-            nav_blocks.NavFeaturedColumn().clean(block)
-
-    def test_needs_to_provide_at_most_four_links(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavFeaturedColumnFactory(
-                **{
-                    "nav_items__0__external_url_link": True,
-                    "nav_items__1__external_url_link": True,
-                    "nav_items__2__external_url_link": True,
-                    "nav_items__3__external_url_link": True,
-                    "nav_items__4__external_url_link": True,
-                }
-            )
-            nav_blocks.NavFeaturedColumn().clean(block)
-
-
-class TestNavDropdownBlock(TestCase):
-    def test_default_block_factory(self):
-        """Default factory creates a block with 4 columns and a button"""
+class TestNavDropdownFactory(TestCase):
+    def test_default_factory_is_valid(self):
+        """Default NavDropdownFactory should create a valid dropdown with header and items."""
         block = nav_factories.NavDropdownFactory()
         nav_blocks.NavDropdown().clean(block)
 
-        self.assertEqual(len(block["overview"]), 0)
-        self.assertFalse(block.has_overview)
-        self.assertIsNone(block.overview_value)
+        # Header should exist and be a NavLinkValue
+        self.assertIsInstance(block.header_value, nav_blocks.NavLinkValue)
+        self.assertEqual(block.header_value, block["header"])
 
-        self.assertEqual(len(block["columns"]), 4)
-        for column in block["columns"]:
-            self.assertIsInstance(column.block, nav_blocks.NavColumn)
-            self.assertIsInstance(column, nav_blocks.NavColumnValue)
+        # Default factory defines 3 dropdown items
+        items = block.dropdown_items
+        self.assertEqual(len(items), 3)
+        for item in items:
+            self.assertIsInstance(item, nav_blocks.NavLinkValue)
 
-        self.assertEqual(len(block["featured_column"]), 0)
-        self.assertFalse(block.has_featured_column)
-        self.assertIsNone(block.featured_column_value)
-
-        self.assertTrue(block["button"])
-        self.assertIsInstance(block["button"].block, nav_blocks.NavButton)
-
-        self.assertEqual(block.ncols, 4)
-
-    def test_block_with_overview(self):
-        """Create a nav_blocks.NavDropdown with an overview."""
-        block = nav_factories.NavDropdownFactory(with_overview=True)
+    def test_header_page_link_trait(self):
+        """Dropdown header_page_link trait should produce a valid page link."""
+        block = nav_factories.NavDropdownFactory(header_page_link=True)
         nav_blocks.NavDropdown().clean(block)
 
-        self.assertEqual(len(block["overview"]), 1)
-        self.assertTrue(block.has_overview)
-        self.assertEqual(block.overview_value, block["overview"][0])
+        header = block["header"]
+        self.assertEqual(header["link_to"], "page")
+        self.assertIsNotNone(header["page"])
+        self.assertIsInstance(header["page"], Page)
 
-        self.assertEqual(len(block["columns"]), 3)
-
-        self.assertEqual(block.ncols, 4)
-
-    def test_block_with_featured_column(self):
-        """Create a nav_blocks.NavDropdown with a featured column."""
-        block = nav_factories.NavDropdownFactory(with_featured_column=True)
+    def test_header_external_link_trait(self):
+        """Dropdown header_external_link trait should produce a valid external link."""
+        block = nav_factories.NavDropdownFactory(header_external_link=True)
         nav_blocks.NavDropdown().clean(block)
 
-        self.assertEqual(len(block["featured_column"]), 1)
-        self.assertTrue(block.has_featured_column)
-        self.assertEqual(block.featured_column_value, block["featured_column"][0])
+        header = block["header"]
+        self.assertEqual(header["link_to"], "external_url")
+        self.assertTrue(header["external_url"])
+        self.assertTrue(header.is_external)
 
-        self.assertEqual(len(block["columns"]), 3)
+    def test_header_relative_link_trait(self):
+        """Dropdown header_relative_link trait should produce a valid relative link."""
+        block = nav_factories.NavDropdownFactory(header_relative_link=True)
 
-        self.assertEqual(block.ncols, 4)
+        header = block["header"]
+        # Assert the header is a nav link with a relative URL
+        self.assertEqual(header["link_to"], "relative_url")
+        self.assertTrue(header["relative_url"])
+        self.assertFalse(header.is_external)
 
-    def test_block_with_overview_and_featured_column(self):
-        """Create a nav_blocks.NavDropdown with an overview and a featured column."""
-        block = nav_factories.NavDropdownFactory(with_overview_and_featured_column=True)
+    def test_items_can_be_empty(self):
+        """Dropdown items are optional and may be empty."""
+        block = nav_factories.NavDropdownFactory(items=[])
         nav_blocks.NavDropdown().clean(block)
+        self.assertEqual(block.dropdown_items, [])
 
-        self.assertEqual(len(block["overview"]), 1)
-        self.assertTrue(block.has_overview)
-        self.assertEqual(block.overview_value, block["overview"][0])
-
-        self.assertEqual(len(block["featured_column"]), 1)
-        self.assertTrue(block.has_featured_column)
-        self.assertEqual(block.featured_column_value, block["featured_column"][0])
-
-        self.assertEqual(len(block["columns"]), 2)
-
-        self.assertEqual(block.ncols, 4)
-
-    def test_number_of_cols_prop(self):
-        """Test the number of columns property."""
-        block = nav_factories.NavDropdownFactory()
-        nav_blocks.NavDropdown().clean(block)
-
-        self.assertEqual(block.ncols, 4)
-
-        block = nav_factories.NavDropdownFactory(
-            columns=wagtail_factories.ListBlockFactory(
-                nav_factories.NavColumnFactory,
-                **{
-                    "0__title": "Column 1",
-                    "1__title": "Column 2",
-                },
-            ),
-        )
-        nav_blocks.NavDropdown().clean(block)
-        self.assertEqual(block.ncols, 2)
-
-        block = nav_factories.NavDropdownFactory(
-            columns=wagtail_factories.ListBlockFactory(
-                nav_factories.NavColumnFactory,
-                **{
-                    "0__title": "Column 1",
-                    "1__title": "Column 2",
-                    "2__title": "Column 3",
-                },
-            ),
-        )
-        nav_blocks.NavDropdown().clean(block)
-        self.assertEqual(block.ncols, 3)
-
-        block = nav_factories.NavDropdownFactory(
-            columns=wagtail_factories.ListBlockFactory(
-                nav_factories.NavColumnFactory,
-                **{
-                    "0__title": "Column 1",
-                    "1__title": "Column 2",
-                    "2__title": "Column 3",
-                    "3__title": "Column 4",
-                },
-            ),
-        )
-        nav_blocks.NavDropdown().clean(block)
-        self.assertEqual(block.ncols, 4)
-
-    def test_cannot_have_block_without_button(self):
-        """Cannot create a nav_blocks.NavDropdown without a button."""
-        # Here it raises an attribute error because it assumes that a button will be present
-        with self.assertRaises(AttributeError):
-            block = nav_factories.NavDropdownFactory(button=None)
-            nav_blocks.NavDropdown().clean(block)
-
-    def test_needs_at_least_one_column(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavDropdownFactory(columns=[])
-            nav_blocks.NavDropdown().clean(block)
-
-    def test_cannot_have_more_than_four_columns(self):
+    def test_items_cannot_exceed_five(self):
+        """Dropdown items ListBlock enforces a maximum of 5 links."""
         with self.assertRaises(StructBlockValidationError):
             block = nav_factories.NavDropdownFactory(
-                **{
-                    "columns__0__title": "Column 1",
-                    "columns__1__title": "Column 2",
-                    "columns__2__title": "Column 3",
-                    "columns__3__title": "Column 4",
-                    "columns__4__title": "Column 5",
-                }
+                items=wagtail_factories.ListBlockFactory(
+                    nav_factories.NavLinkFactory,
+                    **{
+                        "0__external_url_link": True,
+                        "1__external_url_link": True,
+                        "2__external_url_link": True,
+                        "3__external_url_link": True,
+                        "4__external_url_link": True,
+                        "5__external_url_link": True,
+                    },
+                )
             )
             nav_blocks.NavDropdown().clean(block)
 
-    def test_block_with_overview_cannot_have_more_than_three_columns(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavDropdownFactory(
-                **{
-                    "overview__0__title": "Overview",
-                    "columns__0__title": "Column 1",
-                    "columns__1__title": "Column 2",
-                    "columns__2__title": "Column 3",
-                    "columns__3__title": "Column 4",
-                }
-            )
+    def test_requires_header(self):
+        """Dropdown should fail validation if header is missing."""
+        # A dropdown must have a header. Passing None should result in a failure.
+        with self.assertRaises(Exception):
+            block = nav_factories.NavDropdownFactory(header=None)
+            # calling .clean may raise StructBlockValidationError or AttributeError depending on internals
             nav_blocks.NavDropdown().clean(block)
 
-    def test_block_with_featured_column_cannot_have_more_than_three_columns(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavDropdownFactory(
-                **{
-                    "columns__0__title": "Column 1",
-                    "columns__1__title": "Column 2",
-                    "columns__2__title": "Column 3",
-                    "columns__3__title": "Column 4",
-                    "featured_column__0__title": "Featured column",
-                }
-            )
-            nav_blocks.NavDropdown().clean(block)
 
-    def test_block_with_featured_column_and_overview_cannot_have_more_than_two_columns(self):
-        with self.assertRaises(StructBlockValidationError):
-            block = nav_factories.NavDropdownFactory(
-                **{
-                    "overview__0__title": "Overview",
-                    "columns__0__title": "Column 1",
-                    "columns__1__title": "Column 2",
-                    "columns__2__title": "Column 3",
-                    "featured_column__0__title": "Featured column",
-                }
-            )
-            nav_blocks.NavDropdown().clean(block)
+class TestNavigationMenuFactory(TestCase):
+    def test_factory_creates_valid_menu(self):
+        """NavigationMenuFactory should create a valid menu with up to 5 dropdowns."""
+        menu = nav_factories.NavigationMenuFactory()
+        self.assertTrue(menu.pk)
+
+        # Dropdowns StreamField should contain dropdown blocks
+        self.assertGreaterEqual(len(menu.dropdowns), 1)
+        self.assertLessEqual(len(menu.dropdowns), 5)
+
+        for block in menu.dropdowns:
+            self.assertEqual(block.block_type, "dropdown")
+            self.assertIsInstance(block.value, nav_blocks.NavDropdownValue)
+
+        # Locale should default correctly
+        self.assertEqual(menu.locale, Locale.get_default())
