@@ -73,12 +73,11 @@ restore_review_app_backup() {
 
   echo "Removing snapshot admin user (if present)..."
 
-  # This is safe: deletes 0 rows if no admin exists.
   psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c \
     "DELETE FROM auth_user WHERE username = 'admin';"
 
   echo "Admin cleanup complete."
-  
+
   echo "Updating site bindings..."
   update_site_bindings
   echo "Site bindings update complete."
