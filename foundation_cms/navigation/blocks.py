@@ -52,8 +52,6 @@ class NavDropdown(blocks.StructBlock):
     )
     items = blocks.ListBlock(
         NavLink(),
-        required=True,
-        min_num=1,
         max_num=5,
         label="Dropdown Items",
         help_text="Up to 5 links shown in the dropdown panel.",
