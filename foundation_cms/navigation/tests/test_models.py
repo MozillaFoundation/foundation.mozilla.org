@@ -1,4 +1,3 @@
-import wagtail_factories
 from wagtail import models as wagtail_models
 from wagtail.blocks import StreamBlockValidationError
 

@@ -6,9 +6,7 @@ from wagtail.models import Page, Site
 
 from foundation_cms.core.factories.homepage import HomePageFactory
 from foundation_cms.navigation.factories import (
-    NavDropdownFactory,
     NavigationMenuFactory,
-    NavLinkFactory,
 )
 from foundation_cms.navigation.models import SiteNavigationMenu
 
