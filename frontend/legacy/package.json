@@ -69,7 +69,7 @@
     "pyright": "pyright",
     "server": "cd ../../ && python manage.py runserver 0.0.0.0:8000",
     "server:silent": "cd ../../ && python manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
-    "start": "docker compose up",
+    "start": "docker-compose up",
     "sync": "browser-sync start --proxy \"localhost:8000\" --reload-debounce 50 --files \"./../../foundation_cms/legacy_apps/**/*.html\" \"./../../foundation_cms/legacy_apps/static/compiled/_css/*.css\" \"./../../foundation_cms/legacy_apps/static/compiled/_js/*.js\"",
     "test": "npm run lint",
     "watch": "run-p watch:legacy",
