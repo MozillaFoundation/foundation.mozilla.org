@@ -29,7 +29,7 @@ class NavMenuViewSet(SnippetViewSet):
     model = NavMenu
     icon = "nav-dropdown"
     menu_order = 100
-    menu_label = "Navigation Menus (Legacy)"
+    menu_label = "Navigation Menus"
     list_display = ("title",)
     search_fields = ("title",)
     ordering = ("title",)
@@ -37,7 +37,7 @@ class NavMenuViewSet(SnippetViewSet):
 
 class NavDropdownViewSetGroup(SnippetViewSetGroup):
     items = (NavMenuViewSet,)
-    menu_label = "Main Navigation (Legacy)"
+    menu_label = "Main Navigation"
     menu_name = "Main Navigation"
     menu_icon = "nav-menu"
     add_to_admin_menu = True
