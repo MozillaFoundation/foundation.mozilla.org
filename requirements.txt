@@ -69,6 +69,7 @@ django==4.2.28
     #   django-treebeard
     #   djangorestframework
     #   laces
+    #   modelsearch
     #   social-auth-app-django
     #   wagtail
     #   wagtail-footnotes
@@ -89,7 +90,7 @@ django-filter==23.5
     #   wagtail
 django-htmx==1.23.0
     # via -r requirements.in
-django-modelcluster==6.2.1
+django-modelcluster==6.4.1
     # via wagtail
 django-pattern-library==1.5.0
     # via -r requirements.in
@@ -105,8 +106,10 @@ django-stubs-ext==5.2.8
     # via django-tasks
 django-taggit==6.1.0
     # via wagtail
-django-tasks==0.7.0
-    # via wagtail
+django-tasks==0.9.0
+    # via
+    #   modelsearch
+    #   wagtail
 django-treebeard==4.5.1
     # via wagtail
 djangorestframework==3.15.2
@@ -149,6 +152,8 @@ laces==0.1.2
     # via wagtail
 markdown==3.4.4
     # via django-pattern-library
+modelsearch==1.1.1
+    # via wagtail
 numpy==1.24.4
     # via
     #   scipy
@@ -196,8 +201,6 @@ python-slugify==8.0.4
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
-pytz==2023.3.post1
-    # via django-modelcluster
 pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
@@ -261,7 +264,7 @@ urllib3==2.6.3
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==7.0.4
+wagtail==7.3
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
