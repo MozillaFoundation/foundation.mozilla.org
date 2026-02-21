@@ -4,6 +4,8 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 
+from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
+
 from .blocks import BlogAuthorRoleBlock, GranteeRoleBlock, ResearcherRoleBlock
 
 
@@ -57,7 +59,7 @@ class ProfilePage(Page):
         on_delete=models.SET_NULL,
         related_name="profile_page",
     )
-    bio = RichTextField(blank=True)
+    bio = RichTextField(blank=True, features=DEFAULT_RICH_TEXT_FEATURES)
 
     content_panels = Page.content_panels + [
         FieldPanel("profile"),

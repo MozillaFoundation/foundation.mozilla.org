@@ -1,8 +1,9 @@
-from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
+from wagtail.blocks import ChoiceBlock, StreamBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
 from .common.background_color_block import BackgroundColorChoiceBlock
+from .custom_rich_text_block import CustomRichTextBlock
 from .fru_element_block import FruElementBlock
 from .image_block import CustomImageBlock
 from .link_button_block import LinkButtonBlock
@@ -16,7 +17,7 @@ from .video_block import VideoBlock
 
 
 class ColumnStreamBlock(StreamBlock):
-    rich_text = RichTextBlock()
+    rich_text = CustomRichTextBlock()
     podcast = PodcastBlock()
     image = CustomImageBlock()
     newsletter_signup = NewsletterSignupBlock()

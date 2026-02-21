@@ -1,12 +1,13 @@
-from wagtail.blocks import ChoiceBlock, RichTextBlock, StreamBlock
+from wagtail.blocks import ChoiceBlock, StreamBlock
 
+from .custom_rich_text_block import CustomRichTextBlock
 from .media_block import CustomMediaBlock
 from .spacer_block import SpacerBlock
 from .two_column_container_block import TwoColumnContainerBlock
 
 
 class ColumnStreamBlock(StreamBlock):
-    rich_text = RichTextBlock()
+    rich_text = CustomRichTextBlock()
     media = CustomMediaBlock()
     spacer = SpacerBlock()
 
