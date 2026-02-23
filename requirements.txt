@@ -48,7 +48,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==4.2.27
+django==4.2.28
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -281,7 +281,7 @@ wagtail-factories==4.2.1
     # via -r requirements.in
 wagtail-footnotes==0.13.0
     # via -r requirements.in
-wagtail-inventory==3.1
+wagtail-inventory==3.2
     # via -r requirements.in
 wagtail-localize==1.12.2
     # via

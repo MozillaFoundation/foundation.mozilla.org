@@ -39,7 +39,17 @@ class BlockGroups:
 
 
 class BlockRegistry:
-    """Registry for all StreamField blocks with their configs."""
+    """
+    Registry for StreamField blocks with their configs.
+
+    This registry is used to provide consistent block options across page-level StreamField definitions.
+    It manages blocks that content editors can choose to add to StreamFields.
+
+    Note:
+    This registry is NOT needed for blocks used as fields within StructBlocks
+    or embedded StreamBlocks inside other blocks.
+    Those should be instantiated directly with their specific configuration.
+    """
 
     BLOCKS = {
         # Card Collections
@@ -168,7 +178,7 @@ class BlockRegistry:
         Get block instances for the specified block names.
         Example:
             blocks = BlockRegistry.get_blocks(["rich_text", "image"])
-            # Returns: [("rich_text", RichTextBlock(...)), ("image", CustomImageBlock(...))]
+            # Returns: [("rich_text", CustomRichTextBlock(...)), ("image", CustomImageBlock(...))]
         """
         blocks = []
 

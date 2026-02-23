@@ -15,6 +15,7 @@ from foundation_cms.blocks import (
     ProductReviewSectionWhatYouShouldKnowBlock,
 )
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
+from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
 from foundation_cms.mixins.hero_image import HeroImageMixin
 from foundation_cms.utils import get_related_items, localize_queryset
 
@@ -56,7 +57,7 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
     )
     type_of_testing = models.CharField(max_length=255, null=True, blank=True, help_text="Type of testing")
     byline = models.CharField(max_length=100, null=True, blank=True, help_text="Byline")
-    who_am_i = RichTextField(blank=True, help_text="Who am I? (rich text)")
+    who_am_i = RichTextField(blank=True, help_text="Who am I? (rich text)", features=DEFAULT_RICH_TEXT_FEATURES)
     scoring = models.CharField(max_length=255, null=True, blank=True, help_text="Plain text field for product scoring")
 
     what_you_should_know_section = StreamField(

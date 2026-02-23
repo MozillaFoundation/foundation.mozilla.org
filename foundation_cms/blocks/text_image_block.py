@@ -2,6 +2,7 @@ from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
 
+from .custom_rich_text_block import CustomRichTextBlock
 from .image_block import CustomImageBlock
 from .link_block import OptionalLinkBlock
 from .media_block import CustomMediaBlock
@@ -15,7 +16,7 @@ class TextImageBlock(BaseBlock):
 
     title = blocks.CharBlock(required=False)
     subtitle = blocks.CharBlock(required=False)
-    text = blocks.RichTextBlock(required=False)
+    text = CustomRichTextBlock(required=False)
     image = CustomImageBlock(required=False)
     link = OptionalLinkBlock(required=False)
 
