@@ -1,0 +1,9 @@
+@use "sass:math";
+
+@include block-wrapper("rich_text") {
+  .rich-text-block {
+    @include breakpoint(large up) {
+      width: math.div(8, 12) * 100%;
+    }
+  }
+}
