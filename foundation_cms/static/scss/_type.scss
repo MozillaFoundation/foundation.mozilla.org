@@ -402,7 +402,14 @@ body.redesign {
 // Rich Text
 // ===================================
 
-.rich-text-large {
+// TODO:
+// Legacy class names (.tw-body-large, .body-text-large) can be removed
+// once a data migration has updated all existing content to use .rich-text-large.
+// See foundation_cms/core/wagtail_hooks.py register_large_feature.
+// Jira Ticket: https://mozilla-hub.atlassian.net/browse/TP1-3571
+.rich-text-large,
+.rich-text-block .tw-body-large,
+.rich-text-block .body-text-large {
   font-size: rem-calc(20);
   line-height: $global-lineheight;
 }
