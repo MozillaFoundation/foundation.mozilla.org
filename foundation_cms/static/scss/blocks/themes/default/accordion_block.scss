@@ -1,7 +1,5 @@
 @use "sass:math";
 
-$accordion-border: color(neutral, "300");
-
 @include block-wrapper("accordion_block") {
   .rich-text-block {
     @include breakpoint(large up) {
@@ -11,6 +9,8 @@ $accordion-border: color(neutral, "300");
 }
 
 .accordion-item {
+  $accordion-border: color(neutral, "300");
+
   border-top: 1px solid $accordion-border;
 
   &__button {
