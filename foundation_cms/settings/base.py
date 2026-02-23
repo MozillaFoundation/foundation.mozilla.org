@@ -391,6 +391,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_path",
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
+                        "foundation_cms.context_processor.editable_nav",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -900,3 +901,6 @@ SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
 # Useful to compress massive legacy streamfield migrations that cause memory issues on review apps
 # Not for regular use, as it has data migrations implications
 TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
+
+# Use cms editable nav
+EDITABLE_NAV = env("EDITABLE_NAV", default=False)

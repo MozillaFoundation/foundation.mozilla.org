@@ -41,7 +41,7 @@ class NavigationMenuViewSetGroup(SnippetViewSetGroup):
     menu_name = "Main Navigation"
     menu_icon = "nav-menu"
     add_to_admin_menu = True
-    menu_order = 100
+    menu_order = 1600
 
 
 register_snippet(NavigationMenuViewSetGroup)
