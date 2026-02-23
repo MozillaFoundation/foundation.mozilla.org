@@ -397,3 +397,12 @@ body.redesign {
 .link-text-regular {
   @include mofo-text-style($link-text-styles, "regular", $header-font-family);
 }
+
+// ===================================
+// Rich Text
+// ===================================
+
+.rich-text-large {
+  font-size: rem-calc(20);
+  line-height: $global-lineheight;
+}
