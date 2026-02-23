@@ -1,6 +1,8 @@
-{% load static i18n l10n wagtailsettings_tags %}
+{% load static i18n l10n wagtailsettings_tags navigation_tags %}
+
 {% get_settings use_default_site=True %}
 {% with menu=settings.navigation.SiteNavigationMenu.active_navigation_menu %}
+  {% translated_menu menu as localized_menu %}
 
   <nav role="navigation" class="primary-nav-ns">
     <div class="grid-container">
@@ -34,8 +36,8 @@
 
         <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
           <div class="primary-nav-ns__menu" id="primary-nav-ns-menu">
-            {% if menu %}
-              {% for dropdown in menu.dropdowns %}
+            {% if localized_menu %}
+              {% for dropdown in localized_menu.dropdowns %}
                 {% include "patterns/components/navigation/dropdown.html" with value=dropdown.value %}
               {% endfor %}
             {% endif %}
