@@ -1,12 +1,6 @@
 // MozFest-specific styling
 // https://www.mozillafestival.org
 
-// Mozfest Carousel Modules
-@import "../../../../node_modules/swiper/swiper-vars.scss";
-@import "../../../../node_modules/swiper/swiper.scss";
-@import "../../../../node_modules/swiper/modules/pagination.scss";
-@import "../../../../node_modules/swiper/modules/effect-fade.scss";
-
 body.mozfest {
   .tito-widget-button {
     background: unset;

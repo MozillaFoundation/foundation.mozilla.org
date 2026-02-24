@@ -27,6 +27,7 @@
     "build:legacy:css:file:bg": "sass ../../foundation_cms/legacy_apps/static/sass/buyers-guide/bg-main.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/buyers-guide.compiled.css --quiet",
     "build:legacy:css:file:donate": "sass ../../foundation_cms/legacy_apps/static/sass/donate/donate-main.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/donate.compiled.css --quiet",
     "build:legacy:css:file:formassembly": "sass ../../foundation_cms/legacy_apps/static/sass/formassembly-override.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/formassembly-override.compiled.css --quiet",
+    "build:legacy:css:file:swiper": "shx mkdir -p ../../foundation_cms/legacy_apps/static/compiled/_css/vendor && shx cp ../../node_modules/swiper/swiper-bundle.min.css ../../foundation_cms/legacy_apps/static/compiled/_css/vendor/swiper-bundle.min.css",
     "build:redesign": "cd frontend && yarn install --frozen-lockfile && yarn build",
     "fix": "run-s fix:*",
     "fix:js": "node ./lint-js.js --fix",
