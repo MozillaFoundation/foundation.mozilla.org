@@ -9,7 +9,7 @@
     bottom: 1rem !important;
     right: 1rem !important;
     left: 1rem !important;
-    box-shadow: 0 -2px 8px 0 rgba(0 0 0 / 25%);
+    box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 25%);
 
     @include breakpoint($ot-middle-breakpoint) {
       border-top-right-radius: rem-calc(32);
