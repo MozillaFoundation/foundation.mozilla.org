@@ -256,6 +256,9 @@ body.mozfest {
   .swiper-button-prev {
     @apply tw-border-2 tw-text-blue-40 tw-flex tw-flex-col tw-justify-center tw-items-center tw-w-20 tw-h-20 tw-transition;
 
+    position: static;
+    margin-top: 0;
+
     &.swiper-button-disabled {
       @apply tw-border-gray-20;
     }
