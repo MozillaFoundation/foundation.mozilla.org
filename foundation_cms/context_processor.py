@@ -21,3 +21,7 @@ def canonical_site_url(request):
 
 def mozfest_schedule_url(request):
     return {"MOZFEST_SCHEDULE_URL": settings.MOZFEST_SCHEDULE_URL}
+
+
+def editable_footer(request):
+    return {"EDITABLE_FOOTER": settings.EDITABLE_FOOTER}

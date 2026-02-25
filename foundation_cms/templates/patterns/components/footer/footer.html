@@ -1,0 +1,88 @@
+{% load wagtailsettings_tags static i18n %}
+{% get_settings use_default_site=True %}
+
+{% with footer=settings.footer.SiteFooterSettings.active_footer %}
+  {% if footer %}
+    <footer class="site-footer-ns">
+      <div class="grid-container">
+        <div class="site-footer-ns__grid">
+
+          <!-- Logo & Newsletter -->
+          <div class="site-footer-ns__grid-cell">
+            <div class="site-footer-ns__logo">
+              <a href="/">
+                <img
+                  src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}"
+                  alt="{% trans "Mozilla Foundation Logo" %}"
+                  width="440"
+                  height="92"
+                />
+              </a>
+            </div>
+            <div class="site-footer-ns__newsletter-form">
+              {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+                {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+                  {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup.localized %}
+                {% endwith %}
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div class="site-footer-ns__grid-cell site-footer-ns__links body-text-regular">
+            <!-- Internal Links -->
+            <ul class="internal">
+              {% for link in footer.internal_links.all %}
+                <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+              {% endfor %}
+            </ul>
+
+            <!-- External Links -->
+            <ul class="external">
+              {% for link in footer.external_links.all %}
+                <li>
+                  <a target="_blank" rel="noopener noreferrer" href="{{ link.url }}">
+                    {{ link.label }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="site-footer-ns__grid-cell site-footer-ns__cta">
+            {% translate "Donate" as localized_donate_label %}
+            {% include "patterns/components/button.html" with classnames="dark-mode" url="?form=donate-footer" label=localized_donate_label button_style="btn-primary" %}
+            {% include "patterns/components/language_switcher.html" %}
+          </div>
+
+        </div>
+
+        <!-- Legal & Social -->
+        <div class="site-footer-ns__legals body-text-xsmall">
+          <div class="site-footer-ns__grid-cell">
+            {{ footer.legal_text|safe }}
+          </div>
+          <div class="site-footer-ns__grid-cell">
+            <ul class="social-links">
+              {% for social in footer.social_links.all %}
+                <li>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="{{ social.url }}"
+                    class="site-footer-ns__social-link"
+                    aria-label="{{ social.aria_label }}"
+                  >
+                    <i class="{{ social.icon_class }}"></i>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  {% endif %}
+{% endwith %}
