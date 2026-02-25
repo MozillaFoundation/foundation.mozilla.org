@@ -25,7 +25,7 @@ module.exports = {
     // Disable this rule to avoid conflict with Prettier line breaks
     "scss/dollar-variable-colon-space-after": null,
     // Disable deprecated rule
-    "scss/at-import-no-partial-leading-underscore": null,
+    "scss/load-no-partial-leading-underscore": null,
     // Disallow relative image paths
     "declaration-property-value-disallowed-list": [
       {

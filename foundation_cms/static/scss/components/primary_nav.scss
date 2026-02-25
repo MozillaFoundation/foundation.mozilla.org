@@ -212,7 +212,7 @@ $primary-nav-margin: 0.7rem;
       border: 1px solid color(orange, "100");
       border-radius: 1rem;
       padding: 1rem 0;
-      box-shadow: 0 4px 4px rgba(0 0 0 / 10%);
+      box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
     }
 
     & > a {
@@ -397,7 +397,7 @@ html[lang="nl"] body .primary-nav-ns {
   left: 0;
   width: 100%;
   height: calc(100vh - #{$primary-nav-height});
-  background: rgba(0 0 0 / 30%);
+  background: rgb(0 0 0 / 30%);
   z-index: 8;
   transition: all 0.3s ease-in-out;
   pointer-events: none;
