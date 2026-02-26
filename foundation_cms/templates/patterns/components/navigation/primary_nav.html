@@ -1,0 +1,84 @@
+{% load static i18n l10n wagtailsettings_tags navigation_tags %}
+
+{% get_settings use_default_site=True %}
+{% with menu=settings.navigation.SiteNavigationMenu.active_navigation_menu %}
+  {% translated_menu menu as localized_menu %}
+
+  <nav role="navigation" class="primary-nav-ns">
+    <div class="grid-container">
+      <div class="primary-nav-ns__grid hidden-wordmark">
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__hamburger">
+          <button class="hamburger hamburger--collapse"
+                  type="button"
+                  aria-label="{% trans "Toggle navigation" %}"
+                  aria-controls="primary-nav-ns-menu">
+            <div class="inner">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </button>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__wordmark hidden">
+          <a href="/" aria-label="{% trans "Mozilla Foundation homepage" %}">
+            <img data-name="logo"
+                 src="{% static 'foundation_cms/_images/primary-nav-wordmark-logo.svg' %}"
+                 alt="{% trans "Mozilla Foundation Logo" %}"
+                 width="229" height="48" />
+            <img data-name="symbol"
+                 src="{% static 'foundation_cms/_images/primary-nav-wordmark-symbol.svg' %}"
+                 alt="{% trans "Mozilla Foundation Symbol" %}"
+                 width="29" height="28" />
+          </a>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
+          <div class="primary-nav-ns__menu" id="primary-nav-ns-menu">
+            {% if localized_menu %}
+              {% for dropdown in localized_menu.dropdowns %}
+                {% include "patterns/components/navigation/dropdown.html" with value=dropdown.value %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__search-icon">
+          <a href="#" class="search-toggle" aria-label="{% trans "Toggle search input" %}">
+            <div class="search-toggle__inner">
+              <img class="search-toggle__open"
+                   src="{% static 'foundation_cms/_images/icons/search-black.svg' %}"
+                   alt="{% trans "Search" %}"
+                   width="24" height="24" />
+              <img class="search-toggle__close"
+                   src="{% static 'foundation_cms/_images/icons/search-close.svg' %}"
+                   alt="{% trans "Close" %}"
+                   width="24" height="24" />
+            </div>
+          </a>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
+          {% translate "Donate" as localized_donate_label %}
+          {% include "patterns/components/button.html" with classnames="btn-primary--heart" url="?form=donate-header" label=localized_donate_label button_style="btn-primary" %}
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="search-input-container">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell small-12 large-8 large-offset-2 search-input-container__inner">
+          {% include "search/_search_form.html"
+          with form_class="search-input-container__form"
+          input_class="search-input-container__input"
+          submit_classnames="search-input-container__submit-button"
+          %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endwith %}
