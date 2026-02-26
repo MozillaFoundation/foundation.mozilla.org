@@ -16,7 +16,7 @@ async-timeout==4.0.2
     # via redis
 basket-client==1.0.0
     # via -r requirements.in
-beautifulsoup4==4.9.3
+beautifulsoup4==4.14.3
     # via
     #   -r requirements.in
     #   wagtail
@@ -247,6 +247,7 @@ tqdm==4.63.0
     # via wagtail-inventory
 typing-extensions==4.4.0
     # via
+    #   beautifulsoup4
     #   dj-database-url
     #   django-stubs-ext
     #   django-tasks
