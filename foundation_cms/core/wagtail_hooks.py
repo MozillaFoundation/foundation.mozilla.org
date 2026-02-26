@@ -37,18 +37,21 @@ def register_large_feature(features):
 
     # 4.configure the content transform from the DB to the editor and back.
 
-    # The "From" version uses a CSS selector to find spans with a class of 'tw-body-large' and body-text-large
-    # The "To" version adds a span with a class of 'tw-body-large' and 'body-text-large' surrounding the selected text
-    # TODO: We may need to adjust the CSS classes based on the actual styles used. Class 'tw-body-large' is a class
-    #       used in the legacy app, so should be replaced with the correct class used in the new app.
+    # The "From" version uses CSS selectors to find spans with legacy class names
+    # ('tw-body-large', 'body-text-large') or the new 'rich-text-large' class name.
+    # Legacy class names are kept for backwards compatibility until a data migration
+    # updates all existing content to use 'rich-text-large'.
+    # (See https://mozilla-hub.atlassian.net/browse/TP1-3685)
+    # The "To" version adds a span with class 'rich-text-large' surrounding the selected text.
     db_conversion = {
         "from_database_format": {
             'span[class="tw-body-large"]': InlineStyleElementHandler(type_),
             'span[class="body-text-large"]': InlineStyleElementHandler(type_),
             'span[class="tw-body-large body-text-large"]': InlineStyleElementHandler(type_),
             'span[class="body-text-large tw-body-large"]': InlineStyleElementHandler(type_),
+            'span[class="rich-text-large"]': InlineStyleElementHandler(type_),
         },
-        "to_database_format": {"style_map": {type_: 'span class="tw-body-large body-text-large"'}},
+        "to_database_format": {"style_map": {type_: 'span class="rich-text-large"'}},
     }
 
     # 5. Call register_converter_rule to register the content transformation conversion.
