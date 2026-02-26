@@ -109,9 +109,9 @@ def generate(seed):
                 "<p>Mozilla Foundation is a global non-profit and parent of the "
                 '<a target="_blank" rel="noopener noreferrer" '
                 'href="https://www.mozilla.org/">Mozilla Corporation</a>. '
-                'Most content available under a '
+                "Most content available under a "
                 '<a href="/meet-mozilla/website-licensing/">'
-                'Creative Commons license</a>.</p>'
+                "Creative Commons license</a>.</p>"
             ),
             "locale": wagtail_models.Locale.get_default(),
         },
