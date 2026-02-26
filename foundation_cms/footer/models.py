@@ -5,6 +5,7 @@ from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
+from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 
@@ -17,10 +18,53 @@ class SiteFooter(
 ):
     """
     Site footer configuration.
-    Contains internal/external links, social links, and legal text.
+    Contains internal/external links, social links, legal text, and display options.
     """
 
     title = models.CharField(max_length=100, help_text="For internal identification only (e.g. 'Main Footer')")
+
+    logo = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text="Custom logo for footer (default: Mozilla Foundation wordmark)",
+    )
+
+    logo_link_url = models.CharField(
+        max_length=500,
+        default="/",
+        help_text="URL when clicking the footer logo (default: homepage)",
+    )
+
+    show_donate_button = models.BooleanField(
+        default=True,
+        help_text="Show the Donate button in footer",
+    )
+
+    donate_button_text = models.CharField(
+        max_length=50,
+        default="Donate",
+        blank=True,
+        help_text="Text for the donate button",
+    )
+
+    donate_button_url = models.CharField(
+        max_length=500,
+        default="?form=donate-footer",
+        help_text="URL or query parameter for donate form",
+    )
+
+    show_language_switcher = models.BooleanField(
+        default=True,
+        help_text="Show language switcher in footer",
+    )
+
+    show_newsletter_signup = models.BooleanField(
+        default=True,
+        help_text="Show newsletter signup form in footer",
+    )
 
     legal_text = RichTextField(
         blank=True,
@@ -31,6 +75,23 @@ class SiteFooter(
     panels = [
         panels.HelpPanel(content="To enable a footer on a site, go to Settings > Site Footer."),
         panels.FieldPanel("title"),
+        panels.MultiFieldPanel(
+            [
+                panels.FieldPanel("logo"),
+                panels.FieldPanel("logo_link_url"),
+            ],
+            heading="Logo & Branding",
+        ),
+        panels.MultiFieldPanel(
+            [
+                panels.FieldPanel("show_newsletter_signup"),
+                panels.FieldPanel("show_language_switcher"),
+                panels.FieldPanel("show_donate_button"),
+                panels.FieldPanel("donate_button_text"),
+                panels.FieldPanel("donate_button_url"),
+            ],
+            heading="Display Options",
+        ),
         panels.MultiFieldPanel(
             [
                 panels.InlinePanel(
@@ -60,6 +121,13 @@ class SiteFooter(
 
     translatable_fields = [
         SynchronizedField("title"),
+        TranslatableField("logo"),
+        SynchronizedField("logo_link_url"),
+        SynchronizedField("show_donate_button"),
+        TranslatableField("donate_button_text"),
+        SynchronizedField("donate_button_url"),
+        SynchronizedField("show_language_switcher"),
+        SynchronizedField("show_newsletter_signup"),
         TranslatableField("internal_links"),
         TranslatableField("external_links"),
         TranslatableField("social_links"),
@@ -72,6 +140,16 @@ class SiteFooter(
 
     def __str__(self) -> str:
         return self.title
+
+    def get_preview_template(self, request, mode_name):
+        """Return a simple preview template for footer."""
+        return "patterns/components/footer/preview.html"
+
+    def get_preview_context(self, request, mode_name):
+        """Return context for footer preview."""
+        context = super().get_preview_context(request, mode_name)
+        context["footer"] = self
+        return context
 
 
 class FooterLink(wagtail_models.Orderable, wagtail_models.TranslatableMixin):

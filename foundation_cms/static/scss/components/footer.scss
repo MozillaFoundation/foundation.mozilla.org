@@ -221,6 +221,14 @@
       color: $white;
     }
 
+    .site-footer-ns__legal-text {
+      a {
+        color: color(neutral, "100");
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+    }
+
     .site-footer-ns__link--legal {
       color: color(neutral, "100");
       text-decoration: underline;

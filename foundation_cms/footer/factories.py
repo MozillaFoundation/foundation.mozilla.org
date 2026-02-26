@@ -98,13 +98,17 @@ def generate(seed):
     footer, created = footer_models.SiteFooter.objects.get_or_create(
         title="Main Footer",
         defaults={
+            "logo": None,
+            "logo_link_url": "/",
+            "show_donate_button": True,
+            "donate_button_text": "Donate",
+            "donate_button_url": "?form=donate-footer",
+            "show_language_switcher": True,
+            "show_newsletter_signup": True,
             "legal_text": (
                 "<p>Mozilla Foundation is a global non-profit and parent of the "
-                '<a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/" '
-                'class="site-footer-ns__link site-footer-ns__link--legal">Mozilla Corporation</a>. '
-                "Most content available under a "
-                '<a href="/meet-mozilla/website-licensing/" '
-                'class="site-footer-ns__link site-footer-ns__link--legal">Creative Commons license</a>.</p>'
+                '<a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/">Mozilla Corporation</a>. '
+                'Most content available under a <a href="/meet-mozilla/website-licensing/">Creative Commons license</a>.</p>'
             ),
             "locale": wagtail_models.Locale.get_default(),
         },

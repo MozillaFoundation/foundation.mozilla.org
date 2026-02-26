@@ -8,11 +8,6 @@ from foundation_cms.legacy_apps.wagtailcustomization.views.snippet_chooser impor
 )
 
 
-@hooks.register("register_icons")
-def register_icons(icons):
-    return icons + ["icons/footer.svg"]
-
-
 @hooks.register("register_admin_viewset")
 def register_footer_chooser_viewset():
     """
@@ -28,7 +23,7 @@ def register_footer_chooser_viewset():
 
 class SiteFooterViewSet(SnippetViewSet):
     model = SiteFooter
-    icon = "site"
+    icon = "form"
     menu_order = 200
     menu_label = "Site Footers"
     list_display = ("title",)
@@ -40,7 +35,7 @@ class SiteFooterViewSetGroup(SnippetViewSetGroup):
     items = (SiteFooterViewSet,)
     menu_label = "Site Footer"
     menu_name = "Site Footer"
-    menu_icon = "site"
+    menu_icon = "form"
     add_to_admin_menu = True
     menu_order = 1700
 

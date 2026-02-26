@@ -1,0 +1,252 @@
+<!-- filepath: foundation_cms/templates/patterns/components/footer/preview.html -->
+
+{% load wagtailimages_tags %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Footer Preview: {{ footer.title }}</title>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, sans-serif;
+                padding: 2rem;
+                background: #f5f5f5;
+                color: #333;
+            }
+            .preview-container {
+                max-width: 900px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                padding: 2rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+                margin: 0 0 1.5rem;
+                padding-bottom: 1rem;
+                border-bottom: 3px solid #ff9400;
+            }
+            .section {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+                background: #f9f9f9;
+                border-radius: 6px;
+            }
+            .section h2 {
+                font-size: 1.25rem;
+                margin: 0 0 1rem;
+                color: #1a1a1a;
+            }
+            .section h3 {
+                font-size: 1rem;
+                margin: 1rem 0 0.5rem;
+                color: #666;
+                font-weight: 600;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            li {
+                margin: 0.5rem 0;
+                padding: 0.5rem;
+                background: white;
+                border-radius: 4px;
+                border-left: 3px solid #ff9400;
+            }
+            .badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                border-radius: 12px;
+                font-size: 0.875rem;
+                font-weight: 600;
+                margin-right: 0.5rem;
+            }
+            .badge-enabled {
+                background: #d4edda;
+                color: #155724;
+            }
+            .badge-disabled {
+                background: #f8d7da;
+                color: #721c24;
+            }
+            .logo-preview {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem;
+                background: white;
+                border-radius: 4px;
+            }
+            .logo-preview img {
+                max-width: 200px;
+                max-height: 60px;
+            }
+            .logo-info {
+                font-size: 0.875rem;
+                color: #666;
+            }
+            .legal-text {
+                padding: 1rem;
+                background: white;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+            }
+            .count {
+                font-weight: 600;
+                color: #ff9400;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="preview-container">
+            <h1>Footer Preview: {{ footer.title }}</h1>
+
+            <!-- Logo & Branding -->
+            <div class="section">
+                <h2>Logo & Branding</h2>
+                <div class="logo-preview">
+                    {% if footer.logo %}
+                        {% image footer.logo width-200 as logo_img %}
+                        <img src="{{ logo_img.url }}" alt="Footer Logo">
+                        <div class="logo-info">
+                            <strong>Custom logo:</strong> {{ footer.logo.title }}<br>
+                            <strong>Link URL:</strong> {{ footer.logo_link_url }}
+                        </div>
+                    {% else %}
+                        <div class="logo-info">
+                            <strong>Default logo</strong> (Mozilla Foundation wordmark) will be used<br>
+                            <strong>Link URL:</strong> {{ footer.logo_link_url }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Display Options -->
+            <div class="section">
+                <h2>Display Options</h2>
+                <ul>
+                    <li>
+                        {% if footer.show_newsletter_signup %}
+                            <span class="badge badge-enabled">✓ Enabled</span>
+                        {% else %}
+                            <span class="badge badge-disabled">✗ Disabled</span>
+                        {% endif %}
+                        <strong>Newsletter Signup Form</strong>
+                    </li>
+                    <li>
+                        {% if footer.show_donate_button %}
+                            <span class="badge badge-enabled">✓ Enabled</span>
+                        {% else %}
+                            <span class="badge badge-disabled">✗ Disabled</span>
+                        {% endif %}
+                        <strong>Donate Button</strong>
+                        {% if footer.show_donate_button %}
+                            <br>
+                            <span style="margin-left: 7rem; color: #666; font-size: 0.875rem;">
+                                Text: "{{ footer.donate_button_text|default:"Donate" }}" | 
+                                URL: {{ footer.donate_button_url }}
+                            </span>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if footer.show_language_switcher %}
+                            <span class="badge badge-enabled">✓ Enabled</span>
+                        {% else %}
+                            <span class="badge badge-disabled">✗ Disabled</span>
+                        {% endif %}
+                        <strong>Language Switcher</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Links Summary -->
+            <div class="section">
+                <h2>Links Summary</h2>
+                <ul style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <li style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">{{ footer.internal_links.count }}</div>
+                        <strong>Internal Links</strong>
+                    </li>
+                    <li style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">{{ footer.external_links.count }}</div>
+                        <strong>External Links</strong>
+                    </li>
+                    <li style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">{{ footer.social_links.count }}</div>
+                        <strong>Social Links</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Internal Links -->
+            {% if footer.internal_links.all %}
+                <div class="section">
+                    <h2>Internal Links <span class="count">({{ footer.internal_links.count }})</span></h2>
+                    <ul>
+                        {% for link in footer.internal_links.all %}
+                            <li>
+                                <strong>{{ link.label }}</strong>
+                                <br>
+                                <span style="color: #666; font-size: 0.875rem;">{{ link.url }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- External Links -->
+            {% if footer.external_links.all %}
+                <div class="section">
+                    <h2>External Links <span class="count">({{ footer.external_links.count }})</span></h2>
+                    <ul>
+                        {% for link in footer.external_links.all %}
+                            <li>
+                                <strong>{{ link.label }}</strong>
+                                <br>
+                                <span style="color: #666; font-size: 0.875rem;">{{ link.url }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Social Links -->
+            {% if footer.social_links.all %}
+                <div class="section">
+                    <h2>Social Media Links <span class="count">({{ footer.social_links.count }})</span></h2>
+                    <ul>
+                        {% for link in footer.social_links.all %}
+                            <li>
+                                <strong>{{ link.icon_class }}</strong> {{ link.get_platform_display }}
+                                <br>
+                                <span style="color: #666; font-size: 0.875rem;">{{ link.url }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Legal Text -->
+            {% if footer.legal_text %}
+                <div class="section">
+                    <h2>⚖️ Legal Text</h2>
+                    <div class="legal-text">
+                        {{ footer.legal_text|safe }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Summary Footer -->
+            <div style="margin-top: 2rem; padding: 1rem; background: #e8f4ff; border-radius: 6px; text-align: center;">
+                <strong style="color: #0056b3;">ℹPreview Note:</strong> 
+                <span style="color: #666;">
+                    This is a simplified preview. See the full footer on any frontend page after publishing.
+                </span>
+            </div>
+        </div>
+    </body>
+</html>
