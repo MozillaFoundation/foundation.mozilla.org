@@ -1,8 +1,13 @@
 # Validates whether a string is either a valid URL, a query string (?param=test), or both.
 url_or_query_regex = r"^(https?://[\w.-]+(/\S*)?)?(\?[\w-]+(=[\w-]*)?(&[\w-]+(=[\w-]*)?)*)?$"
 
-# Rich text features excluding heading elements
-RICH_TEXT_FEATURES_NO_HEADINGS = [
+# Defualt rich text features
+DEFAULT_RICH_TEXT_FEATURES = [
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
     "bold",
     "italic",
     "large",

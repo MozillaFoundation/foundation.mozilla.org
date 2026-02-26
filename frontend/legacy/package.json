@@ -27,6 +27,7 @@
     "build:legacy:css:file:bg": "sass ../../foundation_cms/legacy_apps/static/sass/buyers-guide/bg-main.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/buyers-guide.compiled.css --quiet",
     "build:legacy:css:file:donate": "sass ../../foundation_cms/legacy_apps/static/sass/donate/donate-main.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/donate.compiled.css --quiet",
     "build:legacy:css:file:formassembly": "sass ../../foundation_cms/legacy_apps/static/sass/formassembly-override.scss ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/formassembly-override.compiled.css --quiet",
+    "build:legacy:css:file:swiper": "shx mkdir -p ../../foundation_cms/legacy_apps/static/compiled/_css/vendor && shx cp ../../node_modules/swiper/swiper-bundle.min.css ../../foundation_cms/legacy_apps/static/compiled/_css/vendor/swiper-bundle.min.css",
     "build:redesign": "cd frontend && yarn install --frozen-lockfile && yarn build",
     "fix": "run-s fix:*",
     "fix:js": "node ./lint-js.js --fix",
@@ -84,7 +85,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@sentry/browser": "^8.54.0",
+    "@sentry/browser": "^10.40.0",
     "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "^10.4.24",
     "axe-core": "^4.10.3",
@@ -109,13 +110,13 @@
     "react-ga": "3.3.1",
     "sass": "^1.59.3",
     "shx": "^0.4.0",
-    "swiper": "^11.2.6",
+    "swiper": "^12.1.2",
     "tailwindcss": "^3.4.15",
     "uuid": "^10.0.0",
     "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
-    "@axe-core/react": "^4.10.1",
+    "@axe-core/react": "^4.11.1",
     "@percy/cli": "^1.31.8",
     "@percy/playwright": "^1.0.9",
     "@playwright/test": "^1.58.2",
