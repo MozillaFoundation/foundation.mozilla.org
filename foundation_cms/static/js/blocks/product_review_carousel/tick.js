@@ -50,7 +50,9 @@ export function tick(ts) {
   const intPart = Math.floor(next);
   const fracPart = next - intPart;
 
-  if (Math.abs(fracPart - (this._fractionalRemainder || 0)) > FRACTION_EPSILON) {
+  if (
+    Math.abs(fracPart - (this._fractionalRemainder || 0)) > FRACTION_EPSILON
+  ) {
     this.track.style.transform = `translate3d(${-fracPart}px, 0, 0)`;
   }
 
