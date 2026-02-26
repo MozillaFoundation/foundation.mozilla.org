@@ -106,7 +106,7 @@
     "postcss-scss": "^4.0.9",
     "prop-types": "^15.7.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.2.4",
     "react-ga": "3.3.1",
     "sass": "^1.59.3",
     "shx": "^0.4.0",
