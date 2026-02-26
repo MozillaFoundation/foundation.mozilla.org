@@ -676,7 +676,8 @@ if USE_S3:
 else:
     # Otherwise use the default filesystem storage
     MEDIA_ROOT = root("../media/")
-    MEDIA_URL = "/media/"
+    # MEDIA_URL = "/media/"
+    MEDIA_URL = "https://assets.mofostaging.net/network/"
 
 # CORS
 CORS_ALLOW_CREDENTIALS = False

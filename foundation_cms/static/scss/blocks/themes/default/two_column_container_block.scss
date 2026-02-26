@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   margin-bottom: $two-column-mobile-margin-bottom;
+  border: 5px solid hotpink;
 
   @include breakpoint(medium up) {
     flex-direction: row;
@@ -39,6 +40,10 @@
 
   .two-column-container__column {
     flex: 1;
+
+    > .rich-text-block *:first-child {
+      margin-top: 0;
+    }
   }
 
   .newsletter-signup,
