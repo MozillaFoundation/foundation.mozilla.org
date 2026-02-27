@@ -44,6 +44,10 @@
     > .rich-text-block *:first-child {
       margin-top: 0;
     }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .newsletter-signup,
