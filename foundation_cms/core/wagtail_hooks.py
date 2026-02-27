@@ -72,8 +72,14 @@ class DonateBannerLinkClick(BaseEvent):
     requires_page = False  # Set to False to create a "Global" event type that could be reached on any page
 
 
+class FooterNewsletterSignupSubmission(BaseEvent):
+    name = "Footer Newsletter Signup Submission"
+    requires_page = False  # Set to False to create a "Global" event type that could be reached on any page
+
+
 @hooks.register("register_ab_testing_event_types")
 def register_donate_banner_link_click_event_type():
     return {
         "donate-banner-link-click": DonateBannerLinkClick,
+        "footer-newsletter-signup-submission": FooterNewsletterSignupSubmission,
     }

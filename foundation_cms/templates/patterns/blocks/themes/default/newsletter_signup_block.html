@@ -1,6 +1,8 @@
 {% load wagtailcore_tags %}
 
 {% block block_content %}
-    {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=self.newsletter_signup.localized %}
+    <div class="newsletter-signup-block">
+        {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=self.newsletter_signup.localized %}
+    </div>
 {% endblock block_content %}
 
