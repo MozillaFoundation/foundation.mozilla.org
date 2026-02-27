@@ -103,11 +103,13 @@
             {% block content %}{% endblock content %}
             {% block post_content %}{% endblock post_content %}
             {% block pre_footer_banner %}{% endblock pre_footer_banner %}
-            {% if EDITABLE_FOOTER %}
-                {% include "patterns/components/footer/footer.html" %}
-            {% else %}
-                {% include "patterns/components/footer.html" %}
-            {% endif %}
+            {% block footer_block %}
+                {% if EDITABLE_FOOTER %}
+                    {% include "patterns/components/footer/footer.html" %}
+                {% else %}
+                    {% include "patterns/components/footer.html" %}
+                {% endif %}
+            {% endblock footer_block %}
         </div>
         <script src="{% url "javascript-catalog" %}"></script>
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>

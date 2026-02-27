@@ -141,7 +141,6 @@ class SiteFooter(
     def get_preview_context(self, request, mode_name):
         """Return context for footer preview."""
         context = super().get_preview_context(request, mode_name)
-        context["footer"] = self
         return context
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
