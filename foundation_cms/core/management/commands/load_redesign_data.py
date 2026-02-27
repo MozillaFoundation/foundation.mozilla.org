@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
 from foundation_cms.core.factories.homepage import HomePageFactory
+from foundation_cms.footer.factories import generate as generate_footer
 
 BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"
 HOMEPAGE_DIR = BASE_DIR / "homepage"
@@ -35,6 +36,11 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Assigning redesign HomePage as default."))
         self.assign_homepage_as_site_root(homepage, hostname, port)
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
+
+        # Generate footer
+        self.stdout.write("Generating Site Footer...")
+        footer = generate_footer(seed=42)
+        self.stdout.write(self.style.SUCCESS(f'Site Footer active: "{footer.title}"'))
 
     def assign_homepage_as_site_root(self, homepage, hostname, port):
         site = Site.objects.get(is_default_site=True)

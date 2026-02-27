@@ -1,0 +1,8 @@
+{# This template is only used for footer snippet preview. #}
+{% extends "base/base.html" %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block footer_block %}
+    {% include "patterns/components/footer/footer.html" with footer=object %}
+{% endblock footer_block %}

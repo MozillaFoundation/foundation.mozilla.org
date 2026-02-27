@@ -1,0 +1,10 @@
+{% load wagtailsettings_tags %}
+
+{% if not footer %}
+    {% get_settings use_default_site=True %}
+    {% with footer=settings.footer.SiteFooterSettings.active_footer %}
+        {% include "patterns/components/footer/footer_content.html" %}
+    {% endwith %}
+{% else %}
+    {% include "patterns/components/footer/footer_content.html" %}
+{% endif %}
