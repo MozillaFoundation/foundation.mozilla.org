@@ -134,22 +134,22 @@ class SiteFooter(
         TranslatableField("legal_text"),
     ]
 
-    class Meta(wagtail_models.TranslatableMixin.Meta):
-        verbose_name = "Site Footer"
-        verbose_name_plural = "Site Footers"
-
-    def __str__(self) -> str:
-        return self.title
-
     def get_preview_template(self, request, mode_name):
         """Return a simple preview template for footer."""
-        return "patterns/components/footer/preview.html"
+        return "previews/footer.html"
 
     def get_preview_context(self, request, mode_name):
         """Return context for footer preview."""
         context = super().get_preview_context(request, mode_name)
         context["footer"] = self
         return context
+
+    class Meta(wagtail_models.TranslatableMixin.Meta):
+        verbose_name = "Site Footer"
+        verbose_name_plural = "Site Footers"
+
+    def __str__(self) -> str:
+        return self.title
 
 
 class FooterLink(wagtail_models.Orderable, wagtail_models.TranslatableMixin):
