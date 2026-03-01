@@ -82,17 +82,11 @@ body.redesign {
         width: 100%;
         height: rem-calc(45);
         top: 0;
-        background-image: url("/static/foundation_cms/_images/handdrawn/title-loop-line-large.svg");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: auto 100%;
+
+        @include loop-line-divider-bg;
 
         @include breakpoint(large up) {
           height: 3.5rem;
-        }
-
-        @include breakpoint(xlarge up) {
-          background-size: 100% 100%;
         }
       }
     }

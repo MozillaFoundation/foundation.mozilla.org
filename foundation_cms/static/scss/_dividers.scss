@@ -1,18 +1,65 @@
+$loop-line-image: "/static/foundation_cms/_images/handdrawn/loop-line-divider.svg";
+
 @mixin divider-base() {
   border: none;
   width: 100%;
 }
 
-@mixin divider-image($image-path, $height: 5px, $margin-y: 0) {
+@mixin divider-image(
+  $image-path,
+  $height: 5px,
+  $margin-y: 0,
+  $repeat: repeat-x,
+  $position: center,
+  $size: auto 100%,
+  $apply-base: true
+) {
+  @if $apply-base {
+    @include divider-base;
+  }
+
+  @if $height {
+    height: $height;
+  }
+
+  @if $margin-y {
+    margin-top: $margin-y;
+    margin-bottom: $margin-y;
+  }
+
+  background-image: url($image-path);
+  background-repeat: $repeat;
+  background-position: $position;
+  background-size: $size;
+}
+
+@mixin loop-line-divider-bg($size: auto 100%) {
+  @include divider-image(
+    $loop-line-image,
+    $height: null,
+    $margin-y: null,
+    $repeat: no-repeat,
+    $position: left 48% center,
+    $size: $size,
+    $apply-base: false
+  );
+}
+
+@mixin loop-line-divider(
+  $mobile-height: rem-calc(45),
+  $desktop-height: 3.5rem,
+  $size: auto 100%
+) {
   @include divider-base;
 
-  height: $height;
-  margin-top: $margin-y;
-  margin-bottom: $margin-y;
-  background-image: url($image-path);
-  background-repeat: repeat-x;
-  background-position: center;
-  background-size: auto 100%;
+  height: $mobile-height;
+
+  @include loop-line-divider-bg($size);
+
+  @include breakpoint(large up) {
+    height: $desktop-height;
+    background-position: left 47% center;
+  }
 }
 
 hr.divider--straight-line {
