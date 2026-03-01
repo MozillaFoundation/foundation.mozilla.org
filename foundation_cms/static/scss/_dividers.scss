@@ -39,7 +39,7 @@ $loop-line-image: "/static/foundation_cms/_images/handdrawn/loop-line-divider.sv
     $height: null,
     $margin-y: null,
     $repeat: no-repeat,
-    $position: left 47% center,
+    $position: left 48% center,
     $size: $size,
     $apply-base: false
   );
@@ -58,6 +58,7 @@ $loop-line-image: "/static/foundation_cms/_images/handdrawn/loop-line-divider.sv
 
   @include breakpoint(large up) {
     height: $desktop-height;
+    background-position: left 47% center;
   }
 }
 
