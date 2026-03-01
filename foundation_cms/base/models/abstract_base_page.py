@@ -226,67 +226,94 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         return self.get_template(request)
 
     def get_donate_banner(self, request):
-        SitewideDonateBannerPage = apps.get_model("core", "SitewideDonateBannerPage")
+        return self.get_sitewide_ab_tested_content(
+            request,
+            page_model=("core", "SitewideDonateBannerPage"),
+            field_name="donate_banner",
+        )
 
-        # Check if there's a SitewideDonateBannerPage.
+    def get_footer_newsletter_signup(self, request):
+        return self.get_sitewide_ab_tested_content(
+            request,
+            page_model=("core", "SitewideFooterNewsletterSignupPage"),
+            field_name="newsletter_signup",
+        )
+
+    def get_sitewide_ab_tested_content(self, request, page_model, field_name):
+        app_label, model_name = page_model
+        SitewidePageModel = apps.get_model(app_label, model_name)
+
+        # Check if the sitewide page exists (using the default locale).
         default_locale = Locale.get_default()
-        donate_banner_page = SitewideDonateBannerPage.objects.filter(locale=default_locale).first()
-        # If there is no SitewideDonateBannerPage or no donate_banner is set, return None.
-        if not donate_banner_page or not donate_banner_page.donate_banner:
+        page = SitewidePageModel.objects.filter(locale=default_locale).first()
+
+        # If there is no page, return None.
+        if not page:
+            return None
+
+        # Get the field we want from the page (e.g. donate_banner or newsletter_signup).
+        field_value = getattr(page, field_name)
+
+        # If the field is not set on the page, return None.
+        if not field_value:
             return None
 
         # Check if the user has Do Not Track enabled by inspecting the DNT header.
         dnt_enabled = request.headers.get("DNT") == "1"
 
-        # Check if there's an active A/B test for the SitewideDonateBannerPage.
-        active_ab_test = AbTest.objects.filter(page=donate_banner_page, status=AbTest.STATUS_RUNNING).first()
+        # Default values (whats served if there is no AB test or DNT is enabled).
+        served_value = field_value
+        variant_version = "N/A"
+        active_ab_test_name = "N/A"
 
-        # Data attributes for donate banner CTA button
-        # These are rendered as data-* attributes on the button element and used by JS
-        cta_button_data = {
-            "donate-banner-cta-button": "",  # flag for JS event listeners
-        }
+        # If DNT is NOT enabled, we are allowed to run A/B tests.
+        if not dnt_enabled:
+            # Check if there is an active A/B test attached to this page.
+            active_ab_test = AbTest.objects.filter(
+                page=page,
+                status=AbTest.STATUS_RUNNING,
+            ).first()
 
-        # If there's no A/B test found or DNT is enabled, return the page's donate_banner field as usual.
-        if not active_ab_test or dnt_enabled:
-            donate_banner = donate_banner_page.donate_banner.localized
-            donate_banner.variant_version = "N/A"
-            donate_banner.active_ab_test = "N/A"
-            donate_banner.cta_button_data = cta_button_data
-            return donate_banner
+            if active_ab_test:
+                # Check for the cookie related to this A/B test.
+                test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
+                test_version = request.COOKIES.get(test_cookie_name)
 
-        # Check for the cookie related to this A/B test.
-        # In wagtail-ab-testing, the cookie name follows the format:
-        # "wagtail-ab-testing_{ab_test.id}_version".
-        # For details, see the source code here:
-        # https://github.com/wagtail-nest/wagtail-ab-testing/blob/main/wagtail_ab_testing/wagtail_hooks.py#L196-L197
-        test_cookie_name = f"wagtail-ab-testing_{active_ab_test.id}_version"
-        test_version = request.COOKIES.get(test_cookie_name)
+                # If no version cookie is found, grab a test version for the current user.
+                if not test_version:
+                    test_version = active_ab_test.get_new_participant_version()
 
-        # If no version cookie is found, grab a test version for the current user.
-        if not test_version:
-            test_version = active_ab_test.get_new_participant_version()
+                # Determine whether the user is seeing the variant.
+                if test_version == "variant":
+                    is_variant = True
+                else:
+                    is_variant = False
 
-        if test_version == "variant":
-            is_variant = True
-        else:
-            is_variant = False
+                # Attach active test and variant flag to the request for
+                # the {% wagtail_ab_testing_script %} template tag.
+                request.wagtail_ab_testing_test = active_ab_test
+                request.wagtail_ab_testing_serving_variant = is_variant
 
-        # Attach active test and variant flag to request for {% wagtail_ab_testing_script %} template tag.
-        # This allows wagtail-ab-testing to track events for this test, and set the version cookie if needed.
-        request.wagtail_ab_testing_test = active_ab_test
-        request.wagtail_ab_testing_serving_variant = is_variant
+                # If the user is supposed to be served the variant, pull the value from the variant revision.
+                if is_variant:
+                    variant_page = active_ab_test.variant_revision.as_object()
+                    served_value = getattr(variant_page, field_name)
 
-        # Return the appropriate donate banner
-        if is_variant:
-            donate_banner = active_ab_test.variant_revision.as_object().donate_banner.localized
-        else:
-            donate_banner = donate_banner_page.donate_banner.localized
+                variant_version = test_version
+                active_ab_test_name = active_ab_test.name
 
-        donate_banner.variant_version = test_version
-        donate_banner.active_ab_test = active_ab_test.name
-        donate_banner.cta_button_data = cta_button_data
-        return donate_banner
+        # Localize the returned value and attach metadata.
+        content = served_value.localized
+        content.variant_version = variant_version
+        content.active_ab_test = active_ab_test_name
+
+        # Only the donate banner needs CTA button data.
+        if field_name == "donate_banner":
+            content.cta_button_data = {
+                "donate-banner-cta-button": "",  # flag for JS event listeners
+            }
+
+        return content
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -299,6 +326,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
             ]
         ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
+        context["footer_newsletter_signup"] = self.get_footer_newsletter_signup(request)
         context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
         context["theme_class_bem"] = self._to_bem_case(theme) if theme else ""
         return context
