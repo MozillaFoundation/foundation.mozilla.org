@@ -147,3 +147,13 @@
   box-decoration-break: clone;
   margin: 0;
 }
+
+// ===================================
+// Streamfield Block Mixins
+// ===================================
+
+@mixin block-wrapper($block-type) {
+  .streamfield-block-wrapper[data-block-type="#{$block-type}"] {
+    @content;
+  }
+}

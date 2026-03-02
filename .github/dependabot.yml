@@ -1,18 +1,15 @@
 version: 2
 updates:
-- package-ecosystem: pip-compile
+- package-ecosystem: pip
   directory: "/"
   schedule:
     interval: weekly
   open-pull-requests-limit: 99
   labels:
     - "engineering"
-    - "dependencies"
+    - "dependencies"  
     - "backend"
     - "pip"
-  files:
-    - requirements.in
-    - dev-requirements.in
 - package-ecosystem: npm
   directory: "/"
   schedule:

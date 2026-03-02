@@ -9,11 +9,16 @@
           </a>
         </div>
         <div class="site-footer-ns__newsletter-form">
-          {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
-            {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
-              {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup.localized %}
-            {% endwith %}
+          {% if footer_newsletter_signup %}
+            {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
+          {% else %}
+            {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+              {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+                {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup.localized %}
+              {% endwith %}
+            {% endif %}
           {% endif %}
+
         </div>
       </div>
       <div class="site-footer-ns__grid-cell site-footer-ns__links body-text-regular">
