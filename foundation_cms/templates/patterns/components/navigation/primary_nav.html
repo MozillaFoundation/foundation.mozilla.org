@@ -1,7 +1,7 @@
 {% load static i18n l10n wagtailsettings_tags navigation_tags %}
 
 {% get_settings use_default_site=True %}
-{% with menu=settings.navigation.SiteNavigationMenu.active_navigation_menu %}
+{% with menu=menu|default:settings.navigation.SiteNavigationMenu.active_navigation_menu %}
   {% translated_menu menu as localized_menu %}
 
   <nav role="navigation" class="primary-nav-ns">

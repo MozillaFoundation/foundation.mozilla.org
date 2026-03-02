@@ -39,11 +39,12 @@ class NavigationMenu(
 
     def get_preview_template(self, request, mode_name):
         return "previews/navigation.html"
-    
+
     def get_preview_context(self, request, mode_name):
         context = super().get_preview_context(request, mode_name)
+        context["preview_menu"] = self
         return context
-    
+
     class Meta(wagtail_models.TranslatableMixin.Meta):
         verbose_name = "Navigation Menu"
         verbose_name_plural = "Navigation Menus"

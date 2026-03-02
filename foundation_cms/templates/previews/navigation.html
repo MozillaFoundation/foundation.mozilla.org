@@ -2,3 +2,9 @@
 {% extends "base/base.html" %}
 
 {% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block editable_nav %}
+    {% if preview_menu %}
+        {% include "patterns/components/navigation/primary_nav.html" with menu=preview_menu %}
+    {% endif %}
+{% endblock editable_nav %}

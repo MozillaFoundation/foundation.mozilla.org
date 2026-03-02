@@ -95,7 +95,9 @@
             {% endif %}
         {% endblock donate_banner %}
         {% if EDITABLE_NAV %}
-            {% include "patterns/components/navigation/primary_nav.html" %}
+            {% block editable_nav %}
+                {% include "patterns/components/navigation/primary_nav.html" %}
+            {% endblock editable_nav %}
         {% else %}
             {% include "patterns/components/primary_nav.html" %}
         {% endif %}

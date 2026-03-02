@@ -19,6 +19,8 @@ class NavLink(BaseLinkBlock):
     A single nav link (used both for dropdown "header link" and dropdown items).
     """
 
+    label = blocks.CharBlock(max_length=36, help_text="Maximum 36 characters.")
+
     class Meta:
         value_class = NavLinkValue
         label = "Nav Link"
