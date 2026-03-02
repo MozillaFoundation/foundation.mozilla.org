@@ -136,7 +136,7 @@ class SiteFooter(
 
     def get_preview_template(self, request, mode_name):
         """Return a simple preview template for footer."""
-        return "previews/footer.html"
+        return "patterns/components/previews/footer.html"
 
     def get_preview_context(self, request, mode_name):
         """Return context for footer preview."""
