@@ -3167,10 +3167,10 @@ html-tags@^5.1.0:
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-5.1.0.tgz#ec7214b57b3e50e2a4cec39414454338a94291f8"
   integrity sha512-n6l5uca7/y5joxZ3LUePhzmBFUJ+U2YWzhMa8XUTecSeSlQiZdF5XAd/Q3/WUl0VsXgUwWi8I7CNIwdI5WN1SQ==
 
-htmx.org@^1.9.12:
-  version "1.9.12"
-  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-1.9.12.tgz#1c5bc7fb4d3eb4e8c0d72323dc774a6b9b66addc"
-  integrity sha512-VZAohXyF7xPGS52IM8d1T1283y+X4D+Owf3qY1NZ9RuBypyu9l8cGsxUMAG5fEAb/DhT7rDoJ9Hpu5/HxFD3cw==
+htmx.org@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-2.0.8.tgz#8ac8ba87c141b7bfda7576117476062eeb4aceda"
+  integrity sha512-fm297iru0iWsNJlBrjvtN7V9zjaxd+69Oqjh4F/Vq9Wwi2kFisLcrLCiv5oBX0KLfOX/zG8AUo9ROMU5XUB44Q==
 
 http-cache-semantics@3.8.1:
   version "3.8.1"
