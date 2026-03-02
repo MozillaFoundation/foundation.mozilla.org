@@ -1,0 +1,26 @@
+@use "sass:math";
+
+// nested .rich-text-block inside another rich text block
+@include block-wrapper("rich_text") {
+  .rich-text-block {
+    @include breakpoint(large up) {
+      @include grid-column(8);
+    }
+  }
+
+  @for $i from 1 through 11 {
+    .medium-#{$i},
+    .large-#{$i} {
+      .rich-text-block {
+        @include breakpoint(large up) {
+          @include grid-column(12);
+        }
+      }
+    }
+  }
+}
+
+.rich-text-block {
+  font-size: rem-calc(18);
+  line-height: $global-lineheight;
+}

@@ -103,7 +103,9 @@
             {% block content %}{% endblock content %}
             {% block post_content %}{% endblock post_content %}
             {% block pre_footer_banner %}{% endblock pre_footer_banner %}
-            {% include "patterns/components/footer.html" %}
+            {% block footer_block %}
+                {% include "patterns/components/footer.html" %}
+            {% endblock footer_block %}
         </div>
         <script src="{% url "javascript-catalog" %}"></script>
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
