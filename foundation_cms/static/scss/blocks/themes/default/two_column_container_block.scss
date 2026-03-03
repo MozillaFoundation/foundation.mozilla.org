@@ -1,15 +1,23 @@
+@use "sass:map";
+
 .two-column-container {
-  $two-column-mobile-margin-bottom: 0.25rem;
+  $two-column-margin-y: (
+    small: 0.25rem,
+    large: 2rem,
+  );
+
   $cell-block-margin-bottom: 2rem;
 
   display: flex;
   flex-direction: column;
-  margin-bottom: $two-column-mobile-margin-bottom;
+  margin-top: map.get($two-column-margin-y, small);
+  margin-bottom: map.get($two-column-margin-y, small);
 
   @include breakpoint(medium up) {
     flex-direction: row;
-    margin-bottom: $global-margin * 2;
-    gap: $global-padding * 2;
+    margin-top: map.get($two-column-margin-y, large);
+    margin-bottom: map.get($two-column-margin-y, large);
+    gap: map.get($two-column-margin-y, large);
   }
 
   &--middle {
