@@ -15,10 +15,13 @@ class DebugHostHeadersMiddleware:
             request.META.get("HTTP_X_FORWARDED_PROTO"),
             request.is_secure(),
         )
-        print(request.get_host())
-        print(request.META.get("HTTP_HOST"))
-        print(request.META.get("HTTP_X_FORWARDED_HOST"))
-        print(request.META.get("HTTP_X_FORWARDED_PROTO"))
-        print(request.is_secure())
-
+        if request.path.startswith("/cms/snippets/navigation/navigationmenu/preview/"):
+            print("PATH", request.get_full_path())
+            print("get_host()", request.get_host())
+            print("HTTP_HOST", request.META.get("HTTP_HOST"))
+            print("X_FWD_HOST", request.META.get("HTTP_X_FORWARDED_HOST"))
+            print("X_ORIG_HOST", request.META.get("HTTP_X_ORIGINAL_HOST"))
+            print("FORWARDED", request.META.get("HTTP_FORWARDED"))
+            print("X_FWD_PROTO", request.META.get("HTTP_X_FORWARDED_PROTO"))
+            
         return self.get_response(request)
