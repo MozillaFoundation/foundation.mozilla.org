@@ -2,9 +2,11 @@
     &__center {
         display: flex;
         justify-content: center;
+
         a {
             width: 100%;
             justify-content: center;
+
             @include breakpoint (medium up) {
                 width: auto;
             }
