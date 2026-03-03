@@ -318,7 +318,6 @@ MIDDLEWARE = list(
             "django.middleware.gzip.GZipMiddleware",
             "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG_TOOLBAR_ENABLED else None,
             "foundation_cms.legacy_apps.utility.middleware.NormalizeLocaleMiddleware",
-            "foundation_cms.base.utils.middleware.DebugHostHeadersMiddleware",
             "foundation_cms.legacy_apps.utility.middleware.TargetDomainRedirectMiddleware",
             "django.contrib.sessions.middleware.SessionMiddleware",
             #
