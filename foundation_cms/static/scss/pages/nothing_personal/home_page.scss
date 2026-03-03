@@ -2,10 +2,6 @@
 @use "sass:math";
 @import "../../nothing_personal_base";
 
-html:has(body.nothing-personal-home-page) {
-  scroll-behavior: smooth;
-}
-
 body.nothing-personal-home-page {
   $image-hover-scale: 105%;
 
