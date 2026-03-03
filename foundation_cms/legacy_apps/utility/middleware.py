@@ -33,6 +33,7 @@ class TargetDomainRedirectMiddleware:
 
     def __call__(self, request):
         if settings.DOMAIN_REDIRECT_MIDDLEWARE_ENABLED:
+            rid = request.META.get("HTTP_X_REQUEST_ID")
             # Never redirect Wagtail admin, including preview panel iframes
             if request.path.startswith("/cms/"):
                 logger.warning("RID=%s skipping domain redirect for cms path", rid)
@@ -63,7 +64,6 @@ class TargetDomainRedirectMiddleware:
                     hostnames,
                 )
 
-                rid = request.META.get("HTTP_X_REQUEST_ID")
                 logger.warning(
                     "RID=%s path=%s full_path=%s host_hdr=%s get_host=%s xfh=%s",
                     rid,
