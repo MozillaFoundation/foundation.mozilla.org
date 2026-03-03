@@ -78,7 +78,7 @@ class SiteFooter(
         panels.MultiFieldPanel(
             [
                 panels.FieldPanel("logo"),
-                panels.FieldPanel("logo_link_url"),
+                panels.FieldPanel("logo_link_url", required_on_save=True),
             ],
             heading="Logo & Branding",
         ),
@@ -88,7 +88,7 @@ class SiteFooter(
                 panels.FieldPanel("show_language_switcher"),
                 panels.FieldPanel("show_donate_button"),
                 panels.FieldPanel("donate_button_text"),
-                panels.FieldPanel("donate_button_url"),
+                panels.FieldPanel("donate_button_url", required_on_save=True),
             ],
             heading="Display Options",
         ),
@@ -191,8 +191,8 @@ class FooterInternalLink(FooterLink):
     footer = ParentalKey(SiteFooter, on_delete=models.CASCADE, related_name="internal_links")
 
     panels = [
-        panels.FieldPanel("label"),
-        panels.FieldPanel("url", help_text="Relative URL (e.g. /meet-mozilla/)"),
+        panels.FieldPanel("label", required_on_save=True),
+        panels.FieldPanel("url", required_on_save=True, help_text="Relative URL (e.g. /meet-mozilla/)"),
     ]
 
     class Meta(FooterLink.Meta):
@@ -212,8 +212,8 @@ class FooterExternalLink(FooterLink):
     footer = ParentalKey(SiteFooter, on_delete=models.CASCADE, related_name="external_links")
 
     panels = [
-        panels.FieldPanel("label"),
-        panels.FieldPanel("url", help_text="Full URL including https://"),
+        panels.FieldPanel("label", required_on_save=True),
+        panels.FieldPanel("url", required_on_save=True, help_text="Full URL including https://"),
     ]
 
     class Meta(FooterLink.Meta):
@@ -249,7 +249,7 @@ class FooterSocialLink(wagtail_models.Orderable, wagtail_models.TranslatableMixi
 
     panels = [
         panels.FieldPanel("platform"),
-        panels.FieldPanel("url"),
+        panels.FieldPanel("url", required_on_save=True),
     ]
 
     translatable_fields = [
