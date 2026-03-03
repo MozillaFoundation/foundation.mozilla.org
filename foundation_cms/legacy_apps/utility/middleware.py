@@ -47,11 +47,17 @@ class TargetDomainRedirectMiddleware:
 
             # Redirect to the first hostname listed in the config
             if request_host not in hostnames:
-
-                # Don't redirect from the preview panel
+                # Don't redirect from the admin
                 if request.path.startswith("/cms/"):
                     return self.get_response(request)
                 
+                logger.warning(
+                    "Domain redirect: host=%s get_host=%s full_path=%s allowed=%s",
+                    request.headers.get("host"),
+                    request.get_host(),
+                    request.get_full_path(),
+                    hostnames,
+                )
                 redirect_url = "{protocol}://{hostname}{path}".format(
                     protocol=protocol,
                     hostname=hostnames[0],
