@@ -5,7 +5,6 @@
     small: 0.25rem,
     large: 2rem,
   );
-  $cell-block-margin-bottom: 2rem;
 
   display: flex;
   flex-direction: column;
@@ -60,9 +59,8 @@
     }
   }
 
-  .newsletter-signup,
-  .list-block {
-    margin-bottom: $cell-block-margin-bottom;
+  .newsletter-signup {
+    margin-bottom: 0;
   }
 
   // todo: Implement container queries instead of catching the two column container block
