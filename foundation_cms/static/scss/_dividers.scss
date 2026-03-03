@@ -1,4 +1,5 @@
 $loop-line-image: "/static/foundation_cms/_images/handdrawn/loop-line-divider.svg";
+$straight-line-image: "/static/foundation_cms/_images/handdrawn/straight-line-divider.svg";
 
 @mixin divider-base() {
   border: none;
@@ -63,7 +64,5 @@ $loop-line-image: "/static/foundation_cms/_images/handdrawn/loop-line-divider.sv
 }
 
 hr.divider--straight-line {
-  @include divider-image(
-    "/static/foundation_cms/_images/handdrawn/straight-line-divider.svg"
-  );
+  @include divider-image($straight-line-image);
 }
