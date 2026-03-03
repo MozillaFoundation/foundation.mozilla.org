@@ -47,9 +47,9 @@ class TargetDomainRedirectMiddleware:
 
             # Redirect to the first hostname listed in the config
             if request_host not in hostnames:
-                
+
                 # Don't redirect from the preview panel
-                if request.path.startswith("/cms/") and request.GET.get("in_preview_panel") == "true":
+                if request.path.startswith("/cms/"):
                     return self.get_response(request)
                 
                 redirect_url = "{protocol}://{hostname}{path}".format(
