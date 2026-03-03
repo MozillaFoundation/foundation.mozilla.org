@@ -43,6 +43,12 @@ class NavigationMenu(
     def get_preview_context(self, request, mode_name):
         context = super().get_preview_context(request, mode_name)
         context["preview_menu"] = self
+
+        # Get the default site homepage to render the preview
+        site = wagtail_models.Site.objects.filter(is_default_site=True).first()
+        page = site.root_page.specific
+
+        context["page"] = page
         return context
 
     class Meta(wagtail_models.TranslatableMixin.Meta):

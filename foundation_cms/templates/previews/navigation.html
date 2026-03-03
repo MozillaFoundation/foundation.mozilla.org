@@ -1,11 +1,25 @@
 {# This template is only used for snippet preview. #}
 {% extends "base/base.html" %}
+{% load static wagtailcore_tags %}
 
 {% block wagtail_metadata %}{% endblock wagtail_metadata %}
 
 {% block editable_nav %}
-    {% if preview_menu %}
-        PREVIEW MODE
-        {% include "patterns/components/navigation/primary_nav.html" with menu=preview_menu %}
-    {% endif %}
+  {% if preview_menu %}
+    {% include "patterns/components/navigation/primary_nav.html" with menu=preview_menu %}
+  {% endif %}
 {% endblock editable_nav %}
+
+{# render remaining content blocks from patterns/components/pages/corehomepage.html #}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/home_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  {% include "patterns/components/home_page/content.html" %}
+{% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'foundation_cms/_js/pages/home_page.compiled.js' %}"></script>
+{% endblock extra_js %}
