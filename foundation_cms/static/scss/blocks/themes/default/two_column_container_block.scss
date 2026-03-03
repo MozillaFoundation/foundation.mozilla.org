@@ -31,14 +31,13 @@
   }
 
   &__column {
+    flex: 1;
+    min-width: 0;
+
     .grid-container {
       padding-left: 0;
       padding-right: 0;
     }
-  }
-
-  .two-column-container__column {
-    flex: 1;
   }
 
   .newsletter-signup,
