@@ -185,17 +185,6 @@ HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
 if HEROKU_APP_NAME:
-<<<<<<< Updated upstream
-    herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
-    if APP_ENVIRONMENT == "Review":
-        # allow reviewappname.mofostaging.net
-        TARGET_DOMAINS.append(herokuAppHost)
-        ALLOWED_HOSTS.append(herokuAppHost)
-        # allow mozfest-reviewappname.mofostaging.net
-        TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
-        ALLOWED_HOSTS.append("mozfest-" + herokuAppHost)
-        # allow legacy-reviewappname.mofostaging.net
-=======
     if APP_ENVIRONMENT == "Review":
         herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
         # allow reviewappname.mofostaging.net
@@ -207,7 +196,6 @@ if HEROKU_APP_NAME:
         TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
         ALLOWED_HOSTS.append("mozfest-" + herokuAppHost)
         # allow mozfest-reviewappname.mofostaging.net
->>>>>>> Stashed changes
         TARGET_DOMAINS.append("legacy-" + herokuAppHost)
         ALLOWED_HOSTS.append("legacy-" + herokuAppHost)
 
