@@ -1,15 +1,15 @@
 .link-button-block {
-    &__center {
-        display: flex;
-        justify-content: center;
+  &__center {
+    display: flex;
+    justify-content: center;
 
-        a {
-            width: 100%;
-            justify-content: center;
+    a {
+      width: 100%;
+      justify-content: center;
 
-            @include breakpoint (medium up) {
-                width: auto;
-            }
-         }
+      @include breakpoint(medium up) {
+        width: auto;
+      }
     }
+  }
 }
