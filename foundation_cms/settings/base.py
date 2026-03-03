@@ -328,6 +328,7 @@ MIDDLEWARE = list(
             "django.contrib.messages.middleware.MessageMiddleware",
             #
             # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
+            "foundation_cms.base.utils.middleware.DebugHostHeadersMiddleware",
             "foundation_cms.legacy_apps.wagtailcustomization.redirects.middleware.RedirectMiddleware",
             #
             # instead of 'django.middleware.csrf.CsrfViewMiddleware':
