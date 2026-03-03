@@ -2,8 +2,6 @@ from django.conf import settings
 from django.http.response import HttpResponseRedirectBase
 from django.shortcuts import redirect
 from django.utils.deprecation import MiddlewareMixin
-import logging
-logger = logging.getLogger(__name__)
 
 hostnames = settings.TARGET_DOMAINS
 
@@ -33,15 +31,6 @@ class TargetDomainRedirectMiddleware:
 
     def __call__(self, request):
         if settings.DOMAIN_REDIRECT_MIDDLEWARE_ENABLED:
-            rid = request.META.get("HTTP_X_REQUEST_ID")
-            # Never redirect Wagtail admin, including preview panel iframes
-            if request.path.startswith("/cms/"):
-                logger.warning("RID=%s skipping domain redirect for cms path", rid)
-                return self.get_response(request)
-            else:
-                logger.warning("RID=%s non cms path detected", rid)
-                print(request.get_full_path())
-                
             request_host = request.get_host()
             protocol = "https" if request.is_secure() else "http"
 
@@ -56,24 +45,6 @@ class TargetDomainRedirectMiddleware:
 
             # Redirect to the first hostname listed in the config
             if request_host not in hostnames:
-                logger.warning(
-                    "Domain redirect: host=%s get_host=%s full_path=%s allowed=%s",
-                    request.headers.get("host"),
-                    request.get_host(),
-                    request.get_full_path(),
-                    hostnames,
-                )
-
-                logger.warning(
-                    "RID=%s path=%s full_path=%s host_hdr=%s get_host=%s xfh=%s",
-                    rid,
-                    request.path,
-                    request.get_full_path(),
-                    request.META.get("HTTP_HOST"),
-                    request.get_host(),
-                    request.META.get("HTTP_X_FORWARDED_HOST"),
-)
-
                 redirect_url = "{protocol}://{hostname}{path}".format(
                     protocol=protocol,
                     hostname=hostnames[0],

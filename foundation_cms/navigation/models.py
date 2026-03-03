@@ -4,10 +4,11 @@ from wagtail.admin import panels
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
-
+import logging
 from foundation_cms.navigation import blocks as nav_blocks
+from django.shortcuts import render
 
-
+logger = logging.getLogger(__name__)
 class NavigationMenu(
     wagtail_models.PreviewableMixin,
     wagtail_models.DraftStateMixin,
@@ -50,6 +51,17 @@ class NavigationMenu(
 
         context["page"] = page
         return context
+    
+    def serve_preview(self, request, mode_name):
+        # This will log every preview call and the current host/path
+        logger.warning("NavigationMenu.serve_preview called host=%s path=%s in_preview=%s",
+                       request.get_host(), request.path, request.GET.get("in_preview_panel"))
+        ctx = self.get_preview_context(request, mode_name)
+        template = self.get_preview_template(request, mode_name)
+        # ensure preview responses are not cached
+        response = render(request, template, ctx)
+        response["Cache-Control"] = "no-store, no-cache, must-revalidate, private"
+        return response
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
         verbose_name = "Navigation Menu"
