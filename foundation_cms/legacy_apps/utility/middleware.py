@@ -2,6 +2,8 @@ from django.conf import settings
 from django.http.response import HttpResponseRedirectBase
 from django.shortcuts import redirect
 from django.utils.deprecation import MiddlewareMixin
+import logging
+logger = logging.getLogger(__name__)
 
 hostnames = settings.TARGET_DOMAINS
 
@@ -45,6 +47,13 @@ class TargetDomainRedirectMiddleware:
 
             # Redirect to the first hostname listed in the config
             if request_host not in hostnames:
+                logger.warning(
+                    "Domain redirect: host=%s get_host=%s full_path=%s allowed=%s",
+                    request.headers.get("host"),
+                    request.get_host(),
+                    request.get_full_path(),
+                    hostnames,
+                )
                 redirect_url = "{protocol}://{hostname}{path}".format(
                     protocol=protocol,
                     hostname=hostnames[0],
