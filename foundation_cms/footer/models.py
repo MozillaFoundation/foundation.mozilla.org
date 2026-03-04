@@ -22,7 +22,6 @@ class SiteFooter(
     """
 
     title = models.CharField(max_length=100, help_text="For internal identification only (e.g. 'Main Footer')")
-
     legal_text = RichTextField(
         blank=True,
         features=["bold", "italic", "link"],
@@ -69,7 +68,7 @@ class SiteFooter(
 
     def get_preview_template(self, request, mode_name):
         """Return a simple preview template for footer."""
-        return "patterns/components/previews/footer.html"
+        return "previews/footer.html"
 
     def get_preview_context(self, request, mode_name):
         """Return context for footer preview."""
@@ -95,9 +94,7 @@ class FooterLink(wagtail_models.Orderable, wagtail_models.TranslatableMixin):
         on_delete=models.CASCADE,
         related_name="%(class)s_set",
     )
-
     label = models.CharField(max_length=100, help_text="Link text displayed to users")
-
     url = models.CharField(max_length=500, help_text="URL for this link")
 
     panels = [
@@ -175,9 +172,7 @@ class FooterSocialLink(wagtail_models.Orderable, wagtail_models.TranslatableMixi
     ]
 
     footer = ParentalKey(SiteFooter, on_delete=models.CASCADE, related_name="social_links")
-
     platform = models.CharField(max_length=50, choices=SOCIAL_PLATFORMS, help_text="Select social media platform")
-
     url = models.URLField(help_text="Full URL to your social media profile")
 
     panels = [
