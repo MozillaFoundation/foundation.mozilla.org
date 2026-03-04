@@ -25,3 +25,7 @@ def mozfest_schedule_url(request):
 
 def editable_footer(request):
     return {"EDITABLE_FOOTER": settings.EDITABLE_FOOTER}
+
+
+def editable_nav(request):
+    return {"EDITABLE_NAV": settings.EDITABLE_NAV}

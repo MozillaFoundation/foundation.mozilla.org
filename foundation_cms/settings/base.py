@@ -185,12 +185,19 @@ HEROKU_PR_NUMBER = env("HEROKU_PR_NUMBER")
 HEROKU_BRANCH = env("HEROKU_BRANCH")
 
 if HEROKU_APP_NAME:
-    herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
-    ALLOWED_HOSTS.append(herokuAppHost)
     if APP_ENVIRONMENT == "Review":
+        herokuAppHost = env("HEROKU_APP_NAME") + ".mofostaging.net"
+        # allow reviewappname.mofostaging.net
         TARGET_DOMAINS.append(herokuAppHost)
+        ALLOWED_HOSTS.append(herokuAppHost)
+        # allow reviewappname.herokuapp.com so that we can redirect it to reviewappname.mofostaging.net
+        ALLOWED_HOSTS.append(env("HEROKU_APP_NAME") + ".herokuapp.com")
+        # allow mozfest-reviewappname.mofostaging.net
         TARGET_DOMAINS.append("mozfest-" + herokuAppHost)
+        ALLOWED_HOSTS.append("mozfest-" + herokuAppHost)
+        # allow mozfest-reviewappname.mofostaging.net
         TARGET_DOMAINS.append("legacy-" + herokuAppHost)
+        ALLOWED_HOSTS.append("legacy-" + herokuAppHost)
 
 SITE_ID = 1
 
@@ -301,6 +308,7 @@ INSTALLED_APPS = list(
             "foundation_cms.snippets",
             "foundation_cms.images",
             "foundation_cms.footer",
+            "foundation_cms.navigation",
         ],
     )
 )
@@ -392,6 +400,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
                         "foundation_cms.context_processor.editable_footer",
+                        "foundation_cms.context_processor.editable_nav",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -904,3 +913,5 @@ TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
 
 # Use cms editable footer
 EDITABLE_FOOTER = env("EDITABLE_FOOTER", default=False)
+# Use cms editable nav
+EDITABLE_NAV = env("EDITABLE_NAV", default=False)
