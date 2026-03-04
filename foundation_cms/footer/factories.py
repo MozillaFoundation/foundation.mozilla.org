@@ -12,7 +12,7 @@ class FooterInternalLinkFactory(DjangoModelFactory):
 
     footer = None
     label = factory.Faker("sentence", nb_words=2)
-    url = factory.LazyAttribute(lambda _: f"/{factory.Faker('slug').generate()}/")
+    url = factory.LazyAttribute(lambda _: f"/{factory.Faker('uri_path')}/")
     sort_order = factory.Sequence(lambda n: n)
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
 
