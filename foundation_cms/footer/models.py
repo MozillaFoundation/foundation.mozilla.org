@@ -1,12 +1,16 @@
+import logging
+
 from django.db import models
+from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail import models as wagtail_models
 from wagtail.admin import panels
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
-from wagtail.images import get_image_model_string
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+
+logger = logging.getLogger(__name__)
 
 
 class SiteFooter(
@@ -73,7 +77,29 @@ class SiteFooter(
     def get_preview_context(self, request, mode_name):
         """Return context for footer preview."""
         context = super().get_preview_context(request, mode_name)
+
+        # Get the default site homepage to render the preview
+        site = wagtail_models.Site.objects.filter(is_default_site=True).first()
+        page = site.root_page.specific
+
+        context["page"] = page
+
         return context
+
+    def serve_preview(self, request, mode_name):
+        # This will log every preview call and the current host/path
+        logger.warning(
+            "SiteFooter.serve_preview called host=%s path=%s in_preview=%s",
+            request.get_host(),
+            request.path,
+            request.GET.get("in_preview_panel"),
+        )
+        ctx = self.get_preview_context(request, mode_name)
+        template = self.get_preview_template(request, mode_name)
+        # ensure preview responses are not cached
+        response = render(request, template, ctx)
+        response["Cache-Control"] = "no-store, no-cache, must-revalidate, private"
+        return response
 
     class Meta(wagtail_models.TranslatableMixin.Meta):
         verbose_name = "Site Footer"
