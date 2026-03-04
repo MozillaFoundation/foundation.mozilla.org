@@ -1,6 +1,8 @@
 import json
+import random
 from pathlib import Path
 
+import factory
 from django.core.files.images import ImageFile
 from wagtail.blocks.stream_block import StreamValue
 from wagtail.images import get_image_model
@@ -125,3 +127,19 @@ def to_streamfield_value(raw_data, stream_block):
     Converts raw JSON into a Wagtail StreamField value, preserving block structure.
     """
     return StreamValue(stream_block, raw_data, is_lazy=True)
+
+
+def reseed(seed):
+    """
+    Reseed the Faker RNG used by factory using seed
+    """
+    random.seed(seed)
+    faker = get_faker()
+    faker.random.seed(seed)
+
+
+def get_faker():
+    """
+    Get faker helper function
+    """
+    return factory.faker.Faker._get_faker(locale="en-US")
