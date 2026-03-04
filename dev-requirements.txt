@@ -16,7 +16,7 @@ click==8.1.3
     #   djlint
 colorama==0.4.6
     # via djlint
-coverage[toml]==7.4.1
+coverage[toml]==7.10.7
     # via pytest-cov
 cssbeautifier==1.14.7
     # via djlint
@@ -71,7 +71,9 @@ pathspec==1.0.4
 platformdirs==2.5.3
     # via black
 pluggy==1.5.0
-    # via pytest
+    # via
+    #   pytest
+    #   pytest-cov
 ptvsd==4.3.2
     # via -r dev-requirements.in
 pycodestyle==2.13.0
@@ -85,7 +87,7 @@ pytest==8.3.5
     #   pytest-django
     #   pytest-sugar
     #   pytest-xdist
-pytest-cov==4.1.0
+pytest-cov==7.0.0
     # via -r dev-requirements.in
 pytest-django==4.8.0
     # via -r dev-requirements.in
