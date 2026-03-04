@@ -236,6 +236,7 @@ ignore="H017"
 "foundation_cms/templates/patterns/components/primary_nav.html" = "D018"
 "foundation_cms/templates/patterns/components/navigation/primary_nav.html" = "D018"
 "foundation_cms/templates/patterns/components/footer.html" = "D018"
+"foundation_cms/templates/patterns/components/footer/footer_content.html" = "D018"
 "foundation_cms/campaigns/templates/campaigns/components/formassembly_body.html" = "H021, H026"
 
 [tool.isort]
