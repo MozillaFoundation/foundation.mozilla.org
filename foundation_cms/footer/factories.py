@@ -98,13 +98,6 @@ def generate(seed):
     footer, created = footer_models.SiteFooter.objects.get_or_create(
         title="Main Footer",
         defaults={
-            "logo": None,
-            "logo_link_url": "/",
-            "show_donate_button": True,
-            "donate_button_text": "Donate",
-            "donate_button_url": "?form=donate-footer",
-            "show_language_switcher": True,
-            "show_newsletter_signup": True,
             "legal_text": (
                 "<p>Mozilla Foundation is a global non-profit and parent of the "
                 '<a target="_blank" rel="noopener noreferrer" '

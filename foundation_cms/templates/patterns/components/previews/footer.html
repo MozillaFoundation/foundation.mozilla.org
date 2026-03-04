@@ -1,31 +1,23 @@
-{# This template is only used for footer snippet preview. #}
+{# This template is only used for snippet preview. #}
 {% extends "base/base.html" %}
-{% load static %}
+{% load static wagtailcore_tags %}
 
 {% block wagtail_metadata %}{% endblock wagtail_metadata %}
 
-{% block body_class %}footer-preview{% endblock body_class %}
-
-{% block donate_banner %}
-    {# Explicitly disable donate banner in preview #}
-{% endblock donate_banner %}
-
-{% block primary_nav %}
-    {# Explicitly disable primary nav in preview #}
-{% endblock primary_nav %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/home_page.compiled.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
-    <div>
-        <p>
-            <strong>Footer Preview</strong> - This is how the footer will appear on your site
-        </p>
-    </div>
+  {% include "patterns/components/home_page/content.html" %}
 {% endblock content %}
 
 {% block footer_block %}
+  {% if object %}
     {% include "patterns/components/footer/footer.html" with footer=object %}
+  {% endif %}
 {% endblock footer_block %}
 
 {% block extra_js %}
-    {# Disable extra JS in preview #}
+  <script src="{% static 'foundation_cms/_js/pages/home_page.compiled.js' %}"></script>
 {% endblock extra_js %}

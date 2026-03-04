@@ -7,35 +7,21 @@
             <!-- Logo & Newsletter -->
             <div class="site-footer-ns__grid-cell">
                 <div class="site-footer-ns__logo">
-                    <a href="{{ footer.logo_link_url }}">
-                        {% if footer.logo %}
-                            {% image footer.logo original as footer_logo %}
-                            <img
-                                src="{{ footer_logo.url }}"
-                                alt="{% trans "Mozilla Foundation Logo" %}"
-                                width="{{ footer_logo.width }}"
-                                height="{{ footer_logo.height }}"
-                            />
-                        {% else %}
-                            <img
-                                src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}"
-                                alt="{% trans "Mozilla Foundation Logo" %}"
-                                width="440"
-                                height="92"
-                            />
-                        {% endif %}
+                    <a href="/">
+                        <img src="{% static 'foundation_cms/_images/mf-wordmark.svg' %}" alt="{% trans "Mozilla Foundation Logo" %}" width="440" height="92" />
                     </a>
                 </div>
-                {% if footer.show_newsletter_signup %}
-                    <div class="site-footer-ns__newsletter-form">
-                        {% get_settings use_default_site=True %}
+                <div class="site-footer-ns__newsletter-form">
+                    {% if footer_newsletter_signup %}
+                        {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
+                    {% else %}
                         {% if settings.snippets.FooterNewsletterSignup.newsletter_signup %}
                             {% with footer_newsletter_signup=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
                                 {% include "patterns/components/newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup.localized %}
                             {% endwith %}
                         {% endif %}
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
 
             <!-- Links -->
@@ -58,20 +44,9 @@
 
             <!-- CTA -->
             <div class="site-footer-ns__grid-cell site-footer-ns__cta">
-                {% if footer.show_donate_button %}
-                    {% if footer.donate_button_text %}
-                        {% with donate_label=footer.donate_button_text %}
-                            {% include "patterns/components/button.html" with classnames="dark-mode" url=footer.donate_button_url label=donate_label button_style="btn-primary" %}
-                        {% endwith %}
-                    {% else %}
-                        {% translate "Donate" as localized_donate_label %}
-                        {% include "patterns/components/button.html" with classnames="dark-mode" url=footer.donate_button_url label=localized_donate_label button_style="btn-primary" %}
-                    {% endif %}
-                {% endif %}
-
-                {% if footer.show_language_switcher %}
-                    {% include "patterns/components/language_switcher.html" %}
-                {% endif %}
+                {% translate "Donate" as localized_donate_label %}
+                {% include "patterns/components/button.html" with classnames="dark-mode" url="?form=donate-footer" label=localized_donate_label button_style="btn-primary" %}
+                {% include "patterns/components/language_switcher.html" %}
             </div>
 
         </div>
