@@ -33,13 +33,13 @@ certifi==2024.7.4
     #   requests
     #   scout-apm
     #   sentry-sdk
-cffi==1.16.0
+cffi==2.0.0
     # via
     #   cryptography
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==44.0.1
+cryptography==46.0.5
     # via social-auth-core
 defusedxml==0.7.1
     # via
