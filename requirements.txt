@@ -109,7 +109,7 @@ django-tasks==0.7.0
     # via wagtail
 django-treebeard==4.5.1
     # via wagtail
-djangorestframework==3.15.2
+djangorestframework==3.16.1
     # via
     #   -r requirements.in
     #   wagtail
