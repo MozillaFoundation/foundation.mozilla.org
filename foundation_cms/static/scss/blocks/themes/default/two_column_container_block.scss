@@ -1,15 +1,21 @@
+@use "sass:map";
+
 .two-column-container {
-  $two-column-mobile-margin-bottom: 0.25rem;
-  $cell-block-margin-bottom: 2rem;
+  $two-column-margin-y: (
+    small: 0.25rem,
+    large: 2rem,
+  );
 
   display: flex;
   flex-direction: column;
-  margin-bottom: $two-column-mobile-margin-bottom;
+  margin-top: map.get($two-column-margin-y, small);
+  margin-bottom: map.get($two-column-margin-y, small);
 
   @include breakpoint(medium up) {
     flex-direction: row;
-    margin-bottom: $global-margin * 2;
-    gap: $global-padding * 2;
+    margin-top: map.get($two-column-margin-y, large);
+    margin-bottom: map.get($two-column-margin-y, large);
+    gap: map.get($two-column-margin-y, large);
   }
 
   &--middle {
@@ -40,9 +46,24 @@
     }
   }
 
-  .newsletter-signup,
-  .list-block {
-    margin-bottom: $cell-block-margin-bottom;
+  .two-column-container__column {
+    flex: 1;
+
+    > .rich-text-block *:first-child {
+      margin-top: 0;
+    }
+
+    > .rich-text-block *:last-child {
+      margin-bottom: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .newsletter-signup {
+    margin-bottom: 0;
   }
 
   // todo: Implement container queries instead of catching the two column container block
