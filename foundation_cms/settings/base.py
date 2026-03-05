@@ -307,6 +307,7 @@ INSTALLED_APPS = list(
             "foundation_cms.profiles",
             "foundation_cms.snippets",
             "foundation_cms.images",
+            "foundation_cms.footer",
             "foundation_cms.navigation",
         ],
     )
@@ -398,6 +399,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_path",
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
+                        "foundation_cms.context_processor.editable_footer",
                         "foundation_cms.context_processor.editable_nav",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
@@ -909,5 +911,7 @@ SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
 # Not for regular use, as it has data migrations implications
 TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
 
+# Use cms editable footer
+EDITABLE_FOOTER = env("EDITABLE_FOOTER", default=False)
 # Use cms editable nav
 EDITABLE_NAV = env("EDITABLE_NAV", default=False)
