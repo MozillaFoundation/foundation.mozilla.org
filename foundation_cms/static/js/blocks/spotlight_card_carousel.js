@@ -12,6 +12,7 @@ import {
   SWIPE_THRESHOLD,
   RESIZE_DEBOUNCE_MS,
   getLogicalIndex,
+  tripleCards,
 } from "./util/carousel.js";
 
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
@@ -168,19 +169,8 @@ class SpotlightCarousel {
   setupMobileInfiniteTrack() {
     // Only triple if not already done
     if (this.cards.length === this.originalCards.length) {
-      const fragment = document.createDocumentFragment();
-
-      // Clone cards: [clones of originals] [originals] [clones of originals]
-      this.originalCards.forEach((card) =>
-        fragment.appendChild(card.cloneNode(true)),
-      );
-      this.originalCards.forEach((card) => fragment.appendChild(card));
-      this.originalCards.forEach((card) =>
-        fragment.appendChild(card.cloneNode(true)),
-      );
-
       this.slides.innerHTML = "";
-      this.slides.appendChild(fragment);
+      this.slides.appendChild(tripleCards(this.originalCards));
       this.cards = Array.from(this.slides.querySelectorAll(SELECTORS.cards));
       this.slides.style.width = this.getCSSVarValue(
         "--mobile-infinite-slides-width",

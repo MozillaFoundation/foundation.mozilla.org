@@ -13,6 +13,7 @@ import {
   SWIPE_THRESHOLD,
   RESIZE_DEBOUNCE_MS,
   getLogicalIndex,
+  tripleCards,
 } from "./util/carousel.js";
 
 const NUM_CARD_DESIGNS = 4;
@@ -83,17 +84,8 @@ class TransformCarousel {
 
   // Create a tripled set of cards to simulate infinite scroll
   setupTrack() {
-    const tripled = [
-      ...this.originalCards.map((card) => card.cloneNode(true)),
-      ...this.originalCards,
-      ...this.originalCards.map((card) => card.cloneNode(true)),
-    ];
-
-    const fragment = document.createDocumentFragment();
-    tripled.forEach((card) => fragment.appendChild(card));
-
     this.track.innerHTML = "";
-    this.track.appendChild(fragment);
+    this.track.appendChild(tripleCards(this.originalCards));
     this.cards = Array.from(this.track.querySelectorAll(SELECTORS.card));
   }
 
