@@ -9,9 +9,9 @@ const SELECTORS = {
   total: ".pagination-controls__total",
 };
 
+import { SWIPE_THRESHOLD, RESIZE_DEBOUNCE_MS } from "./util/carousel.js";
+
 const NUM_CARD_DESIGNS = 4;
-const RESIZE_DEBOUNCE_MS = 200;
-const SWIPE_THRESHOLD = 50;
 const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
 
 export function initPortraitCardSetCarousels() {

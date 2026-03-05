@@ -8,7 +8,8 @@ const CARD_CONFIG = {
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
-const SWIPE_THRESHOLD = 50;
+import { SWIPE_THRESHOLD, RESIZE_DEBOUNCE_MS } from "./util/carousel.js";
+
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
 const SWIPE_PREVENTION_THRESHOLD = 10;
 
@@ -68,7 +69,6 @@ class SpotlightCarousel {
     this.isSwiping = false;
     this.swipeStartTransform = 0;
 
-    this.RESIZE_DEBOUNCE_MS = 200;
     this.DESKTOP_BREAKPOINT = 1024; // our desktop breakpoint, "large", in px
 
     if (this.totalCards === 0) return;
@@ -683,7 +683,7 @@ class SpotlightCarousel {
         this.updateContainerHeight();
         this.updateAllCardHeights();
       }
-    }, this.RESIZE_DEBOUNCE_MS);
+    }, RESIZE_DEBOUNCE_MS);
   }
 }
 
