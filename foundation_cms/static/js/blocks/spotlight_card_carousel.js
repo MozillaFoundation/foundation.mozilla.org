@@ -8,7 +8,11 @@ const CARD_CONFIG = {
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
-import { SWIPE_THRESHOLD, RESIZE_DEBOUNCE_MS } from "./util/carousel.js";
+import {
+  SWIPE_THRESHOLD,
+  RESIZE_DEBOUNCE_MS,
+  getLogicalIndex,
+} from "./util/carousel.js";
 
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
 const SWIPE_PREVENTION_THRESHOLD = 10;
@@ -116,9 +120,10 @@ class SpotlightCarousel {
     // Sync currentStep from mobileIndex if coming from mobile
     if (this.cards.length > this.originalCards.length) {
       // Calculate which logical card we're on (1-3)
-      const logicalPosition =
-        ((this.mobileIndex % this.totalCards) + this.totalCards) %
-        this.totalCards;
+      const logicalPosition = getLogicalIndex(
+        this.mobileIndex,
+        this.totalCards,
+      );
       this.currentStep = logicalPosition + 1;
 
       // Restore original cards after syncing

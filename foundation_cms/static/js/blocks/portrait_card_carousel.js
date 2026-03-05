@@ -9,7 +9,11 @@ const SELECTORS = {
   total: ".pagination-controls__total",
 };
 
-import { SWIPE_THRESHOLD, RESIZE_DEBOUNCE_MS } from "./util/carousel.js";
+import {
+  SWIPE_THRESHOLD,
+  RESIZE_DEBOUNCE_MS,
+  getLogicalIndex,
+} from "./util/carousel.js";
 
 const NUM_CARD_DESIGNS = 4;
 const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
@@ -163,7 +167,7 @@ class TransformCarousel {
 
   // Return current logical index within original card set
   getLogicalIndex() {
-    return ((this.index % this.total) + this.total) % this.total;
+    return getLogicalIndex(this.index, this.total);
   }
 
   // Recalc based on window resize w/ debounce
