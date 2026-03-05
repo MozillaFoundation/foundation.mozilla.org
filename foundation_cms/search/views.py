@@ -31,8 +31,10 @@ def search(request):
         # Get appropriate search backend
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
         search_results = search_backend.search(search_query, base_queryset)
-
         total_search_results = search_results.count()
+
+        result_ids = [result.id for result in search_results]
+        search_results = Page.objects.filter(id__in=result_ids).select_related("search_image").specific()
 
         # To log this query for use with the "Promoted search results" module:
 
