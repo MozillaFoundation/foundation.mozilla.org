@@ -103,6 +103,11 @@
 
         a {
           text-decoration: none;
+
+          &:focus,
+          &:focus-visible {
+            outline: none;
+          }
         }
 
         &__image-container {
@@ -129,8 +134,11 @@
           }
         }
 
-        &:hover {
+        &:hover,
+        &:focus-within {
           transform: scale($scale);
+          outline: 2px solid color(orange, "600");
+          outline-offset: 2px;
 
           .product-review-card__title {
             color: color(orange, "600");
