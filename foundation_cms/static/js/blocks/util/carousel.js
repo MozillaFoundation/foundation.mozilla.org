@@ -32,3 +32,18 @@ export function tripleCards(originalCards) {
 
   return fragment;
 }
+
+/**
+ * Returns a debounced version of the given function.
+ * @param {Function} fn - The function to debounce
+ * @param {number} ms - Delay in milliseconds
+ * @returns {Function}
+ */
+export function debounce(fn, ms) {
+  let timer;
+
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+}

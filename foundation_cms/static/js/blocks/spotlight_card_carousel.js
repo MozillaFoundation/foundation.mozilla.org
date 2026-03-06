@@ -13,6 +13,7 @@ import {
   RESIZE_DEBOUNCE_MS,
   getLogicalIndex,
   tripleCards,
+  debounce,
 } from "./util/carousel.js";
 
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
@@ -62,7 +63,6 @@ class SpotlightCarousel {
 
     this.currentStep = 1;
     this.totalCards = this.originalCards.length;
-    this.resizeTimer = null;
     this.isMobile = false;
     this.cardsByPosition = {};
     this.mobileIndex = 0;
@@ -660,26 +660,23 @@ class SpotlightCarousel {
    * Handles window resize events with debouncing
    * Re-initializes carousel if viewport changes between mobile/desktop
    */
-  handleResize() {
-    clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(() => {
-      const viewportChanged = this.checkViewport();
+  handleResize = debounce(() => {
+    const viewportChanged = this.checkViewport();
 
-      if (viewportChanged) {
-        if (this.isMobile) {
-          // Desktop → Mobile
-          this.initMobile();
-        } else {
-          // Mobile → Desktop
-          this.initDesktop();
-        }
-      } else if (!this.isMobile) {
-        // Still desktop. Just update heights
-        this.updateContainerHeight();
-        this.updateAllCardHeights();
+    if (viewportChanged) {
+      if (this.isMobile) {
+        // Desktop → Mobile
+        this.initMobile();
+      } else {
+        // Mobile → Desktop
+        this.initDesktop();
       }
-    }, RESIZE_DEBOUNCE_MS);
-  }
+    } else if (!this.isMobile) {
+      // Still desktop. Just update heights
+      this.updateContainerHeight();
+      this.updateAllCardHeights();
+    }
+  }, RESIZE_DEBOUNCE_MS);
 }
 
 /**

@@ -14,6 +14,7 @@ import {
   RESIZE_DEBOUNCE_MS,
   getLogicalIndex,
   tripleCards,
+  debounce,
 } from "./util/carousel.js";
 
 const NUM_CARD_DESIGNS = 4;
@@ -46,7 +47,6 @@ class TransformCarousel {
 
     this.isCarousel = this.root.classList.contains("is-carousel");
 
-    this.resizeTimer = null;
     this.slideOffset = 0;
     this.carouselTransition = "";
 
@@ -164,10 +164,7 @@ class TransformCarousel {
 
   // Recalc based on window resize w/ debounce
   handleResize() {
-    clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(() => {
-      this.setInitialPosition();
-    }, RESIZE_DEBOUNCE_MS);
+    this.setInitialPosition();
   }
 
   // Unified swipe/drag handler
@@ -224,6 +221,6 @@ class TransformCarousel {
     });
 
     // Recalculate position on resize
-    window.addEventListener("resize", () => this.handleResize());
+    window.addEventListener("resize", debounce(() => this.handleResize(), RESIZE_DEBOUNCE_MS));
   }
 }
