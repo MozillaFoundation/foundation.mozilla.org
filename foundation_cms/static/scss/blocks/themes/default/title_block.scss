@@ -2,6 +2,7 @@
 body.redesign {
   .title-block {
     &__title {
+      scroll-margin-top: 10rem;
       margin: 0;
       font-family: $header-font-family;
       position: relative;
