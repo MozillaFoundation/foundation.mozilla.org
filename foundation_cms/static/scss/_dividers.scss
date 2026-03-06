@@ -34,16 +34,26 @@ $straight-line-image: "/static/foundation_cms/_images/handdrawn/straight-line-di
   background-size: $size;
 }
 
-@mixin loop-line-divider-bg($size: auto 100%) {
+@mixin loop-line-divider-bg(
+  $size: auto 100%,
+  $small-position: left 48% center,
+  $large-position: left 47% center
+) {
   @include divider-image(
     $loop-line-image,
     $height: null,
     $margin-y: null,
     $repeat: no-repeat,
-    $position: left 48% center,
+    $position: $small-position,
     $size: $size,
     $apply-base: false
   );
+
+  @if $large-position {
+    @include breakpoint(large up) {
+      background-position: $large-position;
+    }
+  }
 }
 
 @mixin loop-line-divider(
@@ -59,7 +69,6 @@ $straight-line-image: "/static/foundation_cms/_images/handdrawn/straight-line-di
 
   @include breakpoint(large up) {
     height: $desktop-height;
-    background-position: left 47% center;
   }
 }
 
