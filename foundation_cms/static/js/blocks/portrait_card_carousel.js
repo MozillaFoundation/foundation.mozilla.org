@@ -221,6 +221,9 @@ class TransformCarousel {
     });
 
     // Recalculate position on resize
-    window.addEventListener("resize", debounce(() => this.handleResize(), RESIZE_DEBOUNCE_MS));
+    window.addEventListener(
+      "resize",
+      debounce(() => this.handleResize(), RESIZE_DEBOUNCE_MS),
+    );
   }
 }
