@@ -11,7 +11,7 @@
             data-{{ key }}="{{ value }}"
           {% endfor %}
         {% endif %}
-        class="{{ button_style }} {{ classnames }}">
+        class="{{ button_style }} {{ button_alignment }} {{ classnames }}">
         {% include "patterns/components/_button_roller.html" %}
       </button>
     {% else %}
@@ -23,7 +23,7 @@
            {% endfor %}
          {% endif %}
          {% if "hidden" in classnames %}tabindex="-1"{% endif %}
-         class="{{ button_style }} {{ classnames }}">
+         class="{{ button_style }} {{ button_alignment }} {{ classnames }}">
         {% include "patterns/components/_button_roller.html" %}
       </a>
     {% endif %}
