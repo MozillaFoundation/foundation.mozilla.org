@@ -54,12 +54,11 @@ class Petition(CTA):
         blank=True,
     )
 
-    translatable_fields = [
+    translatable_fields = CTA.translatable_fields + [
+        SynchronizedField("campaign_id"),
         SynchronizedField("show_country_field"),
         SynchronizedField("show_postal_code_field"),
         SynchronizedField("show_comment_field"),
-        TranslatableField("header"),
-        TranslatableField("description"),
         TranslatableField("cta_button_text"),
         SynchronizedField("share_facebook"),
         SynchronizedField("share_email"),
