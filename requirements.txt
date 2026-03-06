@@ -147,7 +147,7 @@ jmespath==0.10.0
     #   botocore
 laces==0.1.2
     # via wagtail
-markdown==3.4.4
+markdown==3.8.1
     # via django-pattern-library
 numpy==1.24.4
     # via
