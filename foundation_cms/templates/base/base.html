@@ -94,7 +94,13 @@
                 {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner cta_button_data=donate_banner.cta_button_data %}
             {% endif %}
         {% endblock donate_banner %}
-        {% include "patterns/components/primary_nav.html" %}
+        {% if EDITABLE_NAV %}
+            {% block editable_nav %}
+                {% include "patterns/components/navigation/primary_nav.html" %}
+            {% endblock editable_nav %}
+        {% else %}
+            {% include "patterns/components/primary_nav.html" %}
+        {% endif %}
         {% wagtailuserbar %}
         <div class="main-content-wrapper">
             {% block primary_nav %}{% endblock primary_nav %}
@@ -104,7 +110,11 @@
             {% block post_content %}{% endblock post_content %}
             {% block pre_footer_banner %}{% endblock pre_footer_banner %}
             {% block footer_block %}
-                {% include "patterns/components/footer.html" %}
+                {% if EDITABLE_FOOTER %}
+                    {% include "patterns/components/footer/footer.html" %}
+                {% else %}
+                    {% include "patterns/components/footer.html" %}
+                {% endif %}
             {% endblock footer_block %}
         </div>
         <script src="{% url "javascript-catalog" %}"></script>
