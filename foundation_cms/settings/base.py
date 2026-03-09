@@ -421,6 +421,7 @@ TEMPLATES = [
                 "primary_page_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.primary_page_tags",
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
                 "app_environment_tags": "foundation_cms.templatetags.app_environment_tags",
+                "breadcrumbs": "foundation_cms.templatetags.breadcrumbs",
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
                 "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
