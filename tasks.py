@@ -429,7 +429,7 @@ def lint_python(ctx):
 def format(ctx):
     """Run formatters."""
     format_html(ctx)
-    # format_css(ctx)
+    format_css(ctx)
     format_js(ctx)
     format_python(ctx)
 
