@@ -15,8 +15,8 @@
       <article class="grid-x grid-margin-x page-card">
         <div class="cell small-12 medium-4 page-card__media-wrapper">
           <a href="{% pageurl result %}" class="page-card__image-wrapper">
-            {% if result.specific.search_image %}
-              {% responsive_image result.specific.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
+            {% if result.search_image %}
+              {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
             {% else %}
               <img
                 src="{% cycle listing_page_fallback_1 listing_page_fallback_2 listing_page_fallback_3 listing_page_fallback_4 listing_page_fallback_5 listing_page_fallback_6 %}"
@@ -32,15 +32,15 @@
             {% comment %} Comment out the tag pill buttons for now because of https://mozilla-hub.atlassian.net/browse/TP1-3655 {% endcomment %}
             {% comment %}
             <div class="page-card__tags">
-              {% include "patterns/components/topic_pills.html" with topics=result.specific.topics.all %}
+              {% include "patterns/components/topic_pills.html" with topics=result.topics.all %}
             </div>
             {% endcomment %}
             <h3 class="page-card__title"><a href="{% pageurl result %}">{{ result.title }}</a></h3>
-            {% if result.specific.authors.all %}
+            {% if result.authors.all %}
               {% spaceless %}
                 <span class="page-card__author">
                   {% translate "By" context "Byline prefix" %}
-                  {% for author in result.specific.authors.all %}
+                  {% for author in result.authors.all %}
                     {% firstof author.name author.author_profile.name author as author_name %}
                     {% if author_name %}
                       {{ author_name }}{% if not forloop.last %}, {% endif %}
@@ -48,8 +48,8 @@
                   {% endfor %}
                 </span>
               {% endspaceless %}
-            {% elif result.specific.author %}
-              <span class="page-card__author">{% translate "By" context "Byline prefix" %} {{ result.specific.author.name }}</span>
+            {% elif result.author %}
+              <span class="page-card__author">{% translate "By" context "Byline prefix" %} {{ result.author.name }}</span>
             {% endif %}
             {% if result.first_published_at %}
               <span class="page-card__date">{{ result.first_published_at|date:"DATE_FORMAT" }}</span>
