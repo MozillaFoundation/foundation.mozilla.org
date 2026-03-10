@@ -135,11 +135,8 @@
           }
         }
 
-        &:hover,
-        &:focus-within {
+        &:hover {
           transform: scale($scale);
-          outline: 2px solid $highlight-color;
-          outline-offset: 2px;
 
           .product-review-card__title {
             color: $highlight-color;
@@ -149,6 +146,11 @@
               transform-origin: left;
             }
           }
+        }
+
+        &:focus-within {
+          outline: 2px solid $highlight-color;
+          outline-offset: 2px;
         }
       }
     }
