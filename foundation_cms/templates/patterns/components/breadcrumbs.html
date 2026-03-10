@@ -25,7 +25,7 @@
 
             {# Mobile: nearest parent + current. If there are earlier ancestors, show a leading "/" #}
           <ol class="breadcrumb__list breadcrumb__list--mobile">
-            {% if mobile_has_more %}
+            {% if mobile_show_leading_slash %}
               <li class="breadcrumb__item">
                 <span class="breadcrumb__seperator breadcrumb__seperator--leading" aria-hidden="true">/</span>
               </li>
