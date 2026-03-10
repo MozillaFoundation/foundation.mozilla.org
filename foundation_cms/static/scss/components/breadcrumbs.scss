@@ -27,12 +27,13 @@
   }
 
   &__item {
+    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
     display: inline-flex;
     align-items: center;
   }
 
   &__seperator {
-    margin: 0 0.5rem;
+    margin: 0 7px;
 
     &--leading {
       margin-left: 0;
