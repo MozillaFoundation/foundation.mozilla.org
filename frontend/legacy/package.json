@@ -46,11 +46,6 @@
     "lint:legacy:css:network": "stylelint \"../../foundation_cms/legacy_apps/{,!(static)/**/}*.css\" --custom-syntax postcss-scss",
     "postcss:legacy:build": "postcss --config ./postcss.config.js ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/*.css --dir ../../foundation_cms/legacy_apps/static/compiled/_css --verbose",
     "postcss:legacy:watch": "TAILWIND_MODE=watch postcss --config ./postcss.config.js ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps/_css/*.css --dir ../../foundation_cms/legacy_apps/static/compiled/_css --watch --verbose",
-    "optimize": "run-p optimize:legacy",
-    "optimize:legacy": "run-p optimize:legacy:**",
-    "optimize:legacy:svg": "svgo --multipass --folder ./../../foundation_cms/legacy_apps/static/images/ --recursive",
-    "optimize:legacy:jpg": "find ../../foundation_cms/legacy_apps/static/images -type f -name '*.jpg' -print0 | xargs -0 -n 1 -P 6 -I '{}' guetzli --quality 93 '{}' '{}'",
-    "optimize:legacy:png": "find ../../foundation_cms/legacy_apps/static/images -type f -name '*.png' -print0 | xargs -0 -n 1 -P 6 optipng",
     "percy": "npm run percy:legacy",
     "percy:legacy": "percy exec -t 750 -- npm run playwright:legacy:percy",
     "playwright": "run-p playwright:legacy",
@@ -128,12 +123,10 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.5",
     "eslint-plugin-react": "^7.37.4",
-    "optipng-bin": "^9.0.0",
     "prettier": "^3.8.1",
     "stylelint": "^16.17.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-prettier": "^5.0.3",
-    "svgo": "^4.0.0",
     "wait-on": "^9"
   }
 }

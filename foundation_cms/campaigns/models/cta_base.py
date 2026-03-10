@@ -58,7 +58,7 @@ class CTABase(TranslatableMixin, models.Model):
     )
 
     translatable_fields = [
-        TranslatableField("name"),
+        SynchronizedField("name"),
         TranslatableField("header"),
         TranslatableField("description"),
         TranslatableField("privacy_notice"),
