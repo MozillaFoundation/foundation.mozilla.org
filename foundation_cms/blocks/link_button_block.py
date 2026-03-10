@@ -13,6 +13,13 @@ class LinkButtonBlock(BaseBlock, LinkBlock):
         ],
         default="btn-primary",
     )
+    alignment = blocks.ChoiceBlock(
+        choices=[
+            ("link-button-block--left", "Left"),
+            ("link-button-block--center", "Center"),
+        ],
+        default="btn-left",
+    )
 
     class Meta:
         icon = "link"

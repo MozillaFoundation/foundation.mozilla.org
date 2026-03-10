@@ -8,7 +8,14 @@ const CARD_CONFIG = {
   last: { position: 3, cssVar: "--last-image-height" },
 };
 
-const SWIPE_THRESHOLD = 50;
+import {
+  SWIPE_THRESHOLD,
+  RESIZE_DEBOUNCE_MS,
+  getLogicalIndex,
+  tripleCards,
+  debounce,
+} from "./util/carousel.js";
+
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
 const SWIPE_PREVENTION_THRESHOLD = 10;
 
@@ -56,7 +63,6 @@ class SpotlightCarousel {
 
     this.currentStep = 1;
     this.totalCards = this.originalCards.length;
-    this.resizeTimer = null;
     this.isMobile = false;
     this.cardsByPosition = {};
     this.mobileIndex = 0;
@@ -68,7 +74,6 @@ class SpotlightCarousel {
     this.isSwiping = false;
     this.swipeStartTransform = 0;
 
-    this.RESIZE_DEBOUNCE_MS = 200;
     this.DESKTOP_BREAKPOINT = 1024; // our desktop breakpoint, "large", in px
 
     if (this.totalCards === 0) return;
@@ -116,9 +121,10 @@ class SpotlightCarousel {
     // Sync currentStep from mobileIndex if coming from mobile
     if (this.cards.length > this.originalCards.length) {
       // Calculate which logical card we're on (1-3)
-      const logicalPosition =
-        ((this.mobileIndex % this.totalCards) + this.totalCards) %
-        this.totalCards;
+      const logicalPosition = getLogicalIndex(
+        this.mobileIndex,
+        this.totalCards,
+      );
       this.currentStep = logicalPosition + 1;
 
       // Restore original cards after syncing
@@ -163,19 +169,8 @@ class SpotlightCarousel {
   setupMobileInfiniteTrack() {
     // Only triple if not already done
     if (this.cards.length === this.originalCards.length) {
-      const fragment = document.createDocumentFragment();
-
-      // Clone cards: [clones of originals] [originals] [clones of originals]
-      this.originalCards.forEach((card) =>
-        fragment.appendChild(card.cloneNode(true)),
-      );
-      this.originalCards.forEach((card) => fragment.appendChild(card));
-      this.originalCards.forEach((card) =>
-        fragment.appendChild(card.cloneNode(true)),
-      );
-
       this.slides.innerHTML = "";
-      this.slides.appendChild(fragment);
+      this.slides.appendChild(tripleCards(this.originalCards));
       this.cards = Array.from(this.slides.querySelectorAll(SELECTORS.cards));
       this.slides.style.width = this.getCSSVarValue(
         "--mobile-infinite-slides-width",
@@ -665,26 +660,23 @@ class SpotlightCarousel {
    * Handles window resize events with debouncing
    * Re-initializes carousel if viewport changes between mobile/desktop
    */
-  handleResize() {
-    clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(() => {
-      const viewportChanged = this.checkViewport();
+  handleResize = debounce(() => {
+    const viewportChanged = this.checkViewport();
 
-      if (viewportChanged) {
-        if (this.isMobile) {
-          // Desktop → Mobile
-          this.initMobile();
-        } else {
-          // Mobile → Desktop
-          this.initDesktop();
-        }
-      } else if (!this.isMobile) {
-        // Still desktop. Just update heights
-        this.updateContainerHeight();
-        this.updateAllCardHeights();
+    if (viewportChanged) {
+      if (this.isMobile) {
+        // Desktop → Mobile
+        this.initMobile();
+      } else {
+        // Mobile → Desktop
+        this.initDesktop();
       }
-    }, this.RESIZE_DEBOUNCE_MS);
-  }
+    } else if (!this.isMobile) {
+      // Still desktop. Just update heights
+      this.updateContainerHeight();
+      this.updateAllCardHeights();
+    }
+  }, RESIZE_DEBOUNCE_MS);
 }
 
 /**
