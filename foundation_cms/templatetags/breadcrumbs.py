@@ -1,4 +1,6 @@
 from django import template
+from wagtail import models as wagtail_models
+
 
 register = template.Library()
 
@@ -19,16 +21,19 @@ def breadcrumbs(context, page=None):
     request = context.get("request")
     page = page or context.get("page")
     if not page or not request:
-        return {"breadcrumbs": [], "mobile_breadcrumbs": [], "mobile_has_more": False}
+        return {"breadcrumbs": [], "mobile_breadcrumbs": [], "mobile_show_leading_slash": False}
 
-    # Ancestors inclusive so the current page is included at the end.
-    # Exclude Wagtail root (depth=1).
+    site = wagtail_models.Site.find_for_request(request)
+    site_root = site.root_page if site else None
+
     ancestors = page.get_ancestors(inclusive=True).filter(depth__gt=2)
+    if site_root:
+        ancestors = ancestors.exclude(translation_key=site_root.translation_key)
 
     trail = [_localize_page(p, request) for p in ancestors]
 
     # Desktop: full trail
-    breadcrumbs_list = trail
+    breadcrumbs_list = trail if len(trail) > 1 else False
 
     # Mobile: only 1 parent ancestor + current page.
     # If there are more ancestors above the nearest parent, show a leading "/".
@@ -38,10 +43,6 @@ def breadcrumbs(context, page=None):
     else:
         mobile_breadcrumbs = trail
         mobile_show_leading_slash = False
-
-    # Set false if no non-homepage parent ancestor
-    if len(breadcrumbs_list) <= 1:
-        breadcrumbs_list = False
 
     return {
         "breadcrumbs": breadcrumbs_list,
