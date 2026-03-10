@@ -43,9 +43,9 @@
                   {% endif %}
 
                   {% if is_active %}
-                    <span class="breadcrumb__current" aria-current="page">{{ crumb.title }}</span>
+                    <span class="breadcrumb__current" aria-current="page">{{ crumb.title|truncatechars:30 }}</span>
                   {% else %}
-                    <a class="breadcrumb__link" href="{% pageurl crumb %}">{{ crumb.title }}</a>
+                    <a class="breadcrumb__link" href="{% pageurl crumb %}">{{ crumb.title|truncatechars:30 }}</a>
                   {% endif %}
                 </li>
               {% endwith %}
