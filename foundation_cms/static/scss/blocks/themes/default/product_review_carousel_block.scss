@@ -135,7 +135,8 @@
           }
         }
 
-        &:hover {
+        &:hover,
+        &:focus-within {
           transform: scale($scale);
 
           .product-review-card__title {
