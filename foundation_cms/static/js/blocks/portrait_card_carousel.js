@@ -9,9 +9,15 @@ const SELECTORS = {
   total: ".pagination-controls__total",
 };
 
+import {
+  SWIPE_THRESHOLD,
+  RESIZE_DEBOUNCE_MS,
+  getLogicalIndex,
+  tripleCards,
+  debounce,
+} from "./util/carousel.js";
+
 const NUM_CARD_DESIGNS = 4;
-const RESIZE_DEBOUNCE_MS = 200;
-const SWIPE_THRESHOLD = 50;
 const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
 
 export function initPortraitCardSetCarousels() {
@@ -41,7 +47,6 @@ class TransformCarousel {
 
     this.isCarousel = this.root.classList.contains("is-carousel");
 
-    this.resizeTimer = null;
     this.slideOffset = 0;
     this.carouselTransition = "";
 
@@ -79,17 +84,8 @@ class TransformCarousel {
 
   // Create a tripled set of cards to simulate infinite scroll
   setupTrack() {
-    const tripled = [
-      ...this.originalCards.map((card) => card.cloneNode(true)),
-      ...this.originalCards,
-      ...this.originalCards.map((card) => card.cloneNode(true)),
-    ];
-
-    const fragment = document.createDocumentFragment();
-    tripled.forEach((card) => fragment.appendChild(card));
-
     this.track.innerHTML = "";
-    this.track.appendChild(fragment);
+    this.track.appendChild(tripleCards(this.originalCards));
     this.cards = Array.from(this.track.querySelectorAll(SELECTORS.card));
   }
 
@@ -163,15 +159,12 @@ class TransformCarousel {
 
   // Return current logical index within original card set
   getLogicalIndex() {
-    return ((this.index % this.total) + this.total) % this.total;
+    return getLogicalIndex(this.index, this.total);
   }
 
   // Recalc based on window resize w/ debounce
   handleResize() {
-    clearTimeout(this.resizeTimer);
-    this.resizeTimer = setTimeout(() => {
-      this.setInitialPosition();
-    }, RESIZE_DEBOUNCE_MS);
+    this.setInitialPosition();
   }
 
   // Unified swipe/drag handler
@@ -228,6 +221,9 @@ class TransformCarousel {
     });
 
     // Recalculate position on resize
-    window.addEventListener("resize", () => this.handleResize());
+    window.addEventListener(
+      "resize",
+      debounce(() => this.handleResize(), RESIZE_DEBOUNCE_MS),
+    );
   }
 }
