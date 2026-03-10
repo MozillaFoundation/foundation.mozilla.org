@@ -16,6 +16,7 @@
     large: rem-calc(44),
   );
   $carousel-card-horizontal-gap: 3rem;
+  $highlight-color: color(orange, "600");
 
   // Uniform headline gap for second row cells in the grid
   @mixin product-review-carousel-headline-gap() {
@@ -127,7 +128,7 @@
             bottom: -1px;
             width: 100%;
             height: 1px;
-            background-color: color(orange, "600");
+            background-color: $highlight-color;
             transform: scaleX(0);
             transform-origin: right;
             transition: transform 0.4s ease-out;
@@ -137,11 +138,11 @@
         &:hover,
         &:focus-within {
           transform: scale($scale);
-          outline: 2px solid color(orange, "600");
+          outline: 2px solid $highlight-color;
           outline-offset: 2px;
 
           .product-review-card__title {
-            color: color(orange, "600");
+            color: $highlight-color;
 
             &::after {
               transform: scaleX(1);
