@@ -20,7 +20,7 @@ import {
   onFocusIn,
   onFocusOut,
   onKeyDown,
-} from "./keyboard.js";
+} from "./handlers.js";
 import { tick, cancelTick } from "./tick.js";
 import {
   refreshVisibleCardFocus,
@@ -89,12 +89,11 @@ export default class ProductReviewCarousel {
     this.resetCardFocusability = resetCardFocusability.bind(this);
     this.updateWrapperFocusability = updateWrapperFocusability.bind(this);
     this.isElementHorizontallyVisible = isElementHorizontallyVisible.bind(this);
-    this.makeTemporarilyUntabbable = makeTemporarilyUntabbable.bind(this);
-    this.restoreOriginalTabIndex = restoreOriginalTabIndex.bind(this);
+    this.makeTemporarilyUntabbable = makeTemporarilyUntabbable;
+    this.restoreOriginalTabIndex = restoreOriginalTabIndex;
 
     // Bind class methods once
     this.onResize = this.onResize.bind(this);
-    this.boundTick = this.tick;
 
     this.init();
   }
@@ -181,7 +180,7 @@ export default class ProductReviewCarousel {
 
     if (this.originalHTML != null) this.track.innerHTML = this.originalHTML;
 
-    this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
+    this.groupAdvance = this.computeGroupAdvance(GROUP_SIZE);
     this.ensureOverflow();
 
     const remainder = this.track.children.length % GROUP_SIZE;
@@ -199,7 +198,7 @@ export default class ProductReviewCarousel {
     this.updatePaused();
     this.updateButtonUI();
 
-    this.rafId = requestAnimationFrame(this.boundTick);
+    this.rafId = requestAnimationFrame(this.tick);
   }
 
   /**
@@ -252,7 +251,7 @@ export default class ProductReviewCarousel {
         const first = this.track.children[0];
         this.cardWidthPx = first ? first.offsetWidth || 0 : 0;
 
-        this.groupAdvance = this.computeGroupAdvanceStatic(GROUP_SIZE);
+        this.groupAdvance = this.computeGroupAdvance(GROUP_SIZE);
 
         const viewport = this.container.clientWidth || window.innerWidth;
         const target = viewport * PREFILL_MULTIPLIER;
@@ -273,7 +272,7 @@ export default class ProductReviewCarousel {
    * @param {number} groupSize
    * @returns {number}
    */
-  computeGroupAdvanceStatic(groupSize) {
+  computeGroupAdvance(groupSize) {
     if (this.cardWidthPx != null && this.gapPx != null) {
       return groupSize * this.cardWidthPx + groupSize * this.gapPx;
     }
@@ -304,7 +303,7 @@ export default class ProductReviewCarousel {
     const current = this.container.scrollWidth;
     const adv = Math.max(
       1,
-      this.groupAdvance || this.computeGroupAdvanceStatic(GROUP_SIZE),
+      this.groupAdvance || this.computeGroupAdvance(GROUP_SIZE),
     );
 
     const deficit = Math.max(0, target - current);

@@ -1,15 +1,14 @@
-const CARD_WRAPPER_SELECTOR = ".product-review-carousel__card-wrapper";
-const FOCUSABLE_SELECTOR =
-  "a[href], button, input, select, textarea, [tabindex]";
-const DATA_MANAGED = "data-carousel-managed-tabindex";
-const DATA_ORIGINAL = "data-carousel-original-tabindex";
-const NO_TABINDEX = "__none__";
-const FOCUS_REFRESH_THROTTLE_MS = 100;
+import {
+  SELECTORS,
+  DATA_MANAGED_TABINDEX,
+  DATA_ORIGINAL_TABINDEX,
+  NO_TABINDEX,
+  FOCUS_REFRESH_THROTTLE_MS,
+} from "./config.js";
 
 /**
  * Restrict keyboard focus to cards currently visible in the viewport.
  * @param {boolean} [force=false]
- * @this {import("./carousel.js").default}
  */
 export function refreshVisibleCardFocus(force = false) {
   if (!this.container || !this.track) return;
@@ -29,7 +28,7 @@ export function refreshVisibleCardFocus(force = false) {
   }
 
   const containerRect = this.container.getBoundingClientRect();
-  const wrappers = this.track.querySelectorAll(CARD_WRAPPER_SELECTOR);
+  const wrappers = this.track.querySelectorAll(SELECTORS.cardWrapper);
 
   wrappers.forEach((wrapper) => {
     const isVisible = this.isElementHorizontallyVisible(wrapper, containerRect);
@@ -39,12 +38,11 @@ export function refreshVisibleCardFocus(force = false) {
 
 /**
  * Restore all card links/controls to their original focusability.
- * @this {import("./carousel.js").default}
  */
 export function resetCardFocusability() {
   if (!this.track) return;
 
-  const wrappers = this.track.querySelectorAll(CARD_WRAPPER_SELECTOR);
+  const wrappers = this.track.querySelectorAll(SELECTORS.cardWrapper);
   wrappers.forEach((wrapper) => this.updateWrapperFocusability(wrapper, true));
 }
 
@@ -52,12 +50,11 @@ export function resetCardFocusability() {
  * Toggle a wrapper subtree as keyboard-focusable and screen-reader-visible.
  * @param {Element} wrapper
  * @param {boolean} isVisible
- * @this {import("./carousel.js").default}
  */
 export function updateWrapperFocusability(wrapper, isVisible) {
   wrapper.setAttribute("aria-hidden", String(!isVisible));
 
-  const focusables = wrapper.querySelectorAll(FOCUSABLE_SELECTOR);
+  const focusables = wrapper.querySelectorAll(SELECTORS.focusable);
 
   focusables.forEach((el) => {
     if (isVisible) {
@@ -73,7 +70,6 @@ export function updateWrapperFocusability(wrapper, isVisible) {
  * @param {Element} element
  * @param {DOMRect} containerRect
  * @returns {boolean}
- * @this {import("./carousel.js").default}
  */
 export function isElementHorizontallyVisible(element, containerRect) {
   const rect = element.getBoundingClientRect();
@@ -89,13 +85,13 @@ export function isElementHorizontallyVisible(element, containerRect) {
  * @param {Element} element
  */
 export function makeTemporarilyUntabbable(element) {
-  if (element.getAttribute(DATA_MANAGED) !== "true") {
+  if (element.getAttribute(DATA_MANAGED_TABINDEX) !== "true") {
     const existingTabIndex = element.getAttribute("tabindex");
     element.setAttribute(
-      DATA_ORIGINAL,
+      DATA_ORIGINAL_TABINDEX,
       existingTabIndex == null ? NO_TABINDEX : existingTabIndex,
     );
-    element.setAttribute(DATA_MANAGED, "true");
+    element.setAttribute(DATA_MANAGED_TABINDEX, "true");
   }
 
   element.setAttribute("tabindex", "-1");
@@ -106,9 +102,9 @@ export function makeTemporarilyUntabbable(element) {
  * @param {Element} element
  */
 export function restoreOriginalTabIndex(element) {
-  if (element.getAttribute(DATA_MANAGED) !== "true") return;
+  if (element.getAttribute(DATA_MANAGED_TABINDEX) !== "true") return;
 
-  const original = element.getAttribute(DATA_ORIGINAL);
+  const original = element.getAttribute(DATA_ORIGINAL_TABINDEX);
 
   if (original && original !== NO_TABINDEX) {
     element.setAttribute("tabindex", original);
@@ -116,6 +112,6 @@ export function restoreOriginalTabIndex(element) {
     element.removeAttribute("tabindex");
   }
 
-  element.removeAttribute(DATA_ORIGINAL);
-  element.removeAttribute(DATA_MANAGED);
+  element.removeAttribute(DATA_ORIGINAL_TABINDEX);
+  element.removeAttribute(DATA_MANAGED_TABINDEX);
 }

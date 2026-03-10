@@ -11,7 +11,6 @@ import {
  * - Recycles cards in GROUP_SIZE batches to preserve nth-child cadence
  * - Applies integer motion via scrollLeft and fractional motion via transform
  * @param {DOMHighResTimeStamp} [ts]
- * @this {import("./carousel.js").default}
  */
 export function tick(ts) {
   if (!this.enabled) return;
@@ -30,11 +29,15 @@ export function tick(ts) {
 
   const deltaPx = (this.pxPerSecond * elapsedMs) / 1000;
   const base = this.container.scrollLeft;
+  // Whole pixels are applied via scrollLeft; the fractional remainder stays in
+  // transform so motion remains smooth without forcing subpixel scroll state.
   let next = base + (this._fractionalRemainder || 0) + deltaPx;
 
   let safety = 0;
   const threshold = this.groupAdvance;
 
+  // Recycle cards in full groups so the staggered nth-child layout pattern
+  // stays intact while rebasing the logical scroll position.
   while (safety < RECYCLE_SAFETY_MAX) {
     const children = this.track.children;
     if (children.length < GROUP_SIZE + 1) break;
@@ -47,6 +50,8 @@ export function tick(ts) {
     safety++;
   }
 
+  // Commit the integer portion to scrollLeft and keep only the subpixel
+  // remainder in transform for the next frame.
   const intPart = Math.floor(next);
   const fracPart = next - intPart;
 
@@ -63,7 +68,7 @@ export function tick(ts) {
   this._fractionalRemainder = fracPart;
 
   if (!this.paused && this.enabled) {
-    this.rafId = requestAnimationFrame(this.boundTick);
+    this.rafId = requestAnimationFrame(this.tick);
   } else {
     this.rafId = null;
   }
@@ -71,7 +76,6 @@ export function tick(ts) {
 
 /**
  * Stop the RAF loop and reset timestamps.
- * @this {import("./carousel.js").default}
  */
 export function cancelTick() {
   if (this.rafId != null) cancelAnimationFrame(this.rafId);

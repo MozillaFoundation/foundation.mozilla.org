@@ -4,7 +4,9 @@ export const SELECTORS = {
   root: ".product-review-carousel",
   cardsContainer: ".product-review-carousel__cards-container",
   productCard: ".product-review-card",
+  cardWrapper: ".product-review-carousel__card-wrapper",
   pauseButton: ".product-review-carousel__pause-button",
+  focusable: "a[href], button, input, select, textarea, [tabindex]",
 };
 
 export const CLASSNAMES = {
@@ -35,3 +37,9 @@ export const MAX_FRAME_MS = 48; // clamp large rAF gaps (tab throttling, etc.)
 
 // Default animation speed (pixels per second)
 export const DEFAULT_PX_PER_SECOND = 20;
+
+// Focus management
+export const DATA_MANAGED_TABINDEX = "data-carousel-managed-tabindex";
+export const DATA_ORIGINAL_TABINDEX = "data-carousel-original-tabindex";
+export const NO_TABINDEX = "__none__";
+export const FOCUS_REFRESH_THROTTLE_MS = 100;
