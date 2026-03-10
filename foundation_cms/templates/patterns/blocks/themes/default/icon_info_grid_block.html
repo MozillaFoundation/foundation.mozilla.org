@@ -1,0 +1,29 @@
+{% load wagtailcore_tags static %}
+
+<section class="icon-info-grid icon-info-grid--{{ value.layout_style }} icon-info-grid--{{ value.columns }}-col icon-info-grid--{{ value.icon_color }}">
+  
+  <h2 class="icon-info-grid__heading">{{ value.heading }}</h2>
+  
+  <div class="icon-info-grid__items">
+    {% for item in value.items %}
+      <div class="icon-info-grid__item">
+        
+        <div class="icon-info-grid__icon" aria-hidden="true">
+          <img 
+            src="{% static 'images/icons/' %}{{ item.icon.0 }}-icon-{{ value.icon_color }}.svg" 
+            alt="{{ item.icon.1 }}"
+            class="icon icon--{{ item.icon.0 }}"
+          >
+        </div>
+        
+        <h3 class="icon-info-grid__title">{{ item.title }}</h3>
+        
+        {% if value.layout_style == "detailed" and item.description %}
+          <p class="icon-info-grid__description">{{ item.description }}</p>
+        {% endif %}
+        
+      </div>
+    {% endfor %}
+  </div>
+  
+</section>
