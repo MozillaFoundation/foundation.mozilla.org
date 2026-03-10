@@ -15,8 +15,8 @@ class LinkButtonBlock(BaseBlock, LinkBlock):
     )
     alignment = blocks.ChoiceBlock(
         choices=[
-            ("link-button-block__left", "Left"),
-            ("link-button-block__center", "Center"),
+            ("link-button-block--left", "Left"),
+            ("link-button-block--center", "Center"),
         ],
         default="btn-left",
     )
