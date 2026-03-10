@@ -15,7 +15,7 @@ from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
-from wagtail_localize.fields import SynchronizedField
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models import AbstractBasePage
 from foundation_cms.constants import DEFAULT_RICH_TEXT_FEATURES
@@ -184,14 +184,16 @@ class CampaignPage(AbstractBasePage):
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
+        TranslatableField("body"),
+        TranslatableField("header"),
         SynchronizedField("cta"),
-        SynchronizedField("signed_header"),
-        SynchronizedField("signed_donation_question"),
-        SynchronizedField("signed_body"),
-        SynchronizedField("share_header"),
-        SynchronizedField("share_body"),
-        SynchronizedField("thank_you_header"),
-        SynchronizedField("thank_you_body"),
+        TranslatableField("signed_header"),
+        TranslatableField("signed_donation_question"),
+        TranslatableField("signed_body"),
+        TranslatableField("share_header"),
+        TranslatableField("share_body"),
+        TranslatableField("thank_you_header"),
+        TranslatableField("thank_you_body"),
         SynchronizedField("thank_you_image"),
         SynchronizedField("keep_contributing_pages"),
         SynchronizedField("keep_contributing_topic"),
