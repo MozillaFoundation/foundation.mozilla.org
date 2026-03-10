@@ -1,13 +1,6 @@
-from wagtail.blocks import (
-    CharBlock,
-    ChoiceBlock,
-    ListBlock,
-    RichTextBlock,
-    StructBlock,
-)
+from wagtail.blocks import CharBlock, ChoiceBlock, ListBlock, StructBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
-
 
 # Predefined icon library with alt text by default - only approved icons can be used
 ICON_CHOICES = [
@@ -55,7 +48,7 @@ class IconInfoGridBlock(BaseBlock):
         max_length=100,
         help_text="Section heading for this grid",
     )
-    
+
     icon_color = ChoiceBlock(
         choices=[
             ("orange", "Orange"),
@@ -85,12 +78,11 @@ class IconInfoGridBlock(BaseBlock):
         help_text="Choose content density. Compact hides descriptions, Detailed shows them.",
         label="Layout style",
     )
-    
+
     items = ListBlock(
         IconInfoGridItemBlock(),
         min_num=1,
-        max_num=12,
-        help_text="Add up to 12 icon info items",
+        help_text="Add icon info items",
     )
 
     class Meta:

@@ -1,29 +1,50 @@
-{% load wagtailcore_tags static %}
+{% load static i18n wagtailcore_tags %}
+
+<style>
+  .icon-info-grid__items { display: grid; gap: 2rem; }
+  .icon-info-grid__item { display: flex; flex-direction: column; gap: 1rem; }
+  .icon-info-grid__header { display: flex; gap: 1rem; align-items: center; }
+  .icon-info-grid__icon { flex-shrink: 0; width: 48px; height: 48px; }
+  .icon-info-grid__title { font-weight: bold; margin: 0; }
+  .icon-info-grid__description { margin: 0; }
+
+  @media (min-width: 768px) {
+    .icon-info-grid--2-col .icon-info-grid__items { grid-template-columns: repeat(2, 1fr); }
+    .icon-info-grid--3-col .icon-info-grid__items { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
 
 <section class="icon-info-grid icon-info-grid--{{ value.layout_style }} icon-info-grid--{{ value.columns }}-col icon-info-grid--{{ value.icon_color }}">
-  
-  <h2 class="icon-info-grid__heading">{{ value.heading }}</h2>
-  
-  <div class="icon-info-grid__items">
-    {% for item in value.items %}
-      <div class="icon-info-grid__item">
-        
-        <div class="icon-info-grid__icon" aria-hidden="true">
-          <img 
-            src="{% static 'images/icons/' %}{{ item.icon.0 }}-icon-{{ value.icon_color }}.svg" 
-            alt="{{ item.icon.1 }}"
-            class="icon icon--{{ item.icon.0 }}"
-          >
+  <div class="grid-container">
+
+    <h2 class="icon-info-grid__heading">{{ value.heading }}</h2>
+
+    <div class="icon-info-grid__items">
+      {% for item in value.items %}
+        <div class="icon-info-grid__item">
+
+          <div class="icon-info-grid__header">
+            <div class="icon-info-grid__icon" aria-hidden="true">
+              <img
+                src="{% static 'foundation_cms/_images/icons/' %}{{ item.icon }}-icon-{{ value.icon_color }}.svg"
+                alt="{% trans item.icon|capfirst %} icon"
+                width="48"
+                height="48"
+                class="icon icon--{{ item.icon }}"
+                loading="lazy"
+              >
+            </div>
+
+            <p class="icon-info-grid__title">{{ item.title }}</p>
+          </div>
+
+          {% if value.layout_style == "detailed" and item.description %}
+            <p class="icon-info-grid__description">{{ item.description }}</p>
+          {% endif %}
+
         </div>
-        
-        <h3 class="icon-info-grid__title">{{ item.title }}</h3>
-        
-        {% if value.layout_style == "detailed" and item.description %}
-          <p class="icon-info-grid__description">{{ item.description }}</p>
-        {% endif %}
-        
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
+
   </div>
-  
 </section>
