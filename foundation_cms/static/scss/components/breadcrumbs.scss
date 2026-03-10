@@ -28,6 +28,7 @@
 
   &__item {
     @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+
     display: inline-flex;
     align-items: center;
   }
