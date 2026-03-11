@@ -312,7 +312,7 @@
   }
 
   .cta-link {
-    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+    @include mofo-text-style($link-text-styles, "small", $header-font-family);
 
     margin-bottom: 0.5rem;
 
