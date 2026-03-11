@@ -42,7 +42,8 @@
   }
 
   &__link {
-    text-decoration: none;
+    @include link-text-hover-underline-animated;
+
     color: $black;
 
     &:hover,
