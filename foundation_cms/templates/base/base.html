@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumbs %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav %}
 
 {% get_current_language as lang_code %}
 
@@ -101,7 +101,7 @@
             {% block primary_nav %}{% endblock primary_nav %}
             {% block brand_banner %}{% endblock brand_banner %}
             {% block breadcrumbs %}
-                {% breadcrumbs page %}
+                {% breadcrumb_nav page %}
             {% endblock breadcrumbs %}
             {% block pre_content %}{% endblock pre_content %}
             {% block content %}{% endblock content %}
