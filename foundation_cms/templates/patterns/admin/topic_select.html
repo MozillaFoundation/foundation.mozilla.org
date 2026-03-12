@@ -1,0 +1,29 @@
+<div class="ts-widget" id="{{ widget.attrs.id }}_w">
+  <input type="hidden"
+         name="{{ widget.name }}"
+         id="{{ widget.attrs.id }}"
+         value="{{ widget.hidden_value }}">
+
+  <div class="ts-bar">
+    {% for topic in widget.selected %}
+      <span class="ts-chip" data-value="{{ topic }}">
+        {{ topic }}
+        <button type="button" aria-label="Remove {{ topic }}">&times;</button>
+      </span>
+    {% endfor %}
+    <input type="text"
+           class="ts-input"
+           placeholder="{{ widget.placeholder }}"
+           autocomplete="off">
+  </div>
+
+  <div class="ts-dropdown">
+    {% for topic in widget.all_topics %}
+      <div class="ts-option"
+           data-value="{{ topic }}"
+           {% if topic in widget.selected %}hidden{% endif %}>
+        {{ topic }}
+      </div>
+    {% endfor %}
+  </div>
+</div>

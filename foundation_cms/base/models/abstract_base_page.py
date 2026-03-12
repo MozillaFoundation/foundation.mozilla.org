@@ -15,6 +15,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.base.widgets import TopicSelectWidget
 from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixin
 
@@ -110,10 +111,8 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         blank=True,
         verbose_name="Page Topics",
         help_text=(
-            "Add one or more existing topics. Start typing to search, then press “Down” arrow "
-            "on your keyboard to select topic. If topic is unavailable check if Topic exists by "
-            "going to the left side-nav to Snippet > Page Topics > Check if topic exists. "
-            "If not, click “Add new page topics”."
+            "Select one or more topics from the dropdown. "
+            "If a topic is unavailable, you can create it under Snippets > Page Topics."
         ),
     )
     author = models.ForeignKey(
@@ -128,7 +127,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel("author"),
-                FieldPanel("topics"),
+                FieldPanel("topics", widget=TopicSelectWidget),
             ],
             heading="Additional Metadata",
         )
