@@ -182,6 +182,9 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         abstract = True
 
     def clean(self):
+        # Enforce SEO fields on all pages. These fields are defined on
+        # Wagtail's core Page model and wagtailmetadata, so they can't be made
+        # required via blank=False. Validation is done here instead.
         super().clean()
         errors = {}
         if not self.seo_title:
