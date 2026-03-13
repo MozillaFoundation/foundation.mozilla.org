@@ -128,7 +128,7 @@ foundation_cms/static/temp/
 .vim/
 
 # Playwright testing
-tests/screenshots
+**/tests/screenshots/
 frontend/legacy/test-results
 
 # Translations
