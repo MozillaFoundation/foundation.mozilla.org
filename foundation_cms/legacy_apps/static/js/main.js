@@ -183,6 +183,8 @@ let main = {
       MozfestCarousels.init();
       MozfestHeroCarousels.init();
     }
+
+    console.log("making some temp code changes just to test if visual regression would kick in");
   },
 };
 
