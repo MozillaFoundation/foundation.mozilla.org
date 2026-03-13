@@ -33,13 +33,17 @@
 
   &--2-col {
     @include breakpoint(medium up) {
-      .icon-info-grid__items { grid-template-columns: repeat(2, 1fr); }
+      .icon-info-grid__items {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   }
 
   &--3-col {
     @include breakpoint(medium up) {
-      .icon-info-grid__items { grid-template-columns: repeat(3, 1fr); }
+      .icon-info-grid__items {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   }
 }
