@@ -1,6 +1,6 @@
 from wagtail.blocks import CharBlock, StreamBlock
 
-from foundation_cms.blocks.common.carousel_base_blocks import (
+from foundation_cms.blocks.common.base_carousel_block import (
     BaseCarouselBlock,
     BaseCarouselItemBlock,
 )
