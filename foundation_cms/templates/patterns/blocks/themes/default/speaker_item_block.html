@@ -1,0 +1,27 @@
+{% load wagtailimages_tags %}
+
+{% load wagtailimages_tags %}
+
+<div class="speaker-item speaker-item--{{ orientation }}">
+  <p><strong>Orientation:</strong> {{ orientation }}</p>
+
+  {% if value.image %}
+    {% image value.image original as img %}
+    <img src="{{ img.url }}" alt="{{ value.name }}" width="{{ img.width }}" height="{{ img.height }}">
+  {% endif %}
+
+  <h3>{{ value.name }}</h3>
+
+  {% if value.role %}<p><strong>Role:</strong> {{ value.role }}</p>{% endif %}
+  {% if value.organization %}<p><strong>Organization:</strong> {{ value.organization }}</p>{% endif %}
+
+  {% with link=value.link.0 %}
+    {% if link %}
+      <p>
+        <a href="{{ link.url|default:link.link_url }}">
+          {{ link.label|default:"View profile" }}
+        </a>
+      </p>
+    {% endif %}
+  {% endwith %}
+</div>

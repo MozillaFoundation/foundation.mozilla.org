@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+
+<section>
+  {% if value.title %}
+    <h2>{{ value.title }}</h2>
+  {% endif %}
+
+  <p>Orientation: {{ value.orientation }}</p>
+
+  <div>
+    {% for item in value.items %}
+      <div>
+        {% include_block item with orientation=value.orientation %}
+      </div>
+    {% endfor %}
+  </div>
+</section>

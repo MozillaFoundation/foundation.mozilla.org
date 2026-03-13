@@ -12,6 +12,7 @@ GENERAL_PAGE_BLOCK_NAMES = sorted(
     BASE_BLOCK_NAMES
     + [
         "custom_media",
+        "speaker_carousel_block",
     ]
 )
 general_page_block_options = BlockRegistry.get_blocks(GENERAL_PAGE_BLOCK_NAMES)

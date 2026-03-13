@@ -21,6 +21,7 @@ from .podcast_block import PodcastBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
+from .speaker_carousel_block import SpeakerCarouselBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
@@ -82,6 +83,10 @@ class BlockRegistry:
         },
         "image_grid": {
             "class": ImageGridBlock,
+            "group": BlockGroups.CARDS,
+        },
+        "speaker_carousel_block": {
+            "class": SpeakerCarouselBlock,
             "group": BlockGroups.CARDS,
         },
         # Data Display

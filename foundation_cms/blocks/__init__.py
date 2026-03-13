@@ -31,6 +31,7 @@ from .product_review_section_block import (
 )
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
+from .speaker_carousel_block import SpeakerCarouselBlock
 from .spotlight_card_block import SpotlightCardBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
@@ -91,4 +92,5 @@ __all__ = [
     "ProductReviewSectionReduceYourRisksBlock",
     "ProductReviewSectionWhatYouShouldKnowBlock",
     "FeaturedContainerBlock",
+    "SpeakerCarouselBlock",
 ]
