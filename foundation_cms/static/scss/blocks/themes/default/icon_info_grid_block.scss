@@ -1,0 +1,45 @@
+.icon-info-grid {
+  &__items {
+    display: grid;
+    gap: 2rem;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &--2-col {
+    @include breakpoint(medium up) {
+      .icon-info-grid__items { grid-template-columns: repeat(2, 1fr); }
+    }
+  }
+
+  &--3-col {
+    @include breakpoint(medium up) {
+      .icon-info-grid__items { grid-template-columns: repeat(3, 1fr); }
+    }
+  }
+}

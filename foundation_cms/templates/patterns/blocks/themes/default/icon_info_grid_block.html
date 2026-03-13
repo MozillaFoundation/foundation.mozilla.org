@@ -1,19 +1,5 @@
 {% load static i18n wagtailcore_tags %}
 
-<style>
-  .icon-info-grid__items { display: grid; gap: 2rem; }
-  .icon-info-grid__item { display: flex; flex-direction: column; gap: 1rem; }
-  .icon-info-grid__header { display: flex; gap: 1rem; align-items: center; }
-  .icon-info-grid__icon { flex-shrink: 0; width: 48px; height: 48px; }
-  .icon-info-grid__title { font-weight: bold; margin: 0; }
-  .icon-info-grid__description { margin: 0; }
-
-  @media (min-width: 768px) {
-    .icon-info-grid--2-col .icon-info-grid__items { grid-template-columns: repeat(2, 1fr); }
-    .icon-info-grid--3-col .icon-info-grid__items { grid-template-columns: repeat(3, 1fr); }
-  }
-</style>
-
 <section class="icon-info-grid icon-info-grid--{{ value.layout_style }} icon-info-grid--{{ value.columns }}-col icon-info-grid--{{ value.icon_color }}">
   <div class="grid-container">
 
