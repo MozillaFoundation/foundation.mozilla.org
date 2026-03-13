@@ -52,6 +52,8 @@ class HomePageFactory(PageFactory):
         instance = cls.build(
             title=raw.get("title", "Redesign Homepage"),
             slug=slug,
+            seo_title=raw.get("seo_title", ""),
+            search_description=raw.get("search_description", ""),
             hero_accordion=to_streamfield_value(
                 raw.get("hero_accordion", []),
                 stream_block=model_instance.hero_accordion.stream_block,

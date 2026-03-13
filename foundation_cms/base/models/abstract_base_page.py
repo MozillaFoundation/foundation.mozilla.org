@@ -191,8 +191,6 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
             errors["seo_title"] = "Title tag is required."
         if not self.search_description:
             errors["search_description"] = "Meta description is required."
-        if not self.search_image:
-            errors["search_image"] = "Share image is required."
         if errors:
             raise ValidationError(errors)
 
