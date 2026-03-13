@@ -112,7 +112,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         verbose_name="Page Topics",
         help_text=(
             "Select one or more topics from the dropdown. "
-            "If a topic is unavailable, you can create it under Snippets > Page Topics."
+            "If a topic is unavailable, please reach out to StratComms for help."
         ),
     )
     author = models.ForeignKey(
