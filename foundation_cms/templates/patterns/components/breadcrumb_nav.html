@@ -37,11 +37,7 @@
             {% for crumb in mobile_breadcrumbs %}
               {% with is_active=forloop.last %}
                 <li class="breadcrumb__item">
-                  {% if not mobile_show_leading_slash and not forloop.first %}
-                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
-                  {% elif mobile_show_leading_slash and forloop.first %}
-                      {# no extra separator here; the leading "/" already printed #}
-                  {% else %}
+                  {% if not forloop.first %}
                     <span class="breadcrumb__separator" aria-hidden="true">/</span>
                   {% endif %}
 
