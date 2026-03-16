@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+
+<section class="image-carousel image-carousel--{{ value.orientation }}">
+  {% if value.title %}
+    <h3>{{ value.title }}</h3>
+  {% endif %}
+
+  <p><strong>Orientation:</strong> {{ value.orientation }}</p>
+
+  <div class="image-carousel__track">
+    {% for item in value.items %}
+      <div class="image-carousel__slide">
+        {% include_block item with orientation=value.orientation %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
