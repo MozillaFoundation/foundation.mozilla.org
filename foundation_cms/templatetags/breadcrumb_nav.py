@@ -4,7 +4,7 @@ from wagtail import models as wagtail_models
 register = template.Library()
 
 
-def _localize_page(p, request):
+def _localize_page(p):
     """
     Return the page localized to the active language if possible.
     Wagtail i18n provides `.localized` on translatable models.
