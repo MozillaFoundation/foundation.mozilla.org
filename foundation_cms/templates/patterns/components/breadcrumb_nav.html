@@ -10,7 +10,7 @@
               {% with is_active=forloop.last %}
                 <li class="breadcrumb__item">
                   {% if not forloop.first %}
-                    <span class="breadcrumb__seperator" aria-hidden="true">/</span>
+                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
                   {% endif %}
 
                   {% if is_active %}
@@ -27,10 +27,10 @@
           <ol class="breadcrumb__list breadcrumb__list--mobile">
             {% if mobile_show_leading_slash %}
               <li class="breadcrumb__item">
-                <span class="breadcrumb__ellipsis">...</span>
+                <span class="breadcrumb__ellipsis" aria-hidden="true">...</span>
               </li>
               <li class="breadcrumb__item">
-                <span class="breadcrumb__seperator breadcrumb__seperator" aria-hidden="true">/</span>
+                <span class="breadcrumb__separator" aria-hidden="true">/</span>
               </li>
             {% endif %}
 
@@ -38,11 +38,11 @@
               {% with is_active=forloop.last %}
                 <li class="breadcrumb__item">
                   {% if not mobile_show_leading_slash and not forloop.first %}
-                    <span class="breadcrumb__seperator" aria-hidden="true">/</span>
+                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
                   {% elif mobile_show_leading_slash and forloop.first %}
                       {# no extra separator here; the leading "/" already printed #}
                   {% else %}
-                    <span class="breadcrumb__seperator" aria-hidden="true">/</span>
+                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
                   {% endif %}
 
                   {% if is_active %}
