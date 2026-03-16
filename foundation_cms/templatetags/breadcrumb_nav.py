@@ -29,7 +29,7 @@ def breadcrumb_nav(context, page=None):
     if site_root:
         ancestors = ancestors.exclude(translation_key=site_root.translation_key)
 
-    trail = [_localize_page(p, request) for p in ancestors]
+    trail = [_localize_page(p) for p in ancestors]
 
     # Desktop: full trail
     breadcrumbs_list = trail if len(trail) > 1 else False
