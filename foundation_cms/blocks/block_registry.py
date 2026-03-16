@@ -7,6 +7,7 @@ from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
+from .icon_info_grid_block import IconInfoGridBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
 from .image_grid_block import ImageGridBlock
@@ -82,6 +83,10 @@ class BlockRegistry:
         },
         "image_grid": {
             "class": ImageGridBlock,
+            "group": BlockGroups.CARDS,
+        },
+        "icon_info_grid": {
+            "class": IconInfoGridBlock,
             "group": BlockGroups.CARDS,
         },
         # Data Display
