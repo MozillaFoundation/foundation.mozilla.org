@@ -1,0 +1,59 @@
+.breadcrumb {
+  width: 100%;
+  margin: 1rem 0;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    /* Responsive: show only mobile list on small screens */
+    &--desktop {
+      display: none;
+    }
+
+    @include breakpoint(large up) {
+      &--desktop {
+        display: flex;
+      }
+
+      &--mobile {
+        display: none;
+      }
+    }
+  }
+
+  &__item {
+    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__separator {
+    margin: 0 7px;
+  }
+
+  &__ellipsis {
+    margin-left: 0;
+  }
+
+  &__link {
+    @include link-text-hover-underline-animated;
+
+    color: $black;
+
+    &:hover,
+    &:focus {
+      color: color(orange, "600");
+    }
+  }
+
+  &__current {
+    color: color(neutral, "400");
+    cursor: default;
+  }
+}
