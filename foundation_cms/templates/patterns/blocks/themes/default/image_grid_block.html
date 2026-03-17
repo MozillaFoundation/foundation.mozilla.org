@@ -9,73 +9,25 @@
 
       <div class="image-grid-wrapper grid-{{ section.items_per_row }}">
         {% orientation_to_ratio section.section_orientation as ratio %}
-        {% if section.items_per_row == "4" %}
-          {% with responsive_sizes="(max-width: 767px) 50vw, 25vw" %}
-            {% for item in section.items %}
-              <div class="image-grid-item">
-                {% if item.link %}
-                  {% with link=item.link.0 %}
-                    <a href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                  {% endwith %}
-                {% endif %}
+        {% for item in section.items %}
+          <div class="image-grid-item">
+            {% if item.link %}
+              {% with link=item.link.0 %}
+                <a href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
+              {% endwith %}
+            {% endif %}
 
-                <div class="image-grid-item__media">
-                  {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes=responsive_sizes %}
-                </div>
+            <div class="image-grid-item__media">
+              {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes="(max-width: 767px) 50vw, 25vw" %}
+            </div>
 
-                {% if item.caption %}
-                  <div class="grid-caption">{{ item.caption|richtext }}</div>
-                {% endif %}
+            {% if item.caption %}
+              <div class="grid-caption">{{ item.caption|richtext }}</div>
+            {% endif %}
 
-                {% if item.link %}</a>{% endif %}
-              </div>
-            {% endfor %}
-          {% endwith %}
-        {% elif section.items_per_row == "5" %}
-          {% with responsive_sizes="(max-width: 767px) 50vw, 20vw" %}
-            {% for item in section.items %}
-              <div class="image-grid-item">
-                {% if item.link %}
-                  {% with link=item.link.0 %}
-                    <a href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                  {% endwith %}
-                {% endif %}
-
-                <div class="image-grid-item__media">
-                  {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes=responsive_sizes %}
-                </div>
-
-                {% if item.caption %}
-                  <div class="grid-caption">{{ item.caption|richtext }}</div>
-                {% endif %}
-
-                {% if item.link %}</a>{% endif %}
-              </div>
-            {% endfor %}
-          {% endwith %}
-        {% else %}
-          {% with responsive_sizes="(max-width: 767px) 50vw, 16.67vw" %}
-            {% for item in section.items %}
-              <div class="image-grid-item">
-                {% if item.link %}
-                  {% with link=item.link.0 %}
-                    <a href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                  {% endwith %}
-                {% endif %}
-
-                <div class="image-grid-item__media">
-                  {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes=responsive_sizes %}
-                </div>
-
-                {% if item.caption %}
-                  <div class="grid-caption">{{ item.caption|richtext }}</div>
-                {% endif %}
-
-                {% if item.link %}</a>{% endif %}
-              </div>
-            {% endfor %}
-          {% endwith %}
-        {% endif %}
+            {% if item.link %}</a>{% endif %}
+          </div>
+        {% endfor %}
       </div>
     </div>
   {% endfor %}
