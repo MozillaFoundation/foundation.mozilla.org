@@ -183,7 +183,7 @@ pygit2==1.14.0
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-pyjwt==2.4.0
+pyjwt==2.12.0
     # via social-auth-core
 python-dateutil==2.8.2
     # via
