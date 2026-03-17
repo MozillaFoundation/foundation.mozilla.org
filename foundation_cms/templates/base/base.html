@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav %}
 
 {% get_current_language as lang_code %}
 
@@ -84,11 +84,6 @@
     </head>
 
     <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}" data-site-type="redesign">
-    {# Basic breadcrumbs for dev navigation #}
-        {% with self as page %}
-            <nav aria-label="Breadcrumb">
-            </nav>
-        {% endwith %}
         {% block donate_banner %}
             {% if donate_banner %}
                 {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner cta_button_data=donate_banner.cta_button_data %}
@@ -105,6 +100,9 @@
         <div class="main-content-wrapper">
             {% block primary_nav %}{% endblock primary_nav %}
             {% block brand_banner %}{% endblock brand_banner %}
+            {% block breadcrumbs %}
+                {% breadcrumb_nav page %}
+            {% endblock breadcrumbs %}
             {% block pre_content %}{% endblock pre_content %}
             {% block content %}{% endblock content %}
             {% block post_content %}{% endblock post_content %}

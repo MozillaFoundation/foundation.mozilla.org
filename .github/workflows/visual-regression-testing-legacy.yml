@@ -133,4 +133,4 @@ jobs:
           npx wait-on -t 30000 http://127.0.0.1:8000/cms
           npx percy exec -t 750 -- npx playwright test ./tests/visual.spec.js
         env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_LEGACY }}
