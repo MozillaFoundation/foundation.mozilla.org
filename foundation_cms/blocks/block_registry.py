@@ -5,6 +5,7 @@ from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
+from .gallery_card_block import GalleryCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
 from .icon_info_grid_block import IconInfoGridBlock
@@ -54,6 +55,10 @@ class BlockRegistry:
 
     BLOCKS = {
         # Card Collections
+        "gallery_card_block": {
+            "class": GalleryCardBlock,
+            "group": BlockGroups.CARDS,
+        },
         "featured_card_block": {
             "class": FeaturedCardBlock,
             "kwargs": {"skip_default_wrapper": True},
