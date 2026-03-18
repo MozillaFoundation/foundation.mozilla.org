@@ -11,21 +11,21 @@
         {% orientation_to_ratio section.section_orientation as ratio %}
         {% for item in section.items %}
           <div class="image-grid-item">
-            {% if item.link %}
-              {% with link=item.link.0 %}
+            {% with link=item.link.0 %}
+              {% if link and link.url %}
                 <a href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
-              {% endwith %}
-            {% endif %}
+              {% endif %}
 
-            <div class="image-grid-item__media">
-              {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes="(max-width: 767px) 50vw, 25vw" %}
-            </div>
+              <div class="image-grid-item__media">
+                {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes="(max-width: 767px) 50vw, 25vw" %}
+              </div>
 
-            {% if item.caption %}
-              <div class="grid-caption">{{ item.caption|richtext }}</div>
-            {% endif %}
+              {% if item.caption %}
+                <div class="grid-caption">{{ item.caption|richtext }}</div>
+              {% endif %}
 
-            {% if item.link %}</a>{% endif %}
+              {% if link and link.url %}</a>{% endif %}
+            {% endwith %}
           </div>
         {% endfor %}
       </div>
