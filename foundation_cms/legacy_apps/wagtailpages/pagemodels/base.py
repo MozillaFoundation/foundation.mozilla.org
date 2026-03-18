@@ -180,6 +180,14 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
         SynchronizedField("narrowed_page_content"),
     ]
 
+    search_fields = BasePage.search_fields + [
+        index.SearchField("title", boost=7),
+        index.SearchField("header", boost=7),
+        index.SearchField("search_description", boost=7),
+        index.SearchField("intro", boost=5),
+        index.SearchField("body", boost=5),
+    ]
+
     subpage_types = [
         "PrimaryPage",
         "BanneredCampaignPage",
