@@ -20,6 +20,7 @@ class ImageCarouselItemBlock(BaseBlock):
     )
     description = CustomRichTextBlock(
         required=False,
+        label="Description",
         help_text="Optional rich text description for the image item.",
     )
     link = OptionalLinkBlock(required=False, label="Link", help_text="Optional link for this item.")
