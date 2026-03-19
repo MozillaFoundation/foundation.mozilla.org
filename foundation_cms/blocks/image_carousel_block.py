@@ -28,7 +28,7 @@ class ImageCarouselItemBlock(BaseBlock):
     class Meta:
         icon = "image"
         label = "Carousel Item"
-        template_name = "image_carousel_item_block.html"
+        template_name = "image_carousel_block_item.html"
 
 
 class ImageCarouselBlock(BaseBlock):
