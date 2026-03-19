@@ -87,6 +87,7 @@ class BlockRegistry:
         },
         "image_carousel_block": {
             "class": ImageCarouselBlock,
+            "kwargs": {"skip_default_wrapper": True},
             "group": BlockGroups.CARDS,
         },
         # Data Display

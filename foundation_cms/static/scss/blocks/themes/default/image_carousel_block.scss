@@ -19,6 +19,11 @@
     large: math.floor(map.get($num-visible, large)) + 1,
   );
 
+  &__header-controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__header {
     @include mofo-text-style($header-styles, "h3", $header-font-family);
 
@@ -35,30 +40,20 @@
   }
 
   &__track {
+    --carousel-transition: #{$carousel-transition};
+
     display: flex;
     gap: $gap;
     width: 100%;
     will-change: transform;
-    transition: #{$carousel-transition};
+    transition: var(--carousel-transition);
   }
 
   &__slide {
     flex: 0 0 carousel-slide-width(map.get($num-visible, small), $gap);
 
-    &:nth-child(#{map.get($peek-nth, small)}) {
-      opacity: 0.5;
-    }
-
     @include breakpoint(large up) {
       flex: 0 0 carousel-slide-width(map.get($num-visible, large), $gap);
-
-      &:nth-child(#{map.get($peek-nth, small)}) {
-        opacity: 1;
-      }
-
-      &:nth-child(#{map.get($peek-nth, large)}) {
-        opacity: 0.5;
-      }
     }
   }
 

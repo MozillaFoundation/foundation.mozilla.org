@@ -224,15 +224,17 @@ $cta-link-icon-sizes: (
 
 .pagination-controls {
   $background-color: black;
+  $triangle-width: rem-calc(48);
 
   display: flex;
   align-items: center;
   color: white;
   position: relative;
   background: $background-color;
+  margin-left: $triangle-width;
 
   &::before {
-    $width: rem-calc(48);
+    $width: $triangle-width;
     $left-offset: $width * -1;
 
     // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges

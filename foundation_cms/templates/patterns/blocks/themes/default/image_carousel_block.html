@@ -4,9 +4,14 @@
   <div class="grid-container">
     <div class="grid-x">
       <div class="cell">
-        {% if value.title %}
-          <h3 class="image-carousel__header">{{ value.title }}</h3>
-        {% endif %}
+        <div class="image-carousel__header-controls">
+          {% if value.title %}
+            <h3 class="image-carousel__header">{{ value.title }}</h3>
+          {% endif %}
+          <div class="image-carousel__controls">
+            {% include "./fragments/pagination_controls.html" with total=value.items|length %}
+          </div>
+        </div>
 
         <p><strong>Orientation:</strong> {{ value.orientation }}</p>
 
