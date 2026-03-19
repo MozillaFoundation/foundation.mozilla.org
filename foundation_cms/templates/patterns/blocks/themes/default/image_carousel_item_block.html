@@ -1,9 +1,8 @@
 {% load wagtailimages_tags %}
 
 <div class="image-carousel-item image-carousel-item--{{ orientation }}">
-
   {% if value.header %}
-    <p>{{ value.header }}</p>
+    <p class="image-carousel-item__header">{{ value.header }}</p>
   {% endif %}
 
   {% with link=value.link.0 %}
@@ -13,6 +12,7 @@
 
     {% image value.image original as img %}
     <img
+      class="image-carousel-item__image"
       src="{{ img.url }}"
       alt="{{ value.title|default:'Carousel image' }}"
       width="{{ img.width }}"
@@ -25,11 +25,11 @@
   {% endwith %}
 
   {% if value.title %}
-    <p>{{ value.title }}</p>
+    <h4 class="image-carousel-item__title">{{ value.title }}</h4>
   {% endif %}
 
   {% if value.description %}
-    <div>{{ value.description }}</div>
+    <div class="image-carousel-item__description">{{ value.description }}</div>
   {% endif %}
 
   {% with link=value.link.0 %}

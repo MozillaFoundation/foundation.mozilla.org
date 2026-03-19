@@ -1,0 +1,100 @@
+@use "sass:map";
+@use "sass:math";
+
+@function carousel-slide-width($visible, $gap) {
+  $gaps: math.floor($visible);
+
+  @return calc((100% - #{$gaps * $gap}) / #{$visible});
+}
+
+.image-carousel {
+  $carousel-transition: transform 0.3s ease;
+  $gap: 1rem;
+  $num-visible: (
+    small: 2.5,
+    large: 5.5,
+  );
+  $peek-nth: (
+    small: math.floor(map.get($num-visible, small)) + 1,
+    large: math.floor(map.get($num-visible, large)) + 1,
+  );
+
+  &__header {
+    @include mofo-text-style($header-styles, "h3", $header-font-family);
+
+    margin: rem-calc(14) 0;
+  }
+
+  &__card-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+    scrollbar-width: none;
+  }
+
+  &__track {
+    display: flex;
+    gap: $gap;
+    width: 100%;
+    will-change: transform;
+    transition: #{$carousel-transition};
+  }
+
+  &__slide {
+    flex: 0 0 carousel-slide-width(map.get($num-visible, small), $gap);
+
+    &:nth-child(#{map.get($peek-nth, small)}) {
+      opacity: 0.5;
+    }
+
+    @include breakpoint(large up) {
+      flex: 0 0 carousel-slide-width(map.get($num-visible, large), $gap);
+
+      &:nth-child(#{map.get($peek-nth, small)}) {
+        opacity: 1;
+      }
+
+      &:nth-child(#{map.get($peek-nth, large)}) {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .image-carousel-item {
+    display: flex;
+    flex-direction: column;
+
+    &__header {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+    }
+
+    &__image {
+      width: 100%;
+      aspect-ratio: math.div(2, 3);
+      object-fit: cover;
+      display: block;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin-top: rem-calc(16);
+      margin-bottom: rem-calc(8);
+    }
+
+    &__description {
+      p:first-child {
+        margin-top: 0;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
