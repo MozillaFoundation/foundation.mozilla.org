@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<div class="image-carousel image-carousel--{{ value.orientation }}{% if value.items|length > 5 %} is-carousel{% endif %}" style="--slide-count: {{ value.items|length }}">
+<div class="image-carousel image-carousel--{{ value.orientation }}{% if value.orientation == "landscape" and value.items|length > 3 %} is-carousel{% elif value.items|length > 5 %} is-carousel{% endif %}" style="--slide-count: {{ value.items|length }}">
   <div class="grid-container">
     <div class="grid-x">
       <div class="cell">
@@ -12,8 +12,6 @@
             {% include "./fragments/pagination_controls.html" with total=value.items|length %}
           </div>
         </div>
-
-        <p><strong>Orientation:</strong> {{ value.orientation }}</p>
 
         <div class="image-carousel__card-container">
           <div class="image-carousel__track">

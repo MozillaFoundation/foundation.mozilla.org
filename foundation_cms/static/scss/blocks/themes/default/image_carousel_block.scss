@@ -4,17 +4,45 @@
 .image-carousel {
   $carousel-transition: transform 0.3s ease;
   $gap: (
-    small: 0.5rem,
-    large: 1rem,
+    small: rem-calc(8),
+    large: rem-calc(16),
   );
-  $image-height: (
+  $portrait-ratio: math.div(2, 3);
+  $landscape-ratio: math.div(3, 2);
+  $portrait-height: (
     small: rem-calc(195),
     large: rem-calc(300),
   );
-  $slide-width: (
-    small: map.get($image-height, small) * math.div(2, 3),
-    large: map.get($image-height, large) * math.div(2, 3),
+  $landscape-height: (
+    small: rem-calc(182),
+    large: rem-calc(251),
   );
+  $slide-width: (
+    portrait: (
+      small: map.get($portrait-height, small) * $portrait-ratio,
+      large: map.get($portrait-height, large) * $portrait-ratio,
+    ),
+    landscape: (
+      small: map.get($landscape-height, small) * $landscape-ratio,
+      large: map.get($landscape-height, large) * $landscape-ratio,
+    ),
+  );
+
+  --image-aspect-ratio: #{$portrait-ratio};
+
+  &--landscape {
+    $landscape-widths: map.get($slide-width, landscape);
+
+    --image-aspect-ratio: #{$landscape-ratio};
+
+    .image-carousel__track {
+      grid-auto-columns: map.get($landscape-widths, small);
+
+      @include breakpoint(large up) {
+        grid-auto-columns: map.get($landscape-widths, large);
+      }
+    }
+  }
 
   &__header-controls {
     display: flex;
@@ -37,11 +65,13 @@
   }
 
   &__track {
+    $portrait-widths: map.get($slide-width, portrait);
+
     --carousel-transition: #{$carousel-transition};
 
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: map.get($slide-width, small);
+    grid-auto-columns: map.get($portrait-widths, small);
     grid-template-rows: repeat(5, auto);
     column-gap: map.get($gap, small);
     width: 100%;
@@ -49,7 +79,7 @@
     transition: var(--carousel-transition);
 
     @include breakpoint(large up) {
-      grid-auto-columns: map.get($slide-width, large);
+      grid-auto-columns: map.get($portrait-widths, large);
       column-gap: map.get($gap, large);
     }
   }
@@ -68,10 +98,9 @@
 
       .image-carousel__track {
         $gap-large: map.get($gap, large);
-        $num-slides: var(--slide-count);
 
         grid-auto-columns: calc(
-          (100% - (#{$num-slides} - 1) * #{$gap-large}) / #{$num-slides}
+          (100% - (var(--slide-count) - 1) * #{$gap-large}) / var(--slide-count)
         );
       }
     }
@@ -96,7 +125,7 @@
     &__image {
       grid-row: 2;
       width: 100%;
-      aspect-ratio: math.div(2, 3);
+      aspect-ratio: var(--image-aspect-ratio);
       object-fit: cover;
       display: block;
     }
