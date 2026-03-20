@@ -42,19 +42,24 @@
   &__track {
     --carousel-transition: #{$carousel-transition};
 
-    display: flex;
-    gap: $gap;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: carousel-slide-width(map.get($num-visible, small), $gap);
+    grid-template-rows: repeat(5, auto);
+    column-gap: $gap;
     width: 100%;
     will-change: transform;
     transition: var(--carousel-transition);
+
+    @include breakpoint(large up) {
+      grid-auto-columns: carousel-slide-width(map.get($num-visible, large), $gap);
+    }
   }
 
   &__slide {
-    flex: 0 0 carousel-slide-width(map.get($num-visible, small), $gap);
-
-    @include breakpoint(large up) {
-      flex: 0 0 carousel-slide-width(map.get($num-visible, large), $gap);
-    }
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
   }
 
   &:not(.is-carousel) {
@@ -63,25 +68,32 @@
         display: none;
       }
 
-      .image-carousel__slide {
-        flex: 0 0
-          calc((100% - (var(--slide-count) - 1) * #{$gap}) / var(--slide-count));
+      .image-carousel__track {
+        grid-auto-columns: calc(
+          (100% - (var(--slide-count) - 1) * #{$gap}) / var(--slide-count)
+        );
       }
     }
   }
 
   .image-carousel-item {
-    display: flex;
-    flex-direction: column;
+    display: contents;
 
     &__header {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
 
+      grid-row: 1;
       margin-top: 0;
       margin-bottom: rem-calc(24);
     }
 
+    &__image-link {
+      grid-row: 2;
+      display: block;
+    }
+
     &__image {
+      grid-row: 2;
       width: 100%;
       aspect-ratio: math.div(2, 3);
       object-fit: cover;
@@ -91,11 +103,14 @@
     &__title {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
 
+      grid-row: 3;
       margin-top: rem-calc(16);
       margin-bottom: rem-calc(8);
     }
 
     &__description {
+      grid-row: 4;
+
       p:first-child {
         margin-top: 0;
       }
@@ -103,6 +118,10 @@
       p:last-child {
         margin-bottom: 0;
       }
+    }
+
+    &__link {
+      grid-row: 5;
     }
   }
 }

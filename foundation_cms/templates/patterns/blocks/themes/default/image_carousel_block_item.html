@@ -7,7 +7,7 @@
 
   {% with link=value.link.0 %}
     {% if link %}
-      <a href="{{ link.url }}">
+      <a class="image-carousel-item__image-link" href="{{ link.url }}">
     {% endif %}
 
     {% image value.image original as img %}
@@ -34,7 +34,7 @@
 
   {% with link=value.link.0 %}
     {% if link %}
-      <p><a href="{{ link.url }}">{{ link.label|default:"Read more" }}</a></p>
+      <p class="image-carousel-item__link"><a href="{{ link.url }}">{{ link.label|default:"Read more" }}</a></p>
     {% endif %}
   {% endwith %}
 
