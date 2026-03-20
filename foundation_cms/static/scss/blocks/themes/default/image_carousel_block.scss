@@ -11,7 +11,7 @@
   $carousel-transition: transform 0.3s ease;
   $gap: 1rem;
   $num-visible: (
-    small: 2.5,
+    small: 1.5,
     large: 5.5,
   );
   $peek-nth: (
@@ -54,6 +54,21 @@
 
     @include breakpoint(large up) {
       flex: 0 0 carousel-slide-width(map.get($num-visible, large), $gap);
+    }
+  }
+
+  &:not(.is-carousel) {
+    @include breakpoint(large up) {
+      .image-carousel__controls {
+        display: none;
+      }
+
+      .image-carousel__slide {
+        flex: 0 0
+          calc(
+            (100% - (var(--slide-count) - 1) * #{$gap}) / var(--slide-count)
+          );
+      }
     }
   }
 

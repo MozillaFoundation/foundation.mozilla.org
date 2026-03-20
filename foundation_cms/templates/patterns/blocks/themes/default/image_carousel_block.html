@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<div class="image-carousel image-carousel--{{ value.orientation }}">
+<div class="image-carousel image-carousel--{{ value.orientation }}{% if value.items|length > 5 %} is-carousel{% endif %}" style="--slide-count: {{ value.items|length }}">
   <div class="grid-container">
     <div class="grid-x">
       <div class="cell">
