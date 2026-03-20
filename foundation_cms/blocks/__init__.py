@@ -7,6 +7,7 @@ from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
 from .hero_accordion import HeroAccordionBlock
+from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
 from .image_carousel_block import ImageCarouselBlock
@@ -60,6 +61,8 @@ __all__ = [
     "TabbedContentTabBlock",
     "TwoColumnContainerBlock",
     "CustomImageBlock",
+    "IconInfoGridBlock",
+    "IconInfoGridItemBlock",
     "ImageGridBlock",
     "ImageGridItemBlock",
     "ImageGridSectionBlock",

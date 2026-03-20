@@ -1,6 +1,7 @@
 import re
 
 from django.apps import apps
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.loader import select_template
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -24,6 +25,7 @@ BASE_BLOCK_NAMES = sorted(
         "rich_text",
         "image",
         "image_grid",
+        "icon_info_grid",
         "podcast_block",
         "tabbed_content",
         "two_column_container_block",
@@ -179,6 +181,19 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     class Meta:
         abstract = True
+
+    def clean(self):
+        # Enforce SEO fields on all pages. These fields are defined on
+        # Wagtail's core Page model and wagtailmetadata, so they can't be made
+        # required via blank=False. Validation is done here instead.
+        super().clean()
+        errors = {}
+        if not self.seo_title:
+            errors["seo_title"] = "Title tag is required."
+        if not self.search_description:
+            errors["search_description"] = "Meta description is required."
+        if errors:
+            raise ValidationError(errors)
 
     def get_theme(self):
         # per-instance memoize for this render

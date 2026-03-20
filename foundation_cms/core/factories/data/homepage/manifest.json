@@ -1,6 +1,8 @@
 {
   "title": "Redesign Homepage",
   "slug": "redesign-home",
+  "seo_title": "Mozilla Foundation",
+  "search_description": "Mozilla is a global non-profit dedicated to putting you in control of your online experience and shaping the future of the web for the public good.",
   "hero_accordion": "hero_accordion.json",
   "body": [
     { "type": "newsletter_signup", "value": "body/newsletter_signup_block.json" },
