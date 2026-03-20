@@ -1,0 +1,13 @@
+/* Customizations to the Wagtail admin interface. */
+
+/*
+ * Mark SEO fields as visually required by adding a red asterisk to their labels.
+ * These fields (seo_title, search_description) are defined on Wagtail's core Page
+ * model with blank=True, so they can't be made required at the field level.
+ * Actual validation is enforced in AbstractBasePage.clean().
+ */
+label[for="id_seo_title"]::after,
+label[for="id_search_description"]::after {
+  content: " *";
+  color: var(--w-color-critical-200);
+}

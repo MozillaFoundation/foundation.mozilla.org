@@ -1,9 +1,17 @@
+from django.templatetags.static import static
+from django.utils.html import format_html
 from wagtail import hooks
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler,
 )
 from wagtail.admin.rich_text.editors.draftail import features as draftail_features
 from wagtail_ab_testing.events import BaseEvent
+
+
+# Load custom Wagtail admin CSS.
+@hooks.register("insert_global_admin_css")
+def wagtail_admin_css():
+    return format_html('<link rel="stylesheet" href="{}">', static("css/wagtail-admin.css"))
 
 
 # Extended rich text features for our site

@@ -26,6 +26,28 @@
   }
 }
 
+@mixin link-text-hover-underline-animated(
+  $underline-color: map.get($mofo-colors, black)
+) {
+  position: relative;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $underline-color;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
 @mixin link-text-color(
   $default-color: map.get($mofo-colors, black),
   $hover-color: map.get($mofo-colors, black)
