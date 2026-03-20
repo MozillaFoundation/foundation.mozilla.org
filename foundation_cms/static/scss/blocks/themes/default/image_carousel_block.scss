@@ -1,22 +1,19 @@
 @use "sass:map";
 @use "sass:math";
 
-@function carousel-slide-width($visible, $gap) {
-  $gaps: math.floor($visible);
-
-  @return calc((100% - #{$gaps * $gap}) / #{$visible});
-}
-
 .image-carousel {
   $carousel-transition: transform 0.3s ease;
-  $gap: 1rem;
-  $num-visible: (
-    small: 1.5,
-    large: 5.5,
+  $gap: (
+    small: 0.5rem,
+    large: 1rem,
   );
-  $peek-nth: (
-    small: math.floor(map.get($num-visible, small)) + 1,
-    large: math.floor(map.get($num-visible, large)) + 1,
+  $image-height: (
+    small: rem-calc(195),
+    large: rem-calc(300),
+  );
+  $slide-width: (
+    small: map.get($image-height, small) * math.div(2, 3),
+    large: map.get($image-height, large) * math.div(2, 3),
   );
 
   &__header-controls {
@@ -44,15 +41,16 @@
 
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: carousel-slide-width(map.get($num-visible, small), $gap);
+    grid-auto-columns: map.get($slide-width, small);
     grid-template-rows: repeat(5, auto);
-    column-gap: $gap;
+    column-gap: map.get($gap, small);
     width: 100%;
     will-change: transform;
     transition: var(--carousel-transition);
 
     @include breakpoint(large up) {
-      grid-auto-columns: carousel-slide-width(map.get($num-visible, large), $gap);
+      grid-auto-columns: map.get($slide-width, large);
+      column-gap: map.get($gap, large);
     }
   }
 
@@ -69,8 +67,11 @@
       }
 
       .image-carousel__track {
+        $gap-large: map.get($gap, large);
+        $num-slides: var(--slide-count);
+
         grid-auto-columns: calc(
-          (100% - (var(--slide-count) - 1) * #{$gap}) / var(--slide-count)
+          (100% - (#{$num-slides} - 1) * #{$gap-large}) / #{$num-slides}
         );
       }
     }
