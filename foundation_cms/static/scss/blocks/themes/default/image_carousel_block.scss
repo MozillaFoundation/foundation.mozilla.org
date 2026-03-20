@@ -65,9 +65,7 @@
 
       .image-carousel__slide {
         flex: 0 0
-          calc(
-            (100% - (var(--slide-count) - 1) * #{$gap}) / var(--slide-count)
-          );
+          calc((100% - (var(--slide-count) - 1) * #{$gap}) / var(--slide-count));
       }
     }
   }
