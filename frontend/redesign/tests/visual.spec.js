@@ -1,17 +1,26 @@
 import { test } from "@playwright/test";
 import percySnapshot from "@percy/playwright";
-import { mkdirSync } from "fs";
 import waitForImagesToLoad from "./wait-for-images.js";
 import { foundationBaseUrl } from "./base-urls.js";
+import RedesignURLs from "./redesign-urls.js";
 
 const runTime = Date.now();
-const screenshotDir = `tests/screenshots/${runTime}`;
 
-test("Homepage", async ({ page }, testInfo) => {
-  await page.goto(`${foundationBaseUrl()}/`);
-  await page.waitForLoadState("networkidle");
-  await waitForImagesToLoad(page);
-  await percySnapshot(page, testInfo.title);
-  mkdirSync(screenshotDir, { recursive: true });
-  await page.screenshot({ path: `${screenshotDir}/${testInfo.title}.png`, fullPage: true });
+function testFoundationURL(path) {
+  return async ({ page }, testInfo) => {
+    await page.goto(`${foundationBaseUrl()}${path}`);
+    await page.waitForLoadState("networkidle");
+    await waitForImagesToLoad(page);
+    await percySnapshot(page, testInfo.title);
+    await page.screenshot({
+      path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
+      fullPage: true,
+    });
+  };
+}
+
+test.describe.parallel("Foundation redesign page tests", () => {
+  Object.entries(RedesignURLs).forEach(([testName, path]) => {
+    test(testName, testFoundationURL(path));
+  });
 });

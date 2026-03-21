@@ -26,7 +26,7 @@
     "watch:css": "NODE_ENV=development node build-css.js && chokidar '../../foundation_cms/static/scss/**/*.scss' -c 'NODE_ENV=development node build-css.js'",
     "watch:js": "node esbuild.config.js --node-env development",
     "watch:images": "run-s build:images && chokidar '../../foundation_cms/static/images/**/*' -c 'yarn clean:images && yarn build:images'",
-    "predev": "yarn clean",w
+    "predev": "yarn clean",
     "dev": "run-p watch:css watch:js watch:images",
     "fix": "run-s fix:js fix:scss",
     "fix:scss": "stylelint \"../../foundation_cms/static/scss/**/*.scss\" --config stylelint.config.cjs --fix",
