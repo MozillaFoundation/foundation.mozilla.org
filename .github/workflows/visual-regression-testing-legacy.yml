@@ -18,7 +18,7 @@ jobs:
   # GitHub Actions does not support paths filtering on pull_request_review events natively.
   # This job runs on PR approval and uses the GitHub API to check if any legacy files changed.
   # The result is passed as an output to the visual_regression_tests job.
-  check-changes:
+  check-files-on-approval:
     runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
     outputs:
