@@ -8,7 +8,7 @@ class GalleryCardBlock(BaseBlock):
     A simple card block to display projects in a gallery
     """
 
-    page = PageChooserBlock(required=True, label="Page")
+    page = PageChooserBlock(required=True, page_type="ProjectPage", label="Page")
 
     class Meta:
         label = "Gallery Card"
