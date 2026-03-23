@@ -70,7 +70,6 @@ If there are any updates to this form (which is unlikely), please follow the ins
     document.addEventListener("DOMContentLoaded", () => {
         let sourceUrlField = document.querySelector(".wFormContainer #tfa_498");
         if (sourceUrlField) {
-            console.log("Setting source url field value to current document URL");
             sourceUrlField.value = decodeURIComponent(document.URL);
         }
     });
