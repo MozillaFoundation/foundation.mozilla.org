@@ -1,3 +1,5 @@
+$highlight-color: color(orange, "300");
+
 .image-grid-container {
   margin: 1rem 0 2rem;
 
@@ -61,9 +63,18 @@
     color: $black;
   }
 
+  &:focus-visible {
+    outline: none;
+
+    .image-grid-item__media,
+    .grid-caption {
+      outline: 2px solid $highlight-color;
+    }
+  }
+
   .grid-caption {
     text-decoration: underline;
-    text-decoration-color: color(orange, "300");
+    text-decoration-color: $highlight-color;
     text-underline-offset: 2px;
   }
 
