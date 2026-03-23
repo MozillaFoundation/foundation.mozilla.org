@@ -1,27 +1,27 @@
 {% load wagtailcore_tags wagtailimages_tags responsive_image_tags %}
 
-<div class="image-grid-container">
+<div class="image-grid">
   {% for section in value.sections %}
-    <div class="image-grid-section image-grid-section--{{ section.section_orientation }}">
+    <div class="image-grid__section image-grid__section--{{ section.section_orientation }}">
       {% if section.heading %}
-        <h4 class="image-grid-heading">{{ section.heading }}</h4>
+        <h4 class="image-grid__heading">{{ section.heading }}</h4>
       {% endif %}
 
-      <div class="image-grid-wrapper grid-{{ section.items_per_row }}">
+      <div class="image-grid__wrapper image-grid__wrapper--{{ section.items_per_row }}">
         {% orientation_to_ratio section.section_orientation as ratio %}
         {% for item in section.items %}
-          <div class="image-grid-item">
+          <div class="image-grid__item">
             {% with link=item.link.0 %}
               {% if link and link.url %}
-                <a href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                <a class="image-grid__link" href="{{ link.url }}" {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}>
               {% endif %}
 
-              <div class="image-grid-item__media">
-                {% responsive_image item.image ratio=ratio classnames="grid-image" base_width=300 sizes="(max-width: 767px) 50vw, 25vw" %}
+              <div class="image-grid__media">
+                {% responsive_image item.image ratio=ratio classnames="image-grid__image" base_width=300 sizes="(max-width: 767px) 50vw, 25vw" %}
               </div>
 
               {% if item.caption %}
-                <div class="grid-caption">{{ item.caption|richtext }}</div>
+                <div class="image-grid__caption">{{ item.caption|richtext }}</div>
               {% endif %}
 
               {% if link and link.url %}</a>{% endif %}
