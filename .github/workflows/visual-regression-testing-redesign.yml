@@ -1,28 +1,40 @@
-name: Visual Regression Tests - Legacy
+name: Visual Regression Tests - Redesign
 
 on:
   pull_request:
     types: [labeled]
     paths:
-      - 'foundation_cms/legacy_apps/**'
-      - 'frontend/legacy/**'
+      - 'foundation_cms/static/**'
+      - 'foundation_cms/core/**'
+      - 'foundation_cms/base/**'
+      - 'foundation_cms/blocks/**'
+      - 'foundation_cms/templates/**'
+      - 'foundation_cms/navigation/**'
+      - 'foundation_cms/footer/**'
+      - 'frontend/redesign/**'
   pull_request_review:
     types: [submitted]
   push:
     branches:
       - "main"
     paths:
-      - 'foundation_cms/legacy_apps/**'
-      - 'frontend/legacy/**'
+      - 'foundation_cms/static/**'
+      - 'foundation_cms/core/**'
+      - 'foundation_cms/base/**'
+      - 'foundation_cms/blocks/**'
+      - 'foundation_cms/templates/**'
+      - 'foundation_cms/navigation/**'
+      - 'foundation_cms/footer/**'
+      - 'frontend/redesign/**'
 jobs:
   # GitHub Actions does not support paths filtering on pull_request_review events natively.
-  # This job runs on PR approval and uses the GitHub API to check if any legacy files changed.
+  # This job runs on PR approval and uses the GitHub API to check if any redesign files changed.
   # The result is passed as an output to the visual_regression_tests job.
   check-files-on-approval:
     runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
     outputs:
-      legacy: ${{ steps.check.outputs.legacy }}
+      redesign: ${{ steps.check.outputs.redesign }}
     steps:
       - uses: actions/github-script@v7
         id: check
@@ -33,23 +45,29 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
             });
-            const legacyChanged = files.some(f =>
-              f.filename.startsWith('foundation_cms/legacy_apps/') ||
-              f.filename.startsWith('frontend/legacy/')
+            const redesignChanged = files.some(f =>
+              f.filename.startsWith('foundation_cms/static/') ||
+              f.filename.startsWith('foundation_cms/core/') ||
+              f.filename.startsWith('foundation_cms/base/') ||
+              f.filename.startsWith('foundation_cms/blocks/') ||
+              f.filename.startsWith('foundation_cms/templates/') ||
+              f.filename.startsWith('foundation_cms/navigation/') ||
+              f.filename.startsWith('foundation_cms/footer/') ||
+              f.filename.startsWith('frontend/redesign/')
             );
-            core.setOutput('legacy', legacyChanged ? 'true' : 'false');
+            core.setOutput('redesign', redesignChanged ? 'true' : 'false');
 
   visual_regression_tests:
-    name: Percy CI - Legacy
+    name: Percy CI - Redesign
     needs: [check-changes]
     # always() prevents this job from being skipped when check-changes is skipped
     # (i.e. on push and labeled events, check-changes does not run).
-    # For pull_request_review, we additionally gate on the legacy output from check-changes.
+    # For pull_request_review, we additionally gate on the redesign output from check-changes.
     if: |
       always() && (
         (github.event_name == 'push' && github.event.ref == 'refs/heads/main') ||
-        (github.event_name == 'pull_request' && github.event.label.name == 'run:visual-regression:legacy') ||
-        (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && needs.check-changes.outputs.legacy == 'true')
+        (github.event_name == 'pull_request' && github.event.label.name == 'run:visual-regression:redesign') ||
+        (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && needs.check-changes.outputs.redesign == 'true')
       )
     runs-on: ubuntu-22.04
     services:
@@ -115,22 +133,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gettext libgconf-2-4
       - name: Install Playwright
-        run: yarn workspace legacy playwright:install
+        run: yarn workspace redesign playwright:install
       - name: Preroll
         run: |
           yarn build
           python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py migrate --no-input
-          python ./manage.py block_inventory
           python ./manage.py load_redesign_data
-          python ./manage.py legacy_load_fake_data
       - name: Percy Test
         timeout-minutes: 15
         run: |
-          # CI-specific approach to avoid hanging
-          cd frontend/legacy
-          npm run server &
-          npx wait-on -t 30000 http://127.0.0.1:8000/cms
-          npx percy exec -t 750 -- npx playwright test ./tests/visual.spec.js
+          python manage.py runserver 0.0.0.0:8000 &
+          npx wait-on -t 30000 http://127.0.0.1:8000/en/
+          yarn workspace redesign percy
         env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_LEGACY }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_REDESIGN }}
