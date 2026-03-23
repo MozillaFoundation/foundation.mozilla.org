@@ -4,9 +4,9 @@ from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
-from .gallery_card_block import GalleryCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
+from .gallery_card_block import GalleryCardBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
