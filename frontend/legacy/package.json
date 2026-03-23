@@ -87,7 +87,7 @@
     "chart.js": "4.5.1",
     "classnames": "2.5.1",
     "countup.js": "^2.8.2",
-    "cssnano": "^7.0.6",
+    "cssnano": "^7.1.3",
     "esbuild": "^0.25.2",
     "gsap": "^3.12.7",
     "htmx.org": "^1.9.12",
@@ -111,7 +111,7 @@
   },
   "devDependencies": {
     "@axe-core/react": "^4.11.1",
-    "@percy/cli": "^1.31.8",
+    "@percy/cli": "^1.31.10",
     "@percy/playwright": "^1.0.9",
     "@playwright/test": "^1.58.2",
     "browserslist": "^4.24.4",
