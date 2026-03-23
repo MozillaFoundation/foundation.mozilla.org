@@ -9,7 +9,7 @@ The code below has been copied directly over from FormAssembly.
 This code is the HEAD section of https://mozillafoundation.tfaforms.net/forms/view/187, which is a direct copy of https://mozillafoundation.tfaforms.net/forms/view/9,
 just updated to send the data to CaMo rather than Basket. 
 
-The code snippet below is based on FormAssembly form revision #2
+The code snippet below is based on FormAssembly form revision #8
 
 If there are any updates to this form (which is unlikely), please follow the instructions found on "formassembly_head_legacy.html".
 
@@ -70,6 +70,7 @@ If there are any updates to this form (which is unlikely), please follow the ins
     document.addEventListener("DOMContentLoaded", () => {
         let sourceUrlField = document.querySelector(".wFormContainer #tfa_498");
         if (sourceUrlField) {
+            console.log("Setting source url field value to current document URL");
             sourceUrlField.value = decodeURIComponent(document.URL);
         }
     });
