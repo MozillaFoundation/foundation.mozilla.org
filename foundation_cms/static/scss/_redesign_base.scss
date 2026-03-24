@@ -27,6 +27,7 @@
 @import "../scss/blocks/themes/default/video_block";
 @import "../scss/blocks/themes/default/quote_block";
 @import "../scss/blocks/themes/default/product_review_section";
+@import "../scss/blocks/themes/default/rich_text_block";
 @import "../scss/blocks/themes/default/spotlight_card_carousel";
 @import "../scss/blocks/themes/default/spacer_block";
 @import "../scss/blocks/themes/default/tabbed_content_container";
@@ -36,6 +37,8 @@
 @import "../scss/blocks/themes/default/two_column_container_block";
 @import "../scss/blocks/hero";
 @import "../scss/blocks/themes/default/accordion_block";
+@import "../scss/blocks/themes/default/link_button_block";
+@import "../scss/blocks/themes/default/icon_info_grid_block";
 
 // Site-wide Components
 @import "../scss/components/donate_banner/donate_banner";
@@ -46,6 +49,7 @@
 @import "../scss/components/topic_pills";
 @import "../scss/components/back_to_top";
 @import "../scss/components/search_form";
+@import "../scss/components/breadcrumb_nav";
 
 // Embed/widget overrides
 @import "../scss/onetrust-override";

@@ -1,0 +1,57 @@
+{% load wagtailcore_tags i18n %}
+{% if breadcrumbs %}
+  <nav class="breadcrumb" aria-label="{% trans "Breadcrumb Navigation" %}">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+            {# Desktop / larger screens: full trail #}
+          <ol class="breadcrumb__list breadcrumb__list--desktop">
+            {% for crumb in breadcrumbs %}
+              {% with is_active=forloop.last %}
+                <li class="breadcrumb__item">
+                  {% if not forloop.first %}
+                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
+                  {% endif %}
+
+                  {% if is_active %}
+                    <span class="breadcrumb__current" aria-current="page">{{ crumb.title|truncatechars:30 }}</span>
+                  {% else %}
+                    <a class="breadcrumb__link" href="{% pageurl crumb %}">{{ crumb.title|truncatechars:30 }}</a>
+                  {% endif %}
+                </li>
+              {% endwith %}
+            {% endfor %}
+          </ol>
+
+            {# Mobile: nearest parent + current. If there are earlier ancestors, show a leading "/" #}
+          <ol class="breadcrumb__list breadcrumb__list--mobile">
+            {% if mobile_show_leading_slash %}
+              <li class="breadcrumb__item">
+                <span class="breadcrumb__ellipsis" aria-hidden="true">...</span>
+              </li>
+              <li class="breadcrumb__item">
+                <span class="breadcrumb__separator" aria-hidden="true">/</span>
+              </li>
+            {% endif %}
+
+            {% for crumb in mobile_breadcrumbs %}
+              {% with is_active=forloop.last %}
+                <li class="breadcrumb__item">
+                  {% if not forloop.first %}
+                    <span class="breadcrumb__separator" aria-hidden="true">/</span>
+                  {% endif %}
+
+                  {% if is_active %}
+                    <span class="breadcrumb__current" aria-current="page">{{ crumb.title|truncatechars:30 }}</span>
+                  {% else %}
+                    <a class="breadcrumb__link" href="{% pageurl crumb %}">{{ crumb.title|truncatechars:30 }}</a>
+                  {% endif %}
+                </li>
+              {% endwith %}
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </nav>
+{% endif %}

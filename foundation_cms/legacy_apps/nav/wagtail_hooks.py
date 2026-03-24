@@ -38,7 +38,7 @@ class NavMenuViewSet(SnippetViewSet):
 class NavDropdownViewSetGroup(SnippetViewSetGroup):
     items = (NavMenuViewSet,)
     menu_label = "Main Navigation (Legacy)"
-    menu_name = "Main Navigation"
+    menu_name = "Main Navigation (Legacy)"
     menu_icon = "nav-menu"
     add_to_admin_menu = True
     menu_order = 1600

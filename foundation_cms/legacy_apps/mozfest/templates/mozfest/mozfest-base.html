@@ -22,6 +22,10 @@
 
 {% block bodyclass %}mozfest{% endblock %}
 
+{% block extended_head %}
+    <link rel="stylesheet" href="{% static "legacy_apps/_css/vendor/swiper-bundle.min.css" %}">
+{% endblock %}
+
 {% block page_title %}
     {% environment_prefix %}
     {% blocktrans %}Mozilla Festival{% endblocktrans %}{% if page.specifics.seo_title %} - {{ page.specifics.seo_title }}{% else %} - {{ page.title }}{% endif %}

@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav %}
 
 {% get_current_language as lang_code %}
 
@@ -84,26 +84,36 @@
     </head>
 
     <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}" data-site-type="redesign">
-    {# Basic breadcrumbs for dev navigation #}
-        {% with self as page %}
-            <nav aria-label="Breadcrumb">
-            </nav>
-        {% endwith %}
         {% block donate_banner %}
             {% if donate_banner %}
                 {% include "patterns/components/donate_banner/donate_banner.html" with banner=donate_banner cta_button_data=donate_banner.cta_button_data %}
             {% endif %}
         {% endblock donate_banner %}
-        {% include "patterns/components/primary_nav.html" %}
+        {% if EDITABLE_NAV %}
+            {% block editable_nav %}
+                {% include "patterns/components/navigation/primary_nav.html" %}
+            {% endblock editable_nav %}
+        {% else %}
+            {% include "patterns/components/primary_nav.html" %}
+        {% endif %}
         {% wagtailuserbar %}
         <div class="main-content-wrapper">
             {% block primary_nav %}{% endblock primary_nav %}
             {% block brand_banner %}{% endblock brand_banner %}
+            {% block breadcrumbs %}
+                {% breadcrumb_nav page %}
+            {% endblock breadcrumbs %}
             {% block pre_content %}{% endblock pre_content %}
             {% block content %}{% endblock content %}
             {% block post_content %}{% endblock post_content %}
             {% block pre_footer_banner %}{% endblock pre_footer_banner %}
-            {% include "patterns/components/footer.html" %}
+            {% block footer_block %}
+                {% if EDITABLE_FOOTER %}
+                    {% include "patterns/components/footer/footer.html" %}
+                {% else %}
+                    {% include "patterns/components/footer.html" %}
+                {% endif %}
+            {% endblock footer_block %}
         </div>
         <script src="{% url "javascript-catalog" %}"></script>
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>

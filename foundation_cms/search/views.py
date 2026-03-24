@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
@@ -31,8 +32,26 @@ def search(request):
         # Get appropriate search backend
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
         search_results = search_backend.search(search_query, base_queryset)
-
         total_search_results = search_results.count()
+
+        # Extract IDs preserving backend's relevance order
+        result_ids = [result.id for result in search_results]
+
+        # Create position mapping to restore relevance order later
+        id_to_position = {id: idx for idx, id in enumerate(result_ids)}
+
+        # Pre-fetch ContentTypes for ALL unique page types
+        unique_page_types = {result.__class__ for result in search_results}
+        if unique_page_types:
+            ContentType.objects.get_for_models(*unique_page_types)
+
+        # Build optimized QuerySet with FK prefetch and specific() call
+        search_results = (
+            Page.objects.filter(id__in=result_ids).select_related("search_image", "content_type").specific()
+        )
+
+        # Restore backend relevance order
+        search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
 
         # To log this query for use with the "Promoted search results" module:
 
