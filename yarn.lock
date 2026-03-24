@@ -57,7 +57,7 @@
   resolved "https://registry.npmjs.org/@csstools/css-parser-algorithms/-/css-parser-algorithms-4.0.0.tgz"
   integrity sha512-+B87qS7fIG3L5h3qwJ/IFbjoVoOe/bpOdh9hAjXbvx0o8ImEmUsGXN0inFOnk2ChCFgqkkGFQ+TpM5rbhkKe4w==
 
-"@csstools/css-syntax-patches-for-csstree@^1.0.27":
+"@csstools/css-syntax-patches-for-csstree@^1.0.29":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@csstools/css-syntax-patches-for-csstree/-/css-syntax-patches-for-csstree-1.1.1.tgz#ce4c9a0cbe30590491fcd5c03fe6426d22ba89e4"
   integrity sha512-BvqN0AMWNAnLk9G8jnUT77D+mUbY/H2b3uDTvg2isJkHaOufUE2R3AOwxWo7VBQKT1lOdwdvorddo2B/lk64+w==
@@ -491,111 +491,127 @@
     "@parcel/watcher-win32-ia32" "2.5.6"
     "@parcel/watcher-win32-x64" "2.5.6"
 
-"@percy/cli-app@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-app/-/cli-app-1.31.8.tgz"
-  integrity sha512-kbSv+ZVf/fpk5R8ewLb8LwHftTOHT2XJ6MNU9s81sKEv9iDqsf6vIiDF+/nKMSsMX+ns1evw+4I2vEjASmDzoA==
+"@percy/cli-app@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-app/-/cli-app-1.31.10.tgz#611cf6fc6bc2e9e7fa5fe0d79cc1144e7201b5f9"
+  integrity sha512-5lXqcjJESEksywdPHUJ43kLmfMCrUAZn1OPoVM+24S/Uo1Pcj2MBTrORJDip/pKJR+q+y5mAuXhx06ZfI7aGtw==
   dependencies:
-    "@percy/cli-command" "1.31.8"
-    "@percy/cli-exec" "1.31.8"
+    "@percy/cli-command" "1.31.10"
+    "@percy/cli-exec" "1.31.10"
 
-"@percy/cli-build@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-build/-/cli-build-1.31.8.tgz"
-  integrity sha512-aPZV6Lv7BRbGFqdGGPgfV8mMjgnoYQQQ7E1GFyVbZvsOrmqOif3osrmvwSwO7kd730cmKfhzg2iHbVBzEg+z4g==
+"@percy/cli-build@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-build/-/cli-build-1.31.10.tgz#a4536d8120cf15ad1ad87c2502025af2528aec82"
+  integrity sha512-AcendJyhNSv94bUvm4BSQZZkb6a2eZxH8tSqIDgiDDuvTYTpfyAg07Wo25k+SojNKwTbV8jO4f8yXtYXA7UOgw==
   dependencies:
-    "@percy/cli-command" "1.31.8"
+    "@percy/cli-command" "1.31.10"
 
-"@percy/cli-command@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-command/-/cli-command-1.31.8.tgz"
-  integrity sha512-nANwIfbLS78OJ9LV7WE4A6Tp1bN9OLpIPsZR7RgfNxG8YZFkyprbDA2zV+p6IYcfKoSnJBBD9isIUL+ITK+cgw==
+"@percy/cli-command@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-command/-/cli-command-1.31.10.tgz#8339eb774f34e3cc6fb3e863b5135430063521ab"
+  integrity sha512-S37xCuYEo5f5vY8FGoAHwyP91pJY3hZkDBppv9MqY4QTW3QrtRaJqGqvrfo7bI9iO7Z5bAGc1uXQeYY25Ix6eA==
   dependencies:
-    "@percy/config" "1.31.8"
-    "@percy/core" "1.31.8"
-    "@percy/logger" "1.31.8"
+    "@percy/config" "1.31.10"
+    "@percy/core" "1.31.10"
+    "@percy/logger" "1.31.10"
 
-"@percy/cli-config@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-config/-/cli-config-1.31.8.tgz"
-  integrity sha512-VmJkkwUkckbQVXecgQAewHR1lMWh/t8mEbVR9W/8iX/H1hOg1ONADFxNC/qfi3PhOO5kdWktS4r51jc0BgIEDg==
+"@percy/cli-config@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-config/-/cli-config-1.31.10.tgz#ad82488030d2ddd318caa86d03173e59d32b1a37"
+  integrity sha512-9+aUbYb+ecTvZF7W1m8dh/zxTXoB8JOOhyPyX7h/K1J/ai00syfRj5+agtrLafDilQBnFSIsikWEZYWiM+maIw==
   dependencies:
-    "@percy/cli-command" "1.31.8"
+    "@percy/cli-command" "1.31.10"
 
-"@percy/cli-exec@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-exec/-/cli-exec-1.31.8.tgz"
-  integrity sha512-SRZNwIZCyh38OtGWwPcQuwMVxeViHy4kP/Y0QJleDaOdH34MITwQuNMquf4Q7vZmEJ1mCamZpy/WUCDJICTuWg==
+"@percy/cli-doctor@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-doctor/-/cli-doctor-1.31.10.tgz#d485368bb8b5f70727ee10cd839458b19665c347"
+  integrity sha512-sgn1hBxS/Q890DSj1Cdw/rQAtYbdPD2AUtfUnCCQsaGVN8U9jI93KGh7G/Sd0kU1iKlQQeo/2PMlgzF4JZdbDw==
   dependencies:
-    "@percy/cli-command" "1.31.8"
-    "@percy/logger" "1.31.8"
+    "@percy/cli-command" "1.31.10"
+    "@percy/client" "1.31.10"
+    "@percy/config" "1.31.10"
+    "@percy/core" "1.31.10"
+    "@percy/env" "1.31.10"
+    "@percy/logger" "1.31.10"
+    "@percy/monitoring" "1.31.10"
+    minimatch "^9.0.0"
+    ws "^8.17.1"
+
+"@percy/cli-exec@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-exec/-/cli-exec-1.31.10.tgz#29acd191efcc6eeb5b56499488d23fbb4b9afdcb"
+  integrity sha512-A+PNB29joAL/p+7Q4mv9jE/amnraUHpR5jXa8VWHgNyB8ktl9qit46tbR6ts1qFu4IziT93txbOWPdlTxIpJWA==
+  dependencies:
+    "@percy/cli-command" "1.31.10"
+    "@percy/logger" "1.31.10"
     cross-spawn "^7.0.3"
     which "^2.0.2"
 
-"@percy/cli-snapshot@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-snapshot/-/cli-snapshot-1.31.8.tgz"
-  integrity sha512-RQNx7eUq7Xml/EtQjsYvb9nWP/Wk4vf5SqAYHjAXSDDiK1K4BHdcxT7+GO1F+qq720/KgjwnC/JmBTulpC5a5A==
+"@percy/cli-snapshot@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-snapshot/-/cli-snapshot-1.31.10.tgz#4446a1da157aac594e611b12ae2d8da98baa17fb"
+  integrity sha512-wK40uRW7j9ahMnyMWzJw+M5uf8OpRsMD7DAk88TibAWxKELmwEFxNSKBm/MUK413W5+lw3Xvza7xrUnu+cecGg==
   dependencies:
-    "@percy/cli-command" "1.31.8"
+    "@percy/cli-command" "1.31.10"
     yaml "^2.0.0"
 
-"@percy/cli-upload@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli-upload/-/cli-upload-1.31.8.tgz"
-  integrity sha512-yuegEGVcxd/PneheBfd0D9HE36EkdPS6u3m9m6Y8GPkN0UN7eOVxoOqfPHT9wCRfUjR3K9qcdBvo11S6biLWTA==
+"@percy/cli-upload@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli-upload/-/cli-upload-1.31.10.tgz#566e90059b5a74f1c595583e3b2ed5ca10609460"
+  integrity sha512-X4aGL/gwdB0IvT+caivuSBqREFh4B+6W414Cm8z1jS7H4LvYGEBqH3VHAAC60EvyvAdiGMBp6z/CekViiU6f2Q==
   dependencies:
-    "@percy/cli-command" "1.31.8"
+    "@percy/cli-command" "1.31.10"
     fast-glob "^3.2.11"
     image-size "^1.0.0"
 
-"@percy/cli@^1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/cli/-/cli-1.31.8.tgz"
-  integrity sha512-soyU/AgK3dkKIv1tNKIaU4oi+JBroWhpvm29LlQMeLk87cItkt/Lp3aTs3HHXUKZqYGuhLQlci11n2uLtUvmVA==
+"@percy/cli@^1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/cli/-/cli-1.31.10.tgz#628eafe93538af2f4d5b7c264a950680c06e8675"
+  integrity sha512-vZLb9xcIHLNht+fuVpfFjd2WFvyRAnXumax9m4U2Y4Vyyao5fnHbeD7ME9PRuaiJPz0MNAHSANyEs1Mb3F7uAA==
   dependencies:
-    "@percy/cli-app" "1.31.8"
-    "@percy/cli-build" "1.31.8"
-    "@percy/cli-command" "1.31.8"
-    "@percy/cli-config" "1.31.8"
-    "@percy/cli-exec" "1.31.8"
-    "@percy/cli-snapshot" "1.31.8"
-    "@percy/cli-upload" "1.31.8"
-    "@percy/client" "1.31.8"
-    "@percy/logger" "1.31.8"
+    "@percy/cli-app" "1.31.10"
+    "@percy/cli-build" "1.31.10"
+    "@percy/cli-command" "1.31.10"
+    "@percy/cli-config" "1.31.10"
+    "@percy/cli-doctor" "1.31.10"
+    "@percy/cli-exec" "1.31.10"
+    "@percy/cli-snapshot" "1.31.10"
+    "@percy/cli-upload" "1.31.10"
+    "@percy/client" "1.31.10"
+    "@percy/logger" "1.31.10"
 
-"@percy/client@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/client/-/client-1.31.8.tgz"
-  integrity sha512-MxhOY5DWJnW3dsmzYICgYOyKCFLwJcaC19jTsonfmQHBa8/cKs4mUKnrUgvtJlOsW6mSk6WrAn8vUUwZ4438xQ==
+"@percy/client@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/client/-/client-1.31.10.tgz#07278f9ddecee1e0ddc1fce35ad6279482804fe5"
+  integrity sha512-gaHWoVuU3bZUtLAjxHHKVVEMrEZ8b4jRJXF8RIFapI5j30yJJ87zfmo+3qYzolvTcOjUCypFhterVrJGa+uJGA==
   dependencies:
-    "@percy/config" "1.31.8"
-    "@percy/env" "1.31.8"
-    "@percy/logger" "1.31.8"
+    "@percy/config" "1.31.10"
+    "@percy/env" "1.31.10"
+    "@percy/logger" "1.31.10"
     pac-proxy-agent "^7.0.2"
     pako "^2.1.0"
 
-"@percy/config@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/config/-/config-1.31.8.tgz"
-  integrity sha512-iK7n0YOlmk4ITvQ8l4BeaInrS/cE8MqD+368cAEGVhPjGjarDKZ06FvEZXoxU8J+4LZbNyN9h/o+2UDtFRPYyg==
+"@percy/config@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/config/-/config-1.31.10.tgz#24053113c491bb5cd3017b4ff87995714bb98f43"
+  integrity sha512-X1hxR0IH0hL6uKCIytn+4pidQb/NH6qJBcJTCNxHJ+iXBU67iAtHziwA9Ph2XYemMa24QU2rE2Lq4897BhJ8fg==
   dependencies:
-    "@percy/logger" "1.31.8"
+    "@percy/logger" "1.31.10"
     ajv "^8.6.2"
     cosmiconfig "^8.0.0"
     yaml "^2.0.0"
 
-"@percy/core@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/core/-/core-1.31.8.tgz"
-  integrity sha512-p5KWNvbU8GUlA/DxV8q9N0alSzaEKx8aJxgO8TkmMA3HalMl/HogYw5+B7tvOUU0CAw9ar5vXyPXuOIm4wpqvA==
+"@percy/core@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/core/-/core-1.31.10.tgz#f6bcddc92a1b5a541ae7b8dc036eb1e0ecfacc9f"
+  integrity sha512-8Yfp03+qgT6lnAvDbdk8yAYC7Lm8GZx+eTvTn9TvbVXtZZ1ru1OJFNj2owJW7KStrIrOd4kRssv6zVBgD9qH2A==
   dependencies:
-    "@percy/client" "1.31.8"
-    "@percy/config" "1.31.8"
-    "@percy/dom" "1.31.8"
-    "@percy/logger" "1.31.8"
-    "@percy/monitoring" "1.31.8"
-    "@percy/webdriver-utils" "1.31.8"
+    "@percy/client" "1.31.10"
+    "@percy/config" "1.31.10"
+    "@percy/dom" "1.31.10"
+    "@percy/logger" "1.31.10"
+    "@percy/monitoring" "1.31.10"
+    "@percy/webdriver-utils" "1.31.10"
     content-disposition "^0.5.4"
     cross-spawn "^7.0.3"
     extract-zip "^2.0.1"
@@ -607,32 +623,34 @@
     rimraf "^3.0.2"
     ws "^8.17.1"
     yaml "^2.4.1"
+  optionalDependencies:
+    "@percy/cli-doctor" "1.31.10"
 
-"@percy/dom@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/dom/-/dom-1.31.8.tgz"
-  integrity sha512-uw4aOTTXWgj3dZPrDlM+j0+MzwDz9u8EfE92fi2HsyqDXgp0hw957b3F/YEE9TMR27s9OgwXKnOCd8zauoj0Ew==
+"@percy/dom@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/dom/-/dom-1.31.10.tgz#a03f09b541e2708d886c4ae1991f7e3f87550ae5"
+  integrity sha512-9qM8FrwgOsJo49qpzUZZ4018R9K26OEZt1CabdH3WHozEuLgk12uHsW3skuQlqVCx1qIhOz3wsp0ounVcQbZZQ==
 
-"@percy/env@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/env/-/env-1.31.8.tgz"
-  integrity sha512-nIwSkwIijMCxvRZE2MV1rn51NGHM3EgRayuKxgkhevzc1s4Y785GTS8CZyJaPshs1fWVBork87Tm9Tbuh3u1PQ==
+"@percy/env@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/env/-/env-1.31.10.tgz#67890801472dba700e64f9b12f5cb415a88890c1"
+  integrity sha512-cF8tsjO7L4v35g77Msjf03nnSfG1QU0bmdtosEnIzc3BknzPgSfMpz5Y4DyylNxMumf1m3ZSnjel0H96O+dxzQ==
   dependencies:
-    "@percy/logger" "1.31.8"
+    "@percy/logger" "1.31.10"
 
-"@percy/logger@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/logger/-/logger-1.31.8.tgz"
-  integrity sha512-OqnrtfmCdKW+2Z8LYk8Jc9HK0P89TJqp2qWnM913eDeoYZOKJX+2IyAZfsaFTcfEBAqHn0v1eynfldRedbTk3A==
+"@percy/logger@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/logger/-/logger-1.31.10.tgz#83f8808386b3987165b93a7bfda40fe660697654"
+  integrity sha512-h870huTL8ebLRkyqXuJGDFaGXKXvQ6JkHH49q6zLZlkzUnASeN23pkDhH14IsaZmpbGJN0x7S7560m77bue67A==
 
-"@percy/monitoring@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/monitoring/-/monitoring-1.31.8.tgz"
-  integrity sha512-NBLQIoXWZb1Oi8M6Q6o8rmA6PzZi+65cxgyoKXHboxF7wAb8i8Vyc2JM7zTvay6RZ6JGuVHpqkxPcQaarxM1IQ==
+"@percy/monitoring@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/monitoring/-/monitoring-1.31.10.tgz#86467532114ec647bf88664330170dfc60f767f0"
+  integrity sha512-BCJj6rptDDcocI8PqE++gKpaOzhGgkTfzzgjqKxWp7ElQdwe+WL7J/YdCiMzG5EvLYe1ly8gNVMvoWqk+kfjhA==
   dependencies:
-    "@percy/config" "1.31.8"
-    "@percy/logger" "1.31.8"
-    "@percy/sdk-utils" "1.31.8"
+    "@percy/config" "1.31.10"
+    "@percy/logger" "1.31.10"
+    "@percy/sdk-utils" "1.31.10"
     systeminformation "^5.25.11"
 
 "@percy/playwright@^1.0.9":
@@ -640,20 +658,20 @@
   resolved "https://registry.npmjs.org/@percy/playwright/-/playwright-1.0.10.tgz"
   integrity sha512-lq2Mbqz/SfguQn4PdbNwApmzZpA/3gWO7STLlyLNYd0r4btGd7Nfxyxkf/t78rgh2ErwGcLUuPbxGPpZ3XXLVw==
 
-"@percy/sdk-utils@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/sdk-utils/-/sdk-utils-1.31.8.tgz"
-  integrity sha512-S+qxi4TIOvToAD5j89nkdDj0Xj5CH8YJxpI6ZRVJE/UQE+amHIP34KiTdrWKw5aPlYEwNPeNn9UlXz5HUr5Z9g==
+"@percy/sdk-utils@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/sdk-utils/-/sdk-utils-1.31.10.tgz#47c3836304f9cbacab649f7e584610118b191e35"
+  integrity sha512-ha4keZdNJunRcKLOJOTMW7c/zpiz0MLSwLbHTshjpiEeYjJS73nuwRR5tzqoq4GDOC1BP/dBV+UuM9trlow8UQ==
   dependencies:
     pac-proxy-agent "^7.0.2"
 
-"@percy/webdriver-utils@1.31.8":
-  version "1.31.8"
-  resolved "https://registry.npmjs.org/@percy/webdriver-utils/-/webdriver-utils-1.31.8.tgz"
-  integrity sha512-mfKR5EaXTTTLXX2JBFKmz9OphhHHBIMwe6lkI/hVgl1jvnTV2FXSSS2xb2Sume86uGFyj53NRH+HTNf/tepQKg==
+"@percy/webdriver-utils@1.31.10":
+  version "1.31.10"
+  resolved "https://registry.yarnpkg.com/@percy/webdriver-utils/-/webdriver-utils-1.31.10.tgz#679430a79f6ce6bc315d2d009f1c355a03f5fd5b"
+  integrity sha512-ot0yAvg6tQSCrP6b6xQ5UhysswEq5jA7Yq2PDb4hv50oZy6EfBT4HpCehXF2F6nKGngWFwVnzoUJrhFxsBdazw==
   dependencies:
-    "@percy/config" "1.31.8"
-    "@percy/sdk-utils" "1.31.8"
+    "@percy/config" "1.31.10"
+    "@percy/sdk-utils" "1.31.10"
 
 "@pkgr/core@^0.2.9":
   version "0.2.9"
@@ -1041,6 +1059,13 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+brace-expansion@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-2.0.2.tgz#54fc53237a613d854c7bd37463aad17df87214e7"
+  integrity sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==
+  dependencies:
+    balanced-match "^1.0.0"
+
 braces@^3.0.3, braces@~3.0.2:
   version "3.0.3"
   resolved "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz"
@@ -1278,10 +1303,10 @@ cosmiconfig@^8.0.0:
     parse-json "^5.2.0"
     path-type "^4.0.0"
 
-cosmiconfig@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-9.0.0.tgz"
-  integrity sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg==
+cosmiconfig@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-9.0.1.tgz#df110631a8547b5d1a98915271986f06e3011379"
+  integrity sha512-hr4ihw+DBqcvrsEDioRO31Z17x71pUYoNe/4h6Z0wB72p7MU7/9gH8Q3s12NFhHPfYBBOV3qyfUxmr/Yn3shnQ==
   dependencies:
     env-paths "^2.2.1"
     import-fresh "^3.3.0"
@@ -1334,13 +1359,13 @@ css-select@^5.1.0:
     domutils "^3.0.1"
     nth-check "^2.0.1"
 
-css-tree@^3.0.1, css-tree@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmjs.org/css-tree/-/css-tree-3.1.0.tgz"
-  integrity sha512-0eW44TGN5SQXU1mWSkKwFstI/22X2bG1nYzZTYMAWjylYURhse752YgbE4Cx46AC+bAvI+/dYTPRk1LqSUnu6w==
+css-tree@^3.0.1, css-tree@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-3.2.1.tgz#86cac7011561272b30e6b1e042ba6ce047aa7518"
+  integrity sha512-X7sjQzceUhu1u7Y/ylrRZFU2FS6LRiFVp6rKLPg23y3x3c3DOKAwuXGDp+PAGjh6CSnCjYeAul8pcT8bAl+lSA==
   dependencies:
-    mdn-data "2.12.2"
-    source-map-js "^1.0.1"
+    mdn-data "2.27.1"
+    source-map-js "^1.2.1"
 
 css-tree@~2.2.0:
   version "2.2.1"
@@ -1360,53 +1385,53 @@ cssesc@^3.0.0:
   resolved "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
 
-cssnano-preset-default@^7.0.10:
-  version "7.0.10"
-  resolved "https://registry.npmjs.org/cssnano-preset-default/-/cssnano-preset-default-7.0.10.tgz"
-  integrity sha512-6ZBjW0Lf1K1Z+0OKUAUpEN62tSXmYChXWi2NAA0afxEVsj9a+MbcB1l5qel6BHJHmULai2fCGRthCeKSFbScpA==
+cssnano-preset-default@^7.0.11:
+  version "7.0.11"
+  resolved "https://registry.yarnpkg.com/cssnano-preset-default/-/cssnano-preset-default-7.0.11.tgz#ea81661d0e8fe59b752560cca4a9f2fac763e92c"
+  integrity sha512-waWlAMuCakP7//UCY+JPrQS1z0OSLeOXk2sKWJximKWGupVxre50bzPlvpbUwZIDylhf/ptf0Pk+Yf7C+hoa3g==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     css-declaration-sorter "^7.2.0"
     cssnano-utils "^5.0.1"
     postcss-calc "^10.1.1"
-    postcss-colormin "^7.0.5"
-    postcss-convert-values "^7.0.8"
-    postcss-discard-comments "^7.0.5"
+    postcss-colormin "^7.0.6"
+    postcss-convert-values "^7.0.9"
+    postcss-discard-comments "^7.0.6"
     postcss-discard-duplicates "^7.0.2"
     postcss-discard-empty "^7.0.1"
     postcss-discard-overridden "^7.0.1"
     postcss-merge-longhand "^7.0.5"
-    postcss-merge-rules "^7.0.7"
+    postcss-merge-rules "^7.0.8"
     postcss-minify-font-values "^7.0.1"
     postcss-minify-gradients "^7.0.1"
-    postcss-minify-params "^7.0.5"
-    postcss-minify-selectors "^7.0.5"
+    postcss-minify-params "^7.0.6"
+    postcss-minify-selectors "^7.0.6"
     postcss-normalize-charset "^7.0.1"
     postcss-normalize-display-values "^7.0.1"
     postcss-normalize-positions "^7.0.1"
     postcss-normalize-repeat-style "^7.0.1"
     postcss-normalize-string "^7.0.1"
     postcss-normalize-timing-functions "^7.0.1"
-    postcss-normalize-unicode "^7.0.5"
+    postcss-normalize-unicode "^7.0.6"
     postcss-normalize-url "^7.0.1"
     postcss-normalize-whitespace "^7.0.1"
     postcss-ordered-values "^7.0.2"
-    postcss-reduce-initial "^7.0.5"
+    postcss-reduce-initial "^7.0.6"
     postcss-reduce-transforms "^7.0.1"
-    postcss-svgo "^7.1.0"
-    postcss-unique-selectors "^7.0.4"
+    postcss-svgo "^7.1.1"
+    postcss-unique-selectors "^7.0.5"
 
 cssnano-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/cssnano-utils/-/cssnano-utils-5.0.1.tgz"
   integrity sha512-ZIP71eQgG9JwjVZsTPSqhc6GHgEr53uJ7tK5///VfyWj6Xp2DBmixWHqJgPno+PqATzn48pL42ww9x5SSGmhZg==
 
-cssnano@^7.0.6:
-  version "7.1.2"
-  resolved "https://registry.npmjs.org/cssnano/-/cssnano-7.1.2.tgz"
-  integrity sha512-HYOPBsNvoiFeR1eghKD5C3ASm64v9YVyJB4Ivnl2gqKoQYvjjN/G0rztvKQq8OxocUtC6sjqY8jwYngIB4AByA==
+cssnano@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/cssnano/-/cssnano-7.1.3.tgz#2a542bb8d62b6bee9e23e455ba2e507fd102f611"
+  integrity sha512-mLFHQAzyapMVFLiJIn7Ef4C2UCEvtlTlbyILR6B5ZsUAV3D/Pa761R5uC1YPhyBkRd3eqaDm2ncaNrD7R4mTRg==
   dependencies:
-    cssnano-preset-default "^7.0.10"
+    cssnano-preset-default "^7.0.11"
     lilconfig "^3.1.3"
 
 csso@^5.0.5:
@@ -2092,9 +2117,9 @@ flat-cache@^6.1.20:
     hookified "^1.15.0"
 
 flatted@^3.2.9, flatted@^3.3.3:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.4.1.tgz#84ccd9579e76e9cc0d246c11d8be0beb019143e6"
-  integrity sha512-IxfVbRFVlV8V/yRaGzk0UVIcsKKHMSfYw66T/u4nTwlWteQePsxe//LjudR1AMX4tZW3WFCh3Zqa/sjlqpbURQ==
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.4.2.tgz#f5c23c107f0f37de8dbdf24f13722b3b98d52726"
+  integrity sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==
 
 follow-redirects@^1.15.11:
   version "1.15.11"
@@ -2301,10 +2326,10 @@ globalthis@^1.0.4:
     define-properties "^1.2.1"
     gopd "^1.0.1"
 
-globby@^16.1.0:
-  version "16.1.0"
-  resolved "https://registry.npmjs.org/globby/-/globby-16.1.0.tgz"
-  integrity sha512-+A4Hq7m7Ze592k9gZRy4gJ27DrXRNnC1vPjxTt1qQxEY8RxagBkBxivkCwg7FxSTG0iLLEMaUx13oOr0R2/qcQ==
+globby@^16.1.1:
+  version "16.1.1"
+  resolved "https://registry.yarnpkg.com/globby/-/globby-16.1.1.tgz#a26012f57b819f0491c834dbf09f89b0ce6ba104"
+  integrity sha512-dW7vl+yiAJSp6aCekaVnVJxurRv7DCOLyXqEG3RYMYUg7AuJ2jCqPkZTA8ooqC2vtnkaMcV5WfFBMuEnTu1OQg==
   dependencies:
     "@sindresorhus/merge-streams" "^4.0.0"
     fast-glob "^3.3.3"
@@ -2982,10 +3007,10 @@ mdn-data@2.0.28:
   resolved "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.28.tgz"
   integrity sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==
 
-mdn-data@2.12.2:
-  version "2.12.2"
-  resolved "https://registry.npmjs.org/mdn-data/-/mdn-data-2.12.2.tgz"
-  integrity sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==
+mdn-data@2.27.1:
+  version "2.27.1"
+  resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.27.1.tgz#e37b9c50880b75366c4d40ac63d9bbcacdb61f0e"
+  integrity sha512-9Yubnt3e8A0OKwxYSXyhLymGW4sCufcLG6VdiDdUGVkPhpqLxlvP5vl1983gQjJl3tqbrM731mjaZaP68AgosQ==
 
 mdn-data@^2.25.0:
   version "2.26.0"
@@ -2997,10 +3022,10 @@ memorystream@^0.3.1:
   resolved "https://registry.npmjs.org/memorystream/-/memorystream-0.3.1.tgz"
   integrity sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==
 
-meow@^14.0.0:
-  version "14.0.0"
-  resolved "https://registry.npmjs.org/meow/-/meow-14.0.0.tgz"
-  integrity sha512-JhC3R1f6dbspVtmF3vKjAWz1EVIvwFrGGPLSdU6rK79xBwHWTuHoLnRX/t1/zHS1Ch1Y2UtIrih7DAHuH9JFJA==
+meow@^14.1.0:
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/meow/-/meow-14.1.0.tgz#3cd2d16ad534829ab12fcb5010fc2fdb89facd31"
+  integrity sha512-EDYo6VlmtnumlcBCbh1gLJ//9jvM/ndXHfVXIFrZVr6fGcwTUyCTFNTLCKuY3ffbK8L/+3Mzqnd58RojiZqHVw==
 
 merge2@^1.3.0:
   version "1.4.1"
@@ -3038,6 +3063,13 @@ minimatch@^3.0.4, minimatch@^3.1.1, minimatch@^3.1.2:
   integrity sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==
   dependencies:
     brace-expansion "^1.1.7"
+
+minimatch@^9.0.0:
+  version "9.0.9"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.9.tgz#9b0cb9fcb78087f6fd7eababe2511c4d3d60574e"
+  integrity sha512-OBwBN9AL4dqmETlpS2zasx+vTeWclWzkblfZk7KTA5j3jeOONz/tRCnZomUyvNg83wL5Zv9Ss6HMJXAgL8R2Yg==
+  dependencies:
+    brace-expansion "^2.0.2"
 
 minimist@^1.2.8:
   version "1.2.8"
@@ -3448,30 +3480,30 @@ postcss-cli@^11.0.1:
     tinyglobby "^0.2.12"
     yargs "^17.0.0"
 
-postcss-colormin@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/postcss-colormin/-/postcss-colormin-7.0.5.tgz"
-  integrity sha512-ekIBP/nwzRWhEMmIxHHbXHcMdzd1HIUzBECaj5KEdLz9DVP2HzT065sEhvOx1dkLjYW7jyD0CngThx6bpFi2fA==
+postcss-colormin@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-colormin/-/postcss-colormin-7.0.6.tgz#8f1bcfaa6f4959a872824f3b5bd4e1278bf35e45"
+  integrity sha512-oXM2mdx6IBTRm39797QguYzVEWzbdlFiMNfq88fCCN1Wepw3CYmJ/1/Ifa/KjWo+j5ZURDl2NTldLJIw51IeNQ==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     caniuse-api "^3.0.0"
     colord "^2.9.3"
     postcss-value-parser "^4.2.0"
 
-postcss-convert-values@^7.0.8:
-  version "7.0.8"
-  resolved "https://registry.npmjs.org/postcss-convert-values/-/postcss-convert-values-7.0.8.tgz"
-  integrity sha512-+XNKuPfkHTCEo499VzLMYn94TiL3r9YqRE3Ty+jP7UX4qjewUONey1t7CG21lrlTLN07GtGM8MqFVp86D4uKJg==
+postcss-convert-values@^7.0.9:
+  version "7.0.9"
+  resolved "https://registry.yarnpkg.com/postcss-convert-values/-/postcss-convert-values-7.0.9.tgz#6ada5c2c480f1ddbd4c886339025a916ecc8ff01"
+  integrity sha512-l6uATQATZaCa0bckHV+r6dLXfWtUBKXxO3jK+AtxxJJtgMPD+VhhPCCx51I4/5w8U5uHV67g3w7PXj+V3wlMlg==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     postcss-value-parser "^4.2.0"
 
-postcss-discard-comments@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/postcss-discard-comments/-/postcss-discard-comments-7.0.5.tgz"
-  integrity sha512-IR2Eja8WfYgN5n32vEGSctVQ1+JARfu4UH8M7bgGh1bC+xI/obsPJXaBpQF7MAByvgwZinhpHpdrmXtvVVlKcQ==
+postcss-discard-comments@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-discard-comments/-/postcss-discard-comments-7.0.6.tgz#4e9c696a83391d90b3ffa4485ac144e555db443c"
+  integrity sha512-Sq+Fzj1Eg5/CPf1ERb0wS1Im5cvE2gDXCE+si4HCn1sf+jpQZxDI4DXEp8t77B/ImzDceWE2ebJQFXdqZ6GRJw==
   dependencies:
-    postcss-selector-parser "^7.1.0"
+    postcss-selector-parser "^7.1.1"
 
 postcss-discard-duplicates@^7.0.2:
   version "7.0.2"
@@ -3541,15 +3573,15 @@ postcss-merge-longhand@^7.0.5:
     postcss-value-parser "^4.2.0"
     stylehacks "^7.0.5"
 
-postcss-merge-rules@^7.0.7:
-  version "7.0.7"
-  resolved "https://registry.npmjs.org/postcss-merge-rules/-/postcss-merge-rules-7.0.7.tgz"
-  integrity sha512-njWJrd/Ms6XViwowaaCc+/vqhPG3SmXn725AGrnl+BgTuRPEacjiLEaGq16J6XirMJbtKkTwnt67SS+e2WGoew==
+postcss-merge-rules@^7.0.8:
+  version "7.0.8"
+  resolved "https://registry.yarnpkg.com/postcss-merge-rules/-/postcss-merge-rules-7.0.8.tgz#d63ce875b9f7880ca4aa89d9ae3eaa3657215f82"
+  integrity sha512-BOR1iAM8jnr7zoQSlpeBmCsWV5Uudi/+5j7k05D0O/WP3+OFMPD86c1j/20xiuRtyt45bhxw/7hnhZNhW2mNFA==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     caniuse-api "^3.0.0"
     cssnano-utils "^5.0.1"
-    postcss-selector-parser "^7.1.0"
+    postcss-selector-parser "^7.1.1"
 
 postcss-minify-font-values@^7.0.1:
   version "7.0.1"
@@ -3567,22 +3599,22 @@ postcss-minify-gradients@^7.0.1:
     cssnano-utils "^5.0.1"
     postcss-value-parser "^4.2.0"
 
-postcss-minify-params@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/postcss-minify-params/-/postcss-minify-params-7.0.5.tgz"
-  integrity sha512-FGK9ky02h6Ighn3UihsyeAH5XmLEE2MSGH5Tc4tXMFtEDx7B+zTG6hD/+/cT+fbF7PbYojsmmWjyTwFwW1JKQQ==
+postcss-minify-params@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-minify-params/-/postcss-minify-params-7.0.6.tgz#ca0df1bd4eaa70ee7a4ee17f393d275988f44657"
+  integrity sha512-YOn02gC68JijlaXVuKvFSCvQOhTpblkcfDre2hb/Aaa58r2BIaK4AtE/cyZf2wV7YKAG+UlP9DT+By0ry1E4VQ==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     cssnano-utils "^5.0.1"
     postcss-value-parser "^4.2.0"
 
-postcss-minify-selectors@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/postcss-minify-selectors/-/postcss-minify-selectors-7.0.5.tgz"
-  integrity sha512-x2/IvofHcdIrAm9Q+p06ZD1h6FPcQ32WtCRVodJLDR+WMn8EVHI1kvLxZuGKz/9EY5nAmI6lIQIrpo4tBy5+ug==
+postcss-minify-selectors@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-minify-selectors/-/postcss-minify-selectors-7.0.6.tgz#1e0240e1fa3372d81d3f0586591f1e8d2ae21e16"
+  integrity sha512-lIbC0jy3AAwDxEgciZlBullDiMBeBCT+fz5G8RcA9MWqh/hfUkpOI3vNDUNEZHgokaoiv0juB9Y8fGcON7rU/A==
   dependencies:
     cssesc "^3.0.0"
-    postcss-selector-parser "^7.1.0"
+    postcss-selector-parser "^7.1.1"
 
 postcss-nested@^6.2.0:
   version "6.2.0"
@@ -3631,12 +3663,12 @@ postcss-normalize-timing-functions@^7.0.1:
   dependencies:
     postcss-value-parser "^4.2.0"
 
-postcss-normalize-unicode@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/postcss-normalize-unicode/-/postcss-normalize-unicode-7.0.5.tgz"
-  integrity sha512-X6BBwiRxVaFHrb2WyBMddIeB5HBjJcAaUHyhLrM2FsxSq5TFqcHSsK7Zu1otag+o0ZphQGJewGH1tAyrD0zX1Q==
+postcss-normalize-unicode@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-normalize-unicode/-/postcss-normalize-unicode-7.0.6.tgz#6935d6baf7f7374a34c216a7fe13229acd1073f2"
+  integrity sha512-z6bwTV84YW6ZvvNoaNLuzRW4/uWxDKYI1iIDrzk6D2YTL7hICApy+Q1LP6vBEsljX8FM7YSuV9qI79XESd4ddQ==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     postcss-value-parser "^4.2.0"
 
 postcss-normalize-url@^7.0.1:
@@ -3661,12 +3693,12 @@ postcss-ordered-values@^7.0.2:
     cssnano-utils "^5.0.1"
     postcss-value-parser "^4.2.0"
 
-postcss-reduce-initial@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/postcss-reduce-initial/-/postcss-reduce-initial-7.0.5.tgz"
-  integrity sha512-RHagHLidG8hTZcnr4FpyMB2jtgd/OcyAazjMhoy5qmWJOx1uxKh4ntk0Pb46ajKM0rkf32lRH4C8c9qQiPR6IA==
+postcss-reduce-initial@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/postcss-reduce-initial/-/postcss-reduce-initial-7.0.6.tgz#fa3af45e60cd04d9a3d29315eb97c82b7b447ead"
+  integrity sha512-G6ZyK68AmrPdMB6wyeA37ejnnRG2S8xinJrZJnOv+IaRKf6koPAVbQsiC7MfkmXaGmF1UO+QCijb27wfpxuRNg==
   dependencies:
-    browserslist "^4.27.0"
+    browserslist "^4.28.1"
     caniuse-api "^3.0.0"
 
 postcss-reduce-transforms@^7.0.1:
@@ -3715,27 +3747,27 @@ postcss-selector-parser@^7.0.0, postcss-selector-parser@^7.1.0, postcss-selector
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
 
-postcss-svgo@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.npmjs.org/postcss-svgo/-/postcss-svgo-7.1.0.tgz"
-  integrity sha512-KnAlfmhtoLz6IuU3Sij2ycusNs4jPW+QoFE5kuuUOK8awR6tMxZQrs5Ey3BUz7nFCzT3eqyFgqkyrHiaU2xx3w==
+postcss-svgo@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/postcss-svgo/-/postcss-svgo-7.1.1.tgz#14b90fd2a1b1f27bcb2d0ef0444f954237e7883c"
+  integrity sha512-zU9H9oEDrUFKa0JB7w+IYL7Qs9ey1mZyjhbf0KLxwJDdDRtoPvCmaEfknzqfHj44QS9VD6c5sJnBAVYTLRg/Sg==
   dependencies:
     postcss-value-parser "^4.2.0"
-    svgo "^4.0.0"
+    svgo "^4.0.1"
 
-postcss-unique-selectors@^7.0.4:
-  version "7.0.4"
-  resolved "https://registry.npmjs.org/postcss-unique-selectors/-/postcss-unique-selectors-7.0.4.tgz"
-  integrity sha512-pmlZjsmEAG7cHd7uK3ZiNSW6otSZ13RHuZ/4cDN/bVglS5EpF2r2oxY99SuOHa8m7AWoBCelTS3JPpzsIs8skQ==
+postcss-unique-selectors@^7.0.5:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/postcss-unique-selectors/-/postcss-unique-selectors-7.0.5.tgz#a7dd5652c95f459176e5f135c021473e4ee58874"
+  integrity sha512-3QoYmEt4qg/rUWDn6Tc8+ZVPmbp4G1hXDtCNWDx0st8SjtCbRcxRXDDM1QrEiXGG3A45zscSJFb4QH90LViyxg==
   dependencies:
-    postcss-selector-parser "^7.1.0"
+    postcss-selector-parser "^7.1.1"
 
 postcss-value-parser@^4.0.0, postcss-value-parser@^4.2.0:
   version "4.2.0"
   resolved "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.4.47, postcss@^8.5.6, postcss@^8.5.8:
+postcss@^8.4.47, postcss@^8.5.8:
   version "8.5.8"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.8.tgz#6230ecc8fb02e7a0f6982e53990937857e13f399"
   integrity sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==
@@ -4269,7 +4301,7 @@ string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
     is-fullwidth-code-point "^3.0.0"
     strip-ansi "^6.0.1"
 
-string-width@^8.1.1:
+string-width@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-8.2.0.tgz#bdb6a9bd6d7800db635adae96cdb0443fec56c42"
   integrity sha512-6hJPQ8N0V0P3SNmP6h2J99RLuzrWz2gvT7VnK5tKvrNqJoyS9W4/Fb8mo31UiPvy00z7DQXkP2hnKBVav76thw==
@@ -4449,28 +4481,28 @@ stylelint-scss@^7.0.0:
     postcss-selector-parser "^7.1.1"
     postcss-value-parser "^4.2.0"
 
-stylelint@^17.4.0:
-  version "17.4.0"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-17.4.0.tgz#f8beba358d0cb93508de4efdcd28bf06f5010e38"
-  integrity sha512-3kQ2/cHv3Zt8OBg+h2B8XCx9evEABQIrv4hh3uXahGz/ZEHrTR80zxBiK2NfXNaSoyBzxO1pjsz1Vhdzwn5XSw==
+stylelint@^17.5.0:
+  version "17.5.0"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-17.5.0.tgz#bc62f332bfe272bebf339358abccdd6905d2fc31"
+  integrity sha512-o/NS6zhsPZFmgUm5tXX4pVNg1XDOZSlucLdf2qow/lVn4JIyzZIQ5b3kad1ugqUj3GSIgr2u5lQw7X8rjqw33g==
   dependencies:
     "@csstools/css-calc" "^3.1.1"
     "@csstools/css-parser-algorithms" "^4.0.0"
-    "@csstools/css-syntax-patches-for-csstree" "^1.0.27"
+    "@csstools/css-syntax-patches-for-csstree" "^1.0.29"
     "@csstools/css-tokenizer" "^4.0.0"
     "@csstools/media-query-list-parser" "^5.0.0"
     "@csstools/selector-resolve-nested" "^4.0.0"
     "@csstools/selector-specificity" "^6.0.0"
     colord "^2.9.3"
-    cosmiconfig "^9.0.0"
+    cosmiconfig "^9.0.1"
     css-functions-list "^3.3.3"
-    css-tree "^3.1.0"
+    css-tree "^3.2.1"
     debug "^4.4.3"
     fast-glob "^3.3.3"
     fastest-levenshtein "^1.0.16"
     file-entry-cache "^11.1.2"
     global-modules "^2.0.0"
-    globby "^16.1.0"
+    globby "^16.1.1"
     globjoin "^0.1.4"
     html-tags "^5.1.0"
     ignore "^7.0.5"
@@ -4478,15 +4510,15 @@ stylelint@^17.4.0:
     imurmurhash "^0.1.4"
     is-plain-object "^5.0.0"
     mathml-tag-names "^4.0.0"
-    meow "^14.0.0"
+    meow "^14.1.0"
     micromatch "^4.0.8"
     normalize-path "^3.0.0"
     picocolors "^1.1.1"
-    postcss "^8.5.6"
+    postcss "^8.5.8"
     postcss-safe-parser "^7.0.1"
     postcss-selector-parser "^7.1.1"
     postcss-value-parser "^4.2.0"
-    string-width "^8.1.1"
+    string-width "^8.2.0"
     supports-hyperlinks "^4.4.0"
     svg-tags "^1.0.0"
     table "^6.9.0"
@@ -4542,7 +4574,7 @@ svg-tags@^1.0.0:
   resolved "https://registry.npmjs.org/svg-tags/-/svg-tags-1.0.0.tgz"
   integrity sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==
 
-svgo@^4.0.0:
+svgo@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-4.0.1.tgz#c82dacd04ee9f1d55cd4e0b7f9a214c86670e3ee"
   integrity sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==
