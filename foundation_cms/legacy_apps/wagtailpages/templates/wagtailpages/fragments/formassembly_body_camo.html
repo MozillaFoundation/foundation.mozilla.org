@@ -12,6 +12,8 @@ The code snippet below is based on FormAssembly form revision #8
 
 If there are any updates to this form (which is unlikely), please follow the instructions found on "formassembly_body_legacy.html".
 
+Also, please update the Country fields "Please Select..." placeholder to "Your country", which is a request from https://mozilla-hub.atlassian.net/browse/TP1-3765.
+
 {% endcomment %}
 
 <!-- FORM: BODY SECTION -->
@@ -34,7 +36,7 @@ If there are any updates to this form (which is unlikely), please follow the ins
             </div>
             {% if show_country_field %}
                 <div class="oneField field-container-D    " id="tfa_254-D">
-                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="{% trans "Country" %}" class=""><option value="">{% trans "Please select..." %}</option>
+                    <label id="tfa_254-L" class="label preField " for="tfa_254">{% trans "Country" %}</label><br><div class="inputWrapper"><select id="tfa_254" name="tfa_254" title="{% trans "Country" %}" class=""><option value="">{% trans "Your country" %}</option>
                         <option value="tfa_255" id="tfa_255" class="">Afghanistan</option>
                         <option value="tfa_256" id="tfa_256" class="">Albania</option>
                         <option value="tfa_257" id="tfa_257" class="">Algeria</option>
