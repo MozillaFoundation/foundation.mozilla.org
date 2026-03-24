@@ -830,6 +830,14 @@ class ProductPage(BasePage):
         SynchronizedField("evaluation"),
     ]
 
+    search_fields = BasePage.search_fields + [
+        index.SearchField("company", boost=7),
+        index.SearchField("blurb", boost=5),
+        index.SearchField("worst_case", boost=3),
+        index.SearchField("tips_to_protect_yourself", boost=3),
+        index.SearchField("how_does_it_use_data_collected", boost=3),
+    ]
+
     @property
     def product_type(self):
         return "unknown"
