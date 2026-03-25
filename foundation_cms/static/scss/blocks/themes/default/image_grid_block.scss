@@ -3,7 +3,7 @@
 
   margin: 1rem 0 2rem;
 
-  @include breakpoint(medium up) {
+  @include breakpoint(large up) {
     margin-bottom: 4rem;
   }
 
@@ -21,24 +21,24 @@
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
 
-    @include breakpoint(medium up) {
+    @include breakpoint(large up) {
       gap: 1.5rem;
     }
 
     &--4 {
-      @include breakpoint(medium up) {
+      @include breakpoint(large up) {
         grid-template-columns: repeat(4, 1fr);
       }
     }
 
     &--5 {
-      @include breakpoint(medium up) {
+      @include breakpoint(large up) {
         grid-template-columns: repeat(5, 1fr);
       }
     }
 
     &--6 {
-      @include breakpoint(medium up) {
+      @include breakpoint(large up) {
         grid-template-columns: repeat(6, 1fr);
       }
     }
