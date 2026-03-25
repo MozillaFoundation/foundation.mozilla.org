@@ -20,6 +20,7 @@ export default function initGalleryScrollspy() {
     navLinks.forEach((link, i) => {
       link.classList.toggle(CLASS_NAMES.active, i === index);
     });
+    navLinks[index]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
   // Highlight the nav item whose image enters the middle 30% of the viewport

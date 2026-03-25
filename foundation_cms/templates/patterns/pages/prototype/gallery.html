@@ -31,11 +31,19 @@
             <div class="gallery-strip">
                 {% for project in projects %}
                     <div class="gallery-strip__item">
-                        <img
-                            src="{% static project.image %}"
-                            alt="{{ project.name }}"
-                            class="gallery-strip__image"
-                        >
+                        {% if project.image %}
+                            <img
+                                src="{% static project.image %}"
+                                alt="{{ project.name }}"
+                                class="gallery-strip__image"
+                            >
+                        {% else %}
+                            <div
+                                class="gallery-strip__color-block"
+                                style="background-color: {{ project.bg_color }};"
+                                aria-label="{{ project.name }}"
+                            ></div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

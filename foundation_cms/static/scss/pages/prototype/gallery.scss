@@ -12,6 +12,9 @@ body.prototype-gallery-page {
   .gallery-nav {
     position: sticky;
     top: $primary-nav-height;
+    max-height: calc(100vh - #{$primary-nav-height});
+    overflow-y: auto;
+    scrollbar-width: none;
 
     &__list {
       list-style: none;
@@ -64,6 +67,12 @@ body.prototype-gallery-page {
       width: 100%;
       aspect-ratio: math.div(16, 9);
       object-fit: cover;
+    }
+
+    &__color-block {
+      display: block;
+      width: 100%;
+      aspect-ratio: math.div(16, 9);
     }
   }
 }
