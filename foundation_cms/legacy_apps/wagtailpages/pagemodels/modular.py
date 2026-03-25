@@ -2,6 +2,7 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Page
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from ..utils import get_page_tree_information
@@ -49,6 +50,12 @@ class ModularPage(BasePage):
         # Content tab fields
         TranslatableField("header"),
         SynchronizedField("narrowed_page_content"),
+    ]
+
+    search_fields = BasePage.search_fields + [
+        index.SearchField("header", boost=7),
+        index.SearchField("search_description", boost=7),
+        index.SearchField("body", boost=5),
     ]
 
     show_in_menus_default = True
