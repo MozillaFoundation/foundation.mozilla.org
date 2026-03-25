@@ -57,6 +57,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  prototype_gallery: {
+    source: "pages/prototype/gallery.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {

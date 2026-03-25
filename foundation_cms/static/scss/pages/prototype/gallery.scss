@@ -1,27 +1,68 @@
+@use "sass:math";
 @import "../../redesign_base";
 
 body.prototype-gallery-page {
-  .gallery-card {
-    color: inherit;
-    display: flex;
-    align-items: center;
-    gap: rem-calc(16);
-    margin-bottom: 2rem;
+  .gallery-layout {
+    display: grid;
+    grid-template-columns: rem-calc(260) 1fr;
+    gap: rem-calc(48);
+    align-items: start;
+  }
 
-    &__name {
-      flex: 0 0 rem-calc(300);
+  .gallery-nav {
+    position: sticky;
+    top: $primary-nav-height;
+
+    &__list {
+      list-style: none;
       margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(8);
     }
 
-    &__image-wrapper {
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      flex: 1 1 0;
+    &__item {
+      display: block;
+      width: 100%;
+      padding: rem-calc(8) rem-calc(12);
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: rem-calc(16);
+      text-align: left;
+      cursor: pointer;
+      border-left: rem-calc(3) solid transparent;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+
+      &:hover {
+        color: color(blue, "500");
+      }
+
+      &.is-active {
+        font-weight: 700;
+        color: color(blue, "500");
+        border-left-color: color(blue, "500");
+      }
+    }
+  }
+
+  .gallery-strip {
+    &__item {
+      scroll-margin-top: $primary-nav-height;
+      margin-bottom: rem-calc(48);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &__image {
+      display: block;
       width: 100%;
-      height: 100%;
+      aspect-ratio: math.div(16, 9);
       object-fit: cover;
     }
   }

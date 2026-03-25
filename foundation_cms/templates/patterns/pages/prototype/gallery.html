@@ -13,19 +13,34 @@
 
 {% block content %}
     <div class="grid-container">
-        <h1 class="gallery__title">Gallery</h1>
+        <div class="gallery-layout">
+            <nav class="gallery-nav" aria-label="Projects">
+                <ul class="gallery-nav__list">
+                    {% for project in projects %}
+                        <li>
+                            <button
+                                class="gallery-nav__item{% if forloop.first %} is-active{% endif %}"
+                            >
+                                {{ project.name }}
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
 
-        {% for project in projects %}
-            <a href="{{ project.url }}" class="gallery-card">
-                <h2 class="gallery-card__name">{{ project.name }}</h2>
-                <div class="gallery-card__image-wrapper">
-                    <img
-                        src="{% static project.image %}"
-                        alt="{{ project.name }}"
-                        class="gallery-card__image"
-                    >
-                </div>
-            </a>
-        {% endfor %}
+            <div class="gallery-strip">
+                {% for project in projects %}
+                    <div class="gallery-strip__item">
+                        <img
+                            src="{% static project.image %}"
+                            alt="{{ project.name }}"
+                            class="gallery-strip__image"
+                        >
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
+
+    <script src="{% static 'foundation_cms/_js/pages/prototype/gallery.compiled.js' %}" defer></script>
 {% endblock %}
