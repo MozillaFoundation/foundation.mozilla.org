@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Gallery Prototype{% endblock %}
+
+{% block wagtail_metadata %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/prototype/gallery.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}prototype-gallery-page{% endblock %}
+
+{% block content %}
+    <div class="grid-container">
+        <h1 class="gallery__title">Gallery</h1>
+
+        {% for project in projects %}
+            <a href="{{ project.url }}" class="gallery-card">
+                <h2 class="gallery-card__name">{{ project.name }}</h2>
+                <div class="gallery-card__image-wrapper">
+                    <img
+                        src="{% static project.image %}"
+                        alt="{{ project.name }}"
+                        class="gallery-card__image"
+                    >
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

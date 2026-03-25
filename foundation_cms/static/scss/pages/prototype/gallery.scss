@@ -1,0 +1,28 @@
+@import "../../redesign_base";
+
+body.prototype-gallery-page {
+  .gallery-card {
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: rem-calc(16);
+    margin-bottom: 2rem;
+
+    &__name {
+      flex: 0 0 rem-calc(300);
+      margin: 0;
+    }
+
+    &__image-wrapper {
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      flex: 1 1 0;
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

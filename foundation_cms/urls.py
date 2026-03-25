@@ -27,6 +27,7 @@ from foundation_cms.views import (
     newsletter_unsubscribe_view,
 )
 
+from .prototype_views import prototype_gallery
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
 from .views import (
@@ -101,6 +102,7 @@ urlpatterns = list(
             path("api/news/", include("foundation_cms.legacy_apps.news.urls")),
             re_path(r"^environment.json", EnvVariablesView.as_view()),
             re_path(r"^help/", review_app_help_view, name="Review app help"),
+            path("prototype/gallery/", prototype_gallery, name="prototype-gallery"),
             path("tito/", include("foundation_cms.legacy_apps.events.urls")),
             # Wagtail CMS routes
             re_path(
