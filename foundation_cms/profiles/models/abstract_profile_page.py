@@ -37,7 +37,7 @@ class AbstractProfilePage(AbstractBasePage):
     )
 
     content_panels = AbstractBasePage.content_panels + [
-        FieldPanel("title", heading="Full Name"),
+        FieldPanel("title", heading="Full Name", help_text="Full name of the profile."),
         FieldPanel("image"),
         FieldPanel("role"),
         FieldPanel("bio"),

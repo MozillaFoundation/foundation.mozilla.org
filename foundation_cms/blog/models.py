@@ -1,4 +1,3 @@
-from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
@@ -46,6 +45,12 @@ class BlogIndexPage(Page):
 class BlogPage(Page):
     """
     BlogPage represents individual blog entries.
+
+    TODO: FUTURE IMPLEMENTATION NOTES
+    When implementing the real blog page functionality, this model should be updated to:
+
+    1. Add appropiate author field(FK to an existing Profile model or a new Author Profile model)
+    2. Update content_panels and translatable_fields accordingly.
     """
 
     body = RichTextField(blank=True, help_text="Main content of the blog")

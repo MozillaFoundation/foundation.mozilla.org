@@ -51,9 +51,9 @@ class ExpertProfilePage(AbstractProfilePage):
     ]
 
     translatable_fields = AbstractProfilePage.translatable_fields + [
-        TranslatableField("body"),
         TranslatableField("affiliation"),
         TranslatableField("notes"),
+        TranslatableField("body"),
     ]
 
     search_fields = AbstractProfilePage.search_fields + [

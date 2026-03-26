@@ -22,6 +22,8 @@
                     <div class="cell small-12 medium-8">
                         <h1>{{ page.title }}</h1>
 
+                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+
                         {% if page.role %}
                             <p class="role">{{ page.role }}</p>
                         {% endif %}
@@ -33,8 +35,6 @@
                         {% if page.location %}
                             <p class="location">{{ page.location }}</p>
                         {% endif %}
-
-                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
 
                         {% if page.bio %}
                             <div class="bio">{{ page.bio|safe }}</div>
