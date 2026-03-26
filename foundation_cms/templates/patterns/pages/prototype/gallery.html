@@ -1,15 +1,15 @@
 {% extends "base/base.html" %}
 {% load static %}
 
-{% block title %}Gallery Prototype{% endblock %}
+{% block title %}Gallery Prototype{% endblock title %}
 
-{% block wagtail_metadata %}{% endblock %}
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/prototype/gallery.compiled.css' %}">
 {% endblock extra_css %}
 
-{% block body_class %}prototype-gallery-page{% endblock %}
+{% block body_class %}prototype-gallery-page{% endblock body_class %}
 
 {% block content %}
     <div class="grid-container">
@@ -36,6 +36,8 @@
                                 src="{% static project.image %}"
                                 alt="{{ project.name }}"
                                 class="gallery-strip__image"
+                                width="800"
+                                height="450"
                             >
                         {% else %}
                             <div
@@ -51,4 +53,4 @@
     </div>
 
     <script src="{% static 'foundation_cms/_js/pages/prototype/gallery.compiled.js' %}" defer></script>
-{% endblock %}
+{% endblock content %}
