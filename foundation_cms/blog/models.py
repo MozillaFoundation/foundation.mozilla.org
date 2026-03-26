@@ -3,8 +3,6 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
 
-from foundation_cms.profiles.models import Profile
-
 
 class BlogIndexPage(Page):
     """
@@ -50,18 +48,13 @@ class BlogPage(Page):
     BlogPage represents individual blog entries.
     """
 
-    author = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL, related_name="blogs")
     body = RichTextField(blank=True, help_text="Main content of the blog")
 
     parent_page_types = ["blog.BlogIndexPage"]  # Restrict parent to BlogIndexPage only
 
     content_panels = Page.content_panels + [
-        FieldPanel("author"),
         FieldPanel("body"),
     ]
-
-    def author_name(self):
-        return self.author.title if self.author else "Mozilla Foundation"
 
     class Meta:
         verbose_name = "Blog Page"

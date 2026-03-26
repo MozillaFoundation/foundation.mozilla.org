@@ -1,27 +1,14 @@
 import factory
 import wagtail_factories
 
-from foundation_cms.profiles.models import Profile, ProfilePage
+from foundation_cms.profiles.models import ExpertProfilePage
 
 
-class ProfileFactory(factory.django.DjangoModelFactory):
-    """
-    Factory for the Profile model
-    """
-
+class ExpertProfilePageFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = Profile
+        model = ExpertProfilePage
 
-    title = factory.Faker("name")
-
-
-class ProfilePageFactory(wagtail_factories.PageFactory):
-    """
-    Factory for the Profile model
-    """
-
-    class Meta:
-        model = ProfilePage
-
+    role = factory.Faker("job")
     bio = factory.Faker("paragraph")
-    profile = factory.SubFactory(ProfileFactory)
+    location = factory.Faker("country")
+    image = factory.SubFactory(wagtail_factories.ImageFactory)
