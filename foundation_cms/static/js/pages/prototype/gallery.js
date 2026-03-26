@@ -3,7 +3,6 @@ const SELECTORS = {
   navItem: ".gallery-nav__item",
 };
 
-
 const CLASS_NAMES = {
   active: "is-active",
 };
