@@ -178,7 +178,7 @@ body.prototype-gallery-page {
 
       margin-left: auto;
       font-style: italic;
-      color: #555;
+      color: color(neutral, "500");
     }
   }
 
@@ -228,16 +228,9 @@ body.prototype-gallery-page {
       gap: rem-calc(8);
     }
 
-    &__expert {
-      display: inline-block;
-      font-weight: 400;
-      margin-left: 0.5rem;
-    }
-
     &__item {
       @include mofo-text-style($body-text-styles, "small");
 
-      /* margin-bottom: 2rem; */
       display: block;
       width: 100%;
       padding: 0;
@@ -269,7 +262,10 @@ body.prototype-gallery-page {
     }
 
     &__expert {
+      display: inline-block;
       font-style: italic;
+      font-weight: 400;
+      margin-left: 0.5rem;
       opacity: 0;
       transition: opacity 0.2s ease;
     }
