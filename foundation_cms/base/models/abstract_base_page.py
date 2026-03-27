@@ -6,7 +6,7 @@ from django.template.loader import select_template
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
@@ -123,14 +123,12 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         related_name="%(class)s_pages",
     )
 
+    content_panels = Page.content_panels + [
+        FieldPanel("topics", widget=TopicSelectWidget),
+    ]
+
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("author"),
-                FieldPanel("topics", widget=TopicSelectWidget),
-            ],
-            heading="Additional Metadata",
-        )
+        FieldPanel("author"),
     ]
 
     settings_panels = Page.settings_panels + [

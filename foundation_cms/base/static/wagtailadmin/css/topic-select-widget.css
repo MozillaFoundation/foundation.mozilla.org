@@ -17,6 +17,10 @@
   background: var(--w-color-surface-field, #fff);
   color: var(--w-color-text-context, #222);
   cursor: text;
+
+  input {
+    border: none;
+  }
 }
 
 .ts-bar:focus-within {
