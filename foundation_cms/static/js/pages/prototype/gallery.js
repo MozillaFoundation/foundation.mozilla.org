@@ -19,6 +19,9 @@ export default function initGalleryScrollspy() {
     navLinks.forEach((link, i) => {
       link.classList.toggle(CLASS_NAMES.active, i === index);
     });
+    itemList.forEach((item, i) => {
+      item.classList.toggle(CLASS_NAMES.active, i === index);
+    });
     navLinks[index]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 

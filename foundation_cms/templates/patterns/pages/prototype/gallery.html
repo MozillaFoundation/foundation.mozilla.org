@@ -48,14 +48,14 @@
 
             <div class="gallery-strip">
                 {% for project in projects %}
-                    <div class="gallery-strip__item">
+                    <div class="gallery-strip__item{% if forloop.first %} is-active{% endif %}">
                         {% if project.image %}
                             <img
                                 src="{% static project.image %}"
                                 alt="{{ project.name }}"
                                 class="gallery-strip__image"
                                 width="800"
-                                height="450"
+                                height="800"
                             >
                         {% else %}
                             <div

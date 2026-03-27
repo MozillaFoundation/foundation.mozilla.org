@@ -3,6 +3,8 @@
 @import "../../redesign_base";
 
 body.prototype-gallery-page {
+  $image-ratio: math.div(1, 1);
+
   .gallery-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -122,6 +124,10 @@ body.prototype-gallery-page {
 
       &:hover {
         font-weight: 700;
+
+        .gallery-nav__author {
+          opacity: 1;
+        }
       }
 
       &.is-active {
@@ -142,25 +148,42 @@ body.prototype-gallery-page {
   }
 
   .gallery-strip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: rem-calc(4);
+
     &__item {
       scroll-margin-top: $primary-nav-height;
+      width: 20%;
+      transition: width 0.35s ease;
 
-      &:last-child {
-        margin-bottom: 0;
+      // Item immediately before the active one
+      &:has(+ .is-active) {
+        width: 40%;
+      }
+
+      // Item immediately after the active one
+      &.is-active + & {
+        width: 40%;
+      }
+
+      &.is-active {
+        width: 100%;
       }
     }
 
     &__image {
       display: block;
       width: 100%;
-      aspect-ratio: math.div(16, 9);
+      aspect-ratio: $image-ratio;
       object-fit: cover;
     }
 
     &__color-block {
       display: block;
       width: 100%;
-      aspect-ratio: math.div(16, 9);
+      aspect-ratio: $image-ratio;
     }
   }
 }
