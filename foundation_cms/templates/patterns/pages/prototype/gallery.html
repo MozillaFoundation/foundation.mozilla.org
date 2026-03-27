@@ -14,19 +14,37 @@
 {% block content %}
     <div class="grid-container">
         <div class="gallery-layout">
-            <nav class="gallery-nav" aria-label="Projects">
-                <ul class="gallery-nav__list">
-                    {% for project in projects %}
-                        <li>
-                            <button
-                                class="gallery-nav__item{% if forloop.first %} is-active{% endif %}"
-                            >
-                                {{ project.name }}
-                            </button>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </nav>
+            <div class="gallery-sidebar">
+                <div class="gallery-sidebar__header">
+                    <h1 class="gallery-sidebar__title">Gallery Title</h1>
+                    <p class="gallery-sidebar__intro">Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here.</p>
+                </div>
+
+                <div class="gallery-sidebar__sticky">
+                    <div class="gallery-sidebar__filter-bar gallery-filter-bar">
+                        <span class="gallery-filter-bar__label">Filter by</span>
+                        <button class="gallery-filter-bar__dropdown">TOPIC</button>
+                        <button class="gallery-filter-bar__dropdown">PROGRAM</button>
+                        <button class="gallery-filter-bar__dropdown">COUNTRY</button>
+                        <button class="gallery-filter-bar__dropdown">YEAR</button>
+                        <span class="gallery-filter-bar__count">24 projects</span>
+                    </div>
+
+                    <nav class="gallery-nav" aria-label="Projects">
+                        <ul class="gallery-nav__list">
+                            {% for project in projects %}
+                                <li>
+                                    <button
+                                        class="gallery-nav__item{% if forloop.first %} is-active{% endif %}"
+                                    >
+                                        {{ project.name }}<span class="gallery-nav__author">{{ project.author }}</span>
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
             <div class="gallery-strip">
                 {% for project in projects %}

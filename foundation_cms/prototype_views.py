@@ -12,6 +12,34 @@ PALETTE = [
 ]
 
 
+AUTHORS = [
+    "Alice Martin",
+    "Bob Chen",
+    "Clara Nguyen",
+    "David Osei",
+    "Elena Rossi",
+    "Fatima Al-Farsi",
+    "George Müller",
+    "Hana Kobayashi",
+    "Ivan Petrov",
+    "Julia Santos",
+    "Kofi Asante",
+    "Lena Fischer",
+    "Marco Ricci",
+    "Nadia Ivanova",
+    "Omar Hassan",
+    "Priya Sharma",
+    "Quinn O'Brien",
+    "Rosa Hernandez",
+    "Samuel Park",
+    "Tina Wallace",
+    "Usman Bello",
+    "Vera Johansson",
+    "Wei Zhang",
+    "Yuki Tanaka",
+]
+
+
 def prototype_gallery(request):
     projects = []
     for i in range(1, 25):
@@ -19,6 +47,7 @@ def prototype_gallery(request):
             projects.append(
                 {
                     "name": f"Project {i}",
+                    "author": AUTHORS[i - 1],
                     "image": f"foundation_cms/_images/fallbacks/listing-page-{i}.png",
                     "bg_color": None,
                     "url": f"/project-{i}",
@@ -28,6 +57,7 @@ def prototype_gallery(request):
             projects.append(
                 {
                     "name": f"Project {i}",
+                    "author": AUTHORS[i - 1],
                     "image": None,
                     "bg_color": PALETTE[(i - 1) % len(PALETTE)],
                     "url": f"/project-{i}",

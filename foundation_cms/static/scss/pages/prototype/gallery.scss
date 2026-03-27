@@ -1,18 +1,91 @@
 @use "sass:math";
+@use "sass:map";
 @import "../../redesign_base";
 
 body.prototype-gallery-page {
   .gallery-layout {
     display: grid;
-    grid-template-columns: rem-calc(260) 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: rem-calc(48);
-    align-items: start;
+  }
+
+  .gallery-sidebar {
+    &__header {
+      padding-bottom: rem-calc(24);
+      margin-top: rem-calc(28);
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      font-weight: 700;
+      margin: 0 0 rem-calc(12);
+    }
+
+    &__intro {
+      @include mofo-text-style($body-text-styles, "large");
+
+      margin: 0;
+    }
+
+    &__sticky {
+      position: sticky;
+      top: $primary-nav-height;
+      max-height: calc(100vh - #{$primary-nav-height});
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__filter-bar {
+      flex-shrink: 0;
+      padding-block: rem-calc(12);
+      background: #fff;
+      z-index: 1;
+    }
+  }
+
+  .gallery-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+    padding: rem-calc(10) rem-calc(16);
+    border: rem-calc(1) solid map.get($mofo-colors, black);
+    margin-bottom: rem-calc(24);
+
+    &__label {
+      font-weight: 700;
+      font-size: rem-calc(14);
+      margin-right: rem-calc(4);
+    }
+
+    &__dropdown {
+      display: flex;
+      align-items: center;
+      gap: rem-calc(4);
+      padding: rem-calc(2) rem-calc(6);
+      background: none;
+      border: none;
+      font-size: rem-calc(14);
+      font-weight: 600;
+      cursor: pointer;
+
+      &::after {
+        content: "▾";
+        font-size: rem-calc(10);
+      }
+    }
+
+    &__count {
+      margin-left: auto;
+      font-size: rem-calc(14);
+      font-style: italic;
+      color: #555;
+    }
   }
 
   .gallery-nav {
-    position: sticky;
-    top: $primary-nav-height;
-    max-height: calc(100vh - #{$primary-nav-height});
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     scrollbar-width: none;
 
@@ -25,10 +98,17 @@ body.prototype-gallery-page {
       gap: rem-calc(8);
     }
 
+    &__author {
+      display: inline-block;
+      font-weight: 400;
+      margin-left: 0.5rem;
+    }
+
     &__item {
+      margin-bottom: 2rem;
       display: block;
       width: 100%;
-      padding: rem-calc(8) rem-calc(12);
+      padding: 0;
       background: none;
       border: none;
       color: inherit;
@@ -41,21 +121,29 @@ body.prototype-gallery-page {
         border-color 0.2s ease;
 
       &:hover {
-        color: color(blue, "500");
+        font-weight: 700;
       }
 
       &.is-active {
         font-weight: 700;
-        color: color(blue, "500");
-        border-left-color: color(blue, "500");
+
+        .gallery-nav__author {
+          font-weight: 400;
+          opacity: 1;
+        }
       }
+    }
+
+    &__author {
+      font-style: italic;
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
   }
 
   .gallery-strip {
     &__item {
       scroll-margin-top: $primary-nav-height;
-      margin-bottom: rem-calc(48);
 
       &:last-child {
         margin-bottom: 0;
