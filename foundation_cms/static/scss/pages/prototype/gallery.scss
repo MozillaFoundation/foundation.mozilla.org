@@ -100,7 +100,7 @@ body.prototype-gallery-page {
       gap: rem-calc(8);
     }
 
-    &__author {
+    &__expert {
       display: inline-block;
       font-weight: 400;
       margin-left: 0.5rem;
@@ -125,7 +125,7 @@ body.prototype-gallery-page {
       &:hover {
         font-weight: 700;
 
-        .gallery-nav__author {
+        .gallery-nav__expert {
           opacity: 1;
         }
       }
@@ -133,14 +133,14 @@ body.prototype-gallery-page {
       &.is-active {
         font-weight: 700;
 
-        .gallery-nav__author {
+        .gallery-nav__expert {
           font-weight: 400;
           opacity: 1;
         }
       }
     }
 
-    &__author {
+    &__expert {
       font-style: italic;
       opacity: 0;
       transition: opacity 0.2s ease;

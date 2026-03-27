@@ -37,7 +37,7 @@
                                     <button
                                         class="gallery-nav__item{% if forloop.first %} is-active{% endif %}"
                                     >
-                                        {{ project.name }}<span class="gallery-nav__author">{{ project.author }}</span>
+                                        {{ forloop.counter }}. {{ project.name }}{% if project.filler %} <span class="gallery-nav__filler">(filler)</span>{% endif %}<span class="gallery-nav__expert">{{ project.expert }}</span>
                                     </button>
                                 </li>
                             {% endfor %}
