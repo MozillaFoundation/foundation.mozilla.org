@@ -151,7 +151,6 @@ body.prototype-gallery-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: rem-calc(4);
 
     &__item {
       scroll-margin-top: $primary-nav-height;
@@ -178,6 +177,10 @@ body.prototype-gallery-page {
       width: 100%;
       aspect-ratio: $image-ratio;
       object-fit: cover;
+      mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      mask-position: center;
     }
 
     &__color-block {
