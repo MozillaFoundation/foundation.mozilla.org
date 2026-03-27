@@ -60,6 +60,10 @@ body.prototype-gallery-page {
       margin-right: rem-calc(4);
     }
 
+    &__filter {
+      position: relative;
+    }
+
     &__dropdown {
       display: flex;
       align-items: center;
@@ -72,16 +76,140 @@ body.prototype-gallery-page {
       cursor: pointer;
 
       &::after {
-        content: "▾";
-        font-size: rem-calc(10);
+        content: "";
+        display: inline-block;
+        width: rem-calc(12);
+        height: rem-calc(8);
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.0688 6.28888L10.978 6.38068L6.00049 1.40314L5.64697 1.75665L1.021 6.38068L0.930176 6.28888L5.99951 1.21954L11.0688 6.28888Z' fill='%23141414' stroke='%23000000'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      &.is-open::after {
+        transform: rotate(0deg);
+      }
+    }
+
+    &__panel {
+      position: absolute;
+      top: calc(100% + rem-calc(24));
+      left: 0;
+      z-index: 100;
+      background: #fff;
+      border: rem-calc(1) solid map.get($mofo-colors, black);
+      padding: rem-calc(16);
+      min-width: rem-calc(180);
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(10);
+
+      /* Transparent bridge covering the gap so mouseleave does not fire mid-crossing */
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        height: rem-calc(8);
+      }
+
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    &__options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem-calc(8);
+    }
+
+    &__option {
+      @include mofo-text-style($body-text-styles, "small");
+
+      padding: rem-calc(4) rem-calc(12);
+      border-radius: rem-calc(20);
+      border: rem-calc(1) solid transparent;
+      background: color(neutral, "100");
+      cursor: pointer;
+      text-align: left;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
+
+      &:hover:not(.is-selected) {
+        background: color(neutral, "300");
+      }
+
+      &.is-selected {
+        background: color(orange, "200");
+        color: #fff;
+        border-color: map.get($mofo-colors, black);
+      }
+    }
+
+    // Topic options use the existing topic pill button style
+    [data-filter-type="topic"] .gallery-filter-bar__option {
+      @include topic-pill-button-shape;
+
+      cursor: pointer;
+      color: map.get($mofo-colors, black);
+      border: none;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
+
+      &:hover:not(.is-selected) {
+        background: color(orange, "200");
+      }
+
+      &.is-selected {
+        background: color(orange, "200");
+        color: #fff;
+        border: rem-calc(1) solid map.get($mofo-colors, black);
       }
     }
 
     &__count {
+      @include mofo-text-style($body-text-styles, "small");
+
       margin-left: auto;
-      font-size: rem-calc(14);
       font-style: italic;
       color: #555;
+    }
+  }
+
+  .gallery-active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem-calc(8);
+    margin-bottom: rem-calc(12);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .gallery-active-filter-chip {
+    @include mofo-text-style($body-text-styles, "small");
+
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(6);
+    padding: rem-calc(4) rem-calc(12);
+    border-radius: rem-calc(20);
+    border: rem-calc(1) solid map.get($mofo-colors, black);
+    background: color(blue, "200");
+    color: map.get($mofo-colors, black);
+    cursor: pointer;
+
+    &[data-type="topic"] {
+      @include topic-pill-button-shape;
+
+      background: color(orange, "200");
     }
   }
 
@@ -107,17 +235,17 @@ body.prototype-gallery-page {
     }
 
     &__item {
-      margin-bottom: 2rem;
+      @include mofo-text-style($body-text-styles, "small");
+
+      /* margin-bottom: 2rem; */
       display: block;
       width: 100%;
       padding: 0;
       background: none;
       border: none;
       color: inherit;
-      font-size: rem-calc(16);
       text-align: left;
       cursor: pointer;
-      border-left: rem-calc(3) solid transparent;
       transition:
         color 0.2s ease,
         border-color 0.2s ease;

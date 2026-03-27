@@ -299,4 +299,14 @@ PROJECTS = [
 
 def prototype_gallery(request):
     projects = PROJECTS + FILLER_PROJECTS
-    return render(request, "patterns/pages/prototype/gallery.html", {"projects": projects})
+    filter_options = {
+        "topic": sorted(set(tag for p in projects for tag in p["tags"])),
+        "program": sorted(set(p["program"] for p in projects)),
+        "country": sorted(set(p["country"] for p in projects)),
+        "year": sorted(set(p["year"] for p in projects)),
+    }
+    return render(
+        request,
+        "patterns/pages/prototype/gallery.html",
+        {"projects": projects, "filter_options": filter_options},
+    )
