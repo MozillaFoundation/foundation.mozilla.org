@@ -272,9 +272,12 @@ body.prototype-gallery-page {
   }
 
   .gallery-strip {
+    --gallery-image-ratio: #{$image-ratio};
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 192px;
 
     &__item {
       scroll-margin-top: $primary-nav-height;
@@ -282,9 +285,9 @@ body.prototype-gallery-page {
       transition: width 0.35s ease;
 
       // Item immediately before the active one
-      &:has(+ .is-active) {
-        width: 40%;
-      }
+      // &:has(+ .is-active) {
+      //   width: 40%;
+      // }
 
       // Item immediately after the active one
       &.is-active + & {
@@ -301,10 +304,10 @@ body.prototype-gallery-page {
       width: 100%;
       aspect-ratio: $image-ratio;
       object-fit: cover;
-      mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
-      mask-size: cover;
-      mask-repeat: no-repeat;
-      mask-position: center;
+      // mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
+      // mask-size: cover;
+      // mask-repeat: no-repeat;
+      // mask-position: center;
     }
 
     &__color-block {

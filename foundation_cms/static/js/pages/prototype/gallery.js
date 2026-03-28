@@ -14,6 +14,8 @@ const CLASS_NAMES = {
 const items = Array.from(document.querySelectorAll(SELECTORS.item));
 const navLinks = Array.from(document.querySelectorAll(SELECTORS.navItem));
 
+// Mark the item at `index` as active in both the strip and the sidebar nav.
+// Scrolls the nav link into view if it's off-screen within the nav list.
 function setActive(index) {
   navLinks.forEach((link, i) => {
     link.classList.toggle(CLASS_NAMES.active, i === index);
@@ -24,25 +26,62 @@ function setActive(index) {
   navLinks[index]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
+// Compute an IntersectionObserver rootMargin that centers a detection zone
+// equal to the active image height in the viewport.
+// This prevents the active item from lingering after its top edge scrolls off screen.
+//
+// Formula: margin = (vh - activeImageHeight) / 2
+// activeImageHeight = strip width × image ratio (active item fills 100% of strip width)
+// The ratio is read from the --gallery-image-ratio CSS custom property so it stays in sync with the SCSS $image-ratio variable.
+function getScrollspyRootMargin() {
+  const strip = document.querySelector(".gallery-strip");
+  if (!strip) return "-35% 0px -35% 0px";
+  const ratio =
+    parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+  const activeImageHeight = strip.getBoundingClientRect().width * ratio;
+  const vh = window.innerHeight;
+  const margin = Math.max(0, (vh - activeImageHeight) / 2);
+  return `-${margin}px 0px -${margin}px 0px`;
+}
+
+// Scrollspy:
+// Watches strip items with IntersectionObserver and calls setActive when an item enters the centered detection zone.
+// The observer is recreated on resize so rootMargin stays accurate as the strip width changes.
 function initGalleryScrollspy() {
   if (!items.length || !navLinks.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActive(items.indexOf(entry.target));
-        }
-      });
-    },
-    {
-      rootMargin: "-35% 0px -35% 0px",
-      threshold: 0,
-    },
-  );
+  let observer;
 
-  items.forEach((item) => observer.observe(item));
+  function createObserver() {
+    if (observer) observer.disconnect();
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(items.indexOf(entry.target));
+          }
+        });
+      },
+      {
+        rootMargin: getScrollspyRootMargin(),
+        threshold: 0,
+      },
+    );
+    items.forEach((item) => observer.observe(item));
+  }
 
+  createObserver();
+
+  // Debounced resize handler — rootMargin is in px so it must update when the
+  // strip width or viewport height changes.
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(createObserver, 150);
+  });
+
+  // Clicking a nav item scrolls the corresponding strip item into view;
+  // the scrollspy observer then fires and calls setActive.
   navLinks.forEach((btn, i) => {
     btn.addEventListener("click", () => {
       items[i]?.scrollIntoView({ behavior: "smooth" });
@@ -50,6 +89,9 @@ function initGalleryScrollspy() {
   });
 }
 
+// Filter bar: manages topic/program/country (multi-select Sets) and year
+// (single-select string). Toggling a filter calls applyFilters() which
+// shows/hides matching strip items and nav links in sync.
 function initFilters() {
   const filterContainers = document.querySelectorAll(SELECTORS.filterContainer);
   const countEl = document.querySelector(SELECTORS.countEl);
@@ -74,6 +116,7 @@ function initFilters() {
         const val = btn.dataset.value;
 
         if (type === "year") {
+          // Year is single-select: clicking the active value deselects it
           if (filterState.year === val) {
             filterState.year = null;
             btn.classList.remove(CLASS_NAMES.selected);
@@ -85,6 +128,7 @@ function initFilters() {
             btn.classList.add(CLASS_NAMES.selected);
           }
         } else {
+          // All other filter types are multi-select Sets
           if (filterState[type].has(val)) {
             filterState[type].delete(val);
             btn.classList.remove(CLASS_NAMES.selected);
@@ -122,6 +166,7 @@ function initFilters() {
     panel.addEventListener("mouseleave", closePanel);
   });
 
+  // Update the dropdown button label to show how many options are selected.
   function updateDropdownLabel(container, type) {
     const btn = container.querySelector(".gallery-filter-bar__dropdown");
     const label = btn.dataset.label;
@@ -130,6 +175,7 @@ function initFilters() {
     btn.textContent = count > 0 ? `${label} (${count})` : label;
   }
 
+  // Re-render the active filter chips below the filter bar.
   function renderActiveFilters() {
     if (!activeFiltersEl) return;
 
@@ -173,6 +219,8 @@ function initFilters() {
     });
   }
 
+  // Show/hide strip items and nav links based on the current filterState.
+  // All active filter types must match (AND logic); an empty Set matches everything.
   function applyFilters() {
     let visibleCount = 0;
 
