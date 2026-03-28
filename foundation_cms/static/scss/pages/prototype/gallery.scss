@@ -277,7 +277,12 @@ body.prototype-gallery-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 192px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.is-ready {
+      opacity: 1;
+    }
 
     &__debug-label {
       position: absolute;
@@ -299,9 +304,9 @@ body.prototype-gallery-page {
       transition: width 0.35s ease;
 
       // Item immediately before the active one
-      // &:has(+ .is-active) {
-      //   width: 40%;
-      // }
+      /* &:has(+ .is-active) {
+        width: 40%;
+      } */
 
       // Item immediately after the active one
       &.is-active + & {
@@ -320,10 +325,10 @@ body.prototype-gallery-page {
       object-fit: cover;
       position: relative;
       z-index: 1;
-      // mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
-      // mask-size: cover;
-      // mask-repeat: no-repeat;
-      // mask-position: center;
+      /* mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      mask-position: center; */
     }
 
     &__color-block {

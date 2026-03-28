@@ -22,9 +22,6 @@ const MULTI_SELECT_TYPES = ["topic", "program", "country"];
 const items = Array.from(document.querySelectorAll(SELECTORS.item));
 const navLinks = Array.from(document.querySelectorAll(SELECTORS.navItem));
 
-// Prebuilt map for constant-time index lookup in the IntersectionObserver callback
-const itemIndexMap = new Map(items.map((el, i) => [el, i]));
-
 // Mark the item at `index` as active in both the strip and the sidebar nav.
 // Scrolls the nav link into view if it's off-screen within the nav list.
 function setActive(index) {
@@ -37,42 +34,22 @@ function setActive(index) {
   navLinks[index]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
-// Compute an IntersectionObserver rootMargin that centers a detection zone
-// equal to the active image height in the viewport.
-// This prevents the active item from lingering after its top edge scrolls off screen.
-//
-// Formula: margin = (vh - activeImageHeight) / 2
-// activeImageHeight = strip width × image ratio (active item fills 100% of strip width)
-// The ratio is read from the --gallery-image-ratio CSS custom property so it stays in sync with the SCSS $image-ratio variable.
-function getScrollspyRootMargin() {
-  const strip = document.querySelector(SELECTORS.strip);
-  if (!strip) return "-35% 0px -35% 0px";
-  const ratio =
-    parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
-  const activeImageHeight = strip.getBoundingClientRect().width * ratio;
-  const vh = window.innerHeight;
-  const margin = Math.max(0, (vh - activeImageHeight) / 2);
-  return `-${margin}px 0px -${margin}px 0px`;
-}
-
 // Scrollspy:
-// Watches strip items with IntersectionObserver and calls setActive when an item enters the centered detection zone.
-// The observer is recreated on resize so rootMargin stays accurate as the strip width changes.
+// On each scroll tick, finds the visible item whose center is closest to the
+// viewport center and marks it active. More robust than IntersectionObserver
+// for this use case — re-evaluates current state on every frame rather than
+// relying on edge-triggered intersection events.
 function initGalleryScrollspy() {
   if (!items.length || !navLinks.length) return;
 
-  let observer;
-
   // Locked while a click-initiated scroll is in flight so the scrollspy
   // cannot override the intended active item mid-animation.
-  let clickScrollLocked = false;
-  let clickScrollTimer;
+  let scrollLocked = false;
   let scrollSettleTimer;
   let scrollSettleHandler = null;
 
   // Cancel any in-progress click-scroll sequence.
   function cancelClickScroll() {
-    clearTimeout(clickScrollTimer);
     clearTimeout(scrollSettleTimer);
     if (scrollSettleHandler) {
       window.removeEventListener("scroll", scrollSettleHandler);
@@ -80,92 +57,99 @@ function initGalleryScrollspy() {
     }
   }
 
-  function createObserver() {
-    if (observer) observer.disconnect();
-    observer = new IntersectionObserver(
-      (entries) => {
-        if (clickScrollLocked) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(itemIndexMap.get(entry.target));
-          }
-        });
-      },
-      {
-        rootMargin: getScrollspyRootMargin(),
-        threshold: 0,
-      },
-    );
-    items.forEach((item) => observer.observe(item));
+  // Find the visible item whose center is closest to the viewport center and activate it.
+  function onScroll() {
+    if (scrollLocked) return;
+    const viewportCenter = window.innerHeight / 2;
+    let bestIndex = -1;
+    let bestDist = Infinity;
+    items.forEach((item, i) => {
+      if (item.style.display === "none") return;
+      const rect = item.getBoundingClientRect();
+      const dist = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIndex = i;
+      }
+    });
+    if (bestIndex >= 0) setActive(bestIndex);
   }
 
-  createObserver();
+  window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Debounced resize handler — rootMargin is in px so it must update when the
-  // strip width or viewport height changes.
+  // Debounced resize handler — strip margin-top must update when strip width
+  // or viewport height changes.
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(createObserver, 150);
+    resizeTimer = setTimeout(setStripTopMargin, 150);
   });
 
   // Clicking a nav item:
-  //   1. Immediately marks it active (instant visual feedback).
-  //   2. Waits for the CSS width transition (0.35 s) to finish so the item is
-  //      at its full expanded size and the layout has settled.
-  //   3. Scrolls so the now-full-size image is centered in the viewport.
-  //   4. Re-affirms the intended active item once scrolling stops, then releases
-  //      the scrollspy lock.
-  //
-  // The scrollspy is locked for the duration so it cannot fight the scroll.
-  // The lock is released by detecting scroll-end (150 ms of no scroll events)
-  // rather than a fixed timeout, so long scrolls to distant items are handled
-  // correctly. A 1.5 s fallback handles the case where no scroll fires at all.
+  //   1. Computes item i's final document-top after the CSS width transition.
+  //      If the currently-active item is above i it will shrink (100% → 20%,
+  //      −0.8 W), and its peek sibling may also shrink (40% → 20%, −0.2 W),
+  //      shifting i upward by a known amount.
+  //   2. Simultaneously calls setActive(i) and scrolls to the pre-computed
+  //      target — the width transition and the scroll run concurrently,
+  //      so the image expands while moving rather than expanding then jumping.
+  //   3. Re-affirms the intended active item once scrolling stops, then
+  //      releases the scrollspy lock.
   navLinks.forEach((btn, i) => {
     btn.addEventListener("click", () => {
       cancelClickScroll();
-      clickScrollLocked = true;
+      scrollLocked = true;
+
+      const strip = document.querySelector(SELECTORS.strip);
+      if (!strip) { scrollLocked = false; return; }
+
+      const ratio =
+        parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+      const W = strip.getBoundingClientRect().width * ratio;
+
+      // Pre-compute item i's final position before the transition mutates the layout.
+      const prevActive = items.findIndex((item) =>
+        item.classList.contains(CLASS_NAMES.active),
+      );
+      let itemDocTop = items[i].getBoundingClientRect().top + window.scrollY;
+      if (prevActive >= 0 && prevActive < i) {
+        itemDocTop -= 0.8 * W; // prev active shrinks: 100% → 20%
+        if (prevActive + 1 < i) {
+          itemDocTop -= 0.2 * W; // prev peek also shrinks: 40% → 20%
+        }
+      }
 
       setActive(i);
+      window.scrollTo({
+        top: itemDocTop - (window.innerHeight - W) / 2,
+        behavior: "smooth",
+      });
 
-      // After the transition the item occupies its full active height, and
-      // getBoundingClientRect gives the correct settled position.
-      clickScrollTimer = setTimeout(() => {
-        const strip = document.querySelector(SELECTORS.strip);
-        if (strip) {
-          const ratio =
-            parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
-          const W = strip.getBoundingClientRect().width * ratio;
-          const itemTop = items[i].getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({
-            top: itemTop - (window.innerHeight - W) / 2,
-            behavior: "smooth",
-          });
-        }
-
-        // Release the lock 150 ms after scrolling stops.
-        // Re-affirm the intended item first so any slight centering error
-        // doesn't let an adjacent item win when the scrollspy resumes.
-        scrollSettleHandler = () => {
-          clearTimeout(scrollSettleTimer);
-          scrollSettleTimer = setTimeout(() => {
-            window.removeEventListener("scroll", scrollSettleHandler);
-            scrollSettleHandler = null;
-            setActive(i);
-            clickScrollLocked = false;
-          }, 150);
-        };
-        window.addEventListener("scroll", scrollSettleHandler);
-
-        // Fallback if no scroll events fire (e.g. already at target position).
+      // Release the lock 150 ms after scrolling stops.
+      // Re-affirm the intended item so any residual centering error
+      // doesn't let an adjacent item win when the scrollspy resumes.
+      scrollSettleHandler = () => {
+        clearTimeout(scrollSettleTimer);
         scrollSettleTimer = setTimeout(() => {
           window.removeEventListener("scroll", scrollSettleHandler);
           scrollSettleHandler = null;
-          clickScrollLocked = false;
-        }, 1500);
-      }, 350); // matches the CSS `transition: width 0.35s`
+          setActive(i);
+          scrollLocked = false;
+        }, 150);
+      };
+      window.addEventListener("scroll", scrollSettleHandler);
+
+      // Fallback if no scroll events fire (e.g. already at target position).
+      scrollSettleTimer = setTimeout(() => {
+        window.removeEventListener("scroll", scrollSettleHandler);
+        scrollSettleHandler = null;
+        scrollLocked = false;
+      }, 1500);
     });
   });
+
+  // Set initial active item based on current scroll/layout position.
+  onScroll();
 }
 
 // Filter bar: manages topic/program/country (multi-select Sets) and year
@@ -342,5 +326,26 @@ function initFilters() {
   }
 }
 
-initGalleryScrollspy();
+// Set strip margin-top so item 1 is vertically centered in the viewport at scrollY = 0.
+// This ensures the scroll handler's first call sees item 1 as the closest-to-center item.
+// Also called on resize since image height is responsive.
+function setStripTopMargin() {
+  const strip = document.querySelector(SELECTORS.strip);
+  if (!strip || !items.length) return;
+  strip.style.marginTop = ""; // Reset to natural layout before measuring
+  const ratio =
+    parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+  const W = strip.getBoundingClientRect().width * ratio;
+  const item1DocTop = items[0].getBoundingClientRect().top + window.scrollY;
+  strip.style.marginTop = `${Math.max(0, window.innerHeight / 2 - item1DocTop - W / 2)}px`;
+}
+
+setStripTopMargin();
+window.scrollTo({ top: 0, behavior: "instant" }); // ensure page starts at top with item 1 centered
+initGalleryScrollspy(); // calls onScroll() internally to set initial active item
 initFilters();
+
+// Reveal the strip now that positions are set and the initial active item is determined.
+requestAnimationFrame(() => {
+  document.querySelector(SELECTORS.strip)?.classList.add("is-ready");
+});

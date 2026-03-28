@@ -99,6 +99,7 @@
                                 class="gallery-strip__image"
                                 width="800"
                                 height="800"
+                                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                             >
                         {% else %}
                             <div
