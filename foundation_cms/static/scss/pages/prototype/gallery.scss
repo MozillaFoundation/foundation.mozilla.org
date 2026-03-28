@@ -279,7 +279,21 @@ body.prototype-gallery-page {
     align-items: center;
     margin-top: 192px;
 
+    &__debug-label {
+      position: absolute;
+      top: rem-calc(8);
+      left: rem-calc(8);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: rem-calc(12);
+      padding: rem-calc(2) rem-calc(6);
+      z-index: 10;
+      pointer-events: none;
+    }
+
     &__item {
+      position: relative;
+      z-index: 0;
       scroll-margin-top: $primary-nav-height;
       width: 20%;
       transition: width 0.35s ease;
@@ -304,6 +318,8 @@ body.prototype-gallery-page {
       width: 100%;
       aspect-ratio: $image-ratio;
       object-fit: cover;
+      position: relative;
+      z-index: 1;
       // mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
       // mask-size: cover;
       // mask-repeat: no-repeat;

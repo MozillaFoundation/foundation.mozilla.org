@@ -91,6 +91,7 @@
             <div class="gallery-strip">
                 {% for project in projects %}
                     <div class="gallery-strip__item{% if forloop.first %} is-active{% endif %}">
+                        <span class="gallery-strip__debug-label">{{ project.name }}</span>
                         {% if project.image %}
                             <img
                                 src="{% static project.image %}"

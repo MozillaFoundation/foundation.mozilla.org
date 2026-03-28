@@ -63,10 +63,28 @@ function initGalleryScrollspy() {
 
   let observer;
 
+  // Locked while a click-initiated scroll is in flight so the scrollspy
+  // cannot override the intended active item mid-animation.
+  let clickScrollLocked = false;
+  let clickScrollTimer;
+  let scrollSettleTimer;
+  let scrollSettleHandler = null;
+
+  // Cancel any in-progress click-scroll sequence.
+  function cancelClickScroll() {
+    clearTimeout(clickScrollTimer);
+    clearTimeout(scrollSettleTimer);
+    if (scrollSettleHandler) {
+      window.removeEventListener("scroll", scrollSettleHandler);
+      scrollSettleHandler = null;
+    }
+  }
+
   function createObserver() {
     if (observer) observer.disconnect();
     observer = new IntersectionObserver(
       (entries) => {
+        if (clickScrollLocked) return;
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActive(itemIndexMap.get(entry.target));
@@ -91,11 +109,61 @@ function initGalleryScrollspy() {
     resizeTimer = setTimeout(createObserver, 150);
   });
 
-  // Clicking a nav item scrolls the corresponding strip item into view;
-  // the scrollspy observer then fires and calls setActive.
+  // Clicking a nav item:
+  //   1. Immediately marks it active (instant visual feedback).
+  //   2. Waits for the CSS width transition (0.35 s) to finish so the item is
+  //      at its full expanded size and the layout has settled.
+  //   3. Scrolls so the now-full-size image is centered in the viewport.
+  //   4. Re-affirms the intended active item once scrolling stops, then releases
+  //      the scrollspy lock.
+  //
+  // The scrollspy is locked for the duration so it cannot fight the scroll.
+  // The lock is released by detecting scroll-end (150 ms of no scroll events)
+  // rather than a fixed timeout, so long scrolls to distant items are handled
+  // correctly. A 1.5 s fallback handles the case where no scroll fires at all.
   navLinks.forEach((btn, i) => {
     btn.addEventListener("click", () => {
-      items[i]?.scrollIntoView({ behavior: "smooth" });
+      cancelClickScroll();
+      clickScrollLocked = true;
+
+      setActive(i);
+
+      // After the transition the item occupies its full active height, and
+      // getBoundingClientRect gives the correct settled position.
+      clickScrollTimer = setTimeout(() => {
+        const strip = document.querySelector(SELECTORS.strip);
+        if (strip) {
+          const ratio =
+            parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+          const W = strip.getBoundingClientRect().width * ratio;
+          const itemTop = items[i].getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: itemTop - (window.innerHeight - W) / 2,
+            behavior: "smooth",
+          });
+        }
+
+        // Release the lock 150 ms after scrolling stops.
+        // Re-affirm the intended item first so any slight centering error
+        // doesn't let an adjacent item win when the scrollspy resumes.
+        scrollSettleHandler = () => {
+          clearTimeout(scrollSettleTimer);
+          scrollSettleTimer = setTimeout(() => {
+            window.removeEventListener("scroll", scrollSettleHandler);
+            scrollSettleHandler = null;
+            setActive(i);
+            clickScrollLocked = false;
+          }, 150);
+        };
+        window.addEventListener("scroll", scrollSettleHandler);
+
+        // Fallback if no scroll events fire (e.g. already at target position).
+        scrollSettleTimer = setTimeout(() => {
+          window.removeEventListener("scroll", scrollSettleHandler);
+          scrollSettleHandler = null;
+          clickScrollLocked = false;
+        }, 1500);
+      }, 350); // matches the CSS `transition: width 0.35s`
     });
   });
 }
@@ -225,7 +293,6 @@ function initFilters() {
           });
           updateDropdownLabel(fc, type);
         }
-
 
         applyFilters();
         renderActiveFilters();
