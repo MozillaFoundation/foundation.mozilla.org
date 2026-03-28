@@ -1,18 +1,29 @@
 const SELECTORS = {
   item: ".gallery-strip__item",
   navItem: ".gallery-nav__item",
+  strip: ".gallery-strip",
   filterContainer: ".gallery-filter-bar__filter",
+  filterPanel: ".gallery-filter-bar__panel",
+  filterOption: ".gallery-filter-bar__option",
+  filterDropdown: ".gallery-filter-bar__dropdown",
   countEl: ".gallery-filter-bar__count",
   activeFilters: ".gallery-active-filters",
+  activeFilterChip: ".gallery-active-filter-chip",
 };
 
 const CLASS_NAMES = {
   active: "is-active",
   selected: "is-selected",
+  activeFilterChip: "gallery-active-filter-chip",
 };
+
+const MULTI_SELECT_TYPES = ["topic", "program", "country"];
 
 const items = Array.from(document.querySelectorAll(SELECTORS.item));
 const navLinks = Array.from(document.querySelectorAll(SELECTORS.navItem));
+
+// Prebuilt map for constant-time index lookup in the IntersectionObserver callback
+const itemIndexMap = new Map(items.map((el, i) => [el, i]));
 
 // Mark the item at `index` as active in both the strip and the sidebar nav.
 // Scrolls the nav link into view if it's off-screen within the nav list.
@@ -34,7 +45,7 @@ function setActive(index) {
 // activeImageHeight = strip width × image ratio (active item fills 100% of strip width)
 // The ratio is read from the --gallery-image-ratio CSS custom property so it stays in sync with the SCSS $image-ratio variable.
 function getScrollspyRootMargin() {
-  const strip = document.querySelector(".gallery-strip");
+  const strip = document.querySelector(SELECTORS.strip);
   if (!strip) return "-35% 0px -35% 0px";
   const ratio =
     parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
@@ -58,7 +69,7 @@ function initGalleryScrollspy() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActive(items.indexOf(entry.target));
+            setActive(itemIndexMap.get(entry.target));
           }
         });
       },
@@ -108,9 +119,9 @@ function initFilters() {
 
   filterContainers.forEach((container) => {
     const type = container.dataset.filterType;
-    const panel = container.querySelector(".gallery-filter-bar__panel");
+    const panel = container.querySelector(SELECTORS.filterPanel);
 
-    panel.querySelectorAll(".gallery-filter-bar__option").forEach((btn) => {
+    panel.querySelectorAll(SELECTORS.filterOption).forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
         const val = btn.dataset.value;
@@ -122,7 +133,7 @@ function initFilters() {
             btn.classList.remove(CLASS_NAMES.selected);
           } else {
             panel
-              .querySelectorAll(".gallery-filter-bar__option")
+              .querySelectorAll(SELECTORS.filterOption)
               .forEach((b) => b.classList.remove(CLASS_NAMES.selected));
             filterState.year = val;
             btn.classList.add(CLASS_NAMES.selected);
@@ -146,7 +157,7 @@ function initFilters() {
     });
 
     // Show on hover; delay close so the cursor can cross the gap into the panel
-    const dropdownBtn = container.querySelector(".gallery-filter-bar__dropdown");
+    const dropdownBtn = container.querySelector(SELECTORS.filterDropdown);
     let closeTimer;
     const openPanel = () => {
       clearTimeout(closeTimer);
@@ -168,7 +179,7 @@ function initFilters() {
 
   // Update the dropdown button label to show how many options are selected.
   function updateDropdownLabel(container, type) {
-    const btn = container.querySelector(".gallery-filter-bar__dropdown");
+    const btn = container.querySelector(SELECTORS.filterDropdown);
     const label = btn.dataset.label;
     const count =
       type === "year" ? (filterState.year !== null ? 1 : 0) : filterState[type].size;
@@ -180,7 +191,7 @@ function initFilters() {
     if (!activeFiltersEl) return;
 
     const chips = [];
-    ["topic", "program", "country"].forEach((type) => {
+    MULTI_SELECT_TYPES.forEach((type) => {
       filterState[type].forEach((val) => chips.push({ type, val }));
     });
     if (filterState.year !== null) {
@@ -190,11 +201,11 @@ function initFilters() {
     activeFiltersEl.innerHTML = chips
       .map(
         ({ type, val }) =>
-          `<button class="gallery-active-filter-chip" data-type="${type}" data-value="${val}">${val} <span aria-hidden="true">×</span></button>`,
+          `<button class="${CLASS_NAMES.activeFilterChip}" data-type="${type}" data-value="${val}">${val} <span aria-hidden="true">×</span></button>`,
       )
       .join("");
 
-    activeFiltersEl.querySelectorAll(".gallery-active-filter-chip").forEach((chip) => {
+    activeFiltersEl.querySelectorAll(SELECTORS.activeFilterChip).forEach((chip) => {
       chip.addEventListener("click", () => {
         const { type, value } = chip.dataset;
 
@@ -205,13 +216,16 @@ function initFilters() {
         }
 
         // Sync the deselected state back into the panel
-        const fc = document.querySelector(`[data-filter-type="${type}"]`);
+        const fc = Array.from(filterContainers).find(
+          (c) => c.dataset.filterType === type,
+        );
         if (fc) {
-          fc.querySelectorAll(".gallery-filter-bar__option").forEach((opt) => {
+          fc.querySelectorAll(SELECTORS.filterOption).forEach((opt) => {
             if (opt.dataset.value === value) opt.classList.remove(CLASS_NAMES.selected);
           });
           updateDropdownLabel(fc, type);
         }
+
 
         applyFilters();
         renderActiveFilters();
