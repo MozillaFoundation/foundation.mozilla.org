@@ -1,7 +1,12 @@
+from django.db import models
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TagBase, TaggedItemBase
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Locale
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
@@ -18,6 +23,18 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         max_num=1,
     )
 
+    program_label = ClusterTaggableManager(
+        through="gallery_hub.ProjectPageProgramLabel",
+        blank=True,
+        verbose_name="Program Label",
+        help_text=(
+            "Add one or more existing program labels. Start typing to search, then press “Down” arrow "
+            "on your keyboard to select program label. If program label is unavailable check if it exists by "
+            "going to the left side-nav to Snippet > Program Labels > Check if program label exists. "
+            "If not, click “Add new program label”."
+        ),
+    )
+
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
             [
@@ -29,6 +46,7 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         ),
         FieldPanel("lede_text"),
         FieldPanel("cta_link"),
+        FieldPanel("program_label"),
         FieldPanel("body"),
     ]
 
@@ -83,3 +101,31 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         context = super().get_context(request)
         context["latest_projects"] = self.get_latest_projects()
         return context
+
+
+@register_snippet
+class ProgramLabel(TagBase):
+    free_tagging = False
+    description = models.TextField(blank=True, help_text="Optional program label for a project page.")
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("description"),
+    ]
+
+    class Meta:
+        verbose_name = "Program Label"
+        verbose_name_plural = "Program Labels"
+
+
+class ProjectPageProgramLabel(TaggedItemBase):
+    tag = models.ForeignKey(
+        ProgramLabel,
+        related_name="tagged_projects",
+        on_delete=models.CASCADE,
+    )
+    content_object = ParentalKey(
+        "gallery_hub.ProjectPage",
+        related_name="program_label_items",
+        on_delete=models.CASCADE,
+    )
