@@ -263,16 +263,12 @@ def get_schema_snapshot(ctx):
     db_url = ctx.run(f"heroku config:get DATABASE_URL -a {STAGING_APP}", hide=True).stdout.strip()
 
     print(f"Dumping schema to {filename}...")
-    ctx.run(
-        f'docker run --rm postgres:15 pg_dump --schema-only "{db_url}"'
-        f" > {filename}"
-    )
+    ctx.run(f'docker run --rm postgres:15 pg_dump --schema-only "{db_url}"' f" > {filename}")
 
     print(f"Schema snapshot saved to ./{filename}")
     print(f"Upload to S3 if you have the AWS CLI: aws s3 cp {filename} s3://<bucket>/<path>/{filename}")
     print(f"Or upload to the S3 bucket manually through the AWS Console.")
     print(f"You might also need to update heroku config variables to reference today's snapshot.")
-
 
 
 @task(aliases=["copy-prod-db"])
