@@ -249,38 +249,6 @@ def copy_staging_database(ctx):
         ctx.run("node copy-db.js")
 
 
-@task(aliases=["get-schema"])
-def get_schema_snapshot(ctx):
-    """
-    Dump the schema and django_migrations data from staging into a single SQL file.
-    Upload this file to S3 manually afterward.
-    """
-    from datetime import date
-
-    STAGING_APP = "foundation-mofostaging-net"
-    filename = f"schema-{date.today().isoformat()}.sql"
-
-    result = ctx.run("heroku whoami", warn=True, hide=True)
-    if result.failed:
-        print("Not logged into Heroku. Running heroku login...")
-        ctx.run("heroku login", **PLATFORM_ARG)
-
-    print(f"Fetching DATABASE_URL from {STAGING_APP}...")
-    db_url = ctx.run(f"heroku config:get DATABASE_URL -a {STAGING_APP}", hide=True).stdout.strip()
-
-    print(f"Dumping schema and migration history to {filename}...")
-    ctx.run(
-        f"docker run --rm postgres:15 sh -c '"
-        f"pg_dump --schema-only --no-owner --no-acl --no-comments --clean --if-exists \"{db_url}\" && "
-        f"pg_dump --data-only --no-owner --no-acl --table=django_migrations \"{db_url}\"'"
-        f" > {filename}"
-    )
-
-    print(f"Snapshot saved to ./{filename}")
-    print(f"Upload to S3 with: aws s3 cp {filename} s3://<bucket>/snapshots/{filename}")
-    print(f"You might also need to update heroku config variables to reference today's snapshot.")
-
-
 @task(aliases=["new-snapshot"])
 def generate_schema_snapshot(ctx):
     """
@@ -294,7 +262,7 @@ def generate_schema_snapshot(ctx):
 
     filename = f"schema-{date.today().isoformat()}.dump"
 
-    answer = input("This will destroy your local database. Continue? [y/N] ").strip().lower()
+    answer = input("This will destroy and rebuild your local database. Continue? [y/N] ").strip().lower()
     if answer != "y":
         print("Aborted.")
         return
@@ -303,7 +271,9 @@ def generate_schema_snapshot(ctx):
 
     print(f"* Dumping database to {filename}...")
     ctx.run(f"docker-compose up -d postgres")
-    ctx.run(f"docker-compose run --rm postgres pg_dump -Fc --no-owner --no-acl -hpostgres -Ufoundation wagtail > {filename}")
+    ctx.run(
+        f"docker-compose run --rm postgres pg_dump -Fc --no-owner --no-acl -hpostgres -Ufoundation wagtail > {filename}"
+    )
     ctx.run("docker-compose down")
 
     print(f"Snapshot saved to ./{filename}")
@@ -311,6 +281,7 @@ def generate_schema_snapshot(ctx):
     print(f"You might also need to update heroku config variables to reference today's snapshot.")
     print(f"Snapshot complete, initializing content for local database.")
     initialize_database(ctx, slow=False)
+
 
 @task(aliases=["copy-prod-db"])
 def copy_production_database(ctx):
