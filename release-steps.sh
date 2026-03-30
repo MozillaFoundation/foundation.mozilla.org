@@ -20,7 +20,7 @@ restore_schema_snapshot() {
   curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.sql || { echo "ERROR: Failed to download schema from: '$SNAPSHOT_URL'"; exit 1; }
 
   echo "Applying schema to DATABASE_URL..."
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /tmp/schema.sql
+  psql "$DATABASE_URL" -q -v ON_ERROR_STOP=1 -f /tmp/schema.sql
 
   echo "Schema restore complete."
 
