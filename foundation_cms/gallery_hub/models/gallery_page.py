@@ -30,7 +30,7 @@ class FeaturedGalleryProject(Orderable):
 
 class GalleryPage(AbstractGeneralPage, HeroImageMixin):
 
-    subpage_types: list[str] = []
+    subpage_types = ["gallery_hub.ProjectPage"]
 
     content_panels = AbstractGeneralPage.content_panels + [
         MultiFieldPanel(
