@@ -11,65 +11,65 @@
                         <h2>{{ page.title }}</h2>
                     </div>
                     <div class="cell small-12 medium-12">
-                        <p>{{ page.lede_text }}<p>
-                        </div>
-                        </div>
+                        <p>{{ page.lede_text }}</p>
+                    </div>
+                </div>
 
-                        {% if filter_topics or filter_program_labels or filter_program_years %}
-                            <div class="grid-x grid-margin-x">
-                                {% if filter_topics %}
-                                    <div class="cell small-12 medium-4">
-                                        <label for="filter-topics">{% trans "Topic" %}</label>
-                                        <select id="filter-topics" name="topic">
-                                            <option value="">{% trans "All Topics" %}</option>
-                                            {% for topic in filter_topics %}
-                                                <option value="{{ topic }}">{{ topic }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                {% endif %}
-
-                                {% if filter_program_labels %}
-                                    <div class="cell small-12 medium-4">
-                                        <label for="filter-program-labels">{% trans "Program Label" %}</label>
-                                        <select id="filter-program-labels" name="program_label">
-                                            <option value="">{% trans "All Programs" %}</option>
-                                            {% for label in filter_program_labels %}
-                                                <option value="{{ label }}">{{ label }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                {% endif %}
-
-                                {% if filter_program_years %}
-                                    <div class="cell small-12 medium-4">
-                                        <label for="filter-program-years">{% trans "Year" %}</label>
-                                        <select id="filter-program-years" name="program_year">
-                                            <option value="">{% trans "All Years" %}</option>
-                                            {% for year in filter_program_years %}
-                                                <option value="{{ year }}">{{ year }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                {% endif %}
+                {% if filter_topics or filter_program_labels or filter_program_years %}
+                    <div class="grid-x grid-margin-x">
+                        {% if filter_topics %}
+                            <div class="cell small-12 medium-4">
+                                <label for="filter-topics">{% trans "Topic" %}</label>
+                                <select id="filter-topics" name="topic">
+                                    <option value="">{% trans "All Topics" %}</option>
+                                    {% for topic in filter_topics %}
+                                        <option value="{{ topic }}">{{ topic }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         {% endif %}
 
-                        {% if featured_projects %}
-                            <div class="grid-x grid-margin-x" data-gallery-projects>
-                                {% for project in featured_projects %}
-                                    <div class="cell small-12 medium-12 large-12"
-                                         data-project
-                                         data-topics="{% for topic in project.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
-                                         data-program-labels="{% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
-                                         data-program-year="{{ project.program_year }}">
-                                        <a href="{{ project.url }}">{{ project.title }}</a>
-                                    </div>
-                                {% endfor %}
+                        {% if filter_program_labels %}
+                            <div class="cell small-12 medium-4">
+                                <label for="filter-program-labels">{% trans "Program Label" %}</label>
+                                <select id="filter-program-labels" name="program_label">
+                                    <option value="">{% trans "All Programs" %}</option>
+                                    {% for label in filter_program_labels %}
+                                        <option value="{{ label }}">{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+
+                        {% if filter_program_years %}
+                            <div class="cell small-12 medium-4">
+                                <label for="filter-program-years">{% trans "Year" %}</label>
+                                <select id="filter-program-years" name="program_year">
+                                    <option value="">{% trans "All Years" %}</option>
+                                    {% for year in filter_program_years %}
+                                        <option value="{{ year }}">{{ year }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         {% endif %}
                     </div>
+                {% endif %}
 
-                </article>
-            </main>
+                {% if featured_projects %}
+                    <div class="grid-x grid-margin-x" data-gallery-projects>
+                        {% for project in featured_projects %}
+                            <div class="cell small-12 medium-12 large-12"
+                                 data-project
+                                 data-topics="{% for topic in project.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                                 data-program-labels="{% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                                 data-program-year="{{ project.program_year }}">
+                                <a href="{{ project.url }}">{{ project.title }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </article>
+    </main>
 {% endblock content %}
