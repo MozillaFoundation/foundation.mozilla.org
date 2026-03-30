@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
