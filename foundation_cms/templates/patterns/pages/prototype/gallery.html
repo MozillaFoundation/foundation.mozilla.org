@@ -23,47 +23,49 @@
                 <div class="gallery-sidebar__sticky">
                     <div class="gallery-sidebar__filter-bar gallery-filter-bar">
                         <span class="gallery-filter-bar__label">Filter by</span>
-                        <div class="gallery-filter-bar__filter" data-filter-type="topic">
-                            <button class="gallery-filter-bar__dropdown" data-label="TOPIC">TOPIC</button>
-                            <div class="gallery-filter-bar__panel" hidden>
-                                <div class="gallery-filter-bar__options">
-                                    {% for opt in filter_options.topic %}
-                                        <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
-                                    {% endfor %}
+                        <div class="gallery-filter-bar__container">
+                            <div class="gallery-filter-bar__filter" data-filter-type="topic">
+                                <button class="gallery-filter-bar__dropdown" data-label="TOPIC">TOPIC</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.topic %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="gallery-filter-bar__filter" data-filter-type="program">
-                            <button class="gallery-filter-bar__dropdown" data-label="PROGRAM">PROGRAM</button>
-                            <div class="gallery-filter-bar__panel" hidden>
-                                <div class="gallery-filter-bar__options">
-                                    {% for opt in filter_options.program %}
-                                        <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
-                                    {% endfor %}
+                            <div class="gallery-filter-bar__filter" data-filter-type="program">
+                                <button class="gallery-filter-bar__dropdown" data-label="PROGRAM">PROGRAM</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.program %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="gallery-filter-bar__filter" data-filter-type="country">
-                            <button class="gallery-filter-bar__dropdown" data-label="COUNTRY">COUNTRY</button>
-                            <div class="gallery-filter-bar__panel" hidden>
-                                <div class="gallery-filter-bar__options">
-                                    {% for opt in filter_options.country %}
-                                        <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
-                                    {% endfor %}
+                            <div class="gallery-filter-bar__filter" data-filter-type="country">
+                                <button class="gallery-filter-bar__dropdown" data-label="COUNTRY">COUNTRY</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.country %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="gallery-filter-bar__filter" data-filter-type="year">
-                            <button class="gallery-filter-bar__dropdown" data-label="YEAR">YEAR</button>
-                            <div class="gallery-filter-bar__panel" hidden>
-                                <div class="gallery-filter-bar__options">
-                                    {% for opt in filter_options.year %}
-                                        <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
-                                    {% endfor %}
+                            <div class="gallery-filter-bar__filter" data-filter-type="year">
+                                <button class="gallery-filter-bar__dropdown" data-label="YEAR">YEAR</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.year %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
+                            <span class="gallery-filter-bar__count">{{ projects|length }} projects</span>
                         </div>
-                        <span class="gallery-filter-bar__count">{{ projects|length }} projects</span>
                     </div>
 
                     <div class="gallery-active-filters"></div>

@@ -4,11 +4,16 @@
 
 body.prototype-gallery-page {
   $image-ratio: math.div(1, 1);
+  $active-bg-color: color(orange, "200");
 
   .gallery-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: rem-calc(48);
+
+    > * {
+      min-width: 0; // prevent grid items from overflowing their 1fr track
+    }
   }
 
   .gallery-sidebar {
@@ -48,16 +53,26 @@ body.prototype-gallery-page {
 
   .gallery-filter-bar {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: rem-calc(8);
     padding: rem-calc(10) rem-calc(16);
-    border: rem-calc(1) solid map.get($mofo-colors, black);
+    background: color(neutral, "200");
     margin-bottom: rem-calc(24);
 
-    &__label {
-      font-weight: 700;
-      font-size: rem-calc(14);
-      margin-right: rem-calc(4);
+    &__label,
+    &__dropdown {
+      @include mofo-text-style($body-text-styles, "small");
+
+      padding: rem-calc(2) rem-calc(6);
+    }
+
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: rem-calc(8);
+      flex: 1;
+      min-width: 0;
     }
 
     &__filter {
@@ -68,11 +83,8 @@ body.prototype-gallery-page {
       display: flex;
       align-items: center;
       gap: rem-calc(4);
-      padding: rem-calc(2) rem-calc(6);
       background: none;
       border: none;
-      font-size: rem-calc(14);
-      font-weight: 600;
       cursor: pointer;
 
       &::after {
@@ -95,7 +107,11 @@ body.prototype-gallery-page {
 
     &__panel {
       position: absolute;
-      top: calc(100% + rem-calc(24));
+      top: calc(100% + rem-calc(8));
+
+      @include breakpoint(xlarge) {
+        top: calc(100% + rem-calc(24));
+      }
       left: 0;
       z-index: 100;
       background: #fff;
@@ -145,7 +161,7 @@ body.prototype-gallery-page {
       }
 
       &.is-selected {
-        background: color(orange, "200");
+        background: $active-bg-color;
         color: #fff;
         border-color: map.get($mofo-colors, black);
       }
@@ -163,11 +179,11 @@ body.prototype-gallery-page {
         color 0.15s ease;
 
       &:hover:not(.is-selected) {
-        background: color(orange, "200");
+        background: $active-bg-color;
       }
 
       &.is-selected {
-        background: color(orange, "200");
+        background: $active-bg-color;
         color: #fff;
         border: rem-calc(1) solid map.get($mofo-colors, black);
       }
@@ -178,7 +194,6 @@ body.prototype-gallery-page {
 
       margin-left: auto;
       font-style: italic;
-      color: color(neutral, "500");
     }
   }
 

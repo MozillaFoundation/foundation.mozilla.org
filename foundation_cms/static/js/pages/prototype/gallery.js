@@ -19,6 +19,7 @@ const CLASS_NAMES = {
 
 const MULTI_SELECT_TYPES = ["topic", "program", "country"];
 
+const strip = document.querySelector(SELECTORS.strip);
 const items = Array.from(document.querySelectorAll(SELECTORS.item));
 const navLinks = Array.from(document.querySelectorAll(SELECTORS.navItem));
 
@@ -83,9 +84,8 @@ function initGalleryScrollspy() {
 
   // Clicking a nav item:
   //   1. Computes item i's final document-top after the CSS width transition.
-  //      If the currently-active item is above i it will shrink (100% → 20%,
-  //      −0.8 W), and its peek sibling may also shrink (40% → 20%, −0.2 W),
-  //      shifting i upward by a known amount.
+  //      If the currently-active item is above i it will shrink (100% → 40%,
+  //      −0.6 W), shifting i upward by a known amount.
   //   2. Simultaneously calls setActive(i) and scrolls to the pre-computed
   //      target — the width transition and the scroll run concurrently,
   //      so the image expands while moving rather than expanding then jumping.
@@ -96,7 +96,6 @@ function initGalleryScrollspy() {
       cancelClickScroll();
       scrollLocked = true;
 
-      const strip = document.querySelector(SELECTORS.strip);
       if (!strip) { scrollLocked = false; return; }
 
       const ratio =
@@ -109,10 +108,7 @@ function initGalleryScrollspy() {
       );
       let itemDocTop = items[i].getBoundingClientRect().top + window.scrollY;
       if (prevActive >= 0 && prevActive < i) {
-        itemDocTop -= 0.8 * W; // prev active shrinks: 100% → 20%
-        if (prevActive + 1 < i) {
-          itemDocTop -= 0.2 * W; // prev peek also shrinks: 40% → 20%
-        }
+        itemDocTop -= 0.6 * W; // prev active shrinks: 100% → 40%
       }
 
       setActive(i);
@@ -314,19 +310,61 @@ function initFilters() {
 
     if (countEl) countEl.textContent = `${visibleCount} projects`;
 
-    // Activate the first visible item
-    const firstVisible = navLinks.findIndex(
-      (n) => n.closest("li")?.style.display !== "none",
-    );
-    if (firstVisible >= 0) setActive(firstVisible);
+    const allCleared =
+      MULTI_SELECT_TYPES.every((t) => filterState[t].size === 0) &&
+      filterState.year === null;
+
+    if (allCleared) {
+      // Full list restored — reset to top so item 0 is centred, matching the initial load state.
+      setActive(0);
+      setStripTopMargin();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Activate the first visible item in the filtered list.
+      const firstVisible = navLinks.findIndex(
+        (n) => n.closest("li")?.style.display !== "none",
+      );
+      if (firstVisible >= 0) setActive(firstVisible);
+    }
   }
 }
 
+// Set strip margin-top so item 0's center aligns with the scrollspy detection
+// center ((innerHeight + navHeight) / 2) when scrollY = 0. Item 0 must already
+// be active (width = 100%) before calling so the height measurement is correct.
+function setStripTopMargin() {
+  if (!strip || !items.length) return;
+  strip.style.marginTop = ""; // reset before measuring natural position
+  const ratio =
+    parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+  const W = strip.getBoundingClientRect().width * ratio;
+  const navH = parseFloat(getComputedStyle(items[0]).scrollMarginTop) || 0;
+  const item0DocTop = items[0].getBoundingClientRect().top + window.scrollY;
+  strip.style.marginTop = `${Math.max(0, (window.innerHeight + navH) / 2 - item0DocTop - W / 2)}px`;
+}
+
+setActive(0);
+setStripTopMargin();
 window.scrollTo({ top: 0, behavior: "instant" });
 initGalleryScrollspy(); // calls onScroll() internally to set initial active item
 initFilters();
 
+// ResizeObserver fires when the strip's dimensions change (window resize, font
+// scaling, layout shifts) without needing a debounce timer. Changing marginTop
+// doesn't affect the strip's border-box size so there's no feedback loop.
+// Only recalculate when the strip's WIDTH changes (viewport resize).
+// Height changes from item transitions also fire ResizeObserver — calling
+// setStripTopMargin mid-scroll would abruptly reset marginTop and cause jumps.
+let _lastStripWidth = strip?.getBoundingClientRect().width ?? 0;
+new ResizeObserver((entries) => {
+  const w = entries[0].contentRect.width;
+  if (w !== _lastStripWidth) {
+    _lastStripWidth = w;
+    setStripTopMargin();
+  }
+}).observe(strip);
+
 // Reveal the strip now that positions are set and the initial active item is determined.
 requestAnimationFrame(() => {
-  document.querySelector(SELECTORS.strip)?.classList.add("is-ready");
+  strip?.classList.add("is-ready");
 });

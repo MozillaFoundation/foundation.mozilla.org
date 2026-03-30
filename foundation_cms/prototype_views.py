@@ -290,7 +290,7 @@ PROJECTS = [
         "bg_color": None,
         "tags": ["Community"],
         "program": "Mozilla Fellow",
-        "country": "Brasil",
+        "country": "Brazil",
         "year": 2025,
         "url": "/test-test",
     },
