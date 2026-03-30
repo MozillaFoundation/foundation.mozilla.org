@@ -17,13 +17,12 @@ restore_schema_snapshot() {
   )"
 
   echo "Downloading schema snapshot..."
-  curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.dump || { echo "ERROR: Failed to download schema from: '$SNAPSHOT_URL'"; exit 1; }
+  curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.sql || { echo "ERROR: Failed to download schema from: '$SNAPSHOT_URL'"; exit 1; }
 
   echo "Applying schema to DATABASE_URL..."
-  pg_restore --schema-only --no-owner --no-acl --no-comments -d "$DATABASE_URL" /tmp/schema.dump
+  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /tmp/schema.sql
 
   echo "Schema restore complete."
-
 
 }
 
