@@ -1,10 +1,6 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
+from wagtail.admin.panels import InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.models import Orderable, Page
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
