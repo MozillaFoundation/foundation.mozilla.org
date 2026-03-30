@@ -42,6 +42,10 @@ function setActive(index) {
 function initGalleryScrollspy() {
   if (!items.length || !navLinks.length) return;
 
+  // Height of the sticky primary nav — read from scroll-margin-top already set on strip items.
+  // Used to center the active item in the visible area below the nav rather than the raw viewport center.
+  const navHeight = parseFloat(getComputedStyle(items[0]).scrollMarginTop) || 0;
+
   // Locked while a click-initiated scroll is in flight so the scrollspy
   // cannot override the intended active item mid-animation.
   let scrollLocked = false;
@@ -57,10 +61,10 @@ function initGalleryScrollspy() {
     }
   }
 
-  // Find the visible item whose center is closest to the viewport center and activate it.
+  // Find the visible item whose center is closest to the visible-area center and activate it.
   function onScroll() {
     if (scrollLocked) return;
-    const viewportCenter = window.innerHeight / 2;
+    const viewportCenter = (window.innerHeight + navHeight) / 2;
     let bestIndex = -1;
     let bestDist = Infinity;
     items.forEach((item, i) => {
@@ -76,14 +80,6 @@ function initGalleryScrollspy() {
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
-
-  // Debounced resize handler — strip margin-top must update when strip width
-  // or viewport height changes.
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setStripTopMargin, 150);
-  });
 
   // Clicking a nav item:
   //   1. Computes item i's final document-top after the CSS width transition.
@@ -121,7 +117,7 @@ function initGalleryScrollspy() {
 
       setActive(i);
       window.scrollTo({
-        top: itemDocTop - (window.innerHeight - W) / 2,
+        top: itemDocTop + W / 2 - (window.innerHeight + navHeight) / 2,
         behavior: "smooth",
       });
 
@@ -326,22 +322,7 @@ function initFilters() {
   }
 }
 
-// Set strip margin-top so item 1 is vertically centered in the viewport at scrollY = 0.
-// This ensures the scroll handler's first call sees item 1 as the closest-to-center item.
-// Also called on resize since image height is responsive.
-function setStripTopMargin() {
-  const strip = document.querySelector(SELECTORS.strip);
-  if (!strip || !items.length) return;
-  strip.style.marginTop = ""; // Reset to natural layout before measuring
-  const ratio =
-    parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
-  const W = strip.getBoundingClientRect().width * ratio;
-  const item1DocTop = items[0].getBoundingClientRect().top + window.scrollY;
-  strip.style.marginTop = `${Math.max(0, window.innerHeight / 2 - item1DocTop - W / 2)}px`;
-}
-
-setStripTopMargin();
-window.scrollTo({ top: 0, behavior: "instant" }); // ensure page starts at top with item 1 centered
+window.scrollTo({ top: 0, behavior: "instant" });
 initGalleryScrollspy(); // calls onScroll() internally to set initial active item
 initFilters();
 
