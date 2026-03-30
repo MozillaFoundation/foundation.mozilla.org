@@ -243,6 +243,32 @@ def copy_staging_database(ctx):
         ctx.run("node copy-db.js")
 
 
+@task(aliases=["get-schema-snapshot"])
+def get_schema_snapshot(ctx):
+    """
+    Dump the schema-only from staging and save locally as backup-YYYY-MM-DD.sql.
+    Upload this file to S3 manually afterward.
+    """
+    from datetime import date
+
+    STAGING_APP = "foundation-mofostaging-net"
+    filename = f"backup-{date.today().isoformat()}.sql"
+
+    result = ctx.run("heroku whoami", warn=True, hide=True)
+    if result.failed:
+        print("Not logged into Heroku. Running heroku login...")
+        ctx.run("heroku login", **PLATFORM_ARG)
+
+    print(f"Fetching DATABASE_URL from {STAGING_APP}...")
+    db_url = ctx.run(f"heroku config:get DATABASE_URL -a {STAGING_APP}", hide=True).stdout.strip()
+
+    print(f"Dumping schema to {filename}...")
+    ctx.run(f'pg_dump --schema-only "{db_url}" -f {filename}')
+
+    print(f"Schema snapshot saved to ./{filename}")
+    print(f"Upload to S3 with: aws s3 cp {filename} s3://<bucket>/<path>/{filename}")
+
+
 @task(aliases=["copy-prod-db"])
 def copy_production_database(ctx):
     with ctx.cd(ROOT):
