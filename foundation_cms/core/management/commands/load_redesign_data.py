@@ -27,13 +27,7 @@ class Command(BaseCommand):
         port = 80 if REVIEW_APP_NAME else 8000
 
         root = Page.get_first_root_node()
-        if root is None:
-            root = Page.add_root(
-                title="Root",
-                slug="root",
-                content_type=ContentType.objects.get_for_model(Page),
-            )
-        elif not root.pk:
+        if not root.pk:
             root.save()
 
         # Build and publish the homepage
