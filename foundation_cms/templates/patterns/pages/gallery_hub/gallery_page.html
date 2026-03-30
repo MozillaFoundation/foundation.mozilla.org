@@ -55,7 +55,7 @@
                 {% if featured_projects %}
                     <div class="grid-x grid-margin-x" data-gallery-projects>
                         {% for project in featured_projects %}
-                            <div class="cell small-12 medium-6 large-4"
+                            <div class="cell small-12 medium-12 large-12"
                                  data-project
                                  data-topics="{% for topic in project.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
                                  data-program-labels="{% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
