@@ -246,13 +246,13 @@ def copy_staging_database(ctx):
 @task(aliases=["get-schema"])
 def get_schema_snapshot(ctx):
     """
-    Dump the schema-only from staging and save locally as backup-YYYY-MM-DD.sql.
+    Dump the schema-only from staging in custom format and save locally as schema-YYYY-MM-DD.dump.
     Upload this file to S3 manually afterward.
     """
     from datetime import date
 
     STAGING_APP = "foundation-mofostaging-net"
-    filename = f"schema-{date.today().isoformat()}.sql"
+    filename = f"schema-{date.today().isoformat()}.dump"
 
     result = ctx.run("heroku whoami", warn=True, hide=True)
     if result.failed:
@@ -263,7 +263,7 @@ def get_schema_snapshot(ctx):
     db_url = ctx.run(f"heroku config:get DATABASE_URL -a {STAGING_APP}", hide=True).stdout.strip()
 
     print(f"Dumping schema to {filename}...")
-    ctx.run(f'docker run --rm postgres:15 pg_dump --schema-only --no-owner --no-acl "{db_url}"' f" > {filename}")
+    ctx.run(f'docker run --rm postgres:15 pg_dump -Fc --schema-only --no-owner --no-acl "{db_url}"' f" > {filename}")
 
     print(f"Schema snapshot saved to ./{filename}")
     print(f"Upload to S3 if you have the AWS CLI: aws s3 cp {filename} s3://<bucket>/<path>/{filename}")

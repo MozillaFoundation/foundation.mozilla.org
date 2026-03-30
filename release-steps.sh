@@ -17,15 +17,13 @@ restore_schema_snapshot() {
   )"
 
   echo "Downloading schema snapshot..."
-  curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.sql || { echo "ERROR: Failed to download schema from: '$SNAPSHOT_URL'"; exit 1; }
-
-  # Make schema creation idempotent
-  sed -i 's/CREATE SCHEMA /CREATE SCHEMA IF NOT EXISTS /g' /tmp/schema.sql
+  curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.dump || { echo "ERROR: Failed to download schema from: '$SNAPSHOT_URL'"; exit 1; }
 
   echo "Applying schema to DATABASE_URL..."
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /tmp/schema.sql
+  pg_restore --schema-only --no-owner --no-acl --no-comments -d "$DATABASE_URL" /tmp/schema.dump
 
   echo "Schema restore complete."
+
 
 }
 
