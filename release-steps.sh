@@ -16,13 +16,13 @@ restore_schema_snapshot() {
     aws s3 presign "${s3_uri}" --expires-in "300"
   )"
 
-  echo "Downloading schema snapshot..."
-  curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.sql || { echo "ERROR: Failed to download schema from: '$SNAPSHOT_URL'"; exit 1; }
+  echo "Downloading snapshot..."
+  curl -fSL "$SNAPSHOT_URL" -o /tmp/snapshot.dump || { echo "ERROR: Failed to download from '$SNAPSHOT_URL'"; exit 1; }
 
-  echo "Applying schema to DATABASE_URL..."
-  psql "$DATABASE_URL" -q -v ON_ERROR_STOP=1 -f /tmp/schema.sql
+  echo "Restoring database..."
+  pg_restore --no-owner --no-acl -d "$DATABASE_URL" /tmp/snapshot.dump
 
-  echo "Schema restore complete."
+  echo "Restore complete."
 
 }
 
