@@ -10,6 +10,9 @@
                     <div class="cell small-12 medium-12">
                         <h2>{{ page.title }}</h2>
                     </div>
+                    <div class="cell small-12 medium-12">
+                        <p>{{ page.lede_text }}<p>
+                    </div>
                 </div>
 
                 {% if filter_topics or filter_program_labels or filter_program_years %}
@@ -66,10 +69,6 @@
                     </div>
                 {% endif %}
             </div>
-
-            {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body %}
-            {% endif %}
 
         </article>
     </main>

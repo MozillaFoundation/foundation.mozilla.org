@@ -1,9 +1,9 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.models import Orderable, Page
 
-from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
+from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
@@ -28,11 +28,14 @@ class FeaturedGalleryProject(Orderable):
     ]
 
 
-class GalleryPage(AbstractGeneralPage, HeroImageMixin):
+class GalleryPage(AbstractBasePage, HeroImageMixin):
+
+    lede_text = models.TextField(blank=True)
 
     subpage_types = ["gallery_hub.ProjectPage"]
 
-    content_panels = AbstractGeneralPage.content_panels + [
+    content_panels = AbstractBasePage.content_panels + [
+        FieldPanel("lede_text"),
         MultiFieldPanel(
             [
                 InlinePanel("featured_projects", label="Featured Project", max_num=25),

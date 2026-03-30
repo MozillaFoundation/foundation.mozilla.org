@@ -4,70 +4,15 @@ from django.utils.text import slugify
 from wagtail import models as wagtail_models
 
 from foundation_cms.base.models.abstract_base_page import Topic
-from foundation_cms.base.utils.helpers import reseed
+from foundation_cms.base.utils.helpers import get_faker, reseed
 from foundation_cms.gallery_hub.models import GalleryPage, ProjectPage
 from foundation_cms.gallery_hub.models.gallery_page import FeaturedGalleryProject
 from foundation_cms.gallery_hub.models.project_page import ProgramLabel
 
-PROGRAM_LABEL_NAMES = [
-    "AI & Democracy",
-    "Data Futures Lab",
-    "Digital Inclusion",
-    "Emerging Technologies",
-    "Health Data",
-    "Internet Health",
-    "Media Literacy",
-    "MozFest",
-    "Open Source",
-    "Privacy Not Included",
-    "Responsible AI",
-    "Trustworthy AI",
-    "Youth & Tech",
-    "Digital Rights",
-    "Misinformation",
-    "Algorithmic Accountability",
-    "Surveillance",
-    "Encryption",
-    "Net Neutrality",
-    "Tech Policy",
-    "Platform Governance",
-    "Cybersecurity",
-    "Human-Centered AI",
-    "Bias & Fairness",
-    "Community",
-    "Research & Innovation",
-    "Advocacy",
-    "Education",
-    "Global Programs",
-    "Ethics in Tech",
-]
-
-PROJECT_TITLES = [
-    "Protecting Privacy in the Age of AI",
-    "Open Source Tools for Digital Rights",
-    "Media Literacy Across Borders",
-    "Algorithmic Accountability in Hiring",
-    "Youth Voices in Tech Policy",
-    "Surveillance and Democracy",
-    "Community Networks in Rural Areas",
-    "Health Data and Informed Consent",
-    "Encryption for Activists",
-    "Net Neutrality and the Global Web",
-    "Bias in Facial Recognition Systems",
-    "Platform Moderation and Free Speech",
-    "AI Transparency Toolkit",
-    "Cybersecurity for Civil Society",
-    "Digital Inclusion in the Global South",
-    "Human-Centered Design for Accessibility",
-    "Misinformation and Election Integrity",
-    "Ethics Review Boards in Tech",
-    "Data Ownership and Indigenous Rights",
-    "Open Standards for a Healthy Internet",
-]
-
 
 def generate(seed):
     reseed(seed)
+    fake = get_faker()
 
     site = wagtail_models.Site.objects.filter(is_default_site=True).first()
     root = site.root_page if site else wagtail_models.Page.get_first_root_node()
@@ -76,7 +21,8 @@ def generate(seed):
     # --- 30 Program Labels ---
     print("Creating Program Labels...")
     labels = []
-    for name in PROGRAM_LABEL_NAMES:
+    for _ in range(30):
+        name = fake.sentence(nb_words=2).rstrip(".")
         label, created = ProgramLabel.objects.get_or_create(
             slug=slugify(name),
             defaults={"name": name},
@@ -102,6 +48,7 @@ def generate(seed):
             locale=default_locale,
             seo_title="Gallery",
             search_description="Explore Mozilla Foundation gallery projects.",
+            lede_text=fake.paragraph(nb_sentences=2),
         )
         root.add_child(instance=gallery_page)
         gallery_page.save_revision().publish()
@@ -110,21 +57,22 @@ def generate(seed):
     # --- 20 Project Pages (under gallery hub page) ---
     print("Creating Project Pages...")
     project_pages = []
-    for i, title in enumerate(PROJECT_TITLES):
+    for i in range(20):
         slug = f"gallery-project-{i + 1}"
         existing = ProjectPage.objects.filter(slug=slug, locale=default_locale).first()
         if existing:
             project_pages.append(existing)
             continue
 
+        title = fake.sentence(nb_words=6).rstrip(".")
         project = ProjectPage(
             title=title,
             slug=slug,
             locale=default_locale,
             program_year=2018 + (i % 8),
-            lede_text=f"An exploration of {title.lower()}.",
+            lede_text=fake.paragraph(nb_sentences=2),
             seo_title=title,
-            search_description=f"An exploration of {title.lower()}.",
+            search_description=fake.sentence(nb_words=10).rstrip("."),
         )
         gallery_page.add_child(instance=project)
 
