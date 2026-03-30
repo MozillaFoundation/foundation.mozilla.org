@@ -26,19 +26,19 @@
     }
 
     &--4 {
-      @include breakpoint(large up) {
+      @include breakpoint(medium up) {
         grid-template-columns: repeat(4, 1fr);
       }
     }
 
     &--5 {
-      @include breakpoint(large up) {
+      @include breakpoint(medium up) {
         grid-template-columns: repeat(5, 1fr);
       }
     }
 
     &--6 {
-      @include breakpoint(large up) {
+      @include breakpoint(medium up) {
         grid-template-columns: repeat(6, 1fr);
       }
     }
