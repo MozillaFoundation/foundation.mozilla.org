@@ -271,6 +271,7 @@ def get_schema_snapshot(ctx):
     print(f"Schema snapshot saved to ./{filename}")
     print(f"Upload to S3 if you have the AWS CLI: aws s3 cp {filename} s3://<bucket>/<path>/{filename}")
     print(f"Or upload to the S3 bucket manually through the AWS Console.")
+    print(f"You might also need to update heroku config variables to reference today's snapshot.")
 
 
 
