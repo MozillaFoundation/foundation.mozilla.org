@@ -1,3 +1,6 @@
+import datetime
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -12,6 +15,10 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
 from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.mixins.hero_image import HeroImageMixin
+
+
+def current_year():
+    return datetime.date.today().year
 
 
 class ProjectPage(AbstractArticlePage, HeroImageMixin):
@@ -35,6 +42,12 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         ),
     )
 
+    program_year = models.PositiveIntegerField(
+        validators=[MinValueValidator(1900), MaxValueValidator(current_year())],
+        default=current_year,
+        help_text="Enter a four-digit year.",
+    )
+
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
             [
@@ -47,6 +60,7 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         FieldPanel("lede_text"),
         FieldPanel("cta_link"),
         FieldPanel("program_label"),
+        FieldPanel("program_year"),
         FieldPanel("body"),
     ]
 
