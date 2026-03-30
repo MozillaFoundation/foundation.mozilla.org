@@ -6,6 +6,7 @@ from wagtail import blocks, fields
 from wagtail import models as wagtail_models
 from wagtail.admin import panels as panels
 from wagtail.images import get_image_model_string
+from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.legacy_apps.utility import orderables
@@ -105,6 +106,12 @@ class BuyersGuideArticlePage(BasePage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+    ]
+
+    search_fields = BasePage.search_fields + [
+        index.SearchField("title", boost=7),
+        index.SearchField("search_description", boost=7),
+        index.SearchField("body", boost=5),
     ]
 
     def get_author_profiles(self) -> list["Profile"]:

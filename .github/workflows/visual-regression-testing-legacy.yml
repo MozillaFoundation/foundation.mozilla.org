@@ -18,7 +18,7 @@ jobs:
   # GitHub Actions does not support paths filtering on pull_request_review events natively.
   # This job runs on PR approval and uses the GitHub API to check if any legacy files changed.
   # The result is passed as an output to the visual_regression_tests job.
-  check-changes:
+  check-files-on-approval:
     runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
     outputs:
@@ -95,14 +95,14 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # This fetches full Git history. Percy needs Git history to find the base commit for comparisons.
       - uses: actions/setup-python@v4
         with:
           python-version: 3.11
           cache: "pip"
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
@@ -133,4 +133,4 @@ jobs:
           npx wait-on -t 30000 http://127.0.0.1:8000/cms
           npx percy exec -t 750 -- npx playwright test ./tests/visual.spec.js
         env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_LEGACY }}

@@ -26,6 +26,28 @@
   }
 }
 
+@mixin link-text-hover-underline-animated(
+  $underline-color: map.get($mofo-colors, black)
+) {
+  position: relative;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $underline-color;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
 @mixin link-text-color(
   $default-color: map.get($mofo-colors, black),
   $hover-color: map.get($mofo-colors, black)
@@ -74,7 +96,7 @@
     background-color: $white;
     background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
     color: $black;
-    border: 1px solid $black;
+    border: 1px solid color(neutral, "400");
   }
 
   option {
