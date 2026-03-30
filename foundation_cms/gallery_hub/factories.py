@@ -42,19 +42,6 @@ PROGRAM_LABEL_NAMES = [
     "Ethics in Tech",
 ]
 
-TOPIC_NAMES = [
-    "Artificial Intelligence",
-    "Privacy",
-    "Security",
-    "Open Web",
-    "Democracy",
-    "Health",
-    "Education",
-    "Environment",
-    "Human Rights",
-    "Media",
-]
-
 PROJECT_TITLES = [
     "Protecting Privacy in the Age of AI",
     "Open Source Tools for Digital Rights",
@@ -99,14 +86,8 @@ def generate(seed):
         labels.append(label)
     print(f"  {len(labels)} Program Labels ready.")
 
-    # --- Topics (shared with other pages) ---
-    topics = []
-    for name in TOPIC_NAMES:
-        topic, _ = Topic.objects.get_or_create(
-            slug=slugify(name),
-            defaults={"name": name},
-        )
-        topics.append(topic)
+    # --- Topics (created earlier in load_redesign_data) ---
+    topics = list(Topic.objects.all())
 
     # --- 1 Gallery Hub Page (directly under site root) ---
     print("Creating Gallery Hub Page...")

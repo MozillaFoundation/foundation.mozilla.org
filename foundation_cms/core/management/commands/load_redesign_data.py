@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
+from foundation_cms.base.factories import generate_topics
 from foundation_cms.core.factories.homepage import HomePageFactory
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
@@ -44,6 +45,11 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f'Navigation Menu active: "{nav_menu.title}"'))
 
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
+
+        # Generate shared Topics (available to all page types)
+        self.stdout.write("Generating Topics...")
+        generate_topics()
+        self.stdout.write(self.style.SUCCESS("Topics ready."))
 
         # Generate footer
         self.stdout.write("Generating Site Footer...")
