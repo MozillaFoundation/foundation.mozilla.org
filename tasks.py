@@ -243,7 +243,7 @@ def copy_staging_database(ctx):
         ctx.run("node copy-db.js")
 
 
-@task(aliases=["get-snapshot"])
+@task(aliases=["get-schema"])
 def get_schema_snapshot(ctx):
     """
     Dump the schema-only from staging and save locally as backup-YYYY-MM-DD.sql.
@@ -252,7 +252,7 @@ def get_schema_snapshot(ctx):
     from datetime import date
 
     STAGING_APP = "foundation-mofostaging-net"
-    filename = f"backup-{date.today().isoformat()}.sql"
+    filename = f"schema-{date.today().isoformat()}.sql"
 
     result = ctx.run("heroku whoami", warn=True, hide=True)
     if result.failed:
