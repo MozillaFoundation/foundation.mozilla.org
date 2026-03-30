@@ -20,8 +20,8 @@ restore_schema_snapshot() {
   echo "Downloading snapshot..."
   curl -fSL "$SNAPSHOT_URL" -o /tmp/schema.dump
 
-  echo "Restoring to DATABASE_URL..."
-  pg_restore --verbose --clean --if-exists --no-comments --no-acl --no-owner -d "$DATABASE_URL" /tmp/schema.dump
+  echo "Applying schema to DATABASE_URL..."
+  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /tmp/schema.sql
 
   echo "DB schema restore complete."
 }
