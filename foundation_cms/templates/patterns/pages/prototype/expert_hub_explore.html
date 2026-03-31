@@ -1,0 +1,47 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Expert Hub Explore Prototype{% endblock title %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block body_class %}prototype-expert-hub-explore-page{% endblock body_class %}
+
+{% block content %}
+    <style>
+        .expert-table tbody tr:nth-child(odd)  { background-color: #f5f5f5; }
+        .expert-table tbody tr:nth-child(even) { background-color: #ffffff; }
+    </style>
+    <div class="grid-container">
+        <table class="expert-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Topic</th>
+                    <th>Country</th>
+                    <th>Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expert in experts %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ expert.name }}</td>
+                        <td>{{ expert.title }}</td>
+                        <td>{{ expert.topic|join:", " }}</td>
+                        <td>{{ expert.country }}</td>
+                        <td>
+                            {% if expert.photo %}
+                                <img src="{% static expert.photo %}" alt="{{ expert.name }}" width="48" height="48">
+                            {% else %}
+                                <div style="width:48px;height:48px;background-color:{{ expert.bg_color }};"></div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

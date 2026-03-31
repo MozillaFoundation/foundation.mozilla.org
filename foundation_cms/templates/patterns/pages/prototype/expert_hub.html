@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Expert Hub Prototype{% endblock title %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block body_class %}prototype-expert-hub-page{% endblock body_class %}
+
+{% block content %}
+    <div class="grid-container">
+        <a href="{% url 'prototype-expert-hub-explore' %}">See all experts</a>
+    </div>
+{% endblock content %}

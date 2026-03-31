@@ -27,6 +27,10 @@ from foundation_cms.views import (
     newsletter_unsubscribe_view,
 )
 
+from .prototype_expert_hub_views import (
+    prototype_expert_hub,
+    prototype_expert_hub_explore,
+)
 from .prototype_gallery_views import prototype_gallery, prototype_gallery_project_detail
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
@@ -102,8 +106,6 @@ urlpatterns = list(
             path("api/news/", include("foundation_cms.legacy_apps.news.urls")),
             re_path(r"^environment.json", EnvVariablesView.as_view()),
             re_path(r"^help/", review_app_help_view, name="Review app help"),
-            path("prototype/gallery/", prototype_gallery, name="prototype-gallery"),
-            path("prototype/gallery/project-detail", prototype_gallery_project_detail, name="prototype-gallery-project-detail"),
             path("tito/", include("foundation_cms.legacy_apps.events.urls")),
             # Wagtail CMS routes
             re_path(
@@ -153,6 +155,13 @@ urlpatterns += i18n_patterns(
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
     path("blog/atom/", AtomFeed()),
+    # Prototype views
+    path("prototype/gallery/", prototype_gallery, name="prototype-gallery"),
+    path(
+        "prototype/gallery/project-detail", prototype_gallery_project_detail, name="prototype-gallery-project-detail"
+    ),
+    path("prototype/expert-hub/", prototype_expert_hub, name="prototype-expert-hub"),
+    path("prototype/expert-hub/explore/", prototype_expert_hub_explore, name="prototype-expert-hub-explore"),
     # Redirects
     *foundation_redirects(),
     # wagtail-managed data
