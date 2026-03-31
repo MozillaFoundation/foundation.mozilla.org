@@ -1,4 +1,5 @@
 from django.db.models import SET_NULL, CharField, ForeignKey
+from django_countries.fields import CountryField
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
@@ -31,8 +32,7 @@ class AbstractProfilePage(AbstractBasePage):
         help_text="Brief introductory bio.",
         features=DEFAULT_RICH_TEXT_FEATURES,
     )
-    location = CharField(
-        max_length=255,
+    location = CountryField(
         help_text="Country or location of the profile.",
     )
 

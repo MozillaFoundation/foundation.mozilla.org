@@ -10,7 +10,7 @@ class ExpertProfilePageFactory(wagtail_factories.PageFactory):
 
     role = factory.Faker("job")
     bio = factory.Faker("paragraph")
-    location = factory.Faker("country")
+    location = factory.Iterator(["US", "DE", "BR", "KE", "JP"])
     image = factory.SubFactory(wagtail_factories.ImageFactory)
     seo_title = factory.Faker("sentence")
     search_description = factory.Faker("paragraph")
