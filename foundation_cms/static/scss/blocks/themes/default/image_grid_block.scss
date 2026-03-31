@@ -1,0 +1,92 @@
+.image-grid {
+  $highlight-color: color(orange, "300");
+
+  margin: 1rem 0 2rem;
+
+  @include breakpoint(large up) {
+    margin-bottom: 4rem;
+  }
+
+  &__section + &__section {
+    margin-top: 2rem;
+  }
+
+  &__heading {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+
+    @include breakpoint(large up) {
+      gap: 1.5rem;
+    }
+
+    &--4 {
+      @include breakpoint(medium up) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    &--5 {
+      @include breakpoint(medium up) {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    &--6 {
+      @include breakpoint(medium up) {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  &__link {
+    color: $black;
+    text-decoration: none;
+
+    .image-grid__media {
+      @include image-hover-zoom;
+    }
+
+    &:hover,
+    &:focus {
+      color: $black;
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      .image-grid__media,
+      .image-grid__caption {
+        outline: 2px solid $highlight-color;
+      }
+
+      .image-grid__image {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__caption {
+    margin-top: 0.75rem;
+    color: $black;
+    text-decoration: underline;
+    text-decoration-color: $highlight-color;
+    text-underline-offset: 2px;
+
+    p {
+      color: $black;
+    }
+  }
+}
