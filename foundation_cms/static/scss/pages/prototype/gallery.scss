@@ -246,18 +246,9 @@ body.prototype-gallery-page {
     &__item {
       @include mofo-text-style($body-text-styles, "small");
 
-      display: block;
-      width: 100%;
-      padding: 0;
-      background: none;
-      border: none;
-      color: inherit;
-      text-align: left;
+      display: inline-block;
       text-decoration: none;
-      cursor: pointer;
-      transition:
-        color 0.2s ease,
-        border-color 0.2s ease;
+      color: inherit;
 
       &:hover {
         font-weight: 700;
