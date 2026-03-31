@@ -96,10 +96,15 @@ function initGalleryScrollspy() {
       cancelClickScroll();
       scrollLocked = true;
 
-      if (!strip) { scrollLocked = false; return; }
+      if (!strip) {
+        scrollLocked = false;
+        return;
+      }
 
       const ratio =
-        parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+        parseFloat(
+          getComputedStyle(strip).getPropertyValue("--gallery-image-ratio"),
+        ) || 1;
       const W = strip.getBoundingClientRect().width * ratio;
 
       // Pre-compute item i's final position before the transition mutates the layout.
@@ -215,8 +220,12 @@ function initFilters() {
         // Close any other open panels first
         filterContainers.forEach((other) => {
           if (other !== container) {
-            other.querySelector(SELECTORS.filterPanel)?.setAttribute("hidden", "");
-            other.querySelector(SELECTORS.filterDropdown)?.classList.remove("is-open");
+            other
+              .querySelector(SELECTORS.filterPanel)
+              ?.setAttribute("hidden", "");
+            other
+              .querySelector(SELECTORS.filterDropdown)
+              ?.classList.remove("is-open");
           }
         });
         openPanel();
@@ -240,7 +249,11 @@ function initFilters() {
     const btn = container.querySelector(SELECTORS.filterDropdown);
     const label = btn.dataset.label;
     const count =
-      type === "year" ? (filterState.year !== null ? 1 : 0) : filterState[type].size;
+      type === "year"
+        ? filterState.year !== null
+          ? 1
+          : 0
+        : filterState[type].size;
     btn.textContent = count > 0 ? `${label} (${count})` : label;
   }
 
@@ -263,31 +276,34 @@ function initFilters() {
       )
       .join("");
 
-    activeFiltersEl.querySelectorAll(SELECTORS.activeFilterChip).forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const { type, value } = chip.dataset;
+    activeFiltersEl
+      .querySelectorAll(SELECTORS.activeFilterChip)
+      .forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const { type, value } = chip.dataset;
 
-        if (type === "year") {
-          filterState.year = null;
-        } else {
-          filterState[type].delete(value);
-        }
+          if (type === "year") {
+            filterState.year = null;
+          } else {
+            filterState[type].delete(value);
+          }
 
-        // Sync the deselected state back into the panel
-        const fc = Array.from(filterContainers).find(
-          (c) => c.dataset.filterType === type,
-        );
-        if (fc) {
-          fc.querySelectorAll(SELECTORS.filterOption).forEach((opt) => {
-            if (opt.dataset.value === value) opt.classList.remove(CLASS_NAMES.selected);
-          });
-          updateDropdownLabel(fc, type);
-        }
+          // Sync the deselected state back into the panel
+          const fc = Array.from(filterContainers).find(
+            (c) => c.dataset.filterType === type,
+          );
+          if (fc) {
+            fc.querySelectorAll(SELECTORS.filterOption).forEach((opt) => {
+              if (opt.dataset.value === value)
+                opt.classList.remove(CLASS_NAMES.selected);
+            });
+            updateDropdownLabel(fc, type);
+          }
 
-        applyFilters();
-        renderActiveFilters();
+          applyFilters();
+          renderActiveFilters();
+        });
       });
-    });
   }
 
   // Show/hide strip items and nav links based on the current filterState.
@@ -350,7 +366,9 @@ function setStripTopMargin() {
   if (!strip || !items.length) return;
   strip.style.marginTop = ""; // reset before measuring natural position
   const ratio =
-    parseFloat(getComputedStyle(strip).getPropertyValue("--gallery-image-ratio")) || 1;
+    parseFloat(
+      getComputedStyle(strip).getPropertyValue("--gallery-image-ratio"),
+    ) || 1;
   const W = strip.getBoundingClientRect().width * ratio;
   const navH = parseFloat(getComputedStyle(items[0]).scrollMarginTop) || 0;
   const item0DocTop = items[0].getBoundingClientRect().top + window.scrollY;

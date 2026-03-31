@@ -61,6 +61,7 @@ body.prototype-gallery-page {
 
     &__label {
       @include mofo-text-style($body-text-styles, "small");
+
       font-weight: 600;
     }
 
@@ -124,6 +125,7 @@ body.prototype-gallery-page {
       @include breakpoint(xlarge) {
         top: calc(100% + rem-calc(24));
       }
+
       left: 0;
       z-index: 100;
       background: #fff;
@@ -307,7 +309,7 @@ body.prototype-gallery-page {
       position: absolute;
       top: rem-calc(8);
       left: rem-calc(8);
-      background: rgba(0, 0, 0, 0.6);
+      background: rgb(0 0 0 / 60%);
       color: #fff;
       font-size: rem-calc(12);
       padding: rem-calc(2) rem-calc(6);
@@ -323,6 +325,7 @@ body.prototype-gallery-page {
       transition: width 0.35s ease;
 
       // Item immediately before the active one
+
       /* &:has(+ .is-active) {
         width: 40%;
       } */
@@ -344,6 +347,7 @@ body.prototype-gallery-page {
       object-fit: cover;
       position: relative;
       z-index: 1;
+
       /* mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
       mask-size: cover;
       mask-repeat: no-repeat;
