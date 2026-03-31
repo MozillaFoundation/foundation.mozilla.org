@@ -27,7 +27,7 @@ from foundation_cms.views import (
     newsletter_unsubscribe_view,
 )
 
-from .prototype_views import prototype_gallery, prototype_gallery_project_detail
+from .prototype_gallery_views import prototype_gallery, prototype_gallery_project_detail
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
 from .views import (
