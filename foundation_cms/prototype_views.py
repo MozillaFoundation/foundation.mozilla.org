@@ -297,6 +297,14 @@ PROJECTS = [
 ]
 
 
+def prototype_gallery_project_detail(request):
+    return render(
+        request,
+        "patterns/pages/prototype/gallery_project_detail.html",
+        {},
+    )
+
+
 def prototype_gallery(request):
     projects = PROJECTS + FILLER_PROJECTS
     filter_options = {
