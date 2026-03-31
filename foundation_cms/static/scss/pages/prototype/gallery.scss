@@ -59,10 +59,13 @@ body.prototype-gallery-page {
     background: color(neutral, "200");
     margin-bottom: rem-calc(24);
 
+    &__label {
+      @include mofo-text-style($body-text-styles, "small");
+      font-weight: 600;
+    }
+
     &__label,
     &__dropdown {
-      @include mofo-text-style($body-text-styles, "small");
-
       padding: rem-calc(2) rem-calc(6);
     }
 
@@ -80,6 +83,8 @@ body.prototype-gallery-page {
     }
 
     &__dropdown {
+      @include mofo-text-style($label-text-styles, "regular");
+
       display: flex;
       align-items: center;
       gap: rem-calc(4);
@@ -100,8 +105,15 @@ body.prototype-gallery-page {
         transition: transform 0.3s ease-in-out;
       }
 
-      &.is-open::after {
-        transform: rotate(0deg);
+      &.is-open {
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-thickness: rem-calc(3);
+        text-underline-offset: rem-calc(3);
+
+        &::after {
+          transform: rotate(0deg);
+        }
       }
     }
 

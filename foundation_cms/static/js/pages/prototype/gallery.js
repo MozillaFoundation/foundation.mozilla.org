@@ -200,25 +200,39 @@ function initFilters() {
       });
     });
 
-    // Show on hover; delay close so the cursor can cross the gap into the panel
+    // Show on click; close when clicking outside
     const dropdownBtn = container.querySelector(SELECTORS.filterDropdown);
-    let closeTimer;
     const openPanel = () => {
-      clearTimeout(closeTimer);
       panel.removeAttribute("hidden");
       dropdownBtn.classList.add("is-open");
     };
     const closePanel = () => {
-      closeTimer = setTimeout(() => {
-        panel.setAttribute("hidden", "");
-        dropdownBtn.classList.remove("is-open");
-      }, 150);
+      panel.setAttribute("hidden", "");
+      dropdownBtn.classList.remove("is-open");
+    };
+    const togglePanel = () => {
+      if (panel.hasAttribute("hidden")) {
+        // Close any other open panels first
+        filterContainers.forEach((other) => {
+          if (other !== container) {
+            other.querySelector(SELECTORS.filterPanel)?.setAttribute("hidden", "");
+            other.querySelector(SELECTORS.filterDropdown)?.classList.remove("is-open");
+          }
+        });
+        openPanel();
+      } else {
+        closePanel();
+      }
     };
 
-    container.addEventListener("mouseenter", openPanel);
-    container.addEventListener("mouseleave", closePanel);
-    panel.addEventListener("mouseenter", openPanel);
-    panel.addEventListener("mouseleave", closePanel);
+    dropdownBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      togglePanel();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!container.contains(e.target)) closePanel();
+    });
   });
 
   // Update the dropdown button label to show how many options are selected.
