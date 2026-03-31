@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+
+PROJECT_DETAIL_URL = reverse_lazy("prototype-gallery-project-detail")
 
 PALETTE = [
     "#FF6B6B",
@@ -21,7 +24,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Ghana",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -33,7 +36,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Colombia",
         "year": 2024,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -45,7 +48,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Japan",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -57,7 +60,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Senegal",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -69,7 +72,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Denmark",
         "year": 2024,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -81,7 +84,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Brazil",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -93,7 +96,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Iran",
         "year": 2024,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -105,7 +108,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Kenya",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -117,7 +120,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Italy",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -129,7 +132,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "South Korea",
         "year": 2024,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -141,7 +144,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Nigeria",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -153,7 +156,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Sweden",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -165,7 +168,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Mexico",
         "year": 2024,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -177,7 +180,7 @@ FILLER_PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "India",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
     {
@@ -189,7 +192,7 @@ FILLER_PROJECTS = [
         "program": "TIAT Residency",
         "country": "Ghana",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
         "filler": True,
     },
 ]
@@ -204,7 +207,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "Stuck in the Middle",
@@ -215,7 +218,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "Archive the Memory",
@@ -226,7 +229,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "Versus.exe",
@@ -237,7 +240,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "The Beating Heart",
@@ -248,7 +251,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "Prompt Fountain – Slop Generator",
@@ -259,7 +262,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "Memory Well",
@@ -270,7 +273,7 @@ PROJECTS = [
         "program": "TIAT Residency",
         "country": "USA",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "SUPER ASHA",
@@ -281,7 +284,7 @@ PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Hong Kong",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
     {
         "name": "Citizen Data Generation",
@@ -292,7 +295,7 @@ PROJECTS = [
         "program": "Mozilla Fellow",
         "country": "Brazil",
         "year": 2025,
-        "url": "/test-test",
+        "url": PROJECT_DETAIL_URL,
     },
 ]
 

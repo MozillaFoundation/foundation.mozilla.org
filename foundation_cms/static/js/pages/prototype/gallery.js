@@ -82,7 +82,7 @@ function initGalleryScrollspy() {
 
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  // Clicking a nav item:
+  // Hovering a nav item:
   //   1. Computes item i's final document-top after the CSS width transition.
   //      If the currently-active item is above i it will shrink (100% → 40%,
   //      −0.6 W), shifting i upward by a known amount.
@@ -92,7 +92,7 @@ function initGalleryScrollspy() {
   //   3. Re-affirms the intended active item once scrolling stops, then
   //      releases the scrollspy lock.
   navLinks.forEach((btn, i) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("mouseenter", () => {
       cancelClickScroll();
       scrollLocked = true;
 

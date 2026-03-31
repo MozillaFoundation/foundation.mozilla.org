@@ -74,15 +74,16 @@
                         <ul class="gallery-nav__list">
                             {% for project in projects %}
                                 <li>
-                                    <button
+                                    <a
                                         class="gallery-nav__item{% if forloop.first %} is-active{% endif %}"
+                                        href="{{ project.url }}"
                                         data-tags="{{ project.tags|join:',' }}"
                                         data-program="{{ project.program }}"
                                         data-country="{{ project.country }}"
                                         data-year="{{ project.year }}"
                                     >
                                         {{ forloop.counter }}. {% if project.filler %}<span class="gallery-nav__filler">(filler)</span>{% endif %} {{ project.name }}<span class="gallery-nav__expert">{{ project.expert }}</span>
-                                    </button>
+                                    </a>
                                 </li>
                             {% endfor %}
                         </ul>
