@@ -127,7 +127,7 @@ def initialize_database(ctx, slow=False):
 
 
 @task(aliases=["docker-new-db"])
-def new_db(ctx, slow=False):
+def new_db(ctx, slow=False, no_seed_data=False):
     """
     Delete your database and create a new one with fake data.
 
@@ -135,6 +135,8 @@ def new_db(ctx, slow=False):
     to pass the `--slow` flag. This will make sure that the containers are stopped
     between the management commands and prevent that issue.
 
+    Pass `--no-seed-data` to run migrations only, skipping all content/fake data loading.
+    This is used by `inv generate-schema-snapshot` to produce a clean snapshot.
     """
     print("* Starting the postgres service")
     ctx.run("docker-compose up -d postgres")
@@ -142,7 +144,11 @@ def new_db(ctx, slow=False):
     ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -hpostgres -Ufoundation")
     print("* Create the database")
     ctx.run("docker-compose run --rm postgres createdb wagtail -hpostgres -Ufoundation")
-    initialize_database(ctx, slow=slow)
+    if no_seed_data:
+        print("* Applying migrations (no seed data)...")
+        migrate(ctx, stop=slow)
+    else:
+        initialize_database(ctx, slow=slow)
     print("Stop postgres service")
     ctx.run("docker-compose down")
 
@@ -241,6 +247,40 @@ def yarn_install(ctx):
 def copy_staging_database(ctx):
     with ctx.cd(ROOT):
         ctx.run("node copy-db.js")
+
+
+@task(aliases=["new-snapshot"])
+def generate_schema_snapshot(ctx):
+    """
+    Build a clean local DB (migrations only, no seed content), dump it in custom format,
+    and save it as a .dump file ready for pg_restore on review apps.
+
+    WARNING: This will destroy and recreate your local database.
+    Upload the resulting file to S3 manually afterward.
+    """
+    from datetime import date
+
+    filename = f"schema-{date.today().isoformat()}.dump"
+
+    answer = input("This will destroy and rebuild your local database. Continue? [y/N] ").strip().lower()
+    if answer != "y":
+        print("Aborted.")
+        return
+
+    new_db(ctx, no_seed_data=True)
+
+    print(f"* Dumping database to {filename}...")
+    ctx.run(f"docker-compose up -d postgres")
+    ctx.run(
+        f"docker-compose run --rm postgres pg_dump -Fc --no-owner --no-acl -hpostgres -Ufoundation wagtail > {filename}"
+    )
+    ctx.run("docker-compose down")
+
+    print(f"Snapshot saved to ./{filename}")
+    print(f"Upload to S3 with: aws s3 cp {filename} s3://<bucket>/snapshots/{filename}")
+    print(f"You might also need to update heroku config variables to reference today's snapshot.")
+    print(f"Snapshot complete, initializing content for local database.")
+    initialize_database(ctx, slow=False)
 
 
 @task(aliases=["copy-prod-db"])
