@@ -22,16 +22,12 @@ restore_schema_snapshot() {
       aws s3 presign "${s3_uri}" --expires-in "300"
     )"
 
+    echo "Downloading snapshot..."
+    curl -fSL "$SNAPSHOT_URL" -o /tmp/snapshot.dump || { echo "ERROR: Failed to download from '$SNAPSHOT_URL'"; exit 1; }
 
-      echo "Generating presigned URL for schema snapshot: $S3_SNAPSHOT_PATH"
-      SNAPSHOT_URL=$(aws s3 presign "$S3_SNAPSHOT_PATH")
-
-      echo "Downloading snapshot..."
-      curl -fSL "$SNAPSHOT_URL" -o /tmp/snapshot.dump || { echo "ERROR: Failed to download from '$SNAPSHOT_URL'"; exit 1; }
-
-      echo "Restoring database..."
-      pg_restore --no-owner --no-acl -d "$DATABASE_URL" /tmp/snapshot.dump
-      echo "Restore complete."
+    echo "Restoring database..."
+    pg_restore --no-owner --no-acl -d "$DATABASE_URL" /tmp/snapshot.dump
+    echo "Restore complete."
   fi
 
 }
