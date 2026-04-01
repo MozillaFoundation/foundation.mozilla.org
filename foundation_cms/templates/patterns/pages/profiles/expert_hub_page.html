@@ -1,0 +1,90 @@
+{% extends theme_base %}
+
+{% load wagtailimages_tags i18n %}
+
+{% block content %}
+    <main class="expert-hub-page">
+        <div class="grid-container">
+            <h1>{{ page.title }}</h1>
+
+            {% if featured_experts %}
+                <section class="expert-hub-page__featured">
+                    <h2>{% trans "Featured Experts" %}</h2>
+                    <div class="grid-x grid-margin-x">
+                        {% for item in featured_experts %}
+                            {% ifchanged item.topic %}
+                                {% if not forloop.first %}</div><div class="grid-x grid-margin-x">{% endif %}
+                                <div class="cell small-12">
+                                    {% if item.topic %}
+                                        <h3>{{ item.topic.name }}</h3>
+                                    {% else %}
+                                        <h3>{% trans "Other" %}</h3>
+                                    {% endif %}
+                                </div>
+                            {% endifchanged %}
+                            <div class="cell small-12 medium-6 large-4">
+                                <article class="expert-card">
+                                    {% if item.expert.image %}
+                                        <a href="{{ item.expert.url }}">
+                                            {% image item.expert.image fill-400x400 as card_img %}
+                                            <img
+                                                src="{{ card_img.url }}"
+                                                alt="{{ item.expert.title }}"
+                                                width="{{ card_img.width }}"
+                                                height="{{ card_img.height }}"
+                                                loading="lazy"
+                                            >
+                                        </a>
+                                    {% endif %}
+                                    <h4><a href="{{ item.expert.url }}">{{ item.expert.title }}</a></h4>
+                                    {% if item.expert.role %}
+                                        <p class="expert-card__role">{{ item.expert.role }}</p>
+                                    {% endif %}
+                                    {% if item.topic %}
+                                        <span class="btn-topic">{{ item.topic.name }}</span>
+                                    {% endif %}
+                                </article>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+
+            {% if featured_topic_objects %}
+                <section class="expert-hub-page__topics">
+                    <h2>{% trans "Issue Areas" %}</h2>
+                    <ul class="topic-pills">
+                        {% for topic in featured_topic_objects %}
+                            <li>
+                                <button class="btn-topic" type="button" data-topic-slug="{{ topic.slug }}">
+                                    {{ topic.name }}
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endif %}
+
+            {% if total_experts_count %}
+                <section
+                    class="expert-hub-page__listing"
+                    data-experts-api="{{ page.url }}experts/"
+                    data-page-size="{{ page.PAGE_SIZE }}"
+                    data-total-count="{{ total_experts_count }}"
+                >
+                    <h2>{% trans "All Experts" %} <span class="expert-hub-page__count">({{ total_experts_count }})</span></h2>
+                    <div class="expert-hub-page__cards">
+                        {# Cards rendered by JS from the JSON API #}
+                    </div>
+                    <nav class="expert-hub-page__pagination" aria-label="{% trans 'Expert listing pagination' %}">
+                        {# Pagination controls rendered by JS #}
+                    </nav>
+                </section>
+            {% endif %}
+        </div>
+
+        {% if page.body %}
+            {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+        {% endif %}
+    </main>
+{% endblock content %}
