@@ -22,6 +22,7 @@ const entries = [
   "pages/nothing_personal/product_review_page",
   "pages/nothing_personal/home_page",
   "pages/prototype/gallery",
+  "pages/prototype/expert_hub",
 ];
 
 const inDir = "../../foundation_cms/static/scss";

@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -311,10 +313,23 @@ EXPERTS = []
 
 
 def prototype_expert_hub(request):
+    experts_data = [
+        {
+            "name": e["name"],
+            "title": e["title"],
+            "topics": e["topic"],
+            "bg_color": e["bg_color"],
+            "url": str(e["url"]),
+        }
+        for e in (EXPERTS + FILLER_EXPERTS)[:12]
+    ]
     return render(
         request,
         "patterns/pages/prototype/expert_hub.html",
-        {},
+        {
+            "experts_json": json.dumps(experts_data),
+            "explore_url": str(EXPERT_EXPLORE_URL),
+        },
     )
 
 

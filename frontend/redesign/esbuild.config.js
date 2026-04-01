@@ -62,6 +62,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  prototype_expert_hub: {
+    source: "pages/prototype/expert_hub.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {
