@@ -14,7 +14,6 @@ const SELECTORS = {
 
 const CLASS_NAMES = {
   ready: "is-ready",
-  panning: "is-panning",
   panLayer: "expert-hub-network__pan-layer",
   card: "expert-hub-card",
   cardActive: "is-active",
@@ -162,8 +161,6 @@ function initExpertHub() {
   setupSelectionBehavior();
   const simulation = setupSimulation();
   setupDragBehavior();
-  setupPanBehavior();
-
   warmupAndStart();
   setupResizeObserver();
 
@@ -294,36 +291,6 @@ function initExpertHub() {
       });
 
     cardEls.forEach(({ node, el }) => select(el).datum(node).call(nodeDrag));
-  }
-
-  function setupPanBehavior() {
-    // Background pan: pointer events on the container (skip card targets)
-    let isPanning = false;
-    let panStartX = 0;
-    let panStartY = 0;
-
-    container.addEventListener("pointerdown", (e) => {
-      if (e.target.closest(`.${CLASS_NAMES.card}`)) return;
-      isPanning = true;
-      panStartX = e.clientX - panX;
-      panStartY = e.clientY - panY;
-      container.setPointerCapture(e.pointerId);
-      container.classList.add(CLASS_NAMES.panning);
-    });
-
-    container.addEventListener("pointermove", (e) => {
-      if (!isPanning) return;
-      panX = e.clientX - panStartX;
-      panY = e.clientY - panStartY;
-      panLayerEl.style.transform = `translate(${panX}px, ${panY}px)`;
-    });
-
-    ["pointerup", "pointercancel"].forEach((evt) =>
-      container.addEventListener(evt, () => {
-        isPanning = false;
-        container.classList.remove(CLASS_NAMES.panning);
-      }),
-    );
   }
 
   function warmupAndStart() {
