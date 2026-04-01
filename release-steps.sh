@@ -1,92 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-update_site_bindings() {
-  # Idea borrowed from mofo-cron's prod to stage copy
+restore_schema_snapshot() {
+  echo "Restoring schema from snapshot."
 
-  RA_HOST="${HEROKU_APP_NAME}.mofostaging.net"
-  LEGACY_RA_HOST="legacy-${HEROKU_APP_NAME}.mofostaging.net"
-  MOZFEST_RA_HOST="mozfest-${HEROKU_APP_NAME}.mofostaging.net"
+  TABLE_EXISTS=$(psql "$DATABASE_URL" -tAc "SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'auth_group')")
 
-  echo "Updating site bindings for review app: $HEROKU_APP_NAME"
+  if [ "$TABLE_EXISTS" = "t" ]; then
+    echo "Database already initialized, skipping restore."
+  else
 
-  echo "Updating django_site..."
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<SQL
-UPDATE django_site
-SET domain = '${RA_HOST}'
-WHERE domain LIKE '%.mofostaging.net';
-SQL
+    local s3_uri
+    s3_uri="s3://${AWS_REVIEW_APP_SNAPSHOT_BUCKET}/${AWS_REVIEW_APP_SNAPSHOT_PATH}"
 
-  echo "Updating wagtailcore_site..."
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<SQL
-UPDATE wagtailcore_site
-SET hostname = '${RA_HOST}', port = 80
-WHERE site_name = 'Mozilla Foundation';
+    echo "Generating presigned URL for schema snapshot: ${s3_uri}"
 
-UPDATE wagtailcore_site
-SET hostname = '${LEGACY_RA_HOST}', port = 80
-WHERE site_name = 'Legacy Site';
+    SNAPSHOT_URL="$(
+      AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID_REVIEW_APP_SNAPSHOT}" \
+      AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY_REVIEW_APP_SNAPSHOT}" \
+      AWS_DEFAULT_REGION="${AWS_REVIEW_APP_SNAPSHOT_REGION}" \
+      aws s3 presign "${s3_uri}" --expires-in "300"
+    )"
 
-UPDATE wagtailcore_site
-SET hostname = '${MOZFEST_RA_HOST}', port = 80
-WHERE site_name = 'Mozilla Festival';
-SQL
+    echo "Downloading snapshot..."
+    curl -fSL "$SNAPSHOT_URL" -o /tmp/snapshot.dump || { echo "ERROR: Failed to download from '$SNAPSHOT_URL'"; exit 1; }
 
-  echo "Site bindings updated."
-}
-
-db_already_init() {
-  # If wagtailcore_site exists and has at least 1 row, assume snapshot already applied
-  psql "$DATABASE_URL" -tAc "SELECT 1 FROM wagtailcore_site LIMIT 1;" 2>/dev/null | grep -q 1
-}
-
-
-restore_review_app_backup() {
-
-  if db_already_init; then
-    echo "Database already appears to be initialized and seeded. Skipping DB restore."
-    return 0
+    echo "Restoring database..."
+    pg_restore --no-owner --no-acl -d "$DATABASE_URL" /tmp/snapshot.dump
+    echo "Restore complete."
   fi
 
-  echo "DB not initialized. Restoring database."
-
-  local s3_uri
-  s3_uri="s3://${AWS_REVIEW_APP_SNAPSHOT_BUCKET}/${AWS_REVIEW_APP_SNAPSHOT_PATH}"
-
-  echo "Generating presigned URL for snapshot: ${s3_uri}"
-
-  # Generate presigned URL using the snapshot-specific credentials, scoped to this command only
-  SNAPSHOT_URL="$(
-    AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID_REVIEW_APP_SNAPSHOT}" \
-    AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY_REVIEW_APP_SNAPSHOT}" \
-    AWS_DEFAULT_REGION="${AWS_REVIEW_APP_SNAPSHOT_REGION}" \
-    aws s3 presign "${s3_uri}" --expires-in "300"
-  )"
-
-  echo "Downloading snapshot..."
-  curl -fSL "$SNAPSHOT_URL" -o /tmp/review.dump
-
-  echo "Restoring to DATABASE_URL..."
-  pg_restore --verbose --clean --if-exists --no-comments --no-acl --no-owner -d "$DATABASE_URL" /tmp/review.dump
-
-  echo "DB restore complete."
-
-  echo "Removing snapshot admin user (if present)..."
-
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c \
-    "DELETE FROM auth_user WHERE username = 'admin';"
-
-  echo "Admin cleanup complete."
-
-  echo "Updating site bindings..."
-  update_site_bindings
-  echo "Site bindings update complete."
 }
 
 if [ "${INIT_DB_FROM_SNAPSHOT:-}" = "True" ]; then
-  restore_review_app_backup
+  restore_schema_snapshot
 else
-  echo "INIT_DB_FROM_SNAPSHOT is not True. Skipping DB restore, continue to migrate."
+  echo "No snapshot mode set. Skipping DB restore, continuing to migrate."
 fi
 
 # Django Migrations

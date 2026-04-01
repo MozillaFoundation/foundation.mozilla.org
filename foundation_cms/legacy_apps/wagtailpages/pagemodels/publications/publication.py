@@ -5,6 +5,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page
+from wagtail.search import index
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -241,6 +242,15 @@ class PublicationPage(BasePage):
         TranslatableField("intro_notes"),
         TranslatableField("contents_title"),
         TranslatableField("notes"),
+    ]
+
+    search_fields = BasePage.search_fields + [
+        index.SearchField("title", boost=7),
+        index.SearchField("search_description", boost=7),
+        index.SearchField("subtitle", boost=5),
+        index.SearchField("secondary_subtitle", boost=3),
+        index.SearchField("intro_notes", boost=3),
+        index.SearchField("notes", boost=3),
     ]
 
     @property

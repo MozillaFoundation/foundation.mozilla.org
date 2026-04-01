@@ -3,11 +3,12 @@
 .petition__form-wrapper {
   $black: map.get($mofo-colors, black);
   $white: map.get($mofo-colors, white);
+  $border-color: color(neutral, "400");
   $error-color: color(orange, "600");
   $field-gap: 1rem;
 
   @mixin shared-style {
-    border: 1px solid $black;
+    border: 1px solid $border-color;
     background: $white;
     width: 100%;
     padding: 1rem;
@@ -109,7 +110,7 @@
       display: inline-block;
       position: relative;
       background-color: $white;
-      border: 1px solid color(neutral, "600");
+      border: 1px solid $border-color;
       cursor: pointer;
 
       &:checked {

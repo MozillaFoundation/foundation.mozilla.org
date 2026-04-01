@@ -10,6 +10,7 @@ from wagtail.admin.panels import (
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Orderable, Page
+from wagtail.search import index
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -238,6 +239,14 @@ class ArticlePage(BasePage):
         SynchronizedField("article_file"),
         TranslatableField("body"),
         TranslatableField("footnotes"),
+    ]
+
+    search_fields = BasePage.search_fields + [
+        index.SearchField(field_name="title", boost=7),
+        index.SearchField(field_name="search_description", boost=7),
+        index.SearchField(field_name="subtitle", boost=5),
+        index.SearchField(field_name="secondary_subtitle", boost=3),
+        index.SearchField(field_name="body", boost=5),
     ]
 
     @property

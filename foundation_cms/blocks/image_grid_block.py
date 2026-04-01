@@ -25,9 +25,9 @@ class ImageGridSectionBlock(StructBlock):
     heading = CharBlock(required=False, help_text="Optional heading for this section", max_length=100)
     section_orientation = ChoiceBlock(
         choices=[
-            ("portrait", "Portrait"),
-            ("landscape", "Landscape"),
-            ("square", "Square"),
+            ("portrait", "Portrait (2:3)"),
+            ("landscape", "Landscape (3:2)"),
+            ("square", "Square (1:1)"),
         ],
         default="landscape",
         help_text="Orientation for all images in this section",
