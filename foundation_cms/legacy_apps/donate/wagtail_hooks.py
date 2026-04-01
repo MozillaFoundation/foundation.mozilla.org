@@ -1,7 +1,9 @@
 from wagtail import hooks
 from wagtail.admin.ui.tables import BooleanColumn, UpdatedAtColumn
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+from wagtail.snippets.views.snippets import SnippetViewSetGroup
+
+from foundation_cms.legacy_apps.wagtailcustomization.permissions import LegacySnippetViewSet
 
 from foundation_cms.legacy_apps.donate.snippets.help_page_notice import HelpPageNotice
 from foundation_cms.legacy_apps.donate_banner.models import DonateBanner
@@ -12,7 +14,7 @@ from foundation_cms.legacy_apps.wagtailpages.donation_modal import DonationModal
 
 
 # Customise DonateBanner Snippet admin listing to show extra columns.
-class DonateBannerViewSet(SnippetViewSet):
+class DonateBannerViewSet(LegacySnippetViewSet):
     model = DonateBanner
     icon = "form"  # change as required
     menu_order = 100
@@ -43,7 +45,7 @@ def register_donate_banner_chooser_viewset():
     )
 
 
-class HelpPageNoticeViewSet(SnippetViewSet):
+class HelpPageNoticeViewSet(LegacySnippetViewSet):
     model = HelpPageNotice
     icon = "form"
     menu_label = "Help Page Notices (Legacy)"
@@ -58,7 +60,7 @@ class HelpPageNoticeViewSet(SnippetViewSet):
     ordering = ("name",)
 
 
-class DonationModalSnippetViewSet(SnippetViewSet):
+class DonationModalSnippetViewSet(LegacySnippetViewSet):
     model = DonationModal
     icon = "newspaper"
     menu_order = 200
