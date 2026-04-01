@@ -1,14 +1,43 @@
 from django.db import migrations
 
+LEGACY_GROUP_NAME = "access/legacy content editor"
+DEFAULT_GROUP_NAME = "access/content editor: no publishing access"
+
+LEGACY_APP_LABELS = [
+    "campaign",
+    "donate",
+    "donate_banner",
+    "events",
+    "highlights",
+    "mozfest",
+    "nav",
+    "news",
+    "people",
+    "wagtailpages",
+]
+
 
 def create_legacy_group(apps, schema_editor):
     Group = apps.get_model("auth", "Group")
-    Group.objects.get_or_create(name="access/legacy content editor")
+    Permission = apps.get_model("auth", "Permission")
+
+    legacy_group, _ = Group.objects.get_or_create(name=LEGACY_GROUP_NAME)
+
+    legacy_permissions = Permission.objects.filter(content_type__app_label__in=LEGACY_APP_LABELS)
+    legacy_group.permissions.set(legacy_permissions)
+
+    # Remove legacy permissions from the default content editor group so that
+    # only members of the legacy group (and superusers) can access legacy content.
+    try:
+        default_group = Group.objects.get(name=DEFAULT_GROUP_NAME)
+        default_group.permissions.remove(*legacy_permissions)
+    except Group.DoesNotExist:
+        pass
 
 
 def delete_legacy_group(apps, schema_editor):
     Group = apps.get_model("auth", "Group")
-    Group.objects.filter(name="access/legacy content editor").delete()
+    Group.objects.filter(name=LEGACY_GROUP_NAME).delete()
 
 
 class Migration(migrations.Migration):

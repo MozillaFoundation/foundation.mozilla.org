@@ -21,9 +21,7 @@ from wagtail.coreutils import find_available_slug
 from wagtail.models import PageViewRestriction
 from wagtail.rich_text import LinkHandler
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSetGroup
-
-from foundation_cms.legacy_apps.wagtailcustomization.permissions import LegacySnippetViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from wagtail_localize.models import (
     LocaleSynchronization,
     sync_trees_on_locale_sync_save,
@@ -173,7 +171,7 @@ def register_howto_menu_item():
     )
 
 
-class BlogPageTopicSnippetViewSet(LegacySnippetViewSet):
+class BlogPageTopicSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BlogPageTopic
     icon = "tag"
     menu_order = 000
@@ -187,7 +185,7 @@ class BlogPageTopicSnippetViewSet(LegacySnippetViewSet):
     ordering = ("name",)
 
 
-class BlogSignupSnippetViewSet(LegacySnippetViewSet):
+class BlogSignupSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BlogSignup
     icon = "newspaper"
     menu_order = 100
@@ -212,7 +210,7 @@ class BlogViewSetGroup(SnippetViewSetGroup):
 register_snippet(BlogViewSetGroup)
 
 
-class BuyersGuideProductCategorySnippetViewSet(LegacySnippetViewSet):
+class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BuyersGuideProductCategory
     icon = "list-ul"
     menu_order = 000
@@ -237,7 +235,7 @@ class BuyersGuideProductCategorySnippetViewSet(LegacySnippetViewSet):
     )
 
 
-class BuyersGuideContentCategorySnippetViewSet(LegacySnippetViewSet):
+class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BuyersGuideContentCategory
     icon = "tag"
     menu_order = 100
@@ -251,7 +249,7 @@ class BuyersGuideContentCategorySnippetViewSet(LegacySnippetViewSet):
     ordering = ("title",)
 
 
-class BuyersGuideUpdateSnippetViewSet(LegacySnippetViewSet):
+class BuyersGuideUpdateSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Update
     icon = "history"
     menu_order = 200
@@ -280,7 +278,7 @@ class BuyersGuideUpdateSnippetViewSet(LegacySnippetViewSet):
         )
 
 
-class BuyersGuideCTASnippetViewSet(LegacySnippetViewSet):
+class BuyersGuideCTASnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.BuyersGuideCallToAction
     icon = "link-external"
     menu_order = 300
@@ -319,7 +317,7 @@ class BuyersGuideViewSetGroup(SnippetViewSetGroup):
 register_snippet(BuyersGuideViewSetGroup)
 
 
-class ResearchTopicsSnippetViewSet(LegacySnippetViewSet):
+class ResearchTopicsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.ResearchTopic
     icon = "tag"
     menu_order = 000
@@ -330,7 +328,7 @@ class ResearchTopicsSnippetViewSet(LegacySnippetViewSet):
     ordering = ("name",)
 
 
-class ResearchRegionsSnippetViewSet(LegacySnippetViewSet):
+class ResearchRegionsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.ResearchRegion
     icon = "globe"
     menu_order = 100
@@ -352,7 +350,7 @@ class ResearchSetGroup(SnippetViewSetGroup):
 register_snippet(ResearchSetGroup)
 
 
-class RCCContentTypeSnippetViewSet(LegacySnippetViewSet):
+class RCCContentTypeSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.RCCContentType
     icon = "clipboard-list"
     menu_order = 000
@@ -363,7 +361,7 @@ class RCCContentTypeSnippetViewSet(LegacySnippetViewSet):
     ordering = ("name",)
 
 
-class RCCCurricularAreaSnippetViewSet(LegacySnippetViewSet):
+class RCCCurricularAreaSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.RCCCurricularArea
     icon = "doc-full"
     menu_order = 100
@@ -374,7 +372,7 @@ class RCCCurricularAreaSnippetViewSet(LegacySnippetViewSet):
     ordering = ("name",)
 
 
-class RCCTopicsSnippetViewSet(LegacySnippetViewSet):
+class RCCTopicsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.RCCTopic
     icon = "tag"
     menu_order = 200
@@ -396,7 +394,7 @@ class RCCSetGroup(SnippetViewSetGroup):
 register_snippet(RCCSetGroup)
 
 
-class PetitionsSnippetViewSet(LegacySnippetViewSet):
+class PetitionsSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Petition
     icon = "comment"
     menu_order = 1700
@@ -431,7 +429,7 @@ class PetitionsSnippetViewSet(LegacySnippetViewSet):
 register_snippet(PetitionsSnippetViewSet)
 
 
-class ProfilesSnippetViewSet(LegacySnippetViewSet):
+class ProfilesSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Profile
     icon = "user"
     menu_order = 1800
@@ -446,7 +444,7 @@ class ProfilesSnippetViewSet(LegacySnippetViewSet):
 register_snippet(ProfilesSnippetViewSet)
 
 
-class CTASnippetViewSet(LegacySnippetViewSet):
+class CTASnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.CTA
     icon = "link-external"
     menu_order = 1900
@@ -464,7 +462,7 @@ class CTASnippetViewSet(LegacySnippetViewSet):
 register_snippet(CTASnippetViewSet)
 
 
-class SignupSnippetViewSet(LegacySnippetViewSet):
+class SignupSnippetViewSet(SnippetViewSet):
     model = wagtailpages_models.Signup
     icon = "newspaper"
     menu_order = 2000
@@ -490,7 +488,7 @@ class SignupSnippetViewSet(LegacySnippetViewSet):
 register_snippet(SignupSnippetViewSet)
 
 
-class AreasOfFocusViewSet(LegacySnippetViewSet):
+class AreasOfFocusViewSet(SnippetViewSet):
     model = wagtailpages_models.FocusArea
     icon = "view"
     menu_order = 000
@@ -501,7 +499,7 @@ class AreasOfFocusViewSet(LegacySnippetViewSet):
     ordering = ("name",)
 
 
-class CallpowersViewSet(LegacySnippetViewSet):
+class CallpowersViewSet(SnippetViewSet):
     model = Callpower
     icon = "chain-broken"
     menu_order = 100
@@ -516,7 +514,7 @@ class CallpowersViewSet(LegacySnippetViewSet):
     ordering = ("name",)
 
 
-class HighlightSnippetViewSet(LegacySnippetViewSet):
+class HighlightSnippetViewSet(SnippetViewSet):
     model = Highlight
     icon = "date"
     menu_order = 200
@@ -531,7 +529,7 @@ class HighlightSnippetViewSet(LegacySnippetViewSet):
     ordering = ("title",)
 
 
-class NewsSnippetViewSet(LegacySnippetViewSet):
+class NewsSnippetViewSet(SnippetViewSet):
     model = News
     icon = "doc-full-inverse"
     menu_order = 300
@@ -553,7 +551,7 @@ class NewsSnippetViewSet(LegacySnippetViewSet):
     ordering = ("-date", "outlet", "headline")
 
 
-class PulseFiltersViewSet(LegacySnippetViewSet):
+class PulseFiltersViewSet(SnippetViewSet):
     model = wagtailpages_models.PulseFilter
     icon = "cross"
     menu_order = 400

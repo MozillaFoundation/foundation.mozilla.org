@@ -1,8 +1,6 @@
 from wagtail import hooks
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSetGroup
-
-from foundation_cms.legacy_apps.wagtailcustomization.permissions import LegacySnippetViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 
 from foundation_cms.legacy_apps.nav.models import NavMenu
 from foundation_cms.legacy_apps.wagtailcustomization.views.snippet_chooser import (
@@ -27,7 +25,7 @@ def register_nav_menu_chooser_viewset():
     )
 
 
-class NavMenuViewSet(LegacySnippetViewSet):
+class NavMenuViewSet(SnippetViewSet):
     model = NavMenu
     icon = "nav-dropdown"
     menu_order = 100

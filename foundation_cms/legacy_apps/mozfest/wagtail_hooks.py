@@ -1,7 +1,5 @@
 from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSetGroup
-
-from foundation_cms.legacy_apps.wagtailcustomization.permissions import LegacySnippetViewSet
+from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from foundation_cms.legacy_apps.events.models import TitoEvent
 from foundation_cms.legacy_apps.mozfest.models import (
     NewsletterSignupWithBackground,
@@ -9,7 +7,7 @@ from foundation_cms.legacy_apps.mozfest.models import (
 )
 
 
-class TitoEventSnippetViewSet(LegacySnippetViewSet):
+class TitoEventSnippetViewSet(SnippetViewSet):
     model = TitoEvent
     icon = "tito"
     menu_order = 000
@@ -24,7 +22,7 @@ class TitoEventSnippetViewSet(LegacySnippetViewSet):
     ordering = ("title",)
 
 
-class TicketSnippetViewSet(LegacySnippetViewSet):
+class TicketSnippetViewSet(SnippetViewSet):
     model = Ticket
     icon = "ticket"
     menu_order = 100
@@ -41,7 +39,7 @@ class TicketSnippetViewSet(LegacySnippetViewSet):
     ordering = ("name", "event", "group", "cost")
 
 
-class NewsletterSignupWithBackgroundSnippetViewSet(LegacySnippetViewSet):
+class NewsletterSignupWithBackgroundSnippetViewSet(SnippetViewSet):
     model = NewsletterSignupWithBackground
     icon = "newspaper"
     menu_order = 200
