@@ -217,6 +217,14 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         SynchronizedField("use_wide_template"),
     ]
 
+    search_fields = Page.search_fields + [
+        index.SearchField("title", boost=7),
+        index.SearchField("header", boost=7),
+        index.SearchField("search_description", boost=7),
+        index.SearchField("intro", boost=5),
+        index.SearchField("body", boost=5),
+    ]
+
     def get_template(self, request):
         if self.use_wide_template:
             return "mozfest/mozfest_primary_page_wide.html"

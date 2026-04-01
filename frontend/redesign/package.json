@@ -10,6 +10,8 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "playwright:install": "playwright install chromium",
+    "percy": "percy exec -t 750 -- playwright test ./tests/visual.spec.js",
     "copy:fonts": "shx mkdir -p ../../foundation_cms/static/compiled/fonts && shx cp -r ../../foundation_cms/static/fonts/* ../../foundation_cms/static/compiled/fonts/",
     "copy:images": "shx mkdir -p ../../foundation_cms/static/compiled/_images && shx cp -r ../../foundation_cms/static/images/. ../../foundation_cms/static/compiled/_images",
     "clean:css": "shx rm -rf ../../foundation_cms/static/temp/* ../../foundation_cms/static/compiled/_css/*",
@@ -49,6 +51,9 @@
     "sass": "^1.98.0"
   },
   "devDependencies": {
+    "@percy/cli": "^1.31.10",
+    "@percy/playwright": "^1.0.9",
+    "@playwright/test": "^1.58.2",
     "autoprefixer": "^10.4.27",
     "chokidar-cli": "^3.0.0",
     "eslint": "^9.39.2",
@@ -59,7 +64,7 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.8.1",
     "shx": "^0.4.0",
-    "stylelint": "^17.4.0",
+    "stylelint": "^17.5.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.0.0"
   },
