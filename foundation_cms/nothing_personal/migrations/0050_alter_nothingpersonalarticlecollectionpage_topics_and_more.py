@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("base", "0006_remove_new_from_verbose_names"),
-        ("nothing_personal", "0047_alter_nothingpersonalarticlecollectionpage_body_and_more"),
+        ("nothing_personal", "0049_alter_nothingpersonalarticlecollectionpage_body_and_more"),
     ]
 
     operations = [

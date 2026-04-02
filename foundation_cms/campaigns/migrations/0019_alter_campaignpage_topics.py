@@ -8,23 +8,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("base", "0006_remove_new_from_verbose_names"),
-        ("core", "0068_alter_generalpage_body_alter_homepage_body"),
+        ("campaigns", "0018_alter_campaignpage_body"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name="generalpage",
-            name="topics",
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(
-                blank=True,
-                help_text="Select one or more topics from the dropdown. If a topic is unavailable, please reach out to StratComms for help.",
-                through="base.PageTopic",
-                to="base.Topic",
-                verbose_name="Page Topics",
-            ),
-        ),
-        migrations.AlterField(
-            model_name="homepage",
+            model_name="campaignpage",
             name="topics",
             field=modelcluster.contrib.taggit.ClusterTaggableManager(
                 blank=True,
