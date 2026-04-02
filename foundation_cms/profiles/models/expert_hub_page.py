@@ -31,39 +31,13 @@ class ExpertHubFeaturedExpert(TranslatableMixin, Orderable):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    display_topic = models.ForeignKey(
-        Topic,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="topic_featured_in_expert_pages",
-        help_text="Topic to feature for this expert card and that will be used to group experts by topic (optional). "
-        "If not set, the first topic assigned to the expert will be used.",
-    )
 
     panels = [
         PageChooserPanel("expert"),
-        FieldPanel("display_topic"),
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         verbose_name = "Featured Expert"
-
-    def clean(self):
-        super().clean()
-        if self.display_topic and self.expert_id:
-            if not self.expert.topics.filter(pk=self.display_topic_id).exists():
-                from django.core.exceptions import ValidationError
-
-                raise ValidationError(
-                    {
-                        "display_topic": (
-                            "Selected topic is not assigned to this expert. "
-                            "Please select a topic that is assigned to the expert "
-                            "or remove the display topic."
-                        )
-                    }
-                )
 
 
 class ExpertHubFeaturedTopic(TranslatableMixin, Orderable):
@@ -111,6 +85,7 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
             [InlinePanel("featured_experts", label="Featured Experts", min_num=1, max_num=12)],
             heading="Featured Experts",
             classname="collapsible",
+            help_text="Experts will be grouped by their first assigned topic.",
         ),
         MultiFieldPanel(
             [InlinePanel("featured_topics", label="Featured Issue Areas", max_num=5)],
@@ -185,13 +160,13 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
 
         # Featured experts
         featured_experts = []
-        for featured_expert in self.featured_experts.select_related(
-            "expert", "expert__image", "display_topic"
-        ).prefetch_related("expert__topics"):
+        for featured_expert in self.featured_experts.select_related("expert", "expert__image").prefetch_related(
+            "expert__topics"
+        ):
             if not featured_expert.expert:
                 continue
             topics = list(featured_expert.expert.topics.all())
-            topic = featured_expert.display_topic or (topics[0] if topics else None)
+            topic = topics[0] if topics else None
             featured_experts.append({"expert": featured_expert.expert, "topic": topic})
 
         featured_experts.sort(key=lambda item: (item["topic"].name if item["topic"] else ""))

@@ -1,5 +1,7 @@
 import random
 
+import factory
+import wagtail_factories
 from wagtail import models as wagtail_models
 
 from foundation_cms.base.models.abstract_base_page import Topic
@@ -83,12 +85,9 @@ def generate(seed):
     print("Linking featured experts to Expert Hub Page...")
     if not hub.featured_experts.exists():
         for i, expert in enumerate(expert_pages[:6]):
-            expert_topics = list(expert.topics.all())
-            display_topic = expert_topics[0] if expert_topics else None
             ExpertHubFeaturedExpert.objects.create(
                 hub_page=hub,
                 expert=expert,
-                display_topic=display_topic,
                 sort_order=i,
             )
         hub.save_revision().publish()
@@ -112,3 +111,28 @@ def generate(seed):
 
     print("Expert Hub setup complete.")
     return hub
+
+
+class ExpertHubPageFactory(wagtail_factories.PageFactory):
+    class Meta:
+        model = ExpertHubPage
+
+    title = "Expert Hub"
+    slug = factory.Faker("slug")
+    seo_title = factory.Faker("sentence", nb_words=3)
+    search_description = factory.Faker("sentence", nb_words=10)
+
+
+class ExpertProfilePageFactory(wagtail_factories.PageFactory):
+    class Meta:
+        model = ExpertProfilePage
+
+    title = factory.Faker("name")
+    slug = factory.Faker("slug")
+    image = factory.SubFactory(wagtail_factories.ImageFactory)
+    role = factory.Faker("job")
+    bio = factory.Faker("paragraph", nb_sentences=3)
+    location = "US"
+    affiliation = factory.Faker("company")
+    seo_title = factory.Faker("sentence", nb_words=3)
+    search_description = factory.Faker("sentence", nb_words=10)

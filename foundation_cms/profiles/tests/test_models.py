@@ -1,11 +1,15 @@
 from wagtail.test.utils import WagtailPageTestCase
 
-from foundation_cms.profiles.factories import ExpertProfilePageFactory
+from foundation_cms.profiles.factories import (
+    ExpertHubPageFactory,
+    ExpertProfilePageFactory,
+)
 
 
 class ExpertProfilePageTestCase(WagtailPageTestCase):
     def setUp(self):
-        self.page = ExpertProfilePageFactory()
+        self.hub = ExpertHubPageFactory()
+        self.page = ExpertProfilePageFactory(parent=self.hub)
 
     def test_str_representation(self):
         self.assertEqual(str(self.page), self.page.title)
