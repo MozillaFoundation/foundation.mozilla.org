@@ -5,7 +5,11 @@
 {% block content %}
     <main class="expert-hub-page">
         <div class="grid-container">
+
             <h1>{{ page.title }}</h1>
+            {% if page.description %}
+                <div class="expert-hub-page__description">{{ page.description|safe }}</div>
+            {% endif %}
 
             {% if featured_experts %}
                 <section class="expert-hub-page__featured">
@@ -40,8 +44,11 @@
                                     {% if item.expert.role %}
                                         <p class="expert-card__role">{{ item.expert.role }}</p>
                                     {% endif %}
+                                    {% if item.expert.affiliation %}
+                                        <p class="expert-card__affiliation">{{ item.expert.affiliation }}</p>
+                                    {% endif %}
                                     {% if item.topic %}
-                                        <span class="btn-topic">{{ item.topic.name }}</span>
+                                        <a class="btn-topic" href="{{ item.topic.get_topic_listing_url }}">{{ item.topic.name }}</a>
                                     {% endif %}
                                 </article>
                             </div>
@@ -53,34 +60,117 @@
             {% if featured_topic_objects %}
                 <section class="expert-hub-page__topics">
                     <h2>{% trans "Issue Areas" %}</h2>
-                    <ul class="topic-pills">
-                        {% for topic in featured_topic_objects %}
-                            <li>
-                                <button class="btn-topic" type="button" data-topic-slug="{{ topic.slug }}">
-                                    {{ topic.name }}
-                                </button>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% include "patterns/components/topic_pills.html" with topics=featured_topic_objects %}
                 </section>
             {% endif %}
 
-            {% if total_experts_count %}
-                <section
-                    class="expert-hub-page__listing"
-                    data-experts-api="{{ page.url }}experts/"
-                    data-page-size="{{ page.PAGE_SIZE }}"
-                    data-total-count="{{ total_experts_count }}"
-                >
-                    <h2>{% trans "All Experts" %} <span class="expert-hub-page__count">({{ total_experts_count }})</span></h2>
+            <section
+                id="listing"
+                class="expert-hub-page__listing"
+                data-experts-api="{{ page.url }}experts/"
+                data-page-size="{{ page.PAGE_SIZE }}"
+                data-total-count="{{ total_experts_count }}"
+            >
+                <h2>{{ page.listing_title|default:_("All Experts") }} <span class="expert-hub-page__count">({{ total_experts_count }})</span></h2>
+                {% if page.description %}
+                    <div class="expert-hub-page__listing-description">{{ page.description|safe }}</div>
+                {% endif %}
+
+                <form id="filter-form" method="get" action="{{ page.url }}#listing">
+                    {% if filter_topics or filter_countries or filter_roles %}
+                        <div class="grid-x grid-margin-x">
+                            {% if filter_topics %}
+                                <div class="cell small-12 medium-4">
+                                    <label for="filter-topics">{% trans "Topic" %}</label>
+                                    <select id="filter-topics" name="topic">
+                                        <option value="">{% trans "All Topics" %}</option>
+                                        {% for slug, name in filter_topics %}
+                                            <option value="{{ slug }}" {% if active_topic == slug %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+
+                            {% if filter_countries %}
+                                <div class="cell small-12 medium-4">
+                                    <label for="filter-countries">{% trans "Country" %}</label>
+                                    <select id="filter-countries" name="country">
+                                        <option value="">{% trans "All Countries" %}</option>
+                                        {% for code, name in filter_countries %}
+                                            <option value="{{ code }}" {% if active_country == code %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+
+                            {% if filter_roles %}
+                                <div class="cell small-12 medium-4">
+                                    <label for="filter-roles">{% trans "Role" %}</label>
+                                    <select id="filter-roles" name="role">
+                                        <option value="">{% trans "All Roles" %}</option>
+                                        {% for role in filter_roles %}
+                                            <option value="{{ role }}" {% if active_role == role %}selected{% endif %}>{{ role }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <noscript>
+                            <button type="submit">{% trans "Apply filters" %}</button>
+                        </noscript>
+                    {% endif %}
+                </form>
+                <script nonce="{{ request.csp_nonce }}">
+                    (function() {
+                        var form = document.getElementById('filter-form');
+                        if (!form) return;
+                        var selects = form.querySelectorAll('select');
+                        for (var i = 0; i < selects.length; i++) {
+                            selects[i].addEventListener('change', function() { form.submit(); });
+                        }
+                    })();
+                </script>
+
+                {% if total_experts_count == 0 %}
+                    <p class="expert-hub-page__no-results">{% trans "0 results" %}</p>
+                {% else %}
                     <div class="expert-hub-page__cards">
-                        {# Cards rendered by JS from the JSON API #}
+                        {% for expert in experts_page %}
+                            <article class="expert-card">
+                                {% if expert.image %}
+                                    <a href="{{ expert.url }}">
+                                        {% image expert.image fill-400x400 as card_img %}
+                                        <img
+                                            src="{{ card_img.url }}"
+                                            alt="{{ expert.title }}"
+                                            width="{{ card_img.width }}"
+                                            height="{{ card_img.height }}"
+                                            loading="lazy"
+                                        >
+                                    </a>
+                                {% endif %}
+                                <h4><a href="{{ expert.url }}">{{ expert.title }}</a></h4>
+                                {% if expert.role %}
+                                    <p class="expert-card__role">{{ expert.role }}</p>
+                                {% endif %}
+                                {% if expert.affiliation %}
+                                    <p class="expert-card__affiliation">{{ expert.affiliation }}</p>
+                                {% endif %}
+                            </article>
+                        {% endfor %}
                     </div>
-                    <nav class="expert-hub-page__pagination" aria-label="{% trans 'Expert listing pagination' %}">
-                        {# Pagination controls rendered by JS #}
+
+                    {% trans "Expert listing pagination" as pagination_label %}
+                    <nav class="expert-hub-page__pagination" aria-label="{{ pagination_label }}">
+                        {% if experts_page.has_previous %}
+                            <a href="?page={{ experts_page.previous_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Previous" %}</a>
+                        {% endif %}
+                        {% if experts_page.has_next %}
+                            <a href="?page={{ experts_page.next_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Next" %}</a>
+                        {% endif %}
                     </nav>
-                </section>
-            {% endif %}
+                {% endif %}
+            </section>
         </div>
 
         {% if page.body %}
