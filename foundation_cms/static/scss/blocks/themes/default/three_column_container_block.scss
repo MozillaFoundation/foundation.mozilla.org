@@ -2,9 +2,10 @@
 
 .three-column-container {
   $three-column-margin-y: (
-    small: 0.25rem,
+    small: 1.5rem,
     large: 2rem,
   );
+  $three-column-gap-y: rem-calc(24);
   $three-column-gap: map.get($three-column-margin-y, large);
   $three-column-min-width: rem-calc(214);
 
@@ -12,6 +13,7 @@
   flex-direction: column;
   margin-top: map.get($three-column-margin-y, small);
   margin-bottom: map.get($three-column-margin-y, small);
+  gap: $three-column-gap-y;
 
   @include breakpoint(large up) {
     flex-direction: row;
@@ -52,12 +54,43 @@
     }
 
     > .rich-text-block {
+      @include apply-text-style($body-text-styles, "regular", "small");
+
       *:first-child {
         margin-top: 0;
       }
 
       *:last-child {
         margin-bottom: 0;
+      }
+
+      h1 {
+        @include apply-text-style($header-styles, "h1", "small", $header-font-family);
+      }
+
+      h2 {
+        @include apply-text-style($header-styles, "h2", "small", $header-font-family);
+      }
+
+      h3 {
+        @include apply-text-style($header-styles, "h3", "small", $header-font-family);
+      }
+
+      h4 {
+        @include apply-text-style($header-styles, "h4", "small", $header-font-family);
+      }
+
+      h5 {
+        @include apply-text-style($header-styles, "h5", "small", $header-font-family);
+      }
+
+      h6 {
+        @include apply-text-style($header-styles, "h6", "small", $header-font-family);
+      }
+
+      p,
+      li {
+        @include apply-text-style($body-text-styles, "regular", "small");
       }
 
       h2,
@@ -71,6 +104,16 @@
 
     > *:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  .quote-block {
+    .quote-text-regular {
+      @include apply-text-style($quote-text-styles, "regular", "small");
+    }
+
+    figcaption {
+      @include apply-text-style($body-text-styles, "xsmall", "small");
     }
   }
 
