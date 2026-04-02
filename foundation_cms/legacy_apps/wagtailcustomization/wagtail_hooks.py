@@ -29,7 +29,7 @@ def _get_legacy_page_content_type_ids():
     stack = list(Page.__subclasses__())
     while stack:
         cls = stack.pop()
-        if cls.__module__.startswith(LEGACY_PAGE_MODULE_PREFIXES):
+        if cls.__module__.startswith(LEGACY_PAGE_MODULE_PREFIXES) and not cls._meta.abstract:
             legacy_models.append(cls)
         stack.extend(cls.__subclasses__())
 
