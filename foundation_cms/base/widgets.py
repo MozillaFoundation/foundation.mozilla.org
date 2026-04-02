@@ -28,10 +28,8 @@ class TopicSelectWidget(forms.Widget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        selected = self._parse_selected(value)
-        all_topics = list(
-            apps.get_model("base", "Topic").objects.order_by("name").values_list("name", flat=True)
-        )
+        selected = self.parse_selected(value)
+        all_topics = list(apps.get_model("base", "Topic").objects.order_by("name").values_list("name", flat=True))
         hidden_value = ", ".join(f'"{t}"' if "," in t else t for t in selected)
         context["widget"].update(
             {
@@ -44,7 +42,7 @@ class TopicSelectWidget(forms.Widget):
         return context
 
     @staticmethod
-    def _parse_selected(value):
+    def parse_selected(value):
         """Parse a taggit comma-separated string or list into a list of topic names."""
         if isinstance(value, str):
             return [v.strip().strip('"') for v in value.split(",") if v.strip()]
