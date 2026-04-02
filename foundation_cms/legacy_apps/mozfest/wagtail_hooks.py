@@ -1,5 +1,6 @@
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
+
 from foundation_cms.legacy_apps.events.models import TitoEvent
 from foundation_cms.legacy_apps.mozfest.models import (
     NewsletterSignupWithBackground,
