@@ -158,35 +158,25 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
     def get_context(self, request):
         context = super().get_context(request)
 
-        # Featured experts
         featured_experts = []
-        for featured_expert in self.featured_experts.select_related("expert", "expert__image").prefetch_related(
-            "expert__topics"
+        for fe in (
+            self.featured_experts.exclude(expert=None)
+            .select_related("expert", "expert__image")
+            .prefetch_related("expert__topics")
         ):
-            if not featured_expert.expert:
-                continue
-            topics = list(featured_expert.expert.topics.all())
-            topic = topics[0] if topics else None
-            featured_experts.append({"expert": featured_expert.expert, "topic": topic})
+            topic = fe.expert.topics.first()
+            featured_experts.append({"expert": fe.expert, "topic": topic})
 
         featured_experts.sort(key=lambda item: (item["topic"].name if item["topic"] else ""))
         context["featured_experts"] = featured_experts
 
-        # Featured topics
         context["featured_topic_objects"] = [
             ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
         ]
 
-        # All experts (filtered)
         active_topic = request.GET.get("topic", "")
         active_country = request.GET.get("country", "")
         active_role = request.GET.get("role", "")
-
-        experts = self.get_experts(
-            topic_slug=active_topic or None,
-            country=active_country or None,
-            role=active_role or None,
-        )
 
         context["filter_topics"] = [(topic.slug, topic.name) for topic in Topic.objects.all().order_by("name")]
         context["filter_countries"] = countries
@@ -199,11 +189,14 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
             .distinct()
         )
 
-        # Pagination
+        experts = self.get_experts(
+            topic_slug=active_topic or None,
+            country=active_country or None,
+            role=active_role or None,
+        )
         paginator = Paginator(experts, self.PAGE_SIZE)
-        page_obj = paginator.get_page(request.GET.get("page", 1))
 
-        context["experts_page"] = page_obj
+        context["experts_page"] = paginator.get_page(request.GET.get("page", 1))
         context["total_experts_count"] = paginator.count
         context["active_topic"] = active_topic
         context["active_country"] = active_country
