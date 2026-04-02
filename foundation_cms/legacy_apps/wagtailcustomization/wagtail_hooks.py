@@ -8,14 +8,19 @@ from wagtail.models import Page
 
 from foundation_cms.legacy_apps.wagtailcustomization.permissions import is_legacy_authorized
 
-LEGACY_MODULE_PREFIX = "foundation_cms.legacy_apps."
+# Explicit list of legacy app module prefixes whose pages should be restricted.
+# Mozfest pages are intentionally excluded as access is managed via the CMS page tree.
+LEGACY_PAGE_MODULE_PREFIXES = (
+    "foundation_cms.legacy_apps.wagtailpages.",
+    "foundation_cms.legacy_apps.donate.",
+    "foundation_cms.legacy_apps.donate_banner.",
+)
 
 
 @lru_cache(maxsize=None)
 def _get_legacy_page_content_type_ids():
     """
-    Return a frozenset of ContentType IDs for all legacy page types.
-    Legacy pages are those whose class module starts with 'foundation_cms.legacy_apps.'.
+    Return a frozenset of ContentType IDs for all restricted legacy page types.
     Result is cached after the first call since page types don't change at runtime.
     """
     from django.contrib.contenttypes.models import ContentType
@@ -24,7 +29,7 @@ def _get_legacy_page_content_type_ids():
     stack = list(Page.__subclasses__())
     while stack:
         cls = stack.pop()
-        if cls.__module__.startswith(LEGACY_MODULE_PREFIX):
+        if cls.__module__.startswith(LEGACY_PAGE_MODULE_PREFIXES):
             legacy_models.append(cls)
         stack.extend(cls.__subclasses__())
 
@@ -38,7 +43,7 @@ def _get_legacy_page_content_type_ids():
 @hooks.register("before_edit_page")
 def restrict_legacy_page_editing(request, page):
     """Block non-authorized users from editing legacy pages."""
-    if page.__class__.__module__.startswith(LEGACY_MODULE_PREFIX):
+    if page.__class__.__module__.startswith(LEGACY_PAGE_MODULE_PREFIXES):
         if not is_legacy_authorized(request.user):
             messages.error(request, "You do not have permission to edit this page.")
             return redirect(reverse("wagtailadmin_home"))
