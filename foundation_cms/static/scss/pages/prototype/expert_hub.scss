@@ -19,7 +19,6 @@ body.prototype-expert-hub-page {
     width: 100%;
     height: calc(100vh - #{$primary-nav-height});
     overflow: hidden;
-    cursor: grab;
     opacity: 0;
     transition: opacity 0.4s ease;
 
@@ -27,11 +26,7 @@ body.prototype-expert-hub-page {
       opacity: 1;
     }
 
-    &.is-panning {
-      cursor: grabbing;
-    }
-
-    &__pan-layer {
+    &__layer {
       position: absolute;
       top: 0;
       left: 0;

@@ -14,7 +14,7 @@ const SELECTORS = {
 
 const CLASS_NAMES = {
   ready: "is-ready",
-  panLayer: "expert-hub-network__pan-layer",
+  layer: "expert-hub-network__layer",
   card: "expert-hub-card",
   cardActive: "is-active",
   cardFaded: "is-faded",
@@ -32,8 +32,8 @@ const CLASS_NAMES = {
 
 const CENTER_H = 172; // center block height in px, used for positioning
 const NETWORK_H = 800; // fixed height of the simulation space in px
-const LINK_STRENGTH = 0.25; // how strongly topic-anchor links pull person nodes toward their cluster
-const COLLIDE_RADIUS = 140; // collision radius for person nodes to prevent overlap
+const LINK_STRENGTH = 0.7; // how strongly topic-anchor links pull person nodes toward their cluster
+const COLLIDE_RADIUS = 100; // collision radius for person nodes to prevent overlap
 const WARMUP_ALPHA = 0.005; // simulation alpha threshold below which warmup stops early
 const WARMUP_MAX_TICKS = 300; // maximum synchronous ticks to run before showing the initial layout
 
@@ -138,19 +138,17 @@ function initExpertHub() {
   const personNodes = nodes.filter((n) => n.type === "person");
   const centerNode = nodes.find((n) => n.id === "center");
 
-  // Pan layer: all visual elements live here so a single CSS translate pans everything
-  const panLayerEl = document.createElement("div");
-  panLayerEl.className = CLASS_NAMES.panLayer;
-  container.appendChild(panLayerEl);
-  let panX = 0;
-  let panY = 0;
+  // Layer div: holds cards and SVG so a single transform centres the whole graph vertically
+  const layerEl = document.createElement("div");
+  layerEl.className = CLASS_NAMES.layer;
+  container.appendChild(layerEl);
 
   // DOM setup
   const { svg, lineEls } = setupSVGLayer();
   const centerEl = setupCenterEl();
   const cardEls = personNodes.map((node) => {
     const el = createCardEl(node);
-    panLayerEl.appendChild(el);
+    layerEl.appendChild(el);
     return { node, el };
   });
   // Card height is measured from the DOM after rendering so it adapts to actual CSS dimensions.
@@ -160,7 +158,6 @@ function initExpertHub() {
   let selectedIdx = null;
   setupSelectionBehavior();
   const simulation = setupSimulation();
-  setupDragBehavior();
   warmupAndStart();
   setupResizeObserver();
 
@@ -178,9 +175,8 @@ function initExpertHub() {
     minY = Math.min(minY, centerNode.fy - CENTER_H / 2);
     maxY = Math.max(maxY, centerNode.fy + CENTER_H / 2);
     const bboxCY = (minY + maxY) / 2;
-    panX = 0;
-    panY = Math.round(containerH / 2 - bboxCY);
-    panLayerEl.style.transform = `translate(${panX}px, ${panY}px)`;
+    const offsetY = Math.round(containerH / 2 - bboxCY);
+    layerEl.style.transform = `translate(0px, ${offsetY}px)`;
   }
 
   function ticked() {
@@ -194,7 +190,7 @@ function initExpertHub() {
 
   function setupSVGLayer() {
     // SVG layer for connection lines (person → center), lives inside pan layer
-    const svg = select(panLayerEl)
+    const svg = select(layerEl)
       .append("svg")
       .attr("class", CLASS_NAMES.svg)
       .attr("width", W)
@@ -216,7 +212,7 @@ function initExpertHub() {
     // Center block (pre-rendered in the Django template, moved into the pan layer here)
     const el = document.getElementById("expertHubCenter");
     el.style.transform = `translate(${centerNode.fx - CENTER_W / 2}px, ${centerNode.fy - CENTER_H / 2}px)`;
-    panLayerEl.appendChild(el);
+    layerEl.appendChild(el);
     return el;
   }
 

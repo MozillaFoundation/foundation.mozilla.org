@@ -95,6 +95,7 @@ const aliasPlugin = {
         const resolvedPath = require.resolve(args.path);
         return { path: resolvedPath };
       } catch (e) {
+        console.warn(`[auto-alias-plugin] Could not resolve "${args.path}" — is it installed?`);
         return;
       }
     });
