@@ -57,7 +57,11 @@ class ExpertHubFeaturedExpert(TranslatableMixin, Orderable):
 
                 raise ValidationError(
                     {
-                        "display_topic": "Selected topic is not assigned to this expert. Please select a topic that is assigned to the expert or remove the display topic."
+                        "display_topic": (
+                            "Selected topic is not assigned to this expert. "
+                            "Please select a topic that is assigned to the expert "
+                            "or remove the display topic."
+                        )
                     }
                 )
 

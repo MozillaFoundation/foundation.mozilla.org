@@ -1,6 +1,5 @@
 import random
 
-from django.utils.text import slugify
 from wagtail import models as wagtail_models
 
 from foundation_cms.base.models.abstract_base_page import Topic
