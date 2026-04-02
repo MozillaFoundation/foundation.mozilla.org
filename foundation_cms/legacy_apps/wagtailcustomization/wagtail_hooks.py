@@ -1,12 +1,15 @@
 from functools import lru_cache
 
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
 from django.urls import reverse
 from wagtail import hooks
 from wagtail.models import get_page_models
 
-from foundation_cms.legacy_apps.wagtailcustomization.permissions import is_legacy_authorized
+from foundation_cms.legacy_apps.wagtailcustomization.permissions import (
+    is_legacy_authorized,
+)
 
 # Explicit list of legacy app module prefixes whose pages should be restricted.
 # Mozfest pages are intentionally excluded as access is managed via the CMS page tree.
@@ -23,15 +26,12 @@ def _get_legacy_page_content_type_ids():
     Return a frozenset of ContentType IDs for all restricted legacy page types.
     Result is cached after the first call since page types don't change at runtime.
     """
-    from django.contrib.contenttypes.models import ContentType
-
     # get_page_models() returns all concrete page models registered with Wagtail
     all_page_models = get_page_models()
 
     # Filter down to only the ones that live in legacy apps
     legacy_page_models = [
-        model for model in all_page_models
-        if model.__module__.startswith(LEGACY_PAGE_MODULE_PREFIXES)
+        model for model in all_page_models if model.__module__.startswith(LEGACY_PAGE_MODULE_PREFIXES)
     ]
 
     if not legacy_page_models:
