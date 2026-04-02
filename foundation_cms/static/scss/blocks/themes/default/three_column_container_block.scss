@@ -65,27 +65,57 @@
       }
 
       h1 {
-        @include apply-text-style($header-styles, "h1", "small", $header-font-family);
+        @include apply-text-style(
+          $header-styles,
+          "h1",
+          "small",
+          $header-font-family
+        );
       }
 
       h2 {
-        @include apply-text-style($header-styles, "h2", "small", $header-font-family);
+        @include apply-text-style(
+          $header-styles,
+          "h2",
+          "small",
+          $header-font-family
+        );
       }
 
       h3 {
-        @include apply-text-style($header-styles, "h3", "small", $header-font-family);
+        @include apply-text-style(
+          $header-styles,
+          "h3",
+          "small",
+          $header-font-family
+        );
       }
 
       h4 {
-        @include apply-text-style($header-styles, "h4", "small", $header-font-family);
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "small",
+          $header-font-family
+        );
       }
 
       h5 {
-        @include apply-text-style($header-styles, "h5", "small", $header-font-family);
+        @include apply-text-style(
+          $header-styles,
+          "h5",
+          "small",
+          $header-font-family
+        );
       }
 
       h6 {
-        @include apply-text-style($header-styles, "h6", "small", $header-font-family);
+        @include apply-text-style(
+          $header-styles,
+          "h6",
+          "small",
+          $header-font-family
+        );
       }
 
       p,
