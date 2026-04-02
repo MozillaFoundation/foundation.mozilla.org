@@ -21,7 +21,7 @@ LEGACY_PAGE_MODULE_PREFIXES = (
 
 
 @lru_cache(maxsize=None)
-def _get_legacy_page_content_type_ids():
+def get_legacy_page_content_type_ids():
     """
     Return a frozenset of ContentType IDs for all restricted legacy page types.
     Result is cached after the first call since page types don't change at runtime.
@@ -48,7 +48,7 @@ def _get_legacy_page_content_type_ids():
 def restrict_legacy_page_editing(request, page):
     """Block non-authorized users from editing legacy pages."""
     # Check if this page is a legacy page type using the cached ContentType IDs
-    if page.content_type_id in _get_legacy_page_content_type_ids():
+    if page.content_type_id in get_legacy_page_content_type_ids():
         if not is_legacy_authorized(request.user):
             messages.error(request, "You do not have permission to edit this page.")
             return redirect(reverse("wagtailadmin_home"))
@@ -62,7 +62,7 @@ def filter_legacy_pages_from_explorer(parent_page, pages, request):
         return pages
 
     # Exclude legacy pages from the queryset so they don't appear in the explorer
-    legacy_ct_ids = _get_legacy_page_content_type_ids()
+    legacy_ct_ids = get_legacy_page_content_type_ids()
     if legacy_ct_ids:
         pages = pages.exclude(content_type_id__in=legacy_ct_ids)
 
