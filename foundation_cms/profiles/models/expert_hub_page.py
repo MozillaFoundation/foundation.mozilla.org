@@ -61,35 +61,35 @@ class ExpertHubFeaturedTopic(TranslatableMixin, Orderable):
 
 
 class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
-    PAGE_SIZE = 11
+    PAGE_SIZE = 12
     max_count = 1
 
-    listing_title = models.CharField(
+    index_title = models.CharField(
         max_length=255,
         blank=True,
-        help_text="Heading for the experts listing section.",
+        help_text="Heading for the experts index section.",
     )
     description = RichTextField(
         blank=True,
-        help_text="Optional description for the hub page.",
+        help_text="Optional description to display on the experts hub page.",
         features=["bold", "italic", "link"],
     )
 
     subpage_types = ["profiles.ExpertProfilePage"]
-    template = "patterns/pages/profiles/expert_hub_page.html"
+    template = "patterns/pages/profiles/expert_hub_landing_page.html"
 
     content_panels = AbstractBasePage.content_panels + [
         FieldPanel("description"),
-        FieldPanel("listing_title"),
+        FieldPanel("index_title"),
         MultiFieldPanel(
-            [InlinePanel("featured_experts", label="Featured Experts", min_num=1, max_num=12)],
+            [InlinePanel("featured_experts", label="Expert", min_num=1, max_num=12)],
             heading="Featured Experts",
             classname="collapsible",
             help_text="Experts will be grouped by their first assigned topic.",
         ),
         MultiFieldPanel(
-            [InlinePanel("featured_topics", label="Featured Issue Areas", max_num=5)],
-            heading="Featured Issue Areas",
+            [InlinePanel("featured_topics", label="Topic", max_num=5)],
+            heading="Featured Topics",
             classname="collapsible",
         ),
         FieldPanel("body"),
@@ -97,7 +97,7 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
 
     translatable_fields = AbstractBasePage.translatable_fields + [
         TranslatableField("description"),
-        TranslatableField("listing_title"),
+        TranslatableField("index_title"),
         SynchronizedField("featured_experts"),
         SynchronizedField("featured_topics"),
     ]
@@ -158,6 +158,10 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
     def get_context(self, request):
         context = super().get_context(request)
 
+        return context
+
+    @route(r"^$")
+    def landing(self, request):
         featured_experts = []
         for fe in (
             self.featured_experts.exclude(expert=None)
@@ -168,26 +172,14 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
             featured_experts.append({"expert": fe.expert, "topic": topic})
 
         featured_experts.sort(key=lambda item: (item["topic"].name if item["topic"] else ""))
-        context["featured_experts"] = featured_experts
 
-        context["featured_topic_objects"] = [
-            ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
-        ]
+        return self.render(request, context_overrides={"featured_experts": featured_experts})
 
+    @route(r"^directory/$")
+    def directory(self, request):
         active_topic = request.GET.get("topic", "")
         active_country = request.GET.get("country", "")
         active_role = request.GET.get("role", "")
-
-        context["filter_topics"] = [(topic.slug, topic.name) for topic in Topic.objects.all().order_by("name")]
-        context["filter_countries"] = countries
-        context["filter_roles"] = sorted(
-            ExpertProfilePage.objects.live()
-            .public()
-            .child_of(self)
-            .exclude(role="")
-            .values_list("role", flat=True)
-            .distinct()
-        )
 
         experts = self.get_experts(
             topic_slug=active_topic or None,
@@ -196,13 +188,30 @@ class ExpertHubPage(RoutablePageMixin, AbstractBasePage):
         )
         paginator = Paginator(experts, self.PAGE_SIZE)
 
-        context["experts_page"] = paginator.get_page(request.GET.get("page", 1))
-        context["total_experts_count"] = paginator.count
-        context["active_topic"] = active_topic
-        context["active_country"] = active_country
-        context["active_role"] = active_role
-
-        return context
+        return self.render(
+            request,
+            context_overrides={
+                "featured_topic_objects": [
+                    ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
+                ],
+                "filter_topics": [(t.slug, t.name) for t in Topic.objects.all().order_by("name")],
+                "filter_countries": countries,
+                "filter_roles": sorted(
+                    ExpertProfilePage.objects.live()
+                    .public()
+                    .child_of(self)
+                    .exclude(role="")
+                    .values_list("role", flat=True)
+                    .distinct()
+                ),
+                "experts_page": paginator.get_page(request.GET.get("page", 1)),
+                "total_experts_count": paginator.count,
+                "active_topic": active_topic,
+                "active_country": active_country,
+                "active_role": active_role,
+            },
+            template="patterns/pages/profiles/expert_hub_index_page.html",
+        )
 
     @route(r"^experts/$")
     def experts_api(self, request):

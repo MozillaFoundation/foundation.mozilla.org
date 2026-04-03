@@ -28,16 +28,16 @@ def generate(seed):
 
     # Create Expert Hub page if it doesn't exist under site root
     print("Creating Expert Hub Page...")
-    existing_hub = ExpertHubPage.objects.filter(slug="meet-mozilla-experts", locale=default_locale).first()
+    existing_hub = ExpertHubPage.objects.filter(slug="mozilla-expert-hub", locale=default_locale).first()
     if existing_hub:
         hub = existing_hub
         print("  Expert Hub Page already exists.")
     else:
         hub = ExpertHubPage(
-            title="Meet Mozilla Experts",
-            slug="meet-mozilla-experts",
+            title="Mozilla Expert Hub",
+            slug="mozilla-expert-hub",
             locale=default_locale,
-            seo_title="Meet Mozilla Experts",
+            seo_title="Mozilla Expert Hub",
             search_description="Explore Mozilla's network of experts.",
         )
         root.add_child(instance=hub)
