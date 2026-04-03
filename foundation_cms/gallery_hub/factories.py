@@ -29,8 +29,6 @@ def generate(seed):
             slug=slugify(name),
             defaults={"name": name},
         )
-        if created:
-            print(f"  + Program Label: {name}")
         labels.append(label)
     print(f"  {len(labels)} Program Labels ready.")
 
@@ -97,7 +95,6 @@ def generate(seed):
         project.topics.add(*assigned_topics)
 
         project.save_revision().publish()
-        print(f"  + Project Page: {title}")
         project_pages.append(project)
 
     print(f"  {len(project_pages)} Project Pages ready.")
