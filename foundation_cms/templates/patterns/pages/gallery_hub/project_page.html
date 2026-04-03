@@ -16,6 +16,14 @@
                             </div>
                         {% endif %}
 
+                        {% if page.program_label.all %}
+                            <div class="program-label-pills">
+                                {% for label in page.program_label.all %}
+                                    <div class="btn-topic">{{ label.name }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
                         {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
 
                         {% if page.lede_text %}
