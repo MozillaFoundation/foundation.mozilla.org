@@ -2,6 +2,7 @@ import random
 
 from django.utils.text import slugify
 from wagtail import models as wagtail_models
+from wagtail.images import get_image_model
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.utils.helpers import get_faker, reseed
@@ -34,6 +35,9 @@ def generate(seed):
 
     # --- Topics (created earlier in load_redesign_data) ---
     topics = list(Topic.objects.all())
+
+    # --- Images (created earlier in load_redesign_data) ---
+    images = list(get_image_model().objects.all())
 
     # --- 1 Gallery Hub Page (directly under site root) ---
     print("Creating Gallery Hub Page...")
@@ -73,6 +77,8 @@ def generate(seed):
             lede_text=fake.paragraph(nb_sentences=2),
             seo_title=title,
             search_description=fake.sentence(nb_words=10).rstrip("."),
+            hero_image=random.choice(images) if images else None,
+            hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
         )
         gallery_page.add_child(instance=project)
 
