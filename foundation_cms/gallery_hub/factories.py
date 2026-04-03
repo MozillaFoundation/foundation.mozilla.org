@@ -81,7 +81,10 @@ def generate(seed):
             search_description=fake.sentence(nb_words=10).rstrip("."),
             hero_image=random.choice(images) if images else None,
             hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
-            cta_link=[{"type": "link_button_block", "value": dict(LinkButtonBlockFactory())}],
+            cta_link=[{"type": "link_button_block", "value": dict(LinkButtonBlockFactory(
+                style="btn-primary",
+                alignment="link-button-block--left",
+            ))}],
             body=[{"type": "rich_text", "value": body_html}],
         )
         gallery_page.add_child(instance=project)
