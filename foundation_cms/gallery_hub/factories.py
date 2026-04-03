@@ -70,6 +70,7 @@ def generate(seed):
             continue
 
         title = fake.sentence(nb_words=6).rstrip(".")
+        body_html = "".join(f"<p>{fake.paragraph(nb_sentences=4)}</p>" for _ in range(3))
         project = ProjectPage(
             title=title,
             slug=slug,
@@ -81,6 +82,7 @@ def generate(seed):
             hero_image=random.choice(images) if images else None,
             hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
             cta_link=[{"type": "link_button_block", "value": dict(LinkButtonBlockFactory())}],
+            body=[{"type": "rich_text", "value": body_html}],
         )
         gallery_page.add_child(instance=project)
 
