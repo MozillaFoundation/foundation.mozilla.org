@@ -1,23 +1,20 @@
 from wagtail.test.utils import WagtailPageTestCase
 
-from foundation_cms.profiles.factories import ProfileFactory, ProfilePageFactory
-from foundation_cms.profiles.models import Profile
+from foundation_cms.profiles.factories import ExpertProfilePageFactory
 
 
-class ProfileTestCase(WagtailPageTestCase):
+class ExpertProfilePageTestCase(WagtailPageTestCase):
     def setUp(self):
-        self.profile = ProfileFactory()
+        self.page = ExpertProfilePageFactory()
 
     def test_str_representation(self):
-        """This test ensures Profile __str__ returns the correct name."""
-        self.assertEqual(str(self.profile), self.profile.title)
+        self.assertEqual(str(self.page), self.page.title)
 
+    def test_required_fields_populated(self):
+        self.assertTrue(self.page.role)
+        self.assertTrue(self.page.bio)
+        self.assertTrue(self.page.location)
+        self.assertIsNotNone(self.page.image)
 
-class ProfilePageTestCase(WagtailPageTestCase):
-    def setUp(self):
-        self.profile_page = ProfilePageFactory()
-
-    def test_profile_association(self):
-        """This test ensures the ProfilePage correctly associates with a Profile."""
-        self.assertIsInstance(self.profile_page.profile, Profile)  # Ensure a correct type
-        self.assertTrue(self.profile_page.bio)  # Ensure bio is generated
+    def test_is_leaf_page(self):
+        self.assertEqual(self.page.subpage_types, [])
