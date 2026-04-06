@@ -42,7 +42,7 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
         features=["bold", "italic", "link"],
     )
 
-    subpage_types = []
+    subpage_types: list[str] = []
     parent_page_types = ["profiles.ExpertHubPage"]
     template = "patterns/pages/profiles/expert_directory_page.html"
 
