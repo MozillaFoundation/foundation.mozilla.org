@@ -6,16 +6,16 @@
     <main class="expert-hub-page expert-hub-page--index">
         <div class="grid-container">
 
-            <a href="{{ page.url }}" class="expert-hub-page__back-link">{% trans "Go to landing page" %}</a>
+            <a href="{{ page.get_parent.url }}" class="expert-hub-page__back-link">{% trans "Go to landing page" %}</a>
 
-            <h1>{{ page.index_title|default:_("All Experts") }}</h1>
+            <h1>{{ page.title }}</h1>
             {% if page.description %}
                 <div class="expert-hub-page__description">{{ page.description|safe }}</div>
             {% endif %}
 
             {% if featured_topic_objects %}
                 <section class="expert-hub-page__topics">
-                    <h2>{% trans "Issue Areas" %}</h2>
+                    <h2>{% trans "Explore Issue Areas" %}</h2>
                     {% include "patterns/components/topic_pills.html" with topics=featured_topic_objects %}
                 </section>
             {% endif %}
@@ -27,9 +27,9 @@
                 data-page-size="{{ page.PAGE_SIZE }}"
                 data-total-count="{{ total_experts_count }}"
             >
-                <h2>{{ page.index_title|default:_("All Experts") }} <span class="expert-hub-page__count">({{ total_experts_count }})</span></h2>
+                <h2>{{ page.title }} <span class="expert-hub-page__count">({{ total_experts_count }})</span></h2>
 
-                <form id="filter-form" method="get" action="{{ page.url }}directory/#listing">
+                <form id="filter-form" method="get" action="{{ page.url }}#listing">
                     {% if filter_topics or filter_countries or filter_roles %}
                         <div class="grid-x grid-margin-x">
                             {% if filter_topics %}
@@ -73,6 +73,7 @@
                         </noscript>
                     {% endif %}
                 </form>
+
                 <script nonce="{{ request.csp_nonce }}">
                     (function() {
                         var form = document.getElementById('filter-form');
@@ -118,6 +119,17 @@
                         {% if experts_page.has_previous %}
                             <a href="?page={{ experts_page.previous_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Previous" %}</a>
                         {% endif %}
+
+                        {% for num in page_range %}
+                            {% if num == experts_page.paginator.ELLIPSIS %}
+                                <span class="expert-hub-page__pagination-ellipsis">&hellip;</span>
+                            {% elif num == experts_page.number %}
+                                <span class="expert-hub-page__pagination-current" aria-current="page">{{ num }}</span>
+                            {% else %}
+                                <a href="?page={{ num }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
                         {% if experts_page.has_next %}
                             <a href="?page={{ experts_page.next_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Next" %}</a>
                         {% endif %}
