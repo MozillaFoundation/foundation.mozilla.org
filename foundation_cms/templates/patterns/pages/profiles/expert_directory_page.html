@@ -122,7 +122,7 @@
 
                         {% for num in page_range %}
                             {% if num == experts_page.paginator.ELLIPSIS %}
-                                <span class="expert-hub-page__pagination-ellipsis">&hellip;</span>
+                                <span class="expert-hub-page__pagination-ellipsis">…</span>
                             {% elif num == experts_page.number %}
                                 <span class="expert-hub-page__pagination-current" aria-current="page">{{ num }}</span>
                             {% else %}
