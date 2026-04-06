@@ -41,21 +41,15 @@ class ExpertProfilePage(AbstractProfilePage):
         blank=True,
         help_text="Organization or institution.",
     )
-    notes = TextField(
-        blank=True,
-        help_text="Notes for the Web Team.",
-    )
 
     content_panels = AbstractProfilePage.content_panels + [
         FieldPanel("affiliation"),
         InlinePanel("external_links", label="External Links", max_num=10),
-        FieldPanel("notes"),
         FieldPanel("body"),
     ]
 
     translatable_fields = AbstractProfilePage.translatable_fields + [
         TranslatableField("affiliation"),
-        TranslatableField("notes"),
         TranslatableField("body"),
     ]
 
