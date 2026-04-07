@@ -126,7 +126,7 @@ class CampaignPage(AbstractBasePage):
         related_name="+",
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = AbstractBasePage.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
         FieldPanel("body"),
