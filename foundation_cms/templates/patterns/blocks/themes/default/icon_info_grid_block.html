@@ -1,36 +1,32 @@
-{% load static i18n wagtailcore_tags %}
+{% load static wagtailcore_tags %}
 
 <section class="icon-info-grid icon-info-grid--{{ value.layout_style }} icon-info-grid--{{ value.columns }}-col icon-info-grid--{{ value.icon_color }}">
-  <div class="grid-container">
 
-    <h2 class="icon-info-grid__heading">{{ value.heading }}</h2>
+  <h3 class="icon-info-grid__heading">{{ value.heading }}</h3>
 
-    <div class="icon-info-grid__items">
-      {% for item in value.items %}
-        <div class="icon-info-grid__item">
+  <div class="icon-info-grid__items">
+    {% for item in value.items %}
+      <article class="icon-info-grid__item">
 
-          <div class="icon-info-grid__header">
-            <div class="icon-info-grid__icon" aria-hidden="true">
-              <img
-                src="{% static 'foundation_cms/_images/icons/' %}{{ item.icon }}-icon-{{ value.icon_color }}.svg"
-                alt="{% trans item.icon|capfirst %} icon"
-                width="48"
-                height="48"
-                class="icon icon--{{ item.icon }}"
-                loading="lazy"
-              >
-            </div>
+        <div class="icon-info-grid__header">
+          <img
+            src="{% static 'foundation_cms/_images/icons/' %}{{ item.icon }}-icon-{{ value.icon_color }}.svg"
+            alt="{{ item.icon_alt_text }}"
+            width="48"
+            height="48"
+            class="icon-info-grid__icon icon-info-grid__icon--{{ item.icon }}"
+            loading="lazy"
+          >
 
-            <p class="icon-info-grid__title">{{ item.title }}</p>
-          </div>
-
-          {% if value.layout_style == "detailed" and item.description %}
-            <p class="icon-info-grid__description">{{ item.description }}</p>
-          {% endif %}
-
+          <h5 class="icon-info-grid__title">{{ item.title }}</h5>
         </div>
-      {% endfor %}
-    </div>
 
+        {% if value.layout_style == "detailed" and item.description %}
+          <p class="icon-info-grid__description">{{ item.description }}</p>
+        {% endif %}
+
+      </article>
+    {% endfor %}
   </div>
+
 </section>

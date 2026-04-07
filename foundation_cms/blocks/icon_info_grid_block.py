@@ -1,4 +1,4 @@
-from wagtail.blocks import CharBlock, ChoiceBlock, ListBlock, StructBlock
+from wagtail.blocks import CharBlock, ChoiceBlock, ListBlock, StructBlock, StructValue
 
 from foundation_cms.base.models.base_block import BaseBlock
 
@@ -12,6 +12,13 @@ ICON_CHOICES = [
     ("star", "Star icon"),
     # Add more icons as needed
 ]
+ICON_ALT_TEXT = dict(ICON_CHOICES)
+
+
+class IconInfoGridItemValue(StructValue):
+    @property
+    def icon_alt_text(self):
+        return ICON_ALT_TEXT.get(self.get("icon"), "")
 
 
 class IconInfoGridItemBlock(StructBlock):
@@ -36,6 +43,7 @@ class IconInfoGridItemBlock(StructBlock):
     class Meta:
         icon = "info-circle"
         label = "Icon Info Item"
+        value_class = IconInfoGridItemValue
 
 
 class IconInfoGridBlock(BaseBlock):
