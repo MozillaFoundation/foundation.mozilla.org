@@ -1,8 +1,8 @@
 import {
   forceSimulation,
-  forceLink,
-  forceManyBody,
   forceCollide,
+  forceX,
+  forceY,
 } from "d3-force";
 import { select } from "d3-selection";
 import { drag } from "d3-drag";
@@ -30,10 +30,14 @@ const CLASS_NAMES = {
   link: "expert-hub-link",
 };
 
-const CENTER_H = 172; // center block height in px, used for positioning
 const NETWORK_H = 800; // fixed height of the simulation space in px
-const LINK_STRENGTH = 0.7; // how strongly topic-anchor links pull person nodes toward their cluster
+const CLUSTER_STRENGTH = 0.4; // how strongly forceX/Y pulls each person directly toward their topic anchor position
+// Orbit radius multipliers per topic, cycling if there are more topics than entries.
+// Vary these to control how much edge-length variety there is (1.0 = base topicOrbitR).
+const ORBIT_FACTORS = [1.6, 1.3, 1.4, 0.8, 1.8, 1.8, 0.85];
 const COLLIDE_RADIUS = 100; // collision radius for person nodes to prevent overlap
+const EDGE_PADDING = 16; // min px between bounding box and container edges
+const GOLDEN_ANGLE = 2.399963; // radians ≈ 137.5° — spaces anchors so the layout never looks like a regular polygon
 const WARMUP_ALPHA = 0.005; // simulation alpha threshold below which warmup stops early
 const WARMUP_MAX_TICKS = 300; // maximum synchronous ticks to run before showing the initial layout
 
@@ -70,18 +74,22 @@ function buildNodes(experts, allTopics, W, H, topicOrbitR) {
   return [
     { id: "center", type: "center", fx: W / 2, fy: H / 2 },
     ...allTopics.map((topic, i) => {
-      const angle = (i / allTopics.length) * 2 * Math.PI - Math.PI / 2;
+      // Golden angle spacing breaks the equal-angular-interval look that makes radial
+      // layouts feel circular even when radii vary.
+      const angle = i * GOLDEN_ANGLE;
+      const r = topicOrbitR * ORBIT_FACTORS[i % ORBIT_FACTORS.length];
       return {
         id: `topic-${topic}`,
         type: "topic-anchor",
         label: topic,
-        fx: W / 2 + topicOrbitR * Math.cos(angle),
-        fy: H / 2 + topicOrbitR * Math.sin(angle),
+        fx: W / 2 + r * Math.cos(angle),
+        fy: H / 2 + r * Math.sin(angle),
       };
     }),
     ...experts.map((e, i) => {
       const anchorIdx = allTopics.indexOf(e.topics[0]);
-      const angle = (anchorIdx / allTopics.length) * 2 * Math.PI - Math.PI / 2;
+      const angle = anchorIdx * GOLDEN_ANGLE;
+      const r = topicOrbitR * ORBIT_FACTORS[anchorIdx % ORBIT_FACTORS.length];
       const jitter = 20;
       return {
         id: `person-${i}`,
@@ -89,22 +97,15 @@ function buildNodes(experts, allTopics, W, H, topicOrbitR) {
         ...e,
         x:
           W / 2 +
-          topicOrbitR * Math.cos(angle) +
+          r * Math.cos(angle) +
           (Math.random() - 0.5) * jitter,
         y:
           H / 2 +
-          topicOrbitR * Math.sin(angle) +
+          r * Math.sin(angle) +
           (Math.random() - 0.5) * jitter,
       };
     }),
   ];
-}
-
-function buildLinks(experts) {
-  return experts.map((e, i) => ({
-    source: `person-${i}`,
-    target: `topic-${e.topics[0]}`,
-  }));
 }
 
 // --- Main ---
@@ -127,14 +128,11 @@ function initExpertHub() {
   let W = container.clientWidth;
   const H = NETWORK_H;
   const containerH = container.clientHeight;
-  const topicOrbitR = Math.min(W, containerH) * 0.28;
-  const linkDistance = topicOrbitR * 0.6;
-  const chargeStrength = -(topicOrbitR * 0.85);
+  const topicOrbitR = Math.min(W, containerH) * 0.38;
 
   // Graph data
   const allTopics = [...new Set(experts.map((e) => e.topics[0]))].sort();
   const nodes = buildNodes(experts, allTopics, W, H, topicOrbitR);
-  const links = buildLinks(experts);
   const personNodes = nodes.filter((n) => n.type === "person");
   const centerNode = nodes.find((n) => n.id === "center");
 
@@ -146,37 +144,53 @@ function initExpertHub() {
   // DOM setup
   const { svg, lineEls } = setupSVGLayer();
   const centerEl = setupCenterEl();
+  // Heights are measured from the DOM after rendering so they adapt to actual CSS dimensions.
+  const CENTER_H = centerEl.offsetHeight;
+  centerEl.style.transform = `translate(${centerNode.fx - CENTER_W / 2}px, ${centerNode.fy - CENTER_H / 2}px)`;
   const cardEls = personNodes.map((node) => {
     const el = createCardEl(node);
     layerEl.appendChild(el);
     return { node, el };
   });
-  // Card height is measured from the DOM after rendering so it adapts to actual CSS dimensions.
-  let cardH = cardEls[0]?.el.offsetHeight ?? 0;
+  const cardH = cardEls[0]?.el.offsetHeight ?? 0;
 
   // Behaviors
   let selectedIdx = null;
   setupSelectionBehavior();
   const simulation = setupSimulation();
   warmupAndStart();
+  setupDragBehavior();
   setupResizeObserver();
 
   // --- Tick & layout helpers ---
 
   function centerInViewport() {
-    // Centre the settled bounding box vertically in the viewport.
-    // Horizontal pan is omitted: the simulation is radially symmetric around W/2.
-    let minY = Infinity,
+    // Centre the settled bounding box both horizontally and vertically in the viewport
+    // so no cards are clipped by overflow: hidden.
+    let minX = Infinity,
+      maxX = -Infinity,
+      minY = Infinity,
       maxY = -Infinity;
     personNodes.forEach((n) => {
+      minX = Math.min(minX, n.x - CARD_W / 2);
+      maxX = Math.max(maxX, n.x + CARD_W / 2);
       minY = Math.min(minY, n.y - cardH / 2);
       maxY = Math.max(maxY, n.y + cardH / 2);
     });
+    minX = Math.min(minX, centerNode.fx - CENTER_W / 2);
+    maxX = Math.max(maxX, centerNode.fx + CENTER_W / 2);
     minY = Math.min(minY, centerNode.fy - CENTER_H / 2);
     maxY = Math.max(maxY, centerNode.fy + CENTER_H / 2);
-    const bboxCY = (minY + maxY) / 2;
-    const offsetY = Math.round(containerH / 2 - bboxCY);
-    layerEl.style.transform = `translate(0px, ${offsetY}px)`;
+    const bboxW = maxX - minX;
+    const bboxH = maxY - minY;
+    const availW = W - EDGE_PADDING * 2;
+    const availH = containerH - EDGE_PADDING * 2;
+    // Scale down only if the bbox is larger than the available area; never scale up
+    const scale = Math.min(1, availW / bboxW, availH / bboxH);
+    // Centre the scaled bbox in the container
+    const offsetX = Math.round(W / 2 - ((minX + maxX) / 2) * scale);
+    const offsetY = Math.round(containerH / 2 - ((minY + maxY) / 2) * scale);
+    layerEl.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
   }
 
   function ticked() {
@@ -184,12 +198,13 @@ function initExpertHub() {
     cardEls.forEach(({ node, el }) => {
       el.style.transform = `translate(${node.x - CARD_W / 2}px, ${node.y - cardH / 2}px)`;
     });
+    centerInViewport();
   }
 
   // --- Setup functions ---
 
   function setupSVGLayer() {
-    // SVG layer for connection lines (person → center), lives inside pan layer
+    // SVG layer for connection lines (person → center), lives inside the layer div
     const svg = select(layerEl)
       .append("svg")
       .attr("class", CLASS_NAMES.svg)
@@ -209,9 +224,9 @@ function initExpertHub() {
   }
 
   function setupCenterEl() {
-    // Center block (pre-rendered in the Django template, moved into the pan layer here)
+    // Center block (pre-rendered in the Django template, moved into the layer here).
+    // Transform is applied after CENTER_H is measured — see call site.
     const el = document.getElementById("expertHubCenter");
-    el.style.transform = `translate(${centerNode.fx - CENTER_W / 2}px, ${centerNode.fy - CENTER_H / 2}px)`;
     layerEl.appendChild(el);
     return el;
   }
@@ -250,14 +265,6 @@ function initExpertHub() {
   function setupSimulation() {
     return forceSimulation(nodes)
       .force(
-        "link",
-        forceLink(links)
-          .id((d) => d.id)
-          .distance(linkDistance)
-          .strength(LINK_STRENGTH),
-      )
-      .force("charge", forceManyBody().strength(chargeStrength))
-      .force(
         "collide",
         forceCollide((d) => {
           if (d.type === "person") return COLLIDE_RADIUS;
@@ -265,14 +272,33 @@ function initExpertHub() {
           return 0;
         }),
       )
+      .force(
+        "clusterX",
+        forceX((d) => {
+          if (d.type !== "person") return d.fx ?? W / 2;
+          const anchor = nodes.find((n) => n.id === `topic-${d.topics[0]}`);
+          return anchor ? anchor.fx : W / 2;
+        }).strength(CLUSTER_STRENGTH),
+      )
+      .force(
+        "clusterY",
+        forceY((d) => {
+          if (d.type !== "person") return d.fy ?? H / 2;
+          const anchor = nodes.find((n) => n.id === `topic-${d.topics[0]}`);
+          return anchor ? anchor.fy : H / 2;
+        }).strength(CLUSTER_STRENGTH),
+      )
       .on("tick", ticked);
   }
 
   function setupDragBehavior() {
-    // Card drag: fixes node position on drag, releases on dragend
+    // Card drag: freeze the simulation while dragging so only the dragged node moves,
+    // then release and let it spring back to its cluster anchor.
     const nodeDrag = drag()
       .on("start", (event, d) => {
         if (!event.active) simulation.alphaTarget(0.3).restart();
+        // Fix every other node so only the dragged one moves
+        personNodes.forEach((n) => { if (n !== d) { n.fx = n.x; n.fy = n.y; } });
         d.fx = d.x;
         d.fy = d.y;
       })
@@ -280,26 +306,27 @@ function initExpertHub() {
         d.fx = event.x;
         d.fy = event.y;
       })
-      .on("end", (event, d) => {
+      .on("end", (event, _d) => {
         if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+        // Release all nodes so they spring back to their cluster anchors
+        personNodes.forEach((n) => { n.fx = null; n.fy = null; });
       });
 
     cardEls.forEach(({ node, el }) => select(el).datum(node).call(nodeDrag));
   }
 
   function warmupAndStart() {
-    // Warm up synchronously so the initial render is already settled
+    // Run a brief synchronous warmup so the initial positions are roughly settled,
+    // then let the simulation finish animating live so the intro feels dynamic.
     simulation.stop();
     let tick = 0;
     while (simulation.alpha() > WARMUP_ALPHA && tick < WARMUP_MAX_TICKS) {
       simulation.tick();
       tick++;
     }
-    ticked();
-    centerInViewport();
-    simulation.restart();
+    ticked(); // also calls centerInViewport
+    // Restart with a small residual alpha so nodes animate gently into their final positions
+    simulation.alpha(0.3).restart();
     requestAnimationFrame(() => container.classList.add(CLASS_NAMES.ready));
   }
 
@@ -314,11 +341,12 @@ function initExpertHub() {
 
       centerNode.fx = newW / 2;
       allTopics.forEach((topic, i) => {
-        const angle = (i / allTopics.length) * 2 * Math.PI - Math.PI / 2;
+        const angle = i * GOLDEN_ANGLE;
+        const r = topicOrbitR * ORBIT_FACTORS[i % ORBIT_FACTORS.length];
         const anchor = nodes.find((n) => n.id === `topic-${topic}`);
         if (anchor) {
-          anchor.fx = newW / 2 + topicOrbitR * Math.cos(angle);
-          anchor.fy = H / 2 + topicOrbitR * Math.sin(angle);
+          anchor.fx = newW / 2 + r * Math.cos(angle);
+          anchor.fy = H / 2 + r * Math.sin(angle);
         }
       });
 
@@ -330,6 +358,7 @@ function initExpertHub() {
       centerInViewport();
     }).observe(container);
   }
+
 }
 
 initExpertHub();
