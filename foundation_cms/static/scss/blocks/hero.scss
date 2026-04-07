@@ -25,6 +25,10 @@
     &__description {
       margin: 0;
     }
+
+    &__cta {
+      margin: 0;
+    }
   }
 
   // Variant: Side by side
@@ -124,7 +128,8 @@
 
       &__title,
       &__topics,
-      &__description {
+      &__description,
+      &__cta {
         position: relative;
       }
 

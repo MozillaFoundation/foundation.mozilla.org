@@ -1,10 +1,12 @@
 from django.db import models
 from django.forms import ValidationError
 from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
+from foundation_cms.blocks import LinkBlock
 from foundation_cms.core.panels.media_panel import MediaPanel
 from foundation_cms.mixins.hero_image import HeroImageMixin
 
@@ -54,15 +56,12 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         ),
     )
 
-    button_title = models.CharField(
-        verbose_name="Button Text",
-        max_length=250,
+    hero_cta_link = StreamField(
+        [("link", LinkBlock())],
+        use_json_field=True,
         blank=True,
-    )
-
-    button_url = models.TextField(
-        verbose_name="Button URL",
-        blank=True,
+        max_num=1,
+        verbose_name="Button",
     )
 
     content_panels = [
@@ -83,13 +82,12 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
                 ),
                 FieldPanel("hero_image_alt_text"),
                 FieldPanel("hero_image_rounded_corners"),
+                FieldPanel("hero_cta_link"),
             ],
             heading="Hero Section",
             classname="collapsible",
             trigger_field="hero_variant",
         ),
-        FieldPanel("button_title"),
-        FieldPanel("button_url"),
         FieldPanel("body"),
     ]
 
@@ -103,8 +101,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         SynchronizedField("hero_image"),
         SynchronizedField("hero_image_rounded_corners"),
         TranslatableField("hero_image_alt_text"),
-        TranslatableField("button_title"),
-        TranslatableField("button_url"),
+        TranslatableField("hero_cta_link"),
         TranslatableField("body"),
     ]
 
