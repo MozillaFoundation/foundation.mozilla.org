@@ -172,6 +172,11 @@ function init() {
     el.style.height = `${size}px`;
     el.style.backgroundColor = el.dataset.bgColor;
     el.style.position = "absolute";
+    // left/top set once as the static base position; float drift is applied
+    // via transform only so the browser can handle it on the compositor thread
+    // without triggering layout recalculation every frame.
+    el.style.left = `${baseX}px`;
+    el.style.top = `${baseY}px`;
     el.style.transform = "translate(-50%, -50%)";
 
     const initialsEl = el.querySelector(SELECTORS.bubbleInitials);
@@ -223,6 +228,10 @@ function init() {
     nodes[i].baseY = sn.y;
     nodes[i].cx = sn.x;
     nodes[i].cy = sn.y;
+    // Update left/top to the post-sim base — only written here, not in the
+    // animation loop.
+    nodes[i].el.style.left = `${sn.x}px`;
+    nodes[i].el.style.top = `${sn.y}px`;
   });
 
   // ── Topic connection lines ──────────────────────────────────────────────
@@ -277,6 +286,12 @@ function init() {
     node.el.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") node.el.click();
     });
+
+    // Scale is set via el.style.scale (individual transform property) so it
+    // composes with the JS-driven transform on el.style.transform without
+    // overwriting it.
+    node.el.addEventListener("mouseenter", () => { node.el.style.scale = "1.06"; });
+    node.el.addEventListener("mouseleave", () => { node.el.style.scale = ""; });
   });
 
   // ── Float animation ─────────────────────────────────────────────────────
@@ -291,8 +306,8 @@ function init() {
       node.cx = node.baseX + dx;
       node.cy = node.baseY + dy;
 
-      node.el.style.left = `${node.cx}px`;
-      node.el.style.top = `${node.cy}px`;
+      // Compositor-only update — no layout recalculation triggered.
+      node.el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
     });
 
     // Keep connection lines tracking the moving bubbles
