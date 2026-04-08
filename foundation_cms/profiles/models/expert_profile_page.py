@@ -14,16 +14,19 @@ class ExpertExternalLink(TranslatableMixin, Orderable):
         related_name="external_links",
         on_delete=CASCADE,
     )
-    label = CharField(max_length=255, help_text="Link text.")
+    title = CharField(max_length=255, help_text="Title of the external link.")
+    description = TextField(blank=True, help_text="Brief description of the link.")
     url = URLField(help_text="Full URL including https://")
 
     panels = [
-        FieldPanel("label"),
+        FieldPanel("title"),
+        FieldPanel("description"),
         FieldPanel("url"),
     ]
 
     translatable_fields = [
-        TranslatableField("label"),
+        TranslatableField("title"),
+        TranslatableField("description"),
         SynchronizedField("url"),
     ]
 
@@ -38,21 +41,15 @@ class ExpertProfilePage(AbstractProfilePage):
         blank=True,
         help_text="Organization or institution.",
     )
-    notes = TextField(
-        blank=True,
-        help_text="Notes for the Web Team.",
-    )
 
     content_panels = AbstractProfilePage.content_panels + [
         FieldPanel("affiliation"),
         InlinePanel("external_links", label="External Links", max_num=10),
-        FieldPanel("notes"),
         FieldPanel("body"),
     ]
 
     translatable_fields = AbstractProfilePage.translatable_fields + [
         TranslatableField("affiliation"),
-        TranslatableField("notes"),
         TranslatableField("body"),
     ]
 
@@ -60,6 +57,7 @@ class ExpertProfilePage(AbstractProfilePage):
         index.SearchField("affiliation", boost=3),
     ]
 
+    parent_page_types = ["profiles.ExpertHubPage"]
     subpage_types: list[str] = []
 
     template = "patterns/pages/profiles/expert_profile_page.html"
