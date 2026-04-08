@@ -19,11 +19,13 @@
       justify-content: right;
     }
 
-    .tw-btn.btn-video-control {
+    .btn-video-control {
       $icon-size: 30px;
 
       border: none;
       height: $icon-size;
+      width: $icon-size;
+      cursor: pointer;
       background: center left/$icon-size $icon-size no-repeat transparent;
       transition: none;
 
