@@ -64,3 +64,18 @@ class ExpertProfilePage(AbstractProfilePage):
 
     class Meta:
         verbose_name = "Expert Profile Page"
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["gallery_projects"] = self.get_related_projects()
+
+        return context
+
+    def get_related_projects(self):
+        return (
+            self.gallery_projects.live()
+            .public()
+            .filter(locale=self.locale)
+            .select_related("hero_image")
+            .prefetch_related("topics")
+        )
