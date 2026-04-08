@@ -2,6 +2,7 @@ from django.db import migrations
 
 LEGACY_GROUP_NAME = "access/legacy content editor"
 DEFAULT_GROUP_NAME = "access/content editor: no publishing access"
+SNIPPET_EDITORS_GROUP_NAME = "Snippet Editors"
 
 # All legacy app labels whose model permissions should be gated behind the legacy group.
 # Mozfest is intentionally included here for snippets, even though mozfest pages are
@@ -29,13 +30,14 @@ def create_legacy_group(apps, schema_editor):
     legacy_permissions = Permission.objects.filter(content_type__app_label__in=LEGACY_APP_LABELS)
     legacy_group.permissions.set(legacy_permissions)
 
-    # Remove legacy permissions from the default content editor group so that only
-    # members of the legacy group (and superusers) can access legacy content.
-    try:
-        default_group = Group.objects.get(name=DEFAULT_GROUP_NAME)
-        default_group.permissions.remove(*legacy_permissions)
-    except Group.DoesNotExist:
-        pass
+    # Remove legacy permissions from the default content editor and snippet editor groups
+    # so that only members of the legacy group (and superusers) can access legacy content.
+    for group_name in (DEFAULT_GROUP_NAME, SNIPPET_EDITORS_GROUP_NAME):
+        try:
+            group = Group.objects.get(name=group_name)
+            group.permissions.remove(*legacy_permissions)
+        except Group.DoesNotExist:
+            pass
 
 
 def delete_legacy_group(apps, schema_editor):
@@ -44,14 +46,15 @@ def delete_legacy_group(apps, schema_editor):
 
     Group.objects.filter(name=LEGACY_GROUP_NAME).delete()
 
-    # Restore legacy permissions to the default content editor group so it is left
-    # in the same state as before this migration ran.
-    try:
-        default_group = Group.objects.get(name=DEFAULT_GROUP_NAME)
-        legacy_permissions = Permission.objects.filter(content_type__app_label__in=LEGACY_APP_LABELS)
-        default_group.permissions.add(*legacy_permissions)
-    except Group.DoesNotExist:
-        pass
+    # Restore legacy permissions to the default content editor and snippet editor groups
+    # so they are left in the same state as before this migration ran.
+    legacy_permissions = Permission.objects.filter(content_type__app_label__in=LEGACY_APP_LABELS)
+    for group_name in (DEFAULT_GROUP_NAME, SNIPPET_EDITORS_GROUP_NAME):
+        try:
+            group = Group.objects.get(name=group_name)
+            group.permissions.add(*legacy_permissions)
+        except Group.DoesNotExist:
+            pass
 
 
 class Migration(migrations.Migration):
