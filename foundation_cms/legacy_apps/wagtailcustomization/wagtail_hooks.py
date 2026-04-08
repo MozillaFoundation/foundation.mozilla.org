@@ -1,5 +1,3 @@
-from functools import lru_cache
-
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
@@ -20,12 +18,8 @@ LEGACY_PAGE_MODULE_PREFIXES = (
 )
 
 
-@lru_cache(maxsize=None)
 def get_legacy_page_content_type_ids():
-    """
-    Return a frozenset of ContentType IDs for all restricted legacy page types.
-    Result is cached after the first call since page types don't change at runtime.
-    """
+    """Return a frozenset of ContentType IDs for all restricted legacy page types."""
     # get_page_models() returns all concrete page models registered with Wagtail
     all_page_models = get_page_models()
 
@@ -47,7 +41,7 @@ def get_legacy_page_content_type_ids():
 @hooks.register("before_edit_page")
 def restrict_legacy_page_editing(request, page):
     """Block non-authorized users from editing legacy pages."""
-    # Check if this page is a legacy page type using the cached ContentType IDs
+    # Check if this page is a legacy page type
     if page.content_type_id in get_legacy_page_content_type_ids():
         if not is_legacy_authorized(request.user):
             messages.error(request, "You do not have permission to edit this page.")

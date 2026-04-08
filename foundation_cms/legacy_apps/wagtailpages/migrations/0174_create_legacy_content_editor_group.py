@@ -40,7 +40,18 @@ def create_legacy_group(apps, schema_editor):
 
 def delete_legacy_group(apps, schema_editor):
     Group = apps.get_model("auth", "Group")
+    Permission = apps.get_model("auth", "Permission")
+
     Group.objects.filter(name=LEGACY_GROUP_NAME).delete()
+
+    # Restore legacy permissions to the default content editor group so it is left
+    # in the same state as before this migration ran.
+    try:
+        default_group = Group.objects.get(name=DEFAULT_GROUP_NAME)
+        legacy_permissions = Permission.objects.filter(content_type__app_label__in=LEGACY_APP_LABELS)
+        default_group.permissions.add(*legacy_permissions)
+    except Group.DoesNotExist:
+        pass
 
 
 class Migration(migrations.Migration):
