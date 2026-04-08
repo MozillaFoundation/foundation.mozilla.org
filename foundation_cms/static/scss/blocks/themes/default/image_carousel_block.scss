@@ -151,7 +151,11 @@
     }
 
     &__link {
+      @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+
       grid-row: 5;
+      text-decoration: underline;
+      margin-top: rem-calc(8);
     }
   }
 }
