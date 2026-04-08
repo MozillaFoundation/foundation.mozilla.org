@@ -47,6 +47,7 @@
     "d3-drag": "^3.0.0",
     "d3-force": "^3.0.0",
     "d3-selection": "^3.0.0",
+    "d3-timer": "^3.0.0",
     "delicious-hamburgers": "^1.2.3",
     "esbuild": "^0.25.2",
     "foundation-sites": "^6.9.0",

@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Expert Hub Bubble Prototype{% endblock title %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/prototype/expert_hub_bubble.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}prototype-expert-hub-bubble-page{% endblock body_class %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="ehb-stage" id="ehbStage">
+            <div class="ehb-hero__copy">
+                <h1 class="ehb-hero__title">Meet our People</h1>
+                <p class="lede-text ehb-hero__body">Meet the amazing cohort of people who have worked with us in 2025</p>
+                <a href="{{ explore_url }}" class="btn btn-primary">Explore all experts</a>
+            </div>
+
+            <ol class="ehb-stage__bubble-list" id="ehbBubbleList">
+                {% for expert in experts %}
+                    <li class="ehb-bubble"
+                        data-index="{{ forloop.counter0 }}"
+                        data-name="{{ expert.name }}"
+                        data-bg-color="{{ expert.bg_color }}"
+                        data-url="{{ expert.url }}"
+                        data-topics="{{ expert.topics|join:',' }}">
+                        <span class="ehb-bubble__topic-pill">{{ expert.topics.0 }}</span>
+                        <span class="ehb-bubble__debug-index">{{ forloop.counter }}</span>
+                        <span class="ehb-bubble__initials"></span>
+
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+
+    <div class="grid-container" style="background: #f0f0f0; height: 100px; margin: 4rem auto; display: flex; align-items: center; justify-content: center;">
+        contact us box
+    </div>
+
+    <script src="{% static 'foundation_cms/_js/pages/prototype/expert_hub_bubble.compiled.js' %}" defer></script>
+{% endblock content %}

@@ -333,6 +333,28 @@ def prototype_expert_hub(request):
     )
 
 
+def prototype_expert_hub_bubble(request):
+    all_experts = EXPERTS + FILLER_EXPERTS
+    experts = [
+        {
+            "name": e["name"],
+            "title": e["title"],
+            "topics": e["topic"],
+            "bg_color": e["bg_color"],
+            "url": str(e["url"]),
+        }
+        for e in all_experts[:13]
+    ]
+    return render(
+        request,
+        "patterns/pages/prototype/expert_hub_bubble.html",
+        {
+            "experts": experts,
+            "explore_url": str(EXPERT_EXPLORE_URL),
+        },
+    )
+
+
 def prototype_expert_hub_explore(request):
     experts = EXPERTS + FILLER_EXPERTS
     filter_options = {
