@@ -56,14 +56,27 @@
                 {% endif %}
 
                 {% if featured_projects %}
-                    <div class="grid-x grid-margin-x" data-gallery-projects>
+                    <div class="gallery" data-gallery-projects>
                         {% for project in featured_projects %}
-                            <div class="cell small-12 medium-12 large-12"
+                            <div class="gallery__card"
                                  data-project
                                  data-topics="{% for topic in project.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
                                  data-program-labels="{% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
                                  data-program-year="{{ project.program_year }}">
-                                <a href="{{ project.url }}">{{ project.title }}</a>
+                                <div class="gallery__card-column gallery__card-column--title">
+                                    <a href="{{ project.url }}">{{ project.title }}</a>
+                                </div>
+                                <div class="gallery__card-column gallery__card-column--image">
+                                    {% if project.hero_image %}
+                                        {% image project.hero_image fill-600x400 as card_img %}
+                                        <img
+                                            src="{{ card_img.url }}"
+                                            alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
+                                            width="{{ card_img.width }}"
+                                            height="{{ card_img.height }}"
+                                        >
+                                    {% endif %}
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
