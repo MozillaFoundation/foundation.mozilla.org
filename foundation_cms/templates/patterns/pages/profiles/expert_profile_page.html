@@ -40,14 +40,16 @@
                             <div class="bio">{{ page.bio|safe }}</div>
                         {% endif %}
 
-                        {% if page.notes %}
-                            <div class="notes">{{ page.notes|safe }}</div>
-                        {% endif %}
-
                         {% if page.external_links.all %}
                             <ul class="external-links">
                                 {% for link in page.external_links.all %}
-                                    <li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a></li>
+                                    <li>
+                                        <strong>{{ link.title }}</strong>
+                                        {% if link.description %}
+                                            <p>{{ link.description }}</p>
+                                        {% endif %}
+                                        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.url }}</a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
