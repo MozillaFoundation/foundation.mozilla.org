@@ -1,9 +1,4 @@
-import {
-  forceSimulation,
-  forceCollide,
-  forceX,
-  forceY,
-} from "d3-force";
+import { forceSimulation, forceCollide, forceX, forceY } from "d3-force";
 import { select } from "d3-selection";
 import { drag } from "d3-drag";
 
@@ -95,14 +90,8 @@ function buildNodes(experts, allTopics, W, H, topicOrbitR) {
         id: `person-${i}`,
         type: "person",
         ...e,
-        x:
-          W / 2 +
-          r * Math.cos(angle) +
-          (Math.random() - 0.5) * jitter,
-        y:
-          H / 2 +
-          r * Math.sin(angle) +
-          (Math.random() - 0.5) * jitter,
+        x: W / 2 + r * Math.cos(angle) + (Math.random() - 0.5) * jitter,
+        y: H / 2 + r * Math.sin(angle) + (Math.random() - 0.5) * jitter,
       };
     }),
   ];
@@ -298,7 +287,12 @@ function initExpertHub() {
       .on("start", (event, d) => {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         // Fix every other node so only the dragged one moves
-        personNodes.forEach((n) => { if (n !== d) { n.fx = n.x; n.fy = n.y; } });
+        personNodes.forEach((n) => {
+          if (n !== d) {
+            n.fx = n.x;
+            n.fy = n.y;
+          }
+        });
         d.fx = d.x;
         d.fy = d.y;
       })
@@ -309,7 +303,10 @@ function initExpertHub() {
       .on("end", (event, _d) => {
         if (!event.active) simulation.alphaTarget(0);
         // Release all nodes so they spring back to their cluster anchors
-        personNodes.forEach((n) => { n.fx = null; n.fy = null; });
+        personNodes.forEach((n) => {
+          n.fx = null;
+          n.fy = null;
+        });
       });
 
     cardEls.forEach(({ node, el }) => select(el).datum(node).call(nodeDrag));
@@ -358,7 +355,6 @@ function initExpertHub() {
       centerInViewport();
     }).observe(container);
   }
-
 }
 
 initExpertHub();

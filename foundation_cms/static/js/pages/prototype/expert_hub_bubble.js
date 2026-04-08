@@ -31,7 +31,7 @@ const TIER_CONFIG = [
       [90, 20], // upper-far-right
       [64, 85], // lower-center
       [42, 76], // center-lower
-      [ 7, 55], // far lower-left
+      [7, 55], // far lower-left
       [11, 81], // bottom-left
     ],
   },
@@ -59,7 +59,7 @@ const TIER_WEIGHT = { 1: 2.5, 2: 1.5, 3: 1 };
 // Derive tier lookup and flat position list from TIER_CONFIG.
 // Each bubble index maps to a tier and a position within that tier's list.
 const TIER_BY_INDEX = TIER_CONFIG.flatMap(({ tier, positions }) =>
-  positions.map((pos) => ({ tier, pos }))
+  positions.map((pos) => ({ tier, pos })),
 );
 
 function getTier(i) {
@@ -75,20 +75,20 @@ function getPosition(i) {
 const PACK_DENSITY = 0.6;
 // Scale factor applied to bubble diameters (0.8 = 80% of base size; area scales by 0.8² = 0.64).
 const BUBBLE_SIZE_SCALE = 0.7;
-const PACK_FACTOR = PACK_DENSITY * (BUBBLE_SIZE_SCALE ** 2);
+const PACK_FACTOR = PACK_DENSITY * BUBBLE_SIZE_SCALE ** 2;
 
 // Float animation — gentle sine/cosine drift applied to each bubble every frame.
-const FLOAT_RADIUS_MIN = 4;    // px — minimum drift distance
-const FLOAT_RADIUS_MAX = 9;    // px — maximum drift distance
+const FLOAT_RADIUS_MIN = 4; // px — minimum drift distance
+const FLOAT_RADIUS_MAX = 9; // px — maximum drift distance
 const FLOAT_SPEED_MIN = 0.00025; // radians/ms — slowest oscillation
 const FLOAT_SPEED_MAX = 0.00045; // radians/ms — fastest oscillation
 
 // Collision resolution simulation settings
-const COLLIDE_PADDING = 6;       // px — minimum gap between bubble edges
-const COLLIDE_STRENGTH = 0.9;    // how aggressively overlaps are resolved (0–1)
-const COLLIDE_ITERATIONS = 3;    // collision constraint iterations per tick
-const ANCHOR_STRENGTH = 0.3;     // how strongly bubbles are pulled back toward their target position
-const SIM_TICKS = 200;           // synchronous ticks to run before first paint
+const COLLIDE_PADDING = 6; // px — minimum gap between bubble edges
+const COLLIDE_STRENGTH = 0.9; // how aggressively overlaps are resolved (0–1)
+const COLLIDE_ITERATIONS = 3; // collision constraint iterations per tick
+const ANCHOR_STRENGTH = 0.3; // how strongly bubbles are pulled back toward their target position
+const SIM_TICKS = 200; // synchronous ticks to run before first paint
 
 function getInitials(name) {
   return name
@@ -121,7 +121,10 @@ function init() {
   const els = Array.from(document.querySelectorAll(SELECTORS.bubble));
 
   // Total weighted units across all bubbles: 1×4 + 5×2 + 7×1 = 21
-  const totalWeightedUnits = els.reduce((sum, _, i) => sum + TIER_WEIGHT[getTier(i)], 0);
+  const totalWeightedUnits = els.reduce(
+    (sum, _, i) => sum + TIER_WEIGHT[getTier(i)],
+    0,
+  );
 
   // Area per unit weight, scaled by pack factor
   const areaPerUnit = (availableArea * PACK_FACTOR) / totalWeightedUnits;
@@ -196,10 +199,19 @@ function init() {
 
   // ── Collision resolution — nudges baseX/baseY so bubbles don't overlap ──
   // Run synchronously to completion before first paint.
-  const simNodes = nodes.map((n) => ({ x: n.baseX, y: n.baseY, r: n.size / 2 }));
+  const simNodes = nodes.map((n) => ({
+    x: n.baseX,
+    y: n.baseY,
+    r: n.size / 2,
+  }));
 
   forceSimulation(simNodes)
-    .force("collide", forceCollide((d) => d.r + COLLIDE_PADDING).strength(COLLIDE_STRENGTH).iterations(COLLIDE_ITERATIONS))
+    .force(
+      "collide",
+      forceCollide((d) => d.r + COLLIDE_PADDING)
+        .strength(COLLIDE_STRENGTH)
+        .iterations(COLLIDE_ITERATIONS),
+    )
     .force("x", forceX((_, i) => nodes[i].baseX).strength(ANCHOR_STRENGTH))
     .force("y", forceY((_, i) => nodes[i].baseY).strength(ANCHOR_STRENGTH))
     .stop()
@@ -274,8 +286,7 @@ function init() {
       const dx =
         node.floatR * Math.sin(elapsed * node.floatSpeed + node.phaseX);
       const dy =
-        node.floatR *
-        Math.cos(elapsed * node.floatSpeed * 0.65 + node.phaseY);
+        node.floatR * Math.cos(elapsed * node.floatSpeed * 0.65 + node.phaseY);
 
       node.cx = node.baseX + dx;
       node.cy = node.baseY + dy;
