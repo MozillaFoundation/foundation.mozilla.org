@@ -62,8 +62,23 @@ const TIER_BY_INDEX = TIER_CONFIG.flatMap(({ tier, positions }) =>
   positions.map((pos) => ({ tier, pos })),
 );
 
-function getTier(i) {
-  return TIER_BY_INDEX[i]?.tier ?? TIER_CONFIG.at(-1).tier;
+// Given n experts (6–13), compute how many belong to each tier.
+// Always 1 tier-1 (featured). Remaining split ~40% tier-2, ~60% tier-3.
+// Falls back to the last defined tier for any index beyond TIER_BY_INDEX.
+function computeTierBoundaries(n) {
+  const remaining = n - 1;
+  const tier2Count = Math.round(remaining * 0.4);
+  return { tier2Count };
+}
+
+function getTier(i, n) {
+  // If explicit positions exist for this index, use them.
+  if (i < TIER_BY_INDEX.length) return TIER_BY_INDEX[i].tier;
+  // Otherwise derive tier from dynamic boundaries.
+  const { tier2Count } = computeTierBoundaries(n);
+  if (i === 0) return 1;
+  if (i <= tier2Count) return 2;
+  return 3;
 }
 
 function getPosition(i) {
@@ -119,10 +134,11 @@ function init() {
 
   // Build node elements once — reused below for both size calc and node mapping
   const els = Array.from(document.querySelectorAll(SELECTORS.bubble));
+  const n = els.length;
 
-  // Total weighted units across all bubbles: 1×4 + 5×2 + 7×1 = 21
+  // Total weighted units across all bubbles
   const totalWeightedUnits = els.reduce(
-    (sum, _, i) => sum + TIER_WEIGHT[getTier(i)],
+    (sum, _, i) => sum + TIER_WEIGHT[getTier(i, n)],
     0,
   );
 
@@ -150,7 +166,7 @@ function init() {
 
   // Build node data from existing <li> elements
   const nodes = els.map((el, i) => {
-    const tier = getTier(i);
+    const tier = getTier(i, n);
     const size = Math.round(tierRadius[tier] * 2);
     const [xPct, yPct] = getPosition(i);
     const baseX = (xPct / 100) * stageW;
