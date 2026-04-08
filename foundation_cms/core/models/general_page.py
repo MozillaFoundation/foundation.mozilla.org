@@ -57,7 +57,7 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
     )
 
     hero_cta_link = StreamField(
-        [("link", LinkBlock())],
+        [("button", LinkBlock())],
         use_json_field=True,
         blank=True,
         max_num=1,
