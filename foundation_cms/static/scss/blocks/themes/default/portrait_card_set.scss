@@ -29,12 +29,7 @@ $carousel-transition: transform 0.3s ease;
   border-radius: var(--card-radius);
 
   &__card-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    max-width: 100%;
-    position: relative;
-    scrollbar-width: none;
+    @include carousel-card-container;
   }
 
   &__controls {
@@ -180,8 +175,8 @@ $carousel-transition: transform 0.3s ease;
         transform: scale($image-hover-scale);
       }
 
-      .portrait-card__cta::after {
-        transform: translateX(0.75rem);
+      .portrait-card__cta {
+        @include cta-link-hover-state;
       }
     }
 
