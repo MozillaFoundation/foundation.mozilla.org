@@ -997,10 +997,10 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axe-core@^4.10.0, axe-core@^4.10.3, axe-core@~4.11.1:
-  version "4.11.1"
-  resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.11.1.tgz"
-  integrity sha512-BASOg+YwO2C+346x3LZOeoovTIoTrRqEsqMa6fmfAV0P+U9mFr9NsyOEpiYvFjbc64NMrSswhV50WdXzdb/Z5A==
+axe-core@^4.10.0, axe-core@^4.11.2, axe-core@~4.11.1:
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.11.2.tgz#86d28e085b170a4b43d459aee6d30624fba9be4e"
+  integrity sha512-byD6KPdvo72y/wj2T/4zGEvvlis+PsZsn/yPS3pEO+sFpcrqRpX/TJCxvVaEsNeMrfQbCr7w163YqoD9IYwHXw==
 
 axios@^1.13.5:
   version "1.13.5"
