@@ -8,7 +8,7 @@
 
       <div class="hero">
 
-        <div class="hero__text">
+        <div class="hero__text {% if not page.hero_image %}hero__text--no-image{% endif %}">
           <h1 class="hero__title">{{ page.hero_title }}</h1>
           {% with topics=page.topics.all %}
             {% if topics %}
