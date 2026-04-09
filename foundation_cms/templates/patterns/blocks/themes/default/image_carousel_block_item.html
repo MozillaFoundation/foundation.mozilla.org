@@ -1,15 +1,17 @@
 {% load wagtailimages_tags %}
 
-<div class="image-carousel-item image-carousel-item--{{ orientation }}">
+{% with link=value.link.0 %}
+  {% if link %}
+    <a class="image-carousel-item image-carousel-item--{{ orientation }}" href="{{ link.url }}"{% if link.new_window %} target="_blank"{% endif %}>
+  {% else %}
+    <div class="image-carousel-item image-carousel-item--{{ orientation }}">
+  {% endif %}
+
   {% if value.header %}
     <p class="image-carousel-item__header">{{ value.header }}</p>
   {% endif %}
 
-  {% with link=value.link.0 %}
-    {% if link %}
-      <a class="image-carousel-item__image-link" href="{{ link.url }}">
-    {% endif %}
-
+  <div class="image-carousel-item__image-wrapper">
     {% image value.image original as img %}
     <img
       class="image-carousel-item__image"
@@ -18,11 +20,7 @@
       width="{{ img.width }}"
       height="{{ img.height }}"
     >
-
-    {% if link %}
-      </a>
-    {% endif %}
-  {% endwith %}
+  </div>
 
   {% if value.title %}
     <h4 class="image-carousel-item__title">{{ value.title }}</h4>
@@ -32,10 +30,13 @@
     <div class="image-carousel-item__description">{{ value.description }}</div>
   {% endif %}
 
-  {% with link=value.link.0 %}
-    {% if link %}
-      <a class="image-carousel-item__link" href="{{ link.url }}">{{ link.label|default:"Read more" }}</a>
-    {% endif %}
-  {% endwith %}
+  {% if link %}
+    <span class="image-carousel-item__link">{{ link.label|default:"Read more" }}</span>
+  {% endif %}
 
-</div>
+  {% if link %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+{% endwith %}

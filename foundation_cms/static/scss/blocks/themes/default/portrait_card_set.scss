@@ -177,7 +177,7 @@ $carousel-transition: transform 0.3s ease;
       }
 
       .portrait-card__image img {
-        transform: scale(1.05);
+        transform: scale($image-hover-scale);
       }
 
       .portrait-card__cta::after {

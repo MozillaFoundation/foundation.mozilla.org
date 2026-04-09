@@ -108,6 +108,8 @@
 
   .image-carousel-item {
     display: contents;
+    color: map.get($mofo-colors, black);
+    text-decoration: none;
 
     &__header {
       @include mofo-text-style($header-styles, "h5", $header-font-family);
@@ -117,17 +119,18 @@
       margin-bottom: rem-calc(24);
     }
 
-    &__image-link {
+    &__image-wrapper {
       grid-row: 2;
-      display: block;
+      overflow: hidden;
     }
 
     &__image {
-      grid-row: 2;
       width: 100%;
       aspect-ratio: var(--image-aspect-ratio);
       object-fit: cover;
       display: block;
+      transition: transform 0.3s ease;
+      will-change: transform;
     }
 
     &__title {
@@ -156,6 +159,24 @@
       grid-row: 5;
       text-decoration: underline;
       margin-top: rem-calc(8);
+
+      &::after {
+        will-change: transform;
+      }
+    }
+
+    &:hover {
+      .image-carousel-item__image {
+        transform: scale($image-hover-scale);
+      }
+
+      .image-carousel-item__title {
+        text-decoration: underline;
+      }
+
+      .image-carousel-item__link::after {
+        transform: translateX(0.75rem);
+      }
     }
   }
 }
