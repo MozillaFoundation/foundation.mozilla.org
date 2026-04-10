@@ -1,23 +1,42 @@
 from wagtail.test.utils import WagtailPageTestCase
 
-from foundation_cms.profiles.factories import ProfileFactory, ProfilePageFactory
-from foundation_cms.profiles.models import Profile
+from foundation_cms.profiles.factories import (
+    ExpertDirectoryPageFactory,
+    ExpertHubPageFactory,
+    ExpertProfilePageFactory,
+)
 
 
-class ProfileTestCase(WagtailPageTestCase):
+class ExpertProfilePageTestCase(WagtailPageTestCase):
     def setUp(self):
-        self.profile = ProfileFactory()
+        self.hub = ExpertHubPageFactory()
+        self.page = ExpertProfilePageFactory(parent=self.hub)
 
     def test_str_representation(self):
-        """This test ensures Profile __str__ returns the correct name."""
-        self.assertEqual(str(self.profile), self.profile.title)
+        self.assertEqual(str(self.page), self.page.title)
+
+    def test_required_fields_populated(self):
+        self.assertTrue(self.page.role)
+        self.assertTrue(self.page.bio)
+        self.assertTrue(self.page.location)
+        self.assertIsNotNone(self.page.image)
+
+    def test_is_leaf_page(self):
+        self.assertEqual(self.page.subpage_types, [])
 
 
-class ProfilePageTestCase(WagtailPageTestCase):
+class ExpertDirectoryPageTestCase(WagtailPageTestCase):
     def setUp(self):
-        self.profile_page = ProfilePageFactory()
+        self.hub = ExpertHubPageFactory()
+        self.directory = ExpertDirectoryPageFactory(parent=self.hub)
 
-    def test_profile_association(self):
-        """This test ensures the ProfilePage correctly associates with a Profile."""
-        self.assertIsInstance(self.profile_page.profile, Profile)  # Ensure a correct type
-        self.assertTrue(self.profile_page.bio)  # Ensure bio is generated
+    def test_parent_is_hub(self):
+        self.assertEqual(self.directory.get_parent().specific, self.hub)
+
+    def test_is_leaf_page(self):
+        self.assertEqual(self.directory.subpage_types, [])
+
+    def test_get_experts_returns_hub_children(self):
+        expert = ExpertProfilePageFactory(parent=self.hub)
+        experts = self.directory.get_experts()
+        self.assertIn(expert, experts)
