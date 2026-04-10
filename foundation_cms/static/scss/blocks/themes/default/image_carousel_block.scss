@@ -1,0 +1,177 @@
+@use "sass:map";
+@use "sass:math";
+
+.image-carousel {
+  $carousel-transition: transform 0.3s ease;
+  $gap: (
+    small: rem-calc(8),
+    large: rem-calc(16),
+  );
+  $portrait-ratio: math.div(2, 3);
+  $landscape-ratio: math.div(3, 2);
+  $portrait-height: (
+    small: rem-calc(195),
+    large: rem-calc(300),
+  );
+  $landscape-height: (
+    small: rem-calc(182),
+    large: rem-calc(251),
+  );
+  $slide-width: (
+    portrait: (
+      small: map.get($portrait-height, small) * $portrait-ratio,
+      large: map.get($portrait-height, large) * $portrait-ratio,
+    ),
+    landscape: (
+      small: map.get($landscape-height, small) * $landscape-ratio,
+      large: map.get($landscape-height, large) * $landscape-ratio,
+    ),
+  );
+
+  --image-aspect-ratio: #{$portrait-ratio};
+
+  &--landscape {
+    $landscape-widths: map.get($slide-width, landscape);
+
+    --image-aspect-ratio: #{$landscape-ratio};
+
+    .image-carousel__track {
+      grid-auto-columns: map.get($landscape-widths, small);
+
+      @include breakpoint(large up) {
+        grid-auto-columns: map.get($landscape-widths, large);
+      }
+    }
+  }
+
+  &__header-controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__header {
+    @include mofo-text-style($header-styles, "h3", $header-font-family);
+
+    margin: rem-calc(14) 0;
+  }
+
+  &__card-container {
+    @include carousel-card-container;
+  }
+
+  &__track {
+    $portrait-widths: map.get($slide-width, portrait);
+
+    --carousel-transition: #{$carousel-transition};
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: map.get($portrait-widths, small);
+    grid-template-rows: repeat(5, auto);
+    column-gap: map.get($gap, small);
+    width: 100%;
+    will-change: transform;
+    transition: var(--carousel-transition);
+
+    @include breakpoint(large up) {
+      grid-auto-columns: map.get($portrait-widths, large);
+      column-gap: map.get($gap, large);
+    }
+  }
+
+  &__slide {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+  }
+
+  &:not(.is-carousel) {
+    @include breakpoint(large up) {
+      .image-carousel__controls {
+        display: none;
+      }
+
+      .image-carousel__track {
+        $gap-large: map.get($gap, large);
+
+        grid-auto-columns: calc(
+          (100% - (var(--slide-count) - 1) * #{$gap-large}) / var(--slide-count)
+        );
+      }
+    }
+  }
+
+  .image-carousel-item {
+    display: contents;
+    color: map.get($mofo-colors, black);
+    text-decoration: none;
+
+    &__header {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      grid-row: 1;
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+    }
+
+    &__image-wrapper {
+      grid-row: 2;
+      overflow: hidden;
+    }
+
+    &__image {
+      width: 100%;
+      aspect-ratio: var(--image-aspect-ratio);
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      grid-row: 3;
+      margin-top: rem-calc(16);
+      margin-bottom: rem-calc(8);
+    }
+
+    &__description {
+      grid-row: 4;
+
+      p:first-child {
+        margin-top: 0;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &__link {
+      @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+
+      grid-row: 5;
+      text-decoration: underline;
+      margin-top: rem-calc(8);
+
+      &::after {
+        will-change: transform;
+      }
+    }
+
+    &:hover {
+      .image-carousel-item__image {
+        transform: scale($image-hover-scale);
+      }
+
+      .image-carousel-item__title {
+        text-decoration: underline;
+      }
+
+      .image-carousel-item__link {
+        @include cta-link-hover-state;
+      }
+    }
+  }
+}
