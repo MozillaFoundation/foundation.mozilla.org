@@ -121,7 +121,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.5",
     "eslint-plugin-react": "^7.37.4",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.2",
     "stylelint": "^17.6.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-prettier": "^5.0.3",
