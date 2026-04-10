@@ -1,34 +1,33 @@
 {% extends theme_base %}
 
-{% load wagtailimages_tags i18n %}
+{% load static wagtailcore_tags wagtailimages_tags i18n responsive_image_tags %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_directory_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}template-expert-directory-page{% endblock body_class %}
 
 {% block content %}
-    <main class="expert-hub-page expert-hub-page--index">
+    <main class="expert-directory">
         <div class="grid-container">
-
-            <a href="{{ page.get_parent.url }}" class="expert-hub-page__back-link">{% trans "Go to landing page" %}</a>
-
-            <h1>{{ page.title }}</h1>
-            {% if page.description %}
-                <div class="expert-hub-page__description">{{ page.description|safe }}</div>
-            {% endif %}
-
-            {% if featured_topic_objects %}
-                <section class="expert-hub-page__topics">
-                    <h2>{% trans "Explore Issue Areas" %}</h2>
-                    {% include "patterns/components/topic_pills.html" with topics=featured_topic_objects %}
-                </section>
-            {% endif %}
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 large-7">
+                    <h1 class="expert-directory__title">{{ page.title }} ({{ total_experts_count }})</h1>
+                    {% if page.description %}
+                        <div class="expert-directory__description">{{ page.description|safe }}</div>
+                    {% endif %}
+                </div>
+            </div>
 
             <section
                 id="listing"
-                class="expert-hub-page__listing"
+                class="expert-directory__listing"
                 data-experts-api="{{ page.url }}experts/"
                 data-page-size="{{ page.PAGE_SIZE }}"
                 data-total-count="{{ total_experts_count }}"
             >
-                <h2>{{ page.title }} <span class="expert-hub-page__count">({{ total_experts_count }})</span></h2>
-
+                {% comment %}
                 <form id="filter-form" method="get" action="{{ page.url }}#listing">
                     {% if filter_topics or filter_countries or filter_roles %}
                         <div class="grid-x grid-margin-x">
@@ -84,47 +83,41 @@
                         }
                     })();
                 </script>
+                {% endcomment %}
 
                 {% if total_experts_count == 0 %}
-                    <p class="expert-hub-page__no-results">{% trans "0 results" %}</p>
+                    <p class="expert-directory__no-results">{% trans "0 results" %}</p>
                 {% else %}
-                    <div class="expert-hub-page__cards">
+                    <div class="expert-directory__grid">
                         {% for expert in experts_page %}
-                            <article class="expert-card">
-                                {% if expert.image %}
-                                    <a href="{{ expert.url }}">
-                                        {% image expert.image fill-400x400 as card_img %}
-                                        <img
-                                            src="{{ card_img.url }}"
-                                            alt="{{ expert.title }}"
-                                            width="{{ card_img.width }}"
-                                            height="{{ card_img.height }}"
-                                            loading="lazy"
-                                        >
-                                    </a>
-                                {% endif %}
-                                <h4><a href="{{ expert.url }}">{{ expert.title }}</a></h4>
+                            <div class="expert-card">
+                                <a href="{% pageurl expert %}" class="expert-card__image-wrapper">
+                                    {% if expert.image %}
+                                        {% responsive_image expert.image ratio="2:3" %}
+                                    {% elif expert.search_image %}
+                                        {% responsive_image expert.search_image ratio="2:3" %}
+                                    {% endif %}
+                                </a>
+
+                                <div class="expert-card__name"><a href="{% pageurl expert %}">{{ expert.title }}</a></div>
                                 {% if expert.role %}
                                     <p class="expert-card__role">{{ expert.role }}</p>
                                 {% endif %}
-                                {% if expert.affiliation %}
-                                    <p class="expert-card__affiliation">{{ expert.affiliation }}</p>
-                                {% endif %}
-                            </article>
+                            </div>
                         {% endfor %}
                     </div>
 
                     {% trans "Expert listing pagination" as pagination_label %}
-                    <nav class="expert-hub-page__pagination" aria-label="{{ pagination_label }}">
+                    <nav class="expert-directory__pagination" aria-label="{{ pagination_label }}">
                         {% if experts_page.has_previous %}
                             <a href="?page={{ experts_page.previous_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Previous" %}</a>
                         {% endif %}
 
                         {% for num in page_range %}
                             {% if num == experts_page.paginator.ELLIPSIS %}
-                                <span class="expert-hub-page__pagination-ellipsis">…</span>
+                                <span class="expert-directory__pagination-ellipsis">…</span>
                             {% elif num == experts_page.number %}
-                                <span class="expert-hub-page__pagination-current" aria-current="page">{{ num }}</span>
+                                <span class="expert-directory__pagination-current" aria-current="page">{{ num }}</span>
                             {% else %}
                                 <a href="?page={{ num }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{{ num }}</a>
                             {% endif %}
@@ -137,9 +130,5 @@
                 {% endif %}
             </section>
         </div>
-
-        {% if page.body %}
-            {% include "patterns/components/streamfield.html" with streamfield=page.body %}
-        {% endif %}
     </main>
 {% endblock content %}

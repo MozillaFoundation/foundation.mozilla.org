@@ -1,0 +1,76 @@
+@use "sass:map";
+@use "sass:math";
+@import "../redesign_base";
+
+body.template-expert-directory-page {
+  .expert-directory {
+    &__title {
+      margin: rem-calc(36) 0 rem-calc(22);
+    }
+
+    &__description {
+      @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
+
+      margin-bottom: rem-calc(58);
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+
+      @include breakpoint(medium up) {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+      }
+    }
+  }
+
+  .expert-card {
+    margin: 0 0 rem-calc(34);
+    flex: 1;
+    position: relative;
+
+    &__image-wrapper {
+      width: 100%;
+      display: block;
+      aspect-ratio: math.div(2, 3);
+      margin-bottom: rem-calc(12);
+      overflow: hidden;
+
+      picture {
+        display: contents;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      &:hover {
+        img {
+          transform: scale($image-hover-scale);
+        }
+      }
+    }
+
+    &__name {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin: 0 0 rem-calc(8);
+
+      a {
+        text-decoration: none;
+        color: $black;
+      }
+    }
+
+    &__role {
+      @include mofo-text-style($body-text-styles, "small");
+
+      margin: 0;
+    }
+  }
+}

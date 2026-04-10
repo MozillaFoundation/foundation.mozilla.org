@@ -48,7 +48,7 @@ def generate(seed):
     directory = ExpertDirectoryPage.objects.filter(slug="directory", locale=default_locale).first()
     if not directory:
         directory = ExpertDirectoryPage(
-            title="Expert Directory",
+            title="Explore All Experts",
             slug="directory",
             locale=default_locale,
             seo_title="Expert Directory",

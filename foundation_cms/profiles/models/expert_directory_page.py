@@ -53,7 +53,8 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
             heading="Featured Topics",
             classname="collapsible",
         ),
-        FieldPanel("body"),
+        # TODO: I think we don't need this?
+        # FieldPanel("body"),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
@@ -108,9 +109,10 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
     def get_context(self, request):
         context = super().get_context(request)
 
-        context["featured_topic_objects"] = [
-            ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
-        ]
+        # TODO: I think we don't need this?
+        # context["featured_topic_objects"] = [
+        #     ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
+        # ]
 
         active_topic = request.GET.get("topic", "")
         active_country = request.GET.get("country", "")
