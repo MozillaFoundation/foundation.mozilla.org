@@ -3,7 +3,6 @@ import wagtail_factories
 from wagtail.models import Locale
 
 from foundation_cms.core.models import HomePage
-from foundation_cms.profiles.factories import ProfileFactory
 
 from .models import BlogIndexPage, BlogPage
 
@@ -32,7 +31,6 @@ class BlogPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker("sentence", nb_words=4)
     slug = factory.Faker("slug")
     body = factory.Faker("paragraph")
-    author = factory.SubFactory(ProfileFactory)
 
 
 def create_blog_with_posts(blog_page_count=5):
