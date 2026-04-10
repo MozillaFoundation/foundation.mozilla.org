@@ -113,6 +113,15 @@
   text-overflow: ellipsis;
 }
 
+@mixin carousel-card-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  position: relative;
+  scrollbar-width: none;
+}
+
 // ===================================
 // Nothing Personal Mixins
 // ===================================
