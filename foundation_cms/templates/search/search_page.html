@@ -25,7 +25,7 @@
 
                 {% if search_results %}
                     {% include "search/_search_results.html" %}
-                    {% include "search/_pagination.html" %}
+                    {% include "search/_pagination.html" with page_obj=search_results viewname='search' %}
                 {% else %}
                     {% if keep_contributing_pages|length >= 2 %}
                         <div class="cell small-12 related-content-wrapper">
