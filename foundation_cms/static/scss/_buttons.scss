@@ -224,15 +224,17 @@ $cta-link-icon-sizes: (
 
 .pagination-controls {
   $background-color: black;
+  $triangle-width: rem-calc(48);
 
   display: flex;
   align-items: center;
   color: white;
   position: relative;
   background: $background-color;
+  margin-left: $triangle-width;
 
   &::before {
-    $width: rem-calc(48);
+    $width: $triangle-width;
     $left-offset: $width * -1;
 
     // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges
@@ -259,10 +261,19 @@ $cta-link-icon-sizes: (
   }
 
   button {
-    padding: rem-calc(24) rem-calc(20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem-calc(56);
+    padding: rem-calc(24) 0;
     color: white;
     background: $background-color;
     cursor: pointer;
+
+    img {
+      width: rem-calc(16);
+      height: rem-calc(16);
+    }
 
     &:focus-visible {
       outline-color: color(neutral, "300");
