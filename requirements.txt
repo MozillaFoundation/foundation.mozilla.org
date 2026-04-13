@@ -10,6 +10,7 @@ asgiref==3.7.2
     # via
     #   django
     #   django-cors-headers
+    #   django-countries
     #   django-htmx
     #   scout-apm
 async-timeout==4.0.2
@@ -78,6 +79,8 @@ django==4.2.29
 django-admin-sortable==2.3
     # via -r requirements.in
 django-cors-headers==4.3.1
+    # via -r requirements.in
+django-countries==8.2.0
     # via -r requirements.in
 django-csp==3.8
     # via -r requirements.in
@@ -248,6 +251,7 @@ tqdm==4.63.0
 typing-extensions==4.4.0
     # via
     #   dj-database-url
+    #   django-countries
     #   django-stubs-ext
     #   django-tasks
     #   wagtail-localize
