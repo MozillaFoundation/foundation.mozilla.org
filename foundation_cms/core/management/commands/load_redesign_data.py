@@ -4,12 +4,13 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
-from foundation_cms.base.factories import generate_topics
+from foundation_cms.base.factories import generate_images, generate_topics
 from foundation_cms.core.factories.homepage import HomePageFactory
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import NavigationMenuFactory
 from foundation_cms.navigation.models import SiteNavigationMenu
+from foundation_cms.profiles.factories import generate as generate_profiles
 
 BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"
 HOMEPAGE_DIR = BASE_DIR / "homepage"
@@ -46,6 +47,11 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
 
+        # Generate placeholder images (used by other factories)
+        self.stdout.write("Generating placeholder images...")
+        generate_images()
+        self.stdout.write(self.style.SUCCESS("20 placeholder images created."))
+
         # Generate shared Topics (available to all page types)
         self.stdout.write("Generating Topics...")
         generate_topics()
@@ -55,6 +61,11 @@ class Command(BaseCommand):
         self.stdout.write("Generating Site Footer...")
         footer = generate_footer(seed=42)
         self.stdout.write(self.style.SUCCESS(f'Site Footer active: "{footer.title}"'))
+
+        # Generate Expert Hub
+        self.stdout.write("Generating Expert Hub...")
+        expert_hub = generate_profiles(seed=42)
+        self.stdout.write(self.style.SUCCESS(f'Expert Hub active: "{expert_hub.title}"'))
 
         # Generate Gallery Hub content
         self.stdout.write("Generating Gallery Hub content...")

@@ -11,6 +11,7 @@ from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
+from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock, ImageGridItemBlock, ImageGridSectionBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
@@ -98,4 +99,5 @@ __all__ = [
     "ProductReviewSectionReduceYourRisksBlock",
     "ProductReviewSectionWhatYouShouldKnowBlock",
     "FeaturedContainerBlock",
+    "ImageCarouselBlock",
 ]

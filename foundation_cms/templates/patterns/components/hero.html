@@ -23,6 +23,12 @@
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
+
+          {% with hero_cta=page.hero_cta_link.0.value %}
+            {% if hero_cta and hero_cta.url %}
+              {% include "patterns/components/button.html" with value=hero_cta classnames="hero__cta" url=hero_cta.url label=hero_cta.label button_style="btn-primary" %}
+            {% endif %}
+          {% endwith %}
         </div>
 
         {% if page.hero_image %}
@@ -60,6 +66,12 @@
           {% if page.hero_description %}
             <p class="hero__description lede-text">{{ page.hero_description }}</p>
           {% endif %}
+
+          {% with hero_cta=page.hero_cta_link.0.value %}
+            {% if hero_cta and hero_cta.url %}
+              {% include "patterns/components/button.html" with value=hero_cta classnames="hero__cta" url=hero_cta.url label=hero_cta.label button_style="btn-primary" %}
+            {% endif %}
+          {% endwith %}
         </div>
       </div>
 

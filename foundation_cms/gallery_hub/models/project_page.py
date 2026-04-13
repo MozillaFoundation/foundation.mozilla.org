@@ -5,7 +5,11 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
+<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+=======
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
+>>>>>>> main
 from wagtail.fields import StreamField
 from wagtail.models import Locale
 from wagtail.search import index
@@ -48,6 +52,17 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         help_text="Enter a four-digit year.",
     )
 
+<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
+=======
+    expert = models.ForeignKey(
+        "profiles.ExpertProfilePage",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="gallery_projects",
+    )
+
+>>>>>>> main
     content_panels = AbstractArticlePage.content_panels + [
         MultiFieldPanel(
             [
@@ -61,6 +76,10 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         FieldPanel("cta_link"),
         FieldPanel("program_label"),
         FieldPanel("program_year"),
+<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
+=======
+        PageChooserPanel("expert", "profiles.ExpertProfilePage"),
+>>>>>>> main
         FieldPanel("body"),
     ]
 
@@ -70,6 +89,10 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         TranslatableField("lede_text"),
         TranslatableField("cta_link"),
         TranslatableField("body"),
+<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
+=======
+        SynchronizedField("expert"),
+>>>>>>> main
     ]
 
     search_fields = AbstractArticlePage.search_fields + [

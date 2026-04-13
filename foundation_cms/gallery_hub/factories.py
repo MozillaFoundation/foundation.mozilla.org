@@ -2,9 +2,11 @@ import random
 
 from django.utils.text import slugify
 from wagtail import models as wagtail_models
+from wagtail.images import get_image_model
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.utils.helpers import get_faker, reseed
+from foundation_cms.blocks.factories import LinkButtonBlockFactory
 from foundation_cms.gallery_hub.models import GalleryPage, ProjectPage
 from foundation_cms.gallery_hub.models.gallery_page import FeaturedGalleryProject
 from foundation_cms.gallery_hub.models.project_page import ProgramLabel
@@ -27,13 +29,14 @@ def generate(seed):
             slug=slugify(name),
             defaults={"name": name},
         )
-        if created:
-            print(f"  + Program Label: {name}")
         labels.append(label)
     print(f"  {len(labels)} Program Labels ready.")
 
     # --- Topics (created earlier in load_redesign_data) ---
     topics = list(Topic.objects.all())
+
+    # --- Images (created earlier in load_redesign_data) ---
+    images = list(get_image_model().objects.all())
 
     # --- 1 Gallery Hub Page (directly under site root) ---
     print("Creating Gallery Hub Page...")
@@ -65,6 +68,7 @@ def generate(seed):
             continue
 
         title = fake.sentence(nb_words=6).rstrip(".")
+        body_html = "".join(f"<p>{fake.paragraph(nb_sentences=4)}</p>" for _ in range(3))
         project = ProjectPage(
             title=title,
             slug=slug,
@@ -73,6 +77,20 @@ def generate(seed):
             lede_text=fake.paragraph(nb_sentences=2),
             seo_title=title,
             search_description=fake.sentence(nb_words=10).rstrip("."),
+            hero_image=random.choice(images) if images else None,
+            hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
+            cta_link=[
+                {
+                    "type": "link_button_block",
+                    "value": dict(
+                        LinkButtonBlockFactory(
+                            style="btn-primary",
+                            alignment="link-button-block--left",
+                        )
+                    ),
+                }
+            ],
+            body=[{"type": "rich_text", "value": body_html}],
         )
         gallery_page.add_child(instance=project)
 
@@ -84,7 +102,6 @@ def generate(seed):
         project.topics.add(*assigned_topics)
 
         project.save_revision().publish()
-        print(f"  + Project Page: {title}")
         project_pages.append(project)
 
     print(f"  {len(project_pages)} Project Pages ready.")

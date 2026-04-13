@@ -2,6 +2,7 @@
 @import "../scss/fonts";
 
 // Our custom variables and base styles
+@import "../scss/variables";
 @import "../scss/colors";
 @import "../scss/type";
 @import "../scss/mixins";
@@ -17,6 +18,7 @@
 @import "../scss/blocks/themes/default/fru_element_block";
 @import "../scss/blocks/themes/default/iframe_block";
 @import "../scss/blocks/themes/default/image_block";
+@import "../scss/blocks/themes/default/image_carousel_block";
 @import "../scss/blocks/themes/default/image_grid_block";
 @import "../scss/blocks/themes/default/impact_number_block";
 @import "../scss/blocks/themes/default/list_block";

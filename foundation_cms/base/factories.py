@@ -1,7 +1,45 @@
+<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
 from django.utils.text import slugify
 
 from foundation_cms.base.models.abstract_base_page import Topic
 
+=======
+import factory
+from django.utils.text import slugify
+from factory.django import DjangoModelFactory, ImageField
+from wagtail.images import get_image_model
+from wagtail.models import Collection
+
+from foundation_cms.base.models.abstract_base_page import Topic
+
+IMAGE_COLORS = ["red", "blue", "green", "purple", "pink"]
+
+
+class CollectionFactory(DjangoModelFactory):
+    class Meta:
+        model = Collection
+        django_get_or_create = ("name",)
+
+    name = "Root"
+
+
+class CollectionMemberFactory(DjangoModelFactory):
+    collection = factory.SubFactory(CollectionFactory)
+
+
+class ImageFactory(CollectionMemberFactory):
+    """
+    Custom image factory that places all images in the Root collection.
+    """
+
+    class Meta:
+        model = get_image_model()
+
+    title = "An image"
+    file = ImageField()
+
+
+>>>>>>> main
 TOPIC_NAMES = [
     "Artificial Intelligence",
     "Privacy",
@@ -16,6 +54,16 @@ TOPIC_NAMES = [
 ]
 
 
+<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
+=======
+def generate_images():
+    images = []
+    for color in IMAGE_COLORS * 4:
+        images.append(ImageFactory.create(file__color=color))
+    return images
+
+
+>>>>>>> main
 def generate_topics():
     topics = []
     for name in TOPIC_NAMES:
