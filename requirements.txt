@@ -210,7 +210,7 @@ pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.32.4
+requests==2.33.1
     # via
     #   -r requirements.in
     #   basket-client
