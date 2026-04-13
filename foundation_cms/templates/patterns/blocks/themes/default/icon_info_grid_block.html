@@ -2,7 +2,7 @@
 
 <section class="icon-info-grid icon-info-grid--{{ value.layout_style }} icon-info-grid--{{ value.columns }}-col icon-info-grid--{{ value.icon_color }}">
 
-  <h3 class="icon-info-grid__heading">{{ value.heading }}</h3>
+  <h2 class="icon-info-grid__heading">{{ value.heading }}</h2>
 
   <div class="icon-info-grid__items">
     {% for item in value.items %}
@@ -18,7 +18,7 @@
             loading="lazy"
           >
 
-          <h5 class="icon-info-grid__title">{{ item.title }}</h5>
+          <h3 class="icon-info-grid__title">{{ item.title }}</h3>
         </div>
 
         {% if value.layout_style == "detailed" and item.description %}
