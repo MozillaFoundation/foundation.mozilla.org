@@ -1,9 +1,3 @@
-<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
-from django.utils.text import slugify
-
-from foundation_cms.base.models.abstract_base_page import Topic
-
-=======
 import factory
 from django.utils.text import slugify
 from factory.django import DjangoModelFactory, ImageField
@@ -39,7 +33,6 @@ class ImageFactory(CollectionMemberFactory):
     file = ImageField()
 
 
->>>>>>> main
 TOPIC_NAMES = [
     "Artificial Intelligence",
     "Privacy",
@@ -54,8 +47,6 @@ TOPIC_NAMES = [
 ]
 
 
-<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
-=======
 def generate_images():
     images = []
     for color in IMAGE_COLORS * 4:
@@ -63,7 +54,6 @@ def generate_images():
     return images
 
 
->>>>>>> main
 def generate_topics():
     topics = []
     for name in TOPIC_NAMES:

@@ -86,20 +86,14 @@ def generate(seed):
         )
         hub.add_child(instance=expert)
 
-<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
-from foundation_cms.profiles.models import ExpertProfilePage
-=======
         if topics:
             assigned_topics = random.sample(topics, min(random.randint(1, 3), len(topics)))
             expert.topics.add(*assigned_topics)
->>>>>>> main
 
         expert.save_revision().publish()
         print(f"  + Expert: {name}")
         expert_pages.append(expert)
 
-<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
-=======
     print(f"  {len(expert_pages)} Expert Profile Pages ready.")
 
     # Link featured experts to hub
@@ -146,19 +140,10 @@ class ExpertDirectoryPageFactory(wagtail_factories.PageFactory):
     search_description = factory.Faker("sentence", nb_words=10)
 
 
->>>>>>> main
 class ExpertProfilePageFactory(wagtail_factories.PageFactory):
     class Meta:
         model = ExpertProfilePage
 
-<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
-    role = factory.Faker("job")
-    bio = factory.Faker("paragraph")
-    location = factory.Iterator(["US", "DE", "BR", "KE", "JP"])
-    image = factory.SubFactory(wagtail_factories.ImageFactory)
-    seo_title = factory.Faker("sentence")
-    search_description = factory.Faker("paragraph")
-=======
     title = factory.Faker("name")
     slug = factory.Faker("slug")
     image = factory.SubFactory(wagtail_factories.ImageFactory)
@@ -168,4 +153,3 @@ class ExpertProfilePageFactory(wagtail_factories.PageFactory):
     affiliation = factory.Faker("company")
     seo_title = factory.Faker("sentence", nb_words=3)
     search_description = factory.Faker("sentence", nb_words=10)
->>>>>>> main

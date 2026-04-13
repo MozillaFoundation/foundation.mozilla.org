@@ -74,9 +74,6 @@
                         {% if page.external_links.all %}
                             <ul class="external-links">
                                 {% for link in page.external_links.all %}
-<<<<<<< TP1-3626-enhanced-3-column-content-grid-container
-                                    <li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a></li>
-=======
                                     <li>
                                         <strong>{{ link.title }}</strong>
                                         {% if link.description %}
@@ -84,7 +81,6 @@
                                         {% endif %}
                                         <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.url }}</a>
                                     </li>
->>>>>>> main
                                 {% endfor %}
                             </ul>
                         {% endif %}
