@@ -103,8 +103,13 @@ body.template-expert-directory-page {
       @extend %card-visual-base;
 
       background: color(yellow, "100");
-      border-bottom-right-radius: rem-calc(80);
-      padding: rem-calc(24);
+      border-bottom-right-radius: rem-calc(48);
+      padding: rem-calc(8);
+
+      @include breakpoint(large up) {
+        border-bottom-right-radius: rem-calc(80);
+        padding: rem-calc(24);
+      }
     }
 
     &__label {
