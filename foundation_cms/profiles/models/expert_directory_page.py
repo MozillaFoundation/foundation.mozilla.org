@@ -55,8 +55,6 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
             heading="Featured Topics",
             classname="collapsible",
         ),
-        # TODO: I think we don't need this?
-        # FieldPanel("body"),
     ]
 
     translatable_fields = AbstractBasePage.translatable_fields + [
