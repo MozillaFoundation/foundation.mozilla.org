@@ -25,7 +25,12 @@ body.template-expert-directory-page {
     &__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      column-gap: rem-calc(16);
+      row-gap: rem-calc(24);
+
+      @include breakpoint(large up) {
+        gap: rem-calc(16);
+      }
 
       .expert-card {
         order: 3;
@@ -53,7 +58,6 @@ body.template-expert-directory-page {
   }
 
   .expert-card {
-    margin: 0 0 rem-calc(32);
     flex: 1;
     position: relative;
 
