@@ -25,8 +25,7 @@ body.template-expert-directory-page {
     &__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: rem-calc(16);
-      row-gap: rem-calc(24);
+      gap: rem-calc(24) rem-calc(16);
 
       @include breakpoint(large up) {
         gap: rem-calc(16);
