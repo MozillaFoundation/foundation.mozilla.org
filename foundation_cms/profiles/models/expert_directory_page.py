@@ -34,7 +34,7 @@ class ExpertHubFeaturedTopic(TranslatableMixin, Orderable):
 
 
 class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
-    PAGE_SIZE = 12
+    PAGE_SIZE = 11
     IMAGE_RATIO = "2:3"
     IMAGE_BASE_WIDTH = 300
 
@@ -117,10 +117,9 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
     def get_context(self, request):
         context = super().get_context(request)
 
-        # TODO: I think we don't need this?
-        # context["featured_topic_objects"] = [
-        #     ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
-        # ]
+        context["featured_topic_objects"] = [
+            ft.topic for ft in self.featured_topics.select_related("topic") if ft.topic
+        ]
 
         active_topic = request.GET.get("topic", "")
         active_country = request.GET.get("country", "")

@@ -4,6 +4,13 @@
 @import "../components/pagination";
 
 body.template-expert-directory-page {
+  %card-visual-base {
+    width: 100%;
+    aspect-ratio: math.div(2, 3);
+    margin-bottom: rem-calc(12);
+    overflow: hidden;
+  }
+
   .expert-directory {
     &__title {
       margin: rem-calc(36) 0 rem-calc(22);
@@ -20,24 +27,40 @@ body.template-expert-directory-page {
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
 
-      @include breakpoint(medium up) {
+      .expert-card {
+        order: 3;
+
+        &:first-child {
+          order: 1;
+        }
+      }
+
+      .featured-topics-card {
+        order: 2;
+      }
+
+      @include breakpoint(large up) {
         grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
+
+        .expert-card,
+        .expert-card:first-child,
+        .featured-topics-card {
+          order: unset;
+        }
       }
     }
   }
 
   .expert-card {
-    margin: 0 0 rem-calc(34);
+    margin: 0 0 rem-calc(32);
     flex: 1;
     position: relative;
 
     &__image-wrapper {
-      width: 100%;
+      @extend %card-visual-base;
+
       display: block;
-      aspect-ratio: math.div(2, 3);
-      margin-bottom: rem-calc(12);
-      overflow: hidden;
 
       picture {
         display: contents;
@@ -72,6 +95,42 @@ body.template-expert-directory-page {
       @include mofo-text-style($body-text-styles, "small");
 
       margin: 0;
+    }
+  }
+
+  .featured-topics-card {
+    &__inner {
+      @extend %card-visual-base;
+
+      background: color(yellow, "100");
+      border-bottom-right-radius: rem-calc(48);
+      padding: rem-calc(8);
+
+      @include breakpoint(large up) {
+        border-bottom-right-radius: rem-calc(80);
+        padding: rem-calc(24);
+      }
+    }
+
+    &__label {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0;
+      gap: rem-calc(8);
+    }
+
+    &__item {
+      list-style: none;
+    }
+
+    &__link {
+      @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
     }
   }
 
