@@ -106,6 +106,20 @@
                                         <p class="expert-card__role">{{ expert.role }}</p>
                                     {% endif %}
                                 </div>
+                                {% if forloop.counter == 3 and featured_topic_objects %}
+                                    <div class="featured-topics-card">
+                                        <div class="featured-topics-card__inner">
+                                            <p class="featured-topics-card__label">{% trans "Explore Topic Areas" %}</p>
+                                            <ul class="featured-topics-card__list">
+                                                {% for topic in featured_topic_objects %}
+                                                    <li class="featured-topics-card__item">
+                                                        <a href="?topic={{ topic.slug }}" class="featured-topics-card__link">{{ topic.name }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
