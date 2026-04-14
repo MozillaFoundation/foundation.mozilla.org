@@ -95,9 +95,9 @@
                                 <div class="expert-card">
                                     <a href="{% pageurl expert %}" class="expert-card__image-wrapper">
                                         {% if expert.image %}
-                                            {% responsive_image expert.image ratio="2:3" %}
+                                            {% responsive_image expert.image ratio=expert_image_ratio %}
                                         {% elif expert.search_image %}
-                                            {% responsive_image expert.search_image ratio="2:3" %}
+                                            {% responsive_image expert.search_image ratio=expert_image_ratio %}
                                         {% endif %}
                                     </a>
 

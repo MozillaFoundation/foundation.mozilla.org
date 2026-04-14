@@ -35,6 +35,8 @@ class ExpertHubFeaturedTopic(TranslatableMixin, Orderable):
 
 class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
     PAGE_SIZE = 12
+    IMAGE_RATIO = "2:3"
+    IMAGE_BASE_WIDTH = 300
 
     description = RichTextField(
         blank=True,
@@ -84,15 +86,21 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
         return qs
 
     @staticmethod
-    def _serialize_expert(expert):
+    def _serialize_expert(expert, ratio, base_width):
         """Serialize an ExpertProfilePage to a JSON-friendly dict."""
         image = None
         if expert.image:
+            img = expert.image
+            width_ratio, height_ratio = (float(part) for part in ratio.split(":"))
+            # Use the 1.5× rendition as src, matching the responsive_image tag default
+            w = int(base_width * 1.5)
+            h = int(w * height_ratio / width_ratio)
+            primary = img.get_rendition(f"fill-{w}x{h}")
             image = {
-                "url": expert.image.file.url,
-                "width": expert.image.width,
-                "height": expert.image.height,
-                "alt": expert.image.title,
+                "url": primary.url,
+                "width": primary.width,
+                "height": primary.height,
+                "alt": img.title,
             }
 
         return {
@@ -139,6 +147,7 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
 
         context["experts_page"] = experts_page
         context["total_experts_count"] = paginator.count
+        context["expert_image_ratio"] = self.IMAGE_RATIO
         context["active_topic"] = active_topic
         context["active_country"] = active_country
         context["active_role"] = active_role
@@ -181,7 +190,9 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
 
         return JsonResponse(
             {
-                "experts": [self._serialize_expert(expert) for expert in page_obj],
+                "experts": [
+                    self._serialize_expert(expert, self.IMAGE_RATIO, self.IMAGE_BASE_WIDTH) for expert in page_obj
+                ],
                 "pagination": {
                     "current_page": page_number,
                     "total_pages": paginator.num_pages,
