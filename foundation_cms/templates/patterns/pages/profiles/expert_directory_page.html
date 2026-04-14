@@ -113,7 +113,7 @@
                                             <ul class="featured-topics-card__list">
                                                 {% for topic in featured_topic_objects %}
                                                     <li class="featured-topics-card__item">
-                                                        <a href="?topic={{ topic.slug }}" class="featured-topics-card__link">{{ topic.name }}</a>
+                                                        <a href="{{ topic.get_topic_listing_url }}" class="featured-topics-card__link">{{ topic.name }}</a>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
