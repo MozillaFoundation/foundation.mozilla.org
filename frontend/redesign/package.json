@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@percy/cli": "^1.31.10",
-    "@percy/playwright": "^1.0.9",
+    "@percy/playwright": "^1.1.0",
     "@playwright/test": "^1.58.2",
     "autoprefixer": "^10.4.27",
     "chokidar-cli": "^3.0.0",
