@@ -46,11 +46,12 @@ body.mozfest {
           bottom: calc(#{$cutoff-offset} + 1rem);
         }
 
-        .tw-btn.btn-video-control {
+        .btn-video-control {
           $icon-size: 50px;
 
           border: none;
           height: $icon-size;
+          cursor: pointer;
           background: center left/$icon-size $icon-size no-repeat transparent;
           padding-left: calc(#{$icon-size} + 0.5rem);
           text-transform: uppercase;
