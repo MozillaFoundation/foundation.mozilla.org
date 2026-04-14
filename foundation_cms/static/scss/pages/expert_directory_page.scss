@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
+@import "../components/pagination";
 
 body.template-expert-directory-page {
   .expert-directory {
@@ -71,6 +72,12 @@ body.template-expert-directory-page {
       @include mofo-text-style($body-text-styles, "small");
 
       margin: 0;
+    }
+  }
+
+  .pagination {
+    @include breakpoint(medium up) {
+      margin: rem-calc(64) 0;
     }
   }
 }

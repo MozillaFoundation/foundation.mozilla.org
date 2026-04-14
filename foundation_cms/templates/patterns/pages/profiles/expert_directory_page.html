@@ -19,10 +19,9 @@
                     {% endif %}
                 </div>
             </div>
-
             <section
                 id="listing"
-                class="expert-directory__listing"
+                class="expert-directory__listing grid-x grid-margin-x"
                 data-experts-api="{{ page.url }}experts/"
                 data-page-size="{{ page.PAGE_SIZE }}"
                 data-total-count="{{ total_experts_count }}"
@@ -86,47 +85,32 @@
                 {% endcomment %}
 
                 {% if total_experts_count == 0 %}
-                    <p class="expert-directory__no-results">{% trans "0 results" %}</p>
+                    <div class="cell small-12">
+                        <p class="expert-directory__no-results">{% trans "0 results" %}</p>
+                    </div>
                 {% else %}
-                    <div class="expert-directory__grid">
-                        {% for expert in experts_page %}
-                            <div class="expert-card">
-                                <a href="{% pageurl expert %}" class="expert-card__image-wrapper">
-                                    {% if expert.image %}
-                                        {% responsive_image expert.image ratio="2:3" %}
-                                    {% elif expert.search_image %}
-                                        {% responsive_image expert.search_image ratio="2:3" %}
-                                    {% endif %}
-                                </a>
+                    <div class="cell small-12">
+                        <div class="expert-directory__grid">
+                            {% for expert in experts_page %}
+                                <div class="expert-card">
+                                    <a href="{% pageurl expert %}" class="expert-card__image-wrapper">
+                                        {% if expert.image %}
+                                            {% responsive_image expert.image ratio="2:3" %}
+                                        {% elif expert.search_image %}
+                                            {% responsive_image expert.search_image ratio="2:3" %}
+                                        {% endif %}
+                                    </a>
 
-                                <div class="expert-card__name"><a href="{% pageurl expert %}">{{ expert.title }}</a></div>
-                                {% if expert.role %}
-                                    <p class="expert-card__role">{{ expert.role }}</p>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+                                    <div class="expert-card__name"><a href="{% pageurl expert %}">{{ expert.title }}</a></div>
+                                    {% if expert.role %}
+                                        <p class="expert-card__role">{{ expert.role }}</p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
 
-                    {% trans "Expert listing pagination" as pagination_label %}
-                    <nav class="expert-directory__pagination" aria-label="{{ pagination_label }}">
-                        {% if experts_page.has_previous %}
-                            <a href="?page={{ experts_page.previous_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Previous" %}</a>
-                        {% endif %}
-
-                        {% for num in page_range %}
-                            {% if num == experts_page.paginator.ELLIPSIS %}
-                                <span class="expert-directory__pagination-ellipsis">…</span>
-                            {% elif num == experts_page.number %}
-                                <span class="expert-directory__pagination-current" aria-current="page">{{ num }}</span>
-                            {% else %}
-                                <a href="?page={{ num }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{{ num }}</a>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if experts_page.has_next %}
-                            <a href="?page={{ experts_page.next_page_number }}{% if active_topic %}&topic={{ active_topic }}{% endif %}{% if active_country %}&country={{ active_country }}{% endif %}{% if active_role %}&role={{ active_role }}{% endif %}#listing">{% trans "Next" %}</a>
-                        {% endif %}
-                    </nav>
+                    {% include "patterns/components/_pagination.html" with page_obj=experts_page base_url=request.path %}
                 {% endif %}
             </section>
         </div>
