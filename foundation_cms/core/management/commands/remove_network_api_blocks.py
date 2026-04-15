@@ -1,8 +1,8 @@
 """
 Django management command: remove_network_api_blocks
 =====================================================
-Removes network API-dependent blocks (latest_profile_list, profile_by_id,
-profile_directory) from all Wagtail pages across all locales, then republishes.
+Removes network API-dependent blocks (profile_listing, profile_by_id,
+profile_directory, pulse_listing) from all Wagtail pages across all locales, then republishes.
 
 Usage:
     # Dry run (default) — shows what would be changed, no DB writes:
@@ -23,9 +23,11 @@ from wagtail.models import Page
 
 # ── Block types that reference the network/Pulse API ────────────────────────
 BLOCK_TYPES_TO_REMOVE = {
-    "latest_profile_list",
+    "profile_listing",
     "profile_by_id",
     "profile_directory",
+    "pulse_listing",
+    "tabbed_profile_directory",
 }
 
 
@@ -74,7 +76,7 @@ def remove_blocks_from_stream(stream_data, block_types):
                 else:
                     new_value[key] = sub_value
             block = {**block, "value": new_value}
-
+            
         new_stream.append(block)
 
     return new_stream, removed
@@ -134,8 +136,8 @@ def get_streamfield_names(model):
 
 class Command(BaseCommand):
     help = (
-        "Remove network API blocks (latest_profile_list, profile_by_id, "
-        "profile_directory) from all Wagtail pages across all locales and republish."
+        "Remove network API blocks (profile_listing, profile_by_id, "
+        "profile_directory, pulse_listing) from all Wagtail pages across all locales and republish."
     )
 
     def add_arguments(self, parser):
@@ -189,15 +191,20 @@ class Command(BaseCommand):
         total_pages_affected = 0
         total_blocks_removed = 0
         locales_seen = set()
+        seen_ids = set()
 
         for model in page_models:
             stream_field_names = get_streamfield_names(model)
-            qs = model.objects.all().select_related("locale")
+            qs = model.objects.filter(alias_of__isnull=True).select_related("locale")
 
             if locale_filter:
                 qs = qs.filter(locale__language_code=locale_filter)
 
             for page in qs.iterator():
+                if page.pk in seen_ids:
+                    continue
+                seen_ids.add(page.pk)
+
                 page_blocks_removed = 0
                 modified_fields = {}
 
@@ -245,13 +252,15 @@ class Command(BaseCommand):
                     self.stdout.write(f"           └─ field '{field_name}'")
 
                 if commit:
+                    # Use page.specific so save_revision() is called on the
+                    # correct subclass instance, not a generic parent type.
+                    specific = page.specific
                     for field_name, new_data in modified_fields.items():
-                        set_stream_data(page, field_name, new_data)
+                        set_stream_data(specific, field_name, new_data)
 
-                    # Save a revision then publish
                     try:
-                        revision = page.save_revision(log_action="wagtail.publish")
-                        if page.live:
+                        revision = specific.save_revision(log_action="wagtail.publish")
+                        if specific.live:
                             revision.publish()
                             self.stdout.write(
                                 self.style.SUCCESS(f"           ✓ republished")
