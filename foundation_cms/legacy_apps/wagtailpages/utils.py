@@ -539,6 +539,8 @@ def create_wagtail_image(
     if not image_name:
         image_name = ntpath.basename(img_src)
 
+    # Seek to start so Django's storage backend reads the full buffer
+    f.seek(0)
     # Create the Wagtail Image and return it
     wagtail_image = Image.objects.create(title=image_name, file=ImageFile(f, name=image_name), collection=collection)
     return wagtail_image
