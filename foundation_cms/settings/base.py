@@ -278,7 +278,6 @@ INSTALLED_APPS = list(
             "gunicorn",
             "corsheaders",
             "storages",
-            "adminsortable",
             "querystring_tag",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             # Legacy Site Apps
