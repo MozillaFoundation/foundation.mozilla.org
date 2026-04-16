@@ -3,7 +3,7 @@ import random
 from pathlib import Path
 
 import factory
-from django.core.files.base import ContentFile
+from django.core.files.images import ImageFile
 from wagtail.blocks.stream_block import StreamValue
 from wagtail.images import get_image_model
 
@@ -23,18 +23,17 @@ def import_image_from_manifest(manifest, key, image_dir):
     if not file_path.exists():
         raise FileNotFoundError(f"Image file not found: {file_path}")
 
-    # Check if image already exists before reading file content
-    existing = Image.objects.filter(title=entry["alt_text"], file=f"original_images/{entry['filename']}").first()
-    if existing:
-        return {"id": existing.id, "alt_text": entry["alt_text"]}
-
-    # Read into ContentFile so the cursor is bytes-backed and safe for Django 5.2+
-    # storage backends (which no longer seek(0) implicitly before upload).
     with open(file_path, "rb") as f:
-        django_file = ContentFile(f.read(), name=entry["filename"])
+        django_file = ImageFile(f, name=entry["filename"])
 
-    image = Image.objects.create(title=entry["alt_text"], file=django_file)
-    return {"id": image.id, "alt_text": entry["alt_text"]}
+        # Check if image already exists
+        existing = Image.objects.filter(title=entry["alt_text"], file=f"original_images/{entry['filename']}").first()
+        if existing:
+            return {"id": existing.id, "alt_text": entry["alt_text"]}
+
+        # Create new image
+        image = Image.objects.create(title=entry["alt_text"], file=django_file)
+        return {"id": image.id, "alt_text": entry["alt_text"]}
 
 
 def inject_images_into_data(data, manifest, image_dir):
