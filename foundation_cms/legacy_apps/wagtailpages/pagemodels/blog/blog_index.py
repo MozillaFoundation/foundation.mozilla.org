@@ -246,7 +246,7 @@ class BlogIndexPage(IndexPage):
 
     # helper function to resolve topic slugs to actual objects
     def get_topic_object_for_slug(self, topic_slug):
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        DEFAULT_LOCALE, DEFAULT_LOCALE_ID = get_default_locale()
 
         english_topics = BlogPageTopic.objects.filter(locale_id=DEFAULT_LOCALE_ID)
 

@@ -72,14 +72,12 @@ class Command(BaseCommand):
 
         # Reset sequence
         with connection.cursor() as cursor:
-            cursor.execute(
-                """
+            cursor.execute("""
                 SELECT setval(
                     pg_get_serial_sequence('"images_foundationcustomimage"', 'id'),
                     (SELECT MAX(id) FROM "images_foundationcustomimage")
                 );
-            """
-            )
+            """)
         self.stdout.write("ID sequence reset.")
 
         # Tag migration

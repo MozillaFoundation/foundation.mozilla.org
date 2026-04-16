@@ -62,11 +62,9 @@ class MediaPanel(MultiFieldPanel):
         def render_html(self, parent_context):
             inner_html = super().render_html(parent_context)
 
-            return mark_safe(
-                f"""
+            return mark_safe(f"""
             <div data-controller="media"
                  data-media-trigger-field-value="{self.panel.trigger_field}">
                 {inner_html}
             </div>
-            """
-            )
+            """)
