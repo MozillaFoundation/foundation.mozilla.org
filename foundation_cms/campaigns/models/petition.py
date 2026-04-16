@@ -54,7 +54,8 @@ class Petition(CTA):
         blank=True,
     )
 
-    sosha_toolkit_embed_code = models.TextField(
+    sosha_toolkit_embed_code = models.CharField(
+        max_length=1000,
         help_text="Paste the embed code generated from the Sosha social sharing toolkit.",
         null=True,
         blank=True,

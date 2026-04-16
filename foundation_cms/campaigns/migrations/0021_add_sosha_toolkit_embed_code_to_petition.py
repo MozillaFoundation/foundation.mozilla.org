@@ -13,9 +13,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="petition",
             name="sosha_toolkit_embed_code",
-            field=models.TextField(
+            field=models.CharField(
                 blank=True,
                 help_text="Paste the embed code generated from the Sosha social sharing toolkit.",
+                max_length=1000,
                 null=True,
             ),
         ),
