@@ -3,8 +3,8 @@ from collections import OrderedDict
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from wagtail import blocks
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.admin.telepath import register
+from wagtail.images.blocks import ImageChooserBlock
 
 from foundation_cms.legacy_apps.utility.images import SVGImageFormatValidator
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.common.base_link_block import (
