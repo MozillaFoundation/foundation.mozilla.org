@@ -1,64 +1,68 @@
-.icon-info-grid {
-  &__heading {
-    @include mofo-text-style($header-styles, "h3", $header-font-family);
+// Match global redesign heading selector specificity so h2/h3 element styles
+// do not override the block's intended h3/h5 typography tokens.
+body.redesign {
+  .icon-info-grid {
+    &__heading {
+      @include mofo-text-style($header-styles, "h3", $header-font-family);
 
-    margin: 0 0 1.5rem;
+      margin: 0 0 1.5rem;
 
-    @include breakpoint(large up) {
-      margin: 0 0 2rem;
-    }
-  }
-
-  &__items {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  &__item {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-  }
-
-  &__icon {
-    flex-shrink: 0;
-    width: rem-calc(48);
-    height: rem-calc(48);
-  }
-
-  &__title {
-    @include mofo-text-style($header-styles, "h5", $header-font-family);
-
-    margin: 0;
-  }
-
-  &__description {
-    @include mofo-text-style($body-text-styles, "regular");
-
-    margin: 0;
-
-    @include breakpoint(large up) {
-      @include mofo-text-style($body-text-styles, "large");
-    }
-  }
-
-  &--2-col {
-    .icon-info-grid__items {
       @include breakpoint(large up) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 0 0 2rem;
       }
     }
-  }
 
-  &--3-col {
-    .icon-info-grid__items {
+    &__items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+    }
+
+    &__icon {
+      flex-shrink: 0;
+      width: rem-calc(48);
+      height: rem-calc(48);
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin: 0;
+    }
+
+    &__description {
+      @include mofo-text-style($body-text-styles, "regular");
+
+      margin: 0;
+
       @include breakpoint(large up) {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        @include mofo-text-style($body-text-styles, "large");
+      }
+    }
+
+    &--2-col {
+      .icon-info-grid__items {
+        @include breakpoint(large up) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    }
+
+    &--3-col {
+      .icon-info-grid__items {
+        @include breakpoint(large up) {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
       }
     }
   }
