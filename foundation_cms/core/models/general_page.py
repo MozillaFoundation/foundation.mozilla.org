@@ -1,6 +1,6 @@
 from django.db import models
 from django.forms import ValidationError
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -8,10 +8,10 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
 from foundation_cms.blocks import LinkBlock
 from foundation_cms.core.panels.media_panel import MediaPanel
-from foundation_cms.mixins.hero_image import HeroImageMixin
+from foundation_cms.mixins.hero_media import HeroMediaMixin
 
 
-class GeneralPage(AbstractGeneralPage, HeroImageMixin):
+class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
     hero_description = models.CharField(
         max_length=120,
@@ -46,9 +46,9 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         help_text="Check to display the hero section on this page.",
     )
 
-    hero_image_rounded_corners = models.BooleanField(
+    hero_media_rounded_corners = models.BooleanField(
         default=True,
-        verbose_name="Hero Image Rounded Corners",
+        verbose_name="Hero Media Rounded Corners",
         help_text=(
             "By default, rounded corners are applied "
             "(top-right corner for 'Side by Side', both top corners for 'Top to Bottom'). "
@@ -66,27 +66,44 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
 
     content_panels = [
         FieldPanel("title"),
-        MediaPanel(
+        MultiFieldPanel(
             [
                 FieldPanel("show_hero"),
-                FieldPanel("hero_variant"),
-                FieldPanel(
-                    "hero_background_color",
-                    attrs={"data-media-target": "field", "data-condition": "top-to-bottom"},
+                MediaPanel(
+                    [
+                        FieldPanel("hero_variant"),
+                        FieldPanel(
+                            "hero_background_color",
+                            attrs={"data-media-target": "field", "data-condition": "top-to-bottom"},
+                        ),
+                    ],
+                    trigger_field="hero_variant",
                 ),
                 FieldPanel("hero_title"),
                 FieldPanel("hero_description"),
-                FieldPanel(
-                    "hero_image",
-                    help_text="Top to Bottom variant crops image to 16:9; Side by Side variant crops image to 1:1.",
+                MediaPanel(
+                    [
+                        FieldPanel("displayed_hero_content"),
+                        FieldPanel(
+                            "hero_image",
+                            attrs={"data-media-target": "field", "data-condition": HeroMediaMixin.HERO_CONTENT_IMAGE},
+                        ),
+                        FieldPanel(
+                            "hero_image_alt_text",
+                            attrs={"data-media-target": "field", "data-condition": HeroMediaMixin.HERO_CONTENT_IMAGE},
+                        ),
+                        FieldPanel(
+                            "hero_video_url",
+                            attrs={"data-media-target": "field", "data-condition": HeroMediaMixin.HERO_CONTENT_VIDEO},
+                        ),
+                    ],
+                    trigger_field="displayed_hero_content",
                 ),
-                FieldPanel("hero_image_alt_text"),
-                FieldPanel("hero_image_rounded_corners"),
+                FieldPanel("hero_media_rounded_corners"),
                 FieldPanel("hero_cta_link"),
             ],
             heading="Hero Section",
             classname="collapsible",
-            trigger_field="hero_variant",
         ),
         FieldPanel("body"),
     ]
@@ -99,7 +116,9 @@ class GeneralPage(AbstractGeneralPage, HeroImageMixin):
         TranslatableField("hero_title"),
         TranslatableField("hero_description"),
         SynchronizedField("hero_image"),
-        SynchronizedField("hero_image_rounded_corners"),
+        SynchronizedField("hero_media_rounded_corners"),
+        SynchronizedField("displayed_hero_content"),
+        SynchronizedField("hero_video_url"),
         TranslatableField("hero_image_alt_text"),
         TranslatableField("hero_cta_link"),
         TranslatableField("body"),
