@@ -293,7 +293,7 @@ wagtail-localize==1.13
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-wagtail-localize-git @ git+https://github.com/robdivincenzo/wagtail-localize-git.git@django-5.2-compatible
+wagtail-localize-git @ git+https://github.com/robdivincenzo/wagtail-localize-git.git@d524cdc2e9501696e70cd5a089026bdbfc8e731c
     # via -r requirements.in
 wagtail-metadata==5.0.0
     # via -r requirements.in

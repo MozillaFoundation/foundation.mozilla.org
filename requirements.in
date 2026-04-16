@@ -31,7 +31,7 @@ wagtail-color-panel
 wagtail-factories
 wagtail-footnotes
 wagtail-localize==1.13
-wagtail-localize-git @ git+https://github.com/robdivincenzo/wagtail-localize-git.git@django-5.2-compatible
+wagtail-localize-git @ git+https://github.com/robdivincenzo/wagtail-localize-git.git@d524cdc2e9501696e70cd5a089026bdbfc8e731c
 wagtail-inventory
 wagtailmedia
 wagtail-metadata
