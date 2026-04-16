@@ -1,6 +1,6 @@
 from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.common.base_link_block import (
     BaseLinkBlock,
