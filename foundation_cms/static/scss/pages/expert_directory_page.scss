@@ -91,6 +91,10 @@ body.template-expert-directory-page {
       a {
         text-decoration: none;
         color: $black;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -130,14 +134,28 @@ body.template-expert-directory-page {
 
     &__item {
       list-style: none;
+
+      &:nth-child(n + 5) {
+        @include breakpoint(small only) {
+          display: none;
+        }
+      }
     }
 
     &__link {
       @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+
+      @include breakpoint(large up) {
+        @include cta-link(map.get($cta-link-icon-sizes, large), "xlarge");
+
+        padding: rem-calc(4) 0;
+      }
     }
   }
 
   .pagination {
+    margin-top: 3rem;
+
     @include breakpoint(medium up) {
       margin: rem-calc(64) 0;
     }

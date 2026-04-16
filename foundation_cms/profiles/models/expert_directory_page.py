@@ -34,7 +34,7 @@ class ExpertHubFeaturedTopic(TranslatableMixin, Orderable):
 
 
 class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
-    PAGE_SIZE = 11
+    PAGE_SIZE = 15
     IMAGE_RATIO = "2:3"
     IMAGE_BASE_WIDTH = 300
 
