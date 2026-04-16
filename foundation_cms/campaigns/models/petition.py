@@ -54,6 +54,12 @@ class Petition(CTA):
         blank=True,
     )
 
+    sosha_toolkit_embed_code = models.TextField(
+        help_text="Paste the embed code generated from the Sosha social sharing toolkit.",
+        null=True,
+        blank=True,
+    )
+
     translatable_fields = CTA.translatable_fields + [
         SynchronizedField("campaign_id"),
         SynchronizedField("show_country_field"),
@@ -62,6 +68,7 @@ class Petition(CTA):
         TranslatableField("cta_button_text"),
         SynchronizedField("share_facebook"),
         SynchronizedField("share_email"),
+        SynchronizedField("sosha_toolkit_embed_code"),
     ]
 
     search_fields = CTA.search_fields + [
@@ -77,8 +84,9 @@ class Petition(CTA):
         FieldPanel("show_postal_code_field"),
         FieldPanel("show_comment_field"),
         FieldPanel("cta_button_text"),
-        FieldPanel("share_facebook"),
-        FieldPanel("share_email"),
+        # FieldPanel("share_facebook"),  # Share Progress fields — hidden to avoid confusion (replaced by Sosha toolkit)
+        # FieldPanel("share_email"),
+        FieldPanel("sosha_toolkit_embed_code"),
     ]
 
     class Meta:
