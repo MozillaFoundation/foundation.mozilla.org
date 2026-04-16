@@ -38,7 +38,7 @@ class ConsumerCreepometerPageTests(test_base.WagtailpagesTestCase):
             parent=self.content_index
         )  # it will use a random year
         choices = page._meta.get_field("year").choices
-        self.assertEqual(choices, (("2023", "2023"),))
+        self.assertEqual(list(choices), [("2023", "2023")])
         self.assertIn((page.year, page.year), choices)
 
     def test_template(self):
