@@ -34,7 +34,7 @@
 
   &__cta-wrapper {
     @include breakpoint(xlarge up) {
-      align-self: center;
+      align-self: auto;
     }
   }
 
