@@ -128,16 +128,6 @@ body.template-expert-directory-page {
 
     &__topics-item--extra {
       display: none;
-
-      .expert-card__topics--expanded & {
-        display: inline-flex;
-      }
-    }
-
-    &__topics-toggle-item {
-      .expert-card__topics--expanded & {
-        order: 999;
-      }
     }
 
     &__topics-toggle {
@@ -155,8 +145,18 @@ body.template-expert-directory-page {
           no-repeat center / contain;
         vertical-align: middle;
       }
+    }
 
-      .expert-card__topics--expanded &::before {
+    &__topics--expanded {
+      .expert-card__topics-item--extra {
+        display: inline-flex;
+      }
+
+      .expert-card__topics-toggle-item {
+        order: 999;
+      }
+
+      .expert-card__topics-toggle::before {
         background-image: url("/static/foundation_cms/_images/icons/minus.svg");
       }
     }
