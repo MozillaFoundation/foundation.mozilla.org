@@ -128,10 +128,10 @@ body.template-expert-directory-page {
       @include topic-pills-container(4);
 
       align-items: center;
-    }
 
-    &__topics-item--extra {
-      display: none;
+      .expert-card__topics-item--extra {
+        display: none;
+      }
     }
 
     &__topics-toggle {
