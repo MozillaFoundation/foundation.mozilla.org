@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_directory_page.compiled.css' %}">
 {% endblock extra_css %}
 
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/expert_directory_page.compiled.js' %}"></script>
+{% endblock extra_js %}
+
 {% block body_class %}template-expert-directory-page{% endblock body_class %}
 
 {% block content %}
@@ -105,6 +109,30 @@
                                     {% if expert.role %}
                                         <p class="expert-card__role">{{ expert.role }}</p>
                                     {% endif %}
+                                    {% with topics=expert.topics.all %}
+                                        {% if topics %}
+                                            <div class="expert-card__topics">
+                                                <ul class="expert-card__topics-list">
+                                                    {% for topic in topics %}
+                                                        <li class="expert-card__topics-item{% if not forloop.first %} expert-card__topics-item--extra{% endif %}">
+                                                            <a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {% if topics|length > 1 %}
+                                                        <li class="expert-card__topics-toggle-item">
+                                                            <button
+                                                                class="expert-card__topics-toggle"
+                                                                aria-expanded="false"
+                                                                aria-label="{% trans 'Show all topics' %}"
+                                                                data-label-expand="{% trans 'Show all topics' %}"
+                                                                data-label-collapse="{% trans 'Show fewer topics' %}"
+                                                            ></button>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
                                 </div>
                                 {% if forloop.counter == 3 and featured_topic_objects %}
                                     <div class="featured-topics-card">

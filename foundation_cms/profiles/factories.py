@@ -64,7 +64,7 @@ def generate(seed):
     print("Creating Expert Profile Pages...")
     expert_pages = []
     country_codes = ["US", "DE", "BR", "KE", "JP", "GB", "FR", "IN", "MX", "CA", "AU", "NL"]
-    for i in range(15):
+    for i in range(20):
         slug = f"expert-{i + 1}"
         existing = ExpertProfilePage.objects.filter(slug=slug, locale=default_locale).first()
         if existing:
