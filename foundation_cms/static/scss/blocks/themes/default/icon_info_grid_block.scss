@@ -21,11 +21,13 @@ body.redesign {
     &__item {
       display: flex;
       flex-direction: column;
+      gap: rem-calc(16);
     }
 
     &__header {
       display: flex;
       align-items: center;
+      gap: rem-calc(16);
     }
 
     &__icon {
