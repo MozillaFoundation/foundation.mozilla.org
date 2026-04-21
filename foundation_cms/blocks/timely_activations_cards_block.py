@@ -12,9 +12,13 @@ class ActivationCardBlock(BaseBlock):
     A flexible card block for timely activations
     """
 
-    category = blocks.CharBlock(required=False, help_text="Optional category for the card")
-    title = blocks.CharBlock(required=True, help_text="Title for the card")
-    text = CustomRichTextBlock(required=False, help_text="Optional description text")
+    category = blocks.CharBlock(
+        required=False, max_length=50, help_text="Optional category for the card (max 50 characters)."
+    )
+    title = blocks.CharBlock(required=True, max_length=100, help_text="Title for the card (max 100 characters).")
+    text = CustomRichTextBlock(
+        required=False, max_length=400, help_text="Optional description text (max 400 characters)."
+    )
     image = ImageBlock(required=True)
     link = LinkBlock()
 

@@ -8,7 +8,9 @@ from .link_block import OptionalLinkBlock
 
 class BaseCardBlock(BaseBlock):
     label = blocks.CharBlock(required=False, label="Label", help_text="Appears above the headline.")
-    headline = blocks.CharBlock(required=False, label="Headline", help_text="Appears as the main heading.")
+    headline = blocks.CharBlock(
+        required=False, max_length=80, label="Headline", help_text="Appears as the main heading (max 80 characters)."
+    )
     image = ImageBlock(required=False, label="Image", help_text="Optional Image for the card")
     cta_link = OptionalLinkBlock(required=False, label="Call to Action Link", help_text="Optional link for the card.")
 
