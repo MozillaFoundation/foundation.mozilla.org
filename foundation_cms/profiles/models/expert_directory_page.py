@@ -1,6 +1,7 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.db import models
 from django.http import JsonResponse
+from django.template.response import TemplateResponse
 from django_countries.fields import Country
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
@@ -119,7 +120,12 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
             "topics": [{"name": t.name, "slug": t.slug} for t in expert.topics.all()],
         }
 
-    def get_context(self, request):
+    def _get_listing_context(self, request):
+        """Build the context needed to render the listing fragment only.
+
+        Skips the filter option queries (topics, countries, roles)
+        so partial requests triggered by filter changes are cheaper.
+        """
         context = super().get_context(request)
 
         context["featured_topic_objects"] = [
@@ -129,6 +135,23 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
         active_topics = request.GET.getlist("topic")
         active_countries = request.GET.getlist("country")
         active_roles = request.GET.getlist("role")
+
+        experts = self.get_experts(
+            topic_slugs=active_topics or None,
+            countries=active_countries or None,
+            roles=active_roles or None,
+        )
+        paginator = Paginator(experts, self.PAGE_SIZE)
+        experts_page = paginator.get_page(request.GET.get("page", 1))
+
+        context["experts_page"] = experts_page
+        context["total_experts_count"] = paginator.count
+        context["expert_image_ratio"] = self.IMAGE_RATIO
+
+        return context
+
+    def get_context(self, request):
+        context = self._get_listing_context(request)
 
         all_experts = ExpertProfilePage.objects.live().public().child_of(self.get_parent())
 
@@ -152,23 +175,21 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
         role_names = sorted(all_experts.exclude(role="").values_list("role", flat=True).distinct())
         context["filter_roles"] = [(role_name, role_name) for role_name in role_names]
 
-        experts = self.get_experts(
-            topic_slugs=active_topics or None,
-            countries=active_countries or None,
-            roles=active_roles or None,
-        )
-        paginator = Paginator(experts, self.PAGE_SIZE)
-        experts_page = paginator.get_page(request.GET.get("page", 1))
-
-        context["experts_page"] = experts_page
-        context["total_experts_count"] = paginator.count
-        context["expert_image_ratio"] = self.IMAGE_RATIO
-        context["active_topics"] = active_topics
-        context["active_countries"] = active_countries
-        context["active_roles"] = active_roles
-        context["page_range"] = paginator.get_elided_page_range(experts_page.number, on_each_side=2, on_ends=1)
+        context["active_topics"] = request.GET.getlist("topic")
+        context["active_countries"] = request.GET.getlist("country")
+        context["active_roles"] = request.GET.getlist("role")
 
         return context
+
+    def serve(self, request, *args, **kwargs):
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            context = self._get_listing_context(request)
+            return TemplateResponse(
+                request,
+                "patterns/pages/profiles/_expert_listing.html",
+                context,
+            )
+        return super().serve(request, *args, **kwargs)
 
     @route(r"^experts/$")
     def experts_api(self, request):
