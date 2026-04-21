@@ -70,6 +70,22 @@ $body-text-styles: (
     ),
   ),
 );
+$lede-text-styles: (
+  small: (
+    "regular": (
+      "font-size": rem-calc(20),
+      "line-height": 1.2,
+      "font-weight": map.get($font-weights, regular),
+    ),
+  ),
+  large: (
+    "regular": (
+      "font-size": rem-calc(24),
+      "line-height": 1.2,
+      "font-weight": map.get($font-weights, regular),
+    ),
+  ),
+);
 $quote-text-styles: (
   small: (
     "emphasis": (
@@ -302,22 +318,7 @@ body.redesign {
 // ===================================
 
 .lede-text {
-  font-family: $body-font-family;
-  font-size: rem-calc(20);
-  line-height: 1.2;
-  font-weight: map.get($font-weights, regular);
-
-  @include breakpoint(large) {
-    font-size: rem-calc(24);
-    line-height: 1.2;
-    font-weight: map.get($font-weights, regular);
-  }
-
-  @include breakpoint(large) {
-    font-size: rem-calc(24);
-    line-height: 1.2;
-    font-weight: map.get($font-weights, regular);
-  }
+  @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
 }
 
 // ===================================
