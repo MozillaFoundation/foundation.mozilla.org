@@ -37,6 +37,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  expert_directory_page: {
+    source: "pages/expert_directory_page.js",
+    jsx: false,
+    bundle: true,
+  },
   redesign_migrated_content: {
     source: "redesign_migrated_content.js",
     jsx: false,
