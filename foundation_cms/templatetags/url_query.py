@@ -8,17 +8,23 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def url_with_query(context, viewname: str, **overrides) -> str:
-    """Build a URL (via `reverse`) and merge/override query params.
+def url_with_query(context, viewname: str = "", **overrides) -> str:
+    """Build a URL and merge/override query params.
 
-    Uses `request.GET` as the base when available.
+    Pass either a ``viewname`` (resolved via ``reverse``) or a ``base_url``
+    kwarg for pages that have no registered URL name (e.g. Wagtail pages).
+    Uses ``request.GET`` as the base query string when available.
 
     Template usage:
         {% url_with_query 'search' query=search_query page=2 %}
-        {% url_with_query 'search' page=page_obj.next_page_number as next_url %}
+        {% url_with_query base_url=request.path page=page_obj.next_page_number as next_url %}
     """
 
-    base_url = reverse(viewname)
+    base_url = overrides.pop("base_url", None)
+    if viewname:
+        base_url = reverse(viewname)
+    elif not base_url:
+        raise ValueError("url_with_query requires either a viewname or base_url")
 
     request = context.get("request")
     query_params = request.GET.copy() if request is not None else QueryDict("", mutable=True)

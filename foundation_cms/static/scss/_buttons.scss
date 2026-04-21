@@ -378,6 +378,8 @@ button.btn-play--vimeo {
 @mixin topic-pill-button-shape {
   @include mofo-text-style($body-text-styles, "small");
 
+  display: inline-block;
+  vertical-align: top;
   border-radius: 16px 16px 0;
   background: color(yellow, "300");
   padding: rem-calc(5) rem-calc(16);
