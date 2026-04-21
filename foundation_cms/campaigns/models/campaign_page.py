@@ -296,7 +296,7 @@ class CampaignPage(AbstractBasePage):
         Return the two latest pages that share this page's keep_contributing_topic.
         """
         topic = self.keep_contributing_topic
-        (default_locale, _) = get_default_locale()
+        default_locale, _ = get_default_locale()
 
         tag_related_pages = (
             Page.objects.live()
@@ -313,7 +313,7 @@ class CampaignPage(AbstractBasePage):
         """
         Return the two latest CampaignPages in their localized versions
         """
-        (default_locale, _) = get_default_locale()
+        default_locale, _ = get_default_locale()
 
         default_campaigns = (
             CampaignPage.objects.live()

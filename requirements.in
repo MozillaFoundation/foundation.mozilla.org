@@ -2,10 +2,9 @@ basket-client
 beautifulsoup4
 boto3
 cached_property==2.0.1
-Django==4.2.29
+Django==5.2.13
 dj-database-url
 djangorestframework
-django-admin-sortable==2.3
 django-cors-headers
 django-countries
 django_csp
@@ -32,7 +31,7 @@ wagtail-color-panel
 wagtail-factories
 wagtail-footnotes
 wagtail-localize==1.13
-wagtail-localize-git
+wagtail-localize-git @ git+https://github.com/robdivincenzo/wagtail-localize-git.git@d524cdc2e9501696e70cd5a089026bdbfc8e731c
 wagtail-inventory
 wagtailmedia
 wagtail-metadata

@@ -17,7 +17,9 @@ from foundation_cms.legacy_apps.wagtailpages.models import (
 from foundation_cms.legacy_apps.wagtailpages.pagemodels import (
     campaigns as campaign_models,
 )
-from foundation_cms.legacy_apps.wagtailpages.pagemodels import customblocks
+from foundation_cms.legacy_apps.wagtailpages.pagemodels import (
+    customblocks,
+)
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.full_content_rich_text_options import (
     full_content_rich_text_options,
 )

@@ -36,7 +36,7 @@ class NothingPersonalArticleCollectionPage(AbstractArticlePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        (DEFAULT_LOCALE, _) = get_default_locale()
+        DEFAULT_LOCALE, _ = get_default_locale()
         article_pages = (
             NothingPersonalArticlePage.objects.live()
             .public()

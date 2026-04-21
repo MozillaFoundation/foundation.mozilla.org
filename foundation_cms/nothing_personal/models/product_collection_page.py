@@ -36,7 +36,7 @@ class NothingPersonalProductCollectionPage(AbstractArticlePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        (default_locale, _) = get_default_locale()
+        default_locale, _ = get_default_locale()
         product_reviews = (
             NothingPersonalProductReviewPage.objects.live()
             .public()
