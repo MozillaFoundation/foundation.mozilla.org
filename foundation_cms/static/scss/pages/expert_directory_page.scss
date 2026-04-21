@@ -222,7 +222,7 @@ body.template-expert-directory-page {
 
   .pagination {
     @include breakpoint(large up) {
-      margin: 0 0 rem-calc(64) 0;
+      margin: 0 0 rem-calc(64);
     }
   }
 }
