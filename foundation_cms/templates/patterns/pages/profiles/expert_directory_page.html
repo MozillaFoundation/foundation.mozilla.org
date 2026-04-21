@@ -1,0 +1,160 @@
+{% extends theme_base %}
+
+{% load static wagtailcore_tags wagtailimages_tags i18n responsive_image_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_directory_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/expert_directory_page.compiled.js' %}"></script>
+{% endblock extra_js %}
+
+{% block body_class %}template-expert-directory-page{% endblock body_class %}
+
+{% block content %}
+    <main class="expert-directory">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 large-7">
+                    <h1 class="expert-directory__title">{{ page.title }}</h1>
+                    {% if page.description %}
+                        <div class="expert-directory__description">{{ page.description|safe }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <section
+                id="listing"
+                class="expert-directory__listing grid-x grid-margin-x"
+                data-experts-api="{{ page.url }}experts/"
+                data-page-size="{{ page.PAGE_SIZE }}"
+                data-total-count="{{ total_experts_count }}"
+            >
+                {% comment %}
+                <form id="filter-form" method="get" action="{{ page.url }}#listing">
+                    {% if filter_topics or filter_countries or filter_roles %}
+                        <div class="grid-x grid-margin-x">
+                            {% if filter_topics %}
+                                <div class="cell small-12 medium-4">
+                                    <label for="filter-topics">{% trans "Topic" %}</label>
+                                    <select id="filter-topics" name="topic">
+                                        <option value="">{% trans "All Topics" %}</option>
+                                        {% for slug, name in filter_topics %}
+                                            <option value="{{ slug }}" {% if active_topic == slug %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+
+                            {% if filter_countries %}
+                                <div class="cell small-12 medium-4">
+                                    <label for="filter-countries">{% trans "Country" %}</label>
+                                    <select id="filter-countries" name="country">
+                                        <option value="">{% trans "All Countries" %}</option>
+                                        {% for code, name in filter_countries %}
+                                            <option value="{{ code }}" {% if active_country == code %}selected{% endif %}>{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+
+                            {% if filter_roles %}
+                                <div class="cell small-12 medium-4">
+                                    <label for="filter-roles">{% trans "Role" %}</label>
+                                    <select id="filter-roles" name="role">
+                                        <option value="">{% trans "All Roles" %}</option>
+                                        {% for role in filter_roles %}
+                                            <option value="{{ role }}" {% if active_role == role %}selected{% endif %}>{{ role }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <noscript>
+                            <button type="submit">{% trans "Apply filters" %}</button>
+                        </noscript>
+                    {% endif %}
+                </form>
+
+                <script nonce="{{ request.csp_nonce }}">
+                    (function() {
+                        var form = document.getElementById('filter-form');
+                        if (!form) return;
+                        var selects = form.querySelectorAll('select');
+                        for (var i = 0; i < selects.length; i++) {
+                            selects[i].addEventListener('change', function() { form.submit(); });
+                        }
+                    })();
+                </script>
+                {% endcomment %}
+
+                {% if total_experts_count == 0 %}
+                    <div class="cell small-12">
+                        <p class="expert-directory__no-results">{% trans "0 results" %}</p>
+                    </div>
+                {% else %}
+                    <div class="cell small-12">
+                        <div class="expert-directory__grid">
+                            {% for expert in experts_page %}
+                                <div class="expert-card">
+                                    <a href="{% pageurl expert %}" class="expert-card__image-wrapper">
+                                        {% if expert.image %}
+                                            {% responsive_image expert.image ratio=expert_image_ratio %}
+                                        {% elif expert.search_image %}
+                                            {% responsive_image expert.search_image ratio=expert_image_ratio %}
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="expert-card__name"><a href="{% pageurl expert %}">{{ expert.title }}</a></div>
+                                    {% if expert.role %}
+                                        <p class="expert-card__role">{{ expert.role }}</p>
+                                    {% endif %}
+                                    {% with topics=expert.topics.all %}
+                                        {% if topics %}
+                                            <div class="expert-card__topics">
+                                                <ul class="expert-card__topics-list">
+                                                    {% for topic in topics %}
+                                                        <li class="expert-card__topics-item{% if not forloop.first %} expert-card__topics-item--extra{% endif %}">
+                                                            <a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                    {% if topics|length > 1 %}
+                                                        <li class="expert-card__topics-toggle-item">
+                                                            <button
+                                                                class="expert-card__topics-toggle"
+                                                                aria-expanded="false"
+                                                                aria-label="{% trans "Show all topics" %}"
+                                                                data-label-expand="{% trans "Show all topics" %}"
+                                                                data-label-collapse="{% trans "Show fewer topics" %}"
+                                                            ></button>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                                {% if forloop.counter == 3 and featured_topic_objects %}
+                                    <div class="featured-topics-card">
+                                        <div class="featured-topics-card__inner">
+                                            <p class="featured-topics-card__label">{% trans "Explore Topic Areas" %}</p>
+                                            <ul class="featured-topics-card__list">
+                                                {% for topic in featured_topic_objects %}
+                                                    <li class="featured-topics-card__item">
+                                                        <a href="{{ topic.get_topic_listing_url }}" class="featured-topics-card__link">{{ topic.name }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% include "patterns/components/_pagination.html" with page_obj=experts_page base_url=request.path %}
+                {% endif %}
+            </section>
+        </div>
+    </main>
+{% endblock content %}

@@ -25,6 +25,10 @@
     &__description {
       margin: 0;
     }
+
+    &__cta {
+      margin: 0;
+    }
   }
 
   // Variant: Side by side
@@ -59,6 +63,10 @@
           flex: 1;
           gap: 2rem;
         }
+
+        &--no-image {
+          margin-top: 4rem;
+        }
       }
 
       &__media {
@@ -70,7 +78,8 @@
           border-top-right-radius: 6rem;
         }
 
-        img {
+        img,
+        video {
           width: 100%;
           aspect-ratio: 1 / 1;
           object-fit: cover;
@@ -124,7 +133,8 @@
 
       &__title,
       &__topics,
-      &__description {
+      &__description,
+      &__cta {
         position: relative;
       }
 
@@ -147,7 +157,8 @@
           margin-top: -9rem;
         }
 
-        img {
+        img,
+        video {
           width: 100%;
           aspect-ratio: 1.78 / 1;
           object-fit: cover;
