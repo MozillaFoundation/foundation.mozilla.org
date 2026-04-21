@@ -152,10 +152,10 @@
   }
 
   .newsletter-signup-block .newsletter-signup {
-    padding: 2rem 1rem 1.5rem;
+    padding: 1.5rem 2rem 2rem;
 
     @include breakpoint(medium up) {
-      padding: 2rem 1rem 1.5rem;
+      padding: 1.5rem 2rem 2rem;
     }
 
     &__form-grid {
@@ -181,7 +181,7 @@
 
     &[data-layout="expanded"] {
       @include breakpoint(medium up) {
-        padding: 2rem 1rem 1.5rem;
+        padding: 1.5rem 2rem 2rem;
       }
 
       .newsletter-signup__cta-wrapper {
