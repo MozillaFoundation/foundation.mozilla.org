@@ -1,0 +1,154 @@
+.expert-filter {
+  margin-top: rem-calc(66);
+  margin-bottom: rem-calc(24);
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+    flex-wrap: wrap;
+  }
+
+  &__label {
+    @include mofo-text-style($body-text-styles, "regular");
+
+    white-space: nowrap;
+  }
+
+  &__groups {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(12);
+    flex-wrap: wrap;
+  }
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(8);
+    padding: rem-calc(3) rem-calc(8) rem-calc(3) rem-calc(16);
+    border: 1px solid $black;
+    border-radius: rem-calc(100);
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include mofo-text-style($body-text-styles, "small");
+
+    &--active,
+    &[aria-expanded="true"] {
+      background: color(neutral, "200");
+      border-color: color(neutral, "200");
+    }
+
+    &[aria-expanded="true"] {
+      .expert-filter__chevron::after {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &__chevron {
+    display: inline-flex;
+    align-items: center;
+    width: rem-calc(16);
+    height: rem-calc(16);
+
+    &::after {
+      content: "";
+      display: block;
+      width: rem-calc(12);
+      height: rem-calc(8);
+      background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &__submit {
+    cursor: pointer;
+    margin-left: auto;
+    text-decoration: underline;
+
+    @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+  }
+
+  &__panel {
+    margin-top: rem-calc(26);
+    margin-bottom: rem-calc(38);
+  }
+
+  &__fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: rem-calc(24);
+
+    @include breakpoint(medium up) {
+      columns: 3;
+    }
+
+    @include breakpoint(large up) {
+      columns: 3;
+    }
+  }
+
+  &__option {
+    break-inside: avoid;
+    margin-bottom: rem-calc(4);
+  }
+
+  &__option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: rem-calc(10);
+    cursor: pointer;
+
+    @include mofo-text-style($body-text-styles, "regular");
+  }
+
+  &__divider {
+    display: none;
+    border: none;
+    border-top: 1px solid color(neutral, "300");
+    margin: 0;
+  }
+
+  &:has(.expert-filter__panel:not([hidden])) .expert-filter__divider {
+    display: block;
+  }
+
+  &__checkbox {
+    appearance: none;
+    flex-shrink: 0;
+    margin-top: rem-calc(4);
+    width: rem-calc(14);
+    height: rem-calc(14);
+    border: 1.5px solid color(neutral, "300");
+    border-radius: rem-calc(2);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease;
+
+    &:checked {
+      border-color: $black;
+      background: $black;
+    }
+
+    &:focus-visible {
+      outline: 2px solid color(orange, "300");
+      outline-offset: 2px;
+    }
+  }
+}

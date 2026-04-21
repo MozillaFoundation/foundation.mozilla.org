@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
+@import "../components/expert_directory_page/expert_filter";
 @import "../components/pagination";
 
 body.template-expert-directory-page {
@@ -27,6 +28,11 @@ body.template-expert-directory-page {
 
       > *:first-child {
         margin-top: rem-calc(8);
+      }
+
+      > *:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
       }
     }
 
@@ -128,10 +134,10 @@ body.template-expert-directory-page {
       @include topic-pills-container(4);
 
       align-items: center;
+    }
 
-      .expert-card__topics-item--extra {
-        display: none;
-      }
+    &__topics-item--extra {
+      display: none;
     }
 
     &__topics-toggle {
