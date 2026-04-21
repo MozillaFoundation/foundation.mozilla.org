@@ -24,8 +24,6 @@ body.template-expert-directory-page {
     &__description {
       @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
 
-      margin-bottom: rem-calc(58);
-
       > *:first-child {
         margin-top: rem-calc(8);
       }
