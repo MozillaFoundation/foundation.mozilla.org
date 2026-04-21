@@ -1,4 +1,8 @@
 .expert-filter {
+  $border-color: color(neutral, "300");
+  $active-color: color(orange, "300");
+  $default-color: color(neutral, "300");
+
   margin-top: rem-calc(66);
   margin-bottom: rem-calc(24);
 
@@ -114,12 +118,17 @@
     cursor: pointer;
 
     @include mofo-text-style($body-text-styles, "regular");
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
   }
 
   &__divider {
     display: none;
     border: none;
-    border-top: 1px solid color(neutral, "300");
+    border-top: 1px solid $border-color;
     margin: 0;
   }
 
@@ -130,25 +139,30 @@
   &__checkbox {
     appearance: none;
     flex-shrink: 0;
-    margin-top: rem-calc(4);
-    width: rem-calc(14);
-    height: rem-calc(14);
-    border: 1.5px solid color(neutral, "300");
-    border-radius: rem-calc(2);
-    background: transparent;
+    margin-top: rem-calc(6);
+    width: rem-calc(12);
+    height: rem-calc(12);
+    border: 1.5px solid $border-color;
+    border-radius: 50%;
+    background: $default-color;
     cursor: pointer;
     transition:
       border-color 0.15s ease,
       background 0.15s ease;
 
     &:checked {
-      border-color: $black;
-      background: $black;
+      border-color: $active-color;
+      background: $active-color;
     }
 
     &:focus-visible {
-      outline: 2px solid color(orange, "300");
+      outline: 2px solid $active-color;
       outline-offset: 2px;
+    }
+
+    &:hover {
+      border-color: $active-color;
+      background: $active-color;
     }
   }
 }
