@@ -15,11 +15,10 @@ body.redesign {
     &__items {
       display: grid;
       grid-template-columns: 1fr;
-      row-gap: rem-calc(24);
-      column-gap: 1rem;
+      gap: rem-calc(24) 1rem;
 
       @include breakpoint(large up) {
-        row-gap: 2rem;
+        gap: 2rem 1rem;
       }
     }
 
