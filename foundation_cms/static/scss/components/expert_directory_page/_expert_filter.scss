@@ -2,14 +2,23 @@
   $active-color: color(orange, "300");
   $default-color: color(neutral, "300");
 
-  margin-top: rem-calc(66);
+  margin-top: rem-calc(32);
   margin-bottom: rem-calc(24);
+
+  @include breakpoint(large up) {
+    margin-top: rem-calc(66);
+  }
 
   &__bar {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: rem-calc(8);
     flex-wrap: wrap;
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   &__label {
@@ -75,18 +84,38 @@
     border: none;
     padding: 0;
     cursor: pointer;
+    align-self: flex-start;
     text-decoration: underline;
+
+    @include breakpoint(large up) {
+      align-self: auto;
+    }
 
     @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
   }
 
   .btn-close {
+    display: block;
     margin-left: auto;
+    margin-bottom: rem-calc(16);
+
+    @include breakpoint(large up) {
+      margin-bottom: 0;
+    }
+
+    &[hidden] {
+      display: none;
+    }
   }
 
   &__panel {
-    margin-top: rem-calc(26);
-    margin-bottom: rem-calc(38);
+    margin-top: rem-calc(16);
+    margin-bottom: rem-calc(16);
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(26);
+      margin-bottom: rem-calc(38);
+    }
   }
 
   &__fieldset {

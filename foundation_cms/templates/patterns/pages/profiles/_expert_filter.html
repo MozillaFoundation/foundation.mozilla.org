@@ -22,10 +22,9 @@
           {% include "patterns/pages/profiles/_expert_filter_toggle.html" with controls="filter-panel-countries" label=country_label is_active=active_countries only %}
         {% endif %}
 
-        <button type="button" class="expert-filter__reset" data-expert-filter-reset hidden>{% trans "Clear" %}</button>
       </div>
 
-      {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-expert-filter-close" is_hidden=True only %}
+      <button type="button" class="expert-filter__reset" data-expert-filter-reset hidden>{% trans "Clear" %}</button>
     </div>
   </div>
   <div class="cell small-12 large-6">
@@ -39,6 +38,9 @@
       {% include "patterns/pages/profiles/_expert_filter_panel.html" with panel_id="filter-panel-countries" legend=countries_legend field_name="country" items=filter_countries active_values=active_countries only %}
     {% endif %}
 
+  </div>
+  <div class="cell small-12 large-9">
+    {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-expert-filter-close" is_hidden=True only %}
   </div>
   <div class="cell small-12 large-9">
     <hr class="expert-filter__divider" aria-hidden="true">
