@@ -34,6 +34,14 @@ body.template-expert-directory-page {
       }
     }
 
+    &__listing {
+      &.is-loading {
+        opacity: 0.4;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+      }
+    }
+
     &__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;

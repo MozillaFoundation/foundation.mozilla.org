@@ -71,12 +71,18 @@
     }
   }
 
-  &__submit {
+  &__reset {
+    background: none;
+    border: none;
+    padding: 0;
     cursor: pointer;
-    margin-left: auto;
     text-decoration: underline;
 
-    @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+  }
+
+  .btn-close {
+    margin-left: auto;
   }
 
   &__panel {

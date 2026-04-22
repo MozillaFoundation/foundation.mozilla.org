@@ -26,9 +26,10 @@
           {% trans "Role" as role_label %}
           {% include "patterns/pages/profiles/_expert_filter_toggle.html" with controls="filter-panel-roles" label=role_label is_active=active_roles only %}
         {% endif %}
+        <button class="expert-filter__reset" data-expert-filter-reset hidden>{% trans "Clear" %}</button>
       </div>
 
-      <button type="submit" class="expert-filter__submit">{% trans "See results" %}</button>
+      {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-expert-filter-close" is_hidden=True only %}
     </div>
     <pre id="expert-filter-debug" data-total-count="{{ total_experts_count }}" style="margin:4px 0 0;padding:6px 8px;background:#fff3cd;border:1px solid #ffc107;border-radius:4px;font-size:11px;color:#333;white-space:pre-wrap;word-break:break-all;">(debug: filter state)</pre>
   </div>
