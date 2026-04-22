@@ -42,7 +42,9 @@ function buildFilterUrl(form, checkboxes) {
   const url = new URL(window.location.href);
   const data = new FormData(form);
 
-  getFilterKeys(form, checkboxes).forEach((key) => url.searchParams.delete(key));
+  getFilterKeys(form, checkboxes).forEach((key) =>
+    url.searchParams.delete(key),
+  );
 
   for (const [key, value] of data.entries()) {
     if (value) url.searchParams.append(key, value);
