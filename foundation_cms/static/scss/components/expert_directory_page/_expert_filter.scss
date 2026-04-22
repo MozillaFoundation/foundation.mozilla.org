@@ -1,5 +1,4 @@
 .expert-filter {
-  $border-color: color(neutral, "300");
   $active-color: color(orange, "300");
   $default-color: color(neutral, "300");
 
@@ -103,10 +102,6 @@
     columns: 2;
     column-gap: rem-calc(24);
 
-    @include breakpoint(medium up) {
-      columns: 3;
-    }
-
     @include breakpoint(large up) {
       columns: 3;
     }
@@ -134,7 +129,7 @@
   &__divider {
     display: none;
     border: none;
-    border-top: 1px solid $border-color;
+    border-top: 1px solid $default-color;
     margin: 0;
   }
 
@@ -148,7 +143,7 @@
     margin-top: rem-calc(6);
     width: rem-calc(12);
     height: rem-calc(12);
-    border: 1.5px solid $border-color;
+    border: 1.5px solid $default-color;
     border-radius: 50%;
     background: $default-color;
     cursor: pointer;
