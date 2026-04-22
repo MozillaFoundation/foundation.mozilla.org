@@ -11,9 +11,8 @@
 
   &__bar {
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap;
     gap: rem-calc(8);
-    flex-wrap: wrap;
 
     @include breakpoint(large up) {
       flex-direction: row;

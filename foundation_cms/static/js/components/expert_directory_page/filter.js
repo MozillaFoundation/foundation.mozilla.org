@@ -110,15 +110,27 @@ export function initExpertFilter() {
 
   updateToggleCounts(toggles);
 
+  /**
+   * Returns true if any filter panel is currently expanded.
+   *
+   * @returns {boolean}
+   */
   function anyPanelOpen() {
     return toggles.some((t) => t.getAttribute("aria-expanded") === "true");
   }
 
+  /**
+   * Shows or hides the close button based on whether any panel is open.
+   */
   function syncCloseBtn() {
     if (!closeBtn) return;
     closeBtn.hidden = !anyPanelOpen();
   }
 
+  /**
+   * Shows or hides the reset button: visible only when checkboxes are checked
+   * and all panels are closed.
+   */
   function syncResetBtn() {
     if (!resetBtn) return;
     const anyChecked = checkboxes.some((cb) => cb.checked);
@@ -162,11 +174,18 @@ export function initExpertFilter() {
     });
   });
 
-  async function fetchListing() {
+  /**
+   * Fetches the listing section for the given URL and swaps it into the DOM.
+   * Aborts any in-flight request before starting a new one. When `pushHistory`
+   * is true, pushes the URL onto the history stack after a successful swap.
+   *
+   * @param {URL} url
+   * @param {boolean} [pushHistory=false]
+   */
+  async function fetchListing(url, pushHistory = false) {
     if (abortController) abortController.abort();
     abortController = new AbortController();
 
-    const url = buildFilterUrl(form, checkboxes);
     const listing = document.querySelector(SELECTORS.listing);
 
     if (listing) listing.classList.add("is-loading");
@@ -183,18 +202,42 @@ export function initExpertFilter() {
 
       if (listing) listing.outerHTML = html;
 
-      history.pushState(null, "", url.toString());
+      if (pushHistory) history.pushState(null, "", url.toString());
     } catch (err) {
       if (listing) listing.classList.remove("is-loading");
       if (err.name !== "AbortError") throw err;
     }
   }
 
+  /**
+   * Reads the current URL search params and checks or unchecks each checkbox
+   * to match, then syncs toggle counts and the reset button.
+   */
+  function syncCheckboxesToUrl() {
+    const params = new URLSearchParams(window.location.search);
+
+    checkboxes.forEach((cb) => {
+      const values = params.getAll(cb.name);
+      cb.checked = values.includes(cb.value);
+    });
+
+    updateToggleCounts(toggles);
+    syncResetBtn();
+  }
+
+  window.addEventListener("popstate", () => {
+    syncCheckboxesToUrl();
+    fetchListing(new URL(window.location.href));
+  });
+
   form.addEventListener("change", () => {
     updateToggleCounts(toggles);
     syncResetBtn();
 
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(fetchListing, DEBOUNCE_MS);
+    debounceTimer = setTimeout(
+      () => fetchListing(buildFilterUrl(form, checkboxes), true),
+      DEBOUNCE_MS,
+    );
   });
 }
