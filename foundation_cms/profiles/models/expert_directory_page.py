@@ -70,7 +70,7 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
     class Meta:
         verbose_name = "Expert Directory Page"
 
-    def get_experts(self, topic_slugs=None, countries=None, roles=None):
+    def get_experts(self, topic_slugs=None, countries=None):
         """Return live, public ExpertProfilePage children of the hub, optionally filtered.
 
         Each filter accepts a list of values and is applied as OR within the list.
@@ -87,8 +87,6 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
             qs = qs.filter(topic_relations__tag__slug__in=topic_slugs).distinct()
         if countries:
             qs = qs.filter(location__in=countries)
-        if roles:
-            qs = qs.filter(role__in=roles)
         return qs
 
     @staticmethod
@@ -123,7 +121,7 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
     def _get_listing_context(self, request):
         """Build the context needed to render the listing fragment only.
 
-        Skips the filter option queries (topics, countries, roles)
+        Skips the filter option queries (topics, countries)
         so partial requests triggered by filter changes are cheaper.
         """
         context = super().get_context(request)
@@ -134,12 +132,10 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
 
         active_topics = request.GET.getlist("topic")
         active_countries = request.GET.getlist("country")
-        active_roles = request.GET.getlist("role")
 
         experts = self.get_experts(
             topic_slugs=active_topics or None,
             countries=active_countries or None,
-            roles=active_roles or None,
         )
         paginator = Paginator(experts, self.PAGE_SIZE)
         experts_page = paginator.get_page(request.GET.get("page", 1))
@@ -172,12 +168,8 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
             key=lambda pair: pair[1],
         )
 
-        role_names = sorted(all_experts.exclude(role="").values_list("role", flat=True).distinct())
-        context["filter_roles"] = [(role_name, role_name) for role_name in role_names]
-
         context["active_topics"] = request.GET.getlist("topic")
         context["active_countries"] = request.GET.getlist("country")
-        context["active_roles"] = request.GET.getlist("role")
 
         return context
 
@@ -196,7 +188,6 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
         """JSON endpoint for paginated expert cards."""
         topic_slugs = request.GET.getlist("topic")
         countries = request.GET.getlist("country")
-        roles = request.GET.getlist("role")
         page_number = request.GET.get("page", "0")
 
         try:
@@ -204,7 +195,7 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
         except (ValueError, TypeError):
             page_number = 0
 
-        experts = self.get_experts(topic_slugs=topic_slugs or None, countries=countries or None, roles=roles or None)
+        experts = self.get_experts(topic_slugs=topic_slugs or None, countries=countries or None)
         paginator = Paginator(experts, self.PAGE_SIZE)
 
         try:

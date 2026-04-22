@@ -22,10 +22,6 @@
           {% include "patterns/pages/profiles/_expert_filter_toggle.html" with controls="filter-panel-countries" label=country_label is_active=active_countries only %}
         {% endif %}
 
-        {% if filter_roles %}
-          {% trans "Role" as role_label %}
-          {% include "patterns/pages/profiles/_expert_filter_toggle.html" with controls="filter-panel-roles" label=role_label is_active=active_roles only %}
-        {% endif %}
         <button class="expert-filter__reset" data-expert-filter-reset hidden>{% trans "Clear" %}</button>
       </div>
 
@@ -44,10 +40,6 @@
       {% include "patterns/pages/profiles/_expert_filter_panel.html" with panel_id="filter-panel-countries" legend=countries_legend field_name="country" items=filter_countries active_values=active_countries only %}
     {% endif %}
 
-    {% if filter_roles %}
-      {% trans "Filter by role" as roles_legend %}
-      {% include "patterns/pages/profiles/_expert_filter_panel.html" with panel_id="filter-panel-roles" legend=roles_legend field_name="role" items=filter_roles active_values=active_roles only %}
-    {% endif %}
   </div>
   <div class="cell small-12 large-9">
     <hr class="expert-filter__divider" aria-hidden="true">
