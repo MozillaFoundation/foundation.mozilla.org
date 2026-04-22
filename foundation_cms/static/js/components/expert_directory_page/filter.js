@@ -5,7 +5,6 @@ const SELECTORS = {
   toggle: "[data-filter-toggle]",
   closeBtn: "[data-expert-filter-close]",
   resetBtn: "[data-expert-filter-reset]",
-  debug: "#expert-filter-debug",
   checkbox: "input[type='checkbox']",
   toggleLabel: ".expert-filter__toggle-label",
   listing: "#listing",
@@ -51,37 +50,6 @@ function buildFilterUrl(form, checkboxes) {
   }
 
   return url;
-}
-
-/**
- * Updates the debug panel with the current expert count and active filter state.
- *
- * @param {HTMLFormElement} form
- */
-function updateDebug(form) {
-  const el = document.querySelector(SELECTORS.debug);
-
-  if (!el) return;
-
-  const data = new FormData(form);
-  const params = {};
-
-  for (const [key, value] of data.entries()) {
-    if (!value) continue;
-
-    if (Object.prototype.hasOwnProperty.call(params, key)) {
-      if (!Array.isArray(params[key])) params[key] = [params[key]];
-      params[key].push(value);
-    } else {
-      params[key] = value;
-    }
-  }
-
-  const count = el.dataset.totalCount ?? "?";
-  const filterState = Object.keys(params).length
-    ? JSON.stringify(params, null, 2)
-    : "(no active filters)";
-  el.textContent = `${count} experts\n\n${filterState}`;
 }
 
 /**
@@ -140,7 +108,6 @@ export function initExpertFilter() {
   let debounceTimer = null;
   let abortController = null;
 
-  updateDebug(form);
   updateToggleCounts(toggles);
 
   function anyPanelOpen() {
@@ -217,15 +184,6 @@ export function initExpertFilter() {
       if (listing) listing.outerHTML = html;
 
       history.pushState(null, "", url.toString());
-
-      // Sync the debug panel count from the freshly rendered listing
-      const newListing = document.querySelector(SELECTORS.listing);
-      const debugEl = document.querySelector(SELECTORS.debug);
-
-      if (debugEl && newListing) {
-        debugEl.dataset.totalCount = newListing.dataset.totalCount;
-        updateDebug(form);
-      }
     } catch (err) {
       if (listing) listing.classList.remove("is-loading");
       if (err.name !== "AbortError") throw err;
@@ -233,7 +191,6 @@ export function initExpertFilter() {
   }
 
   form.addEventListener("change", () => {
-    updateDebug(form);
     updateToggleCounts(toggles);
     syncResetBtn();
 
