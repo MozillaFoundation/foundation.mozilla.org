@@ -4,7 +4,7 @@ from wagtail.images.blocks import ImageBlock
 from foundation_cms.base.models.base_block import BaseBlock
 
 from .custom_rich_text_block import CustomRichTextBlock
-from .link_block import LinkBlock
+from .link_block import LinkWithDynamicLabelBlock
 
 
 class ActivationCardBlock(BaseBlock):
@@ -13,14 +13,14 @@ class ActivationCardBlock(BaseBlock):
     """
 
     category = blocks.CharBlock(
-        required=False, max_length=50, help_text="Optional category for the card (max 50 characters)."
+        required=False, max_length=20, help_text="Optional category for the card (max 20 characters)."
     )
-    title = blocks.CharBlock(required=True, max_length=100, help_text="Title for the card (max 100 characters).")
+    title = blocks.CharBlock(required=True, max_length=60, help_text="Title for the card (max 60 characters).")
     text = CustomRichTextBlock(
-        required=False, max_length=400, help_text="Optional description text (max 400 characters)."
+        required=False, max_length=180, help_text="Optional description text (max 180 characters)."
     )
     image = ImageBlock(required=True)
-    link = LinkBlock()
+    link = LinkWithDynamicLabelBlock(label_max_length=14)
 
     class Meta:
         icon = "image"
