@@ -76,7 +76,7 @@ class NavigationMenu(
         verbose_name_plural = "Navigation Menus"
 
     def __str__(self) -> str:
-        return self.title
+        return f"{self.title} ({self.locale.language_code})"
 
 
 @register_setting(icon="nav-menu")
