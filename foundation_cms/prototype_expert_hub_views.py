@@ -1,0 +1,368 @@
+import json
+
+from django.shortcuts import render
+from django.urls import reverse_lazy
+
+EXPERT_EXPLORE_URL = reverse_lazy("prototype-expert-hub-explore")
+
+PALETTE = [
+    "#FF6B6B",
+    "#4ECDC4",
+    "#45B7D1",
+    "#96CEB4",
+    "#FFEAA7",
+    "#DDA0DD",
+    "#98D8C8",
+    "#F7DC6F",
+]
+
+FILLER_EXPERTS = [
+    {
+        "name": "Amara Diallo",
+        "title": "AI Policy Researcher",
+        "photo": None,
+        "bg_color": PALETTE[0],
+        "topic": ["Artificial Intelligence", "Policy"],
+        "country": "Senegal",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Yuki Ishida",
+        "title": "Digital Rights Advocate",
+        "photo": None,
+        "bg_color": PALETTE[1],
+        "topic": ["Digital Inclusion", "Privacy"],
+        "country": "Japan",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Finn Larsen",
+        "title": "Open Source Developer",
+        "photo": None,
+        "bg_color": PALETTE[2],
+        "topic": ["Open Source", "Community"],
+        "country": "Denmark",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Cleo Ferreira",
+        "title": "Community Organiser",
+        "photo": None,
+        "bg_color": PALETTE[3],
+        "topic": ["Community", "Digital Inclusion"],
+        "country": "Brazil",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Reza Ahmadi",
+        "title": "Security Researcher",
+        "photo": None,
+        "bg_color": PALETTE[4],
+        "topic": ["Privacy", "Policy"],
+        "country": "Iran",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Nadia Owusu",
+        "title": "Data Justice Researcher",
+        "photo": None,
+        "bg_color": PALETTE[5],
+        "topic": ["Artificial Intelligence", "Policy"],
+        "country": "Kenya",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Luca Bianchi",
+        "title": "Infrastructure Engineer",
+        "photo": None,
+        "bg_color": PALETTE[6],
+        "topic": ["Open Source", "Artificial Intelligence"],
+        "country": "Italy",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Soo-Jin Park",
+        "title": "Misinformation Researcher",
+        "photo": None,
+        "bg_color": PALETTE[7],
+        "topic": ["Community", "Policy"],
+        "country": "South Korea",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Emeka Eze",
+        "title": "Civic Tech Designer",
+        "photo": None,
+        "bg_color": PALETTE[0],
+        "topic": ["Digital Inclusion", "Community"],
+        "country": "Nigeria",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Ingrid Holst",
+        "title": "AI Ethics Researcher",
+        "photo": None,
+        "bg_color": PALETTE[1],
+        "topic": ["Artificial Intelligence", "Privacy"],
+        "country": "Sweden",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Diego Reyes",
+        "title": "Open Web Advocate",
+        "photo": None,
+        "bg_color": PALETTE[2],
+        "topic": ["Open Source", "Digital Inclusion"],
+        "country": "Mexico",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Anika Sen",
+        "title": "Internet Health Researcher",
+        "photo": None,
+        "bg_color": PALETTE[3],
+        "topic": ["Community", "Policy"],
+        "country": "India",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Fatima Al-Rashid",
+        "title": "Digital Literacy Educator",
+        "photo": None,
+        "bg_color": PALETTE[4],
+        "topic": ["Digital Inclusion", "Community"],
+        "country": "Jordan",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Kwame Asante",
+        "title": "Tech Policy Analyst",
+        "photo": None,
+        "bg_color": PALETTE[5],
+        "topic": ["Policy", "Artificial Intelligence"],
+        "country": "Ghana",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Priya Menon",
+        "title": "Privacy Engineer",
+        "photo": None,
+        "bg_color": PALETTE[6],
+        "topic": ["Privacy", "Open Source"],
+        "country": "India",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Tomás Herrera",
+        "title": "Civic Media Designer",
+        "photo": None,
+        "bg_color": PALETTE[7],
+        "topic": ["Community", "Digital Inclusion"],
+        "country": "Argentina",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Mei-Ling Cho",
+        "title": "Algorithmic Accountability Researcher",
+        "photo": None,
+        "bg_color": PALETTE[0],
+        "topic": ["Artificial Intelligence", "Policy"],
+        "country": "Taiwan",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Oluwaseun Adeyemi",
+        "title": "Open Data Advocate",
+        "photo": None,
+        "bg_color": PALETTE[1],
+        "topic": ["Open Source", "Community"],
+        "country": "Nigeria",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Anastasia Volkov",
+        "title": "Disinformation Researcher",
+        "photo": None,
+        "bg_color": PALETTE[2],
+        "topic": ["Policy", "Community"],
+        "country": "Ukraine",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Jamal Osei",
+        "title": "Digital Rights Lawyer",
+        "photo": None,
+        "bg_color": PALETTE[3],
+        "topic": ["Privacy", "Policy"],
+        "country": "South Africa",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Sofia Nakamura",
+        "title": "AI Safety Researcher",
+        "photo": None,
+        "bg_color": PALETTE[4],
+        "topic": ["Artificial Intelligence", "Privacy"],
+        "country": "Brazil",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Hamid Sultani",
+        "title": "Accessibility Engineer",
+        "photo": None,
+        "bg_color": PALETTE[5],
+        "topic": ["Digital Inclusion", "Open Source"],
+        "country": "Afghanistan",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Leila Nasser",
+        "title": "Feminist Tech Researcher",
+        "photo": None,
+        "bg_color": PALETTE[6],
+        "topic": ["Community", "Policy"],
+        "country": "Egypt",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Viktor Horváth",
+        "title": "Surveillance Studies Researcher",
+        "photo": None,
+        "bg_color": PALETTE[7],
+        "topic": ["Privacy", "Artificial Intelligence"],
+        "country": "Hungary",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Chinwe Okafor",
+        "title": "Community Network Builder",
+        "photo": None,
+        "bg_color": PALETTE[0],
+        "topic": ["Community", "Digital Inclusion"],
+        "country": "Nigeria",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Rafael Montoya",
+        "title": "Open Source Educator",
+        "photo": None,
+        "bg_color": PALETTE[1],
+        "topic": ["Open Source", "Community"],
+        "country": "Colombia",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Nour Khalil",
+        "title": "Human Rights Technologist",
+        "photo": None,
+        "bg_color": PALETTE[2],
+        "topic": ["Policy", "Digital Inclusion"],
+        "country": "Lebanon",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Ji-Woo Kim",
+        "title": "Platform Governance Researcher",
+        "photo": None,
+        "bg_color": PALETTE[3],
+        "topic": ["Artificial Intelligence", "Policy"],
+        "country": "South Korea",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+    {
+        "name": "Amelia Thornton",
+        "title": "Digital Wellbeing Designer",
+        "photo": None,
+        "bg_color": PALETTE[4],
+        "topic": ["Community", "Privacy"],
+        "country": "Australia",
+        "url": EXPERT_EXPLORE_URL,
+        "filler": True,
+    },
+]
+
+EXPERTS = []
+
+
+def prototype_expert_hub(request):
+    experts_data = [
+        {
+            "name": e["name"],
+            "title": e["title"],
+            "topics": e["topic"],
+            "bg_color": e["bg_color"],
+            "url": str(e["url"]),
+        }
+        for e in (EXPERTS + FILLER_EXPERTS)[:12]
+    ]
+    return render(
+        request,
+        "patterns/pages/prototype/expert_hub.html",
+        {
+            "experts_json": json.dumps(experts_data),
+            "explore_url": str(EXPERT_EXPLORE_URL),
+        },
+    )
+
+
+def prototype_expert_hub_bubble(request):
+    all_experts = EXPERTS + FILLER_EXPERTS
+    experts = [
+        {
+            "name": e["name"],
+            "title": e["title"],
+            "topics": e["topic"],
+            "bg_color": e["bg_color"],
+            "url": str(e["url"]),
+        }
+        for e in all_experts[:13]
+    ]
+    return render(
+        request,
+        "patterns/pages/prototype/expert_hub_bubble.html",
+        {
+            "experts": experts,
+            "explore_url": str(EXPERT_EXPLORE_URL),
+        },
+    )
+
+
+def prototype_expert_hub_explore(request):
+    experts = EXPERTS + FILLER_EXPERTS
+    filter_options = {
+        "topic": sorted(set(t for e in experts for t in e["topic"])),
+        "country": sorted(set(e["country"] for e in experts)),
+    }
+    return render(
+        request,
+        "patterns/pages/prototype/expert_hub_explore.html",
+        {"experts": experts, "filter_options": filter_options},
+    )

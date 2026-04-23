@@ -62,6 +62,21 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  prototype_gallery: {
+    source: "pages/prototype/gallery.js",
+    jsx: false,
+    bundle: true,
+  },
+  prototype_expert_hub: {
+    source: "pages/prototype/expert_hub.js",
+    jsx: false,
+    bundle: true,
+  },
+  prototype_expert_hub_bubble: {
+    source: "pages/prototype/expert_hub_bubble.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {
@@ -90,6 +105,7 @@ const aliasPlugin = {
         const resolvedPath = require.resolve(args.path);
         return { path: resolvedPath };
       } catch (e) {
+        console.warn(`[auto-alias-plugin] Could not resolve "${args.path}" — is it installed?`);
         return;
       }
     });

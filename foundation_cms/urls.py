@@ -27,6 +27,12 @@ from foundation_cms.views import (
     newsletter_unsubscribe_view,
 )
 
+from .prototype_expert_hub_views import (
+    prototype_expert_hub,
+    prototype_expert_hub_bubble,
+    prototype_expert_hub_explore,
+)
+from .prototype_gallery_views import prototype_gallery, prototype_gallery_project_detail
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
 from .views import (
@@ -150,6 +156,14 @@ urlpatterns += i18n_patterns(
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
     path("blog/atom/", AtomFeed()),
+    # Prototype views
+    path("prototype/gallery/", prototype_gallery, name="prototype-gallery"),
+    path(
+        "prototype/gallery/project-detail", prototype_gallery_project_detail, name="prototype-gallery-project-detail"
+    ),
+    path("prototype/expert-hub/", prototype_expert_hub, name="prototype-expert-hub"),
+    path("prototype/expert-hub/bubble/", prototype_expert_hub_bubble, name="prototype-expert-hub-bubble"),
+    path("prototype/expert-hub/explore/", prototype_expert_hub_explore, name="prototype-expert-hub-explore"),
     # Redirects
     *foundation_redirects(),
     # wagtail-managed data

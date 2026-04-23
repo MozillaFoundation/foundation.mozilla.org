@@ -1,0 +1,363 @@
+@use "sass:math";
+@use "sass:map";
+@import "../../redesign_base";
+
+body.prototype-gallery-page {
+  $image-ratio: math.div(1, 1);
+  $active-bg-color: color(orange, "200");
+
+  .gallery-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem-calc(48);
+
+    > * {
+      min-width: 0; // prevent grid items from overflowing their 1fr track
+    }
+  }
+
+  .gallery-sidebar {
+    &__header {
+      padding-bottom: rem-calc(24);
+      margin-top: rem-calc(28);
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      font-weight: 700;
+      margin: 0 0 rem-calc(12);
+    }
+
+    &__intro {
+      @include mofo-text-style($body-text-styles, "large");
+
+      margin: 0;
+    }
+
+    &__sticky {
+      position: sticky;
+      top: $primary-nav-height;
+      max-height: calc(100vh - #{$primary-nav-height});
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__filter-bar {
+      flex-shrink: 0;
+      padding-block: rem-calc(12);
+      background: #fff;
+      z-index: 1;
+    }
+  }
+
+  .gallery-filter-bar {
+    display: flex;
+    align-items: flex-start;
+    gap: rem-calc(8);
+    padding: rem-calc(10) rem-calc(16);
+    background: color(neutral, "200");
+    margin-bottom: rem-calc(24);
+
+    &__label {
+      @include mofo-text-style($body-text-styles, "small");
+
+      font-weight: 600;
+    }
+
+    &__label,
+    &__dropdown {
+      padding: rem-calc(2) rem-calc(6);
+    }
+
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: rem-calc(8);
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__filter {
+      position: relative;
+    }
+
+    &__dropdown {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      display: flex;
+      align-items: center;
+      gap: rem-calc(4);
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &::after {
+        content: "";
+        display: inline-block;
+        width: rem-calc(12);
+        height: rem-calc(8);
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.0688 6.28888L10.978 6.38068L6.00049 1.40314L5.64697 1.75665L1.021 6.38068L0.930176 6.28888L5.99951 1.21954L11.0688 6.28888Z' fill='%23141414' stroke='%23000000'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      &.is-open {
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-thickness: rem-calc(3);
+        text-underline-offset: rem-calc(3);
+
+        &::after {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    &__panel {
+      position: absolute;
+      top: calc(100% + rem-calc(8));
+
+      @include breakpoint(xlarge) {
+        top: calc(100% + rem-calc(24));
+      }
+
+      left: 0;
+      z-index: 100;
+      background: #fff;
+      border: rem-calc(1) solid map.get($mofo-colors, black);
+      padding: rem-calc(16);
+      min-width: rem-calc(180);
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(10);
+
+      /* Transparent bridge covering the gap so mouseleave does not fire mid-crossing */
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        height: rem-calc(8);
+      }
+
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    &__options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem-calc(8);
+    }
+
+    &__option {
+      @include mofo-text-style($body-text-styles, "small");
+
+      padding: rem-calc(4) rem-calc(12);
+      border-radius: rem-calc(20);
+      border: rem-calc(1) solid transparent;
+      background: color(neutral, "100");
+      cursor: pointer;
+      text-align: left;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
+
+      &:hover:not(.is-selected) {
+        background: color(neutral, "300");
+      }
+
+      &.is-selected {
+        background: $active-bg-color;
+        color: #fff;
+        border-color: map.get($mofo-colors, black);
+      }
+    }
+
+    // Topic options use the existing topic pill button style
+    [data-filter-type="topic"] .gallery-filter-bar__option {
+      @include topic-pill-button-shape;
+
+      cursor: pointer;
+      color: map.get($mofo-colors, black);
+      border: none;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
+
+      &:hover:not(.is-selected) {
+        background: $active-bg-color;
+      }
+
+      &.is-selected {
+        background: $active-bg-color;
+        color: #fff;
+        border: rem-calc(1) solid map.get($mofo-colors, black);
+      }
+    }
+
+    &__count {
+      @include mofo-text-style($body-text-styles, "small");
+
+      margin-left: auto;
+      font-style: italic;
+    }
+  }
+
+  .gallery-active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem-calc(8);
+    margin-bottom: rem-calc(12);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .gallery-active-filter-chip {
+    @include mofo-text-style($body-text-styles, "small");
+
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(6);
+    padding: rem-calc(4) rem-calc(12);
+    border-radius: rem-calc(20);
+    border: rem-calc(1) solid map.get($mofo-colors, black);
+    background: color(blue, "200");
+    color: map.get($mofo-colors, black);
+    cursor: pointer;
+
+    &[data-type="topic"] {
+      @include topic-pill-button-shape;
+
+      background: color(orange, "200");
+    }
+  }
+
+  .gallery-nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+
+    &__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(8);
+    }
+
+    &__item {
+      @include mofo-text-style($body-text-styles, "small");
+
+      display: inline-block;
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        font-weight: 700;
+
+        .gallery-nav__expert {
+          opacity: 1;
+        }
+      }
+
+      &.is-active {
+        font-weight: 700;
+
+        .gallery-nav__expert {
+          font-weight: 400;
+          opacity: 1;
+        }
+      }
+    }
+
+    &__expert {
+      display: inline-block;
+      font-style: italic;
+      font-weight: 400;
+      margin-left: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  .gallery-strip {
+    --gallery-image-ratio: #{$image-ratio};
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.is-ready {
+      opacity: 1;
+    }
+
+    &__debug-label {
+      position: absolute;
+      top: rem-calc(8);
+      left: rem-calc(8);
+      background: rgb(0 0 0 / 60%);
+      color: #fff;
+      font-size: rem-calc(12);
+      padding: rem-calc(2) rem-calc(6);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    &__item {
+      position: relative;
+      z-index: 0;
+      scroll-margin-top: $primary-nav-height;
+      width: 40%;
+      transition: width 0.35s ease;
+
+      // Item immediately before the active one
+
+      /* &:has(+ .is-active) {
+        width: 40%;
+      } */
+
+      // Item immediately after the active one
+      &.is-active + & {
+        width: 40%;
+      }
+
+      &.is-active {
+        width: 100%;
+      }
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      aspect-ratio: $image-ratio;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+
+      /* mask-image: url("/static/foundation_cms/_images/prototype/gallery/masks/shape-mask-black@2x.png");
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      mask-position: center; */
+    }
+
+    &__color-block {
+      display: block;
+      width: 100%;
+      aspect-ratio: $image-ratio;
+    }
+  }
+}

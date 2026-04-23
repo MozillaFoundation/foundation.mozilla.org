@@ -1,0 +1,134 @@
+@use "sass:map";
+@import "../../redesign_base";
+
+body.prototype-expert-hub-bubble-page {
+  /* Mobile default: copy and bubbles flow vertically, no JS viz */
+
+  .ehb-hero {
+    &__copy {
+      max-width: rem-calc(526);
+      margin-bottom: 2rem;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__body {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .ehb-stage {
+    &__bubble-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+  }
+
+  .ehb-bubble {
+    width: rem-calc(80);
+    height: rem-calc(80);
+    border-radius: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &__topic-pill {
+      @include topic-pill-button-shape;
+
+      display: none;
+    }
+
+    &__debug-index {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 4px rgb(0 0 0 / 60%);
+    }
+
+    &__initials {
+      color: rgb(0 0 0 / 70%);
+      font-weight: 700;
+      line-height: 1;
+    }
+  }
+
+  /* Large and up: JS viz mode — bubbles are absolutely positioned */
+
+  @include breakpoint(large up) {
+    .ehb-stage {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - #{$primary-nav-height});
+      height: calc(100dvh - #{$primary-nav-height});
+      opacity: 0;
+      transition: opacity 0.4s ease;
+
+      &--ready {
+        opacity: 1;
+      }
+
+      &__lines-svg {
+        overflow: visible;
+      }
+
+      &__bubble-list {
+        display: block; // override mobile flex
+        position: absolute;
+        inset: 0;
+      }
+    }
+
+    .ehb-hero {
+      &__copy {
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        z-index: 5;
+      }
+    }
+
+    .ehb-bubble {
+      position: absolute;
+      transition:
+        scale 0.2s ease,
+        box-shadow 0.2s ease;
+      z-index: 1;
+
+      &:hover,
+      &--active {
+        box-shadow: 0 8px 24px rgb(0 0 0 / 15%);
+        z-index: 10;
+      }
+
+      &__topic-pill {
+        display: block;
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        white-space: nowrap;
+        margin-bottom: rem-calc(8);
+      }
+
+      &__debug-index {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 2;
+      }
+    }
+  }
+}

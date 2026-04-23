@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Expert Hub Prototype{% endblock title %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/prototype/expert_hub.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}prototype-expert-hub-page{% endblock body_class %}
+
+{% block content %}
+    <div class="expert-hub-network" id="expertHubNetwork">
+        <div id="expertHubCenter" class="expert-hub-center">
+            <h1 class="expert-hub-center__title">Meet our Community</h1>
+            <p class="lede-text expert-hub-center__body">Meet the amazing cohort of people who have worked with us in 2025</p>
+            {% include "patterns/components/button.html" with url=explore_url button_style="btn-primary" label="See all experts" %}
+        </div>
+    </div>
+    <div class="grid-container" style="background: #ccc; height: 100px; margin: 4rem auto;">
+        contact us box
+    </div>
+
+    <script type="application/json" id="expertHubData">{{ experts_json|safe }}</script>
+    <script src="{% static 'foundation_cms/_js/pages/prototype/expert_hub.compiled.js' %}" defer></script>
+{% endblock content %}

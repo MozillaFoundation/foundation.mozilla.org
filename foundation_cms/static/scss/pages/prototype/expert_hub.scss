@@ -1,0 +1,137 @@
+@use "sass:map";
+@import "../../redesign_base";
+
+%truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.prototype-expert-hub-page {
+  $active-bg-color: color(orange, "300");
+
+  .expert-hub-network {
+    --expert-hub-card-width: 56px;
+    --expert-hub-center-width: 534px;
+
+    position: relative;
+    width: 100%;
+    height: calc(100vh - #{$primary-nav-height});
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    &.is-ready {
+      opacity: 1;
+    }
+
+    &__layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform-origin: 0 0;
+    }
+
+    &__svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+  }
+
+  .expert-hub-link {
+    stroke: $active-bg-color;
+    stroke-width: rem-calc(1.5);
+    stroke-opacity: 0.7;
+    transition: stroke-opacity 0.3s ease;
+
+    &.is-faded {
+      stroke-opacity: 0.1;
+    }
+  }
+
+  .expert-hub-card {
+    position: absolute;
+    width: var(--expert-hub-card-width);
+    cursor: grab;
+    transition: opacity 0.3s ease;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    &.is-faded {
+      opacity: 0.2;
+    }
+
+    &__inner {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border-radius: rem-calc(8);
+      overflow: hidden;
+    }
+
+    &__photo-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    &__photo {
+      width: var(--expert-hub-card-width);
+      height: var(--expert-hub-card-width);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: rem-calc(28);
+      font-weight: 600;
+      color: map.get($mofo-colors, white);
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(2);
+      margin-top: rem-calc(8);
+    }
+
+    &__name {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+      @extend %truncate;
+
+      font-weight: 700;
+    }
+
+    &__title {
+      @include mofo-text-style($body-text-styles, "small");
+      @extend %truncate;
+    }
+  }
+
+  .expert-hub-topic-tag {
+    @include topic-pill-button-shape;
+
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: rem-calc(8);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .expert-hub-center {
+    position: absolute;
+    width: var(--expert-hub-center-width);
+    padding: rem-calc(24);
+    background: $active-bg-color;
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin: 0 0 rem-calc(8);
+    }
+  }
+}

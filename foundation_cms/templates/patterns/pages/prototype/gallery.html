@@ -1,0 +1,121 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Gallery Prototype{% endblock title %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/prototype/gallery.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block body_class %}prototype-gallery-page{% endblock body_class %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="gallery-layout">
+            <div class="gallery-sidebar">
+                <div class="gallery-sidebar__header">
+                    <h1 class="gallery-sidebar__title">Gallery Title</h1>
+                    <p class="gallery-sidebar__intro">Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here. Gallery intro text goes here.</p>
+                </div>
+
+                <div class="gallery-sidebar__sticky">
+                    <div class="gallery-sidebar__filter-bar gallery-filter-bar">
+                        <span class="gallery-filter-bar__label">Filter by</span>
+                        <div class="gallery-filter-bar__container">
+                            <div class="gallery-filter-bar__filter" data-filter-type="topic">
+                                <button class="gallery-filter-bar__dropdown" data-label="TOPIC">TOPIC</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.topic %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gallery-filter-bar__filter" data-filter-type="program">
+                                <button class="gallery-filter-bar__dropdown" data-label="PROGRAM">PROGRAM</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.program %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gallery-filter-bar__filter" data-filter-type="country">
+                                <button class="gallery-filter-bar__dropdown" data-label="COUNTRY">COUNTRY</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.country %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gallery-filter-bar__filter" data-filter-type="year">
+                                <button class="gallery-filter-bar__dropdown" data-label="YEAR">YEAR</button>
+                                <div class="gallery-filter-bar__panel" hidden>
+                                    <div class="gallery-filter-bar__options">
+                                        {% for opt in filter_options.year %}
+                                            <button class="gallery-filter-bar__option" data-value="{{ opt }}">{{ opt }}</button>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="gallery-filter-bar__count">{{ projects|length }} projects</span>
+                        </div>
+                    </div>
+
+                    <div class="gallery-active-filters"></div>
+
+                    <nav class="gallery-nav" aria-label="Projects">
+                        <ul class="gallery-nav__list">
+                            {% for project in projects %}
+                                <li>
+                                    <a
+                                        class="gallery-nav__item{% if forloop.first %} is-active{% endif %}"
+                                        href="{{ project.url }}"
+                                        data-tags="{{ project.tags|join:',' }}"
+                                        data-program="{{ project.program }}"
+                                        data-country="{{ project.country }}"
+                                        data-year="{{ project.year }}"
+                                    >
+                                        {{ forloop.counter }}. {% if project.filler %}<span class="gallery-nav__filler">(filler)</span>{% endif %} {{ project.name }}<span class="gallery-nav__expert">{{ project.expert }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="gallery-strip">
+                {% for project in projects %}
+                    <div class="gallery-strip__item{% if forloop.first %} is-active{% endif %}">
+                        <span class="gallery-strip__debug-label">{{ project.name }}</span>
+                        {% if project.image %}
+                            <img
+                                src="{% static project.image %}"
+                                alt="{{ project.name }}"
+                                class="gallery-strip__image"
+                                width="800"
+                                height="800"
+                                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                            >
+                        {% else %}
+                            <div
+                                class="gallery-strip__color-block"
+                                style="background-color: {{ project.bg_color }};"
+                                aria-label="{{ project.name }}"
+                            ></div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'foundation_cms/_js/pages/prototype/gallery.compiled.js' %}" defer></script>
+{% endblock content %}
