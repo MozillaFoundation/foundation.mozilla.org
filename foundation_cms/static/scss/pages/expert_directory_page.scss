@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
+@import "../components/expert_directory_page/expert_filter";
 @import "../components/pagination";
 
 body.template-expert-directory-page {
@@ -23,10 +24,21 @@ body.template-expert-directory-page {
     &__description {
       @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
 
-      margin-bottom: rem-calc(58);
-
       > *:first-child {
         margin-top: rem-calc(8);
+      }
+
+      > *:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    &__listing {
+      &.is-loading {
+        opacity: 0.4;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
       }
     }
 
@@ -34,10 +46,7 @@ body.template-expert-directory-page {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: rem-calc(24) rem-calc(16);
-
-      @include breakpoint(large up) {
-        gap: rem-calc(16);
-      }
+      margin-bottom: 3rem;
 
       .expert-card {
         order: 3;
@@ -54,6 +63,7 @@ body.template-expert-directory-page {
       @include breakpoint(large up) {
         grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
+        margin-bottom: rem-calc(64);
 
         .expert-card,
         .expert-card:first-child,
@@ -65,7 +75,6 @@ body.template-expert-directory-page {
   }
 
   .expert-card {
-    flex: 1;
     position: relative;
 
     &__image-wrapper {
@@ -128,10 +137,10 @@ body.template-expert-directory-page {
       @include topic-pills-container(4);
 
       align-items: center;
+    }
 
-      .expert-card__topics-item--extra {
-        display: none;
-      }
+    &__topics-item--extra {
+      display: none;
     }
 
     &__topics-toggle {
@@ -215,10 +224,8 @@ body.template-expert-directory-page {
   }
 
   .pagination {
-    margin-top: 3rem;
-
-    @include breakpoint(medium up) {
-      margin: rem-calc(64) 0;
+    @include breakpoint(large up) {
+      margin: 0 0 rem-calc(64);
     }
   }
 }

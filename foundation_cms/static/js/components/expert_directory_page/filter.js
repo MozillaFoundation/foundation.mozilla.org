@@ -1,0 +1,243 @@
+const DEBOUNCE_MS = 200;
+
+const SELECTORS = {
+  form: "#expert-filter-form",
+  toggle: "[data-filter-toggle]",
+  closeBtn: "[data-expert-filter-close]",
+  resetBtn: "[data-expert-filter-reset]",
+  checkbox: "input[type='checkbox']",
+  toggleLabel: ".expert-filter__toggle-label",
+  listing: "#listing",
+};
+
+/**
+ * Returns all URL param keys that should be cleared on filter submission:
+ * the checkbox field names derived from the form, plus the pagination param
+ * from `data-page-param` so results always start at page 1.
+ *
+ * @param {HTMLFormElement} form
+ * @param {HTMLInputElement[]} checkboxes
+ * @returns {string[]}
+ */
+function getFilterKeys(form, checkboxes) {
+  const keys = new Set(checkboxes.map((el) => el.name));
+  // strip the pagination param so filtered results always start at page 1
+  const pageParam = form.dataset.pageParam;
+
+  if (pageParam) keys.add(pageParam);
+
+  return [...keys];
+}
+
+/**
+ * Builds a clean URL from the current form state: resets filter params,
+ * preserves everything else (e.g. language prefix), and omits empty values.
+ *
+ * @param {HTMLFormElement} form
+ * @param {HTMLInputElement[]} checkboxes
+ * @returns {URL}
+ */
+function buildFilterUrl(form, checkboxes) {
+  const url = new URL(window.location.href);
+  const data = new FormData(form);
+
+  getFilterKeys(form, checkboxes).forEach((key) =>
+    url.searchParams.delete(key),
+  );
+
+  for (const [key, value] of data.entries()) {
+    if (value) url.searchParams.append(key, value);
+  }
+
+  return url;
+}
+
+/**
+ * Updates each toggle button label to reflect the number of checked options in its panel,
+ * e.g. "Country (3)". Resets to the base label when none are checked.
+ *
+ * @param {Element[]} toggles
+ */
+function updateToggleCounts(toggles) {
+  toggles.forEach((toggle) => {
+    const panelId = toggle.getAttribute("aria-controls");
+    const panel = document.getElementById(panelId);
+    const labelEl = toggle.querySelector(SELECTORS.toggleLabel);
+
+    if (!panel || !labelEl) return;
+
+    const count = panel.querySelectorAll(
+      `${SELECTORS.checkbox}:checked`,
+    ).length;
+    const base = labelEl.dataset.baseLabel;
+
+    labelEl.textContent = count > 0 ? `${base} (${count})` : base;
+  });
+}
+
+/**
+ * Collapses all filter panels and resets their toggle buttons to aria-expanded="false".
+ *
+ * @param {Element[]} toggles
+ */
+function closeAllPanels(toggles) {
+  toggles.forEach((toggle) => {
+    toggle.setAttribute("aria-expanded", "false");
+
+    const panelId = toggle.getAttribute("aria-controls");
+    const panel = document.getElementById(panelId);
+
+    if (panel) panel.setAttribute("hidden", "");
+  });
+}
+
+/**
+ * Initializes the expert directory filter form: wires up toggle buttons,
+ * the close button (collapses all open panels), and the reset button
+ * (clears all checkboxes). Auto-submits on checkbox change via a debounced
+ * fetch that swaps only the listing section without a full page reload.
+ */
+export function initExpertFilter() {
+  const form = document.querySelector(SELECTORS.form);
+  if (!form) return;
+
+  const toggles = Array.from(form.querySelectorAll(SELECTORS.toggle));
+  const checkboxes = Array.from(form.querySelectorAll(SELECTORS.checkbox));
+  const closeBtn = form.querySelector(SELECTORS.closeBtn);
+  const resetBtn = form.querySelector(SELECTORS.resetBtn);
+  let debounceTimer = null;
+  let abortController = null;
+
+  updateToggleCounts(toggles);
+
+  /**
+   * Returns true if any filter panel is currently expanded.
+   *
+   * @returns {boolean}
+   */
+  function anyPanelOpen() {
+    return toggles.some((t) => t.getAttribute("aria-expanded") === "true");
+  }
+
+  /**
+   * Shows or hides the close button based on whether any panel is open.
+   */
+  function syncCloseBtn() {
+    if (!closeBtn) return;
+    closeBtn.hidden = !anyPanelOpen();
+  }
+
+  /**
+   * Shows or hides the reset button: visible only when checkboxes are checked
+   * and all panels are closed.
+   */
+  function syncResetBtn() {
+    if (!resetBtn) return;
+    const anyChecked = checkboxes.some((cb) => cb.checked);
+    resetBtn.hidden = !(anyChecked && !anyPanelOpen());
+  }
+
+  syncCloseBtn();
+  syncResetBtn();
+
+  closeBtn?.addEventListener("click", () => {
+    closeAllPanels(toggles);
+    syncCloseBtn();
+    syncResetBtn();
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    checkboxes.forEach((cb) => {
+      cb.checked = false;
+    });
+    form.dispatchEvent(new Event("change"));
+  });
+
+  toggles.forEach((toggle) => {
+    const panelId = toggle.getAttribute("aria-controls");
+    const panel = document.getElementById(panelId);
+
+    if (!panel) return;
+
+    toggle.addEventListener("click", () => {
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+
+      closeAllPanels(toggles);
+
+      if (!isExpanded) {
+        toggle.setAttribute("aria-expanded", "true");
+        panel.removeAttribute("hidden");
+      }
+
+      syncCloseBtn();
+      syncResetBtn();
+    });
+  });
+
+  /**
+   * Fetches the listing section for the given URL and swaps it into the DOM.
+   * Aborts any in-flight request before starting a new one. When `pushHistory`
+   * is true, pushes the URL onto the history stack after a successful swap.
+   *
+   * @param {URL} url
+   * @param {boolean} [pushHistory=false]
+   */
+  async function fetchListing(url, pushHistory = false) {
+    if (abortController) abortController.abort();
+    abortController = new AbortController();
+
+    const listing = document.querySelector(SELECTORS.listing);
+
+    if (listing) listing.classList.add("is-loading");
+
+    try {
+      const response = await fetch(url.toString(), {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        signal: abortController.signal,
+      });
+
+      if (!response.ok) return;
+
+      const html = await response.text();
+
+      if (listing) listing.outerHTML = html;
+
+      if (pushHistory) history.pushState(null, "", url.toString());
+    } catch (err) {
+      if (listing) listing.classList.remove("is-loading");
+      if (err.name !== "AbortError") throw err;
+    }
+  }
+
+  /**
+   * Reads the current URL search params and checks or unchecks each checkbox
+   * to match, then syncs toggle counts and the reset button.
+   */
+  function syncCheckboxesToUrl() {
+    const params = new URLSearchParams(window.location.search);
+
+    checkboxes.forEach((cb) => {
+      const values = params.getAll(cb.name);
+      cb.checked = values.includes(cb.value);
+    });
+
+    updateToggleCounts(toggles);
+    syncResetBtn();
+  }
+
+  window.addEventListener("popstate", () => {
+    syncCheckboxesToUrl();
+    fetchListing(new URL(window.location.href));
+  });
+
+  form.addEventListener("change", () => {
+    updateToggleCounts(toggles);
+    syncResetBtn();
+
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(
+      () => fetchListing(buildFilterUrl(form, checkboxes), true),
+      DEBOUNCE_MS,
+    );
+  });
+}

@@ -2,8 +2,10 @@
 
 <button
     {% if data_attr_for_js_to_target %}{{ data_attr_for_js_to_target }}{% endif %}
+    type="button"
     class="btn-close"
     aria-label="{% trans "Close" %}"
+    {% if is_hidden %}hidden{% endif %}
 >
     <span class="btn-close__content">
         <span class="btn-close__text">{% trans "Close" %}</span>

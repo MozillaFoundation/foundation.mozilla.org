@@ -1,0 +1,197 @@
+.expert-filter {
+  $active-color: color(orange, "300");
+  $default-color: color(neutral, "300");
+
+  margin-top: rem-calc(32);
+  margin-bottom: rem-calc(24);
+
+  @include breakpoint(large up) {
+    margin-top: rem-calc(66);
+  }
+
+  &__bar {
+    display: flex;
+    flex-flow: column wrap;
+    gap: rem-calc(8);
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__label {
+    @include mofo-text-style($body-text-styles, "regular");
+
+    white-space: nowrap;
+  }
+
+  &__groups {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(12);
+    flex-wrap: wrap;
+  }
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(8);
+    padding: rem-calc(3) rem-calc(8) rem-calc(3) rem-calc(16);
+    border: 1px solid $black;
+    border-radius: rem-calc(100);
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include mofo-text-style($body-text-styles, "small");
+
+    &--active,
+    &[aria-expanded="true"] {
+      background: color(neutral, "200");
+      border-color: color(neutral, "200");
+    }
+
+    &[aria-expanded="true"] {
+      .expert-filter__chevron::after {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &__chevron {
+    display: inline-flex;
+    align-items: center;
+    width: rem-calc(16);
+    height: rem-calc(16);
+
+    &::after {
+      content: "";
+      display: block;
+      width: rem-calc(12);
+      height: rem-calc(8);
+      background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  &__reset {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    align-self: flex-start;
+    text-decoration: underline;
+
+    @include breakpoint(large up) {
+      align-self: auto;
+    }
+
+    @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
+  }
+
+  .btn-close {
+    display: block;
+    margin-left: auto;
+    margin-bottom: rem-calc(16);
+
+    @include breakpoint(large up) {
+      margin-bottom: 0;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__panel {
+    margin-top: rem-calc(16);
+    margin-bottom: rem-calc(16);
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(26);
+      margin-bottom: rem-calc(38);
+    }
+  }
+
+  &__fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: rem-calc(24);
+
+    @include breakpoint(large up) {
+      columns: 3;
+    }
+  }
+
+  &__option {
+    break-inside: avoid;
+    margin-bottom: rem-calc(4);
+  }
+
+  &__option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: rem-calc(10);
+    cursor: pointer;
+
+    @include mofo-text-style($body-text-styles, "regular");
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+  }
+
+  &__divider {
+    display: none;
+    border: none;
+    border-top: 1px solid $default-color;
+    margin: 0;
+  }
+
+  &:has(.expert-filter__panel:not([hidden])) .expert-filter__divider {
+    display: block;
+  }
+
+  &__checkbox {
+    appearance: none;
+    flex-shrink: 0;
+    margin-top: rem-calc(6);
+    width: rem-calc(12);
+    height: rem-calc(12);
+    border: 1.5px solid $default-color;
+    border-radius: 50%;
+    background: $default-color;
+    cursor: pointer;
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease;
+
+    &:checked {
+      border-color: $active-color;
+      background: $active-color;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $active-color;
+      outline-offset: 2px;
+    }
+
+    &:hover {
+      border-color: $active-color;
+      background: $active-color;
+    }
+  }
+}

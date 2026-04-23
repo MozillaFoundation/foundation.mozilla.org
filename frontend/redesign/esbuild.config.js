@@ -62,6 +62,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  expert_directory_page: {
+    source: "pages/expert_directory_page.js",
+    jsx: false,
+    bundle: true,
+  },
 };
 
 const base = {
