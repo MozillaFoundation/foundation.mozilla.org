@@ -25,6 +25,7 @@ from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
+from .three_column_container_block import ThreeColumnContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -136,6 +137,10 @@ class BlockRegistry:
         },
         "two_column_container_block": {
             "class": TwoColumnContainerBlock,
+            "group": BlockGroups.LAYOUT,
+        },
+        "three_column_container_block": {
+            "class": ThreeColumnContainerBlock,
             "group": BlockGroups.LAYOUT,
         },
         # Media & Embeds

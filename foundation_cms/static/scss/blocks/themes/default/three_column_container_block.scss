@@ -1,0 +1,226 @@
+@use "sass:map";
+
+.three-column-container {
+  $three-column-margin-y: (
+    small: 1.5rem,
+    large: 2rem,
+  );
+  $three-column-gap-y: rem-calc(24);
+  $three-column-gap: map.get($three-column-margin-y, large);
+  $three-column-min-width: rem-calc(214);
+
+  display: flex;
+  flex-direction: column;
+  margin-top: map.get($three-column-margin-y, small);
+  margin-bottom: map.get($three-column-margin-y, small);
+  gap: $three-column-gap-y;
+
+  @include breakpoint(large up) {
+    flex-direction: row;
+    margin-top: map.get($three-column-margin-y, large);
+    margin-bottom: map.get($three-column-margin-y, large);
+    gap: $three-column-gap;
+  }
+
+  &--middle {
+    @include breakpoint(large up) {
+      align-items: center;
+    }
+  }
+
+  &--bottom {
+    @include breakpoint(large up) {
+      align-items: flex-end;
+    }
+  }
+
+  &--top {
+    @include breakpoint(large up) {
+      align-items: flex-start;
+    }
+  }
+
+  &__column {
+    flex: 1;
+    min-width: 0;
+
+    @include breakpoint(large up) {
+      min-width: $three-column-min-width;
+    }
+
+    .grid-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    > .rich-text-block {
+      @include apply-text-style($body-text-styles, "regular", "small");
+
+      *:first-child {
+        margin-top: 0;
+      }
+
+      *:last-child {
+        margin-bottom: 0;
+      }
+
+      h1 {
+        @include apply-text-style(
+          $header-styles,
+          "h1",
+          "small",
+          $header-font-family
+        );
+      }
+
+      h2 {
+        @include apply-text-style(
+          $header-styles,
+          "h2",
+          "small",
+          $header-font-family
+        );
+      }
+
+      h3 {
+        @include apply-text-style(
+          $header-styles,
+          "h3",
+          "small",
+          $header-font-family
+        );
+      }
+
+      h4 {
+        @include apply-text-style(
+          $header-styles,
+          "h4",
+          "small",
+          $header-font-family
+        );
+      }
+
+      h5 {
+        @include apply-text-style(
+          $header-styles,
+          "h5",
+          "small",
+          $header-font-family
+        );
+      }
+
+      h6 {
+        @include apply-text-style(
+          $header-styles,
+          "h6",
+          "small",
+          $header-font-family
+        );
+      }
+
+      p,
+      li {
+        @include apply-text-style($body-text-styles, "regular", "small");
+      }
+
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-bottom: rem-calc(12);
+      }
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .quote-block {
+    .quote-text-regular {
+      @include apply-text-style($quote-text-styles, "regular", "small");
+    }
+
+    figcaption {
+      @include apply-text-style($body-text-styles, "xsmall", "small");
+    }
+  }
+
+  .newsletter-signup {
+    margin-bottom: 0;
+  }
+
+  .newsletter-signup-block .newsletter-signup {
+    padding: 1.5rem 2rem 2rem;
+
+    @include breakpoint(medium up) {
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    &__form-grid {
+      @include breakpoint(medium up) {
+        flex-direction: column;
+      }
+
+      @include breakpoint(xlarge up) {
+        flex: initial;
+      }
+    }
+
+    &__fieldset {
+      @include breakpoint(medium up) {
+        flex: initial;
+      }
+    }
+
+    &__button-wrapper,
+    &__cta-wrapper {
+      width: 100%;
+    }
+
+    &[data-layout="expanded"] {
+      @include breakpoint(medium up) {
+        padding: 1.5rem 2rem 2rem;
+      }
+
+      .newsletter-signup__cta-wrapper {
+        @include breakpoint(medium up) {
+          padding-left: 0;
+          min-height: auto;
+        }
+
+        &::before {
+          @include breakpoint(medium up) {
+            position: static;
+            margin-bottom: 0.75rem;
+          }
+        }
+      }
+
+      .newsletter-signup__success-message {
+        @include breakpoint(medium up) {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .newsletter-signup[data-layout] {
+    .newsletter-signup__success-message {
+      @include breakpoint(medium up) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .text-social-block {
+    padding: rem-calc(32) rem-calc(24);
+    gap: rem-calc(24);
+    height: auto;
+
+    &__buttons {
+      flex-wrap: wrap;
+    }
+  }
+}

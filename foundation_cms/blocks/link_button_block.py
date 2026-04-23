@@ -18,7 +18,7 @@ class LinkButtonBlock(BaseBlock, LinkBlock):
             ("link-button-block--left", "Left"),
             ("link-button-block--center", "Center"),
         ],
-        default="btn-left",
+        default="link-button-block--left",
     )
 
     class Meta:
