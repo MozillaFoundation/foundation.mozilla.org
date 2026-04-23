@@ -106,7 +106,7 @@ class LinkWithDynamicLabelBlock(LinkBlock):
                     max_length=self.label_max_length,
                     required=base_label_block.required,
                     label=getattr(base_label_block, "label", "Label"),
-                    help_text=getattr(base_label_block, "help_text", ""),
+                    help_text=getattr(base_label_block, "help_text", f"Max {self.label_max_length} characters."),
                 ),
             )
         ]
