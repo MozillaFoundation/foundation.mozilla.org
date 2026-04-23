@@ -113,7 +113,7 @@
     "@axe-core/react": "^4.11.1",
     "@percy/cli": "^1.31.10",
     "@percy/playwright": "^1.0.9",
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.59.1",
     "browserslist": "^4.28.2",
     "chokidar-cli": "^3.0.0",
     "eslint": "^9.39.2",
