@@ -1,6 +1,16 @@
 {% extends theme_base %}
 
-{% load wagtailimages_tags i18n %}
+{% load static wagtailimages_tags i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_hub_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/expert_hub_page.compiled.js' %}"></script>
+{% endblock extra_js %}
+
+{% block body_class %}template-expert-hub-page{% endblock body_class %}
 
 {% block content %}
     <main class="expert-hub-page">
