@@ -25,12 +25,18 @@
                 {% endif %}
             </div>
 
+            <div class="expert-hub-tooltip" role="tooltip" hidden>
+                <p class="expert-hub-tooltip__quote"></p>
+                <strong class="expert-hub-tooltip__name"></strong>
+            </div>
+
             <ol class="expert-hub-viz__bubble-list" id="expert-hub-bubble-list">
                 {% for item in featured_experts %}
                     <li class="expert-hub-bubble"
                         data-index="{{ forloop.counter0 }}"
                         data-name="{{ item.expert.title }}"
                         data-url="{% pageurl item.expert %}"
+                        data-quote="{{ item.expert.bio|striptags|truncatechars:200 }}"
                         data-topics="{% for topic in item.expert.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
                         {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ item.topic.name }}</span>{% endif %}
                         {% if item.expert.image %}

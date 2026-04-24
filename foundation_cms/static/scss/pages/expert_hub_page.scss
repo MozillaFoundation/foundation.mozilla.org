@@ -82,6 +82,7 @@ body.template-expert-hub-page {
       width: 100%;
       height: calc(100vh - #{$primary-nav-height});
       height: calc(100dvh - #{$primary-nav-height});
+      max-height: rem-calc(900);
       opacity: 0;
       transition: opacity 0.4s ease;
 
@@ -106,6 +107,49 @@ body.template-expert-hub-page {
         top: 1rem;
         left: 0;
         z-index: 5;
+      }
+    }
+
+    .expert-hub-tooltip {
+      position: absolute;
+      z-index: 20;
+      background: var(--tooltip-color, white);
+      border-radius: rem-calc(8);
+      padding: rem-calc(16) rem-calc(20);
+      max-width: rem-calc(280);
+      filter: drop-shadow(0 rem-calc(4) rem-calc(16) rgba(0, 0, 0, 0.12));
+      pointer-events: none;
+
+      &__quote {
+        margin: 0 0 rem-calc(8);
+        font-size: rem-calc(14);
+        line-height: 1.5;
+      }
+
+      &__name {
+        display: block;
+        font-size: rem-calc(14);
+        font-weight: bold;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        translate: -50% 0;
+        border: rem-calc(8) solid transparent;
+      }
+
+      &[data-tail="bottom"]::after {
+        bottom: rem-calc(-8);
+        border-top: rem-calc(8) solid var(--tooltip-color, white);
+        border-bottom: none;
+      }
+
+      &[data-tail="top"]::after {
+        top: rem-calc(-8);
+        border-bottom: rem-calc(8) solid var(--tooltip-color, white);
+        border-top: none;
       }
     }
 
