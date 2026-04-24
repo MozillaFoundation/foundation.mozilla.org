@@ -2,11 +2,7 @@
 @use "sass:list";
 @import "../redesign_base";
 
-$bubble-palette: (
-  1: color(orange, "300"),
-  2: color(blue, "300"),
-  3: color(yellow, "300"),
-);
+$bubble-palette: (orange, blue, yellow);
 
 body.template-expert-hub-page {
   .expert-hub-hero {
@@ -45,9 +41,12 @@ body.template-expert-hub-page {
   .expert-hub-bubble {
     $palette-size: list.length($bubble-palette);
 
-    @each $key, $c in $bubble-palette {
-      &:nth-child(#{$palette-size}n + #{$key}) {
-        --bubble-color: #{$c};
+    @for $i from 1 through $palette-size {
+      $name: list.nth($bubble-palette, $i);
+
+      &:nth-child(#{$palette-size}n + #{$i}) {
+        --bubble-color: #{color($name, "300")};
+        --bubble-color-light: #{color($name, "100")};
       }
     }
 
@@ -77,6 +76,9 @@ body.template-expert-hub-page {
   /* Large and up: JS viz mode — bubbles are absolutely positioned */
 
   @include breakpoint(large up) {
+    $tooltip-tail-width: rem-calc(12);
+    $tooltip-tail-height: rem-calc(24);
+
     @keyframes expert-hub-bubble-pop-in {
       from {
         scale: 0;
@@ -131,10 +133,9 @@ body.template-expert-hub-page {
       position: absolute;
       z-index: 20;
       background: var(--tooltip-color, white);
-      border-radius: rem-calc(8);
-      padding: rem-calc(16) rem-calc(20);
-      max-width: rem-calc(280);
-      filter: drop-shadow(0 rem-calc(4) rem-calc(16) rgb(0 0 0 / 12%));
+      border-radius: rem-calc(4);
+      padding: rem-calc(18) rem-calc(24);
+      max-width: rem-calc(354);
       pointer-events: none;
 
       &__quote {
@@ -144,28 +145,27 @@ body.template-expert-hub-page {
       }
 
       &__name {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+
         display: block;
-        font-size: rem-calc(14);
-        font-weight: bold;
       }
 
       &::after {
         content: "";
         position: absolute;
-        left: 50%;
-        translate: -50% 0;
-        border: rem-calc(8) solid transparent;
+        right: rem-calc(12);
+        border: $tooltip-tail-width solid transparent;
       }
 
       &[data-tail="bottom"]::after {
-        bottom: rem-calc(-8);
-        border-top: rem-calc(8) solid var(--tooltip-color, white);
+        bottom: -$tooltip-tail-height;
+        border-top: $tooltip-tail-height solid var(--tooltip-color, white);
         border-bottom: none;
       }
 
       &[data-tail="top"]::after {
-        top: rem-calc(-8);
-        border-bottom: rem-calc(8) solid var(--tooltip-color, white);
+        top: -$tooltip-tail-height;
+        border-bottom: $tooltip-tail-height solid var(--tooltip-color, white);
         border-top: none;
       }
     }

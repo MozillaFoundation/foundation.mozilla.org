@@ -67,7 +67,7 @@ const COLLIDE_ITERATIONS = 3;
 const ANCHOR_STRENGTH = 0.3;
 const SIM_TICKS = 200;
 
-const TOOLTIP_GAP = 12;
+const TOOLTIP_GAP = -12;
 const TOOLTIP_EDGE_MARGIN = 8;
 // Mirrors SCSS `@include breakpoint(large up)` — Foundation large = 64em
 const VIZ_BREAKPOINT = "(min-width: 64em)";
@@ -337,12 +337,12 @@ function init(viz) {
     node.el.addEventListener(
       "mouseenter",
       () => {
-        const color = getComputedStyle(node.el)
-          .getPropertyValue("--bubble-color")
-          .trim();
+        const style = getComputedStyle(node.el);
+        const color = style.getPropertyValue("--bubble-color").trim();
+        const tooltipColor = style.getPropertyValue("--bubble-color-light").trim();
         updateLines(i);
         applyOverlays(i, color);
-        showTooltip(node, color);
+        showTooltip(node, tooltipColor);
       },
       { signal },
     );
