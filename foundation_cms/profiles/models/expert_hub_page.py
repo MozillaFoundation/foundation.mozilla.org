@@ -79,8 +79,6 @@ class ExpertHubPage(AbstractBasePage):
             topic = fe.expert.topics.first()
             featured_experts.append({"expert": fe.expert, "topic": topic})
 
-        # Sort featured experts by topic name so that they are grouped by topic in the landing page display
-        featured_experts.sort(key=lambda item: (item["topic"].name if item["topic"] else ""))
         context["featured_experts"] = featured_experts
 
         directory = self.get_children().type(ExpertDirectoryPage).live().first()

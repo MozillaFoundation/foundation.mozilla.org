@@ -1,6 +1,6 @@
 {% extends theme_base %}
 
-{% load static wagtailimages_tags i18n %}
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_hub_page.compiled.css' %}">
@@ -13,68 +13,36 @@
 {% block body_class %}template-expert-hub-page{% endblock body_class %}
 
 {% block content %}
-    <main class="expert-hub-page">
-        <div class="grid-container">
+    <div class="grid-container">
+        <div class="expert-hub-viz" id="expert-hub-viz">
+            <div class="expert-hub-hero__copy">
+                <h1 class="expert-hub-hero__title">{{ page.title }}</h1>
+                {% if page.description %}
+                    <div class="expert-hub-hero__body">{{ page.description|richtext }}</div>
+                {% endif %}
+                {% if directory_url %}
+                    <a href="{{ directory_url }}" class="btn btn-primary">{% trans "Explore all experts" %}</a>
+                {% endif %}
+            </div>
 
-            {% if directory_url %}
-                <a href="{{ directory_url }}" class="expert-hub-page__explore-link">{% trans "Explore all experts" %}</a>
-            {% endif %}
-
-            <h1>{{ page.title }}</h1>
-            {% if page.description %}
-                <div class="expert-hub-page__description">{{ page.description|safe }}</div>
-            {% endif %}
-
-            {% if featured_experts %}
-                <section class="expert-hub-page__featured">
-                    <h2>{% trans "Featured Experts" %}</h2>
-                    <div class="grid-x grid-margin-x">
-                        {% for item in featured_experts %}
-                            {% ifchanged item.topic %}
-                                {% if not forloop.first %}</div><div class="grid-x grid-margin-x">{% endif %}
-                                <div class="cell small-12">
-                                    {% if item.topic %}
-                                        <h3>{{ item.topic.name }}</h3>
-                                    {% else %}
-                                        <h3>{% trans "Other" %}</h3>
-                                    {% endif %}
-                                </div>
-                            {% endifchanged %}
-                            <div class="cell small-12 medium-6 large-4">
-                                <article class="expert-card">
-                                    {% if item.expert.image %}
-                                        <a href="{{ item.expert.url }}">
-                                            {% image item.expert.image fill-400x400 as card_img %}
-                                            <img
-                                                src="{{ card_img.url }}"
-                                                alt="{{ item.expert.title }}"
-                                                width="{{ card_img.width }}"
-                                                height="{{ card_img.height }}"
-                                                loading="lazy"
-                                            >
-                                        </a>
-                                    {% endif %}
-                                    <h4><a href="{{ item.expert.url }}">{{ item.expert.title }}</a></h4>
-                                    {% if item.expert.role %}
-                                        <p class="expert-card__role">{{ item.expert.role }}</p>
-                                    {% endif %}
-                                    {% if item.expert.affiliation %}
-                                        <p class="expert-card__affiliation">{{ item.expert.affiliation }}</p>
-                                    {% endif %}
-                                    {% if item.topic %}
-                                        <a class="btn-topic" href="{{ item.topic.get_topic_listing_url }}">{{ item.topic.name }}</a>
-                                    {% endif %}
-                                </article>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </section>
-            {% endif %}
-
+            <ol class="expert-hub-viz__bubble-list" id="expert-hub-bubble-list">
+                {% for item in featured_experts %}
+                    <li class="expert-hub-bubble"
+                        data-index="{{ forloop.counter0 }}"
+                        data-name="{{ item.expert.title }}"
+                        data-url="{% pageurl item.expert %}"
+                        data-topics="{% for topic in item.expert.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
+                        {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ item.topic.name }}</span>{% endif %}
+                        {% if item.expert.image %}
+                            {% image item.expert.image fill-300x300 class="expert-hub-bubble__image" %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ol>
         </div>
+    </div>
 
-        {% if page.body %}
-            {% include "patterns/components/streamfield.html" with streamfield=page.body %}
-        {% endif %}
-    </main>
+    {% if page.body %}
+        {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+    {% endif %}
 {% endblock content %}

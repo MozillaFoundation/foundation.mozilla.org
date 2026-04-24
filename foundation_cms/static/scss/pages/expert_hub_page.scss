@@ -1,4 +1,153 @@
+@use "sass:map";
+@use "sass:list";
 @import "../redesign_base";
 
+$bubble-palette: (
+  1: color(orange, "300"),
+  2: color(blue, "300"),
+  3: color(yellow, "300"),
+);
+
 body.template-expert-hub-page {
+  .expert-hub-hero {
+    &__copy {
+      max-width: 50%;
+      margin-bottom: 2rem;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__body {
+      @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
+
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* Mobile default: copy and bubbles flow vertically, no JS viz */
+  .expert-hub-viz {
+    &__bubble-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+  }
+
+  .expert-hub-bubble {
+    $palette-size: list.length($bubble-palette);
+
+    @each $key, $c in $bubble-palette {
+      &:nth-child(#{$palette-size}n + #{$key}) {
+        --bubble-color: #{$c};
+      }
+    }
+
+    width: rem-calc(80);
+    height: rem-calc(80);
+    border-radius: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &__topic-pill {
+      @include topic-pill-button-shape;
+
+      display: none;
+      background: color(orange, "100");
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* Large and up: JS viz mode — bubbles are absolutely positioned */
+
+  @include breakpoint(large up) {
+    .expert-hub-viz {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - #{$primary-nav-height});
+      height: calc(100dvh - #{$primary-nav-height});
+      opacity: 0;
+      transition: opacity 0.4s ease;
+
+      &--ready {
+        opacity: 1;
+      }
+
+      &__lines-svg {
+        overflow: visible;
+      }
+
+      &__bubble-list {
+        display: block;
+        position: absolute;
+        inset: 0;
+      }
+    }
+
+    .expert-hub-hero {
+      &__copy {
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        z-index: 5;
+      }
+    }
+
+    .expert-hub-bubble {
+      position: absolute;
+      transition:
+        scale 0.2s ease,
+        box-shadow 0.2s ease;
+      z-index: 1;
+
+      &:hover {
+        z-index: 10;
+      }
+
+      &__topic-pill {
+        display: block;
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        white-space: nowrap;
+        margin-bottom: rem-calc(8);
+      }
+
+      &__image {
+        border-radius: inherit;
+        pointer-events: none;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--overlay-color);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+      }
+
+      &--overlay-active::after {
+        opacity: 0.5;
+      }
+    }
+  }
 }
