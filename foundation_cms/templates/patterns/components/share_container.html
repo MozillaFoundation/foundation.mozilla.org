@@ -7,20 +7,5 @@
     <div class="share-title">{{ title|default:share_this }}</div>
   {% endif %}
   <div class="share-buttons">
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url|urlencode }}&title={{ page.title|urlencode }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Facebook">
-      <img src="{% static 'foundation_cms/_images/icons/social-facebook-black.svg' %}" width="18" height="18" alt="{% trans "Share on Facebook" %}">
-    </a>
-
-    <!-- Email -->
-    <a href="mailto:?subject={{ page.title|urlencode }}&body={{ page.url|urlencode }}" class="share-btn email-share-btn" aria-label="{% trans "Email" %}">
-      <img src="{% static 'foundation_cms/_images/icons/social-email-black.svg' %}" width="18" height="18" alt="{% trans "Share by Email" %}">
-    </a>
-
-    <!-- Copy Link -->
-    <button class="share-btn copy-link-share-btn" data-copy-url="{{ page.url }}" aria-label="{% trans "Copy Link" %}">
-      <img src="{% static 'foundation_cms/_images/icons/social-copy-link-black.svg' %}" width="18" height="18" alt="{% trans "Copy Link" %}" title="{% trans "Copy Link" %}">
-    </button>
-  </div>
-
+<div style="width: 100%; height: 600px;"><iframe src="https://share.mozillafoundation.org/toolkit/81be89ce-50a1-4001-83bc-47403f057776?embedded=true&embedHeight=600&iconsColor=%23000000&postBgColor=%23feffff&postTextColor=%23000000&font=font-inter&textSize=text-base&buttonUsePlatformColor=false&previewCardCornerRadius=rounded-none&shadow=shadow&cornerRadius=rounded-none&sliderEnabled=&showFilters=&buttonColor=%23000000&buttonTextColor=%23ffffff&socialnetwork=facebook"  allowfullscreen="allowfullscreen" allow="camera; web-share; microphone; fullscreen" frameborder="0" style="border: 0px; outline: none; color-scheme: normal; width: 100%; height: 100%; transform: scale(1); transform-origin: 0px 0px 0px;"></iframe></div>
 </div>
