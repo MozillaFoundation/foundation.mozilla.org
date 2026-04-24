@@ -1,0 +1,220 @@
+@use "sass:map";
+@use "sass:list";
+@import "../redesign_base";
+
+$bubble-palette: (orange, blue, yellow);
+
+body.template-expert-hub-page {
+  .expert-hub-hero {
+    &__copy {
+      margin-bottom: 2rem;
+
+      @include breakpoint(large up) {
+        max-width: 50%;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__body {
+      @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
+
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* Mobile default — touch devices and viewports below 1024px: placeholder until mobile implementation is built */
+  .expert-hub-viz {
+    &__bubble-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+  }
+
+  .expert-hub-bubble {
+    $palette-size: list.length($bubble-palette);
+
+    @for $i from 1 through $palette-size {
+      $name: list.nth($bubble-palette, $i);
+
+      &:nth-child(#{$palette-size}n + #{$i}) {
+        --bubble-color: #{color($name, "300")};
+        --bubble-color-light: #{color($name, "100")};
+      }
+    }
+
+    width: rem-calc(80);
+    height: rem-calc(80);
+    border-radius: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &__topic-pill {
+      @include topic-pill-button-shape;
+
+      display: none;
+      background: color(orange, "100");
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* Hover-capable devices at 1024px and up: JS viz mode — bubbles are absolutely positioned */
+
+  /* Touch devices and viewports below 1024px use the mobile layout instead */
+
+  @media screen and (width >= 64em) and (hover: hover) and (pointer: fine) {
+    $tooltip-tail-width: rem-calc(12);
+    $tooltip-tail-height: rem-calc(24);
+
+    @keyframes expert-hub-bubble-pop-in {
+      from {
+        scale: 0;
+        opacity: 0;
+      }
+
+      to {
+        scale: 1;
+        opacity: 1;
+      }
+    }
+
+    .expert-hub-viz {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - #{$primary-nav-height});
+      height: calc(100dvh - #{$primary-nav-height});
+      max-height: rem-calc(900);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+
+      &--ready {
+        opacity: 1;
+
+        .expert-hub-bubble {
+          animation: expert-hub-bubble-pop-in 0.5s
+            cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+      }
+
+      &__lines-svg {
+        overflow: visible;
+      }
+
+      &__bubble-list {
+        display: block;
+        position: absolute;
+        inset: 0;
+      }
+    }
+
+    .expert-hub-hero {
+      &__copy {
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        z-index: 5;
+      }
+    }
+
+    .expert-hub-tooltip {
+      position: absolute;
+      z-index: 20;
+      background: var(--tooltip-color, white);
+      border-radius: rem-calc(4);
+      padding: rem-calc(18) rem-calc(24);
+      max-width: rem-calc(354);
+      pointer-events: none;
+
+      &__quote {
+        margin: 0 0 rem-calc(8);
+        font-size: rem-calc(14);
+        line-height: 1.5;
+      }
+
+      &__name {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+        display: block;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: var(--tooltip-tail-right, #{rem-calc(12)});
+        border: $tooltip-tail-width solid transparent;
+      }
+
+      &[data-tail="bottom"]::after {
+        bottom: -$tooltip-tail-height;
+        border-top: $tooltip-tail-height solid var(--tooltip-color, white);
+        border-bottom: none;
+      }
+
+      &[data-tail="top"]::after {
+        top: -$tooltip-tail-height;
+        border-bottom: $tooltip-tail-height solid var(--tooltip-color, white);
+        border-top: none;
+      }
+    }
+
+    .expert-hub-bubble {
+      position: absolute;
+      transform-origin: 0 0;
+      transition:
+        scale 0.2s ease,
+        box-shadow 0.2s ease;
+      z-index: 1;
+
+      &:hover {
+        z-index: 10;
+      }
+
+      &__topic-pill {
+        display: block;
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        white-space: nowrap;
+        margin-bottom: rem-calc(8);
+      }
+
+      &__image {
+        border-radius: inherit;
+        pointer-events: none;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--overlay-color);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+      }
+
+      &--overlay-active::after {
+        opacity: 0.5;
+      }
+    }
+  }
+}

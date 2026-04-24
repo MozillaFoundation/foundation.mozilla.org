@@ -42,6 +42,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  expert_hub_page: {
+    source: "pages/expert_hub_page.js",
+    jsx: false,
+    bundle: true,
+  },
   redesign_migrated_content: {
     source: "redesign_migrated_content.js",
     jsx: false,
