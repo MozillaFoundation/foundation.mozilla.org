@@ -104,8 +104,10 @@ const COLLIDE_ITERATIONS = 3;
 const ANCHOR_STRENGTH = 0.3;
 const SIM_TICKS = 200;
 
-const TOOLTIP_GAP = -12;
+const TOOLTIP_GAP = -5;
 const TOOLTIP_EDGE_MARGIN = 8;
+// Must match $tooltip-tail-width in expert_hub_page.scss
+const TOOLTIP_TAIL_HALF_WIDTH = 12;
 
 /**
  * Returns the active breakpoint key for the current viewport,
@@ -317,8 +319,16 @@ function init(viz, tierConfig) {
       Math.min(x, vizW - tipW - TOOLTIP_EDGE_MARGIN),
     );
 
+    // Align tail with bubble centre, clamped so it stays within the tooltip
+    const tailRight = tipW - (node.cx - x) - TOOLTIP_TAIL_HALF_WIDTH;
+    const tailRightClamped = Math.max(
+      TOOLTIP_TAIL_HALF_WIDTH,
+      Math.min(tailRight, tipW - TOOLTIP_TAIL_HALF_WIDTH * 3),
+    );
+
     tooltip.style.left = `${x}px`;
     tooltip.style.top = `${y}px`;
+    tooltip.style.setProperty("--tooltip-tail-right", `${tailRightClamped}px`);
     tooltip.dataset.tail = tail;
   }
 
