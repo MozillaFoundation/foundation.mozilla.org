@@ -226,6 +226,10 @@ function init(viz) {
     nodes[i].el.style.top = `${sn.y}px`;
   });
 
+  nodes.forEach((node, i) => {
+    node.el.style.animationDelay = `${i * 80}ms`;
+  });
+
   // ─── Tooltip ───────────────────────────────────────────────────────────────
 
   function positionTooltip(node) {
@@ -395,7 +399,12 @@ export function setupViz() {
     }
   }
 
+  let initialFire = true;
   const ro = new ResizeObserver(() => {
+    if (initialFire) {
+      initialFire = false;
+      return;
+    }
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(run, 150);
   });

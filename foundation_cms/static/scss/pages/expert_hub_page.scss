@@ -77,6 +77,18 @@ body.template-expert-hub-page {
   /* Large and up: JS viz mode — bubbles are absolutely positioned */
 
   @include breakpoint(large up) {
+    @keyframes expert-hub-bubble-pop-in {
+      from {
+        scale: 0;
+        opacity: 0;
+      }
+
+      to {
+        scale: 1;
+        opacity: 1;
+      }
+    }
+
     .expert-hub-viz {
       position: relative;
       width: 100%;
@@ -88,6 +100,11 @@ body.template-expert-hub-page {
 
       &--ready {
         opacity: 1;
+
+        .expert-hub-bubble {
+          animation: expert-hub-bubble-pop-in 0.5s
+            cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
       }
 
       &__lines-svg {
@@ -155,6 +172,7 @@ body.template-expert-hub-page {
 
     .expert-hub-bubble {
       position: absolute;
+      transform-origin: 0 0;
       transition:
         scale 0.2s ease,
         box-shadow 0.2s ease;
