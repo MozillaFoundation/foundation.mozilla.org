@@ -7,8 +7,11 @@ $bubble-palette: (orange, blue, yellow);
 body.template-expert-hub-page {
   .expert-hub-hero {
     &__copy {
-      max-width: 50%;
       margin-bottom: 2rem;
+
+      @include breakpoint(large up) {
+        max-width: 50%;
+      }
     }
 
     &__title {
@@ -25,7 +28,7 @@ body.template-expert-hub-page {
     }
   }
 
-  /* Mobile default: copy and bubbles flow vertically, no JS viz */
+  /* Mobile default — touch devices and viewports below 1024px: placeholder until mobile implementation is built */
   .expert-hub-viz {
     &__bubble-list {
       list-style: none;
@@ -73,9 +76,11 @@ body.template-expert-hub-page {
     }
   }
 
-  /* Large and up: JS viz mode — bubbles are absolutely positioned */
+  /* Hover-capable devices at 1024px and up: JS viz mode — bubbles are absolutely positioned */
 
-  @include breakpoint(large up) {
+  /* Touch devices and viewports below 1024px use the mobile layout instead */
+
+  @media screen and (width >= 64em) and (hover: hover) and (pointer: fine) {
     $tooltip-tail-width: rem-calc(12);
     $tooltip-tail-height: rem-calc(24);
 

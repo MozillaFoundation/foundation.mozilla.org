@@ -4,38 +4,81 @@ import { select } from "d3-selection";
 // Golden angle for overflow phyllotaxis layout
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
 
-// ─── Seed positions (% of full container) ────────────────────────────────────
-// Hand-tuned for the design composition: hero upper-center, others scattered
-// to the right of the copy block. Only used for the first 12 nodes; beyond
-// that, overflow nodes are placed via phyllotaxis in the available zone.
-const TIER_CONFIG = [
-  {
-    tier: 1,
-    positions: [[56, 55]],
-  },
-  {
-    tier: 2,
-    positions: [
-      [37, 46],
-      [60, 23],
-      [78, 31],
-      [92, 56],
-      [76, 62],
-      [22, 58],
+// ─── Breakpoints (match SCSS customized-settings.scss) ───────────────────────
+const BREAKPOINTS = {
+  large: 1024,
+  xlarge: 1200,
+};
+
+// ─── Per-breakpoint starting positions (% of full container) ─────────────────
+// Each config is hand-tuned for that viewport's available zone.
+// Overflow nodes beyond the configured count use phyllotaxis in the right-of-copy zone.
+const TIER_CONFIGS = {
+  // ≥ 1200px
+  xlarge: {
+    packFactor: 0.3,
+    tiers: [
+      {
+        tier: 1,
+        positions: [[56, 55]],
+      },
+      {
+        tier: 2,
+        positions: [
+          [37, 46],
+          [60, 23],
+          [78, 31],
+          [92, 56],
+          [76, 62],
+          [22, 58],
+        ],
+      },
+      {
+        tier: 3,
+        positions: [
+          [22, 84],
+          [93, 20],
+          [64, 85],
+          [36, 76],
+          [7, 54],
+          [8, 77],
+        ],
+      },
     ],
   },
-  {
-    tier: 3,
-    positions: [
-      [22, 84],
-      [93, 20],
-      [64, 85],
-      [36, 76],
-      [7, 54],
-      [8, 77],
+  // 1024–1199px
+  large: {
+    packFactor: 0.25,
+    tiers: [
+      {
+        tier: 1,
+        positions: [[58, 49]],
+      },
+      {
+        tier: 2,
+        positions: [
+          [37, 49],
+          [60, 18],
+          [78, 31],
+          [92, 56],
+          [76, 62],
+          [23, 61],
+        ],
+      },
+      {
+        tier: 3,
+        positions: [
+          [22, 84],
+          [93, 20],
+          [62, 78],
+          [40, 74],
+          [7, 56],
+          [8, 77],
+        ],
+      },
     ],
   },
-];
+};
 
 const SELECTORS = {
   viz: "#expert-hub-viz",
@@ -55,12 +98,6 @@ const CLASS_NAMES = {
 
 const TIER_WEIGHT = { 1: 4, 2: 2, 3: 1 };
 
-const TIER_BY_INDEX = TIER_CONFIG.flatMap(({ tier, positions }) =>
-  positions.map((pos) => ({ tier, pos })),
-);
-
-const PACK_FACTOR = 0.3; // fraction of available area covered by bubble area
-
 const COLLIDE_PADDING = 6;
 const COLLIDE_STRENGTH = 0.9;
 const COLLIDE_ITERATIONS = 3;
@@ -69,64 +106,85 @@ const SIM_TICKS = 200;
 
 const TOOLTIP_GAP = -12;
 const TOOLTIP_EDGE_MARGIN = 8;
-// Mirrors SCSS `@include breakpoint(large up)` — Foundation large = 64em
-const VIZ_BREAKPOINT = "(min-width: 64em)";
+
+/**
+ * Returns the active breakpoint key for the current viewport,
+ * or null for touch devices and viewports below 1024px (both use the mobile layout).
+ *
+ * @returns {"xlarge"|"large"|null}
+ */
+function getBreakpoint() {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches)
+    return null;
+  const w = window.innerWidth;
+  if (w >= BREAKPOINTS.xlarge) return "xlarge";
+  if (w >= BREAKPOINTS.large) return "large";
+  return null;
+}
 
 /**
  * Returns the tier (1, 2, or 3) for node at index i.
- * Seeded nodes look up TIER_BY_INDEX; overflow nodes are assigned
+ * Configured nodes look up tierByIndex; overflow nodes are assigned
  * proportionally (40% tier 2, 60% tier 3).
  *
- * @param {number} i - Node index (0-based)
- * @param {number} n - Total node count
+ * @param {number} i           - Node index (0-based)
+ * @param {number} n           - Total node count
+ * @param {Array}  tierByIndex - Flattened position list for the active config
  * @returns {1|2|3}
  */
-function getTier(i, n) {
-  if (i < TIER_BY_INDEX.length) return TIER_BY_INDEX[i].tier;
-  const overflowIdx = i - TIER_BY_INDEX.length;
-  const overflowCount = n - TIER_BY_INDEX.length;
+function getTier(i, n, tierByIndex) {
+  if (i < tierByIndex.length) return tierByIndex[i].tier;
+  const overflowIdx = i - tierByIndex.length;
+  const overflowCount = n - tierByIndex.length;
   return overflowIdx < Math.round(overflowCount * 0.4) ? 2 : 3;
 }
 
 /**
- * Returns absolute [x, y] seed coordinates for node at index i.
- * Seeded nodes (i < 12) use the hand-tuned TIER_CONFIG percentage table.
+ * Returns the absolute [x, y] starting position for node at index i.
+ * Configured nodes use the per-breakpoint percentage table.
  * Overflow nodes use a golden-angle phyllotaxis spiral centred in the
  * available zone to the right of the copy block.
  *
- * @param {number} i        - Node index (0-based)
- * @param {number} n        - Total node count
- * @param {number} zoneLeft - Left edge of the available zone (px), i.e. copy block right edge
- * @param {number} vizW     - Viz container width (px)
- * @param {number} vizH     - Viz container height (px)
+ * @param {number} i           - Node index (0-based)
+ * @param {number} n           - Total node count
+ * @param {number} zoneLeft    - Left edge of available zone (px)
+ * @param {number} vizW        - Viz container width (px)
+ * @param {number} vizH        - Viz container height (px)
+ * @param {Array}  tierByIndex - Flattened position list for the active config
  * @returns {[number, number]} [x, y] in px relative to the viz container
  */
-function getSeedPosition(i, n, zoneLeft, vizW, vizH) {
-  if (i < TIER_BY_INDEX.length) {
-    const [xPct, yPct] = TIER_BY_INDEX[i].pos;
+function getInitialPosition(i, n, zoneLeft, vizW, vizH, tierByIndex) {
+  if (i < tierByIndex.length) {
+    const [xPct, yPct] = tierByIndex[i].pos;
     return [(xPct / 100) * vizW, (yPct / 100) * vizH];
   }
   const zoneW = vizW - zoneLeft;
   const cx = zoneLeft + zoneW / 2;
   const cy = vizH / 2;
   const maxR = 0.38 * Math.min(zoneW, vizH);
-  const overflowIdx = i - TIER_BY_INDEX.length;
-  const overflowCount = n - TIER_BY_INDEX.length;
+  const overflowIdx = i - tierByIndex.length;
+  const overflowCount = n - tierByIndex.length;
   const r = Math.sqrt((overflowIdx + 1) / overflowCount) * maxR;
   const θ = overflowIdx * GOLDEN_ANGLE;
   return [cx + r * Math.cos(θ), cy + r * Math.sin(θ)];
 }
 
 /**
- * Initialises the bubble viz inside the given container element.
+ * Initialises the bubble viz for the given breakpoint config.
  * Computes bubble sizes from available area, then runs a static force simulation
  * to resolve collisions.
  *
- * @param {HTMLElement} viz - The `#expert-hub-viz` container element
- * @returns {() => void} Teardown function — stops the timer, removes the SVG,
- *   and resets all bubble styles so the viz can be re-initialised cleanly.
+ * @param {HTMLElement} viz        - The `#expert-hub-viz` container element
+ * @param {object}      tierConfig - TIER_CONFIGS entry for the active breakpoint
+ * @returns {() => void} Teardown function — removes the SVG and resets all
+ *   bubble styles so the viz can be re-initialised cleanly.
  */
-function init(viz) {
+function init(viz, tierConfig) {
+  const { packFactor, tiers } = tierConfig;
+  const tierByIndex = tiers.flatMap(({ tier, positions }) =>
+    positions.map((pos) => ({ tier, pos })),
+  );
+
   const vizRect = viz.getBoundingClientRect();
   const vizW = vizRect.width;
   const vizH = vizRect.height;
@@ -141,11 +199,11 @@ function init(viz) {
   const n = els.length;
 
   const totalWeightedUnits = els.reduce(
-    (sum, _, i) => sum + TIER_WEIGHT[getTier(i, n)],
+    (sum, _, i) => sum + TIER_WEIGHT[getTier(i, n, tierByIndex)],
     0,
   );
 
-  const areaPerUnit = (availableArea * PACK_FACTOR) / totalWeightedUnits;
+  const areaPerUnit = (availableArea * packFactor) / totalWeightedUnits;
   const tierRadius = {
     1: Math.sqrt((areaPerUnit * TIER_WEIGHT[1]) / Math.PI),
     2: Math.sqrt((areaPerUnit * TIER_WEIGHT[2]) / Math.PI),
@@ -166,9 +224,16 @@ function init(viz) {
   const tooltip = viz.querySelector(`.${CLASS_NAMES.tooltip}`);
 
   const nodes = els.map((el, i) => {
-    const tier = getTier(i, n);
+    const tier = getTier(i, n, tierByIndex);
     const size = Math.round(tierRadius[tier] * 2);
-    const [baseX, baseY] = getSeedPosition(i, n, zoneLeft, vizW, vizH);
+    const [baseX, baseY] = getInitialPosition(
+      i,
+      n,
+      zoneLeft,
+      vizW,
+      vizH,
+      tierByIndex,
+    );
 
     const topics = el.dataset.topics
       ? el.dataset.topics.split(",").map((t) => t.trim())
@@ -339,7 +404,9 @@ function init(viz) {
       () => {
         const style = getComputedStyle(node.el);
         const color = style.getPropertyValue("--bubble-color").trim();
-        const tooltipColor = style.getPropertyValue("--bubble-color-light").trim();
+        const tooltipColor = style
+          .getPropertyValue("--bubble-color-light")
+          .trim();
         updateLines(i);
         applyOverlays(i, color);
         showTooltip(node, tooltipColor);
@@ -380,8 +447,11 @@ function init(viz) {
 /**
  * Entry point. Queries the viz container, then starts and manages the viz
  * lifecycle via ResizeObserver — tearing down and re-initialising on resize
- * so layout measurements stay accurate. Only runs the viz when the viewport
- * matches VIZ_BREAKPOINT (large and up).
+ * so layout measurements stay accurate.
+ *
+ * The active breakpoint config is resolved on each run, so resizing across
+ * a breakpoint boundary automatically picks up the right starting positions.
+ * Touch devices and viewports below 1024px return null from getBreakpoint() and get no viz.
  */
 export function setupViz() {
   const viz = document.querySelector(SELECTORS.viz);
@@ -395,8 +465,9 @@ export function setupViz() {
       cleanup();
       cleanup = null;
     }
-    if (window.matchMedia(VIZ_BREAKPOINT).matches) {
-      cleanup = init(viz);
+    const bp = getBreakpoint();
+    if (bp) {
+      cleanup = init(viz, TIER_CONFIGS[bp]);
     }
   }
 
