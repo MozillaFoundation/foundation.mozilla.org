@@ -1,6 +1,5 @@
 import { forceSimulation, forceCollide, forceX, forceY } from "d3-force";
 import { select } from "d3-selection";
-import { timer } from "d3-timer";
 
 // Golden angle for overflow phyllotaxis layout
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
@@ -61,10 +60,6 @@ const TIER_BY_INDEX = TIER_CONFIG.flatMap(({ tier, positions }) =>
 
 const PACK_FACTOR = 0.3; // fraction of available area covered by bubble area
 
-const FLOAT_RADIUS = [4, 9]; // [min, max] px orbit radius
-const FLOAT_SPEED = [0.00025, 0.00045]; // [min, max] radians/ms
-const FLOAT_Y_SPEED_RATIO = 0.65; // y-axis drifts slower than x for elliptical motion
-
 const COLLIDE_PADDING = 6;
 const COLLIDE_STRENGTH = 0.9;
 const COLLIDE_ITERATIONS = 3;
@@ -75,15 +70,6 @@ const TOOLTIP_GAP = 12;
 const TOOLTIP_EDGE_MARGIN = 8;
 // Mirrors SCSS `@include breakpoint(large up)` — Foundation large = 64em
 const VIZ_BREAKPOINT = "(min-width: 64em)";
-
-/**
- * @param {number} min
- * @param {number} max
- * @returns {number}
- */
-function randomFloat(min, max) {
-  return min + Math.random() * (max - min);
-}
 
 /**
  * Returns the tier (1, 2, or 3) for node at index i.
@@ -132,8 +118,8 @@ function getSeedPosition(i, n, zoneLeft, vizW, vizH) {
 
 /**
  * Initialises the bubble viz inside the given container element.
- * Computes bubble sizes from available area, runs a static force simulation
- * to resolve collisions, then starts the float animation loop.
+ * Computes bubble sizes from available area, then runs a static force simulation
+ * to resolve collisions.
  *
  * @param {HTMLElement} viz - The `#expert-hub-viz` container element
  * @returns {() => void} Teardown function — stops the timer, removes the SVG,
@@ -207,10 +193,6 @@ function init(viz) {
       index: i,
       quote: el.dataset.quote || "",
       name: el.dataset.name || "",
-      floatR: randomFloat(...FLOAT_RADIUS),
-      floatSpeed: randomFloat(...FLOAT_SPEED),
-      phaseX: randomFloat(0, Math.PI * 2),
-      phaseY: randomFloat(0, Math.PI * 2),
       cx: baseX,
       cy: baseY,
     };
@@ -327,7 +309,6 @@ function init(viz) {
 
   // ─── Events ────────────────────────────────────────────────────────────────
 
-  let hoverIndex = null;
   const ac = new AbortController();
   const { signal } = ac;
 
@@ -351,7 +332,6 @@ function init(viz) {
     node.el.addEventListener(
       "mouseenter",
       () => {
-        hoverIndex = i;
         const color = getComputedStyle(node.el)
           .getPropertyValue("--bubble-color")
           .trim();
@@ -365,7 +345,6 @@ function init(viz) {
     node.el.addEventListener(
       "mouseleave",
       () => {
-        hoverIndex = null;
         updateLines(null);
         clearOverlays();
         hideTooltip();
@@ -374,39 +353,11 @@ function init(viz) {
     );
   });
 
-  // ─── Animation loop ────────────────────────────────────────────────────────
-
-  const t = timer((elapsed) => {
-    nodes.forEach((node) => {
-      const dx =
-        node.floatR * Math.sin(elapsed * node.floatSpeed + node.phaseX);
-      const dy =
-        node.floatR *
-        Math.cos(elapsed * node.floatSpeed * FLOAT_Y_SPEED_RATIO + node.phaseY);
-
-      node.cx = node.baseX + dx;
-      node.cy = node.baseY + dy;
-      node.el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
-    });
-
-    if (hoverIndex !== null) {
-      const hovered = nodes[hoverIndex];
-      linesGroup
-        .selectAll("line")
-        .attr("x1", hovered.cx)
-        .attr("y1", hovered.cy)
-        .attr("x2", (d) => d.cx)
-        .attr("y2", (d) => d.cy);
-      positionTooltip(nodes[hoverIndex]);
-    }
-  });
-
   viz.classList.add(CLASS_NAMES.ready);
 
   // ─── Teardown ──────────────────────────────────────────────────────────────
 
   return () => {
-    t.stop();
     ac.abort();
     svg.remove();
     tooltip.setAttribute("hidden", "");
