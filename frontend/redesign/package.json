@@ -51,7 +51,7 @@
     "sass": "^1.98.0"
   },
   "devDependencies": {
-    "@percy/cli": "^1.31.10",
+    "@percy/cli": "^1.31.12",
     "@percy/playwright": "^1.0.9",
     "@playwright/test": "^1.58.2",
     "autoprefixer": "^10.4.27",
