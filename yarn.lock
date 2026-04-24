@@ -690,51 +690,51 @@
   dependencies:
     playwright "1.58.2"
 
-"@sentry-internal/browser-utils@10.40.0":
-  version "10.40.0"
-  resolved "https://registry.npmjs.org/@sentry-internal/browser-utils/-/browser-utils-10.40.0.tgz"
-  integrity sha512-3CDeVNBXYOIvBVdT0SOdMZx5LzYDLuhGK/z7A14sYZz4Cd2+f4mSeFDaEOoH/g2SaY2CKR5KGkAADy8IyjZ21w==
+"@sentry-internal/browser-utils@10.50.0":
+  version "10.50.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-10.50.0.tgz#57a6c01ff61c0bf7c4b4ab88ecaf067f3b73ca1c"
+  integrity sha512-42bxyRTxnCmYlWnvz4CxikuQNanw8UNma2WJrtxJ0f1MAJV2GhQGSHDLnA+lvFlmiz6qct3pfen/NXGyOTegTA==
   dependencies:
-    "@sentry/core" "10.40.0"
+    "@sentry/core" "10.50.0"
 
-"@sentry-internal/feedback@10.40.0":
-  version "10.40.0"
-  resolved "https://registry.npmjs.org/@sentry-internal/feedback/-/feedback-10.40.0.tgz"
-  integrity sha512-V/ixkcdCNMo04KgsCEeNEu966xUUTD6czKT2LOAO5siZACqFjT/Rp9VR1n7QQrVo3sL7P3QNiTHtX0jaeWbwzg==
+"@sentry-internal/feedback@10.50.0":
+  version "10.50.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-10.50.0.tgz#a8b61c419c7c6a40e0ac9a11fdcff1f6a970b040"
+  integrity sha512-0k9XZF0wn86f77mIO2U3gNNyDZooy139CnEanRzHinrN106vVzvBZ6TUEQoHtoO1fqQxr+nWWVrqV/PXUqk47w==
   dependencies:
-    "@sentry/core" "10.40.0"
+    "@sentry/core" "10.50.0"
 
-"@sentry-internal/replay-canvas@10.40.0":
-  version "10.40.0"
-  resolved "https://registry.npmjs.org/@sentry-internal/replay-canvas/-/replay-canvas-10.40.0.tgz"
-  integrity sha512-wzQwilFHO2baeCt0dTMf0eW+rgK8O+mkisf9sQzPXzG3Krr/iVtFg1T5T1Th3YsCsEdn6yQ3hcBPLEXjMSvccg==
+"@sentry-internal/replay-canvas@10.50.0":
+  version "10.50.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-10.50.0.tgz#e5523e8bd7ba30d77175c39df58c1c1dc1fde051"
+  integrity sha512-jx6RKBmcJSWdI92qDGS/sBv1w+7Cww879Z/moX7bw7ipHa/Ts3iDcB3rgZwvhmi17U+mvYsbJeL2DXkPo3TjPw==
   dependencies:
-    "@sentry-internal/replay" "10.40.0"
-    "@sentry/core" "10.40.0"
+    "@sentry-internal/replay" "10.50.0"
+    "@sentry/core" "10.50.0"
 
-"@sentry-internal/replay@10.40.0":
-  version "10.40.0"
-  resolved "https://registry.npmjs.org/@sentry-internal/replay/-/replay-10.40.0.tgz"
-  integrity sha512-vsH2Ut0KIIQIHNdS3zzEGLJ2C9btbpvJIWAVk7l7oft66JzlUNC89qNaQ5SAypjLQx4Ln2V/ZTqfEoNzXOAsoQ==
+"@sentry-internal/replay@10.50.0":
+  version "10.50.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-10.50.0.tgz#0d7af824c71004d31b84b213f754de346ac2f487"
+  integrity sha512-51FYNfnvVLAWw1rrEWPFfwHuMRb9mkVCFGA4J9/un7SpeGBsQDziGB0Di4fsCxI7+EdSBpfLHPF0csKtCCw0oQ==
   dependencies:
-    "@sentry-internal/browser-utils" "10.40.0"
-    "@sentry/core" "10.40.0"
+    "@sentry-internal/browser-utils" "10.50.0"
+    "@sentry/core" "10.50.0"
 
-"@sentry/browser@^10.40.0":
-  version "10.40.0"
-  resolved "https://registry.npmjs.org/@sentry/browser/-/browser-10.40.0.tgz"
-  integrity sha512-nCt3FKUMFad0C6xl5wCK0Jz+qT4Vev4fv6HJRn0YoNRRDQCfsUVxAz7pNyyiPNGM/WCDp9wJpGJsRvbBRd2anw==
+"@sentry/browser@^10.50.0":
+  version "10.50.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-10.50.0.tgz#f06f6554cd0d87e6033b31d91d78bc0d53154071"
+  integrity sha512-1f6rAvET6myiTaSeYqvaaBwvq1LfxqWjAPIoAW/NVC9bPMkeEcuvgDajHrnZMrBeWoJ81NMyoLkyX+iOc7MoFA==
   dependencies:
-    "@sentry-internal/browser-utils" "10.40.0"
-    "@sentry-internal/feedback" "10.40.0"
-    "@sentry-internal/replay" "10.40.0"
-    "@sentry-internal/replay-canvas" "10.40.0"
-    "@sentry/core" "10.40.0"
+    "@sentry-internal/browser-utils" "10.50.0"
+    "@sentry-internal/feedback" "10.50.0"
+    "@sentry-internal/replay" "10.50.0"
+    "@sentry-internal/replay-canvas" "10.50.0"
+    "@sentry/core" "10.50.0"
 
-"@sentry/core@10.40.0":
-  version "10.40.0"
-  resolved "https://registry.npmjs.org/@sentry/core/-/core-10.40.0.tgz"
-  integrity sha512-/wrcHPp9Avmgl6WBimPjS4gj810a1wU5oX9fF1bzJfeIIbF3jTsAbv0oMbgDp0cSDnkwv2+NvcPnn3+c5J6pBA==
+"@sentry/core@10.50.0":
+  version "10.50.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-10.50.0.tgz#55d5e19863e4f6246536c78530b8ce10420471b5"
+  integrity sha512-J4A+vzUO3adl0TkFCjaN1+4miamrjHiEIYuLHiuu1lmAjq5WIVw32ObvAh4yMwNtxyaEMosTrrh5M6f12XSJFg==
 
 "@sindresorhus/merge-streams@^4.0.0":
   version "4.0.0"
