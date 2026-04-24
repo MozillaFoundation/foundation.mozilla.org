@@ -42,6 +42,12 @@ body.nothing-personal.nothing-personal-article-page {
     margin-top: 1rem;
   }
 
+  // Break the Sosha iframe out of the grid cell's gutter padding so its
+  // content visually aligns with the surrounding text.
+  .share-container .share-buttons {
+    margin: 2rem -0.8rem 0;
+  }
+
   .article-meta-published {
     margin: 1.5rem 0;
     display: flex;
