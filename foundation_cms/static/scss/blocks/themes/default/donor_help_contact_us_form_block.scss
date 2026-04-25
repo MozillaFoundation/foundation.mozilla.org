@@ -1,0 +1,432 @@
+// Donor help contact us form block (FormAssembly) styles.
+// Initially copied from legacy_apps/static/sass/formassembly-override.scss
+// to preserve current behavior on .general-page. Will be incrementally
+// adapted to redesign tokens / mixins.
+
+// Colors (mirroring legacy mofo-bootstrap values for now)
+$white: #ffffff;
+$black: #000000;
+$light-blue: #b7b9fa;
+$blue: #595cf3;
+$dark-blue: #0d10bf;
+
+$font-family-sans-serif: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+$validation-color: rgb(255, 79, 94) !important;
+$input-font-size: 1.25rem !important;
+
+.streamfield-block-wrapper[data-block-type="donor_help_contact_us_form"],
+.donor-help-contact-us-form-block {
+  background-color: color(neutral, "100");
+  padding-bottom: rem-calc(26.5);
+}
+.wFormContainer {
+  font-family: $body-font-family !important;
+  background-color: color(neutral, "100");
+  max-width: 100% !important;
+  width: auto !important;
+  .wFormHeader,
+  .wFormFooter,
+  .supportInfo {
+    display: none;
+  }
+
+  .wForm {
+    border: 0;
+    margin-top: 0;
+    background-color: color(neutral, "100") !important;
+
+    .hintsBelow .field-hint,
+    .hintsSide .field-hint {
+      background-color: transparent !important;
+    }
+
+    form {
+      padding: 0;
+
+      label {
+        font-family: $body-font-family !important;
+        margin-bottom: 0;
+        .rich-text {
+          display: inline-block;
+          p {
+            display: inline-block;
+            //match styling for richtext fields like privacy_notice
+            color: #444;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .oneField {
+      padding: 0;
+      border: 0;
+
+      &.errFld {
+        .inputWrapper input[type="text"],
+        .inputWrapper input[type="password"],
+        .inputWrapper textarea,
+        .inputWrapper select {
+          border-color: $validation-color;
+        }
+      }
+    }
+
+    .actions .primaryAction#submit_button {
+      color: color(neutral, "100");
+      font-family: $body-font-family;
+      font-size: rem-calc(16);
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1.5;
+      background-color: color(neutral, "600");
+      border: 1px solid color(neutral, "600");
+      padding: rem-calc(14.4) rem-calc(24);
+      cursor: pointer;
+      width: 100%;
+
+      &:hover {
+        background-color: color(neutral, "500");
+        border-color: color(neutral, "500");
+      }
+    }
+
+    .inputWrapper {
+      width: 100% !important;
+
+      input[type="text"],
+      input[type="text"].validate-email,
+      input[type="password"],
+      select,
+      select:not([multiple]),
+      textarea {
+        font-family: $body-font-family !important;
+        width: 100%;
+        padding: 1rem 0.75rem;
+        height: auto;
+        border: 1px solid #949494 !important;
+        font-size: $input-font-size;
+      }
+
+      input[type="text"].validate-email {
+        height: auto !important;
+      }
+
+      textarea:focus,
+      textarea.required:focus,
+      input[type="text"]:focus,
+      input[type="text"].required:focus,
+      input[type="password"]:focus,
+      input[type="password"].required:focus,
+      select:focus,
+      select.required:focus {
+        outline-style: auto;
+        border: 1px solid #80bdff !important;
+      }
+
+      .errMsg {
+        color: $validation-color;
+      }
+
+      .saveAndResume input[type="text"],
+      .saveAndResume input[type="password"],
+      .required:not(.choices):not(select):not(.wfAutosuggest) {
+        font-size: $input-font-size;
+      }
+    }
+  }
+}
+
+.required:not(.choices):not(select):not(.wfAutosuggest) {
+  padding: 1rem 0.75rem !important;
+}
+
+// Hide labels and extra line breaks:
+//   Privacy agreenment #tfa_492-L #tfa_492-D
+//   Email subscription #tfa_494-L #tfa_494-D
+#tfa_492-L,
+#tfa_492-L br,
+#tfa_492-D br,
+#tfa_494-L,
+#tfa_494-L br,
+#tfa_494-D br {
+  display: none;
+}
+
+// Increase margin above privacy agreement checkbox
+//   Privacy agreenment #tfa_492-D
+#tfa_492-D {
+  margin-top: 1.5rem;
+}
+
+// Reduce margin above email subscription checkbox
+//   Email subscription #tfa_494-D
+#tfa_494-D {
+  margin-top: 0;
+}
+
+.general-page {
+  .wForm {
+    label {
+      color: $black !important;
+      font-family: $body-font-family !important;
+      font-size: rem-calc(16);
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="text"].validate-email,
+    textarea,
+    select {
+      border-radius: 0 !important;
+      border: 1px solid black !important;
+    }
+
+    input[type="file"] {
+      padding: 0 !important;
+      height: auto !important;
+
+      &::file-selector-button {
+        transition:
+          color 0.15s ease-in-out,
+          background-color 0.15s ease-in-out;
+        font-family: $body-font-family !important;
+        font-size: rem-calc(16);
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.5;
+        background-color: transparent;
+        border: 1px solid color(neutral, "400");
+        width: auto;
+        padding: rem-calc(14.4) rem-calc(24);
+
+        &:hover {
+          background-color: color(neutral, "200");
+          cursor: pointer;
+        }
+
+      }
+    }
+
+    textarea {
+      min-height: 10em !important;
+    }
+
+    select {
+      appearance: none;
+      background: url("/static/legacy_apps/_images/glyphs/down-chevron.svg")
+        no-repeat 99% center;
+      padding-right: 30px !important;
+      white-space: normal;
+      text-overflow: ellipsis;
+
+      option {
+        @media (max-width: 576px) {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .oneField {
+      margin-top: 2rem;
+    }
+
+    .htmlSection {
+      padding: 0;
+      font-size: 0.75rem;
+      width: 100%;
+
+      span {
+        color: $black !important;
+        font-family: $body-font-family !important;
+      }
+    }
+
+    .htmlContent {
+      font-family: $body-font-family !important;
+      color: $black !important;
+
+      span {
+        font-size: 13px !important;
+      }
+      a {
+        color: $dark-blue;
+      }
+    }
+
+    .inline {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .oneField {
+        width: 48.5%;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
+    }
+
+    .captcha {
+      .oneField {
+        margin: 0;
+      }
+      .captchaHelp {
+        display: inline-flex !important;
+        padding: 0;
+        margin-top: 0.25rem;
+        color: $black;
+      }
+    }
+
+    .actions .primaryAction#submit_button {
+      width: 100% !important;
+
+      @include breakpoint(medium up) {
+        width: auto !important;
+      }
+    }
+  }
+
+  .wFormContainer {
+    font-family: $body-font-family !important;
+
+    .wFormHeader,
+    .wFormFooter,
+    .supportInfo {
+      display: none;
+    }
+
+    .wForm {
+      border: 0;
+      margin-top: 0;
+
+      form {
+        padding: 0;
+
+        label {
+          font-family: $body-font-family !important;
+          margin-bottom: 0;
+          .rich-text {
+            display: inline-block;
+            p {
+              display: inline-block;
+              //match styling for richtext fields like privacy_notice
+              color: #444;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .oneField {
+        padding: 0;
+        border: 0;
+
+        &.errFld {
+          .inputWrapper input[type="text"],
+          .inputWrapper input[type="password"],
+          .inputWrapper textarea,
+          .inputWrapper select {
+            border-color: $validation-color;
+          }
+        }
+      }
+
+      .actions .primaryAction#submit_button {
+        font-family: $body-font-family;
+        font-weight: 700;
+        color: color(neutral, "100");
+        background-color: color(neutral, "600");
+        border: 1px solid color(neutral, "600");
+        padding: rem-calc(14.4) rem-calc(24);
+        cursor: pointer;
+        width: 100%;
+
+        &:hover {
+          background-color: color(neutral, "500");
+          border-color: color(neutral, "500");
+        }
+      }
+
+      .inputWrapper {
+        width: 100% !important;
+
+        input[type="text"],
+        input[type="text"].validate-email,
+        input[type="password"],
+        select,
+        select:not([multiple]),
+        textarea {
+          font-family: $body-font-family !important;
+          width: 100%;
+          padding: 1rem 0.75rem;
+          height: auto;
+          border: 1px solid #949494 !important;
+          font-size: $input-font-size;
+        }
+
+        input[type="text"].validate-email {
+          height: auto !important;
+        }
+
+        textarea:focus,
+        textarea.required:focus,
+        input[type="text"]:focus,
+        input[type="text"].required:focus,
+        input[type="password"]:focus,
+        input[type="password"].required:focus,
+        select:focus,
+        select.required:focus {
+          outline-style: auto;
+          border: 1px solid #80bdff !important;
+        }
+
+        .errMsg {
+          color: $validation-color;
+        }
+
+        .saveAndResume input[type="text"],
+        .saveAndResume input[type="password"],
+        .required:not(.choices):not(select):not(.wfAutosuggest) {
+          font-size: $input-font-size;
+        }
+      }
+    }
+
+    .field-hint-inactive .hint {
+      background-color: transparent !important;
+    }
+  }
+
+  .required:not(.choices):not(select):not(.wfAutosuggest) {
+    padding: 1rem 0.75rem !important;
+  }
+
+  // Hide labels and extra line breaks:
+  //   Privacy agreenment #tfa_492-L #tfa_492-D
+  //   Email subscription #tfa_494-L #tfa_494-D
+  #tfa_492-L,
+  #tfa_492-L br,
+  #tfa_492-D br,
+  #tfa_494-L,
+  #tfa_494-L br,
+  #tfa_494-D br {
+    display: none;
+  }
+
+  // Increase margin above privacy agreement checkbox
+  //   Privacy agreenment #tfa_492-D
+  #tfa_492-D {
+    margin-top: 1.5rem;
+  }
+
+  // Reduce margin above email subscription checkbox
+  //   Email subscription #tfa_494-D
+  #tfa_494-D {
+    margin-top: 0;
+  }
+}
