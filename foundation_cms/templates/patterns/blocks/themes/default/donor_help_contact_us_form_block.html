@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+{% block block_content %}
+    {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_head.html" %}
+    {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_body.html" %}
+    <div class="donor-help-contact-us-form-block">
+        {% if value.heading %}
+            <h2>{{ value.heading }}</h2>
+        {% endif %}
+        {% if value.subheading %}
+            <p>{{ value.subheading }}</p>
+        {% endif %}
+    </div>
+{% endblock block_content %}

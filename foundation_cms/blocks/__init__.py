@@ -3,6 +3,7 @@ from .base_card_block import BaseCardBlock
 from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
+from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
@@ -52,6 +53,7 @@ __all__ = [
     "BaseCardBlock",
     "BackgroundColorChoiceBlock",
     "DividerBlock",
+    "DonorHelpContactUsFormBlock",
     "CalloutBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
