@@ -297,7 +297,7 @@ The code snippet below is based on FormAssembly form revision #6
 <link href="https://mozillafoundation.tfaforms.net/uploads/themes/theme-44.css" rel="stylesheet" type="text/css" />
 <link href="https://mozillafoundation.tfaforms.net/dist/form-builder/5.0.0/wforms-jsonly.css?v=fb5f1c375bdc7dc92d234b28a031bf603c7a0472" rel="alternate stylesheet" title="This stylesheet activated by javascript" type="text/css" />
 <script nonce="{{ request.csp_nonce }}" type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/wforms.js?v=fb5f1c375bdc7dc92d234b28a031bf603c7a0472"></script>
-<scriptnonce="{{ request.csp_nonce }}" type="text/javascript">
+<script nonce="{{ request.csp_nonce }}" type="text/javascript">
     wFORMS.behaviors.prefill.skip = false;
 </script>
 <script nonce="{{ request.csp_nonce }}" type="text/javascript" src="https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=fb5f1c375bdc7dc92d234b28a031bf603c7a0472"></script>
