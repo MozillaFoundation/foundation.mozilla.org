@@ -207,6 +207,12 @@ $input-font-size: 1.25rem !important;
           background-color: color(neutral, "500");
           border-color: color(neutral, "500");
         }
+
+        &:disabled {
+          background-color: color(neutral, "400");
+          border-color: color(neutral, "400");
+          cursor: not-allowed;
+        }
       }
 
       .inputWrapper {
