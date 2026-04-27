@@ -1,0 +1,98 @@
+/* TopicSelectWidget — tag-picker for ClusterTaggableManager fields */
+
+.ts-widget {
+  position: relative;
+}
+
+/* ── Input bar ── */
+.ts-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  padding: 6px 8px;
+  min-height: 40px;
+  border: 1px solid var(--w-color-border-field-default, #ccc);
+  border-radius: 6px;
+  background: var(--w-color-surface-field, #fff);
+  color: var(--w-color-text-context, #222);
+  cursor: text;
+
+  input {
+    border: none;
+  }
+}
+
+.ts-bar:focus-within {
+  border-color: var(--w-color-focus, #007d7e);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--w-color-focus, #007d7e) 15%, transparent);
+}
+
+/* ── Filter input ── */
+.ts-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 80px;
+  font-size: 0.875em;
+  font-family: inherit;
+  background: transparent;
+  color: var(--w-color-text-context, #222);
+}
+
+.ts-input::placeholder {
+  color: var(--w-color-text-placeholder, #999);
+}
+
+/* ── Selected topic chips ── */
+.ts-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  white-space: nowrap;
+  background: var(--w-color-secondary, #007d7e);
+  color: #fff;
+}
+
+.ts-chip button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0 0 0 2px;
+  font-size: 1.1em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ts-chip button:hover {
+  color: #fff;
+}
+
+/* ── Dropdown list ── */
+.ts-dropdown {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--w-color-border-field-default, #ccc);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  background: var(--w-color-surface-field, #fff);
+  color: var(--w-color-text-context, #222);
+  box-shadow: var(--w-color-box-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
+}
+
+.ts-option {
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 0.875em;
+}
+
+.ts-option:hover {
+  background: var(--w-color-surface-button-hover, #f0f0f0);
+}

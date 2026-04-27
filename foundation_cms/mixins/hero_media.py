@@ -33,6 +33,10 @@ class HeroMediaMixin(HeroImageMixin):
 
     def clean(self):
         super().clean()
+        # If the hero section is hidden, skip validation for media fields
+        if hasattr(self, "show_hero") and not self.show_hero:
+            return
+
         errors = {}
 
         if self.displayed_hero_content == self.HERO_CONTENT_IMAGE and not self.hero_image:

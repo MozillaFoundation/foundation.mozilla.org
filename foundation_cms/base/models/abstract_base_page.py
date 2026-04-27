@@ -7,7 +7,7 @@ from django.template.loader import select_template
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Locale, Page
@@ -16,6 +16,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_ab_testing.models import AbTest
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.base.widgets import TopicSelectWidget
 from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.mixins.foundation_metadata import FoundationMetadataPageMixin
 
@@ -112,10 +113,8 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         blank=True,
         verbose_name="Page Topics",
         help_text=(
-            "Add one or more existing topics. Start typing to search, then press “Down” arrow "
-            "on your keyboard to select topic. If topic is unavailable check if Topic exists by "
-            "going to the left side-nav to Snippet > Page Topics > Check if topic exists. "
-            "If not, click “Add new page topics”."
+            "Select one or more topics from the dropdown. "
+            "If a topic is unavailable, please reach out to StratComms for help."
         ),
     )
     author = models.ForeignKey(
@@ -126,14 +125,12 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         related_name="%(class)s_pages",
     )
 
+    content_panels = Page.content_panels + [
+        FieldPanel("topics", widget=TopicSelectWidget),
+    ]
+
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("author"),
-                FieldPanel("topics"),
-            ],
-            heading="Additional Metadata",
-        )
+        FieldPanel("author"),
     ]
 
     settings_panels = Page.settings_panels + [

@@ -6,10 +6,12 @@ from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
+from .gallery_card_block import GalleryCardBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
+from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock, ImageGridItemBlock, ImageGridSectionBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
@@ -54,6 +56,7 @@ __all__ = [
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
+    "GalleryCardBlock",
     "FruElementBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
@@ -94,4 +97,5 @@ __all__ = [
     "ProductReviewSectionReduceYourRisksBlock",
     "ProductReviewSectionWhatYouShouldKnowBlock",
     "FeaturedContainerBlock",
+    "ImageCarouselBlock",
 ]

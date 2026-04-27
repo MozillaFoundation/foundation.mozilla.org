@@ -6,6 +6,10 @@
         <div class="general-page__body">
             {% if page.show_hero %}
                 {% include "patterns/components/hero.html" %}
+            {% else %}
+                <div class="grid-container">
+                    <h1>{{ page.title }}</h1>
+                </div>
             {% endif %}
             <div class="container">
                 {% if page.body %}

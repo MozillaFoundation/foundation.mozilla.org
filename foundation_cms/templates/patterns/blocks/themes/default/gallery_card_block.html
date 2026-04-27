@@ -1,0 +1,17 @@
+<article class="gallery-card">
+  <div class="gallery-card__image">
+    IMAGE FIELD
+  </div>
+  <div class="gallery-card__content">
+    <h3 class="gallery-card__title">{{ self.page.title }}</h3>
+    <p class="gallery-card__body">BODY FIELD</p>
+    <p class="gallery-card__program-label">PROGRAM LABEL</p>
+    <div class="gallery-card__tags">
+      <span class="gallery-card__tag">
+        {% with topics=page.topics.all %}
+          {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+        {% endwith %}
+      </span>
+    </div>
+  </div>
+</article>

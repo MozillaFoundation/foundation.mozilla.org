@@ -3,7 +3,7 @@
 @import "../redesign_base";
 @import "../components/campaign_page/petition_form";
 @import "../components/campaign_page/step_indicator";
-@import "../components/nothing_personal/related_content"; // [FIXME:TODO] move related_content html and scss out of nothing_personal
+@import "../components/related_content";
 
 body.template-campaign-page {
   $orange: color(orange, "300");
