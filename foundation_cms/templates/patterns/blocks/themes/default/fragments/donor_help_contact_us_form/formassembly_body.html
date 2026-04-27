@@ -96,7 +96,21 @@ donations via direct debit in Euros through Single European Payment Area
 <option value="tfa_230" id="tfa_230" class="">Russian</option>
 <option value="tfa_231" id="tfa_231" class="">Spanish</option></select></div>
 </div>
-<input type="hidden" id="tfa_236" name="tfa_236" value="" class=""><div class="actions" id="248-A" data-contentid="submit_button"><input type="submit" data-label="Submit" class="primaryAction" id="submit_button" value="Submit" data-condition="`#tfa_190` OR `#tfa_192` OR `#tfa_194` OR `#tfa_195` OR `#tfa_197` OR `#tfa_198`" data-conditional-mode="hidden"></div>
+<input type="hidden" id="tfa_236" name="tfa_236" value="" class=""><div class="actions" id="248-A" data-contentid="submit_button">
+<div id="google-captcha" style="display: none">
+<br><div class="captcha">
+<div class="oneField">
+<div class="g-recaptcha" id="g-recaptcha-render-div"></div>
+<div class="g-captcha-error"></div>
+<br>
+</div>
+<div class="captchaHelp">reCAPTCHA helps prevent automated form spam.<br>
+</div>
+<div id="disabled-explanation" class="captchaHelp" style="display: none">The submit button will be disabled until you complete the CAPTCHA.</div>
+</div>
+</div>
+<input type="submit" data-label="Submit" class="primaryAction" id="submit_button" value="Submit" data-condition="`#tfa_190` OR `#tfa_192` OR `#tfa_194` OR `#tfa_195` OR `#tfa_197` OR `#tfa_198`" data-conditional-mode="hidden">
+</div>
 <div style="clear:both"></div>
 <input type="hidden" value="248" name="tfa_dbFormId" id="tfa_dbFormId"><input type="hidden" value="" name="tfa_dbResponseId" id="tfa_dbResponseId"><input type="hidden" value="726c4bb500176cdc6ad649bed8cb32c9" name="tfa_dbControl" id="tfa_dbControl"><input type="hidden" value="" name="tfa_dbWorkflowSessionUuid" id="tfa_dbWorkflowSessionUuid"><input type="hidden" value="6" name="tfa_dbVersionId" id="tfa_dbVersionId"><input type="hidden" value="" name="tfa_switchedoff" id="tfa_switchedoff">
 </form>
