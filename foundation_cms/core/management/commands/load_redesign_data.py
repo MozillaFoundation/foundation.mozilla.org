@@ -5,19 +5,16 @@ from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
 from foundation_cms.base.factories import generate_images, generate_topics
-from foundation_cms.core.factories.homepage import HomePageFactory
+from foundation_cms.core.factories import generate_homepage
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import NavigationMenuFactory
 from foundation_cms.navigation.models import SiteNavigationMenu
 from foundation_cms.profiles.factories import generate as generate_profiles
 
-BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"
-HOMEPAGE_DIR = BASE_DIR / "homepage"
-
 
 class Command(BaseCommand):
-    help = "Load homepage from manifest and register it as the Wagtail default Site root."
+    help = "Load homepage and register it as the Wagtail default Site root."
 
     def add_arguments(self, parser):
         parser.add_argument("--force", action="store_true", help="Delete and replace existing homepage if it exists.")
@@ -33,8 +30,8 @@ class Command(BaseCommand):
             root.save()
 
         # Build and publish the homepage
-        self.stdout.write("Creating HomePage from manifest...")
-        homepage = HomePageFactory.create_from_manifest(parent=root, slug=homepage_slug)
+        self.stdout.write("Creating HomePage...")
+        homepage = generate_homepage(seed=42, slug=homepage_slug)
         self.stdout.write(self.style.SUCCESS("HomePage created and published."))
 
         # Assign Site root
