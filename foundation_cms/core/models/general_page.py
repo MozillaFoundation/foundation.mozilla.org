@@ -164,7 +164,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         context = super().get_context(request, *args, **kwargs)
 
         # Checking if a Donor contact us form block is present in the page body.
-        # If one is, we will render the template formassembly_head.hml which includes 
+        # If one is, we will render the template formassembly_head.hml which includes
         # the necessary JS for the form.
         if any(block.block_type == "donor_help_contact_us_form" for block in self.body):
             context["has_donor_contact_us_form"] = True
