@@ -1,6 +1,5 @@
 // Donor help contact us form block (FormAssembly) styles.
 
-
 // Mirrors $dark-blue from legacy_apps/. Redefined here so this block can
 // stand on its own once legacy_apps/ is removed.
 $dark-blue: #0d10bf;
@@ -12,6 +11,15 @@ $input-font-size: 1.25rem !important;
 .streamfield-block-wrapper[data-block-type="donor_help_contact_us_form"] {
   background-color: color(neutral, "100");
   padding-bottom: rem-calc(26.5);
+
+  #contact-form {
+    scroll-margin-top: rem-calc(100);
+  }
+
+  .donor-help-contact-us-form-block__thank-you {
+    padding-top: rem-calc(72);
+    padding-bottom: rem-calc(72);
+  }
 
   .wForm {
     label {
