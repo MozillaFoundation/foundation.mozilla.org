@@ -20,6 +20,12 @@ class NewsletterSignupFactory(DjangoModelFactory):
 
 
 def ensure_homepage_newsletters(site):
+    """
+    Ensure the homepage newsletters exist for the given site.
+    Helper function used by the homepage factory to ensure the expected
+    newsletters are available, and that the footer newsletter is
+    assigned in the site settings.
+    """
     locale = Locale.get_default()
 
     main_newsletter, _ = NewsletterSignup.objects.get_or_create(

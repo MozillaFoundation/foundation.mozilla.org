@@ -44,16 +44,11 @@ class HomePageFactory(PageFactory):
     search_description = factory.Faker("sentence", nb_words=12)
 
 
-def _get_site_and_root():
-    site = Site.objects.filter(is_default_site=True).first()
-    root = site.root_page if site else Page.get_first_root_node()
-    return site, root
-
-
-def _get_or_create_homepage_image(key):
-    spec = HOMEPAGE_IMAGE_SPECS[key]
+def _get_or_create_homepage_image(hp_image):
+    """Get or create the image for the given homepage image key."""
+    spec = HOMEPAGE_IMAGE_SPECS[hp_image]
     filename = spec["filename"]
-    title = spec["alt_text"] or key
+    title = spec["alt_text"] or hp_image
     file_path = IMAGE_DIR / filename
 
     existing = Image.objects.filter(title=title, file=f"original_images/{filename}").first()
@@ -67,18 +62,28 @@ def _get_or_create_homepage_image(key):
 
 
 def _get_homepage_images():
-    return {key: _get_or_create_homepage_image(key) for key in HOMEPAGE_IMAGE_SPECS}
+    """Import all homepage images and return a dict of {key: image_id}."""
+    return {hp_image: _get_or_create_homepage_image(hp_image) for hp_image in HOMEPAGE_IMAGE_SPECS}
 
 
-def generate(seed=42, slug="redesign-home"):
+def generate(parent=None, seed=42, slug="redesign-home"):
+    """
+    Generate a HomePage with the given parent, seed, and slug.
+    Returns the created HomePage instance.
+    """
     reseed(seed)
 
-    site, root = _get_site_and_root()
+    if parent is None:
+        parent = Page.get_first_root_node()
+        if not parent.pk:
+            parent.save()
+
+    site = Site.objects.filter(is_default_site=True).first()
     if site is None:
         site = Site.objects.create(
             hostname="localhost",
             port=8000,
-            root_page=root,
+            root_page=parent,
             site_name="Mozilla Foundation",
             is_default_site=True,
         )
@@ -106,7 +111,12 @@ def generate(seed=42, slug="redesign-home"):
         body=build_homepage_body(main_newsletter_id=newsletters["main"].id, images=images),
     )
 
-    root.add_child(instance=homepage)
+    parent.add_child(instance=homepage)
     homepage.save_revision().publish()
-    print("Redesign HomePage created.")
+
+    if site.root_page != homepage:
+        site.root_page = homepage
+        site.save()
+
+    print(f"Redesign HomePage created under {parent}.")
     return homepage

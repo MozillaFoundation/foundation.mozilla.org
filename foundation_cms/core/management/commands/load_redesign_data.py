@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
@@ -31,7 +29,7 @@ class Command(BaseCommand):
 
         # Build and publish the homepage
         self.stdout.write("Creating HomePage...")
-        homepage = generate_homepage(seed=42, slug=homepage_slug)
+        homepage = generate_homepage(parent=root, seed=42, slug=homepage_slug)
         self.stdout.write(self.style.SUCCESS("HomePage created and published."))
 
         # Assign Site root
