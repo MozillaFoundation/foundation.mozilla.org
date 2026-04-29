@@ -1,11 +1,11 @@
 // Donor help contact us form block (FormAssembly) styles.
+/* stylelint-disable selector-id-pattern,selector-class-pattern -- because we have to target elements with FormAssembly defined selectors  */
 
 // Mirrors $dark-blue from legacy_apps/. Redefined here so this block can
 // stand on its own once legacy_apps/ is removed.
 $dark-blue: #0d10bf;
 $focus-blue: #80bdff;
-
-$validation-color: rgb(255, 79, 94) !important;
+$validation-color: rgb(255 79 94) !important;
 $input-font-size: 1.25rem !important;
 
 .streamfield-block-wrapper[data-block-type="donor_help_contact_us_form"] {
@@ -78,7 +78,7 @@ $input-font-size: 1.25rem !important;
       text-overflow: ellipsis;
 
       option {
-        @media (max-width: 576px) {
+        @media (width <= 576px) {
           font-size: 0.75rem;
         }
       }
@@ -106,6 +106,7 @@ $input-font-size: 1.25rem !important;
       span {
         font-size: 13px !important;
       }
+
       a {
         color: $dark-blue;
       }
@@ -118,7 +119,8 @@ $input-font-size: 1.25rem !important;
 
       .oneField {
         width: 48.5%;
-        @media (max-width: 768px) {
+
+        @media (width <= 768px) {
           width: 100%;
         }
       }
@@ -128,6 +130,7 @@ $input-font-size: 1.25rem !important;
       .oneField {
         margin: 0;
       }
+
       .captchaHelp {
         display: inline-flex !important;
         padding: 0;
@@ -173,11 +176,14 @@ $input-font-size: 1.25rem !important;
         label {
           font-family: $body-font-family !important;
           margin-bottom: 0;
+
           .rich-text {
             display: inline-block;
+
             p {
               display: inline-block;
-              //match styling for richtext fields like privacy_notice
+
+              // match styling for richtext fields like privacy_notice
               color: color(neutral, "500");
               font-size: 16px;
             }
@@ -257,7 +263,7 @@ $input-font-size: 1.25rem !important;
           color: $validation-color;
         }
 
-        .required:not(.choices):not(select):not(.wfAutosuggest) {
+        .required:not(.choices, select, .wfAutosuggest) {
           font-size: $input-font-size;
         }
       }
@@ -268,7 +274,7 @@ $input-font-size: 1.25rem !important;
     }
   }
 
-  .required:not(.choices):not(select):not(.wfAutosuggest) {
+  .required:not(.choices, select, .wfAutosuggest) {
     padding: 1rem 0.75rem !important;
   }
 }

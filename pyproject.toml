@@ -238,6 +238,8 @@ ignore="H017"
 "foundation_cms/templates/patterns/components/footer.html" = "D018"
 "foundation_cms/templates/patterns/components/footer/footer_content.html" = "D018"
 "foundation_cms/campaigns/templates/campaigns/components/formassembly_body.html" = "H021, H026"
+"foundation_cms/campaigns/templates/campaigns/components/formassembly_body.html" = "H021, H026"
+"foundation_cms/templates/patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_body.html" = "H020, H021, H026"
 
 [tool.isort]
 profile = "black"
