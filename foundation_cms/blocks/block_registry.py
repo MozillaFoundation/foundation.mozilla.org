@@ -135,12 +135,12 @@ class BlockRegistry:
             "class": SpacerBlock,
             "group": BlockGroups.LAYOUT,
         },
-        "two_column_container_block": {
-            "class": TwoColumnContainerBlock,
-            "group": BlockGroups.LAYOUT,
-        },
         "three_column_container_block": {
             "class": ThreeColumnContainerBlock,
+            "group": BlockGroups.LAYOUT,
+        },
+        "two_column_container_block": {
+            "class": TwoColumnContainerBlock,
             "group": BlockGroups.LAYOUT,
         },
         # Media & Embeds

@@ -213,14 +213,4 @@
       }
     }
   }
-
-  .text-social-block {
-    padding: rem-calc(32) rem-calc(24);
-    gap: rem-calc(24);
-    height: auto;
-
-    &__buttons {
-      flex-wrap: wrap;
-    }
-  }
 }
