@@ -15,6 +15,7 @@
 {% block content %}
     <div class="grid-container">
         <div class="expert-hub-viz" id="expert-hub-viz">
+            <div class="expert-hub-viz__loading" aria-hidden="true"></div>
             <div class="expert-hub-hero__copy">
                 <h1 class="expert-hub-hero__title">{{ page.title }}</h1>
                 {% if page.description %}
@@ -33,18 +34,30 @@
             <ol class="expert-hub-viz__bubble-list" id="expert-hub-bubble-list">
                 {% for item in featured_experts %}
                     <li class="expert-hub-bubble"
-                        data-index="{{ forloop.counter0 }}"
                         data-name="{{ item.expert.title }}"
                         data-url="{% pageurl item.expert %}"
                         data-quote="{{ item.expert.bio|striptags|truncatechars:200 }}"
-                        data-topics="{% for topic in item.expert.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
+                        data-topic="{% if item.topic %}{{ item.topic.name }}{% endif %}">
                         {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ item.topic.name }}</span>{% endif %}
                         {% if item.expert.image %}
                             {% image item.expert.image fill-300x300 class="expert-hub-bubble__image" %}
                         {% endif %}
+                        <span class="expert-hub-bubble__name">{{ item.expert.title }}</span>
                     </li>
                 {% endfor %}
             </ol>
+
+            <div class="expert-hub-card" id="expert-hub-card" role="dialog" aria-modal="true" aria-label="{% trans 'Expert profile' %}" hidden>
+                <div class="expert-hub-card__panel">
+                    <div class="expert-hub-card__inner">
+                        {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-lightbox-close" only %}
+                        <img class="expert-hub-card__image" src="" alt="">
+                        <p class="expert-hub-card__quote"></p>
+                        <strong class="expert-hub-card__name"></strong>
+                        <a class="expert-hub-card__link" href="">{% trans "Go to profile" %}</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
