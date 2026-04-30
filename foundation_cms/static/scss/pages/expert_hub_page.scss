@@ -91,6 +91,7 @@ body.template-expert-hub-page {
     }
 
     position: absolute;
+    transform: translate(-50%, -50%);
     transform-origin: 0 0;
     border-radius: $bubble-border-radius;
     background: var(--bubble-color);
@@ -239,7 +240,10 @@ body.template-expert-hub-page {
       }
 
       &__lines-svg {
+        position: absolute;
+        inset: 0;
         overflow: visible;
+        pointer-events: none;
       }
     }
 

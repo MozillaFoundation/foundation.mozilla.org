@@ -144,10 +144,7 @@ function init(viz, config) {
         .append("svg")
         .attr("class", CLASS_NAMES.linesSvg)
         .attr("width", vizW)
-        .attr("height", vizH)
-        .style("position", "absolute")
-        .style("inset", "0")
-        .style("pointer-events", "none");
+        .attr("height", vizH);
 
   const linesGroup = svg ? svg.append("g") : null;
 
@@ -199,10 +196,8 @@ function init(viz, config) {
     el.classList.add(CLASS_NAMES.tier(tier));
     el.style.width = `${size}px`;
     el.style.height = `${size}px`;
-    el.style.position = "absolute";
     el.style.left = `${baseX}px`;
     el.style.top = `${baseY}px`;
-    el.style.transform = "translate(-50%, -50%)";
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
     const label = el.dataset.name?.trim();
