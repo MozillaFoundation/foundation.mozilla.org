@@ -49,11 +49,11 @@
                 {% endfor %}
             </ol>
 
-            <div class="expert-hub-card" id="expert-hub-card" role="dialog" aria-modal="true" aria-label="{% trans 'Expert profile' %}" hidden>
+            <div class="expert-hub-card" id="expert-hub-card" role="dialog" aria-modal="true" aria-label="{% trans "Expert profile" %}" hidden>
                 <div class="expert-hub-card__panel">
                     <div class="expert-hub-card__inner">
                         {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-lightbox-close" only %}
-                        <img class="expert-hub-card__image" src="" alt="">
+                        <img class="expert-hub-card__image" src="" alt="" width="0" height="0">
                         <p class="expert-hub-card__quote"></p>
                         <strong class="expert-hub-card__name"></strong>
                         <a class="expert-hub-card__link" href="">{% trans "Go to profile" %}</a>
