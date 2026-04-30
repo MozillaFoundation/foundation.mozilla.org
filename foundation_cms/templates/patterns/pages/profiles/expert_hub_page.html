@@ -70,7 +70,8 @@
                             <h2 class="expert-hub-cta__title">{% trans "Want to collab?" %}</h2>
                             <p class="expert-hub-cta__body">{% trans "Reach out to us and we can work together!" %}</p>
                         </div>
-                        <a href="" class="btn btn-primary expert-hub-cta__btn">{% trans "Contact Us" %}</a>
+                        {% trans "Contact Us" as cta_label %}
+                        {% include "patterns/components/button.html" with button_style="btn-primary" url="/meet-mozilla/press-center/" label=cta_label classnames="expert-hub-cta__btn" only %}
                     </div>
                 </div>
             </div>
