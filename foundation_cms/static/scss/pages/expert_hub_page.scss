@@ -165,6 +165,9 @@ body.template-expert-hub-page {
 
     position: fixed;
     inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 $panel-gap rem-calc(46);
     background: rgb(color(neutral, "100"), 0.4);
     backdrop-filter: blur(4px);
     z-index: 100;
@@ -178,10 +181,7 @@ body.template-expert-hub-page {
     }
 
     &__panel {
-      position: absolute;
-      left: $panel-gap;
-      right: $panel-gap;
-      bottom: rem-calc(46);
+      width: 100%;
     }
 
     .btn-close {

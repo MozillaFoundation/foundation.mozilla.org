@@ -10,32 +10,32 @@ export const CONFIGS = {
   // ≥ 1200px
   xxl: {
     computeHeight: false,
-    tierRadiusPercent: { 1: 10, 2: 7, 3: 5 },
+    tierRadiusPercent: { 1: 10, 2: 6.5, 3: 4.5 },
     tiers: [
       {
         tier: 1,
-        positions: [[56, 55]],
+        positions: [[59, 50]],
       },
       {
         tier: 2,
         positions: [
-          [37, 46],
-          [60, 23],
-          [78, 31],
-          [92, 56],
-          [76, 62],
-          [22, 58],
+          [40, 46],
+          [63, 15],
+          [78, 32],
+          [92, 57],
+          [77, 65],
+          [25, 54],
         ],
       },
       {
         tier: 3,
         positions: [
-          [22, 84],
-          [93, 20],
-          [64, 85],
-          [36, 76],
-          [7, 54],
-          [8, 77],
+          [21, 81],
+          [90, 21],
+          [50, 80],
+          [37, 76],
+          [10, 53],
+          [6, 78],
         ],
       },
     ],
@@ -116,7 +116,7 @@ export const CONFIGS = {
   md: {
     computeHeight: true,
     containerAspect: 2.5,
-    tierRadiusPercent: { 1: 17, 2: 13, 3: 11, 4: 9 },
+    tierRadiusPercent: { 1: 18, 2: 13, 3: 11, 4: 9 },
     tiers: [
       {
         tier: 1,
@@ -142,10 +142,10 @@ export const CONFIGS = {
         tier: 4,
         positions: [
           [79, 44],
-          [41, 63],
+          [42, 65],
           [52, 49],
           [73, 59],
-          [19, 65],
+          [19, 62],
           [64, 73],
         ],
       },
