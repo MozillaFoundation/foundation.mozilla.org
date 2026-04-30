@@ -71,6 +71,7 @@ function updateToggleCounts(toggles) {
     ).length;
     const base = labelEl.dataset.baseLabel;
 
+    toggle.classList.toggle("expert-filter__toggle--active", count > 0);
     labelEl.textContent = count > 0 ? `${base} (${count})` : base;
   });
 }

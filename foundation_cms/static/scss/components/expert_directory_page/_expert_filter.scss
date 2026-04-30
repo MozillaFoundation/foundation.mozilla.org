@@ -6,34 +6,37 @@
   margin-bottom: rem-calc(24);
 
   @include breakpoint(large up) {
-    margin-top: rem-calc(66);
+    margin-top: rem-calc(64);
   }
 
   &__bar {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
+    align-items: center;
     gap: rem-calc(8);
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      align-items: center;
-    }
   }
 
   &__label {
     @include mofo-text-style($body-text-styles, "regular");
 
+    flex: 0 0 100%;
     white-space: nowrap;
+
+    @include breakpoint(large up) {
+      flex: none;
+    }
   }
 
   &__groups {
     display: flex;
     align-items: center;
-    gap: rem-calc(12);
+    gap: rem-calc(8);
     flex-wrap: wrap;
   }
 
   &__toggle {
+    @include mofo-text-style($body-text-styles, "small");
+
     display: inline-flex;
     align-items: center;
     gap: rem-calc(8);
@@ -41,15 +44,19 @@
     border: 1px solid $black;
     border-radius: rem-calc(100);
     background: transparent;
+    color: black;
     cursor: pointer;
     white-space: nowrap;
 
-    @include mofo-text-style($body-text-styles, "small");
-
-    &--active,
     &[aria-expanded="true"] {
       background: color(neutral, "200");
       border-color: color(neutral, "200");
+    }
+
+    &--active,
+    &--active[aria-expanded="true"] {
+      background: color(orange, "100");
+      border-color: color(orange, "100");
     }
 
     &[aria-expanded="true"] {
@@ -73,7 +80,7 @@
       background-image: url("/static/foundation_cms/_images/icons/select-caret-down-black.svg");
       background-repeat: no-repeat;
       background-size: contain;
-      background-position: center;
+      background-position: center calc(50% + 1px);
       transition: transform 0.3s ease-in-out;
     }
   }
@@ -83,12 +90,7 @@
     border: none;
     padding: 0;
     cursor: pointer;
-    align-self: flex-start;
     text-decoration: underline;
-
-    @include breakpoint(large up) {
-      align-self: auto;
-    }
 
     @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
   }
