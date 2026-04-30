@@ -154,10 +154,6 @@
   .newsletter-signup-block .newsletter-signup {
     padding: 1.5rem 2rem 2rem;
 
-    @include breakpoint(medium up) {
-      padding: 1.5rem 2rem 2rem;
-    }
-
     &__form-grid {
       @include breakpoint(medium up) {
         flex-direction: column;
