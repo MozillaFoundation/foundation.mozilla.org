@@ -41,6 +41,7 @@ BASE_BLOCK_NAMES = sorted(
         "timely_activations_cards",
         "quote",
         "list_block",
+        "three_column_container_block",
         "video_block",
         "pillar_card_set",
         "featured_card_block",
