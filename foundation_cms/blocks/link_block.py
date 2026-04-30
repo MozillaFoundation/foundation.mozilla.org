@@ -92,3 +92,31 @@ class OptionalLinkBlock(blocks.ListBlock):
 
 
 register(BaseLinkBlockAdapter(), LinkWithoutLabelBlock)
+
+
+class LinkWithDynamicLabelBlock(LinkBlock):
+    def __init__(self, local_blocks=None, *, label_max_length=36, **kwargs):
+        self.label_max_length = label_max_length
+
+        base_label_block = self.base_blocks["label"]
+        local_blocks = list(local_blocks or []) + [
+            (
+                "label",
+                blocks.CharBlock(
+                    max_length=self.label_max_length,
+                    required=base_label_block.required,
+                    label=getattr(base_label_block, "label", "Label"),
+                    help_text=getattr(base_label_block, "help_text", f"Max {self.label_max_length} characters."),
+                ),
+            )
+        ]
+
+        super().__init__(local_blocks=local_blocks, **kwargs)
+
+    def deconstruct(self):
+        path, args, kwargs = super().deconstruct()
+        kwargs["label_max_length"] = self.label_max_length
+        return path, args, kwargs
+
+
+register(BaseLinkBlockAdapter(), LinkWithDynamicLabelBlock)
