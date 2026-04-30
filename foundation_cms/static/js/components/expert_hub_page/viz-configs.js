@@ -1,19 +1,16 @@
 // ─── Breakpoints (match SCSS customized-settings.scss) ───────────────────────
 export const BREAKPOINTS = { sm: 375, md: 480, lg: 768, xl: 1024, xxl: 1200 };
 
-// Shared tier weights for xl and xxl desktop configs
-const WEIGHTS_DESKTOP = { 1: 4, 2: 2, 3: 1 };
-
 // ─── Per-breakpoint configs ───────────────────────────────────────────────────
 // Mobile configs (xs–lg): computeHeight=true, JS sets viz height from simulation output.
 // Desktop configs (xl–xxl): computeHeight=false, CSS sets viz height.
 // All entries use the same d3-force simulation; only starting positions differ.
+// tierRadiusPercent: fixed bubble radius per tier as a percentage of vizW (e.g. 7 = 7%).
 export const CONFIGS = {
   // ≥ 1200px
   xxl: {
     computeHeight: false,
-    packFactor: 0.3,
-    tierWeights: WEIGHTS_DESKTOP,
+    tierRadiusPercent: { 1: 10, 2: 7, 3: 5 },
     tiers: [
       {
         tier: 1,
@@ -46,8 +43,7 @@ export const CONFIGS = {
   // 1024–1199px
   xl: {
     computeHeight: false,
-    packFactor: 0.25,
-    tierWeights: WEIGHTS_DESKTOP,
+    tierRadiusPercent: { 1: 10, 2: 7, 3: 5 },
     tiers: [
       {
         tier: 1,
@@ -81,8 +77,7 @@ export const CONFIGS = {
   lg: {
     computeHeight: true,
     containerAspect: 2.2,
-    packFactor: 0.4,
-    tierWeights: { 1: 3.2, 2: 2.5, 3: 1.5, 4: 0.7 },
+    tierRadiusPercent: { 1: 23, 2: 19, 3: 14, 4: 9.5 },
     tiers: [
       {
         tier: 1,
@@ -119,8 +114,7 @@ export const CONFIGS = {
   md: {
     computeHeight: true,
     containerAspect: 2.5,
-    packFactor: 0.33,
-    tierWeights: { 1: 3.2, 2: 2.5, 3: 1.5, 4: 0.7 },
+    tierRadiusPercent: { 1: 25, 2: 20, 3: 14, 4: 10 },
     tiers: [
       {
         tier: 1,
@@ -157,8 +151,7 @@ export const CONFIGS = {
   sm: {
     computeHeight: true,
     containerAspect: 2.8,
-    packFactor: 0.22,
-    tierWeights: { 1: 4, 2: 2.5, 3: 1.5, 4: 0.7 },
+    tierRadiusPercent: { 1: 25, 2: 20, 3: 15, 4: 10 },
     tiers: [
       {
         tier: 1,
@@ -195,8 +188,7 @@ export const CONFIGS = {
   xs: {
     computeHeight: true,
     containerAspect: 3,
-    packFactor: 0.22,
-    tierWeights: { 1: 4, 2: 2.5, 3: 1.5, 4: 0.8 },
+    tierRadiusPercent: { 1: 22.5, 2: 18, 3: 13, 4: 9 },
     tiers: [
       {
         tier: 1,

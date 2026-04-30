@@ -85,8 +85,7 @@ function getTier(i, n, tierByIndex) {
  *   bubble styles so the viz can be re-initialised cleanly.
  */
 function init(viz, config) {
-  const { computeHeight, containerAspect, packFactor, tierWeights, tiers } =
-    config;
+  const { computeHeight, containerAspect, tierRadiusPercent, tiers } = config;
   const tierByIndex = tiers.flatMap(({ tier, positions }) =>
     positions.map((pos) => ({ tier, pos })),
   );
@@ -120,21 +119,10 @@ function init(viz, config) {
   // so there is no overlap zone to subtract. Only desktop needs the copy rect.
   const copyEl = computeHeight ? null : viz.querySelector(SELECTORS.copy);
   const copyRect = copyEl ? copyEl.getBoundingClientRect() : null;
-  const copyArea = copyRect ? copyRect.width * copyRect.height : 0;
-  const availableArea = vizW * vizH - copyArea;
   const zoneLeft = copyRect ? copyRect.right - vizRect.left : vizW * 0.4;
 
-  const totalWeightedUnits = els.reduce(
-    (sum, _, i) => sum + tierWeights[getTier(i, n, tierByIndex)],
-    0,
-  );
-
-  const areaPerUnit = (availableArea * packFactor) / totalWeightedUnits;
   const tierRadius = Object.fromEntries(
-    Object.entries(tierWeights).map(([t, w]) => [
-      t,
-      Math.sqrt((areaPerUnit * w) / Math.PI),
-    ]),
+    Object.entries(tierRadiusPercent).map(([t, pct]) => [t, (pct / 100) * vizW]),
   );
 
   // Lines SVG is desktop-only; mobile has no tooltip or lines interaction.
