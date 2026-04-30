@@ -27,24 +27,24 @@
             </div>
 
             <div class="expert-hub-tooltip" role="tooltip" hidden>
-                <p class="expert-hub-tooltip__quote"></p>
+                <p class="expert-hub-tooltip__blurb"></p>
                 <strong class="expert-hub-tooltip__name"></strong>
             </div>
 
             <ol class="expert-hub-viz__bubble-list" id="expert-hub-bubble-list">
                 {% for item in featured_experts %}
                     {% with forloop.counter as idx %}
-                    <li class="expert-hub-bubble"
-                        data-name="{{ item.expert.title }}"
-                        data-url="{% pageurl item.expert %}"
-                        data-quote="{{ item.expert.bio|striptags|truncatechars:200 }}"
-                        data-topic="{% if item.topic %}{{ item.topic.name }}{% endif %}">
-                        {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ idx }}. {{ item.topic.name }}</span>{% endif %}
-                        {% if item.expert.image %}
-                            {% image item.expert.image fill-300x300 class="expert-hub-bubble__image" %}
-                        {% endif %}
-                        <span class="expert-hub-bubble__name">{{ item.expert.title }}</span>
-                    </li>
+                        <li class="expert-hub-bubble"
+                            data-name="{{ item.expert.title }}"
+                            data-url="{% pageurl item.expert %}"
+                            data-blurb="{{ item.expert.blurb }}"
+                            data-topic="{% if item.topic %}{{ item.topic.name }}{% endif %}">
+                            {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ idx }}. {{ item.topic.name }}</span>{% endif %}
+                            {% if item.expert.image %}
+                                {% image item.expert.image fill-300x300 class="expert-hub-bubble__image" %}
+                            {% endif %}
+                            <span class="expert-hub-bubble__name">{{ item.expert.title }}</span>
+                        </li>
                     {% endwith %}
                 {% endfor %}
             </ol>
@@ -54,7 +54,7 @@
                     <div class="expert-hub-card__inner">
                         {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-lightbox-close" only %}
                         <img class="expert-hub-card__image" src="" alt="" width="0" height="0">
-                        <p class="expert-hub-card__quote"></p>
+                        <p class="expert-hub-card__blurb"></p>
                         <strong class="expert-hub-card__name"></strong>
                         <a class="expert-hub-card__link" href="">{% trans "Go to profile" %}</a>
                     </div>

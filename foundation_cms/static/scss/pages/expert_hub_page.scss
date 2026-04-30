@@ -207,7 +207,7 @@ body.template-expert-hub-page {
       margin-bottom: rem-calc(16);
     }
 
-    &__quote {
+    &__blurb {
       margin: 0 0 rem-calc(8);
     }
 
@@ -268,7 +268,7 @@ body.template-expert-hub-page {
       max-width: rem-calc(354);
       pointer-events: none;
 
-      &__quote {
+      &__blurb {
         margin: 0 0 rem-calc(8);
         font-size: rem-calc(14);
         line-height: 1.5;

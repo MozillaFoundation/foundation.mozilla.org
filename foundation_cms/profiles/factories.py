@@ -81,6 +81,7 @@ def generate(seed):
             bio=fake.paragraph(nb_sentences=3),
             location=country_codes[i % len(country_codes)],
             affiliation=fake.company(),
+            blurb=fake.sentence(nb_words=12)[:115],
             seo_title=name,
             search_description=fake.sentence(nb_words=10).rstrip("."),
         )
@@ -151,5 +152,6 @@ class ExpertProfilePageFactory(wagtail_factories.PageFactory):
     bio = factory.Faker("paragraph", nb_sentences=3)
     location = "US"
     affiliation = factory.Faker("company")
+    blurb = factory.LazyAttribute(lambda _: get_faker().sentence(nb_words=12)[:115])
     seo_title = factory.Faker("sentence", nb_words=3)
     search_description = factory.Faker("sentence", nb_words=10)

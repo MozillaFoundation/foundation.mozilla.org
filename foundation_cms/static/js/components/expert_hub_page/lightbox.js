@@ -2,7 +2,7 @@ const SELECTORS = {
   close: "[data-lightbox-close]",
   inner: ".expert-hub-card__inner",
   image: ".expert-hub-card__image",
-  quote: ".expert-hub-card__quote",
+  blurb: ".expert-hub-card__blurb",
   name: ".expert-hub-card__name",
   link: ".expert-hub-card__link",
   bubbleImage: ".expert-hub-bubble__image",
@@ -35,11 +35,11 @@ export function setupLightbox(cardEl) {
   const closeBtn = cardEl.querySelector(SELECTORS.close);
   const inner = cardEl.querySelector(SELECTORS.inner);
   const imageEl = cardEl.querySelector(SELECTORS.image);
-  const quoteEl = cardEl.querySelector(SELECTORS.quote);
+  const blurbEl = cardEl.querySelector(SELECTORS.blurb);
   const nameEl = cardEl.querySelector(SELECTORS.name);
   const linkEl = cardEl.querySelector(SELECTORS.link);
 
-  if (!inner || !imageEl || !quoteEl || !nameEl || !linkEl) {
+  if (!inner || !imageEl || !blurbEl || !nameEl || !linkEl) {
     return null;
   }
 
@@ -88,7 +88,7 @@ export function setupLightbox(cardEl) {
     const bubbleImg = el.querySelector(SELECTORS.bubbleImage);
     imageEl.src = bubbleImg?.src ?? "";
     imageEl.alt = el.dataset.name ?? "";
-    quoteEl.textContent = el.dataset.quote ?? "";
+    blurbEl.textContent = el.dataset.blurb ?? "";
     nameEl.textContent = el.dataset.name ?? "";
     const profileUrl = el.dataset.url?.trim();
     if (profileUrl) linkEl.href = profileUrl;

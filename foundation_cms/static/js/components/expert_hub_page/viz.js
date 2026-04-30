@@ -11,7 +11,7 @@ const SELECTORS = {
   bubbleList: "#expert-hub-bubble-list",
   bubble: "#expert-hub-bubble-list .expert-hub-bubble",
   copy: ".expert-hub-hero__copy",
-  tooltipQuote: ".expert-hub-tooltip__quote",
+  tooltipBlurb: ".expert-hub-tooltip__blurb",
   tooltipName: ".expert-hub-tooltip__name",
   card: "#expert-hub-card",
 };
@@ -122,7 +122,10 @@ function init(viz, config) {
   const zoneLeft = copyRect ? copyRect.right - vizRect.left : vizW * 0.4;
 
   const tierRadius = Object.fromEntries(
-    Object.entries(tierRadiusPercent).map(([t, pct]) => [t, (pct / 100) * vizW]),
+    Object.entries(tierRadiusPercent).map(([t, pct]) => [
+      t,
+      (pct / 100) * vizW,
+    ]),
   );
 
   // Lines SVG is desktop-only; mobile has no tooltip or lines interaction.
@@ -137,7 +140,7 @@ function init(viz, config) {
   const linesGroup = svg ? svg.append("g") : null;
 
   const tooltip = viz.querySelector(`.${CLASS_NAMES.tooltip}`);
-  const tooltipQuote = tooltip?.querySelector(SELECTORS.tooltipQuote);
+  const tooltipBlurb = tooltip?.querySelector(SELECTORS.tooltipBlurb);
   const tooltipName = tooltip?.querySelector(SELECTORS.tooltipName);
   const tooltipTailRaw = tooltip
     ? parseFloat(
@@ -196,7 +199,7 @@ function init(viz, config) {
       tier,
       size,
       topic,
-      quote: el.dataset.quote || "",
+      blurb: el.dataset.blurb || "",
       name: el.dataset.name || "",
       cx: baseX,
       cy: baseY,
@@ -272,9 +275,9 @@ function init(viz, config) {
   }
 
   function showTooltip(node, color) {
-    if (!tooltip || !tooltipQuote || !tooltipName) return;
+    if (!tooltip || !tooltipBlurb || !tooltipName) return;
     tooltip.style.setProperty("--tooltip-color", color);
-    tooltipQuote.textContent = node.quote;
+    tooltipBlurb.textContent = node.blurb;
     tooltipName.textContent = node.name;
     tooltip.removeAttribute("hidden");
     positionTooltip(node);
@@ -377,7 +380,7 @@ function init(viz, config) {
             .trim();
           updateLines(i);
           applyOverlays(i, color);
-          showTooltip(node, tooltipColor);
+          if (node.blurb) showTooltip(node, tooltipColor);
         },
         { signal },
       );
