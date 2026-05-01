@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("profiles", "0006_alter_expertdirectorypage_body_and_more"),
+        ("profiles", "0007_alter_expertdirectorypage_body_and_more"),
     ]
 
     operations = [
