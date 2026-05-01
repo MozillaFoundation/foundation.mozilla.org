@@ -142,7 +142,8 @@ export function setupLightbox(cardEl) {
     // Defer focus to the next frame so the overlay is fully painted before
     // iOS calculates the focused element's position (avoids scroll-to-top).
     requestAnimationFrame(() => {
-      if (!cardEl.hasAttribute("hidden")) closeBtn?.focus({ preventScroll: true });
+      if (!cardEl.hasAttribute("hidden"))
+        closeBtn?.focus({ preventScroll: true });
     });
   }
 
