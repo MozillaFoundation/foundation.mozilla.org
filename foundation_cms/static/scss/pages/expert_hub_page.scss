@@ -8,6 +8,76 @@ $bubble-border-radius: 40%;
 body.template-expert-hub-page {
   .main-content-wrapper {
     overflow-x: clip;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+      width: rem-calc(160);
+      height: rem-calc(160);
+
+      @include breakpoint(medium up) {
+        width: 30vw;
+        height: 30vw;
+      }
+
+      @include breakpoint(large up) {
+        width: 20vw;
+        height: 20vw;
+      }
+
+      @include breakpoint(xlarge up) {
+        width: rem-calc(300);
+        height: rem-calc(300);
+      }
+    }
+
+    &::before {
+      background-image: url("/static/foundation_cms/_images/expert-hub/loop-arrow-left.svg");
+      left: rem-calc(-46);
+      top: 15%;
+      transform: translateY(var(--parallax-y-left, 0));
+
+      @include breakpoint(medium up) {
+        left: rem-calc(-40);
+        top: 32vh;
+      }
+
+      @include breakpoint(large up) {
+        left: rem-calc(-65);
+        top: 48vh;
+      }
+
+      @include breakpoint(xlarge up) {
+        left: rem-calc(-65);
+        top: 55vh;
+      }
+    }
+
+    &::after {
+      background-image: url("/static/foundation_cms/_images/expert-hub/loop-arrow-right.svg");
+      right: rem-calc(-60);
+      top: 28%;
+      transform: translateY(var(--parallax-y-right, 0));
+
+      @include breakpoint(medium up) {
+        top: 85vh;
+      }
+
+      @include breakpoint(large up) {
+        top: 26vh;
+      }
+
+      @include breakpoint(xlarge up) {
+        top: 18vh;
+      }
+    }
   }
 
   .expert-hub-hero {
@@ -49,6 +119,7 @@ body.template-expert-hub-page {
 
   .expert-hub-viz {
     position: relative;
+    z-index: 1;
 
     &__loading {
       position: absolute;
@@ -165,6 +236,8 @@ body.template-expert-hub-page {
 
     position: fixed;
     inset: 0;
+    height: 100vh; // fallback for iOS < 15.4
+    height: 100dvh; // fixes Safari dynamic toolbar clipping
     display: flex;
     align-items: flex-end;
     padding: 0 $panel-gap rem-calc(46);
@@ -238,6 +311,7 @@ body.template-expert-hub-page {
     .expert-hub-viz {
       width: 100%;
       height: calc(100dvh - #{$primary-nav-height});
+      min-height: rem-calc(800);
       max-height: rem-calc(900);
 
       &__bubble-list {

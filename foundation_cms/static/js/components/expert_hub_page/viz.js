@@ -46,16 +46,14 @@ const IS_TOUCH = !window.matchMedia("(hover: hover) and (pointer: fine)")
 /**
  * Returns the active breakpoint key for the current viewport.
  *
- * @returns {"xxl"|"xl"|"lg"|"md"|"sm"|"xs"}
+ * @returns {"xl"|"lg"|"md"|"sm"}
  */
 function getBreakpoint() {
   const w = window.innerWidth;
-  if (w >= BREAKPOINTS.xxl) return "xxl";
   if (w >= BREAKPOINTS.xl) return "xl";
   if (w >= BREAKPOINTS.lg) return "lg";
   if (w >= BREAKPOINTS.md) return "md";
-  if (w >= BREAKPOINTS.sm) return "sm";
-  return "xs";
+  return "sm";
 }
 
 /**
@@ -465,4 +463,13 @@ export function setupViz() {
 
   ro.observe(viz);
   run();
+
+  const root = document.documentElement;
+  const updateParallax = () => {
+    const y = window.scrollY;
+    root.style.setProperty("--parallax-y-left", `${y * 0.3}px`);
+    root.style.setProperty("--parallax-y-right", `${y * 0.5}px`);
+  };
+  window.addEventListener("scroll", updateParallax, { passive: true });
+  updateParallax();
 }
