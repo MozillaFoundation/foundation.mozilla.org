@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("profiles", "0007_alter_experthubpage_description"),
+        ("profiles", "0008_alter_experthubpage_description"),
     ]
 
     operations = [
