@@ -119,7 +119,9 @@ function init(viz, hero, config) {
   // On mobile the copy stacks above the viz in normal flow — no overlap to
   // subtract. On desktop the copy is absolutely positioned over the left of the
   // hero; measure it to find the right-hand zone where bubbles are placed.
-  const copyEl = computeHeight ? null : hero?.querySelector(SELECTORS.copy) ?? null;
+  const copyEl = computeHeight
+    ? null
+    : (hero?.querySelector(SELECTORS.copy) ?? null);
   const copyRect = copyEl ? copyEl.getBoundingClientRect() : null;
   const zoneLeft = copyRect ? copyRect.right - vizRect.left : vizW * 0.4;
 
@@ -152,7 +154,7 @@ function init(viz, hero, config) {
   const tooltipTailHalfWidth = Number.isFinite(tooltipTailRaw)
     ? tooltipTailRaw / 2
     : 6;
-  const lightbox = setupLightbox(viz.querySelector(SELECTORS.card));
+  const lightbox = setupLightbox(document.querySelector(SELECTORS.card));
 
   /**
    * Returns the absolute [x, y] starting position for node at index i.

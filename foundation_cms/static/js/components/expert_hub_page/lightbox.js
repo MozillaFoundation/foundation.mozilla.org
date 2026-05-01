@@ -43,7 +43,15 @@ export function setupLightbox(cardEl) {
     return null;
   }
 
+  // Move the dialog to be a direct child of <body> so that position:fixed
+  // always resolves to the viewport, regardless of any transforms or
+  // will-change on ancestor elements inside the page content.
+  if (cardEl.parentElement !== document.body) {
+    document.body.appendChild(cardEl);
+  }
+
   let previouslyFocused = null;
+  let savedScrollY = 0;
 
   /**
    * @returns {HTMLElement[]} Focusable controls inside the dialog (for Tab trapping).
@@ -79,8 +87,25 @@ export function setupLightbox(cardEl) {
   }
 
   /**
+   * Blocks touchmove on the document while the overlay is open.
+   * Passes through events that originate inside a scrollable child of the panel
+   * so any overflow content within the card remains scrollable.
+   *
+   * @param {TouchEvent} e
+   */
+  function preventTouchScroll(e) {
+    if (!e.cancelable) return;
+    let el = e.target;
+    while (el && el !== cardEl) {
+      if (el.scrollHeight > el.clientHeight) return;
+      el = el.parentElement;
+    }
+    e.preventDefault();
+  }
+
+  /**
    * Populates the overlay from `dataset` / image on a bubble and shows it.
-   * Locks body scroll and moves focus to the close control.
+   * Locks scroll and moves focus to the close control.
    *
    * @param {HTMLElement} el - `.expert-hub-bubble` list item
    */
@@ -105,17 +130,32 @@ export function setupLightbox(cardEl) {
         : null;
 
     cardEl.removeAttribute("hidden");
-    document.body.style.overflow = "hidden";
-    closeBtn?.focus();
+
+    // Scroll lock: overflow:hidden stops desktop browsers; touchmove
+    // preventDefault is the only mechanism that reliably stops iOS Safari.
+    savedScrollY = window.scrollY;
+    document.documentElement.style.overflow = "hidden";
+    document.addEventListener("touchmove", preventTouchScroll, {
+      passive: false,
+    });
+
+    // Defer focus to the next frame so the overlay is fully painted before
+    // iOS calculates the focused element's position (avoids scroll-to-top).
+    requestAnimationFrame(() => {
+      if (!cardEl.hasAttribute("hidden")) closeBtn?.focus({ preventScroll: true });
+    });
   }
 
   /**
-   * Hides the overlay, restores body scroll and prior focus if still in the document.
+   * Hides the overlay, restores scroll and prior focus if still in the document.
    */
   function close() {
     cardEl.setAttribute("hidden", "");
     inner.style.removeProperty("--bubble-color");
-    document.body.style.overflow = "";
+
+    document.documentElement.style.overflow = "";
+    document.removeEventListener("touchmove", preventTouchScroll);
+    window.scrollTo(0, savedScrollY);
 
     const restore = previouslyFocused;
     previouslyFocused = null;
