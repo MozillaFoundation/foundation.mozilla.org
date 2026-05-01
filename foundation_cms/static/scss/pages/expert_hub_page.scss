@@ -10,6 +10,39 @@ body.template-expert-hub-page {
     overflow-x: clip;
     position: relative;
 
+    // $tops: (base, medium, large, xlarge) — offsets are mirrored for left/right
+    @mixin parallax-arrow($image, $side, $css-var, $tops) {
+      background-image: url($image);
+      width: rem-calc(160);
+      height: rem-calc(160);
+      #{$side}: rem-calc(-46);
+      top: list.nth($tops, 1);
+      transform: translateY(var(--#{$css-var}, 0));
+
+      @include breakpoint(medium up) {
+        width: 30vw;
+        height: 30vw;
+        #{$side}: rem-calc(-46);
+        top: list.nth($tops, 2);
+      }
+
+      @include breakpoint(large up) {
+        width: 18vw;
+        height: 18vw;
+        #{$side}: -5vw;
+        top: list.nth($tops, 3);
+      }
+
+      @include breakpoint(xlarge up) {
+        width: 18vw;
+        height: 18vw;
+        max-width: rem-calc(290);
+        max-height: rem-calc(290);
+        #{$side}: rem-calc(-75);
+        top: list.nth($tops, 4);
+      }
+    }
+
     &::before,
     &::after {
       content: "";
@@ -19,64 +52,24 @@ body.template-expert-hub-page {
       pointer-events: none;
       z-index: 0;
       will-change: transform;
-      width: rem-calc(160);
-      height: rem-calc(160);
-
-      @include breakpoint(medium up) {
-        width: 30vw;
-        height: 30vw;
-      }
-
-      @include breakpoint(large up) {
-        width: 20vw;
-        height: 20vw;
-      }
-
-      @include breakpoint(xlarge up) {
-        width: rem-calc(300);
-        height: rem-calc(300);
-      }
     }
 
     &::before {
-      background-image: url("/static/foundation_cms/_images/expert-hub/loop-arrow-left.svg");
-      left: rem-calc(-46);
-      top: 15%;
-      transform: translateY(var(--parallax-y-left, 0));
-
-      @include breakpoint(medium up) {
-        left: rem-calc(-40);
-        top: 32vh;
-      }
-
-      @include breakpoint(large up) {
-        left: rem-calc(-65);
-        top: 48vh;
-      }
-
-      @include breakpoint(xlarge up) {
-        left: rem-calc(-65);
-        top: 55vh;
-      }
+      @include parallax-arrow(
+        "/static/foundation_cms/_images/expert-hub/loop-arrow-left.svg",
+        left,
+        parallax-y-left,
+        (43vh, 20vh, 48vh, rem-calc(500))
+      );
     }
 
     &::after {
-      background-image: url("/static/foundation_cms/_images/expert-hub/loop-arrow-right.svg");
-      right: rem-calc(-60);
-      top: 28%;
-      transform: translateY(var(--parallax-y-right, 0));
-
-      @include breakpoint(medium up) {
-        top: 85vh;
-      }
-
-      @include breakpoint(large up) {
-        top: 26vh;
-      }
-
-      @include breakpoint(xlarge up) {
-        top: 18vh;
-      }
+      @include parallax-arrow(
+        "/static/foundation_cms/_images/expert-hub/loop-arrow-right.svg",
+        right,
+        parallax-y-right,
+        (83vh, 58vh, 26vh, rem-calc(200))
+      );
     }
   }
 
