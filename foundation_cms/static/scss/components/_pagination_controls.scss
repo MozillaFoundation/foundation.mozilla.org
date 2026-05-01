@@ -1,6 +1,16 @@
 .pagination-controls {
-  $button-size: rem-calc(48);
-  $icon-size: rem-calc(20);
+  $button-size: rem-calc(32);
+  $icon-size: rem-calc(16);
+
+  $btn-bg: color(orange, "100");
+  $btn-hover-bg: color(orange, "300");
+  $btn-disabled-bg: transparent;
+  $btn-focus-outline: color(orange, "300");
+
+  $btn-bg-dark: color(neutral, "600");
+  $btn-hover-bg-dark: color(neutral, "600");
+  $btn-disabled-bg-disabled: color(neutral, "600");
+  $btn-focus-outline-dark: color(neutral, "600");
 
   display: flex;
   align-items: center;
@@ -20,8 +30,11 @@
     width: $button-size;
     height: $button-size;
     border-radius: 50%;
-    background: color(orange, "200");
+    background-color: $btn-bg;
     cursor: pointer;
+    transition:
+      background-color $button-transition-duration $button-transition-function,
+      opacity $button-transition-duration $button-transition-function;
 
     img {
       width: $icon-size;
@@ -29,16 +42,16 @@
     }
 
     &:hover:not(:disabled) {
-      background: color(orange, "300");
+      background: $btn-hover-bg;
     }
 
     &:focus-visible {
-      outline: 2px solid color(orange, "300");
+      outline: 2px solid $btn-focus-outline;
       outline-offset: 2px;
     }
 
     &:disabled {
-      background: transparent;
+      background: $btn-disabled-bg;
       cursor: default;
 
       img {
@@ -49,22 +62,25 @@
 
   &--dark {
     button {
-      background: color(neutral, "500");
+      background: $btn-bg-dark;
+      opacity: 50%;
 
       img {
         filter: invert(1);
       }
 
       &:hover:not(:disabled) {
-        background: color(neutral, "400");
+        background: $btn-hover-bg-dark;
+        opacity: 100%;
       }
 
       &:focus-visible {
-        outline-color: color(neutral, "100");
+        outline-color: $btn-focus-outline-dark;
       }
 
       &:disabled {
-        background: color(neutral, "300");
+        background: $btn-disabled-bg-disabled;
+        opacity: 20%;
       }
     }
   }
