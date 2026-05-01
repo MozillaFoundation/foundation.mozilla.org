@@ -13,6 +13,8 @@ Please follow the steps below every time after you paste a new version of FormAs
     - Update script file name https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-en_US.js?v=...
         with {% fa_locale_code %}
         e.g., https://mozillafoundation.tfaforms.net/wForms/3.11/js/localization-{% fa_locale_code %}.js?v=...
+    - Update the reCAPTCHA script's `hl` parameter to use {% fa_locale_code %}
+        e.g., https://www.google.com/recaptcha/enterprise.js?...&hl={% fa_locale_code %}
     - Go to formassembly_body.html and make sure everything has been updated according to the instructions
 
 4. Until we find a better solution, remember to include hot fix for source url field like what we did in https://github.com/MozillaFoundation/foundation.mozilla.org/pull/10902
@@ -235,7 +237,7 @@ The code snippet below is based on FormAssembly form revision #6
         }
     }
 </script>
-<script nonce="{{ request.csp_nonce }}" src='https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl=en_US' async
+<script nonce="{{ request.csp_nonce }}" src='https://www.google.com/recaptcha/enterprise.js?onload=gCaptchaReadyCallback&render=explicit&hl={% fa_locale_code %}' async
         defer></script>
 <script nonce="{{ request.csp_nonce }}" type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {

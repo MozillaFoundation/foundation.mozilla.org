@@ -90,7 +90,7 @@ $input-font-size: 1.25rem !important;
 
     .htmlSection {
       padding: 0;
-      font-size: 0.75rem;
+      font-size: rem-calc(16);
       width: 100%;
 
       span {
@@ -104,12 +104,16 @@ $input-font-size: 1.25rem !important;
       color: color(neutral, "600") !important;
 
       span {
-        font-size: 13px !important;
+        font-size: rem-calc(16) !important;
       }
 
       a {
         color: $dark-blue;
       }
+    }
+
+    #tfa_182-HTML {
+      font-size: 0.75rem !important;
     }
 
     .inline {
@@ -213,6 +217,7 @@ $input-font-size: 1.25rem !important;
         line-height: 1.5;
         background-color: color(neutral, "600");
         border: 1px solid color(neutral, "600");
+        border-radius: 0;
         padding: rem-calc(14.4) rem-calc(24);
         cursor: pointer;
         width: 100%;
