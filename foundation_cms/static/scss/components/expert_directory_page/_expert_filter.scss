@@ -91,6 +91,7 @@
     padding: 0;
     cursor: pointer;
     text-decoration: underline;
+    color: map.get($mofo-colors, black);
 
     @include mofo-text-style($link-text-styles, "xsmall", $header-font-family);
   }
