@@ -59,7 +59,7 @@ body.template-expert-hub-page {
         "/static/foundation_cms/_images/expert-hub/loop-arrow-left.svg",
         left,
         parallax-y-left,
-        (43vh, 20vh, 48vh, rem-calc(500))
+        (43vh, 23vh, 48vh, rem-calc(500))
       );
     }
 
@@ -74,6 +74,9 @@ body.template-expert-hub-page {
   }
 
   .expert-hub-hero {
+    position: relative;
+    z-index: 1;
+
     &__copy {
       margin-bottom: 2rem;
 
@@ -112,7 +115,6 @@ body.template-expert-hub-page {
 
   .expert-hub-viz {
     position: relative;
-    z-index: 1;
 
     &__loading {
       position: absolute;
@@ -128,8 +130,7 @@ body.template-expert-hub-page {
       display: block;
       overflow-y: auto;
 
-      // Mobile: position: relative so the list flows below .expert-hub-hero__copy
-      // and creates a containing block for absolutely positioned bubbles.
+      // Creates a containing block for absolutely positioned bubbles.
       // Height is set by JS after the force sim resolves.
       position: relative;
     }

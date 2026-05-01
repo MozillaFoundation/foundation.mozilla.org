@@ -8,6 +8,7 @@ const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
 
 const SELECTORS = {
   viz: "#expert-hub-viz",
+  hero: ".expert-hub-hero",
   bubbleList: "#expert-hub-bubble-list",
   bubble: "#expert-hub-bubble-list .expert-hub-bubble",
   copy: ".expert-hub-hero__copy",
@@ -77,12 +78,14 @@ function getTier(i, n, tierByIndex) {
  * Computes bubble sizes from available area, then runs a static force simulation
  * to resolve collisions.
  *
- * @param {HTMLElement} viz    - The `#expert-hub-viz` container element
- * @param {object}      config - CONFIGS entry for the active breakpoint
+ * @param {HTMLElement}      viz   - The `#expert-hub-viz` container element
+ * @param {HTMLElement|null} hero  - The `.expert-hub-hero` wrapper; used to
+ *   measure the copy block on desktop to determine the bubble placement zone
+ * @param {object}           config - CONFIGS entry for the active breakpoint
  * @returns {() => void} Teardown function — removes the SVG and resets all
  *   bubble styles so the viz can be re-initialised cleanly.
  */
-function init(viz, config) {
+function init(viz, hero, config) {
   const { computeHeight, containerAspect, tierRadiusPercent, tiers } = config;
   const tierByIndex = tiers.flatMap(({ tier, positions }) =>
     positions.map((pos) => ({ tier, pos })),
@@ -113,9 +116,10 @@ function init(viz, config) {
   }
   const vizH = computeHeight ? vizW * containerAspect : vizRect.height;
 
-  // On mobile the hero copy is a sibling of the bubble list, not inside it,
-  // so there is no overlap zone to subtract. Only desktop needs the copy rect.
-  const copyEl = computeHeight ? null : viz.querySelector(SELECTORS.copy);
+  // On mobile the copy stacks above the viz in normal flow — no overlap to
+  // subtract. On desktop the copy is absolutely positioned over the left of the
+  // hero; measure it to find the right-hand zone where bubbles are placed.
+  const copyEl = computeHeight ? null : hero?.querySelector(SELECTORS.copy) ?? null;
   const copyRect = copyEl ? copyEl.getBoundingClientRect() : null;
   const zoneLeft = copyRect ? copyRect.right - vizRect.left : vizW * 0.4;
 
@@ -438,6 +442,7 @@ function init(viz, config) {
 export function setupViz() {
   const viz = document.querySelector(SELECTORS.viz);
   if (!viz) return;
+  const hero = viz.closest(SELECTORS.hero);
 
   let cleanup = null;
   let resizeTimer = null;
@@ -448,7 +453,7 @@ export function setupViz() {
       cleanup = null;
     }
     const bp = getBreakpoint();
-    cleanup = init(viz, CONFIGS[bp]);
+    cleanup = init(viz, hero, CONFIGS[bp]);
   }
 
   let initialFire = true;
