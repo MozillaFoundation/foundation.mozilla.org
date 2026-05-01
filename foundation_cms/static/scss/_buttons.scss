@@ -11,9 +11,6 @@ $cta-link-icon-sizes: (
   $color: color(neutral, "100"),
   $border-color: black
 ) {
-  $button-transition-duration: 0.5s;
-  $button-transition-ease: ease;
-
   display: flex;
   align-items: center;
   gap: rem-calc(16);
@@ -45,8 +42,8 @@ $cta-link-icon-sizes: (
     opacity: 1;
     transform: translateY(0);
     transition:
-      transform $button-transition-duration $button-transition-ease,
-      opacity $button-transition-duration $button-transition-ease;
+      transform $button-transition-duration $button-transition-function,
+      opacity $button-transition-duration $button-transition-function;
   }
 
   &__text--roll-in {
@@ -217,7 +214,6 @@ $cta-link-icon-sizes: (
     @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
   }
 }
-
 
 // ===================================
 // Video Play Button (Vimeo Style)
