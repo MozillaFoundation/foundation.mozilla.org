@@ -23,10 +23,7 @@ class TabbedContentContainerBlock(BaseBlock):
         ctx["tabs_with_page_counts"] = [
             (
                 tab,
-                math.ceil(
-                    sum(1 for b in tab["content"] if b.block_type == "tab_card_set")
-                    / self.CARDS_PER_PAGE
-                ),
+                math.ceil(sum(1 for b in tab["content"] if b.block_type == "tab_card_set") / self.CARDS_PER_PAGE),
             )
             for tab in value["tabs"]
         ]
