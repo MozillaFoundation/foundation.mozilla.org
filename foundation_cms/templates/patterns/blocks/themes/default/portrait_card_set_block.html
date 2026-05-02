@@ -18,6 +18,7 @@
           </div>
         </div>
 
+        {% include "./fragments/carousel_indicators.html" with count=self.cards|length %}
         <div class="portrait-card-set__controls">
           {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
         </div>

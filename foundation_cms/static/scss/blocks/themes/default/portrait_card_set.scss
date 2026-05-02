@@ -33,12 +33,12 @@ $carousel-transition: transform 0.3s ease;
   }
 
   &__controls {
-    display: flex;
-    justify-content: end;
-    margin-top: 1rem;
+    display: none;
 
     @include breakpoint(large up) {
-      display: none;
+      display: flex;
+      justify-content: end;
+      margin-top: 1rem;
     }
   }
 

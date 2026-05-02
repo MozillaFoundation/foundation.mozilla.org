@@ -1,12 +1,10 @@
 .pagination-controls {
   $button-size: rem-calc(32);
   $icon-size: rem-calc(16);
-
   $btn-bg: color(orange, "100");
   $btn-hover-bg: color(orange, "300");
   $btn-disabled-bg: transparent;
   $btn-focus-outline: color(orange, "300");
-
   $btn-bg-dark: color(neutral, "600");
   $btn-hover-bg-dark: color(neutral, "600");
   $btn-disabled-bg-disabled: color(neutral, "600");
@@ -21,6 +19,10 @@
     align-items: center;
     gap: rem-calc(4);
     margin-right: rem-calc(4);
+
+    @include breakpoint(medium down) {
+      display: none;
+    }
   }
 
   button {
@@ -32,6 +34,11 @@
     border-radius: 50%;
     background-color: $btn-bg;
     cursor: pointer;
+
+    @include breakpoint(medium down) {
+      display: none;
+    }
+
     transition:
       background-color $button-transition-duration $button-transition-function,
       opacity $button-transition-duration $button-transition-function;
@@ -63,7 +70,7 @@
   &--dark {
     button {
       background: $btn-bg-dark;
-      opacity: 50%;
+      opacity: 0.5;
 
       img {
         filter: invert(1);
@@ -71,7 +78,7 @@
 
       &:hover:not(:disabled) {
         background: $btn-hover-bg-dark;
-        opacity: 100%;
+        opacity: 1;
       }
 
       &:focus-visible {
@@ -80,7 +87,7 @@
 
       &:disabled {
         background: $btn-disabled-bg-disabled;
-        opacity: 20%;
+        opacity: 0.2;
       }
     }
   }

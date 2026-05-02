@@ -267,6 +267,12 @@
         }
       }
 
+      &__description {
+        > *:last-child {
+          margin-bottom: 0;
+        }
+      }
+
       &__image {
         width: 100%;
         aspect-ratio: math.div(1, 1);
@@ -284,7 +290,7 @@
       }
 
       &__content {
-        padding: map.get($grid-margin-gutters, small) 0;
+        padding-top: map.get($grid-margin-gutters, small);
       }
 
       &[data-carousel-slide="1"] {
