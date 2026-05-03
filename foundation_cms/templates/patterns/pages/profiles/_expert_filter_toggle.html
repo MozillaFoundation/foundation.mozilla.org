@@ -1,0 +1,12 @@
+<div class="expert-filter__group">
+  <button
+    type="button"
+    class="expert-filter__toggle {% if is_active %}expert-filter__toggle--active{% endif %}"
+    aria-expanded="false"
+    aria-controls="{{ controls }}"
+    data-filter-toggle
+  >
+    <span class="expert-filter__toggle-label" data-base-label="{{ label }}">{{ label }}</span>
+    <span class="expert-filter__chevron" aria-hidden="true"></span>
+  </button>
+</div>
