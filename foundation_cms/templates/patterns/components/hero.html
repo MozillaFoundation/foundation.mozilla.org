@@ -1,6 +1,6 @@
 {% load wagtailimages_tags responsive_image_tags %}
 
-<div class="hero__wrapper hero__wrapper--{{ page.hero_variant }} hero__wrapper--{{ page.hero_background_color }} {% if not page.hero_image_rounded_corners %}hero__wrapper--sharp-corners{% endif %}">
+<div class="hero__wrapper hero__wrapper--{{ page.hero_variant }} hero__wrapper--{{ page.hero_background_color }} {% if not page.hero_media_rounded_corners %}hero__wrapper--sharp-corners{% endif %}">
 
   {% if page.hero_variant == "side-by-side" %}
 
@@ -31,7 +31,7 @@
           {% endwith %}
         </div>
 
-        {% if page.hero_image %}
+        {% if page.displayed_hero_content == "image" and page.hero_image %}
           {% if page.hero_image|is_webp %}
             <div class="hero__media">
               <img src="{{ page.hero_image.file.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ page.hero_image.width }}" height="{{ page.hero_image.height }}" class="hero__media-image">
@@ -42,6 +42,12 @@
               <img src="{{ img.url }}" alt="{{ page.hero_image_alt_text|default:page.hero_image.title }}" width="{{ img.width }}" height="{{ img.height }}" class="hero__media-image">
             </div>
           {% endif %}
+        {% elif page.displayed_hero_content == "video" and page.hero_video_url %}
+          <div class="hero__media">
+            <video class="hero__media-video" playsinline="" muted="" loop="" preload="" autoplay>
+              <source src="{{ page.hero_video_url }}" type="video/mp4">
+            </video>
+          </div>
         {% endif %}
 
       </div>
@@ -75,7 +81,7 @@
         </div>
       </div>
 
-      {% if page.hero_image %}
+      {% if page.displayed_hero_content == "image" and page.hero_image %}
         {% if page.hero_image|is_webp %}
           <div class="grid-container">
             <div class="hero__media">
@@ -90,6 +96,14 @@
             </div>
           </div>
         {% endif %}
+      {% elif page.displayed_hero_content == "video" and page.hero_video_url %}
+        <div class="grid-container">
+          <div class="hero__media">
+            <video class="hero__media-video" playsinline muted loop preload autoplay>
+              <source src="{{ page.hero_video_url }}" type="video/mp4">
+            </video>
+          </div>
+        </div>
       {% endif %}
 
     </div>

@@ -302,7 +302,7 @@ class CampaignPage(AbstractBasePage):
             Page.objects.live()
             .public()
             .filter(locale=default_locale, topic_relations__tag=topic)
-            .exclude(id=self.id)
+            .exclude(translation_key=self.translation_key)
             .order_by("-first_published_at")
         )
 
@@ -319,7 +319,7 @@ class CampaignPage(AbstractBasePage):
             CampaignPage.objects.live()
             .public()
             .filter(locale=default_locale)
-            .exclude(id=self.id)
+            .exclude(translation_key=self.translation_key)
             .order_by("-first_published_at")
         )
 

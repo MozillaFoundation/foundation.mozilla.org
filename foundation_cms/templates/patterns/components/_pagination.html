@@ -8,7 +8,7 @@
       <nav class="pagination" aria-label="{% trans "Pagination" %}">
         <div class="pagination__previous">
           {% if page_obj.has_previous %}
-            {% url_with_query viewname page=page_obj.previous_page_number as prev_url %}
+            {% url_with_query viewname base_url=base_url page=page_obj.previous_page_number as prev_url %}
             {% include "patterns/components/button.html" with url=prev_url label=previous_page_label button_style="btn-secondary" %}
           {% else %}
             {% include "patterns/components/button.html" with url="#" label=previous_page_label button_style="btn-secondary" classnames="hidden" %}
@@ -20,7 +20,7 @@
             {% if current == 1 %}
               <span class="current" aria-current="page">1</span>
             {% else %}
-              <a href="{% url_with_query viewname page=1 %}">1</a>
+              <a href="{% url_with_query viewname base_url=base_url page=1 %}">1</a>
             {% endif %}
           </li>
 
@@ -35,7 +35,7 @@
                   {% if page_num == current %}
                     <span class="current" aria-current="page">{{ page_num }}</span>
                   {% else %}
-                    <a href="{% url_with_query viewname page=page_num %}">{{ page_num }}</a>
+                    <a href="{% url_with_query viewname base_url=base_url page=page_num %}">{{ page_num }}</a>
                   {% endif %}
                 </li>
               {% endif %}
@@ -50,14 +50,14 @@
             {% if current == last %}
               <span class="current" aria-current="page">{{ last }}</span>
             {% else %}
-              <a href="{% url_with_query viewname page=last %}">{{ last }}</a>
+              <a href="{% url_with_query viewname base_url=base_url page=last %}">{{ last }}</a>
             {% endif %}
           </li>
         </ol>
 
         <div class="pagination__next">
           {% if page_obj.has_next %}
-            {% url_with_query viewname page=page_obj.next_page_number as next_url %}
+            {% url_with_query viewname base_url=base_url page=page_obj.next_page_number as next_url %}
             {% include "patterns/components/button.html" with url=next_url label=next_page_label button_style="btn-secondary" %}
           {% else %}
             {% include "patterns/components/button.html" with url="#" label=next_page_label button_style="btn-secondary" classnames="hidden" %}

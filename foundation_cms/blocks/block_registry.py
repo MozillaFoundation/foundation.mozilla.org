@@ -4,6 +4,7 @@ from .accordion_block import AccordionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
+from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
@@ -25,6 +26,7 @@ from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
+from .three_column_container_block import ThreeColumnContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -113,6 +115,10 @@ class BlockRegistry:
             "class": LinkButtonBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
+        "donor_help_contact_us_form": {
+            "class": DonorHelpContactUsFormBlock,
+            "group": BlockGroups.ENGAGEMENT,
+        },
         "newsletter_signup": {
             "class": NewsletterSignupBlock,
             "group": BlockGroups.ENGAGEMENT,
@@ -132,6 +138,10 @@ class BlockRegistry:
         },
         "spacer_block": {
             "class": SpacerBlock,
+            "group": BlockGroups.LAYOUT,
+        },
+        "three_column_container_block": {
+            "class": ThreeColumnContainerBlock,
             "group": BlockGroups.LAYOUT,
         },
         "two_column_container_block": {
