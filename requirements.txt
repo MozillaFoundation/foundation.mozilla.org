@@ -49,7 +49,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==4.2.29
+django==4.2.30
     # via
     #   -r requirements.in
     #   dj-database-url
