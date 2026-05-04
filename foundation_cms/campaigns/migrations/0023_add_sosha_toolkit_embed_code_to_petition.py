@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("campaigns", "0020_alter_campaignpage_topics"),
+        ("campaigns", "0022_alter_campaignpage_body"),
     ]
 
     operations = [
