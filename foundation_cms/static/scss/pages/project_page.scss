@@ -175,4 +175,24 @@ body.template-project-page {
       }
     }
   }
+
+  .streamfield-block-wrapper[class*="bg-"][data-block-type="two_column_container_block"] {
+    .two-column-container--left-only {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
+      @include breakpoint(medium up) {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .two-column-container__column--left {
+        > .link-button-block:last-child {
+          .btn-primary {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
 }
