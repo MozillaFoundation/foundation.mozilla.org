@@ -1,0 +1,52 @@
+@use "sass:map";
+@use "sass:math";
+@import "../redesign_base";
+@import "../components/related_content";
+
+body.template-project-page {
+  .hero-carousel {
+    margin: 4rem 0 2rem;
+
+    &__header {
+      text-align: center;
+    }
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    &__author {
+      font-weight: 700;
+    }
+
+    &__author-link {
+      color: $black;
+    }
+
+    &__label {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
+    }
+
+    &__link {
+      color: $black;
+
+      &::after {
+        display: inline-block;
+        content: "";
+        width: rem-calc(16px);
+        height: rem-calc(16px);
+        background-image: url("/static/foundation_cms/_images/icons/link-external-black.svg");
+        background-position: right bottom;
+        background-repeat: no-repeat;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

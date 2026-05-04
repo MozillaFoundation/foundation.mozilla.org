@@ -1,0 +1,47 @@
+{% load static wagtailimages_tags wagtailcore_tags i18n l10n responsive_image_tags %}
+
+<div class="hero-carousel cell small-12 large-8 large-offset-2">
+
+    {% if page.hero_image %}
+        <div class="hero-carousel__images">
+            {% image page.hero_image width-800 as hero_img %}
+            <img
+                src="{{ hero_img.url }}"
+                alt="{% if page.hero_image_alt_text %}{{ page.hero_image_alt_text }}{% else %}{{ page.hero_image.title }}{% endif %}"
+                width="{{ hero_img.width }}"
+                height="{{ hero_img.height }}"
+            >
+        </div>
+    {% endif %}
+    
+    <div class="hero-carousel__header">
+
+        <h1>{{ page.title }}</h1>
+
+        <div class="project-meta">
+
+            {% if page.author %}
+                <div class="project-meta__author">{% trans "By" %} <a class="project-meta__author-link" href="{{ page.author.profile_url }}">{{ page.author.name }}</a></div>
+            {% endif %}
+
+            {% if page.program_label.all %}
+                <div class="project-meta__labels">
+                    {% for label in page.program_label.all %}
+                        <span class="project-meta__label">{{ label.name }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+
+            <a href="#" class="project-meta__link" rel="external">See the project</a>
+        </div>
+
+    
+    
+        {% if page.lede_text %}
+            <div class="lede-text">{{ page.lede_text }}</div>
+        {% endif %}
+    </div>
+
+</div>
