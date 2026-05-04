@@ -14,12 +14,18 @@ class ProjectHeroCarousel {
   constructor(root) {
     this.root = root;
     this.viewport = root.querySelector("[data-project-hero-viewport]");
-    this.slides = Array.from(root.querySelectorAll("[data-project-hero-slide]"));
+    this.slides = Array.from(
+      root.querySelectorAll("[data-project-hero-slide]"),
+    );
     this.thumbnails = Array.from(
       root.querySelectorAll("[data-project-hero-thumbnail]"),
     );
 
-    if (!this.viewport || this.slides.length < 2 || this.thumbnails.length < 2) {
+    if (
+      !this.viewport ||
+      this.slides.length < 2 ||
+      this.thumbnails.length < 2
+    ) {
       return;
     }
 
@@ -46,7 +52,10 @@ class ProjectHeroCarousel {
       "scroll",
       () => {
         clearTimeout(this.scrollTimeout);
-        this.scrollTimeout = setTimeout(() => this.syncActiveSlideToScroll(), 80);
+        this.scrollTimeout = setTimeout(
+          () => this.syncActiveSlideToScroll(),
+          80,
+        );
       },
       { passive: true },
     );
@@ -109,7 +118,10 @@ class ProjectHeroCarousel {
       }
     });
 
-    if (closestSlide && Number(closestSlide.dataset.index) !== this.activeIndex) {
+    if (
+      closestSlide &&
+      Number(closestSlide.dataset.index) !== this.activeIndex
+    ) {
       this.setActiveSlide(closestSlide.dataset.index, false);
     }
   }
