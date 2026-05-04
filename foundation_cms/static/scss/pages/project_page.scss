@@ -5,7 +5,114 @@
 
 body.template-project-page {
   .hero-carousel {
-    margin: 4rem 0 2rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+
+    &__media {
+      position: relative;
+      width: 100%;
+      margin: 0 auto 2rem;
+    }
+
+    &__viewport {
+      display: flex;
+      gap: rem-calc(12);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-right: -1 * map.get($grid-margin-gutters, small);
+      padding-right: map.get($grid-margin-gutters, small);
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      @include breakpoint(large up) {
+        display: block;
+        overflow: visible;
+        margin-right: 0;
+        padding-right: 0;
+      }
+    }
+
+    &__slide {
+      flex: 0 0 calc(100% - #{rem-calc(40)});
+      scroll-snap-align: start;
+      margin: 0;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+
+      &.is-active {
+        opacity: 1;
+      }
+
+      &:only-child {
+        flex-basis: 100%;
+        opacity: 1;
+      }
+
+      @include breakpoint(large up) {
+        display: none;
+        width: 100%;
+
+        &.is-active {
+          display: block;
+        }
+      }
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      aspect-ratio: math.div(3, 2);
+      object-fit: cover;
+    }
+
+    &__caption {
+      margin-bottom: 0;
+    }
+
+    &__thumbnails {
+      display: none;
+
+      @include breakpoint(large up) {
+        position: absolute;
+        top: 0;
+        left: calc(100% + #{rem-calc(8)});
+        display: flex;
+        flex-direction: column;
+        gap: rem-calc(10);
+        width: rem-calc(88);
+      }
+    }
+
+    &__thumbnail {
+      display: block;
+      width: rem-calc(88);
+      height: rem-calc(88);
+      padding: rem-calc(3);
+      border: rem-calc(1) solid transparent;
+      background: none;
+      cursor: pointer;
+      opacity: 0.45;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &:hover,
+      &:focus-visible,
+      &.is-active {
+        opacity: 1;
+      }
+
+      &.is-active {
+        border-color: $black;
+      }
+    }
 
     &__header {
       text-align: center;

@@ -5,15 +5,19 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
-from wagtail.fields import StreamField
-from wagtail.models import Locale
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
+from wagtail.images import get_image_model_string
+from wagtail.models import Locale, Orderable, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
-from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
@@ -21,13 +25,59 @@ def current_year():
     return datetime.date.today().year
 
 
-class ProjectPage(AbstractArticlePage, HeroImageMixin):
-
-    cta_link = StreamField(
-        BlockRegistry.get_blocks(["link_button_block"]),
-        use_json_field=True,
+class ProjectPageHeroImage(TranslatableMixin, Orderable):
+    page = ParentalKey(
+        "gallery_hub.ProjectPage",
+        related_name="hero_gallery_images",
+        on_delete=models.CASCADE,
+    )
+    image = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Image",
+        help_text="Additional image for the project page hero gallery.",
+    )
+    alt_text = models.CharField(
+        max_length=255,
         blank=True,
-        max_num=1,
+        verbose_name="Alt Text",
+        help_text="Descriptive text for screen readers. Leave blank to use the image's default title.",
+    )
+    caption = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="Caption",
+        help_text="Optional caption displayed beneath this hero gallery image.",
+    )
+
+    panels = [
+        FieldPanel("image"),
+        FieldPanel("alt_text"),
+        FieldPanel("caption"),
+    ]
+
+    translatable_fields = [
+        SynchronizedField("image"),
+        TranslatableField("alt_text"),
+        TranslatableField("caption"),
+    ]
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        verbose_name = "Hero Gallery Image"
+        verbose_name_plural = "Hero Gallery Images"
+
+
+class ProjectPage(AbstractArticlePage, HeroImageMixin):
+    lede_text = None
+
+    hero_image_caption = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name="Caption",
+        help_text="Caption displayed beneath the primary hero image.",
     )
 
     program_label = ClusterTaggableManager(
@@ -61,12 +111,12 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
             [
                 FieldPanel("hero_image"),
                 FieldPanel("hero_image_alt_text"),
+                FieldPanel("hero_image_caption"),
+                InlinePanel("hero_gallery_images", label="Additional Hero Image", max_num=10),
             ],
-            heading="Hero Image",
+            heading="Hero Gallery",
             classname="collapsible",
         ),
-        FieldPanel("lede_text"),
-        FieldPanel("cta_link"),
         FieldPanel("program_label"),
         FieldPanel("program_year"),
         PageChooserPanel("expert", "profiles.ExpertProfilePage"),
@@ -76,15 +126,22 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
     translatable_fields = AbstractArticlePage.translatable_fields + [
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
-        TranslatableField("lede_text"),
-        TranslatableField("cta_link"),
+        TranslatableField("hero_image_caption"),
+        SynchronizedField("hero_gallery_images"),
         TranslatableField("body"),
         SynchronizedField("expert"),
     ]
 
     search_fields = AbstractArticlePage.search_fields + [
-        index.SearchField("lede_text", boost=6),
         index.SearchField("hero_image_alt_text", boost=2),
+        index.SearchField("hero_image_caption", boost=2),
+        index.RelatedFields(
+            "hero_gallery_images",
+            [
+                index.SearchField("alt_text", boost=2),
+                index.SearchField("caption", boost=2),
+            ],
+        ),
     ]
 
     subpage_types: list[str] = []
