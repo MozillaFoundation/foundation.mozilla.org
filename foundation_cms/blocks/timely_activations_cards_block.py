@@ -12,15 +12,11 @@ class ActivationCardBlock(BaseBlock):
     A flexible card block for timely activations
     """
 
-    category = blocks.CharBlock(
-        required=False, max_length=20, help_text="Optional category for the card (max 20 characters)."
-    )
-    title = blocks.CharBlock(required=True, max_length=60, help_text="Title for the card (max 60 characters).")
-    text = CustomRichTextBlock(
-        required=False, max_length=180, help_text="Optional description text (max 180 characters)."
-    )
+    category = blocks.CharBlock(required=False, help_text="Optional category for the card.")
+    title = blocks.CharBlock(required=True, help_text="Title for the card.")
+    text = CustomRichTextBlock(required=False, help_text="Optional description text.")
     image = ImageBlock(required=True)
-    link = LinkWithDynamicLabelBlock(label_max_length=14)
+    link = LinkWithDynamicLabelBlock()
 
     class Meta:
         icon = "image"
