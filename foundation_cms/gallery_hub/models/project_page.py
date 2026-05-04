@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -18,27 +19,48 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
-from foundation_cms.mixins.hero_image import HeroImageMixin
+from foundation_cms.core.panels.media_panel import MediaPanel
+from foundation_cms.mixins.hero_media import HeroMediaMixin
+from foundation_cms.validators import validate_vimeo_mp4_url
 
 
 def current_year():
     return datetime.date.today().year
 
 
-class ProjectPageHeroImage(TranslatableMixin, Orderable):
+class ProjectPageHeroMedia(TranslatableMixin, Orderable):
+    MEDIA_TYPE_IMAGE = "image"
+    MEDIA_TYPE_VIDEO = "video"
+
     page = ParentalKey(
         "gallery_hub.ProjectPage",
-        related_name="hero_gallery_images",
+        related_name="hero_gallery_media",
         on_delete=models.CASCADE,
+    )
+    media_type = models.CharField(
+        max_length=25,
+        choices=[
+            (MEDIA_TYPE_IMAGE, "Image or GIF"),
+            (MEDIA_TYPE_VIDEO, "Video"),
+        ],
+        default=MEDIA_TYPE_IMAGE,
+        verbose_name="Media type",
     )
     image = models.ForeignKey(
         get_image_model_string(),
         null=True,
-        blank=False,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Image",
-        help_text="Additional image for the project page hero gallery.",
+        verbose_name="Image or poster image",
+        help_text="Image/GIF for image media, or optional poster image for video media.",
+    )
+    video_url = models.CharField(
+        blank=True,
+        max_length=500,
+        validators=[validate_vimeo_mp4_url],
+        verbose_name="Video URL",
+        help_text="Vimeo MP4 URL for video media.",
     )
     alt_text = models.CharField(
         max_length=255,
@@ -50,27 +72,45 @@ class ProjectPageHeroImage(TranslatableMixin, Orderable):
         max_length=255,
         blank=True,
         verbose_name="Caption",
-        help_text="Optional caption displayed beneath this hero gallery image.",
+        help_text="Optional caption displayed beneath this hero gallery media item.",
     )
 
     panels = [
+        FieldPanel("media_type"),
         FieldPanel("image"),
+        FieldPanel("video_url"),
         FieldPanel("alt_text"),
         FieldPanel("caption"),
     ]
 
     translatable_fields = [
+        SynchronizedField("media_type"),
         SynchronizedField("image"),
+        SynchronizedField("video_url"),
         TranslatableField("alt_text"),
         TranslatableField("caption"),
     ]
 
+    def clean(self):
+        super().clean()
+
+        errors = {}
+
+        if self.media_type == self.MEDIA_TYPE_IMAGE and not self.image:
+            errors["image"] = "Image or GIF media requires an image."
+
+        if self.media_type == self.MEDIA_TYPE_VIDEO and not self.video_url:
+            errors["video_url"] = "Video media requires a video URL."
+
+        if errors:
+            raise ValidationError(errors)
+
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
-        verbose_name = "Hero Gallery Image"
-        verbose_name_plural = "Hero Gallery Images"
+        verbose_name = "Hero Gallery Media"
+        verbose_name_plural = "Hero Gallery Media"
 
 
-class ProjectPage(AbstractArticlePage, HeroImageMixin):
+class ProjectPage(AbstractArticlePage, HeroMediaMixin):
     hero_image_caption = models.CharField(
         max_length=255,
         blank=True,
@@ -111,14 +151,19 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
     )
 
     content_panels = AbstractArticlePage.content_panels + [
+        MediaPanel.create_default(
+            heading="Hero Gallery",
+            classname="collapsible",
+            trigger_field="displayed_hero_content",
+            image_field="hero_image",
+            video_field="hero_video_url",
+        ),
         MultiFieldPanel(
             [
-                FieldPanel("hero_image"),
-                FieldPanel("hero_image_alt_text"),
                 FieldPanel("hero_image_caption"),
-                InlinePanel("hero_gallery_images", label="Additional Hero Image", max_num=10),
+                InlinePanel("hero_gallery_media", label="Additional Hero Media", max_num=10),
             ],
-            heading="Hero Gallery",
+            heading="Additional Hero Gallery Media",
             classname="collapsible",
         ),
         FieldPanel("program_label"),
@@ -130,10 +175,12 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
     ]
 
     translatable_fields = AbstractArticlePage.translatable_fields + [
+        SynchronizedField("displayed_hero_content"),
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
+        SynchronizedField("hero_video_url"),
         TranslatableField("hero_image_caption"),
-        SynchronizedField("hero_gallery_images"),
+        SynchronizedField("hero_gallery_media"),
         TranslatableField("body"),
         SynchronizedField("expert"),
         SynchronizedField("project_link"),
@@ -145,7 +192,7 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         index.SearchField("hero_image_alt_text", boost=2),
         index.SearchField("hero_image_caption", boost=2),
         index.RelatedFields(
-            "hero_gallery_images",
+            "hero_gallery_media",
             [
                 index.SearchField("alt_text", boost=2),
                 index.SearchField("caption", boost=2),

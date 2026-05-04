@@ -79,6 +79,10 @@ class ProjectHeroCarousel {
       slide.classList.toggle(ACTIVE_CLASS, isActive);
       slide.setAttribute("aria-hidden", isActive ? "false" : "true");
 
+      if (!isActive) {
+        slide.querySelectorAll("video").forEach((video) => video.pause());
+      }
+
       if (
         isActive &&
         shouldScroll &&

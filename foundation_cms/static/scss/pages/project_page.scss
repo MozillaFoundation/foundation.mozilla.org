@@ -122,6 +122,18 @@ body.template-project-page {
       }
     }
 
+    &__thumbnail-label {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      color: $black;
+      background-color: color(neutral, "200");
+    }
+
     &__header {
       text-align: center;
 

@@ -2,34 +2,56 @@
 
 <div class="hero-carousel cell small-12 large-8 large-offset-2" data-project-hero-carousel>
 
-    {% if page.hero_image %}
+    {% if page.hero_image or page.hero_video_url %}
         <div class="hero-carousel__media">
             <div class="hero-carousel__viewport" data-project-hero-viewport>
                 <figure class="hero-carousel__slide is-active" data-project-hero-slide data-index="0">
-                    {% image page.hero_image width-800 as hero_img %}
-                    <img
-                        class="hero-carousel__image"
-                        src="{{ hero_img.url }}"
-                        alt="{% if page.hero_image_alt_text %}{{ page.hero_image_alt_text }}{% else %}{{ page.hero_image.title }}{% endif %}"
-                        width="{{ hero_img.width }}"
-                        height="{{ hero_img.height }}"
-                    >
+                    {% if page.displayed_hero_content == "video" and page.hero_video_url %}
+                        <video
+                            class="hero-carousel__image"
+                            src="{{ page.hero_video_url }}"
+                            {% if page.hero_image %}poster="{{ page.hero_image.file.url }}"{% endif %}
+                            controls
+                            playsinline
+                            preload="metadata"
+                        ></video>
+                    {% elif page.hero_image %}
+                        {% image page.hero_image width-800 as hero_img %}
+                        <img
+                            class="hero-carousel__image"
+                            src="{{ hero_img.url }}"
+                            alt="{% if page.hero_image_alt_text %}{{ page.hero_image_alt_text }}{% else %}{{ page.hero_image.title }}{% endif %}"
+                            width="{{ hero_img.width }}"
+                            height="{{ hero_img.height }}"
+                        >
+                    {% endif %}
                     {% if page.hero_image_caption %}
                         <p class="image-block__title hero-carousel__caption">{{ page.hero_image_caption }}</p>
                     {% endif %}
                 </figure>
 
-                {% for item in page.hero_gallery_images.all %}
-                    {% if item.image %}
+                {% for item in page.hero_gallery_media.all %}
+                    {% if item.image or item.video_url %}
                         <figure class="hero-carousel__slide" data-project-hero-slide data-index="{{ forloop.counter }}" aria-hidden="true">
-                            {% image item.image width-800 as gallery_img %}
-                            <img
-                                class="hero-carousel__image"
-                                src="{{ gallery_img.url }}"
-                                alt="{% if item.alt_text %}{{ item.alt_text }}{% else %}{{ item.image.title }}{% endif %}"
-                                width="{{ gallery_img.width }}"
-                                height="{{ gallery_img.height }}"
-                            >
+                            {% if item.media_type == "video" and item.video_url %}
+                                <video
+                                    class="hero-carousel__image"
+                                    src="{{ item.video_url }}"
+                                    {% if item.image %}poster="{{ item.image.file.url }}"{% endif %}
+                                    controls
+                                    playsinline
+                                    preload="metadata"
+                                ></video>
+                            {% elif item.image %}
+                                {% image item.image width-800 as gallery_img %}
+                                <img
+                                    class="hero-carousel__image"
+                                    src="{{ gallery_img.url }}"
+                                    alt="{% if item.alt_text %}{{ item.alt_text }}{% else %}{{ item.image.title }}{% endif %}"
+                                    width="{{ gallery_img.width }}"
+                                    height="{{ gallery_img.height }}"
+                                >
+                            {% endif %}
                             {% if item.caption %}
                                 <p class="image-block__title hero-carousel__caption">{{ item.caption }}</p>
                             {% endif %}
@@ -38,9 +60,8 @@
                 {% endfor %}
             </div>
 
-            {% if page.hero_gallery_images.all %}
-                <div class="hero-carousel__thumbnails" aria-label="{% trans "Project image gallery" %}">
-                    {% image page.hero_image fill-80x80 as hero_thumb %}
+            {% if page.hero_gallery_media.all %}
+                <div class="hero-carousel__thumbnails" aria-label="{% trans "Project media gallery" %}">
                     <button
                         class="hero-carousel__thumbnail is-active"
                         type="button"
@@ -48,18 +69,22 @@
                         data-index="0"
                         aria-current="true"
                     >
-                        <span class="show-for-sr">{% trans "View primary project image" %}</span>
-                        <img
-                            src="{{ hero_thumb.url }}"
-                            alt=""
-                            width="{{ hero_thumb.width }}"
-                            height="{{ hero_thumb.height }}"
-                        >
+                        <span class="show-for-sr">{% trans "View primary project media" %}</span>
+                        {% if page.hero_image %}
+                            {% image page.hero_image fill-80x80 as hero_thumb %}
+                            <img
+                                src="{{ hero_thumb.url }}"
+                                alt=""
+                                width="{{ hero_thumb.width }}"
+                                height="{{ hero_thumb.height }}"
+                            >
+                        {% else %}
+                            <span class="hero-carousel__thumbnail-label">{% trans "Video" %}</span>
+                        {% endif %}
                     </button>
 
-                    {% for item in page.hero_gallery_images.all %}
-                        {% if item.image %}
-                            {% image item.image fill-80x80 as gallery_thumb %}
+                    {% for item in page.hero_gallery_media.all %}
+                        {% if item.image or item.video_url %}
                             <button
                                 class="hero-carousel__thumbnail"
                                 type="button"
@@ -67,13 +92,18 @@
                                 data-index="{{ forloop.counter }}"
                                 aria-current="false"
                             >
-                                <span class="show-for-sr">{% blocktrans with image_number=forloop.counter|add:"1" %}View project image {{ image_number }}{% endblocktrans %}</span>
-                                <img
-                                    src="{{ gallery_thumb.url }}"
-                                    alt=""
-                                    width="{{ gallery_thumb.width }}"
-                                    height="{{ gallery_thumb.height }}"
-                                >
+                                <span class="show-for-sr">{% blocktrans with media_number=forloop.counter|add:"1" %}View project media {{ media_number }}{% endblocktrans %}</span>
+                                {% if item.image %}
+                                    {% image item.image fill-80x80 as gallery_thumb %}
+                                    <img
+                                        src="{{ gallery_thumb.url }}"
+                                        alt=""
+                                        width="{{ gallery_thumb.width }}"
+                                        height="{{ gallery_thumb.height }}"
+                                    >
+                                {% else %}
+                                    <span class="hero-carousel__thumbnail-label">{% trans "Video" %}</span>
+                                {% endif %}
                             </button>
                         {% endif %}
                     {% endfor %}
