@@ -102,8 +102,14 @@
 
             {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
 
-            <a href="#" class="project-meta__link" rel="external">See the project</a>
+            {% if page.project_link %}
+                <a href="{{ page.project_link }}" class="project-meta__link" rel="noopener noreferrer external" target="_blank">See the project</a>
+            {% endif %}
         </div>
+
+        {% if page.lede_text %}
+            <p class="hero-carousel__lede">{{ page.lede_text }}</p>
+        {% endif %}
 
     </div>
 

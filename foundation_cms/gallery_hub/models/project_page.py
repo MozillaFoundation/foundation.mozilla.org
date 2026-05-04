@@ -71,13 +71,17 @@ class ProjectPageHeroImage(TranslatableMixin, Orderable):
 
 
 class ProjectPage(AbstractArticlePage, HeroImageMixin):
-    lede_text = None
-
     hero_image_caption = models.CharField(
         max_length=255,
         blank=True,
         verbose_name="Caption",
         help_text="Caption displayed beneath the primary hero image.",
+    )
+
+    project_link = models.URLField(
+        blank=True,
+        verbose_name="Project link",
+        help_text="External URL for the project. Include https:// or http://.",
     )
 
     program_label = ClusterTaggableManager(
@@ -119,6 +123,8 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         ),
         FieldPanel("program_label"),
         FieldPanel("program_year"),
+        FieldPanel("project_link"),
+        FieldPanel("lede_text"),
         PageChooserPanel("expert", "profiles.ExpertProfilePage"),
         FieldPanel("body"),
     ]
@@ -130,9 +136,12 @@ class ProjectPage(AbstractArticlePage, HeroImageMixin):
         SynchronizedField("hero_gallery_images"),
         TranslatableField("body"),
         SynchronizedField("expert"),
+        SynchronizedField("project_link"),
+        TranslatableField("lede_text"),
     ]
 
     search_fields = AbstractArticlePage.search_fields + [
+        index.SearchField("lede_text", boost=6),
         index.SearchField("hero_image_alt_text", boost=2),
         index.SearchField("hero_image_caption", boost=2),
         index.RelatedFields(
