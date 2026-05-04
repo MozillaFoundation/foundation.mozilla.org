@@ -354,6 +354,7 @@ button.btn-play--vimeo {
     display: inline;
     text-decoration: underline;
     padding: rem-calc(5) 0;
+    color: map.get($mofo-colors, black);
 
     @include breakpoint(large up) {
       @include mofo-text-style($body-text-styles, "small");
