@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0076_alter_generalpage_body_alter_homepage_body"),
+        ("core", "0077_alter_generalpage_body_alter_homepage_body"),
     ]
 
     operations = [
