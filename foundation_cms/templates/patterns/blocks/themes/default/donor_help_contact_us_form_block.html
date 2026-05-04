@@ -1,0 +1,20 @@
+{% load i18n wagtailcore_tags %}
+
+{% block block_content %}
+    <div id="contact-form" class="donor-help-contact-us-form-block">
+        {% if show_formassembly_thank_you %}
+            <div class="donor-help-contact-us-form-block__thank-you">
+                <h2>{% trans "Success!" %}</h2>
+                <p>{% trans "Your form has been submitted." %}</p>
+                {% trans "Ask another question" as ask_another_label %}
+                {% include "patterns/components/button.html" with button_style="btn-secondary" url=page.url|add:"#contact-form" label=ask_another_label %}
+            </div>
+        {% else %}
+            <h2>{{ value.heading }}</h2>
+            {% if value.subheading %}
+                <p>{{ value.subheading }}</p>
+            {% endif %}
+            {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_body.html" %}
+        {% endif %}
+    </div>
+{% endblock block_content %}
