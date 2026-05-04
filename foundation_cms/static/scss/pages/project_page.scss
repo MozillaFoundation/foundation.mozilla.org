@@ -140,8 +140,7 @@ body.template-project-page {
 
   .project-meta {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
     gap: 1rem;
