@@ -103,7 +103,7 @@
             {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
 
             {% if page.project_link %}
-                <a href="{{ page.project_link }}" class="project-meta__link" rel="noopener noreferrer external" target="_blank">See the project</a>
+                <a href="{{ page.project_link }}" class="project-meta__link" rel="noopener noreferrer external" target="_blank">{% trans "See the project" %}</a>
             {% endif %}
         </div>
 
