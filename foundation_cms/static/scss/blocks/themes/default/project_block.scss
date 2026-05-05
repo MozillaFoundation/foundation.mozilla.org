@@ -18,7 +18,7 @@
   }
 
   &:hover,
-  &:focus-within {
+  &:focus-visible {
     &::before {
       opacity: 1;
     }
@@ -79,6 +79,9 @@
     border-radius: 50%;
     color: map.get($mofo-colors, white);
     background-color: rgba(map.get($mofo-colors, black), 0.5);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: rem-calc(16);
     cursor: pointer;
 
     &.is-hidden {
@@ -93,12 +96,14 @@
     &--prev {
       left: rem-calc(8);
       top: 50%;
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-left-white.svg");
       transform: translateY(-50%);
     }
 
     &--next {
       right: rem-calc(8);
       top: 50%;
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
       transform: translateY(-50%);
     }
 
@@ -106,21 +111,22 @@
       left: rem-calc(8);
       bottom: rem-calc(8);
 
-      img {
-        filter: invert(1);
-      }
-
-      .project-block__pause-icon--play {
-        display: none;
+      &::after {
+        display: block;
+        width: rem-calc(16);
+        height: rem-calc(16);
+        content: "";
+        background-color: currentcolor;
+        mask-image: url("/static/foundation_cms/_images/icons/pause-black.svg");
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
       }
 
       &.is-paused {
-        .project-block__pause-icon--pause {
-          display: none;
-        }
-
-        .project-block__pause-icon--play {
-          display: block;
+        &::after {
+          transform: translateX(rem-calc(1));
+          mask-image: url("/static/foundation_cms/_images/icons/play-black.svg");
         }
       }
     }

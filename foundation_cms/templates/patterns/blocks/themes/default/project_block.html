@@ -47,11 +47,9 @@
 
       <button class="project-block__control project-block__control--prev" type="button" data-project-block-prev>
         <span class="show-for-sr">{% trans "Previous media" %}</span>
-        <img src="{% static 'foundation_cms/_images/icons/button-arrow-left-white.svg' %}" alt="" width="16" height="16">
       </button>
       <button class="project-block__control project-block__control--next" type="button" data-project-block-next>
         <span class="show-for-sr">{% trans "Next media" %}</span>
-        <img src="{% static 'foundation_cms/_images/icons/button-arrow-right-white.svg' %}" alt="" width="16" height="16">
       </button>
       {% trans "Pause video" as pause_video_label %}
       {% trans "Play video" as play_video_label %}
@@ -63,20 +61,6 @@
         data-play-label="{{ play_video_label }}"
       >
         <span class="show-for-sr" data-project-block-pause-label>{% trans "Pause video" %}</span>
-        <img
-          class="project-block__pause-icon project-block__pause-icon--pause"
-          src="{% static 'foundation_cms/_images/icons/pause-black.svg' %}"
-          alt=""
-          width="16"
-          height="16"
-        >
-        <img
-          class="project-block__pause-icon project-block__pause-icon--play"
-          src="{% static 'foundation_cms/_images/icons/play-black.svg' %}"
-          alt=""
-          width="16"
-          height="16"
-        >
       </button>
       <div class="project-block__pagination" data-project-block-pagination aria-hidden="true"></div>
     </div>
