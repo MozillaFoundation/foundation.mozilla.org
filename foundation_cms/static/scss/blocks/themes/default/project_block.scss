@@ -2,7 +2,28 @@
 
 .project-block {
   position: relative;
+  isolation: isolate;
+  margin: rem-calc(-8);
+  padding: rem-calc(24);
   color: map.get($mofo-colors, black);
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    background-color: color(orange, "300");
+    border-top-right-radius: 2rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover,
+  &:focus-within {
+    &::before {
+      opacity: 1;
+    }
+  }
 
   &__media {
     position: relative;
@@ -11,7 +32,7 @@
 
   &__viewport {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 109 / 74;
     overflow: hidden;
     background-color: color(neutral, "100");
   }
@@ -108,8 +129,8 @@
     gap: rem-calc(4);
     align-items: center;
     padding: rem-calc(6);
-    border-radius: rem-calc(999);
-    background-color: rgba(map.get($mofo-colors, black), 0.42);
+    border-radius: 9999px;
+    background-color: rgba(map.get($mofo-colors, black), 0.5);
     transform: translateX(-50%);
 
     &.is-hidden {
@@ -121,7 +142,7 @@
     width: rem-calc(8);
     height: rem-calc(8);
     border-radius: 50%;
-    background-color: rgba(map.get($mofo-colors, white), 0.65);
+    background-color: rgba(map.get($mofo-colors, white), 0.5);
 
     &.is-active {
       background-color: map.get($mofo-colors, white);
@@ -146,12 +167,10 @@
   }
 
   &__description {
+    @include text-line-clamp(2);
+
     margin-top: 0;
-    margin-bottom: rem-calc(12);
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    margin-bottom: rem-calc(8);
   }
 
   &__program-label {
