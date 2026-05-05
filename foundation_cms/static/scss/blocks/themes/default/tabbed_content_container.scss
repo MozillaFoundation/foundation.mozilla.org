@@ -99,6 +99,7 @@
       gap: 1rem;
       flex-flow: row nowrap;
       overflow-x: scroll;
+      overscroll-behavior-x: contain;
       scrollbar-width: none;
       scroll-snap-type: x mandatory;
       scroll-padding-left: 1rem;

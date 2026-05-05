@@ -95,11 +95,13 @@ export function initTabbedContentCardSets() {
     });
 
     let touchStartX = 0;
+    let touchStartScrollLeft = 0;
 
     panel.addEventListener(
       "touchstart",
       (e) => {
         touchStartX = e.touches[0].clientX;
+        touchStartScrollLeft = panel.scrollLeft;
       },
       { passive: true },
     );
@@ -111,13 +113,15 @@ export function initTabbedContentCardSets() {
         if (Math.abs(delta) < SWIPE_THRESHOLD) return;
 
         const width = getPanelPageWidth(panel);
-        const currentIndex = Math.round(panel.scrollLeft / width);
+        const currentIndex = Math.round(touchStartScrollLeft / width);
         const newIndex =
           delta < 0
             ? Math.min(currentIndex + 1, pages - 1)
             : Math.max(currentIndex - 1, 0);
 
-        panel.scrollTo({ left: newIndex * width, behavior: "smooth" });
+        if (newIndex !== currentIndex) {
+          panel.scrollTo({ left: newIndex * width, behavior: "smooth" });
+        }
       },
       { passive: true },
     );
