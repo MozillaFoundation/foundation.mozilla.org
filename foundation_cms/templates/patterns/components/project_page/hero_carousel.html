@@ -9,12 +9,14 @@
                     {% if page.displayed_hero_content == "video" and page.hero_video_url %}
                         <video
                             class="hero-carousel__image"
-                            src="{{ page.hero_video_url }}"
-                            {% if page.hero_image %}poster="{{ page.hero_image.file.url }}"{% endif %}
-                            controls
                             playsinline
-                            preload="metadata"
-                        ></video>
+                            muted
+                            loop
+                            preload
+                            autoplay
+                        >
+                            <source src="{{ page.hero_video_url }}" type="video/mp4">
+                        </video>
                     {% elif page.hero_image %}
                         {% image page.hero_image width-800 as hero_img %}
                         <img
@@ -36,12 +38,14 @@
                             {% if item.media_type == "video" and item.video_url %}
                                 <video
                                     class="hero-carousel__image"
-                                    src="{{ item.video_url }}"
-                                    {% if item.image %}poster="{{ item.image.file.url }}"{% endif %}
-                                    controls
                                     playsinline
-                                    preload="metadata"
-                                ></video>
+                                    muted
+                                    loop
+                                    preload
+                                    autoplay
+                                >
+                                    <source src="{{ item.video_url }}" type="video/mp4">
+                                </video>
                             {% elif item.image %}
                                 {% image item.image width-800 as gallery_img %}
                                 <img
@@ -70,7 +74,16 @@
                         aria-current="true"
                     >
                         <span class="show-for-sr">{% trans "View primary project media" %}</span>
-                        {% if page.hero_image %}
+                        {% if page.displayed_hero_content == "video" and page.hero_video_url %}
+                            <video
+                                class="hero-carousel__thumbnail-video"
+                                playsinline
+                                muted
+                                preload="auto"
+                            >
+                                <source src="{{ page.hero_video_url }}" type="video/mp4">
+                            </video>
+                        {% elif page.hero_image %}
                             {% image page.hero_image fill-80x80 as hero_thumb %}
                             <img
                                 src="{{ hero_thumb.url }}"
@@ -93,7 +106,16 @@
                                 aria-current="false"
                             >
                                 <span class="show-for-sr">{% blocktrans with media_number=forloop.counter|add:"1" %}View project media {{ media_number }}{% endblocktrans %}</span>
-                                {% if item.image %}
+                                {% if item.media_type == "video" and item.video_url %}
+                                    <video
+                                        class="hero-carousel__thumbnail-video"
+                                        playsinline
+                                        muted
+                                        preload="auto"
+                                    >
+                                        <source src="{{ item.video_url }}" type="video/mp4">
+                                    </video>
+                                {% elif item.image %}
                                     {% image item.image fill-80x80 as gallery_thumb %}
                                     <img
                                         src="{{ gallery_thumb.url }}"

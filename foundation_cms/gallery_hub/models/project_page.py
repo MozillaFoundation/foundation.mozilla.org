@@ -66,8 +66,8 @@ class ProjectPageHeroMedia(TranslatableMixin, Orderable):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Image or poster image",
-        help_text="Image/GIF for image media, or optional poster image for video media.",
+        verbose_name="Image",
+        help_text="Image/GIF for image media.",
     )
     video_url = models.CharField(
         blank=True,

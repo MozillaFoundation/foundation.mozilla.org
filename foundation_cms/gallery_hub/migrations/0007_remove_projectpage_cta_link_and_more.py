@@ -107,12 +107,12 @@ class Migration(migrations.Migration):
                     "image",
                     models.ForeignKey(
                         blank=True,
-                        help_text="Image/GIF for image media, or optional poster image for video media.",
+                        help_text="Image/GIF for image media.",
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         related_name="+",
                         to="images.foundationcustomimage",
-                        verbose_name="Image or poster image",
+                        verbose_name="Image",
                     ),
                 ),
                 (

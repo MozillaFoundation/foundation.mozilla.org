@@ -32,6 +32,7 @@ class ProjectHeroCarousel {
     this.activeIndex = 0;
     this.scrollTimeout = null;
     this.bindEvents();
+    this.setActiveSlide(this.activeIndex, false);
   }
 
   /**
@@ -81,6 +82,16 @@ class ProjectHeroCarousel {
 
       if (!isActive) {
         slide.querySelectorAll("video").forEach((video) => video.pause());
+      }
+
+      if (isActive) {
+        slide.querySelectorAll("video").forEach((video) => {
+          const playPromise = video.play();
+
+          if (playPromise) {
+            playPromise.catch(() => {});
+          }
+        });
       }
 
       if (
