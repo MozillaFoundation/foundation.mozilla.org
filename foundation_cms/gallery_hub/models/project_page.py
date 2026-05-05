@@ -82,11 +82,25 @@ class ProjectPageHeroMedia(TranslatableMixin, Orderable):
     )
 
     panels = [
-        FieldPanel("media_type"),
-        FieldPanel("image"),
-        FieldPanel("video_url"),
-        FieldPanel("alt_text"),
-        FieldPanel("caption"),
+        MediaPanel(
+            [
+                FieldPanel("media_type"),
+                FieldPanel(
+                    "image",
+                    attrs={"data-media-target": "field", "data-condition": MEDIA_TYPE_IMAGE},
+                ),
+                FieldPanel(
+                    "video_url",
+                    attrs={"data-media-target": "field", "data-condition": MEDIA_TYPE_VIDEO},
+                ),
+                FieldPanel(
+                    "alt_text",
+                    attrs={"data-media-target": "field", "data-condition": MEDIA_TYPE_IMAGE},
+                ),
+                FieldPanel("caption"),
+            ],
+            trigger_field="media_type",
+        ),
     ]
 
     translatable_fields = [
