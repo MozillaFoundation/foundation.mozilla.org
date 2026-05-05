@@ -34,6 +34,14 @@ def current_year():
     return datetime.date.today().year
 
 
+PROJECT_PAGE_BASE_CONTENT_PANELS = [
+    panel for panel in AbstractArticlePage.content_panels if getattr(panel, "field_name", None) != "topics"
+]
+PROJECT_PAGE_TOPICS_PANEL = next(
+    panel for panel in AbstractArticlePage.content_panels if getattr(panel, "field_name", None) == "topics"
+)
+
+
 class ProjectPageHeroMedia(TranslatableMixin, Orderable):
     MEDIA_TYPE_IMAGE = "image"
     MEDIA_TYPE_VIDEO = "video"
@@ -170,7 +178,7 @@ class ProjectPage(AbstractArticlePage, HeroMediaMixin):
         related_name="gallery_projects",
     )
 
-    content_panels = AbstractArticlePage.content_panels + [
+    content_panels = PROJECT_PAGE_BASE_CONTENT_PANELS + [
         MediaPanel.create_default(
             heading="Hero Gallery",
             classname="collapsible",
@@ -187,6 +195,7 @@ class ProjectPage(AbstractArticlePage, HeroMediaMixin):
             classname="collapsible",
         ),
         FieldPanel("program_label"),
+        PROJECT_PAGE_TOPICS_PANEL,
         FieldPanel("program_year"),
         FieldPanel("project_link"),
         FieldPanel("lede_text"),
