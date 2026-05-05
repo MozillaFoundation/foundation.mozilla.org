@@ -6,18 +6,18 @@
       <div class="project-block__viewport" data-project-block-viewport>
         <div class="project-block__track" data-project-block-track>
           {% if project.displayed_hero_content == "video" and project.hero_video_url %}
-            <div class="project-block__slide is-active" data-project-block-slide>
+            <div class="project-block__slide is-active" data-project-block-slide aria-hidden="false">
               <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
                 <source src="{{ project.hero_video_url }}" type="video/mp4">
               </video>
             </div>
           {% elif project.hero_image %}
-            <div class="project-block__slide is-active" data-project-block-slide>
+            <div class="project-block__slide is-active" data-project-block-slide aria-hidden="false">
               {% image project.hero_image fill-720x405 as hero_image %}
               <img
                 class="project-block__image"
                 src="{{ hero_image.url }}"
-                alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
+                alt="{{ project.hero_image_alt_text }}"
                 width="{{ hero_image.width }}"
                 height="{{ hero_image.height }}"
               >
@@ -25,7 +25,7 @@
           {% endif %}
 
           {% for media in project.hero_gallery_media.all %}
-            <div class="project-block__slide" data-project-block-slide>
+            <div class="project-block__slide" data-project-block-slide aria-hidden="true">
               {% if media.media_type == "video" and media.video_url %}
                 <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
                   <source src="{{ media.video_url }}" type="video/mp4">
@@ -35,7 +35,7 @@
                 <img
                   class="project-block__image"
                   src="{{ media_image.url }}"
-                  alt="{% if media.alt_text %}{{ media.alt_text }}{% else %}{{ media.image.title }}{% endif %}"
+                  alt="{{ media.alt_text }}"
                   width="{{ media_image.width }}"
                   height="{{ media_image.height }}"
                 >

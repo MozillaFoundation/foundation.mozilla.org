@@ -217,7 +217,10 @@ class ProjectBlock {
    */
   update() {
     this.slides.forEach((slide, index) => {
-      slide.classList.toggle(CLASSES.active, index === this.index);
+      const isActive = index === this.index;
+
+      slide.classList.toggle(CLASSES.active, isActive);
+      slide.setAttribute("aria-hidden", String(!isActive));
     });
 
     this.updateTrackPosition();
