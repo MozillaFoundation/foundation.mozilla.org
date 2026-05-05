@@ -10,6 +10,7 @@
 import {
   SWIPE_THRESHOLD,
   RESIZE_DEBOUNCE_MS,
+  PEEK_CLASS,
   getLogicalIndex,
   tripleCards,
   debounce,
@@ -98,6 +99,7 @@ export class SlidingCarousel {
     requestAnimationFrame(() => {
       this.cacheComputedValues();
       this.updateTransform(this.index, false);
+      this.updatePeekItem();
     });
   }
 
@@ -162,10 +164,28 @@ export class SlidingCarousel {
       this.counterEl.textContent = `${logicalIndex + 1}`;
     }
     updateIndicators(this.root, logicalIndex);
+    this.updatePeekItem();
   }
 
   getLogicalIndex() {
     return getLogicalIndex(this.index, this.total);
+  }
+
+  getPeekIndex() {
+    if (!this.isCarousel && window.innerWidth >= DISABLE_CAROUSEL_MIN_WIDTH) {
+      return -1;
+    }
+    if (!this.slideOffset) return -1;
+    const viewportWidth = this.viewport.getBoundingClientRect().width;
+    const visibleCount = Math.floor(viewportWidth / this.slideOffset);
+    return this.index + visibleCount;
+  }
+
+  updatePeekItem() {
+    const peekIndex = this.getPeekIndex();
+    this.items.forEach((item, i) => {
+      item.classList.toggle(PEEK_CLASS, i === peekIndex);
+    });
   }
 
   handleResize() {

@@ -1,5 +1,6 @@
 export const SWIPE_THRESHOLD = 50;
 export const RESIZE_DEBOUNCE_MS = 200;
+export const PEEK_CLASS = "is-peek";
 
 /**
  * Returns the 0-based logical index within the original card set.
