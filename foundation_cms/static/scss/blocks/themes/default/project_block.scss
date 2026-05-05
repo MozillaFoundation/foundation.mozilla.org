@@ -16,16 +16,19 @@
     background-color: color(neutral, "100");
   }
 
-  &__slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+  &__track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
 
-    &.is-active {
-      opacity: 1;
-      pointer-events: auto;
+  &__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+
+    &:not(.is-active) {
+      pointer-events: none;
     }
   }
 
@@ -79,6 +82,20 @@
 
       img {
         filter: invert(1);
+      }
+
+      .project-block__pause-icon--play {
+        display: none;
+      }
+
+      &.is-paused {
+        .project-block__pause-icon--pause {
+          display: none;
+        }
+
+        .project-block__pause-icon--play {
+          display: block;
+        }
       }
     }
   }
