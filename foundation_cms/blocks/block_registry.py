@@ -4,6 +4,7 @@ from .accordion_block import AccordionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
+from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
@@ -117,6 +118,10 @@ class BlockRegistry:
         },
         "link_button_block": {
             "class": LinkButtonBlock,
+            "group": BlockGroups.ENGAGEMENT,
+        },
+        "donor_help_contact_us_form": {
+            "class": DonorHelpContactUsFormBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         "newsletter_signup": {
