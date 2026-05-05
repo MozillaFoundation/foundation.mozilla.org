@@ -46,13 +46,18 @@
 
   &__header-controls {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    margin: rem-calc(14) 0 rem-calc(24);
+
+    .image-carousel__controls {
+      margin-left: auto;
+    }
   }
 
   &__header {
     @include mofo-text-style($header-styles, "h3", $header-font-family);
 
-    margin: rem-calc(14) 0;
+    margin: 0;
   }
 
   &__card-container {
