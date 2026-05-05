@@ -1,0 +1,87 @@
+{% load i18n static wagtailimages_tags %}
+
+{% with project=self.project.specific %}
+  <article class="project-block" data-project-block>
+    <div class="project-block__media" data-project-block-media>
+      <div class="project-block__viewport" data-project-block-viewport>
+        {% if project.displayed_hero_content == "video" and project.hero_video_url %}
+          <div class="project-block__slide is-active" data-project-block-slide>
+            <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
+              <source src="{{ project.hero_video_url }}" type="video/mp4">
+            </video>
+          </div>
+        {% elif project.hero_image %}
+          <div class="project-block__slide is-active" data-project-block-slide>
+            {% image project.hero_image fill-720x405 as hero_image %}
+            <img
+              class="project-block__image"
+              src="{{ hero_image.url }}"
+              alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
+              width="{{ hero_image.width }}"
+              height="{{ hero_image.height }}"
+            >
+          </div>
+        {% endif %}
+
+        {% for media in project.hero_gallery_media.all %}
+          <div class="project-block__slide" data-project-block-slide>
+            {% if media.media_type == "video" and media.video_url %}
+              <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
+                <source src="{{ media.video_url }}" type="video/mp4">
+              </video>
+            {% elif media.image %}
+              {% image media.image fill-720x405 as media_image %}
+              <img
+                class="project-block__image"
+                src="{{ media_image.url }}"
+                alt="{% if media.alt_text %}{{ media.alt_text }}{% else %}{{ media.image.title }}{% endif %}"
+                width="{{ media_image.width }}"
+                height="{{ media_image.height }}"
+              >
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <button class="project-block__control project-block__control--prev" type="button" data-project-block-prev>
+        <span class="show-for-sr">{% trans "Previous media" %}</span>
+        <img src="{% static 'foundation_cms/images/icons/button-arrow-left-white.svg' %}" alt="" width="16" height="16">
+      </button>
+      <button class="project-block__control project-block__control--next" type="button" data-project-block-next>
+        <span class="show-for-sr">{% trans "Next media" %}</span>
+        <img src="{% static 'foundation_cms/images/icons/button-arrow-right-white.svg' %}" alt="" width="16" height="16">
+      </button>
+      {% trans "Pause video" as pause_video_label %}
+      {% trans "Play video" as play_video_label %}
+      <button
+        class="project-block__control project-block__control--pause"
+        type="button"
+        data-project-block-pause
+        data-pause-label="{{ pause_video_label }}"
+        data-play-label="{{ play_video_label }}"
+      >
+        <span class="show-for-sr" data-project-block-pause-label>{% trans "Pause video" %}</span>
+        <img src="{% static 'foundation_cms/images/icons/pause-black.svg' %}" alt="" width="16" height="16">
+      </button>
+      <div class="project-block__pagination" data-project-block-pagination aria-hidden="true"></div>
+    </div>
+
+    <div class="project-block__content">
+      <h3 class="project-block__title">
+        <a href="{{ project.url }}">{{ project.title }}</a>
+      </h3>
+
+      {% if self.show_description and project.lede_text %}
+        <p class="project-block__description">{{ project.lede_text }}</p>
+      {% endif %}
+
+      {% if project.program_label.all %}
+        <p class="project-block__program-label">
+          {% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        </p>
+      {% endif %}
+
+      {% include "patterns/components/topic_pills.html" with topics=project.topics.all %}
+    </div>
+  </article>
+{% endwith %}

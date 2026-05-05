@@ -6,7 +6,6 @@ from .divider_block import DividerBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
-from .gallery_card_block import GalleryCardBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
@@ -32,6 +31,7 @@ from .product_review_section_block import (
     ProductReviewSectionReduceYourRisksBlock,
     ProductReviewSectionWhatYouShouldKnowBlock,
 )
+from .project_block import ProjectBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_block import SpotlightCardBlock
@@ -57,7 +57,7 @@ __all__ = [
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
-    "GalleryCardBlock",
+    "ProjectBlock",
     "FruElementBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",

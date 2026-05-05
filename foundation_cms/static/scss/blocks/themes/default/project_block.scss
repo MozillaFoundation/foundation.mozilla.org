@@ -1,0 +1,149 @@
+@use "sass:map";
+
+.project-block {
+  position: relative;
+  color: map.get($mofo-colors, black);
+
+  &__media {
+    position: relative;
+    margin-bottom: rem-calc(12);
+  }
+
+  &__viewport {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: color(neutral, "100");
+  }
+
+  &__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+
+    &.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &__image,
+  &__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__control {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem-calc(32);
+    height: rem-calc(32);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: map.get($mofo-colors, white);
+    background-color: rgba(map.get($mofo-colors, black), 0.42);
+    cursor: pointer;
+
+    &.is-hidden {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(map.get($mofo-colors, black), 0.7);
+    }
+
+    &--prev {
+      left: rem-calc(8);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--next {
+      right: rem-calc(8);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--pause {
+      left: rem-calc(8);
+      bottom: rem-calc(8);
+
+      img {
+        filter: invert(1);
+      }
+    }
+  }
+
+  &__pagination {
+    position: absolute;
+    left: 50%;
+    bottom: rem-calc(8);
+    display: flex;
+    gap: rem-calc(4);
+    align-items: center;
+    padding: rem-calc(6);
+    border-radius: rem-calc(999);
+    background-color: rgba(map.get($mofo-colors, black), 0.42);
+    transform: translateX(-50%);
+
+    &.is-hidden {
+      display: none;
+    }
+  }
+
+  &__pagination-dot {
+    width: rem-calc(8);
+    height: rem-calc(8);
+    border-radius: 50%;
+    background-color: rgba(map.get($mofo-colors, white), 0.65);
+
+    &.is-active {
+      background-color: map.get($mofo-colors, white);
+    }
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+    margin-top: 0;
+    margin-bottom: rem-calc(8);
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover,
+      &:focus-visible {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__description {
+    margin-top: 0;
+    margin-bottom: rem-calc(12);
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  &__program-label {
+    margin-top: 0;
+    margin-bottom: rem-calc(8);
+    text-transform: uppercase;
+  }
+
+  .topic-pills {
+    margin-top: 0;
+  }
+}
