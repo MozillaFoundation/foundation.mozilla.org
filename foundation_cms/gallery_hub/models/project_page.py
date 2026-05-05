@@ -23,6 +23,12 @@ from foundation_cms.core.panels.media_panel import MediaPanel
 from foundation_cms.mixins.hero_media import HeroMediaMixin
 from foundation_cms.validators import validate_vimeo_mp4_url
 
+VIMEO_MP4_HELP_TEXT = (
+    "Log into Vimeo using 1Password and upload the desired video. "
+    "Then select the video and click '...', 'Video File Links', "
+    "and select '(mp4, 1920 x 1080)'. Copy and paste the link here."
+)
+
 
 def current_year():
     return datetime.date.today().year
@@ -60,7 +66,7 @@ class ProjectPageHeroMedia(TranslatableMixin, Orderable):
         max_length=500,
         validators=[validate_vimeo_mp4_url],
         verbose_name="Video URL",
-        help_text="Vimeo MP4 URL for video media.",
+        help_text=VIMEO_MP4_HELP_TEXT,
     )
     alt_text = models.CharField(
         max_length=255,
