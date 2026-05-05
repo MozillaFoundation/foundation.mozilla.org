@@ -13,7 +13,6 @@
     inset: 0;
     content: "";
     background-color: color(orange, "300");
-    border-top-right-radius: 2rem;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
@@ -22,6 +21,12 @@
   &:focus-within {
     &::before {
       opacity: 1;
+    }
+  }
+
+  &:hover {
+    .project-block__viewport {
+      border-top-right-radius: 2rem;
     }
   }
 
@@ -73,7 +78,7 @@
     border: 0;
     border-radius: 50%;
     color: map.get($mofo-colors, white);
-    background-color: rgba(map.get($mofo-colors, black), 0.42);
+    background-color: rgba(map.get($mofo-colors, black), 0.5);
     cursor: pointer;
 
     &.is-hidden {
@@ -82,7 +87,7 @@
 
     &:hover,
     &:focus-visible {
-      background-color: rgba(map.get($mofo-colors, black), 0.7);
+      background-color: map.get($mofo-colors, black);
     }
 
     &--prev {
