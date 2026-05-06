@@ -44,7 +44,7 @@ body.template-project-page {
     }
 
     &__slide {
-      flex: 0 0 calc(100% - #{rem-calc(40)});
+      flex: 0 0 calc(100% - #{rem-calc(16)});
       scroll-snap-align: start;
       margin: 0;
       opacity: 0.5;
@@ -76,8 +76,61 @@ body.template-project-page {
       object-fit: cover;
     }
 
+    &__frame {
+      position: relative;
+    }
+
     &__caption {
       margin-bottom: 0;
+    }
+
+    &__control {
+      position: absolute;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: rem-calc(32);
+      height: rem-calc(32);
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      color: $white;
+      background-color: rgba($black, 0.5);
+      cursor: pointer;
+
+      &.is-hidden {
+        display: none;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background-color: $black;
+      }
+
+      &--pause {
+        left: rem-calc(8);
+        bottom: rem-calc(8);
+
+        &::after {
+          display: block;
+          width: rem-calc(16);
+          height: rem-calc(16);
+          content: "";
+          background-color: currentcolor;
+          mask-image: url("/static/foundation_cms/_images/icons/pause-black.svg");
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: contain;
+        }
+
+        &.is-paused {
+          &::after {
+            transform: translateX(rem-calc(1));
+            mask-image: url("/static/foundation_cms/_images/icons/play-black.svg");
+          }
+        }
+      }
     }
 
     &__thumbnails {
@@ -89,7 +142,7 @@ body.template-project-page {
         left: calc(100% + #{rem-calc(8)});
         display: flex;
         flex-direction: column;
-        gap: rem-calc(10);
+        gap: rem-calc(4);
         width: rem-calc(88);
       }
     }

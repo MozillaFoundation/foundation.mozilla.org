@@ -143,7 +143,7 @@ class ProjectPage(AbstractArticlePage, HeroMediaMixin):
         max_length=255,
         blank=True,
         verbose_name="Caption",
-        help_text="Caption displayed beneath the primary hero image.",
+        help_text="Optional caption displayed beneath the primary hero image.",
     )
 
     project_link = models.URLField(
@@ -186,20 +186,20 @@ class ProjectPage(AbstractArticlePage, HeroMediaMixin):
             image_field="hero_image",
             video_field="hero_video_url",
         ),
+        FieldPanel("hero_image_caption"),
         MultiFieldPanel(
             [
-                FieldPanel("hero_image_caption"),
                 InlinePanel("hero_gallery_media", label="Additional Hero Media", max_num=10),
             ],
             heading="Additional Hero Gallery Media",
             classname="collapsible",
         ),
+        PageChooserPanel("expert", "profiles.ExpertProfilePage"),
         FieldPanel("program_label"),
         PROJECT_PAGE_TOPICS_PANEL,
         FieldPanel("program_year"),
         FieldPanel("project_link"),
         FieldPanel("lede_text"),
-        PageChooserPanel("expert", "profiles.ExpertProfilePage"),
         FieldPanel("body"),
     ]
 

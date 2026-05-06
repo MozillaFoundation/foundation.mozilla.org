@@ -6,27 +6,30 @@
         <div class="hero-carousel__media">
             <div class="hero-carousel__viewport" data-project-hero-viewport>
                 <figure class="hero-carousel__slide is-active" data-project-hero-slide data-index="0">
-                    {% if page.displayed_hero_content == "video" and page.hero_video_url %}
-                        <video
-                            class="hero-carousel__image"
-                            playsinline
-                            muted
-                            loop
-                            preload
-                            autoplay
-                        >
-                            <source src="{{ page.hero_video_url }}" type="video/mp4">
-                        </video>
-                    {% elif page.hero_image %}
-                        {% image page.hero_image width-800 as hero_img %}
-                        <img
-                            class="hero-carousel__image"
-                            src="{{ hero_img.url }}"
-                            alt="{% if page.hero_image_alt_text %}{{ page.hero_image_alt_text }}{% else %}{{ page.hero_image.title }}{% endif %}"
-                            width="{{ hero_img.width }}"
-                            height="{{ hero_img.height }}"
-                        >
-                    {% endif %}
+                    <div class="hero-carousel__frame">
+                        {% if page.displayed_hero_content == "video" and page.hero_video_url %}
+                            <video
+                                class="hero-carousel__image"
+                                data-project-hero-video
+                                playsinline
+                                muted
+                                loop
+                                preload
+                                autoplay
+                            >
+                                <source src="{{ page.hero_video_url }}" type="video/mp4">
+                            </video>
+                        {% elif page.hero_image %}
+                            {% image page.hero_image width-800 as hero_img %}
+                            <img
+                                class="hero-carousel__image"
+                                src="{{ hero_img.url }}"
+                                alt="{% if page.hero_image_alt_text %}{{ page.hero_image_alt_text }}{% else %}{{ page.hero_image.title }}{% endif %}"
+                                width="{{ hero_img.width }}"
+                                height="{{ hero_img.height }}"
+                            >
+                        {% endif %}
+                    </div>
                     {% if page.hero_image_caption %}
                         <p class="image-block__title hero-carousel__caption">{{ page.hero_image_caption }}</p>
                     {% endif %}
@@ -35,34 +38,50 @@
                 {% for item in page.hero_gallery_media.all %}
                     {% if item.image or item.video_url %}
                         <figure class="hero-carousel__slide" data-project-hero-slide data-index="{{ forloop.counter }}" aria-hidden="true">
-                            {% if item.media_type == "video" and item.video_url %}
-                                <video
-                                    class="hero-carousel__image"
-                                    playsinline
-                                    muted
-                                    loop
-                                    preload
-                                    autoplay
-                                >
-                                    <source src="{{ item.video_url }}" type="video/mp4">
-                                </video>
-                            {% elif item.image %}
-                                {% image item.image width-800 as gallery_img %}
-                                <img
-                                    class="hero-carousel__image"
-                                    src="{{ gallery_img.url }}"
-                                    alt="{% if item.alt_text %}{{ item.alt_text }}{% else %}{{ item.image.title }}{% endif %}"
-                                    width="{{ gallery_img.width }}"
-                                    height="{{ gallery_img.height }}"
-                                >
-                            {% endif %}
+                            <div class="hero-carousel__frame">
+                                {% if item.media_type == "video" and item.video_url %}
+                                    <video
+                                        class="hero-carousel__image"
+                                        data-project-hero-video
+                                        playsinline
+                                        muted
+                                        loop
+                                        preload
+                                        autoplay
+                                    >
+                                        <source src="{{ item.video_url }}" type="video/mp4">
+                                    </video>
+                                {% elif item.image %}
+                                    {% image item.image width-800 as gallery_img %}
+                                    <img
+                                        class="hero-carousel__image"
+                                        src="{{ gallery_img.url }}"
+                                        alt="{% if item.alt_text %}{{ item.alt_text }}{% else %}{{ item.image.title }}{% endif %}"
+                                        width="{{ gallery_img.width }}"
+                                        height="{{ gallery_img.height }}"
+                                    >
+                                {% endif %}
+                            </div>
                             {% if item.caption %}
                                 <p class="image-block__title hero-carousel__caption">{{ item.caption }}</p>
                             {% endif %}
                         </figure>
                     {% endif %}
                 {% endfor %}
+
             </div>
+
+            {% trans "Pause video" as pause_video_label %}
+            {% trans "Play video" as play_video_label %}
+            <button
+                class="hero-carousel__control hero-carousel__control--pause is-hidden"
+                type="button"
+                data-project-hero-pause
+                data-pause-label="{{ pause_video_label }}"
+                data-play-label="{{ play_video_label }}"
+            >
+                <span class="show-for-sr" data-project-hero-pause-label>{% trans "Pause video" %}</span>
+            </button>
 
             {% if page.hero_gallery_media.all %}
                 <div class="hero-carousel__thumbnails" aria-label="{% trans "Project media gallery" %}">
