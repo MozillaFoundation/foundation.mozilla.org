@@ -3,6 +3,7 @@ from .base_card_block import BaseCardBlock
 from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
+from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
@@ -41,6 +42,7 @@ from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock, TextMediaBlock
 from .text_social_block import TextSocialBlock
+from .three_column_container_block import ThreeColumnContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -52,6 +54,7 @@ __all__ = [
     "BaseCardBlock",
     "BackgroundColorChoiceBlock",
     "DividerBlock",
+    "DonorHelpContactUsFormBlock",
     "CalloutBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
@@ -74,6 +77,7 @@ __all__ = [
     "TextImageBlock",
     "TextMediaBlock",
     "TextSocialBlock",
+    "ThreeColumnContainerBlock",
     "LinkBlock",
     "OptionalLinkBlock",
     "PortraitCardBlock",

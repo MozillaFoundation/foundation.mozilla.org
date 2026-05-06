@@ -1,0 +1,23 @@
+{% load wagtailcore_tags %}
+
+<div class="three-column-container three-column-container--{{ self.vertical_alignment }}">
+
+  <div class="three-column-container__column three-column-container__column--left">
+    {% for block in self.left_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+
+  <div class="three-column-container__column three-column-container__column--center">
+    {% for block in self.center_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+
+  <div class="three-column-container__column three-column-container__column--right">
+    {% for block in self.right_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+
+</div>
