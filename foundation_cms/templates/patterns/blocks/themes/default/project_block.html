@@ -45,16 +45,16 @@
         </div>
       </div>
 
-      <button class="project-block__control project-block__control--prev" type="button" data-project-block-prev>
+      <button class="project-block__control project-block__control--prev is-hidden" type="button" data-project-block-prev>
         <span class="show-for-sr">{% trans "Previous media" %}</span>
       </button>
-      <button class="project-block__control project-block__control--next" type="button" data-project-block-next>
+      <button class="project-block__control project-block__control--next is-hidden" type="button" data-project-block-next>
         <span class="show-for-sr">{% trans "Next media" %}</span>
       </button>
       {% trans "Pause video" as pause_video_label %}
       {% trans "Play video" as play_video_label %}
       <button
-        class="project-block__control project-block__control--pause"
+        class="project-block__control project-block__control--pause is-hidden"
         type="button"
         data-project-block-pause
         data-pause-label="{{ pause_video_label }}"
@@ -62,7 +62,7 @@
       >
         <span class="show-for-sr" data-project-block-pause-label>{% trans "Pause video" %}</span>
       </button>
-      <div class="project-block__pagination" data-project-block-pagination aria-hidden="true"></div>
+      <div class="project-block__pagination is-hidden" data-project-block-pagination aria-hidden="true"></div>
     </div>
 
     <div class="project-block__content">

@@ -22,6 +22,11 @@ const CLASSES = {
   paused: "is-paused",
 };
 
+const DATA_ATTRIBUTES = {
+  clone: "data-project-block-clone",
+  slideIndex: "data-project-block-slide-index",
+};
+
 export function initProjectBlocks() {
   document
     .querySelectorAll(SELECTORS.root)
@@ -49,6 +54,8 @@ class ProjectBlock {
     this.currentX = 0;
     this.swipeStartTransform = 0;
     this.isDragging = false;
+    this.hasInteracted = false;
+    this.trackIndex = this.slides.length > 1 ? 1 : 0;
   }
 
   /**
@@ -57,10 +64,42 @@ class ProjectBlock {
   init() {
     if (!this.slides.length || !this.viewport || !this.track) return;
 
+    this.setupInfiniteTrack();
     this.buildPagination();
     this.bindEvents();
     this.root.setAttribute("tabindex", "0");
+    this.setTrackTransition(false);
     this.update();
+    this.clearTrackTransitionAfterSettle();
+  }
+
+  /**
+   * Adds visual clone slides at either end so looping can move naturally.
+   */
+  setupInfiniteTrack() {
+    this.slides.forEach((slide, index) => {
+      slide.dataset.projectBlockSlideIndex = String(index);
+    });
+
+    if (this.slides.length <= 1) {
+      this.trackSlides = [...this.slides];
+      return;
+    }
+
+    const firstClone = this.slides[0].cloneNode(true);
+    const lastClone = this.slides[this.slides.length - 1].cloneNode(true);
+
+    firstClone.setAttribute(DATA_ATTRIBUTES.clone, "true");
+    firstClone.dataset.projectBlockSlideIndex = "0";
+    firstClone.setAttribute("aria-hidden", "true");
+
+    lastClone.setAttribute(DATA_ATTRIBUTES.clone, "true");
+    lastClone.dataset.projectBlockSlideIndex = String(this.slides.length - 1);
+    lastClone.setAttribute("aria-hidden", "true");
+
+    this.track.prepend(lastClone);
+    this.track.append(firstClone);
+    this.trackSlides = Array.from(this.track.querySelectorAll(SELECTORS.slide));
   }
 
   /**
@@ -181,7 +220,7 @@ class ProjectBlock {
     const didMove = this.goTo(delta < 0 ? this.index + 1 : this.index - 1);
     if (!didMove) this.updateTrackPosition();
 
-    this.clearTrackTransitionAfterSettle();
+    if (!didMove) this.clearTrackTransitionAfterSettle();
   }
 
   /**
@@ -197,30 +236,62 @@ class ProjectBlock {
   }
 
   /**
-   * Moves to a slide by index, clamped to the available media range.
+   * Moves to a slide by index, looping through the available media range.
    *
    * @param {number} index - Requested slide index.
    */
   goTo(index) {
-    const nextIndex = Math.min(Math.max(index, 0), this.slides.length - 1);
+    if (this.slides.length <= 1) return false;
 
-    if (nextIndex === this.index) return false;
+    const nextIndex =
+      ((index % this.slides.length) + this.slides.length) % this.slides.length;
 
+    if (nextIndex === this.index && index === this.index) return false;
+
+    this.hasInteracted = true;
     this.pauseCurrentVideo();
     this.index = nextIndex;
+    this.trackIndex = this.getTrackIndexForRequestedIndex(index, nextIndex);
     this.update();
+    this.clearTrackTransitionAfterSettle(true);
     return true;
   }
 
   /**
-   * Updates active slide, finite navigation visibility, dots, and video controls.
+   * Maps a requested logical index to its visual track index, including clones.
+   *
+   * @param {number} requestedIndex - Raw requested slide index.
+   * @param {number} logicalIndex - Wrapped slide index.
+   * @returns {number} Visual track index.
+   */
+  getTrackIndexForRequestedIndex(requestedIndex, logicalIndex) {
+    if (this.slides.length <= 1) return logicalIndex;
+    if (requestedIndex < 0) return 0;
+    if (requestedIndex >= this.slides.length) return this.slides.length + 1;
+    return logicalIndex + 1;
+  }
+
+  /**
+   * Updates active slide, carousel navigation visibility, dots, and video controls.
    */
   update() {
-    this.slides.forEach((slide, index) => {
-      const isActive = index === this.index;
+    this.trackSlides?.forEach((slide, trackIndex) => {
+      const logicalIndex = Number(slide.dataset.projectBlockSlideIndex);
+      const isClone = slide.hasAttribute(DATA_ATTRIBUTES.clone);
+      const isActive = logicalIndex === this.index;
+      const isCurrentTrackSlide = trackIndex === this.trackIndex;
 
       slide.classList.toggle(CLASSES.active, isActive);
-      slide.setAttribute("aria-hidden", String(!isActive));
+      slide.setAttribute(
+        "aria-hidden",
+        String(isClone || !isCurrentTrackSlide),
+      );
+
+      if (!isCurrentTrackSlide) {
+        slide.querySelectorAll(SELECTORS.video).forEach((video) => {
+          video.pause();
+        });
+      }
     });
 
     this.updateTrackPosition();
@@ -229,11 +300,11 @@ class ProjectBlock {
       dot.classList.toggle(CLASSES.active, index === this.index);
     });
 
-    this.prevButton?.classList.toggle(CLASSES.hidden, this.index === 0);
-    this.nextButton?.classList.toggle(
+    this.prevButton?.classList.toggle(
       CLASSES.hidden,
-      this.index === this.slides.length - 1,
+      this.slides.length <= 1 || (!this.hasInteracted && this.index === 0),
     );
+    this.nextButton?.classList.toggle(CLASSES.hidden, this.slides.length <= 1);
 
     this.pagination?.classList.toggle(CLASSES.hidden, this.slides.length <= 1);
 
@@ -261,17 +332,17 @@ class ProjectBlock {
     const currentTransform = window.getComputedStyle(this.track).transform;
 
     if (currentTransform === "none") {
-      return -this.index * this.viewport.clientWidth;
+      return -this.trackIndex * this.viewport.clientWidth;
     }
 
     return new DOMMatrix(currentTransform).m41;
   }
 
   /**
-   * Sets the track position for the current finite slide index.
+   * Sets the track position for the current visual slide index.
    */
   updateTrackPosition() {
-    this.track.style.transform = `translateX(-${this.index * 100}%)`;
+    this.track.style.transform = `translateX(-${this.trackIndex * 100}%)`;
   }
 
   /**
@@ -287,11 +358,48 @@ class ProjectBlock {
 
   /**
    * Clears inline transition once the snap animation has finished.
+   *
+   * @param {boolean} shouldNormalizeLoop - Whether to silently leave clone slides.
    */
-  clearTrackTransitionAfterSettle() {
+  clearTrackTransitionAfterSettle(shouldNormalizeLoop = false) {
     window.setTimeout(() => {
+      if (shouldNormalizeLoop) {
+        this.normalizeLoopPosition();
+        return;
+      }
+
       this.track.style.transition = "";
     }, SWIPE_TRANSITION_DURATION);
+  }
+
+  /**
+   * Silently moves from a clone slide to the matching real slide.
+   */
+  normalizeLoopPosition() {
+    if (this.slides.length <= 1) return;
+
+    if (this.trackIndex === 0) {
+      this.trackIndex = this.slides.length;
+    } else if (this.trackIndex === this.slides.length + 1) {
+      this.trackIndex = 1;
+    } else {
+      return;
+    }
+
+    this.setTrackTransition(false);
+    this.updateTrackPosition();
+    this.track.offsetHeight;
+    this.trackSlides?.forEach((slide, trackIndex) => {
+      if (trackIndex !== this.trackIndex) {
+        slide.querySelectorAll(SELECTORS.video).forEach((video) => {
+          video.pause();
+        });
+      }
+    });
+
+    requestAnimationFrame(() => {
+      this.track.style.transition = "";
+    });
   }
 
   /**

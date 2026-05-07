@@ -3,9 +3,14 @@
 .project-block {
   position: relative;
   isolation: isolate;
-  margin: rem-calc(-8);
-  padding: rem-calc(24);
+  margin: 0;
+  padding: rem-calc(16) 0;
   color: map.get($mofo-colors, black);
+
+  @include breakpoint(medium up) {
+    margin: rem-calc(-8);
+    padding: rem-calc(24);
+  }
 
   &::before {
     position: absolute;
@@ -17,16 +22,18 @@
     transition: opacity 0.2s ease;
   }
 
-  &:hover,
-  &:focus-visible {
-    &::before {
-      opacity: 1;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover,
+    &:focus-visible {
+      &::before {
+        opacity: 1;
+      }
     }
-  }
 
-  &:hover {
-    .project-block__viewport {
-      border-top-right-radius: 2rem;
+    &:hover {
+      .project-block__viewport {
+        border-top-right-radius: 2rem;
+      }
     }
   }
 
@@ -88,6 +95,19 @@
       display: none;
     }
 
+    &--prev,
+    &--next {
+      display: none;
+
+      @include breakpoint(medium up) {
+        display: flex;
+
+        &.is-hidden {
+          display: none;
+        }
+      }
+    }
+
     &:hover,
     &:focus-visible {
       background-color: map.get($mofo-colors, black);
@@ -139,7 +159,7 @@
     display: flex;
     gap: rem-calc(4);
     align-items: center;
-    padding: rem-calc(6);
+    padding: rem-calc(8);
     border-radius: 9999px;
     background-color: rgba(map.get($mofo-colors, black), 0.5);
     transform: translateX(-50%);
