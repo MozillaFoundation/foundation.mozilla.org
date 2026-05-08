@@ -97,7 +97,7 @@ def get_keep_contributing_pages():
     Get the two latest CampaignPages in their localized versions.
     Follows the same pattern as CampaignPage.get_fallback_latest_campaigns().
     """
-    (default_locale, _) = get_default_locale()
+    default_locale, _ = get_default_locale()
 
     # Get recent pages in the default language
     recent_pages = CampaignPage.objects.live().public().filter(locale=default_locale).order_by("-first_published_at")
