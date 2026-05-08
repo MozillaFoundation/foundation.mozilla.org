@@ -20,7 +20,7 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
         help_text="Heading displayed above the SoSha share section.",
     )
 
-    sosha_toolkit_embed_code = models.TextField(
+    sosha_toolkit_embed_code = models.CharField(
         blank=True,
         verbose_name="SoSha Toolkit Embed Code",
         help_text=(
