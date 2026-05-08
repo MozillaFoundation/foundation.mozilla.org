@@ -1,4 +1,5 @@
-from wagtail.admin.panels import FieldPanel
+from django.db import models
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
@@ -12,6 +13,19 @@ HERO_CONTENT_VIDEO = "video"
 
 class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
 
+    share_section_heading = models.CharField(
+        max_length=255,
+        blank=True,
+        default="Enjoyed this? Share it!",
+        help_text="Heading displayed above the SoSha share section.",
+    )
+
+    sosha_toolkit_embed_code = models.TextField(
+        blank=True,
+        verbose_name="SoSha Toolkit Embed Code",
+        help_text="Optional SoSha toolkit embed code. When provided, the share section is rendered between the article body and topics.",
+    )
+
     content_panels = AbstractArticlePage.content_panels + [
         MediaPanel.create_default(
             heading="Hero Section",
@@ -22,6 +36,14 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
         ),
         FieldPanel("lede_text"),
         FieldPanel("body"),
+        MultiFieldPanel(
+            [
+                FieldPanel("share_section_heading"),
+                FieldPanel("sosha_toolkit_embed_code"),
+            ],
+            heading="Share Section",
+            classname="collapsible",
+        ),
     ]
 
     translatable_fields = AbstractArticlePage.translatable_fields + [
@@ -32,6 +54,8 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
         SynchronizedField("hero_video_url"),
         TranslatableField("lede_text"),
         TranslatableField("body"),
+        TranslatableField("share_section_heading"),
+        SynchronizedField("sosha_toolkit_embed_code"),
     ]
 
     search_fields = AbstractArticlePage.search_fields + [

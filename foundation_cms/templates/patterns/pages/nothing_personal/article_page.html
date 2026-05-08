@@ -20,13 +20,22 @@
                             <span class="published-label">{% trans "Published" %}</span>
                             <p class="published-date">{{ page.first_published_at|date:"DATE_FORMAT" }}</p>
                         </div>
-                        {% include "patterns/components/share_container.html" %}
                     </div>
                 </div>
             </div>
 
             {% if page.body %}
                 {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="medium-7 body-text-large" %}
+            {% endif %}
+
+            {% if page.sosha_toolkit_embed_code %}
+                <div class="grid-container">
+                    <div class="grid-x">
+                        <div class="cell small-12 medium-7">
+                            {% include "patterns/components/nothing_personal/sosha_share.html" %}
+                        </div>
+                    </div>
+                </div>
             {% endif %}
 
             <div class="grid-container">
