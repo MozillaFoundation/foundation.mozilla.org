@@ -60,8 +60,6 @@ export const GALLERY_HUB_SLIDESHOW_CLASSES = {
   afterActive: "is-after-active",
   beforeActive: "is-before-active",
   dot: "gallery-hub-project__slide-dot",
-  leavingNext: "is-leaving-next",
-  restoringPrevious: "is-restoring-previous",
 };
 
 /**
@@ -71,7 +69,7 @@ export const GALLERY_HUB_SLIDESHOW_CLASSES = {
  */
 export const GALLERY_HUB_SLIDESHOW_SETTINGS = {
   animationDuration: 560,
-  easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+  easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   maxDots: 3,
 };
 

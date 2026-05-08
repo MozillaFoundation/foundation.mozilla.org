@@ -154,9 +154,9 @@
                             <div class="gallery-hub-project__meta project-meta">
                                 {% if project.program_label.all %}
                                     <div class="gallery-hub-project__programs project-meta__labels">
-                                    {% for label in project.program_label.all|slice:":1" %}
-                                        <span class="gallery-hub-project__program project-meta__label">{{ label.name }}</span>
-                                    {% endfor %}
+                                        {% for label in project.program_label.all|slice:":1" %}
+                                            <span class="gallery-hub-project__program project-meta__label">{{ label.name }}</span>
+                                        {% endfor %}
                                     </div>
                                 {% endif %}
 

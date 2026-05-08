@@ -49,6 +49,16 @@ function createDot(index) {
 }
 
 /**
+ * Clamp a slide's visual stack slot around the active media.
+ *
+ * @param {number} distance - Signed distance from the active slide.
+ * @returns {number} Stack position used by CSS.
+ */
+function getStackPosition(distance) {
+  return Math.max(-2, Math.min(distance, 2));
+}
+
+/**
  * Manages one project's media slideshow.
  */
 class GalleryHubSlideshow {
@@ -65,8 +75,6 @@ class GalleryHubSlideshow {
     this.dotsContainer = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.dots);
     this.dots = [];
     this.activeIndex = 0;
-    this.animationTimeout = null;
-    this.activeAnimation = null;
   }
 
   /**
@@ -170,6 +178,7 @@ class GalleryHubSlideshow {
   syncSlides() {
     this.slides.forEach((slide, index) => {
       const isActive = index === this.activeIndex;
+      const stackPosition = getStackPosition(index - this.activeIndex);
 
       slide.classList.toggle(GALLERY_HUB_SLIDESHOW_CLASSES.active, isActive);
       slide.classList.toggle(
@@ -181,6 +190,7 @@ class GalleryHubSlideshow {
         index > this.activeIndex,
       );
       slide.setAttribute("aria-hidden", `${!isActive}`);
+      slide.dataset.galleryHubSlideStack = `${stackPosition}`;
       slide.style.zIndex = `${
         this.slides.length - Math.abs(index - this.activeIndex)
       }`;
@@ -188,50 +198,6 @@ class GalleryHubSlideshow {
     });
 
     this.syncControls();
-  }
-
-  /**
-   * Cancel any in-progress motion before starting a new transition.
-   */
-  clearMotionState() {
-    window.clearTimeout(this.animationTimeout);
-    this.activeAnimation?.cancel();
-    this.activeAnimation = null;
-
-    this.slides.forEach((slide) => {
-      slide.classList.remove(
-        GALLERY_HUB_SLIDESHOW_CLASSES.leavingNext,
-        GALLERY_HUB_SLIDESHOW_CLASSES.restoringPrevious,
-      );
-    });
-  }
-
-  /**
-   * Animate a previous slide back on top of the current stack.
-   *
-   * @param {HTMLElement} slide - Slide being restored.
-   */
-  animatePreviousSlide(slide) {
-    slide.style.zIndex = `${this.slides.length + 2}`;
-    this.activeAnimation = slide.animate(
-      [
-        {
-          opacity: 0,
-          transform: "translateX(32%) rotate(2deg)",
-        },
-        {
-          opacity: 1,
-          transform: "translateX(0) rotate(0deg)",
-        },
-      ],
-      {
-        duration: GALLERY_HUB_SLIDESHOW_SETTINGS.animationDuration,
-        easing: GALLERY_HUB_SLIDESHOW_SETTINGS.easing,
-      },
-    );
-    this.activeAnimation.addEventListener("finish", () => {
-      this.activeAnimation = null;
-    });
   }
 
   /**
@@ -247,35 +213,8 @@ class GalleryHubSlideshow {
     )
       return;
 
-    const previousIndex = this.activeIndex;
-    const currentSlide = this.slides[previousIndex];
-    const targetSlide = this.slides[index];
-    const direction = index > previousIndex ? 1 : -1;
-
-    this.clearMotionState();
-
-    if (direction < 0) {
-      targetSlide.classList.add(GALLERY_HUB_SLIDESHOW_CLASSES.restoringPrevious);
-    }
-
     this.activeIndex = index;
     this.syncSlides();
-
-    if (direction > 0) {
-      currentSlide.classList.add(GALLERY_HUB_SLIDESHOW_CLASSES.leavingNext);
-      currentSlide.style.zIndex = `${this.slides.length + 2}`;
-    } else {
-      this.animatePreviousSlide(targetSlide);
-    }
-
-    this.animationTimeout = window.setTimeout(() => {
-      currentSlide.classList.remove(GALLERY_HUB_SLIDESHOW_CLASSES.leavingNext);
-      targetSlide.classList.remove(
-        GALLERY_HUB_SLIDESHOW_CLASSES.restoringPrevious,
-      );
-      this.activeAnimation = null;
-      this.syncSlides();
-    }, GALLERY_HUB_SLIDESHOW_SETTINGS.animationDuration);
   }
 }
 

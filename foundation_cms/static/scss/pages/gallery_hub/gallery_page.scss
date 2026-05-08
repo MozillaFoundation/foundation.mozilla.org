@@ -1,6 +1,11 @@
 @use "sass:map";
 @import "../../redesign_base";
 @import "settings";
+@import "stage";
+@import "controls";
+@import "view_transitions";
+@import "project";
+@import "modals";
 
 html.gallery-hub-scroll-locked {
   overflow: hidden;
@@ -28,12 +33,5 @@ body.template-gallery-hub-page {
         $gallery-stage-min-height-large
       );
     }
-
-    @import "stage";
-    @import "controls";
   }
-
-  @import "view_transitions";
-  @import "project";
-  @import "modals";
 }

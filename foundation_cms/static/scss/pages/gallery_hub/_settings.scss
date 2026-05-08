@@ -9,9 +9,7 @@ $gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
 
 @mixin gallery-shape-properties($namespace, $shape) {
   --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
-  --gallery-#{$namespace}-shape: url(
-    "#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}.png"
-  );
+  --gallery-#{$namespace}-shape: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}.png");
 }
 
 @mixin gallery-mask($mask-var) {

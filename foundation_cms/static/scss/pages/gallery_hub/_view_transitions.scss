@@ -1,71 +1,71 @@
-  .gallery-hub--project-view {
-    .gallery-hub__edge-image {
-      width: clamp(11.5rem, 19.8vw, 19.9rem);
-    }
-
-    .gallery-hub__edge-image--slot-1 {
-      z-index: 6;
-      transform: translate(calc(-50% - 47.8vw), calc(-50% - rem-calc(282)))
-        rotate(-5deg);
-    }
-
-    .gallery-hub__edge-image--slot-2 {
-      z-index: 4;
-      transform: translate(calc(-50% - 44.6vw), calc(-50% - rem-calc(66)))
-        rotate(2deg);
-    }
-
-    .gallery-hub__edge-image--slot-3 {
-      z-index: 5;
-      transform: translate(calc(-50% - 46.6vw), calc(-50% + rem-calc(184)))
-        rotate(-8deg);
-    }
-
-    .gallery-hub__edge-image--slot-4 {
-      z-index: 6;
-      transform: translate(calc(-50% + 47.8vw), calc(-50% - rem-calc(286)))
-        rotate(-4deg);
-    }
-
-    .gallery-hub__edge-image--slot-5 {
-      z-index: 6;
-      transform: translate(calc(-50% + 44.2vw), calc(-50% - rem-calc(60)))
-        rotate(-7deg);
-    }
-
-    .gallery-hub__edge-image--slot-6 {
-      z-index: 3;
-      transform: translate(calc(-50% + 47vw), calc(-50% + rem-calc(194)))
-        rotate(4deg) scale(1.2);
-    }
-
-    .gallery-hub__intro {
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, -64%) scale(0.92);
-    }
-
-    .gallery-hub__intro-image {
-      opacity: 0;
-    }
-
-    .gallery-hub__decor-item--intro-tape {
-      opacity: 0;
-    }
-
-    .gallery-hub__controls {
-      opacity: 1;
-      pointer-events: none;
-      transform: translateY(0);
-    }
-
-    .gallery-hub__decor-item--scribble-left {
-      opacity: 0.78;
-      transform: translate(-22%, -8%) rotate(-8deg) scale(0.78);
-    }
-
-    .gallery-hub__decor-item--scribble-right {
-      opacity: 0.78;
-      transform: translate(15%, 0) rotate(12deg) scale(0.66);
-    }
+.gallery-hub--project-view {
+  .gallery-hub__edge-image {
+    width: clamp(11.5rem, 19.8vw, 19.9rem);
   }
+
+  .gallery-hub__edge-image--slot-1 {
+    z-index: 6;
+    transform: translate(calc(-50% - 47.8vw), calc(-50% - rem-calc(282)))
+      rotate(-5deg);
+  }
+
+  .gallery-hub__edge-image--slot-2 {
+    z-index: 4;
+    transform: translate(calc(-50% - 44.6vw), calc(-50% - rem-calc(66)))
+      rotate(2deg);
+  }
+
+  .gallery-hub__edge-image--slot-3 {
+    z-index: 5;
+    transform: translate(calc(-50% - 46.6vw), calc(-50% + rem-calc(184)))
+      rotate(-8deg);
+  }
+
+  .gallery-hub__edge-image--slot-4 {
+    z-index: 6;
+    transform: translate(calc(-50% + 47.8vw), calc(-50% - rem-calc(286)))
+      rotate(-4deg);
+  }
+
+  .gallery-hub__edge-image--slot-5 {
+    z-index: 6;
+    transform: translate(calc(-50% + 44.2vw), calc(-50% - rem-calc(60)))
+      rotate(-7deg);
+  }
+
+  .gallery-hub__edge-image--slot-6 {
+    z-index: 3;
+    transform: translate(calc(-50% + 47vw), calc(-50% + rem-calc(194)))
+      rotate(4deg) scale(1.2);
+  }
+
+  .gallery-hub__intro {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -64%) scale(0.92);
+  }
+
+  .gallery-hub__intro-image {
+    opacity: 0;
+  }
+
+  .gallery-hub__decor-item--intro-tape {
+    opacity: 0;
+  }
+
+  .gallery-hub__controls {
+    opacity: 1;
+    pointer-events: none;
+    transform: translateY(0);
+  }
+
+  .gallery-hub__decor-item--scribble-left {
+    opacity: 0.78;
+    transform: translate(-22%, -8%) rotate(-8deg) scale(0.78);
+  }
+
+  .gallery-hub__decor-item--scribble-right {
+    opacity: 0.78;
+    transform: translate(15%, 0) rotate(12deg) scale(0.66);
+  }
+}
