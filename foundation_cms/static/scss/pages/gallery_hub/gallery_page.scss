@@ -428,6 +428,7 @@ body.template-gallery-hub-page {
     &__controls-row,
     &__controls-cell {
       height: 100%;
+      pointer-events: none;
     }
 
     &__controls-grid {
@@ -446,6 +447,7 @@ body.template-gallery-hub-page {
       color: $black;
       background-color: color(orange, "100");
       cursor: pointer;
+      pointer-events: auto;
       transition: background-color 0.2s ease;
 
       &:hover,
@@ -606,7 +608,7 @@ body.template-gallery-hub-page {
 
     .gallery-hub__controls {
       opacity: 1;
-      pointer-events: auto;
+      pointer-events: none;
       transform: translateY(0);
     }
 
@@ -639,24 +641,57 @@ body.template-gallery-hub-page {
         transform $gallery-transition,
         width $gallery-transition;
       will-change: transform, opacity;
+    }
+
+    &__slides {
+      position: absolute;
+      inset: 0;
+    }
+
+    &__slide {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      transform: translateX(0);
+      transition:
+        opacity 430ms ease,
+        transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
 
       &::after {
         content: "";
         position: absolute;
         inset: 0;
-        background-repeat: no-repeat;
-        background-position: center;
-        pointer-events: none;
-      }
-
-      &::after {
         z-index: 2;
         background-image: var(--gallery-project-shape);
+        background-repeat: no-repeat;
+        background-position: center;
         background-size: contain;
+        pointer-events: none;
+        transition: transform $gallery-transition;
       }
     }
 
-    &__visual {
+    &__slide.is-active,
+    &__slide.is-after-active {
+      opacity: 1;
+    }
+
+    &__slide.is-before-active {
+      opacity: 0;
+    }
+
+    &__slide.is-leaving-next {
+      opacity: 0;
+      transform: translateX(24%) rotate(2deg);
+    }
+
+    &__slide.is-restoring-previous {
+      transition: none;
+    }
+
+    &__slide-visual {
       position: absolute;
       inset: 0;
       z-index: 1;
@@ -667,64 +702,121 @@ body.template-gallery-hub-page {
       mask-repeat: no-repeat;
       mask-size: contain;
       pointer-events: none;
-
-      &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: var(--gallery-project-image);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
+      transition: transform $gallery-transition;
     }
 
-    &__media--shape-1 {
+    &__slide-visual--fallback {
+      background-color: $black;
+    }
+
+    &__slide-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $gallery-transition;
+    }
+
+    &__slide--shape-1 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-1-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-1.png");
     }
 
-    &__media--shape-2 {
+    &__slide--shape-2 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-2-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-2.png");
     }
 
-    &__media--shape-3 {
+    &__slide--shape-3 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-3-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-3.png");
     }
 
-    &__media--shape-4 {
+    &__slide--shape-4 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-4-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-4.png");
     }
 
-    &__media--shape-6 {
+    &__slide--shape-6 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-6-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-6.png");
     }
 
-    &__media--shape-7 {
+    &__slide--shape-7 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-7-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-7.png");
     }
 
-    &__media--shape-8 {
+    &__slide--shape-8 {
       --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-8-black.png");
       --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-8.png");
     }
 
-    &__image {
+    &__slide-control {
       position: absolute;
-      width: rem-calc(1);
-      height: rem-calc(1);
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
+      top: 50%;
+      z-index: 8;
+      width: rem-calc(40);
+      height: rem-calc(40);
+      border: 0;
+      border-radius: 50%;
+      background-color: rgba(color(neutral, "600"), 0.5);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: rem-calc(18) rem-calc(18);
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition:
+        opacity 180ms ease,
+        background-color 180ms ease;
+
+      &:hover,
+      &:focus-visible {
+        background-color: rgba(color(neutral, "600"), 0.72);
+      }
+
+      &:disabled {
+        opacity: 0;
+        pointer-events: none;
+      }
     }
 
-    &__image--fallback {
-      background: $black;
+    &__slide-control--previous {
+      left: rem-calc(14);
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-left-white.svg");
+    }
+
+    &__slide-control--next {
+      right: rem-calc(14);
+      background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
+    }
+
+    &__slide-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 29%;
+      z-index: 8;
+      display: flex;
+      gap: rem-calc(6);
+      padding: rem-calc(6);
+      border-radius: rem-calc(999);
+      background-color: rgb(0 0 0 / 42%);
+      transform: translateX(-50%);
+    }
+
+    &__slide-dot {
+      width: rem-calc(8);
+      height: rem-calc(8);
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background-color: rgb(255 255 255 / 62%);
+      cursor: pointer;
+
+      &[aria-current="true"] {
+        background-color: $white;
+      }
     }
 
     &__content {
@@ -821,21 +913,18 @@ body.template-gallery-hub-page {
     }
 
     .gallery-hub-project--active .gallery-hub-project__media {
-      --gallery-project-mask: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-6-black.png");
-      --gallery-project-shape: url("/static/foundation_cms/_images/gallery-feature/shape-masks/shape-6.png");
-
       z-index: 4;
       width: min(calc(100% - rem-calc(80)), rem-calc(560));
       opacity: 1;
       transform: translate(-50%, calc(-50% - rem-calc(88))) rotate(0deg);
     }
 
-    .gallery-hub-project--active .gallery-hub-project__visual,
-    .gallery-hub-project--active .gallery-hub-project__media::after {
+    .gallery-hub-project--active .gallery-hub-project__slide-visual,
+    .gallery-hub-project--active .gallery-hub-project__slide::after {
       transform: rotate(-90deg);
     }
 
-    .gallery-hub-project--active .gallery-hub-project__visual::before {
+    .gallery-hub-project--active .gallery-hub-project__slide-media {
       transform: rotate(90deg) scale(1.42);
     }
 

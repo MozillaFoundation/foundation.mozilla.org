@@ -64,21 +64,88 @@
                              data-topics="{% for topic in project.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
                              data-program-labels="{% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
                              data-program-year="{{ project.program_year }}">
-                        {% if project.hero_image %}
-                            {% image project.hero_image fill-900x620 as hero_img %}
-                        {% endif %}
-                        <div class="gallery-hub-project__media {% cycle 'gallery-hub-project__media--shape-3' 'gallery-hub-project__media--shape-1' 'gallery-hub-project__media--shape-7' 'gallery-hub-project__media--shape-4' 'gallery-hub-project__media--shape-6' 'gallery-hub-project__media--shape-8' %}"
-                             {% if project.hero_image %}style="--gallery-project-image: url('{{ hero_img.url }}');"{% endif %}>
-                            <span class="gallery-hub-project__visual" aria-hidden="true"></span>
-                            {% if project.hero_image %}
-                                <img class="gallery-hub-project__image"
-                                     src="{{ hero_img.url }}"
-                                     alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
-                                     width="{{ hero_img.width }}"
-                                     height="{{ hero_img.height }}">
-                            {% else %}
-                                <span class="gallery-hub-project__image gallery-hub-project__image--fallback" aria-hidden="true"></span>
-                            {% endif %}
+                        <div class="gallery-hub-project__media" data-gallery-hub-slideshow>
+                            <div class="gallery-hub-project__slides" data-gallery-hub-slides>
+                                {% if project.displayed_hero_content == "video" and project.hero_video_url %}
+                                    <figure class="gallery-hub-project__slide gallery-hub-project__slide--shape-6 is-active"
+                                            data-gallery-hub-slide
+                                            aria-hidden="false">
+                                        <span class="gallery-hub-project__slide-visual">
+                                            <video class="gallery-hub-project__slide-media"
+                                                   playsinline
+                                                   muted
+                                                   loop
+                                                   preload="metadata">
+                                                <source src="{{ project.hero_video_url }}" type="video/mp4">
+                                            </video>
+                                        </span>
+                                    </figure>
+                                {% elif project.hero_image %}
+                                    {% image project.hero_image fill-900x620 as hero_img %}
+                                    <figure class="gallery-hub-project__slide gallery-hub-project__slide--shape-6 is-active"
+                                            data-gallery-hub-slide
+                                            aria-hidden="false">
+                                        <span class="gallery-hub-project__slide-visual">
+                                            <img class="gallery-hub-project__slide-media"
+                                                 src="{{ hero_img.url }}"
+                                                 alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
+                                                 width="{{ hero_img.width }}"
+                                                 height="{{ hero_img.height }}">
+                                        </span>
+                                    </figure>
+                                {% else %}
+                                    <figure class="gallery-hub-project__slide gallery-hub-project__slide--shape-6 is-active"
+                                            data-gallery-hub-slide
+                                            aria-hidden="false">
+                                        <span class="gallery-hub-project__slide-visual gallery-hub-project__slide-visual--fallback"></span>
+                                    </figure>
+                                {% endif %}
+
+                                {% for media in project.hero_gallery_media.all %}
+                                    {% if media.media_type == "video" and media.video_url %}
+                                        <figure class="gallery-hub-project__slide {% if forloop.counter|divisibleby:"3" %}gallery-hub-project__slide--shape-6{% elif forloop.counter0|divisibleby:"3" %}gallery-hub-project__slide--shape-4{% else %}gallery-hub-project__slide--shape-8{% endif %}"
+                                                data-gallery-hub-slide
+                                                aria-hidden="true">
+                                            <span class="gallery-hub-project__slide-visual">
+                                                <video class="gallery-hub-project__slide-media"
+                                                       playsinline
+                                                       muted
+                                                       loop
+                                                       preload="metadata">
+                                                    <source src="{{ media.video_url }}" type="video/mp4">
+                                                </video>
+                                            </span>
+                                        </figure>
+                                    {% elif media.image %}
+                                        {% image media.image fill-900x620 as media_img %}
+                                        <figure class="gallery-hub-project__slide {% if forloop.counter|divisibleby:"3" %}gallery-hub-project__slide--shape-6{% elif forloop.counter0|divisibleby:"3" %}gallery-hub-project__slide--shape-4{% else %}gallery-hub-project__slide--shape-8{% endif %}"
+                                                data-gallery-hub-slide
+                                                aria-hidden="true">
+                                            <span class="gallery-hub-project__slide-visual">
+                                                <img class="gallery-hub-project__slide-media"
+                                                     src="{{ media_img.url }}"
+                                                     alt="{% if media.alt_text %}{{ media.alt_text }}{% else %}{{ media.image.title }}{% endif %}"
+                                                     width="{{ media_img.width }}"
+                                                     height="{{ media_img.height }}">
+                                            </span>
+                                        </figure>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <button class="gallery-hub-project__slide-control gallery-hub-project__slide-control--previous"
+                                    type="button"
+                                    data-gallery-hub-slide-previous>
+                                <span class="show-for-sr">{% trans "Previous media" %}</span>
+                            </button>
+                            <button class="gallery-hub-project__slide-control gallery-hub-project__slide-control--next"
+                                    type="button"
+                                    data-gallery-hub-slide-next>
+                                <span class="show-for-sr">{% trans "Next media" %}</span>
+                            </button>
+                            <div class="gallery-hub-project__slide-dots"
+                                 data-gallery-hub-slide-dots
+                                 aria-label="{% trans "Project media navigation" %}"></div>
                         </div>
 
                         <div class="gallery-hub-project__content">
