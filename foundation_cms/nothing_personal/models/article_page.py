@@ -23,7 +23,10 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
     sosha_toolkit_embed_code = models.TextField(
         blank=True,
         verbose_name="SoSha Toolkit Embed Code",
-        help_text="Optional SoSha toolkit embed code. When provided, the share section is rendered between the article body and topics.",
+        help_text=(
+            "Optional SoSha toolkit embed code. When provided, the share"
+            " section is rendered between the article body and topics."
+        ),
     )
 
     content_panels = AbstractArticlePage.content_panels + [
