@@ -55,6 +55,7 @@ class ProjectBlock {
     this.swipeStartTransform = 0;
     this.isDragging = false;
     this.hasInteracted = false;
+    this.isCarousel = this.slides.length > 1;
     this.trackIndex = this.slides.length > 1 ? 1 : 0;
   }
 
@@ -64,8 +65,7 @@ class ProjectBlock {
   init() {
     if (!this.slides.length || !this.viewport || !this.track) return;
 
-    this.setupInfiniteTrack();
-    this.buildPagination();
+    this.setupSlides();
     this.bindEvents();
     this.root.setAttribute("tabindex", "0");
     this.setTrackTransition(false);
@@ -74,14 +74,14 @@ class ProjectBlock {
   }
 
   /**
-   * Adds visual clone slides at either end so looping can move naturally.
+   * Sets slide indexes and adds clone slides only when multiple media items exist.
    */
-  setupInfiniteTrack() {
+  setupSlides() {
     this.slides.forEach((slide, index) => {
       slide.dataset.projectBlockSlideIndex = String(index);
     });
 
-    if (this.slides.length <= 1) {
+    if (!this.isCarousel) {
       this.trackSlides = [...this.slides];
       return;
     }
@@ -100,6 +100,7 @@ class ProjectBlock {
     this.track.prepend(lastClone);
     this.track.append(firstClone);
     this.trackSlides = Array.from(this.track.querySelectorAll(SELECTORS.slide));
+    this.buildPagination();
   }
 
   /**
@@ -126,6 +127,10 @@ class ProjectBlock {
     this.prevButton?.addEventListener("click", () => this.goTo(this.index - 1));
     this.nextButton?.addEventListener("click", () => this.goTo(this.index + 1));
     this.pauseButton?.addEventListener("click", () => this.toggleVideo());
+
+    if (!this.isCarousel) {
+      return;
+    }
 
     this.viewport.addEventListener(
       "touchstart",

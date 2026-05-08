@@ -1,7 +1,9 @@
 {% load i18n static wagtailimages_tags %}
 
 {% with project=self.project.specific %}
-  <article class="project-block" data-project-block>
+  <article class="project-block{% if project.hero_gallery_media.all %} project-block--has-carousel{% endif %}" data-project-block>
+    <a class="project-block__link-overlay" href="{{ project.url }}" aria-label="{{ project.title }}"></a>
+
     <div class="project-block__media" data-project-block-media>
       <div class="project-block__viewport" data-project-block-viewport>
         <div class="project-block__track" data-project-block-track>
@@ -25,12 +27,14 @@
           {% endif %}
 
           {% for media in project.hero_gallery_media.all %}
-            <div class="project-block__slide" data-project-block-slide aria-hidden="true">
-              {% if media.media_type == "video" and media.video_url %}
+            {% if media.media_type == "video" and media.video_url %}
+              <div class="project-block__slide" data-project-block-slide aria-hidden="true">
                 <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
                   <source src="{{ media.video_url }}" type="video/mp4">
                 </video>
-              {% elif media.image %}
+              </div>
+            {% elif media.image %}
+              <div class="project-block__slide" data-project-block-slide aria-hidden="true">
                 {% image media.image fill-720x405 as media_image %}
                 <img
                   class="project-block__image"
@@ -39,8 +43,8 @@
                   width="{{ media_image.width }}"
                   height="{{ media_image.height }}"
                 >
-              {% endif %}
-            </div>
+              </div>
+            {% endif %}
           {% endfor %}
         </div>
       </div>

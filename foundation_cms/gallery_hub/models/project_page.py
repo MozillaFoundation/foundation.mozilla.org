@@ -179,14 +179,36 @@ class ProjectPage(AbstractArticlePage, HeroMediaMixin):
     )
 
     content_panels = PROJECT_PAGE_BASE_CONTENT_PANELS + [
-        MediaPanel.create_default(
+        MediaPanel(
+            [
+                FieldPanel("displayed_hero_content"),
+                FieldPanel(
+                    "hero_image",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": HeroMediaMixin.HERO_CONTENT_IMAGE,
+                    },
+                ),
+                FieldPanel(
+                    "hero_image_alt_text",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": HeroMediaMixin.HERO_CONTENT_IMAGE,
+                    },
+                ),
+                FieldPanel(
+                    "hero_video_url",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": HeroMediaMixin.HERO_CONTENT_VIDEO,
+                    },
+                ),
+                FieldPanel("hero_image_caption"),
+            ],
             heading="Hero Gallery",
             classname="collapsible",
             trigger_field="displayed_hero_content",
-            image_field="hero_image",
-            video_field="hero_video_url",
         ),
-        FieldPanel("hero_image_caption"),
         MultiFieldPanel(
             [
                 InlinePanel("hero_gallery_media", label="Additional Hero Media", max_num=10),

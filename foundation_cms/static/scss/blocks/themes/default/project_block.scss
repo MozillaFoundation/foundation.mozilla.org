@@ -28,6 +28,10 @@
       &::before {
         opacity: 1;
       }
+
+      .project-block__title a {
+        text-decoration: underline;
+      }
     }
 
     &:hover {
@@ -37,9 +41,21 @@
     }
   }
 
+  &__link-overlay {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+  }
+
   &__media {
     position: relative;
     margin-bottom: rem-calc(12);
+  }
+
+  &--has-carousel {
+    .project-block__media {
+      z-index: 2;
+    }
   }
 
   &__viewport {
@@ -75,7 +91,7 @@
 
   &__control {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,6 +203,8 @@
     margin-bottom: rem-calc(8);
 
     a {
+      position: relative;
+      z-index: 2;
       color: inherit;
       text-decoration: none;
 
@@ -212,5 +230,15 @@
 
   .topic-pills {
     margin-top: 0;
+
+    a {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .btn-topic {
+    position: relative;
+    z-index: 2;
   }
 }
