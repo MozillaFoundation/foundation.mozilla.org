@@ -1,6 +1,12 @@
 const ACTIVE_CLASS = "is-active";
 const HIDDEN_CLASS = "is-hidden";
 const PAUSED_CLASS = "is-paused";
+const MOBILE_VIEWPORT_CLASS = "is-swipe-carousel";
+const MOBILE_TRACK_CLASS = "hero-carousel__track";
+const MOBILE_TRACK_ANIMATING_CLASS = "is-animating";
+const LARGE_VIEWPORT_QUERY = "(min-width: 64em)";
+const SWIPE_TRANSITION_MS = 280;
+const MAX_DOTS = 3;
 
 const SELECTORS = {
   frame: ".hero-carousel__frame",
@@ -13,8 +19,8 @@ const SELECTORS = {
  * Progressive enhancement for the project page hero gallery.
  *
  * Desktop users can hover or click the thumbnail rail to swap the featured
- * image. Mobile users get native horizontal scrolling; the active state follows
- * the slide nearest the viewport edge.
+ * image. Mobile users get a transform-based swipe carousel with an infinite
+ * loop, avoiding native scroll-snap edge cases.
  */
 class ProjectHeroCarousel {
   /**
@@ -33,19 +39,32 @@ class ProjectHeroCarousel {
     this.pauseLabel = root.querySelector(SELECTORS.pauseLabel);
     this.pauseText = this.pauseButton?.dataset.pauseLabel || "Pause video";
     this.playText = this.pauseButton?.dataset.playLabel || "Play video";
+    this.dots = [];
 
     if (!this.viewport || !this.slides.length) {
       return;
     }
 
     this.activeIndex = 0;
-    this.scrollFrame = null;
+    this.largeViewportQuery = window.matchMedia(LARGE_VIEWPORT_QUERY);
+    this.mobileTrack = null;
+    this.mobileSlides = [];
+    this.mobilePosition = 1;
+    this.isDragging = false;
+    this.dragStartX = 0;
+    this.dragStartY = 0;
+    this.dragDeltaX = 0;
+    this.dragStartTranslate = 0;
+    this.transitionFallback = null;
+
     this.bindEvents();
+    this.createDots();
+    this.updateResponsiveMode();
     this.setActiveSlide(this.activeIndex, false);
   }
 
   /**
-   * Attaches thumbnail and scroll listeners for the enhanced gallery states.
+   * Attaches thumbnail, breakpoint, and swipe listeners.
    */
   bindEvents() {
     this.thumbnails.forEach((thumbnail) => {
@@ -59,30 +78,111 @@ class ProjectHeroCarousel {
     });
 
     this.pauseButton?.addEventListener("click", () => this.toggleVideo());
+    this.bindViewportChange();
 
-    if (this.slides.length > 1) {
-      this.viewport.addEventListener(
-        "scroll",
-        () => {
-          if (this.scrollFrame) return;
+    this.viewport.addEventListener("pointerdown", (event) =>
+      this.handlePointerDown(event),
+    );
+    this.viewport.addEventListener("pointermove", (event) =>
+      this.handlePointerMove(event),
+    );
+    this.viewport.addEventListener("pointerup", (event) =>
+      this.handlePointerUp(event),
+    );
+    this.viewport.addEventListener("pointercancel", (event) =>
+      this.handlePointerUp(event),
+    );
+    window.addEventListener("resize", () => this.handleResize());
+  }
 
-          this.scrollFrame = requestAnimationFrame(() => {
-            this.scrollFrame = null;
-            this.syncActiveSlideToScroll();
-          });
-        },
-        { passive: true },
-      );
+  /**
+   * Toggles mobile carousel mode when crossing the desktop breakpoint.
+   */
+  bindViewportChange() {
+    const onViewportChange = () => this.updateResponsiveMode();
+
+    if (this.largeViewportQuery.addEventListener) {
+      this.largeViewportQuery.addEventListener("change", onViewportChange);
+    } else {
+      this.largeViewportQuery.addListener(onViewportChange);
     }
+  }
+
+  /**
+   * Enables or disables the mobile swipe carousel.
+   */
+  updateResponsiveMode() {
+    if (this.largeViewportQuery.matches || this.slides.length < 2) {
+      this.disableMobileCarousel();
+      return;
+    }
+
+    this.enableMobileCarousel();
+  }
+
+  /**
+   * Wraps slides in a transform track and adds one clone at each edge.
+   */
+  enableMobileCarousel() {
+    if (this.mobileTrack) {
+      this.jumpToMobilePosition(this.activeIndex + 1);
+      return;
+    }
+
+    const firstClone = this.slides[0].cloneNode(true);
+    const lastClone = this.slides[this.slides.length - 1].cloneNode(true);
+
+    this.prepareMobileClone(firstClone);
+    this.prepareMobileClone(lastClone);
+
+    this.mobileTrack = document.createElement("div");
+    this.mobileTrack.className = MOBILE_TRACK_CLASS;
+    this.mobileTrack.append(lastClone, ...this.slides, firstClone);
+    this.viewport.appendChild(this.mobileTrack);
+    this.viewport.classList.add(MOBILE_VIEWPORT_CLASS);
+
+    this.mobileSlides = Array.from(this.mobileTrack.children);
+    this.mobilePosition = this.activeIndex + 1;
+    this.mobileTrack.addEventListener("transitionend", (event) =>
+      this.handleMobileTransitionEnd(event),
+    );
+    this.jumpToMobilePosition(this.mobilePosition);
+  }
+
+  /**
+   * Restores the original desktop DOM structure.
+   */
+  disableMobileCarousel() {
+    if (!this.mobileTrack) return;
+
+    this.slides.forEach((slide) => this.viewport.appendChild(slide));
+    this.mobileTrack.remove();
+    this.mobileTrack = null;
+    this.mobileSlides = [];
+    this.mobilePosition = this.activeIndex + 1;
+    this.viewport.classList.remove(MOBILE_VIEWPORT_CLASS);
+    this.viewport.style.removeProperty("cursor");
+    clearTimeout(this.transitionFallback);
+  }
+
+  /**
+   * Marks a cloned slide as decorative.
+   *
+   * @param {HTMLElement} clone - Slide clone.
+   */
+  prepareMobileClone(clone) {
+    clone.classList.remove(ACTIVE_CLASS);
+    clone.setAttribute("aria-hidden", "true");
+    clone.querySelector(SELECTORS.pause)?.remove();
   }
 
   /**
    * Updates the active slide and thumbnail state.
    *
    * @param {string|number} index - The slide index to activate.
-   * @param {boolean} shouldScroll - Whether to scroll the slide into view.
+   * @param {boolean} shouldMove - Whether to move the visible carousel.
    */
-  setActiveSlide(index, shouldScroll) {
+  setActiveSlide(index, shouldMove) {
     const nextIndex = Number(index);
 
     if (Number.isNaN(nextIndex)) return;
@@ -109,18 +209,6 @@ class ProjectHeroCarousel {
           }
         });
       }
-
-      if (
-        isActive &&
-        shouldScroll &&
-        this.viewport.scrollWidth > this.viewport.clientWidth
-      ) {
-        slide.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "start",
-        });
-      }
     });
 
     this.thumbnails.forEach((thumbnail) => {
@@ -128,8 +216,72 @@ class ProjectHeroCarousel {
       thumbnail.classList.toggle(ACTIVE_CLASS, isActive);
       thumbnail.setAttribute("aria-current", isActive ? "true" : "false");
     });
+    this.updateDots();
+
+    if (shouldMove) {
+      if (this.mobileTrack) {
+        this.goToMobilePosition(nextIndex + 1);
+      } else if (this.viewport.scrollWidth > this.viewport.clientWidth) {
+        this.slides[nextIndex]?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start",
+        });
+      }
+    }
 
     this.updateVideoControls();
+  }
+
+  /**
+   * Creates the mobile carousel position dots.
+   */
+  createDots() {
+    if (this.slides.length < 2) return;
+
+    const dotCount = Math.min(this.slides.length, MAX_DOTS);
+    const dotList = document.createElement("div");
+
+    dotList.className = "hero-carousel__dots";
+    dotList.setAttribute("aria-hidden", "true");
+
+    this.dots = Array.from({ length: dotCount }, () => {
+      const dot = document.createElement("span");
+
+      dot.className = "hero-carousel__dot";
+      dotList.appendChild(dot);
+
+      return dot;
+    });
+
+    this.viewport.insertAdjacentElement("afterend", dotList);
+  }
+
+  /**
+   * Updates the active mobile carousel dot.
+   */
+  updateDots() {
+    if (!this.dots.length) return;
+
+    const activeDotIndex = this.getActiveDotIndex();
+
+    this.dots.forEach((dot, index) => {
+      dot.classList.toggle(ACTIVE_CLASS, index === activeDotIndex);
+    });
+  }
+
+  /**
+   * Maps the active slide to a capped dot index.
+   *
+   * @returns {number}
+   */
+  getActiveDotIndex() {
+    if (this.slides.length <= MAX_DOTS) return this.activeIndex;
+
+    if (this.activeIndex === 0) return 0;
+    if (this.activeIndex === this.slides.length - 1) return MAX_DOTS - 1;
+
+    return 1;
   }
 
   /**
@@ -183,29 +335,172 @@ class ProjectHeroCarousel {
   }
 
   /**
-   * Syncs the active state to the slide nearest the horizontal viewport edge.
+   * Starts a mobile swipe interaction.
+   *
+   * @param {PointerEvent} event - Pointer event.
    */
-  syncActiveSlideToScroll() {
-    const viewportLeft = this.viewport.getBoundingClientRect().left;
-    let closestSlide = this.slides[0];
-    let closestDistance = Number.POSITIVE_INFINITY;
+  handlePointerDown(event) {
+    if (!this.mobileTrack || !event.isPrimary) return;
 
-    this.slides.forEach((slide) => {
-      const distance = Math.abs(
-        slide.getBoundingClientRect().left - viewportLeft,
-      );
+    this.isDragging = true;
+    this.dragStartX = event.clientX;
+    this.dragStartY = event.clientY;
+    this.dragDeltaX = 0;
+    this.dragStartTranslate = -this.getMobileSlideOffset(this.mobilePosition);
+    this.setMobileTrackTransition(false);
+    this.viewport.setPointerCapture(event.pointerId);
+  }
 
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestSlide = slide;
-      }
-    });
+  /**
+   * Moves the mobile track with the pointer.
+   *
+   * @param {PointerEvent} event - Pointer event.
+   */
+  handlePointerMove(event) {
+    if (!this.isDragging || !this.mobileTrack) return;
 
-    if (
-      closestSlide &&
-      Number(closestSlide.dataset.index) !== this.activeIndex
-    ) {
-      this.setActiveSlide(closestSlide.dataset.index, false);
+    const deltaX = event.clientX - this.dragStartX;
+    const deltaY = event.clientY - this.dragStartY;
+
+    if (Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+    event.preventDefault();
+    this.dragDeltaX = deltaX;
+    this.setMobileTrackTranslate(this.dragStartTranslate + deltaX);
+  }
+
+  /**
+   * Finishes a mobile swipe interaction.
+   *
+   * @param {PointerEvent} event - Pointer event.
+   */
+  handlePointerUp(event) {
+    if (!this.isDragging || !this.mobileTrack) return;
+
+    this.isDragging = false;
+
+    if (this.viewport.hasPointerCapture(event.pointerId)) {
+      this.viewport.releasePointerCapture(event.pointerId);
+    }
+
+    const threshold = Math.min(this.getMobileSlideWidth() * 0.2, 80);
+    let nextPosition = this.mobilePosition;
+
+    if (this.dragDeltaX < -threshold) {
+      nextPosition += 1;
+    } else if (this.dragDeltaX > threshold) {
+      nextPosition -= 1;
+    }
+
+    this.goToMobilePosition(nextPosition);
+  }
+
+  /**
+   * Moves to a mobile track position with animation.
+   *
+   * @param {number} position - Track position, including edge clones.
+   */
+  goToMobilePosition(position) {
+    this.mobilePosition = position;
+    this.setMobileTrackTransition(true);
+    this.setMobileTrackTranslate(-this.getMobileSlideOffset(position));
+    clearTimeout(this.transitionFallback);
+    this.transitionFallback = setTimeout(() => {
+      this.handleMobileTransitionEnd();
+    }, SWIPE_TRANSITION_MS + 80);
+  }
+
+  /**
+   * Jumps to a mobile track position without animation.
+   *
+   * @param {number} position - Track position, including edge clones.
+   */
+  jumpToMobilePosition(position) {
+    this.mobilePosition = position;
+    this.setMobileTrackTransition(false);
+    this.setMobileTrackTranslate(-this.getMobileSlideOffset(position));
+  }
+
+  /**
+   * Handles edge clones after a swipe animation finishes.
+   *
+   * @param {TransitionEvent} [event] - Transition event.
+   */
+  handleMobileTransitionEnd(event) {
+    if (event && event.target !== this.mobileTrack) return;
+
+    clearTimeout(this.transitionFallback);
+
+    if (this.mobilePosition === 0) {
+      this.jumpToMobilePosition(this.slides.length);
+    } else if (this.mobilePosition === this.slides.length + 1) {
+      this.jumpToMobilePosition(1);
+    }
+
+    this.setActiveSlide(this.getMobileRealIndex(), false);
+  }
+
+  /**
+   * Keeps the transform aligned after viewport size changes.
+   */
+  handleResize() {
+    this.updateResponsiveMode();
+
+    if (this.mobileTrack) {
+      this.jumpToMobilePosition(this.mobilePosition);
+    }
+  }
+
+  /**
+   * Returns the real slide index for the current mobile track position.
+   *
+   * @returns {number}
+   */
+  getMobileRealIndex() {
+    const slideCount = this.slides.length;
+
+    return (this.mobilePosition - 1 + slideCount) % slideCount;
+  }
+
+  /**
+   * Returns a mobile slide's offset from the track origin.
+   *
+   * @param {number} position - Track position.
+   * @returns {number}
+   */
+  getMobileSlideOffset(position) {
+    return this.mobileSlides[position]?.offsetLeft || 0;
+  }
+
+  /**
+   * Returns the visible mobile slide width.
+   *
+   * @returns {number}
+   */
+  getMobileSlideWidth() {
+    return this.mobileSlides[this.mobilePosition]?.offsetWidth || 1;
+  }
+
+  /**
+   * Applies or removes the mobile transform transition.
+   *
+   * @param {boolean} shouldAnimate - Whether to animate transform changes.
+   */
+  setMobileTrackTransition(shouldAnimate) {
+    this.mobileTrack?.classList.toggle(
+      MOBILE_TRACK_ANIMATING_CLASS,
+      shouldAnimate,
+    );
+  }
+
+  /**
+   * Applies the mobile track transform.
+   *
+   * @param {number} translateX - Horizontal transform in pixels.
+   */
+  setMobileTrackTranslate(translateX) {
+    if (this.mobileTrack) {
+      this.mobileTrack.style.transform = `translate3d(${translateX}px, 0, 0)`;
     }
   }
 }

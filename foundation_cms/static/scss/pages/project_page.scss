@@ -35,6 +35,13 @@ body.template-project-page {
         display: none;
       }
 
+      &.is-swipe-carousel {
+        display: block;
+        overflow: hidden;
+        scroll-snap-type: none;
+        touch-action: pan-y;
+      }
+
       @include breakpoint(large up) {
         display: block;
         overflow: visible;
@@ -43,20 +50,24 @@ body.template-project-page {
       }
     }
 
+    &__track {
+      display: flex;
+      gap: rem-calc(12);
+      will-change: transform;
+
+      &.is-animating {
+        transition: transform 0.28s ease;
+      }
+    }
+
     &__slide {
       flex: 0 0 calc(100% - #{rem-calc(16)});
       scroll-snap-align: start;
       margin: 0;
-      opacity: 0.5;
       transition: opacity 0.2s ease;
-
-      &.is-active {
-        opacity: 1;
-      }
 
       &:only-child {
         flex-basis: 100%;
-        opacity: 1;
       }
 
       @include breakpoint(large up) {
@@ -82,6 +93,28 @@ body.template-project-page {
 
     &__caption {
       margin-bottom: 0;
+    }
+
+    &__dots {
+      display: flex;
+      justify-content: center;
+      gap: rem-calc(4);
+      margin-top: rem-calc(12);
+
+      @include breakpoint(large up) {
+        display: none;
+      }
+    }
+
+    &__dot {
+      width: rem-calc(8);
+      height: rem-calc(8);
+      border-radius: 50%;
+      background-color: color(neutral, "300");
+
+      &.is-active {
+        background-color: color(orange, "300");
+      }
     }
 
     &__control {
@@ -193,6 +226,10 @@ body.template-project-page {
 
       h1 {
         margin-bottom: 1rem;
+
+        @include breakpoint(medium down) {
+          margin-top: 0;
+        }
       }
     }
 
