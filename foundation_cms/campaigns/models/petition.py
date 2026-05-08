@@ -85,8 +85,6 @@ class Petition(CTA):
         FieldPanel("show_postal_code_field"),
         FieldPanel("show_comment_field"),
         FieldPanel("cta_button_text"),
-        # FieldPanel("share_facebook"),  # Share Progress fields — hidden to avoid confusion (replaced by Sosha toolkit)
-        # FieldPanel("share_email"),
         FieldPanel("sosha_toolkit_embed_code"),
     ]
 
