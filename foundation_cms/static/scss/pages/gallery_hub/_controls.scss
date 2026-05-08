@@ -1,0 +1,138 @@
+&__controls {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity $gallery-transition,
+    transform $gallery-transition;
+  transform: translateY(rem-calc(16));
+}
+
+&__controls-grid,
+&__controls-row,
+&__controls-cell {
+  height: 100%;
+  pointer-events: none;
+}
+
+&__controls-grid {
+  position: relative;
+}
+
+&__controls-cell {
+  position: relative;
+}
+
+&__nav,
+&__toggle {
+  position: absolute;
+  border: 0;
+  border-radius: rem-calc(999);
+  color: $black;
+  background-color: color(orange, "100");
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: color(orange, "300");
+  }
+}
+
+&__nav[hidden],
+&__toggle[hidden] {
+  display: none;
+}
+
+&__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: rem-calc(112);
+  min-height: rem-calc(86);
+  padding: 0;
+  left: 50%;
+  border-radius: 0;
+  background: none;
+  transform: translateX(-50%);
+
+  &::before {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: none;
+  }
+}
+
+&__nav-icon {
+  position: relative;
+  display: block;
+  width: rem-calc(15);
+  height: rem-calc(65);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    @include gallery-contained-background(
+      "#{$gallery-feature-image-path}/arrow.svg"
+    );
+    filter: contrast(1.35);
+  }
+}
+
+&__nav-label {
+  @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+
+  color: color(neutral, "400");
+}
+
+&__nav--previous {
+  top: rem-calc(18);
+
+  .gallery-hub__nav-label {
+    order: -1;
+    margin-bottom: rem-calc(4);
+  }
+}
+
+&__nav--next {
+  bottom: rem-calc(18);
+  top: auto;
+
+  .gallery-hub__nav-icon {
+    transform: rotate(180deg);
+  }
+
+  .gallery-hub__nav-label {
+    margin-top: rem-calc(4);
+  }
+}
+
+&__toggle {
+  @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+
+  padding: rem-calc(12) rem-calc(18);
+  font-weight: map.get($font-weights, bold);
+}
+
+&__toggle[data-gallery-hub-modal-toggle="project-list"] {
+  left: 0;
+  bottom: rem-calc(48);
+}
+
+&__toggle[data-gallery-hub-modal-toggle="filter"] {
+  right: 0;
+  bottom: rem-calc(48);
+}
+
+&__modal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}

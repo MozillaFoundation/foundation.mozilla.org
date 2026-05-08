@@ -1,0 +1,348 @@
+    &__stage {
+      position: relative;
+      height: 100%;
+      min-height: rem-calc(320);
+      overflow: hidden;
+    }
+
+    &__decor {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    &__decor-item {
+      position: absolute;
+      display: block;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      transition:
+        opacity $gallery-transition,
+        transform $gallery-transition;
+    }
+
+    &__decor-item--scribble {
+      aspect-ratio: 400 / 491;
+      opacity: 0;
+      background-image: url("#{$gallery-feature-image-path}/scribble.png");
+    }
+
+    &__decor-item--scribble-left {
+      top: calc(50% - rem-calc(330));
+      left: 0;
+      width: clamp(10rem, 18vw, 20rem);
+      transform: translate(-24%, -8%) rotate(-7deg) scale(0.76);
+    }
+
+    &__decor-item--scribble-right {
+      top: calc(50% - rem-calc(10));
+      right: 0;
+      width: clamp(8rem, 15vw, 16rem);
+      transform: translate(18%, 0) rotate(14deg) scale(0.66);
+    }
+
+    &__decor-item--intro-tape {
+      top: 50%;
+      left: 50%;
+      z-index: 6;
+      width: rem-calc(128);
+      aspect-ratio: 300 / 156;
+      opacity: 0.85;
+      background-image: url("#{$gallery-feature-image-path}/tape.png");
+      transform: translate(rem-calc(-66), rem-calc(-216)) rotate(-5deg);
+    }
+
+    &__intro {
+      position: absolute;
+      top: 51%;
+      left: 50%;
+      z-index: 5;
+      width: min(calc(100% - rem-calc(40)), rem-calc(460));
+      min-height: rem-calc(370);
+      padding: rem-calc(88) rem-calc(48) rem-calc(64);
+      text-align: center;
+      background-color: $white;
+      box-shadow: 0 0 0 rem-calc(1) rgb(0 0 0 / 6%);
+      mask-image: url("#{$gallery-feature-image-path}/shape-masks/shape-7-black.png");
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: 100% 100%;
+      transform: translate(-50%, -50%);
+      transition:
+        opacity $gallery-transition,
+        transform $gallery-transition;
+
+      @include breakpoint(large up) {
+        width: rem-calc(500);
+        min-height: rem-calc(400);
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin: 0 0 rem-calc(16);
+    }
+
+    &__lede {
+      @include mofo-text-style($body-text-styles, "large", $body-font-family);
+
+      margin: 0;
+    }
+
+    &__scroll-link {
+      @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+
+      display: inline-block;
+      margin-top: rem-calc(20);
+      border: 0;
+      padding: 0;
+      color: $black;
+      background: none;
+      font-weight: map.get($font-weights, bold);
+      cursor: pointer;
+
+      &::after {
+        content: "";
+        display: block;
+        width: rem-calc(54);
+        height: rem-calc(56);
+        margin: rem-calc(8) auto 0;
+        @include gallery-contained-background(
+          "#{$gallery-feature-image-path}/scroll-button.svg"
+        );
+      }
+
+      &:hover::after,
+      &:focus-visible::after {
+        filter: brightness(0.94);
+      }
+    }
+
+    &__projects {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    &__edge-media {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    &__intro-media {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    &__edge-image,
+    &__intro-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: clamp(9.5rem, 19vw, 16.5rem);
+      aspect-ratio: 1 / 1;
+      transition:
+        opacity var(--gallery-image-transition-duration, 520ms)
+          $gallery-easing var(--gallery-image-transition-delay, 0ms),
+        transform var(--gallery-image-transition-duration, 520ms)
+          $gallery-easing var(--gallery-image-transition-delay, 0ms),
+        width var(--gallery-image-transition-duration, 520ms)
+          $gallery-easing var(--gallery-image-transition-delay, 0ms);
+      will-change: transform, opacity;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-repeat: no-repeat;
+        background-position: center;
+        pointer-events: none;
+      }
+
+      &::before {
+        background-image: var(--gallery-edge-image);
+        background-size: cover;
+        @include gallery-mask(--gallery-edge-mask);
+      }
+
+      &::after {
+        background-image: var(--gallery-edge-shape);
+        background-size: contain;
+      }
+    }
+
+    &__intro-image {
+      width: clamp(8rem, 15vw, 14rem);
+
+      &::before {
+        background-image: var(--gallery-intro-image);
+        @include gallery-mask(--gallery-intro-mask);
+      }
+
+      &::after {
+        background-image: var(--gallery-intro-shape);
+      }
+    }
+
+    &__intro-image--slot-1 {
+      --gallery-image-transition-delay: 40ms;
+      --gallery-image-transition-duration: 580ms;
+
+      transform: translate(
+          calc(-50% + rem-calc(-14)),
+          calc(-50% - rem-calc(250))
+        )
+        rotate(6deg);
+    }
+
+    &__intro-image--slot-2 {
+      --gallery-image-transition-delay: 85ms;
+      --gallery-image-transition-duration: 540ms;
+
+      width: clamp(9rem, 16vw, 15rem);
+      transform: translate(
+          calc(-50% - rem-calc(28)),
+          calc(-50% + rem-calc(254))
+        )
+        rotate(-8deg);
+    }
+
+    @each $shape in 1, 7 {
+      &__intro-image--shape-#{$shape} {
+        @include gallery-shape-properties("intro", $shape);
+      }
+    }
+
+    &__edge-tape {
+      position: absolute;
+      z-index: 3;
+      display: none;
+      width: 42%;
+      aspect-ratio: 300 / 156;
+      @include gallery-contained-background(
+        "#{$gallery-feature-image-path}/tape.png"
+      );
+      pointer-events: none;
+    }
+
+    &__edge-favicon {
+      position: absolute;
+      z-index: 3;
+      display: none;
+      width: 54%;
+      aspect-ratio: 1 / 1;
+      @include gallery-contained-background(
+        "#{$gallery-feature-image-path}/mozilla-favicon.png"
+      );
+      filter: drop-shadow(0 0 0 $white) drop-shadow(0 0 rem-calc(2) $white)
+        drop-shadow(rem-calc(4) rem-calc(5) rem-calc(2) rgb(0 0 0 / 22%));
+      pointer-events: none;
+    }
+
+    &__edge-image--slot-3 .gallery-hub__edge-tape {
+      top: -8%;
+      right: 36%;
+      display: block;
+      transform: rotate(-12deg);
+    }
+
+    &__edge-image--slot-6 .gallery-hub__edge-favicon {
+      top: 6%;
+      left: -20%;
+      display: block;
+      transform: rotate(9deg);
+    }
+
+    @each $shape in $gallery-shapes {
+      &__edge-image--shape-#{$shape} {
+        @include gallery-shape-properties("edge", $shape);
+      }
+    }
+
+    &__edge-image--slot-1 {
+      --gallery-image-transition-delay: 20ms;
+      --gallery-image-transition-duration: 560ms;
+
+      z-index: 5;
+      transform: translate(
+          calc(-50% - rem-calc(226)),
+          calc(-50% - rem-calc(192))
+        )
+        rotate(-11deg);
+    }
+
+    &__edge-image--slot-2 {
+      --gallery-image-transition-delay: 75ms;
+      --gallery-image-transition-duration: 530ms;
+
+      z-index: 4;
+      transform: translate(calc(-50% - rem-calc(290)), calc(-50% + rem-calc(8)))
+        rotate(7deg);
+    }
+
+    &__edge-image--slot-3 {
+      --gallery-image-transition-delay: 45ms;
+      --gallery-image-transition-duration: 590ms;
+
+      z-index: 2;
+      transform: translate(
+          calc(-50% - rem-calc(236)),
+          calc(-50% + rem-calc(222))
+        )
+        rotate(-5deg);
+    }
+
+    &__edge-image--slot-4 {
+      --gallery-image-transition-delay: 95ms;
+      --gallery-image-transition-duration: 555ms;
+
+      z-index: 6;
+      transform: translate(
+          calc(-50% + rem-calc(188)),
+          calc(-50% - rem-calc(186))
+        )
+        rotate(8deg);
+    }
+
+    &__edge-image--slot-5 {
+      --gallery-image-transition-delay: 35ms;
+      --gallery-image-transition-duration: 575ms;
+
+      z-index: 3;
+      transform: translate(
+          calc(-50% + rem-calc(312)),
+          calc(-50% + rem-calc(26))
+        )
+        rotate(4deg);
+    }
+
+    &__edge-image--slot-6 {
+      --gallery-image-transition-delay: 65ms;
+      --gallery-image-transition-duration: 545ms;
+      z-index: 1;
+      transform: translate(
+          calc(-50% + rem-calc(198)),
+          calc(-50% + rem-calc(214))
+        )
+        rotate(9deg);
+    }
+
+    &__empty {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 3;
+      padding: rem-calc(24);
+      text-align: center;
+      background-color: rgb(255 255 255 / 88%);
+      transform: translate(-50%, -50%);
+    }

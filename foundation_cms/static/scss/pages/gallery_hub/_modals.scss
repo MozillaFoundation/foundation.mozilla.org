@@ -1,0 +1,51 @@
+  .gallery-hub-modal {
+    position: absolute;
+    inset: 0;
+
+    &__scrim {
+      position: absolute;
+      inset: 0;
+      background-color: rgb(255 255 255 / 85%);
+      backdrop-filter: blur(rem-calc(14));
+
+      &--orange {
+        background-color: rgb(240 108 19 / 60%);
+      }
+    }
+
+    &__panel {
+      position: absolute;
+      right: rem-calc(20);
+      bottom: rem-calc(20);
+      z-index: 1;
+      width: min(calc(100% - rem-calc(40)), rem-calc(360));
+      padding: rem-calc(24);
+      background-color: $white;
+
+      @include breakpoint(large up) {
+        right: rem-calc(48);
+        bottom: rem-calc(48);
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+
+      margin: 0 0 rem-calc(12);
+    }
+
+    &__body {
+      min-height: rem-calc(48);
+    }
+
+    &__close {
+      @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+
+      border: 0;
+      border-radius: rem-calc(999);
+      padding: rem-calc(10) rem-calc(20);
+      color: $white;
+      background-color: $black;
+      cursor: pointer;
+    }
+  }

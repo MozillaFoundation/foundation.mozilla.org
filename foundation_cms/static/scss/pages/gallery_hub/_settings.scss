@@ -1,0 +1,26 @@
+$gallery-stage-min-height: calc(100svh - rem-calc(96));
+$gallery-stage-min-height-large: calc(100svh - rem-calc(120));
+$gallery-easing: cubic-bezier(0.22, 1, 0.36, 1);
+$gallery-transition-duration: 520ms;
+$gallery-transition: $gallery-transition-duration $gallery-easing;
+$gallery-feature-image-path: "/static/foundation_cms/_images/gallery-feature";
+$gallery-icon-image-path: "/static/foundation_cms/_images/icons";
+$gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
+
+@mixin gallery-shape-properties($namespace, $shape) {
+  --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
+  --gallery-#{$namespace}-shape: url(
+    "#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}.png"
+  );
+}
+
+@mixin gallery-mask($mask-var) {
+  mask-image: var(#{$mask-var});
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+@mixin gallery-contained-background($image) {
+  background: url("#{$image}") center / contain no-repeat;
+}

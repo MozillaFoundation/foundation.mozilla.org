@@ -1,0 +1,290 @@
+.gallery-hub-project {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  &__media {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(9rem, 22vw, 21rem);
+    aspect-ratio: 1 / 1;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition:
+      opacity $gallery-transition,
+      transform $gallery-transition,
+      width $gallery-transition;
+    will-change: transform, opacity;
+  }
+
+  &__slides {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    transform: translateX(0);
+    transition:
+      opacity 430ms ease,
+      transform 560ms $gallery-easing;
+    will-change: transform, opacity;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background-image: var(--gallery-project-shape);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      pointer-events: none;
+    }
+  }
+
+  &__slide.is-active,
+  &__slide.is-after-active {
+    opacity: 1;
+  }
+
+  &__slide.is-before-active {
+    opacity: 0;
+  }
+
+  &__slide.is-leaving-next {
+    opacity: 0;
+    transform: translateX(24%);
+  }
+
+  &__slide.is-restoring-previous {
+    transition: none;
+  }
+
+  &__slide-visual {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    background-color: $black;
+    @include gallery-mask(--gallery-project-mask);
+    pointer-events: none;
+  }
+
+  &__slide-visual--fallback {
+    background-color: $black;
+  }
+
+  &__slide-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @each $shape in $gallery-shapes {
+    &__slide--shape-#{$shape} {
+      @include gallery-shape-properties("project", $shape);
+    }
+  }
+
+  &__slide--shape-6 {
+    --gallery-project-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-6-landscape-black.png");
+    --gallery-project-shape: url("#{$gallery-feature-image-path}/shape-masks/shape-6-landscape.png");
+  }
+
+  &__slide-control {
+    position: absolute;
+    top: 50%;
+    z-index: 8;
+    width: rem-calc(40);
+    height: rem-calc(40);
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(color(neutral, "600"), 0.5);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: rem-calc(18) rem-calc(18);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      opacity 180ms ease,
+      background-color 180ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(color(neutral, "600"), 0.72);
+    }
+
+    &:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  &__slide-control--previous {
+    left: rem-calc(14);
+    background-image: url("#{$gallery-icon-image-path}/button-arrow-left-white.svg");
+  }
+
+  &__slide-control--next {
+    right: rem-calc(14);
+    background-image: url("#{$gallery-icon-image-path}/button-arrow-right-white.svg");
+  }
+
+  &__slide-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 29%;
+    z-index: 8;
+    display: flex;
+    gap: rem-calc(6);
+    padding: rem-calc(6);
+    border-radius: rem-calc(999);
+    background-color: rgb(0 0 0 / 42%);
+    transform: translateX(-50%);
+  }
+
+  &__slide-dot {
+    width: rem-calc(8);
+    height: rem-calc(8);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgb(255 255 255 / 62%);
+    cursor: pointer;
+
+    &[aria-current="true"] {
+      background-color: $white;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    top: calc(40% + clamp(5.5rem, 15vw, 13rem));
+    left: 50%;
+    z-index: 6;
+    width: min(calc(100% - rem-calc(40)), rem-calc(596));
+    padding: rem-calc(16) rem-calc(24);
+    text-align: center;
+    opacity: 0;
+    background-color: rgb(255 255 255 / 94%);
+    pointer-events: none;
+    transform: translate(-50%, rem-calc(32));
+    transition:
+      opacity $gallery-transition,
+      transform $gallery-transition;
+  }
+
+  &__title {
+    @include mofo-text-style($header-styles, "h3", $header-font-family);
+
+    margin: 0 0 rem-calc(16);
+  }
+
+  &__meta {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: rem-calc(8);
+    margin-bottom: rem-calc(16);
+  }
+
+  &__programs {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: rem-calc(8);
+  }
+
+  &__program {
+    @include mofo-text-style($label-text-styles, "regular");
+
+    color: $black;
+    text-transform: uppercase;
+  }
+
+  .topic-pills {
+    justify-content: center;
+    gap: rem-calc(8);
+    margin: 0;
+  }
+
+  &__description {
+    @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+
+    margin: 0 0 rem-calc(8);
+  }
+
+  &__expert {
+    @include link-text-hover-underline;
+
+    color: $black;
+    font-weight: map.get($font-weights, bold);
+    text-decoration-line: underline;
+  }
+
+  &__expert-prefix + &__expert,
+  &__expert + &__lede {
+    margin-left: rem-calc(4);
+  }
+
+  &__link {
+    @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+    @include link-text-hover-underline;
+
+    color: $black;
+    font-weight: map.get($font-weights, bold);
+    text-decoration-line: underline;
+  }
+}
+
+.gallery-hub--intro {
+  .gallery-hub-project__content {
+    display: none;
+  }
+
+  .gallery-hub-project__media {
+    opacity: 0;
+  }
+
+  @include breakpoint(medium down) {
+    .gallery-hub__edge-image:nth-child(n + 5) {
+      opacity: 0;
+    }
+  }
+}
+
+.gallery-hub--project-view {
+  .gallery-hub-project--active {
+    pointer-events: auto;
+  }
+
+  .gallery-hub-project--active .gallery-hub-project__media {
+    z-index: 4;
+    width: min(calc(100% - rem-calc(80)), rem-calc(560));
+    opacity: 1;
+    transform: translate(-50%, calc(-50% - rem-calc(88)));
+  }
+
+  .gallery-hub-project--active .gallery-hub-project__slide-media {
+    transform: scale(1.5);
+  }
+
+  .gallery-hub-project--active .gallery-hub-project__content {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+
+  .gallery-hub-project:not(.gallery-hub-project--active)
+    .gallery-hub-project__media {
+    opacity: 0;
+  }
+}

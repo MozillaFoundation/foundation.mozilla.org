@@ -163,14 +163,16 @@
                                 {% include "patterns/components/topic_pills.html" with topics=project.topics.all %}
                             </div>
 
-                            {% if project.author %}
-                                <p class="gallery-hub-project__byline">
-                                    {% blocktrans with author=project.author.name %}By {{ author }}{% endblocktrans %}
+                            {% if project.expert or project.lede_text %}
+                                <p class="gallery-hub-project__description">
+                                    {% if project.expert %}
+                                        <span class="gallery-hub-project__expert-prefix">{% trans "By" %}</span>
+                                        <a class="gallery-hub-project__expert" href="{{ project.expert.url }}">{{ project.expert.title }}</a>
+                                    {% endif %}
+                                    {% if project.lede_text %}
+                                        <span class="gallery-hub-project__lede">{{ project.lede_text }}</span>
+                                    {% endif %}
                                 </p>
-                            {% endif %}
-
-                            {% if project.lede_text %}
-                                <p class="gallery-hub-project__lede">{{ project.lede_text }}</p>
                             {% endif %}
 
                             <a class="gallery-hub-project__link" href="{{ project.url }}">{% trans "See project" %}</a>
