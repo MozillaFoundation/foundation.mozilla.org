@@ -59,7 +59,7 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
     def topic_listing(self, request, slug):
         from foundation_cms.nothing_personal.models import NothingPersonalHomePage
 
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        DEFAULT_LOCALE, DEFAULT_LOCALE_ID = get_default_locale()
 
         topic = get_object_or_404(Topic, slug=slug)
         np_home = NothingPersonalHomePage.objects.live().first()

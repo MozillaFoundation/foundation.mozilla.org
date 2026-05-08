@@ -124,7 +124,7 @@ class IndexPage(RoutablePageMixin, BasePage):
         Get all child entries, filtered down if required based on
         the `self.filtered` field being set or not.
         """
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        DEFAULT_LOCALE, DEFAULT_LOCALE_ID = get_default_locale()
 
         if "request" in context:
             locale = get_locale_from_request(context["request"])

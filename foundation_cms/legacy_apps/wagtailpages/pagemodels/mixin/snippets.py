@@ -18,7 +18,7 @@ class LocalizedSnippet:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.DEFAULT_LOCALE is None:
-            (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+            DEFAULT_LOCALE, DEFAULT_LOCALE_ID = get_default_locale()
             self.DEFAULT_LOCALE = DEFAULT_LOCALE
 
     @property
