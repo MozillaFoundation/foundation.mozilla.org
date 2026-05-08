@@ -8,10 +8,6 @@ body.template-project-page {
     margin-top: 2rem;
     margin-bottom: 2rem;
 
-    @include breakpoint(large up) {
-      margin-top: 4rem;
-    }
-
     &__media {
       position: relative;
       width: 100%;
