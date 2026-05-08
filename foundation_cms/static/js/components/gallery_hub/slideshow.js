@@ -70,9 +70,13 @@ class GalleryHubSlideshow {
     this.slides = Array.from(
       root.querySelectorAll(GALLERY_HUB_SLIDESHOW_SELECTORS.slide),
     );
-    this.previous = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.previous);
+    this.previous = root.querySelector(
+      GALLERY_HUB_SLIDESHOW_SELECTORS.previous,
+    );
     this.next = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.next);
-    this.dotsContainer = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.dots);
+    this.dotsContainer = root.querySelector(
+      GALLERY_HUB_SLIDESHOW_SELECTORS.dots,
+    );
     this.dots = [];
     this.activeIndex = 0;
   }
@@ -206,11 +210,7 @@ class GalleryHubSlideshow {
    * @param {number} index - Target slide index.
    */
   goToSlide(index) {
-    if (
-      index === this.activeIndex ||
-      index < 0 ||
-      index >= this.slides.length
-    )
+    if (index === this.activeIndex || index < 0 || index >= this.slides.length)
       return;
 
     this.activeIndex = index;

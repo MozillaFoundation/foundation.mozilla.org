@@ -154,10 +154,13 @@ function syncControls(
   const isProjectView = state.viewMode === GALLERY_HUB_VIEW_MODES.project;
 
   if (previous)
-    previous.hidden = !isProjectView || visibleTotal <= 1 || state.activeIndex === 0;
+    previous.hidden =
+      !isProjectView || visibleTotal <= 1 || state.activeIndex === 0;
   if (next)
     next.hidden =
-      !isProjectView || visibleTotal <= 1 || state.activeIndex >= visibleTotal - 1;
+      !isProjectView ||
+      visibleTotal <= 1 ||
+      state.activeIndex >= visibleTotal - 1;
 
   if (projectListToggle) {
     const label = projectListToggle.dataset.galleryHubToggleLabel || "";
@@ -180,7 +183,9 @@ export function initGalleryHubProjectCarousel() {
 
   if (!root) return;
 
-  const projects = Array.from(root.querySelectorAll(GALLERY_HUB_SELECTORS.project));
+  const projects = Array.from(
+    root.querySelectorAll(GALLERY_HUB_SELECTORS.project),
+  );
   const enterButton = root.querySelector(GALLERY_HUB_SELECTORS.enter);
   const previous = root.querySelector(GALLERY_HUB_SELECTORS.previous);
   const next = root.querySelector(GALLERY_HUB_SELECTORS.next);
