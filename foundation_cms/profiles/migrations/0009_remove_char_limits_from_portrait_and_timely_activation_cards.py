@@ -10,7 +10,7 @@ import foundation_cms.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("profiles", "0007_alter_expertdirectorypage_body_and_more"),
+        ("profiles", "0008_alter_experthubpage_description"),
     ]
 
     operations = [
