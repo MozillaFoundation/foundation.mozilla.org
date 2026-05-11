@@ -6,7 +6,6 @@ from wagtail.images import get_image_model
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.utils.helpers import get_faker, reseed
-from foundation_cms.blocks.factories import LinkButtonBlockFactory
 from foundation_cms.gallery_hub.models import GalleryPage, ProjectPage
 from foundation_cms.gallery_hub.models.gallery_page import FeaturedGalleryProject
 from foundation_cms.gallery_hub.models.project_page import ProgramLabel
@@ -79,17 +78,7 @@ def generate(seed):
             search_description=fake.sentence(nb_words=10).rstrip("."),
             hero_image=random.choice(images) if images else None,
             hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
-            cta_link=[
-                {
-                    "type": "link_button_block",
-                    "value": dict(
-                        LinkButtonBlockFactory(
-                            style="btn-primary",
-                            alignment="link-button-block--left",
-                        )
-                    ),
-                }
-            ],
+            project_link=fake.url(),
             body=[{"type": "rich_text", "value": body_html}],
         )
         gallery_page.add_child(instance=project)
