@@ -30,6 +30,14 @@ $carousel-transition: transform 0.3s ease;
 
   &__card-container {
     @include carousel-card-container;
+
+    @include breakpoint(small only) {
+      margin-left: calc(map.get($grid-container-padding, small) / 2);
+    }
+
+    @include breakpoint(medium only) {
+      margin-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
   }
 
   &__controls {
