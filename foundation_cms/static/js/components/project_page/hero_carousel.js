@@ -6,7 +6,6 @@ const MOBILE_TRACK_CLASS = "hero-carousel__track";
 const MOBILE_TRACK_ANIMATING_CLASS = "is-animating";
 const LARGE_VIEWPORT_QUERY = "(min-width: 64em)";
 const SWIPE_TRANSITION_MS = 280;
-const MAX_DOTS = 3;
 
 const SELECTORS = {
   frame: ".hero-carousel__frame",
@@ -239,13 +238,12 @@ class ProjectHeroCarousel {
   createDots() {
     if (this.slides.length < 2) return;
 
-    const dotCount = Math.min(this.slides.length, MAX_DOTS);
     const dotList = document.createElement("div");
 
     dotList.className = "hero-carousel__dots";
     dotList.setAttribute("aria-hidden", "true");
 
-    this.dots = Array.from({ length: dotCount }, () => {
+    this.dots = Array.from({ length: this.slides.length }, () => {
       const dot = document.createElement("span");
 
       dot.className = "hero-carousel__dot";
@@ -263,25 +261,9 @@ class ProjectHeroCarousel {
   updateDots() {
     if (!this.dots.length) return;
 
-    const activeDotIndex = this.getActiveDotIndex();
-
     this.dots.forEach((dot, index) => {
-      dot.classList.toggle(ACTIVE_CLASS, index === activeDotIndex);
+      dot.classList.toggle(ACTIVE_CLASS, index === this.activeIndex);
     });
-  }
-
-  /**
-   * Maps the active slide to a capped dot index.
-   *
-   * @returns {number}
-   */
-  getActiveDotIndex() {
-    if (this.slides.length <= MAX_DOTS) return this.activeIndex;
-
-    if (this.activeIndex === 0) return 0;
-    if (this.activeIndex === this.slides.length - 1) return MAX_DOTS - 1;
-
-    return 1;
   }
 
   /**
