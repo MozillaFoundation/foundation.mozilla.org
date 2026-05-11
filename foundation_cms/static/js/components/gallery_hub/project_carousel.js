@@ -25,6 +25,8 @@ import {
   subscribeGalleryHubState,
 } from "./state";
 
+let lockedScrollY = 0;
+
 /**
  * Count active filters across scalar and array filter buckets.
  *
@@ -104,11 +106,46 @@ function keepNavigationInView() {
  * @param {boolean} isLocked - Whether native page scrolling should be locked.
  */
 function setPageScrollLock(isLocked) {
-  document.documentElement.classList.toggle(
+  const root = document.documentElement;
+  const body = document.body;
+  const isCurrentlyLocked = root.classList.contains(
     GALLERY_HUB_SCROLL_LOCK_CLASS,
-    isLocked,
   );
-  document.body.classList.toggle(GALLERY_HUB_SCROLL_LOCK_CLASS, isLocked);
+
+  if (isLocked === isCurrentlyLocked) return;
+
+  if (isLocked) {
+    keepNavigationInView();
+    lockedScrollY = window.scrollY;
+    body.style.position = "fixed";
+    body.style.top = `-${lockedScrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+  }
+
+  root.classList.toggle(GALLERY_HUB_SCROLL_LOCK_CLASS, isLocked);
+  body.classList.toggle(GALLERY_HUB_SCROLL_LOCK_CLASS, isLocked);
+
+  if (!isLocked) {
+    body.style.removeProperty("position");
+    body.style.removeProperty("top");
+    body.style.removeProperty("left");
+    body.style.removeProperty("right");
+    body.style.removeProperty("width");
+    window.scrollTo({ top: lockedScrollY, left: 0, behavior: "auto" });
+  }
+}
+
+/**
+ * Check whether the Gallery Hub currently owns document scrolling.
+ *
+ * @returns {boolean}
+ */
+function isPageScrollLocked() {
+  return document.documentElement.classList.contains(
+    GALLERY_HUB_SCROLL_LOCK_CLASS,
+  );
 }
 
 /**
@@ -199,6 +236,7 @@ export function initGalleryHubProjectCarousel() {
     (toggle) => toggle.dataset.galleryHubModalToggle === "filter",
   );
   const projectIds = projects.map(getProjectId);
+  let isReleasedToPageScroll = false;
   let lastScrollAt = 0;
   let touchStartY = null;
 
@@ -250,6 +288,7 @@ export function initGalleryHubProjectCarousel() {
    * Unlock the page and nudge the browser into normal document scrolling.
    */
   function releaseToPageScroll() {
+    isReleasedToPageScroll = true;
     setPageScrollLock(false);
     window.requestAnimationFrame(() => {
       window.scrollBy({
@@ -318,6 +357,17 @@ export function initGalleryHubProjectCarousel() {
     return Date.now() - lastScrollAt < GALLERY_HUB_SCROLL_COOLDOWN;
   }
 
+  /**
+   * Re-pin the Gallery Hub after native page scroll returns to the gallery.
+   */
+  function restoreGalleryNavigation() {
+    if (!isReleasedToPageScroll || window.scrollY > 1) return;
+
+    isReleasedToPageScroll = false;
+    setPageScrollLock(true);
+    lastScrollAt = Date.now();
+  }
+
   subscribeGalleryHubState((state) => {
     const visibleTotal = state.filteredProjectIds.length;
     const activeIndex = clampIndex(state.activeIndex, visibleTotal);
@@ -339,7 +389,9 @@ export function initGalleryHubProjectCarousel() {
       keepNavigationInView();
     }
 
-    setPageScrollLock(true);
+    if (!isReleasedToPageScroll) {
+      setPageScrollLock(true);
+    }
   });
 
   setGalleryHubState({
@@ -356,6 +408,9 @@ export function initGalleryHubProjectCarousel() {
     keepNavigationInView();
   });
   window.addEventListener("resize", updateViewportHeight);
+  window.addEventListener("scroll", restoreGalleryNavigation, {
+    passive: true,
+  });
 
   enterButton?.addEventListener("click", () => {
     setGalleryHubState({
@@ -408,12 +463,15 @@ export function initGalleryHubProjectCarousel() {
    * @param {WheelEvent} event - Wheel event captured at the window.
    */
   function handleWheel(event) {
-    if (
-      !isGalleryInScrollRange() &&
-      getGalleryHubState().viewMode !== GALLERY_HUB_VIEW_MODES.project
-    )
-      return;
+    if (!isGalleryInScrollRange()) return;
     if (Math.abs(event.deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
+
+    if (getGalleryHubState().modalOpen) {
+      event.preventDefault();
+      return;
+    }
+
+    if (isReleasedToPageScroll) return;
 
     if (isNavigationCoolingDown()) {
       event.preventDefault();
@@ -454,6 +512,13 @@ export function initGalleryHubProjectCarousel() {
       const deltaY = touchStartY - touchY;
 
       if (Math.abs(deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
+      if (getGalleryHubState().modalOpen) {
+        event.preventDefault();
+        return;
+      }
+
+      if (isReleasedToPageScroll) return;
+
       if (isNavigationCoolingDown()) {
         event.preventDefault();
         keepNavigationInView();
@@ -482,6 +547,9 @@ export function initGalleryHubProjectCarousel() {
       touchStartY = null;
 
       if (Math.abs(deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
+      if (getGalleryHubState().modalOpen) return;
+      if (isReleasedToPageScroll) return;
+
       if (isNavigationCoolingDown()) {
         keepNavigationInView();
         return;
@@ -503,6 +571,13 @@ export function initGalleryHubProjectCarousel() {
     if (!GALLERY_HUB_SCROLL_KEYS.has(event.key)) return;
 
     const delta = event.key.endsWith("Down") ? 1 : -1;
+
+    if (getGalleryHubState().modalOpen) {
+      event.preventDefault();
+      return;
+    }
+
+    if (isReleasedToPageScroll || !isPageScrollLocked()) return;
 
     if (isNavigationCoolingDown()) {
       event.preventDefault();
