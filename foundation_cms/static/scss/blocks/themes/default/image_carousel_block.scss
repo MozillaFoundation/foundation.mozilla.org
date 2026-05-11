@@ -49,6 +49,14 @@
     align-items: center;
     margin: rem-calc(14) 0 rem-calc(24);
 
+    @include breakpoint(small only) {
+      padding-left: calc(map.get($grid-container-padding, small) / 2);
+    }
+
+    @include breakpoint(medium only) {
+      padding-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
+
     .image-carousel__controls {
       margin-left: auto;
     }
@@ -62,6 +70,14 @@
 
   &__card-container {
     @include carousel-card-container;
+
+    @include breakpoint(small only) {
+      margin-left: calc(map.get($grid-container-padding, small) / 2);
+    }
+
+    @include breakpoint(medium only) {
+      margin-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
   }
 
   &__track {
