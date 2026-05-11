@@ -77,8 +77,6 @@ $carousel-transition: transform 0.3s ease;
     scroll-snap-align: start;
     margin-right: 0.5rem;
 
-    @include peekaboo-transition;
-
     @include breakpoint(medium) {
       width: 45%;
     }

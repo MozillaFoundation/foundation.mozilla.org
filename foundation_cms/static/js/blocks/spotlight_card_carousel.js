@@ -11,7 +11,6 @@ const CARD_CONFIG = {
 import {
   SWIPE_THRESHOLD,
   RESIZE_DEBOUNCE_MS,
-  PEEK_CLASS,
   getLogicalIndex,
   tripleCards,
   debounce,
@@ -140,7 +139,6 @@ class SpotlightCarousel {
     this.updateTeaserRegion();
     this.updateAllCardHeights();
     this.updateContainerHeight();
-    this.updatePeekItem();
   }
 
   /**
@@ -528,13 +526,6 @@ class SpotlightCarousel {
     });
   }
 
-  updatePeekItem() {
-    const peekIndex = this.isMobile ? this.mobileIndex + 1 : -1;
-    this.cards.forEach((card, i) => {
-      card.classList.toggle(PEEK_CLASS, i === peekIndex);
-    });
-  }
-
   /**
    * Sets the translateX transform for mobile carousel position
    * Directly updates the slides container's transform style based on current mobileIndex
@@ -553,7 +544,6 @@ class SpotlightCarousel {
   updateMobilePosition() {
     this.setMobileTransformValue();
     this.updateAriaAttributes();
-    this.updatePeekItem();
   }
 
   /**

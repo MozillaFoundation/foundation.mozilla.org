@@ -12,8 +12,3 @@
 
 // Generate background-color utility classes (e.g. .bg-blue-100)
 @include generate-bg-utilities($mofo-colors);
-
-// Peekaboo item — partially visible carousel card at the trailing edge
-.is-peek {
-  opacity: 0.5;
-}
