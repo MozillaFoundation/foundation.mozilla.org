@@ -1,4 +1,3 @@
-from adminsortable.models import SortableMixin
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -34,7 +33,7 @@ class HighlightQuerySet(models.query.QuerySet):
         )
 
 
-class Highlight(TranslatableMixin, SortableMixin):
+class Highlight(TranslatableMixin):
     """
     An data type to highlight things like pulse
     projects, custom pages, etc
