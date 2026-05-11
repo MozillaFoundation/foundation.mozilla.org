@@ -335,3 +335,25 @@
     transform: translate(-50%, -50%);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .gallery-hub--intro .gallery-hub__scroll-link::after {
+    animation: gallery-scroll-cue 6s ease-in-out 0.8s infinite;
+  }
+}
+
+@keyframes gallery-scroll-cue {
+  0%,
+  12%,
+  24%,
+  36%,
+  100% {
+    transform: translateY(0);
+  }
+
+  6%,
+  18%,
+  30% {
+    transform: translateY(rem-calc(7));
+  }
+}

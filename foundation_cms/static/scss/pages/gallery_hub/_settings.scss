@@ -7,6 +7,26 @@ $gallery-feature-image-path: "/static/foundation_cms/_images/gallery-feature";
 $gallery-icon-image-path: "/static/foundation_cms/_images/icons";
 $gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
 
+// Project view layout tokens. The compact layout protects the vertical controls
+// in shorter browser windows; the spacious layout uses extra viewport height to
+// give project media more presence.
+$gallery-project-spacious-height: 68rem;
+$gallery-project-media-gutter: rem-calc(80);
+$gallery-project-media-size-compact: clamp(rem-calc(500), 46svh, rem-calc(680));
+$gallery-project-media-size-spacious: clamp(
+  rem-calc(640),
+  54svh,
+  rem-calc(760)
+);
+$gallery-project-media-lift-compact: rem-calc(104);
+$gallery-project-media-lift-spacious: rem-calc(128);
+$gallery-project-content-top-compact: calc(
+  36% + clamp(5.5rem, 15vw, 13rem)
+);
+$gallery-project-content-top-spacious: calc(
+  47% + clamp(5.5rem, 15vw, 13rem)
+);
+
 @mixin gallery-shape-properties($namespace, $shape) {
   --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
   --gallery-#{$namespace}-shape: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}.png");
