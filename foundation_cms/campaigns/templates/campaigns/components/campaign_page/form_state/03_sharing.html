@@ -4,12 +4,20 @@
     {% include "campaigns/components/campaign_page/step_indicator/step_indicator.html" with current_step=3 %}
     <div class="petition__header">{{ page.share_header }}</div>
     {{ page.share_body|richtext }}
-
-    {% if petition_cta.sosha_toolkit_embed_code %}
-        <div class="petition__share-button-wrapper">
+    <div class="petition__share-button-wrapper">
+        {% if petition_cta.sosha_toolkit_embed_code %}
+        <div class="petition__share-embed">
             {{ petition_cta.sosha_toolkit_embed_code|safe }}
         </div>
-    {% endif %}
+        {% else %}
+        <div class="petition__share-buttons">
+            <button class="btn btn-secondary btn-secondary--no-arrow btn-secondary--link">
+                {% trans "Copy Link" %}
+            </button>
+        </div>
+        {% endif %}
+    </div>
+
 
     {% include "campaigns/components/campaign_page/action/skip.html" %}
 </div>
