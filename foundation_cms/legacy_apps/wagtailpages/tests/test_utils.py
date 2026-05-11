@@ -137,8 +137,8 @@ class TestLocalizeQueryset(WagtailpagesTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        (cls.default_locale, _) = Locale.objects.get_or_create(language_code="en")
-        (cls.active_locale, _) = Locale.objects.get_or_create(language_code="fr")
+        cls.default_locale, _ = Locale.objects.get_or_create(language_code="en")
+        cls.active_locale, _ = Locale.objects.get_or_create(language_code="fr")
 
     def setUp(self):
         super().setUp()
