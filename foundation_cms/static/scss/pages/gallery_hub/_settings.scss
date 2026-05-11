@@ -20,12 +20,8 @@ $gallery-project-media-size-spacious: clamp(
 );
 $gallery-project-media-lift-compact: rem-calc(104);
 $gallery-project-media-lift-spacious: rem-calc(128);
-$gallery-project-content-top-compact: calc(
-  36% + clamp(5.5rem, 15vw, 13rem)
-);
-$gallery-project-content-top-spacious: calc(
-  47% + clamp(5.5rem, 15vw, 13rem)
-);
+$gallery-project-content-top-compact: calc(36% + clamp(5.5rem, 15vw, 13rem));
+$gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
 
 @mixin gallery-shape-properties($namespace, $shape) {
   --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
