@@ -200,6 +200,16 @@
                 {% endfor %}
             </div>
 
+            {% if featured_projects %}
+                <div class="gallery-hub__project-markers" aria-hidden="true">
+                    {% for project in featured_projects %}
+                        <span class="gallery-hub__project-marker{% if forloop.first %} gallery-hub__project-marker--active{% endif %}"
+                              data-gallery-hub-project-marker
+                              data-project-id="{{ project.id }}"></span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div class="gallery-hub__controls" aria-label="{% trans "Gallery controls" %}">
                 <div class="gallery-hub__controls-grid grid-container">
                     <div class="gallery-hub__controls-row grid-x">

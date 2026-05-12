@@ -149,6 +149,15 @@ function isPageScrollLocked() {
 }
 
 /**
+ * Check whether the Gallery Hub is using the mobile layout.
+ *
+ * @returns {boolean}
+ */
+function isMobileLayout() {
+  return window.matchMedia("(max-width: 63.9375em)").matches;
+}
+
+/**
  * Mark the active project and hide inactive projects from assistive tech.
  *
  * @param {HTMLElement[]} projects - All rendered project elements.
@@ -168,6 +177,26 @@ function syncProjects(projects, filteredProjectIds, activeIndex) {
     if ("inert" in project) {
       project.inert = !isActive;
     }
+  });
+}
+
+/**
+ * Keep the mobile vertical project markers aligned with the filtered projects.
+ *
+ * @param {HTMLElement[]} markers - Project marker elements.
+ * @param {string[]} filteredProjectIds - Project ids allowed by filters.
+ * @param {number} activeIndex - Active index within the filtered project list.
+ */
+function syncProjectMarkers(markers, filteredProjectIds, activeIndex) {
+  const ids = new Set(filteredProjectIds);
+  const activeProjectId = filteredProjectIds[activeIndex];
+
+  markers.forEach((marker) => {
+    const isVisible = ids.has(marker.dataset.projectId);
+    const isActive = marker.dataset.projectId === activeProjectId;
+
+    marker.hidden = !isVisible;
+    marker.classList.toggle(GALLERY_HUB_CLASSES.projectMarkerActive, isActive);
   });
 }
 
@@ -223,6 +252,9 @@ export function initGalleryHubProjectCarousel() {
   const projects = Array.from(
     root.querySelectorAll(GALLERY_HUB_SELECTORS.project),
   );
+  const projectMarkers = Array.from(
+    root.querySelectorAll(GALLERY_HUB_SELECTORS.projectMarker),
+  );
   const enterButton = root.querySelector(GALLERY_HUB_SELECTORS.enter);
   const previous = root.querySelector(GALLERY_HUB_SELECTORS.previous);
   const next = root.querySelector(GALLERY_HUB_SELECTORS.next);
@@ -258,11 +290,21 @@ export function initGalleryHubProjectCarousel() {
    */
   function updateViewportHeight() {
     const rootTop = Math.max(root.getBoundingClientRect().top, 0);
-    const viewportHeight = window.innerHeight - rootTop;
+    const viewportHeight =
+      (window.visualViewport?.height ?? window.innerHeight) - rootTop;
+    const clampedViewportHeight = Math.max(viewportHeight, 320);
 
     root.style.setProperty(
       GALLERY_HUB_VIEWPORT_PROPERTY,
-      `${Math.max(viewportHeight, 320)}px`,
+      `${clampedViewportHeight}px`,
+    );
+    root.classList.toggle(
+      GALLERY_HUB_CLASSES.mobileCompact,
+      isMobileLayout() && clampedViewportHeight <= 820,
+    );
+    root.classList.toggle(
+      GALLERY_HUB_CLASSES.mobileShort,
+      isMobileLayout() && clampedViewportHeight <= 760,
     );
   }
 
@@ -379,6 +421,7 @@ export function initGalleryHubProjectCarousel() {
 
     syncViewMode(root, state.viewMode);
     syncProjects(projects, state.filteredProjectIds, activeIndex);
+    syncProjectMarkers(projectMarkers, state.filteredProjectIds, activeIndex);
     syncControls({ previous, next, projectListToggle, filterToggle }, state);
 
     if (
@@ -408,6 +451,8 @@ export function initGalleryHubProjectCarousel() {
     keepNavigationInView();
   });
   window.addEventListener("resize", updateViewportHeight);
+  window.visualViewport?.addEventListener("resize", updateViewportHeight);
+  window.visualViewport?.addEventListener("scroll", updateViewportHeight);
   window.addEventListener("scroll", restoreGalleryNavigation, {
     passive: true,
   });

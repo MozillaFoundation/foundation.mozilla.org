@@ -179,6 +179,52 @@
     z-index: 2;
   }
 
+  &__project-markers {
+    position: absolute;
+    top: rem-calc(112);
+    bottom: rem-calc(170);
+    left: 0;
+    z-index: 7;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    pointer-events: none;
+  }
+
+  &__project-marker {
+    display: block;
+    width: rem-calc(14);
+    height: rem-calc(7);
+    background-image: url("#{$gallery-feature-image-path}/project-marker-line-small.svg");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+    transform-origin: center;
+    transition:
+      width 180ms ease,
+      height 180ms ease,
+      transform 180ms ease;
+
+    &:nth-child(even) {
+      transform: scaleX(-1);
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__project-marker--active {
+    width: rem-calc(24);
+    height: rem-calc(12);
+    transform: scaleY(-1);
+
+    &:nth-child(even) {
+      transform: scale(-1);
+    }
+  }
+
   &__edge-media {
     position: absolute;
     inset: 0;

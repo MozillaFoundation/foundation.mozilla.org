@@ -159,6 +159,13 @@
     }
   }
 
+  @include breakpoint(medium down) {
+    &__slide-control,
+    &__slide-dots {
+      display: none;
+    }
+  }
+
   &__content {
     position: absolute;
     top: $gallery-project-content-top-compact;
@@ -233,9 +240,24 @@
     @include mofo-text-style($body-text-styles, "regular", $body-font-family);
     @include link-text-hover-underline;
 
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(8);
     color: $black;
     font-weight: map.get($font-weights, bold);
     text-decoration-line: underline;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: rem-calc(12);
+      height: rem-calc(12);
+      background-image: url("#{$gallery-icon-image-path}/button-arrow-right-black.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      flex: 0 0 auto;
+    }
   }
 }
 
@@ -358,5 +380,157 @@
   .gallery-hub-project:not(.gallery-hub-project--active)
     .gallery-hub-project__media {
     opacity: 0;
+  }
+
+  @include breakpoint(medium down) {
+    .gallery-hub-project__media {
+      top: rem-calc(94);
+      transform-origin: top center;
+      transform: translateX(-50%) scale(0.7);
+    }
+
+    .gallery-hub-project--active .gallery-hub-project__media {
+      width: min(calc(100% - rem-calc(72)), rem-calc(320));
+      transform: translateX(-50%);
+    }
+
+    .gallery-hub-project__content {
+      top: rem-calc(430);
+      width: min(calc(100% - rem-calc(48)), rem-calc(344));
+      padding: 0;
+    }
+
+    .gallery-hub-project__title {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+      margin: 0 0 rem-calc(12);
+    }
+
+    .gallery-hub-project__meta {
+      gap: rem-calc(8);
+      margin-bottom: rem-calc(10);
+    }
+
+    .gallery-hub-project__program {
+      @include mofo-text-style($label-text-styles, "small");
+    }
+
+    .topic-pills {
+      gap: rem-calc(6);
+    }
+
+    .btn-topic {
+      @include mofo-text-style($body-text-styles, "small");
+
+      padding: rem-calc(4) rem-calc(12);
+    }
+
+    .gallery-hub-project__description {
+      @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+
+      margin-bottom: rem-calc(10);
+    }
+
+    .gallery-hub-project__link {
+      @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+
+      font-weight: map.get($font-weights, bold);
+    }
+  }
+
+  @include breakpoint(medium down) {
+    @media (height <= rem-calc(820)) {
+      .gallery-hub-project__media {
+        top: rem-calc(70);
+      }
+
+      .gallery-hub-project--active .gallery-hub-project__media {
+        width: min(calc(100% - rem-calc(104)), rem-calc(280));
+      }
+
+      .gallery-hub-project__content {
+        top: rem-calc(360);
+      }
+    }
+  }
+
+  &.gallery-hub--mobile-compact {
+    .gallery-hub-project__media {
+      top: rem-calc(70);
+    }
+
+    .gallery-hub-project--active .gallery-hub-project__media {
+      width: min(calc(100% - rem-calc(104)), rem-calc(280));
+    }
+
+    .gallery-hub-project__content {
+      top: rem-calc(360);
+    }
+  }
+
+  @include breakpoint(medium down) {
+    @media (height <= rem-calc(760)) {
+      .gallery-hub-project__media {
+        top: rem-calc(54);
+      }
+
+      .gallery-hub-project--active .gallery-hub-project__media {
+        width: min(calc(100% - rem-calc(120)), rem-calc(252));
+      }
+
+      .gallery-hub-project__content {
+        top: rem-calc(328);
+      }
+
+      .gallery-hub-project__title {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+      }
+
+      .gallery-hub-project__meta,
+      .gallery-hub-project__description {
+        margin-bottom: rem-calc(6);
+      }
+
+      .gallery-hub-project__description,
+      .gallery-hub-project__link {
+        @include mofo-text-style(
+          $body-text-styles,
+          "xsmall",
+          $body-font-family
+        );
+      }
+    }
+
+    &.gallery-hub--mobile-short {
+      .gallery-hub-project__media {
+        top: rem-calc(54);
+      }
+
+      .gallery-hub-project--active .gallery-hub-project__media {
+        width: min(calc(100% - rem-calc(120)), rem-calc(252));
+      }
+
+      .gallery-hub-project__content {
+        top: rem-calc(328);
+      }
+
+      .gallery-hub-project__title {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+      }
+
+      .gallery-hub-project__meta,
+      .gallery-hub-project__description {
+        margin-bottom: rem-calc(6);
+      }
+
+      .gallery-hub-project__description,
+      .gallery-hub-project__link {
+        @include mofo-text-style(
+          $body-text-styles,
+          "xsmall",
+          $body-font-family
+        );
+      }
+    }
   }
 }

@@ -73,4 +73,17 @@
     opacity: 0.78;
     transform: translate(15%, 0) rotate(12deg) scale(0.66);
   }
+
+  @include breakpoint(medium down) {
+    .gallery-hub__project-markers {
+      display: flex;
+    }
+
+    .gallery-hub__edge-media,
+    .gallery-hub__intro-media,
+    .gallery-hub__mobile-collage,
+    .gallery-hub__decor-item--scribble {
+      display: none;
+    }
+  }
 }

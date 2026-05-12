@@ -19,6 +19,7 @@ export const GALLERY_HUB_SELECTORS = {
   project: "[data-gallery-hub-project]",
   previous: "[data-gallery-hub-previous]",
   next: "[data-gallery-hub-next]",
+  projectMarker: "[data-gallery-hub-project-marker]",
   modalLayer: "[data-gallery-hub-modal-layer]",
   modal: "[data-gallery-hub-modal]",
   modalToggle: "[data-gallery-hub-modal-toggle]",
@@ -32,8 +33,11 @@ export const GALLERY_HUB_SELECTORS = {
  */
 export const GALLERY_HUB_CLASSES = {
   intro: "gallery-hub--intro",
+  mobileCompact: "gallery-hub--mobile-compact",
+  mobileShort: "gallery-hub--mobile-short",
   modalOpen: "gallery-hub--modal-open",
   projectActive: "gallery-hub-project--active",
+  projectMarkerActive: "gallery-hub__project-marker--active",
   projectView: "gallery-hub--project-view",
 };
 

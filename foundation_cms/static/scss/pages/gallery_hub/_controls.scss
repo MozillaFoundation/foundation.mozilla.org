@@ -153,6 +153,53 @@
     bottom: rem-calc(48);
   }
 
+  @include breakpoint(medium down) {
+    &__nav {
+      display: none;
+    }
+
+    &__toggle {
+      @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+
+      bottom: rem-calc(28);
+      min-width: rem-calc(120);
+      padding: rem-calc(12) rem-calc(16);
+      font-weight: map.get($font-weights, bold);
+    }
+
+    &__toggle[data-gallery-hub-modal-toggle="project-list"] {
+      left: rem-calc(20);
+    }
+
+    &__toggle[data-gallery-hub-modal-toggle="filter"] {
+      right: rem-calc(20);
+    }
+
+    @media (height <= rem-calc(820)) {
+      &__toggle {
+        bottom: rem-calc(22);
+        min-width: rem-calc(104);
+        padding: rem-calc(10) rem-calc(14);
+      }
+    }
+
+    @media (height <= rem-calc(760)) {
+      &__toggle {
+        bottom: rem-calc(18);
+      }
+    }
+  }
+
+  &--mobile-compact &__toggle {
+    bottom: rem-calc(22);
+    min-width: rem-calc(104);
+    padding: rem-calc(10) rem-calc(14);
+  }
+
+  &--mobile-short &__toggle {
+    bottom: rem-calc(18);
+  }
+
   &__modal-layer {
     position: fixed;
     inset: 0;
