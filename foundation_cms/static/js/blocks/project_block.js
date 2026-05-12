@@ -1,4 +1,4 @@
-import { SWIPE_THRESHOLD } from "./util/carousel.js";
+import { SWIPE_THRESHOLD, updateIndicators } from "./util/carousel.js";
 
 const SWIPE_TRANSITION_DURATION = 300;
 const SWIPE_PREVENTION_THRESHOLD = 10;
@@ -9,11 +9,11 @@ const SELECTORS = {
   track: "[data-project-block-track]",
   slide: "[data-project-block-slide]",
   video: "[data-project-block-video]",
-  prev: "[data-project-block-prev]",
-  next: "[data-project-block-next]",
+  prev: ".pagination-controls [data-direction='prev']",
+  next: ".pagination-controls [data-direction='next']",
   pause: "[data-project-block-pause]",
   pauseLabel: "[data-project-block-pause-label]",
-  pagination: "[data-project-block-pagination]",
+  activeIndex: "[data-active-index]",
 };
 
 const CLASSES = {
@@ -46,7 +46,7 @@ class ProjectBlock {
     this.nextButton = root.querySelector(SELECTORS.next);
     this.pauseButton = root.querySelector(SELECTORS.pause);
     this.pauseLabel = root.querySelector(SELECTORS.pauseLabel);
-    this.pagination = root.querySelector(SELECTORS.pagination);
+    this.activeIndexLabel = root.querySelector(SELECTORS.activeIndex);
     this.pauseText = this.pauseButton?.dataset.pauseLabel || "Pause video";
     this.playText = this.pauseButton?.dataset.playLabel || "Play video";
     this.index = 0;
@@ -54,7 +54,6 @@ class ProjectBlock {
     this.currentX = 0;
     this.swipeStartTransform = 0;
     this.isDragging = false;
-    this.hasInteracted = false;
     this.isCarousel = this.slides.length > 1;
     this.trackIndex = this.slides.length > 1 ? 1 : 0;
   }
@@ -67,7 +66,6 @@ class ProjectBlock {
 
     this.setupSlides();
     this.bindEvents();
-    this.root.setAttribute("tabindex", "0");
     this.setTrackTransition(false);
     this.update();
     this.clearTrackTransitionAfterSettle();
@@ -100,28 +98,10 @@ class ProjectBlock {
     this.track.prepend(lastClone);
     this.track.append(firstClone);
     this.trackSlides = Array.from(this.track.querySelectorAll(SELECTORS.slide));
-    this.buildPagination();
   }
 
   /**
-   * Creates one pagination marker per media item.
-   */
-  buildPagination() {
-    if (!this.pagination || this.slides.length <= 1) return;
-
-    this.pagination.innerHTML = "";
-
-    this.slides.forEach(() => {
-      const dot = document.createElement("span");
-      dot.className = "project-block__pagination-dot";
-      this.pagination.appendChild(dot);
-    });
-
-    this.dots = Array.from(this.pagination.children);
-  }
-
-  /**
-   * Attaches finite carousel and video control handlers.
+   * Attaches carousel and video control handlers.
    */
   bindEvents() {
     this.prevButton?.addEventListener("click", () => this.goTo(this.index - 1));
@@ -158,11 +138,6 @@ class ProjectBlock {
       this.handleSwipeEnd(event.clientX),
     );
     this.viewport.addEventListener("mouseleave", () => this.cancelSwipe());
-
-    this.root.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") this.goTo(this.index - 1);
-      if (event.key === "ArrowRight") this.goTo(this.index + 1);
-    });
   }
 
   /**
@@ -253,7 +228,6 @@ class ProjectBlock {
 
     if (nextIndex === this.index && index === this.index) return false;
 
-    this.hasInteracted = true;
     this.pauseCurrentVideo();
     this.index = nextIndex;
     this.trackIndex = this.getTrackIndexForRequestedIndex(index, nextIndex);
@@ -301,17 +275,15 @@ class ProjectBlock {
 
     this.updateTrackPosition();
 
-    this.dots?.forEach((dot, index) => {
-      dot.classList.toggle(CLASSES.active, index === this.index);
-    });
+    updateIndicators(this.root, this.index);
 
-    this.prevButton?.classList.toggle(
-      CLASSES.hidden,
-      this.slides.length <= 1 || (!this.hasInteracted && this.index === 0),
-    );
-    this.nextButton?.classList.toggle(CLASSES.hidden, this.slides.length <= 1);
+    const hasMultipleSlides = this.slides.length > 1;
+    this.prevButton?.toggleAttribute("disabled", !hasMultipleSlides);
+    this.nextButton?.toggleAttribute("disabled", !hasMultipleSlides);
 
-    this.pagination?.classList.toggle(CLASSES.hidden, this.slides.length <= 1);
+    if (this.activeIndexLabel) {
+      this.activeIndexLabel.textContent = String(this.index + 1);
+    }
 
     this.updateVideoControls();
   }

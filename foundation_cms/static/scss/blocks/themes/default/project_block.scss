@@ -111,36 +111,9 @@
       display: none;
     }
 
-    &--prev,
-    &--next {
-      display: none;
-
-      @include breakpoint(medium up) {
-        display: flex;
-
-        &.is-hidden {
-          display: none;
-        }
-      }
-    }
-
     &:hover,
     &:focus-visible {
       background-color: map.get($mofo-colors, black);
-    }
-
-    &--prev {
-      left: rem-calc(8);
-      top: 50%;
-      background-image: url("/static/foundation_cms/_images/icons/button-arrow-left-white.svg");
-      transform: translateY(-50%);
-    }
-
-    &--next {
-      right: rem-calc(8);
-      top: 50%;
-      background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-white.svg");
-      transform: translateY(-50%);
     }
 
     &--pause {
@@ -168,31 +141,38 @@
     }
   }
 
-  &__pagination {
+  &__pagination-controls {
     position: absolute;
+    z-index: 3;
     left: 50%;
-    bottom: rem-calc(8);
-    display: flex;
-    gap: rem-calc(4);
-    align-items: center;
-    padding: rem-calc(8);
-    border-radius: 9999px;
-    background-color: rgba(map.get($mofo-colors, black), 0.5);
-    transform: translateX(-50%);
+    top: 50%;
+    width: calc(100% - #{rem-calc(16)});
+    pointer-events: none;
+    transform: translate(-50%, -50%);
 
-    &.is-hidden {
+    .pagination-controls {
+      justify-content: space-between;
+    }
+
+    .pagination-controls__counter {
       display: none;
+    }
+
+    .pagination-controls__prev,
+    .pagination-controls__next {
+      pointer-events: auto;
     }
   }
 
-  &__pagination-dot {
-    width: rem-calc(8);
-    height: rem-calc(8);
-    border-radius: 50%;
-    background-color: rgba(map.get($mofo-colors, white), 0.5);
+  &__indicators {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: rem-calc(8);
+    transform: translateX(-50%);
 
-    &.is-active {
-      background-color: map.get($mofo-colors, white);
+    .carousel-indicators {
+      margin: 0;
     }
   }
 

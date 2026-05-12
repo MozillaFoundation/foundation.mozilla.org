@@ -49,12 +49,19 @@
         </div>
       </div>
 
-      <button class="project-block__control project-block__control--prev is-hidden" type="button" data-project-block-prev>
-        <span class="show-for-sr">{% trans "Previous media" %}</span>
-      </button>
-      <button class="project-block__control project-block__control--next is-hidden" type="button" data-project-block-next>
-        <span class="show-for-sr">{% trans "Next media" %}</span>
-      </button>
+      {% with slide_count=project.hero_gallery_media.all|length|add:1 %}
+        {% if slide_count > 1 %}
+          {% trans "Project media controls" as project_media_controls_label %}
+          {% trans "Previous media" as previous_media_label %}
+          {% trans "Next media" as next_media_label %}
+          <div class="project-block__pagination-controls">
+            {% include "patterns/blocks/themes/default/fragments/pagination_controls.html" with total=slide_count dark_mode=True aria_label=project_media_controls_label prev_label=previous_media_label next_label=next_media_label %}
+          </div>
+          <div class="project-block__indicators">
+            {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count dark_mode=True show_on_large=True %}
+          </div>
+        {% endif %}
+      {% endwith %}
       {% trans "Pause video" as pause_video_label %}
       {% trans "Play video" as play_video_label %}
       <button
@@ -66,7 +73,6 @@
       >
         <span class="show-for-sr" data-project-block-pause-label>{% trans "Pause video" %}</span>
       </button>
-      <div class="project-block__pagination is-hidden" data-project-block-pagination aria-hidden="true"></div>
     </div>
 
     <div class="project-block__content">
