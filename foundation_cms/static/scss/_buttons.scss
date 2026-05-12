@@ -11,9 +11,6 @@ $cta-link-icon-sizes: (
   $color: color(neutral, "100"),
   $border-color: black
 ) {
-  $button-transition-duration: 0.5s;
-  $button-transition-ease: ease;
-
   display: flex;
   align-items: center;
   gap: rem-calc(16);
@@ -45,8 +42,8 @@ $cta-link-icon-sizes: (
     opacity: 1;
     transform: translateY(0);
     transition:
-      transform $button-transition-duration $button-transition-ease,
-      opacity $button-transition-duration $button-transition-ease;
+      transform $button-transition-duration $button-transition-function,
+      opacity $button-transition-duration $button-transition-function;
   }
 
   &__text--roll-in {
@@ -215,74 +212,6 @@ $cta-link-icon-sizes: (
 
   &--xlarge {
     @include cta-link(map.get($cta-link-icon-sizes, xlarge), "xlarge");
-  }
-}
-
-// ===================================
-// Pagination Controls
-// ===================================
-
-.pagination-controls {
-  $background-color: black;
-  $triangle-width: rem-calc(48);
-
-  display: flex;
-  align-items: center;
-  color: white;
-  position: relative;
-  background: $background-color;
-  margin-left: $triangle-width;
-
-  &::before {
-    $width: $triangle-width;
-    $left-offset: $width * -1;
-
-    // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges
-    $scale-overlap: 101%; // instead of 100%
-
-    content: "";
-    position: absolute;
-    left: $left-offset;
-    top: 0;
-    bottom: 0;
-    width: $width;
-    background: $background-color;
-    clip-path: polygon(0% 0%, $scale-overlap 0%, $scale-overlap $scale-overlap);
-  }
-
-  &__counter {
-    background: $background-color;
-    width: 3em;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: rem-calc(4);
-    justify-content: space-evenly;
-  }
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: rem-calc(56);
-    padding: rem-calc(24) 0;
-    color: white;
-    background: $background-color;
-    cursor: pointer;
-
-    img {
-      width: rem-calc(16);
-      height: rem-calc(16);
-    }
-
-    &:focus-visible {
-      outline-color: color(neutral, "300");
-      z-index: 1;
-    }
-
-    &:disabled {
-      visibility: hidden;
-    }
   }
 }
 

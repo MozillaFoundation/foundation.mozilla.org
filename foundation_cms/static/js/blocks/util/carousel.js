@@ -34,6 +34,23 @@ export function tripleCards(originalCards) {
 }
 
 /**
+ * Syncs the active state of carousel indicator dots to the given index.
+ * Toggles `--active` modifier and `aria-current` on each `.carousel-indicators__item`
+ * found within `rootEl`.
+ *
+ * @param {Element} rootEl - The carousel root element containing the indicators.
+ * @param {number} activeIndex - 0-based index of the active slide.
+ */
+export function updateIndicators(rootEl, activeIndex) {
+  const items = rootEl.querySelectorAll(".carousel-indicators__item");
+  items.forEach((item, i) => {
+    const isActive = i === activeIndex;
+    item.classList.toggle("carousel-indicators__item--active", isActive);
+    item.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+}
+
+/**
  * Returns a debounced version of the given function.
  * @param {Function} fn - The function to debounce
  * @param {number} ms - Delay in milliseconds
