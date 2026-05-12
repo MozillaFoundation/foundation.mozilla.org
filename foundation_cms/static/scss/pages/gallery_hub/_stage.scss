@@ -327,18 +327,28 @@
   &__intro-image--slot-1 {
     --gallery-image-transition-delay: 40ms;
     --gallery-image-transition-duration: 580ms;
-
-    transform: translate(calc(-50% + rem-calc(-14)), calc(-50% - rem-calc(250)))
+    --gallery-intro-arrival-delay: 0ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% + #{rem-calc(-14)}),
+        calc(-50% - #{rem-calc(250)})
+      )
       rotate(6deg);
+
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__intro-image--slot-2 {
     --gallery-image-transition-delay: 85ms;
     --gallery-image-transition-duration: 540ms;
+    --gallery-intro-arrival-delay: 360ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% - #{rem-calc(28)}),
+        calc(-50% + #{rem-calc(254)})
+      )
+      rotate(-8deg);
 
     width: clamp(9rem, 16vw, 15rem);
-    transform: translate(calc(-50% - rem-calc(28)), calc(-50% + rem-calc(254)))
-      rotate(-8deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   @each $shape in 1, 7 {
@@ -404,55 +414,85 @@
   &__edge-image--slot-1 {
     --gallery-image-transition-delay: 20ms;
     --gallery-image-transition-duration: 560ms;
+    --gallery-intro-arrival-delay: 630ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% - #{rem-calc(226)}),
+        calc(-50% - #{rem-calc(192)})
+      )
+      rotate(-11deg);
 
     z-index: 5;
-    transform: translate(calc(-50% - rem-calc(226)), calc(-50% - rem-calc(192)))
-      rotate(-11deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__edge-image--slot-2 {
     --gallery-image-transition-delay: 75ms;
     --gallery-image-transition-duration: 530ms;
+    --gallery-intro-arrival-delay: 540ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% - #{rem-calc(290)}),
+        calc(-50% + #{rem-calc(8)})
+      )
+      rotate(7deg);
 
     z-index: 4;
-    transform: translate(calc(-50% - rem-calc(290)), calc(-50% + rem-calc(8)))
-      rotate(7deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__edge-image--slot-3 {
     --gallery-image-transition-delay: 45ms;
     --gallery-image-transition-duration: 590ms;
+    --gallery-intro-arrival-delay: 450ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% - #{rem-calc(236)}),
+        calc(-50% + #{rem-calc(222)})
+      )
+      rotate(-5deg);
 
     z-index: 2;
-    transform: translate(calc(-50% - rem-calc(236)), calc(-50% + rem-calc(222)))
-      rotate(-5deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__edge-image--slot-4 {
     --gallery-image-transition-delay: 95ms;
     --gallery-image-transition-duration: 555ms;
+    --gallery-intro-arrival-delay: 90ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% + #{rem-calc(188)}),
+        calc(-50% - #{rem-calc(186)})
+      )
+      rotate(8deg);
 
     z-index: 6;
-    transform: translate(calc(-50% + rem-calc(188)), calc(-50% - rem-calc(186)))
-      rotate(8deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__edge-image--slot-5 {
     --gallery-image-transition-delay: 35ms;
     --gallery-image-transition-duration: 575ms;
+    --gallery-intro-arrival-delay: 180ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% + #{rem-calc(312)}),
+        calc(-50% + #{rem-calc(26)})
+      )
+      rotate(4deg);
 
     z-index: 3;
-    transform: translate(calc(-50% + rem-calc(312)), calc(-50% + rem-calc(26)))
-      rotate(4deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__edge-image--slot-6 {
     --gallery-image-transition-delay: 65ms;
     --gallery-image-transition-duration: 545ms;
+    --gallery-intro-arrival-delay: 270ms;
+    --gallery-intro-arrival-transform: translate(
+        calc(-50% + #{rem-calc(198)}),
+        calc(-50% + #{rem-calc(214)})
+      )
+      rotate(9deg);
 
     z-index: 1;
-    transform: translate(calc(-50% + rem-calc(198)), calc(-50% + rem-calc(214)))
-      rotate(9deg);
+    transform: var(--gallery-intro-arrival-transform);
   }
 
   &__mobile-collage-item--slot-1 {
@@ -531,6 +571,16 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  @include breakpoint(large up) {
+    .gallery-hub--intro-entering {
+      .gallery-hub__edge-image,
+      .gallery-hub__intro-image {
+        animation: gallery-intro-collage-arrive 620ms $gallery-easing
+          var(--gallery-intro-arrival-delay, 0ms) both;
+      }
+    }
+  }
+
   .gallery-hub--intro .gallery-hub__scroll-link::after {
     animation: gallery-scroll-cue 6s ease-in-out 0.8s infinite;
   }
@@ -539,6 +589,22 @@
     .gallery-hub--intro .gallery-hub__scroll-link::after {
       animation-name: gallery-scroll-cue-up;
     }
+  }
+}
+
+@keyframes gallery-intro-collage-arrive {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.64);
+  }
+
+  70% {
+    opacity: var(--gallery-intro-arrival-opacity, 1);
+  }
+
+  100% {
+    opacity: var(--gallery-intro-arrival-opacity, 1);
+    transform: var(--gallery-intro-arrival-transform);
   }
 }
 

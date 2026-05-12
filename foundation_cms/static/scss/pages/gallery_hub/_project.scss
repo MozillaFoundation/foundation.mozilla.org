@@ -97,14 +97,14 @@
     position: absolute;
     top: 50%;
     z-index: 8;
-    width: rem-calc(40);
-    height: rem-calc(40);
+    width: rem-calc(32);
+    height: rem-calc(32);
     border: 0;
     border-radius: 50%;
     background-color: rgba($slide-control-background, 0.5);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: rem-calc(18) rem-calc(18);
+    background-size: rem-calc(16) rem-calc(16);
     cursor: pointer;
     transform: translateY(-50%);
     transition:
@@ -135,7 +135,7 @@
   .carousel-indicators {
     position: absolute;
     left: 50%;
-    bottom: 29%;
+    bottom: 22%;
     z-index: 8;
     margin: 0;
     transform: translateX(-50%);

@@ -10,6 +10,7 @@
 
 import {
   GALLERY_HUB_CLASSES,
+  GALLERY_HUB_INTRO_ENTERING_DURATION,
   GALLERY_HUB_LEGACY_PROJECTS_HASH,
   GALLERY_HUB_SCROLL_COOLDOWN,
   GALLERY_HUB_SCROLL_KEYS,
@@ -19,6 +20,10 @@ import {
   GALLERY_HUB_VIEW_MODES,
   GALLERY_HUB_VIEWPORT_PROPERTY,
 } from "./config";
+import {
+  isMostlyVerticalGesture,
+  isPastGestureThreshold,
+} from "./gesture";
 import {
   getGalleryHubState,
   setGalleryHubState,
@@ -270,7 +275,12 @@ export function initGalleryHubProjectCarousel() {
   const projectIds = projects.map(getProjectId);
   let isReleasedToPageScroll = false;
   let lastScrollAt = 0;
+  let touchStartX = null;
   let touchStartY = null;
+
+  window.setTimeout(() => {
+    root.classList.remove(GALLERY_HUB_CLASSES.introEntering);
+  }, GALLERY_HUB_INTRO_ENTERING_DURATION);
 
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
@@ -548,9 +558,24 @@ export function initGalleryHubProjectCarousel() {
     passive: false,
   });
 
+  /**
+   * Check whether a touch gesture is intended for vertical project navigation.
+   *
+   * @param {number} deltaX - Horizontal touch movement.
+   * @param {number} deltaY - Vertical touch movement.
+   * @returns {boolean} Whether the gesture should move projects.
+   */
+  function isProjectTouchGesture(deltaX, deltaY) {
+    return (
+      isPastGestureThreshold(deltaX, deltaY, GALLERY_HUB_SCROLL_THRESHOLD) &&
+      isMostlyVerticalGesture(deltaX, deltaY)
+    );
+  }
+
   root.addEventListener(
     "touchstart",
     (event) => {
+      touchStartX = event.touches[0]?.clientX ?? null;
       touchStartY = event.touches[0]?.clientY ?? null;
     },
     { passive: true },
@@ -559,12 +584,14 @@ export function initGalleryHubProjectCarousel() {
   root.addEventListener(
     "touchmove",
     (event) => {
-      if (touchStartY === null) return;
+      if (touchStartX === null || touchStartY === null) return;
 
+      const touchX = event.touches[0]?.clientX ?? touchStartX;
       const touchY = event.touches[0]?.clientY ?? touchStartY;
+      const deltaX = touchStartX - touchX;
       const deltaY = touchStartY - touchY;
 
-      if (Math.abs(deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
+      if (!isProjectTouchGesture(deltaX, deltaY)) return;
       if (getGalleryHubState().modalOpen) {
         event.preventDefault();
         return;
@@ -592,14 +619,17 @@ export function initGalleryHubProjectCarousel() {
   root.addEventListener(
     "touchend",
     (event) => {
-      if (touchStartY === null) return;
+      if (touchStartX === null || touchStartY === null) return;
 
+      const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX;
       const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY;
+      const deltaX = touchStartX - touchEndX;
       const deltaY = touchStartY - touchEndY;
 
+      touchStartX = null;
       touchStartY = null;
 
-      if (Math.abs(deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
+      if (!isProjectTouchGesture(deltaX, deltaY)) return;
       if (getGalleryHubState().modalOpen) return;
       if (isReleasedToPageScroll) return;
 

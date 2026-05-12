@@ -13,7 +13,7 @@
 {% block body_class %}template-gallery-hub-page{% endblock body_class %}
 
 {% block content %}
-    <main class="gallery-hub gallery-hub--intro" data-gallery-hub>
+    <main class="gallery-hub gallery-hub--intro gallery-hub--intro-entering" data-gallery-hub>
         <section class="gallery-hub__stage" aria-labelledby="gallery-hub-title">
             <div class="gallery-hub__decor" aria-hidden="true">
                 <span class="gallery-hub__decor-item gallery-hub__decor-item--scribble gallery-hub__decor-item--scribble-left"></span>
@@ -160,7 +160,7 @@
                             </button>
                             {% with slide_count=project.hero_gallery_media.all|length|add:1 %}
                                 {% if slide_count > 1 %}
-                                    {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count dark_mode=True %}
+                                    {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count dark_mode=True show_on_large=True %}
                                 {% endif %}
                             {% endwith %}
                         </div>

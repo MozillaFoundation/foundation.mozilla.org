@@ -14,8 +14,19 @@ import {
   GALLERY_HUB_SLIDESHOW_SELECTORS,
   GALLERY_HUB_SELECTORS,
 } from "./config";
+import {
+  isMostlyHorizontalGesture,
+  isPastGestureThreshold,
+} from "./gesture";
 import { updateIndicators } from "../../blocks/util/carousel";
 import { subscribeGalleryHubState } from "./state";
+
+const MEDIA_SWIPE_THRESHOLD = 50;
+const MEDIA_SWIPE_AXIS_LOCK = 1.25;
+const MEDIA_SWIPE_MODES = {
+  horizontal: "horizontal",
+  vertical: "vertical",
+};
 
 /**
  * Play or pause any videos within a slide based on active state.
@@ -62,6 +73,9 @@ class GalleryHubSlideshow {
     this.next = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.next);
     this.activeIndex = 0;
     this.project = root.closest(GALLERY_HUB_SELECTORS.project);
+    this.touchStartX = null;
+    this.touchStartY = null;
+    this.touchMode = null;
   }
 
   /**
@@ -132,7 +146,88 @@ class GalleryHubSlideshow {
         this.goToSlide(this.activeIndex + 1);
       });
     }
+
+    this.root.addEventListener("touchstart", this.handleTouchStart, {
+      passive: true,
+    });
+    this.root.addEventListener("touchmove", this.handleTouchMove, {
+      passive: false,
+    });
+    this.root.addEventListener("touchend", this.handleTouchEnd, {
+      passive: true,
+    });
   }
+
+  /**
+   * Store the starting point for media swipe detection.
+   *
+   * @param {TouchEvent} event - Touch start event.
+   */
+  handleTouchStart = (event) => {
+    if (event.touches.length !== 1) return;
+
+    this.touchStartX = event.touches[0].clientX;
+    this.touchStartY = event.touches[0].clientY;
+    this.touchMode = null;
+  };
+
+  /**
+   * Claim clearly horizontal swipes so they do not trigger project navigation.
+   *
+   * @param {TouchEvent} event - Touch move event.
+   */
+  handleTouchMove = (event) => {
+    if (this.touchStartX === null || this.touchStartY === null) return;
+
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = touch.clientY - this.touchStartY;
+
+    if (this.touchMode === null) {
+      if (!isPastGestureThreshold(deltaX, deltaY, MEDIA_SWIPE_THRESHOLD)) {
+        return;
+      }
+
+      this.touchMode = isMostlyHorizontalGesture(
+        deltaX,
+        deltaY,
+        MEDIA_SWIPE_AXIS_LOCK,
+      )
+        ? MEDIA_SWIPE_MODES.horizontal
+        : MEDIA_SWIPE_MODES.vertical;
+    }
+
+    if (this.touchMode !== MEDIA_SWIPE_MODES.horizontal) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  /**
+   * Complete horizontal swipe navigation.
+   *
+   * @param {TouchEvent} event - Touch end event.
+   */
+  handleTouchEnd = (event) => {
+    if (this.touchStartX === null || this.touchStartY === null) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const wasHorizontal = this.touchMode === MEDIA_SWIPE_MODES.horizontal;
+
+    this.touchStartX = null;
+    this.touchStartY = null;
+    this.touchMode = null;
+
+    if (wasHorizontal) {
+      event.stopPropagation();
+    }
+
+    if (Math.abs(deltaX) < MEDIA_SWIPE_THRESHOLD) return;
+    if (!wasHorizontal) return;
+
+    this.goToSlide(this.activeIndex + (deltaX < 0 ? 1 : -1));
+  };
 
   /**
    * Sync disabled button state and shared carousel indicators.

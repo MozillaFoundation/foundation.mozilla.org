@@ -33,6 +33,7 @@ export const GALLERY_HUB_SELECTORS = {
  */
 export const GALLERY_HUB_CLASSES = {
   intro: "gallery-hub--intro",
+  introEntering: "gallery-hub--intro-entering",
   mobileCompact: "gallery-hub--mobile-compact",
   mobileShort: "gallery-hub--mobile-short",
   modalOpen: "gallery-hub--modal-open",
@@ -80,6 +81,16 @@ export const GALLERY_HUB_VIEW_MODES = {
  * @type {string}
  */
 export const GALLERY_HUB_VIEWPORT_PROPERTY = "--gallery-hub-viewport-height";
+
+/**
+ * Duration for the first-load intro collage animation.
+ *
+ * JS removes the entering class after this timeout so the animation only plays
+ * on initial page load, not when users navigate back to the intro state.
+ *
+ * @type {number}
+ */
+export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1400;
 
 /**
  * Legacy deep link stripped on load so the JS-controlled experience starts at
