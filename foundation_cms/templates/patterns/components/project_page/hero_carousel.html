@@ -1,4 +1,4 @@
-{% load static wagtailimages_tags wagtailcore_tags i18n l10n responsive_image_tags %}
+{% load static wagtailimages_tags wagtailcore_tags i18n l10n responsive_image_tags utility_tags %}
 
 <div class="hero-carousel cell small-12 large-8 large-offset-2" data-project-hero-carousel>
 
@@ -82,6 +82,12 @@
             >
                 <span class="show-for-sr" data-project-hero-pause-label>{% trans "Pause video" %}</span>
             </button>
+
+            {% with slide_count=page.hero_gallery_media.all|length|add:1 %}
+                {% if slide_count > 1 %}
+                    {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count %}
+                {% endif %}
+            {% endwith %}
 
             {% if page.hero_gallery_media.all %}
                 <div class="hero-carousel__thumbnails" aria-label="{% trans "Project media gallery" %}">

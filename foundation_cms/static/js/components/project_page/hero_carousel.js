@@ -1,3 +1,5 @@
+import { updateIndicators } from "../../blocks/util/carousel";
+
 const ACTIVE_CLASS = "is-active";
 const HIDDEN_CLASS = "is-hidden";
 const PAUSED_CLASS = "is-paused";
@@ -38,7 +40,6 @@ class ProjectHeroCarousel {
     this.pauseLabel = root.querySelector(SELECTORS.pauseLabel);
     this.pauseText = this.pauseButton?.dataset.pauseLabel || "Pause video";
     this.playText = this.pauseButton?.dataset.playLabel || "Play video";
-    this.dots = [];
 
     if (!this.viewport || !this.slides.length) {
       return;
@@ -57,7 +58,6 @@ class ProjectHeroCarousel {
     this.transitionFallback = null;
 
     this.bindEvents();
-    this.createDots();
     this.updateResponsiveMode();
     this.setActiveSlide(this.activeIndex, false);
   }
@@ -215,7 +215,7 @@ class ProjectHeroCarousel {
       thumbnail.classList.toggle(ACTIVE_CLASS, isActive);
       thumbnail.setAttribute("aria-current", isActive ? "true" : "false");
     });
-    this.updateDots();
+    updateIndicators(this.root, nextIndex);
 
     if (shouldMove) {
       if (this.mobileTrack) {
@@ -230,40 +230,6 @@ class ProjectHeroCarousel {
     }
 
     this.updateVideoControls();
-  }
-
-  /**
-   * Creates the mobile carousel position dots.
-   */
-  createDots() {
-    if (this.slides.length < 2) return;
-
-    const dotList = document.createElement("div");
-
-    dotList.className = "hero-carousel__dots";
-    dotList.setAttribute("aria-hidden", "true");
-
-    this.dots = Array.from({ length: this.slides.length }, () => {
-      const dot = document.createElement("span");
-
-      dot.className = "hero-carousel__dot";
-      dotList.appendChild(dot);
-
-      return dot;
-    });
-
-    this.viewport.insertAdjacentElement("afterend", dotList);
-  }
-
-  /**
-   * Updates the active mobile carousel dot.
-   */
-  updateDots() {
-    if (!this.dots.length) return;
-
-    this.dots.forEach((dot, index) => {
-      dot.classList.toggle(ACTIVE_CLASS, index === this.activeIndex);
-    });
   }
 
   /**
