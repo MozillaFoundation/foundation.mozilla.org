@@ -286,12 +286,20 @@ export function initGalleryHubProjectCarousel() {
   }
 
   /**
+   * Get the current visual viewport height, falling back to the layout viewport.
+   *
+   * @returns {number}
+   */
+  function getViewportHeight() {
+    return window.visualViewport?.height ?? window.innerHeight;
+  }
+
+  /**
    * Store available viewport height so SCSS can size the gallery stage.
    */
   function updateViewportHeight() {
     const rootTop = Math.max(root.getBoundingClientRect().top, 0);
-    const viewportHeight =
-      (window.visualViewport?.height ?? window.innerHeight) - rootTop;
+    const viewportHeight = getViewportHeight() - rootTop;
     const clampedViewportHeight = Math.max(viewportHeight, 320);
 
     root.style.setProperty(
@@ -334,7 +342,7 @@ export function initGalleryHubProjectCarousel() {
     setPageScrollLock(false);
     window.requestAnimationFrame(() => {
       window.scrollBy({
-        top: Math.min(window.innerHeight * 0.72, root.offsetHeight),
+        top: Math.min(getViewportHeight() * 0.72, root.offsetHeight),
         left: 0,
         behavior: "smooth",
       });
@@ -349,7 +357,7 @@ export function initGalleryHubProjectCarousel() {
   function isGalleryInScrollRange() {
     const rect = root.getBoundingClientRect();
 
-    return rect.top < window.innerHeight && rect.bottom > 0;
+    return rect.top < getViewportHeight() && rect.bottom > 0;
   }
 
   /**

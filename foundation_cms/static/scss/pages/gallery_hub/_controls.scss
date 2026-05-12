@@ -161,9 +161,9 @@
     &__toggle {
       @include mofo-text-style($body-text-styles, "regular", $body-font-family);
 
-      bottom: rem-calc(28);
-      min-width: rem-calc(120);
-      padding: rem-calc(12) rem-calc(16);
+      bottom: $gallery-controls-mobile-toggle-bottom;
+      min-width: $gallery-controls-mobile-toggle-min-width;
+      padding: $gallery-controls-mobile-toggle-padding;
       font-weight: map.get($font-weights, bold);
     }
 
@@ -175,29 +175,21 @@
       right: rem-calc(20);
     }
 
-    @media (height <= rem-calc(820)) {
-      &__toggle {
-        bottom: rem-calc(22);
-        min-width: rem-calc(104);
-        padding: rem-calc(10) rem-calc(14);
-      }
+    @media (height <= $gallery-project-mobile-compact-height) {
+      @include gallery-controls-mobile-compact;
     }
 
-    @media (height <= rem-calc(760)) {
-      &__toggle {
-        bottom: rem-calc(18);
-      }
+    @media (height <= $gallery-project-mobile-short-height) {
+      @include gallery-controls-mobile-short;
     }
   }
 
-  &--mobile-compact &__toggle {
-    bottom: rem-calc(22);
-    min-width: rem-calc(104);
-    padding: rem-calc(10) rem-calc(14);
+  &--mobile-compact {
+    @include gallery-controls-mobile-compact;
   }
 
-  &--mobile-short &__toggle {
-    bottom: rem-calc(18);
+  &--mobile-short {
+    @include gallery-controls-mobile-short;
   }
 
   &__modal-layer {

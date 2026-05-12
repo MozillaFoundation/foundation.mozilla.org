@@ -26,6 +26,37 @@ $gallery-project-media-lift-spacious: rem-calc(128);
 $gallery-project-content-top-compact: calc(36% + clamp(5.5rem, 15vw, 13rem));
 $gallery-project-content-top-short: calc(50% + rem-calc(14));
 $gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
+$gallery-project-mobile-media-top: rem-calc(94);
+$gallery-project-mobile-media-width: min(
+  calc(100% - rem-calc(72)),
+  rem-calc(320)
+);
+$gallery-project-mobile-content-top: rem-calc(430);
+$gallery-project-mobile-content-width: min(
+  calc(100% - rem-calc(48)),
+  rem-calc(344)
+);
+$gallery-project-mobile-compact-height: rem-calc(820);
+$gallery-project-mobile-compact-media-top: rem-calc(70);
+$gallery-project-mobile-compact-media-width: min(
+  calc(100% - rem-calc(104)),
+  rem-calc(280)
+);
+$gallery-project-mobile-compact-content-top: rem-calc(360);
+$gallery-project-mobile-short-height: rem-calc(760);
+$gallery-project-mobile-short-media-top: rem-calc(54);
+$gallery-project-mobile-short-media-width: min(
+  calc(100% - rem-calc(120)),
+  rem-calc(252)
+);
+$gallery-project-mobile-short-content-top: rem-calc(328);
+$gallery-controls-mobile-toggle-bottom: rem-calc(28);
+$gallery-controls-mobile-toggle-min-width: rem-calc(120);
+$gallery-controls-mobile-toggle-padding: rem-calc(12) rem-calc(16);
+$gallery-controls-mobile-compact-toggle-bottom: rem-calc(22);
+$gallery-controls-mobile-compact-toggle-min-width: rem-calc(104);
+$gallery-controls-mobile-compact-toggle-padding: rem-calc(10) rem-calc(14);
+$gallery-controls-mobile-short-toggle-bottom: rem-calc(18);
 
 // Short-height project navigation crops the dotted line while preserving the
 // arrow asset's native scale.
@@ -47,4 +78,60 @@ $gallery-project-nav-icon-height-short: rem-calc(40);
 
 @mixin gallery-contained-background($image) {
   background: url("#{$image}") center / contain no-repeat;
+}
+
+@mixin gallery-project-mobile-compact {
+  .gallery-hub-project__media {
+    top: $gallery-project-mobile-compact-media-top;
+  }
+
+  .gallery-hub-project--active .gallery-hub-project__media {
+    width: $gallery-project-mobile-compact-media-width;
+  }
+
+  .gallery-hub-project__content {
+    top: $gallery-project-mobile-compact-content-top;
+  }
+}
+
+@mixin gallery-project-mobile-short {
+  .gallery-hub-project__media {
+    top: $gallery-project-mobile-short-media-top;
+  }
+
+  .gallery-hub-project--active .gallery-hub-project__media {
+    width: $gallery-project-mobile-short-media-width;
+  }
+
+  .gallery-hub-project__content {
+    top: $gallery-project-mobile-short-content-top;
+  }
+
+  .gallery-hub-project__title {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+  }
+
+  .gallery-hub-project__meta,
+  .gallery-hub-project__description {
+    margin-bottom: rem-calc(6);
+  }
+
+  .gallery-hub-project__description,
+  .gallery-hub-project__link {
+    @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+  }
+}
+
+@mixin gallery-controls-mobile-compact {
+  .gallery-hub__toggle {
+    bottom: $gallery-controls-mobile-compact-toggle-bottom;
+    min-width: $gallery-controls-mobile-compact-toggle-min-width;
+    padding: $gallery-controls-mobile-compact-toggle-padding;
+  }
+}
+
+@mixin gallery-controls-mobile-short {
+  .gallery-hub__toggle {
+    bottom: $gallery-controls-mobile-short-toggle-bottom;
+  }
 }

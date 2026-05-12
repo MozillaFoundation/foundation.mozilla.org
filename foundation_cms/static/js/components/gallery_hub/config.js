@@ -51,7 +51,6 @@ export const GALLERY_HUB_SLIDESHOW_SELECTORS = {
   slide: "[data-gallery-hub-slide]",
   previous: "[data-gallery-hub-slide-previous]",
   next: "[data-gallery-hub-slide-next]",
-  dots: "[data-gallery-hub-slide-dots]",
 };
 
 /**
@@ -63,18 +62,6 @@ export const GALLERY_HUB_SLIDESHOW_CLASSES = {
   active: "is-active",
   afterActive: "is-after-active",
   beforeActive: "is-before-active",
-  dot: "gallery-hub-project__slide-dot",
-};
-
-/**
- * Motion and display settings for project media slideshows.
- *
- * @type {{animationDuration: number, easing: string, maxDots: number}}
- */
-export const GALLERY_HUB_SLIDESHOW_SETTINGS = {
-  animationDuration: 560,
-  easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
-  maxDots: 3,
 };
 
 /**

@@ -158,9 +158,11 @@
                                     data-gallery-hub-slide-next>
                                 <span class="show-for-sr">{% trans "Next media" %}</span>
                             </button>
-                            <div class="gallery-hub-project__slide-dots"
-                                 data-gallery-hub-slide-dots
-                                 aria-label="{% trans "Project media navigation" %}"></div>
+                            {% with slide_count=project.hero_gallery_media.all|length|add:1 %}
+                                {% if slide_count > 1 %}
+                                    {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count dark_mode=True %}
+                                {% endif %}
+                            {% endwith %}
                         </div>
 
                         <div class="gallery-hub-project__content">

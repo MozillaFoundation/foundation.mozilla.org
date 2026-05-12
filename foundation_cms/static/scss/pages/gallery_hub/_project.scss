@@ -132,36 +132,17 @@
     background-image: url("#{$gallery-icon-image-path}/button-arrow-right-white.svg");
   }
 
-  &__slide-dots {
+  .carousel-indicators {
     position: absolute;
     left: 50%;
     bottom: 29%;
     z-index: 8;
-    display: flex;
-    gap: rem-calc(6);
-    padding: rem-calc(6);
-    border-radius: rem-calc(999);
-    background-color: rgba($black, 0.42);
+    margin: 0;
     transform: translateX(-50%);
   }
 
-  &__slide-dot {
-    width: rem-calc(8);
-    height: rem-calc(8);
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background-color: rgba($white, 0.62);
-    cursor: pointer;
-
-    &[aria-current="true"] {
-      background-color: $white;
-    }
-  }
-
   @include breakpoint(medium down) {
-    &__slide-control,
-    &__slide-dots {
+    &__slide-control {
       display: none;
     }
   }
@@ -384,19 +365,19 @@
 
   @include breakpoint(medium down) {
     .gallery-hub-project__media {
-      top: rem-calc(94);
+      top: $gallery-project-mobile-media-top;
       transform-origin: top center;
       transform: translateX(-50%) scale(0.7);
     }
 
     .gallery-hub-project--active .gallery-hub-project__media {
-      width: min(calc(100% - rem-calc(72)), rem-calc(320));
+      width: $gallery-project-mobile-media-width;
       transform: translateX(-50%);
     }
 
     .gallery-hub-project__content {
-      top: rem-calc(430);
-      width: min(calc(100% - rem-calc(48)), rem-calc(344));
+      top: $gallery-project-mobile-content-top;
+      width: $gallery-project-mobile-content-width;
       padding: 0;
     }
 
@@ -438,99 +419,26 @@
     }
   }
 
+  // Prefer JS-driven viewport classes on mobile because `visualViewport` tracks
+  // browser chrome changes more reliably than CSS height queries. The matching
+  // media queries stay as a no-JS fallback.
   @include breakpoint(medium down) {
-    @media (height <= rem-calc(820)) {
-      .gallery-hub-project__media {
-        top: rem-calc(70);
-      }
-
-      .gallery-hub-project--active .gallery-hub-project__media {
-        width: min(calc(100% - rem-calc(104)), rem-calc(280));
-      }
-
-      .gallery-hub-project__content {
-        top: rem-calc(360);
-      }
-    }
-  }
-
-  &.gallery-hub--mobile-compact {
-    .gallery-hub-project__media {
-      top: rem-calc(70);
-    }
-
-    .gallery-hub-project--active .gallery-hub-project__media {
-      width: min(calc(100% - rem-calc(104)), rem-calc(280));
-    }
-
-    .gallery-hub-project__content {
-      top: rem-calc(360);
+    @media (height <= $gallery-project-mobile-compact-height) {
+      @include gallery-project-mobile-compact;
     }
   }
 
   @include breakpoint(medium down) {
-    @media (height <= rem-calc(760)) {
-      .gallery-hub-project__media {
-        top: rem-calc(54);
-      }
-
-      .gallery-hub-project--active .gallery-hub-project__media {
-        width: min(calc(100% - rem-calc(120)), rem-calc(252));
-      }
-
-      .gallery-hub-project__content {
-        top: rem-calc(328);
-      }
-
-      .gallery-hub-project__title {
-        @include mofo-text-style($header-styles, "h6", $header-font-family);
-      }
-
-      .gallery-hub-project__meta,
-      .gallery-hub-project__description {
-        margin-bottom: rem-calc(6);
-      }
-
-      .gallery-hub-project__description,
-      .gallery-hub-project__link {
-        @include mofo-text-style(
-          $body-text-styles,
-          "xsmall",
-          $body-font-family
-        );
-      }
-    }
-
-    &.gallery-hub--mobile-short {
-      .gallery-hub-project__media {
-        top: rem-calc(54);
-      }
-
-      .gallery-hub-project--active .gallery-hub-project__media {
-        width: min(calc(100% - rem-calc(120)), rem-calc(252));
-      }
-
-      .gallery-hub-project__content {
-        top: rem-calc(328);
-      }
-
-      .gallery-hub-project__title {
-        @include mofo-text-style($header-styles, "h6", $header-font-family);
-      }
-
-      .gallery-hub-project__meta,
-      .gallery-hub-project__description {
-        margin-bottom: rem-calc(6);
-      }
-
-      .gallery-hub-project__description,
-      .gallery-hub-project__link {
-        @include mofo-text-style(
-          $body-text-styles,
-          "xsmall",
-          $body-font-family
-        );
-      }
+    @media (height <= $gallery-project-mobile-short-height) {
+      @include gallery-project-mobile-short;
     }
   }
+}
+
+.gallery-hub.gallery-hub--mobile-compact .gallery-hub-project {
+  @include gallery-project-mobile-compact;
+}
+
+.gallery-hub.gallery-hub--mobile-short .gallery-hub-project {
+  @include gallery-project-mobile-short;
 }

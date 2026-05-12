@@ -12,9 +12,9 @@ import {
   GALLERY_HUB_CLASSES,
   GALLERY_HUB_SLIDESHOW_CLASSES,
   GALLERY_HUB_SLIDESHOW_SELECTORS,
-  GALLERY_HUB_SLIDESHOW_SETTINGS,
   GALLERY_HUB_SELECTORS,
 } from "./config";
+import { updateIndicators } from "../../blocks/util/carousel";
 import { subscribeGalleryHubState } from "./state";
 
 /**
@@ -32,23 +32,6 @@ function setVideoPlayback(slide, shouldPlay) {
 
     video.pause();
   });
-}
-
-/**
- * Create a slideshow pagination dot.
- *
- * @param {number} index - Slide index represented by the dot.
- * @returns {HTMLButtonElement} Pagination button.
- */
-function createDot(index) {
-  const dot = document.createElement("button");
-
-  dot.className = GALLERY_HUB_SLIDESHOW_CLASSES.dot;
-  dot.type = "button";
-  dot.dataset.galleryHubSlideDot = `${index}`;
-  dot.setAttribute("aria-label", `View media ${index + 1}`);
-
-  return dot;
 }
 
 /**
@@ -77,16 +60,12 @@ class GalleryHubSlideshow {
       GALLERY_HUB_SLIDESHOW_SELECTORS.previous,
     );
     this.next = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.next);
-    this.dotsContainer = root.querySelector(
-      GALLERY_HUB_SLIDESHOW_SELECTORS.dots,
-    );
-    this.dots = [];
     this.activeIndex = 0;
     this.project = root.closest(GALLERY_HUB_SELECTORS.project);
   }
 
   /**
-   * Initialize controls, dots, and the active slide state.
+   * Initialize controls, indicators, and the active slide state.
    */
   init() {
     if (this.slides.length <= 1) {
@@ -94,7 +73,6 @@ class GalleryHubSlideshow {
       return;
     }
 
-    this.createDots();
     this.bindEvents();
     this.syncSlides();
     this.bindProjectState();
@@ -132,71 +110,43 @@ class GalleryHubSlideshow {
       this.next.disabled = true;
     }
 
-    this.dotsContainer?.remove();
+    this.root.querySelector(".carousel-indicators")?.remove();
   }
 
   /**
-   * Render the visible dot controls, capped by the configured maximum.
-   */
-  createDots() {
-    Array.from({
-      length: Math.min(
-        this.slides.length,
-        GALLERY_HUB_SLIDESHOW_SETTINGS.maxDots,
-      ),
-    }).forEach((_, index) => {
-      const dot = createDot(index);
-
-      this.dots.push(dot);
-      this.dotsContainer.append(dot);
-    });
-  }
-
-  /**
-   * Wire dot and arrow controls to slideshow navigation.
+   * Wire arrow controls to slideshow navigation.
    */
   bindEvents() {
-    this.dots.forEach((dot) => {
-      dot.addEventListener("click", (event) => {
+    if (this.previous) {
+      this.previous.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        this.goToSlide(Number(dot.dataset.galleryHubSlideDot));
+        this.goToSlide(this.activeIndex - 1);
       });
-    });
+    }
 
-    this.previous.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.goToSlide(this.activeIndex - 1);
-    });
-
-    this.next.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.goToSlide(this.activeIndex + 1);
-    });
+    if (this.next) {
+      this.next.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.goToSlide(this.activeIndex + 1);
+      });
+    }
   }
 
   /**
-   * Sync disabled button state and dot labels/current state.
+   * Sync disabled button state and shared carousel indicators.
    */
   syncControls() {
-    this.previous.disabled = this.activeIndex === 0;
-    this.next.disabled = this.activeIndex === this.slides.length - 1;
+    if (this.previous) {
+      this.previous.disabled = this.activeIndex === 0;
+    }
 
-    const dotStart = Math.min(
-      Math.max(this.activeIndex - 1, 0),
-      Math.max(this.slides.length - this.dots.length, 0),
-    );
+    if (this.next) {
+      this.next.disabled = this.activeIndex === this.slides.length - 1;
+    }
 
-    this.dots.forEach((dot, index) => {
-      const slideIndex = dotStart + index;
-      const isActive = slideIndex === this.activeIndex;
-
-      dot.dataset.galleryHubSlideDot = `${slideIndex}`;
-      dot.setAttribute("aria-label", `View media ${slideIndex + 1}`);
-      dot.setAttribute("aria-current", isActive ? "true" : "false");
-    });
+    updateIndicators(this.root, this.activeIndex);
   }
 
   /**
