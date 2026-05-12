@@ -117,6 +117,24 @@
     }
   }
 
+  @media (height <= rem-calc(900)) {
+    &__nav {
+      min-height: rem-calc(46);
+    }
+
+    &__nav-icon {
+      width: rem-calc(15);
+      height: rem-calc(40);
+      overflow: hidden;
+    }
+
+    &__nav-icon::before {
+      width: rem-calc(15);
+      height: rem-calc(65);
+      background-size: rem-calc(15) rem-calc(65);
+    }
+  }
+
   &__toggle {
     @include mofo-text-style($body-text-styles, "xlarge", $body-font-family);
 

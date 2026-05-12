@@ -132,7 +132,7 @@
       margin: rem-calc(8) auto 0;
 
       @include gallery-contained-background(
-        "#{$gallery-feature-image-path}/scroll-button.svg"
+        "#{$gallery-feature-image-path}/scroll-down-button.svg"
       );
     }
 
@@ -166,14 +166,10 @@
     &__scroll-link::after {
       width: rem-calc(48);
       height: rem-calc(50);
-      background-image:
-        url("#{$gallery-feature-image-path}/scroll-up-icon.svg"),
-        url("#{$gallery-feature-image-path}/scroll-button-shape.svg");
+      background-image: url("#{$gallery-feature-image-path}/scroll-up-button.svg");
       background-repeat: no-repeat;
-      background-position: center, center;
-      background-size:
-        rem-calc(26) auto,
-        contain;
+      background-position: center;
+      background-size: contain;
     }
   }
 
