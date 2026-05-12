@@ -20,10 +20,7 @@ import {
   GALLERY_HUB_VIEW_MODES,
   GALLERY_HUB_VIEWPORT_PROPERTY,
 } from "./config";
-import {
-  isMostlyVerticalGesture,
-  isPastGestureThreshold,
-} from "./gesture";
+import { isMostlyVerticalGesture, isPastGestureThreshold } from "./gesture";
 import {
   getGalleryHubState,
   setGalleryHubState,

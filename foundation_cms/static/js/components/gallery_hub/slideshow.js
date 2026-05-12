@@ -14,10 +14,7 @@ import {
   GALLERY_HUB_SLIDESHOW_SELECTORS,
   GALLERY_HUB_SELECTORS,
 } from "./config";
-import {
-  isMostlyHorizontalGesture,
-  isPastGestureThreshold,
-} from "./gesture";
+import { isMostlyHorizontalGesture, isPastGestureThreshold } from "./gesture";
 import { updateIndicators } from "../../blocks/util/carousel";
 import { subscribeGalleryHubState } from "./state";
 
