@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 <div class="image-carousel image-carousel--{{ value.orientation }}{% if value.orientation == "landscape" and value.items|length > 3 %} is-carousel{% elif value.items|length > 5 %} is-carousel{% endif %}" style="--slide-count: {{ value.items|length }}">
-  <div class="grid-container">
+  <div class="grid-container medium-down-padding-0">
     <div class="grid-x">
       <div class="cell">
         <div class="image-carousel__header-controls">
@@ -23,6 +23,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="grid">
+      {% include "./fragments/carousel_indicators.html" with count=value.items|length %}
     </div>
   </div>
 </div>
