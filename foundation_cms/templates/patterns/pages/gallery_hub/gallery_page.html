@@ -27,7 +27,12 @@
                     <p class="gallery-hub__lede">{{ page.lede_text }}</p>
                 {% endif %}
                 <button class="gallery-hub__scroll-link" type="button" data-gallery-hub-enter>
-                    {% trans "Scroll down to explore" %}
+                    <span class="gallery-hub__scroll-link-label gallery-hub__scroll-link-label--desktop">
+                        {% trans "Scroll down to explore" %}
+                    </span>
+                    <span class="gallery-hub__scroll-link-label gallery-hub__scroll-link-label--mobile">
+                        {% trans "Scroll up to explore" %}
+                    </span>
                 </button>
             </header>
 
@@ -50,6 +55,16 @@
                             <span class="gallery-hub__edge-tape"></span>
                             <span class="gallery-hub__edge-favicon"></span>
                         </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="gallery-hub__mobile-collage" aria-hidden="true">
+                {% for project in featured_projects|slice:":8" %}
+                    {% if project.hero_image %}
+                        {% image project.hero_image fill-600x600 as mobile_collage_img %}
+                        <span class="gallery-hub__mobile-collage-item gallery-hub__mobile-collage-item--slot-{{ forloop.counter }} {% cycle 'gallery-hub__mobile-collage-item--shape-3' 'gallery-hub__mobile-collage-item--shape-1' 'gallery-hub__mobile-collage-item--shape-7' 'gallery-hub__mobile-collage-item--shape-4' 'gallery-hub__mobile-collage-item--shape-6' 'gallery-hub__mobile-collage-item--shape-8' 'gallery-hub__mobile-collage-item--shape-1' 'gallery-hub__mobile-collage-item--shape-7' %}"
+                              style="--gallery-mobile-collage-image: url('{{ mobile_collage_img.url }}');"></span>
                     {% endif %}
                 {% endfor %}
             </div>
