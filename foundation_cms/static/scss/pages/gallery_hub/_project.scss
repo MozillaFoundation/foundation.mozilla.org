@@ -325,17 +325,20 @@
     }
   }
 
-  @media (height <= rem-calc(900)) {
+  @media (height <= $gallery-project-short-height) {
     .gallery-hub-project--active .gallery-hub-project__media {
       width: min(
         calc(100% - #{$gallery-project-media-gutter}),
-        clamp(rem-calc(280), 38svh, rem-calc(376))
+        $gallery-project-media-size-short
       );
-      transform: translate(-50%, calc(-50% - clamp(7.75rem, 19svh, 10rem)));
+      transform: translate(
+        -50%,
+        calc(-50% - #{$gallery-project-media-lift-short})
+      );
     }
 
     .gallery-hub-project__content {
-      top: calc(50% + rem-calc(14));
+      top: $gallery-project-content-top-short;
       padding: 0;
     }
 

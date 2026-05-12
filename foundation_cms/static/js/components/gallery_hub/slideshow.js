@@ -9,10 +9,13 @@
  */
 
 import {
+  GALLERY_HUB_CLASSES,
   GALLERY_HUB_SLIDESHOW_CLASSES,
   GALLERY_HUB_SLIDESHOW_SELECTORS,
   GALLERY_HUB_SLIDESHOW_SETTINGS,
+  GALLERY_HUB_SELECTORS,
 } from "./config";
+import { subscribeGalleryHubState } from "./state";
 
 /**
  * Play or pause any videos within a slide based on active state.
@@ -79,6 +82,7 @@ class GalleryHubSlideshow {
     );
     this.dots = [];
     this.activeIndex = 0;
+    this.project = root.closest(GALLERY_HUB_SELECTORS.project);
   }
 
   /**
@@ -93,6 +97,25 @@ class GalleryHubSlideshow {
     this.createDots();
     this.bindEvents();
     this.syncSlides();
+    this.bindProjectState();
+  }
+
+  /**
+   * Check whether this slideshow belongs to the active project.
+   *
+   * @returns {boolean} Whether the parent project is visible.
+   */
+  isProjectActive() {
+    return this.project?.classList.contains(GALLERY_HUB_CLASSES.projectActive);
+  }
+
+  /**
+   * Keep video playback in sync when vertical project navigation changes.
+   */
+  bindProjectState() {
+    subscribeGalleryHubState(() => {
+      this.syncSlides();
+    });
   }
 
   /**
@@ -198,7 +221,7 @@ class GalleryHubSlideshow {
       slide.style.zIndex = `${
         this.slides.length - Math.abs(index - this.activeIndex)
       }`;
-      setVideoPlayback(slide, isActive);
+      setVideoPlayback(slide, isActive && this.isProjectActive());
     });
 
     this.syncControls();

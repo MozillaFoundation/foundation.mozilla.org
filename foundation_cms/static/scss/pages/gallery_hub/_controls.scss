@@ -73,8 +73,8 @@
   &__nav-icon {
     position: relative;
     display: block;
-    width: rem-calc(15);
-    height: rem-calc(65);
+    width: $gallery-project-nav-icon-width;
+    height: $gallery-project-nav-icon-height;
 
     &::before {
       content: "";
@@ -117,21 +117,22 @@
     }
   }
 
-  @media (height <= rem-calc(900)) {
+  @media (height <= $gallery-project-short-height) {
     &__nav {
       min-height: rem-calc(46);
     }
 
     &__nav-icon {
-      width: rem-calc(15);
-      height: rem-calc(40);
+      width: $gallery-project-nav-icon-width;
+      height: $gallery-project-nav-icon-height-short;
       overflow: hidden;
     }
 
     &__nav-icon::before {
-      width: rem-calc(15);
-      height: rem-calc(65);
-      background-size: rem-calc(15) rem-calc(65);
+      width: $gallery-project-nav-icon-width;
+      height: $gallery-project-nav-icon-height;
+      background-size: $gallery-project-nav-icon-width
+        $gallery-project-nav-icon-height;
     }
   }
 

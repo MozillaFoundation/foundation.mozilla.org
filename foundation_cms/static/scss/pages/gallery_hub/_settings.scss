@@ -11,17 +11,27 @@ $gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
 // in shorter browser windows; the spacious layout uses extra viewport height to
 // give project media more presence.
 $gallery-project-spacious-height: 68rem;
+$gallery-project-short-height: rem-calc(900);
 $gallery-project-media-gutter: rem-calc(80);
 $gallery-project-media-size-compact: clamp(rem-calc(500), 46svh, rem-calc(680));
+$gallery-project-media-size-short: clamp(rem-calc(280), 38svh, rem-calc(376));
 $gallery-project-media-size-spacious: clamp(
   rem-calc(640),
   54svh,
   rem-calc(760)
 );
 $gallery-project-media-lift-compact: rem-calc(104);
+$gallery-project-media-lift-short: clamp(7.75rem, 19svh, 10rem);
 $gallery-project-media-lift-spacious: rem-calc(128);
 $gallery-project-content-top-compact: calc(36% + clamp(5.5rem, 15vw, 13rem));
+$gallery-project-content-top-short: calc(50% + rem-calc(14));
 $gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
+
+// Short-height project navigation crops the dotted line while preserving the
+// arrow asset's native scale.
+$gallery-project-nav-icon-width: rem-calc(15);
+$gallery-project-nav-icon-height: rem-calc(65);
+$gallery-project-nav-icon-height-short: rem-calc(40);
 
 @mixin gallery-shape-properties($namespace, $shape) {
   --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
