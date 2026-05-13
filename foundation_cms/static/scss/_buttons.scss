@@ -156,6 +156,15 @@ $cta-link-icon-sizes: (
   }
 
   &--link {
+    gap: rem-calc(0.5);
+    &::after {
+      width: rem-calc(32);
+      height: rem-calc(32);
+      background-image: url("/static/foundation_cms/_images/icons/link.svg");
+    }
+  }
+
+  &--link-icon-left {
     @include button-with-left-icon(
       "/static/foundation_cms/_images/icons/link.svg"
     );
