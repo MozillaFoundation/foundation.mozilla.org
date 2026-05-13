@@ -156,7 +156,7 @@ $cta-link-icon-sizes: (
   }
 
   &--link {
-    gap: rem-calc(0.5);
+    gap: rem-calc(5);
     &::after {
       width: rem-calc(32);
       height: rem-calc(32);
