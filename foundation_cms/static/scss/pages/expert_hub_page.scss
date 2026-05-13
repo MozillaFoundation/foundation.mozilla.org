@@ -74,6 +74,7 @@ body.template-expert-hub-page {
   }
 
   .expert-hub-hero {
+    margin-top: 3rem;
     position: relative;
     z-index: 1;
 
@@ -323,9 +324,11 @@ body.template-expert-hub-page {
     }
 
     .expert-hub-hero {
+      margin-top: 3rem;
+
       &__copy {
         position: absolute;
-        top: 1rem;
+        top: 0;
         left: 0;
         z-index: 5;
       }

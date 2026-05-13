@@ -10,16 +10,16 @@ export const CONFIGS = {
   // ≥ 1200px
   xl: {
     computeHeight: false,
-    tierRadiusPercent: { 1: 8.4, 2: 6.3, 3: 4.6 },
+    tierRadiusPercent: { 1: 10.3, 2: 6.3, 3: 4.5 },
     tiers: [
       {
         tier: 1,
-        positions: [[59, 46]],
+        positions: [[58, 46]],
       },
       {
         tier: 2,
         positions: [
-          [41, 46],
+          [39, 46],
           [63, 15],
           [78, 31],
           [92, 57],
@@ -32,8 +32,8 @@ export const CONFIGS = {
         tier: 3,
         positions: [
           [90, 21],
-          [64, 77],
-          [50, 74],
+          [64, 78],
+          [50, 76],
           [11, 53],
           [19, 75],
         ],

@@ -104,6 +104,19 @@ export function setupLightbox(cardEl) {
   }
 
   /**
+   * Blocks mouse-wheel scroll on the document while the overlay is open.
+   * Used instead of overflow:hidden on <html>, which causes iOS Safari to
+   * anchor position:fixed elements at the document origin (y=0) rather than
+   * the visual viewport when the page is already scrolled.
+   *
+   * @param {WheelEvent} e
+   */
+  function preventWheelScroll(e) {
+    if (!e.cancelable) return;
+    e.preventDefault();
+  }
+
+  /**
    * Populates the overlay from `dataset` / image on a bubble and shows it.
    * Locks scroll and moves focus to the close control.
    *
@@ -131,13 +144,17 @@ export function setupLightbox(cardEl) {
 
     cardEl.removeAttribute("hidden");
 
-    // Scroll lock: overflow:hidden stops desktop browsers; touchmove
-    // preventDefault is the only mechanism that reliably stops iOS Safari.
+    // Scroll lock:
+    // - touchmove preventDefault is the only mechanism that reliably stops iOS Safari.
+    // - wheel preventDefault stops desktop mouse-wheel scroll.
+    // We intentionally avoid overflow:hidden on <html>: iOS Safari incorrectly
+    // anchors position:fixed elements to the document origin (y=0) when that is
+    // set, so the overlay would be invisible when the page is scrolled down.
     savedScrollY = window.scrollY;
-    document.documentElement.style.overflow = "hidden";
     document.addEventListener("touchmove", preventTouchScroll, {
       passive: false,
     });
+    document.addEventListener("wheel", preventWheelScroll, { passive: false });
 
     // Defer focus to the next frame so the overlay is fully painted before
     // iOS calculates the focused element's position (avoids scroll-to-top).
@@ -154,8 +171,8 @@ export function setupLightbox(cardEl) {
     cardEl.setAttribute("hidden", "");
     inner.style.removeProperty("--bubble-color");
 
-    document.documentElement.style.overflow = "";
     document.removeEventListener("touchmove", preventTouchScroll);
+    document.removeEventListener("wheel", preventWheelScroll);
     window.scrollTo(0, savedScrollY);
 
     const restore = previouslyFocused;
