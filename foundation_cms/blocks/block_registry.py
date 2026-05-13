@@ -22,6 +22,7 @@ from .newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from .pillar_card_set_block import PillarCardSetBlock
 from .podcast_block import PodcastBlock
 from .portrait_card_set_block import PortraitCardSetBlock
+from .project_block import ProjectBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
@@ -95,6 +96,10 @@ class BlockRegistry:
         "image_carousel_block": {
             "class": ImageCarouselBlock,
             "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.CARDS,
+        },
+        "project_block": {
+            "class": ProjectBlock,
             "group": BlockGroups.CARDS,
         },
         # Data Display
