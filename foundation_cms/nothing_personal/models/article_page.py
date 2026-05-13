@@ -15,7 +15,6 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
 
     share_section_heading = models.CharField(
         max_length=255,
-        blank=True,
         default="Enjoyed this? Share it!",
         help_text="Heading displayed above the SoSha share section.",
     )
