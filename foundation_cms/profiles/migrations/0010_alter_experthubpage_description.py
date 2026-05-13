@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("profiles", "0008_remove_char_limits_from_portrait_and_timely_activation_cards"),
+        ("profiles", "0009_alter_expertdirectorypage_body_and_more"),
     ]
 
     operations = [
