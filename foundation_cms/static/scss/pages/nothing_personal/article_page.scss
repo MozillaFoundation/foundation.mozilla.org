@@ -2,7 +2,6 @@
 @use "sass:math";
 @import "../../nothing_personal_base";
 @import "../../components/nothing_personal/article_page_header";
-@import "../../components/nothing_personal/sosha_share";
 @import "../../components/related_content";
 
 body.nothing-personal.nothing-personal-article-page {
@@ -22,7 +21,7 @@ body.nothing-personal.nothing-personal-article-page {
   .article-topics,
   .rich-text-block,
   .image-block,
-  .share-section,
+  .article-share,
   .two-column-container,
   .newsletter-signup[data-layout="expand_on_focus"],
   .callout-box,
@@ -237,7 +236,16 @@ body.nothing-personal.nothing-personal-article-page {
     }
   }
 
-  .share-section {
+  .article-share {
+    &__heading {
+      margin-bottom: 1rem;
+    }
+
+    &__sosha_embed {
+      background-color: color(neutral, "200");
+      padding-top: 1rem;
+    }
+
     button {
       font-weight: 400;
     }
