@@ -1,5 +1,5 @@
 {% load i18n utility_tags %}
-<div class="carousel-indicators hide-for-large{% if dark_mode %} carousel-indicators--dark{% endif %}">
+<div class="carousel-indicators{% if not show_on_large %} hide-for-large{% endif %}{% if dark_mode %} carousel-indicators--dark{% endif %}">
   <ul class="carousel-indicators__list">
     {% for _ in count|to_range %}
       {% blocktrans asvar item_label with num=forloop.counter total=count %}Slide {{ num }} of {{ total }}{% endblocktrans %}

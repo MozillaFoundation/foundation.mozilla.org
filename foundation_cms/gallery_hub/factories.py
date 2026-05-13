@@ -6,10 +6,37 @@ from wagtail.images import get_image_model
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.utils.helpers import get_faker, reseed
-from foundation_cms.blocks.factories import LinkButtonBlockFactory
 from foundation_cms.gallery_hub.models import GalleryPage, ProjectPage
 from foundation_cms.gallery_hub.models.gallery_page import FeaturedGalleryProject
-from foundation_cms.gallery_hub.models.project_page import ProgramLabel
+from foundation_cms.gallery_hub.models.project_page import (
+    ProgramLabel,
+    ProjectPageHeroMedia,
+)
+
+MULTI_HERO_PROJECT_INDEXES = {0, 3, 6}
+ADDITIONAL_HERO_MEDIA_COUNT = 3
+
+
+def ensure_project_hero_gallery_media(project, images, fake, project_index):
+    if project_index not in MULTI_HERO_PROJECT_INDEXES or not images:
+        return False
+
+    existing_count = project.hero_gallery_media.count()
+    if existing_count >= ADDITIONAL_HERO_MEDIA_COUNT:
+        return False
+
+    for sort_order in range(existing_count, ADDITIONAL_HERO_MEDIA_COUNT):
+        ProjectPageHeroMedia.objects.create(
+            page=project,
+            locale=project.locale,
+            sort_order=sort_order,
+            media_type=ProjectPageHeroMedia.MEDIA_TYPE_IMAGE,
+            image=random.choice(images),
+            alt_text=fake.sentence(nb_words=8).rstrip("."),
+            caption=fake.sentence(nb_words=6).rstrip("."),
+        )
+
+    return True
 
 
 def generate(seed):
@@ -64,6 +91,8 @@ def generate(seed):
         slug = f"gallery-project-{i + 1}"
         existing = ProjectPage.objects.filter(slug=slug, locale=default_locale).first()
         if existing:
+            if ensure_project_hero_gallery_media(existing, images, fake, i):
+                existing.save_revision().publish()
             project_pages.append(existing)
             continue
 
@@ -79,17 +108,7 @@ def generate(seed):
             search_description=fake.sentence(nb_words=10).rstrip("."),
             hero_image=random.choice(images) if images else None,
             hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
-            cta_link=[
-                {
-                    "type": "link_button_block",
-                    "value": dict(
-                        LinkButtonBlockFactory(
-                            style="btn-primary",
-                            alignment="link-button-block--left",
-                        )
-                    ),
-                }
-            ],
+            project_link=fake.url(),
             body=[{"type": "rich_text", "value": body_html}],
         )
         gallery_page.add_child(instance=project)
@@ -101,6 +120,7 @@ def generate(seed):
         assigned_topics = random.sample(topics, random.randint(1, 2))
         project.topics.add(*assigned_topics)
 
+        ensure_project_hero_gallery_media(project, images, fake, i)
         project.save_revision().publish()
         project_pages.append(project)
 
