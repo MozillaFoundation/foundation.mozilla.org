@@ -257,23 +257,23 @@ body.template-campaign-page {
       grid-template-columns: 1fr;
       gap: 0.5rem;
 
-    &__share-embed {
-      margin: 1.5rem -0.8rem;
+      &__share-embed {
+        margin: 1.5rem -0.8rem;
 
-      @include breakpoint(large up) {
-        margin: 2rem -0.8rem;
+        @include breakpoint(large up) {
+          margin: 2rem -0.8rem;
+        }
       }
-    }
 
-    &__share-buttons {
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
+      &__share-buttons {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
 
-      @include breakpoint(large up) {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-      } 
-    }
+        @include breakpoint(large up) {
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
+      }
 
       .btn {
         margin: 0;
