@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("campaigns", "0023_remove_char_limits_from_portrait_and_timely_activation_cards"),
+        ("campaigns", "0024_alter_campaignpage_body"),
     ]
 
     operations = [
