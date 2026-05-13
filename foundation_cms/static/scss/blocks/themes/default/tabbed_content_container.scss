@@ -98,13 +98,23 @@
       display: flex;
       gap: 1rem;
       flex-flow: row nowrap;
-      overflow-x: hidden;
+      overflow-x: scroll;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 1rem;
       margin-top: -1px; // ios Device bug
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       @include breakpoint(medium up) {
         margin-top: 0;
         flex-direction: column;
         overflow-x: auto;
+        scroll-snap-type: none;
+        scroll-padding-left: 0;
         padding: 1.5rem;
       }
 
@@ -113,7 +123,7 @@
       }
     }
 
-    &.is-active:has(> .tab-card__page-nav) {
+    &.is-active:has(> .tab-card-set__indicators) {
       padding-bottom: 6rem;
 
       @include breakpoint(medium up) {
@@ -220,9 +230,10 @@
   flex-flow: row wrap;
   width: 100%;
   flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
-.tab-card__page-nav {
+.tab-card-set__indicators {
   position: absolute;
   bottom: 2rem;
   left: 0;
@@ -231,34 +242,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
 
   @include breakpoint(medium up) {
     display: none;
   }
 
-  &-current {
-    display: inline-block;
-    width: 3rem;
-    text-align: center;
-  }
-
-  &-prev,
-  &-next {
-    cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-    background-size: 1rem auto;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  &-prev {
-    background-image: url("/static/foundation_cms/_images/icons/button-arrow-left-black.svg");
-  }
-
-  &-next {
-    background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+  .carousel-indicators {
+    margin: 0;
   }
 }
 

@@ -13,6 +13,7 @@ import {
   getLogicalIndex,
   tripleCards,
   debounce,
+  updateIndicators,
 } from "./carousel.js";
 
 const DISABLE_CAROUSEL_MIN_WIDTH = 1024;
@@ -156,9 +157,11 @@ export class SlidingCarousel {
   }
 
   updateCounter() {
+    const logicalIndex = this.getLogicalIndex();
     if (this.counterEl) {
-      this.counterEl.textContent = `${this.getLogicalIndex() + 1}`;
+      this.counterEl.textContent = `${logicalIndex + 1}`;
     }
+    updateIndicators(this.root, logicalIndex);
   }
 
   getLogicalIndex() {
