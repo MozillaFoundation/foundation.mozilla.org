@@ -3,7 +3,12 @@
 @import "../redesign_base";
 
 $bubble-palette: (orange, blue, yellow);
-$bubble-border-radius: 40%;
+
+@mixin expert-hub-bubble-mask {
+  mask-image: url("/static/foundation_cms/_images/expert-hub/bubble-mask.svg");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
 
 body.template-expert-hub-page {
   .main-content-wrapper {
@@ -164,8 +169,17 @@ body.template-expert-hub-page {
     position: absolute;
     transform: translate(-50%, -50%);
     transform-origin: 0 0;
-    border-radius: $bubble-border-radius;
-    background: var(--bubble-color);
+
+    &::after {
+      @include expert-hub-bubble-mask;
+
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--bubble-color);
+      pointer-events: none;
+    }
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -195,10 +209,11 @@ body.template-expert-hub-page {
     }
 
     &__image {
+      @include expert-hub-bubble-mask;
+
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: inherit;
     }
 
     &__name {
@@ -273,10 +288,11 @@ body.template-expert-hub-page {
     }
 
     &__image {
+      @include expert-hub-bubble-mask;
+
       width: $image-size;
       height: $image-size;
       object-fit: cover;
-      border-radius: $bubble-border-radius;
       display: block;
       margin-top: -(($image-size / 2) + $inner-padding);
       margin-bottom: rem-calc(16);
@@ -394,7 +410,6 @@ body.template-expert-hub-page {
       }
 
       &__image {
-        border-radius: inherit;
         pointer-events: none;
       }
 
