@@ -9,7 +9,7 @@
         <div class="project-block__track" data-project-block-track>
           {% if project.displayed_hero_content == "video" and project.hero_video_url %}
             <div class="project-block__slide is-active" data-project-block-slide aria-hidden="false">
-              <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
+              <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata" tabindex="-1">
                 <source src="{{ project.hero_video_url }}" type="video/mp4">
               </video>
             </div>
@@ -29,7 +29,7 @@
           {% for media in project.hero_gallery_media.all %}
             {% if media.media_type == "video" and media.video_url %}
               <div class="project-block__slide" data-project-block-slide aria-hidden="true">
-                <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata">
+                <video class="project-block__video" data-project-block-video muted playsinline loop preload="metadata" tabindex="-1">
                   <source src="{{ media.video_url }}" type="video/mp4">
                 </video>
               </div>
