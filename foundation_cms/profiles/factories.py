@@ -100,10 +100,10 @@ def generate(seed):
     # Link featured experts to hub
     print("Linking featured experts to Expert Hub Page...")
     if not hub.featured_experts.exists():
-        for i, expert in enumerate(expert_pages[:6]):
+        for i, expert in enumerate(expert_pages[:13]):
             ExpertHubFeaturedExpert.objects.create(hub_page=hub, expert=expert, sort_order=i)
         hub.save_revision().publish()
-        print(f"  {min(6, len(expert_pages))} featured experts linked.")
+        print(f"  {min(13, len(expert_pages))} featured experts linked.")
     else:
         print("  Featured experts already linked.")
 
