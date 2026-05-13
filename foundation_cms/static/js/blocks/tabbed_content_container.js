@@ -1,3 +1,5 @@
+import { updateIndicators, SWIPE_THRESHOLD } from "./util/carousel.js";
+
 export function initTabbedContent() {
   const SELECTORS = {
     tabbedContent: ".tabbed-content-container",
@@ -35,8 +37,6 @@ export function initTabbedContent() {
 }
 
 export function initTabbedContentCardSets() {
-  const cardsPerPage = 4;
-
   const SELECTORS = {
     tabbedContentCardSetPanels:
       ".tabbed-content-container__tab-panel:has(>.tab-card)",
@@ -45,17 +45,12 @@ export function initTabbedContentCardSets() {
 
   const CLASSNAMES = {
     tabCardPage: "tab-card__page",
-    tabCardPageNav: "tab-card__page-nav",
-    tabCardPageNavPrev: "tab-card__page-nav-prev",
-    tabCardPageNavCurrent: "tab-card__page-nav-current",
-    tabCardPageNavNext: "tab-card__page-nav-next",
   };
 
   const cardSetPanels = document.querySelectorAll(
     SELECTORS.tabbedContentCardSetPanels,
   );
 
-  // helper to get the panel page width
   const getPanelPageWidth = (panel) => {
     const firstPage = panel.querySelector(`.${CLASSNAMES.tabCardPage}`);
     const gap = parseInt(window.getComputedStyle(panel).gap || "0", 10);
@@ -64,8 +59,9 @@ export function initTabbedContentCardSets() {
 
   cardSetPanels.forEach((panel) => {
     const cards = panel.querySelectorAll(SELECTORS.tabbedContentCard);
+    const cardsPerPage = parseInt(panel.dataset.cardsPerPage, 10);
 
-    // Wrap cards in pages of 4 cards each
+    // Wrap cards in pages
     const pages = Math.ceil(cards.length / cardsPerPage);
     for (let i = 0; i < pages; i++) {
       const page = document.createElement("div");
@@ -73,11 +69,9 @@ export function initTabbedContentCardSets() {
 
       const start = i * cardsPerPage;
       const end = start + cardsPerPage;
-      const cardsToShow = Array.from(cards).slice(start, end);
-
-      cardsToShow.forEach((card) => {
-        page.appendChild(card);
-      });
+      Array.from(cards)
+        .slice(start, end)
+        .forEach((card) => page.appendChild(card));
 
       panel.appendChild(page);
     }
@@ -86,57 +80,50 @@ export function initTabbedContentCardSets() {
       return;
     }
 
-    // Create and append navigation controls, previous, page n/n, next
-    const nav = document.createElement("div");
-    nav.classList.add(CLASSNAMES.tabCardPageNav);
-
-    const prevButton = document.createElement("a");
-    prevButton.classList.add(CLASSNAMES.tabCardPageNavPrev);
-
-    const currentPage = document.createElement("span");
-    currentPage.classList.add(CLASSNAMES.tabCardPageNavCurrent);
-    currentPage.textContent = "1 / " + pages;
-
-    const nextButton = document.createElement("a");
-    nextButton.classList.add(CLASSNAMES.tabCardPageNavNext);
-
-    nav.appendChild(prevButton);
-    nav.appendChild(currentPage);
-    nav.appendChild(nextButton);
-    panel.appendChild(nav);
-
-    // Detect initial page index based on scroll position
-    let currentPageIndex = 0;
     const initialScrollLeft = panel.scrollLeft;
     const pageWidth = getPanelPageWidth(panel);
+    const initialPageIndex =
+      initialScrollLeft > 0 ? Math.floor(initialScrollLeft / pageWidth) : 0;
 
-    if (initialScrollLeft > 0) {
-      currentPageIndex = Math.floor(initialScrollLeft / pageWidth);
-      currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
-    }
+    updateIndicators(panel, initialPageIndex);
 
-    const updatePanelPage = () => {
-      const newPageWidth = getPanelPageWidth(panel);
-      panel.scrollTo({
-        left: newPageWidth * currentPageIndex,
-        behavior: "smooth",
-      });
-      currentPage.textContent = `${currentPageIndex + 1} / ${pages}`;
-    };
+    panel.addEventListener("scroll", () => {
+      const width = getPanelPageWidth(panel);
+      if (width > 0) {
+        updateIndicators(panel, Math.round(panel.scrollLeft / width));
+      }
+    });
 
-    const nextPage = () => {
-      if (currentPageIndex >= pages - 1) return;
-      currentPageIndex++;
-      updatePanelPage();
-    };
+    let touchStartX = 0;
+    let touchStartScrollLeft = 0;
 
-    const prevPage = () => {
-      if (currentPageIndex <= 0) return;
-      currentPageIndex--;
-      updatePanelPage();
-    };
+    panel.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartScrollLeft = panel.scrollLeft;
+      },
+      { passive: true },
+    );
 
-    nextButton.addEventListener("click", nextPage);
-    prevButton.addEventListener("click", prevPage);
+    panel.addEventListener(
+      "touchend",
+      (e) => {
+        const delta = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+
+        const width = getPanelPageWidth(panel);
+        const currentIndex = Math.round(touchStartScrollLeft / width);
+        const newIndex =
+          delta < 0
+            ? Math.min(currentIndex + 1, pages - 1)
+            : Math.max(currentIndex - 1, 0);
+
+        if (newIndex !== currentIndex) {
+          panel.scrollTo({ left: newIndex * width, behavior: "smooth" });
+        }
+      },
+      { passive: true },
+    );
   });
 }

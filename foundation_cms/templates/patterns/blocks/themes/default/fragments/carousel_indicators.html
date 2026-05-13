@@ -1,0 +1,11 @@
+{% load i18n utility_tags %}
+<div class="carousel-indicators hide-for-large{% if dark_mode %} carousel-indicators--dark{% endif %}">
+  <ul class="carousel-indicators__list">
+    {% for _ in count|to_range %}
+      {% blocktrans asvar item_label with num=forloop.counter total=count %}Slide {{ num }} of {{ total }}{% endblocktrans %}
+      <li class="carousel-indicators__item{% if forloop.first %} carousel-indicators__item--active{% endif %}"
+          aria-label="{{ item_label }}"
+          {% if forloop.first %}aria-current="true"{% endif %}></li>
+    {% endfor %}
+  </ul>
+</div>
