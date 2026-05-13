@@ -1,9 +1,6 @@
 {% load i18n %}
 
 <div class="sosha-share">
-    {% if page.share_section_heading %}
-        <h6 class="sosha-share__heading">{{ page.share_section_heading }}</h6>
-    {% endif %}
     <div class="sosha-share__embed">
         {{ page.sosha_toolkit_embed_code|safe }}
     </div>

@@ -32,7 +32,14 @@
                 <div class="grid-container share-section">
                     <div class="grid-x">
                         <div class="cell small-12 medium-7">
-                            {% include "patterns/components/nothing_personal/sosha_share.html" %}
+                            <h6 class="sosha-share__heading">{{ page.share_section_heading }}</h6>
+                            {% if page.sosha_toolkit_embed_code %}
+                                {% include "patterns/components/nothing_personal/sosha_share.html" %}
+                            {% else %}
+                                <button class="btn btn-secondary btn-secondary--no-arrow btn-secondary--link copy-to-clipboard-button">
+                                    {% trans "Copy Link" %}
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
