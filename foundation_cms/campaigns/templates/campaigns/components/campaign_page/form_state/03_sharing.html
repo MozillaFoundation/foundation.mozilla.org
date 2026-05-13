@@ -6,18 +6,17 @@
     {{ page.share_body|richtext }}
     <div class="petition__share-button-wrapper">
         {% if petition_cta.sosha_toolkit_embed_code %}
-        <div class="petition__share-embed">
-            {{ petition_cta.sosha_toolkit_embed_code|safe }}
-        </div>
+            <div class="petition__share-embed">
+                {{ petition_cta.sosha_toolkit_embed_code|safe }}
+            </div>
         {% else %}
-        <div class="petition__share-buttons">
-            <button class="btn btn-secondary btn-secondary--no-arrow btn-secondary--link">
-                {% trans "Copy Link" %}
-            </button>
-        </div>
+            <div class="petition__share-buttons">
+                <button class="btn btn-secondary btn-secondary--no-arrow btn-secondary--link">
+                    {% trans "Copy Link" %}
+                </button>
+            </div>
         {% endif %}
     </div>
-
 
     {% include "campaigns/components/campaign_page/action/skip.html" %}
 </div>
