@@ -1,4 +1,8 @@
-import { updateIndicators } from "../../blocks/util/carousel";
+import {
+  debounce,
+  RESIZE_DEBOUNCE_MS,
+  updateIndicators,
+} from "../../blocks/util/carousel";
 
 const ACTIVE_CLASS = "is-active";
 const HIDDEN_CLASS = "is-hidden";
@@ -91,7 +95,7 @@ class ProjectHeroCarousel {
     this.viewport.addEventListener("pointercancel", (event) =>
       this.handlePointerUp(event),
     );
-    window.addEventListener("resize", () => this.handleResize());
+    window.addEventListener("resize", this.handleResize);
   }
 
   /**
@@ -391,13 +395,13 @@ class ProjectHeroCarousel {
   /**
    * Keeps the transform aligned after viewport size changes.
    */
-  handleResize() {
+  handleResize = debounce(() => {
     this.updateResponsiveMode();
 
     if (this.mobileTrack) {
       this.jumpToMobilePosition(this.mobilePosition);
     }
-  }
+  }, RESIZE_DEBOUNCE_MS);
 
   /**
    * Returns the real slide index for the current mobile track position.

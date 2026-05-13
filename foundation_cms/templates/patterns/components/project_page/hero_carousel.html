@@ -1,5 +1,6 @@
 {% load static wagtailimages_tags wagtailcore_tags i18n l10n responsive_image_tags utility_tags %}
 
+{% with media_items=page.hero_gallery_media.all %}
 <div class="hero-carousel cell small-12 large-8 large-offset-2" data-project-hero-carousel>
 
     {% if page.hero_image or page.hero_video_url %}
@@ -35,7 +36,7 @@
                     {% endif %}
                 </figure>
 
-                {% for item in page.hero_gallery_media.all %}
+                {% for item in media_items %}
                     {% if item.image or item.video_url %}
                         <figure class="hero-carousel__slide" data-project-hero-slide data-index="{{ forloop.counter }}" aria-hidden="true">
                             <div class="hero-carousel__frame">
@@ -83,13 +84,13 @@
                 <span class="show-for-sr" data-project-hero-pause-label>{% trans "Pause video" %}</span>
             </button>
 
-            {% with slide_count=page.hero_gallery_media.all|length|add:1 %}
+            {% with slide_count=media_items|length|add:1 %}
                 {% if slide_count > 1 %}
                     {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count %}
                 {% endif %}
             {% endwith %}
 
-            {% if page.hero_gallery_media.all %}
+            {% if media_items %}
                 <div class="hero-carousel__thumbnails" aria-label="{% trans "Project media gallery" %}">
                     <button
                         class="hero-carousel__thumbnail is-active"
@@ -121,7 +122,7 @@
                         {% endif %}
                     </button>
 
-                    {% for item in page.hero_gallery_media.all %}
+                    {% for item in media_items %}
                         {% if item.image or item.video_url %}
                             <button
                                 class="hero-carousel__thumbnail"
@@ -165,8 +166,8 @@
 
         <div class="project-meta">
 
-            {% if page.author %}
-                <div class="project-meta__author">{% trans "By" %} <a class="project-meta__author-link" href="{{ page.author.profile_url }}">{{ page.author.name }}</a></div>
+            {% if page.expert %}
+                <div class="project-meta__author">{% trans "By" %} <a class="project-meta__author-link" href="{% pageurl page.expert %}">{{ page.expert.title }}</a></div>
             {% endif %}
 
             {% if page.program_label.all %}
@@ -191,3 +192,4 @@
     </div>
 
 </div>
+{% endwith %}

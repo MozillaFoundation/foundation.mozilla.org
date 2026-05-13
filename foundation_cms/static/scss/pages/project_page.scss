@@ -242,8 +242,8 @@ body.template-project-page {
       &::after {
         display: inline-block;
         content: "";
-        width: rem-calc(16px);
-        height: rem-calc(16px);
+        width: rem-calc(16);
+        height: rem-calc(16);
         background-image: url("/static/foundation_cms/_images/icons/link-external-black.svg");
         background-position: right bottom;
         background-repeat: no-repeat;
