@@ -42,13 +42,13 @@ const sources = {
     jsx: false,
     bundle: true,
   },
-<<<<<<< TP1-3742-expert-hub-landing-page
   expert_hub_page: {
     source: "pages/expert_hub_page.js",
-=======
+    jsx: false,
+    bundle: true,
+  },
   project_page: {
     source: "pages/project_page.js",
->>>>>>> main
     jsx: false,
     bundle: true,
   },
