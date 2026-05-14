@@ -20,7 +20,6 @@
                             <span class="published-label">{% trans "Published" %}</span>
                             <p class="published-date">{{ page.first_published_at|date:"DATE_FORMAT" }}</p>
                         </div>
-                        {% include "patterns/components/share_container.html" %}
                     </div>
                 </div>
             </div>
@@ -28,6 +27,23 @@
             {% if page.body %}
                 {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="medium-7 body-text-large" %}
             {% endif %}
+
+            <div class="grid-container article-share">
+                <div class="grid-x">
+                    <div class="cell small-12 medium-7">
+                        <h6 class="article-share__heading">{{ page.share_section_heading }}</h6>
+                        {% if page.sosha_toolkit_embed_code %}
+                            <div class="article-share__sosha_embed">
+                                {{ page.sosha_toolkit_embed_code|safe }}
+                            </div>
+                        {% else %}
+                            <button class="btn btn-secondary btn-secondary--link copy-to-clipboard-button">
+                                {% trans "Copy Link" %}
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
             <div class="grid-container">
                 <div class="grid-x">
