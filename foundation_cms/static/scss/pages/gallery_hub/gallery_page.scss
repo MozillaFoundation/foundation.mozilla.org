@@ -1,11 +1,11 @@
 @use "sass:map";
 @import "../../redesign_base";
-@import "settings";
-@import "stage";
-@import "controls";
-@import "view_transitions";
-@import "project";
-@import "modals";
+@import "../../components/gallery_hub/settings";
+@import "../../components/gallery_hub/stage";
+@import "../../components/gallery_hub/controls";
+@import "../../components/gallery_hub/view_transitions";
+@import "../../components/gallery_hub/project";
+@import "../../components/gallery_hub/modals";
 
 html.gallery-hub-scroll-locked {
   overflow: hidden;

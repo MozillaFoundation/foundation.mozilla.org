@@ -74,7 +74,7 @@
     }
 
     @include breakpoint(medium down) {
-      top: 40%;
+      top: 50%;
       width: min(calc(100% - rem-calc(64)), rem-calc(332));
       min-height: rem-calc(306);
       padding: rem-calc(58) rem-calc(48) rem-calc(42);
@@ -296,7 +296,7 @@
   }
 
   &__mobile-collage-item {
-    top: 40%;
+    top: 50%;
     width: rem-calc(156);
 
     &::before {

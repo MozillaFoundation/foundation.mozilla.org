@@ -150,7 +150,7 @@
     top: $gallery-project-content-top-compact;
     left: 50%;
     z-index: 6;
-    width: min(calc(100% - rem-calc(40)), rem-calc(596));
+    width: min(calc(100% - rem-calc(40)), $gallery-project-text-width);
     padding: rem-calc(16) 0;
     text-align: center;
     opacity: 0;
@@ -163,8 +163,10 @@
 
   &__title {
     @include mofo-text-style($header-styles, "h3", $header-font-family);
+    @include text-line-clamp(2);
 
-    margin: 0 rem-calc(-128) rem-calc(16);
+    max-width: $gallery-project-text-width;
+    margin: 0 auto rem-calc(16);
   }
 
   &__meta {
@@ -236,6 +238,14 @@
       background-position: center;
       background-size: contain;
       flex: 0 0 auto;
+      transition: transform 0.3s ease-out;
+    }
+
+    @include breakpoint(large up) {
+      &:hover::after,
+      &:focus-visible::after {
+        transform: translateX(0.75rem);
+      }
     }
   }
 }
@@ -343,10 +353,6 @@
       padding: 0;
     }
 
-    .gallery-hub-project__title {
-      margin: 0 rem-calc(-128) rem-calc(8);
-    }
-
     .gallery-hub-project__meta {
       margin-bottom: rem-calc(6);
     }
@@ -366,6 +372,11 @@
       $gallery-project-media-size-compact
     );
     opacity: 0.9;
+  }
+
+  .gallery-hub-project[data-gallery-hub-project-position="-1"]
+    .gallery-hub-project__media {
+    opacity: 0;
   }
 
   .gallery-hub-project[data-gallery-hub-project-position="-2"]
@@ -416,6 +427,14 @@
       scale($gallery-project-preview-scale);
   }
 
+  @media (height <= rem-calc(900)) {
+    .gallery-hub-project[data-gallery-hub-project-position="1"]
+      .gallery-hub-project__media {
+      transform: translate(-50%, calc(-50% + rem-calc(440)))
+        scale($gallery-project-preview-scale);
+    }
+  }
+
   .gallery-hub-project:not(.gallery-hub-project--active) {
     .gallery-hub-project__slide-control,
     .carousel-indicators {
@@ -457,7 +476,7 @@
       @include mofo-text-style($header-styles, "h6", $header-font-family);
 
       font-size: rem-calc(20);
-      margin: 0 0 rem-calc(12);
+      margin: 0 auto rem-calc(12);
     }
 
     .gallery-hub-project__meta {
@@ -481,7 +500,7 @@
 
     .gallery-hub-project__description {
       @include mofo-text-style($body-text-styles, "small", $body-font-family);
-      @include text-line-clamp(3);
+      @include text-line-clamp(2);
 
       margin-bottom: rem-calc(10);
     }

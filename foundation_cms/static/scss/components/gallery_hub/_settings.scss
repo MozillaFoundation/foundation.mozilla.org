@@ -14,18 +14,27 @@ $gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
 $gallery-project-spacious-height: 68rem;
 $gallery-project-short-height: rem-calc(900);
 $gallery-project-media-gutter: rem-calc(80);
-$gallery-project-media-size-compact: clamp(rem-calc(550), 50svh, rem-calc(680));
-$gallery-project-media-size-short: clamp(rem-calc(280), 38svh, rem-calc(376));
-$gallery-project-media-size-spacious: clamp(
-  rem-calc(640),
-  54svh,
-  rem-calc(760)
+$gallery-project-media-size-compact: clamp(
+  rem-calc(550),
+  61svh,
+  rem-calc(588)
 );
+$gallery-project-media-size-short: clamp(rem-calc(280), 55svh, rem-calc(588));
+$gallery-project-media-size-spacious: clamp(
+  rem-calc(550),
+  41svh,
+  rem-calc(588)
+);
+$gallery-project-text-width: rem-calc(588);
 $gallery-project-media-lift-compact: rem-calc(132);
 $gallery-project-media-lift-short: clamp(7.75rem, 19svh, 10rem);
 $gallery-project-media-lift-spacious: rem-calc(156);
-$gallery-project-preview-offset-top: min(58svh, rem-calc(620));
-$gallery-project-preview-offset-bottom: min(60svh, rem-calc(580));
+$gallery-project-preview-offset-top: min(58svh, rem-calc(760));
+$gallery-project-preview-offset-bottom: clamp(
+  rem-calc(580),
+  57svh,
+  rem-calc(720)
+);
 $gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
 $gallery-project-preview-exit-offset-bottom: min(74svh, rem-calc(760));
 $gallery-project-preview-scale: 0.82;
@@ -34,19 +43,19 @@ $gallery-project-content-top-compact: calc(
 );
 $gallery-project-content-top-short: calc(50% + rem-calc(14));
 $gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
-$gallery-project-mobile-media-top: rem-calc(94);
+$gallery-project-mobile-media-top: rem-calc(52);
 $gallery-project-mobile-media-width: min(87.5vw, rem-calc(360));
-$gallery-project-mobile-content-top: rem-calc(452);
+$gallery-project-mobile-content-top: rem-calc(418);
 $gallery-project-mobile-content-width: min(
   calc(100% - rem-calc(48)),
   rem-calc(344)
 );
 $gallery-project-mobile-compact-height: rem-calc(820);
-$gallery-project-mobile-compact-media-top: rem-calc(70);
-$gallery-project-mobile-compact-content-top: rem-calc(382);
+$gallery-project-mobile-compact-media-top: rem-calc(32);
+$gallery-project-mobile-compact-content-top: rem-calc(346);
 $gallery-project-mobile-short-height: rem-calc(760);
-$gallery-project-mobile-short-media-top: rem-calc(54);
-$gallery-project-mobile-short-content-top: rem-calc(350);
+$gallery-project-mobile-short-media-top: rem-calc(16);
+$gallery-project-mobile-short-content-top: rem-calc(318);
 $gallery-controls-mobile-toggle-bottom: rem-calc(28);
 $gallery-controls-mobile-toggle-min-width: rem-calc(120);
 $gallery-controls-mobile-toggle-padding: rem-calc(12) rem-calc(16);

@@ -231,11 +231,11 @@ class GalleryHubSlideshow {
    */
   syncControls() {
     if (this.previous) {
-      this.previous.disabled = this.activeIndex === 0;
+      this.previous.disabled = false;
     }
 
     if (this.next) {
-      this.next.disabled = this.activeIndex === this.slides.length - 1;
+      this.next.disabled = false;
     }
 
     updateIndicators(this.root, this.activeIndex);
@@ -275,10 +275,12 @@ class GalleryHubSlideshow {
    * @param {number} index - Target slide index.
    */
   goToSlide(index) {
-    if (index === this.activeIndex || index < 0 || index >= this.slides.length)
-      return;
+    const nextIndex =
+      ((index % this.slides.length) + this.slides.length) % this.slides.length;
 
-    this.activeIndex = index;
+    if (nextIndex === this.activeIndex) return;
+
+    this.activeIndex = nextIndex;
     this.syncSlides();
   }
 }
