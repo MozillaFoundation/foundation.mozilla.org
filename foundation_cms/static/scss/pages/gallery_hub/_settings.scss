@@ -30,10 +30,7 @@ $gallery-project-content-top-compact: calc(
 $gallery-project-content-top-short: calc(50% + rem-calc(14));
 $gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
 $gallery-project-mobile-media-top: rem-calc(94);
-$gallery-project-mobile-media-width: min(
-  87.5vw,
-  rem-calc(360)
-);
+$gallery-project-mobile-media-width: min(87.5vw, rem-calc(360));
 $gallery-project-mobile-content-top: rem-calc(452);
 $gallery-project-mobile-content-width: min(
   calc(100% - rem-calc(48)),
