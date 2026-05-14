@@ -31,28 +31,20 @@ $gallery-project-content-top-short: calc(50% + rem-calc(14));
 $gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
 $gallery-project-mobile-media-top: rem-calc(94);
 $gallery-project-mobile-media-width: min(
-  calc(100% - rem-calc(72)),
-  rem-calc(320)
+  87.5vw,
+  rem-calc(360)
 );
-$gallery-project-mobile-content-top: rem-calc(430);
+$gallery-project-mobile-content-top: rem-calc(452);
 $gallery-project-mobile-content-width: min(
   calc(100% - rem-calc(48)),
   rem-calc(344)
 );
 $gallery-project-mobile-compact-height: rem-calc(820);
 $gallery-project-mobile-compact-media-top: rem-calc(70);
-$gallery-project-mobile-compact-media-width: min(
-  calc(100% - rem-calc(104)),
-  rem-calc(280)
-);
-$gallery-project-mobile-compact-content-top: rem-calc(360);
+$gallery-project-mobile-compact-content-top: rem-calc(382);
 $gallery-project-mobile-short-height: rem-calc(760);
 $gallery-project-mobile-short-media-top: rem-calc(54);
-$gallery-project-mobile-short-media-width: min(
-  calc(100% - rem-calc(120)),
-  rem-calc(252)
-);
-$gallery-project-mobile-short-content-top: rem-calc(328);
+$gallery-project-mobile-short-content-top: rem-calc(350);
 $gallery-controls-mobile-toggle-bottom: rem-calc(28);
 $gallery-controls-mobile-toggle-min-width: rem-calc(120);
 $gallery-controls-mobile-toggle-padding: rem-calc(12) rem-calc(16);
@@ -88,10 +80,6 @@ $gallery-project-nav-icon-height-short: rem-calc(40);
     top: $gallery-project-mobile-compact-media-top;
   }
 
-  .gallery-hub-project--active .gallery-hub-project__media {
-    width: $gallery-project-mobile-compact-media-width;
-  }
-
   .gallery-hub-project__content {
     top: $gallery-project-mobile-compact-content-top;
   }
@@ -102,16 +90,14 @@ $gallery-project-nav-icon-height-short: rem-calc(40);
     top: $gallery-project-mobile-short-media-top;
   }
 
-  .gallery-hub-project--active .gallery-hub-project__media {
-    width: $gallery-project-mobile-short-media-width;
-  }
-
   .gallery-hub-project__content {
     top: $gallery-project-mobile-short-content-top;
   }
 
   .gallery-hub-project__title {
     @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    font-size: rem-calc(20);
   }
 
   .gallery-hub-project__meta,
@@ -121,7 +107,7 @@ $gallery-project-nav-icon-height-short: rem-calc(40);
 
   .gallery-hub-project__description,
   .gallery-hub-project__link {
-    @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+    @include mofo-text-style($body-text-styles, "small", $body-font-family);
   }
 }
 

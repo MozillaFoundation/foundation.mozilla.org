@@ -382,6 +382,7 @@
     .gallery-hub-project__title {
       @include mofo-text-style($header-styles, "h6", $header-font-family);
 
+      font-size: rem-calc(20);
       margin: 0 0 rem-calc(12);
     }
 
@@ -405,7 +406,8 @@
     }
 
     .gallery-hub-project__description {
-      @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+      @include mofo-text-style($body-text-styles, "small", $body-font-family);
+      @include text-line-clamp(3);
 
       margin-bottom: rem-calc(10);
     }

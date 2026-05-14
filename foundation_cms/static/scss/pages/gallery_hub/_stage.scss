@@ -194,7 +194,7 @@
 
   &__project-marker {
     display: block;
-    width: rem-calc(14);
+    width: rem-calc(8);
     height: rem-calc(7);
     background-image: url("#{$gallery-feature-image-path}/project-marker-line-small.svg");
     background-repeat: no-repeat;
@@ -216,7 +216,7 @@
   }
 
   &__project-marker--active {
-    width: rem-calc(24);
+    width: rem-calc(16);
     height: rem-calc(12);
     transform: scaleY(-1);
 
