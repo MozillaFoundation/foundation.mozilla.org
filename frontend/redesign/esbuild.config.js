@@ -47,6 +47,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  project_page: {
+    source: "pages/project_page.js",
+    jsx: false,
+    bundle: true,
+  },
   redesign_migrated_content: {
     source: "redesign_migrated_content.js",
     jsx: false,
@@ -64,11 +69,6 @@ const sources = {
   },
   nothing_personal_product_review_page: {
     source: "pages/nothing_personal/product_review_page.js",
-    jsx: false,
-    bundle: true,
-  },
-  expert_directory_page: {
-    source: "pages/expert_directory_page.js",
     jsx: false,
     bundle: true,
   },
