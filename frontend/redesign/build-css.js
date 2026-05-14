@@ -15,6 +15,7 @@ const entries = [
   "pages/expert_hub_page",
   "pages/home_page",
   "pages/maintenance",
+  "pages/project_page",
   "pages/search_page",
   "pages/topic_listing_page",
   "pages/nothing_personal/article_collection_page",

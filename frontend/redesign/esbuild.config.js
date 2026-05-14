@@ -42,8 +42,13 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+<<<<<<< TP1-3742-expert-hub-landing-page
   expert_hub_page: {
     source: "pages/expert_hub_page.js",
+=======
+  project_page: {
+    source: "pages/project_page.js",
+>>>>>>> main
     jsx: false,
     bundle: true,
   },
@@ -64,11 +69,6 @@ const sources = {
   },
   nothing_personal_product_review_page: {
     source: "pages/nothing_personal/product_review_page.js",
-    jsx: false,
-    bundle: true,
-  },
-  expert_directory_page: {
-    source: "pages/expert_directory_page.js",
     jsx: false,
     bundle: true,
   },
