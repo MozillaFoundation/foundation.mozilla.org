@@ -40,16 +40,9 @@ class Petition(CTA):
         help_text="Text for the petition submission button",
     )
 
-    share_facebook = models.CharField(
-        max_length=20,
-        help_text="Share Progress id for facebook button, including the sp_... prefix",
-        null=True,
-        blank=True,
-    )
-
-    share_email = models.CharField(
-        max_length=20,
-        help_text="Share Progress id for email button, including the sp_... prefix",
+    sosha_toolkit_embed_code = models.CharField(
+        max_length=1000,
+        help_text="Paste the embed code generated from the Sosha social sharing toolkit.",
         null=True,
         blank=True,
     )
@@ -60,8 +53,7 @@ class Petition(CTA):
         SynchronizedField("show_postal_code_field"),
         SynchronizedField("show_comment_field"),
         TranslatableField("cta_button_text"),
-        SynchronizedField("share_facebook"),
-        SynchronizedField("share_email"),
+        SynchronizedField("sosha_toolkit_embed_code"),
     ]
 
     search_fields = CTA.search_fields + [
@@ -77,8 +69,7 @@ class Petition(CTA):
         FieldPanel("show_postal_code_field"),
         FieldPanel("show_comment_field"),
         FieldPanel("cta_button_text"),
-        FieldPanel("share_facebook"),
-        FieldPanel("share_email"),
+        FieldPanel("sosha_toolkit_embed_code"),
     ]
 
     class Meta:
