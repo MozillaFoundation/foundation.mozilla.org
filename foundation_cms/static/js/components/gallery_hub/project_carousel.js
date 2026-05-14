@@ -160,6 +160,15 @@ function isMobileLayout() {
 }
 
 /**
+ * Check whether the user has requested reduced motion.
+ *
+ * @returns {boolean}
+ */
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
  * Mark the active project and hide inactive projects from assistive tech.
  *
  * @param {HTMLElement[]} projects - All rendered project elements.
@@ -274,10 +283,21 @@ export function initGalleryHubProjectCarousel() {
   let lastScrollAt = 0;
   let touchStartX = null;
   let touchStartY = null;
+  let isIntroAnimationComplete = prefersReducedMotion();
 
-  window.setTimeout(() => {
+  function completeIntroAnimation() {
+    isIntroAnimationComplete = true;
     root.classList.remove(GALLERY_HUB_CLASSES.introEntering);
-  }, GALLERY_HUB_INTRO_ENTERING_DURATION);
+  }
+
+  if (isIntroAnimationComplete) {
+    completeIntroAnimation();
+  } else {
+    window.setTimeout(
+      completeIntroAnimation,
+      GALLERY_HUB_INTRO_ENTERING_DURATION,
+    );
+  }
 
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
@@ -382,6 +402,8 @@ export function initGalleryHubProjectCarousel() {
     if (!visibleTotal) return;
 
     if (state.viewMode === GALLERY_HUB_VIEW_MODES.intro) {
+      if (!isIntroAnimationComplete) return;
+
       if (delta > 0) {
         setGalleryHubState({
           activeIndex: 0,
@@ -412,6 +434,21 @@ export function initGalleryHubProjectCarousel() {
    */
   function isNavigationCoolingDown() {
     return Date.now() - lastScrollAt < GALLERY_HUB_SCROLL_COOLDOWN;
+  }
+
+  /**
+   * Keep early gestures from moving the gallery while the first-load intro
+   * collage is still animating.
+   *
+   * @returns {boolean} Whether project navigation should wait.
+   */
+  function isWaitingForIntroAnimation() {
+    const state = getGalleryHubState();
+
+    return (
+      state.viewMode === GALLERY_HUB_VIEW_MODES.intro &&
+      !isIntroAnimationComplete
+    );
   }
 
   /**
@@ -472,7 +509,13 @@ export function initGalleryHubProjectCarousel() {
     passive: true,
   });
 
-  enterButton?.addEventListener("click", () => {
+  enterButton?.addEventListener("click", (event) => {
+    if (isWaitingForIntroAnimation()) {
+      event.preventDefault();
+      keepNavigationInView();
+      return;
+    }
+
     setGalleryHubState({
       activeIndex: 0,
       viewMode: GALLERY_HUB_VIEW_MODES.project,
@@ -502,6 +545,11 @@ export function initGalleryHubProjectCarousel() {
     const state = getGalleryHubState();
 
     if (state.viewMode === GALLERY_HUB_VIEW_MODES.intro) {
+      if (isWaitingForIntroAnimation()) {
+        keepNavigationInView();
+        return;
+      }
+
       setGalleryHubState({
         activeIndex: 0,
         viewMode: GALLERY_HUB_VIEW_MODES.project,
@@ -532,6 +580,12 @@ export function initGalleryHubProjectCarousel() {
     }
 
     if (isReleasedToPageScroll) return;
+
+    if (isWaitingForIntroAnimation()) {
+      event.preventDefault();
+      keepNavigationInView();
+      return;
+    }
 
     if (isNavigationCoolingDown()) {
       event.preventDefault();
@@ -596,6 +650,12 @@ export function initGalleryHubProjectCarousel() {
 
       if (isReleasedToPageScroll) return;
 
+      if (isWaitingForIntroAnimation()) {
+        event.preventDefault();
+        keepNavigationInView();
+        return;
+      }
+
       if (isNavigationCoolingDown()) {
         event.preventDefault();
         keepNavigationInView();
@@ -630,6 +690,11 @@ export function initGalleryHubProjectCarousel() {
       if (getGalleryHubState().modalOpen) return;
       if (isReleasedToPageScroll) return;
 
+      if (isWaitingForIntroAnimation()) {
+        keepNavigationInView();
+        return;
+      }
+
       if (isNavigationCoolingDown()) {
         keepNavigationInView();
         return;
@@ -658,6 +723,12 @@ export function initGalleryHubProjectCarousel() {
     }
 
     if (isReleasedToPageScroll || !isPageScrollLocked()) return;
+
+    if (isWaitingForIntroAnimation()) {
+      event.preventDefault();
+      keepNavigationInView();
+      return;
+    }
 
     if (isNavigationCoolingDown()) {
       event.preventDefault();
