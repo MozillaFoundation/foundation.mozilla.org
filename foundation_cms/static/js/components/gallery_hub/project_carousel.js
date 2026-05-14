@@ -285,9 +285,12 @@ export function initGalleryHubProjectCarousel() {
   let touchStartY = null;
   let isIntroAnimationComplete = prefersReducedMotion();
 
+  enterButton?.toggleAttribute("disabled", !isIntroAnimationComplete);
+
   function completeIntroAnimation() {
     isIntroAnimationComplete = true;
     root.classList.remove(GALLERY_HUB_CLASSES.introEntering);
+    enterButton?.removeAttribute("disabled");
   }
 
   if (isIntroAnimationComplete) {

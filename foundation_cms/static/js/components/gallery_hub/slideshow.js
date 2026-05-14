@@ -81,10 +81,10 @@ class GalleryHubSlideshow {
   init() {
     if (this.slides.length <= 1) {
       this.disableControls();
-      return;
+    } else {
+      this.bindEvents();
     }
 
-    this.bindEvents();
     this.syncSlides();
     this.bindProjectState();
   }
