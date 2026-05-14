@@ -53,6 +53,7 @@
                         <span class="gallery-hub__edge-image gallery-hub__edge-image--slot-{{ forloop.counter }} {% cycle 'gallery-hub__edge-image--shape-3' 'gallery-hub__edge-image--shape-1' 'gallery-hub__edge-image--shape-7' 'gallery-hub__edge-image--shape-4' 'gallery-hub__edge-image--shape-6' 'gallery-hub__edge-image--shape-8' %}"
                               style="--gallery-edge-image: url('{{ edge_img.url }}');">
                             <span class="gallery-hub__edge-tape"></span>
+                            <span class="gallery-hub__edge-scribble"></span>
                             <span class="gallery-hub__edge-favicon"></span>
                         </span>
                     {% endif %}
@@ -166,7 +167,7 @@
                         </div>
 
                         <div class="gallery-hub-project__content">
-                            <h2 class="gallery-hub-project__title">{{ project.title }}</h2>
+                            <h3 class="gallery-hub-project__title">{{ project.title }}</h3>
 
                             <div class="gallery-hub-project__meta project-meta">
                                 {% if project.program_label.all %}
