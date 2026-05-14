@@ -373,10 +373,13 @@ function init(viz, hero, config) {
   });
 
   if (!computeHeight) {
+    let hideTimer = null;
+
     nodes.forEach((node, i) => {
       node.el.addEventListener(
         "mouseenter",
         () => {
+          clearTimeout(hideTimer);
           const style = getComputedStyle(node.el);
           const color = style.getPropertyValue("--bubble-color").trim();
           const tooltipColor = style
@@ -392,9 +395,11 @@ function init(viz, hero, config) {
       node.el.addEventListener(
         "mouseleave",
         () => {
-          clearLines();
-          clearOverlays();
-          hideTooltip();
+          hideTimer = setTimeout(() => {
+            clearLines();
+            clearOverlays();
+            hideTooltip();
+          }, 80);
         },
         { signal },
       );

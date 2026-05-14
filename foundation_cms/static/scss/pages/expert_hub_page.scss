@@ -134,7 +134,7 @@ body.template-expert-hub-page {
       list-style: none;
       padding: 0;
       display: block;
-      overflow-y: auto;
+      overflow-y: hidden;
 
       // Creates a containing block for absolutely positioned bubbles.
       // Height is set by JS after the force sim resolves.
@@ -178,6 +178,7 @@ body.template-expert-hub-page {
       inset: 0;
       background: var(--bubble-color);
       pointer-events: none;
+      z-index: -1;
     }
 
     display: flex;
@@ -203,8 +204,6 @@ body.template-expert-hub-page {
 
       @include breakpoint(medium down) {
         @include mofo-text-style($body-text-styles, "xsmall");
-
-        background: color(yellow, "200");
       }
     }
 
@@ -396,17 +395,31 @@ body.template-expert-hub-page {
     }
 
     .expert-hub-bubble {
+      $pill-gap: rem-calc(8);
+
       margin: 0;
       transition: scale 0.2s ease;
       z-index: 1;
 
+      // Transparent bridge covering the pill's margin gap so the bubble stays
+      // :hover as the cursor crosses from pill to bubble, preventing scale flicker.
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        height: $pill-gap;
+        pointer-events: auto;
+      }
+
       &:hover {
-        scale: 1.08;
+        scale: $image-hover-scale;
         z-index: 10;
       }
 
       &__topic-pill {
-        margin-bottom: rem-calc(8);
+        margin-bottom: $pill-gap;
       }
 
       &__image {
@@ -422,6 +435,7 @@ body.template-expert-hub-page {
         opacity: 0;
         transition: opacity 0.2s ease;
         pointer-events: none;
+        z-index: auto;
       }
 
       &--overlay-active::after {

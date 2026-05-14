@@ -35,19 +35,17 @@
 
                 <ol class="expert-hub-viz__bubble-list" id="expert-hub-bubble-list">
                     {% for item in featured_experts %}
-                        {% with forloop.counter as idx %}
-                            <li class="expert-hub-bubble"
-                                data-name="{{ item.expert.title }}"
-                                data-url="{% pageurl item.expert %}"
-                                data-blurb="{{ item.expert.blurb }}"
-                                data-topic="{% if item.topic %}{{ item.topic.name }}{% endif %}">
-                                {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ idx }}. {{ item.topic.name }}</span>{% endif %}
-                                {% if item.expert.image %}
-                                    {% image item.expert.image fill-300x300 class="expert-hub-bubble__image" %}
-                                {% endif %}
-                                <span class="expert-hub-bubble__name">{{ item.expert.title }}</span>
-                            </li>
-                        {% endwith %}
+                        <li class="expert-hub-bubble"
+                            data-name="{{ item.expert.title }}"
+                            data-url="{% pageurl item.expert %}"
+                            data-blurb="{{ item.expert.blurb }}"
+                            data-topic="{% if item.topic %}{{ item.topic.name }}{% endif %}">
+                            {% if item.topic %}<span class="expert-hub-bubble__topic-pill">{{ item.topic.name }}</span>{% endif %}
+                            {% if item.expert.image %}
+                                {% image item.expert.image fill-300x300 class="expert-hub-bubble__image" %}
+                            {% endif %}
+                            <span class="expert-hub-bubble__name">{{ item.expert.title }}</span>
+                        </li>
                     {% endfor %}
                 </ol>
 
