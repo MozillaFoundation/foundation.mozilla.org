@@ -21,9 +21,9 @@ $gallery-project-media-size-spacious: clamp(
   54svh,
   rem-calc(760)
 );
-$gallery-project-media-lift-compact: rem-calc(104);
+$gallery-project-media-lift-compact: rem-calc(132);
 $gallery-project-media-lift-short: clamp(7.75rem, 19svh, 10rem);
-$gallery-project-media-lift-spacious: rem-calc(128);
+$gallery-project-media-lift-spacious: rem-calc(156);
 $gallery-project-content-top-compact: calc(
   36% + clamp(5.5rem, 15vw, 13rem) + rem-calc(32)
 );

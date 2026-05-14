@@ -132,8 +132,8 @@
 
   .carousel-indicators {
     position: absolute;
+    top: calc(100% + rem-calc(12));
     left: 50%;
-    bottom: 22%;
     z-index: 8;
     margin: 0;
     transform: translateX(-50%);

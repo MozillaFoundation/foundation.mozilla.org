@@ -161,7 +161,7 @@
                             </button>
                             {% with slide_count=project.hero_gallery_media.all|length|add:1 %}
                                 {% if slide_count > 1 %}
-                                    {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count dark_mode=True show_on_large=True %}
+                                    {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count show_on_large=True %}
                                 {% endif %}
                             {% endwith %}
                         </div>
