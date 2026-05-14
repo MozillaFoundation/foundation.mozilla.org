@@ -3,10 +3,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import Locale, Page
 from wagtail.search.query import PlainText
 
 from foundation_cms.campaigns.models.campaign_page import CampaignPage
+from foundation_cms.search.models import SearchEvent
 from foundation_cms.search.utils import get_search_backend_for_locale
 from foundation_cms.utils import get_default_locale, localize_queryset
 
@@ -53,10 +55,15 @@ def search(request):
         # Restore backend relevance order
         search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
 
-        # To log this query for use with the "Promoted search results" module:
+        # To log this query for use with the DB model and "Promoted search results" module
+        SearchEvent.objects.create(
+            query_string=search_query.strip().lower(),
+            language_code=current_locale.language_code,
+            results_count=total_search_results,
+        )
 
-        # query = Query.get(search_query)
-        # query.add_hit()
+        query = Query.get(search_query)
+        query.add_hit()
 
     else:
         search_results = Page.objects.none()

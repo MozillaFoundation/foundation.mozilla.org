@@ -258,6 +258,7 @@ INSTALLED_APPS = list(
             "wagtail.contrib.table_block",
             "wagtail.contrib.frontend_cache",
             "wagtail.contrib.settings",
+            "wagtail.contrib.search_promotions",
             "wagtail_color_panel",
             "wagtailmedia",
             "wagtailinventory",
@@ -309,6 +310,7 @@ INSTALLED_APPS = list(
             "foundation_cms.images",
             "foundation_cms.footer",
             "foundation_cms.navigation",
+            "foundation_cms.search",
         ],
     )
 )
