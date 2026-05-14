@@ -5,15 +5,23 @@
 // stand on its own once legacy_apps/ is removed.
 $dark-blue: #0d10bf;
 $focus-blue: #80bdff;
-$validation-color: rgb(255 79 94) !important;
-$input-font-size: 1.25rem !important;
+$validation-color: rgb(255 79 94);
+$input-font-size: 1.25rem;
 
 .streamfield-block-wrapper[data-block-type="donor_help_contact_us_form"] {
   background-color: color(neutral, "100");
-  padding-bottom: rem-calc(26.5);
+  padding: rem-calc(48) 0;
 
   #contact-form {
     scroll-margin-top: rem-calc(100);
+  }
+
+  .donor-help-contact-us-form-block {
+    > h3,
+    > p {
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+    }
   }
 
   .donor-help-contact-us-form-block__thank-you {
@@ -85,11 +93,16 @@ $input-font-size: 1.25rem !important;
     }
 
     .oneField {
-      margin-top: 2rem;
+      margin-top: rem-calc(24);
+    }
+
+    form > .oneField:first-child {
+      margin-top: 0;
     }
 
     .htmlSection {
       padding: 0;
+      margin-top: rem-calc(24);
       font-size: rem-calc(16);
       width: 100%;
 
@@ -112,6 +125,7 @@ $input-font-size: 1.25rem !important;
       }
     }
 
+    // Small-print privacy notice shown under the Name/Email row.
     #tfa_182-HTML {
       font-size: 0.75rem !important;
     }
@@ -130,24 +144,28 @@ $input-font-size: 1.25rem !important;
       }
     }
 
+    .actions {
+      margin-top: 0 !important;
+
+      br {  
+        display: none;
+      }
+
+      #submit_button {
+        margin-top: rem-calc(18);
+      }
+    }
+
     .captcha {
       .oneField {
-        margin: 0;
+        margin-top: 0;
       }
 
       .captchaHelp {
         display: inline-flex !important;
         padding: 0;
-        margin-top: 0.25rem;
+        margin-top: rem-calc(24);
         color: color(neutral, "600");
-      }
-    }
-
-    .actions .primaryAction#submit_button {
-      width: 100% !important;
-
-      @include breakpoint(medium up) {
-        width: auto !important;
       }
     }
   }
@@ -203,7 +221,7 @@ $input-font-size: 1.25rem !important;
           .inputWrapper input[type="text"],
           .inputWrapper textarea,
           .inputWrapper select {
-            border-color: $validation-color;
+            border-color: $validation-color !important;
           }
         }
       }
@@ -220,7 +238,11 @@ $input-font-size: 1.25rem !important;
         border-radius: 0;
         padding: rem-calc(14.4) rem-calc(24);
         cursor: pointer;
-        width: 100%;
+        width: 100% !important;
+
+        @include breakpoint(medium up) {
+          width: auto !important;
+        }
 
         &:hover {
           background-color: color(neutral, "500");
@@ -247,7 +269,7 @@ $input-font-size: 1.25rem !important;
           padding: 1rem 0.75rem;
           height: auto;
           border: 1px solid color(neutral, "400") !important;
-          font-size: $input-font-size;
+          font-size: $input-font-size !important;
         }
 
         input[type="text"].validate-email {
@@ -265,11 +287,11 @@ $input-font-size: 1.25rem !important;
         }
 
         .errMsg {
-          color: $validation-color;
+          color: $validation-color !important;
         }
 
         .required:not(.choices, select, .wfAutosuggest) {
-          font-size: $input-font-size;
+          font-size: $input-font-size !important;
         }
       }
     }
