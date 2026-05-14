@@ -24,6 +24,11 @@ $gallery-project-media-size-spacious: clamp(
 $gallery-project-media-lift-compact: rem-calc(132);
 $gallery-project-media-lift-short: clamp(7.75rem, 19svh, 10rem);
 $gallery-project-media-lift-spacious: rem-calc(156);
+$gallery-project-preview-offset-top: min(58svh, rem-calc(620));
+$gallery-project-preview-offset-bottom: min(60svh, rem-calc(580));
+$gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
+$gallery-project-preview-exit-offset-bottom: min(74svh, rem-calc(760));
+$gallery-project-preview-scale: 0.82;
 $gallery-project-content-top-compact: calc(
   36% + clamp(5.5rem, 15vw, 13rem) + rem-calc(32)
 );
@@ -105,6 +110,10 @@ $gallery-project-nav-icon-height-short: rem-calc(40);
   .gallery-hub-project__description,
   .gallery-hub-project__link {
     @include mofo-text-style($body-text-styles, "small", $body-font-family);
+  }
+
+  .gallery-hub-project__link {
+    font-weight: map.get($font-weights, bold);
   }
 }
 

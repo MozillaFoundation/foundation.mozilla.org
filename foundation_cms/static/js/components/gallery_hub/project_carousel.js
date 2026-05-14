@@ -181,9 +181,17 @@ function syncProjects(projects, filteredProjectIds, activeIndex) {
 
   projects.forEach((project) => {
     const isActive = project === activeProject;
+    const visibleIndex = visibleProjects.indexOf(project);
+    const position = visibleIndex === -1 ? null : visibleIndex - activeIndex;
 
     project.classList.toggle(GALLERY_HUB_CLASSES.projectActive, isActive);
     project.setAttribute("aria-hidden", String(!isActive));
+
+    if (position !== null && Math.abs(position) <= 2) {
+      project.dataset.galleryHubProjectPosition = String(position);
+    } else {
+      delete project.dataset.galleryHubProjectPosition;
+    }
 
     if ("inert" in project) {
       project.inert = !isActive;
