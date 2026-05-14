@@ -5,7 +5,10 @@ from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.base.models.abstract_general_page import AbstractGeneralPage
+from foundation_cms.base.models.abstract_general_page import (
+    AbstractGeneralPage,
+    general_page_block_options,
+)
 from foundation_cms.blocks import LinkBlock
 from foundation_cms.core.panels.media_panel import MediaPanel
 from foundation_cms.mixins.hero_media import HeroMediaMixin
@@ -54,6 +57,13 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
             "(top-right corner for 'Side by Side', both top corners for 'Top to Bottom'). "
             "Uncheck to remove rounded corners."
         ),
+    )
+
+    body = StreamField(
+        general_page_block_options,
+        block_counts={"donor_help_contact_us_form": {"max_num": 1}},
+        use_json_field=True,
+        blank=True,
     )
 
     hero_cta_link = StreamField(
@@ -149,3 +159,13 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
     # keep an explicit fallback in case no themed templates exist
     template = "patterns/pages/core/general_page.html"
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        # Checking if a Donor contact us form block is present in the page body.
+        # If one is, we will render the template formassembly_head.hml which includes
+        # the necessary JS for the form.
+        if any(block.block_type == "donor_help_contact_us_form" for block in self.body):
+            context["has_donor_contact_us_form"] = True
+        return context

@@ -5,7 +5,7 @@
 
     {# Tab Navigation #}
     <ul class="tabbed-content-container__tab-row">
-      {% for tab in self.tabs %}
+      {% for tab, page_count in tabs_with_page_counts %}
         <li class="tabbed-content-container__tab-button {% if forloop.first %}is-active{% endif %}">
           <div class="tabbed-content-container__tab-button-title">{{ tab.title }}</div>
           {% if tab.subtitle %}
@@ -17,11 +17,16 @@
 
     {# Tab Panels #}
     <div class="tabbed-content-container__tab-panels">
-      {% for tab in self.tabs %}
-        <div class="tabbed-content-container__tab-panel {% if forloop.first %}is-active{% endif %}">
+      {% for tab, page_count in tabs_with_page_counts %}
+        <div class="tabbed-content-container__tab-panel {% if forloop.first %}is-active{% endif %}" data-cards-per-page="{{ cards_per_page }}">
           {% for block in tab.content %}
             {% include_block block %}
           {% endfor %}
+          {% if page_count > 1 %}
+            <div class="tab-card-set__indicators">
+              {% include "./fragments/carousel_indicators.html" with count=page_count dark_mode=True %}
+            </div>
+          {% endif %}
         </div>
       {% endfor %}
     </div>

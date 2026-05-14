@@ -13,6 +13,7 @@
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
+@import "../scss/blocks/themes/default/donor_help_contact_us_form_block";
 @import "../scss/blocks/themes/default/featured_card_block";
 @import "../scss/blocks/themes/default/featured_container_block";
 @import "../scss/blocks/themes/default/fru_element_block";
@@ -27,6 +28,7 @@
 @import "../scss/blocks/themes/default/pillar_card_set_block";
 @import "../scss/blocks/themes/default/product_review_card_block";
 @import "../scss/blocks/themes/default/product_review_carousel_block";
+@import "../scss/blocks/themes/default/project_block";
 @import "../scss/blocks/themes/default/video_block";
 @import "../scss/blocks/themes/default/quote_block";
 @import "../scss/blocks/themes/default/product_review_section";
@@ -35,6 +37,7 @@
 @import "../scss/blocks/themes/default/spacer_block";
 @import "../scss/blocks/themes/default/tabbed_content_container";
 @import "../scss/blocks/themes/default/text_social_block";
+@import "../scss/blocks/themes/default/three_column_container_block";
 @import "../scss/blocks/themes/default/timely_activations";
 @import "../scss/blocks/themes/default/title_block";
 @import "../scss/blocks/themes/default/two_column_container_block";
@@ -53,6 +56,8 @@
 @import "../scss/components/back_to_top";
 @import "../scss/components/search_form";
 @import "../scss/components/breadcrumb_nav";
+@import "../scss/components/pagination_controls";
+@import "../scss/components/carousel_indicators";
 
 // Embed/widget overrides
 @import "../scss/onetrust-override";
