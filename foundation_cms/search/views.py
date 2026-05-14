@@ -25,6 +25,7 @@ def search(request):
     page = request.GET.get("page", 1)
     total_search_results = 0
     current_locale = Locale.get_active()
+    is_initial_search_submit = "page" not in request.GET
 
     # Search
     if search_query:
@@ -55,15 +56,16 @@ def search(request):
         # Restore backend relevance order
         search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
 
-        # To log this query for use with the DB model and "Promoted search results" module
-        SearchEvent.objects.create(
-            query_string=search_query.strip().lower(),
-            language_code=current_locale.language_code,
-            results_count=total_search_results,
-        )
+        # Log only on initial submission, not on pagination clicks
+        if is_initial_search_submit:
+            SearchEvent.objects.create(
+                query_string=search_query.strip().lower(),
+                language_code=current_locale.language_code,
+                results_count=total_search_results,
+            )
 
-        query = Query.get(search_query)
-        query.add_hit()
+            query = Query.get(search_query)
+            query.add_hit()
 
     else:
         search_results = Page.objects.none()
