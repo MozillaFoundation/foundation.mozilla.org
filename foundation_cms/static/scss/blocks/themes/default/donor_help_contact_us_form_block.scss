@@ -17,10 +17,16 @@ $input-font-size: 1.25rem;
   }
 
   .donor-help-contact-us-form-block {
+    --contact-form-gap: #{rem-calc(16)};
+
+    @include breakpoint(medium up) {
+      --contact-form-gap: #{rem-calc(24)};
+    }
+
     > h3,
     > p {
       margin-top: 0;
-      margin-bottom: rem-calc(24);
+      margin-bottom: var(--contact-form-gap);
     }
   }
 
@@ -93,7 +99,7 @@ $input-font-size: 1.25rem;
     }
 
     .oneField {
-      margin-top: rem-calc(24);
+      margin-top: var(--contact-form-gap);
     }
 
     form > .oneField:first-child {
@@ -102,7 +108,7 @@ $input-font-size: 1.25rem;
 
     .htmlSection {
       padding: 0;
-      margin-top: rem-calc(24);
+      margin-top: var(--contact-form-gap);
       font-size: rem-calc(16);
       width: 100%;
 
@@ -164,7 +170,7 @@ $input-font-size: 1.25rem;
       .captchaHelp {
         display: inline-flex !important;
         padding: 0;
-        margin-top: rem-calc(24);
+        margin-top: var(--contact-form-gap);
         color: color(neutral, "600");
       }
     }
