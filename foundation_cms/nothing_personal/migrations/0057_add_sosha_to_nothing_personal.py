@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("nothing_personal", "0054_remove_char_limits_from_portrait_and_timely_activation_cards"),
+        ("nothing_personal", "0056_alter_nothingpersonalarticlepage_hero_video_url"),
     ]
 
     operations = [
