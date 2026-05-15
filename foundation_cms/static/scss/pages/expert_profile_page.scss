@@ -1,0 +1,265 @@
+@use "sass:map";
+@use "sass:list";
+@import "../redesign_base";
+
+body {
+  .profile-page {
+    padding-top: rem-calc(64);
+    background-color: color(neutral, "100");
+
+    &__article {
+      overflow: hidden;
+    }
+  }
+
+  /* =========================
+     HERO
+  ========================= */
+
+  .profile-hero {
+    text-align: center;
+    margin-bottom: rem-calc(80);
+
+    &__intro {
+      max-width: rem-calc(900);
+      margin: 0 auto;
+    }
+
+    &__eyebrow {
+      @include mofo-text-style($body-text-styles, "small");
+
+      margin-bottom: rem-calc(12);
+      color: color(neutral, "700");
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: rem-calc(24);
+      max-width: rem-calc(900);
+      margin-inline: auto;
+    }
+
+    &__meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: rem-calc(16);
+      flex-wrap: wrap;
+      margin-bottom: rem-calc(24);
+
+      span {
+        @include mofo-text-style($body-text-styles, "small");
+
+        position: relative;
+
+        &:not(:last-child)::after {
+          content: "|";
+          margin-left: rem-calc(16);
+          color: color(neutral, "500");
+        }
+      }
+    }
+
+    .topic-pills {
+      justify-content: center;
+    }
+  }
+
+  /* =========================
+     CONTENT
+  ========================= */
+
+  .profile-content {
+    align-items: center;
+    justify-content: center;
+    margin-bottom: rem-calc(112);
+
+    max-width: rem-calc(1200);
+    margin-inline: auto;
+
+    &__bio {
+      @include mofo-text-style($body-text-styles, "regular");
+
+      color: color(neutral, "900");
+      display: flex;
+      align-items: center;
+
+      p {
+        margin-bottom: rem-calc(24);
+      }
+    }
+
+    &__image-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    &__image {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  /* =========================
+     PROJECTS
+  ========================= */
+
+  .profile-projects {
+    padding: 0 0 rem-calc(96) 0;
+
+    &__title {
+      @include mofo-text-style($header-styles, "h2", $header-font-family);
+
+      text-align: center;
+      margin-bottom: rem-calc(56);
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: rem-calc(32);
+      row-gap: rem-calc(56);
+
+      @include breakpoint(large down) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @include breakpoint(medium down) {
+        grid-template-columns: 1fr;
+        row-gap: rem-calc(40);
+      }
+    }
+  }
+
+  .profile-project-card {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+
+    &__image-wrapper {
+      overflow: hidden;
+      margin-bottom: rem-calc(16);
+      background: #f7e9ef;
+      aspect-ratio: 4 / 3;
+      border-radius: rem-calc(2);
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    &:hover &__image {
+      transform: scale(1.03);
+    }
+
+    &__content {
+      padding: 0;
+    }
+
+    .topic-pills {
+      margin-bottom: rem-calc(12);
+
+      .topic-pill {
+        transform: scale(0.9);
+        transform-origin: left center;
+      }
+    }
+
+    &__title {
+      margin: 0 0 rem-calc(8);
+
+      a {
+        @include mofo-text-style(
+          $header-styles,
+          "h6",
+          $header-font-family
+        );
+
+        color: color(neutral, "900");
+        text-decoration: none;
+        line-height: 1.3;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &__text {
+      @include mofo-text-style($body-text-styles, "small");
+
+      color: color(neutral, "700");
+      margin-bottom: rem-calc(16);
+      line-height: 1.5;
+    }
+
+    &__cta {
+      margin-top: auto;
+
+      a {
+        @include mofo-text-style($body-text-styles, "small");
+
+        display: inline-flex;
+        align-items: center;
+        gap: rem-calc(6);
+        color: color(neutral, "900");
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &::after {
+          content: "→";
+          transition: transform 0.2s ease;
+        }
+
+        &:hover::after {
+          transform: translateX(2px);
+        }
+      }
+    }
+  }
+
+  /* =========================
+     BODY
+  ========================= */
+
+  .profile-body {
+    padding-bottom: rem-calc(80);
+  }
+
+  /* =========================
+     RESPONSIVE
+  ========================= */
+
+  @include breakpoint(medium down) {
+    .profile-page {
+      padding-top: rem-calc(32);
+    }
+
+    .profile-hero {
+      margin-bottom: rem-calc(48);
+    }
+
+    .profile-content {
+      row-gap: rem-calc(32);
+
+      &__bio {
+        order: 2;
+      }
+
+      &__image-wrapper {
+        order: 1;
+      }
+    }
+  }
+}
