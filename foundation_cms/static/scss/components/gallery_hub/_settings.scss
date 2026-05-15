@@ -18,14 +18,22 @@ $gallery-project-very-short-height: rem-calc(860);
 $gallery-project-media-gutter: rem-calc(80);
 $gallery-project-media-size-compact: clamp(rem-calc(588), 60svh, rem-calc(820));
 $gallery-project-media-size-short: 60.1svh;
-$gallery-project-media-size-very-short: clamp(rem-calc(360), 52svh, rem-calc(588));
+$gallery-project-media-size-very-short: clamp(
+  rem-calc(360),
+  52svh,
+  rem-calc(588)
+);
 $gallery-project-media-size-spacious: clamp(
   rem-calc(588),
   60svh,
   rem-calc(820)
 );
 $gallery-project-text-width: $gallery-project-media-size-spacious;
-$gallery-project-media-top-compact: clamp(rem-calc(60), calc(10svh - rem-calc(16)), rem-calc(134));
+$gallery-project-media-top-compact: clamp(
+  rem-calc(60),
+  calc(10svh - rem-calc(16)),
+  rem-calc(134)
+);
 $gallery-project-media-top-short: rem-calc(60);
 $gallery-project-preview-offset-top: min(58svh, rem-calc(760));
 $gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
