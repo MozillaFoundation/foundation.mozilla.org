@@ -18,6 +18,7 @@ import {
   GALLERY_HUB_SCROLL_THRESHOLD,
   GALLERY_HUB_SELECTORS,
   GALLERY_HUB_VIEW_MODES,
+  GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY,
   GALLERY_HUB_VIEWPORT_PROPERTY,
 } from "./config";
 import { isMostlyVerticalGesture, isPastGestureThreshold } from "./gesture";
@@ -343,6 +344,10 @@ export function initGalleryHubProjectCarousel() {
     root.style.setProperty(
       GALLERY_HUB_VIEWPORT_PROPERTY,
       `${clampedViewportHeight}px`,
+    );
+    root.style.setProperty(
+      GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY,
+      `${rootTop}px`,
     );
     root.classList.toggle(
       GALLERY_HUB_CLASSES.mobileCompact,

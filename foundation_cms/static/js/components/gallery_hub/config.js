@@ -83,6 +83,17 @@ export const GALLERY_HUB_VIEW_MODES = {
 export const GALLERY_HUB_VIEWPORT_PROPERTY = "--gallery-hub-viewport-height";
 
 /**
+ * CSS custom property updated with the Gallery Hub offset from the real viewport.
+ *
+ * The gallery stage starts below the page header; CSS uses this value to center
+ * intro artwork against the actual viewport rather than the reduced stage box.
+ *
+ * @type {string}
+ */
+export const GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY =
+  "--gallery-hub-viewport-offset";
+
+/**
  * Duration for the first-load intro collage animation.
  *
  * JS removes the entering class after this timeout so the animation only plays
