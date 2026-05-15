@@ -135,6 +135,8 @@
     }
 
     &__nav-icon::before {
+      top: auto;
+      bottom: 0;
       width: $gallery-project-nav-icon-width;
       height: $gallery-project-nav-icon-height;
       background-size: $gallery-project-nav-icon-width

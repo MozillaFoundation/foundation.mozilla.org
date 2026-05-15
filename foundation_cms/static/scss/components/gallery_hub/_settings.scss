@@ -20,17 +20,19 @@ $gallery-project-body-size-compact: clamp(rem-calc(588), 60svh, rem-calc(820));
 $gallery-project-body-size-short: 60.1svh;
 $gallery-project-body-size-very-short: clamp(
   rem-calc(360),
-  52svh,
+  59svh,
   rem-calc(588)
 );
 $gallery-project-body-size-spacious: clamp(rem-calc(588), 60svh, rem-calc(820));
 $gallery-project-text-width: $gallery-project-body-size-spacious;
 $gallery-project-body-top-compact: clamp(
-  rem-calc(60),
-  calc(10svh - rem-calc(16)),
-  rem-calc(134)
+  rem-calc(36),
+  calc(10svh - rem-calc(40)),
+  rem-calc(110)
 );
-$gallery-project-body-top-short: rem-calc(60);
+$gallery-project-body-top-short: rem-calc(36);
+$gallery-project-body-top-mid: rem-calc(68);
+$gallery-project-body-top-very-short: rem-calc(52);
 $gallery-project-preview-offset-top: min(58svh, rem-calc(760));
 $gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
 $gallery-project-preview-peek: rem-calc(40);
@@ -59,7 +61,7 @@ $gallery-controls-mobile-short-toggle-bottom: rem-calc(18);
 // arrow asset's native scale.
 $gallery-project-nav-icon-width: rem-calc(12);
 $gallery-project-nav-icon-height: rem-calc(40);
-$gallery-project-nav-icon-height-short: rem-calc(40);
+$gallery-project-nav-icon-height-short: rem-calc(24);
 
 @mixin gallery-shape-properties($namespace, $shape) {
   --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
