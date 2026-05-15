@@ -28,7 +28,7 @@ class NavLinkFactory(wagtail_factories.StructBlockFactory):
         )
         external_url_link = factory.Trait(
             link_to="external_url",
-            external_url=factory.Faker("url"),
+            external_url=factory.Faker("url", schemes=["https"]),
         )
         relative_url_link = factory.Trait(
             link_to="relative_url",
