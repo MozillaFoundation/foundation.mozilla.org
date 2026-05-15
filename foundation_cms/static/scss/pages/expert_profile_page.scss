@@ -77,7 +77,6 @@ body {
     margin-bottom: rem-calc(112);
     max-width: rem-calc(1200);
     margin-inline: auto;
-
     &__bio {
       @include mofo-text-style($body-text-styles, "regular");
 
@@ -107,7 +106,7 @@ body {
   ========================= */
 
   .profile-projects {
-    padding: 0 0 rem-calc(96);
+    padding-bottom: rem-calc(96);
 
     &__title {
       @include mofo-text-style($header-styles, "h2", $header-font-family);
@@ -174,11 +173,7 @@ body {
       margin: 0 0 rem-calc(8);
 
       a {
-        @include mofo-text-style(
-          $header-styles,
-          "h6",
-          $header-font-family
-        );
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
 
         color: color(neutral, "900");
         text-decoration: none;
