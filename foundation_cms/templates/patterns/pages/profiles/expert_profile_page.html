@@ -1,96 +1,129 @@
 {% extends theme_base %}
 
-{% load wagtailimages_tags i18n %}
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_profile_page.compiled.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
-    <main>
-        <article>
+    <main class="profile-page">
+        <article class="profile-page__article">
             <div class="grid-container">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell small-12 medium-4">
-                        {% if page.image %}
-                            {% image page.image fill-400x400 as profile_img %}
-                            <img
-                                src="{{ profile_img.url }}"
-                                alt="{{ page.title }}"
-                                width="{{ profile_img.width }}"
-                                height="{{ profile_img.height }}"
-                            >
+
+            <!-- Header -->
+                <section class="profile-hero">
+                    <div class="profile-hero__intro">
+                        {% if page.role %}
+                            <p class="profile-hero__eyebrow">{{ page.role }}</p>
+                        {% endif %}
+
+                        <h1 class="profile-hero__title">{{ page.title }}</h1>
+
+                        <div class="profile-hero__meta">
+                            {% if page.location %}
+                                <span>{{ page.location.name }}</span>
+                            {% endif %}
+
+                            {% if page.affiliation %}
+                                <span>{{ page.affiliation }}</span>
+                            {% endif %}
+                        </div>
+
+                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+                    </div>
+                </section>
+
+            <!-- Main Content -->
+                <section class="profile-content grid-x grid-margin-x align-middle align-center">
+
+                <!-- Bio -->
+                    <div class="cell small-12 medium-6 large-5">
+                        {% if page.bio %}
+                            <div class="profile-content__bio">
+                                {{ page.bio|safe }}
+                            </div>
                         {% endif %}
                     </div>
 
-                    <div class="cell small-12 medium-8">
-                        <h1>{{ page.title }}</h1>
-
-                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
-
-                        {% if page.role %}
-                            <p class="role">{{ page.role }}</p>
+                <!-- Image -->
+                    <div class="cell small-12 medium-5 large-4">
+                        {% if page.image %}
+                            <div class="profile-content__image-wrapper">
+                                {% image page.image fill-700x900 as profile_img %}
+                                <img
+                                    class="profile-content__image"
+                                    src="{{ profile_img.url }}"
+                                    alt="{{ page.title }}"
+                                    width="{{ profile_img.width }}"
+                                    height="{{ profile_img.height }}"
+                                >
+                            </div>
                         {% endif %}
+                    </div>
 
-                        {% if page.affiliation %}
-                            <p class="affiliation">{{ page.affiliation }}</p>
-                        {% endif %}
+                </section>
 
-                        {% if page.location %}
-                            <p class="location">{{ page.location.name }}</p>
-                        {% endif %}
+            <!-- Projects -->
+                {% if gallery_projects %}
+                    <section class="profile-projects">
+                        <h2 class="profile-projects__title">
+                            {% trans "Projects" %}
+                        </h2>
 
-                        {% if page.bio %}
-                            <div class="bio">{{ page.bio|safe }}</div>
-                        {% endif %}
+                        <div class="profile-projects__grid">
+                            {% for project in gallery_projects %}
+                                <article class="profile-project-card">
 
-                        {% if gallery_projects %}
-                            <section class="gallery-projects">
-                                <h4>{% trans "Projects" %}</h4>
-                                {% for project in gallery_projects %}
-                                    <div class="gallery-project-card">
-                                        {% if project.hero_image %}
-                                            {% image project.hero_image fill-400x300 as project_img %}
+                                    {% if project.hero_image %}
+                                        <div class="profile-project-card__image-wrapper">
+                                            {% image project.hero_image fill-600x400 as project_img %}
                                             <img
+                                                class="profile-project-card__image"
                                                 src="{{ project_img.url }}"
                                                 alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
                                                 width="{{ project_img.width }}"
                                                 height="{{ project_img.height }}"
                                             >
-                                        {% endif %}
+                                        </div>
+                                    {% endif %}
 
-                                        <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
+                                    <div class="profile-project-card__content">
 
                                         {% include "patterns/components/topic_pills.html" with topics=project.topics.all %}
 
+                                        <h3 class="profile-project-card__title">
+                                            <a href="{{ project.url }}">
+                                                {{ project.title }}
+                                            </a>
+                                        </h3>
+
                                         {% if project.lede_text %}
-                                            <p>{{ project.lede_text }}</p>
+                                            <p class="profile-project-card__text">
+                                                {{ project.lede_text }}
+                                            </p>
                                         {% endif %}
 
                                         {% if project.cta_link %}
-                                            {% include "patterns/components/streamfield.html" with streamfield=project.cta_link %}
+                                            <div class="profile-project-card__cta">
+                                                {% include "patterns/components/streamfield.html" with streamfield=project.cta_link %}
+                                            </div>
                                         {% endif %}
                                     </div>
-                                {% endfor %}
-                            </section>
-                        {% endif %}
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
 
-                        {% if page.external_links.all %}
-                            <ul class="external-links">
-                                {% for link in page.external_links.all %}
-                                    <li>
-                                        <strong>{{ link.title }}</strong>
-                                        {% if link.description %}
-                                            <p>{{ link.description }}</p>
-                                        {% endif %}
-                                        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.url }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </div>
-                </div>
+                {% if page.body %}
+                    <section class="profile-body">
+                        {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+                    </section>
+                {% endif %}
+
             </div>
 
-            {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body %}
-            {% endif %}
         </article>
     </main>
 {% endblock content %}
