@@ -8,41 +8,35 @@ $gallery-feature-image-path: "/static/foundation_cms/_images/gallery-feature";
 $gallery-icon-image-path: "/static/foundation_cms/_images/icons";
 $gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
 
-// Project view layout tokens. The compact layout protects the vertical controls
-// in shorter browser windows; the spacious layout uses extra viewport height to
-// give project media more presence.
+// Project view layout tokens. The desktop layout keeps a fixed vertical order:
+// previous control, project media, content, next control, optional preview.
+// Short viewports sacrifice the preview before shrinking the active project too
+// aggressively.
 $gallery-project-spacious-height: 68rem;
-$gallery-project-short-height: rem-calc(900);
+$gallery-project-short-height: rem-calc(1000);
+$gallery-project-very-short-height: rem-calc(860);
 $gallery-project-media-gutter: rem-calc(80);
-$gallery-project-media-size-compact: clamp(
-  rem-calc(550),
-  61svh,
-  rem-calc(588)
-);
-$gallery-project-media-size-short: clamp(rem-calc(280), 55svh, rem-calc(588));
+$gallery-project-media-size-compact: clamp(rem-calc(588), 60svh, rem-calc(820));
+$gallery-project-media-size-short: clamp(rem-calc(360), 52svh, rem-calc(588));
 $gallery-project-media-size-spacious: clamp(
-  rem-calc(550),
-  41svh,
-  rem-calc(588)
+  rem-calc(588),
+  60svh,
+  rem-calc(820)
 );
-$gallery-project-text-width: rem-calc(588);
-$gallery-project-media-lift-compact: rem-calc(132);
-$gallery-project-media-lift-short: clamp(7.75rem, 19svh, 10rem);
-$gallery-project-media-lift-spacious: rem-calc(156);
+$gallery-project-text-width: $gallery-project-media-size-spacious;
+$gallery-project-media-top-compact: clamp(rem-calc(76), 10svh, rem-calc(150));
+$gallery-project-media-top-short: rem-calc(76);
 $gallery-project-preview-offset-top: min(58svh, rem-calc(760));
-$gallery-project-preview-offset-bottom: clamp(
-  rem-calc(580),
-  57svh,
-  rem-calc(720)
-);
 $gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
-$gallery-project-preview-exit-offset-bottom: min(74svh, rem-calc(760));
+$gallery-project-preview-peek: rem-calc(40);
 $gallery-project-preview-scale: 0.82;
-$gallery-project-content-top-compact: calc(
-  36% + clamp(5.5rem, 15vw, 13rem) + rem-calc(32)
+$gallery-project-content-top-compact: clamp(
+  rem-calc(571),
+  calc(65svh - rem-calc(56)),
+  rem-calc(805)
 );
-$gallery-project-content-top-short: calc(50% + rem-calc(14));
-$gallery-project-content-top-spacious: calc(47% + clamp(5.5rem, 15vw, 13rem));
+$gallery-project-content-top-short: clamp(rem-calc(380), 55svh, rem-calc(484));
+$gallery-project-content-top-spacious: $gallery-project-content-top-compact;
 $gallery-project-mobile-media-top: rem-calc(52);
 $gallery-project-mobile-media-width: min(87.5vw, rem-calc(360));
 $gallery-project-mobile-content-top: rem-calc(418);

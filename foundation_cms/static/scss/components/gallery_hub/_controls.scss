@@ -109,7 +109,7 @@
   }
 
   &__nav--next {
-    bottom: rem-calc(160);
+    bottom: $gallery-project-preview-peek;
     top: auto;
 
     .gallery-hub__nav-label {
@@ -117,27 +117,9 @@
     }
   }
 
-  @media (height <= rem-calc(1000)) {
+  @media (height <= rem-calc(740)) {
     &__nav--next {
-      bottom: rem-calc(40);
-    }
-  }
-
-  @media (height <= rem-calc(900)) {
-    &__nav--next {
-      bottom: rem-calc(160);
-    }
-  }
-
-  @media (height <= rem-calc(850)) {
-    &__nav--next {
-      bottom: rem-calc(120);
-    }
-  }
-
-  @media (height <= rem-calc(800)) {
-    &__nav--next {
-      bottom: rem-calc(100);
+      display: none;
     }
   }
 
@@ -169,12 +151,12 @@
 
   &__toggle[data-gallery-hub-modal-toggle="project-list"] {
     left: 0;
-    bottom: rem-calc(48);
+    bottom: rem-calc(32);
   }
 
   &__toggle[data-gallery-hub-modal-toggle="filter"] {
     right: 0;
-    bottom: rem-calc(48);
+    bottom: rem-calc(32);
   }
 
   @include breakpoint(medium down) {
