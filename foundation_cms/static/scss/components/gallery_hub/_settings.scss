@@ -9,56 +9,44 @@ $gallery-icon-image-path: "/static/foundation_cms/_images/icons";
 $gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
 
 // Project view layout tokens. The desktop layout keeps a fixed vertical order:
-// previous control, project media, content, next control, optional preview.
-// Short viewports sacrifice the preview before shrinking the active project too
+// previous control, project body, next control, optional preview. Short
+// viewports sacrifice the preview before shrinking the active project too
 // aggressively.
 $gallery-project-spacious-height: 68rem;
 $gallery-project-short-height: rem-calc(1000);
 $gallery-project-very-short-height: rem-calc(860);
-$gallery-project-media-gutter: rem-calc(80);
-$gallery-project-media-size-compact: clamp(rem-calc(588), 60svh, rem-calc(820));
-$gallery-project-media-size-short: 60.1svh;
-$gallery-project-media-size-very-short: clamp(
+$gallery-project-body-gutter: rem-calc(80);
+$gallery-project-body-size-compact: clamp(rem-calc(588), 60svh, rem-calc(820));
+$gallery-project-body-size-short: 60.1svh;
+$gallery-project-body-size-very-short: clamp(
   rem-calc(360),
   52svh,
   rem-calc(588)
 );
-$gallery-project-media-size-spacious: clamp(
-  rem-calc(588),
-  60svh,
-  rem-calc(820)
-);
-$gallery-project-text-width: $gallery-project-media-size-spacious;
-$gallery-project-media-top-compact: clamp(
+$gallery-project-body-size-spacious: clamp(rem-calc(588), 60svh, rem-calc(820));
+$gallery-project-text-width: $gallery-project-body-size-spacious;
+$gallery-project-body-top-compact: clamp(
   rem-calc(60),
   calc(10svh - rem-calc(16)),
   rem-calc(134)
 );
-$gallery-project-media-top-short: rem-calc(60);
+$gallery-project-body-top-short: rem-calc(60);
 $gallery-project-preview-offset-top: min(58svh, rem-calc(760));
 $gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
 $gallery-project-preview-peek: rem-calc(40);
 $gallery-project-preview-scale: 0.82;
-$gallery-project-content-top-compact: clamp(
-  rem-calc(571),
-  calc(65svh - rem-calc(56)),
-  rem-calc(805)
-);
-$gallery-project-content-top-short: clamp(rem-calc(380), 55svh, rem-calc(484));
-$gallery-project-content-top-spacious: $gallery-project-content-top-compact;
-$gallery-project-mobile-media-top: rem-calc(52);
-$gallery-project-mobile-media-width: min(87.5vw, rem-calc(360));
-$gallery-project-mobile-content-top: rem-calc(418);
+$gallery-project-mobile-body-top: rem-calc(52);
+$gallery-project-mobile-body-width: min(87.5vw, rem-calc(360));
 $gallery-project-mobile-content-width: min(
   calc(100% - rem-calc(48)),
   rem-calc(344)
 );
 $gallery-project-mobile-compact-height: rem-calc(820);
-$gallery-project-mobile-compact-media-top: rem-calc(32);
-$gallery-project-mobile-compact-content-top: rem-calc(346);
+$gallery-project-mobile-compact-body-top: rem-calc(32);
 $gallery-project-mobile-short-height: rem-calc(760);
-$gallery-project-mobile-short-media-top: rem-calc(16);
-$gallery-project-mobile-short-content-top: rem-calc(318);
+$gallery-project-mobile-short-body-top: rem-calc(16);
+$gallery-intro-desktop-artwork-center-correction: rem-calc(-9);
+$gallery-intro-mobile-collage-center-correction: rem-calc(11);
 $gallery-controls-mobile-toggle-bottom: rem-calc(28);
 $gallery-controls-mobile-toggle-min-width: rem-calc(120);
 $gallery-controls-mobile-toggle-padding: rem-calc(12) rem-calc(16);
@@ -89,15 +77,19 @@ $gallery-project-nav-icon-height-short: rem-calc(40);
   background: url("#{$image}") center / contain no-repeat;
 }
 
+@mixin gallery-project-body-width($size) {
+  width: min(calc(100% - #{$gallery-project-body-gutter}), $size);
+}
+
 @mixin gallery-project-mobile-compact {
   .gallery-hub-project__body {
-    top: $gallery-project-mobile-compact-media-top;
+    top: $gallery-project-mobile-compact-body-top;
   }
 }
 
 @mixin gallery-project-mobile-short {
   .gallery-hub-project__body {
-    top: $gallery-project-mobile-short-media-top;
+    top: $gallery-project-mobile-short-body-top;
   }
 
   .gallery-hub-project__title {

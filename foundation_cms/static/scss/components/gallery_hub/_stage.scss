@@ -100,7 +100,10 @@
       .gallery-hub__edge-media,
       .gallery-hub__intro-media {
         transform: translateY(
-          calc(var(--gallery-hub-viewport-center-shift) - rem-calc(9))
+          calc(
+            var(--gallery-hub-viewport-center-shift) +
+              #{$gallery-intro-desktop-artwork-center-correction}
+          )
         );
       }
     }
@@ -108,7 +111,10 @@
     @include breakpoint(medium down) {
       .gallery-hub__mobile-collage {
         transform: translateY(
-          calc(var(--gallery-hub-viewport-center-shift) + rem-calc(11))
+          calc(
+            var(--gallery-hub-viewport-center-shift) +
+              #{$gallery-intro-mobile-collage-center-correction}
+          )
         );
       }
     }
