@@ -75,7 +75,6 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: rem-calc(112);
-
     max-width: rem-calc(1200);
     margin-inline: auto;
 
@@ -108,7 +107,7 @@ body {
   ========================= */
 
   .profile-projects {
-    padding: 0 0 rem-calc(96) 0;
+    padding: 0 0 rem-calc(96);
 
     &__title {
       @include mofo-text-style($header-styles, "h2", $header-font-family);
@@ -120,8 +119,7 @@ body {
     &__grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: rem-calc(32);
-      row-gap: rem-calc(56);
+      gap: rem-calc(56) rem-calc(32);
 
       @include breakpoint(large down) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
