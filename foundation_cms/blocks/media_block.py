@@ -1,10 +1,10 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
+from wagtail.admin.telepath import register
 from wagtail.blocks import CharBlock, ChoiceBlock, StructBlockValidationError
 from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.images.blocks import ImageBlock
-from wagtail.telepath import register
 
 from foundation_cms.base.models.base_block import BaseBlock
 from foundation_cms.validators import validate_vimeo_mp4_url

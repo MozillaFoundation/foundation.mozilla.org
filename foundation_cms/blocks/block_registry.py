@@ -4,12 +4,14 @@ from .accordion_block import AccordionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
+from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
 from .icon_info_grid_block import IconInfoGridBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
+from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_button_block import LinkButtonBlock
@@ -20,10 +22,12 @@ from .newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from .pillar_card_set_block import PillarCardSetBlock
 from .podcast_block import PodcastBlock
 from .portrait_card_set_block import PortraitCardSetBlock
+from .project_block import ProjectBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
+from .three_column_container_block import ThreeColumnContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -81,12 +85,21 @@ class BlockRegistry:
             "class": TimelyActivationsCardsBlock,
             "group": BlockGroups.CARDS,
         },
+        "icon_info_grid": {
+            "class": IconInfoGridBlock,
+            "group": BlockGroups.CARDS,
+        },
         "image_grid": {
             "class": ImageGridBlock,
             "group": BlockGroups.CARDS,
         },
-        "icon_info_grid": {
-            "class": IconInfoGridBlock,
+        "image_carousel_block": {
+            "class": ImageCarouselBlock,
+            "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.CARDS,
+        },
+        "project_block": {
+            "class": ProjectBlock,
             "group": BlockGroups.CARDS,
         },
         # Data Display
@@ -105,6 +118,10 @@ class BlockRegistry:
         },
         "link_button_block": {
             "class": LinkButtonBlock,
+            "group": BlockGroups.ENGAGEMENT,
+        },
+        "donor_help_contact_us_form": {
+            "class": DonorHelpContactUsFormBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         "newsletter_signup": {
@@ -126,6 +143,10 @@ class BlockRegistry:
         },
         "spacer_block": {
             "class": SpacerBlock,
+            "group": BlockGroups.LAYOUT,
+        },
+        "three_column_container_block": {
+            "class": ThreeColumnContainerBlock,
             "group": BlockGroups.LAYOUT,
         },
         "two_column_container_block": {

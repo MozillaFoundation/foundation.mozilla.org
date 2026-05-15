@@ -3,7 +3,7 @@
 @import "../redesign_base";
 @import "../components/campaign_page/petition_form";
 @import "../components/campaign_page/step_indicator";
-@import "../components/nothing_personal/related_content"; // [FIXME:TODO] move related_content html and scss out of nothing_personal
+@import "../components/related_content";
 
 body.template-campaign-page {
   $orange: color(orange, "300");
@@ -256,12 +256,23 @@ body.template-campaign-page {
       display: grid;
       grid-template-columns: 1fr;
       gap: 0.5rem;
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
 
-      @include breakpoint(large up) {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+      &__share-embed {
+        margin: 1.5rem -0.8rem;
+
+        @include breakpoint(large up) {
+          margin: 2rem -0.8rem;
+        }
+      }
+
+      &__share-buttons {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        @include breakpoint(large up) {
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
       }
 
       .btn {

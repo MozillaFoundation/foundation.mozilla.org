@@ -1,11 +1,24 @@
 {% extends theme_base %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 
+{% block extended_head %}
+    {# block.super preserves any extended_head content from the parent theme_base template. #}
+    {{ block.super }}
+    {# If the page body contains a Donor Help Contact Us Form block, include the FormAssembly head fragment so the form's required JS is loaded in <head>. #}
+    {% if has_donor_contact_us_form %}
+        {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_head.html" %}
+    {% endif %}
+{% endblock extended_head %}
+
 {% block content %}
     <div class="general-page">
         <div class="general-page__body">
             {% if page.show_hero %}
                 {% include "patterns/components/hero.html" %}
+            {% else %}
+                <div class="grid-container">
+                    <h1>{{ page.title }}</h1>
+                </div>
             {% endif %}
             <div class="container">
                 {% if page.body %}

@@ -2,7 +2,9 @@ from django import forms
 from django.utils.translation import pgettext_lazy
 
 from foundation_cms.legacy_apps.wagtailpages import utils
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.libraries.rcc import taxonomies
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.libraries.rcc import (
+    taxonomies,
+)
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.libraries.rcc import (
     utils as rcc_utils,
 )

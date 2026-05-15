@@ -6,10 +6,11 @@
 #
 anyascii==0.3.0
     # via wagtail
-asgiref==3.7.2
+asgiref==3.11.1
     # via
     #   django
     #   django-cors-headers
+    #   django-countries
     #   django-htmx
     #   scout-apm
 async-timeout==4.0.2
@@ -48,11 +49,10 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==4.2.29
+django==5.2.13
     # via
     #   -r requirements.in
     #   dj-database-url
-    #   django-admin-sortable
     #   django-cors-headers
     #   django-csp
     #   django-filter
@@ -69,15 +69,16 @@ django==4.2.29
     #   django-treebeard
     #   djangorestframework
     #   laces
+    #   modelsearch
     #   social-auth-app-django
     #   wagtail
     #   wagtail-footnotes
     #   wagtail-localize
     #   wagtail-localize-git
     #   wagtailmedia
-django-admin-sortable==2.3
-    # via -r requirements.in
 django-cors-headers==4.3.1
+    # via -r requirements.in
+django-countries==8.2.0
     # via -r requirements.in
 django-csp==3.8
     # via -r requirements.in
@@ -106,7 +107,9 @@ django-stubs-ext==5.2.8
 django-taggit==6.1.0
     # via wagtail
 django-tasks==0.8.1
-    # via wagtail
+    # via
+    #   modelsearch
+    #   wagtail
 django-treebeard==4.5.1
     # via wagtail
 djangorestframework==3.15.2
@@ -131,9 +134,9 @@ filetype==1.2.0
     # via willow
 future==1.0.0
     # via -r requirements.in
-gitdb==4.0.9
+gitdb==4.0.12
     # via gitpython
-gitpython==3.1.41
+gitpython==3.1.46
     # via wagtail-localize-git
 gunicorn==23.0.0
     # via -r requirements.in
@@ -149,6 +152,8 @@ laces==0.1.2
     # via wagtail
 markdown==3.8.1
     # via django-pattern-library
+modelsearch==1.1.1
+    # via wagtail
 numpy==1.24.4
     # via
     #   scipy
@@ -227,7 +232,7 @@ six==1.16.0
     #   basket-client
     #   ecdsa
     #   python-dateutil
-smmap==5.0.0
+smmap==5.0.3
     # via gitdb
 social-auth-app-django==5.4.3
     # via -r requirements.in
@@ -248,6 +253,7 @@ tqdm==4.63.0
 typing-extensions==4.4.0
     # via
     #   dj-database-url
+    #   django-countries
     #   django-stubs-ext
     #   django-tasks
     #   wagtail-localize
@@ -261,7 +267,7 @@ urllib3==2.6.3
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==7.1.3
+wagtail==7.2.3
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
@@ -287,7 +293,7 @@ wagtail-localize==1.13
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-wagtail-localize-git==0.15.0
+wagtail-localize-git @ git+https://github.com/robdivincenzo/wagtail-localize-git.git@d524cdc2e9501696e70cd5a089026bdbfc8e731c
     # via -r requirements.in
 wagtail-metadata==5.0.0
     # via -r requirements.in

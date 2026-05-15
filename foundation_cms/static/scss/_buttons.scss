@@ -11,9 +11,6 @@ $cta-link-icon-sizes: (
   $color: color(neutral, "100"),
   $border-color: black
 ) {
-  $button-transition-duration: 0.5s;
-  $button-transition-ease: ease;
-
   display: flex;
   align-items: center;
   gap: rem-calc(16);
@@ -45,8 +42,8 @@ $cta-link-icon-sizes: (
     opacity: 1;
     transform: translateY(0);
     transition:
-      transform $button-transition-duration $button-transition-ease,
-      opacity $button-transition-duration $button-transition-ease;
+      transform $button-transition-duration $button-transition-function,
+      opacity $button-transition-duration $button-transition-function;
   }
 
   &__text--roll-in {
@@ -219,63 +216,6 @@ $cta-link-icon-sizes: (
 }
 
 // ===================================
-// Pagination Controls
-// ===================================
-
-.pagination-controls {
-  $background-color: black;
-
-  display: flex;
-  align-items: center;
-  color: white;
-  position: relative;
-  background: $background-color;
-
-  &::before {
-    $width: rem-calc(48);
-    $left-offset: $width * -1;
-
-    // slight scale oversizing to prevent sub-pixel rendering gaps at clip-path edges
-    $scale-overlap: 101%; // instead of 100%
-
-    content: "";
-    position: absolute;
-    left: $left-offset;
-    top: 0;
-    bottom: 0;
-    width: $width;
-    background: $background-color;
-    clip-path: polygon(0% 0%, $scale-overlap 0%, $scale-overlap $scale-overlap);
-  }
-
-  &__counter {
-    background: $background-color;
-    width: 3em;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: rem-calc(4);
-    justify-content: space-evenly;
-  }
-
-  button {
-    padding: rem-calc(24) rem-calc(20);
-    color: white;
-    background: $background-color;
-    cursor: pointer;
-
-    &:focus-visible {
-      outline-color: color(neutral, "300");
-      z-index: 1;
-    }
-
-    &:disabled {
-      visibility: hidden;
-    }
-  }
-}
-
-// ===================================
 // Video Play Button (Vimeo Style)
 // ===================================
 
@@ -343,6 +283,7 @@ button.btn-play--vimeo {
     display: inline;
     text-decoration: underline;
     padding: rem-calc(5) 0;
+    color: map.get($mofo-colors, black);
 
     @include breakpoint(large up) {
       @include mofo-text-style($body-text-styles, "small");
@@ -367,6 +308,8 @@ button.btn-play--vimeo {
 @mixin topic-pill-button-shape {
   @include mofo-text-style($body-text-styles, "small");
 
+  display: inline-block;
+  vertical-align: top;
   border-radius: 16px 16px 0;
   background: color(yellow, "300");
   padding: rem-calc(5) rem-calc(16);

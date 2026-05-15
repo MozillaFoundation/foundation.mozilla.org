@@ -1,0 +1,42 @@
+{% load wagtailimages_tags %}
+
+{% with link=value.link.0 %}
+  {% if link %}
+    <a class="image-carousel-item image-carousel-item--{{ orientation }}" href="{{ link.url }}"{% if link.new_window %} target="_blank"{% endif %}>
+  {% else %}
+    <div class="image-carousel-item image-carousel-item--{{ orientation }}">
+  {% endif %}
+
+  {% if value.header %}
+    <p class="image-carousel-item__header">{{ value.header }}</p>
+  {% endif %}
+
+  <div class="image-carousel-item__image-wrapper">
+    {% image value.image original as img %}
+    <img
+      class="image-carousel-item__image"
+      src="{{ img.url }}"
+      alt="{{ value.title|default:'Carousel image' }}"
+      width="{{ img.width }}"
+      height="{{ img.height }}"
+    >
+  </div>
+
+  {% if value.title %}
+    <h4 class="image-carousel-item__title">{{ value.title }}</h4>
+  {% endif %}
+
+  {% if value.description %}
+    <div class="image-carousel-item__description">{{ value.description }}</div>
+  {% endif %}
+
+  {% if link %}
+    <span class="image-carousel-item__link">{{ link.label|default:"Read more" }}</span>
+  {% endif %}
+
+  {% if link %}
+    </a>
+  {% else %}
+    </div>
+  {% endif %}
+{% endwith %}

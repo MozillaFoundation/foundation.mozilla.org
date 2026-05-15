@@ -1,20 +1,18 @@
-from pathlib import Path
-
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
-from foundation_cms.core.factories.homepage import HomePageFactory
+from foundation_cms.base.factories import generate_images, generate_topics
+from foundation_cms.core.factories import generate_homepage
 from foundation_cms.footer.factories import generate as generate_footer
+from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import NavigationMenuFactory
 from foundation_cms.navigation.models import SiteNavigationMenu
-
-BASE_DIR = Path(__file__).resolve().parents[3] / "core" / "factories" / "data"
-HOMEPAGE_DIR = BASE_DIR / "homepage"
+from foundation_cms.profiles.factories import generate as generate_profiles
 
 
 class Command(BaseCommand):
-    help = "Load homepage from manifest and register it as the Wagtail default Site root."
+    help = "Load homepage and register it as the Wagtail default Site root."
 
     def add_arguments(self, parser):
         parser.add_argument("--force", action="store_true", help="Delete and replace existing homepage if it exists.")
@@ -30,8 +28,8 @@ class Command(BaseCommand):
             root.save()
 
         # Build and publish the homepage
-        self.stdout.write("Creating HomePage from manifest...")
-        homepage = HomePageFactory.create_from_manifest(parent=root, slug=homepage_slug)
+        self.stdout.write("Creating HomePage...")
+        homepage = generate_homepage(parent=root, seed=42, slug=homepage_slug)
         self.stdout.write(self.style.SUCCESS("HomePage created and published."))
 
         # Assign Site root
@@ -44,10 +42,30 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
 
+        # Generate placeholder images (used by other factories)
+        self.stdout.write("Generating placeholder images...")
+        generate_images()
+        self.stdout.write(self.style.SUCCESS("20 placeholder images created."))
+
+        # Generate shared Topics (available to all page types)
+        self.stdout.write("Generating Topics...")
+        generate_topics()
+        self.stdout.write(self.style.SUCCESS("Topics ready."))
+
         # Generate footer
         self.stdout.write("Generating Site Footer...")
         footer = generate_footer(seed=42)
         self.stdout.write(self.style.SUCCESS(f'Site Footer active: "{footer.title}"'))
+
+        # Generate Expert Hub
+        self.stdout.write("Generating Expert Hub...")
+        expert_hub = generate_profiles(seed=42)
+        self.stdout.write(self.style.SUCCESS(f'Expert Hub active: "{expert_hub.title}"'))
+
+        # Generate Gallery Hub content
+        self.stdout.write("Generating Gallery Hub content...")
+        generate_gallery(seed=42)
+        self.stdout.write(self.style.SUCCESS("Gallery Hub setup complete."))
 
     def assign_homepage_as_site_root(self, homepage, hostname, port):
         site = Site.objects.get(is_default_site=True)

@@ -126,7 +126,7 @@ class CampaignPage(AbstractBasePage):
         related_name="+",
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = AbstractBasePage.content_panels + [
         FieldPanel("header"),
         FieldPanel("cta"),
         FieldPanel("body"),
@@ -296,13 +296,13 @@ class CampaignPage(AbstractBasePage):
         Return the two latest pages that share this page's keep_contributing_topic.
         """
         topic = self.keep_contributing_topic
-        (default_locale, _) = get_default_locale()
+        default_locale, _ = get_default_locale()
 
         tag_related_pages = (
             Page.objects.live()
             .public()
             .filter(locale=default_locale, topic_relations__tag=topic)
-            .exclude(id=self.id)
+            .exclude(translation_key=self.translation_key)
             .order_by("-first_published_at")
         )
 
@@ -313,13 +313,13 @@ class CampaignPage(AbstractBasePage):
         """
         Return the two latest CampaignPages in their localized versions
         """
-        (default_locale, _) = get_default_locale()
+        default_locale, _ = get_default_locale()
 
         default_campaigns = (
             CampaignPage.objects.live()
             .public()
             .filter(locale=default_locale)
-            .exclude(id=self.id)
+            .exclude(translation_key=self.translation_key)
             .order_by("-first_published_at")
         )
 
