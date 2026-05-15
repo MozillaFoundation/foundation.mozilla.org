@@ -99,23 +99,15 @@
     @include breakpoint(large up) {
       .gallery-hub__edge-media,
       .gallery-hub__intro-media {
-        transform: translateY(
-          calc(
-            var(--gallery-hub-viewport-center-shift) +
-              #{$gallery-intro-desktop-artwork-center-correction}
-          )
-        );
+        transform: translateY(var(--gallery-hub-viewport-center-shift))
+          translateY($gallery-intro-artwork-center-shift);
       }
     }
 
     @include breakpoint(medium down) {
       .gallery-hub__mobile-collage {
-        transform: translateY(
-          calc(
-            var(--gallery-hub-viewport-center-shift) +
-              #{$gallery-intro-mobile-collage-center-correction}
-          )
-        );
+        transform: translateY(var(--gallery-hub-viewport-center-shift))
+          translateY($gallery-intro-collage-center-shift);
       }
     }
 
