@@ -7,10 +7,12 @@ $dark-blue: #0d10bf;
 $focus-blue: #80bdff;
 $validation-color: rgb(255 79 94);
 $input-font-size: 1.25rem;
+$contact-form-block-padding: rem-calc(72);
+$contact-form-column-gap: rem-calc(34);
 
 .streamfield-block-wrapper[data-block-type="donor_help_contact_us_form"] {
   background-color: color(neutral, "100");
-  padding: rem-calc(48) 0;
+  padding: $contact-form-block-padding 0;
 
   #contact-form {
     scroll-margin-top: rem-calc(100);
@@ -21,18 +23,45 @@ $input-font-size: 1.25rem;
 
     @include breakpoint(medium up) {
       --contact-form-gap: #{rem-calc(24)};
+
+      // Only switch to a two-column layout when an image is provided.
+      &:has(.donor-help-contact-us-form-block__image) {
+        display: grid;
+        grid-template-columns: 60fr 40fr;
+        column-gap: $contact-form-column-gap;
+      }
     }
 
-    > h3,
-    > p {
-      margin-top: 0;
+    &__form {
+      align-self: center;
+
+      > h3,
+      > p {
+        margin-top: 0;
+        margin-bottom: var(--contact-form-gap);
+      }
+    }
+
+    &__image {
       margin-bottom: var(--contact-form-gap);
-    }
-  }
 
-  .donor-help-contact-us-form-block__thank-you {
-    padding-top: rem-calc(72);
-    padding-bottom: rem-calc(72);
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      @include breakpoint(medium up) {
+        grid-column: 2;
+        grid-row: 1;
+        margin-bottom: 0;
+      }
+    }
+
+    &__thank-you {
+      padding-top: $contact-form-block-padding;
+      padding-bottom: $contact-form-block-padding;
+    }
   }
 
   .wForm {
@@ -104,6 +133,7 @@ $input-font-size: 1.25rem;
 
     form > .oneField:first-child {
       margin-top: 0;
+      margin-bottom: var(--contact-form-gap);
     }
 
     .htmlSection {
@@ -137,7 +167,7 @@ $input-font-size: 1.25rem;
     }
 
     .inline {
-      display: inline-flex;
+      display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
 
@@ -151,14 +181,18 @@ $input-font-size: 1.25rem;
     }
 
     .actions {
-      margin-top: 0 !important;
+      margin-top: 0;
 
-      br {  
+      br {
         display: none;
       }
 
       #submit_button {
-        margin-top: rem-calc(18);
+        margin-top: rem-calc(1);
+
+        @include breakpoint(medium up) {
+          margin-top: rem-calc(18);
+        }
       }
     }
 
