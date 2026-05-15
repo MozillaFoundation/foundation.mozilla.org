@@ -77,7 +77,7 @@ body {
     margin-bottom: rem-calc(112);
     max-width: rem-calc(1200);
     margin-inline: auto;
-    
+
     &__bio {
       @include mofo-text-style($body-text-styles, "regular");
 
