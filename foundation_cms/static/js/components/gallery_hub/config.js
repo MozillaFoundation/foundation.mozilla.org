@@ -90,7 +90,7 @@ export const GALLERY_HUB_VIEWPORT_PROPERTY = "--gallery-hub-viewport-height";
  *
  * @type {number}
  */
-export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1400;
+export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1200;
 
 /**
  * Legacy deep link stripped on load so the JS-controlled experience starts at
