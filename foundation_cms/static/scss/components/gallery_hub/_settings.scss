@@ -1,0 +1,151 @@
+$gallery-stage-min-height: calc(100svh - rem-calc(96));
+$gallery-stage-min-height-large: calc(100svh - rem-calc(120));
+$gallery-easing: cubic-bezier(0.22, 1, 0.36, 1);
+$gallery-transition-duration: 520ms;
+$gallery-transition: $gallery-transition-duration $gallery-easing;
+$gallery-image-path: "/static/foundation_cms/_images";
+$gallery-feature-image-path: "/static/foundation_cms/_images/gallery-feature";
+$gallery-icon-image-path: "/static/foundation_cms/_images/icons";
+$gallery-shapes: 1, 2, 3, 4, 6, 7, 8;
+
+// Project view height bands.
+$gallery-project-spacious-height: 68rem;
+$gallery-project-short-height: rem-calc(1000);
+$gallery-project-very-short-height: rem-calc(860);
+
+// Project body sizing. The desktop layout keeps a fixed vertical order:
+// previous control, project body, next control, optional preview. Short
+// viewports sacrifice the preview before shrinking the active project too
+// aggressively.
+$gallery-project-body-gutter: rem-calc(80);
+$gallery-project-body-size-compact: clamp(rem-calc(588), 60svh, rem-calc(820));
+$gallery-project-body-size-short: 60.1svh;
+$gallery-project-body-size-very-short: clamp(
+  rem-calc(360),
+  59svh,
+  rem-calc(588)
+);
+$gallery-project-body-size-spacious: clamp(rem-calc(588), 60svh, rem-calc(820));
+$gallery-project-text-width: $gallery-project-body-size-spacious;
+
+// Centers the active project body in taller desktop viewports while the
+// short-height media queries below keep constrained layouts collision-safe.
+$gallery-project-body-top-compact: clamp(
+  rem-calc(112),
+  calc(26.7svh - rem-calc(150)),
+  rem-calc(204)
+);
+$gallery-project-body-top-mid: rem-calc(68);
+$gallery-project-body-top-very-short: rem-calc(52);
+
+// Project preview positioning.
+$gallery-project-preview-offset-top: min(58svh, rem-calc(760));
+$gallery-project-preview-exit-offset-top: min(72svh, rem-calc(760));
+$gallery-project-preview-peek: rem-calc(40);
+$gallery-project-preview-scale: 0.82;
+
+// Project-view edge artwork.
+$gallery-project-edge-image-size: clamp(rem-calc(184), 29svh, rem-calc(318));
+$gallery-project-edge-inline-offset: rem-calc(64);
+$gallery-project-edge-offset-top: clamp(rem-calc(176), 25svh, rem-calc(260));
+$gallery-project-edge-offset-middle: clamp(rem-calc(36), 5.5svh, rem-calc(56));
+$gallery-project-edge-offset-bottom: clamp(rem-calc(120), 17svh, rem-calc(168));
+
+// Mobile project view.
+$gallery-project-mobile-body-top: rem-calc(52);
+$gallery-project-mobile-body-width: min(87.5vw, rem-calc(360));
+$gallery-project-mobile-content-width: min(
+  calc(100% - rem-calc(48)),
+  rem-calc(344)
+);
+$gallery-project-mobile-compact-height: rem-calc(820);
+$gallery-project-mobile-compact-body-top: rem-calc(32);
+$gallery-project-mobile-short-height: rem-calc(760);
+$gallery-project-mobile-short-body-top: rem-calc(16);
+
+// Landing artwork.
+$gallery-intro-artwork-center-shift: rem-calc(23);
+$gallery-intro-collage-center-shift: rem-calc(11);
+$gallery-landing-edge-image-size: clamp(rem-calc(260), 36svh, rem-calc(330));
+$gallery-landing-intro-image-size: clamp(rem-calc(210), 29svh, rem-calc(280));
+
+// Fixed controls and mobile controls.
+$gallery-controls-mobile-toggle-bottom: rem-calc(28);
+$gallery-controls-mobile-toggle-min-width: rem-calc(120);
+$gallery-controls-mobile-toggle-padding: rem-calc(12) rem-calc(16);
+$gallery-controls-mobile-compact-toggle-bottom: rem-calc(22);
+$gallery-controls-mobile-compact-toggle-min-width: rem-calc(104);
+$gallery-controls-mobile-compact-toggle-padding: rem-calc(10) rem-calc(14);
+$gallery-controls-mobile-short-toggle-bottom: rem-calc(18);
+
+// Short-height project navigation crops the dotted line while preserving the
+// arrow asset's native scale.
+$gallery-project-nav-icon-width: rem-calc(12);
+$gallery-project-nav-icon-height: rem-calc(40);
+$gallery-project-nav-icon-height-short: rem-calc(24);
+
+@mixin gallery-shape-properties($namespace, $shape) {
+  --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
+  --gallery-#{$namespace}-shape: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}.png");
+}
+
+@mixin gallery-mask($mask-var) {
+  mask-image: var(#{$mask-var});
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+@mixin gallery-contained-background($image) {
+  background: url("#{$image}") center / contain no-repeat;
+}
+
+@mixin gallery-project-body-width($size) {
+  width: min(calc(100% - #{$gallery-project-body-gutter}), $size);
+}
+
+@mixin gallery-project-mobile-compact {
+  .gallery-hub-project__body {
+    top: $gallery-project-mobile-compact-body-top;
+  }
+}
+
+@mixin gallery-project-mobile-short {
+  .gallery-hub-project__body {
+    top: $gallery-project-mobile-short-body-top;
+  }
+
+  .gallery-hub-project__title {
+    @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+    font-size: rem-calc(20);
+  }
+
+  .gallery-hub-project__meta,
+  .gallery-hub-project__description {
+    margin-bottom: rem-calc(6);
+  }
+
+  .gallery-hub-project__description,
+  .gallery-hub-project__link {
+    @include mofo-text-style($body-text-styles, "small", $body-font-family);
+  }
+
+  .gallery-hub-project__link {
+    font-weight: map.get($font-weights, bold);
+  }
+}
+
+@mixin gallery-controls-mobile-compact {
+  .gallery-hub__toggle {
+    bottom: $gallery-controls-mobile-compact-toggle-bottom;
+    min-width: $gallery-controls-mobile-compact-toggle-min-width;
+    padding: $gallery-controls-mobile-compact-toggle-padding;
+  }
+}
+
+@mixin gallery-controls-mobile-short {
+  .gallery-hub__toggle {
+    bottom: $gallery-controls-mobile-short-toggle-bottom;
+  }
+}

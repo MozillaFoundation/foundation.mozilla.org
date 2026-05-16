@@ -2,87 +2,166 @@
 
 {% load wagtailimages_tags static i18n %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/gallery_hub/gallery_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/gallery_hub/gallery_page.compiled.js' %}"></script>
+{% endblock extra_js %}
+
+{% block body_class %}template-gallery-hub-page{% endblock body_class %}
+
 {% block content %}
-    <main>
-        <article>
-            <div class="grid-container">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell small-12 medium-12">
-                        <h2>{{ page.title }}</h2>
-                    </div>
-                    <div class="cell small-12 medium-12">
-                        <p>{{ page.lede_text }}</p>
-                    </div>
-                </div>
-
-                {% if filter_topics or filter_program_labels or filter_program_years %}
-                    <div class="grid-x grid-margin-x">
-                        {% if filter_topics %}
-                            <div class="cell small-12 medium-4">
-                                <label for="filter-topics">{% trans "Topic" %}</label>
-                                <select id="filter-topics" name="topic">
-                                    <option value="">{% trans "All Topics" %}</option>
-                                    {% for topic in filter_topics %}
-                                        <option value="{{ topic }}">{{ topic }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        {% endif %}
-
-                        {% if filter_program_labels %}
-                            <div class="cell small-12 medium-4">
-                                <label for="filter-program-labels">{% trans "Program Label" %}</label>
-                                <select id="filter-program-labels" name="program_label">
-                                    <option value="">{% trans "All Programs" %}</option>
-                                    {% for label in filter_program_labels %}
-                                        <option value="{{ label }}">{{ label }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        {% endif %}
-
-                        {% if filter_program_years %}
-                            <div class="cell small-12 medium-4">
-                                <label for="filter-program-years">{% trans "Year" %}</label>
-                                <select id="filter-program-years" name="program_year">
-                                    <option value="">{% trans "All Years" %}</option>
-                                    {% for year in filter_program_years %}
-                                        <option value="{{ year }}">{{ year }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endif %}
-
-                {% if featured_projects %}
-                    <div class="gallery" data-gallery-projects>
-                        {% for project in featured_projects %}
-                            <div class="gallery__card"
-                                 data-project
-                                 data-topics="{% for topic in project.topics.all %}{{ topic.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
-                                 data-program-labels="{% for label in project.program_label.all %}{{ label.name }}{% if not forloop.last %},{% endif %}{% endfor %}"
-                                 data-program-year="{{ project.program_year }}">
-                                <div class="gallery__card-column gallery__card-column--title">
-                                    <a href="{{ project.url }}">{{ project.title }}</a>
-                                </div>
-                                <div class="gallery__card-column gallery__card-column--image">
-                                    {% if project.hero_image %}
-                                        {% image project.hero_image fill-600x400 as card_img %}
-                                        <img
-                                            src="{{ card_img.url }}"
-                                            alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
-                                            width="{{ card_img.width }}"
-                                            height="{{ card_img.height }}"
-                                        >
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+    <main class="gallery-hub gallery-hub--intro gallery-hub--intro-entering" data-gallery-hub>
+        <section class="gallery-hub__stage" aria-labelledby="gallery-hub-title">
+            <div class="gallery-hub__decor" aria-hidden="true">
+                <span class="gallery-hub__decor-item gallery-hub__decor-item--scribble gallery-hub__decor-item--scribble-left"></span>
+                <span class="gallery-hub__decor-item gallery-hub__decor-item--intro-tape"></span>
             </div>
 
-        </article>
+            <header class="gallery-hub__intro">
+                <h1 id="gallery-hub-title" class="gallery-hub__title">{{ page.title }}</h1>
+                {% if page.lede_text %}
+                    <p class="gallery-hub__lede">{{ page.lede_text }}</p>
+                {% endif %}
+                <button class="gallery-hub__scroll-link" type="button" data-gallery-hub-enter>
+                    <span class="gallery-hub__scroll-link-label gallery-hub__scroll-link-label--desktop">
+                        {% trans "Scroll down to explore" %}
+                    </span>
+                    <span class="gallery-hub__scroll-link-label gallery-hub__scroll-link-label--mobile">
+                        {% trans "Scroll up to explore" %}
+                    </span>
+                </button>
+            </header>
+
+            <div class="gallery-hub__intro-media" aria-hidden="true">
+                {% for project in featured_projects|slice:"6:8" %}
+                    {% if project.hero_image %}
+                        {% image project.hero_image fill-600x600 as intro_img %}
+                        <span class="gallery-hub__intro-image gallery-hub__intro-image--slot-{{ forloop.counter }} {% cycle 'gallery-hub__intro-image--shape-1' 'gallery-hub__intro-image--shape-7' %}"
+                              style="--gallery-intro-image: url('{{ intro_img.url }}');"></span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="gallery-hub__edge-media" aria-hidden="true">
+                {% for project in featured_projects|slice:":6" %}
+                    {% if project.hero_image %}
+                        {% image project.hero_image fill-600x600 as edge_img %}
+                        <span class="gallery-hub__edge-image gallery-hub__edge-image--slot-{{ forloop.counter }} {% cycle 'gallery-hub__edge-image--shape-3' 'gallery-hub__edge-image--shape-1' 'gallery-hub__edge-image--shape-7' 'gallery-hub__edge-image--shape-4' 'gallery-hub__edge-image--shape-6' 'gallery-hub__edge-image--shape-8' %}"
+                              style="--gallery-edge-image: url('{{ edge_img.url }}');">
+                            <span class="gallery-hub__edge-tape"></span>
+                            <span class="gallery-hub__edge-scribble"></span>
+                            <span class="gallery-hub__edge-favicon"></span>
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="gallery-hub__mobile-collage" aria-hidden="true">
+                {% for project in featured_projects|slice:":8" %}
+                    {% if project.hero_image %}
+                        {% image project.hero_image fill-600x600 as mobile_collage_img %}
+                        <span class="gallery-hub__mobile-collage-item gallery-hub__mobile-collage-item--slot-{{ forloop.counter }} {% cycle 'gallery-hub__mobile-collage-item--shape-3' 'gallery-hub__mobile-collage-item--shape-1' 'gallery-hub__mobile-collage-item--shape-7' 'gallery-hub__mobile-collage-item--shape-4' 'gallery-hub__mobile-collage-item--shape-6' 'gallery-hub__mobile-collage-item--shape-8' 'gallery-hub__mobile-collage-item--shape-1' 'gallery-hub__mobile-collage-item--shape-7' %}"
+                              style="--gallery-mobile-collage-image: url('{{ mobile_collage_img.url }}');"></span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="gallery-hub__projects" data-gallery-hub-projects>
+                {% for project in featured_projects %}
+                    {% include "patterns/components/gallery_hub/project_card.html" with project=project project_index=forloop.counter0 project_slot=forloop.counter is_active=forloop.first only %}
+                {% empty %}
+                    <div class="gallery-hub__empty">
+                        <p>{% trans "No gallery projects have been selected yet." %}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if featured_projects %}
+                <div class="gallery-hub__project-markers" aria-hidden="true">
+                    {% for project in featured_projects %}
+                        <span class="gallery-hub__project-marker{% if forloop.first %} gallery-hub__project-marker--active{% endif %}"
+                              data-gallery-hub-project-marker
+                              data-project-id="{{ project.id }}"></span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="gallery-hub__controls" aria-label="{% trans "Gallery controls" %}">
+                <div class="gallery-hub__controls-grid grid-container">
+                    <div class="gallery-hub__controls-row grid-x">
+                        <div class="gallery-hub__controls-cell cell small-12">
+                            <button class="gallery-hub__nav gallery-hub__nav--previous"
+                                    type="button"
+                                    data-gallery-hub-previous
+                                    aria-label="{% trans "Previous project" %}"
+                                    {% if featured_projects|length <= 1 %}hidden{% endif %}>
+                                <span class="gallery-hub__nav-icon" aria-hidden="true"></span>
+                                <span class="gallery-hub__nav-label">{% trans "Previous Project" %}</span>
+                            </button>
+                            <button class="gallery-hub__nav gallery-hub__nav--next"
+                                    type="button"
+                                    data-gallery-hub-next
+                                    aria-label="{% trans "Next project" %}"
+                                    {% if featured_projects|length <= 1 %}hidden{% endif %}>
+                                <span class="gallery-hub__nav-icon" aria-hidden="true"></span>
+                                <span class="gallery-hub__nav-label">{% trans "Next Project" %}</span>
+                            </button>
+
+                            <button class="gallery-hub__toggle"
+                                    type="button"
+                                    data-gallery-hub-modal-toggle="project-list"
+                                    data-gallery-hub-toggle-label="{% trans "Project List" %}"
+                                    aria-expanded="false"
+                                    aria-controls="gallery-hub-project-list-modal">
+                                {% trans "Project List" %} (1/{{ featured_projects|length }})
+                            </button>
+                            <button class="gallery-hub__toggle"
+                                    type="button"
+                                    data-gallery-hub-modal-toggle="filter"
+                                    data-gallery-hub-toggle-label="{% trans "Filter" %}"
+                                    aria-expanded="false"
+                                    aria-controls="gallery-hub-filter-modal">
+                                {% trans "Filter" %} (0)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-hub__modal-layer" data-gallery-hub-modal-layer hidden>
+                <section id="gallery-hub-project-list-modal"
+                         class="gallery-hub-modal gallery-hub-modal--project-list"
+                         role="dialog"
+                         aria-modal="true"
+                         aria-labelledby="gallery-hub-project-list-title"
+                         data-gallery-hub-modal="project-list"
+                         hidden>
+                    <div class="gallery-hub-modal__scrim" data-gallery-hub-modal-close></div>
+                    <div class="gallery-hub-modal__panel">
+                        <h2 id="gallery-hub-project-list-title" class="gallery-hub-modal__title">{% trans "Project List" %}</h2>
+                        <div class="gallery-hub-modal__body" data-gallery-hub-project-list-slot></div>
+                        <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>{% trans "Close" %}</button>
+                    </div>
+                </section>
+
+                <section id="gallery-hub-filter-modal"
+                         class="gallery-hub-modal gallery-hub-modal--filter"
+                         role="dialog"
+                         aria-modal="true"
+                         aria-labelledby="gallery-hub-filter-title"
+                         data-gallery-hub-modal="filter"
+                         hidden>
+                    <div class="gallery-hub-modal__scrim gallery-hub-modal__scrim--orange" data-gallery-hub-modal-close></div>
+                    <div class="gallery-hub-modal__panel">
+                        <h2 id="gallery-hub-filter-title" class="gallery-hub-modal__title">{% trans "Filter" %}</h2>
+                        <div class="gallery-hub-modal__body" data-gallery-hub-filter-slot></div>
+                        <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>{% trans "Close" %}</button>
+                    </div>
+                </section>
+            </div>
+        </section>
     </main>
 {% endblock content %}

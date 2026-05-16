@@ -1,0 +1,37 @@
+@use "sass:map";
+@import "../../redesign_base";
+@import "../../components/gallery_hub/settings";
+@import "../../components/gallery_hub/stage";
+@import "../../components/gallery_hub/controls";
+@import "../../components/gallery_hub/view_transitions";
+@import "../../components/gallery_hub/project";
+@import "../../components/gallery_hub/modals";
+
+html.gallery-hub-scroll-locked {
+  overflow: hidden;
+}
+
+body.template-gallery-hub-page {
+  &.gallery-hub-scroll-locked,
+  html.gallery-hub-scroll-locked & {
+    overflow: hidden;
+  }
+
+  .main-content-wrapper {
+    overflow: hidden;
+  }
+
+  .gallery-hub {
+    height: var(--gallery-hub-viewport-height, $gallery-stage-min-height);
+    min-height: rem-calc(320);
+    overflow: hidden;
+    color: $black;
+
+    @include breakpoint(large up) {
+      height: var(
+        --gallery-hub-viewport-height,
+        $gallery-stage-min-height-large
+      );
+    }
+  }
+}
