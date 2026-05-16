@@ -1,6 +1,10 @@
+from unittest.mock import patch
+
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from wagtail.models import Page, Site
+
+from foundation_cms.search.models import SearchEvent
 
 
 class SearchViewTestCase(TestCase):
@@ -33,3 +37,44 @@ class SearchViewTestCase(TestCase):
         # Ensure both pages appear in the search results
         self.assertContains(response, "Page One")
         self.assertContains(response, "Page Two")
+
+
+class SearchLoggingTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.root_page = Page.get_first_root_node()
+        site = Site.objects.get(is_default_site=True)
+
+        # Create sample pages to search for
+        self.page1 = self.root_page.add_child(instance=Page(title="Page One", slug="page-one"))
+        self.page2 = self.root_page.add_child(instance=Page(title="Page Two", slug="page-two"))
+
+        site.save()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_logging_on_initial_search_only(self, mock_add_hit):
+        # First search: should create SearchEvent and call add_hit
+        response = self.client.get("/en/search/", {"query": "Page"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(SearchEvent.objects.count(), 1)
+
+        # add_hit should be called for the initial search
+        mock_add_hit.assert_called_once()
+
+        # Pagination: should not create SearchEvent or call add_hit again
+        response = self.client.get("/en/search/", {"query": "Page", "page": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(SearchEvent.objects.count(), 1)
+
+        # add_hit should not be called again on pagination
+        mock_add_hit.assert_called_once()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_no_logging_on_pagination_only(self, mock_add_hit):
+        # If only navigating to page=2 without a prior search, should not log
+        response = self.client.get("/en/search/", {"query": "Page", "page": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(SearchEvent.objects.count(), 0)
+
+        # add_hit should not be called since there was no initial search
+        mock_add_hit.assert_not_called()
