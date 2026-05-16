@@ -1,13 +1,13 @@
 .gallery-hub--project-view {
   .gallery-hub__edge-image {
-    width: clamp(11.5rem, 19.8vw, 19.9rem);
+    width: $gallery-project-edge-image-size;
   }
 
   .gallery-hub__edge-image--slot-1 {
     z-index: 6;
     transform: translate(
-        calc(-50% - 47.8vw - #{rem-calc(32)}),
-        calc(-50% - rem-calc(282))
+        calc(-50% - 47.8vw - #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-top})
       )
       rotate(-5deg);
   }
@@ -15,8 +15,8 @@
   .gallery-hub__edge-image--slot-2 {
     z-index: 4;
     transform: translate(
-        calc(-50% - 44.6vw - #{rem-calc(32)}),
-        calc(-50% - rem-calc(66))
+        calc(-50% - 44.6vw - #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-middle})
       )
       rotate(2deg);
   }
@@ -24,8 +24,8 @@
   .gallery-hub__edge-image--slot-3 {
     z-index: 5;
     transform: translate(
-        calc(-50% - 46.6vw - #{rem-calc(32)}),
-        calc(-50% + rem-calc(184))
+        calc(-50% - 46.6vw - #{$gallery-project-edge-inline-offset}),
+        calc(-50% + #{$gallery-project-edge-offset-bottom})
       )
       rotate(-8deg);
   }
@@ -33,8 +33,8 @@
   .gallery-hub__edge-image--slot-4 {
     z-index: 6;
     transform: translate(
-        calc(-50% + 47.8vw + #{rem-calc(32)}),
-        calc(-50% - rem-calc(286))
+        calc(-50% + 47.8vw + #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-top})
       )
       rotate(-4deg);
   }
@@ -42,8 +42,8 @@
   .gallery-hub__edge-image--slot-5 {
     z-index: 6;
     transform: translate(
-        calc(-50% + 44.2vw + #{rem-calc(32)}),
-        calc(-50% - rem-calc(60))
+        calc(-50% + 44.2vw + #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-middle})
       )
       rotate(-7deg);
   }
@@ -51,8 +51,8 @@
   .gallery-hub__edge-image--slot-6 {
     z-index: 3;
     transform: translate(
-        calc(-50% + 47vw + #{rem-calc(32)}),
-        calc(-50% + rem-calc(194))
+        calc(-50% + 47vw + #{$gallery-project-edge-inline-offset}),
+        calc(-50% + #{$gallery-project-edge-offset-bottom})
       )
       rotate(4deg) scale(1.2);
   }
@@ -84,7 +84,7 @@
 
   .gallery-hub__decor-item--scribble-left {
     opacity: 0.78;
-    transform: translate(-46%, -18%) rotate(-90deg);
+    transform: translate(-46%, -18%) rotate(-90deg) scale(0.82);
   }
 
   .gallery-hub__edge-image--slot-6 .gallery-hub__edge-scribble {

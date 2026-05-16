@@ -118,6 +118,18 @@
         )
         rotate(-5deg);
     }
+
+    .gallery-hub__decor-item--scribble-left {
+      top: calc(50% - #{rem-calc(152)});
+      left: calc(50% - #{rem-calc(228)});
+      opacity: 0.62;
+      transform: translate(-50%, -50%) rotate(-90deg) scale(0.72);
+    }
+
+    .gallery-hub__edge-image--slot-6 .gallery-hub__edge-scribble {
+      opacity: 0.62;
+      transform: rotate(-90deg) scale(0.82);
+    }
   }
 
   &__title {
@@ -334,6 +346,10 @@
     }
   }
 
+  &__edge-image {
+    width: $gallery-landing-edge-image-size;
+  }
+
   &__mobile-collage-item {
     top: 50%;
     width: rem-calc(156);
@@ -350,7 +366,7 @@
   }
 
   &__intro-image {
-    width: clamp(8rem, 15vw, 14rem);
+    width: $gallery-landing-intro-image-size;
 
     &::before {
       background-image: var(--gallery-intro-image);
@@ -368,8 +384,8 @@
     --gallery-image-transition-duration: 580ms;
     --gallery-intro-arrival-delay: 0ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% + #{rem-calc(-14)}),
-        calc(-50% - #{rem-calc(250)})
+        calc(-50% + #{rem-calc(-10)}),
+        calc(-50% - #{rem-calc(234)})
       )
       rotate(6deg);
 
@@ -381,12 +397,12 @@
     --gallery-image-transition-duration: 540ms;
     --gallery-intro-arrival-delay: 360ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% - #{rem-calc(28)}),
-        calc(-50% + #{rem-calc(254)})
+        calc(-50% - #{rem-calc(20)}),
+        calc(-50% + #{rem-calc(238)})
       )
       rotate(-8deg);
 
-    width: clamp(9rem, 16vw, 15rem);
+    width: clamp(rem-calc(220), 30svh, rem-calc(300));
     transform: var(--gallery-intro-arrival-transform);
   }
 
@@ -479,8 +495,8 @@
     --gallery-image-transition-duration: 560ms;
     --gallery-intro-arrival-delay: 630ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% - #{rem-calc(226)}),
-        calc(-50% - #{rem-calc(192)})
+        calc(-50% - #{rem-calc(194)}),
+        calc(-50% - #{rem-calc(196)})
       )
       rotate(-11deg);
 
@@ -493,8 +509,8 @@
     --gallery-image-transition-duration: 530ms;
     --gallery-intro-arrival-delay: 540ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% - #{rem-calc(290)}),
-        calc(-50% + #{rem-calc(8)})
+        calc(-50% - #{rem-calc(286)}),
+        calc(-50% - #{rem-calc(30)})
       )
       rotate(7deg);
 
@@ -507,8 +523,8 @@
     --gallery-image-transition-duration: 590ms;
     --gallery-intro-arrival-delay: 450ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% - #{rem-calc(236)}),
-        calc(-50% + #{rem-calc(222)})
+        calc(-50% - #{rem-calc(238)}),
+        calc(-50% + #{rem-calc(166)})
       )
       rotate(-5deg);
 
@@ -521,8 +537,8 @@
     --gallery-image-transition-duration: 555ms;
     --gallery-intro-arrival-delay: 90ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% + #{rem-calc(188)}),
-        calc(-50% - #{rem-calc(186)})
+        calc(-50% + #{rem-calc(206)}),
+        calc(-50% - #{rem-calc(178)})
       )
       rotate(8deg);
 
@@ -535,8 +551,8 @@
     --gallery-image-transition-duration: 575ms;
     --gallery-intro-arrival-delay: 180ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% + #{rem-calc(312)}),
-        calc(-50% + #{rem-calc(26)})
+        calc(-50% + #{rem-calc(288)}),
+        calc(-50% - #{rem-calc(2)})
       )
       rotate(4deg);
 
@@ -549,8 +565,8 @@
     --gallery-image-transition-duration: 545ms;
     --gallery-intro-arrival-delay: 270ms;
     --gallery-intro-arrival-transform: translate(
-        calc(-50% + #{rem-calc(198)}),
-        calc(-50% + #{rem-calc(214)})
+        calc(-50% + #{rem-calc(194)}),
+        calc(-50% + #{rem-calc(170)})
       )
       rotate(9deg);
 
