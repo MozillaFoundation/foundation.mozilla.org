@@ -98,6 +98,7 @@ env = environ.Env(
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
     TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS=(list, []),
+    WAGTAILSEARCH_HITS_MAX_AGE=(int, 7),
 )
 
 # Read in the environment
@@ -929,3 +930,8 @@ TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
 EDITABLE_FOOTER = env("EDITABLE_FOOTER", default=False)
 # Use cms editable nav
 EDITABLE_NAV = env("EDITABLE_NAV", default=False)
+
+# Number of days(default 7) to keep search hits in the DB. Queries older than this will be removed by
+# the searchpromotions_garbage_collect command ./manage.py searchpromotions_garbage_collect.
+# https://docs.wagtail.org/en/stable/reference/settings.html#wagtailsearch-hits-max-age
+WAGTAILSEARCH_HITS_MAX_AGE = env("WAGTAILSEARCH_HITS_MAX_AGE")
