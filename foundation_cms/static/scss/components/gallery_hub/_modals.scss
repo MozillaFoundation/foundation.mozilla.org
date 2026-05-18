@@ -28,6 +28,53 @@
     }
   }
 
+  &--project-list {
+    .gallery-hub-modal__panel {
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      overflow: hidden;
+      padding: 0;
+      background: transparent;
+    }
+
+    .gallery-hub-modal__body {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      max-height: none;
+      overflow-y: auto;
+      padding: rem-calc(64) rem-calc(20) rem-calc(48);
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+
+    .gallery-hub-modal__close {
+      position: absolute;
+      right: max(rem-calc(20), calc((100% - rem-calc(456)) / 2));
+      bottom: rem-calc(32);
+      z-index: 2;
+    }
+
+    @include breakpoint(large up) {
+      .gallery-hub-modal__body {
+        padding-top: rem-calc(56);
+      }
+
+      .gallery-hub-modal__close {
+        right: rem-calc(92);
+        bottom: rem-calc(56);
+      }
+    }
+  }
+
   &__title {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
 
@@ -41,11 +88,162 @@
   &__close {
     @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
 
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(8);
     border: 0;
     border-radius: rem-calc(999);
     padding: rem-calc(10) rem-calc(20);
     color: $white;
     background-color: $black;
     cursor: pointer;
+  }
+
+  &__close-icon {
+    width: rem-calc(12);
+    height: rem-calc(12);
+    background-image: url("#{$gallery-icon-image-path}/dialog-cross-white.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: rem-calc(10) rem-calc(10);
+  }
+}
+
+.gallery-hub-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: rem-calc(32);
+  width: min(rem-calc(456), calc(100% - rem-calc(40)));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item[hidden] {
+    display: none;
+  }
+
+  &__button {
+    display: grid;
+    grid-template-columns: rem-calc(49) minmax(0, 1fr);
+    align-items: center;
+    gap: rem-calc(12);
+    width: 100%;
+    min-height: rem-calc(49);
+    border: 0;
+    padding: 0;
+    color: $black;
+    text-align: left;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      .gallery-hub-project-list__title {
+        text-decoration-line: underline;
+        text-decoration-thickness: rem-calc(1);
+        text-underline-offset: rem-calc(3);
+      }
+    }
+  }
+
+  &__image {
+    position: relative;
+    display: block;
+    width: rem-calc(49);
+    height: rem-calc(49);
+    overflow: hidden;
+    background-color: $black;
+
+    @include gallery-mask(--gallery-project-list-mask);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: var(--gallery-project-list-shape);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      pointer-events: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @each $shape in $gallery-shapes {
+    &__image--shape-#{$shape} {
+      @include gallery-shape-properties("project-list", $shape);
+    }
+  }
+
+  &__content {
+    display: block;
+    min-width: 0;
+  }
+
+  &__title,
+  &__author {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+
+  &__title {
+    @include mofo-text-style($body-text-styles, "xlarge", $body-font-family);
+
+    font-weight: map.get($font-weights, bold);
+    line-height: 1.08;
+  }
+
+  &__author {
+    @include mofo-text-style($body-text-styles, "large", $body-font-family);
+
+    margin-top: rem-calc(2);
+    font-style: italic;
+    line-height: 1.15;
+  }
+
+  &__empty {
+    @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+
+    margin: rem-calc(24) 0 0;
+    text-align: center;
+  }
+
+  @include breakpoint(medium down) {
+    gap: rem-calc(24);
+
+    &__button {
+      grid-template-columns: rem-calc(34) minmax(0, 1fr);
+      gap: rem-calc(8);
+      min-height: rem-calc(34);
+    }
+
+    &__image {
+      width: rem-calc(32);
+    }
+
+    &__title {
+      @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+
+      font-weight: map.get($font-weights, bold);
+      line-height: 1.05;
+    }
+
+    &__author {
+      @include mofo-text-style($body-text-styles, "xxsmall", $body-font-family);
+
+      margin-top: 0;
+      font-style: italic;
+      line-height: 1.1;
+    }
+  }
+
+  @include breakpoint(large up) {
+    width: min(rem-calc(520), 36vw);
   }
 }
