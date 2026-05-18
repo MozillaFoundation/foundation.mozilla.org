@@ -86,16 +86,17 @@ function getVisibleProjects(projects, filteredProjectIds) {
  * @returns {?HTMLElement} Matching toggle, if present.
  */
 function getModalToggleForSlot(root, toggles, slotSelector) {
-  const modal = root.querySelector(slotSelector)?.closest(
-    GALLERY_HUB_SELECTORS.modal,
-  );
+  const modal = root
+    .querySelector(slotSelector)
+    ?.closest(GALLERY_HUB_SELECTORS.modal);
   const modalId = modal?.dataset.galleryHubModal;
 
   if (!modalId) return null;
 
   return (
-    toggles.find((toggle) => toggle.dataset.galleryHubModalToggle === modalId) ??
-    null
+    toggles.find(
+      (toggle) => toggle.dataset.galleryHubModalToggle === modalId,
+    ) ?? null
   );
 }
 
