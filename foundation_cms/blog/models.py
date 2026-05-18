@@ -1,9 +1,6 @@
-from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
-
-from foundation_cms.profiles.models import Profile
 
 
 class BlogIndexPage(Page):
@@ -48,20 +45,21 @@ class BlogIndexPage(Page):
 class BlogPage(Page):
     """
     BlogPage represents individual blog entries.
+
+    TODO: FUTURE IMPLEMENTATION NOTES
+    When implementing the real blog page functionality, this model should be updated to:
+
+    1. Add appropiate author field(FK to an existing Profile model or a new Author Profile model)
+    2. Update content_panels and translatable_fields accordingly.
     """
 
-    author = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL, related_name="blogs")
     body = RichTextField(blank=True, help_text="Main content of the blog")
 
     parent_page_types = ["blog.BlogIndexPage"]  # Restrict parent to BlogIndexPage only
 
     content_panels = Page.content_panels + [
-        FieldPanel("author"),
         FieldPanel("body"),
     ]
-
-    def author_name(self):
-        return self.author.title if self.author else "Mozilla Foundation"
 
     class Meta:
         verbose_name = "Blog Page"

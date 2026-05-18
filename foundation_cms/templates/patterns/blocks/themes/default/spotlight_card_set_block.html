@@ -16,6 +16,7 @@
           <div class="spotlight-card-carousel__controls">
             {% include "./fragments/pagination_controls.html" with total=self.cards|length %}
           </div>
+          {% include "./fragments/carousel_indicators.html" with count=self.cards|length %}
         </div>
       </div>
     </div>

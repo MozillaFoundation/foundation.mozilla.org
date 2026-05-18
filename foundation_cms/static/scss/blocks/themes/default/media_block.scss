@@ -65,10 +65,11 @@
 }
 
 // CustomMediaBlock: Widescreen full-width behavior
-.cell.medium-7 {
-  &:has(.media-block--widescreen) {
+.streamfield-block-wrapper:has(.media-block--widescreen) {
+  .cell:has(.media-block--widescreen) {
     @include breakpoint(medium up) {
       width: 100%;
+      margin-left: 0;
     }
   }
 }

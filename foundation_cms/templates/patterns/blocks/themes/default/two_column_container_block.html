@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 
-<div class="two-column-container two-column-container--{{ self.vertical_alignment }}">
+<div class="two-column-container two-column-container--{{ self.vertical_alignment }}{% if not self.right_column %} two-column-container--left-only{% endif %}">
 
   <div class="two-column-container__column two-column-container__column--left">
     {% for block in self.left_column %}
@@ -8,10 +8,12 @@
     {% endfor %}
   </div>
 
-  <div class="two-column-container__column two-column-container__column--right">
-    {% for block in self.right_column %}
-      {% include_block block %}
-    {% endfor %}
-  </div>
+  {% if self.right_column %}
+    <div class="two-column-container__column two-column-container__column--right">
+      {% for block in self.right_column %}
+        {% include_block block %}
+      {% endfor %}
+    </div>
+  {% endif %}
 
 </div>

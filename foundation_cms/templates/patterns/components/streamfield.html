@@ -6,7 +6,7 @@
       <div class="grid-container">
         <div class="grid-x">
           {% if streamchild.block_type == 'custom_media' %}
-            <div class="cell medium-7 body-text-large">
+            <div class="cell {% if classnames %}{{ classnames }}{% else %}medium-7 body-text-large{% endif %}">
               {% include_block streamchild %}
             </div>
           {% else %}

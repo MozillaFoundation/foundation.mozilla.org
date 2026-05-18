@@ -1,13 +1,14 @@
-from django.test import SimpleTestCase
+from django.test import TestCase
 from wagtail.admin.panels.base import get_form_for_model
 
 from foundation_cms.legacy_apps.nav.forms import NavMenuForm
 from foundation_cms.legacy_apps.nav.models import NavMenu
 
 
-class NavMenuFormTests(SimpleTestCase):
+class NavMenuFormTests(TestCase):
     @classmethod
     def setUpClass(cls):
+        super().setUpClass()
         cls.form = get_form_for_model(
             NavMenu,
             form_class=NavMenuForm,

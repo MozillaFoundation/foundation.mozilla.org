@@ -29,21 +29,24 @@ $carousel-transition: transform 0.3s ease;
   border-radius: var(--card-radius);
 
   &__card-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    max-width: 100%;
-    position: relative;
-    scrollbar-width: none;
+    @include carousel-card-container;
+
+    @include breakpoint(small only) {
+      margin-left: calc(map.get($grid-container-padding, small) / 2);
+    }
+
+    @include breakpoint(medium only) {
+      margin-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
   }
 
   &__controls {
-    display: flex;
-    justify-content: end;
-    margin-top: 1rem;
+    display: none;
 
     @include breakpoint(large up) {
-      display: none;
+      display: flex;
+      justify-content: end;
+      margin-top: 1rem;
     }
   }
 
@@ -177,11 +180,11 @@ $carousel-transition: transform 0.3s ease;
       }
 
       .portrait-card__image img {
-        transform: scale(1.05);
+        transform: scale($image-hover-scale);
       }
 
-      .portrait-card__cta::after {
-        transform: translateX(0.75rem);
+      .portrait-card__cta {
+        @include cta-link-hover-state;
       }
     }
 

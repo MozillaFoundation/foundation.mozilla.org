@@ -3,6 +3,7 @@ from .base_card_block import BaseCardBlock
 from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
+from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
@@ -10,6 +11,7 @@ from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
 from .image_block import CustomImageBlock
+from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock, ImageGridItemBlock, ImageGridSectionBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
@@ -30,6 +32,7 @@ from .product_review_section_block import (
     ProductReviewSectionReduceYourRisksBlock,
     ProductReviewSectionWhatYouShouldKnowBlock,
 )
+from .project_block import ProjectBlock
 from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_block import SpotlightCardBlock
@@ -39,6 +42,7 @@ from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
 from .text_image_block import TextImageBlock, TextMediaBlock
 from .text_social_block import TextSocialBlock
+from .three_column_container_block import ThreeColumnContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
 from .title_block import TitleBlock
 from .two_column_container_block import TwoColumnContainerBlock
@@ -50,10 +54,12 @@ __all__ = [
     "BaseCardBlock",
     "BackgroundColorChoiceBlock",
     "DividerBlock",
+    "DonorHelpContactUsFormBlock",
     "CalloutBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
+    "ProjectBlock",
     "FruElementBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
@@ -71,6 +77,7 @@ __all__ = [
     "TextImageBlock",
     "TextMediaBlock",
     "TextSocialBlock",
+    "ThreeColumnContainerBlock",
     "LinkBlock",
     "OptionalLinkBlock",
     "PortraitCardBlock",
@@ -94,4 +101,5 @@ __all__ = [
     "ProductReviewSectionReduceYourRisksBlock",
     "ProductReviewSectionWhatYouShouldKnowBlock",
     "FeaturedContainerBlock",
+    "ImageCarouselBlock",
 ]

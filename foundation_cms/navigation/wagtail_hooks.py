@@ -30,7 +30,7 @@ class NavigationMenuViewSet(SnippetViewSet):
     icon = "nav-menu"
     menu_order = 100
     menu_label = "Navigation Menus"
-    list_display = ("title",)
+    list_display = ("title", "locale")
     search_fields = ("title",)
     ordering = ("title",)
 

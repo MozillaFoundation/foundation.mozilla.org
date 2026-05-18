@@ -14,6 +14,7 @@ import {
   getLogicalIndex,
   tripleCards,
   debounce,
+  updateIndicators,
 } from "./util/carousel.js";
 
 const SWIPE_TRANSITION_DURATION = 300; // in milliseconds
@@ -496,6 +497,7 @@ class SpotlightCarousel {
     if (this.counter) {
       this.counter.textContent = this.currentStep;
     }
+    updateIndicators(this.root, this.currentStep - 1);
   }
 
   /**
