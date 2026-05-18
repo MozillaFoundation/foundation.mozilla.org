@@ -153,6 +153,9 @@ class GalleryHubSlideshow {
     this.root.addEventListener("touchend", this.handleTouchEnd, {
       passive: true,
     });
+    this.root.addEventListener("touchcancel", this.resetTouchState, {
+      passive: true,
+    });
   }
 
   /**
@@ -212,9 +215,7 @@ class GalleryHubSlideshow {
     const deltaX = touch.clientX - this.touchStartX;
     const wasHorizontal = this.touchMode === MEDIA_SWIPE_MODES.horizontal;
 
-    this.touchStartX = null;
-    this.touchStartY = null;
-    this.touchMode = null;
+    this.resetTouchState();
 
     if (wasHorizontal) {
       event.stopPropagation();
@@ -224,6 +225,15 @@ class GalleryHubSlideshow {
     if (!wasHorizontal) return;
 
     this.goToSlide(this.activeIndex + (deltaX < 0 ? 1 : -1));
+  };
+
+  /**
+   * Clear tracked touch coordinates after a completed or interrupted gesture.
+   */
+  resetTouchState = () => {
+    this.touchStartX = null;
+    this.touchStartY = null;
+    this.touchMode = null;
   };
 
   /**
@@ -245,6 +255,13 @@ class GalleryHubSlideshow {
    * Apply active/before/after classes and video playback to all slides.
    */
   syncSlides() {
+    if (!this.isProjectActive()) {
+      this.slides.forEach((slide) => {
+        setVideoPlayback(slide, false);
+      });
+      return;
+    }
+
     this.slides.forEach((slide, index) => {
       const isActive = index === this.activeIndex;
       const stackPosition = getStackPosition(index - this.activeIndex);
@@ -263,7 +280,7 @@ class GalleryHubSlideshow {
       slide.style.zIndex = `${
         this.slides.length - Math.abs(index - this.activeIndex)
       }`;
-      setVideoPlayback(slide, isActive && this.isProjectActive());
+      setVideoPlayback(slide, isActive);
     });
 
     this.syncControls();

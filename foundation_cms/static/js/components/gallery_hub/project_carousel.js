@@ -78,6 +78,28 @@ function getVisibleProjects(projects, filteredProjectIds) {
 }
 
 /**
+ * Find the modal toggle whose data value matches the modal that owns a slot.
+ *
+ * @param {HTMLElement} root - Gallery Hub root element.
+ * @param {HTMLElement[]} toggles - Buttons that open modal panels.
+ * @param {string} slotSelector - Selector for a modal body slot.
+ * @returns {?HTMLElement} Matching toggle, if present.
+ */
+function getModalToggleForSlot(root, toggles, slotSelector) {
+  const modal = root.querySelector(slotSelector)?.closest(
+    GALLERY_HUB_SELECTORS.modal,
+  );
+  const modalId = modal?.dataset.galleryHubModal;
+
+  if (!modalId) return null;
+
+  return (
+    toggles.find((toggle) => toggle.dataset.galleryHubModalToggle === modalId) ??
+    null
+  );
+}
+
+/**
  * Toggle root classes for the intro and project states.
  *
  * @param {HTMLElement} root - Gallery Hub root element.
@@ -281,11 +303,15 @@ export function initGalleryHubProjectCarousel() {
   const toggles = Array.from(
     root.querySelectorAll(GALLERY_HUB_SELECTORS.modalToggle),
   );
-  const projectListToggle = toggles.find(
-    (toggle) => toggle.dataset.galleryHubModalToggle === "project-list",
+  const projectListToggle = getModalToggleForSlot(
+    root,
+    toggles,
+    GALLERY_HUB_SELECTORS.projectListSlot,
   );
-  const filterToggle = toggles.find(
-    (toggle) => toggle.dataset.galleryHubModalToggle === "filter",
+  const filterToggle = getModalToggleForSlot(
+    root,
+    toggles,
+    GALLERY_HUB_SELECTORS.filterSlot,
   );
   const projectIds = projects.map(getProjectId);
   let isReleasedToPageScroll = false;
@@ -311,8 +337,16 @@ export function initGalleryHubProjectCarousel() {
     );
   }
 
-  if ("scrollRestoration" in window.history) {
+  const originalScrollRestoration =
+    "scrollRestoration" in window.history
+      ? window.history.scrollRestoration
+      : null;
+
+  if (originalScrollRestoration !== null) {
     window.history.scrollRestoration = "manual";
+    window.addEventListener("pagehide", () => {
+      window.history.scrollRestoration = originalScrollRestoration;
+    });
   }
 
   if (window.location.hash === GALLERY_HUB_LEGACY_PROJECTS_HASH) {
@@ -435,9 +469,21 @@ export function initGalleryHubProjectCarousel() {
       return;
     }
 
-    setGalleryHubState({
-      activeIndex: clampIndex(state.activeIndex + delta, visibleTotal),
-    });
+    setActiveProjectIndex(state.activeIndex + delta);
+  }
+
+  /**
+   * Set the active project index after clamping it to the current filtered list.
+   *
+   * @param {number} index - Requested active index.
+   */
+  function setActiveProjectIndex(index) {
+    const state = getGalleryHubState();
+    const activeIndex = clampIndex(index, state.filteredProjectIds.length);
+
+    if (activeIndex === state.activeIndex) return;
+
+    setGalleryHubState({ activeIndex });
   }
 
   /**
@@ -549,12 +595,7 @@ export function initGalleryHubProjectCarousel() {
       return;
     }
 
-    setGalleryHubState({
-      activeIndex: clampIndex(
-        state.activeIndex - 1,
-        state.filteredProjectIds.length,
-      ),
-    });
+    setActiveProjectIndex(state.activeIndex - 1);
   });
 
   next?.addEventListener("click", () => {
@@ -573,12 +614,7 @@ export function initGalleryHubProjectCarousel() {
       return;
     }
 
-    setGalleryHubState({
-      activeIndex: clampIndex(
-        state.activeIndex + 1,
-        state.filteredProjectIds.length,
-      ),
-    });
+    setActiveProjectIndex(state.activeIndex + 1);
   });
 
   /**

@@ -83,6 +83,7 @@ export function initGalleryHubOverlay() {
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
+    if (!getGalleryHubState().modalOpen) return;
 
     setGalleryHubState({ modalOpen: null });
   });

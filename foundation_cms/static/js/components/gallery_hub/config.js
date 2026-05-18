@@ -24,6 +24,8 @@ export const GALLERY_HUB_SELECTORS = {
   modal: "[data-gallery-hub-modal]",
   modalToggle: "[data-gallery-hub-modal-toggle]",
   modalClose: "[data-gallery-hub-modal-close]",
+  projectListSlot: "[data-gallery-hub-project-list-slot]",
+  filterSlot: "[data-gallery-hub-filter-slot]",
 };
 
 /**
