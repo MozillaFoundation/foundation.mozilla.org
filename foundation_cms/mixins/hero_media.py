@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from foundation_cms.mixins.hero_image import HeroImageMixin
+from foundation_cms.validators import validate_vimeo_mp4_url
 
 
 class HeroMediaMixin(HeroImageMixin):
@@ -23,6 +24,7 @@ class HeroMediaMixin(HeroImageMixin):
     hero_video_url = models.CharField(
         blank=True,
         max_length=500,
+        validators=[validate_vimeo_mp4_url],
         help_text="Log into Vimeo using 1Password and upload the desired video. "
         "Then select the video and click '...', 'Video File Links', "
         "and select '(mp4, 1920 x 1080)'. Copy and paste the link here.",
