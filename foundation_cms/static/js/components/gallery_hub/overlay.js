@@ -27,7 +27,7 @@ const FOCUSABLE_SELECTOR = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
-const ANIMATED_MODAL_IDS = new Set(["filter"]);
+const ANIMATED_MODAL_IDS = new Set(["project-list", "filter"]);
 const MODAL_CLOSE_FALLBACK_MS = 360;
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
@@ -61,15 +61,29 @@ function cancelModalCloseTimer(modal) {
 }
 
 /**
+ * Return the element whose exit animation controls delayed hiding.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @returns {?HTMLElement} Element expected to emit the final animationend.
+ */
+function getModalAnimationTarget(modal) {
+  if (modal.dataset.galleryHubModal === "project-list") {
+    return modal.querySelector(".gallery-hub-modal__body");
+  }
+
+  return modal.querySelector(".gallery-hub-modal__panel");
+}
+
+/**
  * Hide a modal after its closing animation completes.
  *
  * @param {HTMLElement} modal - Modal panel element.
  * @param {?HTMLElement} modalLayer - Element that wraps modal panels.
  */
 function hideModalAfterAnimation(modal, modalLayer) {
-  const panel = modal.querySelector(".gallery-hub-modal__panel");
+  const animationTarget = getModalAnimationTarget(modal);
 
-  if (!panel || prefersReducedMotion.matches) {
+  if (!animationTarget || prefersReducedMotion.matches) {
     modal.hidden = true;
     modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
     if (modalLayer) modalLayer.hidden = true;
@@ -92,10 +106,10 @@ function hideModalAfterAnimation(modal, modalLayer) {
 
   modalCloseTimers.set(modal, timer);
 
-  panel.addEventListener(
+  animationTarget.addEventListener(
     "animationend",
     (event) => {
-      if (event.target !== panel) return;
+      if (event.target !== animationTarget) return;
 
       finish();
     },
