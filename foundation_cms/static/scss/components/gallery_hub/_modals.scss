@@ -86,9 +86,12 @@
 
     .gallery-hub-modal__close {
       position: absolute;
-      right: max(rem-calc(20), calc((100% - rem-calc(456)) / 2));
-      bottom: rem-calc(42);
-      z-index: 2;
+      right: 0;
+      bottom: rem-calc(18);
+      left: 0;
+      z-index: 3;
+      width: max-content;
+      margin-inline: auto;
     }
 
     @include breakpoint(large up) {
@@ -97,8 +100,17 @@
       }
 
       .gallery-hub-modal__close {
+        left: auto;
         right: rem-calc(92);
         bottom: rem-calc(42);
+        margin-inline: 0;
+      }
+    }
+
+    @include breakpoint(medium down) {
+      .gallery-hub-modal__body {
+        bottom: rem-calc(78);
+        padding-bottom: 0;
       }
     }
   }
@@ -114,17 +126,31 @@
   }
 
   &__close {
-    @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+    @include mofo-text-style($body-text-styles, "xlarge", $body-font-family);
 
     display: inline-flex;
     align-items: center;
     gap: rem-calc(8);
     border: 0;
     border-radius: rem-calc(999);
-    padding: rem-calc(10) rem-calc(20);
+    padding: rem-calc(16) rem-calc(24);
     color: $white;
+    font-weight: map.get($font-weights, bold);
     background-color: $black;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: $black;
+    }
+
+    @include breakpoint(medium down) {
+      @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+
+      padding: rem-calc(8) rem-calc(16);
+      font-weight: map.get($font-weights, bold);
+    }
   }
 
   &__close-icon {
@@ -290,17 +316,18 @@
     gap: rem-calc(24);
 
     &__button {
-      grid-template-columns: rem-calc(34) minmax(0, 1fr);
-      gap: rem-calc(8);
-      min-height: rem-calc(34);
+      grid-template-columns: rem-calc(48) minmax(0, 1fr);
+      gap: rem-calc(24);
+      min-height: rem-calc(48);
     }
 
     &__image {
-      width: rem-calc(32);
+      width: rem-calc(48);
+      height: rem-calc(48);
     }
 
     &__title {
-      @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
+      @include mofo-text-style($body-text-styles, "small", $body-font-family);
 
       font-weight: map.get($font-weights, bold);
       line-height: 1.05;

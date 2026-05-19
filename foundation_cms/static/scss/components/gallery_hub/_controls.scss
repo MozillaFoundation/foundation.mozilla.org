@@ -20,6 +20,7 @@
 
   &__controls-grid {
     position: relative;
+    padding-inline: rem-calc(16);
   }
 
   &__controls-cell {
@@ -159,11 +160,11 @@
     }
 
     &__toggle[data-gallery-hub-modal-toggle="project-list"] {
-      left: rem-calc(20);
+      left: 0;
     }
 
     &__toggle[data-gallery-hub-modal-toggle="filter"] {
-      right: rem-calc(20);
+      right: 0;
     }
 
     @media (height <= $gallery-project-mobile-compact-height) {
