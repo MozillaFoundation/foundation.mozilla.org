@@ -120,8 +120,15 @@
   }
 
   &--filter {
-    position: fixed;
-    inset: var(--gallery-hub-viewport-offset, 0) 0 0;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+
+    @include breakpoint(large up) {
+      position: fixed;
+      inset: var(--gallery-hub-viewport-offset, 0) 0 auto;
+      height: var(--gallery-hub-viewport-height, 100dvh);
+    }
 
     .gallery-hub-modal__scrim {
       display: none;
@@ -135,7 +142,10 @@
     .gallery-hub-modal__panel {
       inset: 0;
       display: flex;
+      height: 100%;
+      min-height: 0;
       width: 100%;
+      overflow: hidden;
       padding: 0;
       background-color: rgb(255 255 255 / 95%);
       backdrop-filter: blur(rem-calc(4.44));

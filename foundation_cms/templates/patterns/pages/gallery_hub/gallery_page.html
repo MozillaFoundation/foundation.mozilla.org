@@ -230,14 +230,25 @@
                                                  data-gallery-hub-filter-options
                                                  {% if not category.expanded %}hidden{% endif %}>
                                                 {% for option in category.options %}
-                                                    <button class="gallery-hub-filter__chip"
-                                                            type="button"
-                                                            data-gallery-hub-filter-chip
-                                                            data-filter-category="{{ category.key }}"
-                                                            data-filter-value="{{ option.value }}"
-                                                            aria-pressed="false">
-                                                        {{ option.label }}
-                                                    </button>
+                                                    {% if category.key == "topic" %}
+                                                        <button class="gallery-hub-filter__chip"
+                                                                type="button"
+                                                                data-gallery-hub-filter-chip
+                                                                data-filter-category="{{ category.key }}"
+                                                                data-filter-value="{{ option.value }}"
+                                                                aria-pressed="false">
+                                                            {{ option.label }}
+                                                        </button>
+                                                    {% else %}
+                                                        <label class="gallery-hub-filter__checkbox-label">
+                                                            <input class="gallery-hub-filter__checkbox"
+                                                                   type="checkbox"
+                                                                   data-gallery-hub-filter-chip
+                                                                   data-filter-category="{{ category.key }}"
+                                                                   data-filter-value="{{ option.value }}">
+                                                            {{ option.label }}
+                                                        </label>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </div>
                                         </section>

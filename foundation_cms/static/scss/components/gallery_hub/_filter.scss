@@ -2,7 +2,9 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  height: 100%;
   min-height: 0;
+  overflow: hidden;
   color: $black;
 
   &__header {
@@ -11,15 +13,24 @@
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: rem-calc(16);
-    padding: rem-calc(16) rem-calc(24) rem-calc(24);
+    padding: rem-calc(16);
 
     &::after {
       content: "";
       position: absolute;
-      right: rem-calc(24);
+      right: rem-calc(16);
       bottom: 0;
-      left: rem-calc(24);
+      left: rem-calc(16);
       border-bottom: rem-calc(1) solid color(neutral, "200");
+    }
+
+    @include breakpoint(large up) {
+      padding: rem-calc(16) rem-calc(24) rem-calc(24);
+
+      &::after {
+        right: rem-calc(24);
+        left: rem-calc(24);
+      }
     }
   }
 
@@ -59,10 +70,16 @@
 
   &__body {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    padding: 0 rem-calc(24) rem-calc(24);
+    padding: 0 rem-calc(16);
     overscroll-behavior: contain;
     scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+
+    @include breakpoint(large up) {
+      padding: 0 rem-calc(24);
+    }
   }
 
   &__category {
@@ -131,8 +148,67 @@
     }
   }
 
+  &__category:not([data-gallery-hub-filter-category="topic"]) &__options {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: rem-calc(32);
+  }
+
+  &__category:not([data-gallery-hub-filter-category="topic"])
+    &__options[hidden] {
+    display: none;
+  }
+
+  &__checkbox-label {
+    @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+
+    display: flex;
+    align-items: center;
+    gap: rem-calc(16);
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration-line: underline;
+      text-decoration-thickness: rem-calc(1);
+      text-underline-offset: rem-calc(3);
+    }
+  }
+
+  &__checkbox {
+    appearance: none;
+    flex: 0 0 rem-calc(28);
+    width: rem-calc(28);
+    height: rem-calc(28);
+    border: rem-calc(1) solid color(neutral, "400");
+    background-color: $white;
+    cursor: pointer;
+
+    &:checked {
+      background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: rem-calc(14) auto;
+    }
+
+    &:hover {
+      border-color: color(neutral, "600");
+      box-shadow: rem-calc(1) rem-calc(1) 0 0 color(neutral, "600");
+    }
+
+    &:focus-visible {
+      outline: rem-calc(2) solid $black;
+      outline-offset: rem-calc(2);
+    }
+  }
+
   &__footer {
-    padding: 0 rem-calc(24) rem-calc(24);
+    flex: 0 0 auto;
+    padding: rem-calc(16);
+
+    @include breakpoint(large up) {
+      padding: rem-calc(24);
+    }
   }
 
   &__display {
@@ -140,7 +216,7 @@
 
     width: 100%;
     border: 0;
-    padding: rem-calc(16) rem-calc(24);
+    padding: rem-calc(16);
     color: $white;
     font-weight: map.get($font-weights, bold);
     background-color: $black;

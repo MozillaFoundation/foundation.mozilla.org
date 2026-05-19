@@ -191,8 +191,13 @@ export function initGalleryHubFilterPanel() {
       const values = draftFilters[chip.dataset.filterCategory] || [];
       const isSelected = values.includes(chip.dataset.filterValue);
 
-      chip.setAttribute("aria-pressed", `${isSelected}`);
-      chip.classList.toggle("gallery-hub-filter__chip--selected", isSelected);
+      if (chip.type === "checkbox") {
+        chip.checked = isSelected;
+        chip.removeAttribute("aria-pressed");
+      } else {
+        chip.setAttribute("aria-pressed", `${isSelected}`);
+        chip.classList.toggle("gallery-hub-filter__chip--selected", isSelected);
+      }
     });
 
     if (apply) {
