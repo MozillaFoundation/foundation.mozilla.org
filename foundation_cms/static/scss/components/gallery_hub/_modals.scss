@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:map";
+
 .gallery-hub-modal {
   position: absolute;
   inset: 0;
@@ -9,7 +12,7 @@
     backdrop-filter: blur(rem-calc(14));
 
     &--orange {
-      background-color: rgb(color(orange, "300") / 60%);
+      background-color: color.adjust(color(orange, "300"), $alpha: -0.4);
       backdrop-filter: blur(rem-calc(25));
     }
   }
