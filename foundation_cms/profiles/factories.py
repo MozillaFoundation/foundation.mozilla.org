@@ -81,6 +81,7 @@ def generate(seed):
             bio=fake.paragraph(nb_sentences=3),
             location=country_codes[i % len(country_codes)],
             affiliation=fake.company(),
+            blurb=fake.sentence(nb_words=12)[:115],
             seo_title=name,
             search_description=fake.sentence(nb_words=10).rstrip("."),
         )
@@ -99,10 +100,10 @@ def generate(seed):
     # Link featured experts to hub
     print("Linking featured experts to Expert Hub Page...")
     if not hub.featured_experts.exists():
-        for i, expert in enumerate(expert_pages[:6]):
+        for i, expert in enumerate(expert_pages[:13]):
             ExpertHubFeaturedExpert.objects.create(hub_page=hub, expert=expert, sort_order=i)
         hub.save_revision().publish()
-        print(f"  {min(6, len(expert_pages))} featured experts linked.")
+        print(f"  {min(13, len(expert_pages))} featured experts linked.")
     else:
         print("  Featured experts already linked.")
 
@@ -151,5 +152,6 @@ class ExpertProfilePageFactory(wagtail_factories.PageFactory):
     bio = factory.Faker("paragraph", nb_sentences=3)
     location = "US"
     affiliation = factory.Faker("company")
+    blurb = factory.LazyAttribute(lambda _: get_faker().sentence(nb_words=12)[:115])
     seo_title = factory.Faker("sentence", nb_words=3)
     search_description = factory.Faker("sentence", nb_words=10)
