@@ -65,6 +65,13 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
             "value": tag.slug,
         }
 
+    @staticmethod
+    def _country_filter_option(country):
+        return {
+            "label": country.name,
+            "value": country.code,
+        }
+
     def get_context(self, request):
         context = super().get_context(request)
 
@@ -73,7 +80,9 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
         )
         featured_by_id = {
             page.id: page
-            for page in ProjectPage.objects.filter(id__in=featured_project_ids).prefetch_related(
+            for page in ProjectPage.objects.filter(id__in=featured_project_ids)
+            .select_related("expert")
+            .prefetch_related(
                 "topics",
                 "program_label",
             )
@@ -91,6 +100,14 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
         program_years = sorted(
             {page.program_year for page in featured if page.program_year},
             reverse=True,
+        )
+        countries = sorted(
+            {
+                page.expert.location.code: page.expert.location
+                for page in featured
+                if page.expert and page.expert.location
+            }.values(),
+            key=lambda country: country.name,
         )
 
         context["featured_projects"] = featured
@@ -110,6 +127,11 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
                 "options": tuple({"label": str(year), "value": str(year)} for year in program_years),
                 "expanded": False,
             },
+            {
+                "key": "country",
+                "options": tuple(self._country_filter_option(country) for country in countries),
+                "expanded": False,
+            },
         )
         context["project_filter_data"] = tuple(
             {
@@ -118,6 +140,7 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
                     "topic": tuple(tag.slug for tag in page.topics.all()),
                     "program": tuple(label.slug for label in page.program_label.all()),
                     "year": (str(page.program_year),) if page.program_year else (),
+                    "country": (page.expert.location.code,) if page.expert and page.expert.location else (),
                 },
             }
             for page in featured
