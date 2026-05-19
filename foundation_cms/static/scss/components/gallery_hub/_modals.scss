@@ -76,17 +76,32 @@
   }
 
   &--filter {
+    .gallery-hub-modal__scrim {
+      display: none;
+
+      @include breakpoint(large up) {
+        display: block;
+      }
+    }
+
     .gallery-hub-modal__panel {
       top: 0;
       right: 0;
       bottom: 0;
+      left: 0;
       display: flex;
-      width: min(100%, rem-calc(360));
+      width: 100%;
       padding: 0;
+      background-color: rgb(255 255 255 / 95%);
+      backdrop-filter: blur(rem-calc(4.44));
 
       @include breakpoint(large up) {
         right: 0;
         bottom: 0;
+        left: auto;
+        width: rem-calc(360);
+        background-color: $white;
+        backdrop-filter: none;
       }
     }
 
