@@ -91,7 +91,7 @@
     .gallery-hub-modal__close {
       position: absolute;
       right: max(rem-calc(20), calc((100% - rem-calc(456)) / 2));
-      bottom: rem-calc(32);
+      bottom: rem-calc(42);
       z-index: 2;
     }
 
@@ -102,7 +102,7 @@
 
       .gallery-hub-modal__close {
         right: rem-calc(92);
-        bottom: rem-calc(56);
+        bottom: rem-calc(42);
       }
     }
   }
@@ -302,7 +302,7 @@
   display: flex;
   flex-direction: column;
   gap: rem-calc(32);
-  width: min(rem-calc(456), calc(100% - rem-calc(40)));
+  width: min(rem-calc(340), calc(100% - rem-calc(40)));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -430,9 +430,5 @@
       font-style: italic;
       line-height: 1.1;
     }
-  }
-
-  @include breakpoint(large up) {
-    width: min(rem-calc(520), 36vw);
   }
 }
