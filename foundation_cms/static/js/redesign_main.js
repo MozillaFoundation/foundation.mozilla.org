@@ -17,8 +17,8 @@ import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js"
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
 import { initProjectBlocks } from "./blocks/project_block.js";
 import { initTabbedContent } from "./blocks/tabbed_content_container.js";
-import initShareContainer from "./components/share_container.js";
 import initBackToTopButton from "./components/back_to_top.js";
+import { initCopyToClipboardButtons } from "./components/copy_to_clipboard.js";
 
 let foundationSiteURL = window.location.origin;
 
@@ -42,6 +42,6 @@ initSpotlightCardCarousels();
 initPillarCardLinks();
 initProjectBlocks();
 initTabbedContent();
-initShareContainer();
 initBackToTopButton();
 initSearchToggle();
+initCopyToClipboardButtons();
