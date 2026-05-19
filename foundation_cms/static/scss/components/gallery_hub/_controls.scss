@@ -82,25 +82,19 @@
       inset: 0;
 
       @include gallery-contained-background(
-        "#{$gallery-feature-image-path}/arrow.svg"
+        "#{$gallery-feature-image-path}/gallery-arrow.svg"
       );
-
-      filter: contrast(1.35);
     }
   }
 
   &__nav-label {
     @include mofo-text-style($body-text-styles, "xsmall", $body-font-family);
 
-    color: color(neutral, "400");
+    color: $black;
   }
 
   &__nav--previous {
     top: 0;
-
-    .gallery-hub__nav-icon {
-      transform: rotate(180deg);
-    }
 
     .gallery-hub__nav-label {
       order: -1;
@@ -111,6 +105,10 @@
   &__nav--next {
     bottom: $gallery-project-preview-peek;
     top: auto;
+
+    .gallery-hub__nav-icon {
+      transform: rotate(180deg);
+    }
 
     .gallery-hub__nav-label {
       margin-top: rem-calc(4);
@@ -126,21 +124,6 @@
   @media (height <= $gallery-project-short-height) {
     &__nav {
       min-height: rem-calc(46);
-    }
-
-    &__nav-icon {
-      width: $gallery-project-nav-icon-width;
-      height: $gallery-project-nav-icon-height-short;
-      overflow: hidden;
-    }
-
-    &__nav-icon::before {
-      top: auto;
-      bottom: 0;
-      width: $gallery-project-nav-icon-width;
-      height: $gallery-project-nav-icon-height;
-      background-size: $gallery-project-nav-icon-width
-        $gallery-project-nav-icon-height;
     }
   }
 

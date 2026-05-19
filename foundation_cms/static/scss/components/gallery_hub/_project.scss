@@ -172,6 +172,7 @@
     @include mofo-text-style($header-styles, "h3", $header-font-family);
     @include text-line-clamp(2);
 
+    font-size: rem-calc(40);
     max-width: $gallery-project-text-width;
     margin: 0 auto rem-calc(16);
   }
@@ -182,7 +183,7 @@
     justify-content: center;
     align-items: center;
     gap: rem-calc(8);
-    margin-bottom: rem-calc(16);
+    margin-bottom: rem-calc(12);
   }
 
   &__programs {
@@ -254,6 +255,12 @@
         transform: translateX(0.75rem);
       }
     }
+  }
+}
+
+body.redesign h2.gallery-hub-project__title {
+  @include breakpoint(large up) {
+    font-size: rem-calc(40);
   }
 }
 
@@ -342,11 +349,11 @@
     }
 
     .gallery-hub-project__meta {
-      margin-bottom: rem-calc(6);
+      margin-bottom: rem-calc(12);
     }
 
     .gallery-hub-project__description {
-      margin-bottom: rem-calc(4);
+      margin-bottom: rem-calc(8);
     }
   }
 
@@ -365,12 +372,14 @@
     }
 
     .gallery-hub-project__meta {
-      margin-bottom: rem-calc(4);
+      margin-bottom: rem-calc(12);
     }
 
     .gallery-hub-project__description {
       @include mofo-text-style($body-text-styles, "small", $body-font-family);
       @include text-line-clamp(2);
+
+      margin-bottom: rem-calc(8);
     }
   }
 
