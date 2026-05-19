@@ -97,8 +97,7 @@
     top: 0;
 
     .gallery-hub__nav-label {
-      order: -1;
-      margin-bottom: rem-calc(4);
+      margin-top: rem-calc(2);
     }
   }
 
@@ -111,7 +110,8 @@
     }
 
     .gallery-hub__nav-label {
-      margin-top: rem-calc(4);
+      order: -1;
+      margin-bottom: rem-calc(2);
     }
   }
 

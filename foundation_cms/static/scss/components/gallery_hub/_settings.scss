@@ -35,8 +35,8 @@ $gallery-project-body-top-compact: clamp(
   calc(26.7svh - rem-calc(150)),
   rem-calc(204)
 );
-$gallery-project-body-top-mid: rem-calc(44);
-$gallery-project-body-top-very-short: rem-calc(28);
+$gallery-project-body-top-mid: rem-calc(56);
+$gallery-project-body-top-very-short: rem-calc(40);
 
 // Project preview positioning.
 $gallery-project-preview-offset-top: min(58svh, rem-calc(760));
