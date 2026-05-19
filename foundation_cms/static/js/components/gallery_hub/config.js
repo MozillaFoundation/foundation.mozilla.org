@@ -40,6 +40,7 @@ export const GALLERY_HUB_CLASSES = {
   introEntering: "gallery-hub--intro-entering",
   mobileCompact: "gallery-hub--mobile-compact",
   mobileShort: "gallery-hub--mobile-short",
+  modalClosing: "gallery-hub-modal--closing",
   modalOpen: "gallery-hub--modal-open",
   projectActive: "gallery-hub-project--active",
   projectMarkerActive: "gallery-hub__project-marker--active",
@@ -106,6 +107,13 @@ export const GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY =
  * @type {number}
  */
 export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1200;
+
+/**
+ * Duration for modal exit animations before hidden state is applied.
+ *
+ * @type {number}
+ */
+export const GALLERY_HUB_MODAL_CLOSE_DURATION = 220;
 
 /**
  * Legacy deep link stripped on load so the JS-controlled experience starts at

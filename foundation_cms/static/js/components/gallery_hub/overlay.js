@@ -9,6 +9,7 @@
 
 import {
   GALLERY_HUB_CLASSES,
+  GALLERY_HUB_MODAL_CLOSE_DURATION,
   GALLERY_HUB_SELECTORS,
   GALLERY_HUB_VIEW_MODES,
 } from "./config";
@@ -28,6 +29,7 @@ const FOCUSABLE_SELECTOR = [
 ].join(",");
 
 let lastFocusedElement = null;
+let closeModalTimer = null;
 
 /**
  * Return the currently open modal panel.
@@ -75,6 +77,10 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
     const isOpen = modal.dataset.galleryHubModal === modalOpen;
 
     modal.hidden = !isOpen;
+
+    if (isOpen) {
+      modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+    }
   });
 
   toggles.forEach((toggle) => {
@@ -82,6 +88,36 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
 
     toggle.setAttribute("aria-expanded", `${isOpen}`);
   });
+}
+
+/**
+ * Close the active modal after its exit animation completes.
+ *
+ * @param {HTMLElement[]} modals - Modal panel elements.
+ */
+function closeOpenModal(modals) {
+  const state = getGalleryHubState();
+  const modal = getOpenModal(modals, state.modalOpen);
+
+  if (!modal) {
+    setGalleryHubState({ modalOpen: null });
+    return;
+  }
+
+  if (modal.classList.contains(GALLERY_HUB_CLASSES.modalClosing)) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    setGalleryHubState({ modalOpen: null });
+    return;
+  }
+
+  window.clearTimeout(closeModalTimer);
+  modal.classList.add(GALLERY_HUB_CLASSES.modalClosing);
+
+  closeModalTimer = window.setTimeout(() => {
+    setGalleryHubState({ modalOpen: null });
+    closeModalTimer = null;
+  }, GALLERY_HUB_MODAL_CLOSE_DURATION);
 }
 
 /**
@@ -233,15 +269,22 @@ export function initGalleryHubOverlay() {
 
       lastFocusedElement = toggle;
 
+      if (state.modalOpen === modal) {
+        closeOpenModal(modals);
+        return;
+      }
+
+      window.clearTimeout(closeModalTimer);
+
       setGalleryHubState({
-        modalOpen: state.modalOpen === modal ? null : modal,
+        modalOpen: modal,
       });
     });
   });
 
   root.querySelectorAll(GALLERY_HUB_SELECTORS.modalClose).forEach((close) => {
     close.addEventListener("click", () => {
-      setGalleryHubState({ modalOpen: null });
+      closeOpenModal(modals);
     });
   });
 
@@ -251,7 +294,7 @@ export function initGalleryHubOverlay() {
     if (event.key !== "Escape") return;
     if (!state.modalOpen) return;
 
-    setGalleryHubState({ modalOpen: null });
+    closeOpenModal(modals);
   });
 
   document.addEventListener("keydown", (event) => {
@@ -269,9 +312,9 @@ export function initGalleryHubOverlay() {
 
       setGalleryHubState({
         activeIndex: projectIndex,
-        modalOpen: null,
         viewMode: GALLERY_HUB_VIEW_MODES.project,
       });
+      closeOpenModal(modals);
     });
   });
 }
