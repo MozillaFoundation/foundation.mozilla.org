@@ -27,7 +27,7 @@ $contact-form-column-gap: rem-calc(34);
       // Only switch to a two-column layout when an image is provided.
       &:has(.donor-help-contact-us-form-block__image) {
         display: grid;
-        grid-template-columns: 60fr 40fr;
+        grid-template-columns: 70fr 30fr;
         column-gap: $contact-form-column-gap;
       }
     }
