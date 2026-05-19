@@ -48,6 +48,7 @@ export const GALLERY_HUB_CLASSES = {
   mobileCompact: "gallery-hub--mobile-compact",
   mobileShort: "gallery-hub--mobile-short",
   modalOpen: "gallery-hub--modal-open",
+  modalClosing: "gallery-hub-modal--closing",
   projectActive: "gallery-hub-project--active",
   projectMarkerActive: "gallery-hub__project-marker--active",
   projectView: "gallery-hub--project-view",

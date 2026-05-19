@@ -27,7 +27,81 @@ const FOCUSABLE_SELECTOR = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
+const ANIMATED_MODAL_IDS = new Set(["filter"]);
+const MODAL_CLOSE_FALLBACK_MS = 360;
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+);
+const modalCloseTimers = new WeakMap();
+
 let lastFocusedElement = null;
+
+/**
+ * Return whether a modal should use the animation lifecycle.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @returns {boolean} Whether modal open/close should animate.
+ */
+function isAnimatedModal(modal) {
+  return ANIMATED_MODAL_IDS.has(modal.dataset.galleryHubModal);
+}
+
+/**
+ * Cancel any pending delayed hide for a modal.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ */
+function cancelModalCloseTimer(modal) {
+  const timer = modalCloseTimers.get(modal);
+
+  if (!timer) return;
+
+  window.clearTimeout(timer);
+  modalCloseTimers.delete(modal);
+}
+
+/**
+ * Hide a modal after its closing animation completes.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @param {?HTMLElement} modalLayer - Element that wraps modal panels.
+ */
+function hideModalAfterAnimation(modal, modalLayer) {
+  const panel = modal.querySelector(".gallery-hub-modal__panel");
+
+  if (!panel || prefersReducedMotion.matches) {
+    modal.hidden = true;
+    modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+    if (modalLayer) modalLayer.hidden = true;
+    return;
+  }
+
+  const finish = () => {
+    cancelModalCloseTimer(modal);
+    modal.hidden = true;
+    modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+
+    if (
+      modalLayer &&
+      !modalLayer.querySelector(`${GALLERY_HUB_SELECTORS.modal}:not([hidden])`)
+    ) {
+      modalLayer.hidden = true;
+    }
+  };
+  const timer = window.setTimeout(finish, MODAL_CLOSE_FALLBACK_MS);
+
+  modalCloseTimers.set(modal, timer);
+
+  panel.addEventListener(
+    "animationend",
+    (event) => {
+      if (event.target !== panel) return;
+
+      finish();
+    },
+    { once: true },
+  );
+}
 
 /**
  * Return the currently open modal panel.
@@ -73,8 +147,25 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
 
   modals.forEach((modal) => {
     const isOpen = modal.dataset.galleryHubModal === modalOpen;
+    const shouldAnimate = isAnimatedModal(modal);
 
-    modal.hidden = !isOpen;
+    cancelModalCloseTimer(modal);
+
+    if (isOpen) {
+      modal.hidden = false;
+      modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+      return;
+    }
+
+    if (shouldAnimate && !modal.hidden) {
+      modal.classList.add(GALLERY_HUB_CLASSES.modalClosing);
+      if (modalLayer) modalLayer.hidden = false;
+      hideModalAfterAnimation(modal, modalLayer);
+      return;
+    }
+
+    modal.hidden = true;
+    modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
   });
 
   toggles.forEach((toggle) => {
