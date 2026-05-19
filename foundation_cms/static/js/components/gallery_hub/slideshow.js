@@ -292,6 +292,7 @@ class GalleryHubSlideshow {
    * @param {number} index - Target slide index.
    */
   goToSlide(index) {
+    // Slides wrap intentionally so media controls behave like an infinite carousel.
     const nextIndex =
       ((index % this.slides.length) + this.slides.length) % this.slides.length;
 

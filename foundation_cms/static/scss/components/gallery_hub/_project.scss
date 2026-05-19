@@ -259,8 +259,10 @@
 }
 
 body.redesign h2.gallery-hub-project__title {
-  @include breakpoint(large up) {
-    font-size: rem-calc(40);
+  @media (height > $gallery-project-very-short-height) {
+    @include breakpoint(large up) {
+      font-size: rem-calc(40);
+    }
   }
 }
 
