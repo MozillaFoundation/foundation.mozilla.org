@@ -139,17 +139,20 @@
                          hidden>
                     <div class="gallery-hub-modal__scrim" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
-                        <div class="gallery-hub-modal__body" data-gallery-hub-project-list-slot>
+                        <div class="gallery-hub-modal__body"
+                             data-gallery-hub-project-list-slot
+                             data-gallery-hub-modal-scrollable>
                             <ul class="gallery-hub-project-list" aria-label="{% trans "Projects" %}">
                                 {% for project in featured_projects %}
-                                    <li class="gallery-hub-project-list__item">
+                                    {% cycle 'gallery-hub-project-list__image--shape-3' 'gallery-hub-project-list__image--shape-1' 'gallery-hub-project-list__image--shape-7' 'gallery-hub-project-list__image--shape-4' 'gallery-hub-project-list__image--shape-6' 'gallery-hub-project-list__image--shape-8' as list_image_shape silent %}
+                                    <li class="gallery-hub-project-list__item" data-gallery-hub-project-list-item-shell>
                                         <button class="gallery-hub-project-list__button"
                                                 type="button"
                                                 data-gallery-hub-project-list-item
                                                 data-project-id="{{ project.id }}">
                                             {% if project.hero_image %}
-                                                {% image project.hero_image fill-160x120 as list_img %}
-                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--slot-{{ forloop.counter }} {% cycle 'gallery-hub-project-list__image--shape-3' 'gallery-hub-project-list__image--shape-1' 'gallery-hub-project-list__image--shape-7' 'gallery-hub-project-list__image--shape-4' 'gallery-hub-project-list__image--shape-6' 'gallery-hub-project-list__image--shape-8' %}">
+                                                {% image project.hero_image fill-98x98 as list_img %}
+                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--slot-{{ forloop.counter }} {{ list_image_shape }}">
                                                     <img src="{{ list_img.url }}"
                                                          alt=""
                                                          width="{{ list_img.width }}"
@@ -157,7 +160,7 @@
                                                          loading="lazy">
                                                 </span>
                                             {% else %}
-                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--fallback gallery-hub-project-list__image--slot-{{ forloop.counter }} {% cycle 'gallery-hub-project-list__image--shape-3' 'gallery-hub-project-list__image--shape-1' 'gallery-hub-project-list__image--shape-7' 'gallery-hub-project-list__image--shape-4' 'gallery-hub-project-list__image--shape-6' 'gallery-hub-project-list__image--shape-8' %}"></span>
+                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--fallback gallery-hub-project-list__image--slot-{{ forloop.counter }} {{ list_image_shape }}"></span>
                                             {% endif %}
                                             <span class="gallery-hub-project-list__content">
                                                 <span class="gallery-hub-project-list__title">{{ project.title }}</span>
@@ -190,7 +193,9 @@
                     <div class="gallery-hub-modal__scrim gallery-hub-modal__scrim--orange" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
                         <h2 id="gallery-hub-filter-title" class="gallery-hub-modal__title">{% trans "Filter" %}</h2>
-                        <div class="gallery-hub-modal__body" data-gallery-hub-filter-slot></div>
+                        <div class="gallery-hub-modal__body"
+                             data-gallery-hub-filter-slot
+                             data-gallery-hub-modal-scrollable></div>
                         <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>{% trans "Close" %}</button>
                     </div>
                 </section>

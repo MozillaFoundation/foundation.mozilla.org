@@ -22,10 +22,11 @@ export const GALLERY_HUB_SELECTORS = {
   projectMarker: "[data-gallery-hub-project-marker]",
   modalLayer: "[data-gallery-hub-modal-layer]",
   modal: "[data-gallery-hub-modal]",
-  modalScrollable: ".gallery-hub-modal__body",
+  modalScrollable: "[data-gallery-hub-modal-scrollable]",
   modalToggle: "[data-gallery-hub-modal-toggle]",
   modalClose: "[data-gallery-hub-modal-close]",
   projectListItem: "[data-gallery-hub-project-list-item]",
+  projectListItemShell: "[data-gallery-hub-project-list-item-shell]",
   projectListSlot: "[data-gallery-hub-project-list-slot]",
   filterSlot: "[data-gallery-hub-filter-slot]",
 };
