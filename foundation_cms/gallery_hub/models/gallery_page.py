@@ -9,6 +9,7 @@ from wagtail.admin.panels import (
 from wagtail.models import Orderable, Page
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
+from foundation_cms.gallery_hub.models.project_page import ProjectPage
 from foundation_cms.mixins.hero_image import HeroImageMixin
 
 
@@ -67,11 +68,17 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
     def get_context(self, request):
         context = super().get_context(request)
 
-        featured = [
-            item.project.specific
-            for item in self.featured_projects.select_related("project").all()
-            if item.project_id is not None
-        ]
+        featured_project_ids = tuple(
+            self.featured_projects.filter(project_id__isnull=False).values_list("project_id", flat=True)
+        )
+        featured_by_id = {
+            page.id: page
+            for page in ProjectPage.objects.filter(id__in=featured_project_ids).prefetch_related(
+                "topics",
+                "program_label",
+            )
+        }
+        featured = [featured_by_id[project_id] for project_id in featured_project_ids if project_id in featured_by_id]
 
         topics = sorted(
             {tag.slug: tag for page in featured for tag in page.topics.all()}.values(),
@@ -87,33 +94,33 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
         )
 
         context["featured_projects"] = featured
-        context["filter_categories"] = [
+        context["filter_categories"] = (
             {
                 "key": "topic",
-                "options": [self._filter_option(tag) for tag in topics],
+                "options": tuple(self._filter_option(tag) for tag in topics),
                 "expanded": True,
             },
             {
                 "key": "program",
-                "options": [self._filter_option(label) for label in program_labels],
+                "options": tuple(self._filter_option(label) for label in program_labels),
                 "expanded": False,
             },
             {
                 "key": "year",
-                "options": [{"label": str(year), "value": str(year)} for year in program_years],
+                "options": tuple({"label": str(year), "value": str(year)} for year in program_years),
                 "expanded": False,
             },
-        ]
-        context["project_filter_data"] = [
+        )
+        context["project_filter_data"] = tuple(
             {
                 "id": str(page.id),
                 "filters": {
-                    "topic": [tag.slug for tag in page.topics.all()],
-                    "program": [label.slug for label in page.program_label.all()],
-                    "year": [str(page.program_year)] if page.program_year else [],
+                    "topic": tuple(tag.slug for tag in page.topics.all()),
+                    "program": tuple(label.slug for label in page.program_label.all()),
+                    "year": (str(page.program_year),) if page.program_year else (),
                 },
             }
             for page in featured
-        ]
+        )
 
         return context
