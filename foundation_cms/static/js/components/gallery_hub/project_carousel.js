@@ -529,6 +529,8 @@ export function initGalleryHubProjectCarousel() {
     const visibleTotal = state.filteredProjectIds.length;
     const activeIndex = clampIndex(state.activeIndex, visibleTotal);
 
+    // Correct out-of-range indexes after filtering. The follow-up dispatch
+    // receives an already-clamped index, so this does not loop indefinitely.
     if (activeIndex !== state.activeIndex) {
       setGalleryHubState({ activeIndex });
       return;
