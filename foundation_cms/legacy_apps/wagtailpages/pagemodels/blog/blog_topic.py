@@ -54,7 +54,7 @@ class BlogPageTopic(TranslatableMixin, models.Model):
 
     @classmethod
     def get_topics(cls):
-        (DEFAULT_LOCALE, DEFAULT_LOCALE_ID) = get_default_locale()
+        DEFAULT_LOCALE, DEFAULT_LOCALE_ID = get_default_locale()
         choices = [
             (topic.name, topic.name)
             for topic in BlogPageTopic.objects.filter(locale_id=DEFAULT_LOCALE_ID).order_by("name")

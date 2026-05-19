@@ -36,6 +36,12 @@
     }
   }
 
+  &--left-only {
+    .two-column-container__column--left {
+      flex-basis: 100%;
+    }
+  }
+
   &__column {
     flex: 1;
     min-width: 0;

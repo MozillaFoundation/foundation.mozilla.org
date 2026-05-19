@@ -41,6 +41,7 @@ BASE_BLOCK_NAMES = sorted(
         "timely_activations_cards",
         "quote",
         "list_block",
+        "three_column_container_block",
         "video_block",
         "pillar_card_set",
         "featured_card_block",
@@ -185,11 +186,17 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         # required via blank=False. Validation is done here instead.
         super().clean()
         errors = {}
+        is_source_page = self.locale_id == Locale.get_default().id
+        is_alias = self.alias_of_id is not None
+        should_validate = is_source_page and not is_alias
+
         if not self.seo_title:
             errors["seo_title"] = "Title tag is required."
+
         if not self.search_description:
             errors["search_description"] = "Meta description is required."
-        if errors:
+
+        if should_validate and errors:
             raise ValidationError(errors)
 
     def get_theme(self):
