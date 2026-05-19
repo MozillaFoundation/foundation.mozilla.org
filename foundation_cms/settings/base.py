@@ -278,7 +278,6 @@ INSTALLED_APPS = list(
             "gunicorn",
             "corsheaders",
             "storages",
-            "adminsortable",
             "querystring_tag",
             "pattern_library" if PATTERN_LIBRARY_ENABLED else None,
             # Legacy Site Apps
@@ -432,6 +431,7 @@ TEMPLATES = [
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
                 "language_switcher_tags": "foundation_cms.templatetags.language_switcher_tags",
+                "utility_tags": "foundation_cms.templatetags.utility_tags",
             },
             "builtins": ["pattern_library.loader_tags"],
         },
@@ -574,8 +574,6 @@ STATICFILES_DIRS = [
     ("legacy_apps", root("legacy_apps/static/compiled")),
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 WAGTAIL_SITE_NAME = "Mozilla Foundation"
 WAGTAIL_SLIM_SIDEBAR = False
 WAGTAILIMAGES_INDEX_PAGE_SIZE = env("WAGTAILIMAGES_INDEX_PAGE_SIZE")
@@ -674,7 +672,6 @@ REST_FRAMEWORK = {
 # Storage for user generated files
 if USE_S3:
     # Use S3 to store user files if the corresponding environment var is set
-    DEFAULT_FILE_STORAGE = "foundation_cms.legacy_apps.s3_file_storage.storage.S3MediaStorage"
     AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
     AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
@@ -690,6 +687,19 @@ else:
     # Otherwise use the default filesystem storage
     MEDIA_ROOT = root("../media/")
     MEDIA_URL = "/media/"
+
+STORAGES = {
+    "default": {
+        "BACKEND": (
+            "foundation_cms.legacy_apps.s3_file_storage.storage.S3MediaStorage"
+            if USE_S3
+            else "django.core.files.storage.FileSystemStorage"
+        ),
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # CORS
 CORS_ALLOW_CREDENTIALS = False

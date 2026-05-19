@@ -1,0 +1,274 @@
+@use "sass:map";
+@use "sass:math";
+@import "../redesign_base";
+@import "../components/related_content";
+
+body.template-project-page {
+  .hero-carousel {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    &__media {
+      position: relative;
+      width: 100%;
+      margin: 0 auto 1rem;
+
+      @include breakpoint(large up) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    &__viewport {
+      display: flex;
+      gap: rem-calc(12);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-right: -1 * map.get($grid-margin-gutters, small);
+      padding-right: map.get($grid-margin-gutters, small);
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &.is-swipe-carousel {
+        display: block;
+        overflow: hidden;
+        scroll-snap-type: none;
+        touch-action: pan-y;
+      }
+
+      @include breakpoint(large up) {
+        display: block;
+        overflow: visible;
+        margin-right: 0;
+        padding-right: 0;
+      }
+    }
+
+    &__track {
+      display: flex;
+      gap: rem-calc(12);
+      will-change: transform;
+
+      &.is-animating {
+        transition: transform 0.28s ease;
+      }
+    }
+
+    &__slide {
+      flex: 0 0 calc(100% - #{rem-calc(16)});
+      scroll-snap-align: start;
+      margin: 0;
+      transition: opacity 0.2s ease;
+
+      &:only-child {
+        flex-basis: 100%;
+      }
+
+      @include breakpoint(large up) {
+        display: none;
+        width: 100%;
+
+        &.is-active {
+          display: block;
+        }
+      }
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      aspect-ratio: math.div(3, 2);
+      object-fit: cover;
+    }
+
+    &__frame {
+      position: relative;
+    }
+
+    &__caption {
+      margin-bottom: 0;
+    }
+
+    &__control {
+      position: absolute;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: rem-calc(32);
+      height: rem-calc(32);
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      color: $white;
+      background-color: rgba($black, 0.5);
+      cursor: pointer;
+
+      &.is-hidden {
+        display: none;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background-color: $black;
+      }
+
+      &--pause {
+        left: rem-calc(8);
+        bottom: rem-calc(8);
+
+        &::after {
+          display: block;
+          width: rem-calc(16);
+          height: rem-calc(16);
+          content: "";
+          background-color: currentcolor;
+          mask-image: url("/static/foundation_cms/_images/icons/pause-black.svg");
+          mask-repeat: no-repeat;
+          mask-position: center;
+          mask-size: contain;
+        }
+
+        &.is-paused {
+          &::after {
+            transform: translateX(rem-calc(1));
+            mask-image: url("/static/foundation_cms/_images/icons/play-black.svg");
+          }
+        }
+      }
+    }
+
+    &__thumbnails {
+      display: none;
+
+      @include breakpoint(large up) {
+        position: absolute;
+        top: 0;
+        left: calc(100% + #{rem-calc(8)});
+        display: flex;
+        flex-direction: column;
+        gap: rem-calc(4);
+        width: rem-calc(88);
+      }
+    }
+
+    &__thumbnail {
+      display: block;
+      width: rem-calc(88);
+      height: rem-calc(88);
+      padding: rem-calc(3);
+      border: rem-calc(1) solid transparent;
+      background: none;
+      cursor: pointer;
+      opacity: 0.45;
+
+      img,
+      video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &:hover,
+      &:focus-visible,
+      &.is-active {
+        opacity: 1;
+      }
+
+      &.is-active {
+        border-color: $black;
+      }
+    }
+
+    &__thumbnail-label {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      color: $black;
+      background-color: color(neutral, "200");
+    }
+
+    &__header {
+      text-align: center;
+
+      h1 {
+        margin-bottom: 1rem;
+
+        @include breakpoint(medium down) {
+          margin-top: 0;
+        }
+      }
+    }
+
+    &__lede {
+      @include mofo-text-style($body-text-styles, "large");
+
+      max-width: rem-calc(792);
+      margin: 1rem auto 0;
+    }
+  }
+
+  .project-meta {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    &__author {
+      font-weight: 700;
+    }
+
+    &__author-link {
+      color: $black;
+    }
+
+    &__label {
+      @include mofo-text-style($label-text-styles, "regular");
+
+      text-transform: uppercase;
+    }
+
+    &__link {
+      color: $black;
+
+      &::after {
+        display: inline-block;
+        content: "";
+        width: rem-calc(16);
+        height: rem-calc(16);
+        background-image: url("/static/foundation_cms/_images/icons/link-external-black.svg");
+        background-position: right bottom;
+        background-repeat: no-repeat;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .streamfield-block-wrapper[class*="bg-"][data-block-type="two_column_container_block"] {
+    .two-column-container--left-only {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
+      @include breakpoint(medium up) {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .two-column-container__column--left {
+        > .link-button-block:last-child {
+          .btn-primary {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

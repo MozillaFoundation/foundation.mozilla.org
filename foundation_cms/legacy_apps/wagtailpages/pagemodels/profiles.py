@@ -1,6 +1,6 @@
 from django.db import models
-from django.db.models import F, Value
-from django.db.models.functions import Concat
+from django.db.models import CharField, F, Value
+from django.db.models.functions import Cast, Concat
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.images import get_image_model_string
@@ -57,7 +57,9 @@ class Profile(index.Indexed, TranslatableMixin, models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-        self._meta.model.objects.filter(id=self.id).update(slug=Concat(F("slug"), Value("-"), F("id")))
+        self._meta.model.objects.filter(id=self.id).update(
+            slug=Concat(F("slug"), Value("-"), Cast(F("id"), output_field=CharField()))
+        )
 
     class Meta(TranslatableMixin.Meta):
         ordering = ["name"]

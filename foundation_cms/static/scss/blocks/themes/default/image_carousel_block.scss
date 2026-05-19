@@ -46,17 +46,38 @@
 
   &__header-controls {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    margin: rem-calc(14) 0 rem-calc(24);
+
+    @include breakpoint(small only) {
+      padding-left: calc(map.get($grid-container-padding, small) / 2);
+    }
+
+    @include breakpoint(medium only) {
+      padding-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
+
+    .image-carousel__controls {
+      margin-left: auto;
+    }
   }
 
   &__header {
     @include mofo-text-style($header-styles, "h3", $header-font-family);
 
-    margin: rem-calc(14) 0;
+    margin: 0;
   }
 
   &__card-container {
     @include carousel-card-container;
+
+    @include breakpoint(small only) {
+      margin-left: calc(map.get($grid-container-padding, small) / 2);
+    }
+
+    @include breakpoint(medium only) {
+      margin-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
   }
 
   &__track {
@@ -133,14 +154,14 @@
 
       grid-row: 3;
       margin-top: rem-calc(16);
-      margin-bottom: rem-calc(8);
+      margin-bottom: 0;
     }
 
     &__description {
       grid-row: 4;
 
       p:first-child {
-        margin-top: 0;
+        margin-top: rem-calc(8);
       }
 
       p:last-child {

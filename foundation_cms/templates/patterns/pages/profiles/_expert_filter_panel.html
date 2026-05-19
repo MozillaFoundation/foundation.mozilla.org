@@ -1,0 +1,21 @@
+<div id="{{ panel_id }}" class="expert-filter__panel" hidden>
+  <fieldset class="expert-filter__fieldset">
+    <legend class="show-for-sr">{{ legend }}</legend>
+    <ul class="expert-filter__options">
+      {% for item_value, item_label in items %}
+        <li class="expert-filter__option">
+          <label class="expert-filter__option-label">
+            <input
+              class="expert-filter__checkbox"
+              type="checkbox"
+              name="{{ field_name }}"
+              value="{{ item_value }}"
+              {% if item_value in active_values %}checked{% endif %}
+            >
+            {{ item_label }}
+          </label>
+        </li>
+      {% endfor %}
+    </ul>
+  </fieldset>
+</div>
