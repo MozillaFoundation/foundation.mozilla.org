@@ -406,6 +406,34 @@
         }
       }
     }
+
+    &:has(.newsletter-signup--expanded) {
+      &::before {
+        @include breakpoint(xlarge up) {
+          position: absolute;
+          top: 1rem;
+          left: 3rem;
+          z-index: 1;
+        }
+      }
+    }
+
+    .newsletter-signup--expanded {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+
+        .newsletter-signup__cta-wrapper {
+          text-align: left;
+          padding-left: 5rem;
+          width: 100%;
+        }
+
+        .newsletter-signup__form-grid {
+          width: 100%;
+          flex-direction: column;
+        }
+      }
+    }
   }
 
   // "Expanded" form specific stylings

@@ -50,6 +50,23 @@
       padding-left: 0;
       padding-right: 0;
     }
+
+    // Newsletter signup overrides inside 2-column layouts
+    .newsletter-signup__container {
+      .newsletter-signup__form-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .newsletter-signup__fieldset {
+        flex-direction: column;
+      }
+
+      .newsletter-signup__button-wrapper {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
   }
 
   .two-column-container__column {
