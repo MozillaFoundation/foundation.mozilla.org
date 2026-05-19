@@ -9,7 +9,8 @@
     backdrop-filter: blur(rem-calc(14));
 
     &--orange {
-      background-color: rgb(240 108 19 / 60%);
+      background-color: rgba(color(orange, "300"), 0.6);
+      backdrop-filter: blur(rem-calc(25));
     }
   }
 
