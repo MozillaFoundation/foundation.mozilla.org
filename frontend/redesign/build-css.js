@@ -12,7 +12,6 @@ const entries = [
   "redesign_migrated_content",
   "pages/campaign_page",
   "pages/expert_directory_page",
-  "pages/expert_hub_page",
   "pages/expert_profile_page",
   "pages/home_page",
   "pages/maintenance",
