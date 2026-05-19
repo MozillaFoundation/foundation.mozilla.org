@@ -21,8 +21,6 @@ styleguide_streamfield_fields = [
     "text",
     "full_width_image",
     "card_grid",
-    "pulse_listing",
-    "profile_listing",
     "recent_blog_entries",
     "blog_set",
     "airtable",

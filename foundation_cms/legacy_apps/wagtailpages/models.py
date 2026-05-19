@@ -111,7 +111,6 @@ from .pagemodels.modular import MiniSiteNameSpace, ModularPage
 from .pagemodels.profiles import Profile
 from .pagemodels.publications.article import ArticlePage
 from .pagemodels.publications.publication import PublicationPage
-from .pagemodels.pulse import PulseFilter
 from .pagemodels.youtube import (
     YoutubeRegrets2021Page,
     YoutubeRegrets2022Page,
