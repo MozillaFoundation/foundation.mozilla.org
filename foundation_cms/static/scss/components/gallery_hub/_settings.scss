@@ -41,8 +41,8 @@ $gallery-project-body-top-compact: clamp(
   calc(26.7svh - rem-calc(150)),
   rem-calc(204)
 );
-$gallery-project-body-top-mid: rem-calc(68);
-$gallery-project-body-top-very-short: rem-calc(52);
+$gallery-project-body-top-mid: rem-calc(44);
+$gallery-project-body-top-very-short: rem-calc(28);
 
 // Project preview positioning.
 $gallery-project-preview-offset-top: min(58svh, rem-calc(760));
@@ -83,12 +83,8 @@ $gallery-controls-mobile-compact-toggle-bottom: rem-calc(22);
 $gallery-controls-mobile-compact-toggle-min-width: rem-calc(104);
 $gallery-controls-mobile-compact-toggle-padding: rem-calc(10) rem-calc(14);
 $gallery-controls-mobile-short-toggle-bottom: rem-calc(18);
-
-// Short-height project navigation crops the dotted line while preserving the
-// arrow asset's native scale.
-$gallery-project-nav-icon-width: rem-calc(12);
-$gallery-project-nav-icon-height: rem-calc(40);
-$gallery-project-nav-icon-height-short: rem-calc(24);
+$gallery-project-nav-icon-width: rem-calc(16);
+$gallery-project-nav-icon-height: rem-calc(20.95);
 
 @mixin gallery-shape-properties($namespace, $shape) {
   --gallery-#{$namespace}-mask: url("#{$gallery-feature-image-path}/shape-masks/shape-#{$shape}-black.png");
