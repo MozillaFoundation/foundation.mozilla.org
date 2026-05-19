@@ -57,6 +57,13 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
 
     template = "patterns/pages/gallery_hub/gallery_page.html"
 
+    @staticmethod
+    def _filter_option(tag):
+        return {
+            "label": tag.name,
+            "value": tag.slug,
+        }
+
     def get_context(self, request):
         context = super().get_context(request)
 
@@ -67,18 +74,46 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
         ]
 
         topics = sorted(
-            {tag.name for page in featured for tag in page.topics.all()},
+            {tag.slug: tag for page in featured for tag in page.topics.all()}.values(),
+            key=lambda tag: tag.name,
         )
         program_labels = sorted(
-            {label.name for page in featured for label in page.program_label.all()},
+            {label.slug: label for page in featured for label in page.program_label.all()}.values(),
+            key=lambda label: label.name,
         )
         program_years = sorted(
             {page.program_year for page in featured if page.program_year},
+            reverse=True,
         )
 
         context["featured_projects"] = featured
-        context["filter_topics"] = topics
-        context["filter_program_labels"] = program_labels
-        context["filter_program_years"] = program_years
+        context["filter_categories"] = [
+            {
+                "key": "topic",
+                "options": [self._filter_option(tag) for tag in topics],
+                "expanded": True,
+            },
+            {
+                "key": "program",
+                "options": [self._filter_option(label) for label in program_labels],
+                "expanded": False,
+            },
+            {
+                "key": "year",
+                "options": [{"label": str(year), "value": str(year)} for year in program_years],
+                "expanded": False,
+            },
+        ]
+        context["project_filter_data"] = [
+            {
+                "id": str(page.id),
+                "filters": {
+                    "topic": [tag.slug for tag in page.topics.all()],
+                    "program": [label.slug for label in page.program_label.all()],
+                    "year": [str(page.program_year)] if page.program_year else [],
+                },
+            }
+            for page in featured
+        ]
 
         return context

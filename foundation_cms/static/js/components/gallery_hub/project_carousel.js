@@ -111,6 +111,10 @@ function syncViewMode(root, viewMode) {
 
   root.classList.toggle(GALLERY_HUB_CLASSES.intro, !isProjectView);
   root.classList.toggle(GALLERY_HUB_CLASSES.projectView, isProjectView);
+
+  if (isProjectView) {
+    root.classList.remove(GALLERY_HUB_CLASSES.introEntering);
+  }
 }
 
 /**

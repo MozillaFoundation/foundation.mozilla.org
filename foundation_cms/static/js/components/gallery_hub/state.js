@@ -32,6 +32,21 @@ const DEFAULT_STATE = {
 let state = { ...DEFAULT_STATE };
 
 /**
+ * Clone filter state so array values are never shared between modules.
+ *
+ * @param {Object<string, *>} filters - Filter state to clone.
+ * @returns {Object<string, *>}
+ */
+function cloneFilters(filters) {
+  return Object.fromEntries(
+    Object.entries(filters).map(([key, value]) => [
+      key,
+      Array.isArray(value) ? [...value] : value,
+    ]),
+  );
+}
+
+/**
  * Get a cloned snapshot of the current Gallery Hub state.
  *
  * @returns {GalleryHubState}
@@ -39,7 +54,7 @@ let state = { ...DEFAULT_STATE };
 export function getGalleryHubState() {
   return {
     ...state,
-    activeFilters: { ...state.activeFilters },
+    activeFilters: cloneFilters(state.activeFilters),
     filteredProjectIds: [...state.filteredProjectIds],
   };
 }
@@ -54,7 +69,7 @@ export function setGalleryHubState(patch) {
     ...state,
     ...patch,
     activeFilters: patch.activeFilters
-      ? { ...patch.activeFilters }
+      ? cloneFilters(patch.activeFilters)
       : state.activeFilters,
     filteredProjectIds: patch.filteredProjectIds
       ? [...patch.filteredProjectIds]

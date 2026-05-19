@@ -28,6 +28,13 @@ export const GALLERY_HUB_SELECTORS = {
   projectListItem: "[data-gallery-hub-project-list-item]",
   projectListSlot: "[data-gallery-hub-project-list-slot]",
   filterSlot: "[data-gallery-hub-filter-slot]",
+  filterPanel: "[data-gallery-hub-filter-panel]",
+  filterCategory: "[data-gallery-hub-filter-category]",
+  filterCategoryToggle: "[data-gallery-hub-filter-category-toggle]",
+  filterOptions: "[data-gallery-hub-filter-options]",
+  filterChip: "[data-gallery-hub-filter-chip]",
+  filterApply: "[data-gallery-hub-filter-apply]",
+  filterReset: "[data-gallery-hub-filter-reset]",
 };
 
 /**

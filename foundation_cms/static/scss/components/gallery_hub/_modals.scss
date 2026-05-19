@@ -75,6 +75,26 @@
     }
   }
 
+  &--filter {
+    .gallery-hub-modal__panel {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      width: min(100%, rem-calc(360));
+      padding: 0;
+
+      @include breakpoint(large up) {
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    .gallery-hub-modal__body {
+      min-height: 0;
+    }
+  }
+
   &__title {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
 
