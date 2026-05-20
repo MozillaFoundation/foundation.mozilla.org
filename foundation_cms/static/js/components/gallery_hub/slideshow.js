@@ -1,0 +1,315 @@
+/**
+ * Project media slideshow controller for Gallery Hub project cards.
+ *
+ * Slides are stacked so the active media sits on top. Moving forward sends the
+ * current slide out to the right; moving backward restores the previous slide
+ * over the stack with mirrored motion.
+ *
+ * @module galleryHubSlideshow
+ */
+
+import {
+  GALLERY_HUB_CLASSES,
+  GALLERY_HUB_SLIDESHOW_CLASSES,
+  GALLERY_HUB_SLIDESHOW_SELECTORS,
+  GALLERY_HUB_SELECTORS,
+} from "./config";
+import { isMostlyHorizontalGesture, isPastGestureThreshold } from "./gesture";
+import { updateIndicators } from "../../blocks/util/carousel";
+import { subscribeGalleryHubState } from "./state";
+
+const MEDIA_SWIPE_THRESHOLD = 50;
+const MEDIA_SWIPE_AXIS_LOCK = 1.25;
+const MEDIA_SWIPE_MODES = {
+  horizontal: "horizontal",
+  vertical: "vertical",
+};
+
+/**
+ * Play or pause any videos within a slide based on active state.
+ *
+ * @param {HTMLElement} slide - Slide element that may contain videos.
+ * @param {boolean} shouldPlay - Whether videos in this slide should play.
+ */
+function setVideoPlayback(slide, shouldPlay) {
+  slide.querySelectorAll("video").forEach((video) => {
+    if (shouldPlay) {
+      video.play().catch(() => {});
+      return;
+    }
+
+    video.pause();
+  });
+}
+
+/**
+ * Clamp a slide's visual stack slot around the active media.
+ *
+ * @param {number} distance - Signed distance from the active slide.
+ * @returns {number} Stack position used by CSS.
+ */
+function getStackPosition(distance) {
+  return Math.max(-2, Math.min(distance, 2));
+}
+
+/**
+ * Manages one project's media slideshow.
+ */
+class GalleryHubSlideshow {
+  /**
+   * @param {HTMLElement} root - Slideshow root element.
+   */
+  constructor(root) {
+    this.root = root;
+    this.slides = Array.from(
+      root.querySelectorAll(GALLERY_HUB_SLIDESHOW_SELECTORS.slide),
+    );
+    this.previous = root.querySelector(
+      GALLERY_HUB_SLIDESHOW_SELECTORS.previous,
+    );
+    this.next = root.querySelector(GALLERY_HUB_SLIDESHOW_SELECTORS.next);
+    this.activeIndex = 0;
+    this.project = root.closest(GALLERY_HUB_SELECTORS.project);
+    this.touchStartX = null;
+    this.touchStartY = null;
+    this.touchMode = null;
+  }
+
+  /**
+   * Initialize controls, indicators, and the active slide state.
+   */
+  init() {
+    if (this.slides.length <= 1) {
+      this.disableControls();
+    } else {
+      this.bindEvents();
+    }
+
+    this.syncSlides();
+    this.bindProjectState();
+  }
+
+  /**
+   * Check whether this slideshow belongs to the active project.
+   *
+   * @returns {boolean} Whether the parent project is visible.
+   */
+  isProjectActive() {
+    return this.project?.classList.contains(GALLERY_HUB_CLASSES.projectActive);
+  }
+
+  /**
+   * Keep video playback in sync when vertical project navigation changes.
+   */
+  bindProjectState() {
+    subscribeGalleryHubState(() => {
+      this.syncSlides();
+    });
+  }
+
+  /**
+   * Remove navigation affordances when a project has only one media slide.
+   */
+  disableControls() {
+    if (this.previous) {
+      this.previous.hidden = true;
+      this.previous.disabled = true;
+    }
+
+    if (this.next) {
+      this.next.hidden = true;
+      this.next.disabled = true;
+    }
+
+    this.root.querySelector(".carousel-indicators")?.remove();
+  }
+
+  /**
+   * Wire arrow controls to slideshow navigation.
+   */
+  bindEvents() {
+    if (this.previous) {
+      this.previous.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.goToSlide(this.activeIndex - 1);
+      });
+    }
+
+    if (this.next) {
+      this.next.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.goToSlide(this.activeIndex + 1);
+      });
+    }
+
+    this.root.addEventListener("touchstart", this.handleTouchStart, {
+      passive: true,
+    });
+    this.root.addEventListener("touchmove", this.handleTouchMove, {
+      passive: false,
+    });
+    this.root.addEventListener("touchend", this.handleTouchEnd, {
+      passive: true,
+    });
+    this.root.addEventListener("touchcancel", this.resetTouchState, {
+      passive: true,
+    });
+  }
+
+  /**
+   * Store the starting point for media swipe detection.
+   *
+   * @param {TouchEvent} event - Touch start event.
+   */
+  handleTouchStart = (event) => {
+    if (event.touches.length !== 1) return;
+
+    this.touchStartX = event.touches[0].clientX;
+    this.touchStartY = event.touches[0].clientY;
+    this.touchMode = null;
+  };
+
+  /**
+   * Claim clearly horizontal swipes so they do not trigger project navigation.
+   *
+   * @param {TouchEvent} event - Touch move event.
+   */
+  handleTouchMove = (event) => {
+    if (this.touchStartX === null || this.touchStartY === null) return;
+
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = touch.clientY - this.touchStartY;
+
+    if (this.touchMode === null) {
+      if (!isPastGestureThreshold(deltaX, deltaY, MEDIA_SWIPE_THRESHOLD)) {
+        return;
+      }
+
+      this.touchMode = isMostlyHorizontalGesture(
+        deltaX,
+        deltaY,
+        MEDIA_SWIPE_AXIS_LOCK,
+      )
+        ? MEDIA_SWIPE_MODES.horizontal
+        : MEDIA_SWIPE_MODES.vertical;
+    }
+
+    if (this.touchMode !== MEDIA_SWIPE_MODES.horizontal) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  /**
+   * Complete horizontal swipe navigation.
+   *
+   * @param {TouchEvent} event - Touch end event.
+   */
+  handleTouchEnd = (event) => {
+    if (this.touchStartX === null || this.touchStartY === null) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const wasHorizontal = this.touchMode === MEDIA_SWIPE_MODES.horizontal;
+
+    this.resetTouchState();
+
+    if (wasHorizontal) {
+      event.stopPropagation();
+    }
+
+    if (Math.abs(deltaX) < MEDIA_SWIPE_THRESHOLD) return;
+    if (!wasHorizontal) return;
+
+    this.goToSlide(this.activeIndex + (deltaX < 0 ? 1 : -1));
+  };
+
+  /**
+   * Clear tracked touch coordinates after a completed or interrupted gesture.
+   */
+  resetTouchState = () => {
+    this.touchStartX = null;
+    this.touchStartY = null;
+    this.touchMode = null;
+  };
+
+  /**
+   * Sync disabled button state and shared carousel indicators.
+   */
+  syncControls() {
+    if (this.previous) {
+      this.previous.disabled = false;
+    }
+
+    if (this.next) {
+      this.next.disabled = false;
+    }
+
+    updateIndicators(this.root, this.activeIndex);
+  }
+
+  /**
+   * Apply active/before/after classes and video playback to all slides.
+   */
+  syncSlides() {
+    if (!this.isProjectActive()) {
+      this.slides.forEach((slide) => {
+        setVideoPlayback(slide, false);
+      });
+      return;
+    }
+
+    this.slides.forEach((slide, index) => {
+      const isActive = index === this.activeIndex;
+      const stackPosition = getStackPosition(index - this.activeIndex);
+
+      slide.classList.toggle(GALLERY_HUB_SLIDESHOW_CLASSES.active, isActive);
+      slide.classList.toggle(
+        GALLERY_HUB_SLIDESHOW_CLASSES.beforeActive,
+        index < this.activeIndex,
+      );
+      slide.classList.toggle(
+        GALLERY_HUB_SLIDESHOW_CLASSES.afterActive,
+        index > this.activeIndex,
+      );
+      slide.setAttribute("aria-hidden", `${!isActive}`);
+      slide.dataset.galleryHubSlideStack = `${stackPosition}`;
+      slide.style.zIndex = `${
+        this.slides.length - Math.abs(index - this.activeIndex)
+      }`;
+      setVideoPlayback(slide, isActive);
+    });
+
+    this.syncControls();
+  }
+
+  /**
+   * Move to a specific slide index if it exists.
+   *
+   * @param {number} index - Target slide index.
+   */
+  goToSlide(index) {
+    // Slides wrap intentionally so media controls behave like an infinite carousel.
+    const nextIndex =
+      ((index % this.slides.length) + this.slides.length) % this.slides.length;
+
+    if (nextIndex === this.activeIndex) return;
+
+    this.activeIndex = nextIndex;
+    this.syncSlides();
+  }
+}
+
+/**
+ * Initialize all Gallery Hub media slideshows on the page.
+ */
+export function initGalleryHubSlideshows() {
+  document
+    .querySelectorAll(GALLERY_HUB_SLIDESHOW_SELECTORS.root)
+    .forEach((root) => {
+      new GalleryHubSlideshow(root).init();
+    });
+}
