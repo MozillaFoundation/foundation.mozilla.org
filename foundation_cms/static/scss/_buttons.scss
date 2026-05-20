@@ -335,11 +335,9 @@ a.btn-topic {
   &:hover {
     background: color(yellow, "300");
   }
-}
 
-.project-block {
-  &__content {
-    a.btn-topic:hover {
+  &--dark {
+    &:hover {
       background: color(yellow, "100");
     }
   }
