@@ -34,4 +34,13 @@ body.template-gallery-hub-page {
       );
     }
   }
+
+  // Override OneTrust's injected launcher position so it clears gallery controls.
+  #ot-sdk-btn-floating {
+    @include breakpoint(medium down) {
+      bottom: calc(
+        #{$gallery-controls-mobile-toggle-bottom} + rem-calc(52)
+      ) !important;
+    }
+  }
 }
