@@ -144,7 +144,13 @@
                              data-gallery-hub-modal-scrollable>
                             <ul class="gallery-hub-project-list" aria-label="{% trans "Projects" %}">
                                 {% for project in featured_projects %}
-                                    {% cycle 'gallery-hub-project-list__image--shape-3' 'gallery-hub-project-list__image--shape-1' 'gallery-hub-project-list__image--shape-7' 'gallery-hub-project-list__image--shape-4' 'gallery-hub-project-list__image--shape-6' 'gallery-hub-project-list__image--shape-8' as list_image_shape silent %}
+                                    {% cycle 'gallery-hub-project-list__image--shape-3'
+                                    'gallery-hub-project-list__image--shape-1'
+                                    'gallery-hub-project-list__image--shape-7'
+                                    'gallery-hub-project-list__image--shape-4'
+                                    'gallery-hub-project-list__image--shape-6'
+                                    'gallery-hub-project-list__image--shape-8'
+                                    as list_image_shape silent %}
                                     <li class="gallery-hub-project-list__item" data-gallery-hub-project-list-item-shell>
                                         <button class="gallery-hub-project-list__button"
                                                 type="button"
