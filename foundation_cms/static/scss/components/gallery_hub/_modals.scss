@@ -315,7 +315,7 @@
 
     &__button {
       grid-template-columns: rem-calc(48) minmax(0, 1fr);
-      gap: rem-calc(24);
+      gap: rem-calc(16);
       min-height: rem-calc(48);
     }
 
@@ -327,12 +327,14 @@
     &__title {
       @include mofo-text-style($body-text-styles, "small", $body-font-family);
 
+      font-size: rem-calc(16);
       font-weight: map.get($font-weights, bold);
     }
 
     &__author {
       @include mofo-text-style($body-text-styles, "xxsmall", $body-font-family);
 
+      font-size: rem-calc(14);
       margin-top: 0;
       font-style: italic;
     }
