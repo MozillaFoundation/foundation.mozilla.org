@@ -175,6 +175,19 @@ function isPageScrollLocked() {
 }
 
 /**
+ * Check whether an input event belongs to a scrollable modal region.
+ *
+ * @param {Event} event - Browser input event.
+ * @returns {boolean}
+ */
+function isModalScrollTarget(event) {
+  return (
+    event.target instanceof Element &&
+    Boolean(event.target.closest(GALLERY_HUB_SELECTORS.modalScrollable))
+  );
+}
+
+/**
  * Check whether the Gallery Hub is using the mobile layout.
  *
  * @returns {boolean}
@@ -630,6 +643,8 @@ export function initGalleryHubProjectCarousel() {
     if (Math.abs(event.deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
 
     if (getGalleryHubState().modalOpen) {
+      if (isModalScrollTarget(event)) return;
+
       event.preventDefault();
       return;
     }
@@ -699,6 +714,8 @@ export function initGalleryHubProjectCarousel() {
 
       if (!isProjectTouchGesture(deltaX, deltaY)) return;
       if (getGalleryHubState().modalOpen) {
+        if (isModalScrollTarget(event)) return;
+
         event.preventDefault();
         return;
       }
@@ -773,6 +790,8 @@ export function initGalleryHubProjectCarousel() {
     const delta = event.key.endsWith("Down") ? 1 : -1;
 
     if (getGalleryHubState().modalOpen) {
+      if (isModalScrollTarget(event)) return;
+
       event.preventDefault();
       return;
     }

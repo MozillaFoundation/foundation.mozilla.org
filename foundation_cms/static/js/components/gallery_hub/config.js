@@ -22,8 +22,11 @@ export const GALLERY_HUB_SELECTORS = {
   projectMarker: "[data-gallery-hub-project-marker]",
   modalLayer: "[data-gallery-hub-modal-layer]",
   modal: "[data-gallery-hub-modal]",
+  modalScrollable: "[data-gallery-hub-modal-scrollable]",
   modalToggle: "[data-gallery-hub-modal-toggle]",
   modalClose: "[data-gallery-hub-modal-close]",
+  projectListItem: "[data-gallery-hub-project-list-item]",
+  projectListItemShell: "[data-gallery-hub-project-list-item-shell]",
   projectListSlot: "[data-gallery-hub-project-list-slot]",
   filterSlot: "[data-gallery-hub-filter-slot]",
 };
@@ -38,6 +41,7 @@ export const GALLERY_HUB_CLASSES = {
   introEntering: "gallery-hub--intro-entering",
   mobileCompact: "gallery-hub--mobile-compact",
   mobileShort: "gallery-hub--mobile-short",
+  modalClosing: "gallery-hub-modal--closing",
   modalOpen: "gallery-hub--modal-open",
   projectActive: "gallery-hub-project--active",
   projectMarkerActive: "gallery-hub__project-marker--active",
@@ -104,6 +108,13 @@ export const GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY =
  * @type {number}
  */
 export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1200;
+
+/**
+ * Duration for modal exit animations before hidden state is applied.
+ *
+ * @type {number}
+ */
+export const GALLERY_HUB_MODAL_CLOSE_DURATION = 220;
 
 /**
  * Legacy deep link stripped on load so the JS-controlled experience starts at

@@ -7,12 +7,54 @@
  * @module galleryHubOverlay
  */
 
-import { GALLERY_HUB_CLASSES, GALLERY_HUB_SELECTORS } from "./config";
+import {
+  GALLERY_HUB_CLASSES,
+  GALLERY_HUB_MODAL_CLOSE_DURATION,
+  GALLERY_HUB_SELECTORS,
+  GALLERY_HUB_VIEW_MODES,
+} from "./config";
 import {
   getGalleryHubState,
   setGalleryHubState,
   subscribeGalleryHubState,
 } from "./state";
+
+const FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  "[tabindex]:not([tabindex='-1'])",
+].join(",");
+
+let lastFocusedElement = null;
+let closeModalTimer = null;
+
+/**
+ * Return the currently open modal panel.
+ *
+ * @param {HTMLElement[]} modals - Modal panel elements.
+ * @param {?string} modalOpen - Currently open modal id.
+ * @returns {?HTMLElement} Open modal element, if any.
+ */
+function getOpenModal(modals, modalOpen) {
+  return (
+    modals.find((modal) => modal.dataset.galleryHubModal === modalOpen) || null
+  );
+}
+
+/**
+ * Return focusable controls in a modal, skipping hidden list rows.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @returns {HTMLElement[]} Focusable controls.
+ */
+function getFocusableElements(modal) {
+  return Array.from(modal.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
+    (element) => !element.closest("[hidden]"),
+  );
+}
 
 /**
  * Reflect the current modal id onto the overlay layer, modal panels, and
@@ -35,6 +77,10 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
     const isOpen = modal.dataset.galleryHubModal === modalOpen;
 
     modal.hidden = !isOpen;
+
+    if (isOpen) {
+      modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+    }
   });
 
   toggles.forEach((toggle) => {
@@ -42,6 +88,140 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
 
     toggle.setAttribute("aria-expanded", `${isOpen}`);
   });
+}
+
+/**
+ * Close the active modal after its exit animation completes.
+ *
+ * @param {HTMLElement[]} modals - Modal panel elements.
+ */
+function closeOpenModal(modals) {
+  const state = getGalleryHubState();
+  const modal = getOpenModal(modals, state.modalOpen);
+
+  if (!modal) {
+    setGalleryHubState({ modalOpen: null });
+    return;
+  }
+
+  if (modal.classList.contains(GALLERY_HUB_CLASSES.modalClosing)) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    setGalleryHubState({ modalOpen: null });
+    return;
+  }
+
+  window.clearTimeout(closeModalTimer);
+  modal.classList.add(GALLERY_HUB_CLASSES.modalClosing);
+
+  closeModalTimer = window.setTimeout(() => {
+    setGalleryHubState({ modalOpen: null });
+    closeModalTimer = null;
+  }, GALLERY_HUB_MODAL_CLOSE_DURATION);
+}
+
+/**
+ * Keep the project list rows aligned with the filtered carousel state.
+ *
+ * @param {HTMLElement[]} items - Project list buttons.
+ * @param {HTMLElement} root - Gallery Hub root element.
+ * @param {Object} state - Current Gallery Hub state snapshot.
+ */
+function syncProjectList(items, root, state) {
+  const visibleProjectIds = new Set(state.filteredProjectIds);
+  const activeProjectId = state.filteredProjectIds[state.activeIndex];
+  let visibleCount = 0;
+
+  items.forEach((item) => {
+    const projectId = item.dataset.projectId;
+    const isVisible = visibleProjectIds.has(projectId);
+    const isActive = projectId === activeProjectId;
+    const itemShell = item.closest(GALLERY_HUB_SELECTORS.projectListItemShell);
+
+    if (itemShell) itemShell.hidden = !isVisible;
+    item.setAttribute("aria-current", isActive ? "true" : "false");
+
+    if (isVisible) visibleCount += 1;
+  });
+
+  const empty = root.querySelector("[data-gallery-hub-project-list-empty]");
+
+  if (empty) empty.hidden = visibleCount > 0;
+}
+
+/**
+ * Move focus into a newly opened modal.
+ *
+ * @param {HTMLElement[]} modals - Modal panel elements.
+ * @param {?string} modalOpen - Currently open modal id.
+ * @param {Object} state - Current Gallery Hub state snapshot.
+ */
+function focusOpenModal(modals, modalOpen, state) {
+  const modal = getOpenModal(modals, modalOpen);
+
+  if (!modal) return;
+
+  const activeProjectId = state.filteredProjectIds[state.activeIndex];
+  const activeItem = modal.querySelector(
+    `${GALLERY_HUB_SELECTORS.projectListItem}[data-project-id="${activeProjectId}"]`,
+  );
+  const focusable = getFocusableElements(modal);
+
+  window.requestAnimationFrame(() => {
+    if (activeItem && !activeItem.closest("[hidden]")) {
+      activeItem.focus();
+      return;
+    }
+
+    focusable[0]?.focus();
+  });
+}
+
+/**
+ * Return focus to the modal trigger after the overlay closes.
+ */
+function restoreTriggerFocus() {
+  if (!lastFocusedElement?.isConnected) return;
+
+  lastFocusedElement.focus();
+  lastFocusedElement = null;
+}
+
+/**
+ * Keep Tab key focus inside the active modal.
+ *
+ * @param {KeyboardEvent} event - Keydown event.
+ * @param {HTMLElement[]} modals - Modal panel elements.
+ * @param {?string} modalOpen - Currently open modal id.
+ */
+function trapModalFocus(event, modals, modalOpen) {
+  if (event.key !== "Tab") return;
+
+  const modal = getOpenModal(modals, modalOpen);
+
+  if (!modal) return;
+
+  const focusable = getFocusableElements(modal);
+
+  if (!focusable.length) {
+    event.preventDefault();
+    modal.focus();
+    return;
+  }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+    return;
+  }
+
+  if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 /**
@@ -57,11 +237,30 @@ export function initGalleryHubOverlay() {
   const toggles = Array.from(
     root.querySelectorAll(GALLERY_HUB_SELECTORS.modalToggle),
   );
+  const projectListItems = Array.from(
+    root.querySelectorAll(GALLERY_HUB_SELECTORS.projectListItem),
+  );
+  let previousModalOpen = getGalleryHubState().modalOpen;
 
   subscribeGalleryHubState((state) => {
+    const modalWasOpen = Boolean(previousModalOpen);
+    const modalIsOpen = Boolean(state.modalOpen);
+
+    syncProjectList(projectListItems, root, state);
     syncModal(root, modalLayer, modals, toggles, state.modalOpen);
+
+    if (!modalWasOpen && modalIsOpen) {
+      focusOpenModal(modals, state.modalOpen, state);
+    }
+
+    if (modalWasOpen && !modalIsOpen) {
+      restoreTriggerFocus();
+    }
+
+    previousModalOpen = state.modalOpen;
   });
 
+  syncProjectList(projectListItems, root, getGalleryHubState());
   syncModal(root, modalLayer, modals, toggles, getGalleryHubState().modalOpen);
 
   toggles.forEach((toggle) => {
@@ -69,22 +268,52 @@ export function initGalleryHubOverlay() {
       const state = getGalleryHubState();
       const modal = toggle.dataset.galleryHubModalToggle;
 
+      lastFocusedElement = toggle;
+
+      if (state.modalOpen === modal) {
+        closeOpenModal(modals);
+        return;
+      }
+
+      window.clearTimeout(closeModalTimer);
+
       setGalleryHubState({
-        modalOpen: state.modalOpen === modal ? null : modal,
+        modalOpen: modal,
       });
     });
   });
 
   root.querySelectorAll(GALLERY_HUB_SELECTORS.modalClose).forEach((close) => {
     close.addEventListener("click", () => {
-      setGalleryHubState({ modalOpen: null });
+      closeOpenModal(modals);
     });
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    if (!getGalleryHubState().modalOpen) return;
+    const state = getGalleryHubState();
 
-    setGalleryHubState({ modalOpen: null });
+    if (event.key === "Escape" && state.modalOpen) {
+      closeOpenModal(modals);
+      return;
+    }
+
+    trapModalFocus(event, modals, state.modalOpen);
+  });
+
+  projectListItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const state = getGalleryHubState();
+      const projectIndex = state.filteredProjectIds.indexOf(
+        item.dataset.projectId,
+      );
+
+      if (projectIndex === -1) return;
+
+      setGalleryHubState({
+        activeIndex: projectIndex,
+        viewMode: GALLERY_HUB_VIEW_MODES.project,
+      });
+      closeOpenModal(modals);
+    });
   });
 }
