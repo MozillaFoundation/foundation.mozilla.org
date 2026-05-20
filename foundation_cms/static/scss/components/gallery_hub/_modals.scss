@@ -106,7 +106,7 @@
       .gallery-hub-modal__close {
         left: auto;
         right: rem-calc(92);
-        bottom: rem-calc(42);
+        bottom: rem-calc(32);
         margin-inline: 0;
       }
     }
@@ -338,7 +338,7 @@
   display: flex;
   flex-direction: column;
   gap: rem-calc(32);
-  width: min(rem-calc(340), calc(100% - rem-calc(40)));
+  width: min(rem-calc(378), calc(100% - rem-calc(40)));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -349,11 +349,11 @@
 
   &__button {
     display: grid;
-    grid-template-columns: rem-calc(49) minmax(0, 1fr);
+    grid-template-columns: rem-calc(64) minmax(0, 1fr);
     align-items: center;
-    gap: rem-calc(12);
+    gap: rem-calc(24);
     width: 100%;
-    min-height: rem-calc(49);
+    min-height: rem-calc(64);
     border: 0;
     padding: 0;
     color: $black;
@@ -374,8 +374,8 @@
   &__image {
     position: relative;
     display: block;
-    width: rem-calc(49);
-    height: rem-calc(49);
+    width: rem-calc(64);
+    height: rem-calc(64);
     overflow: hidden;
     background-color: $black;
 
