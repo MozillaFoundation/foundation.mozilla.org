@@ -127,6 +127,13 @@ export const GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY =
 export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1200;
 
 /**
+ * Duration for modal exit animations before hidden state is applied.
+ *
+ * @type {number}
+ */
+export const GALLERY_HUB_MODAL_CLOSE_DURATION = 220;
+
+/**
  * Legacy deep link stripped on load so the JS-controlled experience starts at
  * the top of the Gallery Hub.
  *

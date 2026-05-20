@@ -232,6 +232,25 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
 }
 
 /**
+ * Close the active modal through the shared animation lifecycle.
+ *
+ * @param {HTMLElement[]} modals - Modal panel elements.
+ */
+function closeOpenModal(modals) {
+  const state = getGalleryHubState();
+  const modal = getOpenModal(modals, state.modalOpen);
+
+  if (!modal) {
+    setGalleryHubState({ modalOpen: null });
+    return;
+  }
+
+  if (modal.classList.contains(GALLERY_HUB_CLASSES.modalClosing)) return;
+
+  setGalleryHubState({ modalOpen: null });
+}
+
+/**
  * Keep the project list rows aligned with the filtered carousel state.
  *
  * @param {HTMLElement[]} items - Project list buttons.
@@ -381,19 +400,24 @@ export function initGalleryHubOverlay() {
 
       lastFocusedElement = toggle;
 
+      if (state.modalOpen === modal) {
+        closeOpenModal(modals);
+        return;
+      }
+
       if (state.modalOpen !== modal) {
         closePrimaryNavOverlays();
       }
 
       setGalleryHubState({
-        modalOpen: state.modalOpen === modal ? null : modal,
+        modalOpen: modal,
       });
     });
   });
 
   root.querySelectorAll(GALLERY_HUB_SELECTORS.modalClose).forEach((close) => {
     close.addEventListener("click", () => {
-      setGalleryHubState({ modalOpen: null });
+      closeOpenModal(modals);
     });
   });
 
@@ -406,7 +430,7 @@ export function initGalleryHubOverlay() {
 
       if (!getGalleryHubState().modalOpen) return;
 
-      setGalleryHubState({ modalOpen: null });
+      closeOpenModal(modals);
     });
   });
 
@@ -414,7 +438,7 @@ export function initGalleryHubOverlay() {
     const state = getGalleryHubState();
 
     if (event.key === "Escape" && state.modalOpen) {
-      setGalleryHubState({ modalOpen: null });
+      closeOpenModal(modals);
       return;
     }
 
