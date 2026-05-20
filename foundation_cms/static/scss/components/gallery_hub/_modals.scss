@@ -421,7 +421,6 @@
     @include mofo-text-style($body-text-styles, "xlarge", $body-font-family);
 
     font-weight: map.get($font-weights, bold);
-    line-height: 1.08;
   }
 
   &__author {
@@ -429,7 +428,6 @@
 
     margin-top: rem-calc(2);
     font-style: italic;
-    line-height: 1.15;
   }
 
   &__empty {
@@ -457,7 +455,6 @@
       @include mofo-text-style($body-text-styles, "small", $body-font-family);
 
       font-weight: map.get($font-weights, bold);
-      line-height: 1.05;
     }
 
     &__author {
@@ -465,7 +462,6 @@
 
       margin-top: 0;
       font-style: italic;
-      line-height: 1.1;
     }
   }
 }

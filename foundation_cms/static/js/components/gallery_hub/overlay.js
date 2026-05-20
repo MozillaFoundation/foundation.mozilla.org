@@ -205,8 +205,9 @@ function syncProjectList(items, root, state) {
     const projectId = item.dataset.projectId;
     const isVisible = visibleProjectIds.has(projectId);
     const isActive = projectId === activeProjectId;
+    const itemShell = item.closest(GALLERY_HUB_SELECTORS.projectListItemShell);
 
-    item.closest(".gallery-hub-project-list__item").hidden = !isVisible;
+    if (itemShell) itemShell.hidden = !isVisible;
     item.setAttribute("aria-current", isActive ? "true" : "false");
 
     if (isVisible) visibleCount += 1;
@@ -353,14 +354,12 @@ export function initGalleryHubOverlay() {
   document.addEventListener("keydown", (event) => {
     const state = getGalleryHubState();
 
-    if (event.key !== "Escape") return;
-    if (!state.modalOpen) return;
+    if (event.key === "Escape" && state.modalOpen) {
+      setGalleryHubState({ modalOpen: null });
+      return;
+    }
 
-    setGalleryHubState({ modalOpen: null });
-  });
-
-  document.addEventListener("keydown", (event) => {
-    trapModalFocus(event, modals, getGalleryHubState().modalOpen);
+    trapModalFocus(event, modals, state.modalOpen);
   });
 
   projectListItems.forEach((item) => {
