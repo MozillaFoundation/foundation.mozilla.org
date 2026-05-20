@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel,
@@ -114,26 +115,30 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
         context["filter_categories"] = (
             {
                 "key": "topic",
+                "label": _("Topic"),
                 "options": tuple(self._filter_option(tag) for tag in topics),
                 "expanded": True,
             },
             {
                 "key": "program",
+                "label": _("Program"),
                 "options": tuple(self._filter_option(label) for label in program_labels),
                 "expanded": False,
             },
             {
                 "key": "year",
+                "label": _("Year"),
                 "options": tuple({"label": str(year), "value": str(year)} for year in program_years),
                 "expanded": False,
             },
             {
                 "key": "country",
+                "label": _("Country"),
                 "options": tuple(self._country_filter_option(country) for country in countries),
                 "expanded": False,
             },
         )
-        context["project_filter_data"] = tuple(
+        context["project_filter_data"] = [
             {
                 "id": str(page.id),
                 "filters": {
@@ -144,6 +149,6 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
                 },
             }
             for page in featured
-        )
+        ]
 
         return context

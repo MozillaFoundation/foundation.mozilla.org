@@ -8,30 +8,19 @@
  * @module galleryHubFilterPanel
  */
 
-import { GALLERY_HUB_SELECTORS, GALLERY_HUB_VIEW_MODES } from "./config";
 import {
+  GALLERY_HUB_MODAL_IDS,
+  GALLERY_HUB_SELECTORS,
+  GALLERY_HUB_VIEW_MODES,
+} from "./config";
+import {
+  cloneFilters,
   getGalleryHubState,
   setGalleryHubState,
   subscribeGalleryHubState,
 } from "./state";
 
-const FILTER_MODAL_ID = "filter";
 const PROJECT_FILTER_DATA_ID = "gallery-hub-project-filter-data";
-
-/**
- * Clone active filter arrays.
- *
- * @param {Object<string, string[]>} filters - Filter state to clone.
- * @returns {Object<string, string[]>}
- */
-function cloneFilters(filters) {
-  return Object.fromEntries(
-    Object.entries(filters).map(([key, values]) => [
-      key,
-      Array.isArray(values) ? [...values] : values,
-    ]),
-  );
-}
 
 /**
  * Normalize filters by removing empty categories and duplicate values.
@@ -289,7 +278,7 @@ export function initGalleryHubFilterPanel() {
   });
 
   subscribeGalleryHubState((state) => {
-    const isFilterOpen = state.modalOpen === FILTER_MODAL_ID;
+    const isFilterOpen = state.modalOpen === GALLERY_HUB_MODAL_IDS.filter;
 
     if (isFilterOpen && !wasFilterOpen) {
       draftFilters = cloneFilters(state.activeFilters);
@@ -300,7 +289,7 @@ export function initGalleryHubFilterPanel() {
   });
 
   if (Object.keys(draftFilters).length) {
-    commitFilters(draftFilters, false);
+    commitFilters(draftFilters, false, true);
   }
 
   syncPanel();

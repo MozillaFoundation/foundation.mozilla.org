@@ -89,6 +89,16 @@ export const GALLERY_HUB_VIEW_MODES = {
 };
 
 /**
+ * Gallery Hub modal ids used by template data attributes and JS state.
+ *
+ * @type {{projectList: string, filter: string}}
+ */
+export const GALLERY_HUB_MODAL_IDS = {
+  projectList: "project-list",
+  filter: "filter",
+};
+
+/**
  * CSS custom property updated with the available viewport height.
  *
  * @type {string}

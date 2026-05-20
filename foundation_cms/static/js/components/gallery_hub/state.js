@@ -37,7 +37,7 @@ let state = { ...DEFAULT_STATE };
  * @param {Object<string, *>} filters - Filter state to clone.
  * @returns {Object<string, *>}
  */
-function cloneFilters(filters) {
+export function cloneFilters(filters) {
   return Object.fromEntries(
     Object.entries(filters).map(([key, value]) => [
       key,

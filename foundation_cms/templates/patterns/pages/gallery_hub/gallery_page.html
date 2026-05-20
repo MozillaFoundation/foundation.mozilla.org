@@ -226,15 +226,7 @@
                                                     aria-controls="gallery-hub-filter-{{ category.key }}-options"
                                                     data-gallery-hub-filter-category-toggle>
                                                 <span>
-                                                    {% if category.key == "topic" %}
-                                                        {% trans "Topic" %}
-                                                    {% elif category.key == "program" %}
-                                                        {% trans "Program" %}
-                                                    {% elif category.key == "year" %}
-                                                        {% trans "Year" %}
-                                                    {% elif category.key == "country" %}
-                                                        {% trans "Country" %}
-                                                    {% endif %}
+                                                    {{ category.label }}
                                                 </span>
                                                 <span class="gallery-hub-filter__category-icon" aria-hidden="true"></span>
                                             </button>

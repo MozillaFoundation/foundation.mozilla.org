@@ -9,9 +9,11 @@
 
 import {
   GALLERY_HUB_CLASSES,
+  GALLERY_HUB_MODAL_IDS,
   GALLERY_HUB_SELECTORS,
   GALLERY_HUB_VIEW_MODES,
 } from "./config";
+import { EVENTS as PRIMARY_NAV_EVENTS } from "../primary_nav/config.js";
 import {
   getGalleryHubState,
   setGalleryHubState,
@@ -27,7 +29,7 @@ const FOCUSABLE_SELECTOR = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
-const ANIMATED_MODAL_IDS = new Set(["project-list", "filter"]);
+const ANIMATED_MODAL_IDS = new Set(Object.values(GALLERY_HUB_MODAL_IDS));
 const MODAL_CLOSE_FALLBACK_MS = 360;
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
@@ -67,7 +69,7 @@ function cancelModalCloseTimer(modal) {
  * @returns {?HTMLElement} Element expected to emit the final animationend.
  */
 function getModalAnimationTarget(modal) {
-  if (modal.dataset.galleryHubModal === "project-list") {
+  if (modal.dataset.galleryHubModal === GALLERY_HUB_MODAL_IDS.projectList) {
     return modal.querySelector(".gallery-hub-modal__body");
   }
 
@@ -92,6 +94,7 @@ function hideModalAfterAnimation(modal, modalLayer) {
 
   const finish = () => {
     cancelModalCloseTimer(modal);
+    animationTarget.removeEventListener("animationend", onAnimationEnd);
     modal.hidden = true;
     modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
 
@@ -106,15 +109,13 @@ function hideModalAfterAnimation(modal, modalLayer) {
 
   modalCloseTimers.set(modal, timer);
 
-  animationTarget.addEventListener(
-    "animationend",
-    (event) => {
-      if (event.target !== animationTarget) return;
+  const onAnimationEnd = (event) => {
+    if (event.target !== animationTarget) return;
 
-      finish();
-    },
-    { once: true },
-  );
+    finish();
+  };
+
+  animationTarget.addEventListener("animationend", onAnimationEnd);
 }
 
 /**
@@ -350,6 +351,16 @@ export function initGalleryHubOverlay() {
       setGalleryHubState({ modalOpen: null });
     });
   });
+
+  [PRIMARY_NAV_EVENTS.primaryNavWillOpen, PRIMARY_NAV_EVENTS.searchWillOpen].forEach(
+    (eventName) => {
+      document.addEventListener(eventName, () => {
+        if (!getGalleryHubState().modalOpen) return;
+
+        setGalleryHubState({ modalOpen: null });
+      });
+    },
+  );
 
   document.addEventListener("keydown", (event) => {
     const state = getGalleryHubState();
