@@ -30,7 +30,7 @@ body.template-expert-profile-page {
 
     &__title {
       @include mofo-text-style($header-styles, "h1", $header-font-family);
-      
+
       margin-top: 0;
       margin-bottom: rem-calc(24);
       margin-inline: auto;
