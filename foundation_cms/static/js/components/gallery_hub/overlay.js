@@ -71,6 +71,9 @@ function closePrimaryNavDropdowns() {
  */
 function closePrimaryNavOverlays() {
   closePrimaryNavDropdowns();
+
+  if (getGalleryHubState().modalOpen) return;
+
   document.dispatchEvent(
     new CustomEvent(PRIMARY_NAV_EVENTS.primaryNavWillOpen),
   );
