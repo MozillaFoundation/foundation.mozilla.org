@@ -1,0 +1,107 @@
+.gallery-hub--project-view {
+  .gallery-hub__edge-image {
+    width: $gallery-project-edge-image-size;
+  }
+
+  .gallery-hub__edge-image--slot-1 {
+    z-index: 6;
+    transform: translate(
+        calc(-50% - 47.8vw - #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-top})
+      )
+      rotate(-5deg);
+  }
+
+  .gallery-hub__edge-image--slot-2 {
+    z-index: 4;
+    transform: translate(
+        calc(-50% - 44.6vw - #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-middle})
+      )
+      rotate(2deg);
+  }
+
+  .gallery-hub__edge-image--slot-3 {
+    z-index: 5;
+    transform: translate(
+        calc(-50% - 46.6vw - #{$gallery-project-edge-inline-offset}),
+        calc(-50% + #{$gallery-project-edge-offset-bottom})
+      )
+      rotate(-8deg);
+  }
+
+  .gallery-hub__edge-image--slot-4 {
+    z-index: 6;
+    transform: translate(
+        calc(-50% + 47.8vw + #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-top})
+      )
+      rotate(-4deg);
+  }
+
+  .gallery-hub__edge-image--slot-5 {
+    z-index: 6;
+    transform: translate(
+        calc(-50% + 44.2vw + #{$gallery-project-edge-inline-offset}),
+        calc(-50% - #{$gallery-project-edge-offset-middle})
+      )
+      rotate(-7deg);
+  }
+
+  .gallery-hub__edge-image--slot-6 {
+    z-index: 3;
+    transform: translate(
+        calc(-50% + 47vw + #{$gallery-project-edge-inline-offset}),
+        calc(-50% + #{$gallery-project-edge-offset-bottom})
+      )
+      rotate(4deg) scale(1.2);
+  }
+
+  .gallery-hub__intro {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -64%) scale(0.92);
+  }
+
+  .gallery-hub__intro-image {
+    opacity: 0;
+  }
+
+  .gallery-hub__mobile-collage {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  .gallery-hub__decor-item--intro-tape {
+    opacity: 0;
+  }
+
+  .gallery-hub__controls {
+    opacity: 1;
+    pointer-events: none;
+    transform: translateY(0);
+  }
+
+  .gallery-hub__decor-item--scribble-left {
+    opacity: 0.78;
+    transform: translate(-46%, -18%) rotate(-90deg) scale(0.82);
+  }
+
+  .gallery-hub__edge-image--slot-6 .gallery-hub__edge-scribble {
+    opacity: 0.78;
+    transform: rotate(-90deg);
+  }
+
+  @include breakpoint(medium down) {
+    .gallery-hub__project-markers {
+      display: flex;
+    }
+
+    .gallery-hub__edge-media,
+    .gallery-hub__intro-media,
+    .gallery-hub__mobile-collage,
+    .gallery-hub__decor-item--scribble {
+      display: none;
+    }
+  }
+}
