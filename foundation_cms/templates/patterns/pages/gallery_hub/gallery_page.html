@@ -90,41 +90,43 @@
             {% endif %}
 
             <div class="gallery-hub__controls" role="group" aria-label="{% trans "Gallery controls" %}">
-                <div class="gallery-hub__controls-grid">
-                    <div class="gallery-hub__controls-cell">
-                        <button class="gallery-hub__nav gallery-hub__nav--previous"
-                                type="button"
-                                data-gallery-hub-previous
-                                aria-label="{% trans "Previous project" %}"
-                                {% if featured_projects|length <= 1 %}hidden{% endif %}>
-                            <span class="gallery-hub__nav-icon" aria-hidden="true"></span>
-                            <span class="gallery-hub__nav-label">{% trans "Previous Project" %}</span>
-                        </button>
-                        <button class="gallery-hub__nav gallery-hub__nav--next"
-                                type="button"
-                                data-gallery-hub-next
-                                aria-label="{% trans "Next project" %}"
-                                {% if featured_projects|length <= 1 %}hidden{% endif %}>
-                            <span class="gallery-hub__nav-icon" aria-hidden="true"></span>
-                            <span class="gallery-hub__nav-label">{% trans "Next Project" %}</span>
-                        </button>
+                <div class="gallery-hub__controls-grid grid-container">
+                    <div class="gallery-hub__controls-row grid-x">
+                        <div class="gallery-hub__controls-cell cell small-12">
+                            <button class="gallery-hub__nav gallery-hub__nav--previous"
+                                    type="button"
+                                    data-gallery-hub-previous
+                                    aria-label="{% trans "Previous project" %}"
+                                    {% if featured_projects|length <= 1 %}hidden{% endif %}>
+                                <span class="gallery-hub__nav-icon" aria-hidden="true"></span>
+                                <span class="gallery-hub__nav-label">{% trans "Previous Project" %}</span>
+                            </button>
+                            <button class="gallery-hub__nav gallery-hub__nav--next"
+                                    type="button"
+                                    data-gallery-hub-next
+                                    aria-label="{% trans "Next project" %}"
+                                    {% if featured_projects|length <= 1 %}hidden{% endif %}>
+                                <span class="gallery-hub__nav-icon" aria-hidden="true"></span>
+                                <span class="gallery-hub__nav-label">{% trans "Next Project" %}</span>
+                            </button>
 
-                        <button class="gallery-hub__toggle"
-                                type="button"
-                                data-gallery-hub-modal-toggle="project-list"
-                                data-gallery-hub-toggle-label="{% trans "Project List" %}"
-                                aria-expanded="false"
-                                aria-controls="gallery-hub-project-list-modal">
-                            {% trans "Project List" %} (1/{{ featured_projects|length }})
-                        </button>
-                        <button class="gallery-hub__toggle"
-                                type="button"
-                                data-gallery-hub-modal-toggle="filter"
-                                data-gallery-hub-toggle-label="{% trans "Filter" %}"
-                                aria-expanded="false"
-                                aria-controls="gallery-hub-filter-modal">
-                            {% trans "Filter" %} (0)
-                        </button>
+                            <button class="gallery-hub__toggle"
+                                    type="button"
+                                    data-gallery-hub-modal-toggle="project-list"
+                                    data-gallery-hub-toggle-label="{% trans "Project List" %}"
+                                    aria-expanded="false"
+                                    aria-controls="gallery-hub-project-list-modal">
+                                {% trans "Project List" %} (1/{{ featured_projects|length }})
+                            </button>
+                            <button class="gallery-hub__toggle"
+                                    type="button"
+                                    data-gallery-hub-modal-toggle="filter"
+                                    data-gallery-hub-toggle-label="{% trans "Filter" %}"
+                                    aria-expanded="false"
+                                    aria-controls="gallery-hub-filter-modal">
+                                {% trans "Filter" %} (0)
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
