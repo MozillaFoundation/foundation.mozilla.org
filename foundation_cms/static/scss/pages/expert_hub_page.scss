@@ -1,0 +1,521 @@
+@use "sass:map";
+@use "sass:list";
+@import "../redesign_base";
+
+$bubble-palette: (orange, blue, yellow);
+
+@mixin expert-hub-bubble-mask {
+  mask-image: url("/static/foundation_cms/_images/expert-hub/bubble-mask.svg");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+body.template-expert-hub-page {
+  .main-content-wrapper {
+    overflow-x: clip;
+    position: relative;
+
+    // $tops: (base, medium, large, xlarge) — offsets are mirrored for left/right
+    @mixin parallax-arrow($image, $side, $css-var, $tops) {
+      background-image: url($image);
+      width: rem-calc(160);
+      height: rem-calc(160);
+      #{$side}: rem-calc(-46);
+      top: list.nth($tops, 1);
+      transform: translateY(var(--#{$css-var}, 0));
+
+      @include breakpoint(medium up) {
+        width: 30vw;
+        height: 30vw;
+        #{$side}: rem-calc(-46);
+        top: list.nth($tops, 2);
+      }
+
+      @include breakpoint(large up) {
+        width: 18vw;
+        height: 18vw;
+        #{$side}: -5vw;
+        top: list.nth($tops, 3);
+      }
+
+      @include breakpoint(xlarge up) {
+        width: 18vw;
+        height: 18vw;
+        max-width: rem-calc(290);
+        max-height: rem-calc(290);
+        #{$side}: rem-calc(-75);
+        top: list.nth($tops, 4);
+      }
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+    }
+
+    &::before {
+      @include parallax-arrow(
+        "/static/foundation_cms/_images/expert-hub/loop-arrow-left.svg",
+        left,
+        parallax-y-left,
+        (43vh, 23vh, 48vh, rem-calc(500))
+      );
+    }
+
+    &::after {
+      @include parallax-arrow(
+        "/static/foundation_cms/_images/expert-hub/loop-arrow-right.svg",
+        right,
+        parallax-y-right,
+        (83vh, 58vh, 26vh, rem-calc(200))
+      );
+    }
+  }
+
+  .expert-hub-hero {
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+
+    &__copy {
+      margin-bottom: 2rem;
+
+      @include breakpoint(large up) {
+        max-width: 50%;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    &__body {
+      @include mofo-text-style($lede-text-styles, "regular", $body-font-family);
+
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* ── Base styles (all viewports) ─────────────────────────────────────────── */
+
+  @keyframes expert-hub-bubble-pop-in {
+    from {
+      scale: 0;
+      opacity: 0;
+    }
+
+    to {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+
+  .expert-hub-viz {
+    position: relative;
+
+    &__loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__bubble-list {
+      list-style: none;
+      padding: 0;
+      display: block;
+      overflow-y: hidden;
+
+      // Creates a containing block for absolutely positioned bubbles.
+      // Height is set by JS after the force sim resolves.
+      position: relative;
+    }
+
+    &--ready {
+      .expert-hub-viz__loading {
+        display: none;
+      }
+
+      .expert-hub-bubble {
+        visibility: visible;
+        animation: expert-hub-bubble-pop-in 0.5s
+          cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+      }
+    }
+  }
+
+  .expert-hub-bubble {
+    $palette-size: list.length($bubble-palette);
+
+    @for $i from 1 through $palette-size {
+      $name: list.nth($bubble-palette, $i);
+
+      &:nth-child(#{$palette-size}n + #{$i}) {
+        --bubble-color: #{color($name, "300")};
+        --bubble-color-light: #{color($name, "100")};
+      }
+    }
+
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transform-origin: 0 0;
+
+    &::after {
+      @include expert-hub-bubble-mask;
+
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--bubble-color);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    scale: 1;
+    visibility: hidden;
+
+    &__topic-pill {
+      @include topic-pill-button-shape;
+
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      margin-bottom: rem-calc(4);
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: color(orange, "100");
+
+      @include breakpoint(medium down) {
+        @include mofo-text-style($body-text-styles, "xsmall");
+      }
+    }
+
+    &__image {
+      @include expert-hub-bubble-mask;
+
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__name {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: rem-calc(4);
+      text-align: center;
+      max-width: 100%;
+      pointer-events: none;
+    }
+  }
+
+  /* ── Tap card overlay (all viewports) ────────────────────────────────────── */
+
+  @keyframes expert-hub-card-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .expert-hub-card {
+    $image-size: rem-calc(54);
+    $inner-padding: rem-calc(24);
+    $panel-gap: rem-calc(8);
+
+    position: fixed;
+    inset: 0;
+    height: 100vh; // fallback for iOS < 15.4
+    height: 100dvh; // fixes Safari dynamic toolbar clipping
+    display: flex;
+    align-items: flex-end;
+    padding: 0 $panel-gap rem-calc(46);
+    background: rgb(color(neutral, "100"), 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:not([hidden]) {
+      animation: expert-hub-card-fade-in 0.2s ease-out both;
+    }
+
+    &__panel {
+      width: 100%;
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateY(calc(-100% - #{$panel-gap}));
+    }
+
+    &__inner {
+      margin: 0 auto;
+      width: 100%;
+      max-width: rem-calc(480);
+      background: var(--bubble-color);
+      border-radius: rem-calc(8);
+      padding: $inner-padding;
+      position: relative;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__image {
+      @include expert-hub-bubble-mask;
+
+      width: $image-size;
+      height: $image-size;
+      object-fit: cover;
+      display: block;
+      margin-top: -(($image-size / 2) + $inner-padding);
+      margin-bottom: rem-calc(16);
+    }
+
+    &__blurb {
+      margin: 0 0 rem-calc(8);
+    }
+
+    &__name {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+      display: block;
+      margin-bottom: rem-calc(36);
+    }
+
+    &__link {
+      @include cta-link(map.get($cta-link-icon-sizes, regular), "regular");
+
+      align-self: flex-end;
+    }
+  }
+
+  /* ── Desktop: 1024px and up ──────────────────────────────────────────────── */
+
+  @include breakpoint(large up) {
+    .expert-hub-viz {
+      width: 100%;
+      height: calc(100dvh - #{$primary-nav-height});
+      min-height: rem-calc(800);
+      max-height: rem-calc(900);
+
+      &__bubble-list {
+        position: absolute;
+        inset: 0;
+        overflow-y: hidden;
+      }
+
+      &__lines-svg {
+        position: absolute;
+        inset: 0;
+        overflow: visible;
+        pointer-events: none;
+      }
+    }
+
+    .expert-hub-hero {
+      margin-top: 3rem;
+
+      &__copy {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+      }
+    }
+
+    .expert-hub-tooltip {
+      --tooltip-tail-width: 12px;
+      --tooltip-tail-height: calc(var(--tooltip-tail-width) * 2);
+
+      position: absolute;
+      z-index: 20;
+      background: var(--tooltip-color, white);
+      border-radius: rem-calc(4);
+      padding: rem-calc(18) rem-calc(24);
+      max-width: rem-calc(354);
+      pointer-events: none;
+
+      &__blurb {
+        margin: 0 0 rem-calc(8);
+        font-size: rem-calc(14);
+        line-height: 1.5;
+      }
+
+      &__name {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+        display: block;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: var(--tooltip-tail-right, var(--tooltip-tail-width));
+        border: var(--tooltip-tail-width) solid transparent;
+      }
+
+      &[data-tail="bottom"]::after {
+        bottom: calc(-1 * var(--tooltip-tail-height));
+        border-top: var(--tooltip-tail-height) solid var(--tooltip-color, white);
+        border-bottom: none;
+      }
+
+      &[data-tail="top"]::after {
+        top: calc(-1 * var(--tooltip-tail-height));
+        border-bottom: var(--tooltip-tail-height) solid
+          var(--tooltip-color, white);
+        border-top: none;
+      }
+    }
+
+    .expert-hub-bubble {
+      $pill-gap: rem-calc(8);
+
+      margin: 0;
+      transition: scale 0.2s ease;
+      z-index: 1;
+
+      // Transparent bridge covering the pill's margin gap so the bubble stays
+      // :hover as the cursor crosses from pill to bubble, preventing scale flicker.
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        height: $pill-gap;
+        pointer-events: auto;
+      }
+
+      &:hover {
+        scale: $image-hover-scale;
+        z-index: 10;
+      }
+
+      &__topic-pill {
+        margin-bottom: $pill-gap;
+      }
+
+      &__image {
+        pointer-events: none;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--overlay-color);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+        z-index: auto;
+      }
+
+      &--overlay-active::after {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .expert-hub-cta {
+    position: relative;
+    margin-top: rem-calc(104);
+    margin-bottom: rem-calc(65);
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: rem-calc(-55);
+      left: rem-calc(-36);
+      width: rem-calc(180);
+      height: rem-calc(180);
+      background-image: url("/static/foundation_cms/_images/expert-hub/yellow-tilted-square.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: bottom left;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: rem-calc(-120);
+      right: rem-calc(-52);
+      width: rem-calc(270);
+      height: rem-calc(270);
+      background-image: url("/static/foundation_cms/_images/expert-hub/orange-sunburst.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: top right;
+    }
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(72);
+      margin-bottom: rem-calc(105);
+
+      &::before {
+        left: rem-calc(-60);
+      }
+    }
+
+    &__inner {
+      position: relative;
+      z-index: 1;
+      background: color(neutral, "100");
+      border-radius: 0 rem-calc(48);
+      padding: rem-calc(40);
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(24) rem-calc(16);
+
+      @include breakpoint(large up) {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+      margin-top: 0;
+      margin-bottom: rem-calc(8);
+    }
+
+    &__body {
+      @include mofo-text-style($body-text-styles, "large");
+
+      margin-bottom: 0;
+    }
+
+    &__btn {
+      margin: 0;
+      align-self: flex-start;
+    }
+  }
+}
