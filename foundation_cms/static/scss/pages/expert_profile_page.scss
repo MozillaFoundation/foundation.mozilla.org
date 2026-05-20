@@ -1,15 +1,12 @@
-@use "sass:map";
-@use "sass:list";
+@use "sass:math";
 @import "../redesign_base";
 
-body {
-  .profile-page {
-    padding-top: rem-calc(64);
-    background-color: color(neutral, "100");
+body.template-expert-profile-page {
+  padding-top: rem-calc(64);
+  background-color: color(neutral, "100");
 
-    &__article {
-      overflow: hidden;
-    }
+  &__article {
+    overflow: hidden;
   }
 
   /* =========================
@@ -21,7 +18,6 @@ body {
     margin-bottom: rem-calc(80);
 
     &__intro {
-      max-width: rem-calc(900);
       margin: 0 auto;
     }
 
@@ -34,10 +30,8 @@ body {
 
     &__title {
       @include mofo-text-style($header-styles, "h1", $header-font-family);
-
       margin-top: 0;
       margin-bottom: rem-calc(24);
-      max-width: rem-calc(900);
       margin-inline: auto;
     }
 
@@ -75,7 +69,6 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: rem-calc(112);
-    max-width: rem-calc(1200);
     margin-inline: auto;
 
     &__bio {
@@ -140,8 +133,8 @@ body {
     &__image-wrapper {
       overflow: hidden;
       margin-bottom: rem-calc(16);
-      background: #f7e9ef;
-      aspect-ratio: 4 / 3;
+      background: color(neutral, "100");
+      aspect-ratio: math.div(4, 3);
       border-radius: rem-calc(2);
     }
 
@@ -165,7 +158,6 @@ body {
       margin-bottom: rem-calc(12);
 
       .topic-pill {
-        transform: scale(0.9);
         transform-origin: left center;
       }
     }

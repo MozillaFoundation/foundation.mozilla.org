@@ -1,47 +1,52 @@
 {% extends theme_base %}
 
+{% load static %}
 {% load static wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_profile_page.compiled.css' %}">
 {% endblock extra_css %}
 
+{% block body_class %}template-expert-profile-page{% endblock body_class %}
+
 {% block content %}
-    <main class="profile-page">
+    <main>
         <article class="profile-page__article">
             <div class="grid-container">
 
             <!-- Header -->
                 <section class="profile-hero">
-                    <div class="profile-hero__intro">
-                        {% if page.role %}
-                            <p class="profile-hero__eyebrow">{{ page.role }}</p>
-                        {% endif %}
-
-                        <h1 class="profile-hero__title">{{ page.title }}</h1>
-
-                        <div class="profile-hero__meta">
-                            {% if page.location %}
-                                <span>{{ page.location.name }}</span>
+                    <div class="grid-x align-center">
+                        <div class="profile-hero__intro cell small-12 medium-8">
+                            {% if page.role %}
+                                <p class="profile-hero__eyebrow">{{ page.role }}</p>
                             {% endif %}
 
-                            {% if page.affiliation %}
-                                <span>{{ page.affiliation }}</span>
-                            {% endif %}
+                            <h1 class="profile-hero__title">{{ page.title }}</h1>
+
+                            <div class="profile-hero__meta">
+                                {% if page.location %}
+                                    <span>{{ page.location.name }}</span>
+                                {% endif %}
+
+                                {% if page.affiliation %}
+                                    <span>{{ page.affiliation }}</span>
+                                {% endif %}
+                            </div>
+
+                            {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
                         </div>
-
-                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
-                    </div>
+                    </div>    
                 </section>
 
             <!-- Main Content -->
-                <section class="profile-content grid-x grid-margin-x align-middle align-center">
+                <section class="profile-content grid-x grid-margin-x">
 
                 <!-- Bio -->
                     <div class="cell small-12 medium-6 large-5">
                         {% if page.bio %}
                             <div class="profile-content__bio">
-                                {{ page.bio|safe }}
+                                {{ page.bio|richtext }}
                             </div>
                         {% endif %}
                     </div>
