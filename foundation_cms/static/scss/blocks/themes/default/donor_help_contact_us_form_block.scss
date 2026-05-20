@@ -114,11 +114,16 @@ $contact-form-column-gap: rem-calc(34);
 
     select {
       appearance: none;
-      background: url("/static/legacy_apps/_images/glyphs/down-chevron.svg")
-        no-repeat 99% center;
-      padding-right: 30px !important;
+      background: url("/static/foundation_cms/_images/icons/down-chevron.svg")
+        no-repeat right rem-calc(16) center;
+      padding-right: rem-calc(48) !important;
       white-space: normal;
       text-overflow: ellipsis;
+
+      @include breakpoint(large up) {
+        background-position: right rem-calc(24) center;
+        padding-right: rem-calc(56) !important;
+      }
 
       option {
         @media (width <= 576px) {
