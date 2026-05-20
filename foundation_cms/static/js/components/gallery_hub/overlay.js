@@ -352,15 +352,16 @@ export function initGalleryHubOverlay() {
     });
   });
 
-  [PRIMARY_NAV_EVENTS.primaryNavWillOpen, PRIMARY_NAV_EVENTS.searchWillOpen].forEach(
-    (eventName) => {
-      document.addEventListener(eventName, () => {
-        if (!getGalleryHubState().modalOpen) return;
+  [
+    PRIMARY_NAV_EVENTS.primaryNavWillOpen,
+    PRIMARY_NAV_EVENTS.searchWillOpen,
+  ].forEach((eventName) => {
+    document.addEventListener(eventName, () => {
+      if (!getGalleryHubState().modalOpen) return;
 
-        setGalleryHubState({ modalOpen: null });
-      });
-    },
-  );
+      setGalleryHubState({ modalOpen: null });
+    });
+  });
 
   document.addEventListener("keydown", (event) => {
     const state = getGalleryHubState();
