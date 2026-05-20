@@ -145,6 +145,11 @@
       background-color: $black;
     }
 
+    &:focus-visible {
+      outline: rem-calc(2) solid color(orange, "300");
+      outline-offset: rem-calc(3);
+    }
+
     @include breakpoint(medium down) {
       @include mofo-text-style($body-text-styles, "regular", $body-font-family);
 

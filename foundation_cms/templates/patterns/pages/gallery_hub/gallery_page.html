@@ -138,6 +138,7 @@
                          aria-modal="true"
                          aria-label="{% trans "Project List" %}"
                          data-gallery-hub-modal="project-list"
+                         tabindex="-1"
                          hidden>
                     <div class="gallery-hub-modal__scrim" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
@@ -154,7 +155,7 @@
                                                 data-project-id="{{ project.id }}">
                                             {% if project.hero_image %}
                                                 {% image project.hero_image fill-98x98 as list_img %}
-                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--slot-{{ forloop.counter }} {{ list_image_shape }}">
+                                                <span class="gallery-hub-project-list__image {{ list_image_shape }}">
                                                     <img src="{{ list_img.url }}"
                                                          alt=""
                                                          width="{{ list_img.width }}"
@@ -162,7 +163,7 @@
                                                          loading="lazy">
                                                 </span>
                                             {% else %}
-                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--fallback gallery-hub-project-list__image--slot-{{ forloop.counter }} {{ list_image_shape }}"></span>
+                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--fallback {{ list_image_shape }}"></span>
                                             {% endif %}
                                             <span class="gallery-hub-project-list__content">
                                                 <span class="gallery-hub-project-list__title">{{ project.title }}</span>
@@ -191,6 +192,7 @@
                          aria-modal="true"
                          aria-labelledby="gallery-hub-filter-title"
                          data-gallery-hub-modal="filter"
+                         tabindex="-1"
                          hidden>
                     <div class="gallery-hub-modal__scrim gallery-hub-modal__scrim--orange" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
