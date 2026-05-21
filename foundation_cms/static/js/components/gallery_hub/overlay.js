@@ -9,10 +9,15 @@
 
 import {
   GALLERY_HUB_CLASSES,
-  GALLERY_HUB_MODAL_CLOSE_DURATION,
+  GALLERY_HUB_MODAL_IDS,
   GALLERY_HUB_SELECTORS,
   GALLERY_HUB_VIEW_MODES,
 } from "./config";
+import {
+  CLASSNAMES as PRIMARY_NAV_CLASSNAMES,
+  EVENTS as PRIMARY_NAV_EVENTS,
+  SELECTORS as PRIMARY_NAV_SELECTORS,
+} from "../primary_nav/config.js";
 import {
   getGalleryHubState,
   setGalleryHubState,
@@ -28,8 +33,131 @@ const FOCUSABLE_SELECTOR = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(",");
 
+const ANIMATED_MODAL_IDS = new Set(Object.values(GALLERY_HUB_MODAL_IDS));
+const MODAL_CLOSE_FALLBACK_MS = 360;
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+);
+const modalCloseTimers = new WeakMap();
+
 let lastFocusedElement = null;
-let closeModalTimer = null;
+
+/**
+ * Close primary-nav dropdowns that may otherwise layer above gallery modals.
+ */
+function closePrimaryNavDropdowns() {
+  document
+    .querySelectorAll(
+      `${PRIMARY_NAV_SELECTORS.menuItem}.${PRIMARY_NAV_CLASSNAMES.open}`,
+    )
+    .forEach((menu) => {
+      const dropdown = menu.querySelector(PRIMARY_NAV_SELECTORS.dropdown);
+      const toggle = menu.querySelector(PRIMARY_NAV_SELECTORS.toggle);
+
+      menu.classList.remove(PRIMARY_NAV_CLASSNAMES.open);
+
+      if (dropdown) {
+        dropdown.style.maxHeight = null;
+        dropdown.setAttribute("aria-hidden", "true");
+        dropdown.setAttribute("inert", "");
+      }
+
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+}
+
+/**
+ * Close global nav/search UI before opening a gallery modal.
+ */
+function closePrimaryNavOverlays() {
+  closePrimaryNavDropdowns();
+
+  if (getGalleryHubState().modalOpen) return;
+
+  document.dispatchEvent(
+    new CustomEvent(PRIMARY_NAV_EVENTS.primaryNavWillOpen),
+  );
+}
+
+/**
+ * Return whether a modal should use the animation lifecycle.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @returns {boolean} Whether modal open/close should animate.
+ */
+function isAnimatedModal(modal) {
+  return ANIMATED_MODAL_IDS.has(modal.dataset.galleryHubModal);
+}
+
+/**
+ * Cancel any pending delayed hide for a modal.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ */
+function cancelModalCloseTimer(modal) {
+  const timer = modalCloseTimers.get(modal);
+
+  if (!timer) return;
+
+  window.clearTimeout(timer);
+  modalCloseTimers.delete(modal);
+}
+
+/**
+ * Return the element whose exit animation controls delayed hiding.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @returns {?HTMLElement} Element expected to emit the final animationend.
+ */
+function getModalAnimationTarget(modal) {
+  if (modal.dataset.galleryHubModal === GALLERY_HUB_MODAL_IDS.projectList) {
+    return modal.querySelector(".gallery-hub-modal__body");
+  }
+
+  return modal.querySelector(".gallery-hub-modal__panel");
+}
+
+/**
+ * Hide a modal after its closing animation completes.
+ *
+ * @param {HTMLElement} modal - Modal panel element.
+ * @param {?HTMLElement} modalLayer - Element that wraps modal panels.
+ */
+function hideModalAfterAnimation(modal, modalLayer) {
+  const animationTarget = getModalAnimationTarget(modal);
+
+  if (!animationTarget || prefersReducedMotion.matches) {
+    modal.hidden = true;
+    modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+    if (modalLayer) modalLayer.hidden = true;
+    return;
+  }
+
+  const finish = () => {
+    cancelModalCloseTimer(modal);
+    animationTarget.removeEventListener("animationend", onAnimationEnd);
+    modal.hidden = true;
+    modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+
+    if (
+      modalLayer &&
+      !modalLayer.querySelector(`${GALLERY_HUB_SELECTORS.modal}:not([hidden])`)
+    ) {
+      modalLayer.hidden = true;
+    }
+  };
+  const timer = window.setTimeout(finish, MODAL_CLOSE_FALLBACK_MS);
+
+  modalCloseTimers.set(modal, timer);
+
+  const onAnimationEnd = (event) => {
+    if (event.target !== animationTarget) return;
+
+    finish();
+  };
+
+  animationTarget.addEventListener("animationend", onAnimationEnd);
+}
 
 /**
  * Return the currently open modal panel.
@@ -75,12 +203,25 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
 
   modals.forEach((modal) => {
     const isOpen = modal.dataset.galleryHubModal === modalOpen;
+    const shouldAnimate = isAnimatedModal(modal);
 
-    modal.hidden = !isOpen;
+    cancelModalCloseTimer(modal);
 
     if (isOpen) {
+      modal.hidden = false;
       modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
+      return;
     }
+
+    if (shouldAnimate && !modal.hidden) {
+      modal.classList.add(GALLERY_HUB_CLASSES.modalClosing);
+      if (modalLayer) modalLayer.hidden = false;
+      hideModalAfterAnimation(modal, modalLayer);
+      return;
+    }
+
+    modal.hidden = true;
+    modal.classList.remove(GALLERY_HUB_CLASSES.modalClosing);
   });
 
   toggles.forEach((toggle) => {
@@ -91,7 +232,7 @@ function syncModal(root, modalLayer, modals, toggles, modalOpen) {
 }
 
 /**
- * Close the active modal after its exit animation completes.
+ * Close the active modal through the shared animation lifecycle.
  *
  * @param {HTMLElement[]} modals - Modal panel elements.
  */
@@ -106,18 +247,7 @@ function closeOpenModal(modals) {
 
   if (modal.classList.contains(GALLERY_HUB_CLASSES.modalClosing)) return;
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    setGalleryHubState({ modalOpen: null });
-    return;
-  }
-
-  window.clearTimeout(closeModalTimer);
-  modal.classList.add(GALLERY_HUB_CLASSES.modalClosing);
-
-  closeModalTimer = window.setTimeout(() => {
-    setGalleryHubState({ modalOpen: null });
-    closeModalTimer = null;
-  }, GALLERY_HUB_MODAL_CLOSE_DURATION);
+  setGalleryHubState({ modalOpen: null });
 }
 
 /**
@@ -275,7 +405,9 @@ export function initGalleryHubOverlay() {
         return;
       }
 
-      window.clearTimeout(closeModalTimer);
+      if (state.modalOpen !== modal) {
+        closePrimaryNavOverlays();
+      }
 
       setGalleryHubState({
         modalOpen: modal,
@@ -285,6 +417,19 @@ export function initGalleryHubOverlay() {
 
   root.querySelectorAll(GALLERY_HUB_SELECTORS.modalClose).forEach((close) => {
     close.addEventListener("click", () => {
+      closeOpenModal(modals);
+    });
+  });
+
+  [
+    PRIMARY_NAV_EVENTS.primaryNavWillOpen,
+    PRIMARY_NAV_EVENTS.searchWillOpen,
+  ].forEach((eventName) => {
+    document.addEventListener(eventName, () => {
+      closePrimaryNavDropdowns();
+
+      if (!getGalleryHubState().modalOpen) return;
+
       closeOpenModal(modals);
     });
   });
@@ -311,9 +456,9 @@ export function initGalleryHubOverlay() {
 
       setGalleryHubState({
         activeIndex: projectIndex,
+        modalOpen: null,
         viewMode: GALLERY_HUB_VIEW_MODES.project,
       });
-      closeOpenModal(modals);
     });
   });
 }

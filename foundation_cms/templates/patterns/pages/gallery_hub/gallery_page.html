@@ -196,14 +196,81 @@
                          hidden>
                     <div class="gallery-hub-modal__scrim gallery-hub-modal__scrim--orange" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
-                        <h2 id="gallery-hub-filter-title" class="gallery-hub-modal__title">{% trans "Filter" %}</h2>
-                        <div class="gallery-hub-modal__body"
-                             data-gallery-hub-filter-slot
-                             data-gallery-hub-modal-scrollable></div>
-                        <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>{% trans "Close" %}</button>
+                        <div class="gallery-hub-filter" data-gallery-hub-filter-panel>
+                            <div class="gallery-hub-filter__header">
+                                <button class="gallery-hub-filter__reset"
+                                        type="button"
+                                        data-gallery-hub-filter-reset>
+                                    {% trans "Reset" %}
+                                </button>
+                                <h2 id="gallery-hub-filter-title" class="gallery-hub-filter__title">{% trans "Filter" %}</h2>
+                                <button class="gallery-hub-filter__close"
+                                        type="button"
+                                        data-gallery-hub-modal-close>
+                                    {% trans "Close" %}
+                                </button>
+                            </div>
+                            <div class="gallery-hub-modal__body gallery-hub-filter__body"
+                                 data-gallery-hub-filter-slot
+                                 data-gallery-hub-modal-scrollable>
+                                {% for category in filter_categories %}
+                                    {% if category.options %}
+                                        <section class="gallery-hub-filter__category"
+                                                 data-gallery-hub-filter-category="{{ category.key }}">
+                                            <button class="gallery-hub-filter__category-toggle"
+                                                    type="button"
+                                                    id="gallery-hub-filter-{{ category.key }}-toggle"
+                                                    aria-expanded="{% if category.expanded %}true{% else %}false{% endif %}"
+                                                    aria-controls="gallery-hub-filter-{{ category.key }}-options"
+                                                    data-gallery-hub-filter-category-toggle>
+                                                <span>
+                                                    {{ category.label }}
+                                                </span>
+                                                <span class="gallery-hub-filter__category-icon" aria-hidden="true"></span>
+                                            </button>
+                                            <div id="gallery-hub-filter-{{ category.key }}-options"
+                                                 class="gallery-hub-filter__options"
+                                                 data-gallery-hub-filter-options
+                                                 {% if not category.expanded %}hidden{% endif %}>
+                                                {% for option in category.options %}
+                                                    {% if category.key == "topic" %}
+                                                        <button class="gallery-hub-filter__chip"
+                                                                type="button"
+                                                                data-gallery-hub-filter-chip
+                                                                data-filter-category="{{ category.key }}"
+                                                                data-filter-value="{{ option.value }}"
+                                                                aria-pressed="false">
+                                                            {{ option.label }}
+                                                        </button>
+                                                    {% else %}
+                                                        <label class="gallery-hub-filter__checkbox-label">
+                                                            <input class="gallery-hub-filter__checkbox"
+                                                                   type="checkbox"
+                                                                   data-gallery-hub-filter-chip
+                                                                   data-filter-category="{{ category.key }}"
+                                                                   data-filter-value="{{ option.value }}">
+                                                            {{ option.label }}
+                                                        </label>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </section>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="gallery-hub-filter__footer">
+                                <button class="gallery-hub-filter__display"
+                                        type="button"
+                                        data-gallery-hub-filter-apply
+                                        data-gallery-hub-filter-apply-label="{% trans "Display results" %}">
+                                    {% blocktrans with count=featured_projects|length %}Display results ({{ count }}){% endblocktrans %}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
         </section>
+        {{ project_filter_data|json_script:"gallery-hub-project-filter-data" }}
     </main>
 {% endblock content %}

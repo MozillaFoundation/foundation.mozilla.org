@@ -29,6 +29,13 @@ export const GALLERY_HUB_SELECTORS = {
   projectListItemShell: "[data-gallery-hub-project-list-item-shell]",
   projectListSlot: "[data-gallery-hub-project-list-slot]",
   filterSlot: "[data-gallery-hub-filter-slot]",
+  filterPanel: "[data-gallery-hub-filter-panel]",
+  filterCategory: "[data-gallery-hub-filter-category]",
+  filterCategoryToggle: "[data-gallery-hub-filter-category-toggle]",
+  filterOptions: "[data-gallery-hub-filter-options]",
+  filterChip: "[data-gallery-hub-filter-chip]",
+  filterApply: "[data-gallery-hub-filter-apply]",
+  filterReset: "[data-gallery-hub-filter-reset]",
 };
 
 /**
@@ -79,6 +86,16 @@ export const GALLERY_HUB_SLIDESHOW_CLASSES = {
 export const GALLERY_HUB_VIEW_MODES = {
   intro: "intro",
   project: "project",
+};
+
+/**
+ * Gallery Hub modal ids used by template data attributes and JS state.
+ *
+ * @type {{projectList: string, filter: string}}
+ */
+export const GALLERY_HUB_MODAL_IDS = {
+  projectList: "project-list",
+  filter: "filter",
 };
 
 /**
