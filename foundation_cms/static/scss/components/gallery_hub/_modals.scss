@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:map";
+
 .gallery-hub-modal {
   position: absolute;
   inset: 0;
@@ -9,7 +12,8 @@
     backdrop-filter: blur(rem-calc(14));
 
     &--orange {
-      background-color: rgb(240 108 19 / 60%);
+      background-color: color.adjust(color(orange, "300"), $alpha: -0.4);
+      backdrop-filter: blur(rem-calc(25));
     }
   }
 
@@ -115,6 +119,89 @@
     }
   }
 
+  &--filter {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+
+    @include breakpoint(large up) {
+      position: fixed;
+      inset: var(--gallery-hub-viewport-offset, 0) 0 auto;
+      height: var(--gallery-hub-viewport-height, 100dvh);
+    }
+
+    .gallery-hub-modal__scrim {
+      display: none;
+
+      @include breakpoint(large up) {
+        display: block;
+        opacity: 0;
+      }
+    }
+
+    .gallery-hub-modal__panel {
+      inset: 0;
+      display: flex;
+      height: 100%;
+      min-height: 0;
+      width: 100%;
+      overflow: hidden;
+      padding: 0;
+      background-color: rgb(255 255 255 / 95%);
+      backdrop-filter: blur(rem-calc(4.44));
+
+      @include breakpoint(large up) {
+        inset: 0 0 0 auto;
+        width: rem-calc(360);
+        background-color: $white;
+        backdrop-filter: none;
+      }
+    }
+
+    .gallery-hub-modal__body {
+      min-height: 0;
+    }
+
+    &:not([hidden]) {
+      .gallery-hub-modal__scrim {
+        @include breakpoint(large up) {
+          animation: gallery-hub-filter-scrim-in
+            $gallery-filter-modal-scrim-enter-duration $gallery-easing both;
+        }
+      }
+
+      .gallery-hub-modal__panel {
+        @include breakpoint(large up) {
+          animation: gallery-hub-filter-panel-in
+            $gallery-filter-modal-enter-duration $gallery-easing both;
+        }
+      }
+    }
+
+    &.gallery-hub-modal--closing {
+      .gallery-hub-modal__scrim {
+        @include breakpoint(large up) {
+          animation: gallery-hub-filter-scrim-out
+            $gallery-filter-modal-scrim-exit-duration $gallery-easing both;
+        }
+      }
+
+      .gallery-hub-modal__panel {
+        @include breakpoint(large up) {
+          animation: gallery-hub-filter-panel-out
+            $gallery-filter-modal-exit-duration $gallery-easing both;
+        }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gallery-hub-modal__scrim,
+      .gallery-hub-modal__panel {
+        animation: none;
+      }
+    }
+  }
+
   &__title {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
 
@@ -209,6 +296,46 @@
   to {
     opacity: 0;
     transform: translateY(rem-calc(12));
+  }
+}
+
+@keyframes gallery-hub-filter-scrim-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gallery-hub-filter-scrim-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes gallery-hub-filter-panel-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes gallery-hub-filter-panel-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
   }
 }
 
