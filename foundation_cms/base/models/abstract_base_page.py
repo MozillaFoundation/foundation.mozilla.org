@@ -155,23 +155,23 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     search_fields = Page.search_fields + [
         index.SearchField("title", boost=10),
-        index.SearchField("seo_title", boost=8),
-        index.SearchField("search_description", boost=8),
-        index.SearchField("body", boost=5),
+        index.SearchField("seo_title", boost=10),
+        index.SearchField("search_description", boost=10),
+        index.SearchField("body", boost=8),
         # Locale filtering based on current locale ID
         index.FilterField("locale_id"),
         # Related fields searching
         index.RelatedFields(
             "author",
             [
-                index.SearchField("name", boost=4),
+                index.SearchField("name", boost=5),
                 index.SearchField("bio", boost=2),
             ],
         ),
         index.RelatedFields(
             "topics",
             [
-                index.SearchField("name", boost=4),
+                index.SearchField("name", boost=5),
                 index.SearchField("description", boost=2),
             ],
         ),
