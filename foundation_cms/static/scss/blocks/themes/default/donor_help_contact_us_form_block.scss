@@ -83,29 +83,104 @@ $contact-form-column-gap: rem-calc(34);
       border: 1px solid color(neutral, "600") !important;
     }
 
+    // Safari ignores ::file-selector-button styling, so we hide the native
+    // button entirely and render a styled "Choose file" button via the
+    // existing field-instruction label's ::after pseudo-element. The label
+    // already has for="tfa_214", so clicks on ::after bubble up and open
+    // the file picker natively — no JS required.
     input[type="file"] {
+      border: 0 !important;
       padding: 0 !important;
       height: auto !important;
+      width: auto !important;
+      // Match the button's full box height (padding 14.4 × 2 + line-height 24 + border 2 ≈ 54.8px).
+      // Setting line-height to the same value vertically centers the native filename text,
+      // since flex/align-items can't position native input text content reliably.
+      min-height: rem-calc(54.8) !important;
+      line-height: rem-calc(54.8) !important;
+      font-family: $body-font-family !important;
+      font-size: rem-calc(16) !important;
+      color: color(neutral, "500") !important;
 
+      // Collapse the native button to zero size but keep it rendered, so
+      // the filename text portion of the input still appears. Using
+      // `display: none` here causes some browsers to drop the rest of
+      // the input's visible content.
+      &::-webkit-file-upload-button,
       &::file-selector-button {
-        transition:
-          color 0.15s ease-in-out,
-          background-color 0.15s ease-in-out;
-        font-family: $body-font-family !important;
-        font-size: rem-calc(16);
-        font-style: normal;
-        font-weight: 700;
-        line-height: 1.5;
-        background-color: transparent;
-        border: 1px solid color(neutral, "400");
-        width: auto;
-        padding: rem-calc(14.4) rem-calc(24);
+        visibility: hidden !important;
+        width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+      }
+    }
 
-        &:hover {
-          background-color: color(neutral, "200");
-          cursor: pointer;
+    // Custom layout for the file upload field:
+    //   Row 1: "Add a screenshot…" instruction (the label text)
+    //   Row 2: [Choose file] button + filename text
+    // The button is rendered via #tfa_214-L::after (absolutely positioned
+    // so the label text above stays on its own line). .inputWrapper gets
+    // left padding to clear the button's reserved width.
+    #tfa_214-D {
+      $file-button-width: rem-calc(150);
+      $file-button-gap: rem-calc(12);
+
+      > br {
+        display: none;
+      }
+
+      > .inputWrapper {
+        margin-top: rem-calc(8);
+        padding-left: $file-button-width + $file-button-gap;
+        min-height: rem-calc(50);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        > .field-hint-inactive {
+          flex-basis: 100%;
+          margin-top: rem-calc(8);
+          margin-left: -($file-button-width + $file-button-gap);
         }
       }
+
+      #tfa_214-L {
+        position: relative;
+        display: block;
+
+        &::after {
+          content: "Choose file";
+          position: absolute;
+          z-index: 1; // sit above .inputWrapper's padding-left area so hover and cursor reach the button
+          top: 100%;
+          left: 0;
+          margin-top: rem-calc(8);
+          box-sizing: border-box;
+          width: $file-button-width;
+          padding: rem-calc(14.4) rem-calc(24);
+          border: 1px solid color(neutral, "400");
+          background-color: transparent;
+          color: color(neutral, "600");
+          font-family: $body-font-family;
+          font-size: rem-calc(16);
+          font-weight: 700;
+          line-height: 1.5;
+          text-align: center;
+          cursor: pointer;
+          transition: background-color 0.15s ease-in-out;
+        }
+
+        &:hover::after {
+          background-color: color(neutral, "200");
+        }
+      }
+    }
+
+    input:is([type="button"], [type="submit"], [type="reset"]),
+    button {
+      appearance: none !important;
+      -webkit-appearance: none !important;
     }
 
     textarea {
