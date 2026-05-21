@@ -136,14 +136,53 @@
                          class="gallery-hub-modal gallery-hub-modal--project-list"
                          role="dialog"
                          aria-modal="true"
-                         aria-labelledby="gallery-hub-project-list-title"
+                         aria-label="{% trans "Project List" %}"
                          data-gallery-hub-modal="project-list"
+                         tabindex="-1"
                          hidden>
                     <div class="gallery-hub-modal__scrim" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
-                        <h2 id="gallery-hub-project-list-title" class="gallery-hub-modal__title">{% trans "Project List" %}</h2>
-                        <div class="gallery-hub-modal__body" data-gallery-hub-project-list-slot></div>
-                        <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>{% trans "Close" %}</button>
+                        <div class="gallery-hub-modal__body"
+                             data-gallery-hub-project-list-slot
+                             data-gallery-hub-modal-scrollable>
+                            <ul class="gallery-hub-project-list" aria-label="{% trans "Projects" %}">
+                                {% for project in featured_projects %}
+                                    {% cycle 'gallery-hub-project-list__image--shape-3' 'gallery-hub-project-list__image--shape-1' 'gallery-hub-project-list__image--shape-7' 'gallery-hub-project-list__image--shape-4' 'gallery-hub-project-list__image--shape-6' 'gallery-hub-project-list__image--shape-8' as list_image_shape silent %}
+                                    <li class="gallery-hub-project-list__item" data-gallery-hub-project-list-item-shell>
+                                        <button class="gallery-hub-project-list__button"
+                                                type="button"
+                                                data-gallery-hub-project-list-item
+                                                data-project-id="{{ project.id }}">
+                                            {% if project.hero_image %}
+                                                {% image project.hero_image fill-98x98 as list_img %}
+                                                <span class="gallery-hub-project-list__image {{ list_image_shape }}">
+                                                    <img src="{{ list_img.url }}"
+                                                         alt=""
+                                                         width="{{ list_img.width }}"
+                                                         height="{{ list_img.height }}"
+                                                         loading="lazy">
+                                                </span>
+                                            {% else %}
+                                                <span class="gallery-hub-project-list__image gallery-hub-project-list__image--fallback {{ list_image_shape }}"></span>
+                                            {% endif %}
+                                            <span class="gallery-hub-project-list__content">
+                                                <span class="gallery-hub-project-list__title">{{ project.title }}</span>
+                                                {% if project.expert %}
+                                                    <span class="gallery-hub-project-list__author">{{ project.expert.title }}</span>
+                                                {% endif %}
+                                            </span>
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <p class="gallery-hub-project-list__empty" data-gallery-hub-project-list-empty hidden>
+                                {% trans "No projects match the current filters." %}
+                            </p>
+                        </div>
+                        <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>
+                            <span>{% trans "Close" %}</span>
+                            <span class="gallery-hub-modal__close-icon" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </section>
 
@@ -153,11 +192,14 @@
                          aria-modal="true"
                          aria-labelledby="gallery-hub-filter-title"
                          data-gallery-hub-modal="filter"
+                         tabindex="-1"
                          hidden>
                     <div class="gallery-hub-modal__scrim gallery-hub-modal__scrim--orange" data-gallery-hub-modal-close></div>
                     <div class="gallery-hub-modal__panel">
                         <h2 id="gallery-hub-filter-title" class="gallery-hub-modal__title">{% trans "Filter" %}</h2>
-                        <div class="gallery-hub-modal__body" data-gallery-hub-filter-slot></div>
+                        <div class="gallery-hub-modal__body"
+                             data-gallery-hub-filter-slot
+                             data-gallery-hub-modal-scrollable></div>
                         <button class="gallery-hub-modal__close" type="button" data-gallery-hub-modal-close>{% trans "Close" %}</button>
                     </div>
                 </section>
