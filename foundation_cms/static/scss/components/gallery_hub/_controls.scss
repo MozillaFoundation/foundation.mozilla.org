@@ -159,11 +159,11 @@
     }
 
     &__toggle[data-gallery-hub-modal-toggle="project-list"] {
-      left: rem-calc(20);
+      left: 0;
     }
 
     &__toggle[data-gallery-hub-modal-toggle="filter"] {
-      right: rem-calc(20);
+      right: 0;
     }
 
     @media (height <= $gallery-project-mobile-compact-height) {
@@ -184,7 +184,7 @@
   }
 
   &__modal-layer {
-    position: fixed;
+    position: absolute;
     inset: 0;
     z-index: 20;
   }

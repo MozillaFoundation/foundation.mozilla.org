@@ -111,6 +111,10 @@ function syncViewMode(root, viewMode) {
 
   root.classList.toggle(GALLERY_HUB_CLASSES.intro, !isProjectView);
   root.classList.toggle(GALLERY_HUB_CLASSES.projectView, isProjectView);
+
+  if (isProjectView) {
+    root.classList.remove(GALLERY_HUB_CLASSES.introEntering);
+  }
 }
 
 /**
@@ -171,6 +175,19 @@ function setPageScrollLock(isLocked) {
 function isPageScrollLocked() {
   return document.documentElement.classList.contains(
     GALLERY_HUB_SCROLL_LOCK_CLASS,
+  );
+}
+
+/**
+ * Check whether an input event belongs to a scrollable modal region.
+ *
+ * @param {Event} event - Browser input event.
+ * @returns {boolean}
+ */
+function isModalScrollTarget(event) {
+  return (
+    event.target instanceof Element &&
+    Boolean(event.target.closest(GALLERY_HUB_SELECTORS.modalScrollable))
   );
 }
 
@@ -630,6 +647,8 @@ export function initGalleryHubProjectCarousel() {
     if (Math.abs(event.deltaY) < GALLERY_HUB_SCROLL_THRESHOLD) return;
 
     if (getGalleryHubState().modalOpen) {
+      if (isModalScrollTarget(event)) return;
+
       event.preventDefault();
       return;
     }
@@ -699,6 +718,8 @@ export function initGalleryHubProjectCarousel() {
 
       if (!isProjectTouchGesture(deltaX, deltaY)) return;
       if (getGalleryHubState().modalOpen) {
+        if (isModalScrollTarget(event)) return;
+
         event.preventDefault();
         return;
       }
@@ -773,6 +794,8 @@ export function initGalleryHubProjectCarousel() {
     const delta = event.key.endsWith("Down") ? 1 : -1;
 
     if (getGalleryHubState().modalOpen) {
+      if (isModalScrollTarget(event)) return;
+
       event.preventDefault();
       return;
     }
