@@ -172,14 +172,21 @@ function initPrimaryNavDropdown(dropdownEl) {
     toggleEl: toggle,
   });
 
+  const openDropdown = () => {
+    if (dropdownController.isOpen()) return;
+
+    closeAllOpenDropdownsExcept(menu);
+    document.dispatchEvent(new CustomEvent(EVENTS.primaryNavWillOpen));
+    dropdownController.open();
+  };
+
   const toggleDropdown = () => {
     if (dropdownController.isOpen()) {
       dropdownController.close();
       return;
     }
 
-    closeAllOpenDropdownsExcept(menu);
-    dropdownController.open();
+    openDropdown();
   };
 
   toggle.addEventListener("click", () => {
@@ -200,7 +207,7 @@ function initPrimaryNavDropdown(dropdownEl) {
     if (window.innerWidth < DESKTOP_BREAKPOINT) return;
     clearTimeout(hideTimeout);
     showTimeout = setTimeout(() => {
-      dropdownController.open();
+      openDropdown();
     }, DROPDOWN_DELAY);
   });
 

@@ -8,9 +8,11 @@
  */
 
 import { initGalleryHubOverlay } from "../../components/gallery_hub/overlay";
+import { initGalleryHubFilterPanel } from "../../components/gallery_hub/filter_panel";
 import { initGalleryHubProjectCarousel } from "../../components/gallery_hub/project_carousel";
 import { initGalleryHubSlideshows } from "../../components/gallery_hub/slideshow";
 
 initGalleryHubProjectCarousel();
+initGalleryHubFilterPanel();
 initGalleryHubOverlay();
 initGalleryHubSlideshows();
