@@ -16,6 +16,12 @@ from foundation_cms.mixins.hero_media import HeroMediaMixin
 
 class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
+    show_hero = models.BooleanField(
+        default=True,
+        verbose_name="Show Hero Section",
+        help_text="Check to display the hero section on this page.",
+    )
+
     hero_description = models.CharField(
         max_length=120,
         help_text="Hero Description",
@@ -43,12 +49,6 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         help_text="Select the color of the hero background, only for 'Top to Bottom' variant.",
     )
 
-    show_hero = models.BooleanField(
-        default=True,
-        verbose_name="Show Hero Section",
-        help_text="Check to display the hero section on this page.",
-    )
-
     hero_media_rounded_corners = models.BooleanField(
         default=True,
         verbose_name="Hero Media Rounded Corners",
@@ -59,19 +59,19 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         ),
     )
 
-    body = StreamField(
-        general_page_block_options,
-        block_counts={"donor_help_contact_us_form": {"max_num": 1}},
-        use_json_field=True,
-        blank=True,
-    )
-
     hero_cta_link = StreamField(
         [("button", LinkBlock())],
         use_json_field=True,
         blank=True,
         max_num=1,
         verbose_name="Button",
+    )
+
+    body = StreamField(
+        general_page_block_options,
+        block_counts={"donor_help_contact_us_form": {"max_num": 1}},
+        use_json_field=True,
+        blank=True,
     )
 
     content_panels = [
