@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name="displayed_hero_content",
             field=models.CharField(
                 blank=True,
-                choices=[("image", "Image"), ("video", "Video")],
+                choices=[("", "No media"), ("image", "Image"), ("video", "Video")],
                 default="",
                 max_length=25,
                 verbose_name="Select media type from dropdown",
