@@ -1,6 +1,10 @@
+import logging
+
 from wagtail.signals import page_published, page_unpublished
 
 from .utils import get_search_backend_for_locale
+
+logger = logging.getLogger(__name__)
 
 
 def _locale_code(page):
@@ -11,13 +15,19 @@ def _locale_code(page):
 
 
 def _index_page(page):
-    backend, _ = get_search_backend_for_locale(_locale_code(page))
-    backend.add(page)
+    try:
+        backend, _ = get_search_backend_for_locale(_locale_code(page))
+        backend.add(page)
+    except Exception:
+        logger.exception("Failed to index page pk=%s", page.pk)
 
 
 def _deindex_page(page):
-    backend, _ = get_search_backend_for_locale(_locale_code(page))
-    backend.delete(page)
+    try:
+        backend, _ = get_search_backend_for_locale(_locale_code(page))
+        backend.delete(page)
+    except Exception:
+        logger.exception("Failed to deindex page pk=%s", page.pk)
 
 
 def _handle_publish(sender, instance, **kwargs):
