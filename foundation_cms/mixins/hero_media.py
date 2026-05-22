@@ -16,6 +16,7 @@ class HeroMediaMixin(HeroImageMixin):
         max_length=25,
         blank=True,
         choices=[
+            ("", "No media"),
             (HERO_CONTENT_IMAGE, "Image"),
             (HERO_CONTENT_VIDEO, "Video"),
         ],
