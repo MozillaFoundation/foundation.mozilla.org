@@ -22,10 +22,20 @@ export const GALLERY_HUB_SELECTORS = {
   projectMarker: "[data-gallery-hub-project-marker]",
   modalLayer: "[data-gallery-hub-modal-layer]",
   modal: "[data-gallery-hub-modal]",
+  modalScrollable: "[data-gallery-hub-modal-scrollable]",
   modalToggle: "[data-gallery-hub-modal-toggle]",
   modalClose: "[data-gallery-hub-modal-close]",
+  projectListItem: "[data-gallery-hub-project-list-item]",
+  projectListItemShell: "[data-gallery-hub-project-list-item-shell]",
   projectListSlot: "[data-gallery-hub-project-list-slot]",
   filterSlot: "[data-gallery-hub-filter-slot]",
+  filterPanel: "[data-gallery-hub-filter-panel]",
+  filterCategory: "[data-gallery-hub-filter-category]",
+  filterCategoryToggle: "[data-gallery-hub-filter-category-toggle]",
+  filterOptions: "[data-gallery-hub-filter-options]",
+  filterChip: "[data-gallery-hub-filter-chip]",
+  filterApply: "[data-gallery-hub-filter-apply]",
+  filterReset: "[data-gallery-hub-filter-reset]",
 };
 
 /**
@@ -38,6 +48,7 @@ export const GALLERY_HUB_CLASSES = {
   introEntering: "gallery-hub--intro-entering",
   mobileCompact: "gallery-hub--mobile-compact",
   mobileShort: "gallery-hub--mobile-short",
+  modalClosing: "gallery-hub-modal--closing",
   modalOpen: "gallery-hub--modal-open",
   projectActive: "gallery-hub-project--active",
   projectMarkerActive: "gallery-hub__project-marker--active",
@@ -78,6 +89,16 @@ export const GALLERY_HUB_VIEW_MODES = {
 };
 
 /**
+ * Gallery Hub modal ids used by template data attributes and JS state.
+ *
+ * @type {{projectList: string, filter: string}}
+ */
+export const GALLERY_HUB_MODAL_IDS = {
+  projectList: "project-list",
+  filter: "filter",
+};
+
+/**
  * CSS custom property updated with the available viewport height.
  *
  * @type {string}
@@ -104,6 +125,13 @@ export const GALLERY_HUB_VIEWPORT_OFFSET_PROPERTY =
  * @type {number}
  */
 export const GALLERY_HUB_INTRO_ENTERING_DURATION = 1200;
+
+/**
+ * Duration for modal exit animations before hidden state is applied.
+ *
+ * @type {number}
+ */
+export const GALLERY_HUB_MODAL_CLOSE_DURATION = 220;
 
 /**
  * Legacy deep link stripped on load so the JS-controlled experience starts at

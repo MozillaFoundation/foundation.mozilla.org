@@ -12,6 +12,7 @@ from foundation_cms.gallery_hub.models.project_page import (
     ProgramLabel,
     ProjectPageHeroMedia,
 )
+from foundation_cms.profiles.models import ExpertProfilePage
 
 MULTI_HERO_PROJECT_INDEXES = {0, 3, 6}
 ADDITIONAL_HERO_MEDIA_COUNT = 3
@@ -65,6 +66,9 @@ def generate(seed):
     # --- Images (created earlier in load_redesign_data) ---
     images = list(get_image_model().objects.all())
 
+    # --- Experts (created earlier in load_redesign_data) ---
+    experts = list(ExpertProfilePage.objects.live().filter(locale=default_locale))
+
     # --- 1 Gallery Hub Page (directly under site root) ---
     print("Creating Gallery Hub Page...")
     existing_gallery = GalleryPage.objects.filter(slug="gallery", locale=default_locale).first()
@@ -108,6 +112,7 @@ def generate(seed):
             search_description=fake.sentence(nb_words=10).rstrip("."),
             hero_image=random.choice(images) if images else None,
             hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
+            expert=experts[i % len(experts)] if experts else None,
             project_link=fake.url(),
             body=[{"type": "rich_text", "value": body_html}],
         )
