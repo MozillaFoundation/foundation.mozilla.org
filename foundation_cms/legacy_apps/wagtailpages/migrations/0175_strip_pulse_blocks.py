@@ -2,9 +2,8 @@
 
 Removes blocks of type profile_listing, profile_by_id, profile_directory,
 pulse_listing, and tabbed_profile_directory from every affected page's live
-body field as well as from stored Wagtail revisions. Mirrors the cleanup
-performed by the `remove_network_api_blocks` management command, but runs
-inline with the schema migration that drops PulseFilter/PulseFilterOption.
+body field as well as from stored Wagtail revisions. Runs inline with the
+schema migration that drops PulseFilter/PulseFilterOption.
 """
 
 import json
