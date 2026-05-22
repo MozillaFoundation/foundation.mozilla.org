@@ -105,6 +105,7 @@ class LibraryDetailPage(BasePage):
     ]
 
     search_fields = wagtail_models.Page.search_fields + [
+        index.SearchField("search_description", boost=8),
         index.SearchField("introduction", boost=8),
         index.SearchField("overview", boost=5),
         index.SearchField("collaborators", boost=2),

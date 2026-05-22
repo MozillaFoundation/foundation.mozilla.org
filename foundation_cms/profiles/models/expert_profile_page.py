@@ -62,6 +62,7 @@ class ExpertProfilePage(AbstractProfilePage):
     ]
 
     search_fields = AbstractProfilePage.search_fields + [
+        index.SearchField("blurb", boost=5),
         index.SearchField("affiliation", boost=2),
     ]
 

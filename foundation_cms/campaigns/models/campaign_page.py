@@ -200,6 +200,7 @@ class CampaignPage(AbstractBasePage):
     ]
 
     search_fields = AbstractBasePage.search_fields + [
+        index.SearchField("header", boost=8),
         # Campaign topic relationships
         index.RelatedFields(
             "keep_contributing_topic",
