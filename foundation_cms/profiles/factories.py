@@ -31,15 +31,18 @@ CURATED_ARTICLE_DESCRIPTIONS = [
     ),
     (
         "The Internet has always been a place where you can find your people. "
-        "It's a lifeline for collaboration among far flung individuals with specific interests, backgrounds, or tastes. "
-        "This longer seeded description gives the expert profile article list enough copy to exercise clamped text."
+        "It's a lifeline for collaboration among far flung individuals with "
+        "specific interests, backgrounds, or tastes. "
+        "This longer seeded description gives the expert profile article list "
+        "enough copy to exercise clamped text."
     ),
 ]
 PROFILE_BODY_EXPERT_SLUG = "expert-1"
 PROFILE_BODY_RICH_TEXT = (
     "<p>Priya is a feminist tech and media maker, and the co-founder and CEO of a feminist AI-social "
     "entrepreneurship, Mumkin App LLP. Priya is a winner of the national film award of India, conferred by the "
-    "President of India, a recipient of the German Chancellor Fellowship for Young Leaders (AvH Stiftung, Germany), "
+    "President of India, a recipient of the German Chancellor Fellowship for Young Leaders (AvH Stiftung, "
+    "Germany), "
     "and the co-founder of an international non-profit, Sahiyo.</p>"
     "<p>Priya is collaborating with SOPPECOM to build a platform to share stories of women farmers, mainstreaming "
     "their struggles. Priya's individual research project explores the impact of digital public infrastructures "
@@ -50,9 +53,13 @@ PROFILE_BODY_RICH_TEXT = (
 EXTERNAL_LINK_EXPERT_SLUG = "expert-1"
 EXTERNAL_LINKS = [
     {
-        "title": "Network Neutrality in Brazil: the recently enacted Presidential Decree consolidates meaningful rules",
+        "title": (
+            "Network Neutrality in Brazil: the recently enacted Presidential "
+            "Decree consolidates meaningful rules"
+        ),
         "description": (
-            "Amidst an economic and political turmoil, Brazil gave a significant step towards protection of "
+            "Amidst an economic and political turmoil, Brazil gave a "
+            "significant step towards protection of "
             "network neutrality - the principle that keeps the Internet an open platform."
         ),
         "url": "https://foundation.mozilla.org/",
@@ -63,17 +70,25 @@ EXTERNAL_LINKS = [
         "url": "https://foundation.mozilla.org/en/",
     },
     {
-        "title": "Network Neutrality in Brazil: the recently enacted Presidential Decree consolidates meaningful rules",
+        "title": (
+            "Network Neutrality in Brazil: the recently enacted Presidential "
+            "Decree consolidates meaningful rules"
+        ),
         "description": (
-            "Amidst an economic and political turmoil, Brazil gave a significant step towards protection of "
+            "Amidst an economic and political turmoil, Brazil gave a "
+            "significant step towards protection of "
             "network neutrality - the principle that keeps the Internet an open platform."
         ),
         "url": "https://foundation.mozilla.org/en/blog/",
     },
     {
-        "title": "Network Neutrality in Brazil: the recently enacted Presidential Decree consolidates meaningful rules",
+        "title": (
+            "Network Neutrality in Brazil: the recently enacted Presidential "
+            "Decree consolidates meaningful rules"
+        ),
         "description": (
-            "Amidst an economic and political turmoil, Brazil gave a significant step towards protection of "
+            "Amidst an economic and political turmoil, Brazil gave a "
+            "significant step towards protection of "
             "network neutrality - the principle that keeps the Internet an open platform."
         ),
         "url": "https://foundation.mozilla.org/en/research/",
