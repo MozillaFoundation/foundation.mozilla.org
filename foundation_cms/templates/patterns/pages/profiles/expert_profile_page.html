@@ -1,96 +1,166 @@
 {% extends theme_base %}
 
-{% load wagtailimages_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/expert_profile_page.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/expert_profile_page.compiled.js' %}"></script>
+{% endblock extra_js %}
+
+{% block body_class %}template-expert-profile-page{% endblock body_class %}
 
 {% block content %}
     <main>
-        <article>
-            <div class="grid-container">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell small-12 medium-4">
-                        {% if page.image %}
-                            {% image page.image fill-400x400 as profile_img %}
-                            <img
-                                src="{{ profile_img.url }}"
-                                alt="{{ page.title }}"
-                                width="{{ profile_img.width }}"
-                                height="{{ profile_img.height }}"
-                            >
-                        {% endif %}
-                    </div>
+        <article class="expert-profile">
+            <header class="expert-profile-hero">
+                <div class="grid-container">
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-12 large-8 large-offset-2">
+                            <div class="expert-profile-hero__header">
+                                {% if page.role %}
+                                    <p class="expert-profile-hero__role">{{ page.role }}</p>
+                                {% endif %}
 
-                    <div class="cell small-12 medium-8">
-                        <h1>{{ page.title }}</h1>
+                                <h1 class="expert-profile-hero__title">{{ page.title }}</h1>
 
-                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+                                <div class="expert-profile-hero__meta">
+                                    {% if page.location %}
+                                        <span>{{ page.location.name }}</span>
+                                    {% endif %}
 
-                        {% if page.role %}
-                            <p class="role">{{ page.role }}</p>
-                        {% endif %}
+                                    {% if page.affiliation %}
+                                        <span>{{ page.affiliation }}</span>
+                                    {% endif %}
+                                </div>
 
-                        {% if page.affiliation %}
-                            <p class="affiliation">{{ page.affiliation }}</p>
-                        {% endif %}
-
-                        {% if page.location %}
-                            <p class="location">{{ page.location.name }}</p>
-                        {% endif %}
-
-                        {% if page.bio %}
-                            <div class="bio">{{ page.bio|safe }}</div>
-                        {% endif %}
-
-                        {% if gallery_projects %}
-                            <section class="gallery-projects">
-                                <h4>{% trans "Projects" %}</h4>
-                                {% for project in gallery_projects %}
-                                    <div class="gallery-project-card">
-                                        {% if project.hero_image %}
-                                            {% image project.hero_image fill-400x300 as project_img %}
-                                            <img
-                                                src="{{ project_img.url }}"
-                                                alt="{% if project.hero_image_alt_text %}{{ project.hero_image_alt_text }}{% else %}{{ project.hero_image.title }}{% endif %}"
-                                                width="{{ project_img.width }}"
-                                                height="{{ project_img.height }}"
-                                            >
-                                        {% endif %}
-
-                                        <h3><a href="{{ project.url }}">{{ project.title }}</a></h3>
-
-                                        {% include "patterns/components/topic_pills.html" with topics=project.topics.all %}
-
-                                        {% if project.lede_text %}
-                                            <p>{{ project.lede_text }}</p>
-                                        {% endif %}
-
-                                        {% if project.cta_link %}
-                                            {% include "patterns/components/streamfield.html" with streamfield=project.cta_link %}
-                                        {% endif %}
+                                {% if page.topics.all %}
+                                    <div class="expert-profile-hero__topics">
+                                        <p class="expert-profile-hero__topics-label">{% trans "Topic Areas" %}</p>
+                                        {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
                                     </div>
-                                {% endfor %}
-                            </section>
-                        {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
-                        {% if page.external_links.all %}
-                            <ul class="external-links">
-                                {% for link in page.external_links.all %}
-                                    <li>
-                                        <strong>{{ link.title }}</strong>
-                                        {% if link.description %}
-                                            <p>{{ link.description }}</p>
-                                        {% endif %}
-                                        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.url }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+            <section class="expert-profile-intro">
+                <div class="grid-container">
+                    <div class="grid-x grid-margin-x expert-profile-intro__body">
+                        <div class="cell small-12 large-5 large-offset-2 expert-profile-intro__copy">
+                            {% if page.body %}
+                                <div class="expert-profile-intro__body-content">
+                                    {% for block in page.body %}
+                                        <div class="expert-profile-intro__body-block expert-profile-intro__body-block--{{ block.block_type }}">
+                                            {% include_block block %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if page.image %}
+                            <div class="cell small-12 large-3 expert-profile-intro__media">
+                                {% image page.image fill-520x700 as profile_img %}
+                                <img
+                                    class="expert-profile-intro__image"
+                                    src="{{ profile_img.url }}"
+                                    alt="{{ page.title }}"
+                                    width="{{ profile_img.width }}"
+                                    height="{{ profile_img.height }}"
+                                >
+                            </div>
                         {% endif %}
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+            {% if project_block_rows %}
+                <section class="expert-profile-section expert-profile-section--projects">
+                    <div class="grid-container">
+                        <div class="grid-x">
+                            <div class="cell small-12">
+                                <h2 class="expert-profile-section__heading">{% trans "Projects" %}</h2>
+                                {% for project_block_row in project_block_rows %}
+                                    <div class="three-column-container three-column-container--top expert-profile-project-row">
+                                        {% for project_block in project_block_row %}
+                                            <div class="three-column-container__column">
+                                                {% include "patterns/blocks/themes/default/project_block.html" with self=project_block only %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
             {% endif %}
+
+            {% if articles %}
+                <section class="expert-profile-section expert-profile-section--articles">
+                    <div class="grid-container">
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell small-12 large-8 large-offset-2">
+                                <h2 class="expert-profile-section__heading">{% trans "Articles" %}</h2>
+                                <ul class="expert-profile-article-list" data-expert-profile-article-list>
+                                    {% for article in articles %}
+                                        {% include "patterns/components/listing_page/item.html" with page=article %}
+                                    {% endfor %}
+                                </ul>
+                                {% if articles|length > 3 %}
+                                    <button class="btn-primary btn-primary--no-arrow expert-profile-article-list__button"
+                                            type="button"
+                                            data-expert-profile-show-articles>
+                                        {% trans "Show more results" as show_more_label %}
+                                        {% include "patterns/components/_button_roller.html" with button_style="btn-primary" label=show_more_label only %}
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {% with external_links=page.external_links.all %}
+                {% if external_links %}
+                    <section class="expert-profile-section expert-profile-section--links">
+                        <div class="grid-container">
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell small-12 large-8 large-offset-2">
+                                    <h2 class="expert-profile-section__heading">{% trans "External Links" %}</h2>
+                                    <ul class="expert-profile-link-list">
+                                        {% for link in external_links %}
+                                            <li class="expert-profile-link-list__item">
+                                                <a class="expert-profile-link-list__link"
+                                                   href="{{ link.url }}"
+                                                   target="_blank"
+                                                   rel="noopener noreferrer">
+                                                    <span class="expert-profile-link-list__title">{{ link.title }}</span>
+                                                    {% if link.description %}
+                                                        <span class="expert-profile-link-list__description">{{ link.description }}</span>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endwith %}
+
+            <div class="grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-12 large-offset-1 large-10 xlarge-offset-2 xlarge-8">
+                        {% include "patterns/components/profiles/expert_hub_cta.html" %}
+                    </div>
+                </div>
+            </div>
         </article>
     </main>
 {% endblock content %}

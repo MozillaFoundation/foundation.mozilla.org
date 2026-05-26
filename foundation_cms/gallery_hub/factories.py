@@ -12,10 +12,12 @@ from foundation_cms.gallery_hub.models.project_page import (
     ProgramLabel,
     ProjectPageHeroMedia,
 )
-from foundation_cms.profiles.models import ExpertProfilePage
+from foundation_cms.profiles.models import ExpertProfilePage, ExpertProfileSelectedProject
 
 MULTI_HERO_PROJECT_INDEXES = {0, 3, 6}
 ADDITIONAL_HERO_MEDIA_COUNT = 3
+CURATED_PROJECT_COUNT = 3
+CURATED_PROJECT_EXPERT_SLUG = "expert-1"
 
 
 def ensure_project_hero_gallery_media(project, images, fake, project_index):
@@ -38,6 +40,29 @@ def ensure_project_hero_gallery_media(project, images, fake, project_index):
         )
 
     return True
+
+
+def ensure_expert_curated_projects(default_locale, project_pages):
+    expert = ExpertProfilePage.objects.filter(
+        slug=CURATED_PROJECT_EXPERT_SLUG,
+        locale=default_locale,
+    ).first()
+    if not expert or expert.selected_projects.exists():
+        return
+
+    related_projects = [project for project in project_pages if project.expert_id == expert.id]
+    filler_projects = [project for project in project_pages if project.expert_id != expert.id]
+    curated_projects = (related_projects + filler_projects)[:CURATED_PROJECT_COUNT]
+
+    for sort_order, project in enumerate(curated_projects):
+        ExpertProfileSelectedProject.objects.create(
+            page=expert,
+            project=project,
+            sort_order=sort_order,
+        )
+
+    expert.save_revision().publish()
+    print(f"  {len(curated_projects)} curated projects linked to {expert.title}.")
 
 
 def generate(seed):
@@ -130,6 +155,9 @@ def generate(seed):
         project_pages.append(project)
 
     print(f"  {len(project_pages)} Project Pages ready.")
+
+    print("Linking curated projects to an Expert Profile Page...")
+    ensure_expert_curated_projects(default_locale, project_pages)
 
     # --- Link all project pages as featured projects on the gallery hub page ---
     print("Linking featured projects to Gallery Hub Page...")
