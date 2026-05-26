@@ -1,3 +1,78 @@
 .donate-lightbox {
-  // styles coming in follow up commits
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+
+  &[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &::backdrop {
+    background: rgb(0 0 0 / 60%);
+  }
+
+  &__card {
+    background: white;
+    border-radius: rem-calc(16);
+    width: calc(100% - #{rem-calc(32)});
+    max-width: rem-calc(520);
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__image-wrapper {
+    position: relative;
+    line-height: 0;
+  }
+
+  &__close-button {
+    position: absolute;
+    top: rem-calc(12);
+    right: rem-calc(12);
+    width: rem-calc(40);
+    height: rem-calc(40);
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      filter: invert(100%);
+    }
+
+    &:focus-visible {
+      outline: 2px solid color(orange, "300");
+      outline-offset: 2px;
+    }
+  }
+
+  &__content {
+    padding: rem-calc(32);
+    text-align: center;
+  }
+
+  h2.donate-lightbox__title {
+    @include mofo-text-style($header-styles, "h4", $header-font-family);
+
+    margin-top: 0;
+    margin-bottom: rem-calc(16);
+  }
+
+  &__subtitle {
+    margin-top: 0;
+    margin-bottom: rem-calc(24);
+  }
+
+  &__cta-button.btn-primary {
+    margin: 0 auto;
+  }
 }
