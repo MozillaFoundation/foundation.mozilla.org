@@ -90,11 +90,6 @@ body.template-expert-profile-page {
 
     &__body {
       align-items: flex-start;
-
-      @include breakpoint(medium down) {
-        display: flex;
-        flex-direction: column;
-      }
     }
 
     &__media {
@@ -117,8 +112,6 @@ body.template-expert-profile-page {
       margin: 0 auto rem-calc(32);
 
       @include breakpoint(medium up) {
-        width: 100%;
-        max-width: rem-calc(300);
         margin-bottom: 0;
       }
     }
@@ -159,14 +152,10 @@ body.template-expert-profile-page {
     }
 
     &__heading {
-      @include mofo-text-style($header-styles, "h3", $header-font-family);
+      @include mofo-text-style($header-styles, "h2", $header-font-family);
 
-      margin: 0 0 rem-calc(28);
+      margin: 0 0 rem-calc(32);
       text-align: center;
-
-      @include breakpoint(large up) {
-        margin-bottom: rem-calc(36);
-      }
     }
   }
 
@@ -232,25 +221,12 @@ body.template-expert-profile-page {
       padding-top: rem-calc(64);
     }
 
-    .expert-profile-section__heading {
-      margin-bottom: rem-calc(24);
-    }
-
     .listing-content__item {
-      margin-bottom: rem-calc(24);
+      margin-bottom: rem-calc(16);
 
       &:last-child {
         margin-bottom: 0;
       }
-    }
-
-    .page-card__media-wrapper {
-      gap: 0;
-    }
-
-    .page-card__image-wrapper {
-      border-top-right-radius: rem-calc(24);
-      border-bottom-left-radius: rem-calc(24);
     }
 
     .page-card__meta {
@@ -274,8 +250,6 @@ body.template-expert-profile-page {
     }
 
     .page-card__description {
-      @include text-line-clamp(3);
-
       margin: 0;
     }
 
@@ -298,8 +272,6 @@ body.template-expert-profile-page {
   }
 
   .expert-profile-link-list {
-    display: grid;
-    gap: rem-calc(16);
     margin: 0;
     padding: 0 0 rem-calc(32);
     list-style: none;
@@ -338,26 +310,21 @@ body.template-expert-profile-page {
 
     @include breakpoint(medium down) {
       &__link {
-        padding-top: rem-calc(28);
+        padding-top: rem-calc(16);
         padding-bottom: rem-calc(16);
       }
     }
 
     &__title {
-      @include mofo-text-style($body-text-styles, "regular");
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
 
       display: block;
-      font-weight: 700;
     }
 
     &__description {
       display: block;
-      margin-top: rem-calc(6);
+      margin-top: rem-calc(8);
       color: color(neutral, "700");
-
-      @include breakpoint(medium down) {
-        margin-top: rem-calc(16);
-      }
     }
   }
 

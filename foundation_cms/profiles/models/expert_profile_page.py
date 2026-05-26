@@ -185,10 +185,7 @@ class ExpertProfilePage(AbstractProfilePage):
         ]
 
         complete_row_count = len(project_blocks) // 3
-        return [
-            project_blocks[index : index + 3]
-            for index in range(0, complete_row_count * 3, 3)
-        ]
+        return [project_blocks[index : index + 3] for index in range(0, complete_row_count * 3, 3)]
 
     def get_related_projects(self):
         return (

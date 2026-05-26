@@ -54,8 +54,7 @@ EXTERNAL_LINK_EXPERT_SLUG = "expert-1"
 EXTERNAL_LINKS = [
     {
         "title": (
-            "Network Neutrality in Brazil: the recently enacted Presidential "
-            "Decree consolidates meaningful rules"
+            "Network Neutrality in Brazil: the recently enacted Presidential " "Decree consolidates meaningful rules"
         ),
         "description": (
             "Amidst an economic and political turmoil, Brazil gave a "
@@ -71,8 +70,7 @@ EXTERNAL_LINKS = [
     },
     {
         "title": (
-            "Network Neutrality in Brazil: the recently enacted Presidential "
-            "Decree consolidates meaningful rules"
+            "Network Neutrality in Brazil: the recently enacted Presidential " "Decree consolidates meaningful rules"
         ),
         "description": (
             "Amidst an economic and political turmoil, Brazil gave a "
@@ -83,8 +81,7 @@ EXTERNAL_LINKS = [
     },
     {
         "title": (
-            "Network Neutrality in Brazil: the recently enacted Presidential "
-            "Decree consolidates meaningful rules"
+            "Network Neutrality in Brazil: the recently enacted Presidential " "Decree consolidates meaningful rules"
         ),
         "description": (
             "Amidst an economic and political turmoil, Brazil gave a "
@@ -191,7 +188,7 @@ def ensure_expert_profile_body(default_locale):
                     "quote": "Involved elephant club later best ditching points place status hits.",
                     "attribution": "Quote by Firstname Lastname",
                 },
-            }
+            },
         ],
         stream_block=model_instance.body.stream_block,
     )
