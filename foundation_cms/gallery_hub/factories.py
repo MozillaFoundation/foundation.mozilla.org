@@ -12,7 +12,10 @@ from foundation_cms.gallery_hub.models.project_page import (
     ProgramLabel,
     ProjectPageHeroMedia,
 )
-from foundation_cms.profiles.models import ExpertProfilePage, ExpertProfileSelectedProject
+from foundation_cms.profiles.models import (
+    ExpertProfilePage,
+    ExpertProfileSelectedProject,
+)
 
 MULTI_HERO_PROJECT_INDEXES = {0, 3, 6}
 ADDITIONAL_HERO_MEDIA_COUNT = 3
