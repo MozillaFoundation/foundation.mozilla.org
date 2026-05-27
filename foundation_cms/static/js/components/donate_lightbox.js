@@ -20,12 +20,13 @@ export function initDonateLightbox() {
     if (e.target === lightbox) lightbox.close();
   });
 
-  if (window.wagtailAbTesting) {
-    const ctaButton = lightbox.querySelector(SELECTORS.ctaButton);
-    ctaButton?.addEventListener("click", () => {
+  const ctaButton = lightbox.querySelector(SELECTORS.ctaButton);
+  ctaButton?.addEventListener("click", () => {
+    if (window.wagtailAbTesting) {
       wagtailAbTesting.triggerEvent("donate-banner-link-click");
-    });
-  }
+    }
+    lightbox.close();
+  });
 
   openLightbox(lightbox);
 }
