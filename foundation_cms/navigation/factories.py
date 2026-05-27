@@ -35,7 +35,9 @@ class NavLinkFactory(wagtail_factories.StructBlockFactory):
             relative_url=f"/{factory.Faker('uri_path')}",
         )
 
-    label = factory.Faker("sentence", nb_words=3)
+    # NavLink.label has max_length=36; keep deterministic and short to avoid
+    # flaky validation failures from longer Faker output.
+    label = factory.Sequence(lambda n: f"Nav Link {n}")
 
     # Defaults (use a trait in practice to ensure validity)
     link_to = "external_url"
