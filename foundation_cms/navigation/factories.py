@@ -24,7 +24,9 @@ class NavLinkFactory(wagtail_factories.StructBlockFactory):
     class Params:
         page_link = factory.Trait(
             link_to="page",
-            page=factory.Iterator(wagtail_models.Page.objects.filter(locale_id="1")),
+            # LazyAttribute re-queries on each call; Iterator caches Page objects at
+            # module import time and returns stale PKs after test transactions roll back.
+            page=factory.LazyAttribute(lambda _: wagtail_models.Page.objects.filter(locale_id=1).first()),
         )
         external_url_link = factory.Trait(
             link_to="external_url",
