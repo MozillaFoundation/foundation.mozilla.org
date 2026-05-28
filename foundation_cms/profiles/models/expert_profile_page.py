@@ -62,7 +62,8 @@ class ExpertProfilePage(AbstractProfilePage):
     ]
 
     search_fields = AbstractProfilePage.search_fields + [
-        index.SearchField("affiliation", boost=3),
+        index.SearchField("blurb", boost=5),
+        index.SearchField("affiliation", boost=2),
     ]
 
     parent_page_types = ["profiles.ExpertHubPage"]
