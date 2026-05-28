@@ -4636,10 +4636,10 @@ svgo@^4.0.1:
     picocolors "^1.1.1"
     sax "^1.5.0"
 
-swiper@^12.1.2:
-  version "12.1.2"
-  resolved "https://registry.npmjs.org/swiper/-/swiper-12.1.2.tgz"
-  integrity sha512-4gILrI3vXZqoZh71I1PALqukCFgk+gpOwe1tOvz5uE9kHtl2gTDzmYflYCwWvR4LOvCrJi6UEEU+gnuW5BtkgQ==
+swiper@^12.2.0:
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.2.0.tgz#f6daa886465abd1bbc42be2f2ce1827cd03c91ea"
+  integrity sha512-K8uXsBZU6ME97Ia3xbBge8IRCnR1lOmIILzvY/jGVic7dSTQ530s3uO8RvXbPUtkkXLWIwmZLRPbtDxRWVAFdg==
 
 synckit@^0.11.12:
   version "0.11.12"
