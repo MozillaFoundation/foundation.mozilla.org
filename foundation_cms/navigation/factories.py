@@ -1,11 +1,14 @@
 import factory
 import wagtail_factories
 from factory.django import DjangoModelFactory
+from faker import Faker  # note: NOT from factory, but from faker. Different Faker!
 from wagtail import models as wagtail_models
 
 from foundation_cms.base.utils.helpers import reseed
 from foundation_cms.navigation import blocks as nav_blocks
 from foundation_cms.navigation import models as nav_models
+
+faker = Faker()
 
 
 class NavLinkFactory(wagtail_factories.StructBlockFactory):
@@ -35,9 +38,10 @@ class NavLinkFactory(wagtail_factories.StructBlockFactory):
             relative_url=f"/{factory.Faker('uri_path')}",
         )
 
-    # NavLink.label has max_length=36; use 2-word sentences so output stays
-    # safely under the cap (3-word Lorem sentences often exceed 36 chars).
-    label = factory.Faker("sentence", nb_words=2)
+    # NavLink.label has max_length=36; build the label from 2 Faker words so
+    # we stay safely under the cap and avoid the trailing period that
+    # Faker.sentence() adds.
+    label = factory.LazyFunction(lambda: " ".join(faker.words(nb=2)).title())
 
     # Defaults (use a trait in practice to ensure validity)
     link_to = "external_url"
