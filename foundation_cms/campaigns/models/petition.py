@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -14,6 +14,12 @@ class Petition(CTA):
         help_text="Which Salesforce Campaign ID should this petition be tied to?",
         null=True,
         blank=True,
+    )
+
+    campaign_name = models.CharField(
+        max_length=255,
+        help_text="Campaign Name to target audience segments.",
+        null=True,
     )
 
     show_country_field = models.BooleanField(
@@ -49,6 +55,7 @@ class Petition(CTA):
 
     translatable_fields = CTA.translatable_fields + [
         SynchronizedField("campaign_id"),
+        SynchronizedField("campaign_name"),
         SynchronizedField("show_country_field"),
         SynchronizedField("show_postal_code_field"),
         SynchronizedField("show_comment_field"),
@@ -59,12 +66,20 @@ class Petition(CTA):
     search_fields = CTA.search_fields + [
         index.SearchField("description", boost=6),
         index.SearchField("campaign_id", boost=2),
+        index.SearchField("campaign_name", boost=4),
         # Petition filters
         index.FilterField("locale_id"),
     ]
 
     panels = CTA.panels + [
-        FieldPanel("campaign_id"),
+        MultiFieldPanel(
+            [
+                FieldPanel("campaign_id"),
+                FieldPanel("campaign_name"),
+            ],
+            heading="Campaign Settings",
+            classname="collapsible",
+        ),
         FieldPanel("show_country_field"),
         FieldPanel("show_postal_code_field"),
         FieldPanel("show_comment_field"),
