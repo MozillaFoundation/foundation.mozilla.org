@@ -61,7 +61,7 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
     ]
 
     search_fields = AbstractArticlePage.search_fields + [
-        index.SearchField("lede_text", boost=6),
+        index.SearchField("lede_text", boost=8),
         index.SearchField("hero_image_alt_text", boost=2),
     ]
 

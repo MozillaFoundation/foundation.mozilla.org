@@ -52,8 +52,8 @@ class AbstractProfilePage(AbstractBasePage):
     ]
 
     search_fields = AbstractBasePage.search_fields + [
-        index.SearchField("role", boost=6),
-        index.SearchField("bio", boost=4),
+        index.SearchField("role", boost=8),
+        index.SearchField("bio", boost=5),
         index.SearchField("location", boost=2),
     ]
 

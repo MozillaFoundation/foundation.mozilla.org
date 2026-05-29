@@ -220,6 +220,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     ]
 
     search_fields = Page.search_fields + [
+        index.SearchField("seo_title", boost=10),
         index.SearchField("title", boost=7),
         index.SearchField("header", boost=7),
         index.SearchField("search_description", boost=7),
