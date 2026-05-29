@@ -116,18 +116,17 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     ]
 
     search_fields = AbstractHomePage.search_fields + [
-        index.SearchField("tagline", boost=6),
-        index.SearchField("body", boost=5),
+        index.SearchField("tagline", boost=5),
         index.RelatedFields(
             "hero_item",
             [
-                index.SearchField("title", boost=4),
+                index.SearchField("title", boost=5),
             ],
         ),
         index.RelatedFields(
             "featured_items",
             [
-                index.SearchField("page__title", boost=3),
+                index.SearchField("page__title", boost=2),
             ],
         ),
     ]
