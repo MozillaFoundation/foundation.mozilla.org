@@ -60,7 +60,7 @@ class NothingPersonalPodcastPage(AbstractBasePage):
 
     search_fields = AbstractBasePage.search_fields + [
         index.SearchField("hero_title", boost=8),
-        index.SearchField("hero_description", boost=6),
+        index.SearchField("hero_description", boost=5),
         index.SearchField("hero_image_alt_text", boost=2),
     ]
 

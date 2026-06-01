@@ -40,7 +40,7 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
             [
                 index.RelatedFields(
                     "content_type",
-                    [index.SearchField("name")],
+                    [index.SearchField("name", boost=5)],
                 )
             ],
         ),
@@ -49,7 +49,7 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
             [
                 index.RelatedFields(
                     "curricular_area",
-                    [index.SearchField("name")],
+                    [index.SearchField("name", boost=5)],
                 )
             ],
         ),
@@ -58,7 +58,7 @@ class RCCDetailPage(base_detail_page.LibraryDetailPage):
             [
                 index.RelatedFields(
                     "topic",
-                    [index.SearchField("name")],
+                    [index.SearchField("name", boost=5)],
                 )
             ],
         ),

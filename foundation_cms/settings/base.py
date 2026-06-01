@@ -525,6 +525,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en"
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
+    ("ca", gettext_lazy("Catalan")),
     ("en", gettext_lazy("English")),
     ("de", gettext_lazy("German")),
     ("es", gettext_lazy("Spanish")),
@@ -620,37 +621,37 @@ WAGTAILSEARCH_BACKENDS = {
     "en": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "de": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "german",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "es": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "spanish",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "fr": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "french",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "nl": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "dutch",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "pt-BR": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "portuguese",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "default": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "simple",  # Support pl, fy-NL, sw
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
 }
 
