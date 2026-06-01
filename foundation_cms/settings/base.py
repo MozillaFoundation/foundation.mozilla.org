@@ -525,6 +525,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en"
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
+    ("ca", gettext_lazy("Catalan")),
     ("en", gettext_lazy("English")),
     ("de", gettext_lazy("German")),
     ("es", gettext_lazy("Spanish")),
