@@ -26,14 +26,14 @@ body.template-expert-profile-page {
     &__role {
       @include mofo-text-style($body-text-styles, "large");
 
-      margin: 0 0 rem-calc(8);
+      margin: 0 0 rem-calc(16);
     }
 
     &__title {
       @include mofo-text-style($header-styles, "h1", $header-font-family);
 
       max-width: rem-calc(760);
-      margin: 0 auto rem-calc(8);
+      margin: 0 auto rem-calc(16);
       line-height: 0.95;
     }
 

@@ -11,6 +11,7 @@ from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.base.widgets import TopicSelectWidget
 from foundation_cms.gallery_hub.models import ProjectPage
 from foundation_cms.profiles.models.abstract_profile_page import AbstractProfilePage
 from foundation_cms.utils import localize_queryset
@@ -105,11 +106,17 @@ class ExpertProfilePage(AbstractProfilePage):
         help_text="Optional attribution for the profile introduction quote.",
     )
 
-    content_panels = AbstractProfilePage.content_panels + [
+    content_panels = Page.content_panels + [
+        FieldPanel("title", heading="Full Name", help_text="Full name of the profile."),
+        FieldPanel("role"),
+        FieldPanel("location"),
         FieldPanel("affiliation"),
-        FieldPanel("blurb"),
+        FieldPanel("topics", widget=TopicSelectWidget),
+        FieldPanel("bio"),
         FieldPanel("quote"),
         FieldPanel("quote_attribution"),
+        FieldPanel("image"),
+        FieldPanel("blurb"),
         MultiFieldPanel(
             [
                 InlinePanel(
