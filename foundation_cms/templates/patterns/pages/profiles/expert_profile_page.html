@@ -115,12 +115,14 @@
                         <div class="grid-x grid-margin-x">
                             <div class="cell small-12 large-8 large-offset-2">
                                 <h2 class="expert-profile-section__heading">{% trans "Articles" %}</h2>
-                                <ul class="expert-profile-article-list" data-expert-profile-article-list>
+                                <ul class="expert-profile-article-list"
+                                    data-expert-profile-article-list
+                                    data-visible-count="{{ articles_visible_count }}">
                                     {% for article in articles %}
                                         {% include "patterns/components/listing_page/item.html" with page=article %}
                                     {% endfor %}
                                 </ul>
-                                {% if articles|length > 3 %}
+                                {% if articles|length > articles_visible_count %}
                                     <button class="btn-primary btn-primary--no-arrow expert-profile-article-list__button"
                                             type="button"
                                             data-expert-profile-show-articles>

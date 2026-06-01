@@ -16,7 +16,11 @@ from foundation_cms.gallery_hub.models import ProjectPage
 from foundation_cms.profiles.models.abstract_profile_page import AbstractProfilePage
 from foundation_cms.utils import localize_queryset
 
+EXPERT_PROFILE_ARTICLES_VISIBLE_COUNT = 3
 EXPERT_PROFILE_RELATED_CONTENT_LIMIT = 9
+# This matches the three-column-container markup/CSS used by the template.
+# Changing it requires updating the corresponding layout styles.
+EXPERT_PROFILE_PROJECTS_PER_ROW = 3
 
 
 class ExpertExternalLink(TranslatableMixin, Orderable):
@@ -80,7 +84,7 @@ class ExpertProfileSelectedArticle(Orderable):
     )
 
     panels = [
-        PageChooserPanel("article"),
+        PageChooserPanel("article", "nothing_personal.NothingPersonalArticlePage"),
     ]
 
 
@@ -170,6 +174,7 @@ class ExpertProfilePage(AbstractProfilePage):
         context = super().get_context(request)
         context["project_block_rows"] = self.get_project_block_rows()
         context["articles"] = self.get_selected_articles()
+        context["articles_visible_count"] = EXPERT_PROFILE_ARTICLES_VISIBLE_COUNT
 
         return context
 
@@ -205,8 +210,15 @@ class ExpertProfilePage(AbstractProfilePage):
             for project in self.get_profile_projects()
         ]
 
-        complete_row_count = len(project_blocks) // 3
-        return [project_blocks[index : index + 3] for index in range(0, complete_row_count * 3, 3)]
+        complete_row_count = len(project_blocks) // EXPERT_PROFILE_PROJECTS_PER_ROW
+        return [
+            project_blocks[index : index + EXPERT_PROFILE_PROJECTS_PER_ROW]
+            for index in range(
+                0,
+                complete_row_count * EXPERT_PROFILE_PROJECTS_PER_ROW,
+                EXPERT_PROFILE_PROJECTS_PER_ROW,
+            )
+        ]
 
     def get_related_projects(self):
         return (

@@ -4,16 +4,15 @@ const SELECTORS = {
   showMoreButton: "[data-expert-profile-show-articles]",
 };
 
-const VISIBLE_ARTICLE_COUNT = 3;
-
 /**
  * Hides article items after the initial visible count.
  *
  * @param {HTMLElement[]} articles - Article list items in render order.
+ * @param {number} visibleArticleCount - Number of articles visible before expansion.
  * @returns {HTMLElement[]} Items hidden behind the show-more button.
  */
-function hideOverflowArticles(articles) {
-  const hiddenArticles = articles.slice(VISIBLE_ARTICLE_COUNT);
+function hideOverflowArticles(articles, visibleArticleCount) {
+  const hiddenArticles = articles.slice(visibleArticleCount);
 
   hiddenArticles.forEach((article) => {
     article.hidden = true;
@@ -48,7 +47,9 @@ export function initExpertProfileArticleList() {
   if (!articleList || !showMoreButton) return;
 
   const articles = Array.from(articleList.querySelectorAll(SELECTORS.item));
-  const hiddenArticles = hideOverflowArticles(articles);
+  const visibleArticleCount =
+    Number.parseInt(articleList.dataset.visibleCount, 10) || articles.length;
+  const hiddenArticles = hideOverflowArticles(articles, visibleArticleCount);
 
   if (!hiddenArticles.length) {
     showMoreButton.hidden = true;

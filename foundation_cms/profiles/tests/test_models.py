@@ -2,6 +2,10 @@ from wagtail.models import Page
 from wagtail.test.utils import WagtailPageTestCase
 
 from foundation_cms.gallery_hub.models import GalleryPage, ProjectPage
+from foundation_cms.nothing_personal.models import (
+    NothingPersonalArticlePage,
+    NothingPersonalHomePage,
+)
 from foundation_cms.profiles.factories import (
     ExpertDirectoryPageFactory,
     ExpertHubPageFactory,
@@ -80,8 +84,9 @@ class ExpertProfilePageTestCase(WagtailPageTestCase):
         self.assertEqual(rows, [])
 
     def test_get_selected_articles_returns_pages_in_editor_order(self):
-        first_article = ExpertDirectoryPageFactory(parent=self.hub, title="First Article")
-        second_article = ExpertDirectoryPageFactory(parent=self.hub, title="Second Article")
+        nothing_personal_home = self._create_nothing_personal_home_page()
+        first_article = self._create_article(nothing_personal_home, "First Article", "first-article")
+        second_article = self._create_article(nothing_personal_home, "Second Article", "second-article")
 
         ExpertProfileSelectedArticle.objects.create(page=self.page, article=second_article, sort_order=0)
         ExpertProfileSelectedArticle.objects.create(page=self.page, article=first_article, sort_order=1)
@@ -100,6 +105,29 @@ class ExpertProfilePageTestCase(WagtailPageTestCase):
         Page.get_first_root_node().add_child(instance=gallery)
         gallery.save_revision().publish()
         return gallery
+
+    def _create_nothing_personal_home_page(self):
+        nothing_personal_home = NothingPersonalHomePage(
+            title="Nothing Personal",
+            slug="nothing-personal",
+            seo_title="Nothing Personal",
+            search_description="Nothing Personal articles.",
+        )
+        Page.get_first_root_node().add_child(instance=nothing_personal_home)
+        nothing_personal_home.save_revision().publish()
+        return nothing_personal_home
+
+    def _create_article(self, parent, title, slug):
+        article = NothingPersonalArticlePage(
+            title=title,
+            slug=slug,
+            seo_title=title,
+            search_description=f"{title} description.",
+            lede_text=f"{title} lede.",
+        )
+        parent.add_child(instance=article)
+        article.save_revision().publish()
+        return article
 
     def _create_project(self, parent, title, slug, expert=None):
         project = ProjectPage(
