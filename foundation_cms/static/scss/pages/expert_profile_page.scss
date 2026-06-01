@@ -119,27 +119,38 @@ body.template-expert-profile-page {
     &__body-content {
       @include mofo-text-style($body-text-styles, "regular");
 
-      .rich-text-block {
-        font-size: inherit;
-        line-height: inherit;
-      }
-
       p {
         margin-top: 0;
       }
     }
 
-    &__body-block {
+    &__bio,
+    &__quote {
       margin-bottom: rem-calc(24);
 
       &:last-child {
         margin-bottom: 0;
       }
+    }
 
-      .quote-block {
-        figcaption {
-          @include mofo-text-style($body-text-styles, "small");
-        }
+    &__quote {
+      margin-top: 0;
+      margin-inline: 0;
+
+      blockquote,
+      p {
+        margin: 0;
+      }
+
+      blockquote {
+        padding: 0;
+        border: 0;
+      }
+
+      figcaption {
+        @include mofo-text-style($body-text-styles, "small");
+
+        margin-top: rem-calc(24);
       }
     }
   }

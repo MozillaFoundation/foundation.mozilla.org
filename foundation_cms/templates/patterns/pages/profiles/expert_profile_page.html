@@ -51,17 +51,26 @@
             <section class="expert-profile-intro">
                 <div class="grid-container">
                     <div class="grid-x grid-margin-x expert-profile-intro__body">
-                        <div class="cell small-12 large-5 large-offset-2 expert-profile-intro__copy">
-                            {% if page.body %}
+                        {% if page.bio or page.quote %}
+                            <div class="cell small-12 large-5 large-offset-2 expert-profile-intro__copy">
                                 <div class="expert-profile-intro__body-content">
-                                    {% for block in page.body %}
-                                        <div class="expert-profile-intro__body-block expert-profile-intro__body-block--{{ block.block_type }}">
-                                            {% include_block block %}
-                                        </div>
-                                    {% endfor %}
+                                    {% if page.bio %}
+                                        <div class="expert-profile-intro__bio">{{ page.bio|richtext }}</div>
+                                    {% endif %}
+
+                                    {% if page.quote %}
+                                        <figure class="expert-profile-intro__quote">
+                                            <blockquote>
+                                                <p class="quote-text-regular">{% blocktrans with quote=page.quote %}“{{ quote }}”{% endblocktrans %}</p>
+                                            </blockquote>
+                                            {% if page.quote_attribution %}
+                                                <figcaption>{{ page.quote_attribution }}</figcaption>
+                                            {% endif %}
+                                        </figure>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
-                        </div>
+                            </div>
+                        {% endif %}
 
                         {% if page.image %}
                             <div class="cell small-12 large-3 expert-profile-intro__media">

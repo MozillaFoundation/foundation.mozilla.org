@@ -95,11 +95,21 @@ class ExpertProfilePage(AbstractProfilePage):
         blank=True,
         help_text="Short promotional summary shown in the Expert Hub landing page visualization (max 115 characters).",
     )
+    quote = TextField(
+        blank=True,
+        help_text="Optional pull quote shown in the profile introduction.",
+    )
+    quote_attribution = CharField(
+        max_length=255,
+        blank=True,
+        help_text="Optional attribution for the profile introduction quote.",
+    )
 
     content_panels = AbstractProfilePage.content_panels + [
         FieldPanel("affiliation"),
         FieldPanel("blurb"),
-        FieldPanel("body"),
+        FieldPanel("quote"),
+        FieldPanel("quote_attribution"),
         MultiFieldPanel(
             [
                 InlinePanel(
@@ -128,6 +138,8 @@ class ExpertProfilePage(AbstractProfilePage):
     translatable_fields = AbstractProfilePage.translatable_fields + [
         TranslatableField("affiliation"),
         TranslatableField("blurb"),
+        TranslatableField("quote"),
+        TranslatableField("quote_attribution"),
         SynchronizedField("selected_projects"),
         SynchronizedField("selected_articles"),
         TranslatableField("body"),
@@ -135,6 +147,7 @@ class ExpertProfilePage(AbstractProfilePage):
 
     search_fields = AbstractProfilePage.search_fields + [
         index.SearchField("blurb", boost=5),
+        index.SearchField("quote", boost=3),
         index.SearchField("affiliation", boost=2),
     ]
 

@@ -37,8 +37,8 @@ CURATED_ARTICLE_DESCRIPTIONS = [
         "enough copy to exercise clamped text."
     ),
 ]
-PROFILE_BODY_EXPERT_SLUG = "expert-1"
-PROFILE_BODY_RICH_TEXT = (
+PROFILE_INTRO_EXPERT_SLUG = "expert-1"
+PROFILE_INTRO_BIO = (
     "<p>Priya is a feminist tech and media maker, and the co-founder and CEO of a feminist AI-social "
     "entrepreneurship, Mumkin App LLP. Priya is a winner of the national film award of India, conferred by the "
     "President of India, a recipient of the German Chancellor Fellowship for Young Leaders (AvH Stiftung, "
@@ -50,6 +50,8 @@ PROFILE_BODY_RICH_TEXT = (
     "explores the onset of data mining for emergent AI-based technologies and its impact on India's rural "
     "population.</p>"
 )
+PROFILE_INTRO_QUOTE = "Involved elephant club later best ditching points place status hits."
+PROFILE_INTRO_QUOTE_ATTRIBUTION = "Quote by Firstname Lastname"
 EXTERNAL_LINK_EXPERT_SLUG = "expert-1"
 EXTERNAL_LINKS = [
     {
@@ -167,35 +169,6 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
     print(f"  {len(articles)} curated articles linked to {expert.title}.")
 
 
-def ensure_expert_profile_body(default_locale):
-    expert = ExpertProfilePage.objects.filter(
-        slug=PROFILE_BODY_EXPERT_SLUG,
-        locale=default_locale,
-    ).first()
-    if not expert or expert.body:
-        return
-
-    model_instance = ExpertProfilePage()
-    expert.body = to_streamfield_value(
-        [
-            {
-                "type": "rich_text",
-                "value": PROFILE_BODY_RICH_TEXT,
-            },
-            {
-                "type": "quote",
-                "value": {
-                    "quote": "Involved elephant club later best ditching points place status hits.",
-                    "attribution": "Quote by Firstname Lastname",
-                },
-            },
-        ],
-        stream_block=model_instance.body.stream_block,
-    )
-    expert.save_revision().publish()
-    print(f"  Profile body blocks added to {expert.title}.")
-
-
 def ensure_expert_external_links(default_locale):
     expert = ExpertProfilePage.objects.filter(
         slug=EXTERNAL_LINK_EXPERT_SLUG,
@@ -277,10 +250,12 @@ def generate(seed):
             locale=default_locale,
             image=ImageFactory(),
             role=fake.job(),
-            bio=fake.paragraph(nb_sentences=3),
+            bio=PROFILE_INTRO_BIO if slug == PROFILE_INTRO_EXPERT_SLUG else fake.paragraph(nb_sentences=3),
             location=country_codes[i % len(country_codes)],
             affiliation=fake.company(),
             blurb=fake.sentence(nb_words=12)[:115],
+            quote=PROFILE_INTRO_QUOTE if slug == PROFILE_INTRO_EXPERT_SLUG else "",
+            quote_attribution=PROFILE_INTRO_QUOTE_ATTRIBUTION if slug == PROFILE_INTRO_EXPERT_SLUG else "",
             seo_title=name,
             search_description=fake.sentence(nb_words=10).rstrip("."),
         )
@@ -298,9 +273,6 @@ def generate(seed):
 
     print("Linking curated articles to an Expert Profile Page...")
     ensure_expert_curated_articles(root, default_locale, topics, expert_pages, fake)
-
-    print("Adding body blocks to an Expert Profile Page...")
-    ensure_expert_profile_body(default_locale)
 
     print("Adding external links to an Expert Profile Page...")
     ensure_expert_external_links(default_locale)
@@ -361,5 +333,7 @@ class ExpertProfilePageFactory(wagtail_factories.PageFactory):
     location = "US"
     affiliation = factory.Faker("company")
     blurb = factory.LazyAttribute(lambda _: get_faker().sentence(nb_words=12)[:115])
+    quote = factory.Faker("sentence", nb_words=8)
+    quote_attribution = factory.Faker("name")
     seo_title = factory.Faker("sentence", nb_words=3)
     search_description = factory.Faker("sentence", nb_words=10)
