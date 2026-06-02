@@ -105,16 +105,17 @@ class LibraryDetailPage(BasePage):
     ]
 
     search_fields = wagtail_models.Page.search_fields + [
-        index.SearchField("introduction"),
-        index.SearchField("overview"),
-        index.SearchField("collaborators"),
+        index.SearchField("search_description", boost=8),
+        index.SearchField("introduction", boost=8),
+        index.SearchField("overview", boost=5),
+        index.SearchField("collaborators", boost=2),
         index.FilterField("original_publication_date"),  # For sorting
         index.RelatedFields(
             "authors",
             [
                 index.RelatedFields(
                     "author_profile",
-                    [index.SearchField("name")],
+                    [index.SearchField("name", boost=5)],
                 )
             ],
         ),

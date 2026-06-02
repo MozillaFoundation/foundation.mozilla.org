@@ -42,19 +42,28 @@ class ExpertProfilePage(AbstractProfilePage):
         help_text="Organization or institution.",
     )
 
+    blurb = CharField(
+        max_length=115,
+        blank=True,
+        help_text="Short promotional summary shown in the Expert Hub landing page visualization (max 115 characters).",
+    )
+
     content_panels = AbstractProfilePage.content_panels + [
         FieldPanel("affiliation"),
+        FieldPanel("blurb"),
         InlinePanel("external_links", label="External Links", max_num=10),
         FieldPanel("body"),
     ]
 
     translatable_fields = AbstractProfilePage.translatable_fields + [
         TranslatableField("affiliation"),
+        TranslatableField("blurb"),
         TranslatableField("body"),
     ]
 
     search_fields = AbstractProfilePage.search_fields + [
-        index.SearchField("affiliation", boost=3),
+        index.SearchField("blurb", boost=5),
+        index.SearchField("affiliation", boost=2),
     ]
 
     parent_page_types = ["profiles.ExpertHubPage"]
