@@ -38,7 +38,7 @@ class NavLinkFactory(wagtail_factories.StructBlockFactory):
             relative_url=factory.LazyFunction(lambda: f"/{_fake.uri_path()}"),
         )
 
-    label = factory.Faker("sentence", nb_words=3)
+    label = factory.Faker("sentence", nb_words=2, variable_nb_words=False)
 
     # Defaults (use a trait in practice to ensure validity)
     link_to = "external_url"
