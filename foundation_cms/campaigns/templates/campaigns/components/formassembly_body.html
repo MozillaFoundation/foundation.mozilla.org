@@ -8,7 +8,7 @@ The code below has been copied directly over from FormAssembly.
 This code is the BODY section of https://mozillafoundation.tfaforms.net/forms/view/187, which is a direct copy of https://mozillafoundation.tfaforms.net/forms/view/9,
 just updated to send the data to CaMo rather than Basket.
 
-The code snippet below is based on FormAssembly form revision #15
+The code snippet below is based on FormAssembly form revision #17
 
 If there are any updates to this form (which is unlikely), please follow the instructions found on "formassembly_body_legacy.html".
 
@@ -25,7 +25,7 @@ Also, please update the Country fields "Please Select..." placeholder to "Your c
             wFORMS.behaviors.condition.isConditionalSubmitAllowed = true;
         </script></div>
         <form method="post" action="https://mozillafoundation.tfaforms.net/api_v2/workflow/processor" class=" labelsAbove" id="187" role="form">
-            <input type="hidden" id="tfa_500" name="tfa_500" value="{{ petition_signed_url_tfa_500 }}" class=""><input type="hidden" id="tfa_1" name="tfa_1" value="{{ campaign_id_tfa_1 }}" class=""><input type="hidden" id="tfa_498" name="tfa_498" value="{{ source_url_tfa_498 }}" class=""><input type="hidden" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" class=""><input type="hidden" id="tfa_501" name="tfa_501" value="mozilla-foundation" class=""><div class="oneField field-container-D    " id="tfa_28-D">
+            <input type="hidden" id="tfa_500" name="tfa_500" value="{{ petition_signed_url_tfa_500 }}" class=""><input type="hidden" id="tfa_1" name="tfa_1" value="{{ campaign_id_tfa_1 }}" class=""><input type="hidden" id="tfa_498" name="tfa_498" value="{{ source_url_tfa_498 }}" class=""><input type="hidden" id="tfa_499" name="tfa_499" value="{{ lang_tfa_499 }}" class=""><input type="hidden" id="tfa_501" name="tfa_501" value="mozilla-foundation" class=""><input type="hidden" id="tfa_517" name="tfa_517" value="{{ campaign_name_tfa_517 }}" class=""><div class="oneField field-container-D    " id="tfa_28-D">
                 <label id="tfa_28-L" class="label preField reqMark" for="tfa_28">{% trans "First Name" %}</label><br><div class="inputWrapper"><input aria-required="true" type="text" id="tfa_28" name="tfa_28" value="" title="{% trans "First Name" %}" placeholder="{% trans "First Name" %}*" class="required"></div>
             </div>
             <div class="oneField field-container-D    " id="tfa_30-D">

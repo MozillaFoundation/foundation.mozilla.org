@@ -31,6 +31,31 @@ jobs:
       - name: Check JS/SCSS formatting for redesigned site
         run: yarn workspace redesign check-format
 
+  lint_backend:
+    name: Lint & Type Check (Backend)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Run linting
+        run: |
+          flake8 ./foundation_cms
+          isort ./foundation_cms --check-only
+          black ./foundation_cms --check
+          djlint ./foundation_cms --lint
+          # djlint --check is skipped: the regex-based formatter still has consistency
+          # issues (e.g. whitespace/indentation edge cases). The planned AST rewrite
+          # (https://github.com/Riverside-Healthcare/djLint/issues/168) is stalled.
+          # Using djhtml indent check in the meantime.
+          djhtml -c maintenance/ foundation_cms/
+      - name: Run type checks
+        run: mypy foundation_cms
+
   test_wagtail:
     name: Wagtail CI
     runs-on: ubuntu-22.04
@@ -92,21 +117,6 @@ jobs:
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py compilemessages
-      - name: Run linting
-        run: |
-          flake8 ./foundation_cms
-          isort ./foundation_cms --check-only
-          black ./foundation_cms --check
-          djlint ./foundation_cms --lint
-          # Skipping djlint format checking because it has consistency issues and issues with blocktrans.
-          # This should change when formatting is moved to a version using and AST.
-          # See also: https://github.com/Riverside-Healthcare/djLint/issues/493
-          # djlint . --check
-          #
-          # Using djhtml indent check in the meantime.
-          djhtml -c maintenance/ foundation_cms/
-      - name: Run type checks
-        run: mypy foundation_cms
       - name: Run Tests
         run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base -cov=foundation_cms --cov-report=term-missing
 

@@ -321,7 +321,6 @@ button.btn-play--vimeo {
   display: inline-block;
   vertical-align: top;
   border-radius: 16px 16px 0;
-  background: color(yellow, "300");
   padding: rem-calc(5) rem-calc(16);
 }
 
@@ -330,9 +329,16 @@ a.btn-topic {
 
   cursor: pointer;
   color: map.get($mofo-colors, black);
+  background-color: color(yellow, "200");
   text-decoration: none;
 
   &:hover {
-    background: color(orange, "200");
+    background: color(yellow, "300");
+  }
+
+  &--dark {
+    &:hover {
+      background: color(yellow, "100");
+    }
   }
 }
