@@ -67,6 +67,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  cookie_control_init: {
+    source: "cookie_control_init.js",
+    jsx: false,
+    bundle: false,
+  },
   nothing_personal_home_page: {
     source: "pages/nothing_personal/home_page.js",
     jsx: false,
