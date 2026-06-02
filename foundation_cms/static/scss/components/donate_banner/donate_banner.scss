@@ -50,6 +50,7 @@
 
   &__inner-wrapper {
     background: $orange;
+    margin: 0 auto;
 
     @include breakpoint(medium only) {
       max-width: 91vw;
@@ -57,6 +58,10 @@
 
     @include breakpoint(large only) {
       max-width: 89vw;
+    }
+
+    @include breakpoint(xlarge up) {
+      max-width: calc(#{$global-width} + #{rem-calc(128)});
     }
 
     @include breakpoint(medium up) {

@@ -6,6 +6,7 @@ import {
   initSearchToggle,
 } from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
+import { initDonateLightbox } from "./components/donate_lightbox.js";
 let foundationSiteURL = window.location.origin;
 
 console.log(
@@ -14,6 +15,7 @@ console.log(
 
 initPrimaryNav();
 initDonateBanner();
+initDonateLightbox();
 injectNewsletterSignups(foundationSiteURL);
 injectNewsletterUnsubscribes(foundationSiteURL);
 initWordmarkVisibilityOnScroll();

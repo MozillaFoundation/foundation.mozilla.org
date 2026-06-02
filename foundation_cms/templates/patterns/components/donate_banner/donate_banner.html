@@ -1,5 +1,7 @@
 {% if banner.banner_style == "legacy" %}
     {% include "./legacy_banner.html" with banner=banner cta_button_data=cta_button_data %}
+{% elif banner.banner_style == "lightbox" %}
+    {% include "./lightbox_banner.html" with banner=banner cta_button_data=cta_button_data %}
 {% else %}
     {% include "./pushdown_banner.html" with banner=banner cta_button_data=cta_button_data %}
 {% endif %}
