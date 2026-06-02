@@ -1,0 +1,30 @@
+{% load i18n static wagtailimages_tags responsive_image_tags %}
+
+<dialog
+  class="donate-lightbox"
+  data-banner-id="{{ banner.id }}"
+  data-banner-title="{{ banner.title }}"
+  data-banner-name="{{ banner.name }}"
+  data-banner-variant-version="{{ banner.variant_version }}"
+  data-banner-active-ab-test="{{ banner.active_ab_test }}"
+  data-banner-style="{{ banner.banner_style }}"
+  aria-labelledby="donate-lightbox-title"
+>
+  <div class="donate-lightbox__card">
+    <div class="donate-lightbox__image-wrapper">
+      {% responsive_image banner.foreground_image ratio="3:2" base_width=560 %}
+      <button
+        class="donate-lightbox__close-button"
+        data-donate-lightbox-close-button
+        aria-label="{% trans "Close" %}"
+      >
+        <img src="{% static 'foundation_cms/_images/icons/x.svg' %}" alt="" width="32" height="32" />
+      </button>
+    </div>
+    <div class="donate-lightbox__content">
+      <h2 id="donate-lightbox-title" class="donate-lightbox__title">{{ banner.title }}</h2>
+      <p class="donate-lightbox__subtitle">{{ banner.subtitle }}</p>
+      {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" classnames="donate-lightbox__cta-button" data_attrs=cta_button_data autofocus=True %}
+    </div>
+  </div>
+</dialog>
