@@ -3,8 +3,6 @@ from django.shortcuts import redirect, render
 from django.utils import translation
 from wagtail.models import Site
 
-from foundation_cms.core.models.home_page import HomePage as RedesignHomePage
-
 
 def custom404_view(request, exception):
     """
@@ -27,15 +25,7 @@ def custom404_view(request, exception):
         html = render(request, "mozfest/404.html")
 
     else:
-        site_root = site.root_page.specific
-        if isinstance(site_root, RedesignHomePage):
-            parent_homepage = "redesign"
-        else:
-            parent_homepage = "legacy"
-        context = {
-            "parent_homepage": parent_homepage,
-        }
-        html = render(request, "404.html", context)
+        html = render(request, "404.html")
 
     return HttpResponseNotFound(html.content)
 
