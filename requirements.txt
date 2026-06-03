@@ -49,7 +49,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==5.2.13
+django==5.2.14
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -118,7 +118,7 @@ djangorestframework==3.15.2
     #   wagtail
 draftjs-exporter==2.1.7
     # via wagtail
-ecdsa==0.19.1
+ecdsa==0.19.2
     # via python-jose
 et-xmlfile==1.1.0
     # via openpyxl
@@ -207,7 +207,7 @@ pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.32.4
+requests==2.34.2
     # via
     #   -r requirements.in
     #   basket-client
