@@ -69,6 +69,7 @@ class BasePage(FoundationNavigationPageMixin, FoundationMetadataPageMixin, Page)
             donate_banner = donate_banner_page.donate_banner.localized
             donate_banner.variant_version = "N/A"
             donate_banner.active_ab_test = "N/A"
+            donate_banner.cta_button_data = {"donate-banner-cta-button": ""}
             return donate_banner
 
         # Check for the cookie related to this A/B test.
@@ -101,6 +102,7 @@ class BasePage(FoundationNavigationPageMixin, FoundationMetadataPageMixin, Page)
 
         donate_banner.variant_version = test_version
         donate_banner.active_ab_test = active_ab_test.name
+        donate_banner.cta_button_data = {"donate-banner-cta-button": ""}
         return donate_banner
 
     def get_context(self, request):
