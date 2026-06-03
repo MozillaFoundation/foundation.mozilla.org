@@ -110,7 +110,7 @@ def sync_localized_slugs(request, page):
         else:
             # If it's a real page, it needs to go through
             # the revision/publication process.
-            translation.save_revision().publish()
+            translation.save_revision(clean=False).publish()
 
 
 @hooks.register("after_delete_page")
