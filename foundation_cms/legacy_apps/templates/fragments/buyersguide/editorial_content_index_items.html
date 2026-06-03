@@ -23,10 +23,10 @@
           Replace the entire list item that currently contains the pagination and load more button with the response.
           If there is yet another page, another load more button will be rendered.
         {% endcomment %}
-                data-hx-get="{{ request.path }}{% querystring 'page'=items.next_page_number %}"  {# AJAX GET request to the next page. #}
-                data-hx-push-url="{{ request.path }}{% querystring 'page'=items.next_page_number expanded='true' %}" {# The expanded parameter is only important to regenerate the items page, but not for the AJAX request itself (that only loads a single page at a time).  #}
-                data-hx-target="#index-navigation"
-                data-hx-swap="outerHTML"
+                hx-get="{{ request.path }}{% querystring 'page'=items.next_page_number %}"  {# AJAX GET request to the next page. #}
+                hx-push-url="{{ request.path }}{% querystring 'page'=items.next_page_number expanded='true' %}" {# The expanded parameter is only important to regenerate the items page, but not for the AJAX request itself (that only loads a single page at a time).  #}
+                hx-target="#index-navigation"
+                hx-swap="outerHTML"
             >{% trans "Load more results" %}</button>
         </nav>
     {% endif %}
