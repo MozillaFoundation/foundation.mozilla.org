@@ -14,11 +14,13 @@ class HeroMediaMixin(HeroImageMixin):
     displayed_hero_content = models.CharField(
         verbose_name="Select media type from dropdown",
         max_length=25,
+        blank=True,
         choices=[
+            ("", "No media"),
             (HERO_CONTENT_IMAGE, "Image"),
             (HERO_CONTENT_VIDEO, "Video"),
         ],
-        default=HERO_CONTENT_IMAGE,
+        default="",
     )
 
     hero_video_url = models.CharField(

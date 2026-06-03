@@ -156,6 +156,16 @@ $cta-link-icon-sizes: (
   }
 
   &--link {
+    gap: rem-calc(5);
+
+    &::after {
+      width: rem-calc(32);
+      height: rem-calc(32);
+      background-image: url("/static/foundation_cms/_images/icons/link.svg");
+    }
+  }
+
+  &--link-icon-left {
     @include button-with-left-icon(
       "/static/foundation_cms/_images/icons/link.svg"
     );
@@ -311,7 +321,6 @@ button.btn-play--vimeo {
   display: inline-block;
   vertical-align: top;
   border-radius: 16px 16px 0;
-  background: color(yellow, "300");
   padding: rem-calc(5) rem-calc(16);
 }
 
@@ -320,9 +329,16 @@ a.btn-topic {
 
   cursor: pointer;
   color: map.get($mofo-colors, black);
+  background-color: color(yellow, "200");
   text-decoration: none;
 
   &:hover {
-    background: color(orange, "200");
+    background: color(yellow, "300");
+  }
+
+  &--dark {
+    &:hover {
+      background: color(yellow, "100");
+    }
   }
 }

@@ -98,6 +98,7 @@ env = environ.Env(
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
     TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS=(list, []),
+    WAGTAILSEARCH_HITS_MAX_AGE=(int, 7),
 )
 
 # Read in the environment
@@ -258,6 +259,7 @@ INSTALLED_APPS = list(
             "wagtail.contrib.table_block",
             "wagtail.contrib.frontend_cache",
             "wagtail.contrib.settings",
+            "wagtail.contrib.search_promotions",
             "wagtail_color_panel",
             "wagtailmedia",
             "wagtailinventory",
@@ -309,6 +311,7 @@ INSTALLED_APPS = list(
             "foundation_cms.images",
             "foundation_cms.footer",
             "foundation_cms.navigation",
+            "foundation_cms.search",
         ],
     )
 )
@@ -522,6 +525,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en"
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = (
+    ("ca", gettext_lazy("Catalan")),
     ("en", gettext_lazy("English")),
     ("de", gettext_lazy("German")),
     ("es", gettext_lazy("Spanish")),
@@ -617,37 +621,37 @@ WAGTAILSEARCH_BACKENDS = {
     "en": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "english",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "de": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "german",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "es": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "spanish",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "fr": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "french",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "nl": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "dutch",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "pt-BR": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "portuguese",
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
     "default": {
         "BACKEND": "wagtail.search.backends.database",
         "SEARCH_CONFIG": "simple",  # Support pl, fy-NL, sw
-        "AUTO_UPDATE": True,
+        "AUTO_UPDATE": False,
     },
 }
 
@@ -927,3 +931,8 @@ TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
 EDITABLE_FOOTER = env("EDITABLE_FOOTER", default=False)
 # Use cms editable nav
 EDITABLE_NAV = env("EDITABLE_NAV", default=False)
+
+# Number of days(default 7) to keep search hits in the DB. Queries older than this will be removed by
+# the searchpromotions_garbage_collect command ./manage.py searchpromotions_garbage_collect.
+# https://docs.wagtail.org/en/stable/reference/settings.html#wagtailsearch-hits-max-age
+WAGTAILSEARCH_HITS_MAX_AGE = env("WAGTAILSEARCH_HITS_MAX_AGE")

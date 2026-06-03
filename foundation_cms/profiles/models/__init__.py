@@ -1,7 +1,12 @@
 from .abstract_profile_page import AbstractProfilePage
 from .expert_directory_page import ExpertDirectoryPage, ExpertHubFeaturedTopic
 from .expert_hub_page import ExpertHubFeaturedExpert, ExpertHubPage
-from .expert_profile_page import ExpertExternalLink, ExpertProfilePage
+from .expert_profile_page import (
+    ExpertExternalLink,
+    ExpertProfilePage,
+    ExpertProfileSelectedArticle,
+    ExpertProfileSelectedProject,
+)
 
 __all__ = [
     "AbstractProfilePage",
@@ -11,4 +16,6 @@ __all__ = [
     "ExpertHubPage",
     "ExpertExternalLink",
     "ExpertProfilePage",
+    "ExpertProfileSelectedArticle",
+    "ExpertProfileSelectedProject",
 ]

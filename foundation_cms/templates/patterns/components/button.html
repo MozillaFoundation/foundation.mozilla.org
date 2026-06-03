@@ -6,6 +6,7 @@
         {% if name %}name="{{ name }}"{% endif %}
         {% if button_value %}value="{{ button_value }}"{% endif %}
         {% if disabled %}disabled{% endif %}
+        {% if autofocus %}autofocus{% endif %}
         {% if data_attrs %}
           {% for key, value in data_attrs.items %}
             data-{{ key }}="{{ value }}"
@@ -17,6 +18,7 @@
     {% else %}
       <a href="{{ url }}"
          {% if value.new_window %}target="_blank"{% endif %}
+         {% if autofocus %}autofocus{% endif %}
          {% if data_attrs %}
            {% for key, value in data_attrs.items %}
              data-{{ key }}="{{ value }}"

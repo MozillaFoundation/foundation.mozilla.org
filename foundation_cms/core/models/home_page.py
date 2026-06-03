@@ -33,13 +33,12 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
     ]
 
     search_fields = AbstractHomePage.search_fields + [
-        index.SearchField("body", boost=8),
         # Hero accordion content indexing
         index.RelatedFields(
             "hero_accordion",
             [
-                index.SearchField("label", boost=6),
-                index.SearchField("heading", boost=6),
+                index.SearchField("label", boost=5),
+                index.SearchField("heading", boost=5),
             ],
         ),
         # Homepage filters
