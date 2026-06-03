@@ -25,7 +25,9 @@ def custom404_view(request, exception):
         html = render(request, "mozfest/404.html")
 
     else:
-        html = render(request, "404.html")
+        lang_code = getattr(request, "LANGUAGE_CODE", None) or ""
+        homepage_url = f"/{lang_code}/" if lang_code else "/"
+        html = render(request, "404.html", {"homepage_url": homepage_url})
 
     return HttpResponseNotFound(html.content)
 

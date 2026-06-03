@@ -11,7 +11,6 @@
 {% block body_class %}template-404{% endblock body_class %}
 {% block breadcrumbs %}{% endblock breadcrumbs %}
 {% block content %}
-    {% get_current_language as lang_code %}
     <main class="error-404">
         <div class="grid-container">
             <div class="grid-x grid-margin-x error-404__layout">
@@ -19,10 +18,10 @@
                     <h1 class="error-404__heading">{% trans "Error 404" %}</h1>
                     <p class="error-404__copy body-text-large">{% trans "Uh oh! We’re sorry, this page does not exist." %}</p>
                     {% translate "Back to our homepage" as localized_homepage_label %}
-                    {% include "patterns/components/button.html" with url="/"|add:lang_code|add:"/" label=localized_homepage_label button_style="btn-secondary" classnames="error-404__button" %}
+                    {% include "patterns/components/button.html" with url=homepage_url label=localized_homepage_label button_style="btn-secondary" classnames="error-404__button" %}
                 </div>
                 <div class="cell small-12 medium-6 error-404__media" aria-hidden="true">
-                    <img src="{% static 'foundation_cms/_images/404.jpg' %}" alt="" width="1056" height="716">
+                    <img src="{% static 'foundation_cms/_images/404.jpg' %}" alt="" width="1168" height="792">
                 </div>
             </div>
         </div>
