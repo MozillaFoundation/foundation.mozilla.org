@@ -47,6 +47,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  expert_profile_page: {
+    source: "pages/expert_profile_page.js",
+    jsx: false,
+    bundle: true,
+  },
   gallery_hub_gallery_page: {
     source: "pages/gallery_hub/gallery_page.js",
     jsx: false,
