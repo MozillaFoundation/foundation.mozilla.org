@@ -13,6 +13,7 @@ import {
   initSearchToggle,
 } from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
+import { initDonateLightbox } from "./components/donate_lightbox.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
 import { initProjectBlocks } from "./blocks/project_block.js";
@@ -30,6 +31,7 @@ console.log(
 
 initPrimaryNav();
 initDonateBanner();
+initDonateLightbox();
 initImpactNumberStatAnimationsOnScroll();
 initAllHorizontalAccordions();
 initAllAccordionBlocks();
