@@ -180,11 +180,13 @@
     &[data-layout="expand_on_focus"] {
       @include breakpoint(xlarge up) {
         display: block;
+        padding: 1.5rem 2rem 2rem;
       }
 
       .newsletter-signup__form {
         @include breakpoint(xlarge up) {
           flex-direction: column;
+          gap: 0.5rem;
         }
       }
     }
