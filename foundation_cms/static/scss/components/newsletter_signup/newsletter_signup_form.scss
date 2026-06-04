@@ -1,4 +1,5 @@
 @use "sass:math";
+@import "newsletter_signup_mixins";
 
 // Newsletter signup form stylings
 // The form is currently used in the newsletter signup block, and the site footer.
@@ -214,14 +215,9 @@
 
       &::before {
         @include breakpoint(medium up) {
-          content: "";
+          @include newsletter-signup-rays-icon(53px);
+
           display: block;
-          width: rem-calc(53px);
-          height: rem-calc(44px);
-          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-          background-size: 100% auto;
-          background-position: center;
-          background-repeat: no-repeat;
         }
       }
     }
@@ -288,22 +284,6 @@
         margin-bottom: 0;
       }
     }
-  }
-}
-
-.two-column-container__column .newsletter-signup__container {
-  .newsletter-signup__form-grid {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .newsletter-signup__fieldset {
-    flex-direction: column;
-  }
-
-  .newsletter-signup__button-wrapper {
-    width: 100%;
-    margin-left: 0;
   }
 }
 
@@ -375,16 +355,12 @@
     // Decorative rays for the block variant.
     &::before {
       display: block;
-      content: "";
+
+      @include newsletter-signup-rays-icon;
+
       position: absolute;
       top: -1rem;
       left: 2rem;
-      width: rem-calc(51px);
-      height: rem-calc(44px);
-      background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-      background-size: 100% auto;
-      background-position: center;
-      background-repeat: no-repeat;
 
       @include breakpoint(medium up) {
         top: -2rem;
@@ -403,41 +379,6 @@
       &::before {
         @include breakpoint(medium up) {
           display: none;
-        }
-      }
-    }
-
-    &:has(.newsletter-signup--expanded) {
-      &::before {
-        display: none;
-      }
-    }
-
-    .newsletter-signup--expanded {
-      @include breakpoint(xlarge up) {
-        flex-direction: column;
-
-        .newsletter-signup__cta-wrapper {
-          display: grid;
-          grid-template-columns: auto 1fr;
-          align-items: start;
-          column-gap: 1rem;
-
-          &::before {
-            content: "";
-            width: rem-calc(51px);
-            height: rem-calc(44px);
-            background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-            background-size: 100% auto;
-            background-repeat: no-repeat;
-            background-position: center;
-            pointer-events: none;
-          }
-        }
-
-        .newsletter-signup__form-grid {
-          width: 100%;
-          flex-direction: column;
         }
       }
     }
@@ -463,16 +404,12 @@
         // Decorative rays for the block variant.
         &::before {
           display: block;
-          content: "";
+
+          @include newsletter-signup-rays-icon;
+
           position: absolute;
           left: 0;
           top: 0.25rem;
-          width: rem-calc(51px);
-          height: rem-calc(44px);
-          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-          background-size: 100% auto;
-          background-position: center;
-          background-repeat: no-repeat;
         }
       }
 

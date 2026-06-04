@@ -93,7 +93,6 @@ function applyLayoutBehavior(form, layout, emailInput) {
     expandableFields.forEach((el) =>
       el.classList.remove(CLASSNAMES.fieldHidden),
     );
-    form.classList.add("newsletter-signup--expanded");
   };
 
   if (layout === "expanded") {

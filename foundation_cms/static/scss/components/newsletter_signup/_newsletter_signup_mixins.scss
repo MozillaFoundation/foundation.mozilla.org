@@ -1,0 +1,73 @@
+@mixin newsletter-signup-rays-icon($width: 51px, $height: 44px) {
+  content: "";
+  width: rem-calc($width);
+  height: rem-calc($height);
+  background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@mixin newsletter-signup-inline-cta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: 1rem;
+  padding-left: 0;
+
+  &::before {
+    @include newsletter-signup-rays-icon;
+
+    position: static;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .newsletter-signup__cta-header,
+  .newsletter-signup__cta-description {
+    grid-column: 2;
+  }
+}
+
+@mixin newsletter-signup-narrow-block-layout {
+  .newsletter-signup[data-layout] {
+    @include breakpoint(medium up) {
+      margin-top: 0;
+
+      &::before {
+        display: none;
+      }
+
+      .newsletter-signup__cta-wrapper {
+        @include newsletter-signup-inline-cta;
+      }
+    }
+
+    .newsletter-signup__form-grid,
+    .newsletter-signup__fieldset {
+      flex-direction: column;
+    }
+
+    .newsletter-signup__form-grid {
+      width: 100%;
+    }
+
+    .newsletter-signup__fieldset {
+      min-width: 0;
+    }
+
+    .newsletter-signup__button-wrapper {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    @include breakpoint(xlarge up) {
+      display: block;
+      padding: 2rem;
+
+      .newsletter-signup__form {
+        flex-direction: column;
+      }
+    }
+  }
+}

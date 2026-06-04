@@ -155,6 +155,8 @@
     padding: 1.5rem 2rem 2rem;
 
     &__form-grid {
+      width: 100%;
+
       @include breakpoint(medium up) {
         flex-direction: column;
       }
@@ -173,6 +175,18 @@
     &__button-wrapper,
     &__cta-wrapper {
       width: 100%;
+    }
+
+    &[data-layout="expand_on_focus"] {
+      @include breakpoint(xlarge up) {
+        display: block;
+      }
+
+      .newsletter-signup__form {
+        @include breakpoint(xlarge up) {
+          flex-direction: column;
+        }
+      }
     }
 
     &[data-layout="expanded"] {
