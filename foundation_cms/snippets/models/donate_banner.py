@@ -60,6 +60,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
 
     BANNER_STYLES = [
         ("legacy", "Legacy"),
+        ("lightbox", "Lightbox"),
         ("pushdown", "Pushdown"),
     ]
 

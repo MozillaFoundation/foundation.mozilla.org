@@ -1,6 +1,7 @@
 from urllib.parse import urlencode
 
 from wagtail import blocks
+from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
@@ -11,6 +12,7 @@ class DonorHelpContactUsFormBlock(BaseBlock):
         required=False,
         default="Questions about your donation? Get in touch with our team by using the form below.",
     )
+    image = ImageBlock(required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)

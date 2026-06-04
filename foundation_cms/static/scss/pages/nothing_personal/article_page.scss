@@ -21,6 +21,7 @@ body.nothing-personal.nothing-personal-article-page {
   .article-topics,
   .rich-text-block,
   .image-block,
+  .article-share,
   .two-column-container,
   .callout-box,
   .quote-block {
@@ -235,6 +236,21 @@ body.nothing-personal.nothing-personal-article-page {
       @include breakpoint(medium up) {
         width: 100%;
       }
+    }
+  }
+
+  .article-share {
+    &__heading {
+      margin-bottom: 1rem;
+    }
+
+    &__sosha_embed {
+      background-color: color(neutral, "200");
+      padding-top: 1rem;
+    }
+
+    button {
+      font-weight: bold;
     }
   }
 }
