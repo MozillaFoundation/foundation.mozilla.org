@@ -1,7 +1,7 @@
 const API_KEY = "76fd590604f568812d13d4780b846805941fe9f0";
 const PRODUCT_TYPE = "CUSTOM";
 
-CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function(response) {
+CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
   console.log("geoTest response:", response);
 
   var config = {
