@@ -40,7 +40,7 @@ cffi==2.0.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==46.0.5
+cryptography==46.0.7
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -84,7 +84,7 @@ django-csp==3.8
     # via -r requirements.in
 django-environ==0.12.0
     # via -r requirements.in
-django-filter==23.5
+django-filter==25.2
     # via
     #   -r requirements.in
     #   wagtail
@@ -223,7 +223,7 @@ s3transfer==0.10.0
     # via boto3
 scipy==1.10.0
     # via wagtail-ab-testing
-scout-apm==3.2.1
+scout-apm==3.5.3
     # via -r requirements.in
 sentry-sdk==2.25.0
     # via -r requirements.in
@@ -281,7 +281,7 @@ wagtail==7.2.3
     #   wagtailmedia
 wagtail-ab-testing==0.12
     # via -r requirements.in
-wagtail-color-panel==1.6.0
+wagtail-color-panel==1.8.1
     # via -r requirements.in
 wagtail-factories==4.4.0
     # via -r requirements.in
