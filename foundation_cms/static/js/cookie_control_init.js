@@ -9,6 +9,7 @@ CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
   console.log("geoTest response:", response);
 
   var config = {
+    theme: "dark",
     initialState: "notify",
     product: PRODUCT_TYPE,
     mode: response.withinEU ? "GDPR" : "CCPA",
@@ -26,6 +27,7 @@ CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
         "[Notify baner description] We use some essential cookies to make this website. We’d like to set additional cookies to understand how you use mozillafoundation.org. Your settings improve our services.",
       accept: "Accept Analytics Cookies",
       reject: "Reject Analytics Cookies",
+      settings: "Consent Settings",
     },
     optionalCookies: [
       {

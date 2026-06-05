@@ -1,0 +1,30 @@
+// Cookie Control v9 (Civic UK) — https://cookiecontrol.com/docs/v9/
+
+#ccc {
+  $cc-breakpoint: 1020px;
+
+  // Notification bar
+  #ccc-notify {
+    background-color: color(blue, "600");
+
+    @include breakpoint($cc-breakpoint up) {
+      align-items: normal !important;
+      flex-direction: column !important;
+      max-width: 50rem !important;
+      left: unset !important;
+    }
+
+    .ccc-notify-text {
+      #ccc-notify-title {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+        color: white;
+        margin-bottom: rem-calc(6);
+
+        + p {
+          color: white;
+        }
+      }
+    }
+  }
+}
