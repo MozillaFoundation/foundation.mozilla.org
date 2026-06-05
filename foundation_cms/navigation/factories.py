@@ -1,11 +1,14 @@
 import factory
 import wagtail_factories
 from factory.django import DjangoModelFactory
+from faker import Faker as _Faker
 from wagtail import models as wagtail_models
 
 from foundation_cms.base.utils.helpers import reseed
 from foundation_cms.navigation import blocks as nav_blocks
 from foundation_cms.navigation import models as nav_models
+
+_fake = _Faker()
 
 
 class NavLinkFactory(wagtail_factories.StructBlockFactory):
@@ -28,14 +31,14 @@ class NavLinkFactory(wagtail_factories.StructBlockFactory):
         )
         external_url_link = factory.Trait(
             link_to="external_url",
-            external_url=factory.Faker("url"),
+            external_url=factory.Sequence(lambda n: f"https://example-{n}.com/"),
         )
         relative_url_link = factory.Trait(
             link_to="relative_url",
-            relative_url=f"/{factory.Faker('uri_path')}",
+            relative_url=factory.LazyFunction(lambda: f"/{_fake.uri_path()}"),
         )
 
-    label = factory.Faker("sentence", nb_words=3)
+    label = factory.Faker("sentence", nb_words=2, variable_nb_words=False)
 
     # Defaults (use a trait in practice to ensure validity)
     link_to = "external_url"
