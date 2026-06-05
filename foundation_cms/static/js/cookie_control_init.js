@@ -1,3 +1,8 @@
+// Official doc from Cookie Contorl: https://cookiecontrol.com/docs/v9/
+// GDPR/CCPA mode should be based on geo location
+// Locale should be based on user’s browser language setting
+
+
 const API_KEY = "76fd590604f568812d13d4780b846805941fe9f0";
 const PRODUCT_TYPE = "CUSTOM";
 
@@ -13,11 +18,9 @@ CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
       accept: "✅✅ Accept",
       reject: "❌❌ Reject",
     },
-    locale: document.documentElement.lang || "en",
     locales: [
       {
         locale: "fr",
-        location: ["FR", "CA"],
         text: {
           title: "🍪 Test de cookies (FR)",
           intro: "Texte par défaut en français.",
@@ -27,7 +30,6 @@ CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
       },
       {
         locale: "de",
-        location: ["DE"],
         text: {
           title: "🍪 Cookie-Test (DE)",
           intro: "Standardtext auf Deutsch.",
@@ -37,7 +39,6 @@ CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
       },
       {
         locale: "pt",
-        location: ["BR"],
         text: {
           title: "🍪 Teste de cookies (PT)",
           intro: "Texto padrão em português.",
