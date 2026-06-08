@@ -1,0 +1,53 @@
+@use "sass:map";
+@import "../foundation-framework-styles";
+@import "../variables";
+@import "../colors";
+@import "../type";
+
+body.template-404 {
+  .main-content-wrapper {
+    min-height: 100vh;
+  }
+}
+
+.error-404 {
+  background-color: map.get($mofo-colors, white);
+  padding: rem-calc(32) 0;
+
+  @include breakpoint(medium up) {
+    padding: rem-calc(64) 0;
+  }
+
+  &__layout {
+    align-items: center;
+  }
+
+  &__content,
+  &__media {
+    align-self: center;
+  }
+
+  &__heading {
+    @include mofo-text-style($header-styles, "h2", $header-font-family);
+
+    margin: 0 0 rem-calc(16);
+    color: map.get($mofo-colors, black);
+  }
+
+  &__copy {
+    margin: 0 0 rem-calc(24);
+    color: map.get($mofo-colors, black);
+  }
+
+  &__button {
+    margin: 0;
+  }
+
+  &__media {
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
