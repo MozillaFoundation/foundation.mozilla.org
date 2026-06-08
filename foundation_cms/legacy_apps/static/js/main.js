@@ -187,4 +187,3 @@ let main = {
 };
 
 main.init();
-console.log("test test");
