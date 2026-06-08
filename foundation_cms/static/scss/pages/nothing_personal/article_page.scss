@@ -127,6 +127,18 @@ body.nothing-personal.nothing-personal-article-page {
   main .newsletter-signup[data-layout="expand_on_focus"] {
     margin-top: 1rem; // Glyph padding
 
+    @include breakpoint(large down) {
+      .newsletter-signup__form-grid,
+      .newsletter-signup__fieldset {
+        flex-direction: column;
+      }
+
+      .newsletter-signup__button-wrapper {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
     @include breakpoint(xlarge up) {
       margin-top: 2rem; // Glyph padding
       display: block;

@@ -426,3 +426,7 @@
     }
   }
 }
+
+.newsletter-signup-block {
+  @include newsletter-signup-expanded-controls-row;
+}

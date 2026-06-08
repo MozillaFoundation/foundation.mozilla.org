@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
+@import "../components/newsletter_signup/newsletter_signup_mixins";
 @import "../components/related_content";
 
 body.template-project-page {
@@ -270,5 +271,9 @@ body.template-project-page {
         }
       }
     }
+  }
+
+  .newsletter-signup-block {
+    @include newsletter-signup-stacked-cta-inline-form;
   }
 }
