@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../../nothing_personal_base";
+@import "../../components/newsletter_signup/newsletter_signup_mixins";
 @import "../../components/nothing_personal/article_page_header";
 @import "../../components/related_content";
 
@@ -124,6 +125,10 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   // TODO: Replace this styling with a container query approach
+  main .newsletter-signup[data-layout="expanded"] {
+    @include newsletter-signup-stacked-form-controls;
+  }
+
   main .newsletter-signup[data-layout="expand_on_focus"] {
     margin-top: 1rem; // Glyph padding
 
