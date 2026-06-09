@@ -5,7 +5,7 @@
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site. Entrypoint for yarn workspaces. Contains global scripts run from root.",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "private": true,
   "workspaces": [

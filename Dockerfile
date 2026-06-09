@@ -1,5 +1,5 @@
 # (Keep the version in sync with the node install below)
-FROM node:20-bookworm-slim as frontend
+FROM node:22-bookworm-slim as frontend
 
 ARG CI=true
 
@@ -145,8 +145,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
-# Create deb repository for Node.js v20.x
-RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
+# Create deb repository for Node.js v22.x
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
 
 # Update and install Node.js
 RUN apt-get update && apt-get install nodejs -y \
