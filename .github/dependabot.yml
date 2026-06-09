@@ -20,3 +20,12 @@ updates:
     - "dependencies"
     - "frontend"
     - "npm"
+  ignore:
+    - dependency-name: "tailwindcss"
+      update-types: ["version-update:semver-major"]
+    - dependency-name: "react"
+      update-types: ["version-update:semver-major"]
+    - dependency-name: "react-dom"
+      update-types: ["version-update:semver-major"]
+    - dependency-name: "locomotive-scroll"
+      update-types: ["version-update:semver-major"]
