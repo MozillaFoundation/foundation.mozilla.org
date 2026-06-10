@@ -289,7 +289,7 @@ wagtail-footnotes==0.13.0
     # via -r requirements.in
 wagtail-inventory==3.2
     # via -r requirements.in
-wagtail-localize==1.13
+wagtail-localize==1.13.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git
