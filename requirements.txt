@@ -90,7 +90,7 @@ django-filter==25.2
     #   wagtail
 django-htmx==1.23.0
     # via -r requirements.in
-django-modelcluster==6.2.1
+django-modelcluster==6.5
     # via wagtail
 django-pattern-library==1.5.0
     # via -r requirements.in
@@ -106,7 +106,7 @@ django-stubs-ext==5.2.8
     # via django-tasks
 django-taggit==6.1.0
     # via wagtail
-django-tasks==0.8.1
+django-tasks==0.9.0
     # via
     #   modelsearch
     #   wagtail
@@ -201,8 +201,6 @@ python-slugify==8.0.4
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
-pytz==2023.3.post1
-    # via django-modelcluster
 pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
@@ -267,7 +265,7 @@ urllib3==2.6.3
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==7.2.3
+wagtail==7.3.2
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
