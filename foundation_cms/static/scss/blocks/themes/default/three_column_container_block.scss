@@ -155,6 +155,8 @@
     padding: 1.5rem 2rem 2rem;
 
     &__form-grid {
+      width: 100%;
+
       @include breakpoint(medium up) {
         flex-direction: column;
       }
@@ -165,14 +167,62 @@
     }
 
     &__fieldset {
+      display: flex;
+      grid-template-columns: none;
+
       @include breakpoint(medium up) {
         flex: initial;
       }
     }
 
+    &__field:has(input[type="checkbox"]) {
+      grid-column: auto;
+    }
+
     &__button-wrapper,
     &__cta-wrapper {
       width: 100%;
+    }
+
+    &__button.btn-primary {
+      width: 100%;
+      min-width: 0;
+    }
+
+    &[data-layout] {
+      .newsletter-signup__fieldset {
+        display: flex;
+        grid-template-columns: none;
+      }
+
+      .newsletter-signup__field:has(input[type="checkbox"]) {
+        grid-column: auto;
+      }
+
+      .newsletter-signup__button-wrapper {
+        width: 100%;
+        flex: auto;
+        margin-left: 0;
+      }
+
+      .newsletter-signup__button.btn-primary {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    &[data-layout="expand_on_focus"] {
+      @include breakpoint(xlarge up) {
+        display: block;
+        padding: 1.5rem 2rem 2rem;
+      }
+
+      .newsletter-signup__form {
+        @include breakpoint(xlarge up) {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
     }
 
     &[data-layout="expanded"] {

@@ -7,7 +7,7 @@
   "author": "Mozilla Foundation",
   "type": "module",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "playwright:install": "playwright install chromium",
@@ -53,7 +53,7 @@
     "sass": "^1.98.0"
   },
   "devDependencies": {
-    "@percy/cli": "^1.31.10",
+    "@percy/cli": "^1.31.14",
     "@percy/playwright": "^1.1.0",
     "@playwright/test": "^1.60.0",
     "autoprefixer": "^10.5.0",
@@ -64,9 +64,9 @@
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-scss": "^4.0.9",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "shx": "^0.4.0",
-    "stylelint": "^17.12.0",
+    "stylelint": "^17.13.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.2.0"
   },

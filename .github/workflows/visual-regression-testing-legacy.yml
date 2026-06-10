@@ -41,20 +41,20 @@ jobs:
 
   visual_regression_tests:
     name: Percy CI - Legacy
-    needs: [check-changes]
-    # always() prevents this job from being skipped when check-changes is skipped
-    # (i.e. on push and labeled events, check-changes does not run).
-    # For pull_request_review, we additionally gate on the legacy output from check-changes.
+    needs: [check-files-on-approval]
+    # always() prevents this job from being skipped when check-files-on-approval is skipped
+    # (i.e. on push and labeled events, check-files-on-approval does not run).
+    # For pull_request_review, we additionally gate on the legacy output from check-files-on-approval.
     if: |
       always() && (
         (github.event_name == 'push' && github.event.ref == 'refs/heads/main') ||
         (github.event_name == 'pull_request' && github.event.label.name == 'run:visual-regression:legacy') ||
-        (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && needs.check-changes.outputs.legacy == 'true')
+        (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && needs.check-files-on-approval.outputs.legacy == 'true')
       )
     runs-on: ubuntu-22.04
     services:
       postgres:
-        image: postgres:13.2
+        image: postgres:14
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -104,7 +104,7 @@ jobs:
           cache: "pip"
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt

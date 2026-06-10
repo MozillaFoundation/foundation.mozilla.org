@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../../nothing_personal_base";
+@import "../../components/newsletter_signup/newsletter_signup_mixins";
 @import "../../components/nothing_personal/article_page_header";
 @import "../../components/related_content";
 
@@ -23,9 +24,12 @@ body.nothing-personal.nothing-personal-article-page {
   .image-block,
   .article-share,
   .two-column-container,
-  .newsletter-signup[data-layout="expand_on_focus"],
   .callout-box,
   .quote-block {
+    @include block-spacing;
+  }
+
+  main .newsletter-signup[data-layout="expand_on_focus"] {
     @include block-spacing;
   }
 
@@ -121,8 +125,24 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   // TODO: Replace this styling with a container query approach
-  .newsletter-signup[data-layout="expand_on_focus"] {
+  main .newsletter-signup[data-layout="expanded"] {
+    @include newsletter-signup-stacked-form-controls;
+  }
+
+  main .newsletter-signup[data-layout="expand_on_focus"] {
     margin-top: 1rem; // Glyph padding
+
+    @include breakpoint(large down) {
+      .newsletter-signup__form-grid,
+      .newsletter-signup__fieldset {
+        flex-direction: column;
+      }
+
+      .newsletter-signup__button-wrapper {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
 
     @include breakpoint(xlarge up) {
       margin-top: 2rem; // Glyph padding
