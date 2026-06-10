@@ -1,0 +1,177 @@
+@mixin newsletter-signup-rays-icon($width: 51px, $height: 44px) {
+  content: "";
+  width: rem-calc($width);
+  height: rem-calc($height);
+  background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@mixin newsletter-signup-inline-cta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: 1rem;
+  padding-left: 0;
+
+  &::before {
+    @include newsletter-signup-rays-icon;
+
+    position: static;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .newsletter-signup__cta-header,
+  .newsletter-signup__cta-description {
+    grid-column: 2;
+  }
+}
+
+@mixin newsletter-signup-stacked-form-controls {
+  .newsletter-signup__form-grid,
+  .newsletter-signup__fieldset {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .newsletter-signup__fieldset {
+    display: flex;
+    grid-template-columns: none;
+    min-width: 0;
+  }
+
+  .newsletter-signup__field {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .newsletter-signup__field:has(input[type="checkbox"]) {
+    grid-column: auto;
+  }
+
+  .newsletter-signup__button-wrapper {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .newsletter-signup__button.btn-primary {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@mixin newsletter-signup-narrow-block-layout {
+  .newsletter-signup[data-layout] {
+    @include breakpoint(medium up) {
+      margin-top: 0;
+
+      &::before {
+        display: none;
+      }
+
+      .newsletter-signup__cta-wrapper {
+        @include newsletter-signup-inline-cta;
+      }
+    }
+
+    @include newsletter-signup-stacked-form-controls;
+
+    @include breakpoint(xlarge up) {
+      display: block;
+      padding: 2rem;
+
+      .newsletter-signup__form {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@mixin newsletter-signup-expanded-controls-row {
+  .newsletter-signup[data-layout="expanded"] {
+    @include breakpoint(xlarge up) {
+      .newsletter-signup__form-grid {
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .newsletter-signup__fieldset {
+        display: grid;
+        flex: 1 1 auto;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem;
+        min-width: 0;
+      }
+
+      .newsletter-signup__field {
+        min-width: 0;
+      }
+
+      .newsletter-signup__field:has(input[type="checkbox"]) {
+        grid-column: 1 / -1;
+      }
+
+      .newsletter-signup__button-wrapper {
+        flex: 0 0 auto;
+        width: auto;
+        margin-left: 0;
+      }
+
+      .newsletter-signup__button.btn-primary {
+        width: auto;
+        min-width: rem-calc(140);
+      }
+    }
+  }
+}
+
+@mixin newsletter-signup-stacked-cta-inline-form {
+  .newsletter-signup[data-layout="expand_on_focus"] {
+    @include breakpoint(xlarge up) {
+      display: block;
+      padding: 2rem;
+    }
+
+    &::before {
+      @include breakpoint(xlarge up) {
+        position: absolute;
+        top: -2rem;
+        left: 2rem;
+        flex-shrink: 1;
+        min-height: 0;
+      }
+    }
+
+    .newsletter-signup__cta-wrapper {
+      @include breakpoint(xlarge up) {
+        margin-bottom: 1.5rem;
+        display: block;
+        min-height: 0;
+        padding-left: 0;
+      }
+    }
+
+    .newsletter-signup__form {
+      @include breakpoint(xlarge up) {
+        flex-direction: column;
+        align-items: stretch;
+        flex: auto;
+        gap: 0.5rem;
+      }
+    }
+
+    .newsletter-signup__form-grid {
+      @include breakpoint(xlarge up) {
+        flex: auto;
+      }
+    }
+
+    .newsletter-signup__fieldset {
+      @include breakpoint(xlarge up) {
+        min-width: 0;
+      }
+    }
+  }
+}

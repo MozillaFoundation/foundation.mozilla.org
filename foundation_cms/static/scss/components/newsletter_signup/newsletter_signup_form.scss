@@ -1,4 +1,5 @@
 @use "sass:math";
+@import "newsletter_signup_mixins";
 
 // Newsletter signup form stylings
 // The form is currently used in the newsletter signup block, and the site footer.
@@ -214,14 +215,9 @@
 
       &::before {
         @include breakpoint(medium up) {
-          content: "";
+          @include newsletter-signup-rays-icon(53px);
+
           display: block;
-          width: rem-calc(53px);
-          height: rem-calc(44px);
-          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-          background-size: 100% auto;
-          background-position: center;
-          background-repeat: no-repeat;
         }
       }
     }
@@ -359,16 +355,12 @@
     // Decorative rays for the block variant.
     &::before {
       display: block;
-      content: "";
+
+      @include newsletter-signup-rays-icon;
+
       position: absolute;
       top: -1rem;
       left: 2rem;
-      width: rem-calc(51px);
-      height: rem-calc(44px);
-      background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-      background-size: 100% auto;
-      background-position: center;
-      background-repeat: no-repeat;
 
       @include breakpoint(medium up) {
         top: -2rem;
@@ -412,16 +404,12 @@
         // Decorative rays for the block variant.
         &::before {
           display: block;
-          content: "";
+
+          @include newsletter-signup-rays-icon;
+
           position: absolute;
           left: 0;
           top: 0.25rem;
-          width: rem-calc(51px);
-          height: rem-calc(44px);
-          background-image: url("/static/foundation_cms/_images/handdrawn/rays-newsletter-signup.svg");
-          background-size: 100% auto;
-          background-position: center;
-          background-repeat: no-repeat;
         }
       }
 
@@ -437,4 +425,8 @@
       }
     }
   }
+}
+
+.newsletter-signup-block {
+  @include newsletter-signup-expanded-controls-row;
 }
