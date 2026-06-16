@@ -80,11 +80,6 @@ target/
 # IPython Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
-# ...but track our committed version: Heroku reads .python-version to pick the Python runtime.
-!.python-version
-
 # celery beat schedule file
 celerybeat-schedule
 
