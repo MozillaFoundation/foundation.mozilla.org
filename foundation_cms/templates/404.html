@@ -1,8 +1,29 @@
-{% extends "base.html" %}
-{% load i18n l10n %}
+{% extends "base/base.html" %}
+{% load i18n l10n static %}
+
 {% block title %}{% trans "Page not found" %}{% endblock title %}
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/404.compiled.css' %}">
+{% endblock extra_css %}
+{# 404 responses do not have a Wagtail page object, so skip metadata tags that require one. #}
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
 {% block body_class %}template-404{% endblock body_class %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
 {% block content %}
-    <h1>{% trans "Page not found" %}</h1>
-    <h2>{% trans "Sorry, this page could not be found." %}</h2>
+    <main class="error-404">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x error-404__layout">
+                <div class="cell small-12 medium-6 error-404__content">
+                    <h1 class="error-404__heading">{% trans "Error 404" %}</h1>
+                    <p class="error-404__copy body-text-large">{% trans "Uh oh! We’re sorry, this page does not exist." %}</p>
+                    {% translate "Back to our homepage" as localized_homepage_label %}
+                    {% include "patterns/components/button.html" with url=homepage_url label=localized_homepage_label button_style="btn-secondary" classnames="error-404__button" %}
+                </div>
+                <div class="cell small-12 medium-6 error-404__media" aria-hidden="true">
+                    <img src="{% static 'foundation_cms/_images/404.svg' %}" alt="" width="584" height="396">
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock content %}

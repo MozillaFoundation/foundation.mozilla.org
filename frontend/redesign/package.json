@@ -7,7 +7,7 @@
   "author": "Mozilla Foundation",
   "type": "module",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "playwright:install": "playwright install chromium",
@@ -47,15 +47,15 @@
     "d3-force": "^3.0.0",
     "d3-selection": "^3.0.0",
     "delicious-hamburgers": "^1.2.3",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "foundation-sites": "^6.9.0",
     "jquery": "^3.7.1",
     "sass": "^1.98.0"
   },
   "devDependencies": {
-    "@percy/cli": "^1.31.10",
-    "@percy/playwright": "^1.0.9",
-    "@playwright/test": "^1.58.2",
+    "@percy/cli": "^1.31.14",
+    "@percy/playwright": "^1.1.0",
+    "@playwright/test": "^1.60.0",
     "autoprefixer": "^10.5.0",
     "chokidar-cli": "^3.0.0",
     "eslint": "^9.39.2",
@@ -64,11 +64,11 @@
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-scss": "^4.0.9",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "shx": "^0.4.0",
-    "stylelint": "^17.12.0",
+    "stylelint": "^17.13.0",
     "stylelint-config-standard-scss": "^17.0.0",
-    "stylelint-scss": "^7.1.1"
+    "stylelint-scss": "^7.2.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

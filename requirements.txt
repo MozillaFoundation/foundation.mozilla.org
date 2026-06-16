@@ -40,7 +40,7 @@ cffi==2.0.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==46.0.5
+cryptography==46.0.7
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -49,7 +49,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==5.2.13
+django==5.2.15
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -84,7 +84,7 @@ django-csp==3.8
     # via -r requirements.in
 django-environ==0.12.0
     # via -r requirements.in
-django-filter==23.5
+django-filter==25.2
     # via
     #   -r requirements.in
     #   wagtail
@@ -118,7 +118,7 @@ djangorestframework==3.15.2
     #   wagtail
 draftjs-exporter==2.1.7
     # via wagtail
-ecdsa==0.19.1
+ecdsa==0.19.2
     # via python-jose
 et-xmlfile==1.1.0
     # via openpyxl
@@ -138,7 +138,7 @@ gitdb==4.0.12
     # via gitpython
 gitpython==3.1.50
     # via wagtail-localize-git
-gunicorn==23.0.0
+gunicorn==26.0.0
     # via -r requirements.in
 heroku3==5.2.1
     # via -r requirements.in
@@ -188,7 +188,7 @@ pygit2==1.14.0
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-pyjwt==2.12.0
+pyjwt==2.13.0
     # via social-auth-core
 python-dateutil==2.8.2
     # via
@@ -207,7 +207,7 @@ pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
     # via django-redis
-requests==2.32.4
+requests==2.34.2
     # via
     #   -r requirements.in
     #   basket-client
@@ -223,7 +223,7 @@ s3transfer==0.10.0
     # via boto3
 scipy==1.10.0
     # via wagtail-ab-testing
-scout-apm==3.2.1
+scout-apm==3.5.3
     # via -r requirements.in
 sentry-sdk==2.25.0
     # via -r requirements.in
@@ -281,15 +281,15 @@ wagtail==7.2.3
     #   wagtailmedia
 wagtail-ab-testing==0.12
     # via -r requirements.in
-wagtail-color-panel==1.6.0
+wagtail-color-panel==1.8.1
     # via -r requirements.in
-wagtail-factories==4.4.0
+wagtail-factories==4.5.0
     # via -r requirements.in
 wagtail-footnotes==0.13.0
     # via -r requirements.in
 wagtail-inventory==3.2
     # via -r requirements.in
-wagtail-localize==1.13
+wagtail-localize==1.13.1
     # via
     #   -r requirements.in
     #   wagtail-localize-git

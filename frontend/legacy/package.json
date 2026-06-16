@@ -5,7 +5,7 @@
   "issues": "https://github.com/mozilla/foundation.mozilla.org/issues",
   "description": "Mozilla Foundation site",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "build": "run-p build:legacy",
@@ -79,7 +79,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@sentry/browser": "^10.40.0",
+    "@sentry/browser": "^10.56.0",
     "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "^10.5.0",
     "axe-core": "^4.10.3",
@@ -88,9 +88,9 @@
     "classnames": "2.5.1",
     "countup.js": "^2.10.0",
     "cssnano": "^7.1.4",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "gsap": "^3.15.0",
-    "htmx.org": "^1.9.12",
+    "htmx.org": "^2.0.10",
     "locomotive-scroll": "^4.1.4",
     "moment": "^2.29.4",
     "npm-run-all": "^4.1.3",
@@ -106,23 +106,23 @@
     "shx": "^0.4.0",
     "swiper": "^12.2.0",
     "tailwindcss": "^3.4.15",
-    "uuid": "^10.0.0",
+    "uuid": "^14.0.0",
     "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
-    "@axe-core/react": "^4.11.1",
-    "@percy/cli": "^1.31.10",
-    "@percy/playwright": "^1.0.9",
-    "@playwright/test": "^1.58.2",
+    "@axe-core/react": "^4.11.3",
+    "@percy/cli": "^1.31.14",
+    "@percy/playwright": "^1.1.0",
+    "@playwright/test": "^1.60.0",
     "browserslist": "^4.28.2",
     "chokidar-cli": "^3.0.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-prettier": "^5.2.5",
+    "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-react": "^7.37.4",
-    "prettier": "^3.8.3",
-    "stylelint": "^17.12.0",
+    "prettier": "^3.8.4",
+    "stylelint": "^17.13.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-prettier": "^5.0.3",
     "wait-on": "^9"
