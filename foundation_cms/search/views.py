@@ -120,8 +120,9 @@ def get_keep_contributing_pages():
 
 
 def search_autocomplete(request):
+    min_chars = settings.SEARCH_AUTOCOMPLETE_MIN_CHARS
     search_query = request.GET.get("query", "").strip()
-    if search_query:
+    if search_query and len(search_query) >= min_chars:
         results = (
             Page.objects.live()
             .filter(locale=Locale.get_active())
