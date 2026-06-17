@@ -98,7 +98,7 @@ django-permissionedforms==0.1
     # via wagtail
 django-querystring-tag==1.0.3
     # via -r requirements.in
-django-redis==5.4.0
+django-redis==7.0.0
     # via -r requirements.in
 django-storages==1.14.5
     # via -r requirements.in
@@ -250,10 +250,11 @@ toml==0.10.2
     # via wagtail-localize-git
 tqdm==4.63.0
     # via wagtail-inventory
-typing-extensions==4.4.0
+typing-extensions==4.15.0
     # via
     #   dj-database-url
     #   django-countries
+    #   django-redis
     #   django-stubs-ext
     #   django-tasks
     #   wagtail-localize
