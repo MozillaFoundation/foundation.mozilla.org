@@ -79,7 +79,7 @@
   "author": "Mozilla",
   "license": "MPL-2.0",
   "dependencies": {
-    "@sentry/browser": "^10.56.0",
+    "@sentry/browser": "^10.58.0",
     "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "^10.5.0",
     "axe-core": "^4.10.3",
@@ -88,7 +88,7 @@
     "classnames": "2.5.1",
     "countup.js": "^2.10.0",
     "cssnano": "^7.1.4",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "gsap": "^3.15.0",
     "htmx.org": "^2.0.10",
     "locomotive-scroll": "^4.1.4",
@@ -106,7 +106,7 @@
     "shx": "^0.4.0",
     "swiper": "^12.2.0",
     "tailwindcss": "^3.4.15",
-    "uuid": "^10.0.0",
+    "uuid": "^14.0.0",
     "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {

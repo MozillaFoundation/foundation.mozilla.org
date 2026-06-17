@@ -176,7 +176,7 @@ polib==1.1.1
     # via wagtail-localize
 psutil==5.9.0
     # via scout-apm
-psycopg2-binary==2.9.11
+psycopg2-binary==2.9.12
     # via -r requirements.in
 pyasn1==0.6.3
     # via
@@ -188,7 +188,7 @@ pygit2==1.14.0
     # via
     #   -r requirements.in
     #   wagtail-localize-git
-pyjwt==2.12.0
+pyjwt==2.13.0
     # via social-auth-core
 python-dateutil==2.8.2
     # via
@@ -225,7 +225,7 @@ scipy==1.10.0
     # via wagtail-ab-testing
 scout-apm==3.5.3
     # via -r requirements.in
-sentry-sdk==2.25.0
+sentry-sdk==2.63.0
     # via -r requirements.in
 six==1.16.0
     # via
