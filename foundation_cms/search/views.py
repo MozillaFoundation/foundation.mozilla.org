@@ -97,6 +97,7 @@ def search(request):
             "total_search_results": total_search_results,
             "keep_contributing_pages": keep_contributing_pages,
             "current_locale": current_locale.language_code,
+            "autocomplete_min_chars": settings.SEARCH_AUTOCOMPLETE_MIN_CHARS,
         },
     )
 
