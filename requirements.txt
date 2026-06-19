@@ -184,7 +184,7 @@ pyasn1==0.6.3
     #   rsa
 pycparser==2.21
     # via cffi
-pygit2==1.14.0
+pygit2==1.19.3
     # via
     #   -r requirements.in
     #   wagtail-localize-git
