@@ -2,6 +2,8 @@
 // GDPR/CCPA mode is based on geo location
 // Locale is based on user’s browser language setting
 
+import LOCALE_TEXT from "./cookie_control_text.js";
+
 const API_KEY = COOKIE_CONTROL_API_KEY;
 const PRODUCT_TYPE = "CUSTOM";
 
@@ -53,16 +55,27 @@ if (!COOKIE_CONTROL_API_KEY) {
         highlightFocus: true,
         outline: true,
       },
-      optionalCookies: [
-        {
-          name: "wip",
-          label: "[WIP] Label for Optional Cookies",
-          description: "Description description description.",
-          cookies: [],
-          onAccept: function () {},
-          onRevoke: function () {},
-        },
-      ],
+      text: LOCALE_TEXT.en.text,
+      optionalCookies: LOCALE_TEXT.en.optionalCookies.map((cookie) => ({
+        ...cookie,
+        cookies: [],
+        onAccept: function () {},
+        onRevoke: function () {},
+      })),
+      locales: Object.entries(LOCALE_TEXT)
+        .filter(([locale]) => locale !== "en")
+        .map(([locale, { text, optionalCookies }]) => ({
+          locale,
+          text,
+          ...(optionalCookies && {
+            optionalCookies: optionalCookies.map((cookie) => ({
+              ...cookie,
+              cookies: [],
+              onAccept: function () {},
+              onRevoke: function () {},
+            })),
+          }),
+        })),
     };
 
     // TODO:FIXME: DEV ONLY: reset consent state on every reload
