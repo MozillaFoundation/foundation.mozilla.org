@@ -19,9 +19,9 @@ function copyWithFallback(el, url) {
 
   try {
     document.execCommand("copy");
-    el.innerText = "Copied";
+    el.innerText = gettext("Copied");
   } catch (err) {
-    el.innerText = "Copy failed";
+    el.innerText = gettext("Copy failed");
   } finally {
     document.body.removeChild(textArea);
   }
@@ -43,7 +43,7 @@ function handleCopyClick(event) {
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        el.innerText = "Copied";
+        el.innerText = gettext("Copied");
       })
       .catch(() => {
         copyWithFallback(el, url);
