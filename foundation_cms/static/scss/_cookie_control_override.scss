@@ -1,0 +1,123 @@
+// Cookie Control v9 (Civic UK) — https://cookiecontrol.com/docs/v9/
+
+#ccc {
+  $cc-breakpoint: 1020px;
+  $ccc-notify-padding: rem-calc(24);
+
+  // Notification bar
+  #ccc-notify {
+    background: color(blue, "600");
+    padding: $ccc-notify-padding !important;
+    box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 25%);
+
+    @include breakpoint($cc-breakpoint up) {
+      align-items: normal !important;
+      flex-direction: column !important;
+      max-width: 50rem !important;
+      left: unset !important;
+    }
+
+    .ccc-notify-text {
+      @include breakpoint($cc-breakpoint up) {
+        margin-right: $ccc-notify-padding !important;
+      }
+
+      #ccc-notify-title {
+        @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+        color: white;
+        margin-bottom: rem-calc(6);
+
+        + p {
+          @include mofo-text-style($body-text-styles, "xsmall");
+
+          color: white;
+          line-height: 150%;
+        }
+      }
+    }
+
+    p {
+      opacity: 1 !important;
+    }
+  }
+
+  // Main settings panel
+  #ccc-content {
+    box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 25%);
+
+    &.ccc-content--light {
+      background: white;
+    }
+  }
+
+  .ccc-notify-buttons {
+    position: static !important;
+    margin: rem-calc(8) 0 0 !important;
+  }
+
+  .ccc-notify-button {
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    &#ccc-notify-accept,
+    &#ccc-notify-reject {
+      @include mofo-text-style($body-text-styles, "small");
+
+      padding: 1rem 1.5rem !important;
+      font-weight: 600 !important;
+
+      @include breakpoint(64em up) {
+        @include mofo-text-style($body-text-styles, "small");
+      }
+    }
+
+    &.ccc-link.ccc-tabbable.ccc-notify-link {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      color: white !important;
+      font-weight: 600 !important;
+      padding: 1rem 1.5rem !important;
+      height: 100% !important;
+
+      span {
+        color: white !important;
+      }
+    }
+  }
+
+  .ccc-link {
+    &#ccc-notify-dismiss {
+      top: $ccc-notify-padding !important;
+      right: $ccc-notify-padding !important;
+
+      @media (width >= 400px) {
+        position: absolute !important;
+      }
+
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  .ccc-content--highlight {
+    button.ccc-link.ccc-tabbable:not(
+        #ccc-notify-accept,
+        #ccc-notify-reject
+      ):focus {
+      filter: none !important;
+    }
+
+    &.ccc-content--light {
+      button.ccc-link.ccc-tabbable:not(
+          #ccc-notify-accept,
+          #ccc-notify-reject
+        ):focus {
+        background-color: transparent !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+}

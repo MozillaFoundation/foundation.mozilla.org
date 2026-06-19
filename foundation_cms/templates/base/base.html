@@ -117,6 +117,8 @@
         </div>
         <script src="{% url "javascript-catalog" %}"></script>
         <script src="{% static 'foundation_cms/_js/redesign_main.compiled.js' %}"></script>
+        <script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js" type="text/javascript"></script>
+        <script src="{% static 'foundation_cms/_js/cookie_control_init.compiled.js' %}"></script>
         {% block extra_js %}{# Override this in templates to add extra javascript #}{% endblock extra_js %}
     </body>
 
