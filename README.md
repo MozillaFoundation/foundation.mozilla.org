@@ -115,6 +115,12 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `WAGTAIL_NOTIFICATION_EMAIL` | — | Email address for Wagtail admin notifications |
 | `WAGTAIL_NOTIFICATION_EMAIL_PASSWORD` | — | Password for the notification email account |
 
+### Search App
+
+| Variable | Default | Description |
+|---|---|---|
+| `SEARCH_AUTOCOMPLETE_MIN_CHARS` | `5` | Minimum number of characters required to trigger search autocomplete |
+
 ---
 
 ## Frontend Workflow for the "Redesign Site"
