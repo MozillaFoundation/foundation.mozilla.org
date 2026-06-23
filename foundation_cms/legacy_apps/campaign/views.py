@@ -4,7 +4,6 @@ import logging
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from rest_framework import status
 
@@ -26,7 +25,6 @@ def process_lang_code(lang):
 logger = logging.getLogger(__name__)
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def signup_submission_view(request, pk):
     # We need to re-write the data that's coming in from the network request.

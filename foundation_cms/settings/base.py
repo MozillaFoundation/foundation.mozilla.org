@@ -341,8 +341,7 @@ MIDDLEWARE = list(
             # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
             "foundation_cms.legacy_apps.wagtailcustomization.redirects.middleware.RedirectMiddleware",
             #
-            # instead of 'django.middleware.csrf.CsrfViewMiddleware':
-            "foundation_cms.legacy_apps.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware",
+            "django.middleware.csrf.CsrfViewMiddleware",
             #
             "django_htmx.middleware.HtmxMiddleware",
         ],

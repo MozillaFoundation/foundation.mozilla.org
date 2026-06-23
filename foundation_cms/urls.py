@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import include, path, re_path
 from django.views.decorators.cache import cache_page
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from django.views.i18n import JavaScriptCatalog, set_language
@@ -65,7 +65,16 @@ crawl-delay: 10
 """.strip()
 
 
+@ensure_csrf_cookie
 def csrf_response(request):
+    # Mints the per-user `csrftoken` cookie (via @ensure_csrf_cookie) so JS can read it
+    # and send it as the X-CSRFToken header / csrfmiddlewaretoken field. The HTML body
+    # (a single hidden input rendered by {% csrf_token %}) is preserved because the legacy
+    # buyers-guide vote JS parses the token out of it.
+    #
+    # NOTE: the Cloudflare Worker overrides origin Cache-Control, so this `no-cache` is only
+    # defense-in-depth — `/api/csrf` must also be in the Worker's URI_BYPASS_SUBSTRINGS or the
+    # endpoint gets cached and hands every visitor the same stale token.
     response = render(request, "api/csrf.html")
     response["Cache-Control"] = "no-cache"
     return response
@@ -93,8 +102,8 @@ urlpatterns = list(
             path(".well-known/apple-developer-merchantid-domain-association", apple_pay_domain_association_view),
             # social-sign-on routes so that Google auth works
             path("soc/", include("social_django.urls", namespace="social")),
-            # CSRF endpoint
-            re_path(r"^api/csrf/", csrf_response),
+            # CSRF endpoint (anchored so it does not match /api/csrf/anything)
+            re_path(r"^api/csrf/$", csrf_response),
             # network API routes:
             path("api/campaign/", include("foundation_cms.legacy_apps.campaign.urls")),
             path("api/highlights/", include("foundation_cms.legacy_apps.highlights.urls")),
@@ -122,7 +131,8 @@ urlpatterns = list(
             # browser errors just fine.
             path("sentry-debug", lambda r: 1 / 0) if settings.SENTRY_DSN and settings.DEBUG else None,
             # set up set language redirect view
-            path("i18n/setlang/", csrf_exempt(set_language), name="set_language"),
+            # (CSRF token is supplied by the language-switcher inline JS from the cookie)
+            path("i18n/setlang/", set_language, name="set_language"),
             path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
             # Wagtail Footnotes package
             path("footnotes/", include(footnotes_urls)),
