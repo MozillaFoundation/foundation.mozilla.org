@@ -97,6 +97,7 @@ def search(request):
             "total_search_results": total_search_results,
             "keep_contributing_pages": keep_contributing_pages,
             "current_locale": current_locale.language_code,
+            "autocomplete_min_chars": settings.SEARCH_AUTOCOMPLETE_MIN_CHARS,
         },
     )
 
@@ -120,8 +121,9 @@ def get_keep_contributing_pages():
 
 
 def search_autocomplete(request):
+    min_chars = settings.SEARCH_AUTOCOMPLETE_MIN_CHARS
     search_query = request.GET.get("query", "").strip()
-    if search_query:
+    if search_query and len(search_query) >= min_chars:
         results = (
             Page.objects.live()
             .filter(locale=Locale.get_active())
