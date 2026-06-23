@@ -43,6 +43,7 @@ class PrimaryNavSearchDrawerController {
     this.addViewportListeners();
     this.searchInputEl.focus({ preventScroll: true });
 
+    // Re-measure after open classes/listeners settle so pushdown layout is reflected.
     requestAnimationFrame(() => {
       if (!this.isOpen()) return;
 
