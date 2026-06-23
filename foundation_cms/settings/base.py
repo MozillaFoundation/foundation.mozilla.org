@@ -68,6 +68,7 @@ env = environ.Env(
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
     REVIEW_APP=(bool, False),
+    SEARCH_AUTOCOMPLETE_MIN_CHARS=(int, 5),
     SENTRY_DSN=(str, None),
     SENTRY_ENVIRONMENT=(str, None),
     SET_HSTS=bool,
@@ -936,3 +937,6 @@ EDITABLE_NAV = env("EDITABLE_NAV", default=False)
 # the searchpromotions_garbage_collect command ./manage.py searchpromotions_garbage_collect.
 # https://docs.wagtail.org/en/stable/reference/settings.html#wagtailsearch-hits-max-age
 WAGTAILSEARCH_HITS_MAX_AGE = env("WAGTAILSEARCH_HITS_MAX_AGE")
+
+# Minimum number of characters required to trigger search autocomplete.
+SEARCH_AUTOCOMPLETE_MIN_CHARS = env("SEARCH_AUTOCOMPLETE_MIN_CHARS")
