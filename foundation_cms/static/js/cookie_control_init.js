@@ -3,6 +3,7 @@
 // Locale is based on user’s browser language setting
 
 import LOCALE_TEXT from "./cookie_control_text.js";
+import COOKIE_CATEGORIES from "./cookie_control_categories.js";
 
 const API_KEY = COOKIE_CONTROL_API_KEY;
 const PRODUCT_TYPE = "CUSTOM";
@@ -59,9 +60,7 @@ if (!COOKIE_CONTROL_API_KEY) {
       text: LOCALE_TEXT.en.text,
       optionalCookies: LOCALE_TEXT.en.optionalCookies.map((cookie) => ({
         ...cookie,
-        cookies: [],
-        onAccept: function () {},
-        onRevoke: function () {},
+        ...COOKIE_CATEGORIES.find((c) => c.name === cookie.name),
       })),
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
@@ -71,9 +70,7 @@ if (!COOKIE_CONTROL_API_KEY) {
           ...(optionalCookies && {
             optionalCookies: optionalCookies.map((cookie) => ({
               ...cookie,
-              cookies: [],
-              onAccept: function () {},
-              onRevoke: function () {},
+              ...COOKIE_CATEGORIES.find((c) => c.name === cookie.name),
             })),
           }),
         })),
