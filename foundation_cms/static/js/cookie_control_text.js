@@ -27,6 +27,11 @@ const LOCALE_TEXT = {
         label: "[WIP] Label for Optional Cookies",
         description: "[WIP] Description for optional cookies.",
       },
+      {
+        name: "wip2",
+        label: "[WIP] Another cookie category",
+        description: "[WIP] Description",
+      },
     ],
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
@@ -51,15 +56,18 @@ const LOCALE_TEXT = {
   de: {
     text: {
       title: "Datenschutz-Präferenz-Center",
-      intro: "Wenn Sie eine Website besuchen, kann diese Informationen über Ihren Browser abrufen oder speichern. Dies geschieht meist in Form von Cookies. Hierbei kann es sich um Informationen über Sie, Ihre Einstellungen oder Ihr Gerät handeln. Meist werden die Informationen verwendet, um die erwartungsgemäße Funktion der Website zu gewährleisten. Durch diese Informationen werden Sie normalerweise nicht direkt identifiziert. Dadurch kann Ihnen aber ein personalisierteres Web-Erlebnis geboten werden. Da wir Ihr Recht auf Datenschutz respektieren, können Sie sich entscheiden, bestimmte Arten von Cookies nicht zulassen. Klicken Sie auf die verschiedenen Kategorieüberschriften, um mehr zu erfahren und unsere Standardeinstellungen zu ändern. Die Blockierung bestimmter Arten von Cookies kann jedoch zu einer beeinträchtigten Erfahrung mit der von uns zur Verfügung gestellten Website und Dienste führen.",
+      intro:
+        "Wenn Sie eine Website besuchen, kann diese Informationen über Ihren Browser abrufen oder speichern. Dies geschieht meist in Form von Cookies. Hierbei kann es sich um Informationen über Sie, Ihre Einstellungen oder Ihr Gerät handeln. Meist werden die Informationen verwendet, um die erwartungsgemäße Funktion der Website zu gewährleisten. Durch diese Informationen werden Sie normalerweise nicht direkt identifiziert. Dadurch kann Ihnen aber ein personalisierteres Web-Erlebnis geboten werden. Da wir Ihr Recht auf Datenschutz respektieren, können Sie sich entscheiden, bestimmte Arten von Cookies nicht zulassen. Klicken Sie auf die verschiedenen Kategorieüberschriften, um mehr zu erfahren und unsere Standardeinstellungen zu ändern. Die Blockierung bestimmter Arten von Cookies kann jedoch zu einer beeinträchtigten Erfahrung mit der von uns zur Verfügung gestellten Website und Dienste führen.",
       notifyTitle: "Helfen Sie Mozilla mit Analytics",
-      notifyDescription: "Wir verwenden notwendige Cookies, um diese Website funktionsfähig zu gestalten. Wir möchten zusätzlich Cookies setzen, um zu verstehen, wie Sie mozillafoundation.org nutzen. Ihre Einstellungen verbessern unsere Dienste.",
+      notifyDescription:
+        "Wir verwenden notwendige Cookies, um diese Website funktionsfähig zu gestalten. Wir möchten zusätzlich Cookies setzen, um zu verstehen, wie Sie mozillafoundation.org nutzen. Ihre Einstellungen verbessern unsere Dienste.",
       accept: "Alle Cookies akzeptieren",
       reject: "Alle ablehnen",
       acceptSettings: "Alle zulassen",
       rejectSettings: "Alle ablehnen",
       necessaryTitle: "Unbedingt erforderliche Cookies",
-      necessaryDescription: "Diese Cookies sind zur Funktion der Website erforderlich und können in Ihren Systemen nicht deaktiviert werden. In der Regel werden diese Cookies nur als Reaktion auf von Ihnen getätigte Aktionen gesetzt, die einer Dienstanforderung entsprechen, wie etwa dem Festlegen Ihrer Datenschutzeinstellungen, dem Anmelden oder dem Ausfüllen von Formularen. Sie können Ihren Browser so einstellen, dass diese Cookies blockiert oder Sie über diese Cookies benachrichtigt werden. Einige Bereiche der Website funktionieren dann aber nicht. Diese Cookies speichern keine personenbezogenen Daten.",
+      necessaryDescription:
+        "Diese Cookies sind zur Funktion der Website erforderlich und können in Ihren Systemen nicht deaktiviert werden. In der Regel werden diese Cookies nur als Reaktion auf von Ihnen getätigte Aktionen gesetzt, die einer Dienstanforderung entsprechen, wie etwa dem Festlegen Ihrer Datenschutzeinstellungen, dem Anmelden oder dem Ausfüllen von Formularen. Sie können Ihren Browser so einstellen, dass diese Cookies blockiert oder Sie über diese Cookies benachrichtigt werden. Einige Bereiche der Website funktionieren dann aber nicht. Diese Cookies speichern keine personenbezogenen Daten.",
       settings: "Cookie-Einstellungen",
       closeLabel: "[WIP] Close",
     },
