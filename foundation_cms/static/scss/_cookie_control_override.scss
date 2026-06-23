@@ -6,7 +6,6 @@
 
   // Notification bar
   #ccc-notify {
-    background: color(blue, "600");
     padding: $ccc-notify-padding !important;
     box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 25%);
 
@@ -76,15 +75,17 @@
     &.ccc-link.ccc-tabbable.ccc-notify-link {
       @include mofo-text-style($body-text-styles, "xsmall");
 
-      color: white !important;
       font-weight: 600 !important;
       padding: 1rem 1.5rem !important;
       height: 100% !important;
-
-      span {
-        color: white !important;
-      }
     }
+  }
+
+  .ccc-intro,
+  #ccc-necessary-description,
+  p {
+    font-size: rem-calc(13) !important;
+    line-height: 1.5 !important;
   }
 
   .ccc-link {
@@ -103,14 +104,14 @@
   }
 
   .ccc-content--highlight {
-    button.ccc-link.ccc-tabbable:not(
-        #ccc-notify-accept,
-        #ccc-notify-reject
-      ):focus {
+    button.ccc-link.ccc-tabbable:focus {
       filter: none !important;
+      outline: auto;
+      box-shadow: none;
     }
 
-    &.ccc-content--light {
+    &.ccc-content--light,
+    &.ccc-content--dark {
       button.ccc-link.ccc-tabbable:not(
           #ccc-notify-accept,
           #ccc-notify-reject

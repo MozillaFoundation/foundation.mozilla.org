@@ -9,7 +9,7 @@ const PRODUCT_TYPE = "CUSTOM";
 
 // Design system colour tokens (mirrors _colors.scss)
 const COLORS = {
-  blue600: "#0057d4",
+  blue90: "#0040d4",
   neutral200: "#eeeeee",
   neutral600: "#161616",
   orange200: "#f88539",
@@ -32,13 +32,14 @@ if (!COOKIE_CONTROL_API_KEY) {
       initialState: "notify",
       product: PRODUCT_TYPE,
       mode: response.withinEU ? "GDPR" : "CCPA", // TODO:FIXME: to be confirmed if we need to explicitly set this
-      theme: "light",
+      theme: "dark",
       branding: {
         // type
         fontFamily: '"Mozilla Text", "Helvetica Neue", Arial, sans-serif',
         // colours
         alertText: COLORS.white,
         alertBackground: COLORS.neutral200,
+        backgroundColor: COLORS.blue90,
         // buttons
         acceptText: COLORS.white,
         acceptBackground: COLORS.black,
