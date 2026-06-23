@@ -27,6 +27,11 @@ const LOCALE_TEXT = {
         label: "[WIP] Label for Optional Cookies",
         description: "[WIP] Description for optional cookies.",
       },
+      {
+        name: "wip2",
+        label: "[WIP] Another cookie category",
+        description: "[WIP] Description",
+      },
     ],
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
