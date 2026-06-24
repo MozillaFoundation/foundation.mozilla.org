@@ -59,6 +59,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP]",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // German
   de: {
@@ -79,23 +96,57 @@ const LOCALE_TEXT = {
       settings: "Cookie-Einstellungen",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // Spanish
   es: {
     text: {
-      title: "[WIP] Título (ES)",
-      intro: "[WIP]",
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
-      settings: "[WIP]",
+      title: "Centro de preferencia de la privacidad",
+      intro: "Cuando visita cualquier sitio web, el mismo podría obtener o guardar información en su navegador, generalmente mediante el uso de cookies. Esta información puede ser acerca de usted, sus preferencias o su dispositivo, y se usa principalmente para que el sitio funcione según lo esperado. Por lo general, la información no lo identifica directamente, pero puede proporcionarle una experiencia web más personalizada. Ya que respetamos su derecho a la privacidad, usted puede escoger no permitirnos usar ciertas cookies. Haga clic en los encabezados de cada categoría para saber más y cambiar nuestras configuraciones predeterminadas. Sin embargo, el bloqueo de algunos tipos de cookies puede afectar su experiencia en el sitio y los servicios que podemos ofrecer.",
+      notifyTitle: "Ayuda a Mozilla con Analytics",
+      notifyDescription: "Usamos algunas cookies esenciales para hacer este sitio web. Nos gustaría establecer cookies adicionales para entender cómo usas la página mozillafoundation.org. Tus ajustes mejoran nuestros servicios.",
+      accept: "Aceptar todas las cookies",
+      reject: "Rechazarlas todas",
+      acceptSettings: "Permitirlas todas",
+      rejectSettings: "Rechazarlas todas",
+      necessaryTitle: "Cookies estrictamente necesarias",
+      necessaryDescription: "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar en nuestros sistemas. Usualmente están configuradas para responder a acciones hechas por usted para recibir servicios, tales como ajustar sus preferencias de privacidad, iniciar sesión en el sitio, o llenar formularios. Usted puede configurar su navegador para bloquear o alertar la presencia de estas cookies, pero algunas partes del sitio web no funcionarán. Estas cookies no guardan ninguna información personal identificable.",
+      settings: "Configuración de cookies",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // French
   fr: {
@@ -113,6 +164,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // Frisian
   fy: {
@@ -130,6 +198,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // Dutch
   nl: {
@@ -147,6 +232,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // Polish
   pl: {
@@ -164,6 +266,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // Portuguese (Brazil) (pt-BR)
   pt: {
@@ -181,6 +300,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
   // Swahili
   sw: {
@@ -198,6 +334,23 @@ const LOCALE_TEXT = {
       settings: "[WIP]",
       closeLabel: "[WIP] Close",
     },
+    optionalCookies: [
+      {
+        name: "functional",
+        label: "[WIP] Functional Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "performance",
+        label: "[WIP] Performance Cookies",
+        description: "[WIP]",
+      },
+      {
+        name: "personalized_advertising",
+        label: "[WIP] Personalized Advertising Cookies",
+        description: "[WIP]",
+      },
+    ],
   },
 };
 
