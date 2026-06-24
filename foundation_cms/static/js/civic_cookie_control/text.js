@@ -40,12 +40,6 @@ const LOCALE_TEXT = {
         description:
           "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
-      {
-        name: "social_media",
-        label: "Social Media Cookies",
-        description:
-          "These cookies are set by a range of social media services that we have added to the site to enable you to share our content with your friends and networks. They are capable of tracking your browser across other sites and building up a profile of your interests. This may impact the content and messages you see on other websites you visit. If you do not allow these cookies you may not be able to use or see these sharing tools.",
-      },
     ],
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
