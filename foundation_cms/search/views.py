@@ -9,7 +9,12 @@ from wagtail.search.query import PlainText
 
 from foundation_cms.campaigns.models.campaign_page import CampaignPage
 from foundation_cms.search.models import SearchEvent
-from foundation_cms.search.utils import get_search_backend_for_locale
+from foundation_cms.search.utils import (
+    SECTION_SLUGS,
+    get_search_backend_for_locale,
+    normalize_content_type,
+    normalize_sort,
+)
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 # To enable logging of search queries for use with the "Promoted search results" module
@@ -31,6 +36,18 @@ def search(request):
     if search_query:
         locale_code = current_locale.language_code
         base_queryset = Page.objects.live().filter(locale=current_locale)
+
+        # Optional section filter by content_type slug
+        content_type = normalize_content_type(request.GET.get("content_type", "all"))
+        section_slug = SECTION_SLUGS[content_type]
+        if section_slug:
+            section_root = Page.objects.live().filter(locale=current_locale, slug=section_slug).first()
+            if section_root:
+                # child pages of /section-slug/
+                base_queryset = base_queryset.descendant_of(section_root, inclusive=False)
+            else:
+                # unknown/missing section root for this locale => empty result
+                base_queryset = base_queryset.none()
 
         # Get appropriate search backend
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
@@ -55,6 +72,21 @@ def search(request):
 
         # Restore backend relevance order
         search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
+
+        # Optional sorting by publication date
+        sort = normalize_sort(request.GET.get("sort", "relevance"))
+        if sort in ("newest", "oldest"):
+            with_date = [p for p in search_results if p.first_published_at]
+            without_date = [p for p in search_results if not p.first_published_at]
+
+            with_date = sorted(
+                with_date,
+                key=lambda p: p.first_published_at,
+                reverse=(sort == "newest"),
+            )
+
+            # Keep items without publication date at the end
+            search_results = with_date + without_date
 
         # Log only on initial submission, not on pagination clicks
         if is_initial_search_submit:
@@ -97,6 +129,8 @@ def search(request):
             "total_search_results": total_search_results,
             "keep_contributing_pages": keep_contributing_pages,
             "current_locale": current_locale.language_code,
+            "sort": sort,
+            "content_type": content_type,
         },
     )
 

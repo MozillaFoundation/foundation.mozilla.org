@@ -9,6 +9,16 @@ SUPPORTED_SEARCH_LANGUAGES = {
     "pt-BR": "portuguese",
 }
 
+SEARCH_SORTS = ("relevance", "newest", "oldest")
+
+SECTION_SLUGS = {
+    "all": None,
+    "what-we-do": "what-we-do",
+    "research": "research",
+    "press-release": "press-release",
+    "event": "event",
+}
+
 
 def get_search_backend_for_locale(locale_code=None):
     """
@@ -24,3 +34,13 @@ def get_search_backend_for_locale(locale_code=None):
 
     # Fallback to default backend
     return get_search_backend(), "default"
+
+
+def normalize_sort(value, default="relevance"):
+    value = (value or default).strip().lower()
+    return value if value in SEARCH_SORTS else default
+
+
+def normalize_content_type(value, default="all"):
+    value = (value or default).strip().lower()
+    return value if value in SECTION_SLUGS else default
