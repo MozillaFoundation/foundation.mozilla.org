@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Count
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from wagtail.contrib.search_promotions.models import Query
@@ -14,6 +15,7 @@ from foundation_cms.search.utils import (
     get_search_backend_for_locale,
     normalize_content_type,
     normalize_sort,
+    normalize_topic,
 )
 from foundation_cms.utils import get_default_locale, localize_queryset
 
@@ -27,6 +29,10 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 def search(request):
     search_query = request.GET.get("query", None)
+    content_type = normalize_content_type(request.GET.get("content_type", "all"))
+    sort = normalize_sort(request.GET.get("sort", "relevance"))
+    selected_topic = normalize_topic(request.GET.get("topic"))
+    related_topics = []
     page = request.GET.get("page", 1)
     total_search_results = 0
     current_locale = Locale.get_active()
@@ -38,7 +44,6 @@ def search(request):
         base_queryset = Page.objects.live().filter(locale=current_locale)
 
         # Optional section filter by content_type slug
-        content_type = normalize_content_type(request.GET.get("content_type", "all"))
         section_slug = SECTION_SLUGS[content_type]
         if section_slug:
             section_root = Page.objects.live().filter(locale=current_locale, slug=section_slug).first()
@@ -49,6 +54,10 @@ def search(request):
                 # unknown/missing section root for this locale => empty result
                 base_queryset = base_queryset.none()
 
+        # Optional topic filter by tag slug
+        if selected_topic:
+            base_queryset = base_queryset.filter(topic_relations__tag__slug=selected_topic).distinct()
+
         # Get appropriate search backend
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
         search_results = search_backend.search(search_query, base_queryset)
@@ -56,6 +65,24 @@ def search(request):
 
         # Extract IDs preserving backend's relevance order
         result_ids = [result.id for result in search_results]
+
+        # Build related topic facets from current query result set only
+        related_topics_qs = (
+            Page.objects.filter(id__in=result_ids)
+            .values("topic_relations__tag__slug", "topic_relations__tag__name")
+            .exclude(topic_relations__tag__slug__isnull=True)
+            .exclude(topic_relations__tag__name__isnull=True)
+            .annotate(count=Count("id", distinct=True))
+            .order_by("-count", "topic_relations__tag__name")
+        )
+        related_topics = [
+            {
+                "slug": row["topic_relations__tag__slug"],
+                "name": row["topic_relations__tag__name"],
+                "count": row["count"],
+            }
+            for row in related_topics_qs[:20]
+        ]
 
         # Create position mapping to restore relevance order later
         id_to_position = {id: idx for idx, id in enumerate(result_ids)}
@@ -74,7 +101,6 @@ def search(request):
         search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
 
         # Optional sorting by publication date
-        sort = normalize_sort(request.GET.get("sort", "relevance"))
         if sort in ("newest", "oldest"):
             with_date = [p for p in search_results if p.first_published_at]
             without_date = [p for p in search_results if not p.first_published_at]
@@ -131,6 +157,8 @@ def search(request):
             "current_locale": current_locale.language_code,
             "sort": sort,
             "content_type": content_type,
+            "selected_topic": selected_topic,
+            "related_topics": related_topics,
         },
     )
 

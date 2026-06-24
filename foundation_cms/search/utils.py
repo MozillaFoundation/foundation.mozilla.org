@@ -44,3 +44,7 @@ def normalize_sort(value, default="relevance"):
 def normalize_content_type(value, default="all"):
     value = (value or default).strip().lower()
     return value if value in SECTION_SLUGS else default
+
+
+def normalize_topic(value):
+    return (value or "").strip().lower()
