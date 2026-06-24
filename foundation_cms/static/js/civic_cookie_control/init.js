@@ -2,8 +2,8 @@
 // GDPR/CCPA mode is based on geo location
 // Locale is based on user’s browser language setting
 
-import LOCALE_TEXT from "./cookie_control_text.js";
-import COOKIE_CATEGORIES from "./cookie_control_categories.js";
+import LOCALE_TEXT from "./text.js";
+import COOKIE_CATEGORIES from "./categories.js";
 
 const API_KEY = COOKIE_CONTROL_API_KEY;
 const PRODUCT_TYPE = "CUSTOM";

@@ -73,7 +73,7 @@ const sources = {
     bundle: true,
   },
   cookie_control_init: {
-    source: "cookie_control_init.js",
+    source: "civic_cookie_control/init.js",
     jsx: false,
     bundle: true,
   },
