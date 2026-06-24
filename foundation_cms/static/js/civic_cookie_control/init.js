@@ -30,6 +30,7 @@ if (!COOKIE_CONTROL_API_KEY) {
   CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
     const config = {
       apiKey: API_KEY,
+      logConsent: true,
       initialState: "notify",
       product: PRODUCT_TYPE,
       mode: response.withinEU ? "GDPR" : "CCPA", // TODO:FIXME: to be confirmed if we need to explicitly set this
