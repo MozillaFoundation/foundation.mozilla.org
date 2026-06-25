@@ -78,7 +78,7 @@ django==5.2.15
     #   wagtailmedia
 django-cors-headers==4.3.1
     # via -r requirements.in
-django-countries==8.2.0
+django-countries==9.0.0
     # via -r requirements.in
 django-csp==3.8
     # via -r requirements.in
