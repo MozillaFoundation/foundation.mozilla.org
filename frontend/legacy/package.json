@@ -87,7 +87,7 @@
     "chart.js": "4.5.1",
     "classnames": "2.5.1",
     "countup.js": "^2.10.0",
-    "cssnano": "^7.1.4",
+    "cssnano": "^8.0.2",
     "esbuild": "^0.28.1",
     "gsap": "^3.15.0",
     "htmx.org": "^2.0.10",
