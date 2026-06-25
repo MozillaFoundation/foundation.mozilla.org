@@ -43,62 +43,86 @@ def search(request):
         locale_code = current_locale.language_code
         base_queryset = Page.objects.live().filter(locale=current_locale)
 
-        # Optional section filter by content_type slug
-        section_slug = SECTION_SLUGS[content_type]
-        if section_slug:
-            section_root = Page.objects.live().filter(locale=current_locale, slug=section_slug).first()
-            if section_root:
-                # child pages of /section-slug/
-                base_queryset = base_queryset.descendant_of(section_root, inclusive=False)
-            else:
-                # unknown/missing section root for this locale => empty result
-                base_queryset = base_queryset.none()
-
-        # Optional topic filter by tag slug
-        if selected_topic:
-            base_queryset = base_queryset.filter(topic_relations__tag__slug=selected_topic).distinct()
-
-        # Get appropriate search backend
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
         search_results = search_backend.search(search_query, base_queryset)
-        total_search_results = search_results.count()
 
         # Extract IDs preserving backend's relevance order
         result_ids = [result.id for result in search_results]
 
+        # Optional section filter by content_type slug
+        section_slug = SECTION_SLUGS[content_type]
+        if section_slug and result_ids:
+            section_root = (
+                Page.objects.live()
+                .filter(locale=current_locale, slug=section_slug)
+                .order_by("depth", "path", "id")
+                .first()
+            )
+
+            if section_root:
+                section_ids = set(
+                    Page.objects.live()
+                    .filter(id__in=result_ids)
+                    .descendant_of(section_root, inclusive=False)
+                    .values_list("id", flat=True)
+                )
+                result_ids = [pid for pid in result_ids if pid in section_ids]
+            else:
+                result_ids = []
+
+        # Optional topic filter by tag slug (AFTER search backend, to avoid FilterFieldError on tag slug lookups)
+        if selected_topic and result_ids:
+            topic_ids = set(
+                Page.objects.filter(
+                    id__in=result_ids,
+                    topic_relations__tag__slug=selected_topic,
+                ).values_list("id", flat=True)
+            )
+            result_ids = [pid for pid in result_ids if pid in topic_ids]
+
+        total_search_results = len(result_ids)
+
         # Build related topic facets from current query result set only
-        related_topics_qs = (
-            Page.objects.filter(id__in=result_ids)
-            .values("topic_relations__tag__slug", "topic_relations__tag__name")
-            .exclude(topic_relations__tag__slug__isnull=True)
-            .exclude(topic_relations__tag__name__isnull=True)
-            .annotate(count=Count("id", distinct=True))
-            .order_by("-count", "topic_relations__tag__name")
-        )
-        related_topics = [
-            {
-                "slug": row["topic_relations__tag__slug"],
-                "name": row["topic_relations__tag__name"],
-                "count": row["count"],
-            }
-            for row in related_topics_qs[:20]
-        ]
+        if result_ids:
+            related_topics_qs = (
+                Page.objects.filter(id__in=result_ids)
+                .values("topic_relations__tag__slug", "topic_relations__tag__name")
+                .exclude(topic_relations__tag__slug__isnull=True)
+                .exclude(topic_relations__tag__name__isnull=True)
+                .annotate(count=Count("id", distinct=True))
+                .order_by("-count", "topic_relations__tag__name")
+            )
+            related_topics = [
+                {
+                    "slug": row["topic_relations__tag__slug"],
+                    "name": row["topic_relations__tag__name"],
+                    "count": row["count"],
+                }
+                for row in related_topics_qs[:20]
+            ]
 
-        # Create position mapping to restore relevance order later
-        id_to_position = {id: idx for idx, id in enumerate(result_ids)}
+            print(f"Related topics: {related_topics}")  # Debugging line to check related topics
 
-        # Pre-fetch ContentTypes for ALL unique page types
-        unique_page_types = {result.__class__ for result in search_results}
-        if unique_page_types:
-            ContentType.objects.get_for_models(*unique_page_types)
+            # Create position mapping to restore relevance order later
+            id_to_position = {pid: idx for idx, pid in enumerate(result_ids)}
 
-        # Build optimized QuerySet with FK prefetch and specific() call
-        search_results = (
-            Page.objects.filter(id__in=result_ids).select_related("search_image", "content_type").specific()
-        )
+            # Pre-fetch ContentTypes for ALL unique page types
+            unique_page_types = {result.__class__ for result in search_results}
+            if unique_page_types:
+                ContentType.objects.get_for_models(*unique_page_types)
 
-        # Restore backend relevance order
-        search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
+            # Build optimized QuerySet with FK prefetch and specific() call
+            search_results = list(
+                Page.objects.filter(id__in=result_ids)
+                .select_related("search_image", "content_type")
+                .specific()
+            )
+
+            # Restore backend relevance order
+            search_results.sort(key=lambda page: id_to_position.get(page.id, len(result_ids)))
+
+        else:
+            search_results = []
 
         # Optional sorting by publication date
         if sort in ("newest", "oldest"):
