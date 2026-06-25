@@ -204,6 +204,7 @@ const LOCALE_TEXT = {
     ],
   },
   // Frisian
+  // Note: OneTrust's Frisian (fy) text appears to be incorrectly mapped to Swahili (sw).
   fy: {
     text: {
       // notify banner
@@ -355,18 +356,18 @@ const LOCALE_TEXT = {
   sw: {
     text: {
       // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
+      notifyTitle: "Saidia Mozilla na uchanganuzi",
+      notifyDescription: "Tunatumia vidakuzi muhimu kutengeneza tovuti hii. Tungependa kuweka vidakuzi vya ziada kuelewa jinsi unavyotumia mozillafoundation.org. Mipangilio yako inaboresha huduma zetu.",
+      accept: "Kubali Vidakuzi Vyote",
+      reject: "Kataa Yote",
+      settings: "Mipangilio ya Vidakuzi",
       // setting panel
-      title: "[WIP] Kichwa (SW)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
+      title: "Kituo cha Upendeleo wa Faragha",
+      intro: "Unapotembelea tovuti yoyote, inaweza kuhifadhi au kupata habari kwenye kivinjari chako, hasa kwa njia ya kuki. Habari hii inaweza kuwa juu yako, mapendekezo yako au kifaa chako na hutumiwa zaidi kufanya tovuti ifanye kazi kama unavyotarajia. Habari hiyo kwa kawaida haikutambui moja kwa moja, lakini inaweza kukupa uzoefu zaidi wa wavuti. Kwa sababu tunaheshimu haki yako ya faragha, unaweza kuchagua kutoruhusu aina fulani za biskuti. Bofya kwenye vichwa vya kategoria tofauti ili kujua zaidi na kubadilisha mipangilio yetu chaguo-msingi. Hata hivyo, kuzuia baadhi ya aina ya cookies inaweza kuathiri uzoefu wako wa tovuti na huduma sisi ni uwezo wa kutoa.",
+      acceptSettings: "Ruhusu Yote",
+      rejectSettings: "Kataa Yote",
+      necessaryTitle: "Vidakuzi vya lazima kabisa",
+      necessaryDescription: "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
