@@ -36,16 +36,12 @@ from .image_grid import ImageGrid, ImageGridBlock
 from .image_teaser_block import ImageTeaserBlock
 from .image_text_block import ImageTextBlock
 from .image_text_mini import ImageTextMini
-from .latest_profile_list import LatestProfileList
 from .link_block import LinkBlock
 from .link_button_block import LinkButtonBlock
 from .listing import ListingBlock
 from .looping_video_block import LoopingVideoBlock
 from .newsletter_signup_block import BlogNewsletterSignupBlock, NewsletterSignupBlock
 from .profile import ProfileBlock
-from .profile_by_id import ProfileById
-from .profile_directory import ProfileDirectory, TabbedProfileDirectory
-from .pulse_project_list import PulseProjectList
 from .quote_block import QuoteBlock
 from .recent_blog_entries import RecentBlogEntries
 from .session_slider_block import SessionSliderBlock

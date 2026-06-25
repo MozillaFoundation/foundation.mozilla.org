@@ -35,8 +35,7 @@ class HighlightQuerySet(models.query.QuerySet):
 
 class Highlight(TranslatableMixin):
     """
-    An data type to highlight things like pulse
-    projects, custom pages, etc
+    A data type to highlight things like custom pages, etc.
     Especially on the homepage under "Get Involved"
     """
 
