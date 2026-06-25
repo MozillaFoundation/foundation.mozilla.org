@@ -249,17 +249,20 @@ const LOCALE_TEXT = {
     text: {
       // notify banner
       notifyTitle: "Help Mozilla met analyses",
-      notifyDescription: "We gebruiken een aantal essentiële cookies om deze website te maken. We willen graag extra cookies plaatsen om te begrijpen hoe u mozillafoundation.org gebruikt. Dankzij uw instellingen kunnen we onze dienstverlening verbeteren.",
+      notifyDescription:
+        "We gebruiken een aantal essentiële cookies om deze website te maken. We willen graag extra cookies plaatsen om te begrijpen hoe u mozillafoundation.org gebruikt. Dankzij uw instellingen kunnen we onze dienstverlening verbeteren.",
       accept: "Alle cookies accepteren",
       reject: "Alles afwijzen",
       settings: "Cookie-instellingen",
       // setting panel
       title: "Voorkeurenmenu",
-      intro: "Wanneer u een website bezoekt, kan er informatie in uw browser worden opgeslagen of eruit worden opgehaald, voornamelijk in de vorm van cookies. Deze informatie kan over u, uw voorkeuren of uw apparaat zijn en wordt voornamelijk gebruikt om de website correct te laten werken. De informatie identificeert u normaal gesproken niet direct, maar kan u een beter op uw voorkeuren toegesneden surfervaring geven. Omdat we uw recht op privacy respecteren, kunt u er voor kiezen sommige soorten cookies te blokkeren. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen te wijzigen. Weest u zich er echter wel van bewust dat het blokkeren van sommige soorten cookies uw ervaring van de website en de door ons aangeboden diensten nadelig kan beïnvloeden.",
+      intro:
+        "Wanneer u een website bezoekt, kan er informatie in uw browser worden opgeslagen of eruit worden opgehaald, voornamelijk in de vorm van cookies. Deze informatie kan over u, uw voorkeuren of uw apparaat zijn en wordt voornamelijk gebruikt om de website correct te laten werken. De informatie identificeert u normaal gesproken niet direct, maar kan u een beter op uw voorkeuren toegesneden surfervaring geven. Omdat we uw recht op privacy respecteren, kunt u er voor kiezen sommige soorten cookies te blokkeren. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen te wijzigen. Weest u zich er echter wel van bewust dat het blokkeren van sommige soorten cookies uw ervaring van de website en de door ons aangeboden diensten nadelig kan beïnvloeden.",
       acceptSettings: "Alle toestaan",
       rejectSettings: "Alles afwijzen",
       necessaryTitle: "Strikt noodzakelijke cookies",
-      necessaryDescription: "Deze cookies zijn nodig anders werkt de website niet. Deze cookies kunnen niet worden uitgeschakeld. In de meeste gevallen worden deze cookies alleen gebruikt naar aanleiding van een handeling van u waarmee u in wezen een dienst aanvraagt, bijvoorbeeld uw privacyinstellingen registreren, in de website inloggen of een formulier invullen. U kunt uw browser instellen om deze cookies te blokkeren of om u voor deze cookies te waarschuwen, maar sommige delen van de website zullen dan niet werken. Deze cookies slaan geen persoonlijk identificeerbare informatie op.",
+      necessaryDescription:
+        "Deze cookies zijn nodig anders werkt de website niet. Deze cookies kunnen niet worden uitgeschakeld. In de meeste gevallen worden deze cookies alleen gebruikt naar aanleiding van een handeling van u waarmee u in wezen een dienst aanvraagt, bijvoorbeeld uw privacyinstellingen registreren, in de website inloggen of een formulier invullen. U kunt uw browser instellen om deze cookies te blokkeren of om u voor deze cookies te waarschuwen, maar sommige delen van de website zullen dan niet werken. Deze cookies slaan geen persoonlijk identificeerbare informatie op.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
@@ -286,17 +289,20 @@ const LOCALE_TEXT = {
     text: {
       // notify banner
       notifyTitle: "Pomóż nam z analityką",
-      notifyDescription: "Do stworzenia tej witryny internetowej używamy niezbędnych plików cookie. Chcielibyśmy ustawić dodatkowe pliki cookie, które pomogą nam zrozumieć, w jaki sposób korzystasz z mozillafoundation.org. Twoje ustawienia poprawiają jakość naszych usług.",
+      notifyDescription:
+        "Do stworzenia tej witryny internetowej używamy niezbędnych plików cookie. Chcielibyśmy ustawić dodatkowe pliki cookie, które pomogą nam zrozumieć, w jaki sposób korzystasz z mozillafoundation.org. Twoje ustawienia poprawiają jakość naszych usług.",
       accept: "Akceptuj wszystkie pliki cookie",
       reject: "Odrzucenie wszystkich",
       settings: "Ustawienia plików cookie",
       // setting panel
       title: "Centrum preferencji prywatności",
-      intro: "Podczas odwiedzania jakiejkolwiek strony internetowej, może ona przechowywać lub pobierać informacje z przeglądarki, głównie w formie plików cookie. Informacje te mogą dotyczyć użytkownika, jego preferencji lub urządzenia i są najczęściej wykorzystywane w celu zapewnienia, że witryna będzie działać tak, jak tego oczekują użytkownicy. Informacje zazwyczaj nie identyfikują bezpośrednio użytkownika, ale mogą zapewnić mu bardziej spersonalizowane doświadczenie w sieci. Ponieważ szanujemy prawo użytkownika do prywatności, użytkownik może zrezygnować z akceptowania niektórych rodzajów plików cookie. Aby dowiedzieć się więcej i zmienić nasze ustawienia domyślne, należy kliknąć na poszczególne nagłówki kategorii. Jednakże blokowanie niektórych rodzajów plików cookie może mieć wpływ na doświadczenia użytkownika związane z witryną i usługami, które możemy zaoferować.",
+      intro:
+        "Podczas odwiedzania jakiejkolwiek strony internetowej, może ona przechowywać lub pobierać informacje z przeglądarki, głównie w formie plików cookie. Informacje te mogą dotyczyć użytkownika, jego preferencji lub urządzenia i są najczęściej wykorzystywane w celu zapewnienia, że witryna będzie działać tak, jak tego oczekują użytkownicy. Informacje zazwyczaj nie identyfikują bezpośrednio użytkownika, ale mogą zapewnić mu bardziej spersonalizowane doświadczenie w sieci. Ponieważ szanujemy prawo użytkownika do prywatności, użytkownik może zrezygnować z akceptowania niektórych rodzajów plików cookie. Aby dowiedzieć się więcej i zmienić nasze ustawienia domyślne, należy kliknąć na poszczególne nagłówki kategorii. Jednakże blokowanie niektórych rodzajów plików cookie może mieć wpływ na doświadczenia użytkownika związane z witryną i usługami, które możemy zaoferować.",
       acceptSettings: "Zezwolenie na wszystkie",
       rejectSettings: "Odrzucenie wszystkich",
       necessaryTitle: "Ściśle niezbędne pliki cookie",
-      necessaryDescription: "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
+      necessaryDescription:
+        "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
@@ -323,17 +329,20 @@ const LOCALE_TEXT = {
     text: {
       // notify banner
       notifyTitle: "Ajude a Mozilla com o Analytics",
-      notifyDescription: "Usamos alguns cookies essenciais para criar este site. Gostaríamos de definir cookies adicionais para entender como você usa o mozillafoundation.org. Suas configurações melhoram nossos serviços.",
+      notifyDescription:
+        "Usamos alguns cookies essenciais para criar este site. Gostaríamos de definir cookies adicionais para entender como você usa o mozillafoundation.org. Suas configurações melhoram nossos serviços.",
       accept: "Aceitar todos os cookies",
       reject: "Rejeitar Todos",
       settings: "Definições de cookies",
       // setting panel
       title: "Centro de preferências de privacidade",
-      intro: "Quando visita um website, este pode armazenar ou recolher informações no seu navegador, principalmente na forma de cookies. Esta informação pode ser sobre si, as suas preferências ou o seu dispositivo e é utilizada principalmente para fazer o website funcionar conforme o esperado. A informação normalmente não o identifica diretamente, mas pode dar-lhe uma experiência web mais personalizada. Uma vez que respeitamos o seu direito à privacidade, pode optar por não permitir alguns tipos de cookies. Clique nos cabeçalhos das diferentes categorias para saber mais e alterar as nossas configurações predefinidas. No entanto, o bloqueio de alguns tipos de cookies pode afetar a sua experiência no website e os serviços que podemos oferecer.",
+      intro:
+        "Quando visita um website, este pode armazenar ou recolher informações no seu navegador, principalmente na forma de cookies. Esta informação pode ser sobre si, as suas preferências ou o seu dispositivo e é utilizada principalmente para fazer o website funcionar conforme o esperado. A informação normalmente não o identifica diretamente, mas pode dar-lhe uma experiência web mais personalizada. Uma vez que respeitamos o seu direito à privacidade, pode optar por não permitir alguns tipos de cookies. Clique nos cabeçalhos das diferentes categorias para saber mais e alterar as nossas configurações predefinidas. No entanto, o bloqueio de alguns tipos de cookies pode afetar a sua experiência no website e os serviços que podemos oferecer.",
       acceptSettings: "Permitir todos",
       rejectSettings: "Rejeitar todos",
       necessaryTitle: "Cookies estritamente necessários",
-      necessaryDescription: "Estes cookies são necessários para que o website funcione e não podem ser desligados nos nossos sistemas. Normalmente, eles só são configurados em resposta a ações levadas a cabo por si e que correspondem a uma solicitação de serviços, tais como definir as suas preferências de privacidade, iniciar sessão ou preencher formulários. Pode configurar o seu navegador para bloquear ou alertá-lo(a) sobre esses cookies, mas algumas partes do website não funcionarão. Estes cookies não armazenam qualquer informação pessoal identificável.",
+      necessaryDescription:
+        "Estes cookies são necessários para que o website funcione e não podem ser desligados nos nossos sistemas. Normalmente, eles só são configurados em resposta a ações levadas a cabo por si e que correspondem a uma solicitação de serviços, tais como definir as suas preferências de privacidade, iniciar sessão ou preencher formulários. Pode configurar o seu navegador para bloquear ou alertá-lo(a) sobre esses cookies, mas algumas partes do website não funcionarão. Estes cookies não armazenam qualquer informação pessoal identificável.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
@@ -360,17 +369,20 @@ const LOCALE_TEXT = {
     text: {
       // notify banner
       notifyTitle: "Saidia Mozilla na uchanganuzi",
-      notifyDescription: "Tunatumia vidakuzi muhimu kutengeneza tovuti hii. Tungependa kuweka vidakuzi vya ziada kuelewa jinsi unavyotumia mozillafoundation.org. Mipangilio yako inaboresha huduma zetu.",
+      notifyDescription:
+        "Tunatumia vidakuzi muhimu kutengeneza tovuti hii. Tungependa kuweka vidakuzi vya ziada kuelewa jinsi unavyotumia mozillafoundation.org. Mipangilio yako inaboresha huduma zetu.",
       accept: "Kubali Vidakuzi Vyote",
       reject: "Kataa Yote",
       settings: "Mipangilio ya Vidakuzi",
       // setting panel
       title: "Kituo cha Upendeleo wa Faragha",
-      intro: "Unapotembelea tovuti yoyote, inaweza kuhifadhi au kupata habari kwenye kivinjari chako, hasa kwa njia ya kuki. Habari hii inaweza kuwa juu yako, mapendekezo yako au kifaa chako na hutumiwa zaidi kufanya tovuti ifanye kazi kama unavyotarajia. Habari hiyo kwa kawaida haikutambui moja kwa moja, lakini inaweza kukupa uzoefu zaidi wa wavuti. Kwa sababu tunaheshimu haki yako ya faragha, unaweza kuchagua kutoruhusu aina fulani za biskuti. Bofya kwenye vichwa vya kategoria tofauti ili kujua zaidi na kubadilisha mipangilio yetu chaguo-msingi. Hata hivyo, kuzuia baadhi ya aina ya cookies inaweza kuathiri uzoefu wako wa tovuti na huduma sisi ni uwezo wa kutoa.",
+      intro:
+        "Unapotembelea tovuti yoyote, inaweza kuhifadhi au kupata habari kwenye kivinjari chako, hasa kwa njia ya kuki. Habari hii inaweza kuwa juu yako, mapendekezo yako au kifaa chako na hutumiwa zaidi kufanya tovuti ifanye kazi kama unavyotarajia. Habari hiyo kwa kawaida haikutambui moja kwa moja, lakini inaweza kukupa uzoefu zaidi wa wavuti. Kwa sababu tunaheshimu haki yako ya faragha, unaweza kuchagua kutoruhusu aina fulani za biskuti. Bofya kwenye vichwa vya kategoria tofauti ili kujua zaidi na kubadilisha mipangilio yetu chaguo-msingi. Hata hivyo, kuzuia baadhi ya aina ya cookies inaweza kuathiri uzoefu wako wa tovuti na huduma sisi ni uwezo wa kutoa.",
       acceptSettings: "Ruhusu Yote",
       rejectSettings: "Kataa Yote",
       necessaryTitle: "Vidakuzi vya lazima kabisa",
-      necessaryDescription: "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
+      necessaryDescription:
+        "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
