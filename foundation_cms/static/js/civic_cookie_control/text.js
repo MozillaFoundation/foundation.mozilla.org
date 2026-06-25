@@ -245,18 +245,18 @@ const LOCALE_TEXT = {
   nl: {
     text: {
       // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
+      notifyTitle: "Help Mozilla met analyses",
+      notifyDescription: "We gebruiken een aantal essentiële cookies om deze website te maken. We willen graag extra cookies plaatsen om te begrijpen hoe u mozillafoundation.org gebruikt. Dankzij uw instellingen kunnen we onze dienstverlening verbeteren.",
+      accept: "Alle cookies accepteren",
+      reject: "Alles afwijzen",
+      settings: "Cookie-instellingen",
       // setting panel
-      title: "[WIP] Titel (NL)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
+      title: "Voorkeurenmenu",
+      intro: "Wanneer u een website bezoekt, kan er informatie in uw browser worden opgeslagen of eruit worden opgehaald, voornamelijk in de vorm van cookies. Deze informatie kan over u, uw voorkeuren of uw apparaat zijn en wordt voornamelijk gebruikt om de website correct te laten werken. De informatie identificeert u normaal gesproken niet direct, maar kan u een beter op uw voorkeuren toegesneden surfervaring geven. Omdat we uw recht op privacy respecteren, kunt u er voor kiezen sommige soorten cookies te blokkeren. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen te wijzigen. Weest u zich er echter wel van bewust dat het blokkeren van sommige soorten cookies uw ervaring van de website en de door ons aangeboden diensten nadelig kan beïnvloeden.",
+      acceptSettings: "Alle toestaan",
+      rejectSettings: "Alles afwijzen",
+      necessaryTitle: "Strikt noodzakelijke cookies",
+      necessaryDescription: "Deze cookies zijn nodig anders werkt de website niet. Deze cookies kunnen niet worden uitgeschakeld. In de meeste gevallen worden deze cookies alleen gebruikt naar aanleiding van een handeling van u waarmee u in wezen een dienst aanvraagt, bijvoorbeeld uw privacyinstellingen registreren, in de website inloggen of een formulier invullen. U kunt uw browser instellen om deze cookies te blokkeren of om u voor deze cookies te waarschuwen, maar sommige delen van de website zullen dan niet werken. Deze cookies slaan geen persoonlijk identificeerbare informatie op.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
