@@ -282,18 +282,18 @@ const LOCALE_TEXT = {
   pl: {
     text: {
       // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
+      notifyTitle: "Pomóż nam z analityką",
+      notifyDescription: "Do stworzenia tej witryny internetowej używamy niezbędnych plików cookie. Chcielibyśmy ustawić dodatkowe pliki cookie, które pomogą nam zrozumieć, w jaki sposób korzystasz z mozillafoundation.org. Twoje ustawienia poprawiają jakość naszych usług.",
+      accept: "Akceptuj wszystkie pliki cookie",
+      reject: "Odrzucenie wszystkich",
+      settings: "Ustawienia plików cookie",
       // setting panel
-      title: "[WIP] Tytuł (PL)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
+      title: "Centrum preferencji prywatności",
+      intro: "Podczas odwiedzania jakiejkolwiek strony internetowej, może ona przechowywać lub pobierać informacje z przeglądarki, głównie w formie plików cookie. Informacje te mogą dotyczyć użytkownika, jego preferencji lub urządzenia i są najczęściej wykorzystywane w celu zapewnienia, że witryna będzie działać tak, jak tego oczekują użytkownicy. Informacje zazwyczaj nie identyfikują bezpośrednio użytkownika, ale mogą zapewnić mu bardziej spersonalizowane doświadczenie w sieci. Ponieważ szanujemy prawo użytkownika do prywatności, użytkownik może zrezygnować z akceptowania niektórych rodzajów plików cookie. Aby dowiedzieć się więcej i zmienić nasze ustawienia domyślne, należy kliknąć na poszczególne nagłówki kategorii. Jednakże blokowanie niektórych rodzajów plików cookie może mieć wpływ na doświadczenia użytkownika związane z witryną i usługami, które możemy zaoferować.",
+      acceptSettings: "Zezwolenie na wszystkie",
+      rejectSettings: "Odrzucenie wszystkich",
+      necessaryTitle: "Ściśle niezbędne pliki cookie",
+      necessaryDescription: "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
