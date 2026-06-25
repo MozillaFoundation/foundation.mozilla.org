@@ -47,6 +47,8 @@ const LOCALE_TEXT = {
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
   // Catalan
+  // Note: OneTrust's Catalan (ca) text appears to be incorrectly mapped to Swahili (sw).
+  // Catalan text needs to be sourced separately.
   ca: {
     text: {
       // notify banner
@@ -205,6 +207,7 @@ const LOCALE_TEXT = {
   },
   // Frisian
   // Note: OneTrust's Frisian (fy) text appears to be incorrectly mapped to Swahili (sw).
+  // Frisian text needs to be sourced separately.
   fy: {
     text: {
       // notify banner
@@ -319,18 +322,18 @@ const LOCALE_TEXT = {
   pt: {
     text: {
       // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
+      notifyTitle: "Ajude a Mozilla com o Analytics",
+      notifyDescription: "Usamos alguns cookies essenciais para criar este site. Gostaríamos de definir cookies adicionais para entender como você usa o mozillafoundation.org. Suas configurações melhoram nossos serviços.",
+      accept: "Aceitar todos os cookies",
+      reject: "Rejeitar Todos",
+      settings: "Definições de cookies",
       // setting panel
-      title: "[WIP] Título (PT)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
+      title: "Centro de preferências de privacidade",
+      intro: "Quando visita um website, este pode armazenar ou recolher informações no seu navegador, principalmente na forma de cookies. Esta informação pode ser sobre si, as suas preferências ou o seu dispositivo e é utilizada principalmente para fazer o website funcionar conforme o esperado. A informação normalmente não o identifica diretamente, mas pode dar-lhe uma experiência web mais personalizada. Uma vez que respeitamos o seu direito à privacidade, pode optar por não permitir alguns tipos de cookies. Clique nos cabeçalhos das diferentes categorias para saber mais e alterar as nossas configurações predefinidas. No entanto, o bloqueio de alguns tipos de cookies pode afetar a sua experiência no website e os serviços que podemos oferecer.",
+      acceptSettings: "Permitir todos",
+      rejectSettings: "Rejeitar todos",
+      necessaryTitle: "Cookies estritamente necessários",
+      necessaryDescription: "Estes cookies são necessários para que o website funcione e não podem ser desligados nos nossos sistemas. Normalmente, eles só são configurados em resposta a ações levadas a cabo por si e que correspondem a uma solicitação de serviços, tais como definir as suas preferências de privacidade, iniciar sessão ou preencher formulários. Pode configurar o seu navegador para bloquear ou alertá-lo(a) sobre esses cookies, mas algumas partes do website não funcionarão. Estes cookies não armazenam qualquer informação pessoal identificável.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
