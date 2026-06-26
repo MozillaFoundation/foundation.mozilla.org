@@ -58,7 +58,20 @@ if (!COOKIE_CONTROL_API_KEY) {
         outline: true,
       },
       text: LOCALE_TEXT.en.text,
-      // TODO(TP1-4033): add optionalCookies once categories are defined.
+      // TODO: (TP1-4033)
+      //   1. Replace with real necessary/optional categories once defined.
+      //   2. Revise the notify bar "Accept"/"Reject" button labels.
+      //      They currently reference "Analytics Cookies" specifically, which may not be accurate once all optional categories are defined.
+      necessaryCookies: ["placeholder-necessary-cookie"],
+      optionalCookies: [
+        {
+          name: "placeholder-optional",
+          label: "[For Testing Purpose] A Cookies Category",
+          description: "Placeholder for testing — to be replaced in TP1-4033.",
+          onAccept: function () {},
+          onRevoke: function () {},
+        },
+      ],
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
         .map(([locale, { text }]) => ({

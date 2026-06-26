@@ -3,6 +3,7 @@
 // CookieControl text keys: https://cookiecontrol.com/docs/v9/
 //
 // optionalCookies labels/descriptions per locale are defined in TP1-4033.
+// TODO(TP1-4033): revise accept/reject button labels across all locales once optional category names are confirmed. "Analytics Cookies" may not be accurate.
 
 const LOCALE_TEXT = {
   en: {
