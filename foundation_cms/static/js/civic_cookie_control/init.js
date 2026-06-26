@@ -3,8 +3,6 @@
 // Locale is based on user’s browser language setting
 
 import LOCALE_TEXT from "./text.js";
-// COOKIE_CATEGORIES import is wired up in TP1-4033
-// import COOKIE_CATEGORIES from "./categories.js";
 
 const API_KEY = COOKIE_CONTROL_API_KEY;
 const PRODUCT_TYPE = "CUSTOM";
@@ -60,7 +58,7 @@ if (!COOKIE_CONTROL_API_KEY) {
         outline: true,
       },
       text: LOCALE_TEXT.en.text,
-      // TODO(TP1-4033): Wire up optionalCookies from COOKIE_CATEGORIES once categories are defined.
+      // TODO(TP1-4033): add optionalCookies once categories are defined.
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
         .map(([locale, { text }]) => ({
