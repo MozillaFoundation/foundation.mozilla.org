@@ -55,7 +55,7 @@
   "devDependencies": {
     "@percy/cli": "^1.31.14",
     "@percy/playwright": "^1.1.0",
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.1",
     "autoprefixer": "^10.5.0",
     "chokidar-cli": "^3.0.0",
     "eslint": "^9.39.2",
