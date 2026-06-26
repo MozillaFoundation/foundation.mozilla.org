@@ -188,7 +188,7 @@ const LOCALE_TEXT = {
       closeLabel: "[WIP] Close",
     },
   },
-  // Portuguese (Brazil) (pt-BR)
+  // Portuguese
   pt: {
     text: {
       // notify banner

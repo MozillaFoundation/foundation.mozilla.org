@@ -85,7 +85,12 @@ if (!COOKIE_CONTROL_API_KEY) {
 
     // TODO:FIXME: DEV ONLY: remove before merge into `main`
     const configToPrint = CookieControl.config();
-    console.log("CookieControl locale:", configToPrint.locale, "| mode:", configToPrint.mode);
+    console.log(
+      "CookieControl locale:",
+      configToPrint.locale,
+      "| mode:",
+      configToPrint.mode,
+    );
     console.log("CookieControl geoTest response:", response);
     CookieControl.load(config);
   });
