@@ -1,6 +1,8 @@
 // Localized text for Cookie Control v9 (Civic UK)
 // English is the default; other locales only need keys that differ.
 // CookieControl text keys: https://cookiecontrol.com/docs/v9/
+//
+// optionalCookies labels/descriptions per locale are defined in TP1-4033.
 
 const LOCALE_TEXT = {
   en: {
@@ -22,28 +24,8 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.",
       // visible label / aria-label for the close button
-      closeLabel: "Closeee",
+      closeLabel: "Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "Functional Cookies",
-        description:
-          "These cookies enable the website to provide enhanced functionality and personalisation. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly.",
-      },
-      {
-        name: "performance",
-        label: "Performance Cookies",
-        description:
-          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
-      },
-      {
-        name: "personalized_advertising",
-        label: "Personalized Advertising Cookies",
-        description:
-          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
-      },
-    ],
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
   // Catalan
@@ -67,23 +49,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP]",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // German
   de: {
@@ -107,23 +72,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // Spanish
   es: {
@@ -147,23 +95,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // French
   fr: {
@@ -187,23 +118,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // Frisian
   // Note: OneTrust's Frisian (fy) text appears to be incorrectly mapped to Swahili (sw).
@@ -226,23 +140,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // Dutch
   nl: {
@@ -266,23 +163,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // Polish
   pl: {
@@ -306,23 +186,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // Portuguese (Brazil) (pt-BR)
   pt: {
@@ -346,23 +209,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
   // Swahili
   sw: {
@@ -386,23 +232,6 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
-    optionalCookies: [
-      {
-        name: "functional",
-        label: "[WIP] Functional Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "performance",
-        label: "[WIP] Performance Cookies",
-        description: "[WIP]",
-      },
-      {
-        name: "personalized_advertising",
-        label: "[WIP] Personalized Advertising Cookies",
-        description: "[WIP]",
-      },
-    ],
   },
 };
 
