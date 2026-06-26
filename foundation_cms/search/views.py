@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Count
 from django.http import JsonResponse
@@ -28,7 +27,7 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 
 def search(request):
-    search_query = request.GET.get("query", None)
+    search_query = (request.GET.get("query") or "").strip()
     content_type = normalize_content_type(request.GET.get("content_type", "all"))
     sort = normalize_sort(request.GET.get("sort", "relevance"))
     selected_topic = normalize_topic(request.GET.get("topic"))
@@ -44,10 +43,10 @@ def search(request):
         base_queryset = Page.objects.live().filter(locale=current_locale)
 
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
-        search_results = search_backend.search(search_query, base_queryset)
+        backend_results = search_backend.search(search_query, base_queryset)
 
         # Extract IDs preserving backend's relevance order
-        result_ids = [result.id for result in search_results]
+        result_ids = [result.id for result in backend_results]
 
         # Optional section filter by content_type slug
         section_slug = SECTION_SLUGS[content_type]
@@ -83,6 +82,7 @@ def search(request):
         total_search_results = len(result_ids)
 
         # Build related topic facets from current query result set only
+        search_results = []
         if result_ids:
             related_topics_qs = (
                 Page.objects.filter(id__in=result_ids)
@@ -101,28 +101,16 @@ def search(request):
                 for row in related_topics_qs[:20]
             ]
 
-            print(f"Related topics: {related_topics}")  # Debugging line to check related topics
-
             # Create position mapping to restore relevance order later
             id_to_position = {pid: idx for idx, pid in enumerate(result_ids)}
 
-            # Pre-fetch ContentTypes for ALL unique page types
-            unique_page_types = {result.__class__ for result in search_results}
-            if unique_page_types:
-                ContentType.objects.get_for_models(*unique_page_types)
-
             # Build optimized QuerySet with FK prefetch and specific() call
             search_results = list(
-                Page.objects.filter(id__in=result_ids)
-                .select_related("search_image", "content_type")
-                .specific()
+                Page.objects.filter(id__in=result_ids).select_related("search_image", "content_type").specific()
             )
 
             # Restore backend relevance order
             search_results.sort(key=lambda page: id_to_position.get(page.id, len(result_ids)))
-
-        else:
-            search_results = []
 
         # Optional sorting by publication date
         if sort in ("newest", "oldest"):
@@ -141,7 +129,7 @@ def search(request):
         # Log only on initial submission, not on pagination clicks
         if is_initial_search_submit:
             SearchEvent.objects.create(
-                query_string=search_query.strip().lower(),
+                query_string=search_query.lower(),
                 language_code=current_locale.language_code,
                 results_count=total_search_results,
             )
