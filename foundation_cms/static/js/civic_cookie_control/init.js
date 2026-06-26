@@ -32,7 +32,6 @@ if (!COOKIE_CONTROL_API_KEY) {
       logConsent: true,
       initialState: "notify",
       product: PRODUCT_TYPE,
-      mode: response.withinEU ? "GDPR" : "CCPA", // TODO:FIXME: to be confirmed if we need to explicitly set this
       theme: "dark",
       branding: {
         // type
@@ -84,6 +83,10 @@ if (!COOKIE_CONTROL_API_KEY) {
     document.cookie =
       "CookieControl=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
+    // TODO:FIXME: DEV ONLY: remove before merge into `main`
+    const configToPrint = CookieControl.config();
+    console.log("CookieControl locale:", configToPrint.locale, "| mode:", configToPrint.mode);
+    console.log("CookieControl geoTest response:", response);
     CookieControl.load(config);
   });
 }
