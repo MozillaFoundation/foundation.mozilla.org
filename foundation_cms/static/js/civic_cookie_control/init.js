@@ -27,12 +27,19 @@ if (!COOKIE_CONTROL_API_KEY) {
   );
 } else {
   CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
+    const mode = response.withinCCPA ? "ccpa" : "gdpr";
+    console.log(`CookieControl mode will be set to:`, mode);
+
     const config = {
       apiKey: API_KEY,
       logConsent: true,
       initialState: "notify",
       product: PRODUCT_TYPE,
       theme: "dark",
+      mode,
+      // TODO:FIXME: with real CCPA content (TP1-4027)
+      // See: https://cookiecontrol.com/docs/v9/optional-categories#ccpa-and-geolocation
+      ...(response.withinCCPA && { ccpaConfig: LOCALE_TEXT.en.ccpaConfig }),
       branding: {
         // type
         fontFamily: '"Mozilla Text", "Helvetica Neue", Arial, sans-serif',
@@ -73,9 +80,10 @@ if (!COOKIE_CONTROL_API_KEY) {
       ],
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
-        .map(([locale, { text }]) => ({
+        .map(([locale, { text, ccpaConfig }]) => ({
           locale,
           text,
+          ...(response.withinCCPA && ccpaConfig && { ccpaConfig }),
         })),
     };
 
@@ -83,15 +91,10 @@ if (!COOKIE_CONTROL_API_KEY) {
     document.cookie =
       "CookieControl=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
-    // TODO:FIXME: DEV ONLY: remove before merge into `main`
-    const configToPrint = CookieControl.config();
-    console.log(
-      "CookieControl locale:",
-      configToPrint.locale,
-      "| mode:",
-      configToPrint.mode,
-    );
-    console.log("CookieControl geoTest response:", response);
     CookieControl.load(config);
+
+    // TODO:FIXME: DEV ONLY: remove before merge into `main`
+    console.log("CookieControl mode:", config.mode);
+    console.log("CookieControl geoTest response:", response);
   });
 }
