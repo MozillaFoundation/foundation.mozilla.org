@@ -5,6 +5,11 @@
 // optionalCookies labels/descriptions per locale are defined in TP1-4033.
 // TODO(TP1-4033): revise accept/reject button labels across all locales once optional category names are confirmed. "Analytics Cookies" may not be accurate.
 
+const CCPA_CONFIG_SHARED = {
+  url: "https://www.civicuk.com/",
+  updated: "25/05/2018",
+};
+
 const LOCALE_TEXT = {
   en: {
     text: {
@@ -26,6 +31,13 @@ const LOCALE_TEXT = {
         "These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information.",
       // visible label / aria-label for the close button
       closeLabel: "Close",
+    },
+    ccpaConfig: {
+      description:
+        "[CCPA Config Description] When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.",
+      name: "More information",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "Do Not Sell or Share My Personal Information",
     },
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
@@ -50,6 +62,12 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP]",
     },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Catalan",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
+    },
   },
   // German
   de: {
@@ -72,6 +90,12 @@ const LOCALE_TEXT = {
         "Diese Cookies sind zur Funktion der Website erforderlich und können in Ihren Systemen nicht deaktiviert werden. In der Regel werden diese Cookies nur als Reaktion auf von Ihnen getätigte Aktionen gesetzt, die einer Dienstanforderung entsprechen, wie etwa dem Festlegen Ihrer Datenschutzeinstellungen, dem Anmelden oder dem Ausfüllen von Formularen. Sie können Ihren Browser so einstellen, dass diese Cookies blockiert oder Sie über diese Cookies benachrichtigt werden. Einige Bereiche der Website funktionieren dann aber nicht. Diese Cookies speichern keine personenbezogenen Daten.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
+    },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for German",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
     },
   },
   // Spanish
@@ -96,6 +120,12 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Spanish",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
+    },
   },
   // French
   fr: {
@@ -119,6 +149,12 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for French",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
+    },
   },
   // Frisian
   // Note: OneTrust's Frisian (fy) text appears to be incorrectly mapped to Swahili (sw).
@@ -140,6 +176,12 @@ const LOCALE_TEXT = {
       necessaryDescription: "[WIP]",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
+    },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Frisian",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
     },
   },
   // Dutch
@@ -164,6 +206,12 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Dutch",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
+    },
   },
   // Polish
   pl: {
@@ -186,6 +234,12 @@ const LOCALE_TEXT = {
         "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
+    },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Polish",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
     },
   },
   // Portuguese
@@ -210,6 +264,12 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
     },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Portuguese",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
+    },
   },
   // Swahili
   sw: {
@@ -232,6 +292,12 @@ const LOCALE_TEXT = {
         "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
       // visible label / aria-label for the close button
       closeLabel: "[WIP] Close",
+    },
+    ccpaConfig: {
+      description: "[WIP] CCPA intro for Swahili",
+      name: "[WIP] link name",
+      ...CCPA_CONFIG_SHARED,
+      rejectButton: "[WIP] reject button text",
     },
   },
 };
