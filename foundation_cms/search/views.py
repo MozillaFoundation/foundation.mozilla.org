@@ -48,6 +48,9 @@ def search(request):
         # Extract IDs preserving backend's relevance order
         result_ids = [result.id for result in backend_results]
 
+        # Remove duplicates while preserving order (in case the backend returns duplicates)
+        result_ids = list(dict.fromkeys(result_ids))
+
         # Optional section filter by content_type slug
         section_slug = SECTION_SLUGS[content_type]
         if section_slug and result_ids:
