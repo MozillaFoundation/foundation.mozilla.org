@@ -83,6 +83,8 @@ if (!COOKIE_CONTROL_API_KEY) {
     document.cookie =
       "CookieControl=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
+    CookieControl.load(config);
+
     // TODO:FIXME: DEV ONLY: remove before merge into `main`
     const configToPrint = CookieControl.config();
     console.log(
@@ -92,6 +94,5 @@ if (!COOKIE_CONTROL_API_KEY) {
       configToPrint.mode,
     );
     console.log("CookieControl geoTest response:", response);
-    CookieControl.load(config);
   });
 }
