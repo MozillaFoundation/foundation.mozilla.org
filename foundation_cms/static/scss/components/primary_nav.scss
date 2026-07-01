@@ -459,14 +459,6 @@ body:has(.search-input-container.search-open) {
     }
   }
 
-  &__input {
-    min-height: rem-calc(52);
-
-    @include breakpoint(large up) {
-      min-height: rem-calc(64);
-    }
-  }
-
   &__submit-button {
     flex: 0 0 rem-calc(52);
     min-width: rem-calc(52);
