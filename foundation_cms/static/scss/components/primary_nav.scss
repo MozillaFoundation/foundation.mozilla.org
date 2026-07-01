@@ -391,15 +391,17 @@ html[lang="nl"] body .primary-nav-ns {
   @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
 }
 
+$primary-nav-search-top: var(--primary-nav-search-top, #{$primary-nav-height});
+
 .search-open-backdrop {
   position: fixed;
-  top: $primary-nav-height;
+  top: $primary-nav-search-top;
   left: 0;
   width: 100%;
-  height: calc(100vh - #{$primary-nav-height});
+  height: calc(100vh - #{$primary-nav-search-top});
   background: rgb(0 0 0 / 30%);
   z-index: 8;
-  transition: all 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   pointer-events: none;
   opacity: 0;
 }
@@ -415,11 +417,11 @@ body:has(.search-input-container.search-open) {
   background: $white;
   max-height: 0;
   will-change: max-height;
-  transition: all 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
   overflow: hidden;
   position: fixed;
   z-index: 9;
-  top: $primary-nav-height;
+  top: $primary-nav-search-top;
   width: 100vw;
 
   .grid-container {
