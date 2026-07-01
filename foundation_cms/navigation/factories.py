@@ -10,6 +10,43 @@ from foundation_cms.navigation import models as nav_models
 
 _fake = _Faker()
 
+DEFAULT_NAV_DROPDOWNS = (
+    (
+        ("Meet Mozilla", "/meet-mozilla/"),
+        (),
+    ),
+    (
+        ("What We Do", "/what-we-do/"),
+        (
+            ("Imagine", "/what-we-do/imagine/"),
+            ("Co-create", "/what-we-do/co-create/"),
+            ("Mobilize", "/what-we-do/mobilize/"),
+        ),
+    ),
+    (
+        ("Join Us", "/join-us/"),
+        (),
+    ),
+    (
+        ("Nothing Personal", "/nothing-personal/"),
+        (),
+    ),
+)
+
+DEFAULT_SEARCH_TOPIC_LINKS = (
+    ("privacy", "privacy"),
+    ("personal data", "personal data"),
+    ("open source", "open source"),
+    ("encryption", "encryption"),
+    ("ai", "ai"),
+)
+
+DEFAULT_SEARCH_QUICK_LINKS = (
+    ("Grantmaking", "/what-we-do/awards/"),
+    ("Mozilla Festival", "/festival/"),
+    ("Common Voice", "/common-voice/"),
+)
+
 
 class NavLinkFactory(wagtail_factories.StructBlockFactory):
     """
@@ -80,20 +117,77 @@ class NavDropdownFactory(wagtail_factories.StructBlockFactory):
     )
 
 
+class SearchTopicLinkFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = nav_blocks.SearchTopicLink
+
+    label = factory.Faker("word")
+    query = factory.Faker("word")
+
+
+def relative_nav_link(label, relative_url):
+    return {
+        "label": label,
+        "link_to": "relative_url",
+        "page": None,
+        "external_url": "",
+        "relative_url": relative_url,
+    }
+
+
+def default_dropdowns():
+    payload = [
+        {
+            "type": "dropdown",
+            "value": {
+                "header": relative_nav_link(label, relative_url),
+                "items": [relative_nav_link(item_label, item_url) for item_label, item_url in items],
+            },
+        }
+        for (label, relative_url), items in DEFAULT_NAV_DROPDOWNS
+    ]
+    return nav_models.NavigationMenu.dropdowns.field.stream_block.to_python(payload)
+
+
+def default_search_topic_links():
+    payload = [
+        {
+            "type": "topic",
+            "value": {
+                "label": label,
+                "query": query,
+            },
+        }
+        for label, query in DEFAULT_SEARCH_TOPIC_LINKS
+    ]
+    return nav_models.NavigationMenu.search_topic_links.field.stream_block.to_python(payload)
+
+
+def default_search_quick_links():
+    payload = [
+        {
+            "type": "quick_link",
+            "value": {
+                "label": label,
+                "link_to": "relative_url",
+                "page": None,
+                "external_url": "",
+                "relative_url": relative_url,
+            },
+        }
+        for label, relative_url in DEFAULT_SEARCH_QUICK_LINKS
+    ]
+    return nav_models.NavigationMenu.search_quick_links.field.stream_block.to_python(payload)
+
+
 class NavigationMenuFactory(DjangoModelFactory):
     class Meta:
         model = nav_models.NavigationMenu
 
     title = factory.Faker("sentence", nb_words=3)
-    dropdowns = wagtail_factories.StreamFieldFactory(
-        {"dropdown": factory.SubFactory(NavDropdownFactory)},
-        **{
-            "0": "dropdown",
-            "1": "dropdown",
-            "2": "dropdown",
-            "3": "dropdown",
-        },
-    )
+    dropdowns = factory.LazyFunction(default_dropdowns)
+    search_topic_links = factory.LazyFunction(default_search_topic_links)
+    search_quick_links = factory.LazyFunction(default_search_quick_links)
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
 
 
@@ -103,15 +197,9 @@ def generate(seed):
     menu, created = nav_models.NavigationMenu.objects.get_or_create(
         title="Main Navigation",
         defaults={
-            "dropdowns": wagtail_factories.StreamFieldFactory(
-                {"dropdown": factory.SubFactory(NavDropdownFactory)},
-                **{
-                    "0": "dropdown",
-                    "1": "dropdown",
-                    "2": "dropdown",
-                    "3": "dropdown",
-                },
-            )(),
+            "dropdowns": default_dropdowns(),
+            "search_topic_links": default_search_topic_links(),
+            "search_quick_links": default_search_quick_links(),
             "locale": wagtail_models.Locale.get_default(),
         },
     )
