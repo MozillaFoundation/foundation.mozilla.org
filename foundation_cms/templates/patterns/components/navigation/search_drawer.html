@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="search-input-container"
+<div class="search-input-container{% if not search_topic_links and not search_quick_links %} search-input-container--form-only{% endif %}"
      id="primary-nav-search"
      aria-hidden="true"
      inert>
@@ -12,75 +12,46 @@
           {% include "search/_search_form.html" with form_class="search-input-container__form" input_class="search-input-container__input" submit_classnames="search-input-container__submit-button" placeholder=search_placeholder input_label=search_placeholder %}
         </div>
 
-        <div class="search-input-container__suggestions">
-          <div class="search-input-container__topics">
-            <p class="search-input-container__heading">{% trans "Explore our ideas" %}</p>
-            <ul class="search-input-container__topic-list">
-              {% if search_topic_links %}
-                {% for link in search_topic_links|slice:":5" %}
-                  <li>
-                    <a class="search-input-container__topic-link"
-                       href="{{ link.url }}"
-                       {% if link.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                      {{ link.label }}
-                    </a>
-                  </li>
-                {% endfor %}
-              {% else %}
-                <li>
-                  <a class="search-input-container__topic-link"
-                     href="{% url 'search' %}?query=privacy">{% trans "privacy" %}</a>
-                </li>
-                <li>
-                  <a class="search-input-container__topic-link"
-                     href="{% url 'search' %}?query=personal%20data">{% trans "personal data" %}</a>
-                </li>
-                <li>
-                  <a class="search-input-container__topic-link"
-                     href="{% url 'search' %}?query=open%20source">{% trans "open source" %}</a>
-                </li>
-                <li>
-                  <a class="search-input-container__topic-link"
-                     href="{% url 'search' %}?query=encryption">{% trans "encryption" %}</a>
-                </li>
-                <li>
-                  <a class="search-input-container__topic-link"
-                     href="{% url 'search' %}?query=ai">{% trans "ai" %}</a>
-                </li>
-              {% endif %}
-            </ul>
-          </div>
+        {% if search_topic_links or search_quick_links %}
+          <div class="search-input-container__suggestions">
+            {% if search_topic_links %}
+              <div class="search-input-container__topics">
+                <p class="search-input-container__heading">{% trans "Explore our ideas" %}</p>
+                <ul class="search-input-container__topic-list">
+                  {% for link in search_topic_links|slice:":5" %}
+                    {% with topic_link=link.value %}
+                      <li>
+                        <a class="search-input-container__topic-link"
+                           href="{{ topic_link.url }}">
+                          {{ topic_link.label }}
+                        </a>
+                      </li>
+                    {% endwith %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
 
-          <div class="search-input-container__quick-links">
-            <p class="search-input-container__heading">{% trans "Quick Links" %}</p>
-            <ul class="search-input-container__quick-link-list">
-              {% if search_quick_links %}
-                {% for link in search_quick_links %}
-                  <li>
-                    <a class="search-input-container__quick-link"
-                       href="{{ link.url }}"
-                       {% if link.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                      {{ link.label }}
-                    </a>
-                  </li>
-                {% endfor %}
-              {% else %}
-                <li>
-                  <a class="search-input-container__quick-link"
-                     href="/what-we-do/awards/">{% trans "Grantmaking" %}</a>
-                </li>
-                <li>
-                  <a class="search-input-container__quick-link"
-                     href="/festival/">{% trans "Mozilla Festival" %}</a>
-                </li>
-                <li>
-                  <a class="search-input-container__quick-link"
-                     href="/common-voice/">{% trans "Common Voice" %}</a>
-                </li>
-              {% endif %}
-            </ul>
+            {% if search_quick_links %}
+              <div class="search-input-container__quick-links">
+                <p class="search-input-container__heading">{% trans "Quick Links" %}</p>
+                <ul class="search-input-container__quick-link-list">
+                  {% for link in search_quick_links %}
+                    {% with quick_link=link.value %}
+                      <li>
+                        <a class="search-input-container__quick-link"
+                           href="{{ quick_link.url }}"
+                           {% if quick_link.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                          {{ quick_link.label }}
+                        </a>
+                      </li>
+                    {% endwith %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
           </div>
-        </div>
+        {% endif %}
       </div>
     </div>
   </div>

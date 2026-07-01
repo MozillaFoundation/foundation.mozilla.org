@@ -434,6 +434,14 @@ body:has(.search-input-container.search-open) {
     }
   }
 
+  &--form-only {
+    .grid-container {
+      @include breakpoint(large up) {
+        padding-bottom: rem-calc(64);
+      }
+    }
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;

@@ -1,3 +1,6 @@
+from urllib.parse import urlencode
+
+from django.urls import reverse
 from wagtail import blocks
 from wagtail.admin.telepath import register
 
@@ -12,6 +15,10 @@ class NavLinkValue(BaseLinkValue):
     @property
     def is_external(self) -> bool:
         return self.get("link_to") == "external_url"
+
+    @property
+    def label(self) -> str:
+        return self.get("label")
 
 
 class NavLink(BaseLinkBlock):
@@ -29,6 +36,38 @@ class NavLink(BaseLinkBlock):
 
 
 register(BaseLinkBlockAdapter(), NavLink)
+
+
+class SearchTopicLinkValue(blocks.StructValue):
+    @property
+    def label(self) -> str:
+        return self.get("label")
+
+    @property
+    def query(self) -> str:
+        return self.get("query")
+
+    @property
+    def url(self) -> str:
+        return f"{reverse('search')}?{urlencode({'query': self.query})}"
+
+    @property
+    def is_external(self) -> bool:
+        return False
+
+
+class SearchTopicLink(blocks.StructBlock):
+    """
+    A topic pill that links to the site search page with a configured query.
+    """
+
+    label = blocks.CharBlock(max_length=36, help_text="Maximum 36 characters.")
+    query = blocks.CharBlock(max_length=100, help_text="Search query used when this topic pill is selected.")
+
+    class Meta:
+        label = "Search Topic Link"
+        icon = "search"
+        value_class = SearchTopicLinkValue
 
 
 class NavDropdownValue(blocks.StructValue):
