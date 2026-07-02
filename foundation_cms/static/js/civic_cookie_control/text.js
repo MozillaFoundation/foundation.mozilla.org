@@ -36,8 +36,8 @@ const LOCALE_TEXT = {
       description:
         "[CCPA Config Description] When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.",
       name: "More information",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "Do Not Sell or Share My Personal Information",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
@@ -65,8 +65,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[WIP] CCPA intro for Catalan",
       name: "[WIP] link name",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "[WIP] reject button text",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // German
@@ -94,8 +94,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[CCPA intro for German] Wenn Sie unsere Website besuchen, speichern wir in Ihrem Browser Cookies, um Informationen zu sammeln. Hierbei kann es sich um Informationen über Sie, Ihre Einstellungen oder Ihr Gerät handeln. Meist werden die Informationen verwendet, um die erwartungsgemäße Funktion der Website zu gewährleisten und Ihnen ein personalisierteres Website-Erlebnis zu bieten. Sie können jedoch bestimmte Arten von Cookies nicht zulassen. Dies führt möglicherweise zu einer beeinträchtigten Erfahrung der von uns zur Verfügung gestellten Website und Dienste. Klicken Sie auf die verschiedenen Kategorieüberschriften, um mehr zu erfahren und unsere Standardeinstellungen nach Ihren Wünschen zu ändern. Sie können unsere unbedingt erforderlichen Erstanbieter-Cookies nicht ablehnen, da sie eingesetzt werden, um das ordnungsgemäße Funktionieren unserer Website zu gewährleisten (wie z.B. das Aufrufen des Cookie-Banners und das Speichern Ihrer Einstellungen, das Anmelden in Ihrem Konto, das Weiterleiten beim Abmelden usw.) Weitere Informationen über die verwendeten Erst- und Drittanbieter-Cookies finden Sie unter diesem Link.",
       name: "Weitere Informationen",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "Meine persönlichen Daten nicht verkaufen oder weitergeben",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Spanish
@@ -123,8 +123,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[CCPA intro for Spanish] Cuando visita nuestro sitio web, guardamos las cookies en su navegador para recoger información. Esta información puede ser acerca de usted, sus preferencias o su dispositivo, y se usa principalmente para que el sitio funcione según lo esperado y para ofrecer una experiencia más personalizada cuando usa la web. Sin embargo, usted puede escoger no permitir ciertos tipos de cookies, lo cual afectará su experiencia en el sitio y los servicios que podemos ofrecer. Haga clic en los encabezados de cada categoría para saber más y cambiar nuestras configuraciones predeterminadas con sus preferencias. No podrá excluirse de nuestras cookies estrictamente necesarias, ya que las mismas se usan para asegurar el funcionamiento correcto de nuestro sitio web (como por ejemplo activar el aviso de la cookie y recordar sus configuraciones, para iniciar sesión en su cuenta, para reorientarlo cuando cierre la sesión, etc.). Para más información acerca de las cookies utilizadas de primeras y terceras partes, por favor use este enlace.",
       name: "Más información",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "No vender ni compartir mi información personal",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // French
@@ -152,8 +152,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[CCPA intro for French] Je m’oppose à la vente et au partage de mes données personnelles",
       name: "Plus d’informations",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "Je m’oppose à la vente et au partage de mes informations personnelles privées",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Frisian
@@ -180,8 +180,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[WIP] CCPA intro for Frisian",
       name: "[WIP] link name",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "[WIP] reject button text",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Dutch
@@ -209,8 +209,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[WIP] CCPA intro for Dutch",
       name: "[WIP] link name",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "[WIP] reject button text",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Polish
@@ -238,8 +238,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[WIP] CCPA intro for Polish",
       name: "[WIP] link name",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "[WIP] reject button text",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Portuguese
@@ -267,8 +267,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[CCPA intro for Portuguese] Quando visita o nosso site, armazenamos cookies no seu navegador para recolher informações. Esta informação pode ser sobre si, as suas preferências ou o seu dispositivo e é utilizada principalmente para fazer o website funcionar conforme o esperado e proporcionar-lhe uma experiência de navegação mais personalizada. No entanto, o bloqueio de alguns tipos de cookies pode afetar a sua experiência no website e os serviços que podemos oferecer. Clique nos cabeçalhos das diferentes categorias para saber mais e alterar as nossas configurações predefinidas. Não pode optar por não receber os nossos cookies originais estritamente necessários, pois eles são implantados para garantir o funcionamento adequado do nosso site (como fazer aparecer a faixa de cookies e lembrar as suas configurações, entrar na sua conta, redirecioná-lo quando sair, etc.). Para obter mais informações sobre os cookies originais e os cookies de terceiros utilizados, siga este link.",
       name: "Mais informação",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "Não vender nem partilhar as minhas informações pessoais",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Swahili
@@ -296,8 +296,8 @@ const LOCALE_TEXT = {
     ccpaConfig: {
       description: "[CCPA intro for Swahili] Unapotembelea tovuti yetu, tunahifadhi kuki kwenye kivinjari chako ili kukusanya taarifa. Taarifa zilizokusanywa inaweza kuhusiana na wewe, mapendekezo yako au kifaa chako, na hutumiwa zaidi kufanya tovuti ifanye kazi kama unavyotarajia na kutoa uzoefu zaidi wa wavuti uliobinafsishwa. Hata hivyo, unaweza kuchagua si kuruhusu aina fulani ya cookies, ambayo inaweza kuathiri uzoefu wako wa tovuti na huduma tunaweza kutoa. Bonyeza kwenye vichwa tofauti vya jamii ili kujua zaidi na kubadilisha mipangilio yetu ya default kulingana na upendeleo wako. Huwezi kuchagua kutoka kwa kuki zetu za Kwanza muhimu kama zinatumika ili kuhakikisha utendaji sahihi wa tovuti yetu (kama vile kuchochea bendera ya kuki na kukumbuka mipangilio yako, kuingia kwenye akaunti yako, kukuelekeza wakati unapoingia, nk). Kwa habari zaidi kuhusu cookies ya kwanza na ya tatu kutumika tafadhali kufuata kiungo hiki.",
       name: "Taarifa zaidi",
-      ...CCPA_CONFIG_SHARED,
       rejectButton: "Usiuze au Kushiriki Habari Zangu za Kibinafsi",
+      ...CCPA_CONFIG_SHARED,
     },
   },
 };
