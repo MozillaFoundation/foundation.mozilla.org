@@ -30,7 +30,12 @@ const COLORS = {
  */
 function withCCPATitle(text, ccpaConfig, withinCCPA) {
   return withinCCPA && ccpaConfig
-    ? { ...text, title: ccpaConfig.rejectButton, settings: ccpaConfig.rejectButton, intro: "" }
+    ? {
+        ...text,
+        title: ccpaConfig.rejectButton,
+        settings: ccpaConfig.rejectButton,
+        intro: "",
+      }
     : text;
 }
 
