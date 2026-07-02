@@ -17,6 +17,23 @@ const COLORS = {
   black: "#000000",
 };
 
+/**
+ * Returns the text config with CCPA-specific overrides applied when in CCPA mode:
+ * - `title` and `settings` are set to the opt-out button label
+ * - and `intro` is cleared
+ * - All fields are returned as-is in GDPR mode.
+ *
+ * @param {object} text - CookieControl `text` config object for a locale.
+ * @param {object|undefined} ccpaConfig - CCPA config for the same locale.
+ * @param {boolean} withinCCPA - Whether the user is in a CCPA jurisdiction.
+ * @returns {object} The text config, with `title` overridden when applicable.
+ */
+function withCCPATitle(text, ccpaConfig, withinCCPA) {
+  return withinCCPA && ccpaConfig
+    ? { ...text, title: ccpaConfig.rejectButton, settings: ccpaConfig.rejectButton, intro: "" }
+    : text;
+}
+
 if (!COOKIE_CONTROL_API_KEY) {
   console.error(
     "COOKIE_CONTROL_API_KEY is not configured — skipping cookie consent init.",
@@ -63,7 +80,11 @@ if (!COOKIE_CONTROL_API_KEY) {
         highlightFocus: true,
         outline: true,
       },
-      text: LOCALE_TEXT.en.text,
+      text: withCCPATitle(
+        LOCALE_TEXT.en.text,
+        LOCALE_TEXT.en.ccpaConfig,
+        response.withinCCPA,
+      ),
       // TODO: (TP1-4033)
       //   1. Replace with real necessary/optional categories once defined.
       //   2. Revise the notify bar "Accept"/"Reject" button labels.
@@ -82,7 +103,7 @@ if (!COOKIE_CONTROL_API_KEY) {
         .filter(([locale]) => locale !== "en")
         .map(([locale, { text, ccpaConfig }]) => ({
           locale,
-          text,
+          text: withCCPATitle(text, ccpaConfig, response.withinCCPA),
           ...(response.withinCCPA && ccpaConfig && { ccpaConfig }),
         })),
     };
