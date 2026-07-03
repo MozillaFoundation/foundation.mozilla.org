@@ -59,8 +59,7 @@ if (!COOKIE_CONTROL_API_KEY) {
       product: PRODUCT_TYPE,
       theme: "dark",
       mode,
-      // TODO:FIXME: with real CCPA content (TP1-4027)
-      // See: https://cookiecontrol.com/docs/v9/optional-categories#ccpa-and-geolocation
+      // See CCPA config doc: https://cookiecontrol.com/docs/v9/optional-categories#ccpa-and-geolocation
       ...(response.withinCCPA && { ccpaConfig: LOCALE_TEXT.en.ccpaConfig }),
       branding: {
         // type
