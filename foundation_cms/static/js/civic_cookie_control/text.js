@@ -12,16 +12,18 @@ const CCPA_CONFIG_SHARED = {
 
 export const CCPA_TITLE = {
   en: "Do Not Sell or Share My Personal Information",
-  ca: "[WIP]",
   de: "Meine persönlichen Informationen nicht verkaufen oder weitergeben",
   es: "No vender ni compartir mi información personal",
   fr: "Je m'oppose à la vente et au partage de mes informations personnelles privées",
-  fy: "[WIP]",
   nl: "Mijn persoonlijke informatie niet verkopen of delen",
   pl: "[WIP]", // OneTrust does not have CCPA text configured for Polish; text needs to be sourced separately.
   pt: "Não vender nem partilhar as minhas informações pessoais",
   sw: "Usiuze au Kushiriki Habari Zangu za Kibinafsi",
 };
+
+// TODO: source Catalan (ca) and Frisian (fy) CCPA opt-out titles; currently falling back to English
+CCPA_TITLE.ca = CCPA_TITLE.en;
+CCPA_TITLE.fy = CCPA_TITLE.en;
 
 const LOCALE_TEXT = {
   en: {
@@ -54,34 +56,6 @@ const LOCALE_TEXT = {
     },
   },
   // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
-  // Catalan
-  // Note: OneTrust's Catalan (ca) text appears to be incorrectly mapped to Swahili (sw).
-  // Catalan text needs to be sourced separately.
-  ca: {
-    text: {
-      // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
-      // setting panel
-      title: "[WIP] Títol (CA)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
-      // visible label / aria-label for the close button
-      closeLabel: "[WIP]",
-    },
-    ccpaConfig: {
-      description: "[WIP] CCPA intro for Catalan",
-      name: "[WIP] link name",
-      rejectButton: "[WIP]",
-      ...CCPA_CONFIG_SHARED,
-    },
-  },
   // German
   de: {
     text: {
@@ -169,34 +143,6 @@ const LOCALE_TEXT = {
         "Je m’oppose à la vente et au partage de mes données personnelles",
       name: "Plus d’informations",
       rejectButton: "Tout refuser",
-      ...CCPA_CONFIG_SHARED,
-    },
-  },
-  // Frisian
-  // Note: OneTrust's Frisian (fy) text appears to be incorrectly mapped to Swahili (sw).
-  // Frisian text needs to be sourced separately.
-  fy: {
-    text: {
-      // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
-      // setting panel
-      title: "[WIP] Titel (FY)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
-      // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
-    },
-    ccpaConfig: {
-      description: "[WIP] CCPA intro for Frisian",
-      name: "[WIP] link name",
-      rejectButton: "[WIP]",
       ...CCPA_CONFIG_SHARED,
     },
   },
@@ -320,5 +266,10 @@ const LOCALE_TEXT = {
     },
   },
 };
+
+// TODO: source Catalan (ca) and Frisian (fy) translations; currently falling back to English.
+// Note: OneTrust's ca text is incorrectly mapped to Swahili (sw), and fy to Swahili (sw) as well. both need to be sourced separately.
+LOCALE_TEXT.ca = LOCALE_TEXT.en;
+LOCALE_TEXT.fy = LOCALE_TEXT.en;
 
 export default LOCALE_TEXT;
