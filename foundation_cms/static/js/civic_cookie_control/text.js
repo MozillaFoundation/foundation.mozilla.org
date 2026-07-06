@@ -16,14 +16,15 @@ export const CCPA_TITLE = {
   es: "No vender ni compartir mi información personal",
   fr: "Je m'oppose à la vente et au partage de mes informations personnelles privées",
   nl: "Mijn persoonlijke informatie niet verkopen of delen",
-  pl: "[WIP]", // OneTrust does not have CCPA text configured for Polish; text needs to be sourced separately.
   pt: "Não vender nem partilhar as minhas informações pessoais",
   sw: "Usiuze au Kushiriki Habari Zangu za Kibinafsi",
 };
 
-// TODO: source Catalan (ca) and Frisian (fy) CCPA opt-out titles; currently falling back to English
+// TODO: source CCPA opt-out titles for ca, fy, and pl; currently falling back to English.
+// Note: OneTrust does not have CCPA text for pl; ca and fy texts are incorrectly mapped in OneTrust.
 CCPA_TITLE.ca = CCPA_TITLE.en;
 CCPA_TITLE.fy = CCPA_TITLE.en;
+CCPA_TITLE.pl = CCPA_TITLE.en;
 
 const LOCALE_TEXT = {
   en: {
@@ -76,7 +77,7 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Diese Cookies sind zur Funktion der Website erforderlich und können in Ihren Systemen nicht deaktiviert werden. In der Regel werden diese Cookies nur als Reaktion auf von Ihnen getätigte Aktionen gesetzt, die einer Dienstanforderung entsprechen, wie etwa dem Festlegen Ihrer Datenschutzeinstellungen, dem Anmelden oder dem Ausfüllen von Formularen. Sie können Ihren Browser so einstellen, dass diese Cookies blockiert oder Sie über diese Cookies benachrichtigt werden. Einige Bereiche der Website funktionieren dann aber nicht. Diese Cookies speichern keine personenbezogenen Daten.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
       description:
@@ -106,7 +107,7 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar en nuestros sistemas. Usualmente están configuradas para responder a acciones hechas por usted para recibir servicios, tales como ajustar sus preferencias de privacidad, iniciar sesión en el sitio, o llenar formularios. Usted puede configurar su navegador para bloquear o alertar la presencia de estas cookies, pero algunas partes del sitio web no funcionarán. Estas cookies no guardan ninguna información personal identificable.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
       description:
@@ -136,7 +137,7 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Ces cookies sont nécessaires au fonctionnement du site Web et ne peuvent pas être désactivés dans nos systèmes. Ils sont généralement établis en tant que réponse à des actions que vous avez effectuées et qui constituent une demande de services, telles que la définition de vos préférences en matière de confidentialité, la connexion ou le remplissage de formulaires. Vous pouvez configurer votre navigateur afin de bloquer ou être informé de l'existence de ces cookies, mais certaines parties du site Web peuvent être affectées. Ces cookies ne stockent aucune information d'identification personnelle.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
       description:
@@ -166,7 +167,7 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Deze cookies zijn nodig anders werkt de website niet. Deze cookies kunnen niet worden uitgeschakeld. In de meeste gevallen worden deze cookies alleen gebruikt naar aanleiding van een handeling van u waarmee u in wezen een dienst aanvraagt, bijvoorbeeld uw privacyinstellingen registreren, in de website inloggen of een formulier invullen. U kunt uw browser instellen om deze cookies te blokkeren of om u voor deze cookies te waarschuwen, maar sommige delen van de website zullen dan niet werken. Deze cookies slaan geen persoonlijk identificeerbare informatie op.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
       description: "Als u onze website bezoekt, slaan we cookies in uw browser op om informatie in te zamelen. De informatie die we inzamelen kan betrekking hebben op u, uw voorkeuren of uw apparaat en wordt voornamelijk gebruikt om de website correct te laten werken en om de gebruikerservaring beter aan u persoonlijk te kunnen aanpassen. U kunt ervoor kiezen om bepaalde soorten cookies te blokkeren. Dit kan een nadelige invloed hebben op uw ervaring van de website en de diensten die we aanbieden. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen naar uw wensten te wijzigen. U kunt onze interne "strikt noodzakelijke cookies" niet blokkeren, omdat deze worden gebruikt om de website juist te laten functioneren (bijvoorbeeld om de cookiebanner te activeren, uw instellingen te herinneren, in uw account in te loggen en u correct om te leiden nadat u uitlogt, enz.) Voor meer informatie over de gebruikte interne en externe cookies kunt u op deze link klikken.",
@@ -195,12 +196,13 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
-      // OneTrust does not have CCPA text configured for Polish; text needs to be sourced separately.
-      description: "[WIP] CCPA intro for Polish",
-      name: "[WIP] link name",
+      // TODO: source Polish CCPA text; OneTrust has no pl CCPA config. Falling back to English for description and name.
+      description:
+        "When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.",
+      name: "More information",
       rejectButton: "Odrzucenie wszystkich",
       ...CCPA_CONFIG_SHARED,
     },
@@ -225,7 +227,7 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Estes cookies são necessários para que o website funcione e não podem ser desligados nos nossos sistemas. Normalmente, eles só são configurados em resposta a ações levadas a cabo por si e que correspondem a uma solicitação de serviços, tais como definir as suas preferências de privacidade, iniciar sessão ou preencher formulários. Pode configurar o seu navegador para bloquear ou alertá-lo(a) sobre esses cookies, mas algumas partes do website não funcionarão. Estes cookies não armazenam qualquer informação pessoal identificável.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
       description:
@@ -255,7 +257,7 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
       description:
