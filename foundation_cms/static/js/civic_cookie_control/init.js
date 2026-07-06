@@ -2,7 +2,7 @@
 // GDPR/CCPA mode is based on geo location
 // Locale is based on user’s browser language setting
 
-import LOCALE_TEXT from "./text.js";
+import LOCALE_TEXT, { CCPA_TITLE } from "./text.js";
 
 const API_KEY = COOKIE_CONTROL_API_KEY;
 const PRODUCT_TYPE = "CUSTOM";
@@ -19,21 +19,22 @@ const COLORS = {
 
 /**
  * Returns the text config with CCPA-specific overrides applied when in CCPA mode:
- * - `title` and `settings` are set to the opt-out button label
+ * - `title` and `settings` are set to the CCPA opt-out label from CCPA_TITLE
  * - and `intro` is cleared
  * - All fields are returned as-is in GDPR mode.
  *
  * @param {object} text - CookieControl `text` config object for a locale.
  * @param {object|undefined} ccpaConfig - CCPA config for the same locale.
  * @param {boolean} withinCCPA - Whether the user is in a CCPA jurisdiction.
+ * @param {string} locale - Locale key used to look up the CCPA_TITLE string.
  * @returns {object} The text config, with `title` overridden when applicable.
  */
-function withCCPATitle(text, ccpaConfig, withinCCPA) {
+function withCCPATitle(text, ccpaConfig, withinCCPA, locale = "en") {
   return withinCCPA && ccpaConfig
     ? {
         ...text,
-        title: ccpaConfig.rejectButton,
-        settings: ccpaConfig.rejectButton,
+        title: CCPA_TITLE[locale] ?? CCPA_TITLE.en,
+        settings: CCPA_TITLE[locale] ?? CCPA_TITLE.en,
         intro: "",
       }
     : text;
@@ -88,6 +89,7 @@ if (!COOKIE_CONTROL_API_KEY) {
         LOCALE_TEXT.en.text,
         LOCALE_TEXT.en.ccpaConfig,
         response.withinCCPA,
+        "en",
       ),
       // TODO: (TP1-4033)
       //   1. Replace with real necessary/optional categories once defined.
@@ -107,7 +109,7 @@ if (!COOKIE_CONTROL_API_KEY) {
         .filter(([locale]) => locale !== "en")
         .map(([locale, { text, ccpaConfig }]) => ({
           locale,
-          text: withCCPATitle(text, ccpaConfig, response.withinCCPA),
+          text: withCCPATitle(text, ccpaConfig, response.withinCCPA, locale),
           ...(response.withinCCPA && ccpaConfig && { ccpaConfig }),
         })),
     };
