@@ -141,7 +141,7 @@ const LOCALE_TEXT = {
     },
     ccpaConfig: {
       description:
-        "Je m’oppose à la vente et au partage de mes données personnelles",
+        "Lorsque vous visitez notre site Web, nous stockons des cookies sur votre navigateur pour collecter des informations. Ces informations collectées peuvent être liées à vous, à vos préférences ou à votre appareil, et sont principalement utilisées pour faire fonctionner le site comme vous le souhaitez et pour fournir une expérience Web plus personnalisée. Toutefois, vous pouvez choisir de ne pas autoriser certains types de cookies, ce qui peut avoir un impact sur votre expérience du site et des services que nous offrons. Cliquez sur les différents titres de catégories pour en savoir plus et modifier nos paramètres par défaut selon vos préférences. Vous ne pouvez pas vous désinscrire de nos Cookies Strictement Nécessaires internes lorsqu'ils sont déployés afin d'assurer le bon fonctionnement de notre site Web (tels que pour afficher le bandeau des cookies, pour vous connecter à votre compte, pour rediriger votre session lorsque vous quittez votre compte, etc.) Pour plus d'Informations sur les cookies internes et de tiers utilisés, veuillez consulter le lien suivant.",
       name: "Plus d’informations",
       rejectButton: "Tout refuser",
       ...CCPA_CONFIG_SHARED,
@@ -170,7 +170,8 @@ const LOCALE_TEXT = {
       closeLabel: "Close", // TODO: replace with localized translation
     },
     ccpaConfig: {
-      description: "Als u onze website bezoekt, slaan we cookies in uw browser op om informatie in te zamelen. De informatie die we inzamelen kan betrekking hebben op u, uw voorkeuren of uw apparaat en wordt voornamelijk gebruikt om de website correct te laten werken en om de gebruikerservaring beter aan u persoonlijk te kunnen aanpassen. U kunt ervoor kiezen om bepaalde soorten cookies te blokkeren. Dit kan een nadelige invloed hebben op uw ervaring van de website en de diensten die we aanbieden. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen naar uw wensten te wijzigen. U kunt onze interne "strikt noodzakelijke cookies" niet blokkeren, omdat deze worden gebruikt om de website juist te laten functioneren (bijvoorbeeld om de cookiebanner te activeren, uw instellingen te herinneren, in uw account in te loggen en u correct om te leiden nadat u uitlogt, enz.) Voor meer informatie over de gebruikte interne en externe cookies kunt u op deze link klikken.",
+      description:
+        'Als u onze website bezoekt, slaan we cookies in uw browser op om informatie in te zamelen. De informatie die we inzamelen kan betrekking hebben op u, uw voorkeuren of uw apparaat en wordt voornamelijk gebruikt om de website correct te laten werken en om de gebruikerservaring beter aan u persoonlijk te kunnen aanpassen. U kunt ervoor kiezen om bepaalde soorten cookies te blokkeren. Dit kan een nadelige invloed hebben op uw ervaring van de website en de diensten die we aanbieden. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen naar uw wensten te wijzigen. U kunt onze interne "strikt noodzakelijke cookies" niet blokkeren, omdat deze worden gebruikt om de website juist te laten functioneren (bijvoorbeeld om de cookiebanner te activeren, uw instellingen te herinneren, in uw account in te loggen en u correct om te leiden nadat u uitlogt, enz.) Voor meer informatie over de gebruikte interne en externe cookies kunt u op deze link klikken.',
       name: "Meer informatie",
       rejectButton: "Alles afwijzen",
       ...CCPA_CONFIG_SHARED,
