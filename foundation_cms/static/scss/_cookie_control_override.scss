@@ -108,6 +108,12 @@
     }
   }
 
+  #ccc-button-holder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem-calc(8);
+  }
+
   .ccc-content--highlight {
     button.ccc-link.ccc-tabbable:focus {
       filter: none !important;
