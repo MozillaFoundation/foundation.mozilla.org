@@ -13,12 +13,12 @@ const CCPA_CONFIG_SHARED = {
 export const CCPA_TITLE = {
   en: "Do Not Sell or Share My Personal Information",
   ca: "[WIP]",
-  de: "Meine persönlichen Daten nicht verkaufen oder weitergeben",
+  de: "Meine persönlichen Informationen nicht verkaufen oder weitergeben",
   es: "No vender ni compartir mi información personal",
   fr: "Je m'oppose à la vente et au partage de mes informations personnelles privées",
   fy: "[WIP]",
-  nl: "[WIP]",
-  pl: "[WIP]",
+  nl: "Mijn persoonlijke informatie niet verkopen of delen",
+  pl: "[WIP]", // OneTrust does not have CCPA text configured for Polish; text needs to be sourced separately.
   pt: "Não vender nem partilhar as minhas informações pessoais",
   sw: "Usiuze au Kushiriki Habari Zangu za Kibinafsi",
 };
@@ -223,8 +223,8 @@ const LOCALE_TEXT = {
       closeLabel: "[WIP] Close",
     },
     ccpaConfig: {
-      description: "[WIP] CCPA intro for Dutch",
-      name: "[WIP] link name",
+      description: "Als u onze website bezoekt, slaan we cookies in uw browser op om informatie in te zamelen. De informatie die we inzamelen kan betrekking hebben op u, uw voorkeuren of uw apparaat en wordt voornamelijk gebruikt om de website correct te laten werken en om de gebruikerservaring beter aan u persoonlijk te kunnen aanpassen. U kunt ervoor kiezen om bepaalde soorten cookies te blokkeren. Dit kan een nadelige invloed hebben op uw ervaring van de website en de diensten die we aanbieden. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen naar uw wensten te wijzigen. U kunt onze interne "strikt noodzakelijke cookies" niet blokkeren, omdat deze worden gebruikt om de website juist te laten functioneren (bijvoorbeeld om de cookiebanner te activeren, uw instellingen te herinneren, in uw account in te loggen en u correct om te leiden nadat u uitlogt, enz.) Voor meer informatie over de gebruikte interne en externe cookies kunt u op deze link klikken.",
+      name: "Meer informatie",
       rejectButton: "Alles afwijzen",
       ...CCPA_CONFIG_SHARED,
     },
@@ -252,6 +252,7 @@ const LOCALE_TEXT = {
       closeLabel: "[WIP] Close",
     },
     ccpaConfig: {
+      // OneTrust does not have CCPA text configured for Polish; text needs to be sourced separately.
       description: "[WIP] CCPA intro for Polish",
       name: "[WIP] link name",
       rejectButton: "Odrzucenie wszystkich",
