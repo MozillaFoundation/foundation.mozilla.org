@@ -5,7 +5,7 @@
 import LOCALE_TEXT from "./text.js";
 
 const API_KEY = COOKIE_CONTROL_API_KEY;
-const PRODUCT_TYPE = "CUSTOM";
+const PRODUCT_TYPE = "PRO_MULTISITE";
 
 // Design system colour tokens (mirrors _colors.scss)
 const COLORS = {
