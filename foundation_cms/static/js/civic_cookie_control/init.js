@@ -114,10 +114,6 @@ if (!COOKIE_CONTROL_API_KEY) {
         })),
     };
 
-    // TODO:FIXME: DEV ONLY: reset consent state on every reload
-    document.cookie =
-      "CookieControl=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-
     CookieControl.load(config);
 
     // TODO:FIXME: DEV ONLY: remove before merge into `main`
