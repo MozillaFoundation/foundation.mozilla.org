@@ -6,8 +6,8 @@
 // TODO(TP1-4033): revise accept/reject button labels across all locales once optional category names are confirmed. "Analytics Cookies" may not be accurate.
 
 const CCPA_CONFIG_SHARED = {
-  url: "https://www.civicuk.com/",
-  updated: "25/05/2018",
+  url: "https://www.mozilla.org/privacy/websites/",
+  updated: "05/11/2025",
 };
 
 export const CCPA_TITLE = {
