@@ -172,7 +172,7 @@ The code snippet below is based on FormAssembly form revision #6
                 disabledDiv.id = 'disabled-explanation';
                 disabledDiv.className = 'captchaHelp';
                 disabledDiv.style.display = 'block';
-                disabledDiv.textContent = recaptchaDisabledText;
+                disabledDiv.textContent = '\u00A0' + recaptchaDisabledText;
 
                 oneFieldDiv.appendChild(recaptchaElement);
                 oneFieldDiv.appendChild(errorDiv);
