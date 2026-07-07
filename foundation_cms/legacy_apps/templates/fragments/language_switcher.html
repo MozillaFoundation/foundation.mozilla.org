@@ -1,4 +1,4 @@
-{% load i18n localization wagtailcore_tags %}
+{% load i18n localization wagtailcore_tags static %}
 
 {% get_current_language as current_language %}
 {% get_local_language_names as languages %}
@@ -21,31 +21,16 @@
 
 
 
+<script src="{% static 'legacy_apps/_js/csrf-global.compiled.js' %}"></script>
 <script nonce="{{ request.csp_nonce }}">
     (function () {
         const form = document.getElementById('language-switcher-form')
         const languageSelector = document.getElementById('language-switcher')
         const tokenInput = document.getElementById('language-csrftoken')
 
-        function getCookie(name) {
-            const match = document.cookie.match("(?:^|;)\\s*" + name + "\\s*=\\s*([^;]*)");
-            return match ? decodeURIComponent(match[1]) : "";
-        }
-
-        async function ensureCsrfToken() {
-            let token = getCookie('csrftoken');
-            if (token) return token;
-            try {
-                await fetch('/api/csrf/', { credentials: 'same-origin' });
-            } catch (err) {
-                return "";
-            }
-            return getCookie('csrftoken');
-        }
-
         languageSelector.addEventListener(`change`, async (e) => {
             e.preventDefault();
-            tokenInput.value = await ensureCsrfToken();
+            tokenInput.value = await window.FoundationCSRF.ensureCsrfToken();
             form.submit()
         });
     })();

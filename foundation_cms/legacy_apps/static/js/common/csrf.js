@@ -36,7 +36,10 @@ export async function ensureCsrfToken() {
   if (token) return token;
 
   try {
-    await fetch(CSRF_MINT_URL, { credentials: "same-origin" });
+    // fetch() only rejects on network errors, so a non-2xx response (e.g. 500,
+    // 404) would otherwise fall through and re-read a still-unset cookie.
+    const res = await fetch(CSRF_MINT_URL, { credentials: "same-origin" });
+    if (!res.ok) return "";
   } catch (err) {
     return "";
   }
