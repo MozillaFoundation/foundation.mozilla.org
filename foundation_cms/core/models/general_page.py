@@ -2,7 +2,6 @@ from django.db import models
 from django.forms import ValidationError
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
-from wagtail.models import Page
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
