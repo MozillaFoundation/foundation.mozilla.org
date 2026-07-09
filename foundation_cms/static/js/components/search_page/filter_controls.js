@@ -199,8 +199,7 @@ export function initSearchPageFilters() {
 
       label.addEventListener("click", (event) => {
         const input = label.querySelector('input[name="topic"]');
-        const wasChecked =
-          label.dataset[DATA_KEYS.topicWasChecked] === "true";
+        const wasChecked = label.dataset[DATA_KEYS.topicWasChecked] === "true";
 
         if (!input || !wasChecked) return;
 
@@ -232,12 +231,14 @@ export function initSearchPageFilters() {
     button.addEventListener("click", closeDrawer);
   });
 
-  drawer?.querySelector(SELECTORS.drawerReset)?.addEventListener("click", () => {
-    if (!drawerForm) return;
+  drawer
+    ?.querySelector(SELECTORS.drawerReset)
+    ?.addEventListener("click", () => {
+      if (!drawerForm) return;
 
-    resetDrawerForm(drawerForm);
-    updateDrawerPreview();
-  });
+      resetDrawerForm(drawerForm);
+      updateDrawerPreview();
+    });
 
   drawer?.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
