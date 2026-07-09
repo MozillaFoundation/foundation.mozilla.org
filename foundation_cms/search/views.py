@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Count
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from wagtail.contrib.search_promotions.models import Query
@@ -9,7 +9,13 @@ from wagtail.search.query import PlainText
 
 from foundation_cms.campaigns.models.campaign_page import CampaignPage
 from foundation_cms.search.models import SearchEvent
-from foundation_cms.search.utils import get_search_backend_for_locale
+from foundation_cms.search.utils import (
+    SECTION_SLUGS,
+    get_search_backend_for_locale,
+    normalize_content_type,
+    normalize_sort,
+    normalize_topic,
+)
 from foundation_cms.utils import get_default_locale, localize_queryset
 
 # To enable logging of search queries for use with the "Promoted search results" module
@@ -21,7 +27,11 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 
 def search(request):
-    search_query = request.GET.get("query", None)
+    search_query = (request.GET.get("query") or "").strip()
+    content_type = normalize_content_type(request.GET.get("content_type", "all"))
+    sort = normalize_sort(request.GET.get("sort", "relevance"))
+    selected_topic = normalize_topic(request.GET.get("topic"))
+    related_topics = []
     page = request.GET.get("page", 1)
     total_search_results = 0
     current_locale = Locale.get_active()
@@ -32,34 +42,97 @@ def search(request):
         locale_code = current_locale.language_code
         base_queryset = Page.objects.live().filter(locale=current_locale)
 
-        # Get appropriate search backend
         search_backend, backend_type = get_search_backend_for_locale(locale_code)
-        search_results = search_backend.search(search_query, base_queryset)
-        total_search_results = search_results.count()
+        backend_results = search_backend.search(search_query, base_queryset)
 
         # Extract IDs preserving backend's relevance order
-        result_ids = [result.id for result in search_results]
+        result_ids = [result.id for result in backend_results]
 
-        # Create position mapping to restore relevance order later
-        id_to_position = {id: idx for idx, id in enumerate(result_ids)}
+        # Remove duplicates while preserving order (in case the backend returns duplicates)
+        result_ids = list(dict.fromkeys(result_ids))
 
-        # Pre-fetch ContentTypes for ALL unique page types
-        unique_page_types = {result.__class__ for result in search_results}
-        if unique_page_types:
-            ContentType.objects.get_for_models(*unique_page_types)
+        # Optional section filter by content_type slug
+        section_slug = SECTION_SLUGS[content_type]
+        if section_slug and result_ids:
+            section_root = (
+                Page.objects.live()
+                .filter(locale=current_locale, slug=section_slug)
+                .order_by("depth", "path", "id")
+                .first()
+            )
 
-        # Build optimized QuerySet with FK prefetch and specific() call
-        search_results = (
-            Page.objects.filter(id__in=result_ids).select_related("search_image", "content_type").specific()
-        )
+            if section_root:
+                section_ids = set(
+                    Page.objects.live()
+                    .filter(id__in=result_ids)
+                    .descendant_of(section_root, inclusive=False)
+                    .values_list("id", flat=True)
+                )
+                result_ids = [pid for pid in result_ids if pid in section_ids]
+            else:
+                result_ids = []
 
-        # Restore backend relevance order
-        search_results = sorted(search_results, key=lambda page: id_to_position.get(page.id, len(result_ids)))
+        # Optional topic filter by tag slug (AFTER search backend, to avoid FilterFieldError on tag slug lookups)
+        if selected_topic and result_ids:
+            topic_ids = set(
+                Page.objects.filter(
+                    id__in=result_ids,
+                    topic_relations__tag__slug=selected_topic,
+                ).values_list("id", flat=True)
+            )
+            result_ids = [pid for pid in result_ids if pid in topic_ids]
+
+        total_search_results = len(result_ids)
+
+        # Build related topic facets from current query result set only
+        search_results = []
+        if result_ids:
+            related_topics_qs = (
+                Page.objects.filter(id__in=result_ids)
+                .values("topic_relations__tag__slug", "topic_relations__tag__name")
+                .exclude(topic_relations__tag__slug__isnull=True)
+                .exclude(topic_relations__tag__name__isnull=True)
+                .annotate(count=Count("id", distinct=True))
+                .order_by("-count", "topic_relations__tag__name")
+            )
+            related_topics = [
+                {
+                    "slug": row["topic_relations__tag__slug"],
+                    "name": row["topic_relations__tag__name"],
+                    "count": row["count"],
+                }
+                for row in related_topics_qs[:20]
+            ]
+
+            # Create position mapping to restore relevance order later
+            id_to_position = {pid: idx for idx, pid in enumerate(result_ids)}
+
+            # Build optimized QuerySet with FK prefetch and specific() call
+            search_results = list(
+                Page.objects.filter(id__in=result_ids).select_related("search_image", "content_type").specific()
+            )
+
+            # Restore backend relevance order
+            search_results.sort(key=lambda page: id_to_position.get(page.id, len(result_ids)))
+
+        # Optional sorting by publication date
+        if sort in ("newest", "oldest"):
+            with_date = [p for p in search_results if p.first_published_at]
+            without_date = [p for p in search_results if not p.first_published_at]
+
+            with_date = sorted(
+                with_date,
+                key=lambda p: p.first_published_at,
+                reverse=(sort == "newest"),
+            )
+
+            # Keep items without publication date at the end
+            search_results = with_date + without_date
 
         # Log only on initial submission, not on pagination clicks
         if is_initial_search_submit:
             SearchEvent.objects.create(
-                query_string=search_query.strip().lower(),
+                query_string=search_query.lower(),
                 language_code=current_locale.language_code,
                 results_count=total_search_results,
             )
@@ -97,6 +170,10 @@ def search(request):
             "total_search_results": total_search_results,
             "keep_contributing_pages": keep_contributing_pages,
             "current_locale": current_locale.language_code,
+            "sort": sort,
+            "content_type": content_type,
+            "selected_topic": selected_topic,
+            "related_topics": related_topics,
             "autocomplete_min_chars": settings.SEARCH_AUTOCOMPLETE_MIN_CHARS,
         },
     )
