@@ -10,6 +10,7 @@ from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
 from foundation_cms.blocks import HeroAccordionBlock
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
+from foundation_cms.utils import localize_queryset
 
 
 class HomePage(RoutablePageMixin, AbstractHomePage):
@@ -83,9 +84,10 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
             np_pages = Page.objects.none()
             other_pages = base_qs
 
-        # Ordering both querysets by most recently published first, and converting to specific.
-        np_pages = np_pages.order_by("-last_published_at").specific()
-        other_pages = other_pages.order_by("-last_published_at").specific()
+        # Ordering both querysets by most recently published first, localizing for the
+        # active locale, then converting to specific page types.
+        np_pages = localize_queryset(np_pages.order_by("-last_published_at"), preserve_order=True).specific()
+        other_pages = localize_queryset(other_pages.order_by("-last_published_at"), preserve_order=True).specific()
 
         return self.render(
             request,
