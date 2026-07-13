@@ -16,6 +16,21 @@ from foundation_cms.mixins.hero_media import HeroMediaMixin
 
 class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
+    # TODO: NEW FIELD - add ForeignKey once HorizontalNavBar snippet model exists.
+    #
+    # horizontal_link_block = models.ForeignKey(
+    #     "navigation.HorizontalNavBar",
+    #     null=True,
+    #     blank=True,
+    #     on_delete=models.SET_NULL,
+    #     related_name="+",
+    #     verbose_name="Horizontal Navigation Bar",
+    #     help_text=(
+    #         "Optional. Displays a row of links below the hero. "
+    #         "If not set, inherits from the nearest ancestor GeneralPage."
+    #     ),
+    # )
+
     show_hero = models.BooleanField(
         default=True,
         verbose_name="Show Hero Section",
@@ -168,3 +183,34 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         if any(block.block_type == "donor_help_contact_us_form" for block in self.body):
             context["has_donor_contact_us_form"] = True
         return context
+
+    def get_horizontal_link_block(self):
+        """
+        Returns the HorizontalNavBar to display for this page.
+
+        Priority:
+        1. Own snippet (explicitly assigned).
+        2. Nearest ancestor GeneralPage that has one assigned.
+        3. None — not assigned.
+
+        Result is cached on the instance to avoid repeated queries.
+        """
+        if hasattr(self, "_resolved_horizontal_link_block"):
+            return self._resolved_horizontal_link_block
+
+        # TODO: self.horizontal_link_block_id will raise AttributeError until
+        # the FK field above is added properly and migrated. Remove this guard then.
+        if self.horizontal_link_block_id:
+            self._resolved_horizontal_link_block = self.horizontal_link_block
+            return self._resolved_horizontal_link_block
+
+        ancestor = (
+            GeneralPage.objects.ancestor_of(self, inclusive=False)
+            .filter(horizontal_link_block__isnull=False)
+            .select_related("horizontal_link_block")
+            .order_by("-depth")
+            .first()
+        )
+
+        self._resolved_horizontal_link_block = ancestor.horizontal_link_block if ancestor else None
+        return self._resolved_horizontal_link_block
