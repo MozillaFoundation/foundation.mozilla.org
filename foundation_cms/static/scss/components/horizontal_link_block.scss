@@ -66,7 +66,8 @@
     height: 1rem;
     flex: 0 0 1rem;
     background-color: currentcolor;
-    mask: url("/static/foundation_cms/_images/icons/link-external-black.svg") center / contain no-repeat;
+    mask: url("/static/foundation_cms/_images/icons/link-external-black.svg")
+      center / contain no-repeat;
   }
 
   &__divider {
