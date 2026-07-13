@@ -36,7 +36,7 @@
   &__item:hover &__link,
   &__item:focus-within &__link {
     color: color(orange, "600");
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.25rem);
   }
 
   &__item:hover &__label::after,
@@ -112,8 +112,8 @@
     &__item {
       flex: 0 1 auto;
       min-width: 0;
-      margin: -0.25rem 0;
-      padding: 0.25rem 0;
+      margin: -0.5rem 0;
+      padding: 0.5rem 0;
     }
   }
 

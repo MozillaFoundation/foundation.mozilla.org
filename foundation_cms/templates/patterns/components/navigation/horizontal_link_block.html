@@ -11,7 +11,7 @@
             <li class="horizontal-link-block__item">
               <a class="horizontal-link-block__link{% if item.value.url == active_url %} horizontal-link-block__link--active{% endif %}"
                  href="{{ item.value.url }}"
-                 {% if item.value.url == active_url %}aria-current="page"{% endif %}
+                 {% if item.value.url == active_url %}aria-current="true"{% endif %}
                  {% if item.value.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
                 <span class="horizontal-link-block__label">{{ item.value.label }}</span>
                 {% if item.value.is_external %}
