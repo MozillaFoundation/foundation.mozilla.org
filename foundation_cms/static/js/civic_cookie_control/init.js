@@ -58,9 +58,7 @@ if (!COOKIE_CONTROL_API_KEY) {
       },
       text: LOCALE_TEXT.en.text,
       // TODO: (TP1-4033)
-      //   1. Replace with real necessary/optional categories once defined.
-      //   2. Revise the notify bar "Accept"/"Reject" button labels.
-      //      They currently reference "Analytics Cookies" specifically, which may not be accurate once all optional categories are defined.
+      //   1. Categorize and add missing cookies
       necessaryCookies: [
         "OptanonConsent",
         "OptanonAlertBoxClosed",
