@@ -16,20 +16,18 @@ from foundation_cms.mixins.hero_media import HeroMediaMixin
 
 class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
-    # TODO: NEW FIELD - add ForeignKey once HorizontalNavBar snippet model exists.
-    #
-    # horizontal_link_block = models.ForeignKey(
-    #     "navigation.HorizontalNavBar",
-    #     null=True,
-    #     blank=True,
-    #     on_delete=models.SET_NULL,
-    #     related_name="+",
-    #     verbose_name="Horizontal Navigation Bar",
-    #     help_text=(
-    #         "Optional. Displays a row of links below the hero. "
-    #         "If not set, inherits from the nearest ancestor GeneralPage."
-    #     ),
-    # )
+    horizontal_link_block = models.ForeignKey(
+        "navigation.HorizontalLinkBlock",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Horizontal Link Block",
+        help_text=(
+            "Optional. Displays navigation links below the hero. "
+            "If not set, inherits from the nearest ancestor General Page."
+        ),
+    )
 
     show_hero = models.BooleanField(
         default=True,
@@ -130,6 +128,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
             heading="Hero Section",
             classname="collapsible",
         ),
+        FieldPanel("horizontal_link_block"),
         FieldPanel("body"),
     ]
 
@@ -146,6 +145,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         SynchronizedField("hero_video_url"),
         TranslatableField("hero_image_alt_text"),
         TranslatableField("hero_cta_link"),
+        SynchronizedField("horizontal_link_block"),
         TranslatableField("body"),
     ]
 
@@ -182,11 +182,12 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         # the necessary JS for the form.
         if any(block.block_type == "donor_help_contact_us_form" for block in self.body):
             context["has_donor_contact_us_form"] = True
+        context["horizontal_link_block"] = self.get_horizontal_link_block()
         return context
 
     def get_horizontal_link_block(self):
         """
-        Returns the HorizontalNavBar to display for this page.
+        Returns the HorizontalLinkBlock to display for this page.
 
         Priority:
         1. Own snippet (explicitly assigned).
@@ -198,8 +199,6 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         if hasattr(self, "_resolved_horizontal_link_block"):
             return self._resolved_horizontal_link_block
 
-        # TODO: self.horizontal_link_block_id will raise AttributeError until
-        # the FK field above is added properly and migrated. Remove this guard then.
         if self.horizontal_link_block_id:
             self._resolved_horizontal_link_block = self.horizontal_link_block
             return self._resolved_horizontal_link_block
