@@ -2,7 +2,7 @@
 // GDPR/CCPA mode is based on geo location
 // Locale is based on user’s browser language setting
 
-import LOCALE_TEXT from "./text.js";
+import LOCALE_TEXT, { CCPA_TITLE } from "./text.js";
 
 const API_KEY = COOKIE_CONTROL_API_KEY;
 const PRODUCT_TYPE = "PRO_MULTISITE";
@@ -17,6 +17,29 @@ const COLORS = {
   black: "#000000",
 };
 
+/**
+ * Returns the text config with CCPA-specific overrides applied when in CCPA mode:
+ * - `title` and `settings` are set to the CCPA opt-out label from CCPA_TITLE
+ * - and `intro` is cleared
+ * - All fields are returned as-is in GDPR mode.
+ *
+ * @param {object} text - CookieControl `text` config object for a locale.
+ * @param {object|undefined} ccpaConfig - CCPA config for the same locale.
+ * @param {boolean} withinCCPA - Whether the user is in a CCPA jurisdiction.
+ * @param {string} locale - Locale key used to look up the CCPA_TITLE string.
+ * @returns {object} The text config, with `title` overridden when applicable.
+ */
+function withCCPATitle(text, ccpaConfig, withinCCPA, locale = "en") {
+  return withinCCPA && ccpaConfig
+    ? {
+        ...text,
+        title: CCPA_TITLE[locale] ?? CCPA_TITLE.en,
+        settings: CCPA_TITLE[locale] ?? CCPA_TITLE.en,
+        intro: "",
+      }
+    : text;
+}
+
 if (!COOKIE_CONTROL_API_KEY) {
   console.error(
     "COOKIE_CONTROL_API_KEY is not configured — skipping cookie consent init.",
@@ -27,12 +50,18 @@ if (!COOKIE_CONTROL_API_KEY) {
   );
 } else {
   CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
+    const mode = response.withinCCPA ? "ccpa" : "gdpr";
+    console.log(`CookieControl mode will be set to:`, mode);
+
     const config = {
       apiKey: API_KEY,
       logConsent: true,
       initialState: "notify",
       product: PRODUCT_TYPE,
       theme: "dark",
+      mode,
+      // See CCPA config doc: https://cookiecontrol.com/docs/v9/optional-categories#ccpa-and-geolocation
+      ...(response.withinCCPA && { ccpaConfig: LOCALE_TEXT.en.ccpaConfig }),
       branding: {
         // type
         fontFamily: '"Mozilla Text", "Helvetica Neue", Arial, sans-serif',
@@ -56,7 +85,12 @@ if (!COOKIE_CONTROL_API_KEY) {
         highlightFocus: true,
         outline: true,
       },
-      text: LOCALE_TEXT.en.text,
+      text: withCCPATitle(
+        LOCALE_TEXT.en.text,
+        LOCALE_TEXT.en.ccpaConfig,
+        response.withinCCPA,
+        "en",
+      ),
       necessaryCookies: [
         "OptanonConsent",
         "OptanonAlertBoxClosed",
@@ -220,19 +254,17 @@ if (!COOKIE_CONTROL_API_KEY) {
       ],
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
-        .map(([locale, { text }]) => ({
+        .map(([locale, { text, ccpaConfig }]) => ({
           locale,
-          text,
+          text: withCCPATitle(text, ccpaConfig, response.withinCCPA, locale),
+          ...(response.withinCCPA && ccpaConfig && { ccpaConfig }),
         })),
     };
-
-    // TODO:FIXME: DEV ONLY: reset consent state on every reload
-    document.cookie =
-      "CookieControl=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
     CookieControl.load(config);
 
     // TODO:FIXME: DEV ONLY: remove before merge into `main`
+    console.log("CookieControl mode:", config.mode);
     console.log("CookieControl geoTest response:", response);
   });
 }
