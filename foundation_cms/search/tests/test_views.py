@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
@@ -78,3 +78,17 @@ class SearchLoggingTestCase(TestCase):
 
         # add_hit should not be called since there was no initial search
         mock_add_hit.assert_not_called()
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_single_page_results_show_page_count(self, mock_get_search_backend):
+        result_page = self.root_page.add_child(
+            instance=Page(title="Unique Search Result", slug="unique-search-result")
+        )
+        search_backend = Mock()
+        search_backend.search.return_value = [result_page]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "Unique Search Result"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Page 1 of 1")

@@ -25,16 +25,6 @@
                     {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
                 </div>
 
-                <div class="cell small-12 search-results-mobile-actions">
-                    <button class="search-results-filter-toggle"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls="search-results-filter-drawer"
-                            data-search-drawer-open>
-                        {% trans "Filter & Sort" %}
-                    </button>
-                </div>
-
                 <div class="cell small-12 search-results-shell">
                     <aside class="search-results-sidebar" aria-label="{% trans "Search filters" %}">
                         <form action="{% url 'search' %}"
@@ -117,13 +107,21 @@
 
                     <div class="search-results-main">
                         <div class="search-results-toolbar">
-                            {% if total_search_results|default:0 > 0 and search_results.paginator.num_pages > 1 %}
+                            {% if total_search_results|default:0 > 0 %}
                                 <p class="search-results-page-count">
                                     {% blocktrans trimmed with page_number=search_results.number total_pages=search_results.paginator.num_pages %}
                                         Page {{ page_number }} of {{ total_pages }}
                                     {% endblocktrans %}
                                 </p>
                             {% endif %}
+
+                            <button class="search-results-filter-toggle"
+                                    type="button"
+                                    aria-expanded="false"
+                                    aria-controls="search-results-filter-drawer"
+                                    data-search-drawer-open>
+                                {% trans "Filter & Sort" %}
+                            </button>
 
                             <form action="{% url 'search' %}"
                                   method="get"
