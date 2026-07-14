@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import Count
+from django.db.models import Count, Prefetch, prefetch_related_objects
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import Locale, Page
 from wagtail.search.query import PlainText
 
+from foundation_cms.base.models.abstract_base_page import PageTopic
 from foundation_cms.campaigns.models.campaign_page import CampaignPage
 from foundation_cms.search.models import SearchEvent
 from foundation_cms.search.utils import (
@@ -35,7 +36,8 @@ def search(request):
     page = request.GET.get("page", 1)
     total_search_results = 0
     current_locale = Locale.get_active()
-    is_initial_search_submit = "page" not in request.GET
+    is_preview_request = request.headers.get("X-Search-Preview") == "true"
+    is_initial_search_submit = "page" not in request.GET and not is_preview_request
 
     # Search
     if search_query:
@@ -151,6 +153,15 @@ def search(request):
         search_results = paginator.page(1)
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
+
+    prefetch_related_objects(
+        search_results.object_list,
+        Prefetch(
+            "topic_relations",
+            queryset=PageTopic.objects.select_related("tag").order_by("id"),
+            to_attr="search_topic_relations",
+        ),
+    )
 
     # Keep contributing pages when there are no results
     keep_contributing_pages = []

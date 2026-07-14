@@ -79,6 +79,18 @@ class SearchLoggingTestCase(TestCase):
         # add_hit should not be called since there was no initial search
         mock_add_hit.assert_not_called()
 
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_no_logging_on_filter_preview(self, mock_add_hit):
+        response = self.client.get(
+            "/en/search/",
+            {"query": "Page", "content_type": "research"},
+            headers={"X-Search-Preview": "true"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(SearchEvent.objects.count(), 0)
+        mock_add_hit.assert_not_called()
+
     @patch("foundation_cms.search.views.get_search_backend_for_locale")
     def test_single_page_results_show_page_count(self, mock_get_search_backend):
         result_page = self.root_page.add_child(

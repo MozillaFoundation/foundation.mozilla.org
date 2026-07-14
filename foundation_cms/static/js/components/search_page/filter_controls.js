@@ -21,6 +21,15 @@ const DATA_KEYS = {
   topicWasChecked: "searchTopicWasChecked",
 };
 
+const FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
+
 /**
  * Builds a clean search URL from the current filter form.
  *
@@ -103,6 +112,36 @@ function rememberTopicCheckedState(label) {
 }
 
 /**
+ * Keeps keyboard focus within an open modal drawer.
+ *
+ * @param {KeyboardEvent} event
+ * @param {HTMLElement} drawer
+ */
+function trapDrawerFocus(event, drawer) {
+  if (event.key !== "Tab") return;
+
+  const focusable = Array.from(
+    drawer.querySelectorAll(FOCUSABLE_SELECTOR),
+  ).filter((element) => element.getClientRects().length > 0);
+
+  if (!focusable.length) {
+    event.preventDefault();
+    return;
+  }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+/**
  * Initializes search result filter controls.
  *
  * Desktop forms submit immediately when content type, topic, or sort changes.
@@ -138,7 +177,10 @@ export function initSearchPageFilters() {
 
       try {
         const response = await fetch(buildUrlFromForm(drawerForm).toString(), {
-          headers: { "X-Requested-With": "XMLHttpRequest" },
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-Search-Preview": "true",
+          },
           signal: previewAbortController.signal,
         });
 
@@ -241,6 +283,11 @@ export function initSearchPageFilters() {
     });
 
   drawer?.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      trapDrawerFocus(event, drawer);
+      return;
+    }
+
     if (event.key !== "Escape") return;
 
     event.preventDefault();

@@ -29,18 +29,18 @@
         </div>
         <div class="page-card__meta-wrapper">
           <div class="page-card__meta">
-            {% with topics=result.topics.all %}
-              {% if topics %}
+            {% with topic_relations=result.search_topic_relations %}
+              {% if topic_relations %}
                 <ul class="page-card__tags" aria-label="{% trans "Topics" %}">
-                  {% for topic in topics|slice:":3" %}
+                  {% for topic_relation in topic_relations|slice:":3" %}
                     <li>
-                      <a class="btn-topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a>
+                      <a class="btn-topic" href="{{ topic_relation.tag.get_topic_listing_url }}">{{ topic_relation.tag.name }}</a>
                     </li>
                   {% endfor %}
-                  {% if topics|length > 3 %}
+                  {% if topic_relations|length > 3 %}
                     <li>
                       <span class="page-card__tag-overflow">
-                        +{{ topics|length|add:"-3" }}
+                        +{{ topic_relations|length|add:"-3" }}
                       </span>
                     </li>
                   {% endif %}
