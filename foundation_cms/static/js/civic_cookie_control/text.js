@@ -5,6 +5,27 @@
 // optionalCookies labels/descriptions per locale are defined in TP1-4033.
 // TODO(TP1-4033): revise accept/reject button labels across all locales once optional category names are confirmed. "Analytics Cookies" may not be accurate.
 
+const CCPA_CONFIG_SHARED = {
+  url: "https://www.mozilla.org/privacy/websites/",
+  updated: "05/11/2025",
+};
+
+export const CCPA_TITLE = {
+  en: "Do Not Sell or Share My Personal Information",
+  de: "Meine persönlichen Informationen nicht verkaufen oder weitergeben",
+  es: "No vender ni compartir mi información personal",
+  fr: "Je m'oppose à la vente et au partage de mes informations personnelles privées",
+  nl: "Mijn persoonlijke informatie niet verkopen of delen",
+  pt: "Não vender nem partilhar as minhas informações pessoais",
+  sw: "Usiuze au Kushiriki Habari Zangu za Kibinafsi",
+};
+
+// TODO: source CCPA opt-out titles for ca, fy, and pl; currently falling back to English.
+// Note: OneTrust does not have CCPA text for pl; ca and fy texts are incorrectly mapped in OneTrust.
+CCPA_TITLE.ca = CCPA_TITLE.en;
+CCPA_TITLE.fy = CCPA_TITLE.en;
+CCPA_TITLE.pl = CCPA_TITLE.en;
+
 const LOCALE_TEXT = {
   en: {
     text: {
@@ -27,30 +48,15 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "Close",
     },
-  },
-  // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
-  // Catalan
-  // Note: OneTrust's Catalan (ca) text appears to be incorrectly mapped to Swahili (sw).
-  // Catalan text needs to be sourced separately.
-  ca: {
-    text: {
-      // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
-      // setting panel
-      title: "[WIP] Títol (CA)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
-      // visible label / aria-label for the close button
-      closeLabel: "[WIP]",
+    ccpaConfig: {
+      description:
+        "When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.",
+      name: "More information",
+      rejectButton: "Reject All",
+      ...CCPA_CONFIG_SHARED,
     },
   },
+  // Civic doesn't accept hyphenated codes; fy-NL and pt-BR are shortened to "fy" and "pt"
   // German
   de: {
     text: {
@@ -71,7 +77,14 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Diese Cookies sind zur Funktion der Website erforderlich und können in Ihren Systemen nicht deaktiviert werden. In der Regel werden diese Cookies nur als Reaktion auf von Ihnen getätigte Aktionen gesetzt, die einer Dienstanforderung entsprechen, wie etwa dem Festlegen Ihrer Datenschutzeinstellungen, dem Anmelden oder dem Ausfüllen von Formularen. Sie können Ihren Browser so einstellen, dass diese Cookies blockiert oder Sie über diese Cookies benachrichtigt werden. Einige Bereiche der Website funktionieren dann aber nicht. Diese Cookies speichern keine personenbezogenen Daten.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
+    },
+    ccpaConfig: {
+      description:
+        "Wenn Sie unsere Website besuchen, speichern wir in Ihrem Browser Cookies, um Informationen zu sammeln. Hierbei kann es sich um Informationen über Sie, Ihre Einstellungen oder Ihr Gerät handeln. Meist werden die Informationen verwendet, um die erwartungsgemäße Funktion der Website zu gewährleisten und Ihnen ein personalisierteres Website-Erlebnis zu bieten. Sie können jedoch bestimmte Arten von Cookies nicht zulassen. Dies führt möglicherweise zu einer beeinträchtigten Erfahrung der von uns zur Verfügung gestellten Website und Dienste. Klicken Sie auf die verschiedenen Kategorieüberschriften, um mehr zu erfahren und unsere Standardeinstellungen nach Ihren Wünschen zu ändern. Sie können unsere unbedingt erforderlichen Erstanbieter-Cookies nicht ablehnen, da sie eingesetzt werden, um das ordnungsgemäße Funktionieren unserer Website zu gewährleisten (wie z.B. das Aufrufen des Cookie-Banners und das Speichern Ihrer Einstellungen, das Anmelden in Ihrem Konto, das Weiterleiten beim Abmelden usw.) Weitere Informationen über die verwendeten Erst- und Drittanbieter-Cookies finden Sie unter diesem Link.",
+      name: "Weitere Informationen",
+      rejectButton: "Alle ablehnen",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Spanish
@@ -94,7 +107,14 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar en nuestros sistemas. Usualmente están configuradas para responder a acciones hechas por usted para recibir servicios, tales como ajustar sus preferencias de privacidad, iniciar sesión en el sitio, o llenar formularios. Usted puede configurar su navegador para bloquear o alertar la presencia de estas cookies, pero algunas partes del sitio web no funcionarán. Estas cookies no guardan ninguna información personal identificable.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
+    },
+    ccpaConfig: {
+      description:
+        "Cuando visita nuestro sitio web, guardamos las cookies en su navegador para recoger información. Esta información puede ser acerca de usted, sus preferencias o su dispositivo, y se usa principalmente para que el sitio funcione según lo esperado y para ofrecer una experiencia más personalizada cuando usa la web. Sin embargo, usted puede escoger no permitir ciertos tipos de cookies, lo cual afectará su experiencia en el sitio y los servicios que podemos ofrecer. Haga clic en los encabezados de cada categoría para saber más y cambiar nuestras configuraciones predeterminadas con sus preferencias. No podrá excluirse de nuestras cookies estrictamente necesarias, ya que las mismas se usan para asegurar el funcionamiento correcto de nuestro sitio web (como por ejemplo activar el aviso de la cookie y recordar sus configuraciones, para iniciar sesión en su cuenta, para reorientarlo cuando cierre la sesión, etc.). Para más información acerca de las cookies utilizadas de primeras y terceras partes, por favor use este enlace.",
+      name: "Más información",
+      rejectButton: "Rechazarlas todas",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // French
@@ -117,29 +137,14 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Ces cookies sont nécessaires au fonctionnement du site Web et ne peuvent pas être désactivés dans nos systèmes. Ils sont généralement établis en tant que réponse à des actions que vous avez effectuées et qui constituent une demande de services, telles que la définition de vos préférences en matière de confidentialité, la connexion ou le remplissage de formulaires. Vous pouvez configurer votre navigateur afin de bloquer ou être informé de l'existence de ces cookies, mais certaines parties du site Web peuvent être affectées. Ces cookies ne stockent aucune information d'identification personnelle.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
     },
-  },
-  // Frisian
-  // Note: OneTrust's Frisian (fy) text appears to be incorrectly mapped to Swahili (sw).
-  // Frisian text needs to be sourced separately.
-  fy: {
-    text: {
-      // notify banner
-      notifyTitle: "[WIP]",
-      notifyDescription: "[WIP]",
-      accept: "[WIP]",
-      reject: "[WIP]",
-      settings: "[WIP]",
-      // setting panel
-      title: "[WIP] Titel (FY)",
-      intro: "[WIP]",
-      acceptSettings: "[WIP]",
-      rejectSettings: "[WIP]",
-      necessaryTitle: "[WIP]",
-      necessaryDescription: "[WIP]",
-      // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+    ccpaConfig: {
+      description:
+        "Lorsque vous visitez notre site Web, nous stockons des cookies sur votre navigateur pour collecter des informations. Ces informations collectées peuvent être liées à vous, à vos préférences ou à votre appareil, et sont principalement utilisées pour faire fonctionner le site comme vous le souhaitez et pour fournir une expérience Web plus personnalisée. Toutefois, vous pouvez choisir de ne pas autoriser certains types de cookies, ce qui peut avoir un impact sur votre expérience du site et des services que nous offrons. Cliquez sur les différents titres de catégories pour en savoir plus et modifier nos paramètres par défaut selon vos préférences. Vous ne pouvez pas vous désinscrire de nos Cookies Strictement Nécessaires internes lorsqu'ils sont déployés afin d'assurer le bon fonctionnement de notre site Web (tels que pour afficher le bandeau des cookies, pour vous connecter à votre compte, pour rediriger votre session lorsque vous quittez votre compte, etc.) Pour plus d'Informations sur les cookies internes et de tiers utilisés, veuillez consulter le lien suivant.",
+      name: "Plus d’informations",
+      rejectButton: "Tout refuser",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Dutch
@@ -162,7 +167,14 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Deze cookies zijn nodig anders werkt de website niet. Deze cookies kunnen niet worden uitgeschakeld. In de meeste gevallen worden deze cookies alleen gebruikt naar aanleiding van een handeling van u waarmee u in wezen een dienst aanvraagt, bijvoorbeeld uw privacyinstellingen registreren, in de website inloggen of een formulier invullen. U kunt uw browser instellen om deze cookies te blokkeren of om u voor deze cookies te waarschuwen, maar sommige delen van de website zullen dan niet werken. Deze cookies slaan geen persoonlijk identificeerbare informatie op.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
+    },
+    ccpaConfig: {
+      description:
+        'Als u onze website bezoekt, slaan we cookies in uw browser op om informatie in te zamelen. De informatie die we inzamelen kan betrekking hebben op u, uw voorkeuren of uw apparaat en wordt voornamelijk gebruikt om de website correct te laten werken en om de gebruikerservaring beter aan u persoonlijk te kunnen aanpassen. U kunt ervoor kiezen om bepaalde soorten cookies te blokkeren. Dit kan een nadelige invloed hebben op uw ervaring van de website en de diensten die we aanbieden. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen naar uw wensten te wijzigen. U kunt onze interne "strikt noodzakelijke cookies" niet blokkeren, omdat deze worden gebruikt om de website juist te laten functioneren (bijvoorbeeld om de cookiebanner te activeren, uw instellingen te herinneren, in uw account in te loggen en u correct om te leiden nadat u uitlogt, enz.) Voor meer informatie over de gebruikte interne en externe cookies kunt u op deze link klikken.',
+      name: "Meer informatie",
+      rejectButton: "Alles afwijzen",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Polish
@@ -185,7 +197,15 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
+    },
+    ccpaConfig: {
+      // TODO: source Polish CCPA text; OneTrust has no pl CCPA config. Falling back to English for description and name.
+      description:
+        "When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.",
+      name: "More information",
+      rejectButton: "Odrzucenie wszystkich",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Portuguese
@@ -208,7 +228,14 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Estes cookies são necessários para que o website funcione e não podem ser desligados nos nossos sistemas. Normalmente, eles só são configurados em resposta a ações levadas a cabo por si e que correspondem a uma solicitação de serviços, tais como definir as suas preferências de privacidade, iniciar sessão ou preencher formulários. Pode configurar o seu navegador para bloquear ou alertá-lo(a) sobre esses cookies, mas algumas partes do website não funcionarão. Estes cookies não armazenam qualquer informação pessoal identificável.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
+    },
+    ccpaConfig: {
+      description:
+        "Quando visita o nosso site, armazenamos cookies no seu navegador para recolher informações. Esta informação pode ser sobre si, as suas preferências ou o seu dispositivo e é utilizada principalmente para fazer o website funcionar conforme o esperado e proporcionar-lhe uma experiência de navegação mais personalizada. No entanto, o bloqueio de alguns tipos de cookies pode afetar a sua experiência no website e os serviços que podemos oferecer. Clique nos cabeçalhos das diferentes categorias para saber mais e alterar as nossas configurações predefinidas. Não pode optar por não receber os nossos cookies originais estritamente necessários, pois eles são implantados para garantir o funcionamento adequado do nosso site (como fazer aparecer a faixa de cookies e lembrar as suas configurações, entrar na sua conta, redirecioná-lo quando sair, etc.). Para obter mais informações sobre os cookies originais e os cookies de terceiros utilizados, siga este link.",
+      name: "Mais informação",
+      rejectButton: "Rejeitar todos",
+      ...CCPA_CONFIG_SHARED,
     },
   },
   // Swahili
@@ -231,9 +258,21 @@ const LOCALE_TEXT = {
       necessaryDescription:
         "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
       // visible label / aria-label for the close button
-      closeLabel: "[WIP] Close",
+      closeLabel: "Close", // TODO: replace with localized translation
+    },
+    ccpaConfig: {
+      description:
+        "Unapotembelea tovuti yetu, tunahifadhi kuki kwenye kivinjari chako ili kukusanya taarifa. Taarifa zilizokusanywa inaweza kuhusiana na wewe, mapendekezo yako au kifaa chako, na hutumiwa zaidi kufanya tovuti ifanye kazi kama unavyotarajia na kutoa uzoefu zaidi wa wavuti uliobinafsishwa. Hata hivyo, unaweza kuchagua si kuruhusu aina fulani ya cookies, ambayo inaweza kuathiri uzoefu wako wa tovuti na huduma tunaweza kutoa. Bonyeza kwenye vichwa tofauti vya jamii ili kujua zaidi na kubadilisha mipangilio yetu ya default kulingana na upendeleo wako. Huwezi kuchagua kutoka kwa kuki zetu za Kwanza muhimu kama zinatumika ili kuhakikisha utendaji sahihi wa tovuti yetu (kama vile kuchochea bendera ya kuki na kukumbuka mipangilio yako, kuingia kwenye akaunti yako, kukuelekeza wakati unapoingia, nk). Kwa habari zaidi kuhusu cookies ya kwanza na ya tatu kutumika tafadhali kufuata kiungo hiki.",
+      name: "Taarifa zaidi",
+      rejectButton: "Kataa Yote",
+      ...CCPA_CONFIG_SHARED,
     },
   },
 };
+
+// TODO: source Catalan (ca) and Frisian (fy) translations; currently falling back to English.
+// Note: OneTrust's ca text is incorrectly mapped to Swahili (sw), and fy to Swahili (sw) as well. both need to be sourced separately.
+LOCALE_TEXT.ca = LOCALE_TEXT.en;
+LOCALE_TEXT.fy = LOCALE_TEXT.en;
 
 export default LOCALE_TEXT;
