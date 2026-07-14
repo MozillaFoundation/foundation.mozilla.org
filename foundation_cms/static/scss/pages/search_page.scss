@@ -472,13 +472,19 @@ body.template-search-results {
   }
 
   .search-filter-drawer__close {
+    display: grid;
+    width: rem-calc(24);
+    height: rem-calc(24);
+    place-items: center;
     justify-self: end;
+    border: 1px solid $black;
+    border-radius: 50%;
 
     span {
       display: block;
       width: rem-calc(24);
       height: rem-calc(24);
-      background-image: url("/static/foundation_cms/_images/icons/close-circle.svg");
+      background-image: url("/static/foundation_cms/_images/icons/x.svg");
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
