@@ -100,6 +100,28 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
     },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
+    },
     ccpaConfig: {
       description:
         "Wenn Sie unsere Website besuchen, speichern wir in Ihrem Browser Cookies, um Informationen zu sammeln. Hierbei kann es sich um Informationen über Sie, Ihre Einstellungen oder Ihr Gerät handeln. Meist werden die Informationen verwendet, um die erwartungsgemäße Funktion der Website zu gewährleisten und Ihnen ein personalisierteres Website-Erlebnis zu bieten. Sie können jedoch bestimmte Arten von Cookies nicht zulassen. Dies führt möglicherweise zu einer beeinträchtigten Erfahrung der von uns zur Verfügung gestellten Website und Dienste. Klicken Sie auf die verschiedenen Kategorieüberschriften, um mehr zu erfahren und unsere Standardeinstellungen nach Ihren Wünschen zu ändern. Sie können unsere unbedingt erforderlichen Erstanbieter-Cookies nicht ablehnen, da sie eingesetzt werden, um das ordnungsgemäße Funktionieren unserer Website zu gewährleisten (wie z.B. das Aufrufen des Cookie-Banners und das Speichern Ihrer Einstellungen, das Anmelden in Ihrem Konto, das Weiterleiten beim Abmelden usw.) Weitere Informationen über die verwendeten Erst- und Drittanbieter-Cookies finden Sie unter diesem Link.",
@@ -129,6 +151,28 @@ const LOCALE_TEXT = {
         "Estas cookies son necesarias para que el sitio web funcione y no se pueden desactivar en nuestros sistemas. Usualmente están configuradas para responder a acciones hechas por usted para recibir servicios, tales como ajustar sus preferencias de privacidad, iniciar sesión en el sitio, o llenar formularios. Usted puede configurar su navegador para bloquear o alertar la presencia de estas cookies, pero algunas partes del sitio web no funcionarán. Estas cookies no guardan ninguna información personal identificable.",
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
+    },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
     },
     ccpaConfig: {
       description:
@@ -160,6 +204,28 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
     },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
+    },
     ccpaConfig: {
       description:
         "Lorsque vous visitez notre site Web, nous stockons des cookies sur votre navigateur pour collecter des informations. Ces informations collectées peuvent être liées à vous, à vos préférences ou à votre appareil, et sont principalement utilisées pour faire fonctionner le site comme vous le souhaitez et pour fournir une expérience Web plus personnalisée. Toutefois, vous pouvez choisir de ne pas autoriser certains types de cookies, ce qui peut avoir un impact sur votre expérience du site et des services que nous offrons. Cliquez sur les différents titres de catégories pour en savoir plus et modifier nos paramètres par défaut selon vos préférences. Vous ne pouvez pas vous désinscrire de nos Cookies Strictement Nécessaires internes lorsqu'ils sont déployés afin d'assurer le bon fonctionnement de notre site Web (tels que pour afficher le bandeau des cookies, pour vous connecter à votre compte, pour rediriger votre session lorsque vous quittez votre compte, etc.) Pour plus d'Informations sur les cookies internes et de tiers utilisés, veuillez consulter le lien suivant.",
@@ -190,6 +256,28 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
     },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
+    },
     ccpaConfig: {
       description:
         'Als u onze website bezoekt, slaan we cookies in uw browser op om informatie in te zamelen. De informatie die we inzamelen kan betrekking hebben op u, uw voorkeuren of uw apparaat en wordt voornamelijk gebruikt om de website correct te laten werken en om de gebruikerservaring beter aan u persoonlijk te kunnen aanpassen. U kunt ervoor kiezen om bepaalde soorten cookies te blokkeren. Dit kan een nadelige invloed hebben op uw ervaring van de website en de diensten die we aanbieden. Klik op de namen voor de verschillende categorieën voor meer informatie en om onze standaardinstellingen naar uw wensten te wijzigen. U kunt onze interne "strikt noodzakelijke cookies" niet blokkeren, omdat deze worden gebruikt om de website juist te laten functioneren (bijvoorbeeld om de cookiebanner te activeren, uw instellingen te herinneren, in uw account in te loggen en u correct om te leiden nadat u uitlogt, enz.) Voor meer informatie over de gebruikte interne en externe cookies kunt u op deze link klikken.',
@@ -219,6 +307,28 @@ const LOCALE_TEXT = {
         "Te pliki cookie są niezbędne dla funkcjonowania strony internetowej i nie mogą być wyłączone w naszych systemach. Są one zazwyczaj ustawiane tylko w odpowiedzi na działania podejmowane przez użytkownika, które sprowadzają się do zapytania o usługi, takie jak ustawienie preferencji prywatności, logowanie lub wypełnianie formularzy. Można ustawić przeglądarkę tak, aby blokowała lub ostrzegała o tych plikach cookie, ale niektóre części witryny nie będą wtedy działały. Te pliki cookie nie przechowują żadnych danych osobowych.",
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
+    },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
     },
     ccpaConfig: {
       // TODO: source Polish CCPA text; OneTrust has no pl CCPA config. Falling back to English for description and name.
@@ -251,6 +361,28 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
     },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
+    },
     ccpaConfig: {
       description:
         "Quando visita o nosso site, armazenamos cookies no seu navegador para recolher informações. Esta informação pode ser sobre si, as suas preferências ou o seu dispositivo e é utilizada principalmente para fazer o website funcionar conforme o esperado e proporcionar-lhe uma experiência de navegação mais personalizada. No entanto, o bloqueio de alguns tipos de cookies pode afetar a sua experiência no website e os serviços que podemos oferecer. Clique nos cabeçalhos das diferentes categorias para saber mais e alterar as nossas configurações predefinidas. Não pode optar por não receber os nossos cookies originais estritamente necessários, pois eles são implantados para garantir o funcionamento adequado do nosso site (como fazer aparecer a faixa de cookies e lembrar as suas configurações, entrar na sua conta, redirecioná-lo quando sair, etc.). Para obter mais informações sobre os cookies originais e os cookies de terceiros utilizados, siga este link.",
@@ -280,6 +412,28 @@ const LOCALE_TEXT = {
         "Vidakuzi hivi ni muhimu kwa tovuti kufanya kazi na haziwezi kuzimwa katika mifumo yetu. Kwa kawaida huwekwa tu kulingana na hatua unazofanya ambazo ni sawa na ombi la huduma, kama vile kuweka mapendeleo yako ya faragha, kuingia au kujaza fomu. Unaweza kuweka kivinjari chako kukuzuia au kukuarifu kuhusu vidakuzi hivi, lakini baadhi ya sehemu za tovuti hazitafanya kazi. Vidakuzi hivi havihifadhi maelezo yoyote yanayoweza kumtambulisha mtu binafsi.",
       // visible label / aria-label for the close button
       closeLabel: "Close", // TODO: replace with localized translation
+    },
+    // TODO(TP1-4033): replace with localized translation
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
     },
     ccpaConfig: {
       description:
