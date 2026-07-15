@@ -165,8 +165,6 @@ if (!COOKIE_CONTROL_API_KEY) {
 } else {
   CookieControl.geoTest(PRODUCT_TYPE, API_KEY, function (response) {
     const mode = response.withinCCPA ? "ccpa" : "gdpr";
-    console.log(`CookieControl mode will be set to:`, mode);
-
     const config = {
       apiKey: API_KEY,
       logConsent: true,
@@ -280,9 +278,5 @@ if (!COOKIE_CONTROL_API_KEY) {
     };
 
     CookieControl.load(config);
-
-    // TODO:FIXME: DEV ONLY: remove before merge into `main`
-    console.log("CookieControl mode:", config.mode);
-    console.log("CookieControl geoTest response:", response);
   });
 }
