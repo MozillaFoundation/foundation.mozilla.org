@@ -2,7 +2,10 @@
 // English is the default; other locales only need keys that differ.
 // CookieControl text keys: https://cookiecontrol.com/docs/v9/
 //
-// TODO(TP1-4033): revise accept/reject button labels across all locales once optional category names are confirmed. "Analytics Cookies" may not be accurate.
+// TODO: Revise accept/reject button labels across all locales once optional category names are confirmed.
+//       All accept/reject text was copied as-is from OneTrust, but OneTrust's English copy says
+//       "Accept/Reject Analytics Cookies" while its non-English copy says a generic "accept/reject all cookies" instead
+//         — the two were already out of sync in the source and need to be reconciled.
 
 const CCPA_CONFIG_SHARED = {
   url: "https://www.mozilla.org/privacy/websites/",
