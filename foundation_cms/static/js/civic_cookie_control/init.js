@@ -17,6 +17,99 @@ const COLORS = {
   black: "#000000",
 };
 
+// optionalCookies config, minus the localized `label`/`description` text
+// (sourced from LOCALE_TEXT[locale].optionalCookies via withOptionalCookiesText).
+const BASE_OPTIONAL_COOKIES = [
+  {
+    name: "analytics",
+    cookies: [
+      "_ga",
+      "_ga_*",
+      "_gid",
+      "_gat",
+      "_dc_gtm_",
+      "AMP_TOKEN",
+      "_gat_*",
+      "_gac_",
+      "__utma",
+      "__utmt",
+      "__utmb",
+      "__utmc",
+      "__utmz",
+      "__utmv",
+      "__utmx",
+      "__utmxx",
+      "FPAU",
+      "FPID",
+      "FPLC",
+      "vuid",
+      "Player",
+      "continuous_play_v3",
+      "fundraiseup_stat",
+    ],
+    onAccept: function () {
+      gtag("consent", "update", { analytics_storage: "granted" });
+    },
+    onRevoke: function () {
+      gtag("consent", "update", { analytics_storage: "denied" });
+    },
+  },
+  {
+    name: "marketing",
+    cookies: [
+      "GPS",
+      "VISITOR_INFO1_LIVE",
+      "PREF",
+      "YSC",
+      "DEVICE_INFO",
+      "LOGIN_INFO",
+      "VISITOR_PRIVACY_METADATA",
+      "lu",
+      "xs",
+      "c_user",
+      "m_user",
+      "pl",
+      "dbln",
+      "aks",
+      "aksb",
+      "sfau",
+      "ick",
+      "csm",
+      "s",
+      "datr",
+      "sb",
+      "fr",
+      "oo",
+      "ddid",
+      "locale",
+      "_fbp",
+      "_fbc",
+      "js_ver",
+      "rc",
+      "campaign_click_url",
+      "wd",
+      "usida",
+      "presence",
+      "__Secure-YNID",
+      "__Secure-ROLLOUT_TOKEN",
+    ],
+    onAccept: function () {
+      gtag("consent", "update", {
+        ad_storage: "granted",
+        ad_personalization: "granted",
+        ad_user_data: "granted",
+      });
+    },
+    onRevoke: function () {
+      gtag("consent", "update", {
+        ad_storage: "denied",
+        ad_personalization: "denied",
+        ad_user_data: "denied",
+      });
+    },
+  },
+];
+
 /**
  * Returns the text config with CCPA-specific overrides applied when in CCPA mode:
  * - `title` and `settings` are set to the CCPA opt-out label from CCPA_TITLE
@@ -38,6 +131,27 @@ function withCCPATitle(text, ccpaConfig, withinCCPA, locale = "en") {
         intro: "",
       }
     : text;
+}
+
+/**
+ * Merges localized `label`/`description` text into the static optionalCookies
+ * config (name, cookies, onAccept/onRevoke), keyed by category name. Falls
+ * back to the English text for any category not yet translated.
+ *
+ * @param {Array<object>} baseOptionalCookies - optionalCookies config without label/description.
+ * @param {object|undefined} localizedText - LOCALE_TEXT[locale].optionalCookies, keyed by category name.
+ * @returns {Array<object>} optionalCookies config with label/description applied.
+ */
+function withOptionalCookiesText(baseOptionalCookies, localizedText) {
+  return baseOptionalCookies.map((cookie) => {
+    const fallback = LOCALE_TEXT.en.optionalCookies[cookie.name];
+    const localized = localizedText?.[cookie.name];
+    return {
+      ...cookie,
+      label: localized?.label ?? fallback.label,
+      description: localized?.description ?? fallback.description,
+    };
+  });
 }
 
 if (!COOKIE_CONTROL_API_KEY) {
@@ -91,25 +205,76 @@ if (!COOKIE_CONTROL_API_KEY) {
         response.withinCCPA,
         "en",
       ),
-      // TODO: (TP1-4033)
-      //   1. Replace with real necessary/optional categories once defined.
-      //   2. Revise the notify bar "Accept"/"Reject" button labels.
-      //      They currently reference "Analytics Cookies" specifically, which may not be accurate once all optional categories are defined.
-      necessaryCookies: ["placeholder-necessary-cookie"],
-      optionalCookies: [
-        {
-          name: "placeholder-optional",
-          label: "[For Testing Purpose] A Cookies Category",
-          description: "Placeholder for testing — to be replaced in TP1-4033.",
-          onAccept: function () {},
-          onRevoke: function () {},
-        },
+      necessaryCookies: [
+        "OptanonConsent",
+        "OptanonAlertBoxClosed",
+        "OptanonControl",
+        "__cfduid",
+        "__cfruid",
+        "__cf_bm",
+        "cf_chl_2",
+        "__cflb",
+        "_cfuvid",
+        "cf_clearance",
+        "__stripe_mid",
+        "__stripe_sid",
+        "m",
+        "CAKEPHP",
+        "AWSALB",
+        "AWSALBCORS",
+        "AWSELBCORS",
+        "AWSELB",
+        "AWSALBTGCORS",
+        "AWSALBTG",
+        "aws-csds-token",
+        "aws_lang",
+        "aws-target-visitor-id",
+        "aws-priv",
+        "fundraiseup_cid",
+        "fundraiseup_func",
+        "hmt_id",
+        "_sp",
+        "_sp_var_233562",
+        "_sp_var_233560",
+        "_sp_var_233561",
+        "_sp_var_233557",
+        "_sp_var_233559",
+        "_sp_var_233558",
+        "_sp_var_233499",
+        "_sp_var_233501",
+        "_sp_var_233500",
+        "_sp_var_227930",
+        "_sp_var_228230",
+        "_sp_var_228231",
+        "_sp_var_227732",
+        "_sp_var_227728",
+        "_sp_var_227733",
+        "_sp_var_225527",
+        "_sp_var_225526",
+        "_sp_var_227725",
+        "_sp_var_227727",
+        "_sp_var_227726",
+        "_sp_var_225525",
+        "sailthru_hid",
+        "sailthru_bid",
+        "brw",
+        "brwConsent",
+        "__Host-airtable-session",
+        "__Host-airtable-session.sig",
       ],
+      optionalCookies: withOptionalCookiesText(
+        BASE_OPTIONAL_COOKIES,
+        LOCALE_TEXT.en.optionalCookies,
+      ),
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
-        .map(([locale, { text, ccpaConfig }]) => ({
+        .map(([locale, { text, ccpaConfig, optionalCookies }]) => ({
           locale,
           text: withCCPATitle(text, ccpaConfig, response.withinCCPA, locale),
+          optionalCookies: withOptionalCookiesText(
+            BASE_OPTIONAL_COOKIES,
+            optionalCookies,
+          ),
           ...(response.withinCCPA && ccpaConfig && { ccpaConfig }),
         })),
     };
