@@ -17,6 +17,99 @@ const COLORS = {
   black: "#000000",
 };
 
+// optionalCookies config, minus the localized `label`/`description` text
+// (sourced from LOCALE_TEXT[locale].optionalCookies via withOptionalCookiesText).
+const BASE_OPTIONAL_COOKIES = [
+  {
+    name: "analytics",
+    cookies: [
+      "_ga",
+      "_ga_*",
+      "_gid",
+      "_gat",
+      "_dc_gtm_",
+      "AMP_TOKEN",
+      "_gat_*",
+      "_gac_",
+      "__utma",
+      "__utmt",
+      "__utmb",
+      "__utmc",
+      "__utmz",
+      "__utmv",
+      "__utmx",
+      "__utmxx",
+      "FPAU",
+      "FPID",
+      "FPLC",
+      "vuid",
+      "Player",
+      "continuous_play_v3",
+      "fundraiseup_stat",
+    ],
+    onAccept: function () {
+      gtag("consent", "update", { analytics_storage: "granted" });
+    },
+    onRevoke: function () {
+      gtag("consent", "update", { analytics_storage: "denied" });
+    },
+  },
+  {
+    name: "marketing",
+    cookies: [
+      "GPS",
+      "VISITOR_INFO1_LIVE",
+      "PREF",
+      "YSC",
+      "DEVICE_INFO",
+      "LOGIN_INFO",
+      "VISITOR_PRIVACY_METADATA",
+      "lu",
+      "xs",
+      "c_user",
+      "m_user",
+      "pl",
+      "dbln",
+      "aks",
+      "aksb",
+      "sfau",
+      "ick",
+      "csm",
+      "s",
+      "datr",
+      "sb",
+      "fr",
+      "oo",
+      "ddid",
+      "locale",
+      "_fbp",
+      "_fbc",
+      "js_ver",
+      "rc",
+      "campaign_click_url",
+      "wd",
+      "usida",
+      "presence",
+      "__Secure-YNID",
+      "__Secure-ROLLOUT_TOKEN",
+    ],
+    onAccept: function () {
+      gtag("consent", "update", {
+        ad_storage: "granted",
+        ad_personalization: "granted",
+        ad_user_data: "granted",
+      });
+    },
+    onRevoke: function () {
+      gtag("consent", "update", {
+        ad_storage: "denied",
+        ad_personalization: "denied",
+        ad_user_data: "denied",
+      });
+    },
+  },
+];
+
 /**
  * Returns the text config with CCPA-specific overrides applied when in CCPA mode:
  * - `title` and `settings` are set to the CCPA opt-out label from CCPA_TITLE
@@ -38,6 +131,27 @@ function withCCPATitle(text, ccpaConfig, withinCCPA, locale = "en") {
         intro: "",
       }
     : text;
+}
+
+/**
+ * Merges localized `label`/`description` text into the static optionalCookies
+ * config (name, cookies, onAccept/onRevoke), keyed by category name. Falls
+ * back to the English text for any category not yet translated.
+ *
+ * @param {Array<object>} baseOptionalCookies - optionalCookies config without label/description.
+ * @param {object|undefined} localizedText - LOCALE_TEXT[locale].optionalCookies, keyed by category name.
+ * @returns {Array<object>} optionalCookies config with label/description applied.
+ */
+function withOptionalCookiesText(baseOptionalCookies, localizedText) {
+  return baseOptionalCookies.map((cookie) => {
+    const fallback = LOCALE_TEXT.en.optionalCookies[cookie.name];
+    const localized = localizedText?.[cookie.name];
+    return {
+      ...cookie,
+      label: localized?.label ?? fallback.label,
+      description: localized?.description ?? fallback.description,
+    };
+  });
 }
 
 if (!COOKIE_CONTROL_API_KEY) {
@@ -148,116 +262,19 @@ if (!COOKIE_CONTROL_API_KEY) {
         "__Host-airtable-session",
         "__Host-airtable-session.sig",
       ],
-      optionalCookies: [
-        {
-          name: "analytics",
-          label: "Analytics Cookies",
-          description:
-            "These cookies allow us to count visits and traffic sources so we can " +
-            "measure and improve the performance of our site. They help us to know " +
-            "which pages are the most and least popular and see how visitors move around " +
-            "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-            "If you do not allow these cookies we will not know when you have visited our site, " +
-            "and will not be able to monitor its performance.",
-          cookies: [
-            "_ga",
-            "_ga_*",
-            "_gid",
-            "_gat",
-            "_dc_gtm_",
-            "AMP_TOKEN",
-            "_gat_*",
-            "_gac_",
-            "__utma",
-            "__utmt",
-            "__utmb",
-            "__utmc",
-            "__utmz",
-            "__utmv",
-            "__utmx",
-            "__utmxx",
-            "FPAU",
-            "FPID",
-            "FPLC",
-            "vuid",
-            "Player",
-            "continuous_play_v3",
-            "fundraiseup_stat",
-          ],
-          onAccept: function () {
-            gtag("consent", "update", { analytics_storage: "granted" });
-          },
-          onRevoke: function () {
-            gtag("consent", "update", { analytics_storage: "denied" });
-          },
-        },
-        {
-          name: "marketing",
-          label: "Marketing Cookies",
-          description:
-            "These cookies may be set through our site by our advertising partners. " +
-            "They may be used by those companies to build a profile of your interests " +
-            "and show you relevant adverts on other sites. They do not store directly " +
-            "personal information, but are based on uniquely identifying your browser and " +
-            "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
-          cookies: [
-            "GPS",
-            "VISITOR_INFO1_LIVE",
-            "PREF",
-            "YSC",
-            "DEVICE_INFO",
-            "LOGIN_INFO",
-            "VISITOR_PRIVACY_METADATA",
-            "lu",
-            "xs",
-            "c_user",
-            "m_user",
-            "pl",
-            "dbln",
-            "aks",
-            "aksb",
-            "sfau",
-            "ick",
-            "csm",
-            "s",
-            "datr",
-            "sb",
-            "fr",
-            "oo",
-            "ddid",
-            "locale",
-            "_fbp",
-            "_fbc",
-            "js_ver",
-            "rc",
-            "campaign_click_url",
-            "wd",
-            "usida",
-            "presence",
-            "__Secure-YNID",
-            "__Secure-ROLLOUT_TOKEN",
-          ],
-          onAccept: function () {
-            gtag("consent", "update", {
-              ad_storage: "granted",
-              ad_personalization: "granted",
-              ad_user_data: "granted",
-            });
-          },
-          onRevoke: function () {
-            gtag("consent", "update", {
-              ad_storage: "denied",
-              ad_personalization: "denied",
-              ad_user_data: "denied",
-            });
-          },
-        },
-      ],
+      optionalCookies: withOptionalCookiesText(
+        BASE_OPTIONAL_COOKIES,
+        LOCALE_TEXT.en.optionalCookies,
+      ),
       locales: Object.entries(LOCALE_TEXT)
         .filter(([locale]) => locale !== "en")
-        .map(([locale, { text, ccpaConfig }]) => ({
+        .map(([locale, { text, ccpaConfig, optionalCookies }]) => ({
           locale,
           text: withCCPATitle(text, ccpaConfig, response.withinCCPA, locale),
+          optionalCookies: withOptionalCookiesText(
+            BASE_OPTIONAL_COOKIES,
+            optionalCookies,
+          ),
           ...(response.withinCCPA && ccpaConfig && { ccpaConfig }),
         })),
     };
