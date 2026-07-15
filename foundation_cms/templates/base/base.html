@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar onetrust_tags wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav %}
 
 {% get_current_language as lang_code %}
 
@@ -76,19 +76,6 @@
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
         {% endblock fundraiseup_script %}
-
-        {% block onetrust_script %}
-            <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="{% onetrust_data_domain %}" ></script>
-            <script nonce="{{ request.csp_nonce }}">function OptanonWrapper() {
-                if (document.getElementById('onetrust-banner-sdk')) {
-                    var acceptBtn = document.getElementById("onetrust-accept-btn-handler");
-                    var declineBtn = document.getElementById("onetrust-reject-all-handler");
-                    var cookieSettingsBtn = document.getElementById("onetrust-pc-btn-handler");
-                    var btnContainer = document.getElementById("onetrust-button-group");
-                    btnContainer.append(acceptBtn, declineBtn, cookieSettingsBtn);
-                }
-            };</script>
-        {% endblock onetrust_script %}
 
         {% block extended_head %}
         {% endblock extended_head %}
