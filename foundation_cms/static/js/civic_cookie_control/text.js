@@ -48,6 +48,27 @@ const LOCALE_TEXT = {
       // visible label / aria-label for the close button
       closeLabel: "Close",
     },
+    optionalCookies: {
+      analytics: {
+        label: "Analytics Cookies",
+        description:
+          "These cookies allow us to count visits and traffic sources so we can " +
+          "measure and improve the performance of our site. They help us to know " +
+          "which pages are the most and least popular and see how visitors move around " +
+          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
+          "If you do not allow these cookies we will not know when you have visited our site, " +
+          "and will not be able to monitor its performance.",
+      },
+      marketing: {
+        label: "Marketing Cookies",
+        description:
+          "These cookies may be set through our site by our advertising partners. " +
+          "They may be used by those companies to build a profile of your interests " +
+          "and show you relevant adverts on other sites. They do not store directly " +
+          "personal information, but are based on uniquely identifying your browser and " +
+          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+      },
+    },
     ccpaConfig: {
       description:
         "When you visit our website, we store cookies on your browser to collect information. The information collected might relate to you, your preferences or your device, and is mostly used to make the site work as you expect it to and to provide a more personalized web experience. However, you can choose not to allow certain types of cookies, which may impact your experience of the site and the services we are able to offer. Click on the different category headings to find out more and change our default settings according to your preference. You cannot opt-out of our First Party Strictly Necessary Cookies as they are deployed in order to ensure the proper functioning of our website (such as prompting the cookie banner and remembering your settings, to log into your account, to redirect you when you log out, etc.). For more information about the First and Third Party Cookies used please follow this link.",
