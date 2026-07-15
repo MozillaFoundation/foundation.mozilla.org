@@ -130,6 +130,7 @@ if (!COOKIE_CONTROL_API_KEY) {
         "_sp_var_233501",
         "_sp_var_233500",
         "_sp_var_227930",
+        "_sp_var_228230",
         "_sp_var_228231",
         "_sp_var_227732",
         "_sp_var_227728",
@@ -150,7 +151,7 @@ if (!COOKIE_CONTROL_API_KEY) {
       optionalCookies: [
         {
           name: "analytics",
-          label: "Analytics Cookies for mozillafoundation.org",
+          label: "Analytics Cookies",
           description:
             "These cookies allow us to count visits and traffic sources so we can " +
             "measure and improve the performance of our site. They help us to know " +
@@ -192,7 +193,7 @@ if (!COOKIE_CONTROL_API_KEY) {
         },
         {
           name: "marketing",
-          label: "Marketing Cookies for mozillafoundation.org",
+          label: "Marketing Cookies",
           description:
             "These cookies may be set through our site by our advertising partners. " +
             "They may be used by those companies to build a profile of your interests " +
