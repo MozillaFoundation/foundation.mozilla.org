@@ -52,21 +52,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -105,21 +96,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -157,21 +139,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -209,21 +182,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -261,21 +225,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -313,21 +268,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -366,21 +312,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
@@ -418,21 +355,12 @@ const LOCALE_TEXT = {
       analytics: {
         label: "Analytics Cookies",
         description:
-          "These cookies allow us to count visits and traffic sources so we can " +
-          "measure and improve the performance of our site. They help us to know " +
-          "which pages are the most and least popular and see how visitors move around " +
-          "the site. All information these cookies collect is aggregated and therefore anonymous. " +
-          "If you do not allow these cookies we will not know when you have visited our site, " +
-          "and will not be able to monitor its performance.",
+          "These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our site, and will not be able to monitor its performance.",
       },
       marketing: {
         label: "Marketing Cookies",
         description:
-          "These cookies may be set through our site by our advertising partners. " +
-          "They may be used by those companies to build a profile of your interests " +
-          "and show you relevant adverts on other sites. They do not store directly " +
-          "personal information, but are based on uniquely identifying your browser and " +
-          "internet device. If you do not allow these cookies, you will experience less targeted advertising.",
+          "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.",
       },
     },
     ccpaConfig: {
