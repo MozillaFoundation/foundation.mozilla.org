@@ -75,6 +75,7 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL` | `""` | Redirect after successful unsubscribe |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION` | `""` | Apple Pay domain key for Foundation |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST` | `""` | Apple Pay domain key for Mozfest |
+| `COOKIE_CONTROL_API_KEY` | `""` | Civic Cookie Control API key; banner is disabled when unset |
 
 ### Wagtail Localize (Git sync)
 
