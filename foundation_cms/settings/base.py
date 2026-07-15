@@ -428,7 +428,6 @@ TEMPLATES = [
                 "breadcrumb_nav": "foundation_cms.templatetags.breadcrumb_nav",
                 "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
-                "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
                 "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "url_query": "foundation_cms.templatetags.url_query",
                 "wagtailcustom_tags": (
