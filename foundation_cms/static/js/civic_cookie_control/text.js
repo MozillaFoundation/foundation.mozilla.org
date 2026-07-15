@@ -1,11 +1,6 @@
 // Localized text for Cookie Control v9 (Civic UK)
 // English is the default; other locales only need keys that differ.
 // CookieControl text keys: https://cookiecontrol.com/docs/v9/
-//
-// TODO: Revise accept/reject button labels across all locales once optional category names are confirmed.
-//       All accept/reject text was copied as-is from OneTrust, but OneTrust's English copy says
-//       "Accept/Reject Analytics Cookies" while its non-English copy says a generic "accept/reject all cookies" instead
-//         — the two were already out of sync in the source and need to be reconciled.
 
 const CCPA_CONFIG_SHARED = {
   url: "https://www.mozilla.org/privacy/websites/",
@@ -35,8 +30,8 @@ const LOCALE_TEXT = {
       notifyTitle: "Help Mozilla with Analytics",
       notifyDescription:
         "We use some essential cookies to make this website. We'd like to set additional cookies to understand how you use mozillafoundation.org. Your settings improve our services.",
-      accept: "Accept Analytics Cookies",
-      reject: "Reject Analytics Cookies",
+      accept: "Accept All",
+      reject: "Reject All",
       settings: "Consent Settings",
       // setting panel
       title: "Privacy Preference Center",
