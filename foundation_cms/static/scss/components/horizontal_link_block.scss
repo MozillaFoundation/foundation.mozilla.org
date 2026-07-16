@@ -117,6 +117,10 @@
       margin: -0.5rem 0;
       padding: 0.5rem 0;
     }
+
+    &__divider.divider--straight-line {
+      margin-inline: -1rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
