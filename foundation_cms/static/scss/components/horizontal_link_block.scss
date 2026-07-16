@@ -70,8 +70,9 @@
 
   &__divider.divider--straight-line {
     margin: 0;
+    background-image: url("/static/foundation_cms/_images/handdrawn/straight-line-divider-tight.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100%;
   }
 
   @include breakpoint(medium up) {
@@ -116,10 +117,6 @@
       min-width: 0;
       margin: -0.5rem 0;
       padding: 0.5rem 0;
-    }
-
-    &__divider.divider--straight-line {
-      margin-inline: -1rem;
     }
   }
 
