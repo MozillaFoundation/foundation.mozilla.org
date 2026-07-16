@@ -1,10 +1,12 @@
+@use "sass:map";
+
 .horizontal-link-block {
-  margin: 4rem 0;
+  margin: 3rem 0 2rem;
 
   &__list {
     list-style: none;
     margin: 0;
-    padding: 0 0 1rem;
+    padding: 0 0 2rem;
   }
 
   &__item {
@@ -17,7 +19,7 @@
   }
 
   &__link {
-    @include mofo-text-style($link-text-styles, "regular", $header-font-family);
+    @include mofo-text-style($link-text-styles, "regular", $body-font-family);
 
     display: inline-flex;
     align-items: center;
@@ -25,6 +27,8 @@
     max-width: 12rem;
     min-width: 0;
     color: $black;
+    font-weight: map.get($font-weights, bold);
+    line-height: 1.4;
     text-decoration: none;
     transition: transform 0.2s ease-out;
 
@@ -39,26 +43,20 @@
     transform: translateY(-0.25rem);
   }
 
-  &__item:hover &__label::after,
-  &__item:focus-within &__label::after {
-    width: 100%;
+  &__item:hover &__label,
+  &__item:focus-within &__label {
+    text-decoration-color: color(orange, "600");
   }
 
   &__label {
     min-width: 0;
-    position: relative;
     white-space: normal;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -0.15rem;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background-color: color(orange, "600");
-      transition: width 0.3s ease;
-    }
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.15rem;
+    transition: text-decoration-color 0.3s ease;
   }
 
   &__external-icon {
@@ -70,8 +68,10 @@
       center / contain no-repeat;
   }
 
-  &__divider {
+  &__divider.divider--straight-line {
     margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   @include breakpoint(medium up) {
@@ -81,7 +81,7 @@
       grid-auto-columns: minmax(0, 1fr);
       grid-template-rows: repeat(1, auto);
       column-gap: 2rem;
-      padding: 0.25rem 0.5rem 1rem 0.25rem;
+      padding: 0.25rem 0.5rem 2rem 0.25rem;
 
       &--items-3,
       &--items-4 {
@@ -100,13 +100,15 @@
   }
 
   @include breakpoint(xlarge up) {
+    margin-bottom: 1rem;
+
     &__list {
       display: flex;
       flex-flow: row nowrap;
-      align-items: center;
+      align-items: flex-start;
       gap: 4rem;
       grid-template-rows: none;
-      padding: 1.5rem;
+      padding: 1rem;
     }
 
     &__item {
