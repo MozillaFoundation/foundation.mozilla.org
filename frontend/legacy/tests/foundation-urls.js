@@ -30,6 +30,4 @@ module.exports = {
     "/research/library/fixed-title-research-detail-page",
   "Research hub author index page": "/research/authors",
   "Research hub author detail page": "/research/authors/percy-profile-1",
-  // Disabled Dear Internet for now as Percy been giving false positive visual diffs
-  // "Dear Internet": "/campaigns/dearinternet",
 };
