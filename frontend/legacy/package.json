@@ -86,7 +86,7 @@
     "bootstrap": "^4.6.0",
     "chart.js": "4.5.1",
     "classnames": "2.5.1",
-    "countup.js": "^2.10.0",
+    "countup.js": "^2.10.1",
     "cssnano": "^7.1.4",
     "esbuild": "^0.28.1",
     "gsap": "^3.15.0",
