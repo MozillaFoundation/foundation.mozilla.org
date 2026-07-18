@@ -17,7 +17,7 @@ async-timeout==4.0.2
     # via redis
 basket-client==1.0.0
     # via -r requirements.in
-beautifulsoup4==4.9.3
+beautifulsoup4==4.15.0
     # via
     #   -r requirements.in
     #   wagtail
@@ -90,7 +90,7 @@ django-filter==25.2
     #   wagtail
 django-htmx==1.23.0
     # via -r requirements.in
-django-modelcluster==6.2.1
+django-modelcluster==6.5
     # via wagtail
 django-pattern-library==1.5.0
     # via -r requirements.in
@@ -106,11 +106,11 @@ django-stubs-ext==5.2.8
     # via django-tasks
 django-taggit==6.1.0
     # via wagtail
-django-tasks==0.8.1
+django-tasks==0.12.0
     # via
     #   modelsearch
     #   wagtail
-django-treebeard==4.5.1
+django-treebeard==5.3.0
     # via wagtail
 djangorestframework==3.15.2
     # via
@@ -152,7 +152,7 @@ laces==0.1.2
     # via wagtail
 markdown==3.8.1
     # via django-pattern-library
-modelsearch==1.1.1
+modelsearch==1.3.1
     # via wagtail
 numpy==1.24.4
     # via
@@ -201,8 +201,6 @@ python-slugify==8.0.4
     # via -r requirements.in
 python3-openid==3.2.0
     # via social-auth-core
-pytz==2023.3.post1
-    # via django-modelcluster
 pyyaml==6.0.1
     # via django-pattern-library
 redis==4.5.4
@@ -252,6 +250,7 @@ tqdm==4.63.0
     # via wagtail-inventory
 typing-extensions==4.4.0
     # via
+    #   beautifulsoup4
     #   dj-database-url
     #   django-countries
     #   django-stubs-ext
@@ -267,7 +266,7 @@ urllib3==2.6.3
     #   sentry-sdk
 user-agents==2.2.0
     # via wagtail-ab-testing
-wagtail==7.2.3
+wagtail==7.4.2
     # via
     #   -r requirements.in
     #   wagtail-ab-testing
