@@ -2,7 +2,7 @@ basket-client
 beautifulsoup4
 boto3
 cached_property==2.0.1
-Django==5.2.15
+Django==5.2.16
 dj-database-url
 djangorestframework
 django-cors-headers
