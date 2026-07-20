@@ -42,13 +42,30 @@ class CloudflareAPI:
         r.raise_for_status()
         return r.json()
 
-    def get_records(self, *, zone):
-        r = requests.get(
-            f"{self.CLOUDFLARE_API_BASE}/zones/{CLOUDFLARE_ZONE_ID}/dns_records",
-            headers=self._build_headers(),
-        )
-        r.raise_for_status()
-        return r.json()
+    def get_records(self, *, zone, name_filter=None):
+        """Return the list of DNS records in the zone, following pagination.
+
+        Pass ``name_filter`` to fetch only records for a specific hostname
+        instead of the entire zone.
+        """
+        records = []
+        page = 1
+        while True:
+            params = {"page": page, "per_page": 100}
+            if name_filter:
+                params["name"] = name_filter
+            r = requests.get(
+                f"{self.CLOUDFLARE_API_BASE}zones/{zone}/dns_records",
+                headers=self._build_headers(),
+                params=params,
+            )
+            r.raise_for_status()
+            data = r.json()
+            records.extend(data["result"])
+            if page >= data["result_info"]["total_pages"]:
+                break
+            page += 1
+        return records
 
 
 class Command(BaseCommand):
@@ -96,21 +113,23 @@ class Command(BaseCommand):
         for hostname, target in mapping.items():
             cloudflare.create_record(zone=CLOUDFLARE_ZONE_ID, hostname=hostname, type="CNAME", content=target)
 
-    # @FIXME This doesn't seem to work.
     def remove_dns_records(self):
-        """Prepare records to be removed for each review app Site"""
+        """Remove the Cloudflare DNS records and Heroku domains for this review app."""
         app_name = os.environ.get("HEROKU_APP_NAME")
         heroku = heroku3.from_key(HEROKU_API_KEY)
         app = heroku.apps()[app_name]
-        heroku_domains = app.domains()
+        heroku_hostnames = {domain.hostname for domain in app.domains()}
 
         cloudflare = CloudflareAPI()
-        existing_records = cloudflare.get_records(zone=CLOUDFLARE_ZONE_ID)
-        existing_records_by_name = {record["name"]: record["id"] for record in existing_records}
+        for hostname in self.get_domain_site_mapping().values():
+            # Look up only the records for this hostname rather than the whole zone.
+            records = cloudflare.get_records(zone=CLOUDFLARE_ZONE_ID, name_filter=hostname)
+            for record in records:
+                cloudflare.delete_record(zone=CLOUDFLARE_ZONE_ID, record_id=record["id"])
 
-        for domain in heroku_domains:
-            record_id = existing_records_by_name.get(domain.hostname)
-            cloudflare.delete_record(zone=CLOUDFLARE_ZONE_ID, record_id=record_id)
+            # Drop the matching Heroku custom domain, if it still exists.
+            if hostname in heroku_hostnames:
+                app.remove_domain(hostname)
 
     def update_site_hostnames(self):
         """Find the relevant sites in Wagtail and update their hostnames to the new domains"""
