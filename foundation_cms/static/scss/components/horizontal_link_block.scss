@@ -1,0 +1,128 @@
+@use "sass:map";
+
+.horizontal-link-block {
+  margin: 3rem 0 2rem;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 2rem;
+  }
+
+  &__item {
+    break-inside: avoid;
+    margin: 0 0 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__link {
+    @include mofo-text-style($link-text-styles, "regular", $body-font-family);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 12rem;
+    min-width: 0;
+    color: $black;
+    font-weight: map.get($font-weights, bold);
+    line-height: 1.4;
+    text-decoration: none;
+    transition: transform 0.2s ease-out;
+
+    &--active {
+      color: color(orange, "600");
+    }
+  }
+
+  &__item:hover &__link,
+  &__item:focus-within &__link {
+    color: color(orange, "600");
+    transform: translateY(-0.25rem);
+  }
+
+  &__item:hover &__label,
+  &__item:focus-within &__label {
+    text-decoration-color: color(orange, "600");
+  }
+
+  &__label {
+    min-width: 0;
+    white-space: normal;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 0.15rem;
+    transition: text-decoration-color 0.3s ease;
+  }
+
+  &__external-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    background-color: currentcolor;
+    mask: url("/static/foundation_cms/_images/icons/link-external-black.svg")
+      center / contain no-repeat;
+  }
+
+  &__divider.divider--straight-line {
+    margin: 0;
+    background-image: url("/static/foundation_cms/_images/handdrawn/straight-line-divider-tight.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
+  @include breakpoint(medium up) {
+    &__list {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-template-rows: repeat(1, auto);
+      column-gap: 2rem;
+      padding: 0.25rem 0.5rem 2rem 0.25rem;
+
+      &--items-3,
+      &--items-4 {
+        grid-template-rows: repeat(2, auto);
+      }
+
+      &--items-5,
+      &--items-6 {
+        grid-template-rows: repeat(3, auto);
+      }
+
+      &--items-7 {
+        grid-template-rows: repeat(4, auto);
+      }
+    }
+  }
+
+  @include breakpoint(xlarge up) {
+    margin-bottom: 1rem;
+
+    &__list {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: flex-start;
+      gap: 4rem;
+      grid-template-rows: none;
+      padding: 1rem;
+    }
+
+    &__item {
+      flex: 0 1 auto;
+      min-width: 0;
+      margin: -0.5rem 0;
+      padding: 0.5rem 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__link {
+      transition: none;
+    }
+  }
+}
