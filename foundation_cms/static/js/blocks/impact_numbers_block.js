@@ -10,7 +10,10 @@ const SELECTORS = {
 const COUNT_UP_DURATION_MS = 1200;
 
 function parseStatNumber(value) {
-  const match = value.trim().match(/^([^0-9-]*)(-?\d[\d,]*(?:\.\d+)?)(.*)$/);
+  const whitespaceGroupSeparator = value.match(/\d(\s)(?=\d)/)?.[1];
+  const match = value
+    .trim()
+    .match(/^([^0-9-]*)(-?\d(?:[\d,]|\s(?=\d))*(?:\.\d+)?)(.*)$/);
 
   if (!match) {
     return null;
@@ -20,7 +23,7 @@ function parseStatNumber(value) {
   const decimalPlaces = numericValue.includes(".")
     ? numericValue.split(".")[1].length
     : 0;
-  const targetValue = Number(numericValue.replace(/,/g, ""));
+  const targetValue = Number(numericValue.replace(/[,\s]/g, ""));
 
   if (!Number.isFinite(targetValue)) {
     return null;
@@ -30,12 +33,26 @@ function parseStatNumber(value) {
     prefix,
     suffix,
     decimalPlaces,
+    groupSeparator: whitespaceGroupSeparator || ",",
     useGrouping: numericValue.includes(","),
     targetValue,
   };
 }
 
 function formatStatNumber(value, numberParts) {
+  if (numberParts.groupSeparator !== ",") {
+    const fixedValue = value.toFixed(numberParts.decimalPlaces);
+    const [integerPart, decimalPart] = fixedValue.split(".");
+    const groupedIntegerPart = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      numberParts.groupSeparator,
+    );
+
+    return `${numberParts.prefix}${groupedIntegerPart}${
+      decimalPart ? `.${decimalPart}` : ""
+    }${numberParts.suffix}`;
+  }
+
   const formatterOptions = {
     minimumFractionDigits: numberParts.decimalPlaces,
     maximumFractionDigits: numberParts.decimalPlaces,
