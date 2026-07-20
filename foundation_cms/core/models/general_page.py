@@ -16,6 +16,19 @@ from foundation_cms.mixins.hero_media import HeroMediaMixin
 
 class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
+    horizontal_link_block = models.ForeignKey(
+        "navigation.HorizontalLinkBlock",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Horizontal Link Block",
+        help_text=(
+            "Optional. Displays navigation links below the hero. "
+            "If not set, inherits from the nearest ancestor General Page."
+        ),
+    )
+
     show_hero = models.BooleanField(
         default=True,
         verbose_name="Show Hero Section",
@@ -115,6 +128,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
             heading="Hero Section",
             classname="collapsible",
         ),
+        FieldPanel("horizontal_link_block"),
         FieldPanel("body"),
     ]
 
@@ -131,6 +145,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         SynchronizedField("hero_video_url"),
         TranslatableField("hero_image_alt_text"),
         TranslatableField("hero_cta_link"),
+        SynchronizedField("horizontal_link_block"),
         TranslatableField("body"),
     ]
 
@@ -167,4 +182,34 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         # the necessary JS for the form.
         if any(block.block_type == "donor_help_contact_us_form" for block in self.body):
             context["has_donor_contact_us_form"] = True
+        context["horizontal_link_block"] = self.get_horizontal_link_block()
         return context
+
+    def get_horizontal_link_block(self):
+        """
+        Returns the HorizontalLinkBlock to display for this page.
+
+        Priority:
+        1. Own snippet (explicitly assigned).
+        2. Nearest ancestor GeneralPage that has one assigned.
+        3. None — not assigned.
+
+        Result is cached on the instance to avoid repeated queries.
+        """
+        if hasattr(self, "_resolved_horizontal_link_block"):
+            return self._resolved_horizontal_link_block
+
+        if self.horizontal_link_block_id:
+            self._resolved_horizontal_link_block = self.horizontal_link_block
+            return self._resolved_horizontal_link_block
+
+        ancestor = (
+            GeneralPage.objects.ancestor_of(self, inclusive=False)
+            .filter(horizontal_link_block__isnull=False)
+            .select_related("horizontal_link_block")
+            .order_by("-depth")
+            .first()
+        )
+
+        self._resolved_horizontal_link_block = ancestor.horizontal_link_block if ancestor else None
+        return self._resolved_horizontal_link_block
