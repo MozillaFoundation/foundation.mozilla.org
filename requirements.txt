@@ -166,11 +166,11 @@ openpyxl==3.1.0
     # via wagtail
 packaging==23.1
     # via gunicorn
-pillow==10.3.0
+pillow==12.3.0
     # via
     #   pillow-heif
     #   wagtail
-pillow-heif==0.14.0
+pillow-heif==1.3.0
     # via willow
 polib==1.1.1
     # via wagtail-localize
