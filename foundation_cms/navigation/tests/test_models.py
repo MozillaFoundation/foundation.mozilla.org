@@ -78,6 +78,40 @@ class NavigationMenuTests(test_base.WagtailpagesTestCase):
             stream_block.clean(python_payload)
 
 
+class HorizontalLinkBlockTests(test_base.WagtailpagesTestCase):
+    def test_default_factory_creates_three_ordered_links(self):
+        block = nav_factories.HorizontalLinkBlockFactory()
+
+        self.assertIsInstance(block, nav_models.HorizontalLinkBlock)
+        self.assertEqual(len(block.links), 3)
+        self.assertTrue(all(item.block_type == "link" for item in block.links))
+
+    def test_requires_at_least_one_link(self):
+        stream_block = nav_models.HorizontalLinkBlock.links.field.stream_block
+
+        with self.assertRaises(StreamBlockValidationError):
+            stream_block.clean([])
+
+    def test_cannot_contain_more_than_seven_links(self):
+        payload = [
+            {
+                "type": "link",
+                "value": {
+                    "label": f"Link {index}",
+                    "link_to": "relative_url",
+                    "page": None,
+                    "external_url": "",
+                    "relative_url": f"/link-{index}/",
+                },
+            }
+            for index in range(8)
+        ]
+        stream_block = nav_models.HorizontalLinkBlock.links.field.stream_block
+
+        with self.assertRaises(StreamBlockValidationError):
+            stream_block.clean(stream_block.to_python(payload))
+
+
 class SiteNavigationMenuSettingTests(test_base.WagtailpagesTestCase):
     def test_site_navigation_menu_setting_can_point_to_navigation_menu(self):
         """
