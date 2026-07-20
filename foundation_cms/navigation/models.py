@@ -79,6 +79,41 @@ class NavigationMenu(
         return f"{self.title} ({self.locale.language_code})"
 
 
+class HorizontalLinkBlock(
+    wagtail_models.DraftStateMixin,
+    wagtail_models.RevisionMixin,
+    wagtail_models.TranslatableMixin,
+):
+    title = models.CharField(max_length=100, help_text="For internal identification only")
+
+    links = StreamField(
+        [
+            ("link", nav_blocks.NavLink(label="Link")),
+        ],
+        use_json_field=True,
+        min_num=1,
+        max_num=7,
+        help_text="Add and reorder up to 7 links.",
+    )
+
+    panels = [
+        panels.FieldPanel("title"),
+        panels.FieldPanel("links"),
+    ]
+
+    translatable_fields = [
+        SynchronizedField("title"),
+        TranslatableField("links"),
+    ]
+
+    class Meta(wagtail_models.TranslatableMixin.Meta):
+        verbose_name = "Horizontal Link Block"
+        verbose_name_plural = "Horizontal Link Blocks"
+
+    def __str__(self) -> str:
+        return f"{self.title} ({self.locale.language_code})"
+
+
 @register_setting(icon="nav-menu")
 class SiteNavigationMenu(BaseSiteSetting):
     select_related = ["active_navigation_menu"]
