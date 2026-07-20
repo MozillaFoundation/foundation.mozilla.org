@@ -218,7 +218,9 @@ export function initSearchPageFilters() {
 
         if (count !== undefined) setApplyButtonLabel(drawerApply, count);
       } catch (err) {
-        if (err.name !== "AbortError") throw err;
+        if (err.name === "AbortError") return;
+
+        // Keep the last known count when the preview request is unavailable.
       }
     }, PREVIEW_DEBOUNCE_MS);
   }
@@ -234,7 +236,6 @@ export function initSearchPageFilters() {
     drawerOpen.setAttribute("aria-expanded", "true");
     setDrawerScrollLock(true);
     drawer.querySelector(SELECTORS.drawerClose)?.focus({ preventScroll: true });
-    updateDrawerPreview();
   }
 
   /**

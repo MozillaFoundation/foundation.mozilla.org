@@ -36,6 +36,7 @@ def search(request):
     page = request.GET.get("page", 1)
     total_search_results = 0
     current_locale = Locale.get_active()
+    # Drawer count previews are internal requests and should not be logged as submitted searches.
     is_preview_request = request.headers.get("X-Search-Preview") == "true"
     is_initial_search_submit = "page" not in request.GET and not is_preview_request
 
