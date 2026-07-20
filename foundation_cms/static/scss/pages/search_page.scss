@@ -4,6 +4,12 @@
 @import "../components/related_content";
 @import "../components/pagination";
 
+html.search-filter-drawer-open,
+body.search-filter-drawer-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 body.template-search-results {
   $highlight-color: color(orange, "300");
   $selected-topic-color: #f7ec50;
@@ -412,9 +418,12 @@ body.template-search-results {
 
   .search-filter-drawer {
     position: fixed;
-    inset: rem-calc(88) 0 0;
+    inset: rem-calc(88) 0 auto;
     z-index: 100;
-    background: rgb(255 255 255 / 85%);
+    height: calc(100vh - rem-calc(88));
+    height: calc(100dvh - rem-calc(88));
+    overflow: hidden;
+    background: $white;
 
     @include breakpoint(large up) {
       display: none;
@@ -423,31 +432,26 @@ body.template-search-results {
 
   .search-filter-drawer__panel {
     position: absolute;
-    inset: 0 0 auto;
+    inset: 0;
     display: flex;
     width: 100%;
-    max-height: 100%;
+    height: 100%;
+    max-height: none;
+    overflow: hidden;
     border: 1px solid color(orange, "300");
-    border-radius: rem-calc(8);
     background: $white;
-
-    @include breakpoint(medium up) {
-      inset: rem-calc(40) rem-calc(48);
-      width: auto;
-    }
   }
 
   .search-filter-drawer__form {
     display: flex;
     width: 100%;
+    height: 100%;
+    min-height: 0;
     flex-direction: column;
     overflow-y: auto;
-
-    @include breakpoint(medium up) {
-      flex: 1;
-      min-height: 0;
-      overflow-y: visible;
-    }
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
   }
 
   .search-filter-drawer__header {
@@ -482,12 +486,12 @@ body.template-search-results {
 
     span {
       display: block;
-      width: rem-calc(24);
-      height: rem-calc(24);
+      width: 100%;
+      height: 100%;
       background-image: url("/static/foundation_cms/_images/icons/x.svg");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: contain;
+      background-size: rem-calc(24) rem-calc(24);
     }
   }
 
@@ -499,16 +503,14 @@ body.template-search-results {
   }
 
   .search-filter-drawer__body {
+    flex: 0 0 auto;
     padding: 0 rem-calc(24);
 
     @include breakpoint(medium up) {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
       max-width: rem-calc(458);
       width: 100%;
       margin: 0 auto;
-      padding: rem-calc(24) 0;
+      padding: rem-calc(24) 0 0;
     }
 
     .search-filter-group + .search-filter-group {
@@ -517,15 +519,23 @@ body.template-search-results {
   }
 
   .search-filter-drawer__footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
     display: flex;
-    justify-content: center;
-    padding: rem-calc(24);
+    width: 100%;
+    max-width: rem-calc(506);
+    flex: 0 0 auto;
+    margin: 0 auto;
+    padding: rem-calc(48) rem-calc(24) rem-calc(24);
+    background: $white;
   }
 
   .search-filter-drawer__display {
     @include mofo-text-style($body-text-styles, "regular", $body-font-family);
 
-    min-width: rem-calc(216);
+    width: 100%;
+    min-width: 0;
     border: 0;
     padding: rem-calc(16) rem-calc(24);
     color: $white;
@@ -555,7 +565,7 @@ body.template-search-results {
 
     @include breakpoint(medium up) {
       display: flex;
-      align-items: stretch;
+      align-items: center;
       gap: rem-calc(32);
     }
 
@@ -563,9 +573,11 @@ body.template-search-results {
       display: none;
 
       @include breakpoint(medium up) {
-        display: flex;
-        flex: 0 0 rem-calc(200);
-        width: rem-calc(200);
+        display: block;
+        width: rem-calc(219.3);
+        height: rem-calc(146.2);
+        flex: 0 0 rem-calc(219.3);
+        aspect-ratio: 3 / 2;
       }
     }
 
@@ -605,6 +617,8 @@ body.template-search-results {
     }
 
     &__meta {
+      width: 100%;
+      min-width: 0;
       margin: 0;
     }
 
@@ -617,15 +631,24 @@ body.template-search-results {
       margin: 0 0 rem-calc(8);
 
       @include breakpoint(medium up) {
+        flex-wrap: nowrap;
         margin-bottom: rem-calc(8);
+      }
+
+      > li {
+        min-width: 0;
       }
 
       .btn-topic {
         padding: rem-calc(5) rem-calc(8);
 
         @include breakpoint(medium up) {
+          display: block;
+          overflow: hidden;
           padding-right: rem-calc(16);
           padding-left: rem-calc(16);
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         &:focus-visible {
@@ -642,14 +665,18 @@ body.template-search-results {
       color: $black;
     }
 
+    &__tag-overflow-item {
+      flex: 0 0 auto;
+    }
+
     &__title {
-      @include mofo-text-style($header-styles, "h5", $header-font-family);
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
       @include text-line-clamp(4);
 
       margin: 0 0 rem-calc(8);
 
       @include breakpoint(medium up) {
-        @include text-line-clamp(2);
+        @include text-line-clamp(1);
       }
 
       > a {

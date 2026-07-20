@@ -5,6 +5,11 @@
  */
 
 const PREVIEW_DEBOUNCE_MS = 200;
+const LARGE_VIEWPORT_QUERY = "(min-width: 64em)";
+
+const CLASSNAMES = {
+  drawerOpen: "search-filter-drawer-open",
+};
 
 const SELECTORS = {
   root: "[data-search-results-page]",
@@ -158,9 +163,29 @@ export function initSearchPageFilters() {
   const drawerOpen = root.querySelector(SELECTORS.drawerOpen);
   const drawerForm = drawer?.querySelector(SELECTORS.form);
   const drawerApply = drawer?.querySelector(SELECTORS.drawerApply);
+  const largeViewport = window.matchMedia(LARGE_VIEWPORT_QUERY);
   let lastFocusedElement = null;
   let previewTimer = null;
   let previewAbortController = null;
+
+  // The transformed page-transition wrapper creates a containing block for
+  // fixed descendants in WebKit, so place the modal directly under the body.
+  if (drawer) document.body.append(drawer);
+
+  /**
+   * Locks document scrolling while the full-page filter drawer is open.
+   * Class-based overflow containment avoids offsetting nested fixed elements
+   * by the current scroll position in iOS Safari.
+   *
+   * @param {boolean} isLocked
+   */
+  function setDrawerScrollLock(isLocked) {
+    const rootElement = document.documentElement;
+    const body = document.body;
+
+    rootElement.classList.toggle(CLASSNAMES.drawerOpen, isLocked);
+    body.classList.toggle(CLASSNAMES.drawerOpen, isLocked);
+  }
 
   /**
    * Fetches the filtered search page and reads its total count for the drawer
@@ -207,6 +232,7 @@ export function initSearchPageFilters() {
     lastFocusedElement = document.activeElement;
     drawer.hidden = false;
     drawerOpen.setAttribute("aria-expanded", "true");
+    setDrawerScrollLock(true);
     drawer.querySelector(SELECTORS.drawerClose)?.focus({ preventScroll: true });
     updateDrawerPreview();
   }
@@ -219,8 +245,12 @@ export function initSearchPageFilters() {
 
     drawer.hidden = true;
     drawerOpen.setAttribute("aria-expanded", "false");
+    setDrawerScrollLock(false);
 
-    if (lastFocusedElement instanceof HTMLElement) {
+    if (
+      lastFocusedElement instanceof HTMLElement &&
+      lastFocusedElement.getClientRects().length > 0
+    ) {
       lastFocusedElement.focus({ preventScroll: true });
     }
   }
@@ -268,6 +298,10 @@ export function initSearchPageFilters() {
   });
 
   drawerOpen?.addEventListener("click", openDrawer);
+
+  largeViewport.addEventListener("change", (event) => {
+    if (event.matches && drawer && !drawer.hidden) closeDrawer();
+  });
 
   drawer?.querySelectorAll(SELECTORS.drawerClose).forEach((button) => {
     button.addEventListener("click", closeDrawer);

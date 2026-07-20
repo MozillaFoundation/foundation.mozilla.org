@@ -16,7 +16,7 @@
         <div class="page-card__media-wrapper">
           <a href="{% pageurl result %}" class="page-card__image-wrapper">
             {% if result.search_image %}
-              {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 200px" %}
+              {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 220px" %}
             {% else %}
               <img
                 src="{% cycle listing_page_fallback_1 listing_page_fallback_2 listing_page_fallback_3 listing_page_fallback_4 listing_page_fallback_5 listing_page_fallback_6 %}"
@@ -38,7 +38,7 @@
                     </li>
                   {% endfor %}
                   {% if topic_relations|length > 3 %}
-                    <li>
+                    <li class="page-card__tag-overflow-item">
                       <span class="page-card__tag-overflow">
                         +{{ topic_relations|length|add:"-3" }}
                       </span>
