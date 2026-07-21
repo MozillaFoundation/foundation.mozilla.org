@@ -13,44 +13,7 @@
         </div>
 
         {% if search_topic_links or search_quick_links %}
-          <div class="search-input-container__suggestions">
-            {% if search_topic_links %}
-              <div class="search-input-container__topics">
-                <p class="search-input-container__heading">{% trans "Explore our ideas" %}</p>
-                <ul class="search-input-container__topic-list">
-                  {% for link in search_topic_links|slice:":5" %}
-                    {% with topic_link=link.value %}
-                      <li>
-                        <a class="search-input-container__topic-link"
-                           href="{{ topic_link.url }}">
-                          {{ topic_link.label }}
-                        </a>
-                      </li>
-                    {% endwith %}
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
-
-            {% if search_quick_links %}
-              <div class="search-input-container__quick-links">
-                <p class="search-input-container__heading">{% trans "Quick Links" %}</p>
-                <ul class="search-input-container__quick-link-list">
-                  {% for link in search_quick_links %}
-                    {% with quick_link=link.value %}
-                      <li>
-                        <a class="search-input-container__quick-link"
-                           href="{{ quick_link.url }}"
-                           {% if quick_link.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                          {{ quick_link.label }}
-                        </a>
-                      </li>
-                    {% endwith %}
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
-          </div>
+          {% include "search/_search_suggestions.html" %}
         {% endif %}
       </div>
     </div>

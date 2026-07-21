@@ -1,7 +1,6 @@
 @use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
-@import "../components/related_content";
 @import "../components/pagination";
 
 html.search-filter-drawer-open,
@@ -17,6 +16,57 @@ body.template-search-results {
   $control-border-color: color(neutral, "400");
   $sort-accent-color: color(orange, "300");
   $sort-active-color: color(orange, "600");
+
+  .search-zero-results {
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(32);
+    padding-top: rem-calc(32);
+    padding-bottom: rem-calc(32);
+
+    @include breakpoint(large up) {
+      gap: rem-calc(64);
+      padding-top: rem-calc(64);
+      padding-bottom: rem-calc(64);
+    }
+
+    &__title {
+      margin: 0;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    &__form-row {
+      display: flex;
+      align-items: stretch;
+      gap: rem-calc(8);
+
+      @include breakpoint(large up) {
+        gap: rem-calc(16);
+      }
+    }
+
+    &__submit-button {
+      flex: 0 0 rem-calc(52);
+      min-width: rem-calc(52);
+      justify-content: center;
+
+      @include breakpoint(medium up) {
+        flex-basis: auto;
+        min-width: rem-calc(124);
+      }
+    }
+
+    &__suggestions {
+      display: flex;
+      flex-direction: column;
+      gap: rem-calc(32);
+    }
+
+    &__message {
+      margin: 0;
+    }
+  }
 
   .search-summary {
     text-align: center;
@@ -714,30 +764,6 @@ body.template-search-results {
       @include breakpoint(medium up) {
         margin: rem-calc(8) 0 0;
       }
-    }
-  }
-
-  .search-no-results-topics {
-    margin: rem-calc(32) 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-
-    @include breakpoint(medium up) {
-      margin: rem-calc(64) 0;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
-
-  .related-content-wrapper {
-    margin-bottom: 2rem;
-
-    @include breakpoint(medium up) {
-      margin-bottom: 4rem;
     }
   }
 }

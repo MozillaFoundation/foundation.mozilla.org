@@ -3,6 +3,7 @@
     {% if tag == "button" %}
       <button
         type="{{ button_type|default:'button' }}"
+        {% if aria_label %}aria-label="{{ aria_label }}"{% endif %}
         {% if name %}name="{{ name }}"{% endif %}
         {% if button_value %}value="{{ button_value }}"{% endif %}
         {% if disabled %}disabled{% endif %}
