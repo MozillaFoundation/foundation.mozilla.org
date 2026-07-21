@@ -1,5 +1,6 @@
 import wagtail_factories
 from django.test import TestCase
+from django.utils import translation
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
 from wagtail.models import Locale, Page
 
@@ -158,6 +159,7 @@ class TestNavDropdownFactory(TestCase):
 
 
 class TestSearchTopicLinkFactory(TestCase):
+    @translation.override("en")
     def test_default_factory_is_valid(self):
         """Default SearchTopicLinkFactory should create a valid topic pill."""
         block = nav_factories.SearchTopicLinkFactory(label="privacy", query="personal data")
@@ -186,6 +188,7 @@ class TestNavigationMenuFactory(TestCase):
         # Locale should default correctly
         self.assertEqual(menu.locale, Locale.get_default())
 
+    @translation.override("en")
     def test_factory_seeds_default_search_drawer_suggestions(self):
         """NavigationMenuFactory should seed default search drawer suggestions."""
         menu = nav_factories.NavigationMenuFactory()
