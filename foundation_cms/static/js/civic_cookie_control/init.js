@@ -204,6 +204,9 @@ if (!COOKIE_CONTROL_API_KEY) {
         "en",
       ),
       necessaryCookies: [
+        // Django csrftoken/sessionid cookies — required for logged-in editing
+        "csrftoken",
+        "sessionid",
         "OptanonConsent",
         "OptanonAlertBoxClosed",
         "OptanonControl",
