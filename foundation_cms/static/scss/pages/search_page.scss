@@ -438,7 +438,6 @@ body.template-search-results {
     height: 100%;
     max-height: none;
     overflow: hidden;
-    border: 1px solid color(orange, "300");
     background: $white;
   }
 
@@ -460,6 +459,11 @@ body.template-search-results {
     align-items: center;
     gap: rem-calc(16);
     padding: rem-calc(16);
+
+    @include breakpoint(medium up) {
+      padding-right: calc(map.get($grid-container-padding, medium) / 2);
+      padding-left: calc(map.get($grid-container-padding, medium) / 2);
+    }
   }
 
   .search-filter-drawer__reset,
@@ -504,13 +508,13 @@ body.template-search-results {
 
   .search-filter-drawer__body {
     flex: 0 0 auto;
-    padding: 0 rem-calc(24);
+    padding: 0 rem-calc(24) rem-calc(24);
 
     @include breakpoint(medium up) {
       max-width: rem-calc(458);
       width: 100%;
       margin: 0 auto;
-      padding: rem-calc(24) 0 0;
+      padding: rem-calc(24) 0;
     }
 
     .search-filter-group + .search-filter-group {
@@ -527,7 +531,7 @@ body.template-search-results {
     max-width: rem-calc(506);
     flex: 0 0 auto;
     margin: 0 auto;
-    padding: rem-calc(48) rem-calc(24) rem-calc(24);
+    padding: rem-calc(24);
     background: $white;
   }
 
