@@ -32,6 +32,7 @@ def search(request):
     content_type = normalize_content_type(request.GET.get("content_type", "all"))
     sort = normalize_sort(request.GET.get("sort", "relevance"))
     selected_topic = normalize_topic(request.GET.get("topic"))
+    active_filter_count = int(content_type != "all") + int(bool(selected_topic))
     related_topics = []
     page = request.GET.get("page", 1)
     total_search_results = 0
@@ -185,6 +186,7 @@ def search(request):
             "sort": sort,
             "content_type": content_type,
             "selected_topic": selected_topic,
+            "active_filter_count": active_filter_count,
             "related_topics": related_topics,
             "autocomplete_min_chars": settings.SEARCH_AUTOCOMPLETE_MIN_CHARS,
         },

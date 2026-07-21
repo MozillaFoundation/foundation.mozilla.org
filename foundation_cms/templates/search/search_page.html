@@ -120,7 +120,13 @@
                                     aria-expanded="false"
                                     aria-controls="search-results-filter-drawer"
                                     data-search-drawer-open>
-                                {% trans "Filter & Sort" %}
+                                {% if active_filter_count %}
+                                    {% blocktrans trimmed with filter_count=active_filter_count %}
+                                        Filter & Sort ({{ filter_count }})
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% trans "Filter & Sort" %}
+                                {% endif %}
                             </button>
 
                             <form action="{% url 'search' %}"

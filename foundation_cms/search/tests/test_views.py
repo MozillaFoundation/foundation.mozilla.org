@@ -104,3 +104,28 @@ class SearchLoggingTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Page 1 of 1")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_filter_toggle_shows_applied_filter_count(self, mock_get_search_backend):
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        cases = (
+            ({"query": "Page"}, 0),
+            ({"query": "Page", "content_type": "research"}, 1),
+            ({"query": "Page", "topic": "privacy"}, 1),
+            ({"query": "Page", "content_type": "research", "topic": "privacy"}, 2),
+            ({"query": "Page", "sort": "newest"}, 0),
+        )
+
+        for params, expected_count in cases:
+            with self.subTest(params=params):
+                response = self.client.get("/en/search/", params)
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.context["active_filter_count"], expected_count)
+                if expected_count:
+                    self.assertContains(response, f"Filter & Sort ({expected_count})")
+                else:
+                    self.assertNotContains(response, "Filter & Sort (")
