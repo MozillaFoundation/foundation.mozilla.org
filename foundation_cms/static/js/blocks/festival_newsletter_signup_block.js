@@ -159,9 +159,7 @@ function initializeFestivalNewsletterSignup(container, index) {
   const privacyCheckbox = form.querySelector(SELECTORS.privacyCheckbox);
   const expandedContent = form.querySelectorAll(SELECTORS.expandedContent);
   const emailErrorMessage = form.querySelector(SELECTORS.emailErrorMessage);
-  const privacyErrorMessage = form.querySelector(
-    SELECTORS.privacyErrorMessage,
-  );
+  const privacyErrorMessage = form.querySelector(SELECTORS.privacyErrorMessage);
   const errorMessage = container.querySelector(SELECTORS.errorMessage);
   const successMessage = container.querySelector(SELECTORS.successMessage);
   const submitButton = form.querySelector(SELECTORS.submitButton);
