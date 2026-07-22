@@ -7,7 +7,7 @@ const SELECTORS = {
   countUpValue: "[data-impact-stat-count-up]",
 };
 
-const COUNT_UP_DURATION_MS = 1200;
+const COUNT_UP_DURATION_MS = 2000;
 
 function parseStatNumber(value) {
   const whitespaceGroupSeparator = value.match(/\d(\s)(?=\d)/)?.[1];
