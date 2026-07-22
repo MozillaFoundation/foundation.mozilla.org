@@ -19,6 +19,8 @@ from foundation_cms.snippets.models.newsletter_signup import NewsletterSignup
 
 logger = logging.getLogger(__name__)
 
+FESTIVAL_NEWSLETTER_SLUG = "mozillafestivalorg"
+
 
 class EnvVariablesView(View):
     """
@@ -105,11 +107,28 @@ def newsletter_signup_submission_view(request, pk):
         # the default newsletter to sign up for.
         signup = NewsletterSignup()
 
-    return newsletter_signup_submission(request, signup)
+    return newsletter_signup_submission(request, signup.newsletter)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def festival_newsletter_signup_submission_view(request):
+    new_body = request.body.decode("utf-8")
+    try:
+        request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse(
+            {
+                "error": "Could not validate incoming data",
+            },
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+    return newsletter_signup_submission(request, FESTIVAL_NEWSLETTER_SLUG)
 
 
 # handle newsletter signup data
-def newsletter_signup_submission(request, signup):
+def newsletter_signup_submission(request, newsletter):
     rq = request.data
 
     # payload validation
@@ -127,7 +146,7 @@ def newsletter_signup_submission(request, signup):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    newsletter = signup.newsletter.strip().lower()
+    newsletter = newsletter.strip().lower()
 
     # rewrite payload
     data = {

@@ -7,6 +7,7 @@ from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
+from .festival_newsletter_signup_block import FestivalNewsletterSignupBlock
 from .fru_element_block import FruElementBlock
 from .icon_info_grid_block import IconInfoGridBlock
 from .iframe_block import iFrameBlock
@@ -122,6 +123,10 @@ class BlockRegistry:
         },
         "donor_help_contact_us_form": {
             "class": DonorHelpContactUsFormBlock,
+            "group": BlockGroups.ENGAGEMENT,
+        },
+        "festival_newsletter_signup": {
+            "class": FestivalNewsletterSignupBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         "newsletter_signup": {

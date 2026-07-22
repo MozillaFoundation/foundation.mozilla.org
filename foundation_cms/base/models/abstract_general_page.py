@@ -13,6 +13,7 @@ GENERAL_PAGE_BLOCK_NAMES = sorted(
     + [
         "custom_media",
         "donor_help_contact_us_form",
+        "festival_newsletter_signup",
         "image_carousel_block",
     ]
 )

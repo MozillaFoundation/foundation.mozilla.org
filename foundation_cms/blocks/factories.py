@@ -3,6 +3,9 @@ import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
+from foundation_cms.blocks.festival_newsletter_signup_block import (
+    FestivalNewsletterSignupBlock,
+)
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
@@ -84,6 +87,14 @@ class NewsletterSignupBlockFactory(wagtail_factories.StructBlockFactory):
         model = NewsletterSignupBlock
 
     newsletter_signup = factory.LazyFunction(lambda: NewsletterSignupFactory().id)
+
+
+class FestivalNewsletterSignupBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = FestivalNewsletterSignupBlock
+
+    heading = factory.Faker("sentence", nb_words=8)
+    illustration = factory.LazyFunction(lambda: ImageFactory().id)
 
 
 class PillarCardBlockFactory(wagtail_factories.StructBlockFactory):
