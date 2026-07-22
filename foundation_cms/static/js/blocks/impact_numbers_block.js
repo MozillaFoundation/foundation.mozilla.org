@@ -9,6 +9,13 @@ const SELECTORS = {
 
 const COUNT_UP_DURATION_MS = 2000;
 
+/**
+ * Parse a CMS stat value into pieces that can be animated numerically while
+ * preserving display text such as prefixes, suffixes, and group separators.
+ *
+ * @param {string} value - The raw stat value, such as "+ de 2 000" or "$10M".
+ * @returns {{ prefix: string, suffix: string, decimalPlaces: number, groupSeparator: string, useGrouping: boolean, targetValue: number } | null}
+ */
 function parseStatNumber(value) {
   const whitespaceGroupSeparator = value.match(/\d(\s)(?=\d)/)?.[1];
   const match = value
@@ -39,6 +46,13 @@ function parseStatNumber(value) {
   };
 }
 
+/**
+ * Format an animated numeric value back into the original CMS stat shape.
+ *
+ * @param {number} value - The current animated numeric value.
+ * @param {{ prefix: string, suffix: string, decimalPlaces: number, groupSeparator: string, useGrouping: boolean }} numberParts - Parsed stat display metadata.
+ * @returns {string}
+ */
 function formatStatNumber(value, numberParts) {
   if (numberParts.groupSeparator !== ",") {
     const fixedValue = value.toFixed(numberParts.decimalPlaces);
@@ -65,10 +79,23 @@ function formatStatNumber(value, numberParts) {
   )}${numberParts.suffix}`;
 }
 
+/**
+ * Ease animation progress so the count-up slows as it reaches the target value.
+ *
+ * @param {number} progress - Linear animation progress from 0 to 1.
+ * @returns {number}
+ */
 function easeOutCubic(progress) {
   return 1 - (1 - progress) ** 3;
 }
 
+/**
+ * Animate a stat element from zero to its parsed target value.
+ *
+ * @param {HTMLElement} valueElement - Element containing the visible stat value.
+ * @param {{ prefix: string, suffix: string, decimalPlaces: number, groupSeparator: string, useGrouping: boolean, targetValue: number }} numberParts - Parsed stat display metadata.
+ * @returns {void}
+ */
 function animateCountUp(valueElement, numberParts) {
   const startTime = window.performance.now();
 
@@ -102,6 +129,11 @@ function animateCountUp(valueElement, numberParts) {
   window.requestAnimationFrame(updateValue);
 }
 
+/**
+ * Initialize count-up animations for Impact Number stats when they enter view.
+ *
+ * @returns {void}
+ */
 export function initImpactNumberStatAnimationsOnScroll() {
   const impactStatNumberContainers = document.querySelectorAll(
     SELECTORS.statContainer,
