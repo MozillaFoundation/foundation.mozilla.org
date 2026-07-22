@@ -4803,10 +4803,10 @@ svgo@^4.0.1:
     picocolors "^1.1.1"
     sax "^1.5.0"
 
-swiper@^12.2.0:
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.2.0.tgz#f6daa886465abd1bbc42be2f2ce1827cd03c91ea"
-  integrity sha512-K8uXsBZU6ME97Ia3xbBge8IRCnR1lOmIILzvY/jGVic7dSTQ530s3uO8RvXbPUtkkXLWIwmZLRPbtDxRWVAFdg==
+swiper@^14.0.6:
+  version "14.0.6"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-14.0.6.tgz#41e4498d74a0d11dc93b4d74f25dc6214ba012e5"
+  integrity sha512-ArptjmcZMBvpLCbvzSKuqvQpjjITCbZdymiGOrbZQffQ3ZSjgpvMByXX0WZBUt+FV4PPIumdYfZ9ZdBbFsdH6g==
 
 synckit@^0.11.13:
   version "0.11.13"
