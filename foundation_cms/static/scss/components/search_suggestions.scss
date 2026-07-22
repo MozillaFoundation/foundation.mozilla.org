@@ -33,16 +33,11 @@
     align-items: center;
     gap: rem-calc(8);
     min-height: rem-calc(32);
-    padding: rem-calc(4) rem-calc(8);
+    padding: rem-calc(4) rem-calc(16);
     border: 1px solid color(neutral, "300");
     border-radius: rem-calc(999);
     color: $black;
     text-decoration: none;
-
-    @include breakpoint(medium up) {
-      padding-right: rem-calc(16);
-      padding-left: rem-calc(16);
-    }
 
     &::before {
       content: "";
