@@ -95,10 +95,10 @@ console.log(`Making sure no docker containers are running...`);
 stopContainers();
 
 console.log(`Starting postgres docker image...`);
-run(`docker-compose up -d postgres`, true, silent);
+run(`docker compose up -d postgres`, true, silent);
 
 console.log(`Starting backend docker image...`);
-run(`docker-compose up -d backend`, true, silent);
+run(`docker compose up -d backend`, true, silent);
 
 console.log(`Getting running image names...`);
 const IMAGE_NAMES = getContainerNames();
@@ -137,7 +137,7 @@ run(
 );
 
 console.log(`Stopping docker images...`);
-run(`docker-compose down`, true, silent);
+run(`docker compose down`, true, silent);
 
 if (deleteDatabase) {
   console.log(`Running cleanup`);
