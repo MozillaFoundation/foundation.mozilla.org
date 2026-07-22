@@ -1,5 +1,6 @@
 import { LANGUAGE_OPTIONS } from "./data/language-options.js";
 import { COUNTRY_OPTIONS } from "./data/country-options.js";
+import { ensureCsrfToken } from "../../utils/csrf.js";
 
 /**
  * CSS selectors used to locate key DOM elements in the newsletter signup component.
@@ -50,9 +51,11 @@ async function submitDataToApi(signupUrl, formData) {
   try {
     const res = await fetch(signupUrl, {
       method: "POST",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
         "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": await ensureCsrfToken(),
       },
       body: JSON.stringify(payload),
     });

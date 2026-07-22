@@ -8,7 +8,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods
 from rest_framework import status
 from wagtail.models import Site
@@ -79,7 +78,6 @@ def process_lang_code(lang):
     return lang
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def newsletter_signup_submission_view(request, pk):
     # We need to re-write the data that's coming in from the network request.
@@ -184,7 +182,6 @@ def subscribe_to_camo_newsletter(data):
     return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def newsletter_unsubscribe_view(request):
     new_body = request.body.decode("utf-8")
