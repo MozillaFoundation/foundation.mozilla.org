@@ -154,6 +154,8 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
     ]
 
     search_fields = Page.search_fields + [
+        index.AutocompleteField("title", boost=10),
+        index.AutocompleteField("seo_title", boost=10),
         index.SearchField("title", boost=10),
         index.SearchField("seo_title", boost=10),
         index.SearchField("search_description", boost=10),
