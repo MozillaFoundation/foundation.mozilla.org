@@ -92,6 +92,22 @@ class SearchLoggingTestCase(TestCase):
         mock_add_hit.assert_not_called()
 
     @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_no_logging_on_applied_filters_or_sort(self, mock_add_hit):
+        cases = (
+            {"query": "Page", "content_type": "research", "sort": "relevance"},
+            {"query": "Page", "content_type": "all", "topic": "privacy", "sort": "relevance"},
+            {"query": "Page", "content_type": "all", "sort": "newest"},
+        )
+
+        for params in cases:
+            with self.subTest(params=params):
+                response = self.client.get("/en/search/", params)
+                self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(SearchEvent.objects.count(), 0)
+        mock_add_hit.assert_not_called()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
     def test_empty_query_renders_search_form_without_result_controls(self, mock_add_hit):
         for params in ({}, {"query": "   "}):
             with self.subTest(params=params):
@@ -161,3 +177,37 @@ class SearchLoggingTestCase(TestCase):
                     self.assertContains(response, f"Filter & Sort ({expected_count})")
                 else:
                     self.assertNotContains(response, "Filter & Sort (")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_content_filter_uses_section_root_from_current_site(self, mock_get_search_backend):
+        site = Site.objects.get(is_default_site=True)
+        local_root = self.root_page.add_child(instance=Page(title="Local Site", slug="local-search-site"))
+        site.root_page = local_root
+        site.save(update_fields=["root_page"])
+
+        local_section = local_root.add_child(instance=Page(title="Local Research", slug="research"))
+        local_result = local_section.add_child(
+            instance=Page(title="Local Research Result", slug="local-research-result")
+        )
+
+        foreign_section = self.root_page.add_child(instance=Page(title="Foreign Research", slug="research"))
+        foreign_result = foreign_section.add_child(
+            instance=Page(title="Foreign Research Result", slug="foreign-research-result")
+        )
+        Site.objects.create(hostname="foreign-search.test", root_page=foreign_section)
+
+        search_backend = Mock()
+        search_backend.search.return_value = [local_result, foreign_result]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get(
+            "/en/search/",
+            {"query": "Research Result", "content_type": "research"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["total_search_results"], 1)
+        self.assertEqual(
+            [page.pk for page in response.context["search_results"].object_list],
+            [local_result.pk],
+        )

@@ -2,9 +2,10 @@ from io import StringIO
 
 from django.core.management import call_command
 from django.test import TestCase
-from wagtail.models import Page
+from wagtail.models import Page, Site
 
 from foundation_cms.core.models import GeneralPage
+from foundation_cms.search.management.commands.load_search_test_data import Command
 
 TEST_KEYWORD = "SEARCH_COMMAND_TEST"
 
@@ -56,7 +57,10 @@ class LoadSearchTestDataTests(TestCase):
 
     def test_delete_removes_only_generated_pages(self):
         retained_page = Page.get_first_root_node().add_child(
-            instance=Page(title="Retained Page", slug="retained-page")
+            instance=Page(
+                title=f"{TEST_KEYWORD} Editorial Page",
+                slug=f"{TEST_KEYWORD.lower()}-editorial-page",
+            )
         )
         self.run_command(count=4)
 
@@ -65,3 +69,28 @@ class LoadSearchTestDataTests(TestCase):
         self.assertFalse(self.generated_pages().exists())
         self.assertTrue(Page.objects.filter(pk=retained_page.pk).exists())
         self.assertIn("Deleted 4 generated search test pages", output)
+
+    def test_section_root_lookup_stays_within_default_site(self):
+        universal_root = Page.get_first_root_node()
+        default_site = Site.objects.get(is_default_site=True)
+        default_root = universal_root.add_child(
+            instance=Page(title="Search Command Default Site", slug="search-command-default-site")
+        )
+        default_site.root_page = default_root
+        default_site.save(update_fields=["root_page"])
+
+        foreign_root = universal_root.add_child(
+            instance=Page(title="Search Command Foreign Site", slug="search-command-foreign-site")
+        )
+        foreign_section = foreign_root.add_child(instance=Page(title="QA Section", slug="search-command-section"))
+        Site.objects.create(hostname="search-command-foreign.test", root_page=foreign_root)
+
+        section_root = Command()._get_or_create_section_root(
+            default_site,
+            default_root.locale,
+            foreign_section.slug,
+            foreign_section.title,
+        )
+
+        self.assertNotEqual(section_root.pk, foreign_section.pk)
+        self.assertEqual(section_root.get_parent().pk, default_root.pk)

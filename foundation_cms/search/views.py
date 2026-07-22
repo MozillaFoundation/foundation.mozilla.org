@@ -4,7 +4,7 @@ from django.db.models import Count, Prefetch, prefetch_related_objects
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from wagtail.contrib.search_promotions.models import Query
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, Site
 from wagtail.search.query import PlainText
 
 from foundation_cms.base.models.abstract_base_page import PageTopic
@@ -37,9 +37,11 @@ def search(request):
     page = request.GET.get("page", 1)
     total_search_results = 0
     current_locale = Locale.get_active()
+    current_site = Site.find_for_request(request)
     # Drawer count previews are internal requests and should not be logged as submitted searches.
     is_preview_request = request.headers.get("X-Search-Preview") == "true"
-    is_initial_search_submit = "page" not in request.GET and not is_preview_request
+    result_state_params = {"page", "content_type", "topic", "sort"}
+    is_initial_search_submit = not result_state_params.intersection(request.GET) and not is_preview_request
 
     # Search
     if search_query:
@@ -58,12 +60,15 @@ def search(request):
         # Optional section filter by content_type slug
         section_slug = SECTION_SLUGS[content_type]
         if section_slug and result_ids:
-            section_root = (
-                Page.objects.live()
-                .filter(locale=current_locale, slug=section_slug)
-                .order_by("depth", "path", "id")
-                .first()
-            )
+            section_root = None
+            if current_site:
+                section_root = (
+                    Page.objects.live()
+                    .descendant_of(current_site.root_page, inclusive=False)
+                    .filter(locale=current_locale, slug=section_slug)
+                    .order_by("depth", "path", "id")
+                    .first()
+                )
 
             if section_root:
                 section_ids = set(

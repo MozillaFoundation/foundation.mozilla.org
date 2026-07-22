@@ -69,15 +69,21 @@ class Command(BaseCommand):
         return site, locale
 
     def _get_or_create_section_root(self, site, locale, slug, title):
-        section_root = Page.objects.live().filter(locale=locale, slug=slug).order_by("depth", "path", "id").first()
-        if section_root:
-            return section_root
-
-        section_root = site.root_page.get_children().filter(slug=slug).first()
+        section_root = site.root_page.get_children().filter(locale=locale, slug=slug).first()
         if section_root:
             if not section_root.live:
                 section_root.save_revision().publish()
             return Page.objects.get(pk=section_root.pk)
+
+        section_root = (
+            Page.objects.live()
+            .descendant_of(site.root_page, inclusive=False)
+            .filter(locale=locale, slug=slug)
+            .order_by("depth", "path", "id")
+            .first()
+        )
+        if section_root:
+            return section_root
 
         section_root = Page(title=title, slug=slug, locale=locale)
         site.root_page.add_child(instance=section_root)
@@ -99,7 +105,13 @@ class Command(BaseCommand):
         return topics
 
     def _delete_pages(self, keyword):
-        pages = Page.objects.filter(title__startswith=f"{keyword} ")
+        keyword_slug = slugify(keyword) or "search-filter-test"
+        pages = GeneralPage.objects.filter(
+            author__name=DEFAULT_AUTHOR_NAME,
+            title__startswith=f"{keyword} ",
+            slug__startswith=f"{keyword_slug}-",
+            search_description__startswith=f"{keyword} local QA result for ",
+        )
         count = pages.count()
         if count:
             pages.delete()
