@@ -10,6 +10,10 @@ body.search-filter-drawer-open {
   overscroll-behavior: none;
 }
 
+body.search-filter-drawer-open .primary-nav-ns {
+  position: fixed;
+}
+
 body.template-search-results {
   $highlight-color: color(orange, "300");
   $selected-topic-color: #f7ec50;
@@ -457,6 +461,7 @@ body.template-search-results {
     height: 100%;
     max-height: none;
     overflow: hidden;
+    padding-top: rem-calc(24);
     background: $white;
   }
 
@@ -472,17 +477,22 @@ body.template-search-results {
     -webkit-overflow-scrolling: touch;
   }
 
+  .search-filter-drawer__content {
+    width: 100%;
+    flex: 0 0 auto;
+
+    @include breakpoint(small only) {
+      padding-right: rem-calc(24);
+      padding-left: rem-calc(24);
+    }
+  }
+
   .search-filter-drawer__header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: rem-calc(16);
-    padding: rem-calc(16);
-
-    @include breakpoint(medium up) {
-      padding-right: calc(map.get($grid-container-padding, medium) / 2);
-      padding-left: calc(map.get($grid-container-padding, medium) / 2);
-    }
+    padding: rem-calc(16) 0;
   }
 
   .search-filter-drawer__reset,
@@ -527,12 +537,9 @@ body.template-search-results {
 
   .search-filter-drawer__body {
     flex: 0 0 auto;
-    padding: 0 rem-calc(24) rem-calc(24);
+    padding: 0 0 rem-calc(24);
 
     @include breakpoint(medium up) {
-      max-width: rem-calc(458);
-      width: 100%;
-      margin: 0 auto;
       padding: rem-calc(24) 0;
     }
 

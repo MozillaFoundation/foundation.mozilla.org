@@ -205,121 +205,125 @@
                               data-search-filter-mode="drawer">
                             <input type="hidden" name="query" value="{{ search_query }}">
 
-                            <div class="search-filter-drawer__header">
-                                <button class="search-filter-drawer__reset"
-                                        type="button"
-                                        data-search-drawer-reset>
-                                    {% trans "Reset" %}
-                                </button>
-                                <h2 id="search-filter-drawer-title" class="search-filter-drawer__title">
-                                    {% trans "Filter & Sort" %}
-                                </h2>
-                                <button class="search-filter-drawer__close"
-                                        type="button"
-                                        aria-label="{% trans "Close filter and sort" %}"
-                                        data-search-drawer-close>
-                                    <span aria-hidden="true"></span>
-                                </button>
-                            </div>
+                            <div class="search-filter-drawer__content grid-container">
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-12 medium-8 medium-offset-2 search-filter-drawer__header">
+                                        <button class="search-filter-drawer__reset"
+                                                type="button"
+                                                data-search-drawer-reset>
+                                            {% trans "Reset" %}
+                                        </button>
+                                        <h2 id="search-filter-drawer-title" class="search-filter-drawer__title">
+                                            {% trans "Filter & Sort" %}
+                                        </h2>
+                                        <button class="search-filter-drawer__close"
+                                                type="button"
+                                                aria-label="{% trans "Close filter and sort" %}"
+                                                data-search-drawer-close>
+                                            <span aria-hidden="true"></span>
+                                        </button>
+                                    </div>
 
-                            <div class="search-filter-drawer__body">
-                                <fieldset class="search-filter-group search-filter-group--sort">
-                                    <legend class="search-filter-group__legend">{% trans "Sort" %}</legend>
-                                    <label class="search-choice search-choice--radio">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="sort"
-                                               value="relevance"
-                                               {% if sort == "relevance" or not sort %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Relevance" %}</span>
-                                    </label>
-                                    <label class="search-choice search-choice--radio">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="sort"
-                                               value="newest"
-                                               {% if sort == "newest" %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Newest First" %}</span>
-                                    </label>
-                                    <label class="search-choice search-choice--radio">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="sort"
-                                               value="oldest"
-                                               {% if sort == "oldest" %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Oldest First" %}</span>
-                                    </label>
-                                </fieldset>
+                                    <div class="cell small-12 medium-8 medium-offset-2 search-filter-drawer__body">
+                                        <fieldset class="search-filter-group search-filter-group--sort">
+                                            <legend class="search-filter-group__legend">{% trans "Sort" %}</legend>
+                                            <label class="search-choice search-choice--radio">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="sort"
+                                                       value="relevance"
+                                                       {% if sort == "relevance" or not sort %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Relevance" %}</span>
+                                            </label>
+                                            <label class="search-choice search-choice--radio">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="sort"
+                                                       value="newest"
+                                                       {% if sort == "newest" %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Newest First" %}</span>
+                                            </label>
+                                            <label class="search-choice search-choice--radio">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="sort"
+                                                       value="oldest"
+                                                       {% if sort == "oldest" %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Oldest First" %}</span>
+                                            </label>
+                                        </fieldset>
 
-                                <fieldset class="search-filter-group">
-                                    <legend class="search-filter-group__legend">{% trans "Content" %}</legend>
-                                    <label class="search-choice">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="content_type"
-                                               value="what-we-do"
-                                               {% if content_type == "what-we-do" %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Articles" %}</span>
-                                    </label>
-                                    <label class="search-choice">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="content_type"
-                                               value="research"
-                                               {% if content_type == "research" %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Research" %}</span>
-                                    </label>
-                                    <label class="search-choice">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="content_type"
-                                               value="press-release"
-                                               {% if content_type == "press-release" %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Press Release" %}</span>
-                                    </label>
-                                    <label class="search-choice">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="content_type"
-                                               value="event"
-                                               {% if content_type == "event" %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "Event" %}</span>
-                                    </label>
-                                    <label class="search-choice">
-                                        <input class="search-choice__input"
-                                               type="radio"
-                                               name="content_type"
-                                               value="all"
-                                               {% if content_type == "all" or not content_type %}checked{% endif %}>
-                                        <span class="search-choice__control" aria-hidden="true"></span>
-                                        <span class="search-choice__label">{% trans "All" %}</span>
-                                    </label>
-                                </fieldset>
+                                        <fieldset class="search-filter-group">
+                                            <legend class="search-filter-group__legend">{% trans "Content" %}</legend>
+                                            <label class="search-choice">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="content_type"
+                                                       value="what-we-do"
+                                                       {% if content_type == "what-we-do" %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Articles" %}</span>
+                                            </label>
+                                            <label class="search-choice">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="content_type"
+                                                       value="research"
+                                                       {% if content_type == "research" %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Research" %}</span>
+                                            </label>
+                                            <label class="search-choice">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="content_type"
+                                                       value="press-release"
+                                                       {% if content_type == "press-release" %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Press Release" %}</span>
+                                            </label>
+                                            <label class="search-choice">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="content_type"
+                                                       value="event"
+                                                       {% if content_type == "event" %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "Event" %}</span>
+                                            </label>
+                                            <label class="search-choice">
+                                                <input class="search-choice__input"
+                                                       type="radio"
+                                                       name="content_type"
+                                                       value="all"
+                                                       {% if content_type == "all" or not content_type %}checked{% endif %}>
+                                                <span class="search-choice__control" aria-hidden="true"></span>
+                                                <span class="search-choice__label">{% trans "All" %}</span>
+                                            </label>
+                                        </fieldset>
 
-                                {% if related_topics %}
-                                    <fieldset class="search-filter-group search-filter-group--topics">
-                                        <legend class="search-filter-group__legend">{% trans "Topic Tag" %}</legend>
-                                        <div class="search-topic-pills">
-                                            {% for topic in related_topics|dictsort:"name" %}
-                                                <label class="search-topic-pill" data-search-topic-label>
-                                                    <input class="search-topic-pill__input"
-                                                           type="radio"
-                                                           name="topic"
-                                                           value="{{ topic.slug }}"
-                                                           {% if selected_topic == topic.slug %}checked{% endif %}>
-                                                    <span class="search-topic-pill__label">{{ topic.name }}</span>
-                                                </label>
-                                            {% endfor %}
-                                        </div>
-                                    </fieldset>
-                                {% endif %}
+                                        {% if related_topics %}
+                                            <fieldset class="search-filter-group search-filter-group--topics">
+                                                <legend class="search-filter-group__legend">{% trans "Topic Tag" %}</legend>
+                                                <div class="search-topic-pills">
+                                                    {% for topic in related_topics|dictsort:"name" %}
+                                                        <label class="search-topic-pill" data-search-topic-label>
+                                                            <input class="search-topic-pill__input"
+                                                                   type="radio"
+                                                                   name="topic"
+                                                                   value="{{ topic.slug }}"
+                                                                   {% if selected_topic == topic.slug %}checked{% endif %}>
+                                                            <span class="search-topic-pill__label">{{ topic.name }}</span>
+                                                        </label>
+                                                    {% endfor %}
+                                                </div>
+                                            </fieldset>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="search-filter-drawer__footer">
