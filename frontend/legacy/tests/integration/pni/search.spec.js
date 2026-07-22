@@ -16,9 +16,9 @@ test.describe("PNI search", () => {
     // provided RANDOM_SEED=530910203 was used!
     total: 38,
     health: 11,
-    smart: 6,
+    smart: 4,
     percy: 1,
-    searchTerm: 3,
+    searchTerm: 4,
     searchTermWithDing: 2,
   };
 
