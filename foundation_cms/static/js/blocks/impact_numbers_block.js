@@ -1,14 +1,140 @@
 /**
- * Initializes counting animation when an ImpactNumberBlock's "stat number" enters the viewport.
+ * Initializes count-up animation when an ImpactNumberBlock's stat number enters the viewport.
  */
 
 const SELECTORS = {
   statContainer: ".impact-stat__number",
-  digit: ".impact-stat__digit",
+  countUpValue: "[data-impact-stat-count-up]",
 };
 
+const COUNT_UP_DURATION_MS = 2000;
+
+/**
+ * Parse a CMS stat value into pieces that can be animated numerically while
+ * preserving display text such as prefixes, suffixes, and group separators.
+ *
+ * @param {string} value - The raw stat value, such as "+ de 2 000" or "$10M".
+ * @returns {{ prefix: string, suffix: string, decimalPlaces: number, groupSeparator: string, useGrouping: boolean, targetValue: number } | null}
+ */
+function parseStatNumber(value) {
+  const whitespaceGroupSeparator = value.match(/\d(\s)(?=\d)/)?.[1];
+  const match = value
+    .trim()
+    .match(/^([^0-9-]*)(-?\d(?:[\d,]|\s(?=\d))*(?:\.\d+)?)(.*)$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, prefix, numericValue, suffix] = match;
+  const decimalPlaces = numericValue.includes(".")
+    ? numericValue.split(".")[1].length
+    : 0;
+  const targetValue = Number(numericValue.replace(/[,\s]/g, ""));
+
+  if (!Number.isFinite(targetValue)) {
+    return null;
+  }
+
+  return {
+    prefix,
+    suffix,
+    decimalPlaces,
+    groupSeparator: whitespaceGroupSeparator || ",",
+    useGrouping: numericValue.includes(","),
+    targetValue,
+  };
+}
+
+/**
+ * Format an animated numeric value back into the original CMS stat shape.
+ *
+ * @param {number} value - The current animated numeric value.
+ * @param {{ prefix: string, suffix: string, decimalPlaces: number, groupSeparator: string, useGrouping: boolean }} numberParts - Parsed stat display metadata.
+ * @returns {string}
+ */
+function formatStatNumber(value, numberParts) {
+  if (numberParts.groupSeparator !== ",") {
+    const fixedValue = value.toFixed(numberParts.decimalPlaces);
+    const [integerPart, decimalPart] = fixedValue.split(".");
+    const groupedIntegerPart = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      numberParts.groupSeparator,
+    );
+
+    return `${numberParts.prefix}${groupedIntegerPart}${
+      decimalPart ? `.${decimalPart}` : ""
+    }${numberParts.suffix}`;
+  }
+
+  const formatterOptions = {
+    minimumFractionDigits: numberParts.decimalPlaces,
+    maximumFractionDigits: numberParts.decimalPlaces,
+    useGrouping: numberParts.useGrouping,
+  };
+
+  return `${numberParts.prefix}${value.toLocaleString(
+    "en-US",
+    formatterOptions,
+  )}${numberParts.suffix}`;
+}
+
+/**
+ * Ease animation progress so the count-up slows as it reaches the target value.
+ *
+ * @param {number} progress - Linear animation progress from 0 to 1.
+ * @returns {number}
+ */
+function easeOutCubic(progress) {
+  return 1 - (1 - progress) ** 3;
+}
+
+/**
+ * Animate a stat element from zero to its parsed target value.
+ *
+ * @param {HTMLElement} valueElement - Element containing the visible stat value.
+ * @param {{ prefix: string, suffix: string, decimalPlaces: number, groupSeparator: string, useGrouping: boolean, targetValue: number }} numberParts - Parsed stat display metadata.
+ * @returns {void}
+ */
+function animateCountUp(valueElement, numberParts) {
+  const startTime = window.performance.now();
+
+  const updateValue = (timestamp) => {
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / COUNT_UP_DURATION_MS, 1);
+    const easedProgress = easeOutCubic(progress);
+    const currentValue =
+      numberParts.targetValue * easedProgress < 1 &&
+      numberParts.decimalPlaces === 0
+        ? 0
+        : numberParts.targetValue * easedProgress;
+    const roundedValue =
+      numberParts.decimalPlaces === 0
+        ? Math.round(currentValue)
+        : Number(currentValue.toFixed(numberParts.decimalPlaces));
+
+    valueElement.textContent = formatStatNumber(roundedValue, numberParts);
+
+    if (progress < 1) {
+      window.requestAnimationFrame(updateValue);
+      return;
+    }
+
+    valueElement.textContent = formatStatNumber(
+      numberParts.targetValue,
+      numberParts,
+    );
+  };
+
+  window.requestAnimationFrame(updateValue);
+}
+
+/**
+ * Initialize count-up animations for Impact Number stats when they enter view.
+ *
+ * @returns {void}
+ */
 export function initImpactNumberStatAnimationsOnScroll() {
-  // Select all elements that contain animated number digits
   const impactStatNumberContainers = document.querySelectorAll(
     SELECTORS.statContainer,
   );
@@ -17,33 +143,60 @@ export function initImpactNumberStatAnimationsOnScroll() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const statContainer = entry.target;
+        const valueElement = statContainer.querySelector(
+          SELECTORS.countUpValue,
+        );
 
-        // Find all animated digits inside this stat number
-        const digitElements = statContainer.querySelectorAll(SELECTORS.digit);
+        if (!valueElement || valueElement.dataset.animationComplete) {
+          observer.unobserve(statContainer);
+          return;
+        }
 
-        // Trigger the CSS animation by adding the `.animate` class
-        digitElements.forEach((digitEl) => {
-          digitEl.classList.add("animate");
-        });
+        const finalValue =
+          valueElement.dataset.finalValue || valueElement.textContent;
+        const numberParts = parseStatNumber(finalValue);
+
+        if (!numberParts) {
+          observer.unobserve(statContainer);
+          return;
+        }
+
+        valueElement.dataset.animationComplete = "true";
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          valueElement.textContent = formatStatNumber(
+            numberParts.targetValue,
+            numberParts,
+          );
+        } else {
+          animateCountUp(valueElement, numberParts);
+        }
 
         observer.unobserve(statContainer);
       }
     });
   };
 
-  // Trigger animation when 40% of the element is visible
   const observerOptions = {
     threshold: 0.4,
   };
 
-  // Create the observer
   const observer = new IntersectionObserver(
     handleImpactNumberStatInView,
     observerOptions,
   );
 
-  // Observe each impact stat number container
   impactStatNumberContainers.forEach((container) => {
+    const valueElement = container.querySelector(SELECTORS.countUpValue);
+    const finalValue = valueElement?.dataset.finalValue || "";
+    const numberParts = parseStatNumber(finalValue);
+
+    if (!valueElement || !numberParts) {
+      return;
+    }
+
+    valueElement.textContent = formatStatNumber(0, numberParts);
+
     observer.observe(container);
   });
 }

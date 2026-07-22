@@ -139,33 +139,33 @@ def new_db(ctx, slow=False, no_seed_data=False):
     This is used by `inv generate-schema-snapshot` to produce a clean snapshot.
     """
     print("* Starting the postgres service")
-    ctx.run("docker-compose up -d postgres")
+    ctx.run("docker compose up -d postgres")
     print("* Delete the database")
-    ctx.run("docker-compose run --rm postgres dropdb --if-exists wagtail -hpostgres -Ufoundation")
+    ctx.run("docker compose run --rm postgres dropdb --if-exists wagtail -hpostgres -Ufoundation")
     print("* Create the database")
-    ctx.run("docker-compose run --rm postgres createdb wagtail -hpostgres -Ufoundation")
+    ctx.run("docker compose run --rm postgres createdb wagtail -hpostgres -Ufoundation")
     if no_seed_data:
         print("* Applying migrations (no seed data)...")
         migrate(ctx, stop=slow)
     else:
         initialize_database(ctx, slow=slow)
     print("Stop postgres service")
-    ctx.run("docker-compose down")
+    ctx.run("docker compose down")
 
 
 @task(aliases=["docker-catchup", "catchup"])
 def catch_up(ctx):
     """Rebuild images, install dependencies, and apply migrations"""
     print("* Stopping services first")
-    ctx.run("docker-compose down")
+    ctx.run("docker compose down")
     print("* Rebuilding images and install dependencies")
     # The docker image build will install node and python dependencies.
-    ctx.run("docker-compose build")
+    ctx.run("docker compose build")
     print("* Applying database migrations.")
     migrate(ctx)
     print("* Updating block information.")
     l10n_block_inventory(ctx)
-    print("\n* Start your dev server with:\n inv start or docker-compose up")
+    print("\n* Start your dev server with:\n inv start or docker compose up")
 
 
 @task(aliases=["new-env", "docker-new-env"])
@@ -180,18 +180,18 @@ def setup(ctx):
             print("* Creating a new .env")
             create_env_file("env.default")
         print("* Stopping project's containers and delete volumes if necessary")
-        ctx.run("docker-compose down --volumes")
+        ctx.run("docker compose down --volumes")
         print("* Building Docker images")
-        ctx.run("docker-compose build")
+        ctx.run("docker compose build")
         initialize_database(ctx)
-        print("\n* Start your dev server with:\n inv start or docker-compose up.")
+        print("\n* Start your dev server with:\n inv start or docker compose up.")
 
 
 @task(aliases=["start", "docker-start"])
 def start_dev(ctx):
     """Start the dev server"""
     with ctx.cd(ROOT):
-        ctx.run("docker-compose up")
+        ctx.run("docker compose up")
 
 
 @task(aliases=["start-lean", "docker-start-lean"])
@@ -199,7 +199,7 @@ def start_lean_dev(ctx):
     """Start the dev server without rebuilding frontend assets for a faster start up."""
     print("Starting the dev server without rebuilding frontend assets...")
     print("WARNING: Frontend assets may be outdated or missing if they haven't been built yet.")
-    ctx.run("docker-compose -f docker-compose.yml -f docker-compose-lean.yml up")
+    ctx.run("docker compose -f docker-compose.yml -f docker-compose-lean.yml up")
 
 
 @task
@@ -207,7 +207,7 @@ def sh(c, service="backend"):
     """
     Run bash in a local container
     """
-    subprocess.run(["docker-compose", "exec", service, "bash"])
+    subprocess.run(["docker", "compose", "exec", service, "bash"])
 
 
 # Javascript shorthands
@@ -220,7 +220,7 @@ def yarn(ctx, command):
             print("Please use 'inv yarn-install' instead.")
             return
 
-        ctx.run(f"docker-compose run --rm backend yarn {command}")
+        ctx.run(f"docker compose run --rm backend yarn {command}")
 
 
 @task(aliases=["docker-yarn-exec"])
@@ -230,7 +230,7 @@ def yarn_exec(ctx, command):
         # Using 'exec' instead of 'run --rm' as /node_modules is not mounted.
         # To make this persistent, use 'exec' to run in the running container.
         try:
-            ctx.run(f"docker-compose exec --user=root backend yarn {command}")
+            ctx.run(f"docker compose exec --user=root backend yarn {command}")
         except exceptions.UnexpectedExit:
             print("This command requires a running container.\n")
             print("Please run 'inv start' or 'inv start-lean' in a separate terminal window first.")
@@ -270,11 +270,11 @@ def generate_schema_snapshot(ctx):
     new_db(ctx, no_seed_data=True)
 
     print(f"* Dumping database to {filename}...")
-    ctx.run(f"docker-compose up -d postgres")
+    ctx.run(f"docker compose up -d postgres")
     ctx.run(
-        f"docker-compose run --rm postgres pg_dump -Fc --no-owner --no-acl -hpostgres -Ufoundation wagtail > {filename}"
+        f"docker compose run --rm postgres pg_dump -Fc --no-owner --no-acl -hpostgres -Ufoundation wagtail > {filename}"
     )
-    ctx.run("docker-compose down")
+    ctx.run("docker compose down")
 
     print(f"Snapshot saved to ./{filename}")
     print(f"Upload to S3 with: aws s3 cp {filename} s3://<bucket>/snapshots/{filename}")
@@ -299,11 +299,11 @@ def pyrun(ctx, command, stop=False):
     """
     with ctx.cd(ROOT):
         ctx.run(
-            f'docker-compose run --rm backend bash -c "source ./dockerpythonvenv/bin/activate && {command}"',
+            f'docker compose run --rm backend bash -c "source ./dockerpythonvenv/bin/activate && {command}"',
             **PLATFORM_ARG,
         )
         if stop:
-            ctx.run("docker-compose stop")
+            ctx.run("docker compose stop")
 
 
 @task(aliases=["docker-manage"])
@@ -643,7 +643,7 @@ def pip_compile(ctx, filename="requirements.in", command=""):
     """Shorthand to pip-tools. inv pip-compile \"[filename]\" \"[COMMAND] [ARG]\" """
     with ctx.cd(ROOT):
         ctx.run(
-            f"""docker-compose run --rm backend bash -c '{_pip_compile_workaround(filename, command)}'""",
+            f"""docker compose run --rm backend bash -c '{_pip_compile_workaround(filename, command)}'""",
             **PLATFORM_ARG,
         )
 
@@ -656,7 +656,7 @@ def pip_compile_lock(ctx):
         command = _pip_compile_workaround("requirements.in") + "&&"
         command = command + _pip_compile_workaround("dev-requirements.in")
         ctx.run(
-            f"""docker-compose run --rm backend bash -c '{command}'""",
+            f"""docker compose run --rm backend bash -c '{command}'""",
             **PLATFORM_ARG,
         )
 
@@ -669,7 +669,7 @@ def pip_sync(ctx):
             ctx.run(
                 # Using 'exec' instead of 'run --rm' as /dockerpythonvenv is not mounted.
                 # To make this persistent, use 'exec' to run in the running container.
-                "docker-compose exec backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
+                "docker compose exec backend ./dockerpythonvenv/bin/pip-sync requirements.txt dev-requirements.txt",
                 **PLATFORM_ARG,
             )
         except exceptions.UnexpectedExit:
@@ -739,7 +739,7 @@ def compilemessages(ctx):
     """Compile the latest translations"""
     with ctx.cd(ROOT):
         ctx.run(
-            "docker-compose run --rm -w /app backend "
+            "docker compose run --rm -w /app backend "
             "./dockerpythonvenv/bin/python manage.py compilemessages --ignore=dockerpythonvenv/*",
             **PLATFORM_ARG,
         )
@@ -770,7 +770,7 @@ def compile_ffmpeg(ctx, output_dir="compiled-ffmpeg"):
 
     print("Copying ffmpeg and ffprobe from running dev container...")
     try:
-        container_id = subprocess.check_output(["docker-compose", "ps", "-q", "backend"], text=True).strip()
+        container_id = subprocess.check_output(["docker", "compose", "ps", "-q", "backend"], text=True).strip()
         if not container_id:
             print("No running 'backend' container found. Please run 'inv start' first.")
             return
