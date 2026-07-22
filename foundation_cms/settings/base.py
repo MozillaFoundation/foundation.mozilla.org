@@ -426,7 +426,6 @@ TEMPLATES = [
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
                 "app_environment_tags": "foundation_cms.templatetags.app_environment_tags",
                 "breadcrumb_nav": "foundation_cms.templatetags.breadcrumb_nav",
-                "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
                 "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "url_query": "foundation_cms.templatetags.url_query",

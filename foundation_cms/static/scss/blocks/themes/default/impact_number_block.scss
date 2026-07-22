@@ -1,21 +1,5 @@
-@use "sass:map";
-@use "sass:math";
-
 .impact-number-block {
-  // ===================================
-  // Variables
-  // ===================================
   $layout-breakpoint: medium;
-  $digit-height: (
-    small: math.max(
-        get-text-property($header-styles, "h2", "line-height", "small"),
-        1
-      ),
-    large: math.max(
-        get-text-property($header-styles, "h2", "line-height", "large"),
-        1
-      ),
-  );
 
   // ===================================
   // Base Styling
@@ -56,6 +40,27 @@
 
       @include breakpoint($layout-breakpoint up) {
         flex: unset;
+      }
+    }
+
+    &__number-value {
+      @include apply-text-style(
+        $header-styles,
+        "h2",
+        "small",
+        $header-font-family
+      );
+
+      display: block;
+      text-align: center;
+
+      @include breakpoint(large up) {
+        @include apply-text-style(
+          $header-styles,
+          "h2",
+          "large",
+          $header-font-family
+        );
       }
     }
 
@@ -111,79 +116,6 @@
         @include apply-text-style($body-text-styles, "large", "large");
       }
     }
-
-    &__digit-window {
-      @include apply-text-style(
-        $header-styles,
-        "h2",
-        "small",
-        $header-font-family
-      );
-
-      display: inline-block;
-      height: #{map.get($digit-height, small)}em;
-
-      @include breakpoint(large up) {
-        @include apply-text-style(
-          $header-styles,
-          "h2",
-          "large",
-          $header-font-family
-        );
-
-        height: #{map.get($digit-height, large)}em;
-      }
-
-      &--animated {
-        overflow: hidden;
-      }
-    }
-
-    &__digit {
-      @include apply-text-style(
-        $header-styles,
-        "h2",
-        "small",
-        $header-font-family
-      );
-
-      word-break: break-all;
-      display: block;
-      width: min-content;
-      text-align: center;
-      line-height: map.get($digit-height, small);
-
-      @include breakpoint(large up) {
-        @include apply-text-style(
-          $header-styles,
-          "h2",
-          "large",
-          $header-font-family
-        );
-
-        line-height: map.get($digit-height, large);
-      }
-
-      &::before {
-        content: attr(data-fake);
-      }
-
-      @for $i from 1 through 10 {
-        &--#{$i} {
-          animation: counting-small 0.4s steps(10) forwards;
-          animation-iteration-count: #{$i * 2};
-          animation-play-state: paused;
-
-          @include breakpoint(large up) {
-            animation-name: counting-large; // Use desktop animation on large screens
-          }
-
-          &.animate {
-            animation-play-state: running;
-          }
-        }
-      }
-    }
   }
 
   .impact-stat:nth-child(3n + 1) {
@@ -201,18 +133,6 @@
   .impact-stat:nth-child(3n + 3) {
     .impact-stat__number {
       background-image: url("/static/foundation_cms/_images/shapes/blue/blue300-1.svg");
-    }
-  }
-
-  @keyframes counting-small {
-    100% {
-      transform: translate3d(0, -#{map.get($digit-height, small) * 10}em, 0);
-    }
-  }
-
-  @keyframes counting-large {
-    100% {
-      transform: translate3d(0, -#{map.get($digit-height, large) * 10}em, 0);
     }
   }
 }

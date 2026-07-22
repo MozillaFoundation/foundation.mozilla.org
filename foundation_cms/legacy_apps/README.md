@@ -41,7 +41,7 @@ You're done :tada:
 
 This task creates a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
 
-When it's done, run `docker-compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
+When it's done, run `docker compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
 
 Once the webserver is running, you can log in to the admin site at http://localhost:8000/cms/. A superuser will have been created with username `admin` with password `admin`.
 
@@ -105,13 +105,13 @@ There is currently no unit test framework for JavaScript tests set up.
 
 Integration testing is done using [Playwright](https://playwright.dev/), with the integration tests found in `./tests/integration`.
 
-You can run these tests locally by running a one-time `npm install` and `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests, with `docker-compose up` running in a secondary terminal.
+You can run these tests locally by running a one-time `npm install` and `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests, with `docker compose up` running in a secondary terminal.
 
 In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db`).
 
 #### URL checker
 
-URL checker can be initiated by running `docker-compose up` in one terminal and running `npm run playwright:urls` in a secondary terminal. It checks to see if visiting the URLs listed in [`tests/foundation-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/foundation-urls.js) and [`tests/mozfest-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/mozfest-urls.js) returns an OK response (i.e., status 200). Note that the URL lists in these two files are not complete and will require updates. We will also need to expand the lists to include PNI and Donate URLs.
+URL checker can be initiated by running `docker compose up` in one terminal and running `npm run playwright:urls` in a secondary terminal. It checks to see if visiting the URLs listed in [`tests/foundation-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/foundation-urls.js) and [`tests/mozfest-urls.js`](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/tests/mozfest-urls.js) returns an OK response (i.e., status 200). Note that the URL lists in these two files are not complete and will require updates. We will also need to expand the lists to include PNI and Donate URLs.
 
 ### Visual regression tests
 
