@@ -91,6 +91,38 @@ class SearchLoggingTestCase(TestCase):
         self.assertEqual(SearchEvent.objects.count(), 0)
         mock_add_hit.assert_not_called()
 
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_empty_query_renders_search_form_without_result_controls(self, mock_add_hit):
+        for params in ({}, {"query": "   "}):
+            with self.subTest(params=params):
+                response = self.client.get("/en/search/", params)
+
+                self.assertEqual(response.status_code, 200)
+                self.assertContains(response, "search-empty-state__heading")
+                self.assertContains(response, "search-form__input")
+                self.assertNotContains(response, "data-search-filter-form")
+
+        self.assertEqual(SearchEvent.objects.count(), 0)
+        mock_add_hit.assert_not_called()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_published_page_is_searchable_without_manual_reindex(self, mock_add_hit):
+        section = self.root_page.add_child(instance=Page(title="What We Do", slug="what-we-do"))
+        result_page = section.add_child(
+            instance=Page(
+                title="Published Searchable Uniqueindexterm Page",
+                slug="published-searchable-uniqueindexterm-page",
+                live=False,
+            )
+        )
+        result_page.save_revision().publish()
+
+        response = self.client.get("/en/search/", {"query": "Uniqueindexterm"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, result_page.title)
+        mock_add_hit.assert_called_once()
+
     @patch("foundation_cms.search.views.get_search_backend_for_locale")
     def test_single_page_results_show_page_count(self, mock_get_search_backend):
         result_page = self.root_page.add_child(

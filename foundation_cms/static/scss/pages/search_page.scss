@@ -70,6 +70,25 @@ body.template-search-results {
     }
   }
 
+  .search-empty-state {
+    margin-top: rem-calc(64);
+    margin-bottom: rem-calc(64);
+
+    @include breakpoint(medium up) {
+      margin-top: rem-calc(96);
+      margin-bottom: rem-calc(128);
+    }
+
+    &__heading {
+      margin: 0 0 rem-calc(32);
+      text-align: center;
+    }
+
+    .search-form-wrapper {
+      margin-bottom: 0;
+    }
+  }
+
   .search-results-filter-toggle,
   .search-sort__toggle {
     @include mofo-text-style($body-text-styles, "small");

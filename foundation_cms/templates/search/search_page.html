@@ -333,6 +333,13 @@
                         </form>
                     </div>
                 </div>
+            {% else %}
+                <div class="cell small-12 large-8 large-offset-2 search-empty-state">
+                    <h1 class="search-empty-state__heading">{% trans "Search" %}</h1>
+                    <div class="search-form-wrapper">
+                        {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>
