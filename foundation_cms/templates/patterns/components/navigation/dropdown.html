@@ -1,10 +1,24 @@
-<div class="primary-nav-ns__menu-item">
-  {% include "patterns/components/link.html" with value=value.header classnames="nav-link" %}
+{% load navigation_tags %}
+
+{% primary_nav_dropdown_is_active active_url value as dropdown_is_active %}
+{% primary_nav_link_is_active active_url value.header as header_is_active %}
+
+<div class="primary-nav-ns__menu-item{% if dropdown_is_active %} primary-nav-ns__menu-item--active{% endif %}">
+  {% if header_is_active %}
+    {% include "patterns/components/link.html" with value=value.header classnames="nav-link primary-nav-ns__link primary-nav-ns__link--active" aria_current="page" %}
+  {% else %}
+    {% include "patterns/components/link.html" with value=value.header classnames="nav-link primary-nav-ns__link" %}
+  {% endif %}
 
   {% if value.dropdown_items %}
     <div class="primary-nav-ns__dropdown">
       {% for item in value.dropdown_items %}
-        {% include "patterns/components/link.html" with value=item classnames="nav-link" %}
+        {% primary_nav_link_is_active active_url item as item_is_active %}
+        {% if item_is_active %}
+          {% include "patterns/components/link.html" with value=item classnames="nav-link primary-nav-ns__link primary-nav-ns__link--active" aria_current="page" %}
+        {% else %}
+          {% include "patterns/components/link.html" with value=item classnames="nav-link primary-nav-ns__link" %}
+        {% endif %}
       {% endfor %}
     </div>
   {% endif %}
