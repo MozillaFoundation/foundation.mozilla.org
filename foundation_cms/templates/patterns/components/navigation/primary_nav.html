@@ -37,8 +37,9 @@
         <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
           <div class="primary-nav-ns__menu" id="primary-nav-ns-menu">
             {% if localized_menu %}
+              {% primary_nav_active_url request.path localized_menu.dropdowns as active_url %}
               {% for dropdown in localized_menu.dropdowns %}
-                {% include "patterns/components/navigation/dropdown.html" with value=dropdown.value %}
+                {% include "patterns/components/navigation/dropdown.html" with value=dropdown.value active_url=active_url %}
               {% endfor %}
             {% endif %}
           </div>

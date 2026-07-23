@@ -1,4 +1,13 @@
-{% load static i18n l10n %}
+{% load static i18n l10n navigation_tags %}
+
+{% primary_nav_url_is_active request.path "/meet-mozilla/" as meet_mozilla_is_active %}
+{% primary_nav_url_is_active request.path "/what-we-do/" as what_we_do_is_active %}
+{% primary_nav_url_is_active request.path "/what-we-do/imagine/" as imagine_is_active %}
+{% primary_nav_url_is_active request.path "/what-we-do/co-create/" as co_create_is_active %}
+{% primary_nav_url_is_active request.path "/what-we-do/mobilize/" as mobilize_is_active %}
+{% primary_nav_url_is_active request.path "/join-us/" as join_us_is_active %}
+{% primary_nav_url_is_active request.path "/nothing-personal/" as nothing_personal_is_active %}
+
 <nav role="navigation" class="primary-nav-ns">
   <div class="grid-container">
     <div class="primary-nav-ns__grid hidden-wordmark">
@@ -30,26 +39,54 @@
       <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
         <div class="primary-nav-ns__menu">
 
-          <div class="primary-nav-ns__menu-item">
-            <a href="/meet-mozilla/" class="nav-link">{% trans "Meet Mozilla" %}</a>
+          <div class="primary-nav-ns__menu-item{% if meet_mozilla_is_active %} primary-nav-ns__menu-item--active{% endif %}">
+            <a href="/meet-mozilla/"
+               class="nav-link primary-nav-ns__link{% if meet_mozilla_is_active %} primary-nav-ns__link--active{% endif %}"
+               {% if meet_mozilla_is_active %}aria-current="page"{% endif %}>
+              {% trans "Meet Mozilla" %}
+            </a>
           </div>
 
-          <div class="primary-nav-ns__menu-item">
-            <a href="/what-we-do/" class="nav-link">{% trans "What We Do" %}</a>
+          <div class="primary-nav-ns__menu-item{% if what_we_do_is_active %} primary-nav-ns__menu-item--active{% endif %}">
+            <a href="/what-we-do/"
+               class="nav-link primary-nav-ns__link{% if what_we_do_is_active and not imagine_is_active and not co_create_is_active and not mobilize_is_active %} primary-nav-ns__link--active{% endif %}"
+               {% if what_we_do_is_active and not imagine_is_active and not co_create_is_active and not mobilize_is_active %}aria-current="page"{% endif %}>
+              {% trans "What We Do" %}
+            </a>
 
             <div class="primary-nav-ns__dropdown">
-              <a href="/what-we-do/imagine/" class="nav-link">{% trans "Imagine" %}</a>
-              <a href="/what-we-do/co-create/" class="nav-link">{% trans "Co-create" %}</a>
-              <a href="/what-we-do/mobilize/" class="nav-link">{% trans "Mobilize" %}</a>
+              <a href="/what-we-do/imagine/"
+                 class="nav-link primary-nav-ns__link{% if imagine_is_active %} primary-nav-ns__link--active{% endif %}"
+                 {% if imagine_is_active %}aria-current="page"{% endif %}>
+                {% trans "Imagine" %}
+              </a>
+              <a href="/what-we-do/co-create/"
+                 class="nav-link primary-nav-ns__link{% if co_create_is_active %} primary-nav-ns__link--active{% endif %}"
+                 {% if co_create_is_active %}aria-current="page"{% endif %}>
+                {% trans "Co-create" %}
+              </a>
+              <a href="/what-we-do/mobilize/"
+                 class="nav-link primary-nav-ns__link{% if mobilize_is_active %} primary-nav-ns__link--active{% endif %}"
+                 {% if mobilize_is_active %}aria-current="page"{% endif %}>
+                {% trans "Mobilize" %}
+              </a>
             </div>
           </div>
 
-          <div class="primary-nav-ns__menu-item">
-            <a href="/join-us/" class="nav-link">{% trans "Join Us" %}</a>
+          <div class="primary-nav-ns__menu-item{% if join_us_is_active %} primary-nav-ns__menu-item--active{% endif %}">
+            <a href="/join-us/"
+               class="nav-link primary-nav-ns__link{% if join_us_is_active %} primary-nav-ns__link--active{% endif %}"
+               {% if join_us_is_active %}aria-current="page"{% endif %}>
+              {% trans "Join Us" %}
+            </a>
           </div>
 
-          <div class="primary-nav-ns__menu-item">
-            <a href="/nothing-personal/" class="nav-link">Nothing Personal</a>
+          <div class="primary-nav-ns__menu-item{% if nothing_personal_is_active %} primary-nav-ns__menu-item--active{% endif %}">
+            <a href="/nothing-personal/"
+               class="nav-link primary-nav-ns__link{% if nothing_personal_is_active %} primary-nav-ns__link--active{% endif %}"
+               {% if nothing_personal_is_active %}aria-current="page"{% endif %}>
+              Nothing Personal
+            </a>
           </div>
 
         </div>

@@ -27,6 +27,14 @@ $primary-nav-margin: 0.7rem;
   }
 }
 
+@mixin primary-nav-active-link {
+  color: color(orange, "600");
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.15rem;
+}
+
 .primary-nav-ns {
   position: sticky;
   width: 100%;
@@ -229,6 +237,10 @@ $primary-nav-margin: 0.7rem;
         font-family: "Mozilla Text", sans-serif;
         font-size: 1rem;
       }
+
+      &.primary-nav-ns__link--active {
+        @include primary-nav-active-link;
+      }
     }
   }
 
@@ -317,6 +329,16 @@ $primary-nav-margin: 0.7rem;
 
         &:hover {
           color: color(orange, "600");
+        }
+
+        &.primary-nav-ns__link--active {
+          @include primary-nav-active-link;
+        }
+      }
+
+      &--active {
+        > a {
+          @include primary-nav-active-link;
         }
       }
 
