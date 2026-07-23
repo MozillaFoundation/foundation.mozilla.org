@@ -65,7 +65,7 @@
     "pyright": "pyright",
     "server": "cd ../../ && python manage.py runserver 0.0.0.0:8000",
     "server:silent": "cd ../../ && python manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
-    "start": "docker-compose up",
+    "start": "docker compose up",
     "test": "npm run lint",
     "watch": "run-p watch:legacy",
     "watch:legacy": "run-s build:legacy:clean && run-p build:legacy:common && run-p build:legacy:js:dev postcss:legacy:watch watch:legacy:**",
