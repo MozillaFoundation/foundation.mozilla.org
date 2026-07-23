@@ -1,0 +1,50 @@
+{% load i18n %}
+
+<fieldset class="search-filter-group">
+    <legend class="search-filter-group__legend">{% trans "Content" %}</legend>
+    <label class="search-choice">
+        <input class="search-choice__input"
+               type="radio"
+               name="content_type"
+               value="what-we-do"
+               {% if content_type == "what-we-do" %}checked{% endif %}>
+        <span class="search-choice__control" aria-hidden="true"></span>
+        <span class="search-choice__label">{% trans "Articles" %}</span>
+    </label>
+    <label class="search-choice">
+        <input class="search-choice__input"
+               type="radio"
+               name="content_type"
+               value="research"
+               {% if content_type == "research" %}checked{% endif %}>
+        <span class="search-choice__control" aria-hidden="true"></span>
+        <span class="search-choice__label">{% trans "Research" %}</span>
+    </label>
+    <label class="search-choice">
+        <input class="search-choice__input"
+               type="radio"
+               name="content_type"
+               value="press-release"
+               {% if content_type == "press-release" %}checked{% endif %}>
+        <span class="search-choice__control" aria-hidden="true"></span>
+        <span class="search-choice__label">{% trans "Press Release" %}</span>
+    </label>
+    <label class="search-choice">
+        <input class="search-choice__input"
+               type="radio"
+               name="content_type"
+               value="event"
+               {% if content_type == "event" %}checked{% endif %}>
+        <span class="search-choice__control" aria-hidden="true"></span>
+        <span class="search-choice__label">{% trans "Event" %}</span>
+    </label>
+    <label class="search-choice">
+        <input class="search-choice__input"
+               type="radio"
+               name="content_type"
+               value="all"
+               {% if content_type == "all" or not content_type %}checked{% endif %}>
+        <span class="search-choice__control" aria-hidden="true"></span>
+        <span class="search-choice__label">{% trans "All" %}</span>
+    </label>
+</fieldset>

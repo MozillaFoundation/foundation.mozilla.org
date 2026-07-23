@@ -350,35 +350,6 @@ def load_np_fake_articles(
     manage(ctx, " ".join(parts), stop=stop)
 
 
-@task(aliases=["search-test-data"])
-def load_search_test_data(
-    ctx,
-    count=16,
-    keyword="SEARCH_FILTER_TEST",
-    delete=False,
-    update_index=False,
-    stop=False,
-):
-    """
-    Generate published pages across sections for testing search filters and sorting.
-
-    Examples:
-    - inv load-search-test-data
-    - inv load-search-test-data --delete
-    """
-    parts = [
-        "load_search_test_data",
-        f"--count {int(count)}",
-        f"--keyword {shlex.quote(str(keyword))}",
-    ]
-    if delete:
-        parts.append("--delete")
-    if update_index:
-        parts.append("--update-index")
-
-    manage(ctx, " ".join(parts), stop=stop)
-
-
 @task(aliases=["docker-djcheck"])
 def djcheck(ctx, stop=False):
     """

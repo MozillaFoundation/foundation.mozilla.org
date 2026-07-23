@@ -445,10 +445,10 @@ body.template-search-results {
 
   .search-filter-drawer {
     position: fixed;
-    inset: rem-calc(88) 0 auto;
+    inset: $primary-nav-height 0 auto;
     z-index: 100;
-    height: calc(100vh - rem-calc(88));
-    height: calc(100dvh - rem-calc(88));
+    height: calc(100vh - #{$primary-nav-height});
+    height: calc(100dvh - #{$primary-nav-height});
     overflow: hidden;
     background: $white;
 

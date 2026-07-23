@@ -16,14 +16,18 @@
         <div class="page-card__media-wrapper">
           <a href="{% pageurl result %}" class="page-card__image-wrapper">
             {% if result.search_image %}
-              {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 220px" %}
+              {% if forloop.first %}
+                {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 220px" loading="" %}
+              {% else %}
+                {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 220px" %}
+              {% endif %}
             {% else %}
               <img
                 src="{% cycle listing_page_fallback_1 listing_page_fallback_2 listing_page_fallback_3 listing_page_fallback_4 listing_page_fallback_5 listing_page_fallback_6 %}"
                 alt="{{ illustration_placeholder_alt }}"
                 width="600"
                 height="400"
-                loading="lazy"
+                {% if not forloop.first %}loading="lazy"{% endif %}
               />
             {% endif %}
           </a>

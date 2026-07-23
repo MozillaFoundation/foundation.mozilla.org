@@ -92,7 +92,7 @@ class SearchLoggingTestCase(TestCase):
         mock_add_hit.assert_not_called()
 
     @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
-    def test_no_logging_on_applied_filters_or_sort(self, mock_add_hit):
+    def test_logging_on_applied_filters_or_sort(self, mock_add_hit):
         cases = (
             {"query": "Page", "content_type": "research", "sort": "relevance"},
             {"query": "Page", "content_type": "all", "topic": "privacy", "sort": "relevance"},
@@ -104,8 +104,8 @@ class SearchLoggingTestCase(TestCase):
                 response = self.client.get("/en/search/", params)
                 self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(SearchEvent.objects.count(), 0)
-        mock_add_hit.assert_not_called()
+        self.assertEqual(SearchEvent.objects.count(), len(cases))
+        self.assertEqual(mock_add_hit.call_count, len(cases))
 
     @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
     def test_empty_query_renders_search_form_without_result_controls(self, mock_add_hit):

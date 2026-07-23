@@ -30,7 +30,14 @@ def orientation_to_ratio(orientation):
 
 
 @register.inclusion_tag("patterns/components/responsive_image.html")
-def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100vw, 33vw", classnames=""):
+def responsive_image(
+    image,
+    ratio,
+    base_width=300,
+    sizes="(max-width: 639px) 100vw, 33vw",
+    classnames="",
+    loading="lazy",
+):
     """
     Generate responsive images with configurable dimensions.
 
@@ -40,6 +47,7 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
         base_width: Base width for scaling (smallest size)
         sizes: HTML sizes attribute for responsive behavior
         classnames: Optional CSS classes to apply to the <img>
+        loading: Optional native image loading behavior
 
     Returns:
         dict: Template context containing:
@@ -108,4 +116,5 @@ def responsive_image(image, ratio, base_width=300, sizes="(max-width: 639px) 100
         "classnames": classnames,
         "image": image,
         "is_webp": is_webp_image,
+        "loading": loading,
     }

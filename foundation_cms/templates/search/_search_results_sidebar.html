@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<aside class="search-results-sidebar" aria-label="{% trans "Search filters" %}">
+    <form action="{% url 'search' %}"
+          method="get"
+          class="search-results-filter-form"
+          data-search-filter-form
+          data-search-filter-mode="immediate">
+        <input type="hidden" name="query" value="{{ search_query }}">
+        <input type="hidden" name="sort" value="{{ sort|default:'relevance' }}">
+
+        {% include "search/_search_filter_content_type.html" %}
+
+        {% if related_topics %}
+            <div class="search-filter-divider" aria-hidden="true"></div>
+            {% include "search/_search_filter_topics.html" %}
+        {% endif %}
+    </form>
+</aside>
