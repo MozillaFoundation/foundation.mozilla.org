@@ -57,7 +57,11 @@
 
       <!-- Search input -->
       <div class="primary-nav-ns__grid-cell primary-nav-ns__search-icon">
-        <a href="#" class="search-toggle" aria-label="{% trans "Toggle search input" %}">
+        <a href="#primary-nav-search"
+           class="search-toggle"
+           aria-label="{% trans "Toggle search input" %}"
+           aria-controls="primary-nav-search"
+           aria-expanded="false">
           <div class="search-toggle__inner">
             <img class="search-toggle__open" src="{% static 'foundation_cms/_images/icons/search-black.svg' %}" alt="{% trans "Search" %}" width="24" height="24" />
             <img class="search-toggle__close" src="{% static 'foundation_cms/_images/icons/search-close.svg' %}" alt="{% trans "Close" %}" width="24" height="24" />
@@ -74,12 +78,4 @@
   </div>
 </nav>
 
-<div class="search-input-container">
-  <div class="grid-container">
-    <div class="grid-x">
-      <div class="cell small-12 large-8 large-offset-2 search-input-container__inner">
-        {% include "search/_search_form.html" with form_class="search-input-container__form" input_class="search-input-container__input" submit_classnames="search-input-container__submit-button" %}
-      </div>
-    </div>
-  </div>
-</div>
+{% include "patterns/components/navigation/search_drawer.html" %}
