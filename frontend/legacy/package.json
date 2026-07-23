@@ -65,7 +65,7 @@
     "pyright": "pyright",
     "server": "cd ../../ && python manage.py runserver 0.0.0.0:8000",
     "server:silent": "cd ../../ && python manage.py runserver 0.0.0.0:8000 >> server.log 2>&1",
-    "start": "docker-compose up",
+    "start": "docker compose up",
     "test": "npm run lint",
     "watch": "run-p watch:legacy",
     "watch:legacy": "run-s build:legacy:clean && run-p build:legacy:common && run-p build:legacy:js:dev postcss:legacy:watch watch:legacy:**",
@@ -106,7 +106,7 @@
     "shx": "^0.4.0",
     "swiper": "^12.2.0",
     "tailwindcss": "^3.4.15",
-    "uuid": "^14.0.0",
+    "uuid": "^14.0.1",
     "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
