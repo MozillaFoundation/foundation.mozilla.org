@@ -119,6 +119,11 @@ def _as_list(value):
             return None, False
         if isinstance(parsed, list):
             return parsed, True
+        return None, False
+    # return `page.body` StreamValue as a list.
+    raw_data = getattr(value, "raw_data", None)
+    if raw_data is not None:
+        return list(raw_data), False
     return None, False
 
 
