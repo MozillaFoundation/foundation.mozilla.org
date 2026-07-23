@@ -1,6 +1,7 @@
 ## Environment Variables
 
 Environment variables are loaded from a `.env` file in the project root (gitignored) for local development, and must be set in [Heroku config vars](https://devcenter.heroku.com/articles/config-vars) for staging and production. See `foundation_cms/settings/base.py` for the full list with defaults.
+Keep local secrets in `.env` and out of version control.
 
 ### Required (no defaults — the app will error on startup without these)
 
