@@ -27,7 +27,11 @@ body.template-search-results {
     margin: rem-calc(32) 0 rem-calc(16);
 
     @include breakpoint(medium up) {
-      margin: rem-calc(64) 0 rem-calc(32);
+      margin: rem-calc(16) 0 rem-calc(32);
+    }
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(64);
     }
 
     h2 {
@@ -461,8 +465,11 @@ body.template-search-results {
     height: 100%;
     max-height: none;
     overflow: hidden;
-    padding-top: rem-calc(24);
     background: $white;
+
+    @include breakpoint(medium up) {
+      padding-top: rem-calc(24);
+    }
   }
 
   .search-filter-drawer__form {
