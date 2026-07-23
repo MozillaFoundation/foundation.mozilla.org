@@ -84,7 +84,7 @@ django-csp==3.8
     # via -r requirements.in
 django-environ==0.12.0
     # via -r requirements.in
-django-filter==25.2
+django-filter==26.1
     # via
     #   -r requirements.in
     #   wagtail
