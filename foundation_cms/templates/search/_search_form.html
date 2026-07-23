@@ -1,6 +1,15 @@
 {% load i18n %}
+{% trans "Search" as default_search_label %}
+{% trans "Search" as default_search_placeholder %}
+{% firstof input_label default_search_label as search_input_label %}
+{% firstof placeholder default_search_placeholder as search_placeholder %}
+{% firstof submit_label default_search_label as search_submit_label %}
 <form action="{% url 'search' %}" method="get" class="{{ form_class }}" role="search">
-  <input type="text" name="query" class="{{ input_class }}" placeholder="{% trans "Search" %}" {% if search_query %}value="{{ search_query }}"{% endif %}>
-  {% trans "Search" as search_label %}
-  {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_label button_style="btn-primary" classnames=submit_classnames %}
+  <input type="text"
+         name="query"
+         class="{{ input_class }}"
+         placeholder="{{ search_placeholder }}"
+         aria-label="{{ search_input_label }}"
+         {% if search_query %}value="{{ search_query }}"{% endif %}>
+  {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_submit_label aria_label=search_submit_label button_style="btn-primary" classnames=submit_classnames %}
 </form>

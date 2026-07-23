@@ -1,13 +1,13 @@
 from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import Count
+from django.db.models import Count, Prefetch, prefetch_related_objects
 from django.http import JsonResponse
 from django.template.response import TemplateResponse
 from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import Locale, Page
 from wagtail.search.query import PlainText
 
-from foundation_cms.campaigns.models.campaign_page import CampaignPage
+from foundation_cms.base.models.abstract_base_page import PageTopic
 from foundation_cms.search.models import SearchEvent
 from foundation_cms.search.utils import (
     SECTION_SLUGS,
@@ -16,7 +16,6 @@ from foundation_cms.search.utils import (
     normalize_sort,
     normalize_topic,
 )
-from foundation_cms.utils import get_default_locale, localize_queryset
 
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
@@ -31,11 +30,15 @@ def search(request):
     content_type = normalize_content_type(request.GET.get("content_type", "all"))
     sort = normalize_sort(request.GET.get("sort", "relevance"))
     selected_topic = normalize_topic(request.GET.get("topic"))
+    active_filter_count = int(content_type != "all") + int(bool(selected_topic))
     related_topics = []
     page = request.GET.get("page", 1)
     total_search_results = 0
+    is_zero_results = False
     current_locale = Locale.get_active()
-    is_initial_search_submit = "page" not in request.GET
+    # Drawer count previews are internal requests and should not be logged as submitted searches.
+    is_preview_request = request.headers.get("X-Search-Preview") == "true"
+    is_initial_search_submit = "page" not in request.GET and not is_preview_request
 
     # Search
     if search_query:
@@ -50,6 +53,8 @@ def search(request):
 
         # Remove duplicates while preserving order (in case the backend returns duplicates)
         result_ids = list(dict.fromkeys(result_ids))
+        # Filter-only empty states retain the results UI and its active filter controls.
+        is_zero_results = not result_ids
 
         # Optional section filter by content_type slug
         section_slug = SECTION_SLUGS[content_type]
@@ -152,14 +157,14 @@ def search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
-    # Keep contributing pages when there are no results
-    keep_contributing_pages = []
-    if search_query and not search_results.object_list:
-        # TODO: Temporary hardcoded page IDs via env var until we have enough pages to auto pull.
-        #       Revert to keep_contributing_pages = get_keep_contributing_pages() when ready.
-        hardcoded_pages = Page.objects.live().filter(id__in=settings.TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS)
-        localized_pages = localize_queryset(hardcoded_pages, preserve_order=True)
-        keep_contributing_pages = list(localized_pages.specific()[:2])
+    prefetch_related_objects(
+        search_results.object_list,
+        Prefetch(
+            "topic_relations",
+            queryset=PageTopic.objects.select_related("tag").order_by("id"),
+            to_attr="search_topic_relations",
+        ),
+    )
 
     return TemplateResponse(
         request,
@@ -168,33 +173,16 @@ def search(request):
             "search_query": search_query,
             "search_results": search_results,
             "total_search_results": total_search_results,
-            "keep_contributing_pages": keep_contributing_pages,
             "current_locale": current_locale.language_code,
             "sort": sort,
             "content_type": content_type,
             "selected_topic": selected_topic,
+            "active_filter_count": active_filter_count,
             "related_topics": related_topics,
+            "is_zero_results": is_zero_results,
             "autocomplete_min_chars": settings.SEARCH_AUTOCOMPLETE_MIN_CHARS,
         },
     )
-
-
-def get_keep_contributing_pages():
-    """
-    Get the two latest CampaignPages in their localized versions.
-    Follows the same pattern as CampaignPage.get_fallback_latest_campaigns().
-    """
-    default_locale, _ = get_default_locale()
-
-    # Get recent pages in the default language
-    recent_pages = CampaignPage.objects.live().public().filter(locale=default_locale).order_by("-first_published_at")
-
-    localized_pages = localize_queryset(
-        recent_pages,
-        preserve_order=True,
-    )
-
-    return list(localized_pages.specific()[:2])
 
 
 def search_autocomplete(request):

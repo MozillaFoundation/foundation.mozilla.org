@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load static i18n %}
+{% load static i18n wagtailsettings_tags navigation_tags %}
 
 {% block wagtail_metadata %} {% endblock wagtail_metadata %}
 
@@ -12,9 +12,16 @@
 {% block body_class %}template-search-results{% endblock body_class %}
 
 {% block content %}
-    <div class="grid-container">
+    {% get_settings use_default_site=True %}
+    {% translated_menu settings.navigation.SiteNavigationMenu.active_navigation_menu as localized_menu %}
+    <div class="search-results-page grid-container"
+         data-search-results-page
+         data-total-results="{{ total_search_results }}">
         <div class="grid-x">
-            {% if search_query %}
+            {% if search_query and is_zero_results %}
+                {% include "search/_zero_results.html" with search_topic_links=localized_menu.search_topic_links search_quick_links=localized_menu.search_quick_links %}
+            {% endif %}
+            {% if search_query and not is_zero_results %}
                 <div class="cell small-12">
                     {% include "search/_search_summary.html" %}
                 </div>
@@ -23,46 +30,305 @@
                     {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
                 </div>
 
-                {# TEMP DEBUG PLACEHOLDER: remove when frontend is finalized #}
-                <div class="cell small-12 large-8 large-offset-2 margin-vertical-1 padding-1 border-dashed">
-                    <strong>Search debug placeholder</strong>
-                    <ul>
-                        <li><strong>query:</strong> {{ search_query|default:"(empty)" }}</li>
-                        <li><strong>sort:</strong> {{ sort|default:"relevance" }}</li>
-                        <li><strong>content_type:</strong> {{ content_type|default:"all" }}</li>
-                        <li><strong>selected_topic:</strong> {{ selected_topic|default:"(none)" }}</li>
-                        <li><strong>total_search_results:</strong> {{ total_search_results }}</li>
-                        <li>
-                            <strong>related_topics ({{ related_topics|length }}):</strong>
-                            {% if related_topics %}
-                                <ul>
-                                    {% for topic in related_topics %}
-                                        <li>
-                                            slug={{ topic.slug }}, name="{{ topic.name }}", count={{ topic.count }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                (none)
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-                {# END TEMP DEBUG PLACEHOLDER #}
+                <div class="cell small-12 search-results-shell">
+                    <aside class="search-results-sidebar" aria-label="{% trans "Search filters" %}">
+                        <form action="{% url 'search' %}"
+                              method="get"
+                              class="search-results-filter-form"
+                              data-search-filter-form
+                              data-search-filter-mode="immediate">
+                            <input type="hidden" name="query" value="{{ search_query }}">
+                            <input type="hidden" name="sort" value="{{ sort|default:'relevance' }}">
 
-                {% if search_results %}
-                    {% include "search/_search_results.html" %}
-                    {% include "patterns/components/_pagination.html" with page_obj=search_results viewname="search" %}
-                {% else %}
-                    {% if keep_contributing_pages|length >= 2 %}
-                        <div class="cell small-12 related-content-wrapper">
-                            {% trans "Latest Stories" as localized_suggested_heading %}
-                            {% with heading=localized_suggested_heading items=keep_contributing_pages image_ratio="3:2" show_author=True image_field="search_image" %}
-                                {% include "patterns/components/related_content.html" %}
-                            {% endwith %}
+                            <fieldset class="search-filter-group">
+                                <legend class="search-filter-group__legend">{% trans "Content" %}</legend>
+                                <label class="search-choice">
+                                    <input class="search-choice__input"
+                                           type="radio"
+                                           name="content_type"
+                                           value="what-we-do"
+                                           {% if content_type == "what-we-do" %}checked{% endif %}>
+                                    <span class="search-choice__control" aria-hidden="true"></span>
+                                    <span class="search-choice__label">{% trans "Articles" %}</span>
+                                </label>
+                                <label class="search-choice">
+                                    <input class="search-choice__input"
+                                           type="radio"
+                                           name="content_type"
+                                           value="research"
+                                           {% if content_type == "research" %}checked{% endif %}>
+                                    <span class="search-choice__control" aria-hidden="true"></span>
+                                    <span class="search-choice__label">{% trans "Research" %}</span>
+                                </label>
+                                <label class="search-choice">
+                                    <input class="search-choice__input"
+                                           type="radio"
+                                           name="content_type"
+                                           value="press-release"
+                                           {% if content_type == "press-release" %}checked{% endif %}>
+                                    <span class="search-choice__control" aria-hidden="true"></span>
+                                    <span class="search-choice__label">{% trans "Press Release" %}</span>
+                                </label>
+                                <label class="search-choice">
+                                    <input class="search-choice__input"
+                                           type="radio"
+                                           name="content_type"
+                                           value="event"
+                                           {% if content_type == "event" %}checked{% endif %}>
+                                    <span class="search-choice__control" aria-hidden="true"></span>
+                                    <span class="search-choice__label">{% trans "Event" %}</span>
+                                </label>
+                                <label class="search-choice">
+                                    <input class="search-choice__input"
+                                           type="radio"
+                                           name="content_type"
+                                           value="all"
+                                           {% if content_type == "all" or not content_type %}checked{% endif %}>
+                                    <span class="search-choice__control" aria-hidden="true"></span>
+                                    <span class="search-choice__label">{% trans "All" %}</span>
+                                </label>
+                            </fieldset>
+
+                            {% if related_topics %}
+                                <div class="search-filter-divider" aria-hidden="true"></div>
+                                <fieldset class="search-filter-group search-filter-group--topics">
+                                    <legend class="search-filter-group__legend">{% trans "Topic Tag" %}</legend>
+                                    <div class="search-topic-pills">
+                                        {% for topic in related_topics|dictsort:"name" %}
+                                            <label class="search-topic-pill" data-search-topic-label>
+                                                <input class="search-topic-pill__input"
+                                                       type="radio"
+                                                       name="topic"
+                                                       value="{{ topic.slug }}"
+                                                       {% if selected_topic == topic.slug %}checked{% endif %}>
+                                                <span class="search-topic-pill__label">{{ topic.name }}</span>
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                </fieldset>
+                            {% endif %}
+                        </form>
+                    </aside>
+
+                    <div class="search-results-main">
+                        <div class="search-results-toolbar">
+                            {% if total_search_results|default:0 > 0 %}
+                                <p class="search-results-page-count">
+                                    {% blocktrans trimmed with page_number=search_results.number total_pages=search_results.paginator.num_pages %}
+                                        Page {{ page_number }} of {{ total_pages }}
+                                    {% endblocktrans %}
+                                </p>
+                            {% endif %}
+
+                            <button class="search-results-filter-toggle"
+                                    type="button"
+                                    aria-expanded="false"
+                                    aria-controls="search-results-filter-drawer"
+                                    data-search-drawer-open>
+                                {% if active_filter_count %}
+                                    {% blocktrans trimmed with filter_count=active_filter_count %}
+                                        Filter & Sort ({{ filter_count }})
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% trans "Filter & Sort" %}
+                                {% endif %}
+                            </button>
+
+                            <form action="{% url 'search' %}"
+                                  method="get"
+                                  class="search-sort-form"
+                                  data-search-filter-form
+                                  data-search-filter-mode="immediate">
+                                <input type="hidden" name="query" value="{{ search_query }}">
+                                <input type="hidden" name="content_type" value="{{ content_type|default:'all' }}">
+                                {% if selected_topic %}
+                                    <input type="hidden" name="topic" value="{{ selected_topic }}">
+                                {% endif %}
+                                <details class="search-sort">
+                                    <summary class="search-sort__toggle">
+                                        {% trans "Sort" %}
+                                    </summary>
+                                    <fieldset class="search-sort__menu">
+                                        <legend class="search-sort__legend">{% trans "Sort" %}</legend>
+                                        <label class="search-sort__option">
+                                            <input class="search-sort__input"
+                                                   type="radio"
+                                                   name="sort"
+                                                   value="relevance"
+                                                   {% if sort == "relevance" or not sort %}checked{% endif %}>
+                                            <span>{% trans "Relevance" %}</span>
+                                        </label>
+                                        <label class="search-sort__option">
+                                            <input class="search-sort__input"
+                                                   type="radio"
+                                                   name="sort"
+                                                   value="newest"
+                                                   {% if sort == "newest" %}checked{% endif %}>
+                                            <span>{% trans "Newest First" %}</span>
+                                        </label>
+                                        <label class="search-sort__option">
+                                            <input class="search-sort__input"
+                                                   type="radio"
+                                                   name="sort"
+                                                   value="oldest"
+                                                   {% if sort == "oldest" %}checked{% endif %}>
+                                            <span>{% trans "Oldest First" %}</span>
+                                        </label>
+                                    </fieldset>
+                                </details>
+                            </form>
                         </div>
-                    {% endif %}
-                {% endif %}
+
+                        {% if search_results %}
+                            {% include "search/_search_results.html" %}
+                            {% include "patterns/components/_pagination.html" with page_obj=search_results viewname="search" %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="search-results-filter-drawer"
+                     class="search-filter-drawer"
+                     role="dialog"
+                     aria-modal="true"
+                     aria-labelledby="search-filter-drawer-title"
+                     data-search-drawer
+                     hidden>
+                    <div class="search-filter-drawer__panel">
+                        <form action="{% url 'search' %}"
+                              method="get"
+                              class="search-filter-drawer__form"
+                              data-search-filter-form
+                              data-search-filter-mode="drawer">
+                            <input type="hidden" name="query" value="{{ search_query }}">
+
+                            <div class="search-filter-drawer__header">
+                                <button class="search-filter-drawer__reset"
+                                        type="button"
+                                        data-search-drawer-reset>
+                                    {% trans "Reset" %}
+                                </button>
+                                <h2 id="search-filter-drawer-title" class="search-filter-drawer__title">
+                                    {% trans "Filter & Sort" %}
+                                </h2>
+                                <button class="search-filter-drawer__close"
+                                        type="button"
+                                        aria-label="{% trans "Close filter and sort" %}"
+                                        data-search-drawer-close>
+                                    <span aria-hidden="true"></span>
+                                </button>
+                            </div>
+
+                            <div class="search-filter-drawer__body">
+                                <fieldset class="search-filter-group search-filter-group--sort">
+                                    <legend class="search-filter-group__legend">{% trans "Sort" %}</legend>
+                                    <label class="search-choice search-choice--radio">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="sort"
+                                               value="relevance"
+                                               {% if sort == "relevance" or not sort %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Relevance" %}</span>
+                                    </label>
+                                    <label class="search-choice search-choice--radio">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="sort"
+                                               value="newest"
+                                               {% if sort == "newest" %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Newest First" %}</span>
+                                    </label>
+                                    <label class="search-choice search-choice--radio">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="sort"
+                                               value="oldest"
+                                               {% if sort == "oldest" %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Oldest First" %}</span>
+                                    </label>
+                                </fieldset>
+
+                                <fieldset class="search-filter-group">
+                                    <legend class="search-filter-group__legend">{% trans "Content" %}</legend>
+                                    <label class="search-choice">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="content_type"
+                                               value="what-we-do"
+                                               {% if content_type == "what-we-do" %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Articles" %}</span>
+                                    </label>
+                                    <label class="search-choice">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="content_type"
+                                               value="research"
+                                               {% if content_type == "research" %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Research" %}</span>
+                                    </label>
+                                    <label class="search-choice">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="content_type"
+                                               value="press-release"
+                                               {% if content_type == "press-release" %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Press Release" %}</span>
+                                    </label>
+                                    <label class="search-choice">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="content_type"
+                                               value="event"
+                                               {% if content_type == "event" %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "Event" %}</span>
+                                    </label>
+                                    <label class="search-choice">
+                                        <input class="search-choice__input"
+                                               type="radio"
+                                               name="content_type"
+                                               value="all"
+                                               {% if content_type == "all" or not content_type %}checked{% endif %}>
+                                        <span class="search-choice__control" aria-hidden="true"></span>
+                                        <span class="search-choice__label">{% trans "All" %}</span>
+                                    </label>
+                                </fieldset>
+
+                                {% if related_topics %}
+                                    <fieldset class="search-filter-group search-filter-group--topics">
+                                        <legend class="search-filter-group__legend">{% trans "Topic Tag" %}</legend>
+                                        <div class="search-topic-pills">
+                                            {% for topic in related_topics|dictsort:"name" %}
+                                                <label class="search-topic-pill" data-search-topic-label>
+                                                    <input class="search-topic-pill__input"
+                                                           type="radio"
+                                                           name="topic"
+                                                           value="{{ topic.slug }}"
+                                                           {% if selected_topic == topic.slug %}checked{% endif %}>
+                                                    <span class="search-topic-pill__label">{{ topic.name }}</span>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </fieldset>
+                                {% endif %}
+                            </div>
+
+                            <div class="search-filter-drawer__footer">
+                                <button class="search-filter-drawer__display"
+                                        type="submit"
+                                        data-search-drawer-apply
+                                        data-search-drawer-apply-label="{% trans "Display results" %}">
+                                    {% blocktrans with count=total_search_results %}Display results ({{ count }}){% endblocktrans %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>

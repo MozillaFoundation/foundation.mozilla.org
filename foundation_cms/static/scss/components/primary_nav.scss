@@ -425,19 +425,52 @@ body:has(.search-input-container.search-open) {
   width: 100vw;
 
   .grid-container {
-    padding-top: rem-calc(104);
-    padding-bottom: rem-calc(104);
+    padding-top: rem-calc(16);
+    padding-bottom: rem-calc(24);
 
     @include breakpoint(large up) {
-      padding-top: rem-calc(122);
-      padding-bottom: rem-calc(122);
+      padding-top: rem-calc(32);
+      padding-bottom: 0;
+    }
+  }
+
+  &--form-only {
+    .grid-container {
+      @include breakpoint(large up) {
+        padding-bottom: rem-calc(64);
+      }
     }
   }
 
   &__inner {
     display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__form-row {
+    display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 1rem;
+    gap: rem-calc(8);
+
+    @include breakpoint(large up) {
+      gap: rem-calc(16);
+    }
+  }
+
+  &__submit-button {
+    flex: 0 0 rem-calc(52);
+    min-width: rem-calc(52);
+    justify-content: center;
+
+    @include breakpoint(medium up) {
+      flex-basis: auto;
+      min-width: rem-calc(124);
+    }
+  }
+
+  .search-suggestions {
+    padding: rem-calc(24) 0 rem-calc(32);
   }
 }

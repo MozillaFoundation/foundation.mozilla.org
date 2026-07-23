@@ -13,6 +13,8 @@ class NavigationMenuTests(test_base.WagtailpagesTestCase):
         self.assertIsInstance(menu, nav_models.NavigationMenu)
         # By convention the factory builds four dropdowns by default
         self.assertEqual(len(menu.dropdowns), 4)
+        self.assertEqual(len(menu.search_topic_links), 5)
+        self.assertEqual(len(menu.search_quick_links), 3)
 
     def test_cannot_create_nav_menu_without_dropdowns(self):
         """Creating a menu with no dropdowns should fail StreamField validation."""
@@ -29,6 +31,47 @@ class NavigationMenuTests(test_base.WagtailpagesTestCase):
         stream_block = nav_models.NavigationMenu.dropdowns.field.stream_block
 
         # Convert to python representation used by Wagtail internals before validating
+        python_payload = stream_block.to_python(payload)
+
+        with self.assertRaises(StreamBlockValidationError):
+            stream_block.clean(python_payload)
+
+    def test_cannot_create_nav_menu_with_more_than_five_search_topic_links(self):
+        """Enforcing the StreamField's max_num (5) for search topic links."""
+        payload = [
+            {
+                "type": "topic",
+                "value": {
+                    "label": f"topic {index}",
+                    "query": f"query {index}",
+                },
+            }
+            for index in range(6)
+        ]
+
+        stream_block = nav_models.NavigationMenu.search_topic_links.field.stream_block
+        python_payload = stream_block.to_python(payload)
+
+        with self.assertRaises(StreamBlockValidationError):
+            stream_block.clean(python_payload)
+
+    def test_cannot_create_nav_menu_with_more_than_three_search_quick_links(self):
+        """Enforcing the StreamField's max_num (3) for search quick links."""
+        payload = [
+            {
+                "type": "quick_link",
+                "value": {
+                    "label": f"quick link {index}",
+                    "link_to": "relative_url",
+                    "page": None,
+                    "external_url": "",
+                    "relative_url": f"/quick-link-{index}/",
+                },
+            }
+            for index in range(4)
+        ]
+
+        stream_block = nav_models.NavigationMenu.search_quick_links.field.stream_block
         python_payload = stream_block.to_python(payload)
 
         with self.assertRaises(StreamBlockValidationError):

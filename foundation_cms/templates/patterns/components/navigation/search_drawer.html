@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<div class="search-input-container{% if not search_topic_links and not search_quick_links %} search-input-container--form-only{% endif %}"
+     id="primary-nav-search"
+     aria-hidden="true"
+     inert>
+  <div class="grid-container">
+    <div class="grid-x">
+      <div class="cell small-12 large-8 large-offset-2 search-input-container__inner">
+        <div class="search-input-container__form-row">
+          {% trans "What would you like to know?" as search_placeholder %}
+          {% include "search/_search_form.html" with form_class="search-input-container__form" input_class="search-input-container__input" submit_classnames="search-input-container__submit-button" placeholder=search_placeholder input_label=search_placeholder %}
+        </div>
+
+        {% if search_topic_links or search_quick_links %}
+          {% include "search/_search_suggestions.html" %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
