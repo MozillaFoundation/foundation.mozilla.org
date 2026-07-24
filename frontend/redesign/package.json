@@ -42,9 +42,8 @@
     "format": "run-s format:js format:scss",
     "format:js": "prettier \"../../foundation_cms/static/js/**/*.js\" --write",
     "format:scss": "prettier \"../../foundation_cms/static/scss/**/*.scss\" --write --ignore-path .prettierignore",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "d3-force": "^3.0.0",
