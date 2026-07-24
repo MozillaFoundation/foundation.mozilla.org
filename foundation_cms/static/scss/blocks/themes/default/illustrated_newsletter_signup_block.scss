@@ -1,7 +1,7 @@
-$festival-newsletter-border: #878787;
-$festival-newsletter-checkbox-checked-background: #f7c9a7;
+$illustrated-newsletter-border: #878787;
+$illustrated-newsletter-checkbox-checked-background: #f7c9a7;
 
-.festival-newsletter-signup-block {
+.illustrated-newsletter-signup-block {
   container-type: inline-size;
   width: 100%;
   max-width: rem-calc(792);
@@ -9,7 +9,7 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
   margin-left: auto;
 }
 
-.festival-newsletter-signup {
+.illustrated-newsletter-signup {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +52,7 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
     text-align: center;
   }
 
-  h2.festival-newsletter-signup__heading,
+  h2.illustrated-newsletter-signup__heading,
   &__success h2 {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
   }
@@ -102,7 +102,7 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
     padding: rem-calc(16) rem-calc(32) rem-calc(4) 0;
     background-color: transparent;
     border: 0;
-    border-bottom: 1px solid $festival-newsletter-border;
+    border-bottom: 1px solid $illustrated-newsletter-border;
     border-radius: 0;
     color: color(neutral, "600");
     line-height: 1.5;
@@ -154,11 +154,11 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
       height: rem-calc(16);
       margin: 0;
       background-color: $white;
-      border: 1px solid $festival-newsletter-border;
+      border: 1px solid $illustrated-newsletter-border;
       border-radius: 0;
 
       &:checked {
-        background-color: $festival-newsletter-checkbox-checked-background;
+        background-color: $illustrated-newsletter-checkbox-checked-background;
         border-color: color(neutral, "600");
         background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-black.svg");
         background-repeat: no-repeat;
@@ -202,7 +202,7 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
       height: rem-calc(24);
       margin-top: rem-calc(-4);
       margin-bottom: rem-calc(-4);
-      background-image: url("/static/foundation_cms/_images/icons/festival-newsletter-error.svg");
+      background-image: url("/static/foundation_cms/_images/icons/illustrated-newsletter-error.svg");
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
@@ -244,19 +244,19 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
   }
 }
 
-input.festival-newsletter-signup__input:focus
-  + .festival-newsletter-signup__label,
-input.festival-newsletter-signup__input[data-has-value="true"]
-  + .festival-newsletter-signup__label,
-select.festival-newsletter-signup__input:focus
-  + .festival-newsletter-signup__label,
-select.festival-newsletter-signup__input[data-has-value="true"]
-  + .festival-newsletter-signup__label {
+input.illustrated-newsletter-signup__input:focus
+  + .illustrated-newsletter-signup__label,
+input.illustrated-newsletter-signup__input[data-has-value="true"]
+  + .illustrated-newsletter-signup__label,
+select.illustrated-newsletter-signup__input:focus
+  + .illustrated-newsletter-signup__label,
+select.illustrated-newsletter-signup__input[data-has-value="true"]
+  + .illustrated-newsletter-signup__label {
   transform: translateY(rem-calc(-14)) scale(0.75);
 }
 
 @container (min-width: 40rem) {
-  .festival-newsletter-signup {
+  .illustrated-newsletter-signup {
     gap: rem-calc(24);
     padding-bottom: rem-calc(24);
     border-radius: 0 rem-calc(32);
@@ -270,7 +270,7 @@ select.festival-newsletter-signup__input[data-has-value="true"]
       gap: rem-calc(24);
     }
 
-    h2.festival-newsletter-signup__heading,
+    h2.illustrated-newsletter-signup__heading,
     &__success h2 {
       @include mofo-text-style($header-styles, "h4", $header-font-family);
     }
@@ -292,9 +292,9 @@ select.festival-newsletter-signup__input[data-has-value="true"]
   }
 }
 
-.two-column-container .festival-newsletter-signup {
+.two-column-container .illustrated-newsletter-signup {
   @include breakpoint(medium up) {
-    h2.festival-newsletter-signup__heading,
+    h2.illustrated-newsletter-signup__heading,
     &__success h2 {
       @include apply-text-style(
         $header-styles,
@@ -306,8 +306,8 @@ select.festival-newsletter-signup__input[data-has-value="true"]
   }
 }
 
-.three-column-container .festival-newsletter-signup {
-  h2.festival-newsletter-signup__heading,
+.three-column-container .illustrated-newsletter-signup {
+  h2.illustrated-newsletter-signup__heading,
   &__success h2 {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
   }

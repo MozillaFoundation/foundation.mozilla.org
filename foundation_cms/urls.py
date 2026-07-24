@@ -23,7 +23,7 @@ from foundation_cms.legacy_apps.wagtailcustomization.image_url_tag_urls import (
 from foundation_cms.legacy_apps.wagtailpages.rss import AtomFeed, RSSFeed
 from foundation_cms.search import views as search_views
 from foundation_cms.views import (
-    festival_newsletter_signup_submission_view,
+    illustrated_newsletter_signup_submission_view,
     newsletter_signup_submission_view,
     newsletter_unsubscribe_view,
 )
@@ -138,9 +138,9 @@ urlpatterns = list(
                 r"^newsletter-signup/(?P<pk>[0-9]+)/", newsletter_signup_submission_view, name="signup-submission"
             ),
             path(
-                "newsletter-signup/festival/",
-                festival_newsletter_signup_submission_view,
-                name="festival-newsletter-signup-submission",
+                "newsletter-signup/illustrated/<int:pk>/",
+                illustrated_newsletter_signup_submission_view,
+                name="illustrated-newsletter-signup-submission",
             ),
             path("newsletter-unsubscribe/", newsletter_unsubscribe_view, name="newsletter-unsubscribe"),
         ],

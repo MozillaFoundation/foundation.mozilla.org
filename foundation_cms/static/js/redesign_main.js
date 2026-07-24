@@ -4,7 +4,7 @@ import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_
 import { initAllHorizontalAccordions } from "./blocks/hero_accordion.js";
 import { initAllAccordionBlocks } from "./blocks/accordion_block.js";
 import { initImageCarousels } from "./blocks/image_carousel_block.js";
-import { initFestivalNewsletterSignups } from "./blocks/festival_newsletter_signup_block.js";
+import { initIllustratedNewsletterSignups } from "./blocks/illustrated_newsletter_signup_block.js";
 import injectNewsletterSignups from "./components/newsletter_signup/newsletter_signup.js";
 import injectNewsletterUnsubscribes from "./components/newsletter_unsubscribe.js";
 import { initPortraitCardSetCarousels } from "./blocks/portrait_card_carousel.js";
@@ -36,7 +36,7 @@ initDonateLightbox();
 initImpactNumberStatAnimationsOnScroll();
 initAllHorizontalAccordions();
 initAllAccordionBlocks();
-initFestivalNewsletterSignups();
+initIllustratedNewsletterSignups();
 injectNewsletterSignups(foundationSiteURL);
 injectNewsletterUnsubscribes(foundationSiteURL);
 initImageCarousels();

@@ -2,23 +2,23 @@ import { COUNTRY_OPTIONS } from "../components/newsletter_signup/data/country-op
 import { LANGUAGE_OPTIONS } from "../components/newsletter_signup/data/language-options.js";
 
 /**
- * CSS selectors used to locate elements within each Festival newsletter block.
+ * CSS selectors used to locate elements within each illustrated newsletter block.
  *
  * @type {Record<string, string>}
  */
 const SELECTORS = {
-  container: "[data-festival-newsletter-signup]",
-  form: ".festival-newsletter-signup__form",
+  container: "[data-illustrated-newsletter-signup]",
+  form: ".illustrated-newsletter-signup__form",
   emailInput: "input[name='email']",
   countryInput: "select[name='country']",
   languageInput: "select[name='language']",
   privacyCheckbox: "input[name='privacy']",
-  expandedContent: ".festival-newsletter-signup__expanded",
+  expandedContent: ".illustrated-newsletter-signup__expanded",
   emailErrorMessage: ".email-error-message",
   privacyErrorMessage: ".privacy-error-message",
-  errorMessage: ".festival-newsletter-signup__server-error",
-  successMessage: ".festival-newsletter-signup__success",
-  submitButton: ".festival-newsletter-signup__button",
+  errorMessage: ".illustrated-newsletter-signup__server-error",
+  successMessage: ".illustrated-newsletter-signup__success",
+  submitButton: ".illustrated-newsletter-signup__button",
 };
 
 /**
@@ -115,9 +115,9 @@ function validateForm({
 }
 
 /**
- * Submits Festival newsletter signup data to the API endpoint.
+ * Submits illustrated newsletter signup data to the API endpoint.
  *
- * @param {string} signupUrl - Festival newsletter signup endpoint.
+ * @param {string} signupUrl - Illustrated newsletter signup endpoint.
  * @param {{email: string, country: string, language: string}} formData - Signup values.
  * @returns {Promise<boolean>} Whether the API accepted the signup.
  */
@@ -146,12 +146,12 @@ async function submitDataToApi(signupUrl, formData) {
 }
 
 /**
- * Initializes one Festival newsletter block instance.
+ * Initializes one illustrated newsletter block instance.
  *
- * @param {HTMLElement} container - Festival newsletter block root.
+ * @param {HTMLElement} container - Illustrated newsletter block root.
  * @param {number} index - Instance index used to create unique error IDs.
  */
-function initializeFestivalNewsletterSignup(container, index) {
+function initializeIllustratedNewsletterSignup(container, index) {
   const form = container.querySelector(SELECTORS.form);
   const emailInput = form.querySelector(SELECTORS.emailInput);
   const countryInput = form.querySelector(SELECTORS.countryInput);
@@ -164,8 +164,8 @@ function initializeFestivalNewsletterSignup(container, index) {
   const successMessage = container.querySelector(SELECTORS.successMessage);
   const submitButton = form.querySelector(SELECTORS.submitButton);
 
-  emailErrorMessage.id = `festival-newsletter-email-error-${index}`;
-  privacyErrorMessage.id = `festival-newsletter-privacy-error-${index}`;
+  emailErrorMessage.id = `illustrated-newsletter-email-error-${index}`;
+  privacyErrorMessage.id = `illustrated-newsletter-privacy-error-${index}`;
 
   initializeInputValueState(emailInput);
 
@@ -234,12 +234,12 @@ function initializeFestivalNewsletterSignup(container, index) {
 }
 
 /**
- * Initializes every Festival newsletter block on the page.
+ * Initializes every illustrated newsletter block on the page.
  */
-export function initFestivalNewsletterSignups() {
+export function initIllustratedNewsletterSignups() {
   document
     .querySelectorAll(SELECTORS.container)
     .forEach((container, index) =>
-      initializeFestivalNewsletterSignup(container, index),
+      initializeIllustratedNewsletterSignup(container, index),
     );
 }

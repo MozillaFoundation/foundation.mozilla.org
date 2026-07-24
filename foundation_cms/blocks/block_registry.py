@@ -7,7 +7,6 @@ from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
-from .festival_newsletter_signup_block import FestivalNewsletterSignupBlock
 from .fru_element_block import FruElementBlock
 from .icon_info_grid_block import IconInfoGridBlock
 from .iframe_block import iFrameBlock
@@ -15,6 +14,7 @@ from .image_block import CustomImageBlock
 from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock
 from .impact_number_block import ImpactNumberBlock
+from .illustrated_newsletter_signup_block import IllustratedNewsletterSignupBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .media_block import CustomMediaBlock
@@ -125,8 +125,8 @@ class BlockRegistry:
             "class": DonorHelpContactUsFormBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
-        "festival_newsletter_signup": {
-            "class": FestivalNewsletterSignupBlock,
+        "illustrated_newsletter_signup": {
+            "class": IllustratedNewsletterSignupBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         "newsletter_signup": {

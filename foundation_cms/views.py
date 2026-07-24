@@ -15,11 +15,12 @@ from wagtail.models import Site
 
 from foundation_cms.legacy_apps.mozfest.models import MozfestHomepage
 from foundation_cms.legacy_apps.wagtailpages.models import Homepage
+from foundation_cms.snippets.models.illustrated_newsletter_signup import (
+    IllustratedNewsletterSignup,
+)
 from foundation_cms.snippets.models.newsletter_signup import NewsletterSignup
 
 logger = logging.getLogger(__name__)
-
-FESTIVAL_NEWSLETTER_SLUG = "mozillafestivalorg"
 
 
 class EnvVariablesView(View):
@@ -112,7 +113,7 @@ def newsletter_signup_submission_view(request, pk):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def festival_newsletter_signup_submission_view(request):
+def illustrated_newsletter_signup_submission_view(request, pk):
     new_body = request.body.decode("utf-8")
     try:
         request.data = json.loads(new_body)
@@ -124,7 +125,15 @@ def festival_newsletter_signup_submission_view(request):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
-    return newsletter_signup_submission(request, FESTIVAL_NEWSLETTER_SLUG)
+    try:
+        signup = IllustratedNewsletterSignup.objects.get(id=pk)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error": "Newsletter signup not found"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    return newsletter_signup_submission(request, signup.newsletter)
 
 
 # handle newsletter signup data

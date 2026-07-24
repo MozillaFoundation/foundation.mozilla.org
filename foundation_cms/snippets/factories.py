@@ -2,7 +2,8 @@ import factory
 from factory.django import DjangoModelFactory
 from wagtail.models import Locale
 
-from foundation_cms.snippets.models import NewsletterSignup
+from foundation_cms.base.factories import ImageFactory
+from foundation_cms.snippets.models import IllustratedNewsletterSignup, NewsletterSignup
 from foundation_cms.snippets.models.newsletter_signup import FooterNewsletterSignup
 
 
@@ -16,6 +17,17 @@ class NewsletterSignupFactory(DjangoModelFactory):
     button_text = "Sign Up"
     newsletter = "mozilla-foundation"
     layout = "expand_on_focus"
+    locale = factory.LazyFunction(Locale.get_default)
+
+
+class IllustratedNewsletterSignupFactory(DjangoModelFactory):
+    class Meta:
+        model = IllustratedNewsletterSignup
+
+    name = factory.Faker("sentence", nb_words=3)
+    heading = factory.Faker("sentence", nb_words=6)
+    illustration = factory.SubFactory(ImageFactory)
+    newsletter = "mozilla-foundation"
     locale = factory.LazyFunction(Locale.get_default)
 
 
