@@ -24,7 +24,7 @@ body.template-search-results {
 
   .search-summary {
     text-align: center;
-    margin: rem-calc(32) 0 rem-calc(16);
+    margin: rem-calc(16) 0;
 
     @include breakpoint(medium up) {
       margin: rem-calc(16) 0 rem-calc(32);

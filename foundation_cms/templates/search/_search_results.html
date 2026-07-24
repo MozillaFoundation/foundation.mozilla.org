@@ -17,9 +17,9 @@
           <a href="{% pageurl result %}" class="page-card__image-wrapper">
             {% if result.search_image %}
               {% if forloop.first %}
-                {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 220px" loading="" %}
+                {% responsive_image result.search_image ratio="3:2" base_width=220 sizes="(max-width: 639px) 100vw, 220px" loading="" %}
               {% else %}
-                {% responsive_image result.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 220px" %}
+                {% responsive_image result.search_image ratio="3:2" base_width=220 sizes="(max-width: 639px) 100vw, 220px" %}
               {% endif %}
             {% else %}
               <img
