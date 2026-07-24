@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% if related_topics %}
+    <fieldset class="search-filter-group search-filter-group--topics">
+        <legend class="search-filter-group__legend">{% trans "Topic Tag" %}</legend>
+        <div class="search-topic-pills">
+            {% for topic in related_topics|dictsort:"name" %}
+                <label class="search-topic-pill" data-search-topic-label>
+                    <input class="search-topic-pill__input"
+                           type="radio"
+                           name="topic"
+                           value="{{ topic.slug }}"
+                           {% if selected_topic == topic.slug %}checked{% endif %}>
+                    <span class="search-topic-pill__label">{{ topic.name }}</span>
+                </label>
+            {% endfor %}
+        </div>
+    </fieldset>
+{% endif %}

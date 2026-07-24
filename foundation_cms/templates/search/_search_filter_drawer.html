@@ -1,0 +1,55 @@
+{% load i18n %}
+
+<div id="search-results-filter-drawer"
+     class="search-filter-drawer"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="search-filter-drawer-title"
+     data-search-drawer
+     hidden>
+    <div class="search-filter-drawer__panel">
+        <form action="{% url 'search' %}"
+              method="get"
+              class="search-filter-drawer__form"
+              data-search-filter-form
+              data-search-filter-mode="drawer">
+            <input type="hidden" name="query" value="{{ search_query }}">
+
+            <div class="search-filter-drawer__content grid-container">
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-12 medium-8 medium-offset-2 search-filter-drawer__header">
+                        <button class="search-filter-drawer__reset"
+                                type="button"
+                                data-search-drawer-reset>
+                            {% trans "Reset" %}
+                        </button>
+                        <h2 id="search-filter-drawer-title" class="search-filter-drawer__title">
+                            {% trans "Filter & Sort" %}
+                        </h2>
+                        <button class="search-filter-drawer__close"
+                                type="button"
+                                aria-label="{% trans "Close filter and sort" %}"
+                                data-search-drawer-close>
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <div class="cell small-12 medium-8 medium-offset-2 search-filter-drawer__body">
+                        {% include "search/_search_filter_sort.html" with sort_variant="drawer" %}
+                        {% include "search/_search_filter_content_type.html" %}
+                        {% include "search/_search_filter_topics.html" %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-filter-drawer__footer">
+                <button class="search-filter-drawer__display"
+                        type="submit"
+                        data-search-drawer-apply
+                        data-search-drawer-apply-label="{% trans "Display results" %}">
+                    {% blocktrans with count=total_search_results %}Display results ({{ count }}){% endblocktrans %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
