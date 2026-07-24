@@ -5,8 +5,8 @@ from foundation_cms.base.models.base_block import BaseBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .fru_element_block import FruElementBlock
-from .image_block import CustomImageBlock
 from .illustrated_newsletter_signup_block import IllustratedNewsletterSignupBlock
+from .image_block import CustomImageBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
 from .newsletter_signup_block import NewsletterSignupBlock

@@ -5,10 +5,10 @@ from django.http import JsonResponse
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
+from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.blocks.illustrated_newsletter_signup_block import (
     IllustratedNewsletterSignupBlock,
 )
-from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.blocks.three_column_container_block import ThreeColumnStreamBlock
 from foundation_cms.blocks.two_column_container_block import ColumnStreamBlock
 from foundation_cms.snippets.factories import IllustratedNewsletterSignupFactory

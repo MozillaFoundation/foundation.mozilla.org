@@ -10,11 +10,11 @@ from .fru_element_block import FruElementBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
+from .illustrated_newsletter_signup_block import IllustratedNewsletterSignupBlock
 from .image_block import CustomImageBlock
 from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock, ImageGridItemBlock, ImageGridSectionBlock
 from .impact_number_block import ImpactNumberBlock
-from .illustrated_newsletter_signup_block import IllustratedNewsletterSignupBlock
 from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import LinkButtonBlock
 from .list_block import ListBlock
