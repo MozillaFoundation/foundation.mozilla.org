@@ -52,7 +52,7 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
     text-align: center;
   }
 
-  &__heading,
+  h2.festival-newsletter-signup__heading,
   &__success h2 {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
   }
@@ -63,6 +63,13 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
     display: flex;
     flex-direction: column;
     gap: rem-calc(16);
+  }
+
+  &[data-state="default"] &__field-row {
+    width: 100%;
+    max-width: rem-calc(584);
+    margin-right: auto;
+    margin-left: auto;
   }
 
   &__additional-fields {
@@ -107,7 +114,6 @@ $festival-newsletter-checkbox-checked-background: #f7c9a7;
 
     &:focus-visible {
       outline: 0;
-      box-shadow: 0 1px 0 color(neutral, "600");
     }
   }
 
@@ -264,7 +270,7 @@ select.festival-newsletter-signup__input[data-has-value="true"]
       gap: rem-calc(24);
     }
 
-    &__heading,
+    h2.festival-newsletter-signup__heading,
     &__success h2 {
       @include mofo-text-style($header-styles, "h4", $header-font-family);
     }
@@ -288,15 +294,20 @@ select.festival-newsletter-signup__input[data-has-value="true"]
 
 .two-column-container .festival-newsletter-signup {
   @include breakpoint(medium up) {
-    &__heading,
+    h2.festival-newsletter-signup__heading,
     &__success h2 {
-      @include mofo-text-style($header-styles, "h4", $header-font-family);
+      @include apply-text-style(
+        $header-styles,
+        "h4",
+        "large",
+        $header-font-family
+      );
     }
   }
 }
 
 .three-column-container .festival-newsletter-signup {
-  &__heading,
+  h2.festival-newsletter-signup__heading,
   &__success h2 {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
   }
