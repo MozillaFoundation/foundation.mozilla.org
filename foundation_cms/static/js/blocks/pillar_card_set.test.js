@@ -34,6 +34,24 @@ describe("initPillarCardLinks", () => {
     openSpy.mockRestore();
   });
 
+  it("navigates in the same tab when data-target is not _blank", () => {
+    document.body.innerHTML = `<div class="pillar-card-set__card" data-href="/example"></div>`;
+    const card = document.querySelector(".pillar-card-set__card");
+    const originalLocation = window.location;
+
+    // jsdom throws "Not implemented: navigation" on a real location.href
+    // assignment, so swap in a plain object just for this test.
+    delete window.location;
+    window.location = { href: "" };
+
+    initPillarCardLinks();
+    card.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+    expect(window.location.href).toBe("/example");
+
+    window.location = originalLocation;
+  });
+
   // Ensure we don't have a double-navigate problem: a click on the inner
   // link bubbles to the card's own listener, which would otherwise navigate
   // again. See the `e.target.closest(...)` guard in pillar_card_set.js.
