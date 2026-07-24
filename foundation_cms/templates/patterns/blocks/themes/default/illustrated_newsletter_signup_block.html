@@ -1,0 +1,100 @@
+{% load i18n wagtailimages_tags %}
+{% get_current_language as current_language %}
+
+{% block block_content %}
+  {% with newsletter_signup=value.newsletter_signup.localized %}
+    <div class="illustrated-newsletter-signup-block">
+      <section class="illustrated-newsletter-signup"
+               data-illustrated-newsletter-signup
+               data-signup-url="{% url 'illustrated-newsletter-signup-submission' newsletter_signup.pk %}"
+               data-current-language="{{ current_language }}"
+               data-state="default">
+        {% if newsletter_signup.illustration %}
+          {% image newsletter_signup.illustration width-240 as illustration %}
+          <img class="illustrated-newsletter-signup__illustration"
+               src="{{ illustration.url }}"
+               width="{{ illustration.width }}"
+               height="{{ illustration.height }}"
+               alt=""
+               aria-hidden="true">
+        {% endif %}
+
+        <div class="illustrated-newsletter-signup__content">
+          <h2 class="illustrated-newsletter-signup__heading">{{ newsletter_signup.heading }}</h2>
+
+          <div class="illustrated-newsletter-signup__server-error" role="alert" hidden>
+            {% trans "Something went wrong and your signup wasn't completed. Please try again later." %}
+          </div>
+
+          <form class="illustrated-newsletter-signup__form" novalidate>
+            <div class="illustrated-newsletter-signup__field-row">
+              <div class="illustrated-newsletter-signup__field">
+                <label class="illustrated-newsletter-signup__control">
+                  <input class="illustrated-newsletter-signup__input"
+                         type="email"
+                         name="email"
+                         autocomplete="email"
+                         required>
+                  <span class="illustrated-newsletter-signup__label">{% trans "Email" %}</span>
+                </label>
+                <span class="illustrated-newsletter-signup__field-error email-error-message" hidden>
+                  {% trans "Please enter a valid email address." %}
+                </span>
+              </div>
+
+              <div class="illustrated-newsletter-signup__additional-fields illustrated-newsletter-signup__expanded" hidden>
+                <div class="illustrated-newsletter-signup__field">
+                  <label class="illustrated-newsletter-signup__control">
+                    <select class="illustrated-newsletter-signup__input"
+                            name="country"
+                            autocomplete="country-name">
+                    </select>
+                    <span class="illustrated-newsletter-signup__label">{% trans "Country" %}</span>
+                  </label>
+                </div>
+
+                <div class="illustrated-newsletter-signup__field">
+                  <label class="illustrated-newsletter-signup__control">
+                    <select class="illustrated-newsletter-signup__input" name="language">
+                    </select>
+                    <span class="illustrated-newsletter-signup__label">{% trans "Language" %}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="illustrated-newsletter-signup__actions illustrated-newsletter-signup__expanded" hidden>
+              <div class="illustrated-newsletter-signup__field illustrated-newsletter-signup__privacy-field">
+                <label class="illustrated-newsletter-signup__privacy-label">
+                  <input type="checkbox" name="privacy">
+                  <span>
+                    {% blocktrans with privacy_link='https://www.mozilla.org/privacy/websites/' trimmed %}
+                      I'm okay with Mozilla handling my info as explained in this
+                      <a href="{{ privacy_link }}" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.
+                    {% endblocktrans %}
+                  </span>
+                </label>
+                <span class="illustrated-newsletter-signup__field-error privacy-error-message" hidden>
+                  {% trans "Please check this box if you want to proceed." %}
+                </span>
+              </div>
+
+              {% trans "Sign Up" as signup_label %}
+              {% include "patterns/components/button.html" with tag="button" button_type="submit" label=signup_label button_style="btn-primary" classnames="illustrated-newsletter-signup__button" only %}
+            </div>
+          </form>
+
+          <div class="illustrated-newsletter-signup__success" role="status" tabindex="-1" hidden>
+            <h2>{% trans "Thank you!" %}</h2>
+            <p>
+              {% blocktrans trimmed %}
+                If you haven’t previously confirmed your opt-in to a Mozilla Foundation-related email subscription you may have to do so now.
+                Please check your inbox or spam filter for an email from us to click and confirm your subscription.
+              {% endblocktrans %}
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  {% endwith %}
+{% endblock block_content %}

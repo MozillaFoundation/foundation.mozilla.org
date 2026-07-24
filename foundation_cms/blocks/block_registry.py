@@ -10,6 +10,7 @@ from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
 from .icon_info_grid_block import IconInfoGridBlock
 from .iframe_block import iFrameBlock
+from .illustrated_newsletter_signup_block import IllustratedNewsletterSignupBlock
 from .image_block import CustomImageBlock
 from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock
@@ -122,6 +123,10 @@ class BlockRegistry:
         },
         "donor_help_contact_us_form": {
             "class": DonorHelpContactUsFormBlock,
+            "group": BlockGroups.ENGAGEMENT,
+        },
+        "illustrated_newsletter_signup": {
+            "class": IllustratedNewsletterSignupBlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         "newsletter_signup": {

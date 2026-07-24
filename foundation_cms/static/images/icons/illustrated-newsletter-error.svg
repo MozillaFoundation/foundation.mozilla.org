@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="illustrated-newsletter-error-mask" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="6" y="6" width="12" height="12">
+<path d="M6 6H18V18H6V6Z" fill="white"/>
+</mask>
+<g mask="url(#illustrated-newsletter-error-mask)">
+<path d="M12 7.5L6 18H18L12 7.5ZM12 9.765L16.065 16.875H7.935L12 9.765ZM18 11.25H16.5V12.75H18V11.25ZM18 6H16.5V7.125L16.7887 10.5H17.748L18 7.125V6Z" fill="#D92D20"/>
+</g>
+</svg>
