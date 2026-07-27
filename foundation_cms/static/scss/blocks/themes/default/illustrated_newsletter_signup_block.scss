@@ -1,5 +1,8 @@
 $illustrated-newsletter-border: #878787;
 $illustrated-newsletter-checkbox-checked-background: #f7c9a7;
+$illustrated-newsletter-expansion-duration: 320ms;
+$illustrated-newsletter-reveal-duration: 220ms;
+$illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
 
 .illustrated-newsletter-signup-block {
   container-type: inline-size;
@@ -65,15 +68,41 @@ $illustrated-newsletter-checkbox-checked-background: #f7c9a7;
     gap: rem-calc(16);
   }
 
-  &[data-state="default"] &__field-row {
+  &__field-row {
     width: 100%;
     max-width: rem-calc(584);
     margin-right: auto;
     margin-left: auto;
   }
 
+  &__field {
+    min-width: 0;
+  }
+
   &__additional-fields {
     display: contents;
+  }
+
+  &__additional-fields > &__field,
+  &__privacy-field,
+  &__button {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(rem-calc(8));
+  }
+
+  &[data-state="expanded"] &__additional-fields > &__field,
+  &[data-state="expanded"] &__privacy-field,
+  &[data-state="expanded"] &__button,
+  &[data-state="submitting"] &__additional-fields > &__field,
+  &[data-state="submitting"] &__privacy-field,
+  &[data-state="submitting"] &__button,
+  &[data-state="error"] &__additional-fields > &__field,
+  &[data-state="error"] &__privacy-field,
+  &[data-state="error"] &__button {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   &__control {
@@ -278,9 +307,17 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
     &[data-state="expanded"] &__field-row,
     &[data-state="submitting"] &__field-row,
     &[data-state="error"] &__field-row {
-      display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: rem-calc(24);
+      column-gap: rem-calc(24);
+      max-width: rem-calc(792);
+    }
+
+    &__field-row {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1fr) minmax(0, 0fr)
+        minmax(0, 0fr);
+      column-gap: 0;
     }
 
     &__button.btn-primary {
@@ -288,6 +325,52 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
       min-width: rem-calc(200);
       margin-right: auto;
       margin-left: auto;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .illustrated-newsletter-signup {
+    &__form {
+      transition: height $illustrated-newsletter-expansion-duration
+        $illustrated-newsletter-expansion-easing;
+    }
+
+    &__field-row {
+      transition:
+        max-width $illustrated-newsletter-expansion-duration
+          $illustrated-newsletter-expansion-easing,
+        grid-template-columns $illustrated-newsletter-expansion-duration
+          $illustrated-newsletter-expansion-easing,
+        column-gap $illustrated-newsletter-expansion-duration
+          $illustrated-newsletter-expansion-easing;
+    }
+
+    &__additional-fields > &__field,
+    &__privacy-field,
+    &__button {
+      transition:
+        opacity $illustrated-newsletter-reveal-duration ease-out
+          var(--illustrated-newsletter-reveal-delay, 0ms),
+        transform $illustrated-newsletter-reveal-duration
+          $illustrated-newsletter-expansion-easing
+          var(--illustrated-newsletter-reveal-delay, 0ms);
+    }
+
+    &__additional-fields > &__field:first-child {
+      --illustrated-newsletter-reveal-delay: 40ms;
+    }
+
+    &__additional-fields > &__field:last-child {
+      --illustrated-newsletter-reveal-delay: 100ms;
+    }
+
+    &__privacy-field {
+      --illustrated-newsletter-reveal-delay: 160ms;
+    }
+
+    &__button {
+      --illustrated-newsletter-reveal-delay: 220ms;
     }
   }
 }

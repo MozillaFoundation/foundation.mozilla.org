@@ -21,6 +21,8 @@ const SELECTORS = {
   submitButton: ".illustrated-newsletter-signup__button",
 };
 
+const EXPANSION_TRANSITION_MS = 320;
+
 /**
  * Populates a native select with a disabled placeholder and the supplied options.
  *
@@ -146,6 +148,72 @@ async function submitDataToApi(signupUrl, formData) {
 }
 
 /**
+ * Reveals the remaining fields while smoothly growing the form to fit them.
+ *
+ * @param {HTMLElement} container - Illustrated newsletter block root.
+ * @param {HTMLFormElement} form - Form whose height should be animated.
+ * @param {NodeListOf<HTMLElement>} expandedContent - Elements to reveal.
+ */
+function expandForm(container, form, expandedContent) {
+  if (container.dataset.state !== "default") return;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (reducedMotion) {
+    expandedContent.forEach((element) => {
+      element.hidden = false;
+    });
+    container.dataset.state = "expanded";
+    return;
+  }
+
+  const collapsedHeight = form.offsetHeight;
+  form.style.height = `${collapsedHeight}px`;
+  form.style.overflow = "hidden";
+
+  expandedContent.forEach((element) => {
+    element.hidden = false;
+  });
+
+  // Measure the natural layout height so translated reveal elements do not add
+  // their visual overflow to the animation target.
+  form.style.height = "auto";
+  const expandedHeight = form.offsetHeight;
+  form.style.height = `${collapsedHeight}px`;
+
+  // Ensure the collapsed styles are rendered before starting the transitions.
+  form.getBoundingClientRect();
+  container.dataset.state = "expanded";
+
+  let cleanupTimer;
+
+  const finishExpansion = () => {
+    window.clearTimeout(cleanupTimer);
+    form.removeEventListener("transitionend", handleTransitionEnd);
+    form.style.removeProperty("height");
+    form.style.removeProperty("overflow");
+  };
+
+  const handleTransitionEnd = (event) => {
+    if (event.target === form && event.propertyName === "height") {
+      finishExpansion();
+    }
+  };
+
+  form.addEventListener("transitionend", handleTransitionEnd);
+  cleanupTimer = window.setTimeout(
+    finishExpansion,
+    EXPANSION_TRANSITION_MS + 50,
+  );
+
+  requestAnimationFrame(() => {
+    form.style.height = `${expandedHeight}px`;
+  });
+}
+
+/**
  * Initializes one illustrated newsletter block instance.
  *
  * @param {HTMLElement} container - Illustrated newsletter block root.
@@ -186,12 +254,7 @@ function initializeIllustratedNewsletterSignup(container, index) {
     languageInput.nextElementSibling.textContent.trim(),
   );
 
-  const expand = () => {
-    expandedContent.forEach((element) => {
-      element.hidden = false;
-    });
-    container.dataset.state = "expanded";
-  };
+  const expand = () => expandForm(container, form, expandedContent);
 
   emailInput.addEventListener("focus", expand, { once: true });
 
