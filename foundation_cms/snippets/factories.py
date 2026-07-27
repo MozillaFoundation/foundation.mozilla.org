@@ -26,6 +26,7 @@ class IllustratedNewsletterSignupFactory(DjangoModelFactory):
 
     name = factory.Faker("sentence", nb_words=3)
     heading = factory.Faker("sentence", nb_words=6)
+    button_text = "Sign Up"
     illustration = factory.SubFactory(ImageFactory)
     newsletter = "mozilla-foundation"
     locale = factory.LazyFunction(Locale.get_default)

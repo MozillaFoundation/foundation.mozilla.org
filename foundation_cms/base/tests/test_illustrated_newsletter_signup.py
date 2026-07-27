@@ -19,9 +19,12 @@ from foundation_cms.views import illustrated_newsletter_signup_submission_view
 class IllustratedNewsletterSignupBlockTests(TestCase):
     def test_snippet_requires_an_explicit_newsletter_and_limits_the_heading(self):
         heading_field = IllustratedNewsletterSignup._meta.get_field("heading")
+        button_text_field = IllustratedNewsletterSignup._meta.get_field("button_text")
         newsletter_field = IllustratedNewsletterSignup._meta.get_field("newsletter")
 
         self.assertEqual(heading_field.max_length, 60)
+        self.assertEqual(button_text_field.max_length, 50)
+        self.assertEqual(button_text_field.default, "Sign Up")
         self.assertFalse(newsletter_field.has_default())
 
     def test_editor_chooses_an_illustrated_newsletter_signup_snippet(self):
@@ -36,6 +39,7 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
     def test_rendered_form_uses_the_selected_snippet_and_dedicated_endpoint(self):
         signup = IllustratedNewsletterSignupFactory(
             heading="Keep up with Mozilla Festival",
+            button_text="Join the Festival",
             illustration=None,
             newsletter="mozillafestivalorg",
         )
@@ -51,7 +55,7 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         )
         self.assertIn("Keep up with Mozilla Festival", html)
         self.assertIn("illustrated-newsletter-signup__expanded", html)
-        self.assertIn("Sign Up", html)
+        self.assertIn("Join the Festival", html)
 
     def test_block_is_available_in_two_and_three_column_containers(self):
         self.assertIs(

@@ -16,6 +16,11 @@ class IllustratedNewsletterSignup(TranslatableMixin, models.Model):
         max_length=60,
         help_text="Heading displayed above the newsletter signup form. Maximum 60 characters.",
     )
+    button_text = models.CharField(
+        max_length=50,
+        default="Sign Up",
+        help_text="Text to display on the signup button.",
+    )
     illustration = models.ForeignKey(
         get_image_model_string(),
         null=True,
@@ -32,6 +37,7 @@ class IllustratedNewsletterSignup(TranslatableMixin, models.Model):
     panels = [
         FieldPanel("name"),
         FieldPanel("heading"),
+        FieldPanel("button_text"),
         FieldPanel("illustration"),
         FieldPanel("newsletter"),
     ]
@@ -39,6 +45,7 @@ class IllustratedNewsletterSignup(TranslatableMixin, models.Model):
     translatable_fields = [
         SynchronizedField("name"),
         TranslatableField("heading"),
+        TranslatableField("button_text"),
         SynchronizedField("illustration"),
         SynchronizedField("newsletter"),
     ]
