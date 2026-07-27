@@ -6,8 +6,7 @@ from foundation_cms.base.factories import generate_images, generate_topics
 from foundation_cms.core.factories import generate_homepage
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
-from foundation_cms.navigation.factories import NavigationMenuFactory
-from foundation_cms.navigation.models import SiteNavigationMenu
+from foundation_cms.navigation.factories import generate as generate_navigation
 from foundation_cms.profiles.factories import generate as generate_profiles
 
 
@@ -36,8 +35,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("Assigning redesign HomePage as default."))
         site = self.assign_homepage_as_site_root(homepage, hostname, port)
 
-        self.stdout.write("Generating Navigation Menu via factory...")
-        nav_menu = self.create_nav_menu(site)
+        self.stdout.write("Generating Navigation Menu...")
+        nav_menu = generate_navigation(site)
         self.stdout.write(self.style.SUCCESS(f'Navigation Menu active: "{nav_menu.title}"'))
 
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
@@ -76,19 +75,3 @@ class Command(BaseCommand):
         site.save()
         self.stdout.write(self.style.SUCCESS("Created new default Site"))
         return site
-
-    def create_nav_menu(self, site):
-        """
-        Create a Navigation Menu and set it as the active menu in SiteNavigationMenu.
-        """
-        settings_obj = SiteNavigationMenu.for_site(site)
-
-        # Create a menu with dropdowns via factory
-        nav_menu = NavigationMenuFactory.create(
-            title="Main Navigation",
-            locale=site.root_page.locale,
-        )
-        settings_obj.active_navigation_menu = nav_menu
-        settings_obj.save()
-
-        return nav_menu
