@@ -8,7 +8,7 @@ const PREVIEW_DEBOUNCE_MS = 200;
 const LARGE_VIEWPORT_QUERY = "(min-width: 64em)";
 
 const CLASSNAMES = {
-  drawerOpen: "search-filter-drawer-open",
+  drawerScrollLocked: "search-filter-drawer-open",
 };
 
 const SELECTORS = {
@@ -71,14 +71,14 @@ function submitForm(form) {
  * Updates the mobile/tablet drawer apply button with the result count preview.
  *
  * @param {HTMLElement | null} button
- * @param {string | number} count
+ * @param {string | number} [count]
  */
 function setApplyButtonLabel(button, count) {
   if (!button) return;
 
   const label = button.dataset.searchDrawerApplyLabel || "Display results";
 
-  button.textContent = `${label} (${count})`;
+  button.textContent = count === undefined ? label : `${label} (${count})`;
 }
 
 /**
@@ -183,8 +183,8 @@ export function initSearchPageFilters() {
     const rootElement = document.documentElement;
     const body = document.body;
 
-    rootElement.classList.toggle(CLASSNAMES.drawerOpen, isLocked);
-    body.classList.toggle(CLASSNAMES.drawerOpen, isLocked);
+    rootElement.classList.toggle(CLASSNAMES.drawerScrollLocked, isLocked);
+    body.classList.toggle(CLASSNAMES.drawerScrollLocked, isLocked);
   }
 
   /**
@@ -209,20 +209,39 @@ export function initSearchPageFilters() {
           signal: previewAbortController.signal,
         });
 
-        if (!response.ok) return;
+        if (!response.ok) {
+          setApplyButtonLabel(drawerApply);
+          return;
+        }
 
         const html = await response.text();
         const doc = new DOMParser().parseFromString(html, "text/html");
         const previewRoot = doc.querySelector(SELECTORS.root);
         const count = previewRoot?.dataset.totalResults;
 
-        if (count !== undefined) setApplyButtonLabel(drawerApply, count);
+        setApplyButtonLabel(drawerApply, count);
       } catch (err) {
         if (err.name === "AbortError") return;
 
-        // Keep the last known count when the preview request is unavailable.
+        setApplyButtonLabel(drawerApply);
       }
     }, PREVIEW_DEBOUNCE_MS);
+  }
+
+  /**
+   * Applies a form change immediately on desktop or refreshes the result-count
+   * preview for the mobile/tablet drawer.
+   *
+   * @param {HTMLFormElement} form
+   * @param {string} mode
+   */
+  function handleFilterChange(form, mode) {
+    if (mode === "immediate") {
+      submitForm(form);
+      return;
+    }
+
+    updateDrawerPreview();
   }
 
   /**
@@ -280,21 +299,12 @@ export function initSearchPageFilters() {
         input.checked = false;
         label.dataset[DATA_KEYS.topicWasChecked] = "false";
 
-        if (mode === "immediate") {
-          submitForm(form);
-        } else {
-          updateDrawerPreview();
-        }
+        handleFilterChange(form, mode);
       });
     });
 
     form.addEventListener("change", () => {
-      if (mode === "immediate") {
-        submitForm(form);
-        return;
-      }
-
-      updateDrawerPreview();
+      handleFilterChange(form, mode);
     });
   });
 

@@ -9,6 +9,10 @@ body.search-filter-drawer-open {
   overscroll-behavior: none;
 }
 
+body.search-filter-drawer-open .primary-nav-ns {
+  position: fixed;
+}
+
 body.template-search-results {
   $highlight-color: color(orange, "300");
   $selected-topic-color: #f7ec50;
@@ -70,10 +74,14 @@ body.template-search-results {
 
   .search-summary {
     text-align: center;
-    margin: rem-calc(32) 0 rem-calc(16);
+    margin: rem-calc(16) 0;
 
     @include breakpoint(medium up) {
-      margin: rem-calc(64) 0 rem-calc(32);
+      margin: rem-calc(16) 0 rem-calc(32);
+    }
+
+    @include breakpoint(large up) {
+      margin-top: rem-calc(64);
     }
 
     h2 {
@@ -117,6 +125,25 @@ body.template-search-results {
       @include breakpoint(medium up) {
         margin-bottom: 4rem;
       }
+    }
+  }
+
+  .search-empty-state {
+    margin-top: rem-calc(64);
+    margin-bottom: rem-calc(64);
+
+    @include breakpoint(medium up) {
+      margin-top: rem-calc(96);
+      margin-bottom: rem-calc(128);
+    }
+
+    &__heading {
+      margin: 0 0 rem-calc(32);
+      text-align: center;
+    }
+
+    .search-form-wrapper {
+      margin-bottom: 0;
     }
   }
 
@@ -468,10 +495,10 @@ body.template-search-results {
 
   .search-filter-drawer {
     position: fixed;
-    inset: rem-calc(88) 0 auto;
+    inset: $primary-nav-height 0 auto;
     z-index: 100;
-    height: calc(100vh - rem-calc(88));
-    height: calc(100dvh - rem-calc(88));
+    height: calc(100vh - #{$primary-nav-height});
+    height: calc(100dvh - #{$primary-nav-height});
     overflow: hidden;
     background: $white;
 
@@ -488,8 +515,11 @@ body.template-search-results {
     height: 100%;
     max-height: none;
     overflow: hidden;
-    border: 1px solid color(orange, "300");
     background: $white;
+
+    @include breakpoint(medium up) {
+      padding-top: rem-calc(24);
+    }
   }
 
   .search-filter-drawer__form {
@@ -504,12 +534,22 @@ body.template-search-results {
     -webkit-overflow-scrolling: touch;
   }
 
+  .search-filter-drawer__content {
+    width: 100%;
+    flex: 0 0 auto;
+
+    @include breakpoint(small only) {
+      padding-right: rem-calc(24);
+      padding-left: rem-calc(24);
+    }
+  }
+
   .search-filter-drawer__header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: rem-calc(16);
-    padding: rem-calc(16);
+    padding: rem-calc(16) 0;
   }
 
   .search-filter-drawer__reset,
@@ -554,13 +594,10 @@ body.template-search-results {
 
   .search-filter-drawer__body {
     flex: 0 0 auto;
-    padding: 0 rem-calc(24);
+    padding: 0 0 rem-calc(24);
 
     @include breakpoint(medium up) {
-      max-width: rem-calc(458);
-      width: 100%;
-      margin: 0 auto;
-      padding: rem-calc(24) 0 0;
+      padding: rem-calc(24) 0;
     }
 
     .search-filter-group + .search-filter-group {
@@ -577,7 +614,7 @@ body.template-search-results {
     max-width: rem-calc(506);
     flex: 0 0 auto;
     margin: 0 auto;
-    padding: rem-calc(48) rem-calc(24) rem-calc(24);
+    padding: rem-calc(24);
     background: $white;
   }
 
