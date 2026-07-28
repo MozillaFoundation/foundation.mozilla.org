@@ -12,7 +12,9 @@
 {% block body_class %}template-search-results{% endblock body_class %}
 
 {% block content %}
-    <div class="grid-container">
+    <div class="search-results-page grid-container"
+         data-search-results-page
+         data-total-results="{{ total_search_results }}">
         <div class="grid-x">
             {% if search_query %}
                 <div class="cell small-12">
@@ -23,46 +25,60 @@
                     {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
                 </div>
 
-                {# TEMP DEBUG PLACEHOLDER: remove when frontend is finalized #}
-                <div class="cell small-12 large-8 large-offset-2 margin-vertical-1 padding-1 border-dashed">
-                    <strong>Search debug placeholder</strong>
-                    <ul>
-                        <li><strong>query:</strong> {{ search_query|default:"(empty)" }}</li>
-                        <li><strong>sort:</strong> {{ sort|default:"relevance" }}</li>
-                        <li><strong>content_type:</strong> {{ content_type|default:"all" }}</li>
-                        <li><strong>selected_topic:</strong> {{ selected_topic|default:"(none)" }}</li>
-                        <li><strong>total_search_results:</strong> {{ total_search_results }}</li>
-                        <li>
-                            <strong>related_topics ({{ related_topics|length }}):</strong>
-                            {% if related_topics %}
-                                <ul>
-                                    {% for topic in related_topics %}
-                                        <li>
-                                            slug={{ topic.slug }}, name="{{ topic.name }}", count={{ topic.count }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                (none)
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-                {# END TEMP DEBUG PLACEHOLDER #}
+                <div class="cell small-12 search-results-shell">
+                    {% include "search/_search_results_sidebar.html" %}
 
-                {% if search_results %}
-                    {% include "search/_search_results.html" %}
-                    {% include "patterns/components/_pagination.html" with page_obj=search_results viewname="search" %}
-                {% else %}
-                    {% if keep_contributing_pages|length >= 2 %}
-                        <div class="cell small-12 related-content-wrapper">
-                            {% trans "Latest Stories" as localized_suggested_heading %}
-                            {% with heading=localized_suggested_heading items=keep_contributing_pages image_ratio="3:2" show_author=True image_field="search_image" %}
-                                {% include "patterns/components/related_content.html" %}
-                            {% endwith %}
+                    <div class="search-results-main">
+                        <div class="search-results-toolbar">
+                            {% if total_search_results|default:0 > 0 %}
+                                <p class="search-results-page-count">
+                                    {% blocktrans trimmed with page_number=search_results.number total_pages=search_results.paginator.num_pages %}
+                                        Page {{ page_number }} of {{ total_pages }}
+                                    {% endblocktrans %}
+                                </p>
+                            {% endif %}
+
+                            <button class="search-results-filter-toggle"
+                                    type="button"
+                                    aria-expanded="false"
+                                    aria-controls="search-results-filter-drawer"
+                                    data-search-drawer-open>
+                                {% if active_filter_count %}
+                                    {% blocktrans trimmed with filter_count=active_filter_count %}
+                                        Filter & Sort ({{ filter_count }})
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% trans "Filter & Sort" %}
+                                {% endif %}
+                            </button>
+
+                            {% include "search/_search_sort_form.html" %}
                         </div>
-                    {% endif %}
-                {% endif %}
+
+                        {% if search_results %}
+                            {% include "search/_search_results.html" %}
+                            {% include "patterns/components/_pagination.html" with page_obj=search_results viewname="search" %}
+                        {% else %}
+                            {% if keep_contributing_pages|length >= 2 %}
+                                <div class="related-content-wrapper">
+                                    {% trans "Latest Stories" as localized_suggested_heading %}
+                                    {% with heading=localized_suggested_heading items=keep_contributing_pages image_ratio="3:2" show_author=True image_field="search_image" %}
+                                        {% include "patterns/components/related_content.html" %}
+                                    {% endwith %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% include "search/_search_filter_drawer.html" %}
+            {% else %}
+                <div class="cell small-12 large-8 large-offset-2 search-empty-state">
+                    <h1 class="search-empty-state__heading">{% trans "Search" %}</h1>
+                    <div class="search-form-wrapper">
+                        {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>
