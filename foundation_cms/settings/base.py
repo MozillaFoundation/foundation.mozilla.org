@@ -63,7 +63,6 @@ env = environ.Env(
     NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PROD_HOSTNAMES=(str, ""),
-    PULSE_API_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
@@ -801,7 +800,6 @@ logging.config.dictConfig(LOGGING)
 
 # Frontend
 FRONTEND = {
-    "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),
