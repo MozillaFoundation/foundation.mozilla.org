@@ -350,24 +350,6 @@ def generate_stats_block_field():
     return generate_field("statistics", {"statistics": statistics})
 
 
-def generate_pulse_listing_field():
-    return generate_field(
-        "pulse_listing",
-        {
-            "only_featured_entries": True,
-            "help": "all",
-            "issues": "all",
-            "size": 6,
-            "search_terms": "",
-            "newest_first": True,
-        },
-    )
-
-
-def generate_profile_listing_field():
-    return generate_field("profile_listing", {"max_number_of_results": 6})
-
-
 def generate_recent_blog_entries_field():
     return generate_field("recent_blog_entries", {})
 
@@ -802,8 +784,6 @@ class StreamfieldProvider(BaseProvider):
             "dear_internet_cta_button": generate_dear_internet_cta_button,
             "card_grid": generate_card_grid_field,
             "image_grid": generate_image_grid_field,
-            "pulse_listing": generate_pulse_listing_field,
-            "profile_listing": generate_profile_listing_field,
             "recent_blog_entries": generate_recent_blog_entries_field,
             "blog_set": generate_blog_set_field,
             "airtable": generate_airtable_field,
