@@ -242,10 +242,6 @@ module.exports = {
         pink: "#e4487d",
         yellow: "#fbd545",
       },
-      pulse: {
-        pink: "#ff506f",
-        purple: "#a66efd",
-      },
       festival: {
         blue: {
           DEFAULT: "#0e11bf",
