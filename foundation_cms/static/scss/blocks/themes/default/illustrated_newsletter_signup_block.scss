@@ -16,7 +16,7 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: rem-calc(16);
+  gap: rem-calc(24);
   padding-bottom: rem-calc(16);
   background-color: $white;
   border-radius: 0 rem-calc(18);
@@ -120,9 +120,6 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     line-height: 1.5;
     pointer-events: none;
     transform-origin: left top;
-    transition:
-      color 150ms ease,
-      transform 150ms ease;
   }
 
   &__input {
@@ -169,12 +166,12 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &__privacy-label {
+    @include mofo-text-style($body-text-styles, "xsmall");
+
     display: flex;
     align-items: center;
     gap: rem-calc(8);
     min-height: rem-calc(24);
-    font-size: rem-calc(12);
-    line-height: 1.5;
 
     input {
       appearance: none;
@@ -286,7 +283,6 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
 
 @container (min-width: 40rem) {
   .illustrated-newsletter-signup {
-    gap: rem-calc(24);
     padding-bottom: rem-calc(24);
     border-radius: 0 rem-calc(32);
 
@@ -331,6 +327,12 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
 
 @media (prefers-reduced-motion: no-preference) {
   .illustrated-newsletter-signup {
+    &__label {
+      transition:
+        color 150ms ease,
+        transform 150ms ease;
+    }
+
     &__form {
       transition: height $illustrated-newsletter-expansion-duration
         $illustrated-newsletter-expansion-easing;

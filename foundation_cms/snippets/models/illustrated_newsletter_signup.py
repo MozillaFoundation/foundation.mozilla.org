@@ -13,8 +13,8 @@ class IllustratedNewsletterSignup(TranslatableMixin, models.Model):
         help_text="Identify this newsletter signup for editors. This name is not displayed.",
     )
     heading = models.CharField(
-        max_length=60,
-        help_text="Heading displayed above the newsletter signup form. Maximum 60 characters.",
+        max_length=70,
+        help_text="Heading displayed above the newsletter signup form. Maximum 70 characters.",
     )
     button_text = models.CharField(
         max_length=50,

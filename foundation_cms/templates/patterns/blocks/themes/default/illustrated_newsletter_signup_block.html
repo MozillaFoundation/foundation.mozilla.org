@@ -10,11 +10,13 @@
                data-current-language="{{ current_language }}"
                data-state="default">
         {% if newsletter_signup.illustration %}
-          {% image newsletter_signup.illustration width-240 as illustration %}
+          {% image newsletter_signup.illustration width-200 as illustration_1x %}
+          {% image newsletter_signup.illustration width-400 as illustration_2x %}
           <img class="illustrated-newsletter-signup__illustration"
-               src="{{ illustration.url }}"
-               width="{{ illustration.width }}"
-               height="{{ illustration.height }}"
+               src="{{ illustration_1x.url }}"
+               srcset="{{ illustration_1x.url }} 1x, {{ illustration_2x.url }} 2x"
+               width="{{ illustration_1x.width }}"
+               height="{{ illustration_1x.height }}"
                alt=""
                aria-hidden="true">
         {% endif %}

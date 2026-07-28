@@ -22,7 +22,7 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         button_text_field = IllustratedNewsletterSignup._meta.get_field("button_text")
         newsletter_field = IllustratedNewsletterSignup._meta.get_field("newsletter")
 
-        self.assertEqual(heading_field.max_length, 60)
+        self.assertEqual(heading_field.max_length, 70)
         self.assertEqual(button_text_field.max_length, 50)
         self.assertEqual(button_text_field.default, "Sign Up")
         self.assertFalse(newsletter_field.has_default())
@@ -56,6 +56,17 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn("Keep up with Mozilla Festival", html)
         self.assertIn("illustrated-newsletter-signup__expanded", html)
         self.assertIn("Join the Festival", html)
+
+    def test_rendered_illustration_provides_a_retina_rendition(self):
+        signup = IllustratedNewsletterSignupFactory()
+        block = IllustratedNewsletterSignupBlock()
+        value = block.to_python({"newsletter_signup": signup.pk})
+
+        html = block.render(value, context={"theme": "default"})
+
+        self.assertIn('srcset="', html)
+        self.assertIn(" 1x,", html)
+        self.assertIn(" 2x", html)
 
     def test_block_is_available_in_two_and_three_column_containers(self):
         self.assertIs(
