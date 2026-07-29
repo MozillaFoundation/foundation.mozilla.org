@@ -551,20 +551,8 @@ class NewsSnippetViewSet(SnippetViewSet):
     ordering = ("-date", "outlet", "headline")
 
 
-class PulseFiltersViewSet(SnippetViewSet):
-    model = wagtailpages_models.PulseFilter
-    icon = "cross"
-    menu_order = 400
-    menu_label = "Pulse Filters (Legacy)"
-    menu_name = "Pulse Filters (Legacy)"
-    list_display = ("name", "filter_key", "filter_key_label")
-    search_fields = ("name",)
-    list_filter = ("filter_key",)
-    ordering = ("name",)
-
-
 class ArchiveSetGroup(SnippetViewSetGroup):
-    items = (AreasOfFocusViewSet, CallpowersViewSet, HighlightSnippetViewSet, NewsSnippetViewSet, PulseFiltersViewSet)
+    items = (AreasOfFocusViewSet, CallpowersViewSet, HighlightSnippetViewSet, NewsSnippetViewSet)
     menu_icon = "folder-open-1"
     menu_label = "Archived (Legacy)"
     menu_name = "Archived (Legacy)"

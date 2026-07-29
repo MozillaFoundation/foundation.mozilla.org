@@ -237,10 +237,6 @@ $primary-nav-margin: 0.7rem;
         font-family: "Mozilla Text", sans-serif;
         font-size: 1rem;
       }
-
-      &.primary-nav-ns__link--active {
-        @include primary-nav-active-link;
-      }
     }
   }
 
@@ -330,16 +326,6 @@ $primary-nav-margin: 0.7rem;
         &:hover {
           color: color(orange, "600");
         }
-
-        &.primary-nav-ns__link--active {
-          @include primary-nav-active-link;
-        }
-      }
-
-      &--active {
-        > a {
-          @include primary-nav-active-link;
-        }
       }
 
       &.open {
@@ -363,6 +349,11 @@ $primary-nav-margin: 0.7rem;
         }
       }
     }
+  }
+
+  a.primary-nav-ns__link--active,
+  .primary-nav-ns__menu-item--active > a {
+    @include primary-nav-active-link;
   }
 
   a:focus-visible,

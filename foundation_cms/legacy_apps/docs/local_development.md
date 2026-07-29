@@ -10,12 +10,12 @@ We also have a list of common questions: [FAQ](#faq).
 
 ## How to use
 
-To interact with the project, you can use [docker](https://docs.docker.com/engine/reference/commandline/cli/) and [docker-compose](https://docs.docker.com/compose/reference/overview/) CLIs or use shortcuts with invoke.
+To interact with the project, you can use [docker](https://docs.docker.com/engine/reference/commandline/cli/) and [docker compose](https://docs.docker.com/compose/reference/overview/) CLIs or use shortcuts with invoke.
 
 The general workflow is:
 
 - Install the project with `invoke new-env`,
-- Run the project with `docker-compose up`,
+- Run the project with `docker compose up`,
 - Log into the admin site with username `admin` and password `admin`,
 - Use invoke commands for frequent development tasks (database migrations, dependencies install, run tests, etc),
 - After doing a `git pull`, keep your clone up to date by running `invoke catchup`.
@@ -57,17 +57,17 @@ For instance, you can run also run common Django commands via invoke, such as `i
 - `invoke manage legacy_load_fake_data`: add more fake data to your project,
 - `invoke yarn "install gsap"`: install gsap, add it to your `package.json` and lock it.
 
-### Docker and docker-compose CLIs
+### Docker and docker compose CLIs
 
-We strongly recommend you to check at least the [docker-compose CLI](https://docs.docker.com/compose/reference/overview/) documentation since we're using it a lot. Meanwhile, here are the commands you will use the most:
+We strongly recommend you to check at least the [docker compose CLI](https://docs.docker.com/compose/reference/overview/) documentation since we're using it a lot. Meanwhile, here are the commands you will use the most:
 
-**docker-compose:**
+**docker compose:**
 
-- [docker-compose up](https://docs.docker.com/compose/reference/up/): start the services and the project. Stop them with `^C`. If you want to rebuild your images, for example after a python dependencies update, add the `--build` flag. If you want to run the services in detached mode, use `--detached`. To get logs, use `docker-compose logs --follow [SERVICE]`,
-- [docker-compose down](): stop and remove the services,
-- [docker-compose run (--rm) [SERVICE NAME] [COMMAND]](https://docs.docker.com/compose/reference/run/): run a command against a service. `--rm` removes your container when you're done,
-- [docker-compose build [SERVICE NAME]](https://docs.docker.com/compose/reference/build/): build a new image for the service. Use `--no-cache` to build the image from scratch again,
-- [docker-compose ps](https://docs.docker.com/compose/reference/ps/): list the services running.
+- [docker compose up](https://docs.docker.com/compose/reference/up/): start the services and the project. Stop them with `^C`. If you want to rebuild your images, for example after a python dependencies update, add the `--build` flag. If you want to run the services in detached mode, use `--detached`. To get logs, use `docker compose logs --follow [SERVICE]`,
+- [docker compose down](): stop and remove the services,
+- [docker compose run (--rm) [SERVICE NAME] [COMMAND]](https://docs.docker.com/compose/reference/run/): run a command against a service. `--rm` removes your container when you're done,
+- [docker compose build [SERVICE NAME]](https://docs.docker.com/compose/reference/build/): build a new image for the service. Use `--no-cache` to build the image from scratch again,
+- [docker compose ps](https://docs.docker.com/compose/reference/ps/): list the services running.
 
 **docker:**
 
@@ -120,7 +120,7 @@ Requirements:
 
 You can copy the staging database using `inv copy-stage-db`, or the production database using `inv copy-prod-db`.
 
-**Note** that this script requires that docker is not already ready running, as this script requires exclusive database access. You can ensure that this is the case by running `docker-compose down` twice in the repo's root directory. The first time should show all running containers getting shut down, the second should confirm that there is nothing to take down anymore.
+**Note** that this script requires that docker is not already ready running, as this script requires exclusive database access. You can ensure that this is the case by running `docker compose down` twice in the repo's root directory. The first time should show all running containers getting shut down, the second should confirm that there is nothing to take down anymore.
 
 For more control, you can also manually invoke `node copy-db.js`, which has the following behavior:
 
@@ -163,7 +163,7 @@ Ensure you have the official [python extension](https://marketplace.visualstudio
 
 1. Set the `VSCODE_DEBUGGER` value to `True` in your .env
 
-2. Rebuild your Docker containers: `inv docker-catchup`, then `docker-compose up`
+2. Rebuild your Docker containers: `inv docker-catchup`, then `docker compose up`
 
 3. Start the debug session from VS Code for the `[django:docker] runserver` configuration
 
@@ -197,9 +197,9 @@ Welcome to Docker! Before jumping into Docker installation, take a moment to get
 - Container: Containers run an image. In our case, we have a container for the database, another one for building static files and the last one for running Django. A container life is ephemeral: data written there don't persist when you shut down a container.
 - Volume: A volume is a special directory on your machine that is used to make data persistent. For example, we use it to store the database: that way, you don't lose your data when you turn down your containers.
 - Host: host is used in Docker docs to mean the system on top of which containers run.
-- Docker-compose: It's a tool to run multi-container applications: we use it to run our three containers together.
-- Docker-compose CLI: Command line interface to interact with docker-compose. It's used to launch your dev environment.
-- Docker-compose service: a service is a container and the configuration associated to it.
+- Docker compose: It's a tool to run multi-container applications: we use it to run our three containers together.
+- Docker compose CLI: Command line interface to interact with docker compose. It's used to launch your dev environment.
+- Docker compose service: a service is a container and the configuration associated to it.
 
 I would recommend watching [An Intro to Docker for Djangonauts](https://www.youtube.com/watch?v=qsEfVSTZO9Q) by Lacey Williams Henschel (25 min, [repo mentioned in the talk](https://github.com/williln/docker-hogwarts)): it's a great beginner talk to learn Docker and how to use it with Django.
 
@@ -226,12 +226,12 @@ There is also a `docker-compose-lean.yml` file which starts the container with j
 
 Note that a side effect of this is that this could be using outdated frontend assets, e.g. stylesheets are not reflecting the latest changes, or the frontend assets can be missing if the container is new and `npm run build` has not been run to create `foundation_cms/legacy_apps/static` yet.
 
-To start up the dev container normally, use `inv start` or `docker-compose up`. To start it as a lean container without frontend build, use `inv start-lean` or `docker-compose -f docker-compose.yml -f docker-compose-lean.yml up`.
+To start up the dev container normally, use `inv start` or `docker compose up`. To start it as a lean container without frontend build, use `inv start-lean` or `docker compose -f docker-compose.yml -f docker-compose-lean.yml up`.
 
 
 ### Resources about Docker
 
-- [Docker](https://docs.docker.com/) and [Docker-compose](https://docs.docker.com/compose/overview/) documentations,
+- [Docker](https://docs.docker.com/) and [Docker compose](https://docs.docker.com/compose/overview/) documentations,
 - [Intro to Docker](https://www.revsys.com/tidbits/brief-intro-docker-djangonauts/): Lacey wrote a good intro tutorial to Docker and Django, without Harry Potter metaphors this time :),
 - [Jérôme Petazzoni's training slides and talks](https://container.training/): presentations and slides if you want to dive into Docker.
 
@@ -250,7 +250,7 @@ or run Django shell, etc.
 
 ## FAQ
 
-### Do I need to build the static files before doing a `docker-compose up`?
+### Do I need to build the static files before doing a `docker compose up`?
 
 Static files are automatically built when starting the `backend` container, except when using `inv start-lean` (see "Starting dev container without rebuilding frontend" above). 
 
@@ -260,7 +260,7 @@ Let's do a quick overview of all the tools you're currently using to run the fou
 
 - `npm`: use to manage javascript dependencies (`packages.json`, `packages-lock.json`). Also used to launch commands like `npm run start`.
 - `pip-tools`: use to manage python dependencies (`(dev-)requirements.in` and `(dev-)requirements.txt`).
-- `invoke`/`inv`: use as a cli tool to provide shortcuts for most used commands. ex: `inv migrate` is a shortcut for `docker-compose run --rm backend ./dockerpythonvenv/bin/python ./manage.py migrate`.
+- `invoke`/`inv`: use as a cli tool to provide shortcuts for most used commands. ex: `inv migrate` is a shortcut for `docker compose run --rm backend ./dockerpythonvenv/bin/python ./manage.py migrate`.
 
 We still use all those tools with Docker. The major difference is that `npm` and `python` are now running inside a container, while invoke continues to run outside of it.
 

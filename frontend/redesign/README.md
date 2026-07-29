@@ -2,6 +2,21 @@
 
 Frontend for the redesigned Mozilla Foundation site, built with esbuild and Foundation Framework. Independent from the legacy frontend.
 
+## Unit Testing (Vitest)
+
+Unit tests run against vanilla JS modules under `foundation_cms/static/js` using [Vitest](https://vitest.dev/) with a jsdom environment, so they can exercise DOM reads/writes and event dispatching without a real browser.
+
+### Run tests locally
+
+| Script | Description |
+| --- | --- |
+| `yarn workspace redesign test` | Run the suite once, with coverage |
+| `yarn workspace redesign test:watch` | Watch mode, reruns on file save |
+
+### Adding new tests
+
+Colocate test files as `*.test.js` next to the module they cover, e.g. `foundation_cms/static/js/blocks/pillar_card_set.test.js` tests `pillar_card_set.js` in the same directory.
+
 ## Visual Regression Testing (Playwright + Percy)
 
 ### Prerequisites

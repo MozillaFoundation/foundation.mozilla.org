@@ -32,7 +32,11 @@ def _supported_locale_codes():
 
 
 def _normalized_path(url, strip_locale=False):
-    path = urlsplit(url or "").path
+    parsed_url = urlsplit(url or "")
+    if parsed_url.scheme or parsed_url.netloc:
+        return None
+
+    path = parsed_url.path
     if not path:
         return None
     if path == "/":
@@ -89,54 +93,45 @@ def horizontal_link_active_url(current_path, links):
 
 def _iter_dropdown_links(dropdowns):
     for dropdown in dropdowns or []:
-        value = getattr(dropdown, "value", dropdown)
-        value_get = getattr(value, "get", lambda _key, default=None: default)
-        header = getattr(value, "header_value", None) or value_get("header")
-        if header:
-            yield header
-
-        dropdown_items = getattr(value, "dropdown_items", None) or value_get("items") or []
-        yield from dropdown_items
+        yield dropdown.value.header_value
+        yield from dropdown.value.dropdown_items
 
 
 @register.simple_tag
-def primary_nav_active_url(current_path, dropdowns):
-    """Return the most specific nav URL matching the current localized path."""
-    active_url = None
+def primary_nav_active_link(current_path, dropdowns):
+    """Return the most specific internal link matching the localized path."""
+    active_link = None
     active_path_length = -1
 
     for link in _iter_dropdown_links(dropdowns):
-        if not _link_is_active(current_path, link.url, getattr(link, "is_external", False), strip_locale=True):
+        if not _link_is_active(current_path, link.url, link.is_external, strip_locale=True):
             continue
 
         target = _normalized_path(link.url, strip_locale=True)
         if target and len(target) > active_path_length:
-            active_url = link.url
+            active_link = link
             active_path_length = len(target)
 
-    return active_url
+    return active_link
 
 
 @register.simple_tag
-def primary_nav_url_is_active(current_path, link_url, is_external=False):
-    return _link_is_active(current_path, link_url, is_external, strip_locale=True)
+def primary_nav_link_is_active(active_link, link):
+    return active_link is link
 
 
 @register.simple_tag
-def primary_nav_link_is_active(active_url, link):
-    return bool(active_url and link and link.url == active_url)
-
-
-@register.simple_tag
-def primary_nav_dropdown_is_active(active_url, dropdown):
-    if not active_url or not dropdown:
+def primary_nav_link_is_current(current_path, link):
+    """Return whether a selected link points to the exact localized path."""
+    if not link or link.is_external:
         return False
 
-    value = getattr(dropdown, "value", dropdown)
-    value_get = getattr(value, "get", lambda _key, default=None: default)
-    header = getattr(value, "header_value", None) or value_get("header")
-    if primary_nav_link_is_active(active_url, header):
+    return _normalized_path(current_path, strip_locale=True) == _normalized_path(link.url, strip_locale=True)
+
+
+@register.simple_tag
+def primary_nav_dropdown_is_active(active_link, dropdown):
+    if primary_nav_link_is_active(active_link, dropdown.header_value):
         return True
 
-    dropdown_items = getattr(value, "dropdown_items", None) or value_get("items") or []
-    return any(primary_nav_link_is_active(active_url, item) for item in dropdown_items)
+    return any(primary_nav_link_is_active(active_link, item) for item in dropdown.dropdown_items)

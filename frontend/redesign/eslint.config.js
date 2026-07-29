@@ -1,6 +1,9 @@
 /** @type {import("eslint/use-at-your-own-risk").FlatConfig[]} */
 export default [
   {
+    ignores: ["**/coverage/**"],
+  },
+  {
     files: ["**/*.js"],
     languageOptions: {
       globals: {
@@ -10,6 +13,6 @@ export default [
         sourceType: "module",
         ecmaVersion: 2022,
       },
-    }
+    },
   },
 ];
