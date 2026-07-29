@@ -8,6 +8,7 @@
                data-illustrated-newsletter-signup
                data-signup-url="{% url 'illustrated-newsletter-signup-submission' newsletter_signup.pk %}"
                data-current-language="{{ current_language }}"
+               data-loading-label="{% trans "Loading..." %}"
                data-state="default">
         {% if newsletter_signup.illustration %}
           {% image newsletter_signup.illustration width-200 as illustration_1x %}

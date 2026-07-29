@@ -20,6 +20,7 @@ const SELECTORS = {
   errorMessage: ".illustrated-newsletter-signup__server-error",
   successMessage: ".illustrated-newsletter-signup__success",
   submitButton: ".illustrated-newsletter-signup__button",
+  submitButtonText: ".btn-primary__text",
 };
 
 const EXPANSION_TRANSITION_MS = 320;
@@ -116,6 +117,30 @@ function validateForm({
   }
 
   return validEmail && privacyAccepted;
+}
+
+/**
+ * Updates the submit button's visible and accessible loading state.
+ *
+ * @param {HTMLButtonElement} submitButton - Submit button to update.
+ * @param {string} loadingLabel - Translated label shown while submitting.
+ * @param {boolean} isLoading - Whether a submission is pending.
+ */
+function setSubmitButtonLoadingState(submitButton, loadingLabel, isLoading) {
+  submitButton.querySelectorAll(SELECTORS.submitButtonText).forEach((label) => {
+    label.dataset.defaultLabel ||= label.textContent;
+    label.textContent = isLoading ? loadingLabel : label.dataset.defaultLabel;
+  });
+
+  submitButton.disabled = isLoading;
+
+  if (isLoading) {
+    submitButton.setAttribute("aria-busy", "true");
+    submitButton.setAttribute("aria-label", loadingLabel);
+  } else {
+    submitButton.removeAttribute("aria-busy");
+    submitButton.removeAttribute("aria-label");
+  }
 }
 
 /**
@@ -332,8 +357,11 @@ function initializeIllustratedNewsletterSignup(container, index) {
     });
     if (!isValid) return;
 
-    submitButton.disabled = true;
-    submitButton.setAttribute("aria-busy", "true");
+    setSubmitButtonLoadingState(
+      submitButton,
+      container.dataset.loadingLabel,
+      true,
+    );
     container.dataset.state = "submitting";
 
     const submitted = await submitDataToApi(container.dataset.signupUrl, {
@@ -347,8 +375,11 @@ function initializeIllustratedNewsletterSignup(container, index) {
       return;
     }
 
-    submitButton.disabled = false;
-    submitButton.removeAttribute("aria-busy");
+    setSubmitButtonLoadingState(
+      submitButton,
+      container.dataset.loadingLabel,
+      false,
+    );
     errorMessage.hidden = false;
     container.dataset.state = "error";
   });

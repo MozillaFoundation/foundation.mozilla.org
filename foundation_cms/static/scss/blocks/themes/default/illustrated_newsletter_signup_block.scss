@@ -255,6 +255,10 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     height: rem-calc(56);
     margin: 0;
     line-height: 150%;
+
+    &:disabled {
+      cursor: progress;
+    }
   }
 
   &__success {
