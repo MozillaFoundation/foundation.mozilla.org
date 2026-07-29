@@ -1,0 +1,78 @@
+// Page-level notice strip (NoticeBanner snippet, chosen on a page's Promote tab).
+// Renders full-bleed directly below the primary nav, above the page hero/content.
+// Imported by both _redesign_base.scss and redesign_migrated_content.scss so the
+// component looks the same on redesign and legacy templates.
+
+.notice-banner {
+  background-color: color(yellow, "200");
+  color: $black;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem-calc(16);
+    padding: rem-calc(20) 0;
+
+    @include breakpoint(medium up) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: rem-calc(32);
+    }
+  }
+
+  &__body {
+    @include mofo-text-style($body-text-styles, "small");
+
+    // Hold the message to a comfortable measure rather than letting it run the
+    // full container width, which keeps it visually separate from the CTA.
+    @include breakpoint(medium up) {
+      max-width: 65ch;
+    }
+
+    // Editor headings are capped at h4-h6. Render them as a bold lead-in line
+    // rather than section headings, so the notice reads as one block.
+    h4,
+    h5,
+    h6 {
+      @include mofo-text-style($body-text-styles, "small");
+
+      font-weight: 700;
+      margin-bottom: rem-calc(4);
+    }
+
+    p {
+      margin-bottom: 0;
+
+      + p {
+        margin-top: rem-calc(8);
+      }
+    }
+
+    ul,
+    ol {
+      margin-bottom: 0;
+    }
+
+    // Underline inline links so they stay distinguishable against the yellow.
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__cta {
+    flex-shrink: 0;
+
+    // The CTA is a LinkButtonBlock, whose buttons carry a vertical margin from the
+    // shared button mixin. Drop it so the button centres against the message.
+    a[class*="btn-"] {
+      margin: 0;
+    }
+  }
+}
