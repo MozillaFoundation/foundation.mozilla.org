@@ -31,6 +31,25 @@ jobs:
       - name: Check JS/SCSS formatting for redesigned site
         run: yarn workspace redesign check-format
 
+  unit_test_frontend_redesign:
+    name: Unit Tests (Redesign Frontend)
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    env:
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run redesign unit tests with coverage
+        run: yarn workspace redesign test
+
   lint_backend:
     name: Lint & Type Check (Backend)
     runs-on: ubuntu-22.04
