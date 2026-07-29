@@ -56,6 +56,10 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn("Keep up with Mozilla Festival", html)
         self.assertIn("illustrated-newsletter-signup__expanded", html)
         self.assertIn("Join the Festival", html)
+        self.assertIn("illustrated-newsletter-signup__signup-view", html)
+        self.assertIn("illustrated-newsletter-signup__success", html)
+        self.assertNotIn("illustrated-newsletter-signup__illustration", html)
+        self.assertIn("Thank you!", html)
 
     def test_rendered_illustration_provides_a_retina_rendition(self):
         signup = IllustratedNewsletterSignupFactory()
@@ -67,6 +71,10 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn('srcset="', html)
         self.assertIn(" 1x,", html)
         self.assertIn(" 2x", html)
+        self.assertEqual(
+            html.count('class="illustrated-newsletter-signup__illustration"'),
+            2,
+        )
 
     def test_block_is_available_in_two_and_three_column_containers(self):
         self.assertIs(

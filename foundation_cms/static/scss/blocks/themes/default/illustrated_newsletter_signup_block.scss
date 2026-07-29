@@ -13,17 +13,22 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .illustrated-newsletter-signup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: rem-calc(24);
-  padding-bottom: rem-calc(16);
-  background-color: $white;
-  border-radius: 0 rem-calc(18);
+  position: relative;
+  width: 100%;
   color: color(neutral, "600");
 
   [hidden] {
     display: none !important;
+  }
+
+  &__signup-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: rem-calc(24);
+    padding-bottom: rem-calc(16);
+    background-color: $white;
+    border-radius: 0 rem-calc(18);
   }
 
   &__illustration {
@@ -34,6 +39,7 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     object-fit: contain;
   }
 
+  &__signup-view,
   &__content,
   &__form,
   &__actions,
@@ -48,15 +54,13 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     gap: rem-calc(16);
   }
 
-  &__heading,
-  &__success h2,
-  &__success p {
+  &__heading {
     margin: 0;
     text-align: center;
   }
 
   h2.illustrated-newsletter-signup__heading,
-  &__success h2 {
+  &__success &__success-title {
     @include mofo-text-style($header-styles, "h5", $header-font-family);
   }
 
@@ -254,10 +258,25 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &__success {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: rem-calc(8);
-    text-align: center;
+    align-items: flex-start;
+    gap: rem-calc(16);
+    width: 100%;
+    padding: rem-calc(32);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(rem-calc(8));
+
+    h2,
+    p {
+      margin: 0;
+      text-align: left;
+    }
 
     p {
       @include mofo-text-style($body-text-styles, "small");
@@ -267,6 +286,29 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
       outline: 2px solid color(neutral, "600");
       outline-offset: rem-calc(4);
     }
+  }
+
+  &__success-copy {
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(16);
+    width: 100%;
+  }
+
+  &[data-state="success"] &__signup-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(rem-calc(-8));
+  }
+
+  &[data-state="success"] &__success {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 }
 
@@ -283,8 +325,10 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
 
 @container (min-width: 40rem) {
   .illustrated-newsletter-signup {
-    padding-bottom: rem-calc(24);
-    border-radius: 0 rem-calc(32);
+    &__signup-view {
+      padding-bottom: rem-calc(24);
+      border-radius: 0 rem-calc(32);
+    }
 
     &__content {
       gap: rem-calc(24);
@@ -296,7 +340,7 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
     }
 
     h2.illustrated-newsletter-signup__heading,
-    &__success h2 {
+    &__success .illustrated-newsletter-signup__success-title {
       @include mofo-text-style($header-styles, "h4", $header-font-family);
     }
 
@@ -322,11 +366,31 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
       margin-right: auto;
       margin-left: auto;
     }
+
+    &__success {
+      align-items: center;
+      padding: 0;
+    }
+
+    &__success-copy {
+      max-width: rem-calc(698);
+    }
+
+    &__success &__success-title,
+    &__success p {
+      text-align: center;
+    }
+
+    &__success p {
+      @include mofo-text-style($body-text-styles, "large");
+    }
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .illustrated-newsletter-signup {
+    transition: height 300ms ease-out;
+
     &__label {
       transition:
         color 150ms ease,
@@ -374,26 +438,74 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
     &__button {
       --illustrated-newsletter-reveal-delay: 220ms;
     }
+
+    &__signup-view,
+    &__success {
+      transition:
+        opacity 300ms ease-out,
+        transform 300ms ease-out;
+    }
   }
 }
 
 .two-column-container .illustrated-newsletter-signup {
   @include breakpoint(medium up) {
+    &__success {
+      align-items: center;
+      padding: 0;
+    }
+
+    &__success .illustrated-newsletter-signup__illustration {
+      width: rem-calc(136);
+    }
+
     h2.illustrated-newsletter-signup__heading,
-    &__success h2 {
+    &__success .illustrated-newsletter-signup__success-title {
       @include apply-text-style(
         $header-styles,
         "h4",
         "large",
         $header-font-family
       );
+
+      text-align: center;
+    }
+
+    &__success p {
+      @include apply-text-style($body-text-styles, "large", "large");
+
+      text-align: center;
     }
   }
 }
 
 .three-column-container .illustrated-newsletter-signup {
-  h2.illustrated-newsletter-signup__heading,
-  &__success h2 {
-    @include mofo-text-style($header-styles, "h5", $header-font-family);
+  @include breakpoint(large up) {
+    &__success {
+      align-items: center;
+      padding: 0;
+    }
+
+    &__success .illustrated-newsletter-signup__illustration {
+      width: rem-calc(136);
+    }
+
+    h2.illustrated-newsletter-signup__heading,
+    &__success .illustrated-newsletter-signup__success-title {
+      @include apply-text-style(
+        $header-styles,
+        "h5",
+        "large",
+        $header-font-family
+      );
+
+      text-align: center;
+    }
+
+    &__success p {
+      @include apply-text-style($body-text-styles, "large", "large");
+
+      text-align: center;
+    }
   }
 }

@@ -8,6 +8,7 @@ import { LANGUAGE_OPTIONS } from "../components/newsletter_signup/data/language-
  */
 const SELECTORS = {
   container: "[data-illustrated-newsletter-signup]",
+  signupView: ".illustrated-newsletter-signup__signup-view",
   form: ".illustrated-newsletter-signup__form",
   emailInput: "input[name='email']",
   countryInput: "select[name='country']",
@@ -22,6 +23,7 @@ const SELECTORS = {
 };
 
 const EXPANSION_TRANSITION_MS = 320;
+const SUCCESS_TRANSITION_MS = 300;
 
 /**
  * Populates a native select with a disabled placeholder and the supplied options.
@@ -214,12 +216,71 @@ function expandForm(container, form, expandedContent) {
 }
 
 /**
+ * Replaces the signup form with the thank-you view.
+ *
+ * @param {HTMLElement} container - Illustrated newsletter block root.
+ * @param {HTMLElement} signupView - Illustration, heading, and form being replaced.
+ * @param {HTMLElement} successMessage - Thank-you view to reveal.
+ */
+function showSuccessState(container, signupView, successMessage) {
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  if (reducedMotion) {
+    signupView.hidden = true;
+    successMessage.hidden = false;
+    container.dataset.state = "success";
+    successMessage.focus();
+    return;
+  }
+
+  const startHeight = container.offsetHeight;
+  container.style.height = `${startHeight}px`;
+  container.style.overflow = "hidden";
+  successMessage.hidden = false;
+
+  const targetHeight = successMessage.offsetHeight;
+  let cleanupTimer;
+
+  const finishTransition = () => {
+    window.clearTimeout(cleanupTimer);
+    container.removeEventListener("transitionend", handleTransitionEnd);
+    signupView.hidden = true;
+    container.style.removeProperty("height");
+    container.style.removeProperty("overflow");
+    successMessage.focus();
+  };
+
+  const handleTransitionEnd = (event) => {
+    if (event.target === container && event.propertyName === "height") {
+      finishTransition();
+    }
+  };
+
+  container.addEventListener("transitionend", handleTransitionEnd);
+  cleanupTimer = window.setTimeout(
+    finishTransition,
+    SUCCESS_TRANSITION_MS + 50,
+  );
+
+  // Render the hidden thank-you view before transitioning to it.
+  successMessage.getBoundingClientRect();
+  container.dataset.state = "success";
+
+  requestAnimationFrame(() => {
+    container.style.height = `${targetHeight}px`;
+  });
+}
+
+/**
  * Initializes one illustrated newsletter block instance.
  *
  * @param {HTMLElement} container - Illustrated newsletter block root.
  * @param {number} index - Instance index used to create unique error IDs.
  */
 function initializeIllustratedNewsletterSignup(container, index) {
+  const signupView = container.querySelector(SELECTORS.signupView);
   const form = container.querySelector(SELECTORS.form);
   const emailInput = form.querySelector(SELECTORS.emailInput);
   const countryInput = form.querySelector(SELECTORS.countryInput);
@@ -282,10 +343,7 @@ function initializeIllustratedNewsletterSignup(container, index) {
     });
 
     if (submitted) {
-      form.hidden = true;
-      successMessage.hidden = false;
-      container.dataset.state = "success";
-      successMessage.focus();
+      showSuccessState(container, signupView, successMessage);
       return;
     }
 
