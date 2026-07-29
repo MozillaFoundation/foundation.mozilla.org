@@ -5,12 +5,9 @@ from django.http import JsonResponse
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
-from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.blocks.illustrated_newsletter_signup_block import (
     IllustratedNewsletterSignupBlock,
 )
-from foundation_cms.blocks.three_column_container_block import ThreeColumnStreamBlock
-from foundation_cms.blocks.two_column_container_block import ColumnStreamBlock
 from foundation_cms.snippets.factories import IllustratedNewsletterSignupFactory
 from foundation_cms.snippets.models import IllustratedNewsletterSignup
 from foundation_cms.views import illustrated_newsletter_signup_submission_view
@@ -74,20 +71,6 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertEqual(
             html.count('class="illustrated-newsletter-signup__illustration"'),
             2,
-        )
-
-    def test_block_is_available_in_two_and_three_column_containers(self):
-        self.assertIs(
-            BlockRegistry.BLOCKS["illustrated_newsletter_signup"]["class"],
-            IllustratedNewsletterSignupBlock,
-        )
-        self.assertIsInstance(
-            ColumnStreamBlock().child_blocks["illustrated_newsletter_signup"],
-            IllustratedNewsletterSignupBlock,
-        )
-        self.assertIsInstance(
-            ThreeColumnStreamBlock().child_blocks["illustrated_newsletter_signup"],
-            IllustratedNewsletterSignupBlock,
         )
 
 

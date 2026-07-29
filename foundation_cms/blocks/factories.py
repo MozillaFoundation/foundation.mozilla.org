@@ -17,9 +17,7 @@ from foundation_cms.blocks.timely_activations_cards_block import (
     TimelyActivationsCardsBlock,
 )
 from foundation_cms.blocks.title_block import TitleBlock
-from foundation_cms.snippets.factories import (
-    NewsletterSignupFactory,
-)
+from foundation_cms.snippets.factories import NewsletterSignupFactory
 
 
 class LinkBlockFactory(wagtail_factories.StructBlockFactory):
