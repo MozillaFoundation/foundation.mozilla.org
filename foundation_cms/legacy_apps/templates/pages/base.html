@@ -121,7 +121,7 @@
                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
                         {% if parent_homepage == "redesign" %}
-                            {% include "patterns/components/primary_nav.html" %}
+                            {% include "patterns/components/navigation/primary_nav.html" %}
                         {% else %}
                             {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
                                 {% if nav_menu %}
