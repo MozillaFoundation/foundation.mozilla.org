@@ -8,8 +8,6 @@ import loopingVideoHandler from "./looping-video-handler.js";
 import participatePageDonateHandler from "./participate-page-donate.js";
 import publicationSummaryBar from "./publication-summary-bar.js";
 import continuousScrollingBox from "./continuous-scrolling-box.js";
-import pulseProfileCardHandler from "./pulse-profile-card.js";
-import pulseProfileListFilterHandler from "./pulse-profile-list-filter.js";
 import customHeroVideoHandler from "./custom-hero-video-handler.js";
 import blogHeroVideoHandler from "./blog-hero-video-handler.js";
 import blogIndexFeaturedVideoHandler from "./featured-blog-video-handler.js";
@@ -33,8 +31,6 @@ export const bindEventHandlers = () => {
   participatePageDonateHandler();
   customHeroVideoHandler();
   publicationSummaryBar();
-  pulseProfileCardHandler();
-  pulseProfileListFilterHandler();
   shareButtonGroupHandler();
   blogHeroVideoHandler();
   blogIndexFeaturedVideoHandler();
