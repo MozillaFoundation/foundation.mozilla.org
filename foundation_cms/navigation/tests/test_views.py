@@ -57,3 +57,37 @@ class TestNavigationMenuSnippetChooser(WagtailTestUtils, TestCase):
 
         # Menu chooser should not contain locale filter
         self.assertNotContains(response, "id_locale")
+
+
+class TestHorizontalLinkBlockSnippetChooser(WagtailTestUtils, TestCase):
+    def get_chooser_viewset(self):
+        wagtail_admin_viewsets.populate()
+        model_viewsets = [
+            viewset
+            for viewset in wagtail_admin_viewsets.viewsets
+            if viewset.model == nav_models.HorizontalLinkBlock and issubclass(viewset.__class__, ChooserViewSet)
+        ]
+        return model_viewsets[-1]
+
+    def setUp(self):
+        chooser_viewset = self.get_chooser_viewset()
+        self.chooser_url = reverse(f"{chooser_viewset.name}:choose")
+
+        User = get_user_model()
+        self.user = User.objects.create_superuser("horizontal-link-admin", "admin@example.com", "password")
+        self.client.force_login(self.user)
+
+        self.default_locale = Locale.get_default()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        self.block = nav_factories.HorizontalLinkBlockFactory(title="MozFest links")
+
+    def test_chooser_only_includes_default_locale(self):
+        translated_block = self.block.copy_for_translation(self.fr_locale)
+        translated_block.save()
+
+        response = self.client.get(self.chooser_url)
+        results = response.context["results"]
+
+        self.assertIn(self.block, results)
+        self.assertNotIn(translated_block, results)
+        self.assertNotContains(response, "id_locale")

@@ -77,6 +77,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  cookie_control_init: {
+    source: "civic_cookie_control/init.js",
+    jsx: false,
+    bundle: true,
+  },
   nothing_personal_home_page: {
     source: "pages/nothing_personal/home_page.js",
     jsx: false,
@@ -98,6 +103,9 @@ const base = {
   },
   define: {
     "process.env.NODE_ENV": JSON.stringify(mode),
+    COOKIE_CONTROL_API_KEY: JSON.stringify(
+      process.env.COOKIE_CONTROL_API_KEY || ""
+    ),
   },
 };
 

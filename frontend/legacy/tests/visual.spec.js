@@ -16,43 +16,8 @@ async function waitForReactAndImagesToLoad(page) {
 }
 
 async function waitForCookieBanner(page) {
-  // Wait for OneTrust banner to be visible
-  await page.waitForSelector("#onetrust-banner-sdk", {
-    state: "visible",
-    timeout: 5000,
-  });
-
-  // Wait for button texts to stop getting updated
-  // See the "onetrust_script" block in foundation_cms/legacy_apps/templates/pages/base.html for more selector info
-  await page.waitForFunction(() => {
-    const getText = (id) => document.getElementById(id)?.textContent.trim();
-
-    const acceptBtnText = getText("onetrust-accept-btn-handler");
-    const declineBtnText = getText("onetrust-reject-all-handler");
-    const settingsBtnText = getText("onetrust-pc-btn-handler");
-
-    // Store texts for comparison
-    return new Promise((resolve) => {
-      const previousText = {
-        accept: acceptBtnText,
-        decline: declineBtnText,
-        settings: settingsBtnText,
-      };
-      setTimeout(() => {
-        const newAcceptText = getText("onetrust-accept-btn-handler");
-        const newDeclineText = getText("onetrust-reject-all-handler");
-        const newSettingsText = getText("onetrust-pc-btn-handler");
-
-        resolve(
-          newAcceptText === previousText.accept &&
-            newDeclineText === previousText.decline &&
-            newSettingsText === previousText.settings
-        );
-      }, 500); // Adjust delay as needed
-    });
-  });
-
-  // Ensure all network requests are complete before snapshot
+  // TODO: Re-implement banner wait for Civic Cookie Control (replaces OneTrust).
+  // For now, just wait for network to be idle before taking the snapshot.
   await page.waitForLoadState("networkidle");
 }
 

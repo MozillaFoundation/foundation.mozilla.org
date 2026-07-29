@@ -97,6 +97,22 @@ class NavigationMenuFactory(DjangoModelFactory):
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
 
 
+class HorizontalLinkBlockFactory(DjangoModelFactory):
+    class Meta:
+        model = nav_models.HorizontalLinkBlock
+
+    title = factory.Faker("sentence", nb_words=3)
+    links = wagtail_factories.StreamFieldFactory(
+        {"link": factory.SubFactory(NavLinkFactory, relative_url_link=True)},
+        **{
+            "0": "link",
+            "1": "link",
+            "2": "link",
+        },
+    )
+    locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
+
+
 def generate(seed):
     reseed(seed)
 

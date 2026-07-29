@@ -16,7 +16,6 @@ jobs:
     env:
       ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,6 +30,25 @@ jobs:
         run: yarn workspace redesign lint
       - name: Check JS/SCSS formatting for redesigned site
         run: yarn workspace redesign check-format
+
+  unit_test_frontend_redesign:
+    name: Unit Tests (Redesign Frontend)
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    env:
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run redesign unit tests with coverage
+        run: yarn workspace redesign test
 
   lint_backend:
     name: Lint & Type Check (Backend)
@@ -83,7 +101,6 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NEWSLETTER_SIGNUP_METHOD: "BASKET"
       PIPENV_VERBOSITY: -1
-      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
@@ -147,7 +164,6 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NEWSLETTER_SIGNUP_METHOD: "BASKET"
       PIPENV_VERBOSITY: -1
-      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
       RANDOM_SEED: 530910203
       SET_HSTS: False
       SSL_REDIRECT: False
@@ -160,8 +176,8 @@ jobs:
       CSP_IMG_SRC: "* data: blob: https://*.fundraiseup.com https://ucarecdn.com https://pay.google.com https://*.paypalobjects.com"
       CSP_FRAME_SRC: "'self' https://www.google.com/recaptcha/ https://*.stripe.com https://pay.google.com https://*.paypal.com https://*.fundraiseup.com https://player.vimeo.com"
       CSP_MEDIA_SRC: "'self' https://s3.amazonaws.com/mofo-assets/foundation/video/ https://player.vimeo.com/ https://download-video-ak.vimeocdn.com "
-      CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js https://*.googletagmanager.com https://*.fundraiseup.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval' https://*.stripe.com https://m.stripe.network https://*.paypal.com https://*.paypalobjects.com https://pay.google.com https://cdn.cookielaw.org"
-      CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://platform.twitter.com https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js https://*.googletagmanager.com https://*.fundraiseup.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval' https://*.stripe.com https://m.stripe.network https://*.paypal.com https://*.paypalobjects.com https://pay.google.com https://cc.cdn.civiccomputing.com"
+      CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://platform.twitter.com https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css https://cc.cdn.civiccomputing.com"
       SECURE_CROSS_ORIGIN_OPENER_POLICY: "same-origin-allow-popups"
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD

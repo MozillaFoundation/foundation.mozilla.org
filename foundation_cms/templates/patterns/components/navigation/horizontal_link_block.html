@@ -1,0 +1,28 @@
+{% load i18n navigation_tags %}
+
+{% translated_menu block as localized_block %}
+{% horizontal_link_active_url request.path localized_block.links as active_url %}
+<nav class="horizontal-link-block" aria-label="{% translate "Section navigation" %}">
+  <div class="grid-container">
+    <div class="grid-x">
+      <div class="cell small-12">
+        <ul class="horizontal-link-block__list horizontal-link-block__list--items-{{ localized_block.links|length }}">
+          {% for item in localized_block.links %}
+            <li class="horizontal-link-block__item">
+              <a class="horizontal-link-block__link{% if item.value.url == active_url %} horizontal-link-block__link--active{% endif %}"
+                 href="{{ item.value.url }}"
+                 {% if item.value.url == active_url %}aria-current="true"{% endif %}
+                 {% if item.value.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                <span class="horizontal-link-block__label">{{ item.value.label }}</span>
+                {% if item.value.is_external %}
+                  <span class="horizontal-link-block__external-icon" aria-hidden="true"></span>
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        <hr class="horizontal-link-block__divider divider--straight-line">
+      </div>
+    </div>
+  </div>
+</nav>

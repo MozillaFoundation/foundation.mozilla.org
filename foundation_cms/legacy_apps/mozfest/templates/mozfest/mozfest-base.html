@@ -13,6 +13,19 @@
     <!-- This GTM ID belongs to a Mozilla Festival container that is different from Mozilla Foundation GTM -->
     <meta name="gtm-identifier" content="GTM-5TFTDCX">
     <script nonce="{{ request.csp_nonce }}">window.dataLayer = window.dataLayer || [];</script>
+    <script nonce="{{ request.csp_nonce }}">
+        // Consent Mode v2: deny all by default before GTM loads.
+        // Civic updates these via onAccept/onRevoke callbacks.
+        // https://cookiecontrol.com/docs/v9/optional-categories#step-1-site-cleanup
+        // https://developers.google.com/tag-platform/security/guides/consent
+        function gtag(){dataLayer.push(arguments);}
+        gtag("consent", "default", {
+            "ad_storage": "denied",
+            "analytics_storage": "denied",
+            "ad_personalization": "denied",
+            "ad_user_data": "denied"
+        });
+    </script>
     <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                                                   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=

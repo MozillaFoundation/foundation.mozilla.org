@@ -44,7 +44,6 @@ $carousel-transition: transform 0.3s ease;
     display: none;
 
     @include breakpoint(large up) {
-      display: flex;
       justify-content: end;
       margin-top: 1rem;
     }

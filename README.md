@@ -75,6 +75,7 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL` | `""` | Redirect after successful unsubscribe |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION` | `""` | Apple Pay domain key for Foundation |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST` | `""` | Apple Pay domain key for Mozfest |
+| `COOKIE_CONTROL_API_KEY` | `""` | Civic Cookie Control API key; banner is disabled when unset |
 
 ### Wagtail Localize (Git sync)
 
@@ -128,7 +129,7 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 ### Development Mode
 
 - Make sure the `DEBUG` environment variable is set to `True` so that Django and Docker serve updated compiled files correctly.
-- Run `docker-compose up` from the root of the codebase (not from `./frontend`).
+- Run `docker compose up` from the root of the codebase (not from `./frontend`).
 - Develop as usual.
 
 ### CSS

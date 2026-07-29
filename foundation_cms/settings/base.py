@@ -63,7 +63,6 @@ env = environ.Env(
     NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PROD_HOSTNAMES=(str, ""),
-    PULSE_API_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
@@ -425,9 +424,7 @@ TEMPLATES = [
                 "settings_value": "foundation_cms.legacy_apps.utility.templatetags.settings_value",
                 "app_environment_tags": "foundation_cms.templatetags.app_environment_tags",
                 "breadcrumb_nav": "foundation_cms.templatetags.breadcrumb_nav",
-                "impact_numbers_tags": "foundation_cms.templatetags.impact_numbers_tags",
                 "nothing_personal_tags": "foundation_cms.templatetags.nothing_personal_tags",
-                "onetrust_tags": "foundation_cms.templatetags.onetrust_tags",
                 "responsive_image_tags": "foundation_cms.templatetags.responsive_image_tags",
                 "url_query": "foundation_cms.templatetags.url_query",
                 "wagtailcustom_tags": (
@@ -802,7 +799,6 @@ logging.config.dictConfig(LOGGING)
 
 # Frontend
 FRONTEND = {
-    "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),

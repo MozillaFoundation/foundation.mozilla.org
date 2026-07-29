@@ -1,0 +1,143 @@
+// Cookie Control v9 (Civic UK) — https://cookiecontrol.com/docs/v9/
+// Legacy-specific version of foundation_cms/static/scss/_cookie_control_override.scss.
+// Mirrors the same styles as the redesign override but uses plain CSS values instead of Foundation mixins (rem-calc, breakpoint, mofo-text-style).
+// Uses legacy font stack (Zilla Slab / Nunito Sans) instead of Mozilla Headline / Mozilla Text.
+
+#ccc {
+  $cc-breakpoint: 1020px;
+  $ccc-notify-padding: 1.5rem; // rem-calc(24)
+
+  // Notification bar
+  #ccc-notify {
+    padding: $ccc-notify-padding !important;
+    box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 25%);
+
+    @media (min-width: $cc-breakpoint) {
+      align-items: normal !important;
+      flex-direction: column !important;
+      max-width: 50rem !important;
+      left: unset !important;
+    }
+
+    .ccc-notify-text {
+      @media (min-width: $cc-breakpoint) {
+        margin-right: $ccc-notify-padding !important;
+      }
+
+      #ccc-notify-title {
+        // mofo-text-style($header-styles, "h6", $header-font-family)
+        // small: font-size 1rem / large (64em+): font-size 1.25rem, line-height 1.1, font-weight 700
+        font-family: "Zilla Slab", serif !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        color: white;
+        margin-bottom: 0.375rem; // rem-calc(6)
+
+        @media (min-width: 64em) {
+          font-size: 1.25rem !important;
+          line-height: 1.1 !important;
+        }
+
+        + p {
+          // mofo-text-style($body-text-styles, "xsmall"): font-size 0.75rem, line-height 1.3, $body-font-family
+          // font-size falls through to the .ccc-intro/p rule (0.8125rem)
+          font-family: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+          line-height: 150% !important;
+          color: white;
+        }
+      }
+    }
+
+    p {
+      opacity: 1 !important;
+    }
+  }
+
+  // Main settings panel
+  #ccc-content {
+    box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 25%);
+
+    &.ccc-content--light {
+      background: white;
+    }
+  }
+
+  .ccc-notify-buttons {
+    position: static !important;
+    margin: 0.5rem 0 0 !important; // rem-calc(8)
+  }
+
+  .ccc-notify-button {
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    &#ccc-notify-accept,
+    &#ccc-notify-reject {
+      // mofo-text-style($body-text-styles, "small"): font-size 0.875rem, line-height 1.3, $body-font-family
+      font-family: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+      font-size: 0.875rem !important; // rem-calc(14)
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      padding: 1rem 1.5rem !important;
+      margin-bottom: 0.5rem !important; // rem-calc(8)
+    }
+
+    &.ccc-link.ccc-tabbable.ccc-notify-link {
+      // mofo-text-style($body-text-styles, "xsmall"): font-size 0.75rem, line-height 1.3, $body-font-family
+      font-family: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+      font-size: 0.75rem !important; // rem-calc(12)
+      line-height: 1.3 !important;
+      font-weight: 600 !important;
+      padding: 1rem 1.5rem !important;
+      margin-bottom: 0.5rem !important; // rem-calc(8)
+
+      @media (min-width: $cc-breakpoint) {
+        height: 100% !important;
+      }
+    }
+  }
+
+  .ccc-intro,
+  #ccc-necessary-description,
+  p {
+    font-family: "Nunito Sans", Helvetica, Arial, sans-serif !important;
+    font-size: 0.8125rem !important; // rem-calc(13)
+    line-height: 1.5 !important;
+  }
+
+  .ccc-link {
+    &#ccc-notify-dismiss {
+      top: $ccc-notify-padding !important;
+      right: $ccc-notify-padding !important;
+
+      @media (width >= 400px) {
+        position: absolute !important;
+      }
+
+      path {
+        fill: white;
+      }
+    }
+  }
+
+  .ccc-content--highlight {
+    button.ccc-link.ccc-tabbable:focus {
+      filter: none !important;
+      outline: auto;
+      box-shadow: none;
+    }
+
+    &.ccc-content--light,
+    &.ccc-content--dark {
+      button.ccc-link.ccc-tabbable:not(
+          #ccc-notify-accept,
+          #ccc-notify-reject
+        ):focus {
+        background-color: transparent !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+}

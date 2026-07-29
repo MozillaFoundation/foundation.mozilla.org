@@ -17,7 +17,7 @@ STASHED=false
 
 # Stop current env if running
 echo "Shutting down env..."
-docker-compose down
+docker compose down
 
 # Check for uncommitted changes
 if ! git diff-index --quiet HEAD -- || [ -n "$(git ls-files --others --exclude-standard)" ]; then

@@ -42,6 +42,19 @@
         <!-- The current GTM ID replaced an unkown GTM container with no clear access -->
             <meta name="gtm-identifier" content="GTM-PQQ8H6PM">
             <script nonce="{{ request.csp_nonce }}">window.dataLayer = window.dataLayer || [];</script>
+            <script nonce="{{ request.csp_nonce }}">
+                // Consent Mode v2: deny all by default before GTM loads.
+                // Civic updates these via onAccept/onRevoke callbacks.
+                // https://cookiecontrol.com/docs/v9/optional-categories#step-1-site-cleanup
+                // https://developers.google.com/tag-platform/security/guides/consent
+                function gtag(){dataLayer.push(arguments);}
+                gtag("consent", "default", {
+                    "ad_storage": "denied",
+                    "analytics_storage": "denied",
+                    "ad_personalization": "denied",
+                    "ad_user_data": "denied"
+                });
+            </script>
             <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                                                           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -57,19 +70,6 @@
                 t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
                 for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
             })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
-        {% endblock %}
-
-        {% block onetrust_script %}
-            <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" data-document-language="true" type="text/javascript" charset="UTF-8" data-domain-script="{% onetrust_data_domain %}" ></script>
-            <script nonce="{{ request.csp_nonce }}">function OptanonWrapper() {
-                if (document.getElementById('onetrust-banner-sdk')) {
-                    var acceptBtn = document.getElementById("onetrust-accept-btn-handler");
-                    var declineBtn = document.getElementById("onetrust-reject-all-handler");
-                    var cookieSettingsBtn = document.getElementById("onetrust-pc-btn-handler");
-                    var btnContainer = document.getElementById("onetrust-button-group");
-                    btnContainer.append(acceptBtn, declineBtn, cookieSettingsBtn);
-                }
-            };</script>
         {% endblock %}
 
         {% wagtail_ab_testing_script %}
@@ -163,6 +163,9 @@
             <script src="{% static "legacy_apps/_js/main.compiled.js" %}"></script>
             <script src="{% static "foundation_cms/_js/redesign_migrated_content.compiled.js" %}"></script>
         {% endblock %}
+
+        <script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js" type="text/javascript"></script>
+        <script src="{% static 'foundation_cms/_js/civic_cookie_control/init.compiled.js' %}"></script>
 
         {% block extra_scripts %}{% endblock %}
     </body>

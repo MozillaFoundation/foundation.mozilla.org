@@ -158,15 +158,21 @@ The code snippet below is based on FormAssembly form revision #6
                 var errorDiv = document.createElement('div');
                 errorDiv.className = 'g-captcha-error';
 
+                // Localized recaptcha injected at render time
+                var recaptchaHelpText = "{% trans 'reCAPTCHA helps prevent automated form spam.'|escapejs %}";
+                var recaptchaDisabledText = "{% trans 'The submit button will be disabled until you complete the CAPTCHA.'|escapejs %}";
+                var recaptchaErrorText = "{% trans 'The CAPTCHA was not completed successfully.'|escapejs %}";
+
                 var helpDiv = document.createElement('div');
                 helpDiv.className = 'captchaHelp';
-                helpDiv.innerHTML = 'reCAPTCHA helps prevent automated form spam.<br>';
+                helpDiv.textContent = recaptchaHelpText;
+                helpDiv.appendChild(document.createElement('br'));
 
                 var disabledDiv = document.createElement('div');
                 disabledDiv.id = 'disabled-explanation';
                 disabledDiv.className = 'captchaHelp';
                 disabledDiv.style.display = 'block';
-                disabledDiv.innerHTML = 'The submit button will be disabled until you complete the CAPTCHA.';
+                disabledDiv.textContent = '\u00A0' + recaptchaDisabledText;
 
                 oneFieldDiv.appendChild(recaptchaElement);
                 oneFieldDiv.appendChild(errorDiv);
@@ -210,7 +216,7 @@ The code snippet below is based on FormAssembly form revision #6
 
             var captchaError = '';
             if (captchaError == '1') {
-                var errMsgText = 'The CAPTCHA was not completed successfully.';
+                var errMsgText = recaptchaErrorText;
                 var errMsgDiv = document.createElement('div');
                 errMsgDiv.id = "tfa_captcha_text-E";
                 errMsgDiv.className = "err errMsg";

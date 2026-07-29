@@ -5,7 +5,7 @@ from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
 from foundation_cms.legacy_apps.wagtailcustomization.views.snippet_chooser import (
     DefaultLocaleSnippetChooserViewSet,
 )
-from foundation_cms.navigation.models import NavigationMenu
+from foundation_cms.navigation.models import HorizontalLinkBlock, NavigationMenu
 
 
 @hooks.register("register_icons")
@@ -25,6 +25,15 @@ def register_nav_menu_chooser_viewset():
     )
 
 
+@hooks.register("register_admin_viewset")
+def register_horizontal_link_block_chooser_viewset():
+    return DefaultLocaleSnippetChooserViewSet(
+        "wagtailsnippetchoosers_custom_horizontallinkblock",
+        model=HorizontalLinkBlock,
+        url_prefix="horizontal-link-block/chooser",
+    )
+
+
 class NavigationMenuViewSet(SnippetViewSet):
     model = NavigationMenu
     icon = "nav-menu"
@@ -35,8 +44,18 @@ class NavigationMenuViewSet(SnippetViewSet):
     ordering = ("title",)
 
 
+class HorizontalLinkBlockViewSet(SnippetViewSet):
+    model = HorizontalLinkBlock
+    icon = "link"
+    menu_order = 200
+    menu_label = "Horizontal Link Blocks"
+    list_display = ("title", "locale")
+    search_fields = ("title",)
+    ordering = ("title",)
+
+
 class NavigationMenuViewSetGroup(SnippetViewSetGroup):
-    items = (NavigationMenuViewSet,)
+    items = (NavigationMenuViewSet, HorizontalLinkBlockViewSet)
     menu_label = "Main Navigation"
     menu_name = "Main Navigation"
     menu_icon = "nav-menu"
