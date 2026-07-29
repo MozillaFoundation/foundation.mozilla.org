@@ -759,7 +759,7 @@ class Migration(migrations.Migration):
                     126: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     127: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 126)]], {}),
                     128: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 85)]], {}),
@@ -1756,7 +1756,7 @@ class Migration(migrations.Migration):
                     126: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     127: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 126)]], {}),
                     128: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 85)]], {}),
@@ -2087,7 +2087,7 @@ class Migration(migrations.Migration):
                     11: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     12: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 11)]], {}),
                     13: (
@@ -3115,7 +3115,7 @@ class Migration(migrations.Migration):
                     112: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     113: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 112)]], {}),
                     114: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 68)]], {}),
@@ -4113,7 +4113,7 @@ class Migration(migrations.Migration):
                     126: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     127: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 126)]], {}),
                     128: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 85)]], {}),

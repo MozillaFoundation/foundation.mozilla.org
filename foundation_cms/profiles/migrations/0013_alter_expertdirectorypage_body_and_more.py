@@ -664,7 +664,7 @@ class Migration(migrations.Migration):
                     112: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     113: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 112)]], {}),
                     114: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 68)]], {}),
@@ -1567,7 +1567,7 @@ class Migration(migrations.Migration):
                     112: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     113: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 112)]], {}),
                     114: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 68)]], {}),
@@ -2470,7 +2470,7 @@ class Migration(migrations.Migration):
                     112: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     113: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 112)]], {}),
                     114: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 68)]], {}),

@@ -759,7 +759,7 @@ class Migration(migrations.Migration):
                     126: (
                         "wagtail.snippets.blocks.SnippetChooserBlock",
                         ("snippets.IllustratedNewsletterSignup",),
-                        {"max_num": 1},
+                        {},
                     ),
                     127: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 126)]], {}),
                     128: ("wagtail.blocks.StructBlock", [[("newsletter_signup", 85)]], {}),
