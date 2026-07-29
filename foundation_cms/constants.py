@@ -25,7 +25,7 @@ RICH_TEXT_BASE_OPTIONS = ["bold", "italic", "link"]
 
 # Rich text features for the notice banner snippet. Headings are capped at h4 so a
 # notice never competes with the page's own h1-h3 outline, and block-level embeds
-# (image/embed/hr) are omitted because the banner is a single compact strip.
+# (image/embed/hr) are omitted because the banner is a single compact banner.
 NOTICE_BANNER_RICH_TEXT_FEATURES = [
     "h4",
     "h5",
