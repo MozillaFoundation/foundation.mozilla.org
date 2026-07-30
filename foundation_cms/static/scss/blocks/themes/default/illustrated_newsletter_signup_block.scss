@@ -269,7 +269,7 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: rem-calc(16);
     width: 100%;
     padding: rem-calc(32);
@@ -280,7 +280,7 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     h2,
     p {
       margin: 0;
-      text-align: left;
+      text-align: center;
     }
 
     p {
@@ -373,17 +373,11 @@ select.illustrated-newsletter-signup__input[data-has-value="true"]
     }
 
     &__success {
-      align-items: center;
       padding: 0;
     }
 
     &__success-copy {
       max-width: rem-calc(698);
-    }
-
-    &__success &__success-title,
-    &__success p {
-      text-align: center;
     }
 
     &__success p {
