@@ -545,6 +545,7 @@ body:has(.search-input-container.search-open) {
 
   &__quick-link {
     @include mofo-text-style($body-text-styles, "regular");
+    @include link-text-hover-underline(color(blue, "500"));
 
     display: inline-flex;
     align-items: center;
@@ -563,9 +564,10 @@ body:has(.search-input-container.search-open) {
       background-size: rem-calc(24) rem-calc(24);
     }
 
-    &:hover,
     &:focus-visible {
-      color: color(orange, "600");
+      color: color(blue, "500");
+      text-decoration: underline;
+      text-decoration-color: color(blue, "500");
     }
 
     &:focus-visible {

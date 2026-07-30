@@ -33,5 +33,6 @@ class SearchDrawerTemplateTests(TestCase):
         self.assertNotIn("search-input-container--form-only", html)
         self.assertIn("privacy", html)
         self.assertIn(f'href="{reverse("search")}?query=privacy"', html)
+        self.assertIn('placeholder="Search"', html)
         self.assertIn("Grantmaking", html)
         self.assertIn('href="/what-we-do/awards/"', html)
