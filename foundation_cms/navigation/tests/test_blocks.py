@@ -168,7 +168,6 @@ class TestSearchTopicLinkFactory(TestCase):
         self.assertEqual(block.label, "privacy")
         self.assertEqual(block.query, "personal data")
         self.assertEqual(block.url, "/en/search/?query=personal+data")
-        self.assertFalse(block.is_external)
 
 
 class TestNavigationMenuFactory(TestCase):

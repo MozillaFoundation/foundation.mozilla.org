@@ -36,7 +36,7 @@
               <div class="search-input-container__quick-links">
                 <p class="search-input-container__heading">{% trans "Quick Links" %}</p>
                 <ul class="search-input-container__quick-link-list">
-                  {% for link in search_quick_links %}
+                  {% for link in search_quick_links|slice:":3" %}
                     {% with quick_link=link.value %}
                       <li>
                         <a class="search-input-container__quick-link"
