@@ -37,7 +37,7 @@ $illustrated-newsletter-expansion-easing: cubic-bezier(0.22, 1, 0.36, 1);
     max-width: 100%;
     height: auto;
     aspect-ratio: 3 / 2;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   &__signup-view,

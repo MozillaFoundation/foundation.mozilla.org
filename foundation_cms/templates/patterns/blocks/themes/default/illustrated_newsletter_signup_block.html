@@ -11,8 +11,8 @@
                data-loading-label="{% trans "Loading..." %}"
                data-state="default">
         {% if newsletter_signup.illustration %}
-          {% image newsletter_signup.illustration fill-200x133 as illustration_1x %}
-          {% image newsletter_signup.illustration fill-400x267 as illustration_2x %}
+          {% image newsletter_signup.illustration max-200x133 as illustration_1x %}
+          {% image newsletter_signup.illustration max-400x267 as illustration_2x %}
         {% endif %}
 
         <div class="illustrated-newsletter-signup__signup-view">

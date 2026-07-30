@@ -71,7 +71,9 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn('srcset="', html)
         self.assertIn(" 1x,", html)
         self.assertIn(" 2x", html)
-        self.assertEqual(html.count('width="200"'), 2)
+        self.assertIn(".max-200x133.", html)
+        self.assertIn(".max-400x267.", html)
+        self.assertEqual(html.count('width="133"'), 2)
         self.assertEqual(html.count('height="133"'), 2)
         self.assertEqual(
             html.count('class="illustrated-newsletter-signup__illustration"'),
