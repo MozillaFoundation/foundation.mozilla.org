@@ -1,14 +1,14 @@
 from types import SimpleNamespace
 
-from django.test import SimpleTestCase
+from django.test import RequestFactory, SimpleTestCase
 
 from foundation_cms.navigation import models as nav_models
 from foundation_cms.navigation.templatetags.navigation_tags import (
-    horizontal_link_active_url,
+    horizontal_link_active_link,
     horizontal_link_is_active,
+    navigation_link_is_active,
     primary_nav_active_link,
     primary_nav_dropdown_is_active,
-    primary_nav_link_is_active,
     primary_nav_link_is_current,
 )
 
@@ -29,15 +29,33 @@ class HorizontalLinkIsActiveTests(SimpleTestCase):
     def test_external_link_is_never_active(self):
         self.assertFalse(horizontal_link_is_active("/events/mozfest/", "https://example.com/events/mozfest/", True))
 
+    def test_absolute_internal_url_uses_its_path(self):
+        self.assertTrue(
+            horizontal_link_is_active(
+                "/en/mozilla-expert-hub/",
+                "http://localhost:8000/en/mozilla-expert-hub/",
+                False,
+            )
+        )
+
+    def test_malformed_url_is_not_active(self):
+        self.assertFalse(horizontal_link_is_active("/", "http://[invalid", False))
+
     def test_root_link_only_matches_root(self):
         self.assertTrue(horizontal_link_is_active("/", "/"))
         self.assertFalse(horizontal_link_is_active("/events/", "/"))
 
 
-class HorizontalLinkActiveUrlTests(SimpleTestCase):
+class HorizontalLinkActiveLinkTests(SimpleTestCase):
     @staticmethod
     def link(url, is_external=False):
-        return SimpleNamespace(value=SimpleNamespace(url=url, is_external=is_external))
+        link = SimpleNamespace(url=url, is_external=is_external)
+        link.get_url_for_request = lambda request: link.url
+        return SimpleNamespace(value=link)
+
+    @staticmethod
+    def request(path):
+        return RequestFactory().get(path)
 
     def test_returns_most_specific_matching_link(self):
         links = [
@@ -46,31 +64,37 @@ class HorizontalLinkActiveUrlTests(SimpleTestCase):
             self.link("/events/mozfest/schedule/"),
         ]
 
-        self.assertEqual(
-            horizontal_link_active_url("/events/mozfest/schedule/day-one/", links),
-            "/events/mozfest/schedule/",
+        active_link = horizontal_link_active_link(
+            self.request("/events/mozfest/schedule/day-one/"),
+            links,
         )
+
+        self.assertIs(active_link, links[2].value)
 
     def test_ignores_external_links(self):
         links = [self.link("https://example.com/events/", is_external=True)]
 
-        self.assertIsNone(horizontal_link_active_url("/events/", links))
+        self.assertIsNone(horizontal_link_active_link(self.request("/events/"), links))
 
     def test_returns_none_without_a_matching_link(self):
         links = [self.link("/events/")]
 
-        self.assertIsNone(horizontal_link_active_url("/about/", links))
+        self.assertIsNone(horizontal_link_active_link(self.request("/about/"), links))
 
 
 class PrimaryNavActiveLinkTests(SimpleTestCase):
+    @staticmethod
+    def request(path):
+        return RequestFactory().get(path)
+
     @staticmethod
     def link(url, link_to="relative_url"):
         return {
             "label": url,
             "link_to": link_to,
             "page": None,
-            "external_url": url if link_to == "external_url" else "",
-            "relative_url": url if link_to != "external_url" else "",
+            "external_url": url if link_to in ("", "external_url") else "",
+            "relative_url": url if link_to == "relative_url" else "",
         }
 
     @classmethod
@@ -90,58 +114,66 @@ class PrimaryNavActiveLinkTests(SimpleTestCase):
         localized = self.dropdowns("/en/join-us/")
         unprefixed = self.dropdowns("/join-us/")
 
-        self.assertEqual(primary_nav_active_link("/de/join-us/", localized).url, "/en/join-us/")
-        self.assertEqual(primary_nav_active_link("/de/join-us/", unprefixed).url, "/join-us/")
+        request = self.request("/de/join-us/")
+
+        self.assertEqual(primary_nav_active_link(request, localized).url, "/en/join-us/")
+        self.assertEqual(primary_nav_active_link(request, unprefixed).url, "/join-us/")
 
     def test_matches_regional_locale_prefix(self):
         dropdowns = self.dropdowns("/en/join-us/")
 
-        self.assertEqual(primary_nav_active_link("/pt-BR/join-us/", dropdowns).url, "/en/join-us/")
+        self.assertEqual(
+            primary_nav_active_link(self.request("/pt-BR/join-us/"), dropdowns).url,
+            "/en/join-us/",
+        )
 
     def test_does_not_strip_unsupported_first_segment(self):
         dropdowns = self.dropdowns("/join-us/")
 
-        self.assertIsNone(primary_nav_active_link("/unsupported/join-us/", dropdowns))
+        self.assertIsNone(primary_nav_active_link(self.request("/unsupported/join-us/"), dropdowns))
 
     def test_descendant_path_activates_ancestor_link(self):
         dropdowns = self.dropdowns("/en/join-us/")
 
-        self.assertEqual(primary_nav_active_link("/de/join-us/team/", dropdowns).url, "/en/join-us/")
+        self.assertEqual(
+            primary_nav_active_link(self.request("/de/join-us/team/"), dropdowns).url,
+            "/en/join-us/",
+        )
 
     def test_similar_path_segment_is_not_active(self):
         dropdowns = self.dropdowns("/en/join-us/")
 
-        self.assertIsNone(primary_nav_active_link("/de/join-us-too/", dropdowns))
+        self.assertIsNone(primary_nav_active_link(self.request("/de/join-us-too/"), dropdowns))
 
     def test_query_strings_and_fragments_do_not_affect_matching(self):
         dropdowns = self.dropdowns("/de/join-us/#overview")
 
         self.assertEqual(
-            primary_nav_active_link("/en/join-us/?source=nav", dropdowns).url,
+            primary_nav_active_link(self.request("/en/join-us/?source=nav"), dropdowns).url,
             "/de/join-us/#overview",
         )
 
     def test_external_url_is_rejected_even_without_link_type_metadata(self):
         dropdowns = self.dropdowns("https://example.com/de/join-us/", header_link_to="")
 
-        self.assertFalse(dropdowns[0].value.header_value.is_external)
-        self.assertIsNone(primary_nav_active_link("/de/join-us/", dropdowns))
+        self.assertTrue(dropdowns[0].value.header_value.is_external)
+        self.assertIsNone(primary_nav_active_link(self.request("/de/join-us/"), dropdowns))
 
     def test_query_only_link_is_never_active(self):
         dropdowns = self.dropdowns("?form=donate-header")
 
-        self.assertIsNone(primary_nav_active_link("/de/join-us/", dropdowns))
+        self.assertIsNone(primary_nav_active_link(self.request("/de/join-us/"), dropdowns))
 
     def test_locale_root_link_only_matches_locale_root(self):
         dropdowns = self.dropdowns("/en/")
 
-        self.assertEqual(primary_nav_active_link("/de/", dropdowns).url, "/en/")
-        self.assertIsNone(primary_nav_active_link("/de/join-us/", dropdowns))
+        self.assertEqual(primary_nav_active_link(self.request("/de/"), dropdowns).url, "/en/")
+        self.assertIsNone(primary_nav_active_link(self.request("/de/join-us/"), dropdowns))
 
     def test_returns_most_specific_matching_dropdown_item(self):
         dropdowns = self.dropdowns("/en/join-us/", ["/en/join-us/events/"])
 
-        active_link = primary_nav_active_link("/de/join-us/events/day-one/", dropdowns)
+        active_link = primary_nav_active_link(self.request("/de/join-us/events/day-one/"), dropdowns)
 
         self.assertIs(active_link, dropdowns[0].value.dropdown_items[0])
 
@@ -150,11 +182,11 @@ class PrimaryNavActiveLinkTests(SimpleTestCase):
         header = dropdowns[0].value.header_value
         duplicate = dropdowns[0].value.dropdown_items[0]
 
-        active_link = primary_nav_active_link("/join-us/", dropdowns)
+        active_link = primary_nav_active_link(self.request("/join-us/"), dropdowns)
 
         self.assertIs(active_link, header)
-        self.assertTrue(primary_nav_link_is_active(active_link, header))
-        self.assertFalse(primary_nav_link_is_active(active_link, duplicate))
+        self.assertTrue(navigation_link_is_active(active_link, header))
+        self.assertFalse(navigation_link_is_active(active_link, duplicate))
 
     def test_dropdown_helper_finds_selected_child_by_identity(self):
         dropdowns = self.dropdowns("/join-us/", ["/join-us/events/"])
@@ -167,5 +199,5 @@ class PrimaryNavActiveLinkTests(SimpleTestCase):
     def test_current_helper_requires_an_exact_localized_path(self):
         link = self.dropdowns("/en/join-us/")[0].value.header_value
 
-        self.assertTrue(primary_nav_link_is_current("/de/join-us/", link))
-        self.assertFalse(primary_nav_link_is_current("/de/join-us/team/", link))
+        self.assertTrue(primary_nav_link_is_current(self.request("/de/join-us/"), link))
+        self.assertFalse(primary_nav_link_is_current(self.request("/de/join-us/team/"), link))

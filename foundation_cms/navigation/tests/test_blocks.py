@@ -1,13 +1,18 @@
 import wagtail_factories
 from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, Site
 
 from foundation_cms.navigation import blocks as nav_blocks
 from foundation_cms.navigation import factories as nav_factories
 
 
 class TestNavLinkFactory(TestCase):
+    @staticmethod
+    def routable_page():
+        site = Site.objects.get(is_default_site=True)
+        return wagtail_factories.PageFactory(parent=site.root_page)
+
     def test_external_url_link_trait(self):
         """NavLinkFactory with external_url_link trait should create a valid external link."""
         block = nav_factories.NavLinkFactory(external_url_link=True)
@@ -62,6 +67,79 @@ class TestNavLinkFactory(TestCase):
 
         # URL should resolve to page.url
         self.assertEqual(block.url, page.url)
+
+    def test_translated_page_link_without_link_to_is_internal(self):
+        page = self.routable_page()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Page",
+                "page": page.pk,
+                "external_url": "",
+                "relative_url": "",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "page")
+        self.assertFalse(block.is_external)
+        self.assertEqual(block.url, page.localized.url)
+
+    def test_translated_external_link_without_link_to_is_external(self):
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "External",
+                "page": None,
+                "external_url": "https://example.com/same-path/",
+                "relative_url": "",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "external_url")
+        self.assertTrue(block.is_external)
+
+    def test_missing_link_to_uses_base_link_fallback_order(self):
+        page = self.routable_page()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Legacy",
+                "page": page.pk,
+                "external_url": "https://example.com/stale/",
+                "relative_url": "/stale/",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "page")
+        self.assertEqual(block.url, page.localized.url)
+        self.assertFalse(block.is_external)
+
+    def test_explicit_link_to_remains_authoritative(self):
+        page = self.routable_page()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "External",
+                "link_to": "external_url",
+                "page": page.pk,
+                "external_url": "https://example.com/",
+                "relative_url": "/stale/",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "external_url")
+        self.assertEqual(block.url, "https://example.com/")
+        self.assertTrue(block.is_external)
+
+    def test_empty_link_has_no_resolved_type(self):
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Empty",
+                "page": None,
+                "external_url": "",
+                "relative_url": "",
+            }
+        )
+
+        self.assertIsNone(block.resolved_link_to)
+        self.assertIsNone(block.get_url_for_request(None))
+        self.assertFalse(block.is_external)
 
     def test_invalid_without_target(self):
         """NavLink should fail validation if no link target is provided."""

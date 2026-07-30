@@ -1,8 +1,8 @@
 {% load navigation_tags %}
 
 {% primary_nav_dropdown_is_active active_link value as dropdown_is_active %}
-{% primary_nav_link_is_active active_link value.header as header_is_active %}
-{% primary_nav_link_is_current request.path value.header as header_is_current %}
+{% navigation_link_is_active active_link value.header as header_is_active %}
+{% primary_nav_link_is_current request value.header as header_is_current %}
 
 <div class="primary-nav-ns__menu-item{% if dropdown_is_active %} primary-nav-ns__menu-item--active{% endif %}">
   {% if header_is_active %}
@@ -14,8 +14,8 @@
   {% if value.dropdown_items %}
     <div class="primary-nav-ns__dropdown">
       {% for item in value.dropdown_items %}
-        {% primary_nav_link_is_active active_link item as item_is_active %}
-        {% primary_nav_link_is_current request.path item as item_is_current %}
+        {% navigation_link_is_active active_link item as item_is_active %}
+        {% primary_nav_link_is_current request item as item_is_current %}
         {% if item_is_active %}
           {% include "patterns/components/link.html" with value=item classnames="nav-link primary-nav-ns__link primary-nav-ns__link--active" aria_current=item_is_current|yesno:"page," %}
         {% else %}
