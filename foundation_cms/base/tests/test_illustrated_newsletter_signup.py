@@ -59,7 +59,10 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn("Thank you!", html)
 
     def test_rendered_illustration_provides_a_retina_rendition(self):
-        signup = IllustratedNewsletterSignupFactory()
+        signup = IllustratedNewsletterSignupFactory(
+            illustration__file__width=400,
+            illustration__file__height=400,
+        )
         block = IllustratedNewsletterSignupBlock()
         value = block.to_python({"newsletter_signup": signup.pk})
 
@@ -68,6 +71,8 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn('srcset="', html)
         self.assertIn(" 1x,", html)
         self.assertIn(" 2x", html)
+        self.assertEqual(html.count('width="200"'), 2)
+        self.assertEqual(html.count('height="133"'), 2)
         self.assertEqual(
             html.count('class="illustrated-newsletter-signup__illustration"'),
             2,
