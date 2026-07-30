@@ -14,6 +14,7 @@ GENERAL_PAGE_BLOCK_NAMES = sorted(
         "custom_media",
         "donor_help_contact_us_form",
         "image_carousel_block",
+        "illustrated_newsletter_signup",
     ]
 )
 general_page_block_options = BlockRegistry.get_blocks(GENERAL_PAGE_BLOCK_NAMES)
