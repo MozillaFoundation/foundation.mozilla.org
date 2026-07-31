@@ -14,7 +14,7 @@ from foundation_cms.views import illustrated_newsletter_signup_submission_view
 
 
 class IllustratedNewsletterSignupBlockTests(TestCase):
-    def test_snippet_requires_an_explicit_newsletter_and_limits_the_heading(self):
+    def test_snippet_defaults_the_newsletter_and_limits_the_heading(self):
         heading_field = IllustratedNewsletterSignup._meta.get_field("heading")
         button_text_field = IllustratedNewsletterSignup._meta.get_field("button_text")
         newsletter_field = IllustratedNewsletterSignup._meta.get_field("newsletter")
@@ -22,7 +22,7 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertEqual(heading_field.max_length, 70)
         self.assertEqual(button_text_field.max_length, 50)
         self.assertEqual(button_text_field.default, "Sign Up")
-        self.assertFalse(newsletter_field.has_default())
+        self.assertEqual(newsletter_field.default, "mozillafoundationorg")
 
     def test_editor_chooses_an_illustrated_newsletter_signup_snippet(self):
         block = IllustratedNewsletterSignupBlock()
@@ -57,6 +57,15 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         self.assertIn("illustrated-newsletter-signup__success", html)
         self.assertNotIn("illustrated-newsletter-signup__illustration", html)
         self.assertIn("Thank you!", html)
+
+    def test_empty_snippet_selection_renders_no_block_markup(self):
+        block = IllustratedNewsletterSignupBlock()
+        value = block.to_python({"newsletter_signup": None})
+
+        html = block.render(value, context={"theme": "default"})
+
+        self.assertNotIn("illustrated-newsletter-signup-block", html)
+        self.assertNotIn("data-signup-url", html)
 
     def test_rendered_illustration_provides_a_retina_rendition(self):
         signup = IllustratedNewsletterSignupFactory(
