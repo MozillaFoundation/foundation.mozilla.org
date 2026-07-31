@@ -402,7 +402,6 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
                         "foundation_cms.context_processor.editable_footer",
-                        "foundation_cms.context_processor.editable_nav",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -925,8 +924,6 @@ TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
 
 # Use cms editable footer
 EDITABLE_FOOTER = env("EDITABLE_FOOTER", default=False)
-# Use cms editable nav
-EDITABLE_NAV = env("EDITABLE_NAV", default=False)
 
 # Number of days(default 7) to keep search hits in the DB. Queries older than this will be removed by
 # the searchpromotions_garbage_collect command ./manage.py searchpromotions_garbage_collect.

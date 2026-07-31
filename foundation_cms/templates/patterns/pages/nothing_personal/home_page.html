@@ -16,8 +16,8 @@
         </div>
       </div>
     {% endif %}
-    {% if page.hero_item %}
-      {% include "patterns/components/nothing_personal/home_page/hero_item.html" with hero_item=page.hero_item orientation=page.hero_item_orientation %}
+    {% if localized_hero_item %}
+      {% include "patterns/components/nothing_personal/home_page/hero_item.html" with hero_item=localized_hero_item orientation=page.hero_item_orientation %}
     {% endif %}
 
     {% if localized_featured_pages %}
