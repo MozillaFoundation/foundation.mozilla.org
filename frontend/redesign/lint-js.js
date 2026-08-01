@@ -10,18 +10,16 @@ import { ESLint } from "eslint";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // These paths need to be in absolute format
 const rootPath = path.resolve(__dirname, "../../");
-const eslintConfigPath = path.join(rootPath, "frontend/redesign/eslint.config.js");
+const eslintConfigPath = path.join(
+  rootPath,
+  "frontend/redesign/eslint.config.js",
+);
 
 // Wrap in async IIFE to use await at top level in environments that don't support top-level await
 (async () => {
   // Create an instance of ESLint using our flat config file in /frontend
   const eslint = new ESLint({
     overrideConfigFile: eslintConfigPath,
-    // By default, ESLint ignores files outside the current working directory
-    // and respects .eslintignore or default rules (like ignoring node_modules).
-    // Setting ignore: false disables that behavior, allowing us to lint files
-    // outside /frontend (e.g., in ../foundation_cms) via the Node API.
-    ignore: false,
     cwd: rootPath,
     fix: process.argv.includes("--fix"),
   });

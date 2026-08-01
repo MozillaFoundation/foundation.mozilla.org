@@ -139,11 +139,22 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
     def get_context(self, request, virtual_page_name=None):
         context = super().get_context(request)
         context["localized_featured_pages"] = self.get_localized_featured_pages
+        context["localized_hero_item"] = self.get_localized_hero_item
 
         if virtual_page_name:
             context["page_type_bem"] = self._to_bem_case(virtual_page_name)
 
         return context
+
+    @cached_property
+    def get_localized_hero_item(self):
+        """
+        Return the localized version of the hero item page.
+        """
+        if not self.hero_item:
+            return None
+
+        return self.hero_item.localized.specific
 
     @cached_property
     def get_localized_featured_pages(self):
