@@ -1,20 +1,5 @@
 .search-suggestions {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: rem-calc(32);
-
-  @include breakpoint(large up) {
-    grid-template-columns: minmax(0, 1fr) rem-calc(256);
-  }
-
-  &__heading {
-    @include mofo-text-style($body-text-styles, "large");
-
-    margin: 0 0 rem-calc(12);
-    color: $black;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
+  row-gap: rem-calc(32);
 
   &__topic-list,
   &__quick-link-list {
@@ -98,4 +83,15 @@
       outline-offset: 2px;
     }
   }
+}
+
+// Match the global redesign heading selector specificity so semantic h2
+// elements retain the body-large treatment specified by the design.
+body.redesign .search-suggestions__heading {
+  @include mofo-text-style($body-text-styles, "large");
+
+  margin: 0 0 rem-calc(16);
+  color: $black;
+  font-weight: 700;
+  letter-spacing: 0;
 }

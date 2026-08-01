@@ -1,39 +1,37 @@
 {% load i18n %}
 
-<div class="search-suggestions">
-  {% if search_topic_links %}
-    <div class="search-suggestions__topics">
-      <p class="search-suggestions__heading">{% trans "Explore our ideas" %}</p>
-      <ul class="search-suggestions__topic-list">
-        {% for link in search_topic_links|slice:":5" %}
-          {% with topic_link=link.value %}
-            <li>
-              <a class="search-suggestions__topic-link" href="{{ topic_link.url }}">
-                {{ topic_link.label }}
-              </a>
-            </li>
-          {% endwith %}
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
+{% if search_topic_links %}
+  <div class="cell small-12 large-5 large-offset-2 search-suggestions__topics">
+    <h2 class="search-suggestions__heading">{% trans "Explore our ideas" %}</h2>
+    <ul class="search-suggestions__topic-list">
+      {% for link in search_topic_links|slice:":5" %}
+        {% with topic_link=link.value %}
+          <li>
+            <a class="search-suggestions__topic-link" href="{{ topic_link.url }}">
+              {{ topic_link.label }}
+            </a>
+          </li>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
 
-  {% if search_quick_links %}
-    <div class="search-suggestions__quick-links">
-      <p class="search-suggestions__heading">{% trans "Quick Links" %}</p>
-      <ul class="search-suggestions__quick-link-list">
-        {% for link in search_quick_links|slice:":3" %}
-          {% with quick_link=link.value %}
-            <li>
-              <a class="search-suggestions__quick-link"
-                 href="{{ quick_link.url }}"
-                 {% if quick_link.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                {{ quick_link.label }}
-              </a>
-            </li>
-          {% endwith %}
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-</div>
+{% if search_quick_links %}
+  <div class="cell small-12 large-3{% if not search_topic_links %} large-offset-7{% endif %} search-suggestions__quick-links">
+    <h2 class="search-suggestions__heading">{% trans "Quick Links" %}</h2>
+    <ul class="search-suggestions__quick-link-list">
+      {% for link in search_quick_links|slice:":3" %}
+        {% with quick_link=link.value %}
+          <li>
+            <a class="search-suggestions__quick-link"
+               href="{{ quick_link.url }}"
+               {% if quick_link.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+              {{ quick_link.label }}
+            </a>
+          </li>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

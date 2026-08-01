@@ -51,6 +51,7 @@ class SearchTopicLinkValue(blocks.StructValue):
     def url(self) -> str:
         return f"{reverse('search')}?{urlencode({'query': self.query})}"
 
+
 class SearchTopicLink(blocks.StructBlock):
     """
     A topic pill that links to the site search page with a configured query.

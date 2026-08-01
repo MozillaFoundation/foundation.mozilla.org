@@ -35,7 +35,8 @@ body.template-search-results {
     }
 
     &__title {
-      margin: 0;
+      margin-top: 0;
+      margin-bottom: 0;
       text-align: center;
       overflow-wrap: anywhere;
     }
@@ -68,7 +69,8 @@ body.template-search-results {
     }
 
     &__message {
-      margin: 0;
+      margin-top: 0;
+      margin-bottom: 0;
     }
   }
 
