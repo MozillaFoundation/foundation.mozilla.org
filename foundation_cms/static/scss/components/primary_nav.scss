@@ -27,6 +27,14 @@ $primary-nav-margin: 0.7rem;
   }
 }
 
+@mixin primary-nav-active-link {
+  color: color(orange, "600");
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.15rem;
+}
+
 .primary-nav-ns {
   position: sticky;
   width: 100%;
@@ -341,6 +349,11 @@ $primary-nav-margin: 0.7rem;
         }
       }
     }
+  }
+
+  a.primary-nav-ns__link--active,
+  .primary-nav-ns__menu-item--active > a {
+    @include primary-nav-active-link;
   }
 
   a:focus-visible,
