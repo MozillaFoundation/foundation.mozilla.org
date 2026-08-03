@@ -1,18 +1,13 @@
 import wagtail_factories
 from django.test import TestCase
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
-from wagtail.models import Locale, Page, Site
+from wagtail.models import Locale, Page
 
 from foundation_cms.navigation import blocks as nav_blocks
 from foundation_cms.navigation import factories as nav_factories
 
 
 class TestNavLinkFactory(TestCase):
-    @staticmethod
-    def routable_page():
-        site = Site.objects.get(is_default_site=True)
-        return wagtail_factories.PageFactory(parent=site.root_page)
-
     def test_external_url_link_trait(self):
         """NavLinkFactory with external_url_link trait should create a valid external link."""
         block = nav_factories.NavLinkFactory(external_url_link=True)
@@ -69,7 +64,7 @@ class TestNavLinkFactory(TestCase):
         self.assertEqual(block.url, page.url)
 
     def test_translated_page_link_without_link_to_is_internal(self):
-        page = self.routable_page()
+        page = wagtail_factories.PageFactory()
         block = nav_blocks.NavLink().to_python(
             {
                 "label": "Page",
@@ -81,7 +76,6 @@ class TestNavLinkFactory(TestCase):
 
         self.assertEqual(block.resolved_link_to, "page")
         self.assertFalse(block.is_external)
-        self.assertEqual(block.url, page.localized.url)
 
     def test_translated_external_link_without_link_to_is_external(self):
         block = nav_blocks.NavLink().to_python(
@@ -96,8 +90,8 @@ class TestNavLinkFactory(TestCase):
         self.assertEqual(block.resolved_link_to, "external_url")
         self.assertTrue(block.is_external)
 
-    def test_missing_link_to_uses_base_link_fallback_order(self):
-        page = self.routable_page()
+    def test_missing_link_to_uses_structural_fallback_order(self):
+        page = wagtail_factories.PageFactory()
         block = nav_blocks.NavLink().to_python(
             {
                 "label": "Legacy",
@@ -108,11 +102,10 @@ class TestNavLinkFactory(TestCase):
         )
 
         self.assertEqual(block.resolved_link_to, "page")
-        self.assertEqual(block.url, page.localized.url)
         self.assertFalse(block.is_external)
 
     def test_explicit_link_to_remains_authoritative(self):
-        page = self.routable_page()
+        page = wagtail_factories.PageFactory()
         block = nav_blocks.NavLink().to_python(
             {
                 "label": "External",

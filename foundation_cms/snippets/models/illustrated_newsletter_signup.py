@@ -31,6 +31,7 @@ class IllustratedNewsletterSignup(TranslatableMixin, models.Model):
     )
     newsletter = models.CharField(
         max_length=100,
+        default="mozillafoundationorg",
         help_text="The identifier of the pre-existing newsletter to sign up for.",
     )
 

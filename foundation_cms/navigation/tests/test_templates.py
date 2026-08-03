@@ -12,10 +12,11 @@ from foundation_cms.navigation import models as nav_models
 
 
 @override_settings(
+    ALLOWED_HOSTS=["localhost", "testserver", "primary.test", "secondary.test"],
     STORAGES={
         "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
         "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
-    }
+    },
 )
 class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
     def setUp(self):

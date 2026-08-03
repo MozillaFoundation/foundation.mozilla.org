@@ -17,12 +17,7 @@ class NavLinkValue(BaseLinkValue):
         if link_to := self.get("link_to"):
             return link_to
 
-        for field in self.target_fields:
-            resolver = getattr(self, f"get_{field}_link")
-            if resolver():
-                return field
-
-        return None
+        return next((field for field in self.target_fields if self.get(field)), None)
 
     @property
     def is_external(self) -> bool:
