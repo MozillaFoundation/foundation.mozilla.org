@@ -109,7 +109,6 @@ def newsletter_signup_submission_view(request, pk):
     return newsletter_signup_submission(request, signup.newsletter)
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def illustrated_newsletter_signup_submission_view(request, pk):
     new_body = request.body.decode("utf-8")

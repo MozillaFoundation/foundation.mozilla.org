@@ -102,32 +102,23 @@ def get_descendants(node, result, authenticated=False, depth=0, max_depth=2):
     below with `.specific()` so that reading `node.header` (and URL generation
     in the menu templates) does not trigger a query per page.
     """
-    if depth <= max_depth:
-        title = node.title
-        header = getattr(node.specific, "header", None)
-        if header:
-            title = header
-        menu_title = title if depth > 0 else gettext("Overview")
-
-        # View-restriction lookups walk the ancestor chain and cost one query
-        # per node. For anonymous visitors (the public hot path) the child
-        # queryset below is filtered through `.public()`, which already excludes
-        # any restricted page, so this lookup would always resolve to None. Only
-        # pay for it for authenticated CMS users, who can see restricted pages in
-        # the menu and rely on the restriction indicator.
-        restriction_type = None
-        if authenticated:
-            restriction = node.get_view_restrictions().first()
-            restriction_type = getattr(restriction, "restriction_type", None)
+    if depth > max_depth:
+        return
 
     header = getattr(node, "header", None)
     title = header if header else node.title
     menu_title = title if depth > 0 else gettext("Overview")
-    restriction = node.get_view_restrictions().first()
-    try:
-        restriction_type = restriction.restriction_type
-    except AttributeError:
-        restriction_type = None
+
+    # View-restriction lookups walk the ancestor chain and cost one query
+    # per node. For anonymous visitors (the public hot path) the child
+    # queryset below is filtered through `.public()`, which already excludes
+    # any restricted page, so this lookup would always resolve to None. Only
+    # pay for it for authenticated CMS users, who can see restricted pages in
+    # the menu and rely on the restriction indicator.
+    restriction_type = None
+    if authenticated:
+        restriction = node.get_view_restrictions().first()
+        restriction_type = getattr(restriction, "restriction_type", None)
 
     result.append(
         {
@@ -143,13 +134,21 @@ def get_descendants(node, result, authenticated=False, depth=0, max_depth=2):
     if depth >= max_depth:
         return
 
-        # Resolve specific page types for the whole level in a single query so
-        # that each child's `.specific` access (used for `header` above) does not
-        # trigger its own SELECT as the recursion descends.
-        nextset = nextset.specific()
+    nextset = node.get_children().in_menu()
 
-        for child in nextset:
-            get_descendants(child, list, authenticated, depth + 1)
+    # Do not show draft/private pages to users who are
+    # not logged into the CMS itself.
+    if authenticated is False:
+        nextset = nextset.live().public()
+
+    # Resolve the specific page (and its locale) for the whole level in one
+    # go instead of one query per child as we recurse / build URLs.
+    #
+    # `for_specific_subqueries=True` is required: `.specific()` re-queries each
+    # content type on its own, so a plain `select_related()` on this queryset
+    # would be discarded before the typed rows are fetched.
+    for child in nextset.specific().select_related("locale", for_specific_subqueries=True):
+        get_descendants(child, result, authenticated, depth + 1)
 
 
 def get_menu_pages(root, authenticated=False):

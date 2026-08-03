@@ -32,7 +32,15 @@ from foundation_cms.legacy_apps.wagtailpages.utils import (
 # (1 root + 4 children + 3 grandchildren = 8 menu entries). This is the
 # post-optimisation target; update it if the realistic baseline genuinely
 # shifts (the assertion error reports the actual count).
-EXPECTED_MENU_QUERIES = 21
+#
+# The 10 are: 1 to resolve the specific root, then per level that fetches
+# children a `.public()` view-restriction lookup plus the two queries
+# `.specific()` costs (pk/content_type, then the typed rows). The three
+# childless depth-1 siblings only cost their `.public()` lookup, because
+# treebeard short-circuits `get_children()` to `none()` when `numchild` is 0.
+# Anonymous visitors pay no per-node restriction query: that lookup is gated
+# on `authenticated`.
+EXPECTED_MENU_QUERIES = 10
 
 
 class BanneredCampaignMenuQueryCountTest(test_base.WagtailpagesTestCase):
@@ -105,9 +113,7 @@ class BanneredCampaignMenuQueryCountTest(test_base.WagtailpagesTestCase):
         self.assertEqual(overview["page"].pk, self.root_page.pk)
 
         # Non-root entries use the page header as their title.
-        child_entry = next(
-            entry for entry in menu_pages if entry["page"].pk == self.children[0].pk
-        )
+        child_entry = next(entry for entry in menu_pages if entry["page"].pk == self.children[0].pk)
         self.assertEqual(child_entry["menu_title"], self.children[0].header)
 
         # No view restrictions configured, so every entry is unrestricted.
