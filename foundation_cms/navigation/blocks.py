@@ -9,9 +9,27 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.common.base
 
 
 class NavLinkValue(BaseLinkValue):
+    target_fields = ("page", "external_url", "relative_url")
+
+    @property
+    def resolved_link_to(self):
+        """Return the selected link type, including translated values missing link_to."""
+        if link_to := self.get("link_to"):
+            return link_to
+
+        return next((field for field in self.target_fields if self.get(field)), None)
+
     @property
     def is_external(self) -> bool:
-        return self.get("link_to") == "external_url"
+        return self.resolved_link_to == "external_url"
+
+    def get_url_for_request(self, request):
+        """Resolve PageChooser URLs relative to the site serving the request."""
+        if self.resolved_link_to != "page":
+            return self.url
+
+        page = self.get("page")
+        return page.localized.get_url(request=request) if page else None
 
 
 class NavLink(BaseLinkBlock):

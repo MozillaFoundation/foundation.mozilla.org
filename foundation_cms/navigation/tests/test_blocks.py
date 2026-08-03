@@ -63,6 +63,77 @@ class TestNavLinkFactory(TestCase):
         # URL should resolve to page.url
         self.assertEqual(block.url, page.url)
 
+    def test_translated_page_link_without_link_to_is_internal(self):
+        page = wagtail_factories.PageFactory()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Page",
+                "page": page.pk,
+                "external_url": "",
+                "relative_url": "",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "page")
+        self.assertFalse(block.is_external)
+
+    def test_translated_external_link_without_link_to_is_external(self):
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "External",
+                "page": None,
+                "external_url": "https://example.com/same-path/",
+                "relative_url": "",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "external_url")
+        self.assertTrue(block.is_external)
+
+    def test_missing_link_to_uses_structural_fallback_order(self):
+        page = wagtail_factories.PageFactory()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Legacy",
+                "page": page.pk,
+                "external_url": "https://example.com/stale/",
+                "relative_url": "/stale/",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "page")
+        self.assertFalse(block.is_external)
+
+    def test_explicit_link_to_remains_authoritative(self):
+        page = wagtail_factories.PageFactory()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "External",
+                "link_to": "external_url",
+                "page": page.pk,
+                "external_url": "https://example.com/",
+                "relative_url": "/stale/",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "external_url")
+        self.assertEqual(block.url, "https://example.com/")
+        self.assertTrue(block.is_external)
+
+    def test_empty_link_has_no_resolved_type(self):
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Empty",
+                "page": None,
+                "external_url": "",
+                "relative_url": "",
+            }
+        )
+
+        self.assertIsNone(block.resolved_link_to)
+        self.assertIsNone(block.get_url_for_request(None))
+        self.assertFalse(block.is_external)
+
     def test_invalid_without_target(self):
         """NavLink should fail validation if no link target is provided."""
         # Build an explicit invalid payload with no target URL or page.
