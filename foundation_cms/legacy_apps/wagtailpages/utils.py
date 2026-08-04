@@ -524,10 +524,11 @@ def create_wagtail_image(
     # Copy the image to the local machine before converting it to a Wagtail image.
     if img_src.startswith("http"):
         # Download the image from a URL. Requires the requests package.
-        response = requests.get(img_src, stream=True)
+        response = requests.get(img_src)
         if response.status_code == 200:
             # Create an image out of a web resource URL and write it to a PIL Image.
-            pil_image = PILImage.open(response.raw)
+            # Buffer the decoded body: PIL needs a seekable stream to identify the format.
+            pil_image = PILImage.open(BytesIO(response.content))
             pil_image.save(f, mime_type)
         else:
             # Image URL didn't 200 for us. Nothing we can do about that. Return early.
