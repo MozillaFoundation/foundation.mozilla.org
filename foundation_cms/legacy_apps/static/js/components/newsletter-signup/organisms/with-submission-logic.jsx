@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { getText } from "../../petition/locales";
+import { ensureCsrfToken } from "../../../common/csrf";
 
 /**
  * Higher-order component that handles form submission logic and validation
@@ -176,9 +177,11 @@ function withSubmissionLogic(WrappedComponent) {
       try {
         const res = await fetch(this.props.apiUrl, {
           method: "POST",
+          credentials: "same-origin",
           headers: {
             "Content-Type": "application/json",
             "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": await ensureCsrfToken(),
           },
           body: JSON.stringify(payload),
           timeout: 5000,

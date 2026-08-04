@@ -1,9 +1,11 @@
-{% load i18n localization wagtailcore_tags %}
+{% load i18n localization wagtailcore_tags static %}
 
 {% get_current_language as current_language %}
 {% get_local_language_names as languages %}
 
 <form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
+    {# CSRF token is populated by the inline script from the cookie; baking it would be cached by the CDN and 403. #}
+    <input name="csrfmiddlewaretoken" type="hidden" id="language-csrftoken" value="">
     <input name="next" type="hidden" value="{% get_unlocalized_url page current_language %}">
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center mb-md-0">
         <label class="tw-h5-heading mb-0 d-flex align-items-center tw-globe-glyph" for="language-switcher">{% trans "Language" %}</label>
@@ -19,11 +21,17 @@
 
 
 
+<script src="{% static 'legacy_apps/_js/csrf-global.compiled.js' %}"></script>
 <script nonce="{{ request.csp_nonce }}">
-    const form = document.getElementById('language-switcher-form')
-    const languageSelector = document.getElementById('language-switcher')
-    languageSelector.addEventListener(`change`, (e) => {
-        e.preventDefault();
-        form.submit()
-    });
+    (function () {
+        const form = document.getElementById('language-switcher-form')
+        const languageSelector = document.getElementById('language-switcher')
+        const tokenInput = document.getElementById('language-csrftoken')
+
+        languageSelector.addEventListener(`change`, async (e) => {
+            e.preventDefault();
+            tokenInput.value = await window.FoundationCSRF.ensureCsrfToken();
+            form.submit()
+        });
+    })();
 </script>

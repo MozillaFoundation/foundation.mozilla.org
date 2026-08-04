@@ -1,7 +1,8 @@
 {% load i18n %}
 
-<form method="post">
-    {% csrf_token %}
+<form method="post" data-csrf-form>
+    {# CSRF token is populated by JS from the cookie at submit time; baking it here would be cached by the CDN and 403 (see utils/csrf.js). #}
+    <input type="hidden" name="csrfmiddlewaretoken" value="" data-csrf-field>
     <button
         type="submit"
         name="action"
