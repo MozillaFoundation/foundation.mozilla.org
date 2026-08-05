@@ -1,5 +1,6 @@
 import { COUNTRY_OPTIONS } from "../components/newsletter_signup/data/country-options.js";
 import { LANGUAGE_OPTIONS } from "../components/newsletter_signup/data/language-options.js";
+import { ensureCsrfToken } from "../utils/csrf.js";
 
 /**
  * CSS selectors used to locate elements within each illustrated newsletter block.
@@ -161,9 +162,11 @@ async function submitDataToApi(signupUrl, formData) {
   try {
     const response = await fetch(signupUrl, {
       method: "POST",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
         "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": await ensureCsrfToken(),
       },
       body: JSON.stringify(payload),
     });

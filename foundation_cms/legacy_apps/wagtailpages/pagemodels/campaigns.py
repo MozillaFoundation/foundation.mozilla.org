@@ -9,7 +9,7 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from ..utils import get_content_related_by_tag, get_page_tree_information
+from ..utils import get_page_tree_information
 from .base import PrimaryPage
 from .customblocks.base_rich_text_options import base_rich_text_options
 from .mixin.foundation_metadata import FoundationMetadataPageMixin
@@ -478,7 +478,6 @@ class BanneredCampaignPage(PrimaryPage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["related_posts"] = get_content_related_by_tag(self)
         context["localized_signup"] = self.get_localized_signup()
         return get_page_tree_information(self, context)
 

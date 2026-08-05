@@ -22,6 +22,7 @@ import { initTabbedContent } from "./blocks/tabbed_content_container.js";
 import initBackToTopButton from "./components/back_to_top.js";
 import { initCopyToClipboardButtons } from "./components/copy_to_clipboard.js";
 import { initSearchPageFilters } from "./components/search_page/filter_controls.js";
+import { initCsrfForms } from "./utils/csrf.js";
 
 let foundationSiteURL = window.location.origin;
 
@@ -51,3 +52,4 @@ initBackToTopButton();
 initSearchToggle();
 initCopyToClipboardButtons();
 initSearchPageFilters();
+initCsrfForms();
