@@ -1,7 +1,10 @@
 from django.contrib.auth.models import AnonymousUser
+from django.template import Context, Template
 from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from django.utils import translation
+from wagtail.models import Locale
 
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.navigation import factories as nav_factories
@@ -33,6 +36,8 @@ class SearchDrawerTemplateTests(TestCase):
 
         self.assertIn("Explore our ideas", html)
         self.assertIn("Quick Links", html)
+        self.assertIn("search-suggestions", html)
+        self.assertIn('aria-label="Search"', html)
         self.assertNotIn("search-input-container--form-only", html)
         self.assertIn("privacy", html)
         self.assertIn(f'href="{reverse("search")}?query=privacy"', html)
@@ -47,6 +52,24 @@ class SearchDrawerTemplateTests(TestCase):
         html = self.render_search_drawer(search_topic_links=[], search_quick_links=quick_links)
 
         self.assertEqual(html.count("Grantmaking"), 1)
+
+
+class TranslatedMenuTemplateTagTests(TestCase):
+    def test_uses_active_locale_when_page_is_not_in_context(self):
+        french_locale, _ = Locale.objects.get_or_create(language_code="fr")
+        menu = nav_factories.NavigationMenuFactory()
+        translated_menu = menu.copy_for_translation(french_locale)
+        translated_menu.title = "Navigation française"
+        translated_menu.save()
+
+        template = Template(
+            "{% load navigation_tags %}" "{% translated_menu menu as localized_menu %}" "{{ localized_menu.title }}"
+        )
+
+        with translation.override("fr"):
+            html = template.render(Context({"menu": menu}))
+
+        self.assertEqual(html, "Navigation française")
 
 
 @override_settings(

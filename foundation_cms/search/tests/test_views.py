@@ -2,8 +2,11 @@ from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
+from django.urls import reverse
 from wagtail.models import Page, Site
 
+from foundation_cms.navigation import factories as nav_factories
+from foundation_cms.navigation.models import SiteNavigationMenu
 from foundation_cms.search.models import SearchEvent
 
 
@@ -156,7 +159,7 @@ class SearchLoggingTestCase(TestCase):
     @patch("foundation_cms.search.views.get_search_backend_for_locale")
     def test_filter_toggle_shows_applied_filter_count(self, mock_get_search_backend):
         search_backend = Mock()
-        search_backend.search.return_value = []
+        search_backend.search.return_value = [self.page1]
         mock_get_search_backend.return_value = (search_backend, "database")
 
         cases = (
@@ -211,3 +214,103 @@ class SearchLoggingTestCase(TestCase):
             [page.pk for page in response.context["search_results"].object_list],
             [local_result.pk],
         )
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_unfiltered_empty_query_renders_zero_results_state(self, mock_get_search_backend):
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_zero_results"])
+        self.assertContains(response, "Sorry, no results for “missing term”")
+        self.assertContains(response, 'value="missing term"')
+        self.assertContains(response, "Check your spelling or try a new search term")
+        self.assertContains(response, 'class="search-form__input"', count=1)
+        self.assertNotContains(response, "search-empty-state__heading")
+        self.assertNotContains(response, "data-search-drawer-open")
+        self.assertNotContains(response, "Latest Stories")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_filtered_empty_results_keep_filter_controls(self, mock_get_search_backend):
+        search_backend = Mock()
+        search_backend.search.return_value = [self.page1]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get(
+            "/en/search/",
+            {"query": "Page", "content_type": "research"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context["is_zero_results"])
+        self.assertContains(response, "data-search-drawer-open")
+        self.assertNotContains(response, "Sorry, no results for")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_zero_results_use_configured_navigation_suggestions(self, mock_get_search_backend):
+        menu = nav_factories.NavigationMenuFactory()
+        site = Site.objects.get(is_default_site=True)
+        navigation_setting = SiteNavigationMenu.for_site(site)
+        navigation_setting.active_navigation_menu = menu
+        navigation_setting.save()
+
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Explore our ideas")
+        self.assertContains(response, "Quick Links")
+        self.assertContains(response, '<h2 class="search-suggestions__heading">')
+        self.assertNotContains(response, '<p class="search-suggestions__heading">')
+        self.assertContains(response, "use our suggested links below")
+        self.assertContains(response, f'href="{reverse("search")}?query=privacy"')
+        self.assertContains(response, 'href="/what-we-do/awards/"')
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_zero_results_omit_empty_navigation_suggestions(self, mock_get_search_backend):
+        menu = nav_factories.NavigationMenuFactory(
+            search_topic_links=[],
+            search_quick_links=[],
+        )
+        site = Site.objects.get(is_default_site=True)
+        navigation_setting = SiteNavigationMenu.for_site(site)
+        navigation_setting.active_navigation_menu = menu
+        navigation_setting.save()
+
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "search-zero-results__message")
+        self.assertContains(response, "Check your spelling or try a new search term")
+        self.assertNotContains(response, "use our suggested links below")
+        self.assertNotContains(response, "Explore our ideas")
+        self.assertNotContains(response, "Quick Links")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_zero_results_render_without_an_active_navigation_menu(self, mock_get_search_backend):
+        site = Site.objects.get(is_default_site=True)
+        navigation_setting = SiteNavigationMenu.for_site(site)
+        navigation_setting.active_navigation_menu = None
+        navigation_setting.save(update_fields=["active_navigation_menu"])
+
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Sorry, no results for “missing term”")
+        self.assertContains(response, "Check your spelling or try a new search term")
+        self.assertNotContains(response, "Explore our ideas")
+        self.assertNotContains(response, "Quick Links")

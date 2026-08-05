@@ -11,5 +11,5 @@
          placeholder="{{ search_placeholder }}"
          aria-label="{{ search_input_label }}"
          {% if search_query %}value="{{ search_query }}"{% endif %}>
-  {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_submit_label button_style="btn-primary" classnames=submit_classnames %}
+  {% include "patterns/components/button.html" with tag="button" button_type="submit" label=search_submit_label aria_label=search_submit_label button_style="btn-primary" classnames=submit_classnames %}
 </form>
