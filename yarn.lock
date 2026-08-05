@@ -5553,10 +5553,10 @@ svgo@^4.0.1:
     picocolors "^1.1.1"
     sax "^1.5.0"
 
-swiper@^12.2.0:
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.2.0.tgz#f6daa886465abd1bbc42be2f2ce1827cd03c91ea"
-  integrity sha512-K8uXsBZU6ME97Ia3xbBge8IRCnR1lOmIILzvY/jGVic7dSTQ530s3uO8RvXbPUtkkXLWIwmZLRPbtDxRWVAFdg==
+swiper@^14.0.7:
+  version "14.0.7"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-14.0.7.tgz#cfdae71aec6174f01fc456d06f6e9703d6cf62a4"
+  integrity sha512-PDMY+8hNQBh4kAYdfKIF1GNS7u3hg4xl3NVKBey0rENnpUpTsiE/aCcbgpmm1PIf4RMI7loO3XhW9BdxLzQw0A==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
