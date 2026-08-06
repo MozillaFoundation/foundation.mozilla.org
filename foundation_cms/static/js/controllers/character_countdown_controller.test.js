@@ -54,7 +54,7 @@ describe("CharacterCountdownController", () => {
     expect(legacyCountdown.getAttribute("aria-live")).toBe("polite");
   });
 
-  it("uses one delegated listener for dynamically inserted fields", () => {
+  it("initializes dynamically inserted fields and keeps updates delegated", async () => {
     document.body.innerHTML = "<form data-edit-form></form>";
     const form = document.querySelector("[data-edit-form]");
     const controller = createController(form);
@@ -62,14 +62,15 @@ describe("CharacterCountdownController", () => {
 
     form.insertAdjacentHTML(
       "beforeend",
-      '<textarea id="dynamic" maxlength="4">a</textarea>',
+      '<div class="streamfield-block"><textarea id="dynamic" maxlength="4">a</textarea></div>',
     );
     const field = document.querySelector("#dynamic");
 
-    expect(field.nextElementSibling).toBeNull();
-
-    field.dispatchEvent(new InputEvent("input", { bubbles: true }));
-    expect(field.nextElementSibling.textContent).toBe("3 characters remaining");
+    await vi.waitFor(() => {
+      expect(field.nextElementSibling.textContent).toBe(
+        "3 characters remaining",
+      );
+    });
 
     field.value = "ab";
     field.dispatchEvent(new InputEvent("input", { bubbles: true }));
@@ -144,7 +145,7 @@ describe("CharacterCountdownController", () => {
     ).not.toBeNull();
   });
 
-  it("stops handling delegated input events after disconnect", () => {
+  it("stops observing and handling input events after disconnect", async () => {
     document.body.innerHTML = "<form data-edit-form></form>";
     const form = document.querySelector("[data-edit-form]");
     const controller = createController(form);
@@ -156,6 +157,8 @@ describe("CharacterCountdownController", () => {
       '<input id="after-disconnect" maxlength="10">',
     );
     const field = document.querySelector("#after-disconnect");
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
     field.dispatchEvent(new InputEvent("input", { bubbles: true }));
 
     expect(field.nextElementSibling).toBeNull();

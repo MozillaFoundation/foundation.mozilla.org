@@ -15,26 +15,56 @@ const RICH_TEXT_SELECTOR = [
  * Adds localized character countdowns to limited, non-rich-text fields in a
  * Wagtail edit form.
  *
- * A single delegated input listener supports StreamField blocks inserted
- * after connect without requiring per-block Telepath adapters.
+ * A scoped mutation observer initializes StreamField blocks inserted after
+ * connect, while a single delegated input listener keeps their counts updated
+ * without requiring per-block Telepath adapters.
  */
 export default class extends window.StimulusModule.Controller {
   connect() {
     this.handleInput = this.handleInput.bind(this);
+    this.handleMutations = this.handleMutations.bind(this);
     this.element.addEventListener("input", this.handleInput);
     this.initializeFields();
+
+    this.fieldObserver = new MutationObserver(this.handleMutations);
+    this.fieldObserver.observe(this.element, {
+      childList: true,
+      subtree: true,
+    });
   }
 
   disconnect() {
     this.element.removeEventListener("input", this.handleInput);
+    this.fieldObserver?.disconnect();
+    this.fieldObserver = null;
   }
 
   /**
-   * Initializes fields rendered with the edit form.
+   * Initializes eligible fields within a root node, including the root itself
+   * when it is a matching field.
+   *
+   * @param {Node} root
    */
-  initializeFields() {
-    this.element.querySelectorAll(FIELD_SELECTOR).forEach((field) => {
+  initializeFields(root = this.element) {
+    if (root.matches?.(FIELD_SELECTOR)) {
+      this.updateField(root);
+    }
+
+    root.querySelectorAll?.(FIELD_SELECTOR).forEach((field) => {
       this.updateField(field);
+    });
+  }
+
+  /**
+   * Initializes fields found in subtrees added to the edit form.
+   *
+   * @param {MutationRecord[]} mutations
+   */
+  handleMutations(mutations) {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        this.initializeFields(node);
+      });
     });
   }
 
