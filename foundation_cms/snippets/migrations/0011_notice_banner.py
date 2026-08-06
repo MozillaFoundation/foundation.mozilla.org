@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("snippets", "0010_alter_donatebanner_banner_style"),
-        ("wagtailcore", "0097_baselogentry_uuid_action_timestamp_indexes"),
+        ("wagtailcore", "0094_alter_page_locale"),
     ]
 
     operations = [
