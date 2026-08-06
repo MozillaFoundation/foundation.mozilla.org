@@ -33,6 +33,7 @@ class NoticeBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
     cta = StreamField(
         [("link_button", LinkButtonBlock())],
+        use_json_field=True,
         blank=True,
         max_num=1,
         help_text="Optional call to action button.",

@@ -1,9 +1,11 @@
 import factory
 from factory.django import DjangoModelFactory
 from wagtail.models import Locale
+from wagtail.rich_text import RichText
 
 from foundation_cms.snippets.models import NewsletterSignup
 from foundation_cms.snippets.models.newsletter_signup import FooterNewsletterSignup
+from foundation_cms.snippets.models.notice_banner import NoticeBanner
 
 
 class NewsletterSignupFactory(DjangoModelFactory):
@@ -17,6 +19,19 @@ class NewsletterSignupFactory(DjangoModelFactory):
     newsletter = "mozilla-foundation"
     layout = "expand_on_focus"
     locale = factory.LazyFunction(Locale.get_default)
+
+
+class NoticeBannerFactory(DjangoModelFactory):
+    class Meta:
+        model = NoticeBanner
+        exclude = ("body_text",)
+
+    name = factory.Faker("sentence", nb_words=3)
+    body = factory.LazyAttribute(lambda o: RichText(f"<p>{o.body_text}</p>"))
+    locale = factory.LazyFunction(Locale.get_default)
+
+    # Lazy Values
+    body_text = factory.Faker("paragraph", nb_sentences=2, variable_nb_sentences=False)
 
 
 def ensure_homepage_newsletters(site):

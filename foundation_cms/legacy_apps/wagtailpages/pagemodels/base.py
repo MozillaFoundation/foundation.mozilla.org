@@ -203,6 +203,7 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("header"),
@@ -351,6 +352,7 @@ class InitiativesPage(PrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         SynchronizedField("primaryHero"),
@@ -485,6 +487,7 @@ class ParticipatePage2(PrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         SynchronizedField("ctaHero"),
