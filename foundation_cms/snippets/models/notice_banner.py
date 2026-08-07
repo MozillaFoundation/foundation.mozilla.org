@@ -1,4 +1,5 @@
 from django.db import models
+from wagtail import blocks
 from wagtail.admin.panels import FieldPanel, HelpPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import PreviewableMixin, TranslatableMixin
@@ -8,6 +9,16 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
 from foundation_cms.constants import NOTICE_BANNER_RICH_TEXT_FEATURES
+
+
+class NoticeBannerLinkButtonBlock(LinkButtonBlock):
+    style = blocks.ChoiceBlock(
+        choices=[
+            ("btn-primary", "Primary"),
+            ("btn-secondary", "Secondary"),
+        ],
+        default="btn-secondary",
+    )
 
 
 @register_snippet
@@ -32,7 +43,7 @@ class NoticeBanner(TranslatableMixin, PreviewableMixin, models.Model):
         ),
     )
     cta = StreamField(
-        [("link_button", LinkButtonBlock())],
+        [("link_button", NoticeBannerLinkButtonBlock())],
         use_json_field=True,
         blank=True,
         max_num=1,

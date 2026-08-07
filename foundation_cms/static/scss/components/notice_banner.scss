@@ -4,58 +4,69 @@
 // component looks the same on redesign and legacy templates.
 
 .notice-banner {
-  background-color: color(yellow, "200");
+  background-color: color(yellow, "100");
+  border-top: 1px solid color(yellow, "300");
   color: $black;
+
+  .grid-container {
+    padding-left: rem-calc(20);
+    padding-right: rem-calc(20);
+
+    @include breakpoint(medium up) {
+      padding-left: rem-calc(64);
+      padding-right: rem-calc(64);
+    }
+  }
 
   &__inner {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: rem-calc(16);
-    padding: rem-calc(20) 0;
+    gap: rem-calc(32);
+    padding: rem-calc(32) 0;
 
     @include breakpoint(medium up) {
+      gap: rem-calc(16);
+    }
+
+    @include breakpoint(large up) {
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
-      gap: rem-calc(32);
+      gap: rem-calc(72);
     }
   }
 
   &__body {
-    @include mofo-text-style($body-text-styles, "small");
+    @include mofo-text-style($body-text-styles, "large");
 
-    // Hold the message to a comfortable measure rather than letting it run the
-    // full container width, which keeps it visually separate from the CTA.
-    @include breakpoint(medium up) {
-      max-width: 65ch;
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(8);
+    width: 100%;
+
+    @include breakpoint(large up) {
+      flex: 1 0 0;
+      max-width: rem-calc(897);
+      min-width: 0;
     }
 
-    // Editor headings are capped at h4-h6. Render them as a bold lead-in line
-    // rather than section headings, so the notice reads as one block.
     h4,
     h5,
     h6 {
-      @include mofo-text-style($body-text-styles, "small");
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
 
-      font-weight: 700;
-      margin-bottom: rem-calc(4);
+      margin: 0;
     }
 
     p {
-      margin-bottom: 0;
-
-      + p {
-        margin-top: rem-calc(8);
-      }
+      margin: 0;
     }
 
     ul,
     ol {
-      margin-bottom: 0;
+      margin: 0;
     }
 
-    // Underline inline links so they stay distinguishable against the yellow.
     a {
       color: inherit;
       text-decoration: underline;
@@ -68,11 +79,48 @@
 
   &__cta {
     flex-shrink: 0;
+    width: 100%;
 
-    // The CTA is a LinkButtonBlock, whose buttons carry a vertical margin from the
-    // shared button mixin. Drop it so the button centres against the message.
+    @include breakpoint(large up) {
+      width: auto;
+    }
+
+    .link-button-block {
+      width: 100%;
+
+      @include breakpoint(large up) {
+        width: auto;
+      }
+    }
+
     a[class*="btn-"] {
+      @include mofo-text-style($body-text-styles, "regular");
+
       margin: 0;
+      width: 100%;
+      height: rem-calc(56);
+      justify-content: center;
+      gap: rem-calc(8);
+      padding: rem-calc(12) rem-calc(16) rem-calc(12) rem-calc(24);
+      background-color: transparent;
+      border: 1px solid color(neutral, "600");
+      color: color(neutral, "600");
+      font-weight: 700;
+
+      @include breakpoint(large up) {
+        width: rem-calc(235);
+      }
+
+      &::after {
+        width: rem-calc(32);
+        height: rem-calc(32);
+        background-image: url("/static/foundation_cms/_images/icons/link.svg");
+      }
+
+      &.btn-primary {
+        background-color: transparent;
+        color: color(neutral, "600");
+      }
     }
   }
 }
