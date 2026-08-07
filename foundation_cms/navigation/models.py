@@ -31,15 +31,46 @@ class NavigationMenu(
         help_text="Add up to 5 dropdown menus",
     )
 
+    search_topic_links = StreamField(
+        [
+            ("topic", nav_blocks.SearchTopicLink(label="Topic")),
+        ],
+        use_json_field=True,
+        blank=True,
+        default=list,
+        max_num=5,
+        help_text="Add up to 5 topic pills shown when the navbar search is focused.",
+    )
+
+    search_quick_links = StreamField(
+        [
+            ("quick_link", nav_blocks.NavLink(label="Quick Link")),
+        ],
+        use_json_field=True,
+        blank=True,
+        default=list,
+        max_num=3,
+        help_text="Add up to 3 quick links shown when the navbar search is focused.",
+    )
+
     panels = [
         panels.HelpPanel(content="To enable a navigation menu on a site, go to Settings > Navigation Menus."),
         panels.FieldPanel("title"),
         panels.FieldPanel("dropdowns"),
+        panels.MultiFieldPanel(
+            [
+                panels.FieldPanel("search_topic_links"),
+                panels.FieldPanel("search_quick_links"),
+            ],
+            heading="Search drawer suggestions",
+        ),
     ]
 
     translatable_fields = [
         SynchronizedField("title"),
         TranslatableField("dropdowns"),
+        TranslatableField("search_topic_links"),
+        TranslatableField("search_quick_links"),
     ]
 
     def get_preview_template(self, request, mode_name):
