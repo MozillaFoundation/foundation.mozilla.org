@@ -40,6 +40,9 @@ class PrimaryNavSearchDrawerController {
     this.searchInputContainerEl.classList.add(CLASSNAMES.searchOpen);
     this.updateDrawerHeight();
     this.searchInputContainerEl.setAttribute("aria-expanded", "true");
+    this.searchInputContainerEl.setAttribute("aria-hidden", "false");
+    this.searchInputContainerEl.removeAttribute("inert");
+    this.searchToggleEl.setAttribute("aria-expanded", "true");
     this.addViewportListeners();
     this.searchInputEl.focus({ preventScroll: true });
 
@@ -59,6 +62,9 @@ class PrimaryNavSearchDrawerController {
     this.searchInputContainerEl.classList.remove(CLASSNAMES.searchOpen);
     this.searchInputContainerEl.style.maxHeight = null;
     this.searchInputContainerEl.setAttribute("aria-expanded", "false");
+    this.searchInputContainerEl.setAttribute("aria-hidden", "true");
+    this.searchInputContainerEl.setAttribute("inert", "");
+    this.searchToggleEl.setAttribute("aria-expanded", "false");
   }
 
   toggle() {
