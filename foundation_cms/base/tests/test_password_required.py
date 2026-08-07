@@ -39,8 +39,9 @@ class PasswordRequiredPageTests(test_base.WagtailpagesTestCase):
         self.assertContains(response, "primary-nav-wordmark-symbol.svg")
         self.assertContains(response, "password-required__submit")
         self.assertContains(response, "btn-primary__roller")
-        self.assertContains(response, 'id="password-csrftoken"')
-        self.assertContains(response, "FoundationCSRF.ensureCsrfToken()")
+        self.assertContains(response, "data-csrf-form")
+        self.assertContains(response, "data-csrf-field")
+        self.assertNotContains(response, "legacy_apps/_js/csrf-global.compiled.js")
 
     def test_incorrect_password_renders_error(self):
         response = self.client.post(
