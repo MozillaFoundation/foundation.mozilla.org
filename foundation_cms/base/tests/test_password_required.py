@@ -38,6 +38,7 @@ class PasswordRequiredPageTests(test_base.WagtailpagesTestCase):
         self.assertContains(response, "password_required.compiled.css")
         self.assertContains(response, "primary-nav-wordmark-symbol.svg")
         self.assertContains(response, "This is a password protected page.")
+        self.assertNotContains(response, 'placeholder="Enter password"')
         self.assertContains(response, "password-required__submit")
         self.assertContains(response, "btn-primary--no-arrow")
         self.assertContains(response, "btn-primary__roller")
