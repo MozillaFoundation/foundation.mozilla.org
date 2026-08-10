@@ -2,6 +2,7 @@ from urllib.parse import urlsplit
 
 from django import template
 from django.conf import settings
+from wagtail.models import Locale
 
 register = template.Library()
 
@@ -16,9 +17,7 @@ def translated_menu(context, menu):
         return None
 
     page = context.get("page")
-    locale = getattr(page, "locale", None)
-    if not locale:
-        return menu
+    locale = getattr(page, "locale", None) or Locale.get_active()
 
     if getattr(menu, "locale_id", None) == locale.id:
         return menu
