@@ -98,6 +98,7 @@ env = environ.Env(
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
     WAGTAILSEARCH_HITS_MAX_AGE=(int, 7),
+    WAGTAIL_AUTOSAVE_INTERVAL=(int, 0),
 )
 
 # Read in the environment
@@ -928,3 +929,6 @@ WAGTAILSEARCH_HITS_MAX_AGE = env("WAGTAILSEARCH_HITS_MAX_AGE")
 
 # Minimum number of characters required to trigger search autocomplete.
 SEARCH_AUTOCOMPLETE_MIN_CHARS = env("SEARCH_AUTOCOMPLETE_MIN_CHARS")
+
+# Wagtail autosave interval in seconds in the page or snippet editor. If set to 0, autosave will be disabled.
+WAGTAIL_AUTOSAVE_INTERVAL = env("WAGTAIL_AUTOSAVE_INTERVAL")
