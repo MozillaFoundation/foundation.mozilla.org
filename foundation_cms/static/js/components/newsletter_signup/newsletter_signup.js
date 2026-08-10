@@ -1,5 +1,5 @@
-import { LANGUAGE_OPTIONS } from "./data/language-options.js";
-import { COUNTRY_OPTIONS } from "./data/country-options.js";
+import { LANGUAGE_OPTIONS } from "./data/language_options.js";
+import { COUNTRY_OPTIONS } from "./data/country_options.js";
 import { ensureCsrfToken } from "../../utils/csrf.js";
 
 /**
