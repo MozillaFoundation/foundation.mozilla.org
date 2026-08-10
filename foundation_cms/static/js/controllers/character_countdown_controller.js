@@ -15,9 +15,9 @@ const RICH_TEXT_SELECTOR = [
  * Adds localized character countdowns to limited, non-rich-text fields in a
  * Wagtail edit form.
  *
- * A scoped mutation observer initializes StreamField blocks inserted after
- * connect, while a single delegated input listener keeps their counts updated
- * without requiring per-block Telepath adapters.
+ * Uses a scoped MutationObserver to initialize counters for fields added
+ * dynamically (for example in StreamField blocks), and a delegated input
+ * listener on the edit form to keep counts updated as the user types.
  */
 export default class extends window.StimulusModule.Controller {
   connect() {
