@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   backend:
     platform: linux/amd64 # Fix issues for M1 Macs
