@@ -1,5 +1,5 @@
 {% extends "base/base.html" %}
-{% load static i18n %}
+{% load static i18n wagtailsettings_tags navigation_tags %}
 
 {% block wagtail_metadata %} {% endblock wagtail_metadata %}
 
@@ -12,9 +12,15 @@
 {% block body_class %}template-search-results{% endblock body_class %}
 
 {% block content %}
-    <div class="grid-container">
+    <div class="search-results-page grid-container"
+         data-search-results-page
+         data-total-results="{{ total_search_results }}">
         <div class="grid-x">
-            {% if search_query %}
+            {% if search_query and is_zero_results %}
+                {% get_settings use_default_site=True %}
+                {% translated_menu settings.navigation.SiteNavigationMenu.active_navigation_menu as localized_menu %}
+                {% include "search/_zero_results.html" with search_topic_links=localized_menu.search_topic_links search_quick_links=localized_menu.search_quick_links %}
+            {% elif search_query %}
                 <div class="cell small-12">
                     {% include "search/_search_summary.html" %}
                 </div>
@@ -23,19 +29,51 @@
                     {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
                 </div>
 
-                {% if search_results %}
-                    {% include "search/_search_results.html" %}
-                    {% include "patterns/components/_pagination.html" with page_obj=search_results viewname="search" %}
-                {% else %}
-                    {% if keep_contributing_pages|length >= 2 %}
-                        <div class="cell small-12 related-content-wrapper">
-                            {% trans "Latest Stories" as localized_suggested_heading %}
-                            {% with heading=localized_suggested_heading items=keep_contributing_pages image_ratio="3:2" show_author=True image_field="search_image" %}
-                                {% include "patterns/components/related_content.html" %}
-                            {% endwith %}
+                <div class="cell small-12 search-results-shell">
+                    {% include "search/_search_results_sidebar.html" %}
+
+                    <div class="search-results-main">
+                        <div class="search-results-toolbar">
+                            {% if total_search_results|default:0 > 0 %}
+                                <p class="search-results-page-count">
+                                    {% blocktrans trimmed with page_number=search_results.number total_pages=search_results.paginator.num_pages %}
+                                        Page {{ page_number }} of {{ total_pages }}
+                                    {% endblocktrans %}
+                                </p>
+                            {% endif %}
+
+                            <button class="search-results-filter-toggle"
+                                    type="button"
+                                    aria-expanded="false"
+                                    aria-controls="search-results-filter-drawer"
+                                    data-search-drawer-open>
+                                {% if active_filter_count %}
+                                    {% blocktrans trimmed with filter_count=active_filter_count %}
+                                        Filter & Sort ({{ filter_count }})
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% trans "Filter & Sort" %}
+                                {% endif %}
+                            </button>
+
+                            {% include "search/_search_sort_form.html" %}
                         </div>
-                    {% endif %}
-                {% endif %}
+
+                        {% if search_results %}
+                            {% include "search/_search_results.html" %}
+                            {% include "patterns/components/_pagination.html" with page_obj=search_results viewname="search" %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% include "search/_search_filter_drawer.html" %}
+            {% else %}
+                <div class="cell small-12 large-8 large-offset-2 search-empty-state">
+                    <h1 class="search-empty-state__heading">{% trans "Search" %}</h1>
+                    <div class="search-form-wrapper">
+                        {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button" %}
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>

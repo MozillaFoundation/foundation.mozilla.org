@@ -12,6 +12,20 @@ from foundation_cms.navigation import models as nav_models
 
 _fake = _Faker()
 
+DEFAULT_SEARCH_TOPIC_LINKS = (
+    ("privacy", "privacy"),
+    ("personal data", "personal data"),
+    ("open source", "open source"),
+    ("encryption", "encryption"),
+    ("ai", "ai"),
+)
+
+DEFAULT_SEARCH_QUICK_LINKS = (
+    ("Grantmaking", "/what-we-do/awards/"),
+    ("Mozilla Festival", "/festival/"),
+    ("Common Voice", "/common-voice/"),
+)
+
 
 def _relative_link(label, url):
     return {
@@ -128,20 +142,57 @@ class NavDropdownFactory(wagtail_factories.StructBlockFactory):
     )
 
 
+class SearchTopicLinkFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = nav_blocks.SearchTopicLink
+
+    label = factory.Faker("word")
+    query = factory.Faker("word")
+
+
+def default_dropdowns():
+    return nav_models.NavigationMenu.dropdowns.field.stream_block.to_python(deepcopy(DEFAULT_MAIN_NAVIGATION))
+
+
+def default_search_topic_links():
+    payload = [
+        {
+            "type": "topic",
+            "value": {
+                "label": label,
+                "query": query,
+            },
+        }
+        for label, query in DEFAULT_SEARCH_TOPIC_LINKS
+    ]
+    return nav_models.NavigationMenu.search_topic_links.field.stream_block.to_python(payload)
+
+
+def default_search_quick_links():
+    payload = [
+        {
+            "type": "quick_link",
+            "value": {
+                "label": label,
+                "link_to": "relative_url",
+                "page": None,
+                "external_url": "",
+                "relative_url": relative_url,
+            },
+        }
+        for label, relative_url in DEFAULT_SEARCH_QUICK_LINKS
+    ]
+    return nav_models.NavigationMenu.search_quick_links.field.stream_block.to_python(payload)
+
+
 class NavigationMenuFactory(DjangoModelFactory):
     class Meta:
         model = nav_models.NavigationMenu
 
     title = factory.Faker("sentence", nb_words=3)
-    dropdowns = wagtail_factories.StreamFieldFactory(
-        {"dropdown": factory.SubFactory(NavDropdownFactory)},
-        **{
-            "0": "dropdown",
-            "1": "dropdown",
-            "2": "dropdown",
-            "3": "dropdown",
-        },
-    )
+    dropdowns = factory.LazyFunction(default_dropdowns)
+    search_topic_links = factory.LazyFunction(default_search_topic_links)
+    search_quick_links = factory.LazyFunction(default_search_quick_links)
     locale = factory.LazyFunction(lambda: wagtail_models.Locale.get_default())
 
 
@@ -178,12 +229,11 @@ def generate(site):
         )
 
         if menu is None:
-            dropdowns = nav_models.NavigationMenu.dropdowns.field.stream_block.to_python(
-                deepcopy(DEFAULT_MAIN_NAVIGATION)
-            )
             menu = nav_models.NavigationMenu.objects.create(
                 title="Main Navigation",
-                dropdowns=dropdowns,
+                dropdowns=default_dropdowns(),
+                search_topic_links=default_search_topic_links(),
+                search_quick_links=default_search_quick_links(),
                 locale=default_locale,
             )
             print("Generating Main Navigation")
