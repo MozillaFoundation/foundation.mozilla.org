@@ -18,6 +18,7 @@ const entries = [
   "pages/gallery_hub/gallery_page",
   "pages/home_page",
   "pages/maintenance",
+  "pages/password_required",
   "pages/project_page",
   "pages/search_page",
   "pages/topic_listing_page",
