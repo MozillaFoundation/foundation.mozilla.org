@@ -41,8 +41,8 @@ body {
     }
   }
 
-  // Adjust position when wagtail userbar is present to avoid overlap
-  &:has(wagtail-userbar) {
+  // Keep the button clear of Cookie Control when its launcher is present.
+  &:has(#ccc-icon) {
     .back-to-top {
       margin-right: 6rem;
     }
