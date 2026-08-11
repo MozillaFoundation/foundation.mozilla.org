@@ -40,7 +40,7 @@ cffi==2.0.0
     #   pygit2
 charset-normalizer==2.0.12
     # via requests
-cryptography==46.0.7
+cryptography==50.0.0
     # via social-auth-core
 defusedxml==0.7.1
     # via
@@ -136,7 +136,7 @@ future==1.0.0
     # via -r requirements.in
 gitdb==4.0.12
     # via gitpython
-gitpython==3.1.50
+gitpython==3.1.57
     # via wagtail-localize-git
 gunicorn==26.0.0
     # via -r requirements.in
@@ -232,7 +232,7 @@ six==1.16.0
     #   python-dateutil
 smmap==5.0.3
     # via gitdb
-social-auth-app-django==5.4.3
+social-auth-app-django==5.6.0
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
