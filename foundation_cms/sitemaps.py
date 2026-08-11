@@ -13,7 +13,7 @@ class CustomSitemap(Sitemap):
             .root_page.localized.get_descendants(inclusive=True)  # This is missing from sitemap_generator
             .live()
             .public()
-            .filter(alias_of__isnull=True) # exclude aliases from sitemap
+            .filter(alias_of__isnull=True)  # exclude aliases from sitemap
             .order_by("path")
             .specific()
         )
