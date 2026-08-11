@@ -1,9 +1,12 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
+from django.urls import reverse
 from wagtail.models import Page, Site
 
+from foundation_cms.navigation import factories as nav_factories
+from foundation_cms.navigation.models import SiteNavigationMenu
 from foundation_cms.search.models import SearchEvent
 
 
@@ -78,3 +81,236 @@ class SearchLoggingTestCase(TestCase):
 
         # add_hit should not be called since there was no initial search
         mock_add_hit.assert_not_called()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_no_logging_on_filter_preview(self, mock_add_hit):
+        response = self.client.get(
+            "/en/search/",
+            {"query": "Page", "content_type": "research"},
+            headers={"X-Search-Preview": "true"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(SearchEvent.objects.count(), 0)
+        mock_add_hit.assert_not_called()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_logging_on_applied_filters_or_sort(self, mock_add_hit):
+        cases = (
+            {"query": "Page", "content_type": "research", "sort": "relevance"},
+            {"query": "Page", "content_type": "all", "topic": "privacy", "sort": "relevance"},
+            {"query": "Page", "content_type": "all", "sort": "newest"},
+        )
+
+        for params in cases:
+            with self.subTest(params=params):
+                response = self.client.get("/en/search/", params)
+                self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(SearchEvent.objects.count(), len(cases))
+        self.assertEqual(mock_add_hit.call_count, len(cases))
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_empty_query_renders_search_form_without_result_controls(self, mock_add_hit):
+        for params in ({}, {"query": "   "}):
+            with self.subTest(params=params):
+                response = self.client.get("/en/search/", params)
+
+                self.assertEqual(response.status_code, 200)
+                self.assertContains(response, "search-empty-state__heading")
+                self.assertContains(response, "search-form__input")
+                self.assertNotContains(response, "data-search-filter-form")
+
+        self.assertEqual(SearchEvent.objects.count(), 0)
+        mock_add_hit.assert_not_called()
+
+    @patch("wagtail.contrib.search_promotions.models.Query.add_hit")
+    def test_published_page_is_searchable_without_manual_reindex(self, mock_add_hit):
+        section = self.root_page.add_child(instance=Page(title="What We Do", slug="what-we-do"))
+        result_page = section.add_child(
+            instance=Page(
+                title="Published Searchable Uniqueindexterm Page",
+                slug="published-searchable-uniqueindexterm-page",
+                live=False,
+            )
+        )
+        result_page.save_revision().publish()
+
+        response = self.client.get("/en/search/", {"query": "Uniqueindexterm"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, result_page.title)
+        mock_add_hit.assert_called_once()
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_single_page_results_show_page_count(self, mock_get_search_backend):
+        result_page = self.root_page.add_child(
+            instance=Page(title="Unique Search Result", slug="unique-search-result")
+        )
+        search_backend = Mock()
+        search_backend.search.return_value = [result_page]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "Unique Search Result"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Page 1 of 1")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_filter_toggle_shows_applied_filter_count(self, mock_get_search_backend):
+        search_backend = Mock()
+        search_backend.search.return_value = [self.page1]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        cases = (
+            ({"query": "Page"}, 0),
+            ({"query": "Page", "content_type": "research"}, 1),
+            ({"query": "Page", "topic": "privacy"}, 1),
+            ({"query": "Page", "content_type": "research", "topic": "privacy"}, 2),
+            ({"query": "Page", "sort": "newest"}, 0),
+        )
+
+        for params, expected_count in cases:
+            with self.subTest(params=params):
+                response = self.client.get("/en/search/", params)
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.context["active_filter_count"], expected_count)
+                if expected_count:
+                    self.assertContains(response, f"Filter & Sort ({expected_count})")
+                else:
+                    self.assertNotContains(response, "Filter & Sort (")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_content_filter_uses_section_root_from_current_site(self, mock_get_search_backend):
+        site = Site.objects.get(is_default_site=True)
+        local_root = self.root_page.add_child(instance=Page(title="Local Site", slug="local-search-site"))
+        site.root_page = local_root
+        site.save(update_fields=["root_page"])
+
+        local_section = local_root.add_child(instance=Page(title="Local Research", slug="research"))
+        local_result = local_section.add_child(
+            instance=Page(title="Local Research Result", slug="local-research-result")
+        )
+
+        foreign_section = self.root_page.add_child(instance=Page(title="Foreign Research", slug="research"))
+        foreign_result = foreign_section.add_child(
+            instance=Page(title="Foreign Research Result", slug="foreign-research-result")
+        )
+        Site.objects.create(hostname="foreign-search.test", root_page=foreign_section)
+
+        search_backend = Mock()
+        search_backend.search.return_value = [local_result, foreign_result]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get(
+            "/en/search/",
+            {"query": "Research Result", "content_type": "research"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["total_search_results"], 1)
+        self.assertEqual(
+            [page.pk for page in response.context["search_results"].object_list],
+            [local_result.pk],
+        )
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_unfiltered_empty_query_renders_zero_results_state(self, mock_get_search_backend):
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_zero_results"])
+        self.assertContains(response, "Sorry, no results for “missing term”")
+        self.assertContains(response, 'value="missing term"')
+        self.assertContains(response, "Check your spelling or try a new search term")
+        self.assertContains(response, 'class="search-form__input"', count=1)
+        self.assertNotContains(response, "search-empty-state__heading")
+        self.assertNotContains(response, "data-search-drawer-open")
+        self.assertNotContains(response, "Latest Stories")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_filtered_empty_results_keep_filter_controls(self, mock_get_search_backend):
+        search_backend = Mock()
+        search_backend.search.return_value = [self.page1]
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get(
+            "/en/search/",
+            {"query": "Page", "content_type": "research"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context["is_zero_results"])
+        self.assertContains(response, "data-search-drawer-open")
+        self.assertNotContains(response, "Sorry, no results for")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_zero_results_use_configured_navigation_suggestions(self, mock_get_search_backend):
+        menu = nav_factories.NavigationMenuFactory()
+        site = Site.objects.get(is_default_site=True)
+        navigation_setting = SiteNavigationMenu.for_site(site)
+        navigation_setting.active_navigation_menu = menu
+        navigation_setting.save()
+
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Explore our ideas")
+        self.assertContains(response, "Quick Links")
+        self.assertContains(response, '<h2 class="search-suggestions__heading">')
+        self.assertNotContains(response, '<p class="search-suggestions__heading">')
+        self.assertContains(response, "use our suggested links below")
+        self.assertContains(response, f'href="{reverse("search")}?query=privacy"')
+        self.assertContains(response, 'href="/what-we-do/awards/"')
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_zero_results_omit_empty_navigation_suggestions(self, mock_get_search_backend):
+        menu = nav_factories.NavigationMenuFactory(
+            search_topic_links=[],
+            search_quick_links=[],
+        )
+        site = Site.objects.get(is_default_site=True)
+        navigation_setting = SiteNavigationMenu.for_site(site)
+        navigation_setting.active_navigation_menu = menu
+        navigation_setting.save()
+
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "search-zero-results__message")
+        self.assertContains(response, "Check your spelling or try a new search term")
+        self.assertNotContains(response, "use our suggested links below")
+        self.assertNotContains(response, "Explore our ideas")
+        self.assertNotContains(response, "Quick Links")
+
+    @patch("foundation_cms.search.views.get_search_backend_for_locale")
+    def test_zero_results_render_without_an_active_navigation_menu(self, mock_get_search_backend):
+        site = Site.objects.get(is_default_site=True)
+        navigation_setting = SiteNavigationMenu.for_site(site)
+        navigation_setting.active_navigation_menu = None
+        navigation_setting.save(update_fields=["active_navigation_menu"])
+
+        search_backend = Mock()
+        search_backend.search.return_value = []
+        mock_get_search_backend.return_value = (search_backend, "database")
+
+        response = self.client.get("/en/search/", {"query": "missing term"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Sorry, no results for “missing term”")
+        self.assertContains(response, "Check your spelling or try a new search term")
+        self.assertNotContains(response, "Explore our ideas")
+        self.assertNotContains(response, "Quick Links")

@@ -84,62 +84,71 @@ def get_page_tree_information(page, context):
     is_top_page = root == page
     context["is_top_page"] = is_top_page
 
-    children = page.get_children().live()
-    has_children = len(children) > 0
+    # Use `.exists()` rather than fetching every child row just to count them.
+    has_children = page.get_children().live().exists()
     context["singleton_page"] = is_top_page and not has_children
 
-    mchildren = root.get_children().live().in_menu()
-    context["uses_menu"] = len(mchildren) > 0
+    context["uses_menu"] = root.get_children().live().in_menu().exists()
 
     return context
 
 
-def get_descendants(node, list, authenticated=False, depth=0, max_depth=2):
+def get_descendants(node, result, authenticated=False, depth=0, max_depth=2):
     """
     helper function to get_menu_pages for performing a depth-first
     discovery pass of all menu-listable children to some root node.
+
+    `node` is expected to be a *specific* page instance: children are fetched
+    below with `.specific()` so that reading `node.header` (and URL generation
+    in the menu templates) does not trigger a query per page.
     """
-    if depth <= max_depth:
-        title = node.title
-        header = getattr(node.specific, "header", None)
-        if header:
-            title = header
-        menu_title = title if depth > 0 else gettext("Overview")
+    if depth > max_depth:
+        return
 
-        # View-restriction lookups walk the ancestor chain and cost one query
-        # per node. For anonymous visitors (the public hot path) the child
-        # queryset below is filtered through `.public()`, which already excludes
-        # any restricted page, so this lookup would always resolve to None. Only
-        # pay for it for authenticated CMS users, who can see restricted pages in
-        # the menu and rely on the restriction indicator.
-        restriction_type = None
-        if authenticated:
-            restriction = node.get_view_restrictions().first()
-            restriction_type = getattr(restriction, "restriction_type", None)
+    header = getattr(node, "header", None)
+    title = header if header else node.title
+    menu_title = title if depth > 0 else gettext("Overview")
 
-        list.append(
-            {
-                "page": node,
-                "menu_title": menu_title,
-                "depth": depth,
-                "restriction": restriction_type,
-            }
-        )
+    # View-restriction lookups walk the ancestor chain and cost one query
+    # per node. For anonymous visitors (the public hot path) the child
+    # queryset below is filtered through `.public()`, which already excludes
+    # any restricted page, so this lookup would always resolve to None. Only
+    # pay for it for authenticated CMS users, who can see restricted pages in
+    # the menu and rely on the restriction indicator.
+    restriction_type = None
+    if authenticated:
+        restriction = node.get_view_restrictions().first()
+        restriction_type = getattr(restriction, "restriction_type", None)
 
-        nextset = node.get_children().in_menu()
+    result.append(
+        {
+            "page": node,
+            "menu_title": menu_title,
+            "depth": depth,
+            "restriction": restriction_type,
+        }
+    )
 
-        # Do not show draft/private pages to users who are
-        # not logged into the CMS itself.
-        if authenticated is False:
-            nextset = nextset.live().public()
+    # Children of a node at max_depth are never rendered by the menu
+    # templates, so don't pay to fetch them.
+    if depth >= max_depth:
+        return
 
-        # Resolve specific page types for the whole level in a single query so
-        # that each child's `.specific` access (used for `header` above) does not
-        # trigger its own SELECT as the recursion descends.
-        nextset = nextset.specific()
+    nextset = node.get_children().in_menu()
 
-        for child in nextset:
-            get_descendants(child, list, authenticated, depth + 1)
+    # Do not show draft/private pages to users who are
+    # not logged into the CMS itself.
+    if authenticated is False:
+        nextset = nextset.live().public()
+
+    # Resolve the specific page (and its locale) for the whole level in one
+    # go instead of one query per child as we recurse / build URLs.
+    #
+    # `for_specific_subqueries=True` is required: `.specific()` re-queries each
+    # content type on its own, so a plain `select_related()` on this queryset
+    # would be discarded before the typed rows are fetched.
+    for child in nextset.specific().select_related("locale", for_specific_subqueries=True):
+        get_descendants(child, result, authenticated, depth + 1)
 
 
 def get_menu_pages(root, authenticated=False):
@@ -148,7 +157,9 @@ def get_menu_pages(root, authenticated=False):
     pages for some root node.
     """
     menu_pages = list()
-    get_descendants(root, menu_pages, authenticated)
+    # Start the walk from the specific root so the first node also benefits
+    # from the specific-instance invariant get_descendants relies on.
+    get_descendants(root.specific, menu_pages, authenticated)
     return menu_pages
 
 

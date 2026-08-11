@@ -1,3 +1,5 @@
+import { ensureCsrfToken } from "../utils/csrf.js";
+
 /**
  * CSS selectors used to locate key DOM elements in the newsletter unsubscribe component.
  */
@@ -35,9 +37,11 @@ async function submitDataToApi(unsubscribeUrl, formData) {
   try {
     const res = await fetch(unsubscribeUrl, {
       method: "POST",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
         "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": await ensureCsrfToken(),
       },
       body: JSON.stringify(payload),
     });

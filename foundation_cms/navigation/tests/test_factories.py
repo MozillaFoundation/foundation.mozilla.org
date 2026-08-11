@@ -18,6 +18,8 @@ class DefaultNavigationTests(test_base.WagtailpagesTestCase):
         self.assertEqual(settings.active_navigation_menu, menu)
         self.assertEqual(menu.title, "Main Navigation")
         self.assertEqual(menu.locale, self.default_locale)
+        self.assertEqual(len(menu.search_topic_links), 5)
+        self.assertEqual(len(menu.search_quick_links), 3)
 
         dropdowns = list(menu.dropdowns)
         self.assertEqual(

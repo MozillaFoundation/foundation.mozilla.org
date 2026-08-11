@@ -1,9 +1,5 @@
-from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.functional import cached_property
-from wagtail.admin.telepath import register
 from wagtail.blocks import CharBlock, ChoiceBlock, StructBlockValidationError
-from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
@@ -85,13 +81,3 @@ class CustomMediaBlock(BaseBlock):
             raise StructBlockValidationError(validation_errors)
 
         return cleaned_data
-
-
-class CustomMediaBlockAdapter(StructBlockAdapter):
-    @cached_property
-    def media(self):
-        structblock_media = super().media
-        return forms.Media(js=structblock_media._js + ["foundation_cms/_js/admin_controllers.compiled.js"])
-
-
-register(CustomMediaBlockAdapter(), CustomMediaBlock)
