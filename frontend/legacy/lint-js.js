@@ -20,7 +20,6 @@ const eslintConfigPath = path.join(
   const results = await eslint.lintFiles([
     "foundation_cms/legacy_apps/static/js/**/*.js",
     "foundation_cms/legacy_apps/static/js/**/*.jsx",
-    "foundation_cms/legacy_apps/wagtailcustomization/**/*.js",
     "frontend/legacy/**/*.js",
   ]);
 
