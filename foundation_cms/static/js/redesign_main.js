@@ -1,5 +1,3 @@
-import $ from "jquery";
-import "foundation-sites";
 import { initImpactNumberStatAnimationsOnScroll } from "./blocks/impact_numbers_block.js";
 import { initAllHorizontalAccordions } from "./blocks/hero_accordion.js";
 import { initAllAccordionBlocks } from "./blocks/accordion_block.js";
@@ -25,8 +23,6 @@ import { initSearchPageFilters } from "./components/search_page/filter_controls.
 import { initCsrfForms } from "./utils/csrf.js";
 
 let foundationSiteURL = window.location.origin;
-
-$(document).foundation();
 
 initPrimaryNav();
 initDonateBanner();
