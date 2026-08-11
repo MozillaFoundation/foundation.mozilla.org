@@ -8,13 +8,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods
 from rest_framework import status
 from wagtail.models import Site
 
 from foundation_cms.legacy_apps.mozfest.models import MozfestHomepage
 from foundation_cms.legacy_apps.wagtailpages.models import Homepage
+from foundation_cms.snippets.models.illustrated_newsletter_signup import (
+    IllustratedNewsletterSignup,
+)
 from foundation_cms.snippets.models.newsletter_signup import NewsletterSignup
 
 logger = logging.getLogger(__name__)
@@ -79,7 +81,6 @@ def process_lang_code(lang):
     return lang
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def newsletter_signup_submission_view(request, pk):
     # We need to re-write the data that's coming in from the network request.
@@ -105,11 +106,35 @@ def newsletter_signup_submission_view(request, pk):
         # the default newsletter to sign up for.
         signup = NewsletterSignup()
 
-    return newsletter_signup_submission(request, signup)
+    return newsletter_signup_submission(request, signup.newsletter)
+
+
+@require_http_methods(["POST"])
+def illustrated_newsletter_signup_submission_view(request, pk):
+    new_body = request.body.decode("utf-8")
+    try:
+        request.data = json.loads(new_body)
+    except ValueError:
+        return JsonResponse(
+            {
+                "error": "Could not validate incoming data",
+            },
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+    try:
+        signup = IllustratedNewsletterSignup.objects.get(id=pk)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error": "Newsletter signup not found"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    return newsletter_signup_submission(request, signup.newsletter)
 
 
 # handle newsletter signup data
-def newsletter_signup_submission(request, signup):
+def newsletter_signup_submission(request, newsletter):
     rq = request.data
 
     # payload validation
@@ -127,7 +152,7 @@ def newsletter_signup_submission(request, signup):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
-    newsletter = signup.newsletter.strip().lower()
+    newsletter = newsletter.strip().lower()
 
     # rewrite payload
     data = {
@@ -184,7 +209,6 @@ def subscribe_to_camo_newsletter(data):
     return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def newsletter_unsubscribe_view(request):
     new_body = request.body.decode("utf-8")

@@ -1,5 +1,3 @@
-from django.forms import Media
-from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
@@ -55,10 +53,6 @@ class MediaPanel(MultiFieldPanel):
         return cls(children, **kwargs)
 
     class BoundPanel(MultiFieldPanel.BoundPanel):
-        @property
-        def media(self):
-            return super().media + Media(js=[static("foundation_cms/_js/admin_controllers.compiled.js")])
-
         def render_html(self, parent_context):
             inner_html = super().render_html(parent_context)
 

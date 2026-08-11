@@ -1,3 +1,6 @@
+from urllib.parse import urlencode
+
+from django.urls import reverse
 from wagtail import blocks
 from wagtail.admin.telepath import register
 
@@ -9,9 +12,31 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.customblocks.common.base
 
 
 class NavLinkValue(BaseLinkValue):
+    target_fields = ("page", "external_url", "relative_url")
+
+    @property
+    def resolved_link_to(self):
+        """Return the selected link type, including translated values missing link_to."""
+        if link_to := self.get("link_to"):
+            return link_to
+
+        return next((field for field in self.target_fields if self.get(field)), None)
+
     @property
     def is_external(self) -> bool:
-        return self.get("link_to") == "external_url"
+        return self.resolved_link_to == "external_url"
+
+    def get_url_for_request(self, request):
+        """Resolve PageChooser URLs relative to the site serving the request."""
+        if self.resolved_link_to != "page":
+            return self.url
+
+        page = self.get("page")
+        return page.localized.get_url(request=request) if page else None
+
+    @property
+    def label(self) -> str:
+        return self.get("label")
 
 
 class NavLink(BaseLinkBlock):
@@ -29,6 +54,34 @@ class NavLink(BaseLinkBlock):
 
 
 register(BaseLinkBlockAdapter(), NavLink)
+
+
+class SearchTopicLinkValue(blocks.StructValue):
+    @property
+    def label(self) -> str:
+        return self.get("label")
+
+    @property
+    def query(self) -> str:
+        return self.get("query")
+
+    @property
+    def url(self) -> str:
+        return f"{reverse('search')}?{urlencode({'query': self.query})}"
+
+
+class SearchTopicLink(blocks.StructBlock):
+    """
+    A topic pill that links to the site search page with a configured query.
+    """
+
+    label = blocks.CharBlock(max_length=36, help_text="Maximum 36 characters.")
+    query = blocks.CharBlock(max_length=100, help_text="Search query used when this topic pill is selected.")
+
+    class Meta:
+        label = "Search Topic Link"
+        icon = "search"
+        value_class = SearchTopicLinkValue
 
 
 class NavDropdownValue(blocks.StructValue):

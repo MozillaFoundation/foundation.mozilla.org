@@ -63,7 +63,6 @@ env = environ.Env(
     NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PNI_STATS_DB_URL=(str, None),
     PROD_HOSTNAMES=(str, ""),
-    PULSE_API_DOMAIN=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
@@ -98,8 +97,8 @@ env = environ.Env(
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
-    TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS=(list, []),
     WAGTAILSEARCH_HITS_MAX_AGE=(int, 7),
+    WAGTAIL_AUTOSAVE_INTERVAL=(int, 0),
 )
 
 # Read in the environment
@@ -342,8 +341,7 @@ MIDDLEWARE = list(
             # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
             "foundation_cms.legacy_apps.wagtailcustomization.redirects.middleware.RedirectMiddleware",
             #
-            # instead of 'django.middleware.csrf.CsrfViewMiddleware':
-            "foundation_cms.legacy_apps.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware",
+            "django.middleware.csrf.CsrfViewMiddleware",
             #
             "django_htmx.middleware.HtmxMiddleware",
         ],
@@ -404,7 +402,6 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
                         "foundation_cms.context_processor.editable_footer",
-                        "foundation_cms.context_processor.editable_nav",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -801,7 +798,6 @@ logging.config.dictConfig(LOGGING)
 
 # Frontend
 FRONTEND = {
-    "PULSE_API_DOMAIN": env("PULSE_API_DOMAIN"),
     "TARGET_DOMAINS": env("TARGET_DOMAINS"),
     "SENTRY_DSN": env("SENTRY_DSN"),
     "RELEASE_VERSION": env("HEROKU_RELEASE_VERSION"),
@@ -846,9 +842,6 @@ REVIEW_APP_HEROKU_API_KEY = env("REVIEW_APP_HEROKU_API_KEY", default=None)
 REVIEW_APP_CLOUDFLARE_ZONE_ID = env("REVIEW_APP_CLOUDFLARE_ZONE_ID", default=None)
 REVIEW_APP_CLOUDFLARE_TOKEN = env("REVIEW_APP_CLOUDFLARE_TOKEN", default=None)
 REVIEW_APP_DOMAIN = env("REVIEW_APP_DOMAIN", default=None)
-
-# TODO: Temporary solution until we have enough pages to auto pull and showcase there
-TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS = [int(id) for id in env("TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS") if id]
 
 # Make sure the docker internal IP is a known internal IP, so that "debug" in templates works
 if DEBUG:
@@ -928,8 +921,6 @@ TRIM_STREAMFIELD_MIGRATIONS = env("TRIM_STREAMFIELD_MIGRATIONS", default=False)
 
 # Use cms editable footer
 EDITABLE_FOOTER = env("EDITABLE_FOOTER", default=False)
-# Use cms editable nav
-EDITABLE_NAV = env("EDITABLE_NAV", default=False)
 
 # Number of days(default 7) to keep search hits in the DB. Queries older than this will be removed by
 # the searchpromotions_garbage_collect command ./manage.py searchpromotions_garbage_collect.
@@ -938,3 +929,6 @@ WAGTAILSEARCH_HITS_MAX_AGE = env("WAGTAILSEARCH_HITS_MAX_AGE")
 
 # Minimum number of characters required to trigger search autocomplete.
 SEARCH_AUTOCOMPLETE_MIN_CHARS = env("SEARCH_AUTOCOMPLETE_MIN_CHARS")
+
+# Wagtail autosave interval in seconds in the page or snippet editor. If set to 0, autosave will be disabled.
+WAGTAIL_AUTOSAVE_INTERVAL = env("WAGTAIL_AUTOSAVE_INTERVAL")

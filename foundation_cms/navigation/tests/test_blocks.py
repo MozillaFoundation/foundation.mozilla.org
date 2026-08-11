@@ -1,5 +1,6 @@
 import wagtail_factories
 from django.test import TestCase
+from django.utils import translation
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
 from wagtail.models import Locale, Page
 
@@ -62,6 +63,77 @@ class TestNavLinkFactory(TestCase):
 
         # URL should resolve to page.url
         self.assertEqual(block.url, page.url)
+
+    def test_translated_page_link_without_link_to_is_internal(self):
+        page = wagtail_factories.PageFactory()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Page",
+                "page": page.pk,
+                "external_url": "",
+                "relative_url": "",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "page")
+        self.assertFalse(block.is_external)
+
+    def test_translated_external_link_without_link_to_is_external(self):
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "External",
+                "page": None,
+                "external_url": "https://example.com/same-path/",
+                "relative_url": "",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "external_url")
+        self.assertTrue(block.is_external)
+
+    def test_missing_link_to_uses_structural_fallback_order(self):
+        page = wagtail_factories.PageFactory()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Legacy",
+                "page": page.pk,
+                "external_url": "https://example.com/stale/",
+                "relative_url": "/stale/",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "page")
+        self.assertFalse(block.is_external)
+
+    def test_explicit_link_to_remains_authoritative(self):
+        page = wagtail_factories.PageFactory()
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "External",
+                "link_to": "external_url",
+                "page": page.pk,
+                "external_url": "https://example.com/",
+                "relative_url": "/stale/",
+            }
+        )
+
+        self.assertEqual(block.resolved_link_to, "external_url")
+        self.assertEqual(block.url, "https://example.com/")
+        self.assertTrue(block.is_external)
+
+    def test_empty_link_has_no_resolved_type(self):
+        block = nav_blocks.NavLink().to_python(
+            {
+                "label": "Empty",
+                "page": None,
+                "external_url": "",
+                "relative_url": "",
+            }
+        )
+
+        self.assertIsNone(block.resolved_link_to)
+        self.assertIsNone(block.get_url_for_request(None))
+        self.assertFalse(block.is_external)
 
     def test_invalid_without_target(self):
         """NavLink should fail validation if no link target is provided."""
@@ -157,6 +229,18 @@ class TestNavDropdownFactory(TestCase):
             nav_blocks.NavDropdown().clean(block)
 
 
+class TestSearchTopicLinkFactory(TestCase):
+    @translation.override("en")
+    def test_default_factory_is_valid(self):
+        """Default SearchTopicLinkFactory should create a valid topic pill."""
+        block = nav_factories.SearchTopicLinkFactory(label="privacy", query="personal data")
+        nav_blocks.SearchTopicLink().clean(block)
+
+        self.assertEqual(block.label, "privacy")
+        self.assertEqual(block.query, "personal data")
+        self.assertEqual(block.url, "/en/search/?query=personal+data")
+
+
 class TestNavigationMenuFactory(TestCase):
     def test_factory_creates_valid_menu(self):
         """NavigationMenuFactory should create a valid menu with up to 5 dropdowns."""
@@ -173,3 +257,60 @@ class TestNavigationMenuFactory(TestCase):
 
         # Locale should default correctly
         self.assertEqual(menu.locale, Locale.get_default())
+
+    @translation.override("en")
+    def test_factory_seeds_default_search_drawer_suggestions(self):
+        """NavigationMenuFactory should seed default search drawer suggestions."""
+        menu = nav_factories.NavigationMenuFactory()
+
+        self.assertEqual(len(menu.search_topic_links), 5)
+        self.assertEqual(len(menu.search_quick_links), 3)
+
+        self.assertEqual(menu.search_topic_links[0].value.label, "privacy")
+        self.assertEqual(menu.search_topic_links[0].value.query, "privacy")
+        self.assertEqual(menu.search_topic_links[0].value.url, "/en/search/?query=privacy")
+
+        self.assertEqual(menu.search_quick_links[0].value.label, "Grantmaking")
+        self.assertEqual(menu.search_quick_links[0].value.url, "/what-we-do/awards/")
+        self.assertFalse(menu.search_quick_links[0].value.is_external)
+
+    def test_factory_seeds_default_primary_nav_items(self):
+        """NavigationMenuFactory should seed the default primary nav items."""
+        menu = nav_factories.NavigationMenuFactory()
+
+        self.assertEqual(
+            [block.value.header_value.label for block in menu.dropdowns],
+            [
+                "Meet Mozilla",
+                "What We Do",
+                "Join Us",
+                "Nothing Personal",
+            ],
+        )
+        self.assertEqual(
+            [block.value.header_value.url for block in menu.dropdowns],
+            [
+                "/meet-mozilla/",
+                "/what-we-do/",
+                "/join-us/",
+                "/nothing-personal/",
+            ],
+        )
+
+        what_we_do = menu.dropdowns[1].value
+        self.assertEqual(
+            [item.label for item in what_we_do.dropdown_items],
+            [
+                "Imagine",
+                "Co-create",
+                "Mobilize",
+            ],
+        )
+        self.assertEqual(
+            [item.url for item in what_we_do.dropdown_items],
+            [
+                "/what-we-do/imagine/",
+                "/what-we-do/co-create/",
+                "/what-we-do/mobilize/",
+            ],
+        )

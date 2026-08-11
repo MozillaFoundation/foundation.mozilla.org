@@ -81,7 +81,7 @@ body.template-project-page {
       display: block;
       width: 100%;
       aspect-ratio: math.div(3, 2);
-      object-fit: cover;
+      object-fit: contain;
     }
 
     &__frame {
