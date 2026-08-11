@@ -86,6 +86,12 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `WAGTAILLOCALIZE_GIT_CLONE_DIR` | `""` | Local clone directory |
 | `WAGTAIL_LOCALIZE_PRIVATE_KEY` | `""` | SSH private key for the localization repo |
 
+### Wagtail Editor
+
+| Variable | Default | Description |
+|---|---|---|
+| `WAGTAIL_AUTOSAVE_INTERVAL` | `0` | The autosave interval in milliseconds |
+
 ### Heroku / Review Apps
 
 | Variable | Default | Description |
