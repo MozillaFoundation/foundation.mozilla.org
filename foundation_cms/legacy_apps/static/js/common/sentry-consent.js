@@ -4,7 +4,7 @@ const ACCEPTED_STATE = "accepted";
 
 function getCookie(name) {
   const match = document.cookie.match(
-    "(?:^|;)\\s*" + name + "\\s*=\\s*([^;]*)",
+    "(?:^|;)\\s*" + name + "\\s*=\\s*([^;]*)"
   );
   return match ? decodeURIComponent(match[1]) : "";
 }

@@ -50,7 +50,10 @@ let main = {
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = window.location.origin;
-      if (env.SENTRY_DSN && shouldInitializeSentry(GoogleAnalytics.doNotTrack)) {
+      if (
+        env.SENTRY_DSN &&
+        shouldInitializeSentry(GoogleAnalytics.doNotTrack)
+      ) {
         // Initialize Sentry error reporting
         initializeSentry(
           env.SENTRY_DSN,
