@@ -14,6 +14,15 @@ def wagtail_admin_css():
     return format_html('<link rel="stylesheet" href="{}">', static("css/wagtail-admin.css"))
 
 
+# Load Stimulus controllers used by the Wagtail editing interface.
+@hooks.register("insert_global_admin_js", order=100)
+def wagtail_admin_js():
+    return format_html(
+        '<script src="{}"></script>',
+        static("foundation_cms/_js/admin_controllers.compiled.js"),
+    )
+
+
 # Extended rich text features for our site
 @hooks.register("register_rich_text_features")
 def register_large_feature(features):
