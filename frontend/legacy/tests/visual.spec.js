@@ -88,7 +88,7 @@ function testFoundationURL(path, locale = `en`) {
 
 // fall-through call for mozfest URLs
 function testMozfestURL(path, locale = `en`) {
-  return testURL(mozfestBaseUrl(locale), path, false);
+  return testURL(mozfestBaseUrl(locale), path, true);
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
