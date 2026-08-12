@@ -137,7 +137,7 @@ jobs:
           python ./manage.py block_inventory
           python ./manage.py compilemessages
       - name: Run Tests
-        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base -cov=foundation_cms --cov-report=term-missing
+        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base --cov=foundation_cms --cov-report=term-missing
 
   test_integration:
     name: Integration testing
