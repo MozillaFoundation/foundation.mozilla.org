@@ -208,6 +208,7 @@
 
   &__description {
     @include mofo-text-style($body-text-styles, "regular", $body-font-family);
+    @include text-line-clamp(2);
 
     margin: 0 0 rem-calc(8);
   }
@@ -379,7 +380,6 @@ body.redesign h2.gallery-hub-project__title {
 
     .gallery-hub-project__description {
       @include mofo-text-style($body-text-styles, "small", $body-font-family);
-      @include text-line-clamp(2);
 
       margin-bottom: rem-calc(8);
     }
@@ -510,7 +510,6 @@ body.redesign h2.gallery-hub-project__title {
 
     .gallery-hub-project__description {
       @include mofo-text-style($body-text-styles, "small", $body-font-family);
-      @include text-line-clamp(2);
 
       margin-bottom: rem-calc(10);
     }

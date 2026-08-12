@@ -34,6 +34,10 @@ const sources = {
     jsx: "automatic",
     bundle: true,
   },
+  "csrf-global": {
+    source: "common/csrf-global.js",
+    bundle: true,
+  },
   mozfest: {
     source: "foundation/pages/mozfest/index.js",
     jsx: "automatic",

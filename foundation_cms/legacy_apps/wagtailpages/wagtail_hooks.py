@@ -9,7 +9,6 @@ from django.db.models import Prefetch
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
 # part of the same web request.
 from django.db.models.signals import post_save
-from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import escape
 from wagtail import hooks
@@ -126,19 +125,6 @@ def manage_index_pages_cache(request, page):
 
     if hasattr(parent, "clear_index_page_cache"):
         parent.clear_index_page_cache(locale)
-
-
-@hooks.register("insert_global_admin_js", order=100)
-def global_admin_js():
-    """Add /static/css/custom.js to the admin."""
-    max_length_js = static("wagtailadmin/js/max-length-field.js")
-    return f'<script src="{max_length_js}"></script>'
-
-
-@hooks.register("insert_global_admin_css")
-def global_admin_css():
-    max_length_css = static("wagtailadmin/css/max-length-field.css")
-    return f'<link rel="stylesheet" href="{max_length_css}">'
 
 
 @hooks.register("register_icons")

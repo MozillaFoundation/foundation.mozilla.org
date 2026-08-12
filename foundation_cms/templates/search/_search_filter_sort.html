@@ -1,0 +1,34 @@
+{% load i18n %}
+
+<fieldset class="{% if sort_variant == 'dropdown' %}search-sort__menu{% else %}search-filter-group search-filter-group--sort{% endif %}">
+    <legend class="{% if sort_variant == 'dropdown' %}search-sort__legend{% else %}search-filter-group__legend{% endif %}">
+        {% trans "Sort" %}
+    </legend>
+    <label class="{% if sort_variant == 'dropdown' %}search-sort__option{% else %}search-choice search-choice--radio{% endif %}">
+        <input class="{% if sort_variant == 'dropdown' %}search-sort__input{% else %}search-choice__input{% endif %}"
+               type="radio"
+               name="sort"
+               value="relevance"
+               {% if sort == "relevance" or not sort %}checked{% endif %}>
+        {% if sort_variant != "dropdown" %}<span class="search-choice__control" aria-hidden="true"></span>{% endif %}
+        <span{% if sort_variant != "dropdown" %} class="search-choice__label"{% endif %}>{% trans "Relevance" %}</span>
+    </label>
+    <label class="{% if sort_variant == 'dropdown' %}search-sort__option{% else %}search-choice search-choice--radio{% endif %}">
+        <input class="{% if sort_variant == 'dropdown' %}search-sort__input{% else %}search-choice__input{% endif %}"
+               type="radio"
+               name="sort"
+               value="newest"
+               {% if sort == "newest" %}checked{% endif %}>
+        {% if sort_variant != "dropdown" %}<span class="search-choice__control" aria-hidden="true"></span>{% endif %}
+        <span{% if sort_variant != "dropdown" %} class="search-choice__label"{% endif %}>{% trans "Newest First" %}</span>
+    </label>
+    <label class="{% if sort_variant == 'dropdown' %}search-sort__option{% else %}search-choice search-choice--radio{% endif %}">
+        <input class="{% if sort_variant == 'dropdown' %}search-sort__input{% else %}search-choice__input{% endif %}"
+               type="radio"
+               name="sort"
+               value="oldest"
+               {% if sort == "oldest" %}checked{% endif %}>
+        {% if sort_variant != "dropdown" %}<span class="search-choice__control" aria-hidden="true"></span>{% endif %}
+        <span{% if sort_variant != "dropdown" %} class="search-choice__label"{% endif %}>{% trans "Oldest First" %}</span>
+    </label>
+</fieldset>

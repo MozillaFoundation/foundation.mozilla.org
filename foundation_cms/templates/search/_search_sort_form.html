@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<form action="{% url 'search' %}"
+      method="get"
+      class="search-sort-form"
+      data-search-filter-form
+      data-search-filter-mode="immediate">
+    <input type="hidden" name="query" value="{{ search_query }}">
+    <input type="hidden" name="content_type" value="{{ content_type|default:'all' }}">
+    {% if selected_topic %}
+        <input type="hidden" name="topic" value="{{ selected_topic }}">
+    {% endif %}
+    <details class="search-sort">
+        <summary class="search-sort__toggle">
+            {% trans "Sort" %}
+        </summary>
+        {% include "search/_search_filter_sort.html" with sort_variant="dropdown" %}
+    </details>
+</form>

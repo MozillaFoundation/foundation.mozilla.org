@@ -97,8 +97,8 @@ env = environ.Env(
     WAGTAIL_AB_TESTING_WORKER_TOKEN=(str, ""),
     WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=(bool, False),
     UNSUBSCRIBE_NEWSLETTER_ENDPOINT=(str, ""),
-    TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS=(list, []),
     WAGTAILSEARCH_HITS_MAX_AGE=(int, 7),
+    WAGTAIL_AUTOSAVE_INTERVAL=(int, 0),
 )
 
 # Read in the environment
@@ -341,8 +341,7 @@ MIDDLEWARE = list(
             # instead of 'wagtail.contrib.redirects.middleware.RedirectMiddleware':
             "foundation_cms.legacy_apps.wagtailcustomization.redirects.middleware.RedirectMiddleware",
             #
-            # instead of 'django.middleware.csrf.CsrfViewMiddleware':
-            "foundation_cms.legacy_apps.wagtailcustomization.csrf.middleware.CustomCsrfViewMiddleware",
+            "django.middleware.csrf.CsrfViewMiddleware",
             #
             "django_htmx.middleware.HtmxMiddleware",
         ],
@@ -844,9 +843,6 @@ REVIEW_APP_CLOUDFLARE_ZONE_ID = env("REVIEW_APP_CLOUDFLARE_ZONE_ID", default=Non
 REVIEW_APP_CLOUDFLARE_TOKEN = env("REVIEW_APP_CLOUDFLARE_TOKEN", default=None)
 REVIEW_APP_DOMAIN = env("REVIEW_APP_DOMAIN", default=None)
 
-# TODO: Temporary solution until we have enough pages to auto pull and showcase there
-TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS = [int(id) for id in env("TEMP_SEARCH_RELATED_CONTENT_PAGE_IDS") if id]
-
 # Make sure the docker internal IP is a known internal IP, so that "debug" in templates works
 if DEBUG:
     import os  # only if you haven't already imported this
@@ -933,3 +929,6 @@ WAGTAILSEARCH_HITS_MAX_AGE = env("WAGTAILSEARCH_HITS_MAX_AGE")
 
 # Minimum number of characters required to trigger search autocomplete.
 SEARCH_AUTOCOMPLETE_MIN_CHARS = env("SEARCH_AUTOCOMPLETE_MIN_CHARS")
+
+# Wagtail autosave interval in seconds in the page or snippet editor. If set to 0, autosave will be disabled.
+WAGTAIL_AUTOSAVE_INTERVAL = env("WAGTAIL_AUTOSAVE_INTERVAL")

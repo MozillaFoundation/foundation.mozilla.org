@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<section class="cell small-12 search-zero-results">
+  <div class="grid-x grid-margin-x">
+    <h1 class="cell small-12 h2-style search-zero-results__title">
+      {% blocktrans trimmed with query=search_query %}
+        Sorry, no results for “{{ query }}”
+      {% endblocktrans %}
+    </h1>
+  </div>
+
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-12 large-8 large-offset-2 search-zero-results__form-row">
+      {% include "search/_search_form.html" with form_class="search-form" input_class="search-form__input" submit_classnames="search-form__submit-button search-zero-results__submit-button" %}
+    </div>
+  </div>
+
+  <div class="search-zero-results__suggestions">
+    {% if search_topic_links or search_quick_links %}
+      <div class="grid-x grid-margin-x">
+        <p class="cell small-12 large-8 large-offset-2 search-zero-results__message">
+          {% trans "We couldn’t find what you’re looking for. Check your spelling, try a new search term or use our suggested links below:" %}
+        </p>
+      </div>
+      <div class="search-suggestions grid-x grid-margin-x">
+        {% include "search/_search_suggestions.html" %}
+      </div>
+    {% else %}
+      <div class="grid-x grid-margin-x">
+        <p class="cell small-12 large-8 large-offset-2 search-zero-results__message">
+          {% trans "We couldn’t find what you’re looking for. Check your spelling or try a new search term." %}
+        </p>
+      </div>
+    {% endif %}
+  </div>
+</section>
