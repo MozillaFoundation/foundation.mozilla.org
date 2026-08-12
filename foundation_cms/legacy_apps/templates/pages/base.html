@@ -99,7 +99,7 @@
     </head>
     <body class="legacy {% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}" data-site-type="{% block dataSiteType %}legacy{% endblock dataSiteType %}">
         {% if user.is_authenticated %}
-            {% wagtailuserbar 'bottom-right' %}
+            {% wagtailuserbar 'bottom-left' %}
         {% endif %}
 
         {% if page.live == False %}
