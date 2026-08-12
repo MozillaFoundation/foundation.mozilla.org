@@ -16,9 +16,14 @@ async function waitForReactAndImagesToLoad(page) {
 }
 
 async function waitForCookieBanner(page) {
-  // TODO: Re-implement banner wait for Civic Cookie Control (replaces OneTrust).
-  // For now, just wait for network to be idle before taking the snapshot.
   await page.waitForLoadState("networkidle");
+
+  const cookieIcon = page.locator("#ccc-icon");
+  try {
+    await cookieIcon.waitFor({ state: "visible", timeout: 30000 });
+  } catch {
+    // Cookie Control may not render in every locale or test context.
+  }
 }
 
 /**
