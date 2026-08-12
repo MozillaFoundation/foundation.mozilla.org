@@ -1,5 +1,3 @@
-from wagtail.admin.panels import FieldPanel
-from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_article_page import AbstractArticlePage
@@ -11,18 +9,9 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 class NothingPersonalArticleCollectionPage(AbstractArticlePage):
 
-    content_panels = AbstractArticlePage.content_panels + [
-        FieldPanel("lede_text"),
-    ]
-
     translatable_fields = AbstractArticlePage.translatable_fields + [
         # Content tab fields
         TranslatableField("body"),
-        TranslatableField("lede_text"),
-    ]
-
-    search_fields = AbstractArticlePage.search_fields + [
-        index.SearchField("lede_text", boost=8),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]
