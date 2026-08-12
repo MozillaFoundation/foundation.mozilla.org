@@ -17,13 +17,12 @@ async function waitForReactAndImagesToLoad(page) {
 
 async function waitForCookieBanner(page) {
   await page.waitForLoadState("networkidle");
-
-  const cookieIcon = page.locator("#ccc-icon");
-  try {
-    await cookieIcon.waitFor({ state: "visible", timeout: 30000 });
-  } catch {
-    // Cookie Control may not render in every locale or test context.
-  }
+  await page
+    .locator("#ccc-icon")
+    .waitFor({ state: "visible", timeout: 3000 })
+    .catch(() => {
+      // Cookie Control may not render in every locale or test context.
+    });
 }
 
 /**
