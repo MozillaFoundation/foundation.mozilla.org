@@ -2,8 +2,7 @@
 
 // Importing Sentry first is key
 // See https://docs.sentry.io/platforms/javascript/guides/node/#use
-import initializeSentry from "./common/sentry-config.js";
-import shouldInitializeSentry from "./common/sentry-consent.js";
+import { syncSentry } from "./common/sentry-consent.js";
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -71,21 +70,17 @@ let main = {
     SiteNav.init();
     ExternalLinks.init();
 
+    window.addEventListener("consent-change", (event) => {
+      if (env) {
+        syncSentry(env, GoogleAnalytics.doNotTrack, event.detail.accepted);
+      }
+    });
+
     this.fetchEnv((envData) => {
       env = envData;
       networkSiteURL = window.location.origin;
 
-      if (
-        env.SENTRY_DSN &&
-        shouldInitializeSentry(GoogleAnalytics.doNotTrack)
-      ) {
-        // Initialize Sentry error reporting
-        initializeSentry(
-          env.SENTRY_DSN,
-          env.RELEASE_VERSION,
-          env.SENTRY_ENVIRONMENT
-        );
-      }
+      syncSentry(env, GoogleAnalytics.doNotTrack);
 
       // HEROKU_APP_DOMAIN is used by review apps
       if (!networkSiteURL && env.HEROKU_APP_NAME) {

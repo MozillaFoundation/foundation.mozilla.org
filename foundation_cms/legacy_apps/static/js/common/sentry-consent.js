@@ -1,3 +1,7 @@
+import * as Sentry from "@sentry/browser";
+
+import initializeSentry from "./sentry-config.js";
+
 const COOKIE_CONTROL_COOKIE_NAME = "CookieControl";
 const ANALYTICS_CATEGORY = "analytics";
 const ACCEPTED_STATE = "accepted";
@@ -10,8 +14,8 @@ function getCookie(name) {
 }
 
 /**
- * Reads the Cookie Control consent cookie directly (there's no live event to
- * hook into) to check whether the user has already opted in to analytics.
+ * Reads the Cookie Control consent cookie directly to check whether the
+ * user has opted in to analytics.
  * @return {Boolean}
  */
 function hasAnalyticsConsent() {
@@ -28,16 +32,40 @@ function hasAnalyticsConsent() {
   }
 }
 
-/**
- * Whether Sentry should be initialized, based on the user's privacy
- * preferences (Do Not Track and Cookie Control's analytics consent).
- * @param {Boolean} doNotTrack - GoogleAnalytics.doNotTrack, passed in by the
- * caller rather than imported here to avoid perturbing the existing
- * circular import between google-analytics.js and react-ga-proxy.js.
- * @return {Boolean}
- */
-function shouldInitializeSentry(doNotTrack) {
-  return !doNotTrack && hasAnalyticsConsent();
-}
+// Tracked separately from Sentry.isEnabled() because Sentry.close() flips
+// that flag only after its internal flush() promise resolves, not
+// immediately — querying it right after close() can read stale "still
+// enabled" state for a beat, which is the wrong signal to gate the next
+// syncSentry() call on (e.g. a revoke followed shortly by an accept).
+let sentryActive = false;
 
-export default shouldInitializeSentry;
+/**
+ * Starts or closes the Sentry client to match the user's current privacy
+ * preferences. Safe to call repeatedly (e.g. on every "consent-change"
+ * event) since it only acts when the desired state differs from the
+ * last-known state.
+ * @param {{SENTRY_DSN: string, RELEASE_VERSION: string, SENTRY_ENVIRONMENT: string}} env
+ * @param {Boolean} doNotTrack - GoogleAnalytics.doNotTrack
+ * @param {Boolean} [analyticsAccepted] - Known-fresh consent state from a
+ * "consent-change" event's detail. Defaults to re-reading the cookie, for
+ * the initial /env-load call which has no event to hand it a value —
+ * Civic's onAccept/onRevoke fire before it persists the updated cookie, so
+ * re-reading the cookie from inside the event handler itself would race.
+ */
+export function syncSentry(env, doNotTrack, analyticsAccepted = hasAnalyticsConsent()) {
+  if (!env?.SENTRY_DSN) return;
+
+  const shouldRun = !doNotTrack && analyticsAccepted;
+
+  if (shouldRun && !sentryActive) {
+    initializeSentry(
+      env.SENTRY_DSN,
+      env.RELEASE_VERSION,
+      env.SENTRY_ENVIRONMENT
+    );
+    sentryActive = true;
+  } else if (!shouldRun && sentryActive) {
+    Sentry.close();
+    sentryActive = false;
+  }
+}
