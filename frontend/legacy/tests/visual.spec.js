@@ -16,10 +16,9 @@ async function waitForReactAndImagesToLoad(page) {
 }
 
 async function waitForCookieBanner(page) {
-  await page.waitForLoadState("networkidle");
   await page
     .locator("#ccc-icon")
-    .waitFor({ state: "visible", timeout: 3000 })
+    .waitFor({ state: "visible", timeout: 5000 })
     .catch(() => {
       // Cookie Control may not render in every locale or test context.
     });
