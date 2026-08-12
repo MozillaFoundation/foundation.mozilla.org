@@ -105,7 +105,7 @@ class TitoTicketCompletedTest(TestCase):
         with self.assertLogs(logger="foundation_cms.legacy_apps.events.views", level="ERROR") as cm:
             response = tito_ticket_completed(request)
             self.assertEqual(response.status_code, 202)
-            self.assertIn("Basket subscription from Tito webhook failed", cm.output[0])
+            self.assertIn("Subscription from Tito webhook failed", cm.output[0])
 
 
 class TitoWidgetBlockLocalizationTest(TestCase):
