@@ -43,8 +43,28 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   &__hero-figure {
     width: 100%;
     margin: 0;
+  }
+
+  &__hero-media {
     aspect-ratio: math.div(16, 9);
     overflow: hidden;
+    width: 100%;
+  }
+
+  &__hero-caption {
+    margin-top: rem-calc(6);
+    margin-bottom: 0;
+    margin-left: auto;
+    max-width: 100%;
+    width: fit-content;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    @include breakpoint(small only) {
+      width: 100%;
+      margin-left: 0;
+      margin-top: rem-calc(8);
+    }
   }
 
   &__picture {
