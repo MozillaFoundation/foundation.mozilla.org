@@ -16,9 +16,12 @@ async function waitForReactAndImagesToLoad(page) {
 }
 
 async function waitForCookieBanner(page) {
-  // TODO: Re-implement banner wait for Civic Cookie Control (replaces OneTrust).
-  // For now, just wait for network to be idle before taking the snapshot.
-  await page.waitForLoadState("networkidle");
+  await page
+    .locator("#ccc-icon")
+    .waitFor({ state: "visible", timeout: 5000 })
+    .catch(() => {
+      // Cookie Control may not render in every locale or test context.
+    });
 }
 
 /**
@@ -84,7 +87,7 @@ function testFoundationURL(path, locale = `en`) {
 
 // fall-through call for mozfest URLs
 function testMozfestURL(path, locale = `en`) {
-  return testURL(mozfestBaseUrl(locale), path, false);
+  return testURL(mozfestBaseUrl(locale), path, true);
 }
 
 test.describe.parallel(`Foundation page tests`, () => {
