@@ -52,7 +52,11 @@ let sentryActive = false;
  * Civic's onAccept/onRevoke fire before it persists the updated cookie, so
  * re-reading the cookie from inside the event handler itself would race.
  */
-export function syncSentry(env, doNotTrack, analyticsAccepted = hasAnalyticsConsent()) {
+export function syncSentry(
+  env,
+  doNotTrack,
+  analyticsAccepted = hasAnalyticsConsent()
+) {
   if (!env?.SENTRY_DSN) return;
 
   const shouldRun = !doNotTrack && analyticsAccepted;
