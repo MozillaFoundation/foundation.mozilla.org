@@ -139,6 +139,8 @@ class ProjectPageHeroMedia(TranslatableMixin, Orderable):
 
 
 class ProjectPage(AbstractArticlePage, HeroMediaMixin):
+    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
+
     hero_image_caption = models.CharField(
         max_length=255,
         blank=True,
