@@ -175,6 +175,15 @@ jobs:
           name: preroll-static
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Cache APT packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          # run_id keeps the key always-miss so this re-saves fresh archives
+          # every run instead of freezing on whatever was cached first.
+          key: apt-archives-test_wagtail-gettext-ffmpeg-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            apt-archives-test_wagtail-gettext-ffmpeg-${{ runner.os }}-
       - name: Install additional tooling
         run: |
           sudo apt-get update
@@ -251,6 +260,15 @@ jobs:
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Install Node Dependencies
         run: yarn install --frozen-lockfile
+      - name: Cache APT packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          # run_id keeps the key always-miss so this re-saves fresh archives
+          # every run instead of freezing on whatever was cached first.
+          key: apt-archives-test_integration-gettext-libgconf-2-4-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            apt-archives-test_integration-gettext-libgconf-2-4-${{ runner.os }}-
       - name: Install additional tooling
         run: |
           sudo apt-get update
