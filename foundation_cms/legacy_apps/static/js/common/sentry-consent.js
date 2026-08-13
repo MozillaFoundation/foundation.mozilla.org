@@ -69,7 +69,12 @@ export function syncSentry(
     );
     sentryActive = true;
   } else if (!shouldRun && sentryActive) {
-    Sentry.close();
+    // Detach the client from the current scope before closing it, so any
+    // capture attempted the instant after revoke (while the old client is
+    // still flushing/closing) has no client to send through.
+    const client = Sentry.getClient();
+    Sentry.getCurrentScope().setClient(undefined);
+    void client?.close();
     sentryActive = false;
   }
 }
