@@ -1,7 +1,7 @@
 import { forceSimulation, forceCollide, forceX, forceY } from "d3-force";
 import { select } from "d3-selection";
 import { setupLightbox } from "./lightbox";
-import { BREAKPOINTS, CONFIGS } from "./viz-configs";
+import { BREAKPOINTS, CONFIGS } from "./viz_configs";
 
 // Golden angle for overflow phyllotaxis layout
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
