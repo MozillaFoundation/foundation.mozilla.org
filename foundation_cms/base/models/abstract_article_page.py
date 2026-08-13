@@ -1,4 +1,3 @@
-from django.db import models
 from wagtail.fields import StreamField
 
 from foundation_cms.base.models.abstract_base_page import (
@@ -20,8 +19,6 @@ article_page_block_options = BlockRegistry.get_blocks(ARTICLE_BLOCK_NAMES)
 
 
 class AbstractArticlePage(AbstractBasePage):
-
-    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
 
     body = StreamField(
         article_page_block_options,

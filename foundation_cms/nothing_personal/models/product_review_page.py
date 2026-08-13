@@ -50,6 +50,8 @@ class ProductMentioned(Orderable):
 
 class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
 
+    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
+
     body = None
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
     reviewed = models.DateField(null=True, blank=True, help_text="Date of the product review.")

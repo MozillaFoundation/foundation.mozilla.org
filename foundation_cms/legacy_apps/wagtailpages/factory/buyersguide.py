@@ -9,7 +9,7 @@ from wagtail.images import get_image_model
 from wagtail.models import Locale
 from wagtail_factories import PageFactory
 
-from foundation_cms.legacy_apps.utility.faker import ImageProvider, generate_fake_data
+from foundation_cms.legacy_apps.utility.faker import generate_fake_data
 from foundation_cms.legacy_apps.utility.faker.helpers import get_random_objects, reseed
 from foundation_cms.legacy_apps.wagtailpages import models as pagemodels
 from foundation_cms.legacy_apps.wagtailpages.factory import (
@@ -20,8 +20,6 @@ from foundation_cms.legacy_apps.wagtailpages.factory.donation import (
 )
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.legacy_apps.wagtailpages.factory.petition import PetitionFactory
-
-Faker.add_provider(ImageProvider)
 
 
 def get_random_option(options=[]):
