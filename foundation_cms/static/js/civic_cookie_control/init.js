@@ -50,13 +50,13 @@ const BASE_OPTIONAL_COOKIES = [
     onAccept: function () {
       gtag("consent", "update", { analytics_storage: "granted" });
       window.dispatchEvent(
-        new CustomEvent("consent-change", { detail: { accepted: true } })
+        new CustomEvent("consent-change", { detail: { accepted: true } }),
       );
     },
     onRevoke: function () {
       gtag("consent", "update", { analytics_storage: "denied" });
       window.dispatchEvent(
-        new CustomEvent("consent-change", { detail: { accepted: false } })
+        new CustomEvent("consent-change", { detail: { accepted: false } }),
       );
     },
   },
