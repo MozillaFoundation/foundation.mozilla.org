@@ -1,3 +1,4 @@
+from django.db import models
 from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 from wagtail_localize.fields import TranslatableField
@@ -10,6 +11,8 @@ from foundation_cms.utils import get_default_locale, localize_queryset
 
 
 class NothingPersonalProductCollectionPage(AbstractArticlePage):
+
+    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
 
     content_panels = AbstractArticlePage.content_panels + [
         FieldPanel("lede_text"),
