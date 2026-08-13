@@ -1,7 +1,0 @@
-{
-  "baseUrl": "http://localhost:8000",
-  "video": false,
-  "env": {
-    "mozfest-baseurl": "http://mozfest.localhost:8000"
-  }
-}
