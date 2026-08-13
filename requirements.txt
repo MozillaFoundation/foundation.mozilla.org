@@ -49,7 +49,7 @@ defusedxml==0.7.1
     #   willow
 dj-database-url==2.3.0
     # via -r requirements.in
-django==5.2.15
+django==5.2.17
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -178,7 +178,7 @@ psutil==5.9.0
     # via scout-apm
 psycopg2-binary==2.9.12
     # via -r requirements.in
-pyasn1==0.6.3
+pyasn1==0.6.4
     # via
     #   python-jose
     #   rsa
@@ -236,7 +236,7 @@ social-auth-app-django==5.6.0
     # via -r requirements.in
 social-auth-core==4.4.1
     # via social-auth-app-django
-soupsieve==2.3.1
+soupsieve==2.8.4
     # via beautifulsoup4
 sqlparse==0.5.0
     # via django
