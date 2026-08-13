@@ -7,6 +7,7 @@ from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanel
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
+from foundation_cms.blocks.media_block import CustomMediaBlock
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.blocks.pillar_card_block import PillarCardBlock
 from foundation_cms.blocks.pillar_card_set_block import PillarCardSetBlock
@@ -17,6 +18,7 @@ from foundation_cms.blocks.timely_activations_cards_block import (
     TimelyActivationsCardsBlock,
 )
 from foundation_cms.blocks.title_block import TitleBlock
+from foundation_cms.blocks.video_block import VideoBlock
 from foundation_cms.snippets.factories import NewsletterSignupFactory
 
 
@@ -55,6 +57,26 @@ class LinkButtonBlockFactory(wagtail_factories.StructBlockFactory):
         "random_element",
         elements=["link-button-block--left", "link-button-block--center"],
     )
+
+
+class CustomMediaBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = CustomMediaBlock
+
+    title = factory.Faker("sentence", nb_words=3)
+    content = "image"
+    image = None
+    video_url = ""
+    orientation = "landscape"
+
+
+class VideoBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = VideoBlock
+
+    video_url = "https://vimeo.com/1073235226"
+    caption = ""
+    caption_url = []
 
 
 class VideoPanelBlockFactory(wagtail_factories.StructBlockFactory):
