@@ -13,6 +13,8 @@ HERO_CONTENT_VIDEO = "video"
 
 class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
 
+    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
+
     share_section_heading = models.CharField(
         max_length=255,
         default="Enjoyed this? Share it!",
