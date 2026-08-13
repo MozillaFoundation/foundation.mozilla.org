@@ -178,7 +178,7 @@ psutil==5.9.0
     # via scout-apm
 psycopg2-binary==2.9.12
     # via -r requirements.in
-pyasn1==0.6.3
+pyasn1==0.6.4
     # via
     #   python-jose
     #   rsa
