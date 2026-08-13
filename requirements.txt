@@ -47,7 +47,7 @@ defusedxml==0.7.1
     #   python3-openid
     #   social-auth-core
     #   willow
-dj-database-url==2.3.0
+dj-database-url==3.1.2
     # via -r requirements.in
 django==5.2.17
     # via
@@ -251,7 +251,6 @@ tqdm==4.63.0
 typing-extensions==4.4.0
     # via
     #   beautifulsoup4
-    #   dj-database-url
     #   django-countries
     #   django-stubs-ext
     #   django-tasks
