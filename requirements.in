@@ -1,7 +1,7 @@
 basket-client
 beautifulsoup4
 boto3
-Django==5.2.15
+Django==5.2.17
 dj-database-url
 djangorestframework
 django-cors-headers
