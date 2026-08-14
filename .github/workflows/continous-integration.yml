@@ -128,7 +128,7 @@ jobs:
           retention-days: 1
 
   test_wagtail:
-    name: Wagtail CI
+    name: Backend Test Suite
     runs-on: ubuntu-22.04
     needs: preroll
     services:
