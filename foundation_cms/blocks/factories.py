@@ -76,7 +76,7 @@ class VideoBlockFactory(wagtail_factories.StructBlockFactory):
 
     video_url = "https://vimeo.com/1073235226"
     caption = ""
-    caption_url = []
+    caption_url: list = []
 
 
 class VideoPanelBlockFactory(wagtail_factories.StructBlockFactory):
