@@ -109,4 +109,4 @@ class TestHeroAccordionBlockClean(TestCase):
         with self.assertRaises(ValidationError) as cm:
             block_def.clean(stream)
 
-        self.assertEqual(cm.exception.message, "Only 1 video panel allowed.")
+        self.assertEqual(cm.exception.message, "Only 1 video panel(s) allowed.")
