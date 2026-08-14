@@ -1,5 +1,5 @@
-import { COUNTRY_OPTIONS } from "../components/newsletter_signup/data/country-options.js";
-import { LANGUAGE_OPTIONS } from "../components/newsletter_signup/data/language-options.js";
+import { COUNTRY_OPTIONS } from "../components/newsletter_signup/data/country_options.js";
+import { LANGUAGE_OPTIONS } from "../components/newsletter_signup/data/language_options.js";
 import { ensureCsrfToken } from "../utils/csrf.js";
 
 /**

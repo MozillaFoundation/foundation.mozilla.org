@@ -47,10 +47,12 @@
           {% endif %}
         {% endif %}
       </div>
-      {% if page.displayed_hero_content == "image" and page.hero_image and page.hero_image_caption %}
-        <figcaption class="article-header__hero-caption image-block__title">
-          {{ page.hero_image_caption }}
-        </figcaption>
+      {% if page.hero_caption %}
+        {% if page.displayed_hero_content == "video" and page.hero_video_url or page.displayed_hero_content == "image" and page.hero_image %}
+          <figcaption class="article-header__hero-caption image-block__title">
+            {{ page.hero_caption }}
+          </figcaption>
+        {% endif %}
       {% endif %}
     </figure>
   </div>

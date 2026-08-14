@@ -52,7 +52,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__hero-caption {
-    margin-top: rem-calc(6);
+    margin-top: rem-calc(12);
     margin-bottom: 0;
     margin-left: auto;
     max-width: 100%;
@@ -63,7 +63,11 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     @include breakpoint(small only) {
       width: 100%;
       margin-left: 0;
-      margin-top: rem-calc(8);
+      margin-top: rem-calc(16);
+    }
+
+    &.image-block__title::before {
+      top: calc(0.75em - 1.125rem);
     }
   }
 
