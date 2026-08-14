@@ -127,8 +127,8 @@ jobs:
             staticfiles
           retention-days: 1
 
-  test_wagtail:
-    name: Wagtail CI
+  test_backend:
+    name: Backend Test Suite
     runs-on: ubuntu-22.04
     needs: preroll
     services:
@@ -181,9 +181,9 @@ jobs:
           path: /var/cache/apt/archives
           # run_id keeps the key always-miss so this re-saves fresh archives
           # every run instead of freezing on whatever was cached first.
-          key: apt-archives-test_wagtail-gettext-ffmpeg-${{ runner.os }}-${{ github.run_id }}
+          key: apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
-            apt-archives-test_wagtail-gettext-ffmpeg-${{ runner.os }}-
+            apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-
       - name: Install additional tooling
         run: |
           sudo apt-get update
