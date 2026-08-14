@@ -52,7 +52,10 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__hero-caption {
-    margin-top: rem-calc(12);
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+    margin-top: rem-calc(20);
     margin-bottom: 0;
     margin-left: auto;
     max-width: 100%;
@@ -63,12 +66,24 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     @include breakpoint(small only) {
       width: 100%;
       margin-left: 0;
-      margin-top: rem-calc(16);
+      margin-top: rem-calc(24);
     }
+  }
 
-    &.image-block__title::before {
-      top: calc(0.75em - 1.125rem);
-    }
+  &__hero-caption-arrow {
+    flex-shrink: 0;
+    width: rem-calc(27);
+    height: rem-calc(18);
+    background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left bottom;
+    transform: translateY(-0.36rem);
+  }
+
+  &__hero-caption-text {
+    flex: 1;
+    min-width: 0;
   }
 
   &__picture {
