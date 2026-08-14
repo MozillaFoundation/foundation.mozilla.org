@@ -45,8 +45,6 @@ export class HorizontalAccordion {
     this.root.dataset.initialized = "true";
     this._setWidth();
 
-    console.log(this.totalPanels, this.openMultiplier, this.totalUnits);
-
     this.panels.forEach((panel) => {
       // Ensure every panel has the correct ARIA and tabindex attributes
       panel.setAttribute("role", "button");

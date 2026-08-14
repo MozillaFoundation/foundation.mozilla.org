@@ -75,9 +75,62 @@ jobs:
       - name: Run type checks
         run: mypy foundation_cms
 
-  test_wagtail:
-    name: Wagtail CI
+  preroll:
+    name: Preroll (Build Frontend & Collect Static)
     runs-on: ubuntu-22.04
+    env:
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      BASKET_URL: https://basket-dev.allizom.org
+      CONTENT_TYPE_NO_SNIFF: True
+      CORS_ALLOWED_ORIGINS: "*"
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
+      DEBUG: True
+      DJANGO_SECRET_KEY: secret
+      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NEWSLETTER_SIGNUP_METHOD: "BASKET"
+      PIPENV_VERBOSITY: -1
+      RANDOM_SEED: 530910203
+      SET_HSTS: False
+      SSL_REDIRECT: False
+      TARGET_DOMAINS: localhost
+      USE_S3: False
+      X_FRAME_OPTIONS: DENY
+      XSS_PROTECTION: True
+      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Install Node Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build frontend assets
+        run: yarn build
+      - name: Collect static files
+        run: python ./manage.py collectstatic --no-input --verbosity 0
+      - name: Upload preroll artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preroll-static
+          path: |
+            foundation_cms/static/compiled
+            foundation_cms/legacy_apps/static/compiled
+            staticfiles
+          retention-days: 1
+
+  test_backend:
+    name: Backend Test Suite
+    runs-on: ubuntu-22.04
+    needs: preroll
     services:
       postgres:
         image: postgres:15
@@ -116,21 +169,27 @@ jobs:
         with:
           python-version: 3.11
           cache: "pip"
-      - uses: actions/setup-node@v4
+      - name: Download preroll artifact
+        uses: actions/download-artifact@v4
         with:
-          node-version: 22
+          name: preroll-static
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
-      - name: Install Node Dependencies
-        run: yarn install --frozen-lockfile
+      - name: Cache APT packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          # run_id keeps the key always-miss so this re-saves fresh archives
+          # every run instead of freezing on whatever was cached first.
+          key: apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-
       - name: Install additional tooling
         run: |
           sudo apt-get update
           sudo apt-get install -y gettext ffmpeg
-      - name: Preroll
+      - name: Prepare test environment
         run: |
-          yarn build
-          python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py check
           python ./manage.py makemigrations --check --dry-run
           python ./manage.py migrate --no-input
@@ -142,6 +201,7 @@ jobs:
   test_integration:
     name: Integration testing
     runs-on: ubuntu-22.04
+    needs: preroll
     services:
       postgres:
         image: postgres:15
@@ -192,20 +252,31 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
+      - name: Download preroll artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: preroll-static
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Install Node Dependencies
         run: yarn install --frozen-lockfile
+      - name: Cache APT packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/apt/archives
+          # run_id keeps the key always-miss so this re-saves fresh archives
+          # every run instead of freezing on whatever was cached first.
+          key: apt-archives-test_integration-gettext-libgconf-2-4-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            apt-archives-test_integration-gettext-libgconf-2-4-${{ runner.os }}-
       - name: Install additional tooling
         run: |
           sudo apt-get update
           sudo apt-get install -y gettext libgconf-2-4
       - name: Install Playwright
         run: yarn workspace legacy playwright:install
-      - name: Preroll
+      - name: Prepare test environment
         run: |
-          yarn build
-          python ./manage.py collectstatic --no-input --verbosity 0
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py load_redesign_data

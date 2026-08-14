@@ -9,10 +9,6 @@ import { initDonateBanner } from "./components/donate_banner.js";
 import { initDonateLightbox } from "./components/donate_lightbox.js";
 let foundationSiteURL = window.location.origin;
 
-console.log(
-  "😃 If you see this message, the JS watch and build steps are working properly! 😃",
-);
-
 initPrimaryNav();
 initDonateBanner();
 initDonateLightbox();
