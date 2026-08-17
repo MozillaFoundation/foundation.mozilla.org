@@ -86,7 +86,7 @@
 
                 {% with slide_count=media_items|length|add:1 %}
                     {% if slide_count > 1 %}
-                        {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count %}
+                        {% include "patterns/blocks/themes/default/fragments/_carousel_indicators.html" with count=slide_count %}
                     {% endif %}
                 {% endwith %}
 
@@ -178,7 +178,7 @@
                     </div>
                 {% endif %}
 
-                {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+                {% include "patterns/components/_topic_pills.html" with topics=page.topics.all %}
 
                 {% if page.project_link %}
                     <a href="{{ page.project_link }}" class="project-meta__link" rel="noopener noreferrer external" target="_blank">{% trans "See the project" %}</a>

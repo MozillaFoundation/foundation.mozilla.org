@@ -17,7 +17,7 @@ from foundation_cms.navigation import models as nav_models
 class SearchDrawerTemplateTests(TestCase):
     def render_search_drawer(self, **context):
         return render_to_string(
-            "patterns/components/navigation/search_drawer.html",
+            "patterns/components/navigation/_search_drawer.html",
             context,
         )
 
@@ -338,7 +338,7 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         block = self.create_horizontal_links([primary_section, primary_child])
 
         exact_html = render_to_string(
-            "patterns/components/navigation/horizontal_link_block.html",
+            "patterns/components/navigation/_horizontal_link_block.html",
             {"block": block, "page": primary_child},
             request=self.request(urlsplit(primary_child.url).path, host="primary.test"),
         )
@@ -354,7 +354,7 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         self.assertEqual(exact_html.count("horizontal-link-block__link--active"), 1)
 
         descendant_html = render_to_string(
-            "patterns/components/navigation/horizontal_link_block.html",
+            "patterns/components/navigation/_horizontal_link_block.html",
             {"block": block, "page": primary_grandchild},
             request=self.request(urlsplit(primary_grandchild.url).path, host="primary.test"),
         )
@@ -366,7 +366,7 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         block = self.create_horizontal_links([secondary_section])
 
         html = render_to_string(
-            "patterns/components/navigation/horizontal_link_block.html",
+            "patterns/components/navigation/_horizontal_link_block.html",
             {"block": block, "page": primary_section},
             request=self.request(urlsplit(primary_section.url).path, host="primary.test"),
         )

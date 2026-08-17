@@ -24,7 +24,7 @@
     <div class="donate-lightbox__content">
       <h2 id="donate-lightbox-title" class="donate-lightbox__title">{{ banner.title }}</h2>
       <p class="donate-lightbox__subtitle">{{ banner.subtitle }}</p>
-      {% include "patterns/components/button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" classnames="donate-lightbox__cta-button" data_attrs=cta_button_data autofocus=True %}
+      {% include "patterns/components/_button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" classnames="donate-lightbox__cta-button" data_attrs=cta_button_data autofocus=True %}
     </div>
   </div>
 </dialog>

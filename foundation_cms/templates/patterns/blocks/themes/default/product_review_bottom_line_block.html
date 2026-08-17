@@ -1,4 +1,4 @@
-{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
+{% extends "patterns/blocks/themes/default/_product_review_section_base.html" %}
 
 {% load static i18n %}
 
@@ -8,6 +8,6 @@
 
 {% block review_content %}
     <dl class="product-review-section__qa-list">
-        {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with ans=value.content %}
+        {% include "patterns/blocks/themes/default/fragments/_product_review_section_qa_item.html" with ans=value.content %}
     </dl>
 {% endblock review_content %}

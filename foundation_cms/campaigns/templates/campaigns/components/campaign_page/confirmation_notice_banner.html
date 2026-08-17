@@ -12,7 +12,7 @@
                         {% blocktrans with email=user_email %}Please click on the email we just sent to confirm your newsletter subscription.{% endblocktrans %}
                     {% endif %}
                 </div>
-                {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-banner-close-button" %}
+                {% include "patterns/components/buttons/_btn_close.html" with data_attr_for_js_to_target="data-banner-close-button" %}
             </div>
         </div>
     </div>

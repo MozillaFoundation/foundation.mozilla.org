@@ -15,7 +15,7 @@ def _localize_page(p):
         return p
 
 
-@register.inclusion_tag("patterns/components/breadcrumb_nav.html", takes_context=True)
+@register.inclusion_tag("patterns/components/_breadcrumb_nav.html", takes_context=True)
 def breadcrumb_nav(context, page=None):
     request = context.get("request")
     page = page or context.get("page")
