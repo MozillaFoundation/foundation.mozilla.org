@@ -49,10 +49,7 @@
       </div>
       {% if page.hero_caption %}
         {% if page.displayed_hero_content == "video" and page.hero_video_url or page.displayed_hero_content == "image" and page.hero_image %}
-          <p class="article-header__hero-caption">
-            <span class="article-header__hero-caption-arrow" aria-hidden="true"></span>
-            <span class="article-header__hero-caption-text">{{ page.hero_caption }}</span>
-          </p>
+          <p class="article-header__hero-caption">{{ page.hero_caption }}</p>
         {% endif %}
       {% endif %}
     </figure>

@@ -52,9 +52,8 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   }
 
   &__hero-caption {
-    display: flex;
-    align-items: center;
-    gap: rem-calc(8);
+    position: relative;
+    padding-left: 2rem;
     margin-top: rem-calc(16);
     margin-bottom: 0;
     margin-left: auto;
@@ -62,28 +61,26 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     width: fit-content;
     font-size: 1rem;
     line-height: 1.5;
+    text-align: left;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -0.25rem;
+      width: rem-calc(27);
+      height: rem-calc(18);
+      background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
 
     @include breakpoint(small only) {
       width: 100%;
       margin-left: 0;
       margin-top: rem-calc(16);
     }
-  }
-
-  &__hero-caption-arrow {
-    flex-shrink: 0;
-    width: rem-calc(27);
-    height: rem-calc(18);
-    background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: left bottom;
-    transform: translateY(-0.36rem);
-  }
-
-  &__hero-caption-text {
-    flex: 1;
-    min-width: 0;
   }
 
   &__picture {
