@@ -28,7 +28,7 @@ const sources = {
     bundle: true,
   },
   csrf_global: {
-    source: "utils/csrf-global.js",
+    source: "utils/csrf_global.js",
     jsx: false,
     bundle: true,
   },

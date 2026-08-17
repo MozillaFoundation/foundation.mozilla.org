@@ -1,4 +1,4 @@
-import SALESFORCE_COUNTRY_LIST from "./salesforce-country-list.js";
+import SALESFORCE_COUNTRY_LIST from "./salesforce_country_list.js";
 
 let localized_your_country = gettext("Your Country");
 let countryDefault = { value: "", label: localized_your_country };
