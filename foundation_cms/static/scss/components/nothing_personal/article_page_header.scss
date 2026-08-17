@@ -55,7 +55,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     display: flex;
     align-items: center;
     gap: rem-calc(8);
-    margin-top: rem-calc(20);
+    margin-top: rem-calc(16);
     margin-bottom: 0;
     margin-left: auto;
     max-width: 100%;
@@ -66,7 +66,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     @include breakpoint(small only) {
       width: 100%;
       margin-left: 0;
-      margin-top: rem-calc(24);
+      margin-top: rem-calc(16);
     }
   }
 
