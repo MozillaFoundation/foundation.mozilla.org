@@ -2,7 +2,7 @@
   "name": "Mozilla Foundation site",
   "description": "Mozilla Foundation site",
   "stack": "heroku-24",
-  "addons": ["heroku-postgresql:basic --version=15"],
+  "addons": ["heroku-postgresql:essential-0 --version=18"],
   "formation": {
     "web": {
       "quantity": 1
