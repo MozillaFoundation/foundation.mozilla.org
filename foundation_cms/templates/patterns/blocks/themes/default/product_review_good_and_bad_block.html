@@ -1,4 +1,4 @@
-{% extends "patterns/blocks/themes/default/product_review_section_base.html" %}
+{% extends "patterns/blocks/themes/default/_product_review_section_base.html" %}
 
 {% load static i18n %}
 
@@ -10,12 +10,12 @@
     <dl class="product-review-section__qa-list">
         {% if value.the_good %}
             {% trans "The Good" as localized_the_good %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_the_good ans=value.the_good %}
+            {% include "patterns/blocks/themes/default/fragments/_product_review_section_qa_item.html" with question=localized_the_good ans=value.the_good %}
         {% endif %}
 
         {% if value.the_good %}
             {% trans "The Bad" as localized_the_bad %}
-            {% include "patterns/blocks/themes/default/fragments/product_review_section_qa_item.html" with question=localized_the_bad ans=value.the_bad %}
+            {% include "patterns/blocks/themes/default/fragments/_product_review_section_qa_item.html" with question=localized_the_bad ans=value.the_bad %}
         {% endif %}
     </dl>
 {% endblock review_content %}

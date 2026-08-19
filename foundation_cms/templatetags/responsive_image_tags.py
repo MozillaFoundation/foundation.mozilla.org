@@ -29,7 +29,7 @@ def orientation_to_ratio(orientation):
     return mapping.get(orientation, "3:2")  # Default to 3:2 if unknown
 
 
-@register.inclusion_tag("patterns/components/responsive_image.html")
+@register.inclusion_tag("patterns/components/_responsive_image.html")
 def responsive_image(
     image,
     ratio,

@@ -15,7 +15,7 @@
     <div class="cell small-12 medium-7 page-card__meta-wrapper">
       <div class="page-card__meta">
         <div class="page-card__tags">
-          {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+          {% include "patterns/components/_topic_pills.html" with topics=page.topics.all %}
         </div>
         <h3 class="page-card__title"><a href="{{ page.url }}">{{ page.title }}</a></h3>
         <p class="page-card__description">{{ page.search_description }}</p>

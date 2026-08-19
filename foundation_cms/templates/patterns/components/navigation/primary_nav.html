@@ -39,7 +39,7 @@
             {% if localized_menu %}
               {% primary_nav_active_link request localized_menu.dropdowns as active_link %}
               {% for dropdown in localized_menu.dropdowns %}
-                {% include "patterns/components/navigation/dropdown.html" with value=dropdown.value active_link=active_link %}
+                {% include "patterns/components/navigation/_dropdown.html" with value=dropdown.value active_link=active_link %}
               {% endfor %}
             {% endif %}
           </div>
@@ -66,12 +66,12 @@
 
         <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
           {% translate "Donate" as localized_donate_label %}
-          {% include "patterns/components/button.html" with classnames="btn-primary--heart" url="?form=donate-header" label=localized_donate_label button_style="btn-primary" %}
+          {% include "patterns/components/_button.html" with classnames="btn-primary--heart" url="?form=donate-header" label=localized_donate_label button_style="btn-primary" %}
         </div>
 
       </div>
     </div>
   </nav>
 
-  {% include "patterns/components/navigation/search_drawer.html" with search_topic_links=localized_menu.search_topic_links search_quick_links=localized_menu.search_quick_links %}
+  {% include "patterns/components/navigation/_search_drawer.html" with search_topic_links=localized_menu.search_topic_links search_quick_links=localized_menu.search_quick_links %}
 {% endwith %}

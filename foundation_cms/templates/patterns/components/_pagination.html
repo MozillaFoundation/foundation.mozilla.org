@@ -9,9 +9,9 @@
         <div class="pagination__previous">
           {% if page_obj.has_previous %}
             {% url_with_query viewname base_url=base_url page=page_obj.previous_page_number as prev_url %}
-            {% include "patterns/components/button.html" with url=prev_url label=previous_page_label button_style="btn-secondary" %}
+            {% include "patterns/components/_button.html" with url=prev_url label=previous_page_label button_style="btn-secondary" %}
           {% else %}
-            {% include "patterns/components/button.html" with url="#" label=previous_page_label button_style="btn-secondary" classnames="hidden" %}
+            {% include "patterns/components/_button.html" with url="#" label=previous_page_label button_style="btn-secondary" classnames="hidden" %}
           {% endif %}
         </div>
 
@@ -58,9 +58,9 @@
         <div class="pagination__next">
           {% if page_obj.has_next %}
             {% url_with_query viewname base_url=base_url page=page_obj.next_page_number as next_url %}
-            {% include "patterns/components/button.html" with url=next_url label=next_page_label button_style="btn-secondary" %}
+            {% include "patterns/components/_button.html" with url=next_url label=next_page_label button_style="btn-secondary" %}
           {% else %}
-            {% include "patterns/components/button.html" with url="#" label=next_page_label button_style="btn-secondary" classnames="hidden" %}
+            {% include "patterns/components/_button.html" with url="#" label=next_page_label button_style="btn-secondary" classnames="hidden" %}
           {% endif %}
         </div>
       </nav>

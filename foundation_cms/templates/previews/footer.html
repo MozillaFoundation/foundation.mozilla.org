@@ -9,12 +9,12 @@
 {% endblock extra_css %}
 
 {% block content %}
-  {% include "patterns/components/home_page/content.html" %}
+  {% include "patterns/components/home_page/_content.html" %}
 {% endblock content %}
 
 {% block footer_block %}
   {% if object %}
-    {% include "patterns/components/footer/footer.html" with footer=object %}
+    {% include "patterns/components/footer/_footer.html" with footer=object %}
   {% endif %}
 {% endblock footer_block %}
 

@@ -55,10 +55,10 @@
           {% trans "Previous media" as previous_media_label %}
           {% trans "Next media" as next_media_label %}
           <div class="project-block__pagination-controls">
-            {% include "patterns/blocks/themes/default/fragments/pagination_controls.html" with total=slide_count dark_mode=True aria_label=project_media_controls_label prev_label=previous_media_label next_label=next_media_label %}
+            {% include "patterns/blocks/themes/default/fragments/_pagination_controls.html" with total=slide_count dark_mode=True aria_label=project_media_controls_label prev_label=previous_media_label next_label=next_media_label %}
           </div>
           <div class="project-block__indicators">
-            {% include "patterns/blocks/themes/default/fragments/carousel_indicators.html" with count=slide_count dark_mode=True show_on_large=True %}
+            {% include "patterns/blocks/themes/default/fragments/_carousel_indicators.html" with count=slide_count dark_mode=True show_on_large=True %}
           </div>
         {% endif %}
       {% endwith %}
@@ -90,7 +90,7 @@
         </p>
       {% endif %}
 
-      {% include "patterns/components/topic_pills.html" with topics=project.topics.all style_variation="dark" %}
+      {% include "patterns/components/_topic_pills.html" with topics=project.topics.all style_variation="dark" %}
     </div>
   </article>
 {% endwith %}
