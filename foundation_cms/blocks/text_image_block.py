@@ -37,6 +37,8 @@ class TextMediaBlock(TextImageBlock):
           TextImageBlock with a `ChoiceBlock` for style/variant selection.
     """
 
+    image = None
+
     background_color = blocks.ChoiceBlock(
         choices=[
             ("white", "White"),
@@ -59,10 +61,6 @@ class TextMediaBlock(TextImageBlock):
         default="white",
     )
     media = CustomMediaBlock(required=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.child_blocks.pop("image", None)
 
     class Meta:
         icon = "image"
