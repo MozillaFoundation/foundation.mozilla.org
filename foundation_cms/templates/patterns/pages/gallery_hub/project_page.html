@@ -17,12 +17,12 @@
         <article>
             <div class="grid-container">
                 <div class="grid-x">
-                    {% include "patterns/components/project_page/hero_carousel.html" with page=page %}
+                    {% include "patterns/components/project_page/_hero_carousel.html" with page=page %}
                 </div>
             </div>
 
             {% if page.body %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="small-12 large-8 large-offset-2" %}
+                {% include "patterns/components/_streamfield.html" with streamfield=page.body classnames="small-12 large-8 large-offset-2" %}
             {% endif %}
         </article>
         {% if latest_projects|length >= 2 %}
@@ -31,7 +31,7 @@
                     <div class="cell small-12">
                         {% trans "More Projects" as localized_more_projects %}
                         {% with heading=localized_more_projects items=latest_projects image_ratio="3:2" show_author=True image_field="hero_image" %}
-                            {% include "patterns/components/related_content.html" %}
+                            {% include "patterns/components/_related_content.html" %}
                         {% endwith %}
                     </div>
                 </div>

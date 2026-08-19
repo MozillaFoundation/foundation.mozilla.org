@@ -2,7 +2,7 @@
 {% load wagtailimages_tags %}{% block content %}
     <h3>{{ page.lede_text }}</h3>
     {% if page.body %}
-        {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+        {% include "patterns/components/_streamfield.html" with streamfield=page.body %}
     {% endif %}
 
     {% if page.author %}
