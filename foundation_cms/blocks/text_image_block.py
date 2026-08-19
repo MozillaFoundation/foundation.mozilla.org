@@ -1,3 +1,5 @@
+from typing import Any
+
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
@@ -37,7 +39,7 @@ class TextMediaBlock(TextImageBlock):
           TextImageBlock with a `ChoiceBlock` for style/variant selection.
     """
 
-    image = None
+    image: Any = None
 
     background_color = blocks.ChoiceBlock(
         choices=[
