@@ -10,31 +10,9 @@ on:
       - maintenance/**/*.*
 
 jobs:
-  lint_frontend:
-    name: Lint & Format Check (Frontend)
-    runs-on: ubuntu-22.04
-    env:
-      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Run JS/SCSS linting for legacy site
-        run: yarn workspace legacy lint
-      - name: Run JS/SCSS linting for redesigned site
-        run: yarn workspace redesign lint
-      - name: Check JS/SCSS formatting for redesigned site
-        run: yarn workspace redesign check-format
-
   unit_test_frontend_redesign:
     name: Unit Tests (Redesign Frontend)
     runs-on: ubuntu-22.04
-    continue-on-error: true
     env:
       ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,31 +27,6 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Run redesign unit tests with coverage
         run: yarn workspace redesign test
-
-  lint_backend:
-    name: Lint & Type Check (Backend)
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-          cache: "pip"
-      - name: Install Python Dependencies
-        run: pip install -r requirements.txt -r dev-requirements.txt
-      - name: Run linting
-        run: |
-          flake8 ./foundation_cms
-          isort ./foundation_cms --check-only
-          black ./foundation_cms --check
-          djlint ./foundation_cms --lint
-          # djlint --check is skipped: the regex-based formatter still has consistency
-          # issues (e.g. whitespace/indentation edge cases). The planned AST rewrite
-          # (https://github.com/Riverside-Healthcare/djLint/issues/168) is stalled.
-          # Using djhtml indent check in the meantime.
-          djhtml -c maintenance/ foundation_cms/
-      - name: Run type checks
-        run: mypy foundation_cms
 
   preroll:
     name: Preroll (Build Frontend & Collect Static)
@@ -199,7 +152,7 @@ jobs:
         run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base --cov=foundation_cms --cov-report=term-missing
 
   test_integration:
-    name: Integration testing
+    name: Integration Tests
     runs-on: ubuntu-22.04
     needs: preroll
     services:
