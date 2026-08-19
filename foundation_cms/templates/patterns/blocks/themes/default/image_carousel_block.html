@@ -9,7 +9,7 @@
             <h3 class="image-carousel__header">{{ value.title }}</h3>
           {% endif %}
           <div class="image-carousel__controls">
-            {% include "./fragments/pagination_controls.html" with total=value.items|length %}
+            {% include "./fragments/_pagination_controls.html" with total=value.items|length %}
           </div>
         </div>
 
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="grid">
-      {% include "./fragments/carousel_indicators.html" with count=value.items|length %}
+      {% include "./fragments/_carousel_indicators.html" with count=value.items|length %}
     </div>
   </div>
 </div>

@@ -9,32 +9,32 @@
 {% block content %}
     <main>
         <article>
-            {% include "patterns/components/nothing_personal/product_review_page/intro_section.html" with page=page %}
+            {% include "patterns/components/nothing_personal/product_review_page/_intro_section.html" with page=page %}
 
             {% if page.what_you_should_know_section %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.what_you_should_know_section %}
+                {% include "patterns/components/_streamfield.html" with streamfield=page.what_you_should_know_section %}
             {% endif %}
 
             {% if page.newsletter_signup_section %}
                 <div class="product-review-section">
-                    {% include "patterns/components/streamfield.html" with streamfield=page.newsletter_signup_section %}
+                    {% include "patterns/components/_streamfield.html" with streamfield=page.newsletter_signup_section %}
                 </div>
             {% endif %}
 
             {% if page.good_and_bad_section %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.good_and_bad_section %}
+                {% include "patterns/components/_streamfield.html" with streamfield=page.good_and_bad_section %}
             {% endif %}
 
             {% if page.reduce_your_risks_section %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.reduce_your_risks_section %}
+                {% include "patterns/components/_streamfield.html" with streamfield=page.reduce_your_risks_section %}
             {% endif %}
 
             {% if page.bottom_line_section %}
-                {% include "patterns/components/streamfield.html" with streamfield=page.bottom_line_section %}
+                {% include "patterns/components/_streamfield.html" with streamfield=page.bottom_line_section %}
             {% endif %}
 
             {% if page.products_mentioned.exists %}
-                {% include "patterns/components/nothing_personal/product_review_page/products_mentioned.html" with products=products_mentioned %}
+                {% include "patterns/components/nothing_personal/product_review_page/_products_mentioned.html" with products=products_mentioned %}
             {% endif %}
         </article>
 
@@ -44,7 +44,7 @@
                     <div class="cell small-12">
                         {% trans "More Reviews" as localized_more_reviews %}
                         {% with heading=localized_more_reviews items=latest_product_reviews items_per_row=5 image_ratio="2:3" show_author=False image_field="hero_image" %}
-                            {% include "patterns/components/related_content.html" %}
+                            {% include "patterns/components/_related_content.html" %}
                         {% endwith %}
                     </div>
                 </div>
