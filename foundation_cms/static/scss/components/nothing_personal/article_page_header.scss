@@ -43,8 +43,44 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   &__hero-figure {
     width: 100%;
     margin: 0;
+  }
+
+  &__hero-media {
     aspect-ratio: math.div(16, 9);
     overflow: hidden;
+    width: 100%;
+  }
+
+  &__hero-caption {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: rem-calc(16);
+    margin-bottom: 0;
+    margin-left: auto;
+    max-width: 100%;
+    width: fit-content;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -0.15rem;
+      width: rem-calc(27);
+      height: rem-calc(18);
+      background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    @include breakpoint(small only) {
+      width: 100%;
+      margin-left: 0;
+      margin-top: rem-calc(16);
+    }
   }
 
   &__picture {
