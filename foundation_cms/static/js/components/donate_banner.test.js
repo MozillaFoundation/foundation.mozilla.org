@@ -139,4 +139,21 @@ describe("initDonateBanner", () => {
       "donate-banner-link-click",
     );
   });
+
+  it("tracks legacy donate CTA clicks when wagtail A/B testing is enabled", () => {
+    buildBannerMarkup({ siteType: "legacy" });
+    window.wagtailAbTesting = {
+      triggerEvent: vi.fn(),
+    };
+    const legacyCtaButton = document.querySelector(
+      ".donate-banner__cta-button",
+    );
+
+    initDonateBanner();
+    legacyCtaButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+    expect(window.wagtailAbTesting.triggerEvent).toHaveBeenCalledWith(
+      "donate-banner-link-click",
+    );
+  });
 });

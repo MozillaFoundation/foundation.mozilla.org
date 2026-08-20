@@ -12,42 +12,60 @@ function buildLightboxMarkup() {
 }
 
 describe("initDonateLightbox", () => {
+  let showModalSpy;
+  let closeSpy;
+  let originalShowModal;
+  let originalClose;
+
   beforeEach(() => {
     document.body.innerHTML = "";
     delete window.wagtailAbTesting;
-    HTMLDialogElement.prototype.showModal = vi.fn();
-    HTMLDialogElement.prototype.close = vi.fn();
+    originalShowModal = HTMLDialogElement.prototype.showModal;
+    originalClose = HTMLDialogElement.prototype.close;
+    showModalSpy = vi.fn();
+    closeSpy = vi.fn();
+    HTMLDialogElement.prototype.showModal = showModalSpy;
+    HTMLDialogElement.prototype.close = closeSpy;
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    if (originalShowModal) {
+      HTMLDialogElement.prototype.showModal = originalShowModal;
+    } else {
+      delete HTMLDialogElement.prototype.showModal;
+    }
+
+    if (originalClose) {
+      HTMLDialogElement.prototype.close = originalClose;
+    } else {
+      delete HTMLDialogElement.prototype.close;
+    }
   });
 
   it("does nothing when the lightbox is missing", () => {
     document.body.innerHTML = "";
 
     expect(() => initDonateLightbox()).not.toThrow();
+    expect(showModalSpy).not.toHaveBeenCalled();
   });
 
   it("opens the lightbox on initialization", () => {
     buildLightboxMarkup();
-    const lightbox = document.querySelector("dialog.donate-lightbox");
 
     initDonateLightbox();
 
-    expect(lightbox.showModal).toHaveBeenCalledTimes(1);
+    expect(showModalSpy).toHaveBeenCalledTimes(1);
   });
 
   it("closes the lightbox when the close button is clicked", () => {
     buildLightboxMarkup();
-    const lightbox = document.querySelector("dialog.donate-lightbox");
 
     initDonateLightbox();
     document
       .querySelector("[data-donate-lightbox-close-button]")
       .dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
-    expect(lightbox.close).toHaveBeenCalledTimes(1);
+    expect(closeSpy).toHaveBeenCalledTimes(1);
   });
 
   it("closes the lightbox when clicking the backdrop", () => {
@@ -59,12 +77,23 @@ describe("initDonateLightbox", () => {
       new MouseEvent("click", { bubbles: false, cancelable: true }),
     );
 
-    expect(lightbox.close).toHaveBeenCalledTimes(1);
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not close the lightbox when clicking inside the modal content", () => {
+    buildLightboxMarkup();
+
+    initDonateLightbox();
+    document
+      .querySelector(".donate-lightbox__content")
+      .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+    expect(closeSpy).not.toHaveBeenCalled();
   });
 
   it("tracks donate CTA clicks and closes the lightbox", () => {
     buildLightboxMarkup();
-    const lightbox = document.querySelector("dialog.donate-lightbox");
+
     window.wagtailAbTesting = {
       triggerEvent: vi.fn(),
     };
@@ -77,6 +106,6 @@ describe("initDonateLightbox", () => {
     expect(window.wagtailAbTesting.triggerEvent).toHaveBeenCalledWith(
       "donate-banner-link-click",
     );
-    expect(lightbox.close).toHaveBeenCalledTimes(1);
+    expect(closeSpy).toHaveBeenCalledTimes(1);
   });
 });
