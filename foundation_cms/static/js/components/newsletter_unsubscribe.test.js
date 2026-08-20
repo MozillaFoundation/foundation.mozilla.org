@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../../utils/csrf.js", () => ({
+vi.mock("../utils/csrf.js", () => ({
   ensureCsrfToken: vi.fn().mockResolvedValue("test-csrf-token"),
 }));
 
+import { ensureCsrfToken } from "../utils/csrf.js";
 import injectNewsletterSignups from "./newsletter_unsubscribe.js";
 
 let fetchMock;
@@ -19,6 +20,9 @@ function buildUnsubscribeMarkup() {
           <span class="btn-primary__rolltext">Unsubscribe</span>
         </button>
       </form>
+      <p class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
+        You have been unsubscribed
+      </p>
       <p class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
         Something went wrong
       </p>
@@ -34,11 +38,30 @@ function mockFetchResponse({ status, ok, body }) {
   }));
 }
 
+function mockLocationAssign() {
+  const assign = vi.fn();
+  const originalLocation = window.location;
+
+  delete window.location;
+  window.location = {
+    href: "https://foundation.test/current-page/",
+    assign,
+  };
+
+  return {
+    assign,
+    restore: () => {
+      window.location = originalLocation;
+    },
+  };
+}
+
 describe("injectNewsletterSignups (unsubscribe)", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
     fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
+    ensureCsrfToken.mockClear();
   });
 
   afterEach(() => {
@@ -52,32 +75,79 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
       injectNewsletterSignups("https://foundation.test"),
     ).not.toThrow();
     expect(fetchMock).not.toHaveBeenCalled();
+    expect(ensureCsrfToken).not.toHaveBeenCalled();
   });
 
   it("shows a validation error and skips the API call for invalid email addresses", () => {
     buildUnsubscribeMarkup();
     const form = document.querySelector(".newsletter-signup__form");
+    const emailError = document.querySelector(".email-error-message");
 
     injectNewsletterSignups("https://foundation.test");
     form.dispatchEvent(
       new Event("submit", { bubbles: true, cancelable: true }),
     );
 
+    expect(
+      emailError.classList.contains("newsletter-signup__field-error--hidden"),
+    ).toBe(false);
     expect(fetchMock).not.toHaveBeenCalled();
+    expect(ensureCsrfToken).not.toHaveBeenCalled();
   });
 
-  it("submits valid unsubscribe data to the API endpoint", async () => {
+  it("follows a server-directed redirect after a successful unsubscribe", async () => {
     buildUnsubscribeMarkup();
     mockFetchResponse({
       status: 200,
       ok: true,
       body: { redirect: "https://foundation.test/unsubscribed/" },
     });
+    const { assign, restore } = mockLocationAssign();
     const form = document.querySelector(".newsletter-signup__form");
     const emailInput = document.querySelector("input[name='email']");
-    const submitButton = document.querySelector(".newsletter-signup__button");
-    const errorMessage = document.querySelector(
-      ".newsletter-signup__error-message",
+
+    injectNewsletterSignups("https://foundation.test");
+
+    emailInput.value = "person@example.com";
+    form.dispatchEvent(
+      new Event("submit", { bubbles: true, cancelable: true }),
+    );
+
+    await vi.waitFor(() => {
+      expect(ensureCsrfToken).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://foundation.test/newsletter-unsubscribe/",
+        expect.objectContaining({
+          method: "POST",
+          headers: expect.objectContaining({
+            "X-CSRFToken": "test-csrf-token",
+          }),
+          body: JSON.stringify({
+            email: "person@example.com",
+            source: window.location.href,
+          }),
+        }),
+      );
+      expect(assign).toHaveBeenCalledWith(
+        "https://foundation.test/unsubscribed/",
+      );
+    });
+
+    restore();
+  });
+
+  it("shows the success message for a non-redirect unsubscribe response", async () => {
+    buildUnsubscribeMarkup();
+    mockFetchResponse({
+      status: 201,
+      ok: true,
+      body: { status: "ok" },
+    });
+    const form = document.querySelector(".newsletter-signup__form");
+    const emailInput = document.querySelector("input[name='email']");
+    const successMessage = document.querySelector(
+      ".newsletter-signup__success-message",
     );
 
     injectNewsletterSignups("https://foundation.test");
@@ -88,26 +158,15 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
     );
 
     await vi.waitFor(() => {
-      expect(fetchMock).toHaveBeenCalledWith(
-        "https://foundation.test/newsletter-unsubscribe/",
-        expect.objectContaining({
-          method: "POST",
-          body: JSON.stringify({
-            email: "person@example.com",
-            source: window.location.href,
-          }),
-        }),
+      expect(ensureCsrfToken).toHaveBeenCalledTimes(1);
+      expect(form.classList.contains("newsletter-signup__form--hidden")).toBe(
+        true,
       );
-    });
-
-    await vi.waitFor(() => {
-      expect(submitButton.disabled).toBe(false);
-      expect(submitButton.getAttribute("aria-busy")).toBeNull();
       expect(
-        errorMessage.classList.contains(
-          "newsletter-signup__error-message--hidden",
+        successMessage.classList.contains(
+          "newsletter-signup__success-message--hidden",
         ),
-      ).toBe(true);
+      ).toBe(false);
     });
   });
 
