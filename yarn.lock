@@ -779,15 +779,24 @@
     "@percy/sdk-utils" "1.32.6"
     systeminformation "^5.25.11"
 
-"@percy/playwright@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@percy/playwright/-/playwright-1.1.1.tgz#2dc3e365dbacbcbcea580e68c8e50f798a0e8765"
-  integrity sha512-aEzMgvlNV9ork/hvCcQamEa9Xi00GYJhtO01xic000LBv6lvveie91n9Scpysfueaf2RFF5goBRf2IoI0wKTFA==
+"@percy/playwright@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@percy/playwright/-/playwright-1.1.2.tgz#82e659b34f2d1bdeec89f3df5ea36ce386fd7f85"
+  integrity sha512-IghZHmh1+R3gvneOd//+HbN2xg6e6qgnMy9yJ5V7vWJ49JpkHeU5Esjs1qI9EqFMHKAg0zOorDQ0mJRglQpkyw==
+  dependencies:
+    "@percy/sdk-utils" "^1.32.0"
 
 "@percy/sdk-utils@1.32.6":
   version "1.32.6"
   resolved "https://registry.yarnpkg.com/@percy/sdk-utils/-/sdk-utils-1.32.6.tgz#06665282db613e0e968b7f8591e27632e015edfd"
   integrity sha512-dtS4jFz55zQzd0tAtxpt77w4gMeySEjLZEDFHrs3mtmpmnjRlSD0koYl8pj4/X3f375SmXTXG4+xIRgPpSTgZw==
+  dependencies:
+    pac-proxy-agent "^7.0.2"
+
+"@percy/sdk-utils@^1.32.0":
+  version "1.32.7"
+  resolved "https://registry.yarnpkg.com/@percy/sdk-utils/-/sdk-utils-1.32.7.tgz#a1ebfc2d4959e12e9798470dc4072429a5496afd"
+  integrity sha512-KlKOgSakEIeLn2CA5IAgq0inXhGtltxzvBOUdOPT43WQMIMHN64hzg6MCEwBRoxJ9umXvfs6bw38JyQizkrpvQ==
   dependencies:
     pac-proxy-agent "^7.0.2"
 

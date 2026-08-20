@@ -111,7 +111,7 @@
   "devDependencies": {
     "@axe-core/react": "^4.11.3",
     "@percy/cli": "^1.32.6",
-    "@percy/playwright": "^1.1.1",
+    "@percy/playwright": "^1.1.2",
     "@playwright/test": "^1.60.0",
     "browserslist": "^4.28.8",
     "chokidar-cli": "^3.0.0",
