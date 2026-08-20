@@ -3,7 +3,8 @@ from factory.django import DjangoModelFactory
 from wagtail.models import Locale
 from wagtail.rich_text import RichText
 
-from foundation_cms.snippets.models import NewsletterSignup
+from foundation_cms.base.factories import ImageFactory
+from foundation_cms.snippets.models import IllustratedNewsletterSignup, NewsletterSignup
 from foundation_cms.snippets.models.newsletter_signup import FooterNewsletterSignup
 from foundation_cms.snippets.models.notice_banner import NoticeBanner
 
@@ -32,6 +33,17 @@ class NoticeBannerFactory(DjangoModelFactory):
 
     # Lazy Values
     body_text = factory.Faker("paragraph", nb_sentences=2, variable_nb_sentences=False)
+
+class IllustratedNewsletterSignupFactory(DjangoModelFactory):
+    class Meta:
+        model = IllustratedNewsletterSignup
+
+    name = factory.Faker("sentence", nb_words=3)
+    heading = factory.Faker("sentence", nb_words=6)
+    button_text = "Sign Up"
+    illustration = factory.SubFactory(ImageFactory)
+    newsletter = "mozilla-foundation"
+    locale = factory.LazyFunction(Locale.get_default)
 
 
 def ensure_homepage_newsletters(site):

@@ -99,7 +99,7 @@
     </head>
     <body class="legacy {% block bodyclass %}{% endblock %}" id="view-{% block body_id %}{% endblock %}" data-site-type="{% block dataSiteType %}legacy{% endblock dataSiteType %}">
         {% if user.is_authenticated %}
-            {% wagtailuserbar 'bottom-right' %}
+            {% wagtailuserbar 'bottom-left' %}
         {% endif %}
 
         {% if page.live == False %}
@@ -121,7 +121,7 @@
                 <div class="{% block sticky_top_class %} sticky-top {% endblock %} d-print-none">
                     {% block primary_nav %}
                         {% if parent_homepage == "redesign" %}
-                            {% include "patterns/components/primary_nav.html" %}
+                            {% include "patterns/components/navigation/primary_nav.html" %}
                         {% else %}
                             {% with nav_menu=settings.nav.SiteNavMenu.active_nav_menu %}
                                 {% if nav_menu %}

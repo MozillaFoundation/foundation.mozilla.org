@@ -1,8 +1,7 @@
 basket-client
 beautifulsoup4
 boto3
-cached_property==2.0.1
-Django==5.2.15
+Django==5.2.17
 dj-database-url
 djangorestframework
 django-cors-headers
@@ -25,7 +24,7 @@ pygit2==1.14.0
 python-slugify
 requests
 social-auth-app-django
-wagtail==7.2.3
+wagtail==7.4.2
 wagtail-ab-testing
 wagtail-color-panel
 wagtail-factories

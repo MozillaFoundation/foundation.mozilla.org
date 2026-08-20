@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField, StreamField
@@ -48,6 +49,8 @@ class ProductMentioned(Orderable):
 
 
 class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
+
+    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
 
     body = None
     updated = models.DateField(null=True, blank=True, help_text="When the review was last updated.")
@@ -229,12 +232,12 @@ class NothingPersonalProductReviewPage(AbstractArticlePage, HeroImageMixin):
             (
                 "what_you_should_know",
                 self.what_you_should_know_section,
-                "What You Should Know",
+                _("What You Should Know"),
                 "what-you-should-know",
             ),
-            ("good_and_bad", self.good_and_bad_section, "The Good and The Bad", "good-and-bad"),
-            ("reduce_your_risks", self.reduce_your_risks_section, "Reduce Your Risks", "reduce-your-risks"),
-            ("bottom_line", self.bottom_line_section, "The Bottom Line", "bottom-line"),
+            ("good_and_bad", self.good_and_bad_section, _("The Good and The Bad"), "good-and-bad"),
+            ("reduce_your_risks", self.reduce_your_risks_section, _("Reduce Your Risks"), "reduce-your-risks"),
+            ("bottom_line", self.bottom_line_section, _("The Bottom Line"), "bottom-line"),
         ]
 
         sections = []

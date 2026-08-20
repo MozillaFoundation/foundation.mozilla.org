@@ -52,7 +52,7 @@
                 <div class="expert-hub-card" id="expert-hub-card" role="dialog" aria-modal="true" aria-label="{% trans "Expert profile" %}" hidden>
                     <div class="expert-hub-card__panel">
                         <div class="expert-hub-card__inner">
-                            {% include "patterns/components/buttons/btn_close.html" with data_attr_for_js_to_target="data-lightbox-close" only %}
+                            {% include "patterns/components/buttons/_btn_close.html" with data_attr_for_js_to_target="data-lightbox-close" only %}
                             <img class="expert-hub-card__image" src="" alt="" width="0" height="0">
                             <p class="expert-hub-card__blurb"></p>
                             <strong class="expert-hub-card__name"></strong>
@@ -63,15 +63,17 @@
             </div>
         </div>
 
+        {% comment %}
         <div class="grid-x grid-margin-x">
             <div class="cell small-12 large-offset-1 large-10 xlarge-offset-2 xlarge-8">
-                {% include "patterns/components/profiles/expert_hub_cta.html" %}
+                {% include "patterns/components/profiles/_expert_hub_cta.html" %}
             </div>
         </div>
+        {% endcomment %}
 
     </div>
 
     {% if page.body %}
-        {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+        {% include "patterns/components/_streamfield.html" with streamfield=page.body %}
     {% endif %}
 {% endblock content %}

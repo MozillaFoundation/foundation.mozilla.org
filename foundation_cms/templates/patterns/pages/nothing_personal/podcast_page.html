@@ -15,7 +15,7 @@
                         <div class="hero__title">{{ page.hero_title }}</div>
                         <div class="hero__topics">
                             {% with topics=page.topics.all %}
-                                {% include "patterns/components/topic_pills.html" with topics=page.topics.all %}
+                                {% include "patterns/components/_topic_pills.html" with topics=page.topics.all %}
                             {% endwith %}
                         </div>
                         <div class="hero__description lede-text">{{ page.hero_description }}</div>
@@ -37,7 +37,7 @@
             </div>
         </div>
         {% if page.body %}
-            {% include "patterns/components/streamfield.html" with streamfield=page.body classnames="small-12 large-8" %}
+            {% include "patterns/components/_streamfield.html" with streamfield=page.body classnames="small-12 large-8" %}
         {% endif %}
     </main>
 {% endblock content %}

@@ -57,7 +57,6 @@ class BuyersGuideArticlePage(BasePage):
             ("video", customblocks.VideoBlock()),
             ("linkbutton", customblocks.LinkButtonBlock()),
             ("looping_video", customblocks.LoopingVideoBlock()),
-            ("pulse_listing", customblocks.PulseProjectList()),
             ("single_quote", customblocks.SingleQuoteBlock()),
             ("slider", customblocks.FoundationSliderBlock()),
             ("spacer", customblocks.BootstrapSpacerBlock()),

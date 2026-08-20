@@ -13,6 +13,15 @@ HERO_CONTENT_VIDEO = "video"
 
 class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
 
+    lede_text = models.TextField(blank=True, help_text="Optional introductory lede text (plain text only).")
+
+    hero_caption = models.CharField(
+        max_length=70,
+        blank=True,
+        verbose_name="Hero caption",
+        help_text="Optional credit displayed beneath the hero image or video.",
+    )
+
     share_section_heading = models.CharField(
         max_length=255,
         default="Enjoyed this? Share it!",
@@ -29,12 +38,35 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
     )
 
     content_panels = AbstractArticlePage.content_panels + [
-        MediaPanel.create_default(
+        MediaPanel(
+            [
+                FieldPanel("displayed_hero_content"),
+                FieldPanel(
+                    "hero_image",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": HeroMediaMixin.HERO_CONTENT_IMAGE,
+                    },
+                ),
+                FieldPanel(
+                    "hero_image_alt_text",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": HeroMediaMixin.HERO_CONTENT_IMAGE,
+                    },
+                ),
+                FieldPanel(
+                    "hero_video_url",
+                    attrs={
+                        "data-media-target": "field",
+                        "data-condition": HeroMediaMixin.HERO_CONTENT_VIDEO,
+                    },
+                ),
+                FieldPanel("hero_caption"),
+            ],
             heading="Hero Section",
             classname="collapsible",
             trigger_field="displayed_hero_content",
-            image_field="hero_image",
-            video_field="hero_video_url",
         ),
         FieldPanel("lede_text"),
         FieldPanel("body"),
@@ -54,6 +86,7 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
         SynchronizedField("hero_image"),
         TranslatableField("hero_image_alt_text"),
         SynchronizedField("hero_video_url"),
+        TranslatableField("hero_caption"),
         TranslatableField("lede_text"),
         TranslatableField("body"),
         TranslatableField("share_section_heading"),
@@ -63,6 +96,7 @@ class NothingPersonalArticlePage(AbstractArticlePage, HeroMediaMixin):
     search_fields = AbstractArticlePage.search_fields + [
         index.SearchField("lede_text", boost=8),
         index.SearchField("hero_image_alt_text", boost=2),
+        index.SearchField("hero_caption", boost=2),
     ]
 
     parent_page_types = ["nothing_personal.NothingPersonalHomePage"]

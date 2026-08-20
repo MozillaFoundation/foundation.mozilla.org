@@ -34,6 +34,10 @@ const sources = {
     jsx: "automatic",
     bundle: true,
   },
+  "csrf-global": {
+    source: "common/csrf-global.js",
+    bundle: true,
+  },
   mozfest: {
     source: "foundation/pages/mozfest/index.js",
     jsx: "automatic",
@@ -42,9 +46,6 @@ const sources = {
   callpower: {
     source: "foundation/pages/callpower.js",
     bundle: true,
-  },
-  "directory-listing-filters": {
-    source: "foundation/pages/directory-listing-filters.js",
   },
   "bg-main": {
     source: "buyers-guide/bg-main.js",

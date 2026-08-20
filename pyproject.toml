@@ -233,12 +233,11 @@ ignore="H017"
 # Ignores for Redesign
 "foundation_cms/templates/500.html" = "H030, H031"
 "foundation_cms/templates/base/base.html" = "H031"
-"foundation_cms/templates/patterns/components/primary_nav.html" = "D018"
 "foundation_cms/templates/patterns/components/navigation/primary_nav.html" = "D018"
 "foundation_cms/templates/patterns/components/footer.html" = "D018"
-"foundation_cms/templates/patterns/components/footer/footer_content.html" = "D018"
+"foundation_cms/templates/patterns/components/footer/_footer_content.html" = "D018"
 "foundation_cms/campaigns/templates/campaigns/components/formassembly_body.html" = "H021, H026"
-"foundation_cms/templates/patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_body.html" = "H020, H021, H026"
+"foundation_cms/templates/patterns/blocks/themes/default/fragments/donor_help_contact_us_form/_formassembly_body.html" = "H020, H021, H026"
 
 [tool.isort]
 profile = "black"

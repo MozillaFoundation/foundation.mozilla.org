@@ -1,0 +1,27 @@
+{% load navigation_tags %}
+
+{% primary_nav_dropdown_is_active active_link value as dropdown_is_active %}
+{% navigation_link_is_active active_link value.header as header_is_active %}
+{% primary_nav_link_is_current request value.header as header_is_current %}
+
+<div class="primary-nav-ns__menu-item{% if dropdown_is_active %} primary-nav-ns__menu-item--active{% endif %}">
+  {% if header_is_active %}
+    {% include "patterns/components/_link.html" with value=value.header classnames="nav-link primary-nav-ns__link primary-nav-ns__link--active" aria_current=header_is_current|yesno:"page," %}
+  {% else %}
+    {% include "patterns/components/_link.html" with value=value.header classnames="nav-link primary-nav-ns__link" %}
+  {% endif %}
+
+  {% if value.dropdown_items %}
+    <div class="primary-nav-ns__dropdown">
+      {% for item in value.dropdown_items %}
+        {% navigation_link_is_active active_link item as item_is_active %}
+        {% primary_nav_link_is_current request item as item_is_current %}
+        {% if item_is_active %}
+          {% include "patterns/components/_link.html" with value=item classnames="nav-link primary-nav-ns__link primary-nav-ns__link--active" aria_current=item_is_current|yesno:"page," %}
+        {% else %}
+          {% include "patterns/components/_link.html" with value=item classnames="nav-link primary-nav-ns__link" %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

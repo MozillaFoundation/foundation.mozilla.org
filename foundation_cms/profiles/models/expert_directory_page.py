@@ -178,7 +178,7 @@ class ExpertDirectoryPage(RoutablePageMixin, AbstractBasePage):
             context = self._get_listing_context(request)
             return TemplateResponse(
                 request,
-                "patterns/pages/profiles/_expert_listing.html",
+                "patterns/components/profiles/_expert_listing.html",
                 context,
             )
         return super().serve(request, *args, **kwargs)
