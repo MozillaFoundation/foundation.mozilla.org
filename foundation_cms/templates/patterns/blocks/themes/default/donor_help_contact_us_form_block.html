@@ -7,7 +7,7 @@
                 <h3>{% trans "Success!" %}</h3>
                 <p>{% trans "Your form has been submitted." %}</p>
                 {% trans "Ask another question" as ask_another_label %}
-                {% include "patterns/components/button.html" with button_style="btn-secondary" url=page.url|add:"#contact-form" label=ask_another_label %}
+                {% include "patterns/components/_button.html" with button_style="btn-secondary" url=page.url|add:"#contact-form" label=ask_another_label %}
             </div>
         {% else %}
             {% if value.image %}
@@ -24,7 +24,7 @@
                 {% if value.subheading %}
                     <p>{{ value.subheading }}</p>
                 {% endif %}
-                {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_body.html" %}
+                {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/_formassembly_body.html" %}
             </div>
         {% endif %}
     </div>

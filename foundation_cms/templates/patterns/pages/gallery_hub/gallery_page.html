@@ -71,7 +71,7 @@
 
             <div class="gallery-hub__projects" data-gallery-hub-projects>
                 {% for project in featured_projects %}
-                    {% include "patterns/components/gallery_hub/project_card.html" with project=project project_index=forloop.counter0 project_slot=forloop.counter is_active=forloop.first only %}
+                    {% include "patterns/components/gallery_hub/_project_card.html" with project=project project_index=forloop.counter0 project_slot=forloop.counter is_active=forloop.first only %}
                 {% empty %}
                     <div class="gallery-hub__empty">
                         <p>{% trans "No gallery projects have been selected yet." %}</p>

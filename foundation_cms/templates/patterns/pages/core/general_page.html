@@ -6,7 +6,7 @@
     {{ block.super }}
     {# If the page body contains a Donor Help Contact Us Form block, include the FormAssembly head fragment so the form's required JS is loaded in <head>. #}
     {% if has_donor_contact_us_form %}
-        {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/formassembly_head.html" %}
+        {% include "patterns/blocks/themes/default/fragments/donor_help_contact_us_form/_formassembly_head.html" %}
     {% endif %}
 {% endblock extended_head %}
 
@@ -14,18 +14,18 @@
     <div class="general-page">
         <div class="general-page__body">
             {% if page.show_hero %}
-                {% include "patterns/components/hero.html" %}
+                {% include "patterns/components/_hero.html" %}
             {% else %}
                 <div class="grid-container">
                     <h1>{{ page.title }}</h1>
                 </div>
             {% endif %}
             {% if horizontal_link_block %}
-                {% include "patterns/components/navigation/horizontal_link_block.html" with block=horizontal_link_block %}
+                {% include "patterns/components/navigation/_horizontal_link_block.html" with block=horizontal_link_block %}
             {% endif %}
             <div class="container">
                 {% if page.body %}
-                    {% include "patterns/components/streamfield.html" with streamfield=page.body %}
+                    {% include "patterns/components/_streamfield.html" with streamfield=page.body %}
                 {% endif %}
             </div>
         </div>

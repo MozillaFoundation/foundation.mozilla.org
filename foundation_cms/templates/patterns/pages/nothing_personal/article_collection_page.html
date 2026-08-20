@@ -11,5 +11,5 @@
 {% block listing_title %}{% trans "Articles" %}{% endblock listing_title %}
 
 {% block listing_result %}
-    {% include "patterns/components/listing_page/section.html" with pages=localized_article_pages show_published_date=True %}
+    {% include "patterns/components/listing_page/_section.html" with pages=localized_article_pages show_published_date=True %}
 {% endblock listing_result %}
