@@ -83,7 +83,6 @@ jobs:
   test_backend:
     name: Backend Test Suite
     runs-on: ubuntu-22.04
-    needs: preroll
     services:
       postgres:
         image: postgres:15
@@ -122,10 +121,6 @@ jobs:
         with:
           python-version: 3.11
           cache: "pip"
-      - name: Download preroll artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: preroll-static
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Cache APT packages
@@ -149,7 +144,7 @@ jobs:
           python ./manage.py block_inventory
           python ./manage.py compilemessages
       - name: Run Tests
-        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.base --cov=foundation_cms --cov-report=term-missing
+        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.test --cov=foundation_cms --cov-report=term-missing
 
   test_integration:
     name: Integration Tests
