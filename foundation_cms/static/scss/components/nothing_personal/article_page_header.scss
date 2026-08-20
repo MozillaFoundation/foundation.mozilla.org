@@ -5,9 +5,9 @@ body.nothing-personal.nothing-personal-article-page .article-header {
   &__meta {
     z-index: 1;
     position: relative;
-    margin-left: rem-calc(-6);
     margin-bottom: rem-calc(-54);
     height: fit-content;
+    text-align: center;
 
     @include breakpoint(large up) {
       margin-bottom: -100%;
