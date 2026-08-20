@@ -47,6 +47,12 @@ describe("CSRF utilities", () => {
     });
   });
 
+  it("returns an empty token when minting succeeds without setting a cookie", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }));
+
+    await expect(ensureCsrfToken()).resolves.toBe("");
+  });
+
   it.each([
     ["an unsuccessful response", vi.fn().mockResolvedValue({ ok: false })],
     ["a network failure", vi.fn().mockRejectedValue(new Error("offline"))],
@@ -83,6 +89,29 @@ describe("CSRF utilities", () => {
     expect(mirror.type).toBe("hidden");
     expect(mirror.name).toBe("action");
     expect(mirror.value).toBe("share");
+  });
+
+  it("submits the form with an empty token when token minting fails", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false }));
+    document.body.innerHTML = `
+      <form data-csrf-form>
+        <input type="hidden" data-csrf-field name="csrfmiddlewaretoken">
+      </form>
+    `;
+    const form = document.querySelector("form");
+    const field = form.querySelector("[data-csrf-field]");
+    const submitSpy = vi.spyOn(form, "submit").mockImplementation(() => {});
+    initCsrfForms();
+    const event = new SubmitEvent("submit", {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    form.dispatchEvent(event);
+
+    await vi.waitFor(() => expect(submitSpy).toHaveBeenCalledOnce());
+    expect(event.defaultPrevented).toBe(true);
+    expect(field.value).toBe("");
   });
 
   it("allows a form with an existing token to submit normally", () => {

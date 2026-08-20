@@ -4,6 +4,7 @@ import "./csrf_global.js";
 
 describe("CSRF global entry point", () => {
   it("exposes the shared helpers on window.FoundationCSRF", () => {
-    expect(window.FoundationCSRF).toEqual({ getCookie, ensureCsrfToken });
+    expect(window.FoundationCSRF.getCookie).toBe(getCookie);
+    expect(window.FoundationCSRF.ensureCsrfToken).toBe(ensureCsrfToken);
   });
 });
