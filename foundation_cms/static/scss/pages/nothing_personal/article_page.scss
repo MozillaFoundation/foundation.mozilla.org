@@ -38,6 +38,8 @@ body.nothing-personal.nothing-personal-article-page {
   }
 
   .brand-banner {
+    margin-bottom: $block-spacing-large;
+
     @include breakpoint(medium up) {
       margin-top: 1rem;
     }
