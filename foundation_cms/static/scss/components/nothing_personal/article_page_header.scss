@@ -10,8 +10,7 @@ body.nothing-personal.nothing-personal-article-page .article-header {
     text-align: center;
 
     @include breakpoint(large up) {
-      margin-bottom: -100%;
-      margin-top: rem-calc(60);
+      margin-bottom: rem-calc(-70);
     }
   }
 

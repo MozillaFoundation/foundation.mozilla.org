@@ -98,6 +98,16 @@ class ArticlePageHeaderTemplateTests(SimpleTestCase):
         )
         self.assertIn('class="article-header__hero cell small-12"', html)
 
+    def test_parent_tagline_is_not_rendered(self):
+        html = self.render_header(
+            get_parent=lambda: SimpleNamespace(
+                specific=SimpleNamespace(tagline="<p>A visible Nothing Personal tagline</p>")
+            )
+        )
+
+        self.assertNotIn("article-header__tagline", html)
+        self.assertNotIn("A visible Nothing Personal tagline", html)
+
     def test_video_author_and_caption_are_preserved(self):
         html = self.render_header()
 
