@@ -1,0 +1,126 @@
+// Page-level notice strip (NoticeBanner snippet, chosen on a page's Promote tab).
+// Renders full-bleed directly below the primary nav, above the page hero/content.
+// Imported by both _redesign_base.scss and redesign_migrated_content.scss so the
+// component looks the same on redesign and legacy templates.
+
+.notice-banner {
+  background-color: color(yellow, "100");
+  border-top: 1px solid color(yellow, "300");
+  color: $black;
+
+  .grid-container {
+    padding-left: rem-calc(20);
+    padding-right: rem-calc(20);
+
+    @include breakpoint(medium up) {
+      padding-left: rem-calc(64);
+      padding-right: rem-calc(64);
+    }
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem-calc(32);
+    padding: rem-calc(32) 0;
+
+    @include breakpoint(medium up) {
+      gap: rem-calc(16);
+    }
+
+    @include breakpoint(large up) {
+      flex-direction: row;
+      align-items: center;
+      gap: rem-calc(72);
+    }
+  }
+
+  &__body {
+    @include mofo-text-style($body-text-styles, "large");
+
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(8);
+    width: 100%;
+
+    @include breakpoint(large up) {
+      flex: 1 0 0;
+      max-width: rem-calc(897);
+      min-width: 0;
+    }
+
+    h4,
+    h5,
+    h6 {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__cta {
+    flex-shrink: 0;
+    width: 100%;
+
+    @include breakpoint(large up) {
+      width: auto;
+    }
+
+    .link-button-block {
+      width: 100%;
+
+      @include breakpoint(large up) {
+        width: auto;
+      }
+    }
+
+    a[class*="btn-"] {
+      @include mofo-text-style($body-text-styles, "regular");
+
+      margin: 0;
+      width: 100%;
+      height: rem-calc(56);
+      justify-content: center;
+      gap: rem-calc(8);
+      padding: rem-calc(12) rem-calc(16) rem-calc(12) rem-calc(24);
+      background-color: transparent;
+      border: 1px solid color(neutral, "600");
+      color: color(neutral, "600");
+      font-weight: 700;
+
+      @include breakpoint(large up) {
+        width: rem-calc(235);
+      }
+
+      &::after {
+        width: rem-calc(32);
+        height: rem-calc(32);
+        background-image: url("/static/foundation_cms/_images/icons/link.svg");
+      }
+
+      &.btn-primary {
+        background-color: transparent;
+        color: color(neutral, "600");
+      }
+    }
+  }
+}
