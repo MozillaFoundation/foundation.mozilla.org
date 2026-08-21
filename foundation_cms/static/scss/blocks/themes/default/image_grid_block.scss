@@ -64,6 +64,12 @@
       color: $black;
     }
 
+    &:hover .image-grid__caption {
+      text-decoration: underline;
+      text-decoration-color: $highlight-color;
+      text-underline-offset: 2px;
+    }
+
     &:focus-visible {
       outline: none;
 
@@ -81,9 +87,6 @@
   &__caption {
     margin-top: 0.75rem;
     color: $black;
-    text-decoration: underline;
-    text-decoration-color: $highlight-color;
-    text-underline-offset: 2px;
 
     p {
       color: $black;
