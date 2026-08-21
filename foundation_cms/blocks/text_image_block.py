@@ -1,3 +1,5 @@
+from typing import Any
+
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
@@ -37,6 +39,8 @@ class TextMediaBlock(TextImageBlock):
           TextImageBlock with a `ChoiceBlock` for style/variant selection.
     """
 
+    image: Any = None
+
     background_color = blocks.ChoiceBlock(
         choices=[
             ("white", "White"),
@@ -59,10 +63,6 @@ class TextMediaBlock(TextImageBlock):
         default="white",
     )
     media = CustomMediaBlock(required=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.child_blocks.pop("image", None)
 
     class Meta:
         icon = "image"
