@@ -54,12 +54,20 @@ describe("CSRF utilities", () => {
   });
 
   it.each([
-    ["an unsuccessful response", vi.fn().mockResolvedValue({ ok: false })],
-    ["a network failure", vi.fn().mockRejectedValue(new Error("offline"))],
-  ])("returns an empty token after %s", async (_label, fetchMock) => {
+    [
+      "an unsuccessful response",
+      () => vi.fn().mockResolvedValue({ ok: false }),
+    ],
+    [
+      "a network failure",
+      () => vi.fn().mockRejectedValue(new Error("offline")),
+    ],
+  ])("returns an empty token after %s", async (_label, createFetchMock) => {
+    const fetchMock = createFetchMock();
     vi.stubGlobal("fetch", fetchMock);
 
     await expect(ensureCsrfToken()).resolves.toBe("");
+    expect(fetchMock).toHaveBeenCalledOnce();
   });
 
   it("populates a form token and preserves the clicked submitter", async () => {
