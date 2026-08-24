@@ -11,7 +11,7 @@ django-environ
 django-filter
 django-htmx
 django-pattern-library
-django-redis
+django-redis==7.0.0
 django-storages
 django-querystring-tag
 python-jose>=3.3.0
