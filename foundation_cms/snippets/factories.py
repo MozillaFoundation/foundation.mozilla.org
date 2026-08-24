@@ -34,6 +34,7 @@ class NoticeBannerFactory(DjangoModelFactory):
     # Lazy Values
     body_text = factory.Faker("paragraph", nb_sentences=2, variable_nb_sentences=False)
 
+
 class IllustratedNewsletterSignupFactory(DjangoModelFactory):
     class Meta:
         model = IllustratedNewsletterSignup

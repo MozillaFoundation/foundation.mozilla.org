@@ -5,9 +5,13 @@ from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
-from foundation_cms.legacy_apps.wagtailpages.factory.primary_page import PrimaryPageFactory
+from foundation_cms.legacy_apps.wagtailpages.factory.primary_page import (
+    PrimaryPageFactory,
+)
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.blog.blog import BlogPage
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.campaigns import BanneredCampaignPage
+from foundation_cms.legacy_apps.wagtailpages.pagemodels.campaigns import (
+    BanneredCampaignPage,
+)
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.snippets.factories import NoticeBannerFactory
 from foundation_cms.snippets.models.notice_banner import NoticeBanner
@@ -86,7 +90,9 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
         self.assertEqual(fr_page.notice_banner_id, banner.id)
 
     def test_blog_page_and_abstract_base_page_declare_synchronized_notice_banner(self):
-        blog_fields = {field.field_name for field in BlogPage.translatable_fields if isinstance(field, SynchronizedField)}
+        blog_fields = {
+            field.field_name for field in BlogPage.translatable_fields if isinstance(field, SynchronizedField)
+        }
         abstract_fields = {
             field.field_name for field in AbstractBasePage.translatable_fields if isinstance(field, SynchronizedField)
         }
