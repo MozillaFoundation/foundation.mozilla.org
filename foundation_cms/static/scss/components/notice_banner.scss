@@ -78,6 +78,12 @@
 
     a[class*="btn-"] {
       margin-block: 0;
+      width: 100%;
+      justify-content: center;
+
+      @include breakpoint(medium up) {
+        width: max-content;
+      }
     }
   }
 }
