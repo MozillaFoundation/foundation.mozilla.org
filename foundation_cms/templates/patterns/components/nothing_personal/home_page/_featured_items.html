@@ -46,5 +46,13 @@
 
     {% endfor %}
 
+    {% if article_collection_page %}
+      <div class="cell featured-items__cta-wrapper small-12">
+        <a href="{{ article_collection_page.url }}" class="featured-items__cta cta-link--xlarge">
+          {% translate "See all articles" %}
+        </a>
+      </div>
+    {% endif %}
+
   </div>
 </div>
