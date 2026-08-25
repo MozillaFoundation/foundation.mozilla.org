@@ -124,7 +124,7 @@ types-python-slugify==8.0.2.20240310
     # via -r dev-requirements.in
 types-requests==2.33.0.20260712
     # via -r dev-requirements.in
-typing-extensions==4.4.0
+typing-extensions==4.16.0
     # via
     #   -c requirements.txt
     #   mypy

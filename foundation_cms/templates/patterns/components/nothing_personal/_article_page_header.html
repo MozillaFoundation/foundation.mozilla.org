@@ -1,14 +1,14 @@
 {% load wagtailimages_tags static responsive_image_tags %}
 
 <div class="article-header grid-x">
-  <header class="article-header__meta cell small-12 medium-10 medium-offset-1 large-8">
+  <header class="article-header__meta cell small-12 medium-10 medium-offset-1 large-8 large-offset-2">
     <h1 class="article-header__title">{{ page.title }}</h1>
     <span class="article-header__author-wrapper">
       <span class="article-header__author">{{ page.author.name }}</span>
     </span>
   </header>
 
-  <div class="article-header__hero cell small-12 medium-10 medium-offset-2 large-11 large-offset-1">
+  <div class="article-header__hero cell small-12">
     <figure class="article-header__hero-figure">
       <div class="article-header__hero-media">
         {% if page.displayed_hero_content == "video" and page.hero_video_url %}
