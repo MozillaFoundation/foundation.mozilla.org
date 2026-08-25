@@ -81,7 +81,7 @@ body.nothing-personal-home-page {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      margin-left: rem-calc(-8);
+      text-align: center;
       text-decoration: none;
       color: map.get($mofo-colors, black);
     }
