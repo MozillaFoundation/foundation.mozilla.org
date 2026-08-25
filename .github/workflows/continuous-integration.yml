@@ -193,6 +193,24 @@ jobs:
       - name: Combine and report coverage
         run: cd foundation_cms && coverage combine && coverage report
 
+  backend_test_suite:
+    # Required-status-check gate: sharding test_backend into a matrix means it now
+    # reports as separate checks per shard ("Backend Test Suite (shard 1/4)", etc.)
+    # instead of one "Backend Test Suite" check. This job stands in as that single
+    # check for branch protection -- see PR description for the required repo
+    # settings change needed alongside this.
+    name: Backend Test Suite
+    runs-on: ubuntu-22.04
+    needs: test_backend
+    if: always()
+    steps:
+      - name: Check shard results
+        run: |
+          if [ "${{ needs.test_backend.result }}" != "success" ]; then
+            echo "One or more Backend Test Suite shards failed: ${{ needs.test_backend.result }}"
+            exit 1
+          fi
+
   test_integration:
     name: Integration Tests
     runs-on: ubuntu-22.04
