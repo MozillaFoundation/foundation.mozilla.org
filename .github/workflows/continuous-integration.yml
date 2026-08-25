@@ -81,8 +81,12 @@ jobs:
           retention-days: 1
 
   test_backend:
-    name: Backend Test Suite
+    name: "Backend Test Suite (shard ${{ matrix.shard }}/${{ strategy.job-total }})"
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     services:
       postgres:
         image: postgres:15
@@ -128,10 +132,11 @@ jobs:
         with:
           path: /var/cache/apt/archives
           # run_id keeps the key always-miss so this re-saves fresh archives
-          # every run instead of freezing on whatever was cached first.
-          key: apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-${{ github.run_id }}
+          # every run instead of freezing on whatever was cached first. matrix.shard
+          # keeps concurrent shards from racing to save the same cache key.
+          key: apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-${{ matrix.shard }}-${{ github.run_id }}
           restore-keys: |
-            apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-
+            apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-${{ matrix.shard }}-
       - name: Install additional tooling
         run: |
           sudo apt-get update
@@ -143,8 +148,28 @@ jobs:
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py compilemessages
+      - name: Determine pytest worker count
+        id: workers
+        run: echo "count=$(python -c 'import os; print(os.cpu_count())')" >> "$GITHUB_OUTPUT"
+      - name: Pre-create sharded test databases
+        # Clones one fully-migrated database per xdist worker from a single migrated
+        # template, instead of letting each worker replay the full migration history
+        # itself (see prepare_sharded_test_databases for why this matters here).
+        run: python ./manage.py prepare_sharded_test_databases ${{ steps.workers.outputs.count }}
       - name: Run Tests
-        run: cd foundation_cms && pytest -n auto -v --ds=foundation_cms.settings.test --cov=foundation_cms --cov-report=term-missing
+        env:
+          COVERAGE_FILE: .coverage.${{ matrix.shard }}
+        run: >-
+          cd foundation_cms && pytest --reuse-db -n ${{ steps.workers.outputs.count }}
+          --splits ${{ strategy.job-total }} --group ${{ matrix.shard }}
+          -v --ds=foundation_cms.settings.test --cov=foundation_cms --cov-report=
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-data-${{ matrix.shard }}
+          path: foundation_cms/.coverage.${{ matrix.shard }}
+          retention-days: 1
+          include-hidden-files: true
 
   test_integration:
     name: Integration Tests
