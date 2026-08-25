@@ -8,6 +8,7 @@ const SELECTORS = {
   form: ".newsletter-signup__form",
   emailInput: "input[name='email']",
   emailErrorMessage: ".email-error-message",
+  successMessage: ".newsletter-signup__success-message",
   errorMessage: ".newsletter-signup__error-message",
   submitButton: ".newsletter-signup__button",
   loadingMessage: ".loading-message",
@@ -18,7 +19,10 @@ const SELECTORS = {
  * CSS class names used to toggle visibility or styling of DOM elements.
  */
 const CLASSNAMES = {
+  formHidden: "newsletter-signup__form--hidden",
+  successHidden: "newsletter-signup__success-message--hidden",
   errorHidden: "newsletter-signup__error-message--hidden",
+  fieldErrorHidden: "newsletter-signup__field-error--hidden",
 };
 
 /**
@@ -89,6 +93,7 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     const emailInput = form.querySelector(SELECTORS.emailInput);
 
     const emailErrorMessage = form.querySelector(SELECTORS.emailErrorMessage);
+    const successMessage = container.querySelector(SELECTORS.successMessage);
     const errorMessage = container.querySelector(SELECTORS.errorMessage);
 
     const unsubscribeUrl = `${foundationSiteURL}/newsletter-unsubscribe/`;
