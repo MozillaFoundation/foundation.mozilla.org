@@ -64,11 +64,24 @@ describe("tabbed content", () => {
         <div class="tabbed-content-container__tab-panel is-active">First panel</div>
         <div class="tabbed-content-container__tab-panel">Second panel</div>
       </section>
+      <section class="tabbed-content-container">
+        <button class="tabbed-content-container__tab-button is-active">Alpha</button>
+        <button class="tabbed-content-container__tab-button">Beta</button>
+        <div class="tabbed-content-container__tab-panel is-active">Alpha panel</div>
+        <div class="tabbed-content-container__tab-panel">Beta panel</div>
+      </section>
     `;
-    const buttons = document.querySelectorAll(
+    const containers = document.querySelectorAll(".tabbed-content-container");
+    const buttons = containers[0].querySelectorAll(
       ".tabbed-content-container__tab-button",
     );
-    const panels = document.querySelectorAll(
+    const panels = containers[0].querySelectorAll(
+      ".tabbed-content-container__tab-panel",
+    );
+    const otherButtons = containers[1].querySelectorAll(
+      ".tabbed-content-container__tab-button",
+    );
+    const otherPanels = containers[1].querySelectorAll(
       ".tabbed-content-container__tab-panel",
     );
 
@@ -79,6 +92,10 @@ describe("tabbed content", () => {
     expect(buttons[1].classList).toContain("is-active");
     expect(panels[0].classList).not.toContain("is-active");
     expect(panels[1].classList).toContain("is-active");
+    expect(otherButtons[0].classList).toContain("is-active");
+    expect(otherButtons[1].classList).not.toContain("is-active");
+    expect(otherPanels[0].classList).toContain("is-active");
+    expect(otherPanels[1].classList).not.toContain("is-active");
     expect(buttons[1].scrollIntoView).toHaveBeenCalledWith({
       behavior: "smooth",
       block: "nearest",
@@ -120,6 +137,11 @@ describe("tabbed content", () => {
 
     expect(panel.querySelectorAll(".tab-card__page")).toHaveLength(1);
     expect(panel.scrollTo).not.toHaveBeenCalled();
+    expect(
+      panel
+        .querySelector(".carousel-indicators__item")
+        .hasAttribute("aria-current"),
+    ).toBe(false);
   });
 
   it("moves between card pages only for swipes beyond the threshold", () => {

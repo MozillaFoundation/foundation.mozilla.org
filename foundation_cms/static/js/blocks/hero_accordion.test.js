@@ -99,6 +99,38 @@ describe("HorizontalAccordion", () => {
     expect(panels[0].classList).not.toContain("transitioning-to-inactive");
   });
 
+  it("leaves the active panel unchanged when it is clicked again", () => {
+    const { root, panels } = createHorizontalAccordion();
+    const accordion = new HorizontalAccordion(root);
+    const deactivateSpy = vi.spyOn(accordion, "_deactivateAll");
+    const activateSpy = vi.spyOn(accordion, "_activate");
+    accordion.init();
+
+    panels[0].click();
+
+    expect(deactivateSpy).not.toHaveBeenCalled();
+    expect(activateSpy).not.toHaveBeenCalled();
+    expect(panels[0].classList).toContain("active");
+    expect(panels[0].getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("switches between non-video panels", () => {
+    const { root, panels } = createHorizontalAccordion();
+    const accordion = new HorizontalAccordion(root);
+    const revertSpy = vi.spyOn(accordion, "_revertVideoPanel");
+    accordion.init();
+    panels[1].click();
+    revertSpy.mockClear();
+
+    panels[2].click();
+
+    expect(revertSpy).toHaveBeenCalledWith(panels[1]);
+    expect(panels[1].classList).not.toContain("active");
+    expect(panels[1].getAttribute("aria-expanded")).toBe("false");
+    expect(panels[2].classList).toContain("active");
+    expect(panels[2].getAttribute("aria-expanded")).toBe("true");
+  });
+
   it("supports Enter and Space activation without reacting to other keys", () => {
     const { root, panels } = createHorizontalAccordion();
     const accordion = new HorizontalAccordion(root);
@@ -172,12 +204,13 @@ describe("HorizontalAccordion", () => {
     const { panels } = createHorizontalAccordion();
     panels[0].classList.remove("active");
     const overlay = panels[0].querySelector(".hero-accordion__video-overlay");
+    overlay.classList.remove("hidden");
     panels[0].querySelector("iframe").remove();
 
     initAllHorizontalAccordions();
     overlay.click();
 
     expect(panels[0].querySelector("iframe")).toBeNull();
-    expect(overlay.classList).toContain("hidden");
+    expect(overlay.classList).not.toContain("hidden");
   });
 });

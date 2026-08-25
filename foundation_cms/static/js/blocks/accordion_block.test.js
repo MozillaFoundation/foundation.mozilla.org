@@ -104,11 +104,34 @@ describe("AccordionBlock", () => {
   it("leaves panels unchanged when they already have the requested state", () => {
     const { root, triggers, panels } = createAccordion();
     const accordion = new AccordionBlock(root);
+    panels[1].hidden = false;
+    panels[1].style.height = "42px";
+
     accordion.openAccordion(triggers[0], panels[0]);
     accordion.closeAccordion(triggers[1], panels[1]);
 
     expect(requestAnimationFrame).not.toHaveBeenCalled();
     expect(panels[0].style.height).toBe("auto");
+    expect(panels[1].hidden).toBe(false);
+    expect(panels[1].style.height).toBe("42px");
+  });
+
+  it("uses the rendered height when closing a panel mid-open", () => {
+    const { root, triggers, panels } = createAccordion();
+    const accordion = new AccordionBlock(root);
+    const offsetHeightSpy = vi
+      .spyOn(panels[1], "offsetHeight", "get")
+      .mockReturnValue(64);
+
+    accordion.openAccordion(triggers[1], panels[1]);
+    accordion.closeAccordion(triggers[1], panels[1]);
+
+    expect(offsetHeightSpy).toHaveBeenCalled();
+    expect(triggers[1].getAttribute("aria-expanded")).toBe("false");
+    expect(panels[1].style.height).toBe("0px");
+
+    dispatchTransitionEnd(panels[1]);
+
     expect(panels[1].hidden).toBe(true);
   });
 
