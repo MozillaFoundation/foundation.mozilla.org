@@ -171,6 +171,28 @@ jobs:
           retention-days: 1
           include-hidden-files: true
 
+  combine_coverage:
+    name: Combine Coverage
+    runs-on: ubuntu-22.04
+    needs: test_backend
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Download shard coverage data
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-data-*
+          path: foundation_cms
+          merge-multiple: true
+      - name: Combine and report coverage
+        run: cd foundation_cms && coverage combine && coverage report
+
   test_integration:
     name: Integration Tests
     runs-on: ubuntu-22.04
