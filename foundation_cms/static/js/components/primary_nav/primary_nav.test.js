@@ -3,7 +3,33 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./primary_nav.js";
-import { CLASSNAMES, DROPDOWN_DELAY, EVENTS } from "./config.js";
+import {
+  CLASSNAMES,
+  DESKTOP_BREAKPOINT,
+  DROPDOWN_DELAY,
+  EVENTS,
+} from "./config.js";
+
+let eventListenerCleanups;
+
+/**
+ * Tracks listeners added to shared event targets so tests can remove them.
+ *
+ * @param {EventTarget[]} targets
+ */
+function trackEventListeners(targets) {
+  targets.forEach((target) => {
+    const addEventListener = target.addEventListener.bind(target);
+    vi.spyOn(target, "addEventListener").mockImplementation(
+      (type, listener, options) => {
+        addEventListener(type, listener, options);
+        eventListenerCleanups.push(() =>
+          target.removeEventListener(type, listener, options),
+        );
+      },
+    );
+  });
+}
 
 function buildPrimaryNavMarkup() {
   document.body.innerHTML = `
@@ -26,11 +52,16 @@ function buildPrimaryNavMarkup() {
 
 describe("initPrimaryNav", () => {
   beforeEach(() => {
-    document.body.innerHTML = "";
+    document.body.replaceWith(document.createElement("body"));
+    document.documentElement.style.removeProperty("--primary-nav-search-top");
+    eventListenerCleanups = [];
+    trackEventListeners([document, document.body]);
     vi.useFakeTimers();
   });
 
   afterEach(() => {
+    eventListenerCleanups.reverse().forEach((cleanup) => cleanup());
+    document.documentElement.style.removeProperty("--primary-nav-search-top");
     vi.useRealTimers();
     vi.restoreAllMocks();
   });
@@ -133,6 +164,62 @@ describe("initPrimaryNav", () => {
     expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
   });
 
+  it("closes an open dropdown on desktop mouseleave", () => {
+    buildPrimaryNavMarkup();
+    const menu = document.querySelector(".primary-nav-ns__menu-item");
+    vi.spyOn(window, "innerWidth", "get").mockReturnValue(1200);
+
+    initPrimaryNav();
+
+    menu.dispatchEvent(new MouseEvent("mouseenter"));
+    vi.advanceTimersByTime(DROPDOWN_DELAY);
+    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
+
+    menu.dispatchEvent(new MouseEvent("mouseleave"));
+    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
+
+    vi.advanceTimersByTime(DROPDOWN_DELAY);
+    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
+  });
+
+  it("cancels a pending desktop hover opening on mouseleave", () => {
+    buildPrimaryNavMarkup();
+    const menu = document.querySelector(".primary-nav-ns__menu-item");
+    vi.spyOn(window, "innerWidth", "get").mockReturnValue(1200);
+
+    initPrimaryNav();
+
+    menu.dispatchEvent(new MouseEvent("mouseenter"));
+    expect(vi.getTimerCount()).toBe(1);
+
+    menu.dispatchEvent(new MouseEvent("mouseleave"));
+    vi.advanceTimersByTime(DROPDOWN_DELAY);
+
+    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
+  });
+
+  it("ignores hover events below the desktop breakpoint", () => {
+    buildPrimaryNavMarkup();
+    const menu = document.querySelector(".primary-nav-ns__menu-item");
+    vi.spyOn(window, "innerWidth", "get").mockReturnValue(
+      DESKTOP_BREAKPOINT - 1,
+    );
+
+    initPrimaryNav();
+    const timerCountBeforeHover = vi.getTimerCount();
+
+    menu.dispatchEvent(new MouseEvent("mouseenter"));
+    menu.dispatchEvent(new MouseEvent("mouseleave"));
+
+    expect(vi.getTimerCount()).toBe(timerCountBeforeHover);
+    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
+    expect(
+      menu
+        .querySelector(".primary-nav-ns__dropdown-toggle")
+        .getAttribute("aria-expanded"),
+    ).toBe("false");
+  });
+
   it("closes open dropdowns when Escape is pressed", () => {
     buildPrimaryNavMarkup();
     const menu = document.querySelector(".primary-nav-ns__menu-item");
@@ -153,7 +240,8 @@ describe("initWordmarkVisibilityOnScroll", () => {
   let observerCallback;
 
   beforeEach(() => {
-    document.body.innerHTML = "";
+    document.body.replaceWith(document.createElement("body"));
+    document.documentElement.style.removeProperty("--primary-nav-search-top");
     observerCallback = null;
     vi.stubGlobal(
       "IntersectionObserver",
@@ -168,6 +256,7 @@ describe("initWordmarkVisibilityOnScroll", () => {
   });
 
   afterEach(() => {
+    document.documentElement.style.removeProperty("--primary-nav-search-top");
     vi.unstubAllGlobals();
   });
 

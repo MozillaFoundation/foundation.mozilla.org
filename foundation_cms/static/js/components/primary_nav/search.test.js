@@ -2,6 +2,27 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { initSearchToggle } from "./search.js";
 import { CLASSNAMES, EVENTS } from "./config.js";
 
+let eventListenerCleanups;
+
+/**
+ * Tracks listeners added to shared event targets so tests can remove them.
+ *
+ * @param {EventTarget[]} targets
+ */
+function trackEventListeners(targets) {
+  targets.forEach((target) => {
+    const addEventListener = target.addEventListener.bind(target);
+    vi.spyOn(target, "addEventListener").mockImplementation(
+      (type, listener, options) => {
+        addEventListener(type, listener, options);
+        eventListenerCleanups.push(() =>
+          target.removeEventListener(type, listener, options),
+        );
+      },
+    );
+  });
+}
+
 function buildSearchMarkup() {
   document.body.innerHTML = `
     <nav class="primary-nav-ns"></nav>
@@ -16,7 +37,10 @@ function buildSearchMarkup() {
 
 describe("initSearchToggle", () => {
   beforeEach(() => {
-    document.body.innerHTML = "";
+    document.body.replaceWith(document.createElement("body"));
+    document.documentElement.style.removeProperty("--primary-nav-search-top");
+    eventListenerCleanups = [];
+    trackEventListeners([document, document.body, window]);
     vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
       callback(0);
       return 1;
@@ -24,6 +48,8 @@ describe("initSearchToggle", () => {
   });
 
   afterEach(() => {
+    eventListenerCleanups.reverse().forEach((cleanup) => cleanup());
+    document.documentElement.style.removeProperty("--primary-nav-search-top");
     vi.restoreAllMocks();
   });
 
@@ -102,14 +128,15 @@ describe("initSearchToggle", () => {
     );
   });
 
-  it("positions the search drawer below the primary nav", () => {
+  it("repositions the search drawer on resize and scroll", () => {
     buildSearchMarkup();
     const primaryNav = document.querySelector(".primary-nav-ns");
     const searchToggle = document.querySelector(".search-toggle");
+    let navBottom = 88.4;
 
-    vi.spyOn(primaryNav, "getBoundingClientRect").mockReturnValue({
-      bottom: 88.4,
-    });
+    vi.spyOn(primaryNav, "getBoundingClientRect").mockImplementation(() => ({
+      bottom: navBottom,
+    }));
 
     initSearchToggle();
     searchToggle.click();
@@ -119,6 +146,24 @@ describe("initSearchToggle", () => {
         "--primary-nav-search-top",
       ),
     ).toBe("88px");
+
+    navBottom = 121.6;
+    window.dispatchEvent(new Event("resize"));
+
+    expect(
+      document.documentElement.style.getPropertyValue(
+        "--primary-nav-search-top",
+      ),
+    ).toBe("122px");
+
+    navBottom = 43.2;
+    window.dispatchEvent(new Event("scroll"));
+
+    expect(
+      document.documentElement.style.getPropertyValue(
+        "--primary-nav-search-top",
+      ),
+    ).toBe("43px");
   });
 
   it("closes the search drawer when Escape is pressed in the input", () => {
