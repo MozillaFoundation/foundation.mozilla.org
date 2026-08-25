@@ -140,7 +140,7 @@ class Migration(migrations.Migration):
                                         ("alignment", 11),
                                     ]
                                 ],
-                                {},
+                                {"default": {"style": "btn-secondary"}},
                             ),
                         },
                         help_text="Optional call to action button.",
