@@ -11,7 +11,7 @@ django-environ
 django-filter
 django-htmx
 django-pattern-library
-django-redis
+django-redis==7.0.0
 django-storages
 django-querystring-tag
 python-jose>=3.3.0
@@ -25,7 +25,7 @@ python-slugify
 requests
 social-auth-app-django
 wagtail==7.4.2
-wagtail-ab-testing
+wagtail-ab-testing==0.14.0
 wagtail-color-panel
 wagtail-factories
 wagtail-footnotes
