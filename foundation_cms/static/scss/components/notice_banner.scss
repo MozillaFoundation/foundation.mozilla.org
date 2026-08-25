@@ -8,16 +8,6 @@
   border-top: 1px solid color(yellow, "300");
   color: $black;
 
-  .grid-container {
-    padding-left: rem-calc(20);
-    padding-right: rem-calc(20);
-
-    @include breakpoint(medium up) {
-      padding-left: rem-calc(64);
-      padding-right: rem-calc(64);
-    }
-  }
-
   &__inner {
     display: flex;
     flex-direction: column;
@@ -29,8 +19,9 @@
       gap: rem-calc(16);
     }
 
-    @include breakpoint(large up) {
-      flex-direction: row;
+    @include breakpoint(xlarge up) {
+      display: grid;
+      grid-template-columns: minmax(0, rem-calc(897)) minmax(0, 1fr);
       align-items: center;
       gap: rem-calc(72);
     }
@@ -81,46 +72,12 @@
     flex-shrink: 0;
     width: 100%;
 
-    @include breakpoint(large up) {
-      width: auto;
-    }
-
     .link-button-block {
       width: 100%;
-
-      @include breakpoint(large up) {
-        width: auto;
-      }
     }
 
     a[class*="btn-"] {
-      @include mofo-text-style($body-text-styles, "regular");
-
-      margin: 0;
-      width: 100%;
-      height: rem-calc(56);
-      justify-content: center;
-      gap: rem-calc(8);
-      padding: rem-calc(12) rem-calc(16) rem-calc(12) rem-calc(24);
-      background-color: transparent;
-      border: 1px solid color(neutral, "600");
-      color: color(neutral, "600");
-      font-weight: 700;
-
-      @include breakpoint(large up) {
-        width: rem-calc(235);
-      }
-
-      &::after {
-        width: rem-calc(32);
-        height: rem-calc(32);
-        background-image: url("/static/foundation_cms/_images/icons/link.svg");
-      }
-
-      &.btn-primary {
-        background-color: transparent;
-        color: color(neutral, "600");
-      }
+      margin-block: 0;
     }
   }
 }

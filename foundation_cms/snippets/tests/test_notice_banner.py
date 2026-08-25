@@ -4,6 +4,7 @@ from wagtail.models import Locale
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
+from foundation_cms.blocks.link_button_block import LinkButtonBlock
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
 from foundation_cms.legacy_apps.wagtailpages.factory.primary_page import (
     PrimaryPageFactory,
@@ -15,6 +16,25 @@ from foundation_cms.legacy_apps.wagtailpages.pagemodels.campaigns import (
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
 from foundation_cms.snippets.factories import NoticeBannerFactory
 from foundation_cms.snippets.models.notice_banner import NoticeBanner
+
+
+class LinkButtonBlockTemplateTest(TestCase):
+    def test_link_type_icon_rendering_is_opt_in(self):
+        block = LinkButtonBlock()
+        value = block.to_python(
+            {
+                "label": "External link",
+                "link_to": "external_url",
+                "external_url": "https://example.com/",
+                "style": "btn-secondary",
+                "alignment": "link-button-block--left",
+            }
+        )
+
+        html = block.render(value)
+
+        self.assertNotIn("link-type-icon", html)
+        self.assertNotIn(" external", html)
 
 
 class NoticeBannerFactoryTest(TestCase):
@@ -61,6 +81,59 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
         self.assertContains(response, "notice-banner")
         self.assertContains(response, "Visible notice content")
         self.assertTemplateUsed(response, "patterns/components/notice_banner/notice_banner.html")
+
+    def test_page_renders_notice_banner_cta_style_and_alignment(self):
+        for style, alignment, link_type, link_value, icon_class in [
+            (
+                "btn-primary",
+                "link-button-block--center",
+                "external_url",
+                "https://example.com/",
+                "external",
+            ),
+            (
+                "btn-secondary",
+                "link-button-block--left",
+                "email",
+                "hello@example.com",
+                "email",
+            ),
+            (
+                "btn-secondary",
+                "link-button-block--left",
+                "relative_url",
+                "/about/",
+                "link",
+            ),
+        ]:
+            with self.subTest(style=style, alignment=alignment, link_type=link_type):
+                banner = NoticeBannerFactory(
+                    body_text="Notice with a call to action",
+                    cta=[
+                        (
+                            "link_button",
+                            {
+                                "label": "Learn more",
+                                "link_to": link_type,
+                                link_type: link_value,
+                                "style": style,
+                                "alignment": alignment,
+                            },
+                        )
+                    ],
+                )
+                self.blog_page.notice_banner = banner
+                self.blog_page.save_revision().publish()
+
+                response = self.client.get(self.blog_page.url)
+
+                self.assertContains(response, f'class="link-button-block {alignment}"')
+                self.assertContains(response, f'class="{style}')
+                self.assertContains(response, "link-button link-type-icon")
+                self.assertContains(response, f"link-type-icon {icon_class}")
+                expected_href = f"mailto:{link_value}" if link_type == "email" else link_value
+                self.assertContains(response, f'href="{expected_href}"')
+                self.assertContains(response, "Learn more")
 
     def test_page_without_notice_banner_does_not_render_markup(self):
         response = self.client.get(self.primary_page.url)

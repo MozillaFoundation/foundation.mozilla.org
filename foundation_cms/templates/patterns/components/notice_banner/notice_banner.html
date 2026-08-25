@@ -19,7 +19,9 @@
                 </div>
                 {% if banner.cta %}
                     <div class="notice-banner__cta">
-                        {% include_block banner.cta %}
+                        {% for cta in banner.cta %}
+                            {% include_block cta with render_link_type_icon=True %}
+                        {% endfor %}
                     </div>
                 {% endif %}
             </div>

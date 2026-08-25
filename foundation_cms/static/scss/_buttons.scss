@@ -184,6 +184,36 @@ $cta-link-icon-sizes: (
   }
 }
 
+.btn-primary.link-type-icon.link::after,
+.btn-secondary.link-type-icon.link::after {
+  width: rem-calc(32);
+  height: rem-calc(32);
+  background-color: currentcolor;
+  background-image: none;
+  mask: url("/static/foundation_cms/_images/icons/link.svg") center / contain
+    no-repeat;
+}
+
+.btn-primary.link-type-icon.external::after,
+.btn-secondary.link-type-icon.external::after {
+  width: rem-calc(16);
+  height: rem-calc(16);
+  background-color: currentcolor;
+  background-image: none;
+  mask: url("/static/foundation_cms/_images/icons/link-external-black.svg")
+    center / contain no-repeat;
+}
+
+.btn-primary.link-type-icon.email::after,
+.btn-secondary.link-type-icon.email::after {
+  width: rem-calc(32);
+  height: rem-calc(32);
+  background-color: currentcolor;
+  background-image: none;
+  mask: url("/static/foundation_cms/_images/icons/email.svg") center / contain
+    no-repeat;
+}
+
 // ===================================
 // CTA Link (link with an arrow)
 // ===================================
