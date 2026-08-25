@@ -104,11 +104,11 @@ describe("project block", () => {
       root.querySelector("[data-project-block-track]").style.transform,
     ).toBe("translateX(-100%)");
     expect(root.querySelector("[data-active-index]").textContent).toBe("1");
-    expect(
-      root
-        .querySelector(".carousel-indicators__item")
-        .getAttribute("aria-current"),
-    ).toBe("true");
+    const firstIndicator = root.querySelector(".carousel-indicators__item");
+    expect(firstIndicator.classList).toContain(
+      "carousel-indicators__item--active",
+    );
+    expect(firstIndicator.getAttribute("aria-current")).toBe("true");
     expect(
       root.querySelector("[data-project-block-pause-label]").textContent,
     ).toBe("Pause animation");
@@ -232,18 +232,27 @@ describe("project block", () => {
     root.querySelector("video").remove();
 
     initProjectBlocks();
+    const nextButton = root.querySelector("[data-direction='next']");
+    const counter = root.querySelector("[data-active-index]");
+    const track = root.querySelector("[data-project-block-track]");
 
     expect(root.querySelectorAll("[data-project-block-slide]")).toHaveLength(1);
     expect(root.querySelector("[data-direction='prev']").disabled).toBe(true);
-    expect(root.querySelector("[data-direction='next']").disabled).toBe(true);
+    expect(nextButton.disabled).toBe(true);
     expect(
       root
         .querySelector("[data-project-block-pause]")
         .classList.contains("is-hidden"),
     ).toBe(true);
-    root.querySelector("[data-direction='next']").click();
+    const initialCounter = counter.textContent;
+    const initialTransform = track.style.transform;
+
+    nextButton.disabled = false;
+    nextButton.click();
     root.querySelector("[data-project-block-pause]").click();
-    expect(root.querySelector("[data-active-index]").textContent).toBe("1");
+
+    expect(counter.textContent).toBe(initialCounter);
+    expect(track.style.transform).toBe(initialTransform);
   });
 
   it("ignores incomplete and empty project block roots", () => {
