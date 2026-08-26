@@ -20,6 +20,9 @@ from foundation_cms.blocks import (
     TwoColumnContainerBlock,
 )
 from foundation_cms.constants import RICH_TEXT_BASE_OPTIONS
+from foundation_cms.nothing_personal.models.article_collection_page import (
+    NothingPersonalArticleCollectionPage,
+)
 from foundation_cms.utils import localize_queryset
 
 
@@ -138,6 +141,7 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
 
     def get_context(self, request, virtual_page_name=None):
         context = super().get_context(request)
+        context["localized_article_collection_page"] = self.get_localized_article_collection_page
         context["localized_featured_pages"] = self.get_localized_featured_pages
         context["localized_hero_item"] = self.get_localized_hero_item
 
@@ -145,6 +149,17 @@ class NothingPersonalHomePage(RoutablePageMixin, AbstractHomePage):
             context["page_type_bem"] = self._to_bem_case(virtual_page_name)
 
         return context
+
+    @cached_property
+    def get_localized_article_collection_page(self):
+        """Return this homepage's live, public article collection page."""
+        return (
+            NothingPersonalArticleCollectionPage.objects.child_of(self)
+            .live()
+            .public()
+            .filter(locale=self.locale)
+            .first()
+        )
 
     @cached_property
     def get_localized_hero_item(self):
