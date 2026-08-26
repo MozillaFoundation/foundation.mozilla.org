@@ -252,6 +252,27 @@ describe("spotlight card carousel", () => {
     expect(slides.style.transition).toBe("transform 300ms ease-out");
   });
 
+  it("rebases the leading mobile clone after navigating before the first card", () => {
+    Object.defineProperty(window, "innerWidth", {
+      configurable: true,
+      value: 500,
+    });
+    const root = createCarousel();
+    initSpotlightCardCarousels();
+    const slides = root.querySelector(".spotlight-card-carousel__slides");
+    const prev = root.querySelector("[data-direction='prev']");
+
+    prev.click();
+
+    expect(root.querySelector("[data-active-index]").textContent).toBe("3");
+    expect(slides.style.transform).toContain("2 * (-100vw - 16px)");
+
+    transitionEnd(slides, "transform");
+
+    expect(slides.style.transform).toContain("5 * (-100vw - 16px)");
+    expect(slides.style.transition).toBe("transform 300ms ease-out");
+  });
+
   it("reinitializes only when the responsive breakpoint changes", () => {
     const root = createCarousel();
     initSpotlightCardCarousels();
