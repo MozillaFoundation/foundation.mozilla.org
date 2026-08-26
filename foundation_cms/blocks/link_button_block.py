@@ -24,3 +24,13 @@ class LinkButtonBlock(BaseBlock, LinkBlock):
     class Meta:
         icon = "link"
         template_name = "link_button_block.html"
+
+
+class NoticeBannerLinkButtonBlock(LinkButtonBlock):
+    """
+    LinkButtonBlock without the alignment dropdown, for the NoticeBanner snippet.
+    """
+
+    def __init__(self, local_blocks=None, **kwargs):
+        super().__init__(local_blocks, **kwargs)
+        self.child_blocks.pop("alignment", None)

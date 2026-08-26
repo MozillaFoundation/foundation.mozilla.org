@@ -184,16 +184,8 @@ $cta-link-icon-sizes: (
   }
 }
 
-.btn-primary.link-type-icon.link::after,
-.btn-secondary.link-type-icon.link::after {
-  width: rem-calc(32);
-  height: rem-calc(32);
-  background-color: currentcolor;
-  background-image: none;
-  mask: url("/static/foundation_cms/_images/icons/link.svg") center / contain
-    no-repeat;
-}
-
+// Only external and email links get a distinct glyph. Every other link type keeps
+// the button's default arrow, so there is deliberately no `.link` rule here.
 .btn-primary.link-type-icon.external::after,
 .btn-secondary.link-type-icon.external::after {
   width: rem-calc(16);

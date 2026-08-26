@@ -72,8 +72,18 @@
     flex-shrink: 0;
     width: 100%;
 
+    // The banner owns its CTA placement, so NoticeBannerLinkButtonBlock drops the
+    // editor alignment dropdown and no `link-button-block--*` class is emitted here.
     .link-button-block {
       width: 100%;
+
+      // Once `__inner` splits into two columns the CTA sits beside the body, so it
+      // hugs the right edge. While the banner is still stacked it stays left, and
+      // below `medium` the button is full width so alignment is moot.
+      @include breakpoint(xlarge up) {
+        display: flex;
+        justify-content: flex-end;
+      }
     }
 
     a[class*="btn-"] {

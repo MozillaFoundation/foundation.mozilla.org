@@ -4,7 +4,10 @@ from wagtail.models import Locale
 from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
-from foundation_cms.blocks.link_button_block import LinkButtonBlock
+from foundation_cms.blocks.link_button_block import (
+    LinkButtonBlock,
+    NoticeBannerLinkButtonBlock,
+)
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
 from foundation_cms.legacy_apps.wagtailpages.factory.primary_page import (
     PrimaryPageFactory,
@@ -35,6 +38,29 @@ class LinkButtonBlockTemplateTest(TestCase):
 
         self.assertNotIn("link-type-icon", html)
         self.assertNotIn(" external", html)
+
+
+class NoticeBannerLinkButtonBlockTest(TestCase):
+    def test_alignment_is_dropped_only_for_the_notice_banner_variant(self):
+        self.assertIn("alignment", LinkButtonBlock().child_blocks)
+        self.assertNotIn("alignment", NoticeBannerLinkButtonBlock().child_blocks)
+
+    def test_alignment_stored_before_the_field_was_dropped_is_ignored(self):
+        block = NoticeBannerLinkButtonBlock()
+        value = block.to_python(
+            {
+                "label": "Learn more",
+                "link_to": "relative_url",
+                "relative_url": "/about/",
+                "style": "btn-secondary",
+                "alignment": "link-button-block--center",
+            }
+        )
+
+        html = block.render(value)
+
+        self.assertIn('class="link-button-block"', html)
+        self.assertNotIn("link-button-block--center", html)
 
 
 class NoticeBannerFactoryTest(TestCase):
@@ -82,31 +108,13 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
         self.assertContains(response, "Visible notice content")
         self.assertTemplateUsed(response, "patterns/components/notice_banner/notice_banner.html")
 
-    def test_page_renders_notice_banner_cta_style_and_alignment(self):
-        for style, alignment, link_type, link_value, icon_class in [
-            (
-                "btn-primary",
-                "link-button-block--center",
-                "external_url",
-                "https://example.com/",
-                "external",
-            ),
-            (
-                "btn-secondary",
-                "link-button-block--left",
-                "email",
-                "hello@example.com",
-                "email",
-            ),
-            (
-                "btn-secondary",
-                "link-button-block--left",
-                "relative_url",
-                "/about/",
-                "link",
-            ),
+    def test_page_renders_notice_banner_cta_style_and_link_type_icon(self):
+        for style, link_type, link_value, icon_class in [
+            ("btn-primary", "external_url", "https://example.com/", "external"),
+            ("btn-secondary", "email", "hello@example.com", "email"),
+            ("btn-secondary", "relative_url", "/about/", "link"),
         ]:
-            with self.subTest(style=style, alignment=alignment, link_type=link_type):
+            with self.subTest(style=style, link_type=link_type):
                 banner = NoticeBannerFactory(
                     body_text="Notice with a call to action",
                     cta=[
@@ -117,7 +125,6 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
                                 "link_to": link_type,
                                 link_type: link_value,
                                 "style": style,
-                                "alignment": alignment,
                             },
                         )
                     ],
@@ -127,7 +134,8 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
 
                 response = self.client.get(self.blog_page.url)
 
-                self.assertContains(response, f'class="link-button-block {alignment}"')
+                # The banner positions its own CTA, so no alignment class is emitted.
+                self.assertContains(response, 'class="link-button-block"')
                 self.assertContains(response, f'class="{style}')
                 self.assertContains(response, "link-button link-type-icon")
                 self.assertContains(response, f"link-type-icon {icon_class}")
