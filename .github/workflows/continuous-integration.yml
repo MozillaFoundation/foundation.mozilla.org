@@ -228,6 +228,6 @@ jobs:
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py load_redesign_data
-          python ./manage.py legacy_load_fake_data
+          python ./manage.py legacy_load_fake_data --full-legacy
       - name: Integration Tests
         run: yarn workspace legacy playwright:ci
