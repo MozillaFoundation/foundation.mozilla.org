@@ -36,18 +36,21 @@ function createSignup({ currentLanguage = "fr" } = {}) {
         <div class="illustrated-newsletter-signup__signup-view">
           <form class="illustrated-newsletter-signup__form">
             <input name="email" type="email">
-            <select name="country"></select>
-            <label>Choose a country</label>
-            <select name="language"></select>
-            <label>Choose a language</label>
-            <input name="privacy" type="checkbox">
-            <div class="illustrated-newsletter-signup__expanded" hidden>More fields</div>
             <p class="email-error-message" hidden>Enter a valid email</p>
-            <p class="privacy-error-message" hidden>Accept privacy</p>
-            <button class="illustrated-newsletter-signup__button" type="submit">
-              <span class="btn-primary__text">Sign up</span>
-              <span class="btn-primary__text">Join</span>
-            </button>
+            <div class="illustrated-newsletter-signup__additional-fields illustrated-newsletter-signup__expanded" hidden>
+              <select name="country"></select>
+              <label>Choose a country</label>
+              <select name="language"></select>
+              <label>Choose a language</label>
+            </div>
+            <div class="illustrated-newsletter-signup__actions illustrated-newsletter-signup__expanded" hidden>
+              <input name="privacy" type="checkbox">
+              <p class="privacy-error-message" hidden>Accept privacy</p>
+              <button class="illustrated-newsletter-signup__button" type="submit">
+                <span class="btn-primary__text">Sign up</span>
+                <span class="btn-primary__text">Join</span>
+              </button>
+            </div>
           </form>
         </div>
         <p class="illustrated-newsletter-signup__server-error" hidden>Try again</p>
@@ -65,15 +68,15 @@ function createSignup({ currentLanguage = "fr" } = {}) {
         1,
     );
   const form = container.querySelector("form");
-  const expanded = container.querySelector(
-    ".illustrated-newsletter-signup__expanded",
+  const expanded = Array.from(
+    container.querySelectorAll(".illustrated-newsletter-signup__expanded"),
   );
   const success = container.querySelector(
     ".illustrated-newsletter-signup__success",
   );
   Object.defineProperty(form, "offsetHeight", {
     configurable: true,
-    get: () => (expanded.hidden ? 120 : 280),
+    get: () => 120 + expanded.filter((element) => !element.hidden).length * 80,
   });
   Object.defineProperty(container, "offsetHeight", { value: 300 });
   Object.defineProperty(success, "offsetHeight", { value: 140 });
@@ -131,7 +134,7 @@ describe("illustrated newsletter signup block", () => {
     expect(email.dataset.hasValue).toBe("true");
     expect(country.options[0].textContent).toBe("Choose a country");
     expect(country.options[0].disabled).toBe(true);
-    expect(country.options.length).toBeGreaterThan(2);
+    expect(country.options.length).toBe(3);
     expect(language.options[0].textContent).toBe("Choose a language");
     expect(language.querySelector("option[value='fr']")).not.toBeNull();
     expect(first.querySelector(".email-error-message").id).toBe(
@@ -153,15 +156,16 @@ describe("illustrated newsletter signup block", () => {
     const container = createSignup();
     initIllustratedNewsletterSignups();
     const form = container.querySelector("form");
-    const expanded = container.querySelector(
-      ".illustrated-newsletter-signup__expanded",
+    const expanded = Array.from(
+      container.querySelectorAll(".illustrated-newsletter-signup__expanded"),
     );
 
     container
       .querySelector("input[name='email']")
       .dispatchEvent(new Event("focus"));
     expect(container.dataset.state).toBe("expanded");
-    expect(expanded.hidden).toBe(false);
+    expect(expanded).toHaveLength(2);
+    expect(expanded.map((element) => element.hidden)).toEqual([false, false]);
     expect(form.style.height).toBe("280px");
     expect(form.style.overflow).toBe("hidden");
 
@@ -171,10 +175,12 @@ describe("illustrated newsletter signup block", () => {
     expect(form.style.height).toBe("");
     expect(form.style.overflow).toBe("");
 
-    container
-      .querySelector("input[name='email']")
-      .dispatchEvent(new Event("focus"));
+    submit(form);
+
     expect(container.dataset.state).toBe("expanded");
+    expect(form.style.height).toBe("");
+    expect(form.style.overflow).toBe("");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("expands immediately for reduced motion", () => {
@@ -182,14 +188,15 @@ describe("illustrated newsletter signup block", () => {
     const container = createSignup();
     initIllustratedNewsletterSignups();
     const form = container.querySelector("form");
+    const expanded = Array.from(
+      container.querySelectorAll(".illustrated-newsletter-signup__expanded"),
+    );
 
     container.querySelector("input[name='email']").focus();
 
     expect(container.dataset.state).toBe("expanded");
-    expect(
-      container.querySelector(".illustrated-newsletter-signup__expanded")
-        .hidden,
-    ).toBe(false);
+    expect(expanded).toHaveLength(2);
+    expect(expanded.map((element) => element.hidden)).toEqual([false, false]);
     expect(form.style.height).toBe("");
   });
 
@@ -301,6 +308,88 @@ describe("illustrated newsletter signup block", () => {
     expect(
       Array.from(button.querySelectorAll("span"), (label) => label.textContent),
     ).toEqual(["Sign up", "Join"]);
+  });
+
+  it("completes the success transition when transitionend does not fire", async () => {
+    fetchMock.mockResolvedValue({ status: 201 });
+    const container = createSignup();
+    initIllustratedNewsletterSignups();
+    const form = container.querySelector("form");
+    const email = container.querySelector("input[name='email']");
+    const privacy = container.querySelector("input[name='privacy']");
+    const signupView = container.querySelector(
+      ".illustrated-newsletter-signup__signup-view",
+    );
+    const success = container.querySelector(
+      ".illustrated-newsletter-signup__success",
+    );
+
+    email.focus();
+    transitionEnd(form, "height");
+    email.value = "person@example.com";
+    privacy.checked = true;
+    submit(form);
+
+    await vi.waitFor(() => expect(container.dataset.state).toBe("success"));
+    expect(signupView.hidden).toBe(false);
+    expect(success.hidden).toBe(false);
+    expect(container.style.height).toBe("140px");
+    expect(container.style.overflow).toBe("hidden");
+
+    vi.advanceTimersByTime(350);
+
+    expect(signupView.hidden).toBe(true);
+    expect(success.hidden).toBe(false);
+    expect(document.activeElement).toBe(success);
+    expect(container.style.height).toBe("");
+    expect(container.style.overflow).toBe("");
+  });
+
+  it("restores the retry state after a non-201 response", async () => {
+    fetchMock.mockResolvedValue({ status: 403 });
+    const container = createSignup();
+    initIllustratedNewsletterSignups();
+    const form = container.querySelector("form");
+    const email = container.querySelector("input[name='email']");
+    const privacy = container.querySelector("input[name='privacy']");
+    const button = container.querySelector("button[type='submit']");
+    const signupView = container.querySelector(
+      ".illustrated-newsletter-signup__signup-view",
+    );
+    const success = container.querySelector(
+      ".illustrated-newsletter-signup__success",
+    );
+    const expanded = Array.from(
+      container.querySelectorAll(".illustrated-newsletter-signup__expanded"),
+    );
+    email.value = "person@example.com";
+    privacy.checked = true;
+
+    submit(form);
+
+    expect(container.dataset.state).toBe("submitting");
+    expect(button.disabled).toBe(true);
+    expect(button.getAttribute("aria-busy")).toBe("true");
+    expect(button.getAttribute("aria-label")).toBe("Signing up");
+    expect(
+      Array.from(button.querySelectorAll("span"), (label) => label.textContent),
+    ).toEqual(["Signing up", "Signing up"]);
+
+    await vi.waitFor(() => expect(container.dataset.state).toBe("error"));
+    expect(fetchMock).toHaveBeenCalledOnce();
+    expect(
+      container.querySelector(".illustrated-newsletter-signup__server-error")
+        .hidden,
+    ).toBe(false);
+    expect(button.disabled).toBe(false);
+    expect(button.hasAttribute("aria-busy")).toBe(false);
+    expect(button.hasAttribute("aria-label")).toBe(false);
+    expect(
+      Array.from(button.querySelectorAll("span"), (label) => label.textContent),
+    ).toEqual(["Sign up", "Join"]);
+    expect(signupView.hidden).toBe(false);
+    expect(success.hidden).toBe(true);
+    expect(expanded.map((element) => element.hidden)).toEqual([false, false]);
   });
 
   it("uses the selected language and shows success immediately for reduced motion", async () => {
