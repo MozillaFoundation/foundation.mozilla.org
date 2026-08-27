@@ -2,9 +2,6 @@
 #   See https://docs.wagtail.io/en/v2.7/advanced_topics/customisation/extending_draftail.html
 #   And https://medium.com/@timlwhite/custom-in-line-styles-with-draftail-939201c2bbda
 
-from django.core.cache import cache
-from django.db.models import Prefetch
-
 # The real code runs "instance.sync_trees()" here, but we want this to do nothing instead,
 # so that locale creation creates the locale entry but does not try to sync 1300+ pages as
 # part of the same web request.
@@ -14,8 +11,6 @@ from django.utils.html import escape
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.ui.tables import BooleanColumn
-from wagtail.contrib.settings.models import register_setting
-from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.coreutils import find_available_slug
 from wagtail.models import PageViewRestriction
 from wagtail.rich_text import LinkHandler
@@ -28,16 +23,7 @@ from wagtail_localize.models import (
 
 from foundation_cms.legacy_apps.highlights.models import Highlight
 from foundation_cms.legacy_apps.news.models import News
-from foundation_cms.legacy_apps.wagtailcustomization.views.snippet_chooser import (
-    DefaultLocaleSnippetChooserViewSet,
-)
 from foundation_cms.legacy_apps.wagtailpages import models as wagtailpages_models
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.buyersguide.homepage import (
-    BuyersGuidePage,
-)
-from foundation_cms.legacy_apps.wagtailpages.pagemodels.buyersguide.products import (
-    ProductPage,
-)
 from foundation_cms.legacy_apps.wagtailpages.pagemodels.campaigns import Callpower
 from foundation_cms.legacy_apps.wagtailpages.utils import (
     get_locale_from_request,
@@ -74,25 +60,6 @@ def order_pages_in_chooser(pages, request):
 
     # Don't change search results (shown in ./admin/pages/search)
     return pages
-
-
-@hooks.register("before_delete_page")
-def before_delete_page(request, page):
-    """Delete PNI votes when a product is deleted."""
-    if isinstance(page, ProductPage) and page.votes:
-        # Delete the vote from ProductPages
-        page.votes.delete()
-
-
-@hooks.register("after_delete_page")
-@hooks.register("after_publish_page")
-@hooks.register("after_unpublish_page")
-def manage_pni_cache(request, page):
-    if isinstance(page, ProductPage) or isinstance(page, BuyersGuidePage):
-        # Clear all of our Django-based cache.
-        # This is easier than looping through every Category x Language Code available
-        # To specifically clear PNI-based cache.
-        cache.clear()
 
 
 @hooks.register("after_publish_page")
@@ -135,7 +102,6 @@ def register_icons(icons):
         "icons/ticket.svg",
         "icons/newspaper.svg",
         "icons/mozfest.svg",
-        "icons/pni.svg",
         "icons/flask.svg",
         "icons/heart.svg",
     ]
@@ -194,113 +160,6 @@ class BlogViewSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(BlogViewSetGroup)
-
-
-class BuyersGuideProductCategorySnippetViewSet(SnippetViewSet):
-    model = wagtailpages_models.BuyersGuideProductCategory
-    icon = "list-ul"
-    menu_order = 000
-    menu_label = "Product Categories (Legacy)"
-    menu_name = "Product Categories (Legacy)"
-    list_display = (
-        "name",
-        "parent",
-        "slug",
-        BooleanColumn("featured"),
-        BooleanColumn("hidden"),
-        BooleanColumn("is_being_used"),
-    )
-    search_fields = ("name",)
-    list_filter = (
-        "featured",
-        "hidden",
-    )
-    ordering = (
-        "name",
-        "parent",
-    )
-
-
-class BuyersGuideContentCategorySnippetViewSet(SnippetViewSet):
-    model = wagtailpages_models.BuyersGuideContentCategory
-    icon = "tag"
-    menu_order = 100
-    menu_label = "Content Categories (Legacy)"
-    menu_name = "Content Categories (Legacy)"
-    list_display = (
-        "title",
-        "slug",
-    )
-    search_fields = ("title",)
-    ordering = ("title",)
-
-
-class BuyersGuideUpdateSnippetViewSet(SnippetViewSet):
-    model = wagtailpages_models.Update
-    icon = "history"
-    menu_order = 200
-    menu_label = "Product Updates (Legacy)"
-    menu_name = "Product Updates (Legacy)"
-    list_display = (
-        "title",
-        "author",
-        "linked_products",
-        BooleanColumn("featured", label="Featured?"),
-        "created_date",
-    )
-    search_fields = ("title",)
-    list_filter = ("featured",)
-    ordering = ("-created_date", "title", "source", "author")
-
-    def get_queryset(self, request):
-        """Return all updates with their related product pages pre-filtered by the request's locale."""
-        language_code = request.GET.get("locale", "en")
-        pages_in_request_locale = wagtailpages_models.ProductPage.objects.filter(
-            locale__language_code=language_code,
-            updates__update__isnull=False,
-        )
-        return wagtailpages_models.Update.objects.all().prefetch_related(
-            Prefetch("product_pages__page", queryset=pages_in_request_locale)
-        )
-
-
-class BuyersGuideCTASnippetViewSet(SnippetViewSet):
-    model = wagtailpages_models.BuyersGuideCallToAction
-    icon = "link-external"
-    menu_order = 300
-    menu_label = "CTAs (Legacy)"
-    menu_name = "CTAs (Legacy)"
-    list_display = (
-        "title",
-        "link_label",
-        "link_url",
-    )
-    search_fields = (
-        "title",
-        "link_label",
-    )
-    ordering = ("title",)
-
-
-class BuyersGuideViewSetGroup(SnippetViewSetGroup):
-    items = (
-        BuyersGuideProductCategorySnippetViewSet,
-        BuyersGuideContentCategorySnippetViewSet,
-        BuyersGuideUpdateSnippetViewSet,
-        BuyersGuideCTASnippetViewSet,
-    )
-    menu_icon = "pni"
-    menu_label = "*PNI (Legacy)"
-    menu_name = "*PNI (Legacy)"
-    menu_order = 1500
-
-    def get_submenu_items(self):
-        menu_items = super().get_submenu_items()
-        menu_items.append(SettingMenuItem(wagtailpages_models.BuyersGuideCategoryNav))
-        return menu_items
-
-
-register_snippet(BuyersGuideViewSetGroup)
 
 
 class ResearchTopicsSnippetViewSet(SnippetViewSet):
@@ -546,29 +405,3 @@ class ArchiveSetGroup(SnippetViewSetGroup):
 
 
 register_snippet(ArchiveSetGroup)
-
-# --------------------------------------------------------------------------------------
-# Register settings:
-# --------------------------------------------------------------------------------------
-
-register_setting(wagtailpages_models.BuyersGuideCategoryNav, icon="pni")
-
-
-# --------------------------------------------------------------------------------------
-# Default language choosers:
-# --------------------------------------------------------------------------------------
-
-# Customise choosers to only show models in the default language as options.
-# We do not want editors to select the translations as localisation for these will be
-# handled on the template instead.
-# BE CAREFUL! Overriding the default chooser this way will take effect everywhere
-# that a model is chosen!
-
-
-@hooks.register("register_admin_viewset")
-def register_donate_banner_chooser_viewset():
-    return DefaultLocaleSnippetChooserViewSet(
-        "wagtailsnippetchoosers_default_locale_product_category",
-        model=wagtailpages_models.BuyersGuideProductCategory,
-        url_prefix="wagtailpages/buyersguideproductcategory",
-    )
