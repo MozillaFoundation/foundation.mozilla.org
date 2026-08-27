@@ -11,7 +11,4 @@ module.exports = {
   mozfestBaseUrl: function (locale = "en") {
     return `http://mozfest.localhost:8000/${locale}`;
   },
-  pniBaseUrl: function (locale = "en") {
-    return `${LEGACY_FOUNDATION_DOMAIN}/${locale}/privacynotincluded`;
-  },
 };
