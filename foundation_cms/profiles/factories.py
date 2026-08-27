@@ -11,6 +11,7 @@ from foundation_cms.nothing_personal.models import (
     NothingPersonalArticlePage,
     NothingPersonalHomePage,
 )
+from foundation_cms.nothing_personal.models.home_page import NothingPersonalFeaturedItem
 from foundation_cms.profiles.models import (
     ExpertDirectoryPage,
     ExpertExternalLink,
@@ -23,6 +24,8 @@ from foundation_cms.profiles.models import (
 
 CURATED_ARTICLE_COUNT = 5
 CURATED_ARTICLE_EXPERT_SLUG = "expert-1"
+NOTHING_PERSONAL_FEATURED_ITEM_COUNT = 2
+NOTHING_PERSONAL_FEATURED_ITEM_LIMIT = 3
 CURATED_ARTICLE_DESCRIPTIONS = [
     "A short seeded description for the compact article row.",
     (
@@ -117,7 +120,7 @@ def ensure_nothing_personal_home(root, default_locale):
 
 def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, fake):
     expert = next((page for page in expert_pages if page.slug == CURATED_ARTICLE_EXPERT_SLUG), None)
-    if not expert or expert.selected_articles.exists():
+    if not expert:
         return
 
     np_home = ensure_nothing_personal_home(root, default_locale)
@@ -158,15 +161,79 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
 
         articles.append(article)
 
-    for sort_order, article in enumerate(articles):
+    selected_articles = list(expert.selected_articles.order_by("sort_order", "pk"))
+    selected_article_ids = {selection.article_id for selection in selected_articles if selection.article_id}
+    next_selected_sort_order = (
+        max(
+            (selection.sort_order if selection.sort_order is not None else -1 for selection in selected_articles),
+            default=-1,
+        )
+        + 1
+    )
+    expert_changed = False
+
+    for article in articles:
+        if article.pk in selected_article_ids:
+            continue
+
         ExpertProfileSelectedArticle.objects.create(
             page=expert,
             article=article,
-            sort_order=sort_order,
+            sort_order=next_selected_sort_order,
         )
+        selected_article_ids.add(article.pk)
+        next_selected_sort_order += 1
+        expert_changed = True
 
-    expert.save_revision().publish()
-    print(f"  {len(articles)} curated articles linked to {expert.title}.")
+    if expert_changed:
+        expert.save_revision().publish()
+        print(f"  {len(articles)} curated articles linked to {expert.title}.")
+
+    home_changed = False
+    if not np_home.hero_item_id:
+        np_home.hero_item = articles[0]
+        home_changed = True
+
+    hero_item_id = np_home.hero_item_id
+    featured_items = list(np_home.featured_items.order_by("sort_order", "pk"))
+    featured_page_ids = {item.page_id for item in featured_items if item.page_id}
+    useful_featured_page_ids = {page_id for page_id in featured_page_ids if page_id != hero_item_id}
+    empty_featured_items = [item for item in featured_items if not item.page_id]
+    next_featured_sort_order = (
+        max(
+            (item.sort_order if item.sort_order is not None else -1 for item in featured_items),
+            default=-1,
+        )
+        + 1
+    )
+
+    for article in articles[1:]:
+        if len(useful_featured_page_ids) >= NOTHING_PERSONAL_FEATURED_ITEM_COUNT:
+            break
+        if article.pk == hero_item_id or article.pk in featured_page_ids:
+            continue
+
+        if empty_featured_items:
+            featured_item = empty_featured_items.pop(0)
+            featured_item.page = article
+            featured_item.save(update_fields=["page"])
+        elif len(featured_items) < NOTHING_PERSONAL_FEATURED_ITEM_LIMIT:
+            featured_item = NothingPersonalFeaturedItem.objects.create(
+                home_page=np_home,
+                page=article,
+                sort_order=next_featured_sort_order,
+            )
+            featured_items.append(featured_item)
+            next_featured_sort_order += 1
+        else:
+            break
+
+        featured_page_ids.add(article.pk)
+        useful_featured_page_ids.add(article.pk)
+        home_changed = True
+
+    if home_changed:
+        np_home.save_revision().publish()
 
 
 def ensure_expert_external_links(default_locale):
