@@ -50,6 +50,10 @@
     &:focus {
       color: color(orange, "600");
     }
+
+    &:focus-visible::after {
+      width: 100%;
+    }
   }
 
   &__current {
