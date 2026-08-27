@@ -1,4 +1,5 @@
 import random
+from datetime import datetime, timezone
 
 import factory
 import wagtail_factories
@@ -24,6 +25,7 @@ from foundation_cms.profiles.models import (
 
 CURATED_ARTICLE_COUNT = 5
 CURATED_ARTICLE_EXPERT_SLUG = "expert-1"
+CURATED_ARTICLE_FIRST_PUBLISHED_AT = datetime(2025, 1, 1, tzinfo=timezone.utc)
 NOTHING_PERSONAL_FEATURED_ITEM_COUNT = 2
 NOTHING_PERSONAL_FEATURED_ITEM_LIMIT = 3
 CURATED_ARTICLE_DESCRIPTIONS = [
@@ -140,6 +142,7 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
                 slug=slug,
                 theme="nothing_personal",
                 locale=default_locale,
+                first_published_at=CURATED_ARTICLE_FIRST_PUBLISHED_AT,
                 displayed_hero_content=NothingPersonalArticlePage.HERO_CONTENT_IMAGE,
                 hero_image=ImageFactory(),
                 hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),

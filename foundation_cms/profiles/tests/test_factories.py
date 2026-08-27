@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from unittest.mock import patch
 
 from wagtail.test.utils import WagtailPageTestCase
@@ -45,10 +46,17 @@ class EnsureExpertCuratedArticlesTests(WagtailPageTestCase):
             [selection.article_id for selection in selected_articles],
             [article.pk for article in articles],
         )
+        self.assertEqual(
+            [article.first_published_at for article in articles],
+            [datetime(2025, 1, 1, tzinfo=timezone.utc)] * len(articles),
+        )
 
-        article_ids = [article.pk for article in articles]
-        selected_item_ids = [selection.pk for selection in selected_articles]
-        featured_item_ids = [item.pk for item in featured_items]
+        article_state = [(article.pk, article.first_published_at, article.revisions.count()) for article in articles]
+        selected_item_state = [
+            (selection.pk, selection.article_id, selection.sort_order) for selection in selected_articles
+        ]
+        featured_item_state = [(item.pk, item.page_id, item.sort_order) for item in featured_items]
+        hero_item_id = home.hero_item_id
         home_revision_count = home.revisions.count()
         expert_revision_count = self.expert.revisions.count()
 
@@ -57,17 +65,25 @@ class EnsureExpertCuratedArticlesTests(WagtailPageTestCase):
         home.refresh_from_db()
         self.expert.refresh_from_db()
         self.assertEqual(
-            list(NothingPersonalArticlePage.objects.order_by("slug").values_list("pk", flat=True)),
-            article_ids,
+            [
+                (article.pk, article.first_published_at, article.revisions.count())
+                for article in NothingPersonalArticlePage.objects.order_by("slug")
+            ],
+            article_state,
         )
         self.assertEqual(
-            list(self.expert.selected_articles.order_by("sort_order", "pk").values_list("pk", flat=True)),
-            selected_item_ids,
+            list(
+                self.expert.selected_articles.order_by("sort_order", "pk").values_list(
+                    "pk", "article_id", "sort_order"
+                )
+            ),
+            selected_item_state,
         )
         self.assertEqual(
-            list(home.featured_items.order_by("sort_order", "pk").values_list("pk", flat=True)),
-            featured_item_ids,
+            list(home.featured_items.order_by("sort_order", "pk").values_list("pk", "page_id", "sort_order")),
+            featured_item_state,
         )
+        self.assertEqual(home.hero_item_id, hero_item_id)
         self.assertEqual(home.revisions.count(), home_revision_count)
         self.assertEqual(self.expert.revisions.count(), expert_revision_count)
 
