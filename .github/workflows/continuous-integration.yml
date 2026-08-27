@@ -120,6 +120,14 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
+      # TEMPORARY, DO NOT MERGE.
+      # Forces shard 3 to fail so we can confirm that one failing matrix leg makes
+      # needs.test_backend.result != 'success' and turns the "Backend Test Suite"
+      # gate job red.
+      - name: TEMP verify gate
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: '[ "$SHARD" != "3" ] || exit 1'
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
