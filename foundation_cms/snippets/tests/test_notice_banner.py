@@ -5,8 +5,8 @@ from wagtail_localize.fields import SynchronizedField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 from foundation_cms.blocks.link_button_block import (
+    FixedAlignmentLinkButtonBlock,
     LinkButtonBlock,
-    NoticeBannerLinkButtonBlock,
 )
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
 from foundation_cms.legacy_apps.wagtailpages.factory.primary_page import (
@@ -40,13 +40,24 @@ class LinkButtonBlockTemplateTest(TestCase):
         self.assertNotIn(" external", html)
 
 
-class NoticeBannerLinkButtonBlockTest(TestCase):
-    def test_alignment_is_dropped_only_for_the_notice_banner_variant(self):
+class FixedAlignmentLinkButtonBlockTest(TestCase):
+    def test_alignment_control_is_absent_only_on_the_fixed_variant(self):
         self.assertIn("alignment", LinkButtonBlock().child_blocks)
-        self.assertNotIn("alignment", NoticeBannerLinkButtonBlock().child_blocks)
+        self.assertNotIn("alignment", FixedAlignmentLinkButtonBlock().child_blocks)
+
+    def test_form_layout_matches_child_blocks(self):
+        # form_layout is frozen in BaseStructBlock.__init__, so a variant must omit a
+        # field rather than pop it. A mismatch crashes the block editor on render.
+        for block_class in (LinkButtonBlock, FixedAlignmentLinkButtonBlock):
+            with self.subTest(block=block_class.__name__):
+                block = block_class()
+                self.assertEqual(
+                    list(block.child_blocks.keys()),
+                    block.meta.form_layout.get_sorted_block_names(),
+                )
 
     def test_alignment_stored_before_the_field_was_dropped_is_ignored(self):
-        block = NoticeBannerLinkButtonBlock()
+        block = FixedAlignmentLinkButtonBlock()
         value = block.to_python(
             {
                 "label": "Learn more",

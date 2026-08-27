@@ -6,7 +6,7 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.blocks.link_button_block import NoticeBannerLinkButtonBlock
+from foundation_cms.blocks.link_button_block import FixedAlignmentLinkButtonBlock
 from foundation_cms.constants import NOTICE_BANNER_RICH_TEXT_FEATURES
 
 
@@ -32,7 +32,7 @@ class NoticeBanner(TranslatableMixin, PreviewableMixin, models.Model):
         ),
     )
     cta = StreamField(
-        [("link_button", NoticeBannerLinkButtonBlock(default={"style": "btn-secondary"}))],
+        [("link_button", FixedAlignmentLinkButtonBlock(default={"style": "btn-secondary"}))],
         use_json_field=True,
         blank=True,
         max_num=1,
