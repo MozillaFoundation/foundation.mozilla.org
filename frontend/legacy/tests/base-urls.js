@@ -4,7 +4,6 @@ module.exports = {
   donateBaseUrl: function (locale = "en") {
     return `${LEGACY_FOUNDATION_DOMAIN}/${locale}/donate`;
   },
-  foundationDomain: LEGACY_FOUNDATION_DOMAIN,
   foundationBaseUrl: function (locale = "en") {
     return `${LEGACY_FOUNDATION_DOMAIN}/${locale}`;
   },
