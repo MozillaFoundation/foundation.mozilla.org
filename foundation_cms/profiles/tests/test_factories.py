@@ -102,7 +102,7 @@ class EnsureExpertCuratedArticlesTests(WagtailPageTestCase):
         self.assertEqual(repaired_featured_items[0].pk, preserved_featured_item.pk)
         self.assertEqual(repaired_featured_items[0].page_id, articles[1].pk)
         self.assertEqual(repaired_featured_items[1].pk, reusable_featured_item.pk)
-        self.assertEqual(repaired_featured_items[1].page_id, articles[2].pk)
+        self.assertEqual(repaired_featured_items[1].page_id, articles[0].pk)
         self.assertEqual(repaired_featured_items[2].pk, unused_empty_item.pk)
         self.assertIsNone(repaired_featured_items[2].page_id)
         self.assertEqual(home.revisions.count(), revision_count + 1)
@@ -110,6 +110,59 @@ class EnsureExpertCuratedArticlesTests(WagtailPageTestCase):
             set(self.expert.selected_articles.values_list("article_id", flat=True)),
             {article.pk for article in articles},
         )
+
+    def test_repairs_missing_hero_without_reusing_a_featured_article(self):
+        self._ensure_curated_articles()
+
+        home = NothingPersonalHomePage.objects.get(slug="nothing-personal")
+        articles = list(NothingPersonalArticlePage.objects.order_by("slug"))
+        featured_items = list(home.featured_items.order_by("sort_order", "pk"))
+        preserved_featured_item = featured_items[0]
+        reusable_featured_item = featured_items[1]
+        unused_empty_item = NothingPersonalFeaturedItem.objects.create(
+            home_page=home,
+            page=None,
+            sort_order=2,
+        )
+
+        home.hero_item = None
+        preserved_featured_item.page = articles[0]
+        preserved_featured_item.save(update_fields=["page"])
+        reusable_featured_item.page = None
+        reusable_featured_item.save(update_fields=["page"])
+        home.save_revision().publish()
+        revision_count = home.revisions.count()
+
+        self._ensure_curated_articles()
+
+        home.refresh_from_db()
+        repaired_featured_items = list(home.featured_items.order_by("sort_order", "pk"))
+        self.assertEqual(home.hero_item_id, articles[1].pk)
+        self.assertEqual(len(repaired_featured_items), 3)
+        self.assertEqual(repaired_featured_items[0].pk, preserved_featured_item.pk)
+        self.assertEqual(repaired_featured_items[0].page_id, articles[0].pk)
+        self.assertEqual(repaired_featured_items[1].pk, reusable_featured_item.pk)
+        self.assertEqual(repaired_featured_items[1].page_id, articles[2].pk)
+        self.assertEqual(repaired_featured_items[2].pk, unused_empty_item.pk)
+        self.assertIsNone(repaired_featured_items[2].page_id)
+        self.assertNotIn(
+            home.hero_item_id,
+            [item.page_id for item in repaired_featured_items if item.page_id],
+        )
+        self.assertEqual(home.revisions.count(), revision_count + 1)
+
+        featured_state = [(item.pk, item.page_id, item.sort_order) for item in repaired_featured_items]
+        revision_count = home.revisions.count()
+
+        self._ensure_curated_articles()
+
+        home.refresh_from_db()
+        self.assertEqual(home.hero_item_id, articles[1].pk)
+        self.assertEqual(
+            list(home.featured_items.order_by("sort_order", "pk").values_list("pk", "page_id", "sort_order")),
+            featured_state,
+        )
+        self.assertEqual(home.revisions.count(), revision_count)
 
     def test_preserves_full_featured_item_capacity_when_no_slot_is_available(self):
         self._ensure_curated_articles()

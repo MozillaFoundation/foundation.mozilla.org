@@ -189,14 +189,16 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
         expert.save_revision().publish()
         print(f"  {len(articles)} curated articles linked to {expert.title}.")
 
-    home_changed = False
-    if not np_home.hero_item_id:
-        np_home.hero_item = articles[0]
-        home_changed = True
-
-    hero_item_id = np_home.hero_item_id
     featured_items = list(np_home.featured_items.order_by("sort_order", "pk"))
     featured_page_ids = {item.page_id for item in featured_items if item.page_id}
+    home_changed = False
+    if not np_home.hero_item_id:
+        hero_item = next((article for article in articles if article.pk not in featured_page_ids), None)
+        if hero_item:
+            np_home.hero_item = hero_item
+            home_changed = True
+
+    hero_item_id = np_home.hero_item_id
     useful_featured_page_ids = {page_id for page_id in featured_page_ids if page_id != hero_item_id}
     empty_featured_items = [item for item in featured_items if not item.page_id]
     next_featured_sort_order = (
@@ -207,7 +209,7 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
         + 1
     )
 
-    for article in articles[1:]:
+    for article in articles:
         if len(useful_featured_page_ids) >= NOTHING_PERSONAL_FEATURED_ITEM_COUNT:
             break
         if article.pk == hero_item_id or article.pk in featured_page_ids:
