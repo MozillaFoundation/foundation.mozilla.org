@@ -1,7 +1,11 @@
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
+from bs4 import BeautifulSoup
+from django.template.loader import render_to_string
 from django.test import RequestFactory, SimpleTestCase, override_settings
+from django.utils.text import Truncator
+from wagtail import models as wagtail_models
 from wagtail_ab_testing.models import AbTest
 
 from foundation_cms.templatetags.app_environment_tags import (
@@ -280,25 +284,86 @@ class BreadcrumbNavTests(SimpleTestCase):
         self.assertEqual(result["breadcrumbs"], [])
 
     @patch("foundation_cms.templatetags.breadcrumb_nav.wagtail_models.Site.find_for_request", return_value=None)
-    def test_single_ancestor_produces_no_desktop_breadcrumbs(self, _):
+    def test_top_level_page_produces_no_breadcrumbs(self, _):
         ancestor = SimpleNamespace(localized=SimpleNamespace())
         result = breadcrumb_nav(self.ctx(self._page_with_ancestors([ancestor])))
         self.assertFalse(result["breadcrumbs"])
-
-    @patch("foundation_cms.templatetags.breadcrumb_nav.wagtail_models.Site.find_for_request", return_value=None)
-    def test_two_ancestors_produce_desktop_trail_without_leading_slash(self, _):
-        ancestors = [SimpleNamespace(localized=SimpleNamespace()) for _ in range(2)]
-        result = breadcrumb_nav(self.ctx(self._page_with_ancestors(ancestors)))
-        self.assertEqual(len(result["breadcrumbs"]), 2)
+        self.assertEqual(result["mobile_breadcrumbs"], [ancestor.localized])
         self.assertFalse(result["mobile_show_leading_slash"])
-        self.assertEqual(len(result["mobile_breadcrumbs"]), 2)
 
     @patch("foundation_cms.templatetags.breadcrumb_nav.wagtail_models.Site.find_for_request", return_value=None)
-    def test_three_or_more_ancestors_show_leading_slash_on_mobile(self, _):
-        ancestors = [SimpleNamespace(localized=SimpleNamespace()) for _ in range(3)]
+    def test_child_page_uses_full_trail_on_desktop_and_mobile(self, _):
+        ancestors = [SimpleNamespace(localized=SimpleNamespace(title=title)) for title in ("Parent", "Current")]
         result = breadcrumb_nav(self.ctx(self._page_with_ancestors(ancestors)))
+        self.assertEqual([page.title for page in result["breadcrumbs"]], ["Parent", "Current"])
+        self.assertEqual([page.title for page in result["mobile_breadcrumbs"]], ["Parent", "Current"])
+        self.assertFalse(result["mobile_show_leading_slash"])
+
+    @patch("foundation_cms.templatetags.breadcrumb_nav.wagtail_models.Site.find_for_request", return_value=None)
+    def test_deep_page_uses_full_desktop_trail_and_last_two_mobile_items(self, _):
+        ancestors = [
+            SimpleNamespace(localized=SimpleNamespace(title=title)) for title in ("Section", "Parent", "Current")
+        ]
+        result = breadcrumb_nav(self.ctx(self._page_with_ancestors(ancestors)))
+        self.assertEqual([page.title for page in result["breadcrumbs"]], ["Section", "Parent", "Current"])
+        self.assertEqual([page.title for page in result["mobile_breadcrumbs"]], ["Parent", "Current"])
         self.assertTrue(result["mobile_show_leading_slash"])
-        self.assertEqual(len(result["mobile_breadcrumbs"]), 2)
+
+
+class BreadcrumbNavTemplateTests(SimpleTestCase):
+    request = RequestFactory().get("/en/parent/current/")
+
+    @staticmethod
+    def _page(title, url):
+        page = MagicMock(spec=wagtail_models.Page)
+        page.do_not_call_in_templates = True
+        page.title = title
+        page.get_url.return_value = url
+        return page
+
+    def _render(self, breadcrumbs, mobile_breadcrumbs=None, mobile_show_leading_slash=False):
+        return render_to_string(
+            "patterns/components/_breadcrumb_nav.html",
+            {
+                "breadcrumbs": breadcrumbs,
+                "mobile_breadcrumbs": mobile_breadcrumbs if mobile_breadcrumbs is not None else breadcrumbs,
+                "mobile_show_leading_slash": mobile_show_leading_slash,
+            },
+            request=self.request,
+        )
+
+    def test_empty_desktop_trail_does_not_render_breadcrumb_navigation(self):
+        self.assertNotIn("<nav", self._render([], []))
+
+    def test_child_trails_render_ancestor_link_and_one_unlinked_current_item_each(self):
+        parent = self._page("Parent", "/en/parent/")
+        current = self._page("Current", "/en/parent/current/")
+        soup = BeautifulSoup(self._render([parent, current]), "html.parser")
+
+        for selector in (".breadcrumb__list--desktop", ".breadcrumb__list--mobile"):
+            with self.subTest(selector=selector):
+                trail = soup.select_one(selector)
+                ancestor = trail.select_one(".breadcrumb__link")
+                current_item = trail.select_one(".breadcrumb__current")
+
+                self.assertEqual(ancestor.get_text(strip=True), "Parent")
+                self.assertEqual(ancestor["href"], "/en/parent/")
+                self.assertEqual(current_item.get_text(strip=True), "Current")
+                self.assertIsNone(current_item.find_parent("a"))
+                self.assertEqual(len(trail.select('[aria-current="page"]')), 1)
+
+    def test_titles_are_truncated_to_thirty_characters(self):
+        long_title = "A breadcrumb title that is deliberately longer than thirty characters"
+        parent = self._page("Parent", "/en/parent/")
+        current = self._page(long_title, "/en/parent/current/")
+        soup = BeautifulSoup(self._render([parent, current]), "html.parser")
+        expected_title = Truncator(long_title).chars(30)
+
+        self.assertEqual(
+            [item.get_text(strip=True) for item in soup.select(".breadcrumb__current")],
+            [expected_title, expected_title],
+        )
+        self.assertNotIn(long_title, soup.get_text())
 
 
 # Nothin Personal Tests
