@@ -118,13 +118,13 @@ class Migration(migrations.Migration):
             model_name="buyersguidecampaignpagedonationmodalrelation",
             name="locale",
         ),
-        migrations.RemoveField(
-            model_name="buyersguidecategorynavrelation",
-            name="nav",
-        ),
         migrations.AlterUniqueTogether(
             name="buyersguidecategorynavrelation",
             unique_together=None,
+        ),
+        migrations.RemoveField(
+            model_name="buyersguidecategorynavrelation",
+            name="nav",
         ),
         migrations.RemoveField(
             model_name="buyersguidecategorynavrelation",
