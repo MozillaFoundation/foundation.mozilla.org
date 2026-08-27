@@ -407,7 +407,6 @@ TEMPLATES = [
                 )
             ),
             "libraries": {
-                "bg_nav_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.bg_nav_tags",
                 "blog_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.blog_tags",
                 "card_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.card_tags",
                 "class_tags": "foundation_cms.legacy_apps.wagtailpages.templatetags.class_tags",
