@@ -42,17 +42,6 @@ function testURL(baseUrl, path, hasCookieBanner = true) {
       await waitForCookieBanner(page);
     }
 
-    // For PNI catalog pages we need to scroll to the bottom of the page to trigger our scroll animations as well waiting for the animation to complete for the screenshot
-    if (
-      [
-        "/privacynotincluded",
-        "/privacynotincluded/categories/toys-games",
-      ].includes(path)
-    ) {
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await page.waitForTimeout(2000);
-    }
-
     // For the Donate Help page, we need to scroll the reCAPTCHA box into view so it can be rendered in Percy screenshots.
     // Note: The recaptcha box only appears in Chrome screenshots. For more info, see: https://github.com/MozillaFoundation/foundation.mozilla.org/pull/11598
     if (path == "/donate/help") {
