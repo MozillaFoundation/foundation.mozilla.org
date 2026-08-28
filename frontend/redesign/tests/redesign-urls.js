@@ -4,6 +4,8 @@
 
 const RedesignURLs = {
   Homepage: "/",
+  "Nothing Personal Home": "/nothing-personal/",
+  "Nothing Personal Article": "/nothing-personal/expert-profile-article-1/",
 };
 
 export default RedesignURLs;

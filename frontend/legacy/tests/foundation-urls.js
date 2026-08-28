@@ -21,9 +21,6 @@ module.exports = {
   Donate: "/donate",
   "Donate Help": "/donate/help",
   "Donate Ways To Give": "/donate/ways-to-give",
-  PNI: "/privacynotincluded",
-  "PNI (filtered for category)": "/privacynotincluded/categories/toys-games",
-  "PNI general product page": "/privacynotincluded/general-percy-product",
   "Research hub landing page": "/research",
   "Research hub library page": "/research/library",
   "Research hub detail page":

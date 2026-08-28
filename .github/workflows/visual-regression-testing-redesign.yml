@@ -11,6 +11,7 @@ on:
       - 'foundation_cms/templates/**'
       - 'foundation_cms/navigation/**'
       - 'foundation_cms/footer/**'
+      - 'foundation_cms/nothing_personal/**'
       - 'frontend/redesign/**'
   pull_request_review:
     types: [submitted]
@@ -25,6 +26,7 @@ on:
       - 'foundation_cms/templates/**'
       - 'foundation_cms/navigation/**'
       - 'foundation_cms/footer/**'
+      - 'foundation_cms/nothing_personal/**'
       - 'frontend/redesign/**'
 jobs:
   # GitHub Actions does not support paths filtering on pull_request_review events natively.
@@ -53,6 +55,7 @@ jobs:
               f.filename.startsWith('foundation_cms/templates/') ||
               f.filename.startsWith('foundation_cms/navigation/') ||
               f.filename.startsWith('foundation_cms/footer/') ||
+              f.filename.startsWith('foundation_cms/nothing_personal/') ||
               f.filename.startsWith('frontend/redesign/')
             );
             core.setOutput('redesign', redesignChanged ? 'true' : 'false');
