@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from wagtail.test.utils import WagtailPageTestCase
 
-from foundation_cms.base.utils.helpers import get_faker
+from foundation_cms.base.utils.helpers import get_faker, to_streamfield_value
 from foundation_cms.core.factories import HomePageFactory
 from foundation_cms.nothing_personal.models import (
     NothingPersonalArticlePage,
@@ -12,9 +12,12 @@ from foundation_cms.nothing_personal.models import (
 from foundation_cms.nothing_personal.models.home_page import NothingPersonalFeaturedItem
 from foundation_cms.profiles.factories import (
     CURATED_ARTICLE_EXPERT_SLUG,
+    EXTERNAL_LINKS,
     ExpertHubPageFactory,
     ExpertProfilePageFactory,
     ensure_expert_curated_articles,
+    ensure_expert_external_links,
+    ensure_expert_intro_quote,
 )
 
 
@@ -44,6 +47,12 @@ class EnsureExpertCuratedArticlesTests(WagtailPageTestCase):
         )
         self.assertEqual(
             [selection.article_id for selection in selected_articles],
+            [article.pk for article in articles],
+        )
+        article_sections = [block for block in self.expert.body if block.block_type == "articles_section"]
+        self.assertEqual(len(article_sections), 1)
+        self.assertEqual(
+            [item.value.pk for item in article_sections[0].value["items"]],
             [article.pk for article in articles],
         )
         self.assertEqual(
@@ -86,6 +95,47 @@ class EnsureExpertCuratedArticlesTests(WagtailPageTestCase):
         self.assertEqual(home.hero_item_id, hero_item_id)
         self.assertEqual(home.revisions.count(), home_revision_count)
         self.assertEqual(self.expert.revisions.count(), expert_revision_count)
+
+    def test_seeds_intro_quote_once(self):
+        ensure_expert_intro_quote(self.expert)
+        ensure_expert_intro_quote(self.expert)
+
+        quote_blocks = [block for block in self.expert.body if block.block_type == "quote"]
+        self.assertEqual(len(quote_blocks), 1)
+
+    def test_seeds_external_links_in_legacy_storage_and_body_once(self):
+        self.expert.body = to_streamfield_value(
+            [
+                {
+                    "type": "link_section",
+                    "value": {
+                        "heading": "Awards",
+                        "rows": [
+                            {
+                                "type": "link",
+                                "value": {
+                                    "title": "Existing award",
+                                    "description": "",
+                                    "url": "",
+                                },
+                            }
+                        ],
+                    },
+                    "id": "existing-awards",
+                }
+            ],
+            stream_block=self.expert.body.stream_block,
+        )
+        self.expert.save_revision().publish()
+
+        ensure_expert_external_links(self.root.locale)
+        ensure_expert_external_links(self.root.locale)
+
+        self.expert.refresh_from_db()
+        link_sections = [block for block in self.expert.body if block.block_type == "link_section"]
+        self.assertEqual(self.expert.external_links.count(), len(EXTERNAL_LINKS))
+        self.assertEqual([block.value["heading"] for block in link_sections], ["Awards", "External Links"])
+        self.assertEqual(len(link_sections[1].value["rows"]), len(EXTERNAL_LINKS))
 
     def test_repairs_partial_homepage_content_without_overwriting_existing_items(self):
         self._ensure_curated_articles()

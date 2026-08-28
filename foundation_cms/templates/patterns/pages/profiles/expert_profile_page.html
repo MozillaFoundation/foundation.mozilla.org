@@ -22,18 +22,11 @@
                             <div class="expert-profile-hero__header">
                                 <h1 class="expert-profile-hero__title">{{ page.title }}</h1>
 
-                                {% if page.role %}
-                                    <p class="expert-profile-hero__role">{{ page.role }}</p>
-                                {% endif %}
+                                {% if page.role %}<p class="expert-profile-hero__role">{{ page.role }}</p>{% endif %}
 
                                 <div class="expert-profile-hero__meta">
-                                    {% if page.location %}
-                                        <span>{{ page.location.name }}</span>
-                                    {% endif %}
-
-                                    {% if page.affiliation %}
-                                        <span>{{ page.affiliation }}</span>
-                                    {% endif %}
+                                    {% if page.location %}<span>{{ page.location.name }}</span>{% endif %}
+                                    {% if page.affiliation %}<span>{{ page.affiliation }}</span>{% endif %}
                                 </div>
 
                                 {% if page.topics.all %}
@@ -48,87 +41,28 @@
                 </div>
             </header>
 
-            <section class="expert-profile-intro">
-                <div class="grid-container">
-                    <div class="grid-x grid-margin-x expert-profile-intro__body">
-                        {% if page.bio or page.quote %}
-                            <div class="cell small-12 large-5 large-offset-2 expert-profile-intro__copy">
-                                <div class="expert-profile-intro__body-content">
-                                    {% if page.bio %}
-                                        <div class="expert-profile-intro__bio">{{ page.bio|richtext }}</div>
-                                    {% endif %}
-
-                                    {% if page.quote %}
-                                        <figure class="expert-profile-intro__quote">
-                                            <blockquote>
-                                                <p class="quote-text-regular">{% blocktrans with quote=page.quote %}“{{ quote }}”{% endblocktrans %}</p>
-                                            </blockquote>
-                                            {% if page.quote_attribution %}
-                                                <figcaption>{{ page.quote_attribution }}</figcaption>
-                                            {% endif %}
-                                        </figure>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        {% if page.image %}
-                            <div class="cell small-12 large-3 expert-profile-intro__media">
-                                {% image page.image fill-520x700 as profile_img %}
-                                <img
-                                    class="expert-profile-intro__image"
-                                    src="{{ profile_img.url }}"
-                                    alt="{{ page.title }}"
-                                    width="{{ profile_img.width }}"
-                                    height="{{ profile_img.height }}"
-                                >
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </section>
-
-            {% if project_block_rows %}
-                <section class="expert-profile-section expert-profile-section--projects">
-                    <div class="grid-container">
-                        <div class="grid-x">
-                            <div class="cell small-12">
-                                <h2 class="expert-profile-section__heading">{% trans "Projects" %}</h2>
-                                {% for project_block_row in project_block_rows %}
-                                    <div class="three-column-container three-column-container--top expert-profile-project-row">
-                                        {% for project_block in project_block_row %}
-                                            <div class="three-column-container__column">
-                                                {% include "patterns/blocks/themes/default/project_block.html" with self=project_block only %}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            {% endif %}
-
-            {% if articles %}
-                <section class="expert-profile-section expert-profile-section--articles">
+            {% if page.bio or page.image %}
+                <section class="expert-profile-intro">
                     <div class="grid-container">
                         <div class="grid-x grid-margin-x">
-                            <div class="cell small-12 large-8 large-offset-2">
-                                <h2 class="expert-profile-section__heading">{% trans "Articles" %}</h2>
-                                <ul class="expert-profile-article-list"
-                                    data-expert-profile-article-list
-                                    data-visible-count="{{ articles_visible_count }}">
-                                    {% for article in articles %}
-                                        {% include "patterns/components/listing_page/_item.html" with page=article %}
-                                    {% endfor %}
-                                </ul>
-                                {% if articles|length > articles_visible_count %}
-                                    <button class="btn-primary btn-primary--no-arrow expert-profile-article-list__button"
-                                            type="button"
-                                            data-expert-profile-show-articles>
-                                        {% trans "Show more results" as show_more_label %}
-                                        {% include "patterns/components/_button_roller.html" with button_style="btn-primary" label=show_more_label only %}
-                                    </button>
+                            <div class="cell small-12 large-8 large-offset-2 expert-profile-intro__body">
+                                {% if page.image %}
+                                    {% image page.image fill-520x700 as profile_img %}
+                                    <img class="expert-profile-intro__image" src="{{ profile_img.url }}" alt="" width="{{ profile_img.width }}" height="{{ profile_img.height }}">
+                                {% endif %}
+
+                                {% if page.bio %}
+                                    <div class="expert-profile-intro__bio" id="expert-profile-bio" data-expert-profile-bio data-collapsed-char-limit="{{ bio_collapsed_char_limit }}">{{ page.bio|richtext }}</div>
+                                    <button
+                                        class="expert-profile-intro__bio-toggle"
+                                        type="button"
+                                        aria-expanded="false"
+                                        aria-controls="expert-profile-bio"
+                                        data-expert-profile-bio-toggle
+                                        data-show-more-label="{% trans "Show more" %}"
+                                        data-show-less-label="{% trans "Show less" %}"
+                                        hidden
+                                    >{% trans "Show more" %}</button>
                                 {% endif %}
                             </div>
                         </div>
@@ -136,44 +70,44 @@
                 </section>
             {% endif %}
 
-            {% with external_links=page.external_links.all %}
-                {% if external_links %}
-                    <section class="expert-profile-section expert-profile-section--links">
-                        <div class="grid-container">
-                            <div class="grid-x grid-margin-x">
-                                <div class="cell small-12 large-8 large-offset-2">
-                                    <h2 class="expert-profile-section__heading">{% trans "External Links" %}</h2>
-                                    <ul class="expert-profile-link-list">
-                                        {% for link in external_links %}
-                                            <li class="expert-profile-link-list__item">
-                                                <a class="expert-profile-link-list__link"
-                                                   href="{{ link.url }}"
-                                                   target="_blank"
-                                                   rel="noopener noreferrer">
-                                                    <span class="expert-profile-link-list__title">{{ link.title }}</span>
-                                                    {% if link.description %}
-                                                        <span class="expert-profile-link-list__description">{{ link.description }}</span>
-                                                    {% endif %}
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+            {% if page.body %}
+                <div class="expert-profile-body">
+                    {% include "patterns/components/_streamfield.html" with streamfield=page.body classnames="small-12 large-8 large-offset-2" %}
+                </div>
+            {% endif %}
+
+            {% if social_links %}
+                <section class="expert-profile-social" aria-labelledby="expert-profile-social-heading">
+                    <div class="grid-container">
+                        <div class="grid-x grid-margin-x">
+                            <div class="cell small-12 large-8 large-offset-2">
+                                <h2 class="expert-profile-social__heading" id="expert-profile-social-heading">{% trans "Where to find me?" %}</h2>
+                                <ul class="expert-profile-social__list">
+                                    {% for social_link in social_links %}
+                                        <li>
+                                            <a
+                                                class="expert-profile-social__link expert-profile-social__link--{{ social_link.platform }}"
+                                                href="{{ social_link.url }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="{% blocktrans with platform=social_link.label %}Visit {{ platform }} (opens in a new tab){% endblocktrans %}"
+                                            ><span class="show-for-sr">{{ social_link.label }}</span></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
-                    </section>
-                {% endif %}
-            {% endwith %}
+                    </div>
+                </section>
+            {% endif %}
 
-            {% comment %}
-            <div class="grid-container">
+            <div class="grid-container expert-profile-cta">
                 <div class="grid-x grid-margin-x">
                     <div class="cell small-12 large-offset-1 large-10 xlarge-offset-2 xlarge-8">
                         {% include "patterns/components/profiles/_expert_hub_cta.html" %}
                     </div>
                 </div>
             </div>
-            {% endcomment %}
         </article>
     </main>
 {% endblock content %}

@@ -3,24 +3,32 @@ from django.db.models import CASCADE, CharField, TextField, URLField
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel,
-    InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
 )
+from wagtail.fields import StreamField
 from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.base.models.abstract_base_page import base_page_block_options
 from foundation_cms.base.widgets import TopicSelectWidget
 from foundation_cms.gallery_hub.models import ProjectPage
+from foundation_cms.profiles.blocks import (
+    EXPERT_PROFILE_RELATED_CONTENT_LIMIT,
+    ArticlesSectionBlock,
+    LinkSectionBlock,
+    ProjectsSectionBlock,
+)
 from foundation_cms.profiles.models.abstract_profile_page import AbstractProfilePage
-from foundation_cms.utils import localize_queryset
 
-EXPERT_PROFILE_ARTICLES_VISIBLE_COUNT = 3
-EXPERT_PROFILE_RELATED_CONTENT_LIMIT = 9
-# This matches the three-column-container markup/CSS used by the template.
-# Changing it requires updating the corresponding layout styles.
-EXPERT_PROFILE_PROJECTS_PER_ROW = 3
+EXPERT_PROFILE_BIO_COLLAPSED_CHAR_LIMIT = 600
+
+expert_profile_body_block_options = base_page_block_options + [
+    ("projects_section", ProjectsSectionBlock(skip_default_wrapper=True, group="Profile sections")),
+    ("articles_section", ArticlesSectionBlock(skip_default_wrapper=True, group="Profile sections")),
+    ("link_section", LinkSectionBlock(skip_default_wrapper=True, group="Profile sections")),
+]
 
 
 class ExpertExternalLink(TranslatableMixin, Orderable):
@@ -89,6 +97,17 @@ class ExpertProfileSelectedArticle(Orderable):
 
 
 class ExpertProfilePage(AbstractProfilePage):
+    body = StreamField(
+        expert_profile_body_block_options,
+        block_counts={
+            "quote": {"max_num": 1},
+            "projects_section": {"max_num": 1},
+            "articles_section": {"max_num": 1},
+        },
+        use_json_field=True,
+        blank=True,
+    )
+
     affiliation = CharField(
         max_length=255,
         blank=True,
@@ -109,6 +128,11 @@ class ExpertProfilePage(AbstractProfilePage):
         blank=True,
         help_text="Optional attribution for the profile introduction quote.",
     )
+    linkedin_url = URLField(blank=True, help_text="Full LinkedIn profile URL including https://")
+    bluesky_url = URLField(blank=True, help_text="Full Bluesky profile URL including https://")
+    facebook_url = URLField(blank=True, help_text="Full Facebook profile URL including https://")
+    instagram_url = URLField(blank=True, help_text="Full Instagram profile URL including https://")
+    tiktok_url = URLField(blank=True, help_text="Full TikTok profile URL including https://")
 
     content_panels = Page.content_panels + [
         FieldPanel("title", heading="Full Name", help_text="Full name of the profile."),
@@ -117,33 +141,20 @@ class ExpertProfilePage(AbstractProfilePage):
         FieldPanel("affiliation"),
         FieldPanel("topics", widget=TopicSelectWidget),
         FieldPanel("bio"),
-        FieldPanel("quote"),
-        FieldPanel("quote_attribution"),
         FieldPanel("image"),
         FieldPanel("blurb"),
         MultiFieldPanel(
             [
-                InlinePanel(
-                    "selected_projects",
-                    label="Selected Project",
-                    max_num=EXPERT_PROFILE_RELATED_CONTENT_LIMIT,
-                ),
+                FieldPanel("linkedin_url"),
+                FieldPanel("bluesky_url"),
+                FieldPanel("facebook_url"),
+                FieldPanel("instagram_url"),
+                FieldPanel("tiktok_url"),
             ],
-            heading="Projects",
+            heading="Where to find me",
             classname="collapsible",
         ),
-        MultiFieldPanel(
-            [
-                InlinePanel(
-                    "selected_articles",
-                    label="Selected Article or Publication",
-                    max_num=EXPERT_PROFILE_RELATED_CONTENT_LIMIT,
-                ),
-            ],
-            heading="Articles/Publications",
-            classname="collapsible",
-        ),
-        InlinePanel("external_links", label="External Links", max_num=10),
+        FieldPanel("body"),
     ]
 
     translatable_fields = AbstractProfilePage.translatable_fields + [
@@ -151,6 +162,11 @@ class ExpertProfilePage(AbstractProfilePage):
         TranslatableField("blurb"),
         TranslatableField("quote"),
         TranslatableField("quote_attribution"),
+        SynchronizedField("linkedin_url"),
+        SynchronizedField("bluesky_url"),
+        SynchronizedField("facebook_url"),
+        SynchronizedField("instagram_url"),
+        SynchronizedField("tiktok_url"),
         SynchronizedField("selected_projects"),
         SynchronizedField("selected_articles"),
         TranslatableField("body"),
@@ -158,7 +174,6 @@ class ExpertProfilePage(AbstractProfilePage):
 
     search_fields = AbstractProfilePage.search_fields + [
         index.SearchField("blurb", boost=5),
-        index.SearchField("quote", boost=3),
         index.SearchField("affiliation", boost=2),
     ]
 
@@ -172,53 +187,20 @@ class ExpertProfilePage(AbstractProfilePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["project_block_rows"] = self.get_project_block_rows()
-        context["articles"] = self.get_selected_articles()
-        context["articles_visible_count"] = EXPERT_PROFILE_ARTICLES_VISIBLE_COUNT
+        context["bio_collapsed_char_limit"] = EXPERT_PROFILE_BIO_COLLAPSED_CHAR_LIMIT
+        context["social_links"] = [
+            {"label": label, "platform": platform, "url": getattr(self, field_name)}
+            for label, platform, field_name in [
+                ("LinkedIn", "linkedin", "linkedin_url"),
+                ("Bluesky", "bluesky", "bluesky_url"),
+                ("Facebook", "facebook", "facebook_url"),
+                ("Instagram", "instagram", "instagram_url"),
+                ("TikTok", "tiktok", "tiktok_url"),
+            ]
+            if getattr(self, field_name)
+        ]
 
         return context
-
-    def _get_localized_selected_pages(self, relation_name, page_field_name):
-        selected_pages = Page.objects.filter(
-            **{
-                f"expert_profile_{relation_name}_selections__page": self,
-                f"expert_profile_{relation_name}_selections__{page_field_name}_id__isnull": False,
-            }
-        ).order_by(f"expert_profile_{relation_name}_selections__sort_order")
-
-        return localize_queryset(selected_pages.live().public(), preserve_order=True).specific()
-
-    def get_selected_projects(self):
-        return self._get_localized_selected_pages("project", "project")
-
-    def get_selected_articles(self):
-        return self._get_localized_selected_pages("article", "article")
-
-    def get_profile_projects(self):
-        selected_projects = self.get_selected_projects()
-        if selected_projects:
-            return selected_projects
-
-        return self.get_related_projects()
-
-    def get_project_block_rows(self):
-        project_blocks = [
-            {
-                "project": project,
-                "show_description": True,
-            }
-            for project in self.get_profile_projects()
-        ]
-
-        complete_row_count = len(project_blocks) // EXPERT_PROFILE_PROJECTS_PER_ROW
-        return [
-            project_blocks[index : index + EXPERT_PROFILE_PROJECTS_PER_ROW]
-            for index in range(
-                0,
-                complete_row_count * EXPERT_PROFILE_PROJECTS_PER_ROW,
-                EXPERT_PROFILE_PROJECTS_PER_ROW,
-            )
-        ]
 
     def get_related_projects(self):
         return (

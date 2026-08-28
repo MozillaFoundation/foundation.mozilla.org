@@ -1,4 +1,5 @@
 import random
+import uuid
 from datetime import datetime, timezone
 
 import factory
@@ -98,6 +99,46 @@ EXTERNAL_LINKS = [
         "url": "https://foundation.mozilla.org/en/research/",
     },
 ]
+SEED_BODY_NAMESPACE = uuid.UUID("a3ffb092-3e58-462e-97ed-72ddc8f68d65")
+
+
+def _seed_body_id(page, block_type, item_id=None):
+    identity = f"profiles.seed:{page.pk}:{block_type}"
+    if item_id is not None:
+        identity = f"{identity}:{item_id}"
+    return str(uuid.uuid5(SEED_BODY_NAMESPACE, identity))
+
+
+def _ensure_seeded_body_block(page, block, unique_by_type=False):
+    body = list(page.body.raw_data)
+    if any(
+        existing.get("id") == block["id"] or (unique_by_type and existing.get("type") == block["type"])
+        for existing in body
+    ):
+        return False
+
+    body.append(block)
+    page.body = to_streamfield_value(body, stream_block=page.body.stream_block)
+    page.save_revision().publish()
+    return True
+
+
+def ensure_expert_intro_quote(expert):
+    if expert.slug != PROFILE_INTRO_EXPERT_SLUG:
+        return
+
+    _ensure_seeded_body_block(
+        expert,
+        {
+            "type": "quote",
+            "value": {
+                "quote": PROFILE_INTRO_QUOTE,
+                "attribution": PROFILE_INTRO_QUOTE_ATTRIBUTION,
+            },
+            "id": _seed_body_id(expert, "quote"),
+        },
+        unique_by_type=True,
+    )
 
 
 def ensure_nothing_personal_home(root, default_locale):
@@ -192,6 +233,25 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
         expert.save_revision().publish()
         print(f"  {len(articles)} curated articles linked to {expert.title}.")
 
+    _ensure_seeded_body_block(
+        expert,
+        {
+            "type": "articles_section",
+            "value": {
+                "items": [
+                    {
+                        "type": "cms_article",
+                        "value": article.pk,
+                        "id": _seed_body_id(expert, "article", article.pk),
+                    }
+                    for article in articles
+                ]
+            },
+            "id": _seed_body_id(expert, "articles"),
+        },
+        unique_by_type=True,
+    )
+
     featured_items = list(np_home.featured_items.order_by("sort_order", "pk"))
     featured_page_ids = {item.page_id for item in featured_items if item.page_id}
     home_changed = False
@@ -246,18 +306,38 @@ def ensure_expert_external_links(default_locale):
         slug=EXTERNAL_LINK_EXPERT_SLUG,
         locale=default_locale,
     ).first()
-    if not expert or expert.external_links.exists():
+    if not expert:
         return
 
-    for sort_order, link in enumerate(EXTERNAL_LINKS):
-        ExpertExternalLink.objects.create(
-            page=expert,
-            sort_order=sort_order,
-            **link,
-        )
+    if not expert.external_links.exists():
+        for sort_order, link in enumerate(EXTERNAL_LINKS):
+            ExpertExternalLink.objects.create(
+                page=expert,
+                sort_order=sort_order,
+                **link,
+            )
 
-    expert.save_revision().publish()
-    print(f"  {len(EXTERNAL_LINKS)} external links added to {expert.title}.")
+        expert.save_revision().publish()
+        print(f"  {len(EXTERNAL_LINKS)} external links added to {expert.title}.")
+
+    _ensure_seeded_body_block(
+        expert,
+        {
+            "type": "link_section",
+            "value": {
+                "heading": "External Links",
+                "rows": [
+                    {
+                        "type": "link",
+                        "value": link,
+                        "id": _seed_body_id(expert, "external-link", index),
+                    }
+                    for index, link in enumerate(EXTERNAL_LINKS)
+                ],
+            },
+            "id": _seed_body_id(expert, "external-links"),
+        },
+    )
 
 
 def generate(seed):
@@ -340,6 +420,9 @@ def generate(seed):
         expert.save_revision().publish()
         print(f"  + Expert: {name}")
         expert_pages.append(expert)
+
+    for expert in expert_pages:
+        ensure_expert_intro_quote(expert)
 
     print(f"  {len(expert_pages)} Expert Profile Pages ready.")
 

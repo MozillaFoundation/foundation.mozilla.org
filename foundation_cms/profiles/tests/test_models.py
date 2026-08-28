@@ -1,19 +1,10 @@
-from wagtail.models import Page
+from django.db.models import URLField
 from wagtail.test.utils import WagtailPageTestCase
 
-from foundation_cms.gallery_hub.models import GalleryPage, ProjectPage
-from foundation_cms.nothing_personal.models import (
-    NothingPersonalArticlePage,
-    NothingPersonalHomePage,
-)
 from foundation_cms.profiles.factories import (
     ExpertDirectoryPageFactory,
     ExpertHubPageFactory,
     ExpertProfilePageFactory,
-)
-from foundation_cms.profiles.models import (
-    ExpertProfileSelectedArticle,
-    ExpertProfileSelectedProject,
 )
 
 
@@ -34,113 +25,36 @@ class ExpertProfilePageTestCase(WagtailPageTestCase):
     def test_is_leaf_page(self):
         self.assertEqual(self.page.subpage_types, [])
 
-    def test_get_profile_projects_returns_selected_projects_in_editor_order(self):
-        gallery = self._create_gallery_page()
-        fallback_project = self._create_project(gallery, "Fallback Project", "fallback-project", expert=self.page)
-        first_project = self._create_project(gallery, "First Selected Project", "first-selected-project")
-        second_project = self._create_project(gallery, "Second Selected Project", "second-selected-project")
+    def test_social_fields_use_url_validation_and_are_optional(self):
+        for field_name in [
+            "linkedin_url",
+            "bluesky_url",
+            "facebook_url",
+            "instagram_url",
+            "tiktok_url",
+        ]:
+            field = self.page._meta.get_field(field_name)
+            self.assertTrue(field.blank)
+            self.assertIsInstance(field, URLField)
 
-        ExpertProfileSelectedProject.objects.create(page=self.page, project=second_project, sort_order=0)
-        ExpertProfileSelectedProject.objects.create(page=self.page, project=first_project, sort_order=1)
+    def test_editor_exposes_body_and_socials_but_not_legacy_content(self):
+        field_names = []
 
-        projects = list(self.page.get_profile_projects())
+        def collect_fields(panels):
+            for panel in panels:
+                if hasattr(panel, "field_name"):
+                    field_names.append(panel.field_name)
+                collect_fields(getattr(panel, "children", []))
 
-        self.assertEqual(projects, [second_project, first_project])
-        self.assertNotIn(fallback_project, projects)
+        collect_fields(self.page.content_panels)
 
-    def test_get_profile_projects_falls_back_to_related_projects(self):
-        gallery = self._create_gallery_page()
-        older_project = self._create_project(gallery, "Older Project", "older-project", expert=self.page)
-        newer_project = self._create_project(gallery, "Newer Project", "newer-project", expert=self.page)
-
-        projects = list(self.page.get_profile_projects())
-
-        self.assertEqual(projects, [newer_project, older_project])
-
-    def test_get_project_block_rows_returns_three_project_blocks_per_row(self):
-        gallery = self._create_gallery_page()
-        projects = [
-            self._create_project(gallery, f"Project {index}", f"project-{index}", expert=self.page)
-            for index in range(4)
-        ]
-
-        rows = self.page.get_project_block_rows()
-
-        self.assertEqual(len(rows), 1)
-        self.assertEqual(len(rows[0]), 3)
-        self.assertEqual(
-            [block["project"] for row in rows for block in row],
-            list(reversed(projects))[:3],
-        )
-        self.assertTrue(all(block["show_description"] for row in rows for block in row))
-
-    def test_get_project_block_rows_omits_incomplete_project_rows(self):
-        gallery = self._create_gallery_page()
-        self._create_project(gallery, "First Project", "first-project", expert=self.page)
-        self._create_project(gallery, "Second Project", "second-project", expert=self.page)
-
-        rows = self.page.get_project_block_rows()
-
-        self.assertEqual(rows, [])
-
-    def test_get_selected_articles_returns_pages_in_editor_order(self):
-        nothing_personal_home = self._create_nothing_personal_home_page()
-        first_article = self._create_article(nothing_personal_home, "First Article", "first-article")
-        second_article = self._create_article(nothing_personal_home, "Second Article", "second-article")
-
-        ExpertProfileSelectedArticle.objects.create(page=self.page, article=second_article, sort_order=0)
-        ExpertProfileSelectedArticle.objects.create(page=self.page, article=first_article, sort_order=1)
-
-        articles = list(self.page.get_selected_articles())
-
-        self.assertEqual(articles, [second_article, first_article])
-
-    def _create_gallery_page(self):
-        gallery = GalleryPage(
-            title="Gallery",
-            slug="gallery",
-            seo_title="Gallery",
-            search_description="Gallery projects.",
-        )
-        Page.get_first_root_node().add_child(instance=gallery)
-        gallery.save_revision().publish()
-        return gallery
-
-    def _create_nothing_personal_home_page(self):
-        nothing_personal_home = NothingPersonalHomePage(
-            title="Nothing Personal",
-            slug="nothing-personal",
-            seo_title="Nothing Personal",
-            search_description="Nothing Personal articles.",
-        )
-        Page.get_first_root_node().add_child(instance=nothing_personal_home)
-        nothing_personal_home.save_revision().publish()
-        return nothing_personal_home
-
-    def _create_article(self, parent, title, slug):
-        article = NothingPersonalArticlePage(
-            title=title,
-            slug=slug,
-            seo_title=title,
-            search_description=f"{title} description.",
-            lede_text=f"{title} lede.",
-        )
-        parent.add_child(instance=article)
-        article.save_revision().publish()
-        return article
-
-    def _create_project(self, parent, title, slug, expert=None):
-        project = ProjectPage(
-            title=title,
-            slug=slug,
-            seo_title=title,
-            search_description=f"{title} description.",
-            expert=expert,
-            hero_image=self.page.image,
-        )
-        parent.add_child(instance=project)
-        project.save_revision().publish()
-        return project
+        self.assertIn("body", field_names)
+        self.assertIn("linkedin_url", field_names)
+        self.assertNotIn("quote", field_names)
+        self.assertNotIn("quote_attribution", field_names)
+        self.assertNotIn("selected_projects", field_names)
+        self.assertNotIn("selected_articles", field_names)
+        self.assertNotIn("external_links", field_names)
 
 
 class ExpertDirectoryPageTestCase(WagtailPageTestCase):

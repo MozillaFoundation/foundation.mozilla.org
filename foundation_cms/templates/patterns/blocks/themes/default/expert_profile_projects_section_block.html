@@ -1,0 +1,27 @@
+{% load i18n %}
+
+{% if rendered_items %}
+    <section class="expert-profile-section expert-profile-section--projects">
+        <div class="grid-container">
+            <h2 class="expert-profile-section__heading">{% trans "Projects" %}</h2>
+            <div class="expert-profile-project-grid">
+                {% for item in rendered_items %}
+                    {% if item.type == "cms_project" %}
+                        <div class="expert-profile-project-grid__item expert-profile-project-grid__item--cms">
+                            {% include "patterns/blocks/themes/default/project_block.html" with self=item.value only %}
+                        </div>
+                    {% else %}
+                        <article class="expert-profile-project-grid__item expert-profile-manual-project">
+                            <h3 class="expert-profile-manual-project__title"><a href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">{{ item.value.title }}</a></h3>
+                            {% if item.value.description %}<p class="expert-profile-manual-project__description">{{ item.value.description }}</p>{% endif %}
+                            <a class="expert-profile-manual-project__link" href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">
+                                {% if item.value.link_label %}{{ item.value.link_label }}{% else %}{% trans "Learn more" %}{% endif %}
+                                <span class="show-for-sr">{% trans "(opens in a new tab)" %}</span>
+                            </a>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
