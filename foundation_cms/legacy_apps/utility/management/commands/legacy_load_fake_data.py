@@ -45,10 +45,12 @@ class Command(BaseCommand):
             help="""Generate the complete legacy content set: the news, highlights,
                     mozfest and donate factories, the buyersguide and other listing
                     pages, and the PNI product images. Without this flag the command
-                    creates only the Homepage, its Site record, a few PrimaryPages
-                    and the main nav, which is enough for a browsable site and much
-                    faster. Pass it for anything that exercises legacy content, such
-                    as the legacy Playwright suites or a review app.""",
+                    creates the Homepage and its Site record, the PrimaryPages under
+                    it, the blog and the profiles that author it, the homepage
+                    section orderables and the main nav, which is enough for a
+                    browsable site and much faster. Pass it for anything that
+                    exercises legacy content, such as the legacy Playwright suites
+                    or a review app.""",
         )
 
     def handle(self, *args, **options):
@@ -118,7 +120,7 @@ class Command(BaseCommand):
         else:
             # PNI products are only reachable through the buyersguide pages, which
             # generate_barebones() skips, so importing those images would be dead weight.
-            print("Generating barebones legacy content (homepage and navigation only)")
+            print("Generating barebones legacy content (homepage, blog and navigation)")
             wagtailpages_factory.generate_barebones(seed)
             # nav needs a homepage to hang links off, and gives the site a usable
             # header. It links whatever blog topics exist, so an empty set is fine.

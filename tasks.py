@@ -146,10 +146,11 @@ def new_db(ctx, slow=False, no_seed_data=False, full_legacy=False):
     This is used by `inv generate-schema-snapshot` to produce a clean snapshot.
 
     The redesign data is always loaded in full. The legacy data is barebones by
-    default: the homepage, its site record and the main nav. Pass `--full-legacy`
-    for the complete legacy content set, which you need to look at blog posts, the
-    buyersguide/PNI, MozFest, donate or petition pages. `--no-seed-data` wins if
-    you pass both.
+    default: the homepage and its site record, the primary pages under it, the
+    blog and the profiles that author it, the homepage sections and the main nav.
+    Pass `--full-legacy` for the complete legacy content set, which you need for
+    the buyersguide/PNI, MozFest, donate or petition pages, and to reproduce a CI
+    run locally. `--no-seed-data` wins if you pass both.
     """
     print("* Starting the postgres service")
     ctx.run("docker compose up -d postgres")
@@ -186,8 +187,10 @@ def setup(ctx, full_legacy=False):
     """
     Get a new dev environment and a new database with fake data.
 
-    Only the legacy homepage, its site record and the main nav are loaded by
-    default. Pass `--full-legacy` for the complete legacy content set.
+    The legacy data is barebones by default: the homepage and its site record,
+    the primary pages under it, the blog and the profiles that author it, the
+    homepage sections and the main nav. Pass `--full-legacy` for the complete
+    legacy content set.
     """
     with ctx.cd(ROOT):
         print("* Setting default environment variables")

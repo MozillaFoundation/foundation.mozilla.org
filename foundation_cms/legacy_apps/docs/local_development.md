@@ -81,10 +81,10 @@ When you need the complete legacy content set, pass `--full-legacy`:
 inv new-db --full-legacy
 ```
 
-Reach for it if you need to look at blog posts, the buyersguide/PNI, MozFest,
-donate or petition pages. CI passes it for the legacy Playwright and Percy
-suites, and review apps pass it in their `app.json` postdeploy step, so those
-keep getting the full data set.
+Reach for it if you need the buyersguide/PNI, MozFest, donate or petition
+pages, or if you are reproducing a CI run locally. CI passes it for the legacy
+Playwright and Percy suites, and review apps pass it in their `app.json`
+postdeploy step, so those keep getting the full data set.
 
 ### Docker and docker compose CLIs
 
