@@ -96,8 +96,9 @@ class ExpertHubPage(AbstractBasePage):
             .select_related("expert", "expert__image")
             .prefetch_related("expert__topics")
         ):
+            expert = fe.expert.localized
             topic = fe.expert.topics.first()
-            featured_experts.append({"expert": fe.expert, "topic": topic})
+            featured_experts.append({"expert": expert, "topic": topic})
 
         context["featured_experts"] = featured_experts
 
