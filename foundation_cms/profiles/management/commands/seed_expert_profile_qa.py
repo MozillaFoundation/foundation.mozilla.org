@@ -10,7 +10,7 @@ from foundation_cms.nothing_personal.models import NothingPersonalArticlePage
 from foundation_cms.profiles.models import ExpertHubPage, ExpertProfilePage
 
 QA_SLUG = "expert-profile-figma-qa"
-QA_TITLE = "Expert Profile Figma QA"
+QA_TITLE = "Expert Profile QA"
 QA_IMAGELESS_ARTICLE_SLUG = "expert-profile-figma-qa-image-fallback"
 QA_NAMESPACE = uuid.UUID("dd312649-b18b-4fb0-8b62-709934abce84")
 QA_PROJECTS = [
@@ -407,7 +407,7 @@ def _body(projects, articles, manual_project_image):
 
 
 class Command(BaseCommand):
-    help = "Create or update the deterministic local-only Expert Profile Figma QA page."
+    help = "Create or update the deterministic local-only Expert Profile QA page."
 
     def handle(self, *args, **options):
         hub = ExpertHubPage.objects.live().order_by("pk").first()
