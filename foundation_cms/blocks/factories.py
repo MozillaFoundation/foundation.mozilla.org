@@ -20,14 +20,6 @@ from foundation_cms.blocks.timely_activations_cards_block import (
 )
 from foundation_cms.blocks.title_block import TitleBlock
 from foundation_cms.blocks.video_block import VideoBlock
-from foundation_cms.profiles.blocks import (
-    ArticlesSectionBlock,
-    LinkRowBlock,
-    LinkSectionBlock,
-    ManualArticleBlock,
-    ManualProjectBlock,
-    ProjectsSectionBlock,
-)
 from foundation_cms.snippets.factories import NewsletterSignupFactory
 
 
@@ -74,58 +66,6 @@ class QuoteBlockFactory(wagtail_factories.StructBlockFactory):
 
     quote = factory.Faker("sentence", nb_words=12)
     attribution = factory.Faker("name")
-
-
-class ManualProjectBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = ManualProjectBlock
-
-    title = factory.Faker("sentence", nb_words=5)
-    description = factory.Faker("paragraph", nb_sentences=2)
-    image = {"image": None, "alt_text": "", "decorative": False}
-    url = factory.Faker("url")
-    link_label = "Learn more"
-
-
-class ProjectsSectionBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = ProjectsSectionBlock
-
-    source = ProjectsSectionBlock.SOURCE_CURATED
-    items: list = []
-
-
-class ManualArticleBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = ManualArticleBlock
-
-    title = factory.Faker("sentence", nb_words=5)
-    description = factory.Faker("paragraph", nb_sentences=2)
-    url = factory.Faker("url")
-
-
-class ArticlesSectionBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = ArticlesSectionBlock
-
-    items: list = []
-
-
-class LinkRowBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = LinkRowBlock
-
-    title = factory.Faker("sentence", nb_words=5)
-    description = factory.Faker("paragraph", nb_sentences=1)
-    url = ""
-
-
-class LinkSectionBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = LinkSectionBlock
-
-    heading = factory.Faker("sentence", nb_words=3)
-    rows: list = []
 
 
 class CustomMediaBlockFactory(wagtail_factories.StructBlockFactory):

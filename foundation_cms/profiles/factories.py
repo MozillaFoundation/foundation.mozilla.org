@@ -9,6 +9,7 @@ from wagtail.images import get_image_model
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.utils.helpers import get_faker, reseed, to_streamfield_value
+from foundation_cms.blocks.factories import QuoteBlockFactory
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
 from foundation_cms.nothing_personal.models import (
     NothingPersonalArticlePage,
@@ -16,6 +17,14 @@ from foundation_cms.nothing_personal.models import (
 )
 from foundation_cms.nothing_personal.models.home_page import NothingPersonalFeaturedItem
 from foundation_cms.profiles import expert_profile_data as profile_data
+from foundation_cms.profiles.blocks import (
+    ArticlesSectionBlock,
+    LinkRowBlock,
+    LinkSectionBlock,
+    ManualArticleBlock,
+    ManualProjectBlock,
+    ProjectsSectionBlock,
+)
 from foundation_cms.profiles.models import (
     ExpertDirectoryPage,
     ExpertExternalLink,
@@ -90,6 +99,165 @@ EXTERNAL_LINKS = [
         "url": "https://foundation.mozilla.org/en/research/",
     },
 ]
+
+
+class ManualProjectBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ManualProjectBlock
+
+    title = factory.Faker("sentence", nb_words=5)
+    description = factory.Faker("paragraph", nb_sentences=2)
+    url = factory.Faker("url")
+    link_label = "Learn more"
+
+
+class ProjectsSectionBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ProjectsSectionBlock
+
+    source = ProjectsSectionBlock.SOURCE_CURATED
+    items: list = []
+
+
+class ManualArticleBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ManualArticleBlock
+
+    title = factory.Faker("sentence", nb_words=5)
+    description = factory.Faker("paragraph", nb_sentences=2)
+    url = factory.Faker("url")
+
+
+class ArticlesSectionBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ArticlesSectionBlock
+
+    items: list = []
+
+
+class LinkRowBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = LinkRowBlock
+
+    title = factory.Faker("sentence", nb_words=5)
+    description = factory.Faker("paragraph", nb_sentences=1)
+    url = ""
+
+
+class LinkSectionBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = LinkSectionBlock
+
+    heading = factory.Faker("sentence", nb_words=3)
+    rows: list = []
+
+
+def _body_item(block_type, value, item_id, id_factory):
+    return {"type": block_type, "value": value, "id": id_factory(block_type, item_id)}
+
+
+def build_expert_profile_link_sections(id_factory):
+    return [
+        _body_item(
+            "link_section",
+            dict(
+                LinkSectionBlockFactory(
+                    heading=section["heading"],
+                    rows=[
+                        _body_item(
+                            "link",
+                            dict(
+                                LinkRowBlockFactory(
+                                    title=row["title"],
+                                    description=row["description"],
+                                    url=row["url"],
+                                )
+                            ),
+                            row["id"],
+                            id_factory,
+                        )
+                        for row in section["rows"]
+                    ],
+                )
+            ),
+            section["id"],
+            id_factory,
+        )
+        for section in profile_data.LINK_SECTIONS
+    ]
+
+
+def build_expert_profile_body(projects, articles, id_factory):
+    manual_projects = [
+        _body_item(
+            "manual_project",
+            dict(
+                ManualProjectBlockFactory(
+                    title=project["title"],
+                    description=project["description"],
+                    url=project["url"],
+                    link_label=project["link_label"],
+                )
+            ),
+            project["id"],
+            id_factory,
+        )
+        for project in profile_data.MANUAL_PROJECTS
+    ]
+    project_items = [
+        _body_item("cms_project", projects[0].pk, "project-cms-1", id_factory),
+        manual_projects[0],
+        _body_item("cms_project", projects[1].pk, "project-cms-2", id_factory),
+        *manual_projects[1:],
+    ]
+    article_items = [
+        _body_item("cms_article", articles[0].pk, "article-cms-1", id_factory),
+        _body_item("cms_article", articles[1].pk, "article-cms-2", id_factory),
+        *[
+            _body_item(
+                "manual_article",
+                dict(
+                    ManualArticleBlockFactory(
+                        title=article["title"],
+                        description=article["description"],
+                        url=article["url"],
+                    )
+                ),
+                article["id"],
+                id_factory,
+            )
+            for article in profile_data.MANUAL_ARTICLES
+        ],
+    ]
+
+    return [
+        _body_item(
+            "quote",
+            dict(
+                QuoteBlockFactory(
+                    quote="Technology should expand the choices communities can make together.",
+                    attribution="Priya Goswami",
+                )
+            ),
+            None,
+            id_factory,
+        ),
+        _body_item(
+            "projects_section",
+            dict(ProjectsSectionBlockFactory(source="curated", items=project_items)),
+            None,
+            id_factory,
+        ),
+        _body_item(
+            "articles_section",
+            dict(ArticlesSectionBlockFactory(items=article_items)),
+            None,
+            id_factory,
+        ),
+        *build_expert_profile_link_sections(id_factory),
+    ]
+
+
 SEED_BODY_NAMESPACE = uuid.UUID("a3ffb092-3e58-462e-97ed-72ddc8f68d65")
 
 
@@ -324,7 +492,7 @@ def ensure_expert_external_links(default_locale):
         expert.save_revision().publish()
         print(f"  {len(EXTERNAL_LINKS)} external links added to {expert.title}.")
 
-    for block in profile_data.build_link_sections(
+    for block in build_expert_profile_link_sections(
         lambda block_type, item_id=None: _seed_body_id(expert, block_type, item_id)
     ):
         _ensure_seeded_body_block(expert, block)
@@ -342,24 +510,20 @@ def ensure_expert_profile_composition(default_locale, projects):
         .filter(locale=default_locale, slug__startswith="expert-profile-article-")
         .order_by("slug")
     )
-    images = {
-        title: get_image_model().objects.filter(title=title).order_by("pk").first()
-        for title in [profile_data.PROFILE_IMAGE_TITLE, profile_data.MANUAL_PROJECT_IMAGE_TITLE]
-    }
+    profile_image = get_image_model().objects.filter(title=profile_data.PROFILE_IMAGE_TITLE).order_by("pk").first()
 
-    if not expert or len(projects) < 2 or len(articles) < 2 or not all(images.values()):
+    if not expert or len(projects) < 2 or len(articles) < 2 or not profile_image:
         raise RuntimeError("Generate the standard profile, Gallery projects, articles, and images first.")
 
     selected_articles = [articles[0], articles[-1]]
-    desired_body_payload = profile_data.build_expert_profile_body(
+    desired_body_payload = build_expert_profile_body(
         projects[:2],
         selected_articles,
-        images[profile_data.MANUAL_PROJECT_IMAGE_TITLE],
         lambda block_type, item_id=None: _seed_body_id(expert, block_type, item_id),
     )
     desired_body = expert.body.stream_block.clean(expert.body.stream_block.to_python(desired_body_payload))
     desired_body_prep = expert.body.stream_block.get_prep_value(desired_body)
-    field_values = {**profile_data.PROFILE_FIELDS, "image": images[profile_data.PROFILE_IMAGE_TITLE]}
+    field_values = {**profile_data.PROFILE_FIELDS, "image": profile_image}
 
     changed = expert.body.stream_block.get_prep_value(expert.body) != desired_body_prep
     for field_name, value in field_values.items():

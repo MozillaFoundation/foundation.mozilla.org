@@ -11,8 +11,8 @@ from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.search import index
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.base.models.abstract_base_page import base_page_block_options
 from foundation_cms.base.widgets import TopicSelectWidget
+from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.gallery_hub.models import ProjectPage
 from foundation_cms.profiles.blocks import (
     ArticlesSectionBlock,
@@ -23,7 +23,7 @@ from foundation_cms.profiles.models.abstract_profile_page import AbstractProfile
 
 EXPERT_PROFILE_BIO_COLLAPSED_CHAR_LIMIT = 600
 
-expert_profile_body_block_options = base_page_block_options + [
+expert_profile_body_block_options = BlockRegistry.get_blocks(["quote"]) + [
     ("projects_section", ProjectsSectionBlock(skip_default_wrapper=True, group="Profile sections")),
     ("articles_section", ArticlesSectionBlock(skip_default_wrapper=True, group="Profile sections")),
     ("link_section", LinkSectionBlock(skip_default_wrapper=True, group="Profile sections")),
@@ -150,7 +150,7 @@ class ExpertProfilePage(AbstractProfilePage):
                 FieldPanel("instagram_url"),
                 FieldPanel("tiktok_url"),
             ],
-            heading="Where to find me",
+            heading="Where to Find Me",
             classname="collapsible",
         ),
         FieldPanel("body"),

@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from django.utils.translation import override
 from wagtail import blocks
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
-from wagtail.images.blocks import ImageBlock
 from wagtail.models import Locale, Page, PageViewRestriction
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -15,7 +14,6 @@ from foundation_cms.nothing_personal.models import (
 )
 from foundation_cms.profiles.blocks import (
     ArticlesSectionBlock,
-    ManualArticleBlock,
     ProjectsSectionBlock,
 )
 from foundation_cms.profiles.factories import (
@@ -25,49 +23,9 @@ from foundation_cms.profiles.factories import (
 from foundation_cms.profiles.models import ExpertProfilePage
 
 
-def test_manual_article_derives_source_hostname():
-    value = ManualArticleBlock().to_python(
-        {
-            "title": "A manual article",
-            "description": "Description",
-            "url": "https://www.example.org/articles/story",
-        }
-    )
-
-    assert value.source_hostname == "example.org"
-
-
-def test_manual_project_image_is_optional_and_uses_wagtail_image_metadata():
+def test_manual_project_has_no_image_field():
     manual_project = ProjectsSectionBlock().child_blocks["items"].child_blocks["manual_project"]
-    image = manual_project.child_blocks["image"]
-
-    assert isinstance(image, ImageBlock)
-    assert image.child_blocks["image"].required is False
-
-
-def test_manual_project_without_image_is_accepted():
-    block = ProjectsSectionBlock()
-    value = block.to_python(
-        {
-            "source": "curated",
-            "items": [
-                {
-                    "type": "manual_project",
-                    "value": {
-                        "title": "Project without image",
-                        "description": "",
-                        "image": {"image": None, "alt_text": None, "decorative": None},
-                        "url": "https://example.com/project",
-                        "link_label": "",
-                    },
-                }
-            ],
-        }
-    )
-
-    cleaned = block.clean(value)
-
-    assert cleaned["items"][0].value["image"] is None
+    assert "image" not in manual_project.child_blocks
 
 
 def test_projects_section_schema_has_no_arbitrary_item_cap():
@@ -97,7 +55,6 @@ def test_related_projects_reject_curated_items():
                     "value": {
                         "title": "Manual project",
                         "description": "",
-                        "image": {"image": None, "alt_text": None, "decorative": None},
                         "url": "https://example.com/project",
                         "link_label": "",
                     },
@@ -131,7 +88,7 @@ def test_profile_only_blocks_are_not_available_on_general_pages():
     profile_blocks = ExpertProfilePage._meta.get_field("body").stream_block.child_blocks
     general_blocks = GeneralPage._meta.get_field("body").stream_block.child_blocks
 
-    assert {"projects_section", "articles_section", "link_section"} <= profile_blocks.keys()
+    assert set(profile_blocks) == {"quote", "projects_section", "articles_section", "link_section"}
     assert not {"projects_section", "articles_section", "link_section"} & general_blocks.keys()
     assert isinstance(profile_blocks["quote"], blocks.StructBlock)
 
@@ -258,7 +215,6 @@ class ProfileSectionVisibilityTests(WagtailPageTestCase):
                         "value": {
                             "title": "Fourth project",
                             "description": "",
-                            "image": {"image": None, "alt_text": None, "decorative": None},
                             "url": "https://example.com/fourth-project",
                             "link_label": "",
                         },

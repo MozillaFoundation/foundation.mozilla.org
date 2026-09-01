@@ -20,6 +20,7 @@ from foundation_cms.profiles.factories import (
     EXTERNAL_LINKS,
     ExpertHubPageFactory,
     ExpertProfilePageFactory,
+    build_expert_profile_body,
     ensure_expert_curated_articles,
     ensure_expert_external_links,
     ensure_expert_intro_quote,
@@ -335,7 +336,6 @@ class ExpertProfileDataTests(WagtailPageTestCase):
             article.save_revision().publish()
 
         BaseImageFactory(title=profile_data.PROFILE_IMAGE_TITLE)
-        self.manual_project_image = BaseImageFactory(title=profile_data.MANUAL_PROJECT_IMAGE_TITLE)
 
     def test_representative_profile_composition_is_deterministic_and_idempotent(self):
         profile = ensure_expert_profile_composition(self.root.locale, self.projects)
@@ -353,8 +353,9 @@ class ExpertProfileDataTests(WagtailPageTestCase):
             [item.block_type for item in project_items],
             ["cms_project", "manual_project", "cms_project", "manual_project", "manual_project", "manual_project"],
         )
-        self.assertEqual(project_items[1].value["image"].pk, self.manual_project_image.pk)
-        self.assertTrue(all(item.value["image"] is None for item in project_items[3:]))
+        self.assertTrue(
+            all("image" not in item.value for item in project_items if item.block_type == "manual_project")
+        )
         self.assertEqual(len(profile.body[2].value["items"]), 7)
         self.assertEqual(
             [block.value["heading"] for block in profile.body[3:]],
@@ -372,16 +373,14 @@ class ExpertProfileDataTests(WagtailPageTestCase):
 
         articles = [SimpleNamespace(pk=3), SimpleNamespace(pk=4)]
 
-        first = profile_data.build_expert_profile_body(
+        first = build_expert_profile_body(
             self.projects,
             articles,
-            self.manual_project_image,
             id_factory,
         )
-        second = profile_data.build_expert_profile_body(
+        second = build_expert_profile_body(
             self.projects,
             articles,
-            self.manual_project_image,
             id_factory,
         )
 

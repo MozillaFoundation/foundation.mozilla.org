@@ -57,11 +57,6 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
                                 "value": {
                                     "title": "Manual project",
                                     "description": "Manual project description",
-                                    "image": {
-                                        "image": self.page.image.pk,
-                                        "alt_text": "Manual project image",
-                                        "decorative": False,
-                                    },
                                     "url": "https://example.com/project",
                                     "link_label": "Project details",
                                 },
@@ -120,7 +115,7 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
         self.assertContains(response, "Body attribution")
         self.assertContains(response, "Manual project")
         self.assertContains(response, "Manual article")
-        self.assertContains(response, "example.org")
+        self.assertNotContains(response, "expert-profile-article-list__source")
         self.assertContains(response, "Articles & Publications")
         self.assertContains(response, 'class="expert-profile-article-list__manual-link"')
         self.assertContains(response, "Awards &amp; Recognition")
@@ -137,7 +132,7 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
     def test_renders_only_populated_accessible_social_links(self):
         response = self.client.get(self.page.url)
 
-        self.assertContains(response, "Where to find me?")
+        self.assertContains(response, "Where to Find Me")
         self.assertContains(response, "Visit LinkedIn (opens in a new tab)")
         self.assertContains(response, "Visit Facebook (opens in a new tab)")
         self.assertContains(response, "Visit TikTok (opens in a new tab)")
@@ -164,48 +159,10 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
 
 
 class ExpertProfileSectionTemplateTests(SimpleTestCase):
-    def test_manual_project_with_image_uses_project_card_media_and_alt_text(self):
-        def get_rendition(spec):
-            width, height = [int(value) for value in re.findall(r"\d+", spec)]
-            return SimpleNamespace(
-                url=f"/media/manual-project-{width}x{height}.jpg",
-                width=width,
-                height=height,
-                alt="Community fellows collaborating",
-            )
-
-        image = SimpleNamespace(
-            file=SimpleNamespace(name="manual-project.jpg"),
-            get_rendition=get_rendition,
-            title="Community fellows collaborating",
-        )
-        project = SimpleNamespace(
-            title="Manual project with image",
-            description="Manual project description",
-            image=image,
-            url="https://example.com/project-with-image",
-            link_label="Project details",
-        )
-
-        rendered = render_to_string(
-            "patterns/blocks/themes/default/expert_profile_projects_section_block.html",
-            {"rendered_items": [{"type": "manual_project", "value": project}]},
-        )
-
-        self.assertIn("<img", rendered)
-        self.assertIn("/media/manual-project-540x366.jpg", rendered)
-        self.assertIn('alt="Community fellows collaborating"', rendered)
-        self.assertIn('sizes="(max-width: 639px) 100vw, 33vw"', rendered)
-        self.assertEqual(rendered.count('target="_blank"'), 2)
-        self.assertEqual(rendered.count('rel="noopener noreferrer"'), 2)
-        self.assertIn("Project details", rendered)
-        self.assertNotIn("project-block", rendered)
-
-    def test_manual_project_without_image_is_a_natural_text_only_entry(self):
+    def test_manual_project_is_a_natural_text_only_entry(self):
         project = SimpleNamespace(
             title="Manual project without image",
             description="A deliberate text-only project entry.",
-            image=None,
             url="https://example.com/project-without-image",
             link_label="Project details",
         )
@@ -220,6 +177,7 @@ class ExpertProfileSectionTemplateTests(SimpleTestCase):
         self.assertNotIn("<img", rendered)
         self.assertEqual(rendered.count('target="_blank"'), 2)
         self.assertEqual(rendered.count('rel="noopener noreferrer"'), 2)
+        self.assertEqual(rendered.count("(opens in a new tab)"), 2)
         self.assertNotIn("project-block", rendered)
 
     def test_cms_project_uses_profile_card_with_media_topic_and_alt_text(self):
@@ -264,12 +222,11 @@ class ExpertProfileSectionTemplateTests(SimpleTestCase):
 
         self.assertIn("expert-profile-project-card--with-media", rendered)
         self.assertIn('alt="People collaborating on community technology"', rendered)
-        self.assertIn('class="expert-profile-project-card__topic"', rendered)
+        self.assertIn('class="btn-topic expert-profile-project-card__topic"', rendered)
         self.assertIn(">Security</a>", rendered)
         self.assertIn("A CMS project description.", rendered)
         self.assertNotIn("project-block", rendered)
         self.assertNotIn("program-label", rendered)
-        self.assertNotIn("topic-pills", rendered)
         self.assertNotIn("pagination-controls", rendered)
 
     def test_cms_project_blank_alt_text_falls_back_to_image_title(self):
@@ -366,12 +323,11 @@ class ExpertProfileSectionTemplateTests(SimpleTestCase):
         self.assertIn("expert-profile-article-list__media--fallback", rendered)
         self.assertNotIn("<img", rendered)
 
-    def test_manual_article_renders_title_before_source(self):
+    def test_manual_article_omits_source_hostname(self):
         article = SimpleNamespace(
             title="Manual article",
             description="Manual article description",
             url="https://www.example.org/article",
-            source_hostname="example.org",
         )
 
         rendered = render_to_string(
@@ -379,8 +335,6 @@ class ExpertProfileSectionTemplateTests(SimpleTestCase):
             {"rendered_items": [{"type": "manual_article", "value": article}]},
         )
 
-        self.assertLess(
-            rendered.index("expert-profile-article-list__manual-link"),
-            rendered.index("expert-profile-article-list__source"),
-        )
+        self.assertNotIn("expert-profile-article-list__source", rendered)
+        self.assertIn("(opens in a new tab)", rendered)
         self.assertNotIn("expert-profile-article-list__media", rendered)

@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <section class="expert-profile-section expert-profile-section--links">
     <div class="grid-container">
         <div class="grid-x grid-margin-x">
@@ -11,6 +13,7 @@
                                     <span class="expert-profile-link-list__content">
                                         <span class="expert-profile-link-list__title">{{ row.value.title }}</span>
                                         {% if row.value.description %}<span class="expert-profile-link-list__description">{{ row.value.description }}</span>{% endif %}
+                                        <span class="show-for-sr">{% trans "(opens in a new tab)" %}</span>
                                     </span>
                                 </a>
                             {% else %}

@@ -1,9 +1,6 @@
-from urllib.parse import urlparse
-
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from wagtail import blocks
-from wagtail.images.blocks import ImageBlock
 from wagtail.models import Page
 
 from foundation_cms.base.models.base_block import BaseBlock
@@ -23,11 +20,6 @@ def _localized_public_page(page):
 class ManualProjectBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, max_length=255)
     description = blocks.TextBlock(required=False, max_length=600)
-    image = ImageBlock(
-        required=False,
-        label="Image",
-        help_text="Optional project image. Add contextual alt text or mark it decorative.",
-    )
     url = blocks.URLBlock(
         required=True,
         help_text="Enter a full URL including http:// or https://",
@@ -129,13 +121,6 @@ class ProjectsSectionBlock(BaseBlock):
         template_name = "expert_profile_projects_section_block.html"
 
 
-class ManualArticleValue(blocks.StructValue):
-    @property
-    def source_hostname(self):
-        hostname = urlparse(self.get("url", "")).hostname or ""
-        return hostname.removeprefix("www.")
-
-
 class ManualArticleBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, max_length=255)
     description = blocks.TextBlock(required=False, max_length=600)
@@ -147,7 +132,6 @@ class ManualArticleBlock(blocks.StructBlock):
     class Meta:
         icon = "link"
         label = "Manual article"
-        value_class = ManualArticleValue
 
 
 class ArticlesSectionBlock(BaseBlock):

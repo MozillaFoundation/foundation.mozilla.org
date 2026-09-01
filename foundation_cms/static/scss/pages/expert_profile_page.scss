@@ -147,6 +147,11 @@ body.template-expert-profile-page {
       text-underline-offset: rem-calc(2);
       cursor: pointer;
 
+      &:hover,
+      &:focus-visible {
+        color: color(orange, "600");
+      }
+
       &--collapsed {
         position: absolute;
         top: var(--expert-profile-bio-toggle-top);
@@ -212,8 +217,8 @@ body.template-expert-profile-page {
     overflow-x: clip;
 
     @include breakpoint(large up) {
-      padding-top: 0;
-      padding-bottom: rem-calc(58);
+      padding-top: rem-calc(16);
+      padding-bottom: rem-calc(74);
     }
   }
 
@@ -243,7 +248,7 @@ body.template-expert-profile-page {
       position: relative;
       overflow: hidden;
       aspect-ratio: 109 / 74;
-      margin-bottom: rem-calc(16);
+      margin-bottom: rem-calc(20);
       background: color(neutral, "100");
     }
 
@@ -255,28 +260,14 @@ body.template-expert-profile-page {
     }
 
     &__topic {
-      @include mofo-text-style($body-text-styles, "xsmall");
-
       position: absolute;
       z-index: 1;
       top: rem-calc(12);
       left: rem-calc(12);
       max-width: calc(100% - #{rem-calc(24)});
       overflow: hidden;
-      padding: rem-calc(4) rem-calc(10);
-      border: rem-calc(1) solid $black;
-      border-radius: rem-calc(999);
-      background: color(neutral, "100");
-      color: $black;
       text-overflow: ellipsis;
-      text-decoration: none;
       white-space: nowrap;
-
-      &:hover,
-      &:focus-visible {
-        background: color(neutral, "100");
-        text-decoration: underline;
-      }
     }
 
     &__content {
@@ -289,13 +280,18 @@ body.template-expert-profile-page {
     &__title {
       @include mofo-text-style($header-styles, "h6", $header-font-family);
 
-      margin: 0 0 rem-calc(8);
+      margin: 0 0 rem-calc(12);
 
       a {
         color: inherit;
-        text-decoration: underline;
+        text-decoration: none;
         text-decoration-thickness: rem-calc(1);
         text-underline-offset: rem-calc(3);
+
+        &:hover,
+        &:focus-visible {
+          text-decoration: underline;
+        }
 
         &:focus-visible {
           outline: rem-calc(3) solid color(blue, "500");
@@ -307,7 +303,7 @@ body.template-expert-profile-page {
     &__description {
       @include mofo-text-style($body-text-styles, "small");
 
-      margin: 0 0 rem-calc(12);
+      margin: 0 0 rem-calc(20);
       color: color(neutral, "700");
     }
 
@@ -318,7 +314,7 @@ body.template-expert-profile-page {
       align-items: center;
       align-self: flex-start;
       gap: rem-calc(8);
-      margin-top: auto;
+      margin-top: 0;
       color: inherit;
       font-weight: map.get($font-weights, bold);
       text-decoration: underline;
@@ -335,6 +331,7 @@ body.template-expert-profile-page {
         background-repeat: no-repeat;
         background-size: contain;
         content: "";
+        transition: transform 0.3s ease-out;
       }
 
       &--external::after {
@@ -344,6 +341,13 @@ body.template-expert-profile-page {
       &:focus-visible {
         outline: rem-calc(3) solid color(blue, "500");
         outline-offset: rem-calc(4);
+      }
+
+      @include breakpoint(large up) {
+        &:hover,
+        &:focus-visible {
+          @include cta-link-hover-state;
+        }
       }
     }
 
@@ -422,6 +426,12 @@ body.template-expert-profile-page {
 
       a {
         color: inherit;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -458,12 +468,6 @@ body.template-expert-profile-page {
       }
     }
 
-    &__source {
-      @include mofo-text-style($body-text-styles, "small");
-
-      margin: rem-calc(8) 0 0;
-      color: color(neutral, "700");
-    }
   }
 
   .expert-profile-section--articles {
@@ -474,6 +478,11 @@ body.template-expert-profile-page {
 
   .expert-profile-section--links {
     padding-bottom: 0;
+
+    @include breakpoint(large up) {
+      padding-top: rem-calc(80);
+      padding-bottom: rem-calc(16);
+    }
   }
 
   .expert-profile-link-list {
@@ -537,6 +546,16 @@ body.template-expert-profile-page {
       background-size: rem-calc(16) rem-calc(16);
       content: "";
       transform: translateY(-50%);
+      transition: transform 0.3s ease-out;
+    }
+  }
+
+  @include breakpoint(large up) {
+    .expert-profile-article-list__manual-link:hover::after,
+    .expert-profile-article-list__manual-link:focus-visible::after,
+    .expert-profile-link-list__link:hover::after,
+    .expert-profile-link-list__link:focus-visible::after {
+      transform: translate(rem-calc(12), -50%);
     }
   }
 

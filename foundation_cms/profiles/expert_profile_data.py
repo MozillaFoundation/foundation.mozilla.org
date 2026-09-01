@@ -1,16 +1,5 @@
-from foundation_cms.blocks.factories import (
-    ArticlesSectionBlockFactory,
-    LinkRowBlockFactory,
-    LinkSectionBlockFactory,
-    ManualArticleBlockFactory,
-    ManualProjectBlockFactory,
-    ProjectsSectionBlockFactory,
-    QuoteBlockFactory,
-)
-
 EXPERT_SLUG = "expert-1"
 PROFILE_IMAGE_TITLE = "Faculty"
-MANUAL_PROJECT_IMAGE_TITLE = "Our global community at MozFest"
 
 PROJECTS = [
     {
@@ -67,29 +56,28 @@ PROFILE_FIELDS = {
 
 MANUAL_PROJECTS = [
     {
-        "id": "project-manual-image",
+        "id": "project-manual-1",
         "title": "Community Technology Fellowship",
         "description": "A collaborative program supporting community-led approaches to responsible technology.",
         "url": "https://example.com/projects/community-technology",
         "link_label": "Read the project story",
-        "image_alt": "People gathered at a Mozilla Festival community event",
     },
     {
-        "id": "project-manual-text-only-1",
+        "id": "project-manual-2",
         "title": "Community Data Stewardship Lab",
         "description": "A community-led initiative for trustworthy stewardship of shared data.",
         "url": "https://example.org/projects/community-data-stewardship",
         "link_label": "Explore the project",
     },
     {
-        "id": "project-manual-text-only-2",
+        "id": "project-manual-3",
         "title": "Open Source Governance Toolkit",
         "description": "Practical governance resources created with maintainers and community organizers.",
         "url": "https://example.net/projects/open-source-governance",
         "link_label": "View the toolkit",
     },
     {
-        "id": "project-manual-text-only-3",
+        "id": "project-manual-4",
         "title": "Responsible AI Learning Network",
         "description": "A peer-learning program connecting researchers, educators, and civic groups.",
         "url": "https://example.com/projects/responsible-ai-learning",
@@ -101,7 +89,7 @@ MANUAL_ARTICLES = [
     {
         "id": "article-manual-1",
         "title": "Building public-interest technology together",
-        "description": "A manual article entry with its source derived from the example URL.",
+        "description": "A manual article entry about building public-interest technology together.",
         "url": "https://example.org/insights/public-interest-technology",
     },
     {
@@ -192,122 +180,3 @@ LINK_SECTIONS = [
         ],
     },
 ]
-
-
-def _item(block_type, value, item_id, id_factory):
-    return {"type": block_type, "value": value, "id": id_factory(block_type, item_id)}
-
-
-def _image_value(image=None, alt_text=""):
-    return {
-        "image": image.pk if image else None,
-        "alt_text": alt_text,
-        "decorative": False,
-    }
-
-
-def build_link_sections(id_factory):
-    return [
-        _item(
-            "link_section",
-            dict(
-                LinkSectionBlockFactory(
-                    heading=section["heading"],
-                    rows=[
-                        _item(
-                            "link",
-                            dict(
-                                LinkRowBlockFactory(
-                                    title=row["title"],
-                                    description=row["description"],
-                                    url=row["url"],
-                                )
-                            ),
-                            row["id"],
-                            id_factory,
-                        )
-                        for row in section["rows"]
-                    ],
-                )
-            ),
-            section["id"],
-            id_factory,
-        )
-        for section in LINK_SECTIONS
-    ]
-
-
-def build_expert_profile_body(projects, articles, manual_project_image, id_factory):
-    manual_projects = [
-        _item(
-            "manual_project",
-            dict(
-                ManualProjectBlockFactory(
-                    title=project["title"],
-                    description=project["description"],
-                    image=_image_value(
-                        manual_project_image if index == 0 else None,
-                        project.get("image_alt", ""),
-                    ),
-                    url=project["url"],
-                    link_label=project["link_label"],
-                )
-            ),
-            project["id"],
-            id_factory,
-        )
-        for index, project in enumerate(MANUAL_PROJECTS)
-    ]
-    project_items = [
-        _item("cms_project", projects[0].pk, "project-cms-1", id_factory),
-        manual_projects[0],
-        _item("cms_project", projects[1].pk, "project-cms-2", id_factory),
-        *manual_projects[1:],
-    ]
-    article_items = [
-        _item("cms_article", articles[0].pk, "article-cms-1", id_factory),
-        _item("cms_article", articles[1].pk, "article-cms-2", id_factory),
-        *[
-            _item(
-                "manual_article",
-                dict(
-                    ManualArticleBlockFactory(
-                        title=article["title"],
-                        description=article["description"],
-                        url=article["url"],
-                    )
-                ),
-                article["id"],
-                id_factory,
-            )
-            for article in MANUAL_ARTICLES
-        ],
-    ]
-    link_sections = build_link_sections(id_factory)
-
-    return [
-        _item(
-            "quote",
-            dict(
-                QuoteBlockFactory(
-                    quote="Technology should expand the choices communities can make together.",
-                    attribution="Priya Goswami",
-                )
-            ),
-            None,
-            id_factory,
-        ),
-        _item(
-            "projects_section",
-            dict(ProjectsSectionBlockFactory(source="curated", items=project_items)),
-            None,
-            id_factory,
-        ),
-        _item(
-            "articles_section",
-            dict(ArticlesSectionBlockFactory(items=article_items)),
-            None,
-            id_factory,
-        ),
-        *link_sections,
-    ]

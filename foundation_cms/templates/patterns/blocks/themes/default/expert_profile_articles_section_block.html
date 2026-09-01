@@ -27,8 +27,7 @@
                             {% else %}
                                 <li class="expert-profile-article-list__manual">
                                     <article>
-                                        <h3><a class="expert-profile-article-list__manual-link" href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">{{ item.value.title }}</a></h3>
-                                        <p class="expert-profile-article-list__source">{{ item.value.source_hostname }}</p>
+                                        <h3><a class="expert-profile-article-list__manual-link" href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">{{ item.value.title }} <span class="show-for-sr">{% trans "(opens in a new tab)" %}</span></a></h3>
                                         {% if item.value.description %}<p class="expert-profile-article-list__manual-description">{{ item.value.description }}</p>{% endif %}
                                     </article>
                                 </li>
