@@ -41,7 +41,7 @@ QA_BIO = (
     "<p>Across these projects, Alex focuses on turning complex technical questions into practical choices that "
     "communities can understand and influence. They regularly advise civic organizations, teach workshops, and "
     "publish accessible research about platform power and data governance. This intentionally long local-only "
-    "biography exercises the six-hundred-character collapsed state, the accessible Read more and Show less "
+    "biography exercises the six-hundred-character collapsed state, the accessible Show more and Show less "
     "controls, responsive headshot wrapping, and the full-content fallback when JavaScript is unavailable.</p>"
     "<p>Alex also works alongside local leaders to document how technology changes everyday civic life. These "
     "partnerships produce practical guides, public workshops, and shared research agendas that communities can "
