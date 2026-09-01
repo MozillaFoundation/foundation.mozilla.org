@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import factory
 import wagtail_factories
 from wagtail import models as wagtail_models
+from wagtail.images import get_image_model
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.utils.helpers import get_faker, reseed, to_streamfield_value
@@ -14,6 +15,7 @@ from foundation_cms.nothing_personal.models import (
     NothingPersonalHomePage,
 )
 from foundation_cms.nothing_personal.models.home_page import NothingPersonalFeaturedItem
+from foundation_cms.profiles import expert_profile_data as profile_data
 from foundation_cms.profiles.models import (
     ExpertDirectoryPage,
     ExpertExternalLink,
@@ -25,7 +27,7 @@ from foundation_cms.profiles.models import (
 )
 
 CURATED_ARTICLE_COUNT = 5
-CURATED_ARTICLE_EXPERT_SLUG = "expert-1"
+CURATED_ARTICLE_EXPERT_SLUG = profile_data.EXPERT_SLUG
 CURATED_ARTICLE_FIRST_PUBLISHED_AT = datetime(2025, 1, 1, tzinfo=timezone.utc)
 NOTHING_PERSONAL_FEATURED_ITEM_COUNT = 2
 NOTHING_PERSONAL_FEATURED_ITEM_LIMIT = 3
@@ -43,22 +45,11 @@ CURATED_ARTICLE_DESCRIPTIONS = [
         "enough copy to exercise clamped text."
     ),
 ]
-PROFILE_INTRO_EXPERT_SLUG = "expert-1"
-PROFILE_INTRO_BIO = (
-    "<p>Priya is a feminist tech and media maker, and the co-founder and CEO of a feminist AI-social "
-    "entrepreneurship, Mumkin App LLP. Priya is a winner of the national film award of India, conferred by the "
-    "President of India, a recipient of the German Chancellor Fellowship for Young Leaders (AvH Stiftung, "
-    "Germany), "
-    "and the co-founder of an international non-profit, Sahiyo.</p>"
-    "<p>Priya is collaborating with SOPPECOM to build a platform to share stories of women farmers, mainstreaming "
-    "their struggles. Priya's individual research project explores the impact of digital public infrastructures "
-    "(DPIs) on the health and livelihood of rural health workers and daily wage labourers. Her project further "
-    "explores the onset of data mining for emergent AI-based technologies and its impact on India's rural "
-    "population.</p>"
-)
-PROFILE_INTRO_QUOTE = "Involved elephant club later best ditching points place status hits."
-PROFILE_INTRO_QUOTE_ATTRIBUTION = "Quote by Firstname Lastname"
-EXTERNAL_LINK_EXPERT_SLUG = "expert-1"
+PROFILE_INTRO_EXPERT_SLUG = profile_data.EXPERT_SLUG
+PROFILE_INTRO_BIO = profile_data.BIO
+PROFILE_INTRO_QUOTE = "Technology should expand the choices communities can make together."
+PROFILE_INTRO_QUOTE_ATTRIBUTION = "Priya Goswami"
+EXTERNAL_LINK_EXPERT_SLUG = profile_data.EXPERT_SLUG
 EXTERNAL_LINKS = [
     {
         "title": (
@@ -173,6 +164,7 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
     for i in range(CURATED_ARTICLE_COUNT):
         slug = f"expert-profile-article-{i + 1}"
         article = NothingPersonalArticlePage.objects.filter(slug=slug, locale=default_locale).first()
+        is_imageless = i == CURATED_ARTICLE_COUNT - 1
 
         if not article:
             title = fake.sentence(nb_words=5).rstrip(".")
@@ -184,11 +176,11 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
                 theme="nothing_personal",
                 locale=default_locale,
                 first_published_at=CURATED_ARTICLE_FIRST_PUBLISHED_AT,
-                displayed_hero_content=NothingPersonalArticlePage.HERO_CONTENT_IMAGE,
-                hero_image=ImageFactory(),
-                hero_image_alt_text=fake.sentence(nb_words=8).rstrip("."),
+                displayed_hero_content=("" if is_imageless else NothingPersonalArticlePage.HERO_CONTENT_IMAGE),
+                hero_image=None if is_imageless else ImageFactory(),
+                hero_image_alt_text="" if is_imageless else fake.sentence(nb_words=8).rstrip("."),
                 lede_text=lede_text,
-                search_image=ImageFactory(),
+                search_image=None if is_imageless else ImageFactory(),
                 seo_title=title,
                 search_description=lede_text,
             )
@@ -201,6 +193,18 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
             if topics:
                 article.topics.add(*random.sample(topics, min(random.randint(1, 3), len(topics))))
 
+            article.save_revision().publish()
+
+        elif is_imageless and (
+            article.displayed_hero_content
+            or article.hero_image_id
+            or article.hero_image_alt_text
+            or article.search_image_id
+        ):
+            article.displayed_hero_content = ""
+            article.hero_image = None
+            article.hero_image_alt_text = ""
+            article.search_image = None
             article.save_revision().publish()
 
         articles.append(article)
@@ -247,7 +251,7 @@ def ensure_expert_curated_articles(root, default_locale, topics, expert_pages, f
                     for article in articles
                 ]
             },
-            "id": _seed_body_id(expert, "articles"),
+            "id": _seed_body_id(expert, "articles_section"),
         },
         unique_by_type=True,
     )
@@ -320,24 +324,63 @@ def ensure_expert_external_links(default_locale):
         expert.save_revision().publish()
         print(f"  {len(EXTERNAL_LINKS)} external links added to {expert.title}.")
 
-    _ensure_seeded_body_block(
-        expert,
-        {
-            "type": "link_section",
-            "value": {
-                "heading": "External Links",
-                "rows": [
-                    {
-                        "type": "link",
-                        "value": link,
-                        "id": _seed_body_id(expert, "external-link", index),
-                    }
-                    for index, link in enumerate(EXTERNAL_LINKS)
-                ],
-            },
-            "id": _seed_body_id(expert, "external-links"),
-        },
+    for block in profile_data.build_link_sections(
+        lambda block_type, item_id=None: _seed_body_id(expert, block_type, item_id)
+    ):
+        _ensure_seeded_body_block(expert, block)
+
+
+def ensure_expert_profile_composition(default_locale, projects):
+    """Keep the representative seeded profile complete and deterministic."""
+    expert = ExpertProfilePage.objects.filter(
+        slug=profile_data.EXPERT_SLUG,
+        locale=default_locale,
+    ).first()
+    articles = list(
+        NothingPersonalArticlePage.objects.live()
+        .public()
+        .filter(locale=default_locale, slug__startswith="expert-profile-article-")
+        .order_by("slug")
     )
+    images = {
+        title: get_image_model().objects.filter(title=title).order_by("pk").first()
+        for title in [profile_data.PROFILE_IMAGE_TITLE, profile_data.MANUAL_PROJECT_IMAGE_TITLE]
+    }
+
+    if not expert or len(projects) < 2 or len(articles) < 2 or not all(images.values()):
+        raise RuntimeError("Generate the standard profile, Gallery projects, articles, and images first.")
+
+    selected_articles = [articles[0], articles[-1]]
+    desired_body_payload = profile_data.build_expert_profile_body(
+        projects[:2],
+        selected_articles,
+        images[profile_data.MANUAL_PROJECT_IMAGE_TITLE],
+        lambda block_type, item_id=None: _seed_body_id(expert, block_type, item_id),
+    )
+    desired_body = expert.body.stream_block.clean(expert.body.stream_block.to_python(desired_body_payload))
+    desired_body_prep = expert.body.stream_block.get_prep_value(desired_body)
+    field_values = {**profile_data.PROFILE_FIELDS, "image": images[profile_data.PROFILE_IMAGE_TITLE]}
+
+    changed = expert.body.stream_block.get_prep_value(expert.body) != desired_body_prep
+    for field_name, value in field_values.items():
+        current_value = getattr(expert, field_name)
+        if field_name == "image":
+            current_value = current_value.pk if current_value else None
+            value = value.pk
+        elif field_name == "location":
+            current_value = str(current_value)
+        if current_value != value:
+            changed = True
+            break
+
+    if not changed:
+        return expert
+
+    for field_name, value in field_values.items():
+        setattr(expert, field_name, value)
+    expert.body = desired_body
+    expert.save_revision().publish()
+    return expert
 
 
 def generate(seed):

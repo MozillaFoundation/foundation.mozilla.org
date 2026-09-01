@@ -260,7 +260,17 @@ export function initExpertProfileBioToggle() {
     overflow.setCollapsed(true);
   };
 
+  const remeasureCollapsedLayout = () => {
+    if (bio.isConnected && toggle.getAttribute("aria-expanded") === "false") {
+      applyCollapsedLayout();
+    }
+  };
+
   applyCollapsedLayout();
+
+  const fonts = bio.ownerDocument.fonts;
+  fonts?.ready?.then(remeasureCollapsedLayout);
+  fonts?.addEventListener?.("loadingdone", remeasureCollapsedLayout);
 
   toggle.addEventListener("click", () => {
     const isExpanded = toggle.getAttribute("aria-expanded") === "true";
@@ -280,8 +290,6 @@ export function initExpertProfileBioToggle() {
   });
 
   window.addEventListener("resize", () => {
-    if (toggle.getAttribute("aria-expanded") === "false") {
-      applyCollapsedLayout();
-    }
+    remeasureCollapsedLayout();
   });
 }

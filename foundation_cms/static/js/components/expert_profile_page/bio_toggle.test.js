@@ -205,6 +205,53 @@ describe("initExpertProfileBioToggle", () => {
     expect(bio.classList).toContain("expert-profile-intro__bio--collapsed");
   });
 
+  it("remeasures after web fonts finish loading", async () => {
+    renderBio("<p>One two three four five six seven eight nine</p>");
+    let resolveFonts;
+    const fontsReady = new Promise((resolve) => {
+      resolveFonts = resolve;
+    });
+    const originalFonts = Object.getOwnPropertyDescriptor(document, "fonts");
+    Object.defineProperty(document, "fonts", {
+      configurable: true,
+      value: {
+        addEventListener: vi.fn(),
+        ready: fontsReady,
+      },
+    });
+    const range = mockLayout();
+
+    try {
+      initExpertProfileBioToggle();
+      const toggle = document.querySelector("[data-expert-profile-bio-toggle]");
+      expect(
+        toggle.style.getPropertyValue("--expert-profile-bio-toggle-left"),
+      ).toBe("300px");
+
+      range.getClientRects.mockReturnValue([
+        { top: 180, right: 340, bottom: 220, width: 340, height: 40 },
+      ]);
+      resolveFonts();
+      await fontsReady;
+      await Promise.resolve();
+
+      expect(
+        toggle.style.getPropertyValue("--expert-profile-bio-toggle-left"),
+      ).toBe("340px");
+      expect(
+        document
+          .querySelector("[data-expert-profile-bio]")
+          .style.getPropertyValue("--expert-profile-bio-collapsed-height"),
+      ).toBe("200px");
+    } finally {
+      if (originalFonts) {
+        Object.defineProperty(document, "fonts", originalFonts);
+      } else {
+        delete document.fonts;
+      }
+    }
+  });
+
   it("backs up to a word boundary so the control stays before a floated image", () => {
     renderBio("<p>One two three four five six seven eight nine ten.</p>", 40);
     const image = document.createElement("img");

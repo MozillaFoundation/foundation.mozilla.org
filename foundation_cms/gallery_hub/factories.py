@@ -12,6 +12,8 @@ from foundation_cms.gallery_hub.models.project_page import (
     ProgramLabel,
     ProjectPageHeroMedia,
 )
+from foundation_cms.profiles import expert_profile_data as profile_data
+from foundation_cms.profiles.factories import ensure_expert_profile_composition
 from foundation_cms.profiles.models import (
     ExpertProfilePage,
     ExpertProfileSelectedProject,
@@ -66,6 +68,40 @@ def ensure_expert_curated_projects(default_locale, project_pages):
 
     expert.save_revision().publish()
     print(f"  {len(curated_projects)} curated projects linked to {expert.title}.")
+
+
+def ensure_representative_projects(project_pages, topics, images):
+    image_by_title = {image.title: image for image in images}
+
+    for project, definition in zip(project_pages, profile_data.PROJECTS, strict=False):
+        image = image_by_title.get(definition["image_title"])
+        if not image:
+            raise RuntimeError(f'Generate the maintained image "{definition["image_title"]}" first.')
+
+        field_values = {
+            "title": definition["title"],
+            "program_year": 2026,
+            "lede_text": definition["description"],
+            "displayed_hero_content": ProjectPage.HERO_CONTENT_IMAGE,
+            "hero_image": image,
+            "hero_image_alt_text": definition["image_alt"],
+            "project_link": f'https://example.com/projects/{definition["slug"]}',
+            "seo_title": definition["title"],
+            "search_description": definition["description"],
+        }
+        changed = any(getattr(project, name) != value for name, value in field_values.items())
+        for field_name, value in field_values.items():
+            setattr(project, field_name, value)
+
+        topic = next((topic for topic in topics if topic.name == definition["topic"]), None)
+        if not topic:
+            raise RuntimeError(f'Generate the standard topic "{definition["topic"]}" first.')
+        if list(project.topics.values_list("pk", flat=True)) != [topic.pk]:
+            project.topics.set([topic])
+            changed = True
+
+        if changed or not project.live:
+            project.save_revision().publish()
 
 
 def generate(seed):
@@ -159,8 +195,11 @@ def generate(seed):
 
     print(f"  {len(project_pages)} Project Pages ready.")
 
+    ensure_representative_projects(project_pages, topics, images)
+
     print("Linking curated projects to an Expert Profile Page...")
     ensure_expert_curated_projects(default_locale, project_pages)
+    ensure_expert_profile_composition(default_locale, project_pages)
 
     # --- Link all project pages as featured projects on the gallery hub page ---
     print("Linking featured projects to Gallery Hub Page...")
