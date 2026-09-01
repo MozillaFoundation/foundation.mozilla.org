@@ -92,6 +92,8 @@ body.template-expert-profile-page {
     &__body {
       @include mofo-text-style($body-text-styles, "regular");
 
+      position: relative;
+
       &::after {
         display: table;
         clear: both;
@@ -136,11 +138,26 @@ body.template-expert-profile-page {
       margin-top: rem-calc(20);
       padding: 0;
       border: 0;
-      border-bottom: rem-calc(2) solid currentcolor;
       background: transparent;
       color: $black;
-      font-weight: 700;
+      font: inherit;
+      line-height: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: rem-calc(1);
+      text-underline-offset: rem-calc(2);
       cursor: pointer;
+
+      &--collapsed {
+        position: absolute;
+        top: var(--expert-profile-bio-toggle-top);
+        left: var(--expert-profile-bio-toggle-left);
+        margin: 0 0 0 rem-calc(4);
+        white-space: nowrap;
+      }
+
+      &[aria-expanded="true"] &-ellipsis {
+        display: none;
+      }
 
       &:focus-visible {
         outline: rem-calc(3) solid color(blue, "500");

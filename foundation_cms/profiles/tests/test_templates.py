@@ -151,8 +151,11 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
         self.assertContains(response, 'data-collapsed-char-limit="600"')
         self.assertContains(response, 'aria-controls="expert-profile-bio"')
         self.assertContains(response, 'aria-expanded="false"')
-        self.assertContains(response, 'data-show-more-label="Read more"')
-        self.assertContains(response, ">Read more</button>")
+        self.assertContains(response, 'data-show-more-label="Show more"')
+        self.assertContains(
+            response,
+            "data-expert-profile-bio-toggle-label>Show more</span>",
+        )
         self.assertContains(response, "Want to collab?")
         self.assertLess(
             content.index('class="expert-profile-intro__image"'),

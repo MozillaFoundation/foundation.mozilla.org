@@ -17,26 +17,70 @@ function renderBio(content, limit = 20) {
     </div>
     <button
       data-expert-profile-bio-toggle
-      data-show-more-label="Read more"
+      data-show-more-label="Show more"
       data-show-less-label="Show less"
       aria-expanded="false"
       aria-controls="expert-profile-bio"
       hidden
-    >Read more</button>
+    ><span aria-hidden="true">... </span><span data-expert-profile-bio-toggle-label>Show more</span></button>
   `;
 }
 
-function mockLayout(rangeBottom = 180, bioTop = 20) {
+function mockLayout(
+  { top = 140, right = 300, bottom = 180 } = {},
+  bioTop = 20,
+) {
   const range = {
     setStart: vi.fn(),
     setEnd: vi.fn(),
-    getBoundingClientRect: vi.fn(() => ({ bottom: rangeBottom })),
+    getClientRects: vi.fn(() => [
+      { top, right, bottom, width: right, height: bottom - top },
+    ]),
+    getBoundingClientRect: vi.fn(() => ({ top, right, bottom })),
   };
   vi.spyOn(document, "createRange").mockReturnValue(range);
-  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
-    top: bioTop,
-  });
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(
+    function getElementRect() {
+      if (this.matches?.("[data-expert-profile-bio-toggle]")) {
+        return {
+          top: 0,
+          right: 90,
+          bottom: 20,
+          left: 0,
+          width: 90,
+          height: 20,
+        };
+      }
+      if (this === document.body) {
+        return {
+          top: 0,
+          right: 1000,
+          bottom: 500,
+          left: 0,
+          width: 1000,
+          height: 500,
+        };
+      }
+      return { top: bioTop, right: 0, bottom: 0, left: 0, width: 0, height: 0 };
+    },
+  );
   return range;
+}
+
+function getToggleLabel() {
+  return document.querySelector("[data-expert-profile-bio-toggle-label]");
+}
+
+function expectCollapsedTogglePosition(toggle) {
+  expect(toggle.classList).toContain(
+    "expert-profile-intro__bio-toggle--collapsed",
+  );
+  expect(
+    toggle.style.getPropertyValue("--expert-profile-bio-toggle-left"),
+  ).toBe("300px");
+  expect(toggle.style.getPropertyValue("--expert-profile-bio-toggle-top")).toBe(
+    "160px",
+  );
 }
 
 describe("getBioCollapseBoundary", () => {
@@ -106,13 +150,14 @@ describe("initExpertProfileBioToggle", () => {
         bio.querySelectorAll("[data-expert-profile-bio-overflow]"),
       ).every((element) => element.getAttribute("aria-hidden") === "true"),
     ).toBe(true);
-    expect(range.setEnd).toHaveBeenCalledOnce();
+    expect(range.setEnd).toHaveBeenCalled();
     expect(bio.classList).toContain("expert-profile-intro__bio--collapsed");
     expect(
       bio.style.getPropertyValue("--expert-profile-bio-collapsed-height"),
     ).toBe("160px");
     expect(toggle.hidden).toBe(false);
     expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    expectCollapsedTogglePosition(toggle);
 
     toggle.focus();
     toggle.click();
@@ -123,13 +168,17 @@ describe("initExpertProfileBioToggle", () => {
       bio.querySelector("[data-expert-profile-bio-overflow][aria-hidden]"),
     ).toBeNull();
     expect(toggle.getAttribute("aria-expanded")).toBe("true");
-    expect(toggle.textContent).toBe("Show less");
+    expect(toggle.classList).not.toContain(
+      "expert-profile-intro__bio-toggle--collapsed",
+    );
+    expect(getToggleLabel().textContent).toBe("Show less");
 
     toggle.click();
     expect(bio.classList).toContain("expert-profile-intro__bio--collapsed");
     expect(bio.textContent).toBe(originalText);
     expect(toggle.getAttribute("aria-expanded")).toBe("false");
-    expect(toggle.textContent).toBe("Read more");
+    expect(getToggleLabel().textContent).toBe("Show more");
+    expectCollapsedTogglePosition(toggle);
   });
 
   it("recomputes the clipping height without replacing visible content", () => {
@@ -139,14 +188,60 @@ describe("initExpertProfileBioToggle", () => {
     const range = mockLayout();
     initExpertProfileBioToggle();
 
-    range.getBoundingClientRect.mockReturnValue({ bottom: 220 });
+    range.getClientRects.mockReturnValue([
+      { top: 180, right: 340, bottom: 220, width: 340, height: 40 },
+    ]);
     window.dispatchEvent(new Event("resize"));
 
     expect(
       bio.style.getPropertyValue("--expert-profile-bio-collapsed-height"),
     ).toBe("200px");
+    expect(
+      document
+        .querySelector("[data-expert-profile-bio-toggle]")
+        .style.getPropertyValue("--expert-profile-bio-toggle-left"),
+    ).toBe("340px");
     expect(bio.querySelector("p")).toBe(paragraph);
     expect(bio.classList).toContain("expert-profile-intro__bio--collapsed");
+  });
+
+  it("backs up to a word boundary so the control stays before a floated image", () => {
+    renderBio("<p>One two three four five six seven eight nine ten.</p>", 40);
+    const image = document.createElement("img");
+    image.className = "expert-profile-intro__image";
+    document.body.prepend(image);
+    const range = mockLayout();
+    range.getClientRects
+      .mockReturnValueOnce([
+        { top: 140, right: 600, bottom: 180, width: 600, height: 40 },
+      ])
+      .mockReturnValue([
+        { top: 140, right: 400, bottom: 180, width: 400, height: 40 },
+      ]);
+    const originalGetComputedStyle = window.getComputedStyle.bind(window);
+    vi.spyOn(image, "getBoundingClientRect").mockReturnValue({
+      top: 100,
+      right: 800,
+      bottom: 500,
+      left: 540,
+      width: 260,
+      height: 400,
+    });
+    vi.spyOn(window, "getComputedStyle").mockImplementation((element) => {
+      if (element === image) return { float: "right", marginLeft: "40px" };
+      if (element.matches?.("[data-expert-profile-bio-toggle]")) {
+        return { marginLeft: "4px" };
+      }
+      return originalGetComputedStyle(element);
+    });
+
+    initExpertProfileBioToggle();
+
+    const toggle = document.querySelector("[data-expert-profile-bio-toggle]");
+    expect(
+      toggle.style.getPropertyValue("--expert-profile-bio-toggle-left"),
+    ).toBe("400px");
+    expect(range.setEnd.mock.calls.length).toBeGreaterThan(2);
   });
 
   it("makes the post-cutoff subtree inert while preserving descendant attributes", () => {
