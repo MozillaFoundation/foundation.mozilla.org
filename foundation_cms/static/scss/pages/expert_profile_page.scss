@@ -537,20 +537,36 @@ body.template-expert-profile-page {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: rem-calc(20);
+      gap: rem-calc(12);
       margin: 0;
       padding: 0;
       list-style: none;
     }
 
     &__link {
-      display: block;
-      width: rem-calc(40);
-      height: rem-calc(40);
-      border-radius: 50%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: rem-calc(24);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: rem-calc(38);
+      height: rem-calc(39);
+      background: url("/static/foundation_cms/_images/share-container-yellow.svg")
+        no-repeat center / contain;
+
+      &::before {
+        display: block;
+        position: relative;
+        top: rem-calc(1);
+        width: rem-calc(18);
+        height: rem-calc(18);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+      }
+
+      &:hover {
+        background-image: url("/static/foundation_cms/_images/share-container-orange.svg");
+      }
 
       &:focus-visible {
         outline: rem-calc(3) solid color(blue, "500");
@@ -558,23 +574,33 @@ body.template-expert-profile-page {
       }
 
       &--linkedin {
-        background-image: url("/static/foundation_cms/_images/icons/social-linkedin-black.svg");
+        &::before {
+          background-image: url("/static/foundation_cms/_images/icons/social-linkedin-black.svg");
+        }
       }
 
       &--bluesky {
-        background-image: url("/static/foundation_cms/_images/icons/social-bluesky-black.svg");
+        &::before {
+          background-image: url("/static/foundation_cms/_images/icons/social-bluesky-black.svg");
+        }
       }
 
       &--facebook {
-        background-image: url("/static/foundation_cms/_images/icons/social-facebook-black.svg");
+        &::before {
+          background-image: url("/static/foundation_cms/_images/icons/social-facebook-black.svg");
+        }
       }
 
       &--instagram {
-        background-image: url("/static/foundation_cms/_images/icons/social-instagram-black.svg");
+        &::before {
+          background-image: url("/static/foundation_cms/_images/icons/social-instagram-black.svg");
+        }
       }
 
       &--tiktok {
-        background-image: url("/static/foundation_cms/_images/icons/social-tiktok-black.svg");
+        &::before {
+          background-image: url("/static/foundation_cms/_images/icons/social-tiktok-black.svg");
+        }
       }
     }
   }
