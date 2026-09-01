@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
 @import "listing_page_base";
@@ -120,6 +121,15 @@ body.template-expert-profile-page {
       p:last-child {
         margin-bottom: 0;
       }
+
+      &--collapsed {
+        max-height: var(--expert-profile-bio-collapsed-height);
+        overflow: clip;
+
+        [data-expert-profile-bio-overflow] {
+          visibility: hidden;
+        }
+      }
     }
 
     &__bio-toggle {
@@ -193,38 +203,135 @@ body.template-expert-profile-page {
   .expert-profile-project-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: rem-calc(24);
-
-    .project-block__viewport {
-      contain: paint;
-    }
+    align-items: start;
+    gap: rem-calc(40) rem-calc(24);
 
     @include breakpoint(large up) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: rem-calc(32);
+      gap: rem-calc(48) rem-calc(32);
     }
   }
 
-  .expert-profile-manual-project {
+  .expert-profile-project-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
     align-self: start;
 
-    &__title {
-      @include mofo-text-style($header-styles, "h5", $header-font-family);
+    &--with-media {
+      align-self: stretch;
+    }
 
-      margin: 0 0 rem-calc(16);
+    &__media {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 109 / 74;
+      margin-bottom: rem-calc(16);
+      background: color(neutral, "100");
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__topic {
+      @include mofo-text-style($body-text-styles, "xsmall");
+
+      position: absolute;
+      z-index: 1;
+      top: rem-calc(12);
+      left: rem-calc(12);
+      max-width: calc(100% - #{rem-calc(24)});
+      overflow: hidden;
+      padding: rem-calc(4) rem-calc(10);
+      border: rem-calc(1) solid $black;
+      border-radius: rem-calc(999);
+      background: color(neutral, "100");
+      color: $black;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover,
+      &:focus-visible {
+        background: color(neutral, "100");
+        text-decoration: underline;
+      }
+    }
+
+    &__content {
+      display: flex;
+      min-width: 0;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    &__title {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+      margin: 0 0 rem-calc(8);
 
       a {
         color: inherit;
+        text-decoration: underline;
+        text-decoration-thickness: rem-calc(1);
+        text-underline-offset: rem-calc(3);
+
+        &:focus-visible {
+          outline: rem-calc(3) solid color(blue, "500");
+          outline-offset: rem-calc(4);
+        }
       }
     }
 
     &__description {
-      margin: 0 0 rem-calc(20);
+      @include mofo-text-style($body-text-styles, "small");
+
+      margin: 0 0 rem-calc(12);
+      color: color(neutral, "700");
     }
 
     &__link {
+      @include mofo-text-style($body-text-styles, "small");
+
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: rem-calc(8);
+      margin-top: auto;
       color: inherit;
-      font-weight: 700;
+      font-weight: map.get($font-weights, bold);
+      text-decoration: underline;
+      text-decoration-thickness: rem-calc(1);
+      text-underline-offset: rem-calc(3);
+
+      &::after {
+        display: block;
+        width: rem-calc(16);
+        height: rem-calc(16);
+        flex: 0 0 rem-calc(16);
+        background-image: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+      }
+
+      &--external::after {
+        background-image: url("/static/foundation_cms/_images/icons/link-external-black.svg");
+      }
+
+      &:focus-visible {
+        outline: rem-calc(3) solid color(blue, "500");
+        outline-offset: rem-calc(4);
+      }
+    }
+
+    &--text-only &__link {
+      margin-top: 0;
     }
   }
 

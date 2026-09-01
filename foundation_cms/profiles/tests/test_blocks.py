@@ -1,7 +1,9 @@
 import pytest
+from bs4 import BeautifulSoup
 from django.utils.translation import override
 from wagtail import blocks
 from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError
+from wagtail.images.blocks import ImageBlock
 from wagtail.models import Locale, Page, PageViewRestriction
 from wagtail.test.utils import WagtailPageTestCase
 
@@ -35,6 +37,45 @@ def test_manual_article_derives_source_hostname():
     assert value.source_hostname == "example.org"
 
 
+def test_manual_project_image_is_optional_and_uses_wagtail_image_metadata():
+    manual_project = ProjectsSectionBlock().child_blocks["items"].child_blocks["manual_project"]
+    image = manual_project.child_blocks["image"]
+
+    assert isinstance(image, ImageBlock)
+    assert image.child_blocks["image"].required is False
+
+
+def test_manual_project_without_image_is_accepted():
+    block = ProjectsSectionBlock()
+    value = block.to_python(
+        {
+            "source": "curated",
+            "items": [
+                {
+                    "type": "manual_project",
+                    "value": {
+                        "title": "Project without image",
+                        "description": "",
+                        "image": {"image": None, "alt_text": None, "decorative": None},
+                        "url": "https://example.com/project",
+                        "link_label": "",
+                    },
+                }
+            ],
+        }
+    )
+
+    cleaned = block.clean(value)
+
+    assert cleaned["items"][0].value["image"] is None
+
+
+def test_projects_section_schema_has_no_arbitrary_item_cap():
+    items = ProjectsSectionBlock().child_blocks["items"]
+
+    assert items.meta.max_num is None
+
+
 def test_curated_projects_require_items():
     block = ProjectsSectionBlock()
     value = block.to_python({"source": "curated", "items": []})
@@ -56,6 +97,7 @@ def test_related_projects_reject_curated_items():
                     "value": {
                         "title": "Manual project",
                         "description": "",
+                        "image": {"image": None, "alt_text": None, "decorative": None},
                         "url": "https://example.com/project",
                         "link_label": "",
                     },
@@ -193,11 +235,53 @@ class ProfileSectionVisibilityTests(WagtailPageTestCase):
         articles = [self._create_article(f"Visible article {index}", f"visible-article-{index}") for index in range(4)]
         block = ArticlesSectionBlock()
         rendered = block.render(self._articles_value(*articles), context={"page": self.profile})
+        soup = BeautifulSoup(rendered, "html.parser")
+        rendered_articles = soup.select("[data-expert-profile-article-list] > li")
+        show_more = soup.select_one("[data-expert-profile-show-articles]")
 
         self.assertIn(f'data-visible-count="{block.visible_count}"', rendered)
-        self.assertIn("Show more results", rendered)
+        self.assertEqual(len(rendered_articles), 4)
+        self.assertTrue(all(not article.has_attr("hidden") for article in rendered_articles))
+        self.assertIsNotNone(show_more)
+        self.assertTrue(show_more.has_attr("hidden"))
 
-    def _create_project(self, title, slug, live=True):
+    def test_projects_section_accepts_more_than_three_mixed_items(self):
+        projects = [self._create_project(f"Project {index}", f"project-{index}") for index in range(3)]
+        block = ProjectsSectionBlock()
+        value = block.to_python(
+            {
+                "source": "curated",
+                "items": [
+                    *[{"type": "cms_project", "value": project.pk} for project in projects],
+                    {
+                        "type": "manual_project",
+                        "value": {
+                            "title": "Fourth project",
+                            "description": "",
+                            "image": {"image": None, "alt_text": None, "decorative": None},
+                            "url": "https://example.com/fourth-project",
+                            "link_label": "",
+                        },
+                    },
+                ],
+            }
+        )
+
+        cleaned = block.clean(value)
+
+        self.assertEqual(len(cleaned["items"]), 4)
+
+    def test_related_projects_are_not_truncated(self):
+        for index in range(4):
+            self._create_project(
+                f"Related project {index}",
+                f"related-project-{index}",
+                expert=self.profile,
+            )
+
+        self.assertEqual(len(self.profile.get_related_projects()), 4)
+
+    def _create_project(self, title, slug, live=True, expert=None):
         project = ProjectPage(
             title=title,
             slug=slug,
@@ -206,6 +290,7 @@ class ProfileSectionVisibilityTests(WagtailPageTestCase):
             seo_title=title,
             search_description=f"{title} description.",
             hero_image=self.profile.image,
+            expert=expert,
         )
         self.gallery.add_child(instance=project)
         revision = project.save_revision()

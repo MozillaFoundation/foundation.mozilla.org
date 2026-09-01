@@ -33,13 +33,11 @@ export function initExpertProfileArticleList() {
       Number.parseInt(articleList.dataset.visibleCount, 10) || articles.length;
     const hiddenArticles = hideOverflowArticles(articles, visibleArticleCount);
 
-    if (!hiddenArticles.length) {
-      showMoreButton.hidden = true;
-      return;
-    }
+    if (!hiddenArticles.length) return;
 
     showMoreButton.addEventListener("click", () => {
       revealOverflowArticles(hiddenArticles, showMoreButton);
     });
+    showMoreButton.hidden = false;
   });
 }

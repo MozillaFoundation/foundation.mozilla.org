@@ -3,11 +3,12 @@ from urllib.parse import urlparse
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from wagtail import blocks
+from wagtail.images.blocks import ImageBlock
 from wagtail.models import Page
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-EXPERT_PROFILE_RELATED_CONTENT_LIMIT = 9
+EXPERT_PROFILE_ARTICLE_LIMIT = 9
 EXPERT_PROFILE_LINK_ROW_LIMIT = 10
 
 
@@ -22,6 +23,11 @@ def _localized_public_page(page):
 class ManualProjectBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, max_length=255)
     description = blocks.TextBlock(required=False, max_length=600)
+    image = ImageBlock(
+        required=False,
+        label="Image",
+        help_text="Optional project image. Add contextual alt text or mark it decorative.",
+    )
     url = blocks.URLBlock(
         required=True,
         help_text="Enter a full URL including http:// or https://",
@@ -65,8 +71,7 @@ class ProjectsSectionBlock(BaseBlock):
             ("manual_project", ManualProjectBlock()),
         ],
         required=False,
-        max_num=EXPERT_PROFILE_RELATED_CONTENT_LIMIT,
-        help_text="Add up to 9 Mozilla Foundation or manual projects in display order.",
+        help_text="Add Mozilla Foundation or manual projects in display order.",
     )
 
     def clean(self, value):
@@ -97,7 +102,7 @@ class ProjectsSectionBlock(BaseBlock):
                 rendered_items = [
                     {
                         "type": "cms_project",
-                        "value": {"project": project, "show_description": True},
+                        "value": {"project": project},
                     }
                     for project in page.get_related_projects()
                 ]
@@ -109,7 +114,7 @@ class ProjectsSectionBlock(BaseBlock):
                         rendered_items.append(
                             {
                                 "type": "cms_project",
-                                "value": {"project": project, "show_description": True},
+                                "value": {"project": project},
                             }
                         )
                 else:
@@ -161,7 +166,7 @@ class ArticlesSectionBlock(BaseBlock):
             ("manual_article", ManualArticleBlock()),
         ],
         min_num=1,
-        max_num=EXPERT_PROFILE_RELATED_CONTENT_LIMIT,
+        max_num=EXPERT_PROFILE_ARTICLE_LIMIT,
         help_text="Add up to 9 Mozilla Foundation or manual articles in display order.",
     )
 

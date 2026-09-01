@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n responsive_image_tags wagtailimages_tags %}
 
 {% if rendered_items %}
     <section class="expert-profile-section expert-profile-section--projects">
@@ -7,17 +7,43 @@
             <div class="expert-profile-project-grid">
                 {% for item in rendered_items %}
                     {% if item.type == "cms_project" %}
-                        <div class="expert-profile-project-grid__item expert-profile-project-grid__item--cms">
-                            {% include "patterns/blocks/themes/default/project_block.html" with self=item.value only %}
-                        </div>
+                        {% with project=item.value.project.specific topic=item.value.project.topics.all.0 %}
+                            <article class="expert-profile-project-card{% if project.hero_image %} expert-profile-project-card--with-media{% else %} expert-profile-project-card--text-only{% endif %}">
+                                {% if project.hero_image %}
+                                    <div class="expert-profile-project-card__media">
+                                        {% image project.hero_image fill-720x489 as project_image %}
+                                        <img
+                                            class="expert-profile-project-card__image"
+                                            src="{{ project_image.url }}"
+                                            alt="{{ project.hero_image_alt_text|default:project.hero_image.title }}"
+                                            width="{{ project_image.width }}"
+                                            height="{{ project_image.height }}"
+                                        >
+                                        {% if topic %}<a class="expert-profile-project-card__topic" href="{{ topic.get_topic_listing_url }}">{{ topic.name }}</a>{% endif %}
+                                    </div>
+                                {% endif %}
+                                <div class="expert-profile-project-card__content">
+                                    <h3 class="expert-profile-project-card__title"><a href="{{ project.url }}">{{ project.title }}</a></h3>
+                                    {% if project.lede_text %}<p class="expert-profile-project-card__description">{{ project.lede_text }}</p>{% endif %}
+                                    <a class="expert-profile-project-card__link" href="{{ project.url }}">{% trans "Learn more" %}</a>
+                                </div>
+                            </article>
+                        {% endwith %}
                     {% else %}
-                        <article class="expert-profile-project-grid__item expert-profile-manual-project">
-                            <h3 class="expert-profile-manual-project__title"><a href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">{{ item.value.title }}</a></h3>
-                            {% if item.value.description %}<p class="expert-profile-manual-project__description">{{ item.value.description }}</p>{% endif %}
-                            <a class="expert-profile-manual-project__link" href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">
-                                {% if item.value.link_label %}{{ item.value.link_label }}{% else %}{% trans "Learn more" %}{% endif %}
-                                <span class="show-for-sr">{% trans "(opens in a new tab)" %}</span>
-                            </a>
+                        <article class="expert-profile-project-card{% if item.value.image %} expert-profile-project-card--with-media{% else %} expert-profile-project-card--text-only{% endif %}">
+                            {% if item.value.image %}
+                                <div class="expert-profile-project-card__media">
+                                    {% responsive_image item.value.image ratio="109:74" base_width=360 sizes="(max-width: 639px) 100vw, 33vw" classnames="expert-profile-project-card__image" %}
+                                </div>
+                            {% endif %}
+                            <div class="expert-profile-project-card__content">
+                                <h3 class="expert-profile-project-card__title"><a href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">{{ item.value.title }}</a></h3>
+                                {% if item.value.description %}<p class="expert-profile-project-card__description">{{ item.value.description }}</p>{% endif %}
+                                <a class="expert-profile-project-card__link expert-profile-project-card__link--external" href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">
+                                    {% if item.value.link_label %}{{ item.value.link_label }}{% else %}{% trans "Learn more" %}{% endif %}
+                                    <span class="show-for-sr">{% trans "(opens in a new tab)" %}</span>
+                                </a>
+                            </div>
                         </article>
                     {% endif %}
                 {% endfor %}

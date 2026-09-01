@@ -15,7 +15,6 @@ from foundation_cms.base.models.abstract_base_page import base_page_block_option
 from foundation_cms.base.widgets import TopicSelectWidget
 from foundation_cms.gallery_hub.models import ProjectPage
 from foundation_cms.profiles.blocks import (
-    EXPERT_PROFILE_RELATED_CONTENT_LIMIT,
     ArticlesSectionBlock,
     LinkSectionBlock,
     ProjectsSectionBlock,
@@ -209,5 +208,5 @@ class ExpertProfilePage(AbstractProfilePage):
             .filter(expert=self, locale=self.locale)
             .select_related("hero_image")
             .prefetch_related("topics")
-            .order_by("-first_published_at", "-id")[:EXPERT_PROFILE_RELATED_CONTENT_LIMIT]
+            .order_by("-first_published_at", "-id")
         )

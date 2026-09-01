@@ -3,24 +3,139 @@ const SELECTORS = {
   toggle: "[data-expert-profile-bio-toggle]",
 };
 
-function normalizeVisibleText(value) {
-  return value.replace(/\s+/g, " ").trim();
+const COLLAPSED_CLASS = "expert-profile-intro__bio--collapsed";
+const COLLAPSED_HEIGHT_PROPERTY = "--expert-profile-bio-collapsed-height";
+const OVERFLOW_ATTRIBUTE = "data-expert-profile-bio-overflow";
+
+function getVisibleTextMap(bio) {
+  const characters = [];
+  const positions = [];
+  const roots = bio.children.length ? Array.from(bio.children) : [bio];
+  const nodeFilter = bio.ownerDocument.defaultView.NodeFilter;
+
+  roots.forEach((root, rootIndex) => {
+    const walker = bio.ownerDocument.createTreeWalker(
+      root,
+      nodeFilter.SHOW_TEXT,
+    );
+    let textNode = walker.nextNode();
+    let pendingSpace = rootIndex > 0 && characters.length > 0;
+
+    while (textNode) {
+      for (let index = 0; index < textNode.data.length; index += 1) {
+        const character = textNode.data[index];
+        if (/\s/u.test(character)) {
+          pendingSpace = characters.length > 0;
+          continue;
+        }
+
+        if (pendingSpace) {
+          characters.push(" ");
+          positions.push({ node: textNode, offset: index });
+          pendingSpace = false;
+        }
+
+        characters.push(character);
+        positions.push({ node: textNode, offset: index + 1 });
+      }
+      textNode = walker.nextNode();
+    }
+  });
+
+  return { text: characters.join(""), positions };
 }
 
-function getBioVisibleText(bio) {
-  if (!bio.children.length) return bio.textContent;
-
-  return Array.from(bio.children, (child) => child.textContent).join(" ");
-}
-
-export function getCollapsedBioText(value, limit) {
-  const text = normalizeVisibleText(value);
+export function getBioCollapseBoundary(bio, limit) {
+  const { text, positions } = getVisibleTextMap(bio);
   if (text.length <= limit) return null;
 
   const candidate = text.slice(0, limit + 1);
   const wordBoundary = candidate.lastIndexOf(" ");
   const cutoff = wordBoundary > 0 ? wordBoundary : limit;
-  return `${candidate.slice(0, cutoff).trimEnd()}…`;
+
+  return positions[cutoff - 1];
+}
+
+function getCollapsedHeight(bio, boundary) {
+  const range = bio.ownerDocument.createRange();
+  range.setStart(bio, 0);
+  range.setEnd(boundary.node, boundary.offset);
+
+  const height =
+    range.getBoundingClientRect().bottom - bio.getBoundingClientRect().top;
+  return Math.ceil(height);
+}
+
+function restoreAttribute(element, name, value) {
+  if (value === null) element.removeAttribute(name);
+  else element.setAttribute(name, value);
+}
+
+function prepareSemanticOverflow(bio, boundary) {
+  const view = bio.ownerDocument.defaultView;
+  const walker = bio.ownerDocument.createTreeWalker(
+    bio,
+    view.NodeFilter.SHOW_TEXT,
+  );
+  const textNodes = [];
+  let textNode = walker.nextNode();
+  while (textNode) {
+    textNodes.push(textNode);
+    textNode = walker.nextNode();
+  }
+
+  const boundaryIndex = textNodes.indexOf(boundary.node);
+  const overflowNodes = textNodes.slice(boundaryIndex + 1);
+  if (boundary.offset < boundary.node.data.length) {
+    overflowNodes.unshift(boundary.node.splitText(boundary.offset));
+  }
+
+  const overflowWrappers = overflowNodes
+    .filter((node) => node.data.trim())
+    .map((node) => {
+      const wrapper = bio.ownerDocument.createElement("span");
+      wrapper.setAttribute(OVERFLOW_ATTRIBUTE, "");
+      node.parentNode.insertBefore(wrapper, node);
+      wrapper.append(node);
+      return wrapper;
+    });
+  const followsBoundary = (element) =>
+    Boolean(
+      boundary.node.compareDocumentPosition(element) &
+      view.Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+  const postBoundaryElements = Array.from(bio.querySelectorAll("*")).filter(
+    (element) =>
+      !element.hasAttribute(OVERFLOW_ATTRIBUTE) && followsBoundary(element),
+  );
+  const postBoundaryElementSet = new Set(postBoundaryElements);
+  const overflowRoots = [
+    ...overflowWrappers,
+    ...postBoundaryElements.filter(
+      (element) => !postBoundaryElementSet.has(element.parentElement),
+    ),
+  ];
+  const overflowStates = new Map(
+    overflowRoots.map((element) => [
+      element,
+      {
+        ariaHidden: element.getAttribute("aria-hidden"),
+        inert: element.getAttribute("inert"),
+      },
+    ]),
+  );
+
+  return (isCollapsed) => {
+    overflowStates.forEach((state, element) => {
+      if (isCollapsed) {
+        element.setAttribute("aria-hidden", "true");
+        element.setAttribute("inert", "");
+      } else {
+        restoreAttribute(element, "aria-hidden", state.ariaHidden);
+        restoreAttribute(element, "inert", state.inert);
+      }
+    });
+  };
 }
 
 export function initExpertProfileBioToggle() {
@@ -31,27 +146,36 @@ export function initExpertProfileBioToggle() {
   const limit = Number.parseInt(bio.dataset.collapsedCharLimit, 10);
   if (!Number.isFinite(limit) || limit < 1) return;
 
-  const collapsedText = getCollapsedBioText(getBioVisibleText(bio), limit);
-  if (!collapsedText) return;
+  const boundary = getBioCollapseBoundary(bio, limit);
+  if (!boundary) return;
 
-  const collapsedBio = document.createElement("div");
-  collapsedBio.className = `${bio.className} expert-profile-intro__bio--collapsed`;
-  collapsedBio.dataset.expertProfileBioCollapsed = "";
-  const paragraph = document.createElement("p");
-  paragraph.textContent = collapsedText;
-  collapsedBio.append(paragraph);
+  const updateOverflowAccessibility = prepareSemanticOverflow(bio, boundary);
 
-  bio.before(collapsedBio);
-  bio.hidden = true;
+  const updateCollapsedHeight = () => {
+    const wasCollapsed = bio.classList.contains(COLLAPSED_CLASS);
+    bio.classList.remove(COLLAPSED_CLASS);
+    const height = getCollapsedHeight(bio, boundary);
+    bio.style.setProperty(COLLAPSED_HEIGHT_PROPERTY, `${height}px`);
+    bio.classList.toggle(COLLAPSED_CLASS, wasCollapsed);
+  };
+
+  updateCollapsedHeight();
+  bio.classList.add(COLLAPSED_CLASS);
+  updateOverflowAccessibility(true);
   toggle.hidden = false;
 
   toggle.addEventListener("click", () => {
     const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", `${!isExpanded}`);
-    toggle.textContent = isExpanded
-      ? toggle.dataset.showMoreLabel
-      : toggle.dataset.showLessLabel;
-    bio.hidden = isExpanded;
-    collapsedBio.hidden = !isExpanded;
+    const nextExpanded = !isExpanded;
+
+    if (!nextExpanded) updateCollapsedHeight();
+    bio.classList.toggle(COLLAPSED_CLASS, !nextExpanded);
+    updateOverflowAccessibility(!nextExpanded);
+    toggle.setAttribute("aria-expanded", `${nextExpanded}`);
+    toggle.textContent = nextExpanded
+      ? toggle.dataset.showLessLabel
+      : toggle.dataset.showMoreLabel;
   });
+
+  window.addEventListener("resize", updateCollapsedHeight);
 }

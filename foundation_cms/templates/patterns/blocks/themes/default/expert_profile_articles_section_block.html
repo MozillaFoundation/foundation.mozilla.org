@@ -36,7 +36,7 @@
                         {% endfor %}
                     </ul>
                     {% if rendered_items|length > visible_count %}
-                        <button class="btn-primary btn-primary--no-arrow expert-profile-article-list__button" type="button" data-expert-profile-show-articles>
+                        <button class="btn-primary btn-primary--no-arrow expert-profile-article-list__button" type="button" data-expert-profile-show-articles hidden>
                             {% trans "Show more results" as show_more_label %}
                             {% include "patterns/components/_button_roller.html" with button_style="btn-primary" label=show_more_label only %}
                         </button>

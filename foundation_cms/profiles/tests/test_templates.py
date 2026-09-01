@@ -57,6 +57,11 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
                                 "value": {
                                     "title": "Manual project",
                                     "description": "Manual project description",
+                                    "image": {
+                                        "image": self.page.image.pk,
+                                        "alt_text": "Manual project image",
+                                        "decorative": False,
+                                    },
                                     "url": "https://example.com/project",
                                     "link_label": "Project details",
                                 },
@@ -141,19 +146,41 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
 
     def test_bio_has_accessible_progressive_enhancement_controls(self):
         response = self.client.get(self.page.url)
+        content = response.content.decode()
 
         self.assertContains(response, 'data-collapsed-char-limit="600"')
         self.assertContains(response, 'aria-controls="expert-profile-bio"')
         self.assertContains(response, 'aria-expanded="false"')
+        self.assertContains(response, 'data-show-more-label="Read more"')
+        self.assertContains(response, ">Read more</button>")
         self.assertContains(response, "Want to collab?")
+        self.assertLess(
+            content.index('class="expert-profile-intro__image"'),
+            content.index('class="expert-profile-intro__bio"'),
+        )
 
 
 class ExpertProfileSectionTemplateTests(SimpleTestCase):
-    def test_manual_project_is_a_text_only_grid_entry(self):
+    def test_manual_project_with_image_uses_project_card_media_and_alt_text(self):
+        def get_rendition(spec):
+            width, height = [int(value) for value in re.findall(r"\d+", spec)]
+            return SimpleNamespace(
+                url=f"/media/manual-project-{width}x{height}.jpg",
+                width=width,
+                height=height,
+                alt="Community fellows collaborating",
+            )
+
+        image = SimpleNamespace(
+            file=SimpleNamespace(name="manual-project.jpg"),
+            get_rendition=get_rendition,
+            title="Community fellows collaborating",
+        )
         project = SimpleNamespace(
-            title="Manual project",
+            title="Manual project with image",
             description="Manual project description",
-            url="https://example.com/project",
+            image=image,
+            url="https://example.com/project-with-image",
             link_label="Project details",
         )
 
@@ -162,11 +189,123 @@ class ExpertProfileSectionTemplateTests(SimpleTestCase):
             {"rendered_items": [{"type": "manual_project", "value": project}]},
         )
 
-        self.assertIn("expert-profile-manual-project", rendered)
-        self.assertIn("Manual project description", rendered)
+        self.assertIn("<img", rendered)
+        self.assertIn("/media/manual-project-540x366.jpg", rendered)
+        self.assertIn('alt="Community fellows collaborating"', rendered)
+        self.assertIn('sizes="(max-width: 639px) 100vw, 33vw"', rendered)
+        self.assertEqual(rendered.count('target="_blank"'), 2)
+        self.assertEqual(rendered.count('rel="noopener noreferrer"'), 2)
         self.assertIn("Project details", rendered)
-        self.assertNotIn("project-block__", rendered)
-        self.assertNotIn("expert-profile-manual-project__media", rendered)
+        self.assertNotIn("project-block", rendered)
+
+    def test_manual_project_without_image_is_a_natural_text_only_entry(self):
+        project = SimpleNamespace(
+            title="Manual project without image",
+            description="A deliberate text-only project entry.",
+            image=None,
+            url="https://example.com/project-without-image",
+            link_label="Project details",
+        )
+
+        rendered = render_to_string(
+            "patterns/blocks/themes/default/expert_profile_projects_section_block.html",
+            {"rendered_items": [{"type": "manual_project", "value": project}]},
+        )
+
+        self.assertIn("Manual project without image", rendered)
+        self.assertIn("A deliberate text-only project entry.", rendered)
+        self.assertNotIn("<img", rendered)
+        self.assertEqual(rendered.count('target="_blank"'), 2)
+        self.assertEqual(rendered.count('rel="noopener noreferrer"'), 2)
+        self.assertNotIn("project-block", rendered)
+
+    def test_cms_project_uses_profile_card_with_media_topic_and_alt_text(self):
+        def get_rendition(_spec):
+            return SimpleNamespace(
+                url="/media/cms-project-720x489.jpg",
+                width=720,
+                height=489,
+                alt="",
+            )
+
+        image = SimpleNamespace(
+            file=SimpleNamespace(name="cms-project.jpg"),
+            get_rendition=get_rendition,
+            title="Community project image",
+        )
+        topic = SimpleNamespace(
+            name="Security",
+            get_topic_listing_url="/topics/security/",
+        )
+        project = SimpleNamespace(
+            title="CMS project",
+            url="/gallery/cms-project/",
+            hero_image=image,
+            hero_image_alt_text="People collaborating on community technology",
+            lede_text="A CMS project description.",
+            topics=SimpleNamespace(all=[topic]),
+        )
+        project.specific = project
+
+        rendered = render_to_string(
+            "patterns/blocks/themes/default/expert_profile_projects_section_block.html",
+            {
+                "rendered_items": [
+                    {
+                        "type": "cms_project",
+                        "value": SimpleNamespace(project=project),
+                    }
+                ]
+            },
+        )
+
+        self.assertIn("expert-profile-project-card--with-media", rendered)
+        self.assertIn('alt="People collaborating on community technology"', rendered)
+        self.assertIn('class="expert-profile-project-card__topic"', rendered)
+        self.assertIn(">Security</a>", rendered)
+        self.assertIn("A CMS project description.", rendered)
+        self.assertNotIn("project-block", rendered)
+        self.assertNotIn("program-label", rendered)
+        self.assertNotIn("topic-pills", rendered)
+        self.assertNotIn("pagination-controls", rendered)
+
+    def test_cms_project_blank_alt_text_falls_back_to_image_title(self):
+        def get_rendition(_spec):
+            return SimpleNamespace(
+                url="/media/cms-project-720x489.jpg",
+                width=720,
+                height=489,
+                alt="",
+            )
+
+        image = SimpleNamespace(
+            file=SimpleNamespace(name="cms-project.jpg"),
+            get_rendition=get_rendition,
+            title="Community project image",
+        )
+        project = SimpleNamespace(
+            title="CMS project",
+            url="/gallery/cms-project/",
+            hero_image=image,
+            hero_image_alt_text="",
+            lede_text="A CMS project description.",
+            topics=SimpleNamespace(all=[]),
+        )
+        project.specific = project
+
+        rendered = render_to_string(
+            "patterns/blocks/themes/default/expert_profile_projects_section_block.html",
+            {
+                "rendered_items": [
+                    {
+                        "type": "cms_project",
+                        "value": SimpleNamespace(project=project),
+                    }
+                ]
+            },
+        )
+
+        self.assertIn('alt="Community project image"', rendered)
 
     def test_cms_article_renders_its_search_image_with_maintained_alt_text(self):
         def get_rendition(spec):
