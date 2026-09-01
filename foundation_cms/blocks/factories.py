@@ -92,7 +92,7 @@ class ProjectsSectionBlockFactory(wagtail_factories.StructBlockFactory):
         model = ProjectsSectionBlock
 
     source = ProjectsSectionBlock.SOURCE_CURATED
-    items = []
+    items: list = []
 
 
 class ManualArticleBlockFactory(wagtail_factories.StructBlockFactory):
@@ -108,7 +108,7 @@ class ArticlesSectionBlockFactory(wagtail_factories.StructBlockFactory):
     class Meta:
         model = ArticlesSectionBlock
 
-    items = []
+    items: list = []
 
 
 class LinkRowBlockFactory(wagtail_factories.StructBlockFactory):
@@ -125,7 +125,7 @@ class LinkSectionBlockFactory(wagtail_factories.StructBlockFactory):
         model = LinkSectionBlock
 
     heading = factory.Faker("sentence", nb_words=3)
-    rows = []
+    rows: list = []
 
 
 class CustomMediaBlockFactory(wagtail_factories.StructBlockFactory):

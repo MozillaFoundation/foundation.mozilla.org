@@ -96,7 +96,7 @@ def ensure_representative_projects(project_pages, topics, images):
         topic = next((topic for topic in topics if topic.name == definition["topic"]), None)
         if not topic:
             raise RuntimeError(f'Generate the standard topic "{definition["topic"]}" first.')
-        if list(project.topics.values_list("pk", flat=True)) != [topic.pk]:
+        if list(project.topics.values_list("id", flat=True)) != [topic.pk]:
             project.topics.set([topic])
             changed = True
 
