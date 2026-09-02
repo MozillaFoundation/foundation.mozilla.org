@@ -184,6 +184,7 @@ class BuyersGuidePage(RoutablePageMixin, BasePage):
         TranslatableField("seo_title"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
     ]
 
     @route(r"^about/$", name="how-to-use-view")

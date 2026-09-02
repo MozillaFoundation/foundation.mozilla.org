@@ -1,0 +1,30 @@
+{% load wagtailcore_tags i18n %}
+
+{% comment %}
+    Page-level notice banner, driven by the NoticeBanner snippet chosen on a page's
+    Promote tab. Expects `banner` in context (see AbstractBasePage.get_notice_banner
+    and BasePage.get_notice_banner).
+
+    Styles live in scss/components/notice_banner.scss, which is imported by both
+    _redesign_base.scss and redesign_migrated_content.scss so the component renders
+    identically on redesign and legacy templates.
+{% endcomment %}
+
+{% if banner %}
+    <aside class="notice-banner" aria-label="{% trans "Page notice" %}">
+        <div class="grid-container">
+            <div class="notice-banner__inner">
+                <div class="notice-banner__body">
+                    {{ banner.body|richtext }}
+                </div>
+                {% if banner.cta %}
+                    <div class="notice-banner__cta">
+                        {% for cta in banner.cta %}
+                            {% include_block cta with render_link_type_icon=True %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </aside>
+{% endif %}
