@@ -175,7 +175,8 @@ describe("spotlight card carousel", () => {
     expect(counter.textContent).toBe("1");
 
     next.setAttribute("disabled", "");
-    next.click();
+    next.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    next.removeAttribute("disabled");
     expect(counter.textContent).toBe("1");
   });
 
@@ -200,6 +201,27 @@ describe("spotlight card carousel", () => {
 
     slides.dispatchEvent(touchEvent("touchend", 20));
     expect(root.querySelector("[data-active-index]").textContent).toBe("2");
+    vi.advanceTimersByTime(300);
+    expect(slides.style.transition).toBe("");
+  });
+
+  it("handles swipe movement in the opposite direction", () => {
+    Object.defineProperty(window, "innerWidth", {
+      configurable: true,
+      value: 500,
+    });
+    const root = createCarousel();
+    initSpotlightCardCarousels();
+    const slides = root.querySelector(".spotlight-card-carousel__slides");
+
+    slides.dispatchEvent(touchEvent("touchstart", 100));
+    const moveEvent = touchEvent("touchmove", 180);
+    slides.dispatchEvent(moveEvent);
+    expect(moveEvent.defaultPrevented).toBe(true);
+    expect(slides.style.transform).toBe("translateX(-220px)");
+
+    slides.dispatchEvent(touchEvent("touchend", 180));
+    expect(root.querySelector("[data-active-index]").textContent).toBe("3");
     vi.advanceTimersByTime(300);
     expect(slides.style.transition).toBe("");
   });
@@ -277,10 +299,12 @@ describe("spotlight card carousel", () => {
     const root = createCarousel();
     initSpotlightCardCarousels();
     const slides = root.querySelector(".spotlight-card-carousel__slides");
+    const removeTouchListenerSpy = vi.spyOn(slides, "removeEventListener");
 
     resizeHandler();
     vi.advanceTimersByTime(200);
     expect(slides.querySelectorAll(".spotlight-card")).toHaveLength(3);
+    expect(removeTouchListenerSpy).not.toHaveBeenCalled();
 
     Object.defineProperty(window, "innerWidth", {
       configurable: true,
@@ -297,6 +321,7 @@ describe("spotlight card carousel", () => {
     resizeHandler();
     vi.advanceTimersByTime(200);
     expect(slides.querySelectorAll(".spotlight-card")).toHaveLength(3);
+    expect(removeTouchListenerSpy).toHaveBeenCalledTimes(3);
   });
 
   it("ignores empty carousel roots", () => {
