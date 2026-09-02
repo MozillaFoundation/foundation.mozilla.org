@@ -56,6 +56,7 @@ class BuyersGuideEditorialContentIndexPage(
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
     ]
 
     def serve(self, request: "http.HttpRequest", *args, **kwargs) -> "http.HttpResponse":
