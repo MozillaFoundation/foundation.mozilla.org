@@ -61,6 +61,7 @@ class BaseLandingPage(BasePage):
         localize_fields.SynchronizedField("show_in_menus"),
         localize_fields.TranslatableField("search_description"),
         localize_fields.SynchronizedField("search_image"),
+        localize_fields.SynchronizedField("notice_banner"),
     ]
 
     @property
