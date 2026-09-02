@@ -1,0 +1,96 @@
+// Page-level notice strip (NoticeBanner snippet, chosen on a page's Promote tab).
+// Renders full-bleed directly below the primary nav, above the page hero/content.
+// Imported by both _redesign_base.scss and redesign_migrated_content.scss so the
+// component looks the same on redesign and legacy templates.
+
+.notice-banner {
+  background-color: color(yellow, "100");
+  border-top: 1px solid color(yellow, "300");
+  color: $black;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem-calc(32);
+    padding: rem-calc(32) 0;
+
+    @include breakpoint(medium up) {
+      gap: rem-calc(16);
+    }
+
+    @include breakpoint(xlarge up) {
+      display: grid;
+      grid-template-columns: minmax(0, rem-calc(897)) minmax(0, 1fr);
+      align-items: center;
+      gap: rem-calc(72);
+    }
+  }
+
+  &__body {
+    @include mofo-text-style($body-text-styles, "large");
+
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(8);
+    width: 100%;
+
+    @include breakpoint(large up) {
+      flex: 1 0 0;
+      max-width: rem-calc(897);
+      min-width: 0;
+    }
+
+    h4,
+    h5,
+    h6 {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__cta {
+    flex-shrink: 0;
+    width: 100%;
+
+    // FixedAlignmentLinkButtonBlock, so no `link-button-block--*` class is emitted.
+    .link-button-block {
+      width: 100%;
+
+      // Right-aligned once `__inner` is two columns; left while stacked.
+      @include breakpoint(xlarge up) {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    a[class*="btn-"] {
+      margin-block: 0;
+      width: 100%;
+      justify-content: center;
+
+      @include breakpoint(medium up) {
+        width: max-content;
+      }
+    }
+  }
+}

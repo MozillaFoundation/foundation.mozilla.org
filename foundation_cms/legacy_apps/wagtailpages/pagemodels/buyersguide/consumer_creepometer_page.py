@@ -31,6 +31,7 @@ class ConsumerCreepometerPage(BasePage):
 
     translatable_fields = [
         SynchronizedField("year"),
+        SynchronizedField("notice_banner"),
     ]
 
     @property

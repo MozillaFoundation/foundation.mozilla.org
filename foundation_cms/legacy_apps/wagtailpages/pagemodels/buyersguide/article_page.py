@@ -105,6 +105,7 @@ class BuyersGuideArticlePage(BasePage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
     ]
 
     search_fields = BasePage.search_fields + [
