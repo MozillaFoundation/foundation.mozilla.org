@@ -52,16 +52,22 @@ describe("portrait card carousel", () => {
 
   it("cycles four card designs before tripling the carousel track", () => {
     const root = createPortraitCarousel();
+    const originalItems = Array.from(root.querySelectorAll(".portrait-card"));
 
     initPortraitCardSetCarousels();
 
     const cards = root.querySelectorAll(".portrait-card");
     expect(cards).toHaveLength(15);
-    expect(
-      Array.from(cards)
-        .slice(5, 10)
-        .map((card) => card.dataset.cardDesign),
-    ).toEqual(["0", "1", "2", "3", "0"]);
+    originalItems.forEach((item, index) => {
+      expect(cards[5 + index]).toBe(item);
+    });
+    expect(originalItems.map((card) => card.dataset.cardDesign)).toEqual([
+      "0",
+      "1",
+      "2",
+      "3",
+      "0",
+    ]);
     expect(root.querySelector(".carousel-track").style.transform).toBe(
       "translateX(-1000px)",
     );

@@ -35,8 +35,11 @@ function createImageCarousel({ slides = 3 } = {}) {
 
 function touchEvent(type, clientX) {
   const event = new Event(type, { bubbles: true });
-  Object.defineProperty(event, "touches", { value: [{ clientX }] });
-  Object.defineProperty(event, "changedTouches", { value: [{ clientX }] });
+  Object.defineProperty(
+    event,
+    type === "touchstart" ? "touches" : "changedTouches",
+    { value: [{ clientX }] },
+  );
   return event;
 }
 
