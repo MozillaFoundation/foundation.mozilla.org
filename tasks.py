@@ -100,11 +100,14 @@ def createsuperuser(ctx, stop=False):
     manage(ctx, "create_admin", stop=stop)
 
 
-def initialize_database(ctx, slow=False):
+def initialize_database(ctx, slow=False, full_legacy=False):
     """
     Initialize the database.
 
     To stop all containers after each management command, pass `slow=True`.
+
+    By default only the legacy content needed for a browsable site is loaded.
+    Pass `full_legacy=True` for the complete legacy content set.
     """
     print("* Applying database migrations.")
     migrate(ctx, stop=slow)
@@ -115,8 +118,12 @@ def initialize_database(ctx, slow=False):
     print("* Creating redesign data")
     manage(ctx, "load_redesign_data", stop=slow)
 
-    print("* Creating fake legacy data")
-    manage(ctx, "legacy_load_fake_data", stop=slow)
+    if full_legacy:
+        print("* Creating full fake legacy data")
+        manage(ctx, "legacy_load_fake_data --full-legacy", stop=slow)
+    else:
+        print("* Creating barebones legacy data")
+        manage(ctx, "legacy_load_fake_data", stop=slow)
 
     print("* Sync locales")
     manage(ctx, "sync_locale_trees", stop=slow)
@@ -127,7 +134,7 @@ def initialize_database(ctx, slow=False):
 
 
 @task(aliases=["docker-new-db"])
-def new_db(ctx, slow=False, no_seed_data=False):
+def new_db(ctx, slow=False, no_seed_data=False, full_legacy=False):
     """
     Delete your database and create a new one with fake data.
 
@@ -137,6 +144,13 @@ def new_db(ctx, slow=False, no_seed_data=False):
 
     Pass `--no-seed-data` to run migrations only, skipping all content/fake data loading.
     This is used by `inv generate-schema-snapshot` to produce a clean snapshot.
+
+    The redesign data is always loaded in full. The legacy data is barebones by
+    default: the homepage and its site record, the primary pages under it, the
+    blog and the profiles that author it, the homepage sections and the main nav.
+    Pass `--full-legacy` for the complete legacy content set, which you need for
+    the buyersguide/PNI, MozFest, donate or petition pages, and to reproduce a CI
+    run locally. `--no-seed-data` wins if you pass both.
     """
     print("* Starting the postgres service")
     ctx.run("docker compose up -d postgres")
@@ -148,7 +162,7 @@ def new_db(ctx, slow=False, no_seed_data=False):
         print("* Applying migrations (no seed data)...")
         migrate(ctx, stop=slow)
     else:
-        initialize_database(ctx, slow=slow)
+        initialize_database(ctx, slow=slow, full_legacy=full_legacy)
     print("Stop postgres service")
     ctx.run("docker compose down")
 
@@ -169,8 +183,15 @@ def catch_up(ctx):
 
 
 @task(aliases=["new-env", "docker-new-env"])
-def setup(ctx):
-    """Get a new dev environment and a new database with fake data"""
+def setup(ctx, full_legacy=False):
+    """
+    Get a new dev environment and a new database with fake data.
+
+    The legacy data is barebones by default: the homepage and its site record,
+    the primary pages under it, the blog and the profiles that author it, the
+    homepage sections and the main nav. Pass `--full-legacy` for the complete
+    legacy content set.
+    """
     with ctx.cd(ROOT):
         print("* Setting default environment variables")
         if os.path.isfile(".env"):
@@ -183,7 +204,7 @@ def setup(ctx):
         ctx.run("docker compose down --volumes")
         print("* Building Docker images")
         ctx.run("docker compose build")
-        initialize_database(ctx)
+        initialize_database(ctx, full_legacy=full_legacy)
         print("\n* Start your dev server with:\n inv start or docker compose up.")
 
 

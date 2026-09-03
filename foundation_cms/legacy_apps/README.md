@@ -107,7 +107,9 @@ Integration testing is done using [Playwright](https://playwright.dev/), with th
 
 You can run these tests locally by running a one-time `npm install` and `npm run playwright:install` after which you should be able to run `npm run playwright` to run the visual tests, with `docker compose up` running in a secondary terminal.
 
-In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db`).
+In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db --full-legacy`).
+
+The `--full-legacy` flag matters here: the suite visits PNI, MozFest, campaign, donate and publication pages, and the default barebones seed skips all of them.
 
 #### URL checker
 

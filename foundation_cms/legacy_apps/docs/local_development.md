@@ -57,6 +57,35 @@ For instance, you can run also run common Django commands via invoke, such as `i
 - `invoke manage legacy_load_fake_data`: add more fake data to your project,
 - `invoke yarn "install gsap"`: install gsap, add it to your `package.json` and lock it.
 
+### Legacy data: barebones by default
+
+`inv new-db` and `inv new-env` load the redesign data in full, but cut the
+legacy factories down to what the legacy site needs in order to render: the
+Homepage and its Site record, the PrimaryPages hanging off it, the blog and the
+profiles that author it, the homepage section orderables (highlights, ideas,
+take-action, partner logos) and the main nav. That keeps the legacy step at
+around ten seconds instead of forty.
+
+The blog is included because it is not optional: `homepage.html` renders its
+highlights and ideas fragments unconditionally, and those walk into the first
+item of each orderable without checking one exists, so the homepage 500s on an
+empty set. `homepage_highlights` indexes four `BlogPage`s.
+
+Skipped: the news, highlights, mozfest and donate factories, the buyersguide/PNI
+(including its product images), publications, campaigns, the RCC and research hub
+libraries, the styleguide and youtube-regrets pages.
+
+When you need the complete legacy content set, pass `--full-legacy`:
+
+```
+inv new-db --full-legacy
+```
+
+Reach for it if you need the buyersguide/PNI, MozFest, donate or petition
+pages, or if you are reproducing a CI run locally. CI passes it for the legacy
+Playwright and Percy suites, and review apps pass it in their `app.json`
+postdeploy step, so those keep getting the full data set.
+
 ### Docker and docker compose CLIs
 
 We strongly recommend you to check at least the [docker compose CLI](https://docs.docker.com/compose/reference/overview/) documentation since we're using it a lot. Meanwhile, here are the commands you will use the most:
