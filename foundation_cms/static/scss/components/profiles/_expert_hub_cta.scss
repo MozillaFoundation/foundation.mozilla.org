@@ -69,6 +69,7 @@
 
   &__btn {
     align-self: flex-start;
+    flex-shrink: 0;
     margin: 0;
   }
 }
