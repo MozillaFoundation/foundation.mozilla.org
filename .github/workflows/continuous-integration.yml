@@ -8,6 +8,7 @@ on:
   pull_request:
     paths-ignore:
       - maintenance/**/*.*
+  workflow_dispatch:
 
 jobs:
   unit_test_frontend_redesign:
@@ -169,6 +170,82 @@ jobs:
           name: coverage-data-${{ matrix.shard }}
           path: foundation_cms/.coverage.${{ matrix.shard }}
           retention-days: 1
+          include-hidden-files: true
+
+  regenerate_test_durations:
+    # One-off, manually-triggered job for TP1-4211: regenerates
+    # foundation_cms/.test_durations from a real `pytest --store-durations` run
+    # against the full, unsplit suite, measured on the same runner class the
+    # sharded test_backend job above uses. Remove this job once the regenerated
+    # file has been downloaded and committed.
+    name: Regenerate test durations (manual)
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'workflow_dispatch'
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: network
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
+      BASKET_URL: https://basket-dev.allizom.org
+      CONTENT_TYPE_NO_SNIFF: True
+      CORS_ALLOWED_ORIGINS: "*"
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
+      DEBUG: True
+      DJANGO_SECRET_KEY: secret
+      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NEWSLETTER_SIGNUP_METHOD: "BASKET"
+      PIPENV_VERBOSITY: -1
+      RANDOM_SEED: 530910203
+      SET_HSTS: False
+      SSL_REDIRECT: False
+      TARGET_DOMAINS: localhost
+      USE_S3: False
+      X_FRAME_OPTIONS: DENY
+      XSS_PROTECTION: True
+      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: "pip"
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt -r dev-requirements.txt
+      - name: Install additional tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext ffmpeg
+      - name: Prepare test environment
+        run: |
+          python ./manage.py check
+          python ./manage.py makemigrations --check --dry-run
+          python ./manage.py migrate --no-input
+          python ./manage.py block_inventory
+          python ./manage.py compilemessages
+      - name: Determine pytest worker count
+        id: workers
+        run: echo "count=$(python -c 'import os; print(os.cpu_count())')" >> "$GITHUB_OUTPUT"
+      - name: Pre-create sharded test databases
+        run: python ./manage.py prepare_sharded_test_databases ${{ steps.workers.outputs.count }}
+      - name: Run full suite and store durations
+        run: >-
+          cd foundation_cms && pytest --reuse-db -n ${{ steps.workers.outputs.count }}
+          --store-durations -v --ds=foundation_cms.settings.test
+      - name: Upload regenerated test durations
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-durations
+          path: foundation_cms/.test_durations
+          retention-days: 7
           include-hidden-files: true
 
   combine_coverage:
