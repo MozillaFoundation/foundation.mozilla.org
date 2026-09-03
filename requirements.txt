@@ -136,7 +136,7 @@ gitdb==4.0.12
     # via gitpython
 gitpython==3.1.58
     # via wagtail-localize-git
-gunicorn==26.0.0
+gunicorn==26.2.0
     # via -r requirements.in
 heroku3==5.2.1
     # via -r requirements.in
@@ -162,8 +162,6 @@ oauthlib==3.2.2
     #   social-auth-core
 openpyxl==3.1.0
     # via wagtail
-packaging==23.1
-    # via gunicorn
 pillow==12.3.0
     # via
     #   pillow-heif
