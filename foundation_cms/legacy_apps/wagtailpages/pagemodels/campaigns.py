@@ -12,7 +12,6 @@ from wagtail_localize.fields import SynchronizedField, TranslatableField
 from ..utils import get_page_tree_information
 from .base import PrimaryPage
 from .customblocks.base_rich_text_options import base_rich_text_options
-from .mixin.foundation_metadata import FoundationMetadataPageMixin
 from .modular import MiniSiteNameSpace
 
 
@@ -202,6 +201,7 @@ class OpportunityPage(MiniSiteNameSpace):
         TranslatableField("seo_title"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("header"),
@@ -361,6 +361,7 @@ class CampaignPage(MiniSiteNameSpace):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         # FIXME: Contingency fix while https://github.com/mozilla/foundation.mozilla.org/pull/7771 is sorted out
         # TranslatableField('cta'),
@@ -434,7 +435,7 @@ class BanneredCampaignPage(PrimaryPage):
         + PrimaryPage.content_panels[n:]
     )
 
-    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+    promote_panels = PrimaryPage.promote_panels + [
         FieldPanel("tags"),
     ]
 
@@ -445,6 +446,7 @@ class BanneredCampaignPage(PrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("header"),
         TranslatableField("intro"),
