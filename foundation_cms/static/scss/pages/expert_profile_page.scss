@@ -2,7 +2,6 @@
 @use "sass:math";
 @import "../redesign_base";
 @import "listing_page_base";
-@import "../components/profiles/expert_hub_cta";
 
 body.template-expert-profile-page {
   @include listing-page-base-styles;
@@ -230,7 +229,7 @@ body.template-expert-profile-page {
 
     @include breakpoint(large up) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: rem-calc(48) rem-calc(32);
+      gap: rem-calc(56) rem-calc(32);
     }
   }
 
@@ -637,16 +636,6 @@ body.template-expert-profile-page {
           background-image: url("/static/foundation_cms/_images/icons/social-tiktok-black.svg");
         }
       }
-    }
-  }
-
-  .expert-profile-cta .expert-hub-cta {
-    margin-top: rem-calc(64);
-    margin-bottom: rem-calc(96);
-
-    @include breakpoint(large up) {
-      margin-top: rem-calc(96);
-      margin-bottom: rem-calc(152);
     }
   }
 }

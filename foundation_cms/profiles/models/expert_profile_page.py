@@ -150,7 +150,7 @@ class ExpertProfilePage(AbstractProfilePage):
                 FieldPanel("instagram_url"),
                 FieldPanel("tiktok_url"),
             ],
-            heading="Where to Find Me",
+            heading="Where to find me",
             classname="collapsible",
         ),
         FieldPanel("body"),

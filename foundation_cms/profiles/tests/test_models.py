@@ -37,6 +37,22 @@ class ExpertProfilePageTestCase(WagtailPageTestCase):
             self.assertTrue(field.blank)
             self.assertIsInstance(field, URLField)
 
+    def test_social_fields_editor_heading(self):
+        social_panel = next(
+            panel for panel in self.page.content_panels if getattr(panel, "heading", None) == "Where to find me"
+        )
+
+        self.assertEqual(
+            [panel.field_name for panel in social_panel.children],
+            [
+                "linkedin_url",
+                "bluesky_url",
+                "facebook_url",
+                "instagram_url",
+                "tiktok_url",
+            ],
+        )
+
     def test_editor_exposes_body_and_socials_but_not_legacy_content(self):
         field_names = []
 

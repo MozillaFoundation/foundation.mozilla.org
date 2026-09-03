@@ -132,7 +132,7 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
     def test_renders_only_populated_accessible_social_links(self):
         response = self.client.get(self.page.url)
 
-        self.assertContains(response, "Where to Find Me")
+        self.assertContains(response, "Where to find me")
         self.assertContains(response, "Visit LinkedIn (opens in a new tab)")
         self.assertContains(response, "Visit Facebook (opens in a new tab)")
         self.assertContains(response, "Visit TikTok (opens in a new tab)")
@@ -151,11 +151,16 @@ class ExpertProfileTemplateTests(WagtailPageTestCase):
             response,
             "data-expert-profile-bio-toggle-label>Show more</span>",
         )
-        self.assertContains(response, "Want to collab?")
         self.assertLess(
             content.index('class="expert-profile-intro__image"'),
             content.index('class="expert-profile-intro__bio"'),
         )
+
+    def test_does_not_render_expert_hub_cta(self):
+        response = self.client.get(self.page.url)
+
+        self.assertNotContains(response, "expert-profile-cta")
+        self.assertNotContains(response, "Want to collab?")
 
 
 class ExpertProfileSectionTemplateTests(SimpleTestCase):

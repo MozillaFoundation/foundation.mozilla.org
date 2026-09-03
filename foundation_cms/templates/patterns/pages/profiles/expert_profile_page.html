@@ -81,7 +81,7 @@
                     <div class="grid-container">
                         <div class="grid-x grid-margin-x">
                             <div class="cell small-12 large-8 large-offset-2">
-                                <h2 class="expert-profile-social__heading" id="expert-profile-social-heading">{% trans "Where to Find Me" %}</h2>
+                                <h2 class="expert-profile-social__heading" id="expert-profile-social-heading">{% trans "Where to find me" %}</h2>
                                 <ul class="expert-profile-social__list">
                                     {% for social_link in social_links %}
                                         <li>
@@ -100,14 +100,6 @@
                     </div>
                 </section>
             {% endif %}
-
-            <div class="grid-container expert-profile-cta">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell small-12 large-offset-1 large-10 xlarge-offset-2 xlarge-8">
-                        {% include "patterns/components/profiles/_expert_hub_cta.html" %}
-                    </div>
-                </div>
-            </div>
         </article>
     </main>
 {% endblock content %}
