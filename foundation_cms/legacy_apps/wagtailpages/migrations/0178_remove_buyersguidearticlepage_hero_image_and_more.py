@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailpages", "0176_remove_pulsefilteroption_pulse_filter_and_more"),
+        ("wagtailpages", "0177_articlepage_notice_banner_blogpage_notice_banner_and_more"),
     ]
 
     operations = [

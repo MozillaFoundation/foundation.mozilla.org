@@ -39,8 +39,37 @@ hero_intro_body_default_text = (
 
 
 class BasePage(FoundationNavigationPageMixin, FoundationMetadataPageMixin, Page):
+    # `notice_banner` and `get_notice_banner()` below are a deliberate copy of the
+    # canonical definitions on `foundation_cms.base.models.abstract_base_page`.
+    # AbstractBasePage and this class share no ancestor but Page, and duplicating into
+    # legacy_apps means the redesign side is already in its final form: when this app is
+    # removed, this copy goes with it and no redesign code needs to change.
+    # Keep the field kwargs identical to the canonical version.
+    notice_banner = models.ForeignKey(
+        "snippets.NoticeBanner",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text=(
+            "Optional. Displays a notice at the top of this page, e.g. to announce that "
+            "the content has moved or is no longer maintained."
+        ),
+    )
+
+    promote_panels = FoundationMetadataPageMixin.promote_panels + [
+        FieldPanel("notice_banner"),
+    ]
+
     class Meta:
         abstract = True
+
+    def get_notice_banner(self):
+        """Return the notice banner in the active locale, or None if unset."""
+        # Guard on the id so an unset banner does not cost a query.
+        if not self.notice_banner_id:
+            return None
+        return self.notice_banner.localized
 
     def get_donate_banner(self, request):
         # Decide legacy vs redesign from the FoundationNavigationPageMixin
@@ -108,6 +137,7 @@ class BasePage(FoundationNavigationPageMixin, FoundationMetadataPageMixin, Page)
     def get_context(self, request):
         context = super().get_context(request)
         context["donate_banner"] = self.get_donate_banner(request)
+        context["notice_banner"] = self.get_notice_banner()
         return context
 
 
@@ -173,6 +203,7 @@ class PrimaryPage(FoundationBannerInheritanceMixin, BasePage):  # type: ignore
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("header"),
@@ -321,6 +352,7 @@ class InitiativesPage(PrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         SynchronizedField("primaryHero"),
@@ -455,6 +487,7 @@ class ParticipatePage2(PrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         SynchronizedField("ctaHero"),
