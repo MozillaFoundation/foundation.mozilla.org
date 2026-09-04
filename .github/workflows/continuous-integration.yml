@@ -18,8 +18,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"
@@ -53,12 +53,12 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"
@@ -71,7 +71,7 @@ jobs:
       - name: Collect static files
         run: python ./manage.py collectstatic --no-input --verbosity 0
       - name: Upload preroll artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: preroll-static
           path: |
@@ -120,15 +120,15 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Cache APT packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: /var/cache/apt/archives
           # run_id keeps the key always-miss so this re-saves fresh archives
@@ -164,7 +164,7 @@ jobs:
           --splits ${{ strategy.job-total }} --group ${{ matrix.shard }}
           -v --ds=foundation_cms.settings.test --cov=foundation_cms --cov-report=
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-data-${{ matrix.shard }}
           path: foundation_cms/.coverage.${{ matrix.shard }}
@@ -177,15 +177,15 @@ jobs:
     needs: test_backend
     if: always()
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Download shard coverage data
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: coverage-data-*
           path: foundation_cms
@@ -255,18 +255,18 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
 
           cache: "pip"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"
       - name: Download preroll artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: preroll-static
       - name: Install Python Dependencies
@@ -274,7 +274,7 @@ jobs:
       - name: Install Node Dependencies
         run: yarn install --frozen-lockfile
       - name: Cache APT packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: /var/cache/apt/archives
           # run_id keeps the key always-miss so this re-saves fresh archives
