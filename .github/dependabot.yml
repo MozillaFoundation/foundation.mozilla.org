@@ -29,3 +29,12 @@ updates:
       update-types: ["version-update:semver-major"]
     - dependency-name: "locomotive-scroll"
       update-types: ["version-update:semver-major"]
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 99
+  labels:
+    - "engineering"
+    - "dependencies"
+    - "github-actions"
