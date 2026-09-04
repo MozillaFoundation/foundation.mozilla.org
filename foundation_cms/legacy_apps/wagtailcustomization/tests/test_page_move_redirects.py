@@ -6,9 +6,6 @@ from wagtail.contrib.redirects.models import Redirect
 from wagtail.models import Locale
 
 from foundation_cms.legacy_apps.wagtailpages.factory import (
-    buyersguide as buyersguide_factories,
-)
-from foundation_cms.legacy_apps.wagtailpages.factory import (
     publication as publication_factory,
 )
 from foundation_cms.legacy_apps.wagtailpages.tests import base as test_base
@@ -33,9 +30,7 @@ class PageRedirectTest(test_base.WagtailpagesTestCase):
         self.article_page_under_home_page = publication_factory.ArticlePageFactory(
             parent=self.homepage, title="Home page article"
         )
-        self.article_index_page = buyersguide_factories.BuyersGuideEditorialContentIndexPageFactory(
-            parent=self.homepage, title="News index"
-        )
+        self.article_index_page = publication_factory.PublicationPageFactory(parent=self.homepage, title="News index")
         self.article_page_under_index_page = publication_factory.ArticlePageFactory(
             parent=self.article_index_page, title="News article"
         )
