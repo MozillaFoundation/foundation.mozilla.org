@@ -47,3 +47,5 @@ initSearchToggle();
 initCopyToClipboardButtons();
 initSearchPageFilters();
 initCsrfForms();
+
+console.log("temp change to trigger visual regression workflow");
