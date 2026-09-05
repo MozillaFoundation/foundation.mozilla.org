@@ -1,6 +1,57 @@
 # foundation.mozilla.org
 
-The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). For local dev setup (Docker, invoke commands), see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) (despite the folder name, it covers setup for the whole project, not just the legacy code).
+The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). See [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) for the Mozilla Festival and Donate site specifics.
+
+## Getting started
+
+Before you start working on the project, be sure to read this README and the linked docs.
+
+[Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
+
+[Local development](foundation_cms/legacy_apps/docs/local_development.md)
+
+[Engineer Workflow](foundation_cms/legacy_apps/docs/workflow.md)
+
+[OPS and Heroku Settings](foundation_cms/legacy_apps/docs/ops_heroku_settings.md)
+
+[Scheduled Task](foundation_cms/legacy_apps/docs/scheduled.md)
+
+[Stack](foundation_cms/legacy_apps/docs/stack.md)
+
+## How to Setup your Dev Environment with Docker
+
+**Requirements**: Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS and Windows or [Docker Compose](https://docs.docker.com/compose/install/) for Linux), [Python 3](https://www.python.org/downloads/) with the [invoke](https://www.pyinvoke.org/installing.html) package installed globally, and [git](https://git-scm.com/).
+
+### Installing Invoke
+
+We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/), but any Python package manager should work (pip, poetry, etc).
+
+### Check your environment
+
+- `docker run hello-world`.
+- `invoke --version` should return 0.22.1 or higher.
+
+### Setup steps
+
+Run the following terminal commands to get started:
+
+- `git clone https://github.com/mozilla/foundation.mozilla.org.git`
+- `cd foundation.mozilla.org`
+- `inv new-env`
+
+You're done :tada:
+
+This task creates a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
+
+When it's done, run `docker compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
+
+Once the webserver is running, you can log in to the admin site at http://localhost:8000/cms/. A superuser will have been created with username `admin` with password `admin`.
+
+To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again.
+
+Use `inv -l` to get a list of all the available invoke commands.
+
+More information on how to work with Docker and how to manage Python dependencies are available in the [local development](foundation_cms/legacy_apps/docs/local_development.md) part of the documentation.
 
 ## Environment Variables
 
@@ -131,6 +182,58 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | Variable | Default | Description |
 |---|---|---|
 | `SEARCH_AUTOCOMPLETE_MIN_CHARS` | `5` | Minimum number of characters required to trigger search autocomplete |
+
+---
+
+## Code style
+
+To ensure a consistent code style and quality, we use linters and formatters.
+
+### Linting
+
+To check the code base for quality and style issues run `inv lint`.
+This will run all configured linters.
+You can run the linters individually with, e.g. `inv lint-js` for JavaScript only.
+Check available commands with `inv -l`.
+
+### Formatting
+
+If `inv lint` shows linting errors you can try running `inv format` to fix style issues.
+`inv format` should automatically fix most formatting issues.
+
+There might be some linting issues that can not be fixed automatically.
+
+## Testing
+
+### Unit tests
+
+When relevant, we encourage you to write tests.
+
+You can run the tests using `inv test`.
+This will the full test suite.
+
+To run only a subset or a specific Python test, you can use following command:
+
+```console
+inv test-python --file path/to/file.py
+```
+
+The `test-python` command also support flags for turning increased verbosity on/off (`-v`) and
+for running tests in parallel (the `-n` option). To run tests with 4 parallel processes and increased
+verbosity, use:
+
+```console
+inv test-python -v -n 4
+```
+
+The `-n` flag also supports the `auto` value, which will run tests with as many parallel cores as possible.
+For more info, consult the [pytest-xdist docs](https://pytest-xdist.readthedocs.io/en/stable/distribution.html).
+
+See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
+
+There is no JS unit test framework set up for the legacy frontend. The redesign frontend has its own Vitest suite (see [frontend/redesign/README.md](frontend/redesign/README.md#unit-testing-vitest)).
+
+The legacy frontend also has its own Playwright integration, URL-checker, visual regression, and accessibility test setup (see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md#testing)).
 
 ---
 

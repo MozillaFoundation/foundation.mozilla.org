@@ -19,6 +19,8 @@ Colocate test files as `*.test.js` next to the module they cover, e.g. `foundati
 
 ## Visual Regression Testing (Playwright + Percy)
 
+This covers the redesign frontend. The legacy frontend has its own separate Playwright + Percy visual regression suite (see [foundation_cms/legacy_apps/README.md](../../foundation_cms/legacy_apps/README.md#visual-regression-tests)).
+
 ### Prerequisites
 
 1. Install dependencies from the repo root:
