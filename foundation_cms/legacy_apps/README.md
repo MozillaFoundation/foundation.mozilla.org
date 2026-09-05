@@ -46,7 +46,7 @@ URL checker can be initiated by running `docker compose up` in one terminal and 
 
 ### Visual regression tests
 
-We also use Playwright in combination with Browserstack's [Percy](https://percy.io/) to perform visual regression testing for PRs, using `frontend/legacy/tests/visual.spec.js` as screenshot baseline. Run it locally with `yarn workspace legacy percy`.
+We also use Playwright in combination with BrowserStack's [Percy](https://percy.io/) to perform visual regression testing for PRs, using `frontend/legacy/tests/visual.spec.js` as screenshot baseline. Run it locally with `yarn workspace legacy percy`.
 
 Visual regression tests are run after a pull request review has been approved.
 

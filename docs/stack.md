@@ -30,7 +30,7 @@ React is used _à la carte_ for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/foundation_cms/legacy_apps/static/js/main.js` and inject it.
 
-## HTMX
+## htmx
 
 We have added the [`htmx.org`](https://htmx.org) javascript library to the project.
 `htmx` allows us to combine server rendered HTML (as we have with Django templates) with dynamic updates on the frontend.

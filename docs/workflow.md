@@ -37,7 +37,7 @@ Deploy each PR separately and in ascending order.
 Opening a PR activates different services:
 
 - [Review app](#review-apps): temporary apps with fake data running on Heroku,
-- [Continuous integration testing](#continuous-integration-testing): Github Actions,
+- [Continuous integration testing](#continuous-integration-testing): GitHub Actions,
 - [Visual regression testing](#visual-regression-testing): Percy.
 
 ### Review Apps
@@ -70,7 +70,7 @@ Non-secret envs can be added to the `app.json` file. Secrets must be set on Hero
 
 ### Continuous integration testing
 
-Opening a PR will trigger [Github Action](https://github.com/MozillaFoundation/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
+Opening a PR will trigger [GitHub Action](https://github.com/MozillaFoundation/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
 
 ### Visual regression testing
 

@@ -82,7 +82,7 @@ We strongly recommend you to check at least the [docker compose CLI](https://doc
 **Note on [pip-tools](https://github.com/jazzband/pip-tools)**:
 
 - Only edit the `.in` files and use `invoke pip-compile-lock` to generate `.txt` files.
-- Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to Github.
+- Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to GitHub.
 - `.txt` files act as lockfiles, where dependencies are pinned to a precise version.
 
 Dependencies live on your filesystem: you don't need to rebuild the `backend` image when installing or updating dependencies.
@@ -136,9 +136,9 @@ If the copy script is invoked when the correct database dump file already exists
 
 ## Connecting Docker to your code editor
 
-### Pycharm
+### PyCharm
 
-This feature is only available for the professional version of Pycharm. Follow the official instructions [available here](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker)
+This feature is only available for the professional version of PyCharm. Follow the official instructions [available here](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker)
 
 ### Visual Studio Code
 
