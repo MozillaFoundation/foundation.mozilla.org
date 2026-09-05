@@ -2,23 +2,28 @@
 
 The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). See [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) for the Mozilla Festival and Donate site specifics.
 
+## How this repo is organized
+
+This is a Django/Wagtail monorepo. Most of the site runs on a "redesign" that replaced an older ("legacy") build in 2025. The two aren't a clean 50/50 split, they're asymmetric:
+
+- **Redesign is the mainline codebase.** Its backend (page models, blocks, templates) lives directly in `foundation_cms/`, alongside everything else, not in a separate app, because it isn't a carve-out, it's just how the project works now. Its frontend is a separate yarn workspace at `frontend/redesign/` (esbuild, Vitest, Playwright/Percy), documented in [frontend/redesign/README.md](frontend/redesign/README.md).
+- **Legacy is the older code**, kept because it still powers a couple of standalone site sections (see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) for which ones). Its backend lives in Django apps under `foundation_cms/legacy_apps/`, and its frontend is a separate yarn workspace at `frontend/legacy/`. Both are documented together in that same README.
+
+Everything else in this README (env vars, Docker/invoke setup, Python testing, deployment) applies to the whole project regardless of legacy or redesign.
+
 ## Getting started
 
 Before you start working on the project, be sure to read this README and the linked docs.
 
-[Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
-
-[Local development](docs/local_development.md)
-
-[Engineer Workflow](docs/workflow.md)
-
-[OPS and Heroku Settings](docs/ops_heroku_settings.md)
-
-[Scheduled Task](docs/scheduled.md)
-
-[Stack](docs/stack.md)
-
-[Upgrading Wagtail](docs/upgrading.md)
+- [Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
+- [Local development](docs/local_development.md)
+- [Engineer Workflow](docs/workflow.md)
+- [OPS and Heroku Settings](docs/ops_heroku_settings.md)
+- [Scheduled Task](docs/scheduled.md)
+- [Stack](docs/stack.md)
+- [Upgrading Wagtail](docs/upgrading.md)
+- [Redesign Frontend](frontend/redesign/README.md)
+- [Legacy Apps](foundation_cms/legacy_apps/README.md)
 
 ## How to Setup your Dev Environment with Docker
 
