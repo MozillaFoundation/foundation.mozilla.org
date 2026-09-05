@@ -1,6 +1,6 @@
 # foundation.mozilla.org
 
-The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). For local dev setup (Docker, invoke commands), see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) — despite the folder name, it covers setup for the whole project, not just the legacy code.
+The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). For local dev setup (Docker, invoke commands), see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) (despite the folder name, it covers setup for the whole project, not just the legacy code).
 
 ## Environment Variables
 

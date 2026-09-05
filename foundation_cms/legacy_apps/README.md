@@ -97,7 +97,7 @@ For more info, consult the [pytest-xdist docs](https://pytest-xdist.readthedocs.
 
 See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
 
-There is currently no unit test framework for JavaScript tests set up.
+There is no JS unit test framework set up for the legacy frontend. The redesign frontend has its own Vitest suite (see [frontend/redesign/README.md](../../frontend/redesign/README.md#unit-testing-vitest)).
 
 ### Integration tests
 
@@ -118,6 +118,8 @@ URL checker can be initiated by running `docker compose up` in one terminal and 
 We also use Playwright in combination with Browserstack's [Percy](https://percy.io/) to perform visual regression testing for PRs, using `./tests/visual.spec.js` as screenshot baseline.
 
 Visual regression tests are run after a pull request review has been approved.
+
+This covers the legacy frontend. The redesign frontend has its own separate Playwright + Percy visual regression suite (see [frontend/redesign/README.md](../../frontend/redesign/README.md#visual-regression-testing-playwright--percy)).
 
 ### Accessibility tests
 
