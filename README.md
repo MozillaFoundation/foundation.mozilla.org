@@ -8,15 +8,17 @@ Before you start working on the project, be sure to read this README and the lin
 
 [Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
 
-[Local development](foundation_cms/legacy_apps/docs/local_development.md)
+[Local development](docs/local_development.md)
 
-[Engineer Workflow](foundation_cms/legacy_apps/docs/workflow.md)
+[Engineer Workflow](docs/workflow.md)
 
-[OPS and Heroku Settings](foundation_cms/legacy_apps/docs/ops_heroku_settings.md)
+[OPS and Heroku Settings](docs/ops_heroku_settings.md)
 
-[Scheduled Task](foundation_cms/legacy_apps/docs/scheduled.md)
+[Scheduled Task](docs/scheduled.md)
 
-[Stack](foundation_cms/legacy_apps/docs/stack.md)
+[Stack](docs/stack.md)
+
+[Upgrading Wagtail](docs/upgrading.md)
 
 ## How to Setup your Dev Environment with Docker
 
@@ -51,7 +53,7 @@ To catch up on new dependencies, migrations, etc. after initial setup, you can u
 
 Use `inv -l` to get a list of all the available invoke commands.
 
-More information on how to work with Docker and how to manage Python dependencies are available in the [local development](foundation_cms/legacy_apps/docs/local_development.md) part of the documentation.
+More information on how to work with Docker and how to manage Python dependencies are available in the [local development](docs/local_development.md) part of the documentation.
 
 ## Environment Variables
 
