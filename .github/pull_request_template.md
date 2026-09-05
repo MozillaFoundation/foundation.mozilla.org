@@ -15,7 +15,7 @@ Related PRs/issues: #
 **Changes in Models:**
 - [ ] Did I update or add new fake data?
 - [ ] Did I squash my migration?
-- [ ] Are my changes [backward-compatible](https://github.com/mozilla/foundation.mozilla.org/blob/main/docs/workflow.md#django-migrations-what-to-do-when-working-on-backward-incompatible-migrations). If not, did I schedule a deploy with the rest of the team?
+- [ ] Are my changes [backward-compatible](https://github.com/MozillaFoundation/foundation.mozilla.org/blob/main/docs/workflow.md#django-migrations-what-to-do-when-working-on-backward-incompatible-migrations). If not, did I schedule a deploy with the rest of the team?
 
 **Documentation:**
 - [ ] Is my code documented?
