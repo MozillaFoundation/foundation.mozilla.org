@@ -70,7 +70,7 @@ Non-secret envs can be added to the `app.json` file. Secrets must be set on Hero
 
 ### Continuous integration testing
 
-Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
+Opening a PR will trigger [Github Action](https://github.com/MozillaFoundation/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
 
 ### Visual regression testing
 

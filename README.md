@@ -43,7 +43,7 @@ We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/
 
 Run the following terminal commands to get started:
 
-- `git clone https://github.com/mozilla/foundation.mozilla.org.git`
+- `git clone https://github.com/MozillaFoundation/foundation.mozilla.org.git`
 - `cd foundation.mozilla.org`
 - `inv new-env`
 
@@ -94,7 +94,7 @@ There might be some linting issues that can not be fixed automatically.
 When relevant, we encourage you to write tests.
 
 You can run the tests using `inv test`.
-This will the full test suite.
+This will run the full test suite.
 
 To run only a subset or a specific Python test, you can use following command:
 
@@ -174,3 +174,5 @@ The `translations_github_commit_[...]` file from the archive is only used for de
 ## Contributing
 
 We love contributors, but the team maintaining this project is small and not structured to significantly support new and inexperienced contributors. If there's an unassigned issue that catches your eye, feel free to open a PR for it, but keep in mind our support will be limited. We usually don't have the capacity to walk you through the process of spinning up the project, opening a PR or describing what the solution to the issue could be.
+
+See also: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
