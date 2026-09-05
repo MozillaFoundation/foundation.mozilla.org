@@ -19,6 +19,15 @@ Similar to the Mozilla Festival site, the fake data generator can generate a sit
 
 For local development, the donate site can be found at `donate.localhost:8000`.
 
+## Linting and Formatting
+
+From the `./frontend/legacy` directory (or `yarn workspace legacy <script>` from the repo root):
+
+- Run `yarn lint` to check JavaScript and SCSS files for linting errors.
+- Run `yarn fix` to auto-fix JavaScript (ESLint) and SCSS (Stylelint) issues.
+
+Unlike the redesign frontend, there's no separate Prettier check-only step wired up here, `yarn fix` handles both linting and formatting fixes together.
+
 ## Testing
 
 The legacy frontend's Playwright/Percy tests live under `frontend/legacy/tests`, and its scripts run through the `legacy` yarn workspace. The redesign frontend has its own separate Vitest and Playwright/Percy setup (see [frontend/redesign/README.md](../../frontend/redesign/README.md)).

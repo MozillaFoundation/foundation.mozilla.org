@@ -2,6 +2,67 @@
 
 Frontend for the redesigned Mozilla Foundation site, built with esbuild and Foundation Framework. Independent from the legacy frontend.
 
+## Development Workflow
+
+### Development Mode
+
+- Make sure the `DEBUG` environment variable is set to `True` so that Django and Docker serve updated compiled files correctly.
+- Run `docker compose up` from the root of the codebase (not from `./frontend`).
+- Develop as usual.
+
+### CSS
+
+- SCSS files are located in `./foundation_cms/static/scss`.
+- These are automatically compiled into `.css` files as part of the build process.
+
+## Check Linting Error
+
+From the `./frontend/redesign` directory:
+
+- Run `yarn lint` to check JavaScript and SCSS files for linting errors.
+
+To lint separately:
+
+- Run `yarn lint:js` to check JavaScript files for linting errors.
+- Run `yarn lint:scss` to check SCSS files using Stylelint.
+
+## Fix Linting Error
+
+From the `./frontend/redesign` directory:
+
+- Run `yarn fix` to automatically fix JavaScript and SCSS linting errors.
+
+To fix them separately:
+
+- Run `yarn fix:js` to automatically fix fixable linting issues using ESLint.
+- Run `yarn fix:scss` to automatically fix SCSS linting issues.
+
+## Check Code Formatting
+
+We use [Prettier](https://prettier.io) to enforce consistent code formatting.
+
+From the `./frontend/redesign` directory:
+
+- Run `yarn check-format` to check whether JavaScript and SCSS files are correctly formatted.
+
+To check them separately:
+
+- Run `yarn check-format:js` to check whether JavaScript files are correctly formatted.
+- Run `yarn check-format:scss` to check whether SCSS files are correctly formatted.
+
+## Fix Code Formatting
+
+We use [Prettier](https://prettier.io) to enforce consistent code formatting.
+
+From the `./frontend/redesign` directory:
+
+- Run `yarn format` to automatically format JavaScript and SCSS files.
+
+To format them separately:
+
+- Run `yarn format:js` to automatically format JS code
+- Run `yarn format:scss` to automatically format SCSS code
+
 ## Unit Testing (Vitest)
 
 Unit tests run against vanilla JS modules under `foundation_cms/static/js` using [Vitest](https://vitest.dev/) with a jsdom environment, so they can exercise DOM reads/writes and event dispatching without a real browser.
