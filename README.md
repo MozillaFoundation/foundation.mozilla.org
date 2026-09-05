@@ -292,8 +292,8 @@ From the `./frontend/redesign` directory:
 
 To check them separately:
 
-- Run `yarn format:js` to check whether JavaScript files are correctly formatted.
-- Run `yarn format:scss` to check whether SCSS files are correctly formatted.
+- Run `yarn check-format:js` to check whether JavaScript files are correctly formatted.
+- Run `yarn check-format:scss` to check whether SCSS files are correctly formatted.
 
 ## Fix Code Formatting
 
