@@ -195,6 +195,8 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 
 To ensure a consistent code style and quality, we use linters and formatters.
 
+`inv lint`/`inv format` below are a convenience wrapper that run everything (Python, HTML, and both frontends' JS/SCSS) inside Docker in one go. CI itself doesn't use `inv` though, it runs the underlying tools directly per workspace (see `.github/workflows/lint.yml`). For faster local iteration on just one frontend's JS/SCSS directly, use the workspace-specific commands documented in [frontend/redesign/README.md](frontend/redesign/README.md) or [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) instead.
+
 ### Linting
 
 To check the code base for quality and style issues run `inv lint`.
