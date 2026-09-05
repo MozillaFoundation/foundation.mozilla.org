@@ -1,147 +1,125 @@
+# foundation.mozilla.org
+
+The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). See [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) for the Mozilla Festival and Donate site specifics.
+
+## How this repo is organized
+
+This is a Django/Wagtail monorepo. Most of the site runs on a "redesign" that replaced an older ("legacy") build in 2025. The two aren't a clean 50/50 split, they're asymmetric:
+
+- **Redesign is the mainline codebase.** Its backend (page models, blocks, templates) lives directly in `foundation_cms/`, alongside everything else, not in a separate app, because it isn't a carve-out, it's just how the project works now. Its frontend is a separate yarn workspace at `frontend/redesign/` (esbuild, Vitest, Playwright/Percy), documented in [frontend/redesign/README.md](frontend/redesign/README.md).
+- **Legacy is the older code**, kept because it still powers a couple of standalone site sections (see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) for which ones). Its backend lives in Django apps under `foundation_cms/legacy_apps/`, and its frontend is a separate yarn workspace at `frontend/legacy/`. Both are documented together in that same README.
+
+Everything else in this README (env vars, Docker/invoke setup, Python testing, deployment) applies to the whole project regardless of legacy or redesign.
+
+## Getting started
+
+Before you start working on the project, be sure to read this README and the linked docs.
+
+- [Setup with Docker](#how-to-setup-your-dev-environment-with-docker)
+- [Environment Variables](docs/environment_variables.md)
+- [Local development](docs/local_development.md)
+- [Engineer Workflow](docs/workflow.md)
+- [OPS and Heroku Settings](docs/ops_heroku_settings.md)
+- [Scheduled Task](docs/scheduled.md)
+- [Stack](docs/stack.md)
+- [Upgrading Wagtail](docs/upgrading.md)
+- [Redesign Frontend](frontend/redesign/README.md)
+- [Legacy Apps](foundation_cms/legacy_apps/README.md)
+
+## How to Setup your Dev Environment with Docker
+
+**Requirements**: Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS and Windows or [Docker Compose](https://docs.docker.com/compose/install/) for Linux), [Python 3](https://www.python.org/downloads/) with the [invoke](https://www.pyinvoke.org/installing.html) package installed globally, and [git](https://git-scm.com/).
+
+### Installing Invoke
+
+We recommend that you install Invoke using [pipx](https://pypi.org/project/pipx/), but any Python package manager should work (pip, poetry, etc).
+
+### Check your environment
+
+- `docker run hello-world`.
+- `invoke --version` should return 0.22.1 or higher.
+
+### Setup steps
+
+Run the following terminal commands to get started:
+
+- `git clone https://github.com/MozillaFoundation/foundation.mozilla.org.git`
+- `cd foundation.mozilla.org`
+- `inv new-env`
+
+You're done :tada:
+
+This task creates a `.env` that is in charge of managing your environment variables while running Docker. The installation will take a few minutes: you need to download images from the Docker Hub, install JS and Python dependencies, create fake data, migrate your database, etc.
+
+When it's done, run `docker compose up`, wait until the static files to be built, and go to `0.0.0.0:8000`. You should have a local working version of the foundation site with fake data. When you want to stop, do `^C` to shut down your containers.
+
+Once the webserver is running, you can log in to the admin site at http://localhost:8000/cms/. A superuser will have been created with username `admin` with password `admin`.
+
+To catch up on new dependencies, migrations, etc. after initial setup, you can use the `inv catch-up` command. To get a full new environment with a new database, run `inv new-env` again.
+
+Use `inv -l` to get a list of all the available invoke commands.
+
+More information on how to work with Docker and how to manage Python dependencies are available in the [local development](docs/local_development.md) part of the documentation.
+
 ## Environment Variables
 
-Environment variables are loaded from a `.env` file in the project root (gitignored) for local development, and must be set in [Heroku config vars](https://devcenter.heroku.com/articles/config-vars) for staging and production. See `foundation_cms/settings/base.py` for the full list with defaults.
-
-### Required (no defaults — the app will error on startup without these)
-
-| Variable | Description |
-|---|---|
-| `DJANGO_SECRET_KEY` | Django secret key |
-| `CONTENT_TYPE_NO_SNIFF` | `bool` — sets `SECURE_CONTENT_TYPE_NOSNIFF` |
-| `SET_HSTS` | `bool` — enables HSTS |
-| `XSS_PROTECTION` | `bool` — sets `SECURE_BROWSER_XSS_FILTER` |
-| `SSL_REDIRECT` | `bool` — redirects HTTP → HTTPS |
-| `X_FRAME_OPTIONS` | e.g. `DENY` or `SAMEORIGIN` |
-
-### Core
-
-| Variable | Default | Description |
-|---|---|---|
-| `DEBUG` | `False` | Enables Django debug mode. See [DEBUG=True gotchas](#debugtrue) below |
-| `DATABASE_URL` | `None` | Postgres connection string, e.g. `postgresql://user@host:5432/db` |
-| `ALLOWED_HOSTS` | `[]` | Comma-separated list of allowed hostnames |
-| `CSRF_TRUSTED_ORIGINS` | `[]` | Trusted origins for CSRF |
-| `DJANGO_SECRET_KEY` | — | Secret key for Django |
-| `REDIS_URL` | `""` | Redis connection string; enables caching when set |
-| `WAGTAILADMIN_BASE_URL` | `""` | Base URL for Wagtail admin email links |
-
-### Auth (Auth0)
-
-| Variable | Default | Description |
-|---|---|---|
-| `SOCIAL_AUTH_AUTH0_DOMAIN` | `None` | Auth0 domain |
-| `SOCIAL_AUTH_AUTH0_KEY` | `None` | Auth0 application key |
-| `SOCIAL_AUTH_AUTH0_SECRET` | `None` | Auth0 application secret |
-| `SOCIAL_AUTH_LOGIN_REDIRECT_URL` | `None` | Redirect URL after login |
-
-### Storage / CDN
-
-| Variable | Default | Description |
-|---|---|---|
-| `USE_S3` | `True` | Use S3 for media storage; set `False` for local dev |
-| `AWS_ACCESS_KEY_ID` | — | S3 credentials |
-| `AWS_SECRET_ACCESS_KEY` | — | S3 credentials |
-| `AWS_STORAGE_BUCKET_NAME` | — | S3 bucket name |
-| `AWS_S3_CUSTOM_DOMAIN` | — | Custom domain for S3-served assets |
-| `AWS_LOCATION` | `""` | Key prefix within the S3 bucket |
-| `ASSET_DOMAIN` | `""` | Legacy asset domain |
-| `STATIC_HOST` | `""` | CDN host for static files (empty in DEBUG or review apps) |
-| `FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN` | `""` | Cloudflare cache purge token |
-| `FRONTEND_CACHE_CLOUDFLARE_ZONEID` | `""` | Cloudflare zone ID for cache purging |
-
-### Error Tracking / Monitoring
-
-| Variable | Default | Description |
-|---|---|---|
-| `SENTRY_DSN` | `None` | Sentry DSN; Sentry is disabled when unset |
-| `SENTRY_ENVIRONMENT` | `None` | Sentry environment tag |
-| `SCOUT_KEY` | `""` | Scout APM key; Scout is disabled when unset |
-| `SCOUT_NAME` | `"foundation"` | Scout APM app name |
-
-### External Services
-
-| Variable | Default | Description |
-|---|---|---|
-| `BASKET_URL` | `""` | Basket newsletter service URL |
-| `PULSE_API_DOMAIN` | `""` | Mozilla Pulse API domain |
-| `GITHUB_TOKEN` | `""` | GitHub token for review app automation |
-| `SLACK_WEBHOOK_RA` | `""` | Slack webhook for review app notifications |
-| `PETITION_TEST_CAMPAIGN_ID` | `""` | Salesforce campaign ID for petition testing |
-| `PNI_STATS_DB_URL` | `None` | \*Privacy Not Included stats database URL |
-| `CAMO_ENDPOINT_KEY` | `""` | Camo image proxy key |
-| `CAMO_NEWSLETTER_ENDPOINT` | `""` | Camo newsletter endpoint |
-| `NEWSLETTER_SIGNUP_METHOD` | `""` | Newsletter signup method |
-| `UNSUBSCRIBE_NEWSLETTER_ENDPOINT` | `""` | Newsletter unsubscribe endpoint |
-| `SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL` | `""` | Redirect after successful unsubscribe |
-| `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION` | `""` | Apple Pay domain key for Foundation |
-| `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST` | `""` | Apple Pay domain key for Mozfest |
-| `COOKIE_CONTROL_API_KEY` | `""` | Civic Cookie Control API key; banner is disabled when unset |
-
-### Wagtail Localize (Git sync)
-
-| Variable | Default | Description |
-|---|---|---|
-| `WAGTAILLOCALIZE_GIT_URL` | `""` | Git repo URL for Wagtail Localize |
-| `WAGTAILLOCALIZE_GIT_DEFAULT_BRANCH` | `""` | Default branch for localization repo |
-| `WAGTAILLOCALIZE_GIT_CLONE_DIR` | `""` | Local clone directory |
-| `WAGTAIL_LOCALIZE_PRIVATE_KEY` | `""` | SSH private key for the localization repo |
-
-### Wagtail Editor
-
-| Variable | Default | Description |
-|---|---|---|
-| `WAGTAIL_AUTOSAVE_INTERVAL` | `0` | The autosave interval in milliseconds |
-
-### Heroku / Review Apps
-
-| Variable | Default | Description |
-|---|---|---|
-| `APP_ENVIRONMENT` | `""` | Set to `"Review"` on review apps |
-| `REVIEW_APP` | `False` | `True` when running on a Heroku review app |
-| `HEROKU_APP_NAME` | `""` | Heroku app name (set automatically by Heroku) |
-| `HEROKU_RELEASE_VERSION` | `None` | Release version (set automatically by Heroku) |
-| `HEROKU_BRANCH` | `""` | Git branch name (set automatically by Heroku) |
-| `HEROKU_PR_NUMBER` | `""` | PR number (set automatically by Heroku) |
-| `REVIEW_APP_HEROKU_API_KEY` | `None` | Heroku API key for review app teardown |
-| `REVIEW_APP_CLOUDFLARE_ZONE_ID` | `None` | Cloudflare zone for review app DNS |
-| `REVIEW_APP_CLOUDFLARE_TOKEN` | `None` | Cloudflare token for review app DNS |
-| `REVIEW_APP_DOMAIN` | `None` | Review app public domain |
-| `PROD_HOSTNAMES` | `""` | Production hostnames (used when copying prod DB to staging) |
-| `STAGING_HOSTNAMES` | `""` | Staging hostnames |
-
-### Development / Local Only
-
-| Variable | Default | Description |
-|---|---|---|
-| `DEBUG_TOOLBAR_ENABLED` | `False` | Enable Django Debug Toolbar |
-| `PATTERN_LIBRARY_ENABLED` | `False` | Enable the Wagtail pattern library |
-| `FORCE_500_STACK_TRACES` | `False` | Force stack traces on 500 errors in non-DEBUG mode |
-| `RANDOM_SEED` | `None` | Seed for randomized test data |
-| `VSCODE_DEBUGGER` | `False` | Attach VS Code debugger via `debugpy` |
-| `LOCAL_PATH_TO_L10N_REPO` | — | Absolute path to local `fomo-l10n` clone (see [Translations](#translations)) |
-| `WAGTAIL_NOTIFICATION_EMAIL` | — | Email address for Wagtail admin notifications |
-| `WAGTAIL_NOTIFICATION_EMAIL_PASSWORD` | — | Password for the notification email account |
-
-### Search App
-
-| Variable | Default | Description |
-|---|---|---|
-| `SEARCH_AUTOCOMPLETE_MIN_CHARS` | `5` | Minimum number of characters required to trigger search autocomplete |
+Environment variables are loaded from a `.env` file in the project root (gitignored) for local development, and must be set in [Heroku config vars](https://devcenter.heroku.com/articles/config-vars) for staging and production. See `foundation_cms/settings/base.py` for the full list with defaults, or [docs/environment_variables.md](docs/environment_variables.md) for the full reference table.
 
 ---
 
-## Frontend Workflow for the "Redesign Site"
+## Code style
 
-### Development Mode
+To ensure a consistent code style and quality, we use linters and formatters.
 
-- Make sure the `DEBUG` environment variable is set to `True` so that Django and Docker serve updated compiled files correctly.
-- Run `docker compose up` from the root of the codebase (not from `./frontend`).
-- Develop as usual.
+`inv lint`/`inv format` below are a convenience wrapper that run everything (Python, HTML, and both frontends' JS/SCSS) inside Docker in one go. CI itself doesn't use `inv` though, it runs the underlying tools directly per workspace (see `.github/workflows/lint.yml`). For faster local iteration on just one frontend's JS/SCSS directly, use the workspace-specific commands documented in [frontend/redesign/README.md](frontend/redesign/README.md) or [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) instead.
 
-### CSS
+### Linting
 
-- SCSS files are located in `./foundation_cms/static/scss`.
-- These are automatically compiled into `.css` files as part of the build process.
+To check the code base for quality and style issues run `inv lint`.
+This will run all configured linters.
+You can run the linters individually with, e.g. `inv lint-js` for JavaScript only.
+Check available commands with `inv -l`.
+
+### Formatting
+
+If `inv lint` shows linting errors you can try running `inv format` to fix style issues.
+`inv format` should automatically fix most formatting issues.
+
+There might be some linting issues that can not be fixed automatically.
+
+## Testing
+
+### Unit tests
+
+When relevant, we encourage you to write tests.
+
+You can run the tests using `inv test`.
+This will run the full test suite.
+
+To run only a subset or a specific Python test, you can use following command:
+
+```console
+inv test-python --file path/to/file.py
+```
+
+The `test-python` command also support flags for turning increased verbosity on/off (`-v`) and
+for running tests in parallel (the `-n` option). To run tests with 4 parallel processes and increased
+verbosity, use:
+
+```console
+inv test-python -v -n 4
+```
+
+The `-n` flag also supports the `auto` value, which will run tests with as many parallel cores as possible.
+For more info, consult the [pytest-xdist docs](https://pytest-xdist.readthedocs.io/en/stable/distribution.html).
+
+See also [the Django docs on running tests](https://docs.djangoproject.com/en/4.1/topics/testing/overview/#running-tests).
+
+There is no JS unit test framework set up for the legacy frontend. The redesign frontend has its own Vitest suite (see [frontend/redesign/README.md](frontend/redesign/README.md#unit-testing-vitest)).
+
+The legacy frontend also has its own Playwright integration, URL-checker, visual regression, and accessibility test setup (see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md#testing)).
+
+---
 
 ## Frontend commands
 
@@ -151,59 +129,10 @@ the root scripts defined in the root `package.json` and are helper scripts defin
 To run `yarn` commands from an individual workspace, you can `cd` into the workspace, or you can use workspace
 syntax from the root directory (for exapmle: `yarn workspace redesign lint`)
 
-## Check Linting Error
+Frontend-specific dev workflow, linting, and formatting commands are documented per workspace:
 
-From the `./frontend/redesign` directory:
-
-- Run `yarn lint` to check JavaScript and SCSS files for linting errors.
-
-To lint separately:
-
-- Run `yarn lint:js` to check JavaScript files for linting errors.
-- Run `yarn lint:scss` to check SCSS files using Stylelint.
-
-## Fix Linting Error
-
-From the `./frontend/redesign` directory:
-
-- Run `yarn fix` to automatically fix JavaScript and SCSS linting errors.
-
-To fix them separately:
-
-- Run `yarn fix:js` to automatically fix fixable linting issues using ESLint.
-- Run `yarn fix:scss` to automatically fix SCSS linting issues.
-
-## Check Code Formatting
-
-We use [Prettier](https://prettier.io) to enforce consistent code formatting.
-
-From the `./frontend/redesign` directory:
-
-- Run `yarn check-format` to check whether JavaScript and SCSS files are correctly formatted.
-
-To check them separately:
-
-- Run `yarn format:js` to check whether JavaScript files are correctly formatted.
-- Run `yarn format:scss` to check whether SCSS files are correctly formatted.
-
-## Fix Code Formatting
-
-We use [Prettier](https://prettier.io) to enforce consistent code formatting.
-
-From the `./frontend/redesign` directory:
-
-- Run `yarn format` to automatically format JavaScript and SCSS files.
-
-To format them separately:
-
-- Run `yarn format:js` to automatically format JS code
-- Run `yarn format:scss` to automatically format SCSS code
-
-## Donate Site
-
-Similar to the Mozilla Festival site, the fake data generator can generate a site structure for the Donation site that can be served under it's own domain.
-
-For local development, the donate site can be found at `donate.localhost:8000`.
+- Redesign: [frontend/redesign/README.md](frontend/redesign/README.md)
+- Legacy: [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md)
 
 ## Gotchas
 
@@ -245,3 +174,5 @@ The `translations_github_commit_[...]` file from the archive is only used for de
 ## Contributing
 
 We love contributors, but the team maintaining this project is small and not structured to significantly support new and inexperienced contributors. If there's an unassigned issue that catches your eye, feel free to open a PR for it, but keep in mind our support will be limited. We usually don't have the capacity to walk you through the process of spinning up the project, opening a PR or describing what the solution to the issue could be.
+
+See also: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
