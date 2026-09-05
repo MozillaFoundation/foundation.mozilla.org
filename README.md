@@ -1,3 +1,7 @@
+# foundation.mozilla.org
+
+The Mozilla Foundation site, now live at mozillafoundation.org (repo name predates the domain change). For local dev setup (Docker, invoke commands), see [foundation_cms/legacy_apps/README.md](foundation_cms/legacy_apps/README.md) — despite the folder name, it covers setup for the whole project, not just the legacy code.
+
 ## Environment Variables
 
 Environment variables are loaded from a `.env` file in the project root (gitignored) for local development, and must be set in [Heroku config vars](https://devcenter.heroku.com/articles/config-vars) for staging and production. See `foundation_cms/settings/base.py` for the full list with defaults.
@@ -198,12 +202,6 @@ To format them separately:
 
 - Run `yarn format:js` to automatically format JS code
 - Run `yarn format:scss` to automatically format SCSS code
-
-## Donate Site
-
-Similar to the Mozilla Festival site, the fake data generator can generate a site structure for the Donation site that can be served under it's own domain.
-
-For local development, the donate site can be found at `donate.localhost:8000`.
 
 ## Gotchas
 
