@@ -1,0 +1,44 @@
+$greenhouse-board-embed-min-height: rem-calc(480);
+$greenhouse-board-panel-padding: rem-calc(64);
+$greenhouse-board-block-margin-bottom: rem-calc(32);
+
+.greenhouse-board-block {
+  margin-bottom: $greenhouse-board-block-margin-bottom;
+
+  &__embed {
+    width: 100%;
+
+    // Greenhouse only injects its iframe on the window load event, so the page
+    // jumps without a reserved height.
+    min-height: $greenhouse-board-embed-min-height;
+  }
+
+  &__notice {
+    margin-top: rem-calc(16);
+    color: color(neutral, "500");
+  }
+
+  &__notice-link {
+    text-decoration: underline;
+  }
+
+  &__panel {
+    background-color: color(neutral, "100");
+    padding: $greenhouse-board-panel-padding rem-calc(24);
+    text-align: center;
+  }
+
+  &__panel-heading {
+    margin-top: 0;
+    margin-bottom: rem-calc(16);
+  }
+
+  &__panel-description {
+    margin: 0 auto;
+    max-width: rem-calc(560);
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

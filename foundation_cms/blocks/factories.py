@@ -3,6 +3,7 @@ import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
+from foundation_cms.blocks.greenhouse_board_block import GreenhouseBoardBlock
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
@@ -210,3 +211,15 @@ class FeaturedCardBlockFactory(wagtail_factories.StructBlockFactory):
         style="btn-primary",
         alignment="link-button-block--left",
     )
+
+
+class GreenhouseBoardBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = GreenhouseBoardBlock
+
+    empty_heading = "No open roles right now"
+    empty_description = "<p>Please check back soon.</p>"
+    unavailable_heading = "Our job board is temporarily unavailable"
+    unavailable_description = "<p>Please try again shortly.</p>"
+    degraded_notice = "Not seeing our open roles?"
+    degraded_link_label = "View them on Greenhouse"

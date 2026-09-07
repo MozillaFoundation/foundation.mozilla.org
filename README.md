@@ -76,6 +76,9 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION` | `""` | Apple Pay domain key for Foundation |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST` | `""` | Apple Pay domain key for Mozfest |
 | `COOKIE_CONTROL_API_KEY` | `""` | Civic Cookie Control API key; banner is disabled when unset |
+| `GREENHOUSE_BOARD_TOKEN` | `""` | Greenhouse job board token; the board block renders an "unavailable" panel when unset |
+| `GREENHOUSE_BOARD_CACHE_TIMEOUT` | `300` | Seconds to cache a successful job board lookup |
+| `GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT` | `60` | Seconds to cache a failed job board lookup |
 
 ### Wagtail Localize (Git sync)
 
