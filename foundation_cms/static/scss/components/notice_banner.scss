@@ -46,6 +46,8 @@
     h6 {
       @include mofo-text-style($header-styles, "h6", $header-font-family);
 
+      color: inherit;
+      text-transform: none;
       margin: 0;
     }
 
