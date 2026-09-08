@@ -97,13 +97,17 @@ class GetGreenhouseBoardStateTests(SimpleTestCase):
         self.assertEqual(mock_get.call_args.kwargs["timeout"], REQUEST_TIMEOUT)
 
 
-@override_settings(GREENHOUSE_BOARD_CACHE_TIMEOUT=300, GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT=60)
+ISOLATED_CACHE = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache", "LOCATION": "greenhouse"}}
+
+
+@override_settings(
+    CACHES=ISOLATED_CACHE,
+    GREENHOUSE_BOARD_CACHE_TIMEOUT=300,
+    GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT=60,
+)
 @patch("foundation_cms.blocks.greenhouse.requests.get")
 class GreenhouseBoardStateCachingTests(SimpleTestCase):
     def setUp(self):
-        cache.clear()
-
-    def tearDown(self):
         cache.clear()
 
     def test_repeated_calls_hit_greenhouse_only_once(self, mock_get):

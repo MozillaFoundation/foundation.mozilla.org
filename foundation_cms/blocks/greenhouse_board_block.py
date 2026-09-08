@@ -8,6 +8,7 @@ from foundation_cms.blocks.greenhouse import (
     HOSTED_BOARD_URL,
     STATE_BOARD,
     STATE_DEGRADED,
+    STATE_EMPTY,
     get_greenhouse_board_state,
 )
 
@@ -35,13 +36,13 @@ class GreenhouseBoardBlock(BaseBlock):
         default="<p>We're having trouble loading our open roles. Please try again shortly.</p>",
         help_text="Shown under the heading when the job board cannot be loaded at all.",
     )
-    degraded_notice = blocks.CharBlock(
+    hosted_board_notice = blocks.CharBlock(
         required=False,
         max_length=140,
         default="Not seeing our open roles?",
-        help_text="Shown next to the job board when we could not confirm it loaded, followed by the link below.",
+        help_text="Shown under the job board, followed by the link below.",
     )
-    degraded_link_label = blocks.CharBlock(
+    hosted_board_link_label = blocks.CharBlock(
         required=False,
         max_length=60,
         default="View them on Greenhouse",
@@ -52,6 +53,7 @@ class GreenhouseBoardBlock(BaseBlock):
         template_name = "greenhouse_board_block.html"
         icon = "list-ul"
         label = "Greenhouse Job Board"
+        description = "Embeds the Greenhouse job board. Only one per page: the embed uses a fixed element id."
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -65,7 +67,14 @@ class GreenhouseBoardBlock(BaseBlock):
 
         if state in (STATE_BOARD, STATE_DEGRADED):
             context["embed_script_url"] = EMBED_SCRIPT_URL.format(token=token)
-        if state == STATE_DEGRADED:
+            # Offered whenever we embed: every state we detect is server-side, so
+            # an embed blocked by CSP or an ad blocker leaves no other way out.
             context["hosted_board_url"] = HOSTED_BOARD_URL.format(token=token)
+        elif state == STATE_EMPTY:
+            context["panel_heading"] = value["empty_heading"]
+            context["panel_description"] = value["empty_description"]
+        else:
+            context["panel_heading"] = value["unavailable_heading"]
+            context["panel_description"] = value["unavailable_description"]
 
         return context

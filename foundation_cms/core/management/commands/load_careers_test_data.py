@@ -24,7 +24,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--reset",
             action="store_true",
-            help=f"Delete the existing test page (slug {CAREERS_SLUG}) before creating it.",
+            help=f"Delete every existing page with slug {CAREERS_SLUG} before creating it.",
         )
 
     def _get_home_page(self):
@@ -54,8 +54,8 @@ class Command(BaseCommand):
                         "unavailable_heading": "Our job board is temporarily unavailable",
                         "unavailable_description": "<p>We're having trouble loading our open roles. "
                         "Please try again shortly.</p>",
-                        "degraded_notice": "Not seeing our open roles?",
-                        "degraded_link_label": "View them on Greenhouse",
+                        "hosted_board_notice": "Not seeing our open roles?",
+                        "hosted_board_link_label": "View them on Greenhouse",
                     },
                 },
             ],
@@ -68,9 +68,8 @@ class Command(BaseCommand):
         home_page = self._get_home_page()
 
         if options["reset"]:
-            deleted, _ = GeneralPage.objects.filter(slug=CAREERS_SLUG).delete()
-            if deleted:
-                self.stdout.write(f"Deleted {deleted} existing careers page(s).")
+            GeneralPage.objects.filter(slug=CAREERS_SLUG).delete()
+            self.stdout.write(f"Deleted every page with slug {CAREERS_SLUG}, in every locale.")
 
         existing = GeneralPage.objects.filter(slug=CAREERS_SLUG, locale=default_locale).first()
         if existing:

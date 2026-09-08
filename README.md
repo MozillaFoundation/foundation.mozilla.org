@@ -80,6 +80,11 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `GREENHOUSE_BOARD_CACHE_TIMEOUT` | `300` | Seconds to cache a successful job board lookup |
 | `GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT` | `60` | Seconds to cache a failed job board lookup |
 
+The Greenhouse board also needs `https://boards.greenhouse.io` in `CSP_SCRIPT_SRC` and
+`https://job-boards.greenhouse.io` in `CSP_FRAME_SRC` and `CSP_CHILD_SRC`. `env.default` and `app.json` cover local
+development and review apps; on staging and production these are Heroku config vars and have to be set there too, or
+the embed is blocked and the page renders an empty board.
+
 ### Wagtail Localize (Git sync)
 
 | Variable | Default | Description |

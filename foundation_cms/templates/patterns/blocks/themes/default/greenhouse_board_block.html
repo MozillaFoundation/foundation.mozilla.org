@@ -3,42 +3,28 @@
 <div class="greenhouse-board-block" data-board-state="{{ board_state }}">
   {% if embed_script_url %}
     <div id="grnhse_app" class="greenhouse-board-block__embed"></div>
-    <script src="{{ embed_script_url }}" nonce="{{ request.csp_nonce }}"></script>
+    <script src="{{ embed_script_url }}" nonce="{{ request.csp_nonce }}" defer></script>
 
-    {% if hosted_board_url %}
-      {% if value.degraded_notice or value.degraded_link_label %}
-        <p class="greenhouse-board-block__notice">
-          {% if value.degraded_notice %}{{ value.degraded_notice }}{% endif %}
-          {% if value.degraded_link_label %}
-            <a class="greenhouse-board-block__notice-link"
-               href="{{ hosted_board_url }}"
-               target="_blank"
-               rel="noopener noreferrer">{{ value.degraded_link_label }}</a>
-          {% endif %}
-        </p>
-      {% endif %}
+    {% if value.hosted_board_notice or value.hosted_board_link_label %}
+      <p class="greenhouse-board-block__notice">
+        {{ value.hosted_board_notice }}
+        {% if value.hosted_board_link_label %}
+          <a class="greenhouse-board-block__notice-link"
+             href="{{ hosted_board_url }}"
+             target="_blank"
+             rel="noopener noreferrer">{{ value.hosted_board_link_label }}</a>
+        {% endif %}
+      </p>
     {% endif %}
 
-  {% elif board_state == "empty" %}
-    <div class="greenhouse-board-block__panel greenhouse-board-block__panel--empty">
-      {% if value.empty_heading %}
-        <h2 class="greenhouse-board-block__panel-heading">{{ value.empty_heading }}</h2>
+  {% else %}
+    <div class="greenhouse-board-block__panel greenhouse-board-block__panel--{{ board_state }}">
+      {% if panel_heading %}
+        <h2 class="greenhouse-board-block__panel-heading">{{ panel_heading }}</h2>
       {% endif %}
-      {% if value.empty_description %}
+      {% if panel_description %}
         <div class="greenhouse-board-block__panel-description body-text-large">
-          {{ value.empty_description|richtext }}
-        </div>
-      {% endif %}
-    </div>
-
-  {% elif board_state == "unavailable" %}
-    <div class="greenhouse-board-block__panel greenhouse-board-block__panel--unavailable">
-      {% if value.unavailable_heading %}
-        <h2 class="greenhouse-board-block__panel-heading">{{ value.unavailable_heading }}</h2>
-      {% endif %}
-      {% if value.unavailable_description %}
-        <div class="greenhouse-board-block__panel-description body-text-large">
-          {{ value.unavailable_description|richtext }}
+          {{ panel_description|richtext }}
         </div>
       {% endif %}
     </div>

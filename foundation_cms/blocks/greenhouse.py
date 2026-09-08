@@ -6,7 +6,7 @@ from django.core.cache import cache
 
 logger = logging.getLogger(__name__)
 
-REQUEST_TIMEOUT = (2, 3)
+REQUEST_TIMEOUT = (2, 3)  # connect, read
 
 API_URL = "https://boards-api.greenhouse.io/v1/boards/{token}/jobs"
 EMBED_SCRIPT_URL = "https://boards.greenhouse.io/embed/job_board/js?for={token}"

@@ -794,10 +794,6 @@ LOGGING = {
             "handlers": ["info"],
             "level": "INFO",
         },
-        "foundation_cms.legacy_apps": {
-            "handlers": ["info"],
-            "level": "INFO",
-        },
     },
 }
 DJANGO_LOG_LEVEL = env("DJANGO_LOG_LEVEL")

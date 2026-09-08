@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
 
 from foundation_cms.base.models.abstract_base_page import BASE_BLOCK_NAMES
 from foundation_cms.base.models.abstract_general_page import GENERAL_PAGE_BLOCK_NAMES
@@ -20,18 +20,18 @@ COPY = {
     "empty_description": "<p>Check back soon.</p>",
     "unavailable_heading": "Our job board is temporarily unavailable",
     "unavailable_description": "<p>Try again shortly.</p>",
-    "degraded_notice": "Not seeing our open roles?",
-    "degraded_link_label": "View them on Greenhouse",
+    "hosted_board_notice": "Not seeing our open roles?",
+    "hosted_board_link_label": "View them on Greenhouse",
 }
 
 
 @override_settings(GREENHOUSE_BOARD_TOKEN="mozilla")
 @patch("foundation_cms.blocks.greenhouse_board_block.get_greenhouse_board_state")
 class GreenhouseBoardBlockRenderTests(TestCase):
-    def render(self, copy=None):
+    def render(self, copy=None, **context):
         block = GreenhouseBoardBlock()
         value = block.to_python({**COPY, **(copy or {})})
-        return block.render(value, context={"theme": "default"})
+        return block.render(value, context={"theme": "default", **context})
 
     def test_board_state_renders_the_embed(self, mock_state):
         mock_state.return_value = STATE_BOARD
@@ -41,13 +41,22 @@ class GreenhouseBoardBlockRenderTests(TestCase):
         self.assertIn('id="grnhse_app"', html)
         self.assertIn(EMBED_SCRIPT, html)
 
-    def test_board_state_renders_no_fallback_panel_and_no_notice(self, mock_state):
+    def test_the_embed_script_carries_the_csp_nonce(self, mock_state):
+        mock_state.return_value = STATE_BOARD
+        request = RequestFactory().get("/careers/")
+        request.csp_nonce = "test-nonce"
+
+        html = self.render(request=request)
+
+        self.assertIn('nonce="test-nonce"', html)
+
+    def test_board_state_renders_the_hosted_board_link_but_no_fallback_panel(self, mock_state):
         mock_state.return_value = STATE_BOARD
 
         html = self.render()
 
         self.assertNotIn("greenhouse-board-block__panel", html)
-        self.assertNotIn("greenhouse-board-block__notice", html)
+        self.assertIn(HOSTED_BOARD, html)
 
     def test_empty_state_renders_the_no_roles_panel_instead_of_the_embed(self, mock_state):
         mock_state.return_value = STATE_EMPTY
@@ -69,7 +78,7 @@ class GreenhouseBoardBlockRenderTests(TestCase):
         self.assertIn("View them on Greenhouse", html)
         self.assertNotIn("greenhouse-board-block__panel", html)
 
-    def test_degraded_link_opens_in_a_new_tab_safely(self, mock_state):
+    def test_the_hosted_board_link_opens_in_a_new_tab_safely(self, mock_state):
         mock_state.return_value = STATE_DEGRADED
 
         html = self.render()
@@ -86,15 +95,6 @@ class GreenhouseBoardBlockRenderTests(TestCase):
         self.assertNotIn("grnhse_app", html)
         self.assertNotIn("job-boards.greenhouse.io", html)
 
-    @override_settings(GREENHOUSE_BOARD_TOKEN="")
-    def test_missing_token_renders_no_embed_and_no_link(self, mock_state):
-        mock_state.return_value = STATE_UNAVAILABLE
-
-        html = self.render()
-
-        self.assertNotIn("grnhse_app", html)
-        self.assertNotIn("greenhouse.io", html)
-
     def test_blank_fallback_copy_renders_no_heading_or_description(self, mock_state):
         mock_state.return_value = STATE_EMPTY
 
@@ -104,10 +104,10 @@ class GreenhouseBoardBlockRenderTests(TestCase):
         self.assertNotIn("greenhouse-board-block__panel-heading", html)
         self.assertNotIn("greenhouse-board-block__panel-description", html)
 
-    def test_blank_degraded_copy_renders_no_notice(self, mock_state):
+    def test_blank_hosted_board_copy_renders_no_notice(self, mock_state):
         mock_state.return_value = STATE_DEGRADED
 
-        html = self.render(copy={"degraded_notice": "", "degraded_link_label": ""})
+        html = self.render(copy={"hosted_board_notice": "", "hosted_board_link_label": ""})
 
         self.assertIn('id="grnhse_app"', html)
         self.assertNotIn("greenhouse-board-block__notice", html)

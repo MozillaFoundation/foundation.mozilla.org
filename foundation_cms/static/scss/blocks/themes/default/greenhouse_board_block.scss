@@ -1,5 +1,4 @@
 $greenhouse-board-embed-min-height: rem-calc(480);
-$greenhouse-board-panel-padding: rem-calc(64);
 $greenhouse-board-block-margin-bottom: rem-calc(32);
 
 .greenhouse-board-block {
@@ -24,8 +23,12 @@ $greenhouse-board-block-margin-bottom: rem-calc(32);
 
   &__panel {
     background-color: color(neutral, "100");
-    padding: $greenhouse-board-panel-padding rem-calc(24);
+    padding: rem-calc(32) rem-calc(24);
     text-align: center;
+
+    @include breakpoint(medium up) {
+      padding: rem-calc(64) rem-calc(24);
+    }
   }
 
   &__panel-heading {
