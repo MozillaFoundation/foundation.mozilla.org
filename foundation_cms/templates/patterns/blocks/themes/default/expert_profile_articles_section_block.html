@@ -1,0 +1,47 @@
+{% load i18n responsive_image_tags %}
+
+{% if rendered_items %}
+    <section class="expert-profile-section expert-profile-section--articles">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 large-8 large-offset-2">
+                    <h2 class="expert-profile-section__heading">{% trans "Articles & Publications" %}</h2>
+                    <ul class="expert-profile-article-list" data-expert-profile-article-list data-visible-count="{{ visible_count }}">
+                        {% for item in rendered_items %}
+                            {% if item.type == "cms_article" %}
+                                <li class="expert-profile-article-list__cms">
+                                    <article class="expert-profile-article-list__cms-card">
+                                        {% if item.value.search_image %}
+                                            <div class="expert-profile-article-list__media">
+                                                {% responsive_image item.value.search_image ratio="1:1" base_width=64 sizes="64px" classnames="expert-profile-article-list__media-image" %}
+                                            </div>
+                                        {% else %}
+                                            <span class="expert-profile-article-list__media expert-profile-article-list__media--fallback" aria-hidden="true"></span>
+                                        {% endif %}
+                                        <div class="expert-profile-article-list__meta">
+                                            <h3 class="expert-profile-article-list__title"><a href="{{ item.value.url }}">{{ item.value.title }}</a></h3>
+                                            {% if item.value.search_description %}<p class="expert-profile-article-list__description">{{ item.value.search_description }}</p>{% endif %}
+                                        </div>
+                                    </article>
+                                </li>
+                            {% else %}
+                                <li class="expert-profile-article-list__manual">
+                                    <article>
+                                        <h3><a class="expert-profile-article-list__manual-link" href="{{ item.value.url }}" target="_blank" rel="noopener noreferrer">{{ item.value.title }} <span class="show-for-sr">{% trans "(opens in a new tab)" %}</span></a></h3>
+                                        {% if item.value.description %}<p class="expert-profile-article-list__manual-description">{{ item.value.description }}</p>{% endif %}
+                                    </article>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% if rendered_items|length > visible_count %}
+                        <button class="btn-primary btn-primary--no-arrow expert-profile-article-list__button" type="button" data-expert-profile-show-articles hidden>
+                            {% trans "Show more results" as show_more_label %}
+                            {% include "patterns/components/_button_roller.html" with button_style="btn-primary" label=show_more_label only %}
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
