@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from django.test import RequestFactory, TestCase, override_settings
+from wagtail.blocks import StreamBlockValidationError
 
 from foundation_cms.base.models.abstract_base_page import BASE_BLOCK_NAMES
 from foundation_cms.base.models.abstract_general_page import GENERAL_PAGE_BLOCK_NAMES
@@ -11,6 +12,7 @@ from foundation_cms.blocks.greenhouse import (
     STATE_UNAVAILABLE,
 )
 from foundation_cms.blocks.greenhouse_board_block import GreenhouseBoardBlock
+from foundation_cms.core.models import GeneralPage
 
 EMBED_SCRIPT = "https://boards.greenhouse.io/embed/job_board/js?for=mozilla"
 HOSTED_BOARD = "https://job-boards.greenhouse.io/mozilla"
@@ -134,3 +136,18 @@ class GreenhouseBoardBlockConfigurationTests(TestCase):
     def test_the_block_is_available_on_general_pages_only(self):
         self.assertIn("greenhouse_board", GENERAL_PAGE_BLOCK_NAMES)
         self.assertNotIn("greenhouse_board", BASE_BLOCK_NAMES)
+
+    def test_a_general_page_accepts_a_single_board(self):
+        stream_block = GeneralPage.body.field.stream_block
+        one_board = stream_block.to_python([{"type": "greenhouse_board", "value": COPY}])
+
+        stream_block.clean(one_board)
+
+    def test_a_general_page_rejects_a_second_board(self):
+        stream_block = GeneralPage.body.field.stream_block
+        two_boards = stream_block.to_python([{"type": "greenhouse_board", "value": COPY} for _ in range(2)])
+
+        with self.assertRaises(StreamBlockValidationError) as raised:
+            stream_block.clean(two_boards)
+
+        self.assertIn("maximum number of items is 1", raised.exception.non_block_errors.as_text())
