@@ -118,6 +118,10 @@ jobs:
             apt-archives-test_backend-gettext-ffmpeg-${{ runner.os }}-${{ matrix.shard }}-
       - name: Install additional tooling
         run: |
+          # The runner image ships Google's Chrome apt repo, which periodically
+          # serves an index whose hash does not match its Release file. None of
+          # these packages come from it, but apt-get update still exits 100.
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y gettext ffmpeg
       - name: Prepare test environment
@@ -244,6 +248,10 @@ jobs:
             apt-archives-test_integration-gettext-libgconf-2-4-${{ runner.os }}-
       - name: Install additional tooling
         run: |
+          # The runner image ships Google's Chrome apt repo, which periodically
+          # serves an index whose hash does not match its Release file. None of
+          # these packages come from it, but apt-get update still exits 100.
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y gettext libgconf-2-4
       - name: Install Playwright
