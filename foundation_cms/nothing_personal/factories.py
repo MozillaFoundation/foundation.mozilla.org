@@ -20,12 +20,12 @@ def generate(seed=42, parent=None, slug="nothing-personal"):
     reseed(seed)
     fake = get_faker()
 
-    # Use site's root page if available, else Wagtail root node (same pattern as gallery_hub)
-    site = wagtail_models.Site.objects.filter(is_default_site=True).first()
-    root = site.root_page if site else Page.get_first_root_node()
-
     if parent is not None:
         root = parent
+    else:
+        # Use site's root page if available, else Wagtail root node (same pattern as gallery_hub)
+        site = wagtail_models.Site.objects.filter(is_default_site=True).first()
+        root = site.root_page if site else Page.get_first_root_node()
 
     locale = Locale.get_default()
 
@@ -40,8 +40,7 @@ def generate(seed=42, parent=None, slug="nothing-personal"):
             locale=locale,
             seo_title="Nothing Personal",
             search_description=fake.sentence(nb_words=12),
-            tagline=fake.sentence(nb_words=8),
-            body=_simple_rich_body(fake, paragraphs=3),
+            tagline=f"<p>{fake.sentence(nb_words=8)}</p>",
         )
         root.add_child(instance=home)
         home.save_revision().publish()
@@ -76,10 +75,6 @@ def generate(seed=42, parent=None, slug="nothing-personal"):
         article_pages = []
         for i in range(3):
             slug_i = f"np-article-{i+1}"
-            existing = np_models.NothingPersonalArticlePage.objects.filter(slug=slug_i, locale=locale).first()
-            if existing:
-                article_pages.append(existing)
-                continue
 
             title = fake.sentence(nb_words=6).rstrip(".")
             article = np_models.NothingPersonalArticlePage(
@@ -116,8 +111,8 @@ def generate(seed=42, parent=None, slug="nothing-personal"):
     else:
         print("Podcast already exists.")
 
-    # Set hero item to the first article if available
-    if article_pages:
+    # Set hero item to the first article if available and not already set
+    if article_pages and not home.hero_item_id:
         home.hero_item = article_pages[0]
         home.save_revision().publish()
         print(f"hero_item set to: {article_pages[0].title}")
