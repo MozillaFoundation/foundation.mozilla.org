@@ -9,16 +9,35 @@ on:
     paths-ignore:
       - maintenance/**/*.*
 
+env:
+  ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
+  BASKET_URL: https://basket-dev.allizom.org
+  CONTENT_TYPE_NO_SNIFF: True
+  CORS_ALLOWED_ORIGINS: "*"
+  DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
+  DEBUG: True
+  DJANGO_SECRET_KEY: secret
+  DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NEWSLETTER_SIGNUP_METHOD: "BASKET"
+  PIPENV_VERBOSITY: -1
+  RANDOM_SEED: 530910203
+  SET_HSTS: False
+  SSL_REDIRECT: False
+  TARGET_DOMAINS: localhost
+  USE_S3: False
+  X_FRAME_OPTIONS: DENY
+  XSS_PROTECTION: True
+  WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
+  WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
+
 jobs:
   unit_test_frontend_redesign:
     name: Unit Tests (Redesign Frontend)
     runs-on: ubuntu-22.04
-    env:
-      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"
@@ -30,34 +49,13 @@ jobs:
   preroll:
     name: Preroll (Build Frontend & Collect Static)
     runs-on: ubuntu-22.04
-    env:
-      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
-      BASKET_URL: https://basket-dev.allizom.org
-      CONTENT_TYPE_NO_SNIFF: True
-      CORS_ALLOWED_ORIGINS: "*"
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
-      DEBUG: True
-      DJANGO_SECRET_KEY: secret
-      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NEWSLETTER_SIGNUP_METHOD: "BASKET"
-      PIPENV_VERBOSITY: -1
-      RANDOM_SEED: 530910203
-      SET_HSTS: False
-      SSL_REDIRECT: False
-      TARGET_DOMAINS: localhost
-      USE_S3: False
-      X_FRAME_OPTIONS: DENY
-      XSS_PROTECTION: True
-      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
-      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"
@@ -70,7 +68,7 @@ jobs:
       - name: Collect static files
         run: python ./manage.py collectstatic --no-input --verbosity 0
       - name: Upload preroll artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: preroll-static
           path: |
@@ -97,37 +95,17 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
-      ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
-      BASKET_URL: https://basket-dev.allizom.org
-      CONTENT_TYPE_NO_SNIFF: True
-      CORS_ALLOWED_ORIGINS: "*"
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
-      DEBUG: True
-      DJANGO_SECRET_KEY: secret
-      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NEWSLETTER_SIGNUP_METHOD: "BASKET"
-      PIPENV_VERBOSITY: -1
-      RANDOM_SEED: 530910203
-      SET_HSTS: False
-      SSL_REDIRECT: False
-      TARGET_DOMAINS: localhost
-      USE_S3: False
-      X_FRAME_OPTIONS: DENY
-      XSS_PROTECTION: True
-      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
-      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Cache APT packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: /var/cache/apt/archives
           # run_id keeps the key always-miss so this re-saves fresh archives
@@ -163,7 +141,7 @@ jobs:
           --splits ${{ strategy.job-total }} --group ${{ matrix.shard }}
           -v --ds=foundation_cms.settings.test --cov=foundation_cms --cov-report=
       - name: Upload coverage data
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-data-${{ matrix.shard }}
           path: foundation_cms/.coverage.${{ matrix.shard }}
@@ -176,15 +154,15 @@ jobs:
     needs: test_backend
     if: always()
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
       - name: Install Python Dependencies
         run: pip install -r requirements.txt -r dev-requirements.txt
       - name: Download shard coverage data
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: coverage-data-*
           path: foundation_cms
@@ -226,23 +204,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       ALLOWED_HOSTS: legacy.localhost,127.0.0.1,localhost,mozfest.localhost,default-site.com,secondary-site.com
-      BASKET_URL: https://basket-dev.allizom.org
-      CONTENT_TYPE_NO_SNIFF: True
-      CORS_ALLOWED_ORIGINS: "*"
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
-      DEBUG: True
-      DJANGO_SECRET_KEY: secret
-      DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NEWSLETTER_SIGNUP_METHOD: "BASKET"
-      PIPENV_VERBOSITY: -1
-      RANDOM_SEED: 530910203
-      SET_HSTS: False
-      SSL_REDIRECT: False
-      TARGET_DOMAINS: localhost
-      USE_S3: False
-      X_FRAME_OPTIONS: DENY
-      XSS_PROTECTION: True
       CSP_CONNECT_SRC: "*"
       CSP_FONT_SRC: "'self' https://code.cdn.mozilla.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/fonts/ data: https://static.fundraiseup.com/common-fonts/"
       CSP_IMG_SRC: "* data: blob: https://*.fundraiseup.com https://ucarecdn.com https://pay.google.com https://*.paypalobjects.com"
@@ -251,21 +212,19 @@ jobs:
       CSP_SCRIPT_SRC: "'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js http://*.shpg.org/ https://comments.mozillafoundation.org/ https://airtable.com https://platform.twitter.com https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js https://*.googletagmanager.com https://*.fundraiseup.com https://mozillafoundation.tfaforms.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-eval' https://*.stripe.com https://m.stripe.network https://*.paypal.com https://*.paypalobjects.com https://pay.google.com https://cc.cdn.civiccomputing.com"
       CSP_STYLE_SRC: "'self' 'unsafe-inline' https://code.cdn.mozilla.net https://platform.twitter.com https://mozillafoundation.tfaforms.net https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css https://cc.cdn.civiccomputing.com"
       SECURE_CROSS_ORIGIN_OPENER_POLICY: "same-origin-allow-popups"
-      WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
-      WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
 
           cache: "pip"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"
       - name: Download preroll artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: preroll-static
       - name: Install Python Dependencies
@@ -273,7 +232,7 @@ jobs:
       - name: Install Node Dependencies
         run: yarn install --frozen-lockfile
       - name: Cache APT packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: /var/cache/apt/archives
           # run_id keeps the key always-miss so this re-saves fresh archives

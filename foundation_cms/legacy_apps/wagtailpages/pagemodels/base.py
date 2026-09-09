@@ -1142,7 +1142,6 @@ class Homepage(FoundationMetadataPageMixin, Page):
         "ResearchLandingPage",
         "RCCLandingPage",
         "Styleguide",
-        "BuyersGuidePage",
         "ArticlePage",
         "donate.DonateLandingPage",
         "donate_banner.DonateBannerPage",

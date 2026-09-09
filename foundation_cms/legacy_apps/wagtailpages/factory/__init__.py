@@ -4,7 +4,6 @@ from . import (
     app_install_page,
     bannered_campaign_page,
     blog,
-    buyersguide,
     campaign_page,
     dear_internet_page,
     homepage,
@@ -32,7 +31,6 @@ def generate(seed):
     participate_page.generate(seed)
     profiles.generate(seed)
     blog.generate(seed)
-    buyersguide.generate(seed)
     bannered_campaign_page.generate(seed)
     campaign_page.generate(seed)
     dear_internet_page.generate(seed)
