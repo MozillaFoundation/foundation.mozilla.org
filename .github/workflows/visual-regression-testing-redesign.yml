@@ -11,6 +11,7 @@ on:
       - 'foundation_cms/templates/**'
       - 'foundation_cms/navigation/**'
       - 'foundation_cms/footer/**'
+      - 'foundation_cms/nothing_personal/**'
       - 'frontend/redesign/**'
   pull_request_review:
     types: [submitted]
@@ -25,6 +26,7 @@ on:
       - 'foundation_cms/templates/**'
       - 'foundation_cms/navigation/**'
       - 'foundation_cms/footer/**'
+      - 'foundation_cms/nothing_personal/**'
       - 'frontend/redesign/**'
 jobs:
   # GitHub Actions does not support paths filtering on pull_request_review events natively.
@@ -36,7 +38,7 @@ jobs:
     outputs:
       redesign: ${{ steps.check.outputs.redesign }}
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v9
         id: check
         with:
           script: |
@@ -53,6 +55,7 @@ jobs:
               f.filename.startsWith('foundation_cms/templates/') ||
               f.filename.startsWith('foundation_cms/navigation/') ||
               f.filename.startsWith('foundation_cms/footer/') ||
+              f.filename.startsWith('foundation_cms/nothing_personal/') ||
               f.filename.startsWith('frontend/redesign/')
             );
             core.setOutput('redesign', redesignChanged ? 'true' : 'false');
@@ -112,14 +115,14 @@ jobs:
       WAGTAIL_NOTIFICATION_EMAIL: WAGTAIL_NOTIFICATION_EMAIL
       WAGTAIL_NOTIFICATION_EMAIL_PASSWORD: WAGTAIL_NOTIFICATION_EMAIL_PASSWORD
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0  # This fetches full Git history. Percy needs Git history to find the base commit for comparisons.
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v7
         with:
           python-version: 3.11
           cache: "pip"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: "npm"

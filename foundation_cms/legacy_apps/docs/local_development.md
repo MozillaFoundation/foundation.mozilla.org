@@ -71,9 +71,9 @@ highlights and ideas fragments unconditionally, and those walk into the first
 item of each orderable without checking one exists, so the homepage 500s on an
 empty set. `homepage_highlights` indexes four `BlogPage`s.
 
-Skipped: the news, highlights, mozfest and donate factories, the buyersguide/PNI
-(including its product images), publications, campaigns, the RCC and research hub
-libraries, the styleguide and youtube-regrets pages.
+Skipped: the news, highlights, mozfest and donate factories, publications,
+campaigns, the RCC and research hub libraries, the styleguide and
+youtube-regrets pages.
 
 When you need the complete legacy content set, pass `--full-legacy`:
 
@@ -81,8 +81,8 @@ When you need the complete legacy content set, pass `--full-legacy`:
 inv new-db --full-legacy
 ```
 
-Reach for it if you need the buyersguide/PNI, MozFest, donate or petition
-pages, or if you are reproducing a CI run locally. CI passes it for the legacy
+Reach for it if you need the MozFest, donate or petition pages, or if you are
+reproducing a CI run locally. CI passes it for the legacy
 Playwright and Percy suites, and review apps pass it in their `app.json`
 postdeploy step, so those keep getting the full data set.
 

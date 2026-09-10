@@ -21,7 +21,7 @@
     {% endif %}
 
     {% if localized_featured_pages %}
-      {% include "patterns/components/nothing_personal/home_page/_featured_items.html" with featured_items=localized_featured_pages %}
+      {% include "patterns/components/nothing_personal/home_page/_featured_items.html" with featured_items=localized_featured_pages article_collection_page=localized_article_collection_page %}
     {% endif %}
 
     {% if page.body %}

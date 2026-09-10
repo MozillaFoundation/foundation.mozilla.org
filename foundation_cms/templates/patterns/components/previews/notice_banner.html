@@ -1,0 +1,9 @@
+{# This template is only used for snippet preview. #}
+{% extends "base/base.html" %}
+
+{# There is no page object in a snippet preview, so skip the page meta tags. #}
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block notice_banner %}
+    {% include "patterns/components/notice_banner/notice_banner.html" with banner=object %}
+{% endblock notice_banner %}

@@ -1,0 +1,238 @@
+// Page-level notice strip (NoticeBanner snippet, chosen on a page's Promote tab).
+// Renders full-bleed directly below the primary nav, above the page hero/content.
+// Imported by both _redesign_base.scss and redesign_migrated_content.scss so the
+// component looks the same on redesign and legacy templates.
+
+.notice-banner {
+  background-color: color(yellow, "100");
+  border-top: 1px solid color(yellow, "300");
+  color: $black;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem-calc(32);
+    padding: rem-calc(32) 0;
+
+    @include breakpoint(medium up) {
+      gap: rem-calc(16);
+    }
+
+    @include breakpoint(xlarge up) {
+      display: grid;
+      grid-template-columns: minmax(0, rem-calc(897)) minmax(0, 1fr);
+      align-items: center;
+      gap: rem-calc(72);
+    }
+  }
+
+  &__body {
+    @include mofo-text-style($body-text-styles, "large");
+
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(8);
+    width: 100%;
+
+    @include breakpoint(large up) {
+      flex: 1 0 0;
+      max-width: rem-calc(897);
+      min-width: 0;
+    }
+
+    h4,
+    h5,
+    h6 {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+
+      color: inherit;
+      text-transform: none;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__cta {
+    flex-shrink: 0;
+    width: 100%;
+
+    // FixedAlignmentLinkButtonBlock, so no `link-button-block--*` class is emitted.
+    .link-button-block {
+      width: 100%;
+
+      // Right-aligned once `__inner` is two columns; left while stacked.
+      @include breakpoint(xlarge up) {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    a[class*="btn-"] {
+      margin-block: 0;
+      width: 100%;
+      justify-content: center;
+
+      @include breakpoint(medium up) {
+        width: max-content;
+      }
+    }
+  }
+}
+
+// ===================================
+// LEGACY STYLES
+// ===================================
+// Legacy pages load stock Bootstrap (mofo-bootstrap.scss) and legacy Tailwind
+// base rules for bare `p`/`ul`/`ol`/`a[class*="btn"]` elements. Those rules
+// declare `font-family`, `font-size`, `color`, and `font-weight` that this
+// component's own rules never set on the same elements (relying on
+// inheritance instead), so legacy's base styles fill the gap. Legacy also has
+// no `body.redesign` heading rule to give real per-tag heading sizes. Redeclare
+// all of it here, scoped to legacy, to match the redesign rendering.
+
+body.legacy .notice-banner {
+  // The banner's `.grid-container` wrapper (_utilities.scss) is redesign's own
+  // grid, fixed around 1200px. Legacy's header nav and page content both sit in
+  // stock, unthemed Bootstrap `.container` instead, so the banner reads wider
+  // than the header above it and the content below it. Match Bootstrap 4's
+  // default $grid-breakpoints/$container-max-widths exactly.
+  .grid-container {
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    @media (width >= 576px) {
+      max-width: 540px;
+    }
+
+    @media (width >= 768px) {
+      max-width: 720px;
+    }
+
+    @media (width >= 992px) {
+      max-width: 960px;
+    }
+
+    @media (width >= 1200px) {
+      max-width: 1140px;
+    }
+  }
+
+  // The two-column grid (`&__inner`) caps the body column at a fixed rem-calc(897)
+  // regardless of container width, sized for the ~1200px redesign grid-container.
+  // Bootstrap's container tops out narrower (1140px), so that fixed cap leaves too
+  // little room for the CTA column and the button wraps. Narrow the cap to match.
+  &__inner {
+    @include breakpoint(xlarge up) {
+      grid-template-columns: minmax(0, rem-calc(800)) minmax(0, 1fr);
+    }
+  }
+
+  &__body {
+    @include breakpoint(large up) {
+      max-width: rem-calc(800);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: inherit;
+      text-transform: none;
+      margin: 0;
+    }
+
+    h1 {
+      @include mofo-text-style($header-styles, "h1", $header-font-family);
+    }
+
+    h2 {
+      @include mofo-text-style($header-styles, "h2", $header-font-family);
+    }
+
+    h3 {
+      @include mofo-text-style($header-styles, "h3", $header-font-family);
+    }
+
+    h4 {
+      @include mofo-text-style($header-styles, "h4", $header-font-family);
+    }
+
+    h5 {
+      @include mofo-text-style($header-styles, "h5", $header-font-family);
+    }
+
+    h6 {
+      @include mofo-text-style($header-styles, "h6", $header-font-family);
+    }
+
+    p,
+    ul,
+    ol {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      color: inherit;
+    }
+  }
+
+  &__cta {
+    a[class*="btn-"] {
+      font-weight: 400;
+
+      &:hover,
+      &:focus,
+      &.focus {
+        box-shadow: none;
+      }
+
+      &.disabled,
+      &:disabled {
+        opacity: 1;
+      }
+    }
+
+    a.btn-secondary {
+      background-color: transparent;
+
+      &:hover,
+      &:focus,
+      &.focus {
+        background-color: transparent;
+      }
+    }
+
+    a.btn-primary {
+      background-color: color(neutral, "600");
+      color: color(neutral, "100");
+
+      &:hover,
+      &:focus,
+      &.focus {
+        background-color: color(neutral, "600");
+        color: color(neutral, "100");
+      }
+    }
+  }
+}

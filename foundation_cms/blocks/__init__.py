@@ -16,7 +16,7 @@ from .image_carousel_block import ImageCarouselBlock
 from .image_grid_block import ImageGridBlock, ImageGridItemBlock, ImageGridSectionBlock
 from .impact_number_block import ImpactNumberBlock
 from .link_block import LinkBlock, OptionalLinkBlock
-from .link_button_block import LinkButtonBlock
+from .link_button_block import FixedAlignmentLinkButtonBlock, LinkButtonBlock
 from .list_block import ListBlock
 from .media_block import CustomMediaBlock
 from .newsletter_signup_block import NewsletterSignupBlock
@@ -85,6 +85,7 @@ __all__ = [
     "PortraitCardBlock",
     "PortraitCardSetBlock",
     "ProductReviewCarouselBlock",
+    "FixedAlignmentLinkButtonBlock",
     "LinkButtonBlock",
     "TimelyActivationsCardsBlock",
     "ImpactNumberBlock",

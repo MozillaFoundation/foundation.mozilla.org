@@ -149,8 +149,8 @@ def new_db(ctx, slow=False, no_seed_data=False, full_legacy=False):
     default: the homepage and its site record, the primary pages under it, the
     blog and the profiles that author it, the homepage sections and the main nav.
     Pass `--full-legacy` for the complete legacy content set, which you need for
-    the buyersguide/PNI, MozFest, donate or petition pages, and to reproduce a CI
-    run locally. `--no-seed-data` wins if you pass both.
+    MozFest, donate or petition pages, and to reproduce a CI run locally.
+    `--no-seed-data` wins if you pass both.
     """
     print("* Starting the postgres service")
     ctx.run("docker compose up -d postgres")

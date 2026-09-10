@@ -21,3 +21,4 @@ pytest-django
 pytest-cov
 pytest-xdist
 pytest-sugar
+pytest-split

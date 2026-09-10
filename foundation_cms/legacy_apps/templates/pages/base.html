@@ -134,6 +134,12 @@
                     {% endblock %}
                 </div>
 
+                {% block notice_banner %}
+                    {% if notice_banner %}
+                        {% include "patterns/components/notice_banner/notice_banner.html" with banner=notice_banner %}
+                    {% endif %}
+                {% endblock notice_banner %}
+
                 {% block header_wrapped %}
                     <header>
                         {% block hero_guts %}{% endblock %}

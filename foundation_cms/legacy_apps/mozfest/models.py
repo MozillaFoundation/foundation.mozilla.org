@@ -110,6 +110,20 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         help_text="Choose an image that's bigger than 4032px x 1152px with aspect ratio 3.5:1",
     )
 
+    # Same NoticeBanner attachment as legacy BasePage / redesign AbstractBasePage.
+    # Mozfest pages do not inherit those bases, so the field is declared here.
+    notice_banner = models.ForeignKey(
+        "snippets.NoticeBanner",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text=(
+            "Optional. Displays a notice at the top of this page, e.g. to announce that "
+            "the content has moved or is no longer maintained."
+        ),
+    )
+
     intro = RichTextField(help_text="Page intro content", blank=True)
 
     signup = models.ForeignKey(
@@ -193,7 +207,8 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
     )
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
-        FieldPanel("structured_data", widget=forms.Textarea(attrs={"rows": 10}))
+        FieldPanel("notice_banner"),
+        FieldPanel("structured_data", widget=forms.Textarea(attrs={"rows": 10})),
     ]
 
     translatable_fields = [
@@ -203,6 +218,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("header"),
@@ -255,6 +271,12 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
             mozfest_footer = self._get_signup("mozfest", default_locale)
         return mozfest_footer
 
+    def get_notice_banner(self):
+        """Return the notice banner in the active locale, or None if unset."""
+        if not self.notice_banner_id:
+            return None
+        return self.notice_banner.localized
+
     def get_context(self, request, bypass_menu_buildstep=False):
         context = super().get_context(request)
         context = set_main_site_nav_information(self, context, "MozfestHomepage")
@@ -269,6 +291,7 @@ class MozfestPrimaryPage(FoundationMetadataPageMixin, FoundationBannerInheritanc
 
         # Also make sure that these pages always tap into the mozfest newsletter for the footer!
         context["mozfest_footer"] = self.get_mozfest_footer()
+        context["notice_banner"] = self.get_notice_banner()
 
         if not bypass_menu_buildstep:
             context = set_main_site_nav_information(self, context, "MozfestHomepage")
@@ -356,6 +379,7 @@ class MozfestHomepage(MozfestPrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("nav_cta"),
@@ -442,6 +466,7 @@ class MozfestLandingPage(MozfestPrimaryPage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("banner_heading"),

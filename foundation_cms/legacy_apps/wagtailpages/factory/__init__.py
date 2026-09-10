@@ -4,7 +4,6 @@ from . import (
     app_install_page,
     bannered_campaign_page,
     blog,
-    buyersguide,
     campaign_page,
     dear_internet_page,
     homepage,
@@ -35,7 +34,6 @@ STEPS = [
     (participate_page, False),
     (profiles, True),
     (blog, True),
-    (buyersguide, False),
     (bannered_campaign_page, False),
     (campaign_page, False),
     (dear_internet_page, False),
@@ -75,9 +73,9 @@ def generate_barebones(seed):
     four BlogPages and ideas_posts picks from the same set), profiles to author
     them, and the homepage section orderables.
 
-    Everything reachable only from a deeper listing is still skipped: the
-    buyersguide/PNI, publications, campaigns, MozFest, donate, the RCC and
-    research hub libraries, the styleguide and youtube-regrets pages.
+    Everything reachable only from a deeper listing is still skipped:
+    publications, campaigns, MozFest, donate, the RCC and research hub
+    libraries, the styleguide and youtube-regrets pages.
 
     Runs the STEPS list above filtered to required_for_barebones
     """

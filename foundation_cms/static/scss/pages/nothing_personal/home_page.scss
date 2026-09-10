@@ -104,6 +104,15 @@ body.nothing-personal-home-page {
     justify-content: center;
     gap: 2rem 0;
     margin-bottom: 4rem;
+
+    &__cta-wrapper {
+      display: flex;
+      justify-content: flex-start;
+
+      @include breakpoint(large up) {
+        justify-content: flex-end;
+      }
+    }
   }
 
   .featured-item {

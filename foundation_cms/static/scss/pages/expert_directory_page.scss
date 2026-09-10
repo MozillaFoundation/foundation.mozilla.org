@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @import "../redesign_base";
-@import "../components/expert_directory_page/expert_filter";
+@import "../components/profiles/expert_filter";
 @import "../components/pagination";
 
 body.template-expert-directory-page {

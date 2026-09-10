@@ -26,7 +26,7 @@
            {% endfor %}
          {% endif %}
          {% if "hidden" in classnames %}tabindex="-1"{% endif %}
-         class="{{ button_style }} {{ button_alignment }} {{ classnames }}">
+         class="{{ button_style }} {{ button_alignment }} {{ classnames }}{% if render_link_type_icon %} link-type-icon{% if link_type == 'external_url' %} external{% elif link_type == 'email' %} email{% else %} link{% endif %}{% endif %}">
         {% include "patterns/components/_button_roller.html" %}
       </a>
     {% endif %}

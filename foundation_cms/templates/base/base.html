@@ -95,6 +95,11 @@
         {% wagtailuserbar 'bottom-left' %}
         <div class="main-content-wrapper">
             {% block primary_nav %}{% endblock primary_nav %}
+            {% block notice_banner %}
+                {% if notice_banner %}
+                    {% include "patterns/components/notice_banner/notice_banner.html" with banner=notice_banner %}
+                {% endif %}
+            {% endblock notice_banner %}
             {% block brand_banner %}{% endblock brand_banner %}
             {% block breadcrumbs %}
                 {% breadcrumb_nav page %}

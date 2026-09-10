@@ -1,5 +1,4 @@
 import random
-from os.path import abspath, dirname, join
 
 import factory
 from django.conf import settings
@@ -16,7 +15,6 @@ import foundation_cms.legacy_apps.news.factory as news_factory
 import foundation_cms.legacy_apps.wagtailpages.factory as wagtailpages_factory
 from foundation_cms.legacy_apps.utility.faker.helpers import reseed
 from foundation_cms.legacy_apps.wagtailpages.factory.image_factory import ImageFactory
-from foundation_cms.legacy_apps.wagtailpages.utils import create_wagtail_image
 
 
 class Command(BaseCommand):
@@ -43,14 +41,13 @@ class Command(BaseCommand):
             action="store_true",
             dest="full_legacy",
             help="""Generate the complete legacy content set: the news, highlights,
-                    mozfest and donate factories, the buyersguide and other listing
-                    pages, and the PNI product images. Without this flag the command
-                    creates the Homepage and its Site record, the PrimaryPages under
-                    it, the blog and the profiles that author it, the homepage
-                    section orderables and the main nav, which is enough for a
-                    browsable site and much faster. Pass it for anything that
-                    exercises legacy content, such as the legacy Playwright suites
-                    or a review app.""",
+                    mozfest and donate factories and other listing pages. Without
+                    this flag the command creates the Homepage and its Site record,
+                    the PrimaryPages under it, the blog and the profiles that
+                    author it, the homepage section orderables and the main nav,
+                    which is enough for a browsable site and much faster. Pass it
+                    for anything that exercises legacy content, such as the legacy
+                    Playwright suites or a review app.""",
         )
 
     def handle(self, *args, **options):
@@ -88,24 +85,6 @@ class Command(BaseCommand):
         images[0].tags.add(social_share_tag)
 
         if full_legacy:
-            # Create one PNI product for every image we have in our media folder
-            product_images = [
-                "babymonitor.jpg",
-                "drone.jpg",
-                "nest.jpg",
-                "teddy.jpg",
-                "echo.jpg",
-            ]
-
-            for image in product_images:
-                image_path = abspath(
-                    join(
-                        dirname(__file__),
-                        f"../../../../../media/images/placeholders/products/{image}",
-                    )
-                )
-                create_wagtail_image(image_path, collection_name="pni products")
-
             [
                 app_factory.generate(seed)
                 for app_factory in [
@@ -118,8 +97,7 @@ class Command(BaseCommand):
                 ]
             ]
         else:
-            # PNI products are only reachable through the buyersguide pages, which
-            # generate_barebones() skips, so importing those images would be dead weight.
+            # Barebones legacy content: just enough for a browsable site.
             print("Generating barebones legacy content (homepage, blog and navigation)")
             wagtailpages_factory.generate_barebones(seed)
             # nav needs a homepage to hang links off, and gives the site a usable

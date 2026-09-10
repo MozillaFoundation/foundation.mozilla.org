@@ -57,6 +57,7 @@ class YoutubeRegretsPage(BasePage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("headline"),
@@ -107,6 +108,7 @@ class YoutubeRegretsReporterPage(BasePage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         TranslatableField("headline"),
@@ -132,6 +134,7 @@ class YoutubeRegrets2021Page(BasePage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
     ]
@@ -152,6 +155,7 @@ class YoutubeRegrets2022Page(BasePage):
         SynchronizedField("show_in_menus"),
         TranslatableField("search_description"),
         SynchronizedField("search_image"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
     ]

@@ -125,6 +125,19 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name="%(class)s_pages",
     )
+    notice_banner = models.ForeignKey(
+        "snippets.NoticeBanner",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        # "+" disables the reverse accessor, which would otherwise clash across the
+        # many concrete page models that inherit this field.
+        related_name="+",
+        help_text=(
+            "Optional. Displays a notice at the top of this page, e.g. to announce that "
+            "the content has moved or is no longer maintained."
+        ),
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("topics", widget=TopicSelectWidget),
@@ -132,6 +145,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     promote_panels = FoundationMetadataPageMixin.promote_panels + [
         FieldPanel("author"),
+        FieldPanel("notice_banner"),
     ]
 
     settings_panels = Page.settings_panels + [
@@ -147,6 +161,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
         SynchronizedField("search_image"),
         SynchronizedField("author"),
         SynchronizedField("topics"),
+        SynchronizedField("notice_banner"),
         # Content tab fields
         TranslatableField("title"),
         # Settings tab fields
@@ -245,6 +260,13 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     def get_preview_template(self, request, mode_name):
         return self.get_template(request)
+
+    def get_notice_banner(self):
+        """Return the notice banner in the active locale, or None if unset."""
+        # Guard on the id so an unset banner does not cost a query.
+        if not self.notice_banner_id:
+            return None
+        return self.notice_banner.localized
 
     def get_donate_banner(self, request):
         return self.get_sitewide_ab_tested_content(
@@ -347,6 +369,7 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
             ]
         ).template.name
         context["donate_banner"] = self.get_donate_banner(request)
+        context["notice_banner"] = self.get_notice_banner()
         context["footer_newsletter_signup"] = self.get_footer_newsletter_signup(request)
         context["page_type_bem"] = self._to_bem_case(self.specific_class.__name__)
         context["theme_class_bem"] = self._to_bem_case(theme) if theme else ""
