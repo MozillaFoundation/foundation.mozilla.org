@@ -8,7 +8,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from rest_framework import status
 
-from foundation_cms.views import error_json_response, process_lang_code, subscribe_to_camo_newsletter
+from foundation_cms.views import (
+    error_json_response,
+    process_lang_code,
+    subscribe_to_camo_newsletter,
+)
 
 from .utils import has_signed_up_to_newsletter, is_valid_tito_request
 
