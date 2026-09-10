@@ -3,11 +3,12 @@ import logging
 
 import basket
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from rest_framework import status
 
-from foundation_cms.views import process_lang_code, subscribe_to_camo_newsletter
+from foundation_cms.views import error_json_response, process_lang_code, subscribe_to_camo_newsletter
 
 from .utils import has_signed_up_to_newsletter, is_valid_tito_request
 
@@ -23,12 +24,12 @@ def tito_ticket_completed(request):
     # is it the correct webhook trigger?
     # https://ti.to/docs/api/admin#webhooks-triggers
     if not request.headers.get("x-webhook-name", "") == "ticket.completed":
-        return HttpResponseBadRequest("Not a ticket completed request")
+        return error_json_response("Not a ticket completed request", status.HTTP_400_BAD_REQUEST)
 
     # does the payload hash signature match
     tito_signature = request.headers.get("tito-signature", "")
     if not is_valid_tito_request(tito_signature, request.body):
-        return HttpResponseBadRequest("Payload verification failed")
+        return error_json_response("Payload verification failed", status.HTTP_400_BAD_REQUEST)
 
     # have they signed up to the newsletter?
     data = json.loads(request.body.decode())

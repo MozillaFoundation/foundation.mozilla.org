@@ -173,7 +173,7 @@ def subscribe_to_basket_newsletter(data):
 
     if response["status"] == "ok":
         return JsonResponse(data, status=status.HTTP_201_CREATED)
-    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+    return error_json_response("There was an error subscribing to the newsletter", status.HTTP_400_BAD_REQUEST)
 
 
 def subscribe_to_camo_newsletter(data):
@@ -192,7 +192,7 @@ def subscribe_to_camo_newsletter(data):
     if resp.status_code == 200:
         return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+    return error_json_response("There was an error subscribing to the newsletter", status.HTTP_400_BAD_REQUEST)
 
 
 @require_http_methods(["POST"])
