@@ -109,7 +109,7 @@ You can run these tests locally by running a one-time `npm install` and `npm run
 
 In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db --full-legacy`).
 
-The `--full-legacy` flag matters here: the suite visits PNI, MozFest, campaign, donate and publication pages, and the default barebones seed skips all of them.
+The `--full-legacy` flag matters here: the suite visits MozFest, campaign, donate and publication pages, and the default barebones seed skips all of them.
 
 #### URL checker
 
