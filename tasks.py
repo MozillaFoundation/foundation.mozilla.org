@@ -301,7 +301,7 @@ def generate_schema_snapshot(ctx):
     print(f"Upload to S3 with: aws s3 cp {filename} s3://<bucket>/snapshots/{filename}")
     print(f"You might also need to update heroku config variables to reference today's snapshot.")
     print(f"Snapshot complete, initializing content for local database.")
-    initialize_database(ctx, slow=False)
+    initialize_database(ctx, slow=False, full_legacy=True)
 
 
 @task(aliases=["copy-prod-db"])
