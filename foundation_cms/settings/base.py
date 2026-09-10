@@ -53,7 +53,7 @@ env = environ.Env(
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ""),
     GIF_CONVERSION_TIMEOUT=(int, 20),
     GIF_CONVERT_SYNCHRONOUSLY=(bool, False),
-    GIF_MAX_UPLOAD_SIZE=(int, 10 * 1024 * 1024),
+    GIF_MAX_UPLOAD_SIZE=(int, 6 * 1024 * 1024),
     GIF_WEBP_FOUND_CACHE_SECONDS=(int, 60 * 60),
     GIF_WEBP_MISSING_CACHE_SECONDS=(int, 30),
     GITHUB_TOKEN=(str, ""),
@@ -592,20 +592,10 @@ WAGTAILIMAGES_IMAGE_FORM_BASE = "foundation_cms.images.forms.FoundationImageForm
 # Animated GIF -> WebP conversion.
 #
 # GIFs are converted to animated WebP by shelling out to ffmpeg. The upload-path
-# conversion is being moved off the request cycle entirely (see
-# GIF_CONVERSION_PLAN.md), so these two guards cover what remains: the on-demand
-# rendition conversion, and what editors are allowed to upload in the first place.
-#
-# Wagtail already enforces a global WAGTAILIMAGES_MAX_UPLOAD_SIZE (10 MB by
-# default) across every image type. GIF_MAX_UPLOAD_SIZE is a GIF-only limit
-# alongside it: once conversion is asynchronous, an upload too big for the
-# Lambda to process fails invisibly -- the upload succeeds and the WebP simply
-# never appears -- so rejecting it at the form is the only point where an editor
-# can be told anything.
+# conversion is being moved off the request cycle entirely.
 #
 # Set this just below whatever the conversion Lambda can actually handle, not
-# below what a web dyno could: 5.5 MB GIFs are known-good in Lambda, so a limit
-# under that would reject files that convert perfectly well.
+# below what a web dyno could. Already tested with a 5.5 MB gif.
 GIF_CONVERSION_TIMEOUT = env("GIF_CONVERSION_TIMEOUT")  # seconds; must stay under the 30s router limit
 GIF_MAX_UPLOAD_SIZE = env("GIF_MAX_UPLOAD_SIZE")  # bytes
 
