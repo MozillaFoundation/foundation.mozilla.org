@@ -5,9 +5,22 @@ set -e
 # It stashes your changes, pulls / checks out main branch makes a clean db, 
 # rechecks out your branch / stash, detects any migrations that haven't run
 # (and deletes them because these are probably just conflicting) and then regenerates them
+#
+# The intermediate db this script builds only needs to exercise migrations, so
+# it uses the barebones legacy data (inv new-db's default) unless you pass
+# --full-legacy, e.g. if you also want to poke around the full site afterward.
 
 YELLOW='\033[1;33m'
 NC='\033[0m'
+
+FULL_LEGACY=false
+for arg in "$@"; do
+  case "$arg" in
+    --full-legacy)
+      FULL_LEGACY=true
+      ;;
+  esac
+done
 
 # Remember current branch
 ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -45,7 +58,11 @@ git pull origin main
 
 # Rebuild database from committed migrations
 echo "Rebuilding DB from migrations..."
-inv new-db
+if $FULL_LEGACY; then
+  inv new-db --full-legacy
+else
+  inv new-db
+fi
 
 # Switch back to the original branch
 echo "Switching back to $ORIGINAL_BRANCH..."
