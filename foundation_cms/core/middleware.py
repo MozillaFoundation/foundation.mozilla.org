@@ -17,16 +17,16 @@ class PreferredLocaleRedirectMiddleware:
     """
 
     excluded_prefixes = (
-        "/cms/",
-        "/admin/",
-        "/api/",
-        "/documents/",
-        "/i18n/",
-        "/jsi18n/",
-        "/static/",
-        "/media/",
-        "/pattern-library/",
-        "/__debug__/",
+        "/cms",
+        "/admin",
+        "/api",
+        "/documents",
+        "/i18n",
+        "/jsi18n",
+        "/static",
+        "/media",
+        "/pattern-library",
+        "/__debug__",
     )
 
     def __init__(self, get_response):
