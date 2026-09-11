@@ -1,0 +1,32 @@
+{% load wagtailcore_tags %}
+
+<div class="greenhouse-board-block" data-board-state="{{ board_state }}">
+  {% if embed_script_url %}
+    <div id="grnhse_app" class="greenhouse-board-block__embed"></div>
+    <script src="{{ embed_script_url }}" nonce="{{ request.csp_nonce }}" defer></script>
+
+    {% if value.hosted_board_notice or value.hosted_board_link_label %}
+      <p class="greenhouse-board-block__notice">
+        {{ value.hosted_board_notice }}
+        {% if value.hosted_board_link_label %}
+          <a class="greenhouse-board-block__notice-link"
+             href="{{ hosted_board_url }}"
+             target="_blank"
+             rel="noopener noreferrer">{{ value.hosted_board_link_label }}</a>
+        {% endif %}
+      </p>
+    {% endif %}
+
+  {% else %}
+    <div class="greenhouse-board-block__panel greenhouse-board-block__panel--{{ board_state }}">
+      {% if panel_heading %}
+        <h2 class="greenhouse-board-block__panel-heading">{{ panel_heading }}</h2>
+      {% endif %}
+      {% if panel_description %}
+        <div class="greenhouse-board-block__panel-description body-text-large">
+          {{ panel_description|richtext }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

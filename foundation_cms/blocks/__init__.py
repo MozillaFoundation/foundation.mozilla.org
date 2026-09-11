@@ -7,6 +7,7 @@ from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
+from .greenhouse_board_block import GreenhouseBoardBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
@@ -63,6 +64,7 @@ __all__ = [
     "IllustratedNewsletterSignupBlock",
     "ProjectBlock",
     "FruElementBlock",
+    "GreenhouseBoardBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",

@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
 from foundation_cms.base.factories import generate_images, generate_topics
-from foundation_cms.core.factories import generate_homepage
+from foundation_cms.core.factories import generate_careers, generate_homepage
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import generate as generate_navigation
@@ -40,6 +40,10 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f'Navigation Menu active: "{nav_menu.title}"'))
 
         self.stdout.write(self.style.SUCCESS("Homepage setup complete."))
+
+        self.stdout.write("Generating Careers page...")
+        careers_page = generate_careers(parent=homepage)
+        self.stdout.write(self.style.SUCCESS(f'Careers page ready: "{careers_page.title}"'))
 
         # Generate placeholder images (used by other factories)
         self.stdout.write("Generating placeholder images...")

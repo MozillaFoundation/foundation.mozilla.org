@@ -119,6 +119,7 @@ def generate(seed):
             ("Annual Reports & Financials", "/meet-mozilla/annual-reports-and-financials/"),
             ("Press Center", "/meet-mozilla/press-center/"),
             ("Grantmaking", "/what-we-do/grantmaking/"),
+            ("Careers", "/careers/"),
         ]
 
         for i, (label, url) in enumerate(internal_links):
@@ -128,7 +129,6 @@ def generate(seed):
 
         # External links
         external_links = [
-            ("Careers", "https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation"),
             ("Privacy", "https://www.mozilla.org/privacy/websites/"),
             ("Cookies", "https://www.mozilla.org/privacy/websites/"),
             ("Legal", "https://www.mozilla.org/about/legal/terms/mozilla/"),
