@@ -6,13 +6,16 @@ from wagtail.models import Locale
 
 class PreferredLocaleRedirectMiddleware:
     """
-    Middleware to redirect users to their preferred locale using the language cookie if locale is not specified in the URL.
+    Middleware to redirect users to their preferred locale using the language cookie if locale is not
+    specified in the URL.
     - URLs that start with any of the excluded prefixes will not be redirected.
     - URLs that already have a locale prefix will not be redirected.
     - If the language cookie is not set or does not correspond to a valid Locale, no redirection will occur.
     - If the language cookie corresponds to the default language(settings.LANGUAGE_CODE), no redirection will occur.
-    - If the language cookie corresponds to a valid Locale, the user will be redirected to the same URL with the locale prefix added.
+    - If the language cookie corresponds to a valid Locale, the user will be redirected to the same URL with the
+      locale prefix added.
     """
+
     excluded_prefixes = (
         "/cms/",
         "/admin/",
