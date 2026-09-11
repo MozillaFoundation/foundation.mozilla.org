@@ -16,7 +16,7 @@ class GeneralPageFactory(PageFactory):
     show_hero = False
 
 
-def generate(parent=None, seed=42, slug="general-page-demo"):
+def generate(parent=None, seed=42, slug="general-page-1"):
     """
     Generate a GeneralPage with the given parent, seed, and slug.
     Returns the created GeneralPage instance.
