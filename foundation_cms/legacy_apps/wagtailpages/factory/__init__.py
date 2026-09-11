@@ -23,35 +23,68 @@ from . import (
     youtube_regrets_page,
 )
 
+# Each entry is (factory_module, required_for_barebones). generate() runs every
+# step below in order; generate_barebones() runs only the ones flagged True,
+# in that same order
+#
+# These are not, and should not be, alphabetically ordered.
+STEPS = [
+    (locale, True),
+    (homepage, True),
+    (participate_page, False),
+    (profiles, True),
+    (blog, True),
+    (bannered_campaign_page, False),
+    (campaign_page, False),
+    (dear_internet_page, False),
+    # homepage_features requires blog pages to exist
+    (homepage_features, True),
+    (homepage_partner_logos, True),
+    (homepage_take_action, True),
+    (homepage_highlights, True),
+    (initiatives_page, False),
+    (opportunity, False),
+    (participate_page_featured_highlights, False),
+    (publication, False),
+    (styleguide, False),
+    (youtube_regrets_page, False),
+    (research_hub, False),
+    (rcc, False),
+    # homepage_cause_statement_link requires child pages of homepage to exist
+    (homepage_cause_statement_link, True),
+    (app_install_page, False),
+]
+
 
 def generate(seed):
-    # these are not, and should not be, alphabetically ordered.
-    locale.generate(seed)
-    homepage.generate(seed)
-    participate_page.generate(seed)
-    profiles.generate(seed)
-    blog.generate(seed)
-    bannered_campaign_page.generate(seed)
-    campaign_page.generate(seed)
-    dear_internet_page.generate(seed)
-    # homepage_features requires blog pages to exist
-    homepage_features.generate(seed)
-    homepage_partner_logos.generate(seed)
-    homepage_take_action.generate(seed)
-    homepage_highlights.generate(seed)
-    initiatives_page.generate(seed)
-    opportunity.generate(seed)
-    participate_page_featured_highlights.generate(seed)
-    publication.generate(seed)
-    styleguide.generate(seed)
-    youtube_regrets_page.generate(seed)
-    research_hub.generate(seed)
-    rcc.generate(seed)
-    # homepage_cause_statement_link requires child pages of homepage to exist
-    homepage_cause_statement_link.generate(seed)
-    app_install_page.generate(seed)
+    for step, _ in STEPS:
+        step.generate(seed)
+
+
+def generate_barebones(seed):
+    """
+    Minimal wagtailpages content: just enough for a browsable legacy site.
+
+    homepage.html includes its highlights, ideas, take-action and partner
+    fragments unconditionally, and those fragments walk into the first item of
+    each orderable without checking that one exists, so the homepage 500s unless
+    the sections behind them are populated. That fixes the floor for "barebones":
+    the locales, the Homepage and its Site record, the blog (highlights indexes
+    four BlogPages and ideas_posts picks from the same set), profiles to author
+    them, and the homepage section orderables.
+
+    Everything reachable only from a deeper listing is still skipped:
+    publications, campaigns, MozFest, donate, the RCC and research hub
+    libraries, the styleguide and youtube-regrets pages.
+
+    Runs the STEPS list above filtered to required_for_barebones
+    """
+    for step, required in STEPS:
+        if required:
+            step.generate(seed)
 
 
 __all__ = [
     "generate",
+    "generate_barebones",
 ]

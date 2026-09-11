@@ -38,7 +38,7 @@ Integration testing is done using [Playwright](https://playwright.dev/), with th
 
 Install the Playwright browsers once with `yarn workspace legacy playwright:install`, then run the integration suite with `yarn workspace legacy playwright`, with `docker compose up` running in a secondary terminal.
 
-In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db`).
+In order to run the same tests as will run during CI testing, make sure that `RANDOM_SEED=530910203` is set in your `.env` file, and that your local database is a new db based on that seed (`inv new-db --full-legacy`). The `--full-legacy` flag matters here: the suite visits MozFest, campaign, donate and publication pages, and the default barebones seed skips all of them (see [docs/local_development.md](../../docs/local_development.md#legacy-data-barebones-by-default)).
 
 #### URL checker
 
