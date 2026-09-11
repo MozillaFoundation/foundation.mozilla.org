@@ -8,6 +8,8 @@ asgiref==3.11.1
     # via
     #   -c requirements.txt
     #   django
+ast-serialize==0.8.0
+    # via mypy
 black==26.5.1
     # via -r dev-requirements.in
 click==8.3.2
@@ -50,9 +52,11 @@ jsbeautifier==1.15.4
     #   djlint
 json5==0.14.0
     # via djlint
+librt==0.15.0
+    # via mypy
 mccabe==0.7.0
     # via flake8
-mypy==1.10.1
+mypy==2.3.1
     # via -r dev-requirements.in
 mypy-extensions==1.1.0
     # via
@@ -67,6 +71,7 @@ pathspec==1.0.4
     # via
     #   black
     #   djlint
+    #   mypy
 platformdirs==4.9.6
     # via black
 pluggy==1.6.0
