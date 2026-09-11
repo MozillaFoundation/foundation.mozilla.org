@@ -1,7 +1,9 @@
 import hashlib
+import logging
 import os
 import re
 
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import models
 from django.db.models.signals import pre_delete
@@ -17,6 +19,8 @@ from wagtail.images.models import (
 )
 
 from .webp import utils as webp_utils
+
+logger = logging.getLogger(__name__)
 
 
 # The custom image model for the Foundation site
@@ -39,13 +43,56 @@ class FoundationCustomImage(AbstractImage):
 
     @cached_property
     def animated_webp_ready(self):
+        """
+        The animated WebP for this image, or None if there isn't one (yet).
+
+        Resolved in priority order:
+
+        1. The `animated_webp` field, if already populated. Covers rows written
+           before conversion moved off the request cycle, whose keys are not
+           derivable (they were named after a temp file).
+        2. A directly-uploaded animated WebP: the file is its own conversion.
+        3. The key the conversion Lambda writes to. Asynchronous, so absence is
+           an ordinary "not converted yet" rather than an error.
+
+        Case 3 persists the key once found, which both saves every later request
+        an S3 HEAD and lets the pre_delete signal clean the file up -- an
+        unpopulated field would orphan the Lambda's output on delete.
+        """
         if not self.pk:
             return None  # Not yet saved, can't safely assign
-        if not self.animated_webp and self.file.name.lower().endswith(".webp"):
-            if webp_utils.is_animated_webp(self.file):
-                self.animated_webp = self.file
-                super().save(update_fields=["animated_webp"])  # no need to convert, run super().save
-        return self.animated_webp
+
+        if self.animated_webp:
+            return self.animated_webp
+
+        name = self.file.name.lower()
+
+        if name.endswith(".webp") and webp_utils.is_animated_webp(self.file):
+            self.animated_webp = self.file
+            self._persist_animated_webp()
+            return self.animated_webp
+
+        if name.endswith(".gif"):
+            derived = webp_utils.derive_webp_name(self.file.name)
+            if webp_utils.converted_webp_exists(derived):
+                # Assign the path, not the file: the Lambda already wrote the
+                # object, so this records where it is without re-uploading it.
+                self.animated_webp = derived
+                self._persist_animated_webp()
+                return self.animated_webp
+
+        return None
+
+    def _persist_animated_webp(self):
+        """
+        Record the resolved WebP without letting a write failure break a render.
+
+        This runs during template rendering, so it must never raise an error.
+        """
+        try:
+            super().save(update_fields=["animated_webp"])
+        except Exception as e:
+            logger.warning(f"Could not persist animated_webp for image {self.pk}: {e}")
 
     class Meta:
         app_label = "images"
@@ -87,7 +134,14 @@ class FoundationCustomImage(AbstractImage):
             super().save(update_fields=["original_gif"])
 
         # gif -> animated WebP conversion step
-        if is_gif and not self.animated_webp:
+        #
+        # In deployed environments an S3 event triggers a Lambda that writes the
+        # WebP to the key derive_webp_name() computes, and get_rendition serves
+        # the GIF until it lands.
+        #
+        # Local development and tests have no S3 and therefore no Lambda, so they
+        # still convert inline.
+        if is_gif and not self.animated_webp and settings.GIF_CONVERT_SYNCHRONOUSLY:
             webp_path = webp_utils.convert_gif_to_webp(self.file)
             if webp_path:
                 with open(webp_path, "rb") as f:
@@ -118,23 +172,31 @@ class FoundationCustomImage(AbstractImage):
         # enter the webp utils
         if use_webp:
             # Normalize the spec string for webp caching
-            spec_str = webp_utils.get_custom_webp_spec(spec_str)
+            webp_spec = webp_utils.get_custom_webp_spec(spec_str)
 
-            # try to match fills and create renditions from that
-            match = re.match(r"^fill-(\d+)x(\d+)", spec_str)
-            if match:
-                width, height = map(int, match.groups())
-                return webp_utils.generate_webp_rendition(self, self.file, spec_str, width, height)
-
-            # fallback to serving full animated_webp under the same spec_str, useful if original
-            return webp_utils.serve_or_create_webp(self, spec_str, self.animated_webp)
-        # else, handle using wagtail default
-        else:
             try:
-                return super().get_rendition(filter_spec)
+                # try to match fills and create renditions from that
+                match = re.match(r"^fill-(\d+)x(\d+)", webp_spec)
+                if match:
+                    width, height = map(int, match.groups())
+                    rendition = webp_utils.generate_webp_rendition(self, self.file, webp_spec, width, height)
+                else:
+                    # fallback to serving full animated_webp under the same spec, useful if original
+                    rendition = webp_utils.serve_or_create_webp(self, webp_spec, self.animated_webp)
             except (FileNotFoundError, SourceImageIOError):
-                # Gracefully display a missing image if file not found, useful for local w/ prod db
-                return NullRendition(self)
+                # WebP source is missing or not ready yet.
+                rendition = None
+
+            if rendition is not None:
+                return rendition
+
+            # Conversion failed, or the WebP is not ready.
+
+        try:
+            return super().get_rendition(filter_spec)
+        except (FileNotFoundError, SourceImageIOError):
+            # Gracefully display a missing image if file not found, useful for local w/ prod db
+            return NullRendition(self)
 
     def get_focal_point_key(self):
         """
