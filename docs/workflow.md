@@ -36,19 +36,17 @@ Deploy each PR separately and in ascending order.
 
 Opening a PR activates different services:
 
-- [Review app](#review-apps): temporary apps with fake data running on Heroku (*this is currently not working*),
-- [Continuous integration testing](#continuous-integration-testing): Github Actions,
+- [Review app](#review-apps): temporary apps with fake data running on Heroku,
+- [Continuous integration testing](#continuous-integration-testing): GitHub Actions,
 - [Visual regression testing](#visual-regression-testing): Percy.
 
 ### Review Apps
 
-**REVIEW APPS ARE CURRENTLY NOT WORKING**
-
 #### Review App for PRs
 
-Opening a PR will automatically create a Review App in the `foundation-site` pipeline. A slack bot posts credentials and links to Review Apps in to the `mofo-ra-foundation` Slack channel.
+Opening a PR will automatically create a Review App in the `foundation-site` pipeline. A slack bot posts credentials and links to Review Apps in to the `mofo-ra-foundation` Slack channel. Mozilla Foundation staff can also log in to a Review App directly using their Mozilla SSO.
 
-*Note:* This only work for Mo-Fo staff: you will need to manually open a Review App on Heroku for PRs opened by external contributors.
+*Note:* You will need to manually open a Review App on Heroku for PRs opened by external contributors.
 
 #### Review App for branches
 
@@ -72,7 +70,7 @@ Non-secret envs can be added to the `app.json` file. Secrets must be set on Hero
 
 ### Continuous integration testing
 
-Opening a PR will trigger [Github Action](https://github.com/mozilla/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
+Opening a PR will trigger [GitHub Action](https://github.com/MozillaFoundation/foundation.mozilla.org/actions) continuous integration, which should pass before a PR is deemed good to merge.
 
 ### Visual regression testing
 

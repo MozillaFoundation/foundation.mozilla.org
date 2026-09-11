@@ -30,7 +30,7 @@ React is used _à la carte_ for isolated component instances (eg: a tab switcher
 
 To add a React component, you can target a container element from `/foundation_cms/legacy_apps/static/js/main.js` and inject it.
 
-## HTMX
+## htmx
 
 We have added the [`htmx.org`](https://htmx.org) javascript library to the project.
 `htmx` allows us to combine server rendered HTML (as we have with Django templates) with dynamic updates on the frontend.
@@ -84,20 +84,16 @@ All assets are stored on S3.
 
 ```
 /
-├── dest <- Compiled code generated from source. Don't edit!
-├── foundation_cms <- Django site code
-│   ├── legacy_apps <- Django apps live within this directory
-        └── wagtailpages <- most of the pages using wagtail are here
+├── foundation_cms <- Django/Wagtail site code
+│   ├── legacy_apps <- pre-redesign Django apps live within this directory
+│   │   └── wagtailpages <- most of the pages using wagtail are here
+│   ├── static <- compiled/source JS, SCSS, images, fonts for the redesign frontend
 │   └── templates <- page templates and overrides
-├── locales <- Localized strings (Java .properties syntax)
-├── scripts <- Scripts run by npm tasks
-└── source <- Source code
-    ├── images <- Image assets
-    ├── js <- JS code
-    │   └── components <- React components
-    ├── json <- JSON for static data sets
-    │   └── temp <- JSON pulled from web services. Don't commit!
-    └── sass <- Sass code
+├── frontend <- yarn workspaces for frontend tooling
+│   ├── legacy <- legacy frontend build tooling (Bootstrap/Sass era)
+│   └── redesign <- redesign frontend (esbuild + Foundation Framework)
+├── tests <- Playwright integration & visual regression tests
+└── maintenance <- static maintenance-mode page
 ```
 
 The templates are very scattered at the moment.
