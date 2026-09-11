@@ -24,6 +24,7 @@ class PreferredLocaleRedirectMiddleware:
         "/i18n",
         "/jsi18n",
         "/static",
+        "/soc",
         "/media",
         "/pattern-library",
         "/__debug__",
