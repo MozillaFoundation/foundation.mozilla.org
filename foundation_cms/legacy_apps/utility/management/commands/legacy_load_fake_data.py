@@ -36,6 +36,20 @@ class Command(BaseCommand):
             help="A seed value to pass to Faker before generating data",
         )
 
+        parser.add_argument(
+            "--full-legacy",
+            action="store_true",
+            dest="full_legacy",
+            help="""Generate the complete legacy content set: the news, highlights,
+                    mozfest and donate factories and other listing pages. Without
+                    this flag the command creates the Homepage and its Site record,
+                    the PrimaryPages under it, the blog and the profiles that
+                    author it, the homepage section orderables and the main nav,
+                    which is enough for a browsable site and much faster. Pass it
+                    for anything that exercises legacy content, such as the legacy
+                    Playwright suites or a review app.""",
+        )
+
     def handle(self, *args, **options):
         if options["delete"]:
             call_command("flush_models")
@@ -56,24 +70,38 @@ class Command(BaseCommand):
 
         reseed(seed)
 
-        print("Generating Images")
+        full_legacy = options["full_legacy"]
+
+        # The full run needs a pool of images deep enough for every listing page.
+        # The default only has to cover the homepage, so a handful will do.
+        image_count = 20 if full_legacy else 3
+
+        print(f"Generating {image_count} Images")
         images = [
             ImageFactory.create(file__width=1080, file__height=720, file__color=faker.safe_color_name())
-            for i in range(20)
+            for i in range(image_count)
         ]
         social_share_tag, created = Tag.objects.get_or_create(name="social share image")
         images[0].tags.add(social_share_tag)
 
-        [
-            app_factory.generate(seed)
-            for app_factory in [
-                news_factory,
-                highlights_factory,
-                wagtailpages_factory,
-                mozfest_factory,
-                donate_factory,
-                nav_factory,
+        if full_legacy:
+            [
+                app_factory.generate(seed)
+                for app_factory in [
+                    news_factory,
+                    highlights_factory,
+                    wagtailpages_factory,
+                    mozfest_factory,
+                    donate_factory,
+                    nav_factory,
+                ]
             ]
-        ]
+        else:
+            # Barebones legacy content: just enough for a browsable site.
+            print("Generating barebones legacy content (homepage, blog and navigation)")
+            wagtailpages_factory.generate_barebones(seed)
+            # nav needs a homepage to hang links off, and gives the site a usable
+            # header. It links whatever blog topics exist, so an empty set is fine.
+            nav_factory.generate(seed)
 
         print(self.style.SUCCESS("Done!"))
