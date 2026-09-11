@@ -331,7 +331,8 @@ MIDDLEWARE = list(
             "foundation_cms.legacy_apps.utility.middleware.NormalizeLocaleMiddleware",
             "foundation_cms.legacy_apps.utility.middleware.TargetDomainRedirectMiddleware",
             "django.contrib.sessions.middleware.SessionMiddleware",
-            # This middleware is used to redirect users to their preferred locale using the language cookie if locale is not specified in the URL.
+            # This middleware is used to redirect users to their preferred locale using the language cookie
+            # if locale is not specified in the URL.
             "foundation_cms.core.middleware.PreferredLocaleRedirectMiddleware",
             # should be after SessionMiddleware and before CommonMiddleware
             "django.middleware.locale.LocaleMiddleware",
