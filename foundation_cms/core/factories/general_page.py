@@ -1,3 +1,4 @@
+from django.test import Client
 from wagtail.models import Locale, Page, Site
 from wagtail_factories import PageFactory
 
@@ -44,6 +45,21 @@ def generate(parent=None, seed=42, slug="general-page-1"):
 
     parent.add_child(instance=page)
     page.save_revision().publish()
+    _prewarm_image_renditions(page)
 
     print(f"General Page demo created under {parent}.")
     return page
+
+
+def _prewarm_image_renditions(page):
+    """
+    Render the page once, right now, so every image rendition it needs already
+    exists in the database. Otherwise the first real request to this page has
+    to generate every rendition cold, and if anything else requests the same
+    URL around the same time (e.g. Percy's own asset-discovery crawl) they can
+    race trying to insert the same not-yet-existing rendition rows.
+    """
+    try:
+        Client().get(page.url, SERVER_NAME="localhost")
+    except Exception as e:
+        print(f"Warning: failed to pre-warm image renditions for {page}: {e}")
