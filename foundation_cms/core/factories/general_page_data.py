@@ -55,11 +55,13 @@ def build_general_page_body():
     image_1, image_2 = _get_or_create_shared_images()
 
     return [
+        # Text & headings
         {"type": "title_block", "value": dict(TitleBlockFactory(title="General page block coverage"))},
         {"type": "quote", "value": dict(QuoteBlockFactory())},
+        # Media
         {"type": "custom_media", "value": dict(CustomMediaBlockFactory(image=image_1))},
         {"type": "video_block", "value": dict(VideoBlockFactory())},
-        {"type": "newsletter_signup", "value": dict(NewsletterSignupBlockFactory())},
+        # Cards & grids
         {
             "type": "pillar_card_set",
             "value": dict(PillarCardSetBlockFactory(cards=[_pillar_card(), _pillar_card(), _pillar_card()])),
@@ -101,5 +103,8 @@ def build_general_page_body():
             ),
         },
         {"type": "featured_card_block", "value": dict(FeaturedCardBlockFactory(image=image_1))},
+        # Forms & signups
+        {"type": "newsletter_signup", "value": dict(NewsletterSignupBlockFactory())},
+        # CTAs & embeds
         {"type": "link_button_block", "value": dict(LinkButtonBlockFactory())},
     ]
