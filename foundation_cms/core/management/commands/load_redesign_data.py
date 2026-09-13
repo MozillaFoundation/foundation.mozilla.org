@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
 from foundation_cms.base.factories import generate_images, generate_topics
-from foundation_cms.core.factories import generate_homepage
+from foundation_cms.core.factories import generate_general_page, generate_homepage
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import generate as generate_navigation
@@ -65,6 +65,11 @@ class Command(BaseCommand):
         self.stdout.write("Generating Gallery Hub content...")
         generate_gallery(seed=42)
         self.stdout.write(self.style.SUCCESS("Gallery Hub setup complete."))
+
+        # Generate General Page
+        self.stdout.write("Generating General Page...")
+        general_page = generate_general_page(seed=42)
+        self.stdout.write(self.style.SUCCESS(f'General Page active: "{general_page.title}"'))
 
     def assign_homepage_as_site_root(self, homepage, hostname, port):
         site = Site.objects.get(is_default_site=True)
