@@ -7,6 +7,9 @@ from foundation_cms.core.factories import generate_general_page, generate_homepa
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import generate as generate_navigation
+from foundation_cms.nothing_personal.factories import (
+    generate as generate_nothing_personal,
+)
 from foundation_cms.profiles.factories import generate as generate_profiles
 
 
@@ -70,6 +73,11 @@ class Command(BaseCommand):
         self.stdout.write("Generating General Page...")
         general_page = generate_general_page(seed=42)
         self.stdout.write(self.style.SUCCESS(f'General Page active: "{general_page.title}"'))
+
+        # Generate Nothing Personal content
+        self.stdout.write("Generating Nothing Personal content...")
+        generate_nothing_personal(seed=42)
+        self.stdout.write(self.style.SUCCESS("Nothing Personal setup complete."))
 
     def assign_homepage_as_site_root(self, homepage, hostname, port):
         site = Site.objects.get(is_default_site=True)
