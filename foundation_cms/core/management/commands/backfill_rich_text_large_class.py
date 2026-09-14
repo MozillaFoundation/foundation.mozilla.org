@@ -126,5 +126,7 @@ class Command(BaseCommand):
                 if not dry_run and changed_fields:
                     obj.save(update_fields=changed_fields)
 
-        summary = f"{'Would update' if dry_run else 'Updated'} {total_fields} field(s) across {total_objects} object(s)."
+        summary = (
+            f"{'Would update' if dry_run else 'Updated'} {total_fields} field(s) across {total_objects} object(s)."
+        )
         self.stdout.write(self.style.SUCCESS(summary))
