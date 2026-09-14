@@ -4,7 +4,9 @@ from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.factories import (
     ActivationCardBlockFactory,
     CustomMediaBlockFactory,
+    DividerBlockFactory,
     FeaturedCardBlockFactory,
+    FruElementBlockFactory,
     ImpactNumberBlockFactory,
     ImpactStatBlockFactory,
     LinkBlockFactory,
@@ -12,12 +14,15 @@ from foundation_cms.blocks.factories import (
     NewsletterSignupBlockFactory,
     PillarCardBlockFactory,
     PillarCardSetBlockFactory,
+    PodcastBlockFactory,
     QuoteBlockFactory,
+    SpacerBlockFactory,
     SpotlightCardBlockFactory,
     SpotlightCardSetBlockFactory,
     TimelyActivationsCardsBlockFactory,
     TitleBlockFactory,
     VideoBlockFactory,
+    iFrameBlockFactory,
 )
 
 Image = get_image_model()
@@ -107,4 +112,9 @@ def build_general_page_body():
         {"type": "newsletter_signup", "value": dict(NewsletterSignupBlockFactory())},
         # CTAs & embeds
         {"type": "link_button_block", "value": dict(LinkButtonBlockFactory())},
+        {"type": "divider", "value": dict(DividerBlockFactory())},
+        {"type": "spacer_block", "value": dict(SpacerBlockFactory())},
+        {"type": "podcast_block", "value": dict(PodcastBlockFactory())},
+        {"type": "iframe_block", "value": dict(iFrameBlockFactory())},
+        {"type": "fru_element_block", "value": dict(FruElementBlockFactory())},
     ]

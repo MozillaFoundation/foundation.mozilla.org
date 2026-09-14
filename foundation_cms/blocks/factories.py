@@ -2,8 +2,11 @@ import factory
 import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
+from foundation_cms.blocks.divider_block import DividerBlock
 from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
+from foundation_cms.blocks.fru_element_block import FruElementBlock
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
+from foundation_cms.blocks.iframe_block import iFrameBlock
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
@@ -11,7 +14,9 @@ from foundation_cms.blocks.media_block import CustomMediaBlock
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.blocks.pillar_card_block import PillarCardBlock
 from foundation_cms.blocks.pillar_card_set_block import PillarCardSetBlock
+from foundation_cms.blocks.podcast_block import PodcastBlock
 from foundation_cms.blocks.quote_block import QuoteBlock
+from foundation_cms.blocks.spacer_block import SpacerBlock
 from foundation_cms.blocks.spotlight_card_block import SpotlightCardBlock
 from foundation_cms.blocks.spotlight_card_set_block import SpotlightCardSetBlock
 from foundation_cms.blocks.timely_activations_cards_block import (
@@ -219,3 +224,42 @@ class FeaturedCardBlockFactory(wagtail_factories.StructBlockFactory):
         style="btn-primary",
         alignment="link-button-block--left",
     )
+
+
+class DividerBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = DividerBlock
+
+
+class SpacerBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = SpacerBlock
+
+    size = "medium"
+
+
+class PodcastBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = PodcastBlock
+
+    title = factory.Faker("sentence", nb_words=4)
+    description = factory.Faker("paragraph", nb_sentences=2)
+    simplecast_embed_code = "<iframe src='https://player.simplecast.com/example'></iframe>"
+
+
+class iFrameBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = iFrameBlock
+
+    url = "https://example.org/embed"
+    height = 600
+    iframe_width = "normal"
+    disable_scroll = False
+
+
+class FruElementBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = FruElementBlock
+
+    fru_element_type = "donate-button"
+    fru_element_embed_code = "<div id='fru-donate-button'></div>"
