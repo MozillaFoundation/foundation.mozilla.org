@@ -1,11 +1,6 @@
 {# This template is only used for snippet preview. #}
-{% extends "base/base.html" %}
+{% extends "previews/_base.html" %}
 {% load static wagtailcore_tags %}
-
-{% block wagtail_metadata %}{% endblock wagtail_metadata %}
-
-{# page is a stand-in homepage for preview, not the content being previewed. #}
-{% block canonical_hreflang %}{% endblock canonical_hreflang %}
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/home_page.compiled.css' %}">
