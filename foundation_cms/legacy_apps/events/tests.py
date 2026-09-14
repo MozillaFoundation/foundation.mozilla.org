@@ -29,7 +29,7 @@ class TitoTicketCompletedTest(TestCase):
             self.url, data=self._webhook_data(), content_type="application/json", headers={"x-webhook-name": "invalid"}
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.content.decode(), "Not a ticket completed request")
+        self.assertEqual(json.loads(response.content)["error"], "Not a ticket completed request")
 
     def test_missing_tito_signature(self):
         response = self.client.post(
@@ -39,7 +39,7 @@ class TitoTicketCompletedTest(TestCase):
             headers={"x-webhook-name": "ticket.completed"},
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.content.decode(), "Payload verification failed")
+        self.assertEqual(json.loads(response.content)["error"], "Payload verification failed")
 
     def test_invalid_tito_signature(self):
         response = self.client.post(
@@ -49,7 +49,7 @@ class TitoTicketCompletedTest(TestCase):
             headers={"x-webhook-name": "ticket.completed", "tito-signature": "invalid"},
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.content.decode(), "Payload verification failed")
+        self.assertEqual(json.loads(response.content)["error"], "Payload verification failed")
 
     @mock.patch("foundation_cms.legacy_apps.events.views.basket")
     def test_calls_basket_api(self, mock_basket):
