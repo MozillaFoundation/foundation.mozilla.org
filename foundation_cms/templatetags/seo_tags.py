@@ -16,6 +16,10 @@ def content_language(context, page=None):
     return source_page.locale.language_code
 
 
+def _absolute_url(site_url, path):
+    return site_url + path if path else None
+
+
 @register.inclusion_tag("patterns/components/_seo_links.html", takes_context=True)
 def seo_links(context, page=None):
     page = page or context.get("page")
@@ -23,35 +27,43 @@ def seo_links(context, page=None):
     if page is None or request is None:
         return {"canonical_url": None, "hreflang_links": []}
 
-    site_url = f"{request.scheme}://{request.get_host()}"
+    site_url = context.get("CANONICAL_SITE_URL")
 
     if page.alias_of_id:
+        canonical_url = _absolute_url(site_url, page.alias_of.get_url(request=request))
         return {
-            "canonical_url": site_url + page.alias_of.get_url(request=request),
+            "canonical_url": canonical_url,
             "hreflang_links": [],
         }
 
-    canonical_url = site_url + page.get_url(request=request)
-    translations = page.get_translations().live().public().filter(alias_of__isnull=True).select_related("locale")
+    canonical_url = _absolute_url(site_url, page.get_url(request=request))
+    translations = list(
+        page.get_translations().live().public().filter(alias_of__isnull=True).select_related("locale")
+    )
 
     hreflang_links = []
     if translations:
-        default_locale = Locale.get_default()
-        hreflang_links = [{"hreflang": page.locale.language_code, "url": canonical_url, "locale_id": page.locale_id}]
-        for translation in translations:
-            hreflang_links.append(
-                {
-                    "hreflang": translation.locale.language_code,
-                    "url": site_url + translation.get_url(request=request),
-                    "locale_id": translation.locale_id,
-                }
-            )
+        try:
+            default_locale = Locale.get_default()
+        except Locale.DoesNotExist:
+            default_locale = None
 
-        default_link = next(
-            (link for link in hreflang_links if link["locale_id"] == default_locale.id),
-            hreflang_links[0],
-        )
-        hreflang_links.append({"hreflang": "x-default", "url": default_link["url"]})
+        default_url = None
+        if canonical_url:
+            hreflang_links.append({"hreflang": page.locale.language_code, "url": canonical_url})
+            if default_locale and page.locale_id == default_locale.id:
+                default_url = canonical_url
+
+        for translation in translations:
+            url = _absolute_url(site_url, translation.get_url(request=request))
+            if not url:
+                continue
+            hreflang_links.append({"hreflang": translation.locale.language_code, "url": url})
+            if default_locale and translation.locale_id == default_locale.id:
+                default_url = url
+
+        if hreflang_links:
+            hreflang_links.append({"hreflang": "x-default", "url": default_url or hreflang_links[0]["url"]})
 
     return {
         "canonical_url": canonical_url,

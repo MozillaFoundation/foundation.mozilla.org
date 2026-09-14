@@ -445,7 +445,11 @@ class SeoLinksTagTests(SimpleTestCase):
 
     @staticmethod
     def ctx(page=None):
-        return {"page": page, "request": RequestFactory().get("/en/about/")}
+        return {
+            "page": page,
+            "request": RequestFactory().get("/en/about/"),
+            "CANONICAL_SITE_URL": "http://testserver",
+        }
 
     def test_returns_no_links_without_page_or_request(self):
         result = seo_links({"page": None, "request": None})
@@ -498,5 +502,56 @@ class SeoLinksTagTests(SimpleTestCase):
             ),
         )
         result = seo_links(self.ctx(page))
+        x_default = next(link for link in result["hreflang_links"] if link["hreflang"] == "x-default")
+        self.assertEqual(x_default["url"], "http://testserver/en/about/")
+
+    def test_unroutable_page_gets_no_canonical_instead_of_crashing(self):
+        # get_url() returns None when a page isn't attached to any routable Site.
+        page = SimpleNamespace(
+            alias_of_id=None,
+            locale=SimpleNamespace(language_code="en"),
+            locale_id=self.DEFAULT_LOCALE_ID,
+            get_url=lambda request=None: None,
+            get_translations=lambda: _translations_queryset([]),
+        )
+        result = seo_links(self.ctx(page))
+        self.assertIsNone(result["canonical_url"])
+        self.assertEqual(result["hreflang_links"], [])
+
+    def test_unroutable_translation_is_skipped_instead_of_crashing(self):
+        unroutable = _translation("de", None, locale_id=2)
+        fr_translation = _translation("fr", "/fr/about/", locale_id=3)
+        page = SimpleNamespace(
+            alias_of_id=None,
+            locale=SimpleNamespace(language_code="en"),
+            locale_id=self.DEFAULT_LOCALE_ID,
+            get_url=lambda request=None: "/en/about/",
+            get_translations=lambda: _translations_queryset([unroutable, fr_translation]),
+        )
+        result = seo_links(self.ctx(page))
+        codes = [link["hreflang"] for link in result["hreflang_links"]]
+        self.assertIn("en", codes)
+        self.assertIn("fr", codes)
+        self.assertNotIn("de", codes)
+
+    def test_unroutable_alias_target_gets_no_canonical_instead_of_crashing(self):
+        alias_of = SimpleNamespace(get_url=lambda request=None: None)
+        page = SimpleNamespace(alias_of_id=1, alias_of=alias_of)
+        result = seo_links(self.ctx(page))
+        self.assertIsNone(result["canonical_url"])
+        self.assertEqual(result["hreflang_links"], [])
+
+    def test_missing_default_locale_falls_back_without_crashing(self):
+        with patch("foundation_cms.templatetags.seo_tags.Locale") as mock_locale:
+            mock_locale.DoesNotExist = Exception
+            mock_locale.get_default.side_effect = mock_locale.DoesNotExist
+            page = SimpleNamespace(
+                alias_of_id=None,
+                locale=SimpleNamespace(language_code="en"),
+                locale_id=self.DEFAULT_LOCALE_ID,
+                get_url=lambda request=None: "/en/about/",
+                get_translations=lambda: _translations_queryset([_translation("fr", "/fr/about/", locale_id=2)]),
+            )
+            result = seo_links(self.ctx(page))
         x_default = next(link for link in result["hreflang_links"] if link["hreflang"] == "x-default")
         self.assertEqual(x_default["url"], "http://testserver/en/about/")
