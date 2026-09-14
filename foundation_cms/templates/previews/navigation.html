@@ -4,6 +4,9 @@
 
 {% block wagtail_metadata %}{% endblock wagtail_metadata %}
 
+{# page is a stand-in homepage for preview, not the content being previewed. #}
+{% block canonical_hreflang %}{% endblock canonical_hreflang %}
+
 {% block editable_nav %}
   {% if preview_menu %}
     {% include "patterns/components/navigation/primary_nav.html" with menu=preview_menu %}
