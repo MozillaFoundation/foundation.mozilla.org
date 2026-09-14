@@ -397,7 +397,6 @@ class NothingPersonalHomepageUrlTests(SimpleTestCase):
 # SEO Tags Tests
 
 
-
 def _translation(language_code, url, alias_of_id=None, locale_id=2):
     return SimpleNamespace(
         locale=SimpleNamespace(language_code=language_code),

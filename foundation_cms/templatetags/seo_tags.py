@@ -17,7 +17,9 @@ def content_language(context, page=None):
 
 
 def _absolute_url(site_url, path):
-    return site_url + path if path else None
+    if not site_url or not path:
+        return None
+    return site_url + path
 
 
 @register.inclusion_tag("patterns/components/_seo_links.html", takes_context=True)
@@ -37,9 +39,7 @@ def seo_links(context, page=None):
         }
 
     canonical_url = _absolute_url(site_url, page.get_url(request=request))
-    translations = list(
-        page.get_translations().live().public().filter(alias_of__isnull=True).select_related("locale")
-    )
+    translations = list(page.get_translations().live().public().filter(alias_of__isnull=True).select_related("locale"))
 
     hreflang_links = []
     if translations:
