@@ -181,8 +181,6 @@ class ArticlePage(BasePage):
         help_text="Custom Icon for download button, please use https://feathericons.com",
     )
 
-    show_side_share_buttons = models.BooleanField(default=True, help_text="Show social share buttons on the side")
-
     show_authors = models.BooleanField(default=True, help_text="Display authors in the hero section")
 
     content_panels = [
@@ -216,7 +214,6 @@ class ArticlePage(BasePage):
             ],
             heading="Hero",
         ),
-        FieldPanel("show_side_share_buttons"),
         FieldPanel("body"),
         InlinePanel("footnotes", label="Footnotes"),
     ]
