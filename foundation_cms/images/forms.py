@@ -49,4 +49,4 @@ class FoundationImageForm(BaseImageForm):
     """
 
     def clean_file(self):
-        return validate_gif_upload_size(super().clean_file())
+        return validate_gif_upload_size(self.cleaned_data.get("file"))

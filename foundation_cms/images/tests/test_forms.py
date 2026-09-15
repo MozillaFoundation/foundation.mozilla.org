@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import SimpleTestCase, override_settings
 
-from foundation_cms.images.forms import validate_gif_upload_size
+from foundation_cms.images.forms import FoundationImageForm, validate_gif_upload_size
 
 ONE_MB = 1024 * 1024
 
@@ -61,3 +61,36 @@ class DisabledLimitTests(SimpleTestCase):
     def test_zero_disables_the_check(self):
         upload = _upload("enormous.gif", 500 * ONE_MB)
         self.assertIs(validate_gif_upload_size(upload), upload)
+
+
+class FoundationImageFormCleanFileTests(SimpleTestCase):
+    """
+    Exercise the form hook itself, not just the validator underneath it.
+
+    """
+
+    def _form_with(self, upload):
+        # __new__ skips BaseImageForm.__init__, which wants a collection and a
+        # database. clean_file only reads cleaned_data, so this is enough.
+        form = FoundationImageForm.__new__(FoundationImageForm)
+        form.cleaned_data = {"file": upload}
+        return form
+
+    @override_settings(GIF_MAX_UPLOAD_SIZE=5 * ONE_MB)
+    def test_passes_an_acceptable_gif_through(self):
+        upload = _upload("small.gif", 100)
+        self.assertIs(self._form_with(upload).clean_file(), upload)
+
+    @override_settings(GIF_MAX_UPLOAD_SIZE=5 * ONE_MB)
+    def test_passes_a_non_gif_through(self):
+        """The regression: this raised AttributeError, breaking all uploads."""
+        upload = _upload("photo.jpg", 50 * ONE_MB)
+        self.assertIs(self._form_with(upload).clean_file(), upload)
+
+    @override_settings(GIF_MAX_UPLOAD_SIZE=5 * ONE_MB)
+    def test_still_rejects_an_oversized_gif(self):
+        form = self._form_with(_upload("big.gif", 6 * ONE_MB))
+        with self.assertRaises(ValidationError) as ctx:
+            form.clean_file()
+
+        self.assertEqual(ctx.exception.code, "gif_too_large")
