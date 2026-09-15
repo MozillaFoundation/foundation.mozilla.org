@@ -115,7 +115,9 @@ urlpatterns = list(
             # Wagtail CMS routes
             re_path(
                 r"^how-do-i-wagtail/",
-                RedirectView.as_view(url="/docs/how-do-i-wagtail/"),
+                RedirectView.as_view(
+                    url="https://mozilla-hub.atlassian.net/wiki/spaces/FOUNDATION/pages/1824489491/How+Do+I+Wagtail"
+                ),
                 name="how-do-i-wagtail",
             ),
             path("", include(image_url_tag_urls)),
