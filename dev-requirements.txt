@@ -81,7 +81,7 @@ pyflakes==3.4.0
     # via flake8
 pygments==2.20.0
     # via pytest
-pytest==9.0.3
+pytest==9.1.1
     # via
     #   -r dev-requirements.in
     #   pytest-cov
