@@ -16,6 +16,10 @@ class PreferredLocaleRedirectMiddleware:
       locale prefix added.
     """
 
+    locale_aliases = {
+        "pt": "pt-BR",
+    }
+
     excluded_prefixes = (
         "/cms",
         "/admin",
@@ -28,6 +32,7 @@ class PreferredLocaleRedirectMiddleware:
         "/media",
         "/pattern-library",
         "/__debug__",
+        "/robots.txt",
     )
 
     def __init__(self, get_response):
@@ -47,16 +52,25 @@ class PreferredLocaleRedirectMiddleware:
         )
 
     def _should_redirect(self, request):
+        path = request.path_info.rstrip("/") or "/"
+
         return (
             request.method in {"GET", "HEAD"}
-            and not request.path_info.startswith(self.excluded_prefixes)
-            and not self._has_locale_prefix(request.path_info)
+            and not self._is_excluded_path(path)
+            and not self._has_locale_prefix(path)
         )
 
-    @staticmethod
-    def _has_locale_prefix(path):
+    def _is_excluded_path(self, path):
+        return any(path == prefix or path.startswith(f"{prefix}/") for prefix in self.excluded_prefixes)
+
+    @classmethod
+    def _has_locale_prefix(cls, path):
         first_segment = path.strip("/").split("/", 1)[0].casefold()
-        return any(first_segment == language_code.casefold() for language_code, _ in settings.LANGUAGES)
+
+        supported_locales = {language_code.casefold() for language_code, _ in settings.LANGUAGES}
+        supported_locales.update(alias.casefold() for alias in cls.locale_aliases)
+
+        return first_segment in supported_locales
 
     @staticmethod
     def _get_preferred_language(request):

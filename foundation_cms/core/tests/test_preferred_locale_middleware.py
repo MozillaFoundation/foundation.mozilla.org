@@ -69,3 +69,27 @@ class PreferredLocaleRedirectMiddlewareTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.get_response.assert_called_once()
+
+    def test_does_not_redirect_pt_locale_alias(self):
+        response = self.middleware(self.request("/pt/"))
+
+        self.assertEqual(response.status_code, 200)
+        self.get_response.assert_called_once()
+
+    def test_does_not_redirect_pt_locale_alias_subpath(self):
+        response = self.middleware(self.request("/pt/about/"))
+
+        self.assertEqual(response.status_code, 200)
+        self.get_response.assert_called_once()
+
+    def test_does_not_redirect_robots_txt(self):
+        response = self.middleware(self.request("/robots.txt"))
+
+        self.assertEqual(response.status_code, 200)
+        self.get_response.assert_called_once()
+
+    def test_excluded_prefix_does_not_match_similar_path(self):
+        response = self.middleware(self.request("/cms-example/"))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/fr/cms-example/")
