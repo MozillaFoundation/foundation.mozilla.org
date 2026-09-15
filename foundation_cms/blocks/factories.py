@@ -10,12 +10,16 @@ from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
 from foundation_cms.blocks.fru_element_block import FruElementBlock
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
 from foundation_cms.blocks.iframe_block import iFrameBlock
+from foundation_cms.blocks.illustrated_newsletter_signup_block import (
+    IllustratedNewsletterSignupBlock,
+)
 from foundation_cms.blocks.image_block import CustomImageBlock
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
 from foundation_cms.blocks.media_block import CustomMediaBlock
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
+from foundation_cms.blocks.newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from foundation_cms.blocks.pillar_card_block import PillarCardBlock
 from foundation_cms.blocks.pillar_card_set_block import PillarCardSetBlock
 from foundation_cms.blocks.podcast_block import PodcastBlock
@@ -29,7 +33,11 @@ from foundation_cms.blocks.timely_activations_cards_block import (
 )
 from foundation_cms.blocks.title_block import TitleBlock
 from foundation_cms.blocks.video_block import VideoBlock
-from foundation_cms.snippets.factories import NewsletterSignupFactory
+from foundation_cms.snippets.factories import (
+    IllustratedNewsletterSignupFactory,
+    NewsletterSignupFactory,
+    NewsletterUnsubscribeFactory,
+)
 
 
 class LinkBlockFactory(wagtail_factories.StructBlockFactory):
@@ -285,3 +293,17 @@ class DonorHelpContactUsFormBlockFactory(wagtail_factories.StructBlockFactory):
     heading = "Contact Us"
     subheading = "Questions about your donation? Get in touch with our team by using the form below."
     image = factory.LazyFunction(lambda: ImageFactory().id)
+
+
+class NewsletterUnsubscribeBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = NewsletterUnsubscribeBlock
+
+    newsletter_unsubscribe = factory.LazyFunction(lambda: NewsletterUnsubscribeFactory().id)
+
+
+class IllustratedNewsletterSignupBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = IllustratedNewsletterSignupBlock
+
+    newsletter_signup = factory.LazyFunction(lambda: IllustratedNewsletterSignupFactory().id)
