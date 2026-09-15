@@ -3,8 +3,10 @@ from wagtail.images import get_image_model
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.factories import (
     ActivationCardBlockFactory,
+    CustomImageBlockFactory,
     CustomMediaBlockFactory,
     DividerBlockFactory,
+    DonorHelpContactUsFormBlockFactory,
     FeaturedCardBlockFactory,
     FruElementBlockFactory,
     ImpactNumberBlockFactory,
@@ -117,4 +119,9 @@ def build_general_page_body():
         {"type": "podcast_block", "value": dict(PodcastBlockFactory())},
         {"type": "iframe_block", "value": dict(iFrameBlockFactory())},
         {"type": "fru_element_block", "value": dict(FruElementBlockFactory())},
+        {"type": "image", "value": dict(CustomImageBlockFactory(image=image_2))},
+        {
+            "type": "donor_help_contact_us_form",
+            "value": dict(DonorHelpContactUsFormBlockFactory(image=image_1)),
+        },
     ]

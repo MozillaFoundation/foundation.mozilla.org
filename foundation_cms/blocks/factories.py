@@ -3,10 +3,14 @@ import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.divider_block import DividerBlock
+from foundation_cms.blocks.donor_help_contact_us_form_block import (
+    DonorHelpContactUsFormBlock,
+)
 from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
 from foundation_cms.blocks.fru_element_block import FruElementBlock
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
 from foundation_cms.blocks.iframe_block import iFrameBlock
+from foundation_cms.blocks.image_block import CustomImageBlock
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
@@ -263,3 +267,21 @@ class FruElementBlockFactory(wagtail_factories.StructBlockFactory):
 
     fru_element_type = "donate-button"
     fru_element_embed_code = "<div id='fru-donate-button'></div>"
+
+
+class CustomImageBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = CustomImageBlock
+
+    title = factory.Faker("sentence", nb_words=3)
+    image = factory.LazyFunction(lambda: ImageFactory().id)
+    orientation = "landscape"
+
+
+class DonorHelpContactUsFormBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = DonorHelpContactUsFormBlock
+
+    heading = "Contact Us"
+    subheading = "Questions about your donation? Get in touch with our team by using the form below."
+    image = factory.LazyFunction(lambda: ImageFactory().id)
