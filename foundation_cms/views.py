@@ -22,6 +22,11 @@ from foundation_cms.snippets.models.newsletter_signup import NewsletterSignup
 logger = logging.getLogger(__name__)
 
 
+def error_json_response(message, status_code):
+    """Standard JSON shape for API error responses: {"error": <message>}."""
+    return JsonResponse({"error": message}, status=status_code)
+
+
 class EnvVariablesView(View):
     """
     A view that permits a GET to expose allowlisted environment
@@ -90,12 +95,7 @@ def newsletter_signup_submission_view(request, pk):
     try:
         request.data = json.loads(new_body)
     except ValueError:
-        return JsonResponse(
-            {
-                "error": "Could not validate incoming data",
-            },
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        )
+        return error_json_response("Could not validate incoming data", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
         signup = NewsletterSignup.objects.get(id=pk)
@@ -115,20 +115,12 @@ def illustrated_newsletter_signup_submission_view(request, pk):
     try:
         request.data = json.loads(new_body)
     except ValueError:
-        return JsonResponse(
-            {
-                "error": "Could not validate incoming data",
-            },
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        )
+        return error_json_response("Could not validate incoming data", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
         signup = IllustratedNewsletterSignup.objects.get(id=pk)
     except ObjectDoesNotExist:
-        return JsonResponse(
-            {"error": "Newsletter signup not found"},
-            status=status.HTTP_404_NOT_FOUND,
-        )
+        return error_json_response("Newsletter signup not found", status.HTTP_404_NOT_FOUND)
 
     return newsletter_signup_submission(request, signup.newsletter)
 
@@ -140,17 +132,11 @@ def newsletter_signup_submission(request, newsletter):
     # payload validation
     email = rq.get("email")
     if email is None:
-        return JsonResponse(
-            {"error": "Signup requires an email address"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+        return error_json_response("Signup requires an email address", status.HTTP_400_BAD_REQUEST)
 
     source = rq.get("source")
     if source is None:
-        return JsonResponse(
-            {"error": "Unknown source"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+        return error_json_response("Unknown source", status.HTTP_400_BAD_REQUEST)
 
     newsletter = newsletter.strip().lower()
 
@@ -187,7 +173,7 @@ def subscribe_to_basket_newsletter(data):
 
     if response["status"] == "ok":
         return JsonResponse(data, status=status.HTTP_201_CREATED)
-    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+    return error_json_response("There was an error subscribing to the newsletter", status.HTTP_400_BAD_REQUEST)
 
 
 def subscribe_to_camo_newsletter(data):
@@ -206,7 +192,7 @@ def subscribe_to_camo_newsletter(data):
     if resp.status_code == 200:
         return JsonResponse(data, status=status.HTTP_201_CREATED)
 
-    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+    return error_json_response("There was an error subscribing to the newsletter", status.HTTP_400_BAD_REQUEST)
 
 
 @require_http_methods(["POST"])
@@ -217,10 +203,7 @@ def newsletter_unsubscribe_view(request):
     # payload validation
     email = data.get("email")
     if email is None:
-        return JsonResponse(
-            {"error": "Signup requires an email address"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+        return error_json_response("Signup requires an email address", status.HTTP_400_BAD_REQUEST)
 
     unsubscribe_request = requests.post(
         settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
@@ -233,4 +216,4 @@ def newsletter_unsubscribe_view(request):
             {"status": "ok", "redirect": settings.SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL}, status=status.HTTP_200_OK
         )
     else:
-        return JsonResponse({"error": "There was an error unsubscribing"}, status=status.HTTP_400_BAD_REQUEST)
+        return error_json_response("There was an error unsubscribing", status.HTTP_400_BAD_REQUEST)
