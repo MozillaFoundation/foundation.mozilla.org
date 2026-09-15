@@ -1,0 +1,50 @@
+from wagtail.models import Locale, Page, Site
+from wagtail_factories import PageFactory
+
+from foundation_cms.base.utils.helpers import prewarm_page_renditions, reseed
+from foundation_cms.core.factories.general_page_data import build_general_page_body
+from foundation_cms.core.models.general_page import GeneralPage
+
+
+class GeneralPageFactory(PageFactory):
+    class Meta:
+        model = GeneralPage
+
+    title = "General Page"
+    seo_title = "General Page"
+    search_description = "A General Page built to exercise body block types that have factories."
+    show_hero = False
+
+
+def generate(parent=None, seed=42, slug="general-page-1"):
+    """
+    Generate a GeneralPage with the given parent, seed, and slug.
+    Returns the created GeneralPage instance.
+    """
+    reseed(seed)
+
+    if parent is None:
+        site = Site.objects.filter(is_default_site=True).first()
+        parent = site.root_page if site else Page.get_first_root_node()
+        if not parent.pk:
+            parent.save()
+
+    locale = Locale.get_default()
+
+    existing = GeneralPage.objects.filter(slug=slug, locale=locale).first()
+    if existing:
+        print("General Page demo already exists.")
+        return existing
+
+    page = GeneralPageFactory.build(
+        slug=slug,
+        locale=locale,
+        body=build_general_page_body(),
+    )
+
+    parent.add_child(instance=page)
+    page.save_revision().publish()
+    prewarm_page_renditions(page)
+
+    print(f"General Page demo created under {parent}.")
+    return page
