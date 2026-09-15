@@ -52,6 +52,9 @@ env = environ.Env(
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ""),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ""),
     GITHUB_TOKEN=(str, ""),
+    GREENHOUSE_BOARD_CACHE_TIMEOUT=(int, 60 * 5),
+    GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT=(int, 60),
+    GREENHOUSE_BOARD_TOKEN=(str, ""),
     HEROKU_APP_NAME=(str, ""),
     HEROKU_BRANCH=(str, ""),
     HEROKU_PR_NUMBER=(str, ""),
@@ -786,7 +789,7 @@ LOGGING = {
         "django.template": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.db.backends": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.utils.autoreload": {"handlers": ["debug-error"], "level": "ERROR"},
-        "foundation_cms.legacy_apps": {
+        "foundation_cms": {
             "handlers": ["info"],
             "level": "INFO",
         },
@@ -818,6 +821,11 @@ PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
 
 # Blog/Campaign index cache setting
 INDEX_PAGE_CACHE_TIMEOUT = env("INDEX_PAGE_CACHE_TIMEOUT")
+
+# Greenhouse job board settings
+GREENHOUSE_BOARD_TOKEN = env("GREENHOUSE_BOARD_TOKEN")
+GREENHOUSE_BOARD_CACHE_TIMEOUT = env("GREENHOUSE_BOARD_CACHE_TIMEOUT")
+GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT = env("GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT")
 
 # RSS / ATOM settings
 FEED_CACHE_TIMEOUT = env("FEED_CACHE_TIMEOUT")
