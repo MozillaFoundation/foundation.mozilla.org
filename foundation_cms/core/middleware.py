@@ -52,7 +52,7 @@ class PreferredLocaleRedirectMiddleware:
         )
 
     def _should_redirect(self, request):
-        path = request.path_info.rstrip("/") or "/"
+        path = request.path_info
 
         return (
             request.method in {"GET", "HEAD"}
@@ -61,6 +61,7 @@ class PreferredLocaleRedirectMiddleware:
         )
 
     def _is_excluded_path(self, path):
+        path = path.rstrip("/") or "/"
         return any(path == prefix or path.startswith(f"{prefix}/") for prefix in self.excluded_prefixes)
 
     @classmethod
