@@ -9,16 +9,21 @@ from foundation_cms.blocks.factories import (
     DonorHelpContactUsFormBlockFactory,
     FeaturedCardBlockFactory,
     FruElementBlockFactory,
+    IconInfoGridBlockFactory,
+    IconInfoGridItemBlockFactory,
     IllustratedNewsletterSignupBlockFactory,
     ImpactNumberBlockFactory,
     ImpactStatBlockFactory,
     LinkBlockFactory,
     LinkButtonBlockFactory,
+    ListBlockFactory,
     NewsletterSignupBlockFactory,
     NewsletterUnsubscribeBlockFactory,
     PillarCardBlockFactory,
     PillarCardSetBlockFactory,
     PodcastBlockFactory,
+    PortraitCardBlockFactory,
+    PortraitCardSetBlockFactory,
     QuoteBlockFactory,
     SpacerBlockFactory,
     SpotlightCardBlockFactory,
@@ -57,6 +62,19 @@ def _pillar_card():
 
 def _activation_card(image_id):
     return {"type": "card", "value": dict(ActivationCardBlockFactory(image=image_id))}
+
+
+def _portrait_card(image_id):
+    return dict(
+        PortraitCardBlockFactory(
+            image=image_id,
+            cta_link=dict(LinkBlockFactory(link_to="external_url")),
+        )
+    )
+
+
+def _icon_info_grid_item():
+    return dict(IconInfoGridItemBlockFactory())
 
 
 def build_general_page_body():
@@ -128,4 +146,31 @@ def build_general_page_body():
         },
         {"type": "newsletter_unsubscribe", "value": dict(NewsletterUnsubscribeBlockFactory())},
         {"type": "illustrated_newsletter_signup", "value": dict(IllustratedNewsletterSignupBlockFactory())},
+        {
+            "type": "portrait_card_set_block",
+            "value": dict(
+                PortraitCardSetBlockFactory(
+                    cards=[_portrait_card(image_1), _portrait_card(image_2), _portrait_card(image_1)]
+                )
+            ),
+        },
+        {
+            "type": "icon_info_grid",
+            "value": dict(
+                IconInfoGridBlockFactory(
+                    items=[_icon_info_grid_item(), _icon_info_grid_item(), _icon_info_grid_item()]
+                )
+            ),
+        },
+        {
+            "type": "list_block",
+            "value": dict(
+                ListBlockFactory(
+                    items=[
+                        dict(LinkBlockFactory(link_to="external_url")),
+                        dict(LinkBlockFactory(link_to="external_url")),
+                    ]
+                )
+            ),
+        },
     ]
