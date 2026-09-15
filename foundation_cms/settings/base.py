@@ -51,6 +51,11 @@ env = environ.Env(
     FORCE_500_STACK_TRACES=(bool, False),
     FRONTEND_CACHE_CLOUDFLARE_BEARER_TOKEN=(str, ""),
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ""),
+    GIF_CONVERSION_TIMEOUT=(int, 20),
+    GIF_CONVERT_SYNCHRONOUSLY=(bool, False),
+    GIF_MAX_UPLOAD_SIZE=(int, 6 * 1024 * 1024),
+    GIF_WEBP_FOUND_CACHE_SECONDS=(int, 60 * 60),
+    GIF_WEBP_MISSING_CACHE_SECONDS=(int, 30),
     GITHUB_TOKEN=(str, ""),
     HEROKU_APP_NAME=(str, ""),
     HEROKU_BRANCH=(str, ""),
@@ -581,6 +586,26 @@ WAGTAIL_I18N_ENABLED = True
 
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 WAGTAILIMAGES_IMAGE_MODEL = "images.FoundationCustomImage"
+WAGTAILIMAGES_IMAGE_FORM_BASE = "foundation_cms.images.forms.FoundationImageForm"
+
+# Animated GIF -> WebP conversion.
+#
+# GIFs are converted to animated WebP by shelling out to ffmpeg. The upload-path
+# conversion is being moved off the request cycle entirely.
+#
+# Set this just below whatever the conversion Lambda can actually handle, not
+# below what a web dyno could. Already tested with a 5.5 MB gif.
+GIF_CONVERSION_TIMEOUT = env("GIF_CONVERSION_TIMEOUT")  # seconds; must stay under the 30s router limit
+GIF_MAX_UPLOAD_SIZE = env("GIF_MAX_UPLOAD_SIZE")  # bytes
+
+# Where there is no S3 there is no event and no Lambda, so local development and
+# tests convert on upload instead. Can be forced on via the environment.
+GIF_CONVERT_SYNCHRONOUSLY = env("GIF_CONVERT_SYNCHRONOUSLY") or not USE_S3
+
+# How long to remember whether the Lambda's output exists. The miss TTL bounds
+# how long a page keeps serving the unconverted GIF after conversion finishes.
+GIF_WEBP_FOUND_CACHE_SECONDS = env("GIF_WEBP_FOUND_CACHE_SECONDS")
+GIF_WEBP_MISSING_CACHE_SECONDS = env("GIF_WEBP_MISSING_CACHE_SECONDS")
 
 # Wagtail Frontend Cache Invalidator Settings
 
