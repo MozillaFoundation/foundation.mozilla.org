@@ -4,6 +4,8 @@ from wagtail.models import Locale, Page
 from foundation_cms.base.utils.helpers import get_faker, reseed
 from foundation_cms.nothing_personal import models as np_models
 from foundation_cms.nothing_personal.models.home_page import NothingPersonalFeaturedItem
+from foundation_cms.nothing_personal.models.product_review_page import ProductMentioned
+from foundation_cms.snippets.models import NewsletterSignup
 
 
 def _simple_rich_body(fake, paragraphs=2):
@@ -11,6 +13,37 @@ def _simple_rich_body(fake, paragraphs=2):
     return [
         {"type": "rich_text", "value": "".join(f"<p>{fake.paragraph(nb_sentences=3)}</p>" for _ in range(paragraphs))}
     ]
+
+
+def _product_review_sections(fake, newsletter_signup_id):
+    """Build minimal, non-empty content for the product review page's StreamFields."""
+    rich = lambda text: f"<p>{text}</p>"
+
+    return {
+        "what_you_should_know_section": [
+            {
+                "type": "content",
+                "value": {
+                    "trust_default_settings": rich(fake.paragraph(nb_sentences=2)),
+                    "what_personal_data_they_have": rich(fake.paragraph(nb_sentences=2)),
+                    "track_record": rich(fake.paragraph(nb_sentences=2)),
+                    "sells_or_shares_user_data": rich(fake.paragraph(nb_sentences=2)),
+                },
+            }
+        ],
+        "newsletter_signup_section": [{"type": "content", "value": {"newsletter_signup": newsletter_signup_id}}],
+        "good_and_bad_section": [
+            {
+                "type": "content",
+                "value": {
+                    "the_good": rich(fake.paragraph(nb_sentences=2)),
+                    "the_bad": rich(fake.paragraph(nb_sentences=2)),
+                },
+            }
+        ],
+        "reduce_your_risks_section": [{"type": "content", "value": {"content": rich(fake.paragraph(nb_sentences=2))}}],
+        "bottom_line_section": [{"type": "content", "value": {"content": rich(fake.paragraph(nb_sentences=2))}}],
+    }
 
 
 def generate(seed=42, parent=None, slug="nothing-personal"):
@@ -129,6 +162,72 @@ def generate(seed=42, parent=None, slug="nothing-personal"):
             )
         home.save_revision().publish()
         print(f"  {home.featured_items.count()} NothingPersonalFeaturedItem linked to home.")
+
+    # Product collection (child of NP homepage)
+    product_collection_slug = "nothing-personal-products"
+    product_collection = np_models.NothingPersonalProductCollectionPage.objects.filter(
+        slug=product_collection_slug, locale=locale
+    ).first()
+    if not product_collection:
+        product_collection = np_models.NothingPersonalProductCollectionPage(
+            title="Product Reviews",
+            slug=product_collection_slug,
+            locale=locale,
+            seo_title="Nothing Personal Product Reviews",
+            search_description=fake.sentence(nb_words=10),
+            lede_text=fake.paragraph(nb_sentences=2),
+        )
+        home.add_child(instance=product_collection)
+        product_collection.save_revision().publish()
+        print("NothingPersonalProductCollectionPage created successfully.")
+    else:
+        print("Product collection already exists.")
+
+    # Product reviews (children of NP homepage)
+    existing_reviews_qs = np_models.NothingPersonalProductReviewPage.objects.descendant_of(home).filter(locale=locale)
+    if existing_reviews_qs.exists():
+        product_reviews = list(existing_reviews_qs)
+        print(
+            f"{len(product_reviews)} NothingPersonalProductReviewPage already exist - "
+            "skipping factory product review creation."
+        )
+    else:
+        newsletter_signup, _ = NewsletterSignup.objects.get_or_create(
+            name="Nothing Personal Newsletter",
+            locale=locale,
+        )
+
+        product_reviews = []
+        for i in range(2):
+            slug_i = f"np-product-review-{i + 1}"
+            title = fake.sentence(nb_words=4).rstrip(".")
+            review = np_models.NothingPersonalProductReviewPage(
+                title=title,
+                slug=slug_i,
+                locale=locale,
+                seo_title=title,
+                search_description=fake.sentence(nb_words=10),
+                lede_text=fake.paragraph(nb_sentences=2),
+                byline=fake.name(),
+                who_am_i=f"<p>{fake.paragraph(nb_sentences=2)}</p>",
+                scoring=fake.random_element(["Great", "Average", "Needs Improvement", "Bad"]),
+                reviewed=fake.date_this_year(),
+                updated=fake.date_this_year(),
+                hours_tested=str(fake.random_int(min=1, max=40)),
+                type_of_testing="Hands-on review",
+                **_product_review_sections(fake, newsletter_signup.pk),
+            )
+            home.add_child(instance=review)
+            review.save_revision().publish()
+            product_reviews.append(review)
+        print(f"{len(product_reviews)} NothingPersonalProductReviewPage created.")
+
+    # Cross-link product reviews via ProductMentioned
+    if len(product_reviews) > 1 and not ProductMentioned.objects.filter(page__in=product_reviews).exists():
+        for sort_order, review in enumerate(product_reviews):
+            mentioned = product_reviews[(sort_order + 1) % len(product_reviews)]
+            ProductMentioned.objects.create(page=review, mentioned_product=mentioned, sort_order=sort_order)
+        print(f"  Linked {len(product_reviews)} product reviews via ProductMentioned.")
 
     print("Nothing Personal setup complete.")
     return home
