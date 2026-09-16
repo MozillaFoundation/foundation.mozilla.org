@@ -53,6 +53,7 @@ env = environ.Env(
     FRONTEND_CACHE_CLOUDFLARE_ZONEID=(str, ""),
     GIF_CONVERSION_TIMEOUT=(int, 20),
     GIF_CONVERT_SYNCHRONOUSLY=(bool, False),
+    GIF_MAX_FRAME_VOLUME=(int, 100 * 1024 * 1024),
     GIF_MAX_UPLOAD_SIZE=(int, 6 * 1024 * 1024),
     GIF_WEBP_FOUND_CACHE_SECONDS=(int, 60 * 60),
     GIF_WEBP_MISSING_CACHE_SECONDS=(int, 30),
@@ -590,13 +591,14 @@ WAGTAILIMAGES_IMAGE_FORM_BASE = "foundation_cms.images.forms.FoundationImageForm
 
 # Animated GIF -> WebP conversion.
 #
-# GIFs are converted to animated WebP by shelling out to ffmpeg. The upload-path
-# conversion is being moved off the request cycle entirely.
-#
-# Set this just below whatever the conversion Lambda can actually handle, not
-# below what a web dyno could. Already tested with a 5.5 MB gif.
+# Deployed environments convert via an S3-event-triggered Lambda; the ffmpeg
+# path below only runs where GIF_CONVERT_SYNCHRONOUSLY is on.
 GIF_CONVERSION_TIMEOUT = env("GIF_CONVERSION_TIMEOUT")  # seconds; must stay under the 30s router limit
-GIF_MAX_UPLOAD_SIZE = env("GIF_MAX_UPLOAD_SIZE")  # bytes
+
+# Upload limits. GIF_MAX_UPLOAD_SIZE is a coarse cap on bytes; GIF_MAX_FRAME_VOLUME
+# is the one that protects the dyno, capping canvas area x frames x 4 bytes.
+GIF_MAX_UPLOAD_SIZE = env("GIF_MAX_UPLOAD_SIZE")  # bytes on disk
+GIF_MAX_FRAME_VOLUME = env("GIF_MAX_FRAME_VOLUME")  # bytes once decoded
 
 # Where there is no S3 there is no event and no Lambda, so local development and
 # tests convert on upload instead. Can be forced on via the environment.
