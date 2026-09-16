@@ -1,9 +1,12 @@
+from unittest import mock
+
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms import FileField
 from django.forms.renderers import get_default_renderer
 from django.forms.utils import ErrorList
 from django.test import SimpleTestCase, override_settings
+from wagtail.images.forms import BaseImageForm
 
 from foundation_cms.images.forms import (
     FoundationImageForm,
@@ -214,16 +217,28 @@ class ScreensBeforeFieldValidationTests(SimpleTestCase):
     """
 
     def _bind(self, upload):
+        """
+        A FoundationImageForm without BaseImageForm.__init__, which wants a
+        collection and a database.
+
+        Mirrors what BaseForm.__init__ assigns, because full_clean and
+        add_error reach for several of these -- add_error builds a BoundField
+        to read its auto_id, which needs _bound_fields_cache and auto_id.
+        """
         form = FoundationImageForm.__new__(FoundationImageForm)
         form.is_bound = True
         form.data = {}
         form.files = {"file": upload}
+        form.auto_id = "id_%s"
         form.prefix = None
-        form.fields = {"file": FileField()}
-        form.renderer = get_default_renderer()
+        form.initial = {}
         form.error_class = ErrorList
         form.label_suffix = ":"
         form.empty_permitted = False
+        form._errors = None
+        form.fields = {"file": FileField()}
+        form.renderer = get_default_renderer()
+        form._bound_fields_cache = {}
         return form
 
     def test_finds_the_upload_the_way_django_does(self):
@@ -231,25 +246,37 @@ class ScreensBeforeFieldValidationTests(SimpleTestCase):
         self.assertIs(self._bind(upload)._uploaded_file(), upload)
 
     def test_oversized_gif_never_reaches_field_validation(self):
-        upload = _gif_upload(width=950, height=950, frames=109)
-        form = self._bind(upload)
+        """
+        The regression: reaching super().full_clean() at all means the file
+        gets handed to Wagtail's image field and opened.
+        """
+        form = self._bind(_gif_upload(width=950, height=950, frames=109))
 
-        touched = []
-        form.fields["file"].clean = lambda *a, **kw: touched.append(True)
+        with mock.patch.object(BaseImageForm, "full_clean", create=True) as parent:
+            form.full_clean()
 
-        form.full_clean()
-
-        self.assertEqual(touched, [], "field.clean() ran on a GIF that should have been screened out")
-        self.assertIn("file", form.errors)
+        parent.assert_not_called()
         self.assertEqual(form.errors.as_data()["file"][0].code, "gif_frame_volume_too_large")
+        self.assertEqual(form.cleaned_data, {})
 
     def test_acceptable_gif_falls_through_to_normal_validation(self):
-        upload = _gif_upload(width=220, height=154, frames=21)
+        """
+        The screen must not swallow ordinary uploads -- every image of every
+        type passes through full_clean, not just GIFs.
+        """
+        form = self._bind(_gif_upload(width=220, height=154, frames=21))
+
+        with mock.patch.object(BaseImageForm, "full_clean", create=True) as parent:
+            form.full_clean()
+
+        parent.assert_called_once()
+        self.assertIsNone(form._errors)
+
+    def test_non_gif_falls_through_to_normal_validation(self):
+        upload = SimpleUploadedFile("photo.jpg", b"not a gif", content_type="image/jpeg")
         form = self._bind(upload)
 
-        reached = []
-        form.fields["file"].clean = lambda *a, **kw: reached.append(True) or upload
+        with mock.patch.object(BaseImageForm, "full_clean", create=True) as parent:
+            form.full_clean()
 
-        form.full_clean()
-
-        self.assertEqual(reached, [True], "normal field validation was skipped")
+        parent.assert_called_once()
