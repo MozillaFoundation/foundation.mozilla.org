@@ -12,6 +12,9 @@ from foundation_cms.blocks.factories import (
     IconInfoGridBlockFactory,
     IconInfoGridItemBlockFactory,
     IllustratedNewsletterSignupBlockFactory,
+    ImageGridBlockFactory,
+    ImageGridItemBlockFactory,
+    ImageGridSectionBlockFactory,
     ImpactNumberBlockFactory,
     ImpactStatBlockFactory,
     LinkBlockFactory,
@@ -75,6 +78,23 @@ def _portrait_card(image_id):
 
 def _icon_info_grid_item():
     return dict(IconInfoGridItemBlockFactory())
+
+
+def _image_grid_item(image_id):
+    return dict(ImageGridItemBlockFactory(image=image_id))
+
+
+def _image_grid_section(image_1, image_2):
+    return dict(
+        ImageGridSectionBlockFactory(
+            items=[
+                _image_grid_item(image_1),
+                _image_grid_item(image_2),
+                _image_grid_item(image_1),
+                _image_grid_item(image_2),
+            ]
+        )
+    )
 
 
 def build_general_page_body():
@@ -172,5 +192,9 @@ def build_general_page_body():
                     ]
                 )
             ),
+        },
+        {
+            "type": "image_grid",
+            "value": dict(ImageGridBlockFactory(sections=[_image_grid_section(image_1, image_2)])),
         },
     ]

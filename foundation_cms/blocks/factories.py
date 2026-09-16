@@ -18,6 +18,11 @@ from foundation_cms.blocks.illustrated_newsletter_signup_block import (
     IllustratedNewsletterSignupBlock,
 )
 from foundation_cms.blocks.image_block import CustomImageBlock
+from foundation_cms.blocks.image_grid_block import (
+    ImageGridBlock,
+    ImageGridItemBlock,
+    ImageGridSectionBlock,
+)
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
 from foundation_cms.blocks.link_block import LinkBlock
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
@@ -370,4 +375,36 @@ class ListBlockFactory(wagtail_factories.StructBlockFactory):
     items = wagtail_factories.ListBlockFactory(
         LinkBlockFactory,
         **{"0__link_to": "external_url", "1__link_to": "external_url"},
+    )
+
+
+class ImageGridItemBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ImageGridItemBlock
+
+    image = factory.LazyFunction(lambda: ImageFactory().id)
+    caption = "<p>Sample caption</p>"
+    link: list = []
+
+
+class ImageGridSectionBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ImageGridSectionBlock
+
+    heading = factory.Faker("sentence", nb_words=3)
+    section_orientation = "landscape"
+    items_per_row = "4"
+    items = wagtail_factories.ListBlockFactory(
+        ImageGridItemBlockFactory,
+        **{"0": "", "1": "", "2": "", "3": ""},
+    )
+
+
+class ImageGridBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ImageGridBlock
+
+    sections = wagtail_factories.ListBlockFactory(
+        ImageGridSectionBlockFactory,
+        **{"0": ""},
     )
