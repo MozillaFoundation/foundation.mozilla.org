@@ -17,6 +17,7 @@ def _simple_rich_body(fake, paragraphs=2):
 
 def _product_review_sections(fake, newsletter_signup_id):
     """Build minimal, non-empty content for the product review page's StreamFields."""
+
     def rich(text):
         return f"<p>{text}</p>"
 
