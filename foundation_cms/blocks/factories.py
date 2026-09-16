@@ -46,11 +46,15 @@ from foundation_cms.blocks.quote_block import QuoteBlock
 from foundation_cms.blocks.spacer_block import SpacerBlock
 from foundation_cms.blocks.spotlight_card_block import SpotlightCardBlock
 from foundation_cms.blocks.spotlight_card_set_block import SpotlightCardSetBlock
+from foundation_cms.blocks.three_column_container_block import (
+    ThreeColumnContainerBlock,
+)
 from foundation_cms.blocks.timely_activations_cards_block import (
     ActivationCardBlock,
     TimelyActivationsCardsBlock,
 )
 from foundation_cms.blocks.title_block import TitleBlock
+from foundation_cms.blocks.two_column_container_block import TwoColumnContainerBlock
 from foundation_cms.blocks.video_block import VideoBlock
 from foundation_cms.snippets.factories import (
     IllustratedNewsletterSignupFactory,
@@ -454,3 +458,24 @@ class ImageCarouselBlockFactory(wagtail_factories.StructBlockFactory):
         {"carousel_item": factory.SubFactory(ImageCarouselItemBlockFactory)},
         **{"0": "carousel_item", "1": "carousel_item", "2": "carousel_item"},
     )
+
+
+class TwoColumnContainerBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = TwoColumnContainerBlock
+
+    background_color = "white"
+    vertical_alignment = "middle"
+    left_column: list = []
+    right_column: list = []
+
+
+class ThreeColumnContainerBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ThreeColumnContainerBlock
+
+    background_color = "white"
+    vertical_alignment = "middle"
+    left_column: list = []
+    center_column: list = []
+    right_column: list = []

@@ -35,8 +35,10 @@ from foundation_cms.blocks.factories import (
     SpacerBlockFactory,
     SpotlightCardBlockFactory,
     SpotlightCardSetBlockFactory,
+    ThreeColumnContainerBlockFactory,
     TimelyActivationsCardsBlockFactory,
     TitleBlockFactory,
+    TwoColumnContainerBlockFactory,
     VideoBlockFactory,
     iFrameBlockFactory,
 )
@@ -90,6 +92,14 @@ def _accordion_item():
 
 def _carousel_item(image_id):
     return {"type": "carousel_item", "value": dict(ImageCarouselItemBlockFactory(image=image_id))}
+
+
+def _column_content(image_id):
+    return [
+        {"type": "rich_text", "value": "<p>Sample column content.</p>"},
+        {"type": "image", "value": dict(CustomImageBlockFactory(image=image_id))},
+        {"type": "quote", "value": dict(QuoteBlockFactory())},
+    ]
 
 
 def _image_grid_item(image_id):
@@ -222,6 +232,25 @@ def build_general_page_body():
                         _carousel_item(image_2),
                         _carousel_item(image_1),
                     ]
+                )
+            ),
+        },
+        {
+            "type": "two_column_container_block",
+            "value": dict(
+                TwoColumnContainerBlockFactory(
+                    left_column=_column_content(image_1),
+                    right_column=_column_content(image_2),
+                )
+            ),
+        },
+        {
+            "type": "three_column_container_block",
+            "value": dict(
+                ThreeColumnContainerBlockFactory(
+                    left_column=_column_content(image_1),
+                    center_column=_column_content(image_2),
+                    right_column=_column_content(image_1),
                 )
             ),
         },
