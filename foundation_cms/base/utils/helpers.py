@@ -4,6 +4,7 @@ from pathlib import Path
 
 import factory
 from django.core.files.images import ImageFile
+from django.test import Client
 from wagtail.blocks.stream_block import StreamValue
 from wagtail.images import get_image_model
 
@@ -143,3 +144,22 @@ def get_faker():
     Get faker helper function
     """
     return factory.faker.Faker._get_faker(locale="en-US")
+
+
+def prewarm_page_renditions(page):
+    """
+    Render a freshly-generated page once, right now, so every image rendition
+    it needs already exists in the database. Otherwise the first real request
+    to this page has to generate every rendition cold, and if anything else
+    requests the same URL around the same time (e.g. Percy's own
+    asset-discovery crawl) they can race trying to insert the same
+    not-yet-existing rendition rows.
+
+    Call this after publishing any newly-generated page whose images were
+    just created (e.g. via a fresh ImageFactory() per data-generation run),
+    since those are the ones with no pre-existing renditions to fall back on.
+    """
+    try:
+        Client().get(page.url, SERVER_NAME="localhost")
+    except Exception as e:
+        print(f"Warning: failed to pre-warm image renditions for {page}: {e}")

@@ -32,9 +32,9 @@ To get a list of invoke commands available, run `invoke -l`:
   manage (docker-manage)                            Shorthand to manage.py. inv docker-manage "[COMMAND] [ARG]"
   migrate (docker-migrate)                          Updates database schema
   new-db (docker-new-db)                            Delete your database and create a new one with fake data
-  copy-stage-db                                     Overwrite your local docker postgres DB with a copy of the staging database
-  copy-prod-db                                      Overwrite your local docker postgres DB with a copy of the production database
-  new-env (docker-new-env)                          Get a new dev environment and a new database with fake data
+  copy-staging-database (copy-stage-db)             Overwrite your local docker postgres DB with a copy of the staging database
+  copy-production-database (copy-prod-db)           Overwrite your local docker postgres DB with a copy of the production database
+  setup (new-env, docker-new-env)                   Get a new dev environment and a new database with fake data
   yarn (docker-yarn)                                  Shorthand to yarn. inv docker-yarn "[COMMAND] [ARG]"
   yarn-install (docker-yarn-install)                  Install Node dependencies
   pip-compile (docker-pip-compile)                  Shorthand to pip-tools. inv pip-compile "[filename]" "[COMMAND] [ARG]"
@@ -43,8 +43,7 @@ To get a list of invoke commands available, run `invoke -l`:
   staging-db-to-review-app (staging-to-review-app)  Copy Staging DB to a specific Review App. inv staging-to-review-app "[REVIEW_APP_NAME]"
   start-dev (docker-start, start)                   Start the dev server
   start-lean-dev (docker-start-lean, start-lean)    Start the dev server without rebuilding
-  test (docker-test)                                Run both Node and Python tests
-  test-node (docker-test-node)                      Run node tests
+  test (docker-test)                                Run Django checks, a migrations check, and Python tests
   test-python (docker-test-python)                  Run python tests
 ```
 
@@ -56,6 +55,35 @@ For instance, you can run also run common Django commands via invoke, such as `i
 
 - `invoke manage legacy_load_fake_data`: add more fake data to your project,
 - `invoke yarn "install gsap"`: install gsap, add it to your `package.json` and lock it.
+
+### Legacy data: barebones by default
+
+`inv new-db` and `inv new-env` load the redesign data in full, but cut the
+legacy factories down to what the legacy site needs in order to render: the
+Homepage and its Site record, the PrimaryPages hanging off it, the blog and the
+profiles that author it, the homepage section orderables (highlights, ideas,
+take-action, partner logos) and the main nav. That keeps the legacy step at
+around ten seconds instead of forty.
+
+The blog is included because it is not optional: `homepage.html` renders its
+highlights and ideas fragments unconditionally, and those walk into the first
+item of each orderable without checking one exists, so the homepage 500s on an
+empty set. `homepage_highlights` indexes four `BlogPage`s.
+
+Skipped: the news, highlights, mozfest and donate factories, publications,
+campaigns, the RCC and research hub libraries, the styleguide and
+youtube-regrets pages.
+
+When you need the complete legacy content set, pass `--full-legacy`:
+
+```
+inv new-db --full-legacy
+```
+
+Reach for it if you need the MozFest, donate or petition pages, or if you are
+reproducing a CI run locally. CI passes it for the legacy
+Playwright and Percy suites, and review apps pass it in their `app.json`
+postdeploy step, so those keep getting the full data set.
 
 ### Docker and docker compose CLIs
 
@@ -83,7 +111,7 @@ We strongly recommend you to check at least the [docker compose CLI](https://doc
 **Note on [pip-tools](https://github.com/jazzband/pip-tools)**:
 
 - Only edit the `.in` files and use `invoke pip-compile-lock` to generate `.txt` files.
-- Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to Github.
+- Both `(dev-)requirements.txt` and `(dev-)requirements.in` files need to be pushed to GitHub.
 - `.txt` files act as lockfiles, where dependencies are pinned to a precise version.
 
 Dependencies live on your filesystem: you don't need to rebuild the `backend` image when installing or updating dependencies.
@@ -137,25 +165,11 @@ If the copy script is invoked when the correct database dump file already exists
 
 ## Connecting Docker to your code editor
 
-### Pycharm
+### PyCharm
 
-This feature is only available for the professional version of Pycharm. Follow the official instructions [available here](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker)
+This feature is only available for the professional version of PyCharm. Follow the official instructions [available here](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker)
 
 ### Visual Studio Code
-
-Visual Studio Code uses a feature called Dev Container to run Docker projects. The configuration files are in the `.devconatainer` directory. This feature is only available starting VSCode 1.35 stable. For now, we're only creating a python container to get Intellisense, we're not running the full project inside VSCode. We may revisit this in the future if Docker support in VSCode improves.
-
-A few things to keep in mind when using that setup:
-
-- Do not use the terminal in VSCode when running `invoke docker-` commands: use a local terminal instead,
-- when running `inv docker-catchup` or installing python dependencies, you will need to rebuild the Dev Container. To do that, press `F1` and look for `Rebuild Container`.
-
-#### Instructions:
-
-- Install the [Remote - containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers),
-- Open the project in VSCode: it detects the Dev Container files and a popup appears: click on `Reopen in a Container`,
-- Wait for the Dev Container to build,
-- Work as usual and use the docker invoke commands in a terminal outside VSCode.
 
 #### Debugging
 
@@ -209,8 +223,8 @@ All our containers run on Linux.
 
 For local development, we have use a multi stage Dockerfile to define our image:
 
-- The `frontend` stage use a node8 Debian Stretch slim base image from the Docker Hub and install node dependencies,
-- The `base` and `dev`: use a python3.9 Debian Stretch slim base image, install required build dependencies before installing pipenv and the project dependencies.
+- The `frontend` stage uses a `node:22-bookworm-slim` base image from the Docker Hub and installs node dependencies,
+- The `base` and `dev` stages use a `python:3.11-slim-bookworm` base image, install required build dependencies, then install the project's Python dependencies with pip-tools (`pip-compile`/`pip-sync`) into a venv (`dockerpythonvenv`).
   We don't have a custom image for running postgres and use one from the Docker Hub.
 
 The `docker-compose.yml` file describes the 2 services that the project needs to run:

@@ -35,8 +35,6 @@ jobs:
   unit_test_frontend_redesign:
     name: Unit Tests (Redesign Frontend)
     runs-on: ubuntu-22.04
-    env:
-      PULSE_API_DOMAIN: https://network-pulse-api-production.herokuapp.com
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -253,6 +251,6 @@ jobs:
           python ./manage.py migrate --no-input
           python ./manage.py block_inventory
           python ./manage.py load_redesign_data
-          python ./manage.py legacy_load_fake_data
+          python ./manage.py legacy_load_fake_data --full-legacy
       - name: Integration Tests
         run: yarn workspace legacy playwright:ci
