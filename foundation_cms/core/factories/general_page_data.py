@@ -14,6 +14,8 @@ from foundation_cms.blocks.factories import (
     IconInfoGridBlockFactory,
     IconInfoGridItemBlockFactory,
     IllustratedNewsletterSignupBlockFactory,
+    ImageCarouselBlockFactory,
+    ImageCarouselItemBlockFactory,
     ImageGridBlockFactory,
     ImageGridItemBlockFactory,
     ImageGridSectionBlockFactory,
@@ -84,6 +86,10 @@ def _icon_info_grid_item():
 
 def _accordion_item():
     return dict(AccordionBlockItemFactory())
+
+
+def _carousel_item(image_id):
+    return {"type": "carousel_item", "value": dict(ImageCarouselItemBlockFactory(image=image_id))}
 
 
 def _image_grid_item(image_id):
@@ -206,5 +212,17 @@ def build_general_page_body():
         {
             "type": "accordion_block",
             "value": dict(AccordionBlockFactory(accordion_items=[_accordion_item(), _accordion_item()])),
+        },
+        {
+            "type": "image_carousel_block",
+            "value": dict(
+                ImageCarouselBlockFactory(
+                    items=[
+                        _carousel_item(image_1),
+                        _carousel_item(image_2),
+                        _carousel_item(image_1),
+                    ]
+                )
+            ),
         },
     ]

@@ -19,6 +19,10 @@ from foundation_cms.blocks.illustrated_newsletter_signup_block import (
     IllustratedNewsletterSignupBlock,
 )
 from foundation_cms.blocks.image_block import CustomImageBlock
+from foundation_cms.blocks.image_carousel_block import (
+    ImageCarouselBlock,
+    ImageCarouselItemBlock,
+)
 from foundation_cms.blocks.image_grid_block import (
     ImageGridBlock,
     ImageGridItemBlock,
@@ -426,4 +430,27 @@ class AccordionBlockFactory(wagtail_factories.StructBlockFactory):
     accordion_items = wagtail_factories.ListBlockFactory(
         AccordionBlockItemFactory,
         **{"0": "", "1": ""},
+    )
+
+
+class ImageCarouselItemBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ImageCarouselItemBlock
+
+    image = factory.LazyFunction(lambda: ImageFactory().id)
+    header = factory.Faker("sentence", nb_words=3)
+    title = factory.Faker("sentence", nb_words=4)
+    description = "<p>Sample carousel item description.</p>"
+    link: list = []
+
+
+class ImageCarouselBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = ImageCarouselBlock
+
+    title = factory.Faker("sentence", nb_words=3)
+    orientation = "portrait"
+    items = wagtail_factories.StreamFieldFactory(
+        {"carousel_item": factory.SubFactory(ImageCarouselItemBlockFactory)},
+        **{"0": "carousel_item", "1": "carousel_item", "2": "carousel_item"},
     )
