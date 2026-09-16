@@ -254,4 +254,5 @@ def build_general_page_body():
                 )
             ),
         },
+        {"type": "rich_text", "value": "<p>Sample rich text content.</p>"},
     ]
