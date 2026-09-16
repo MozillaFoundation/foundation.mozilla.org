@@ -22,6 +22,13 @@ def _absolute_url(site_url, path):
     return site_url + path
 
 
+def _routed_suffix(page_path, request):
+    """Extra path beyond page_path, e.g. a RoutablePageMixin sub-route like /topics/privacy/."""
+    if page_path and request.path.startswith(page_path):
+        return request.path[len(page_path) :]
+    return ""
+
+
 @register.inclusion_tag("patterns/components/_seo_links.html", takes_context=True)
 def seo_links(context, page=None):
     page = page or context.get("page")
@@ -38,7 +45,9 @@ def seo_links(context, page=None):
             "hreflang_links": [],
         }
 
-    canonical_url = _absolute_url(site_url, page.get_url(request=request))
+    page_path = page.get_url(request=request)
+    suffix = _routed_suffix(page_path, request)
+    canonical_url = _absolute_url(site_url, page_path + suffix if page_path else None)
     translations = list(page.get_translations().live().public().filter(alias_of__isnull=True).select_related("locale"))
 
     hreflang_links = []
@@ -55,7 +64,8 @@ def seo_links(context, page=None):
                 default_url = canonical_url
 
         for translation in translations:
-            url = _absolute_url(site_url, translation.get_url(request=request))
+            translation_path = translation.get_url(request=request)
+            url = _absolute_url(site_url, translation_path + suffix if translation_path else None)
             if not url:
                 continue
             hreflang_links.append({"hreflang": translation.locale.language_code, "url": url})

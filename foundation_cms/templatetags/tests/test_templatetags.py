@@ -554,3 +554,21 @@ class SeoLinksTagTests(SimpleTestCase):
             result = seo_links(self.ctx(page))
         x_default = next(link for link in result["hreflang_links"] if link["hreflang"] == "x-default")
         self.assertEqual(x_default["url"], "http://testserver/en/about/")
+
+    def test_routable_subpath_is_preserved_in_canonical_and_hreflang(self):
+        # /topics/privacy/ is a RoutablePageMixin sub-route on HomePage, not its own
+        # Page, so page.get_url() only returns the homepage's own URL ("/en/").
+        request = RequestFactory().get("/en/topics/privacy/")
+        ctx = {"page": None, "request": request, "CANONICAL_SITE_URL": "http://testserver"}
+        page = SimpleNamespace(
+            alias_of_id=None,
+            locale=SimpleNamespace(language_code="en"),
+            locale_id=self.DEFAULT_LOCALE_ID,
+            get_url=lambda request=None: "/en/",
+            get_translations=lambda: _translations_queryset([_translation("fr", "/fr/", locale_id=2)]),
+        )
+        result = seo_links({**ctx, "page": page})
+        self.assertEqual(result["canonical_url"], "http://testserver/en/topics/privacy/")
+        hreflangs = {link["hreflang"]: link["url"] for link in result["hreflang_links"]}
+        self.assertEqual(hreflangs["en"], "http://testserver/en/topics/privacy/")
+        self.assertEqual(hreflangs["fr"], "http://testserver/fr/topics/privacy/")
