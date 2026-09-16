@@ -2,6 +2,7 @@ import logging
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.forms.utils import ErrorDict
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 from wagtail.images.forms import BaseImageForm
@@ -98,8 +99,43 @@ class FoundationImageForm(BaseImageForm):
     Wired up via the WAGTAILIMAGES_IMAGE_FORM_BASE setting.
     """
 
+    def _uploaded_file(self):
+        """The raw upload, fetched exactly the way Django's own field does."""
+        field = self.fields.get("file")
+        if field is None or not self.is_bound:
+            return None
+        name = self.add_prefix("file")
+        return field.widget.value_from_datadict(self.data, self.files, name)
+
+    def full_clean(self):
+        """
+        Screen the upload before Django validates any field.
+
+        Django's _clean_fields calls field.clean() first and the clean_<name>
+        hook several lines later. Wagtail's image field opens the file inside
+        clean(), so a GIF heavy enough to exhaust the dyno does so before any
+        hook of ours runs -- checking in clean_file alone is too late to
+        prevent anything.
+
+        Bailing out here means the file is never handed to the image field.
+        """
+        upload = self._uploaded_file()
+        if upload is not None:
+            try:
+                validate_gif_upload_size(upload)
+                validate_gif_frame_volume(upload)
+            except ValidationError as error:
+                self._errors = ErrorDict(renderer=self.renderer)
+                self.cleaned_data = {}
+                self.add_error("file", error)
+                return
+
+        super().full_clean()
+
     def clean_file(self):
-        # Django has already run the field's own validation and stashed the
-        # result in cleaned_data by the time this hook is called
+        # Belt and braces. full_clean above is what protects the dyno, but it
+        # can only see uploads that arrive through self.files; this covers a
+        # form driven programmatically. Both validators are idempotent and
+        # rewind the file, so running them twice is safe.
         file = validate_gif_upload_size(self.cleaned_data.get("file"))
         return validate_gif_frame_volume(file)

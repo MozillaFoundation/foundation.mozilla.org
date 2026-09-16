@@ -1,5 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.forms import FileField
+from django.forms.renderers import get_default_renderer
+from django.forms.utils import ErrorList
 from django.test import SimpleTestCase, override_settings
 
 from foundation_cms.images.forms import (
@@ -197,3 +200,56 @@ class FormAppliesBothLimitsTests(SimpleTestCase):
     def test_accepts_a_reasonable_gif(self):
         upload = _gif_upload(width=220, height=154, frames=21)
         self.assertIs(self._clean(upload), upload)
+
+
+@override_settings(GIF_MAX_UPLOAD_SIZE=5 * ONE_MB, GIF_MAX_FRAME_VOLUME=10 * ONE_MB)
+class ScreensBeforeFieldValidationTests(SimpleTestCase):
+    """
+    The check has to run before Django validates the file field.
+
+    _clean_fields calls field.clean() -- which for Wagtail's image field opens
+    the file -- and only then the clean_<name> hook. A validator that lives
+    only in clean_file is correct and useless: the decode that exhausts the
+    dyno has already happened by the time it runs.
+    """
+
+    def _bind(self, upload):
+        form = FoundationImageForm.__new__(FoundationImageForm)
+        form.is_bound = True
+        form.data = {}
+        form.files = {"file": upload}
+        form.prefix = None
+        form.fields = {"file": FileField()}
+        form.renderer = get_default_renderer()
+        form.error_class = ErrorList
+        form.label_suffix = ":"
+        form.empty_permitted = False
+        return form
+
+    def test_finds_the_upload_the_way_django_does(self):
+        upload = _gif_upload(width=8, height=8, frames=2)
+        self.assertIs(self._bind(upload)._uploaded_file(), upload)
+
+    def test_oversized_gif_never_reaches_field_validation(self):
+        upload = _gif_upload(width=950, height=950, frames=109)
+        form = self._bind(upload)
+
+        touched = []
+        form.fields["file"].clean = lambda *a, **kw: touched.append(True)
+
+        form.full_clean()
+
+        self.assertEqual(touched, [], "field.clean() ran on a GIF that should have been screened out")
+        self.assertIn("file", form.errors)
+        self.assertEqual(form.errors.as_data()["file"][0].code, "gif_frame_volume_too_large")
+
+    def test_acceptable_gif_falls_through_to_normal_validation(self):
+        upload = _gif_upload(width=220, height=154, frames=21)
+        form = self._bind(upload)
+
+        reached = []
+        form.fields["file"].clean = lambda *a, **kw: reached.append(True) or upload
+
+        form.full_clean()
+
+        self.assertEqual(reached, [True], "normal field validation was skipped")
