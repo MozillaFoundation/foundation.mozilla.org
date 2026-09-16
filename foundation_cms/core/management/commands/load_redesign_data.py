@@ -3,7 +3,11 @@ from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
 from foundation_cms.base.factories import generate_images, generate_topics
-from foundation_cms.core.factories import generate_careers, generate_general_page, generate_homepage
+from foundation_cms.core.factories import (
+    generate_careers,
+    generate_general_page,
+    generate_homepage,
+)
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import generate as generate_navigation
