@@ -2,6 +2,8 @@ from wagtail.images import get_image_model
 
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.factories import (
+    AccordionBlockFactory,
+    AccordionBlockItemFactory,
     ActivationCardBlockFactory,
     CustomImageBlockFactory,
     CustomMediaBlockFactory,
@@ -78,6 +80,10 @@ def _portrait_card(image_id):
 
 def _icon_info_grid_item():
     return dict(IconInfoGridItemBlockFactory())
+
+
+def _accordion_item():
+    return dict(AccordionBlockItemFactory())
 
 
 def _image_grid_item(image_id):
@@ -196,5 +202,9 @@ def build_general_page_body():
         {
             "type": "image_grid",
             "value": dict(ImageGridBlockFactory(sections=[_image_grid_section(image_1, image_2)])),
+        },
+        {
+            "type": "accordion_block",
+            "value": dict(AccordionBlockFactory(accordion_items=[_accordion_item(), _accordion_item()])),
         },
     ]

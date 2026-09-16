@@ -2,6 +2,7 @@ import factory
 import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
+from foundation_cms.blocks.accordion_block import AccordionBlock, AccordionBlockItem
 from foundation_cms.blocks.divider_block import DividerBlock
 from foundation_cms.blocks.donor_help_contact_us_form_block import (
     DonorHelpContactUsFormBlock,
@@ -407,4 +408,22 @@ class ImageGridBlockFactory(wagtail_factories.StructBlockFactory):
     sections = wagtail_factories.ListBlockFactory(
         ImageGridSectionBlockFactory,
         **{"0": ""},
+    )
+
+
+class AccordionBlockItemFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = AccordionBlockItem
+
+    title = factory.Faker("sentence", nb_words=4)
+    content = [{"type": "rich_text", "value": "<p>Sample accordion content.</p>"}]
+
+
+class AccordionBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = AccordionBlock
+
+    accordion_items = wagtail_factories.ListBlockFactory(
+        AccordionBlockItemFactory,
+        **{"0": "", "1": ""},
     )
