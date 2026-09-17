@@ -77,9 +77,9 @@ def validate_gif_frame_volume(file):
     raise ValidationError(
         _(
             "This animated GIF is %(width)sx%(height)s with %(frames)s frames, which needs "
-            "about %(decoded)s of memory to process, which is over the %(limit)s limit. Its file "
-            "size is not the problem; the frame count and dimensions are. Please reduce "
-            "either one and try again."
+            "about %(decoded)s of memory to process, which is over the %(limit)s limit."
+            "Try compressing it, reducing dimensions, or using an online to to convert it "
+            "into a .webp format directly."
         )
         % {
             "width": info.width,
