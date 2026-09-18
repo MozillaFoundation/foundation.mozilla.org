@@ -1,0 +1,69 @@
+{
+  "$description": "One text family and four type styles. Figma names them desktop/navigation, desktop/label, desktop/body-small and desktop/body-large; the names here follow the Figma variable names inside those styles.",
+  "font": {
+    "family": {
+      "text": {"value": "'Mozilla Text', system-ui, sans-serif", "description": "Figma navigation/font-family and label/font-family and body-small/font-family. Everything except the logotype."},
+      "headline": {"value": "'Mozilla Headline', Georgia, serif", "description": "Logotype and hero headlines."}
+    },
+    "weight": {
+      "regular": {"value": "400", "description": "Figma body-small/font-weight. Body and field text."},
+      "light": {"value": "300", "description": "Figma display-1/font-weight. The statistic number, and the only place the system goes lighter than regular."},
+      "medium": {"value": "500", "description": "Figma body-large/font-weight. The amount in a donation field."},
+      "semibold": {"value": "600", "description": "Figma navigation/font-weight and label/font-weight. Control labels and tags."},
+      "bold": {"value": "700", "description": "Figma h4/font-weight. Headings and tab labels."}
+    },
+    "size": {
+      "control": {"value": "13.5px", "description": "Figma navigation/font-size. Every button label."},
+      "label": {"value": "11px", "description": "Figma label/font-size. Tags and field units. Always uppercase."},
+      "body-small": {"value": "13px", "description": "Figma body-small/font-size. Field labels, field text, small links."},
+      "body-large": {"value": "21px", "description": "Figma body-large/font-size. A value the reader typed and has to read back."},
+      "body": {"value": "16px", "description": "Body copy."},
+      "h4": {"value": "21px", "description": "Figma h4/font-size. The smallest heading, and the label on a tab."},
+      "h2": {"value": "42px", "description": "Figma desktop/h2 on the type sheet 9269:12262. A section heading under a carousel heading."},
+      "h3": {"value": "32px", "description": "Figma h3/font-size. The heading inside an open accordion."},
+      "h3-mobile": {"value": "24px", "description": "Figma mobile/h3. The same heading below the mobile breakpoint."},
+      "h4-mobile": {"value": "18px", "description": "Figma mobile/h4. The same small heading below the mobile breakpoint."},
+      "card-label": {"value": "12px", "description": "Figma 9918:27. The bold label above a base card's headline, a raw text node rather than a bound type style."},
+      "card-label-mobile": {"value": "11px", "description": "Figma 9918:29. The bold label above a base card's headline below the mobile breakpoint."},
+      "label-mobile": {"value": "10px", "description": "Figma mobile/label. The byline on an editorial card below the mobile breakpoint."},
+      "display-1": {"value": "112px", "description": "Figma display-1/font-size. The number on a statistic card. Nothing else in the library is this size."},
+      "display-1-mobile": {"value": "57px", "description": "Figma mobile/display-1 on the type sheet 9269:12262. The same number below the mobile breakpoint."},
+      "h1": {"value": "65px", "description": "Figma desktop/h1. A carousel section heading at desktop width."},
+      "h1-mobile": {"value": "38px", "description": "Figma mobile/h1. A carousel section heading below the mobile breakpoint."},
+      "h2-mobile": {"value": "28px", "description": "Figma mobile/h2 on the type sheet 9269:12262. The same section heading below the mobile breakpoint."},
+      "body-mobile": {"value": "15px", "description": "Figma mobile/body. Body copy below the mobile breakpoint."},
+      "body-large-mobile": {"value": "18px", "description": "Figma mobile/body-large. The lede on an index card description below the mobile breakpoint."}
+    }
+  },
+  "line": {
+    "height": {
+      "control": {"value": "1.5", "description": "Figma desktop/navigation. 20.25px at 13.5px."},
+      "label": {"value": "1.2", "description": "Figma desktop/label. Tight, because a label is one line."},
+      "body": {"value": "1.5", "description": "Figma desktop/body-small and desktop/body-large. Holds for scripts with tall ascenders."},
+      "heading": {"value": "1.2", "description": "Figma desktop/h4. Headings set tight."},
+      "display": {"value": "0.98", "description": "Figma desktop/display-1. Under one, because a single line of 112px needs the lines that follow it to close up."},
+      "h1": {"value": "1.1", "description": "Figma desktop/h1 on the type sheet 9269:12262, 110 percent. 71.5px at 65px."},
+      "display-mobile": {"value": "1.1", "description": "Figma mobile/h1."},
+      "prose": {"value": "1.4", "description": "The paragraph inside an open accordion. Drawn as a raw value on the layer, not as a Figma text style."},
+      "banner-title": {"value": "1.3", "description": "Figma 7714:3343. The headline inside a notification banner, set looser than a heading because it wraps inside a narrow column."}
+    }
+  },
+  "letter": {
+    "spacing": {
+      "control": {"value": "0.01em", "description": "Figma desktop/navigation, 1 percent. 0.135px at 13.5px."},
+      "label": {"value": "0.05em", "description": "Figma desktop/label, 5 percent. 0.55px at 11px. Uppercase needs the air."},
+      "body": {"value": "0.01em", "description": "Figma desktop/body-small, 1 percent. 0.13px at 13px."},
+      "display": {"value": "-0.03em", "description": "Figma desktop/display-1, minus 3 percent. Minus 3.36px at 112px. Large text closes up."},
+      "display-mobile": {"value": "-0.015em", "description": "Figma mobile/h1, minus 1.5 percent. Minus 0.57px at 38px."},
+      "h1": {"value": "-0.02em", "description": "Figma desktop/h1, minus 2 percent. Minus 1.3px at 65px."},
+      "h2": {"value": "-0.01em", "description": "Figma desktop/h2 on the type sheet 9269:12262, minus 1 percent. Minus 0.42px at 42px."},
+      "h2-mobile": {"value": "-0.005em", "description": "Figma mobile/h2 on the type sheet 9269:12262, minus 0.5 percent. Minus 0.14px at 28px."},
+      "control-tight": {"value": "-0.01em", "description": "Figma. The title of a story in a mega menu, which tracks in rather than out."},
+      "none": {"value": "0", "description": "Figma desktop/body-large. Large text does not need tracking."}
+    }
+  },
+  "$meta": {
+    "provenance": "figma 4LGXunuoHeSygfrdHwr8D3, variables on nodes 8704:26909, 7666:4533, 9377:10398, 8704:24780, 8556:12262, 8642:18812",
+    "verified": true
+  }
+}
