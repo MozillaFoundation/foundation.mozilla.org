@@ -20,6 +20,7 @@
     "clean:images": "shx rm -rf ../../foundation_cms/static/compiled/_images",
     "clean": "run-p clean:css clean:js clean:fonts clean:images",
     "build:tokens": "node tools/build-tokens.js",
+    "check:tokens": "yarn build:tokens && git diff --exit-code -- ../../foundation_cms/static/scss/_tokens.scss ../../foundation_cms/static/scss/settings/_tokens.scss",
     "build:css": "NODE_ENV=production node build-css.js",
     "build:js": "node esbuild.config.js --node-env production",
     "build:images": "run-s copy:images",
