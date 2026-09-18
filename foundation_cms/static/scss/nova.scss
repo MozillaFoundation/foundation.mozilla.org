@@ -6,9 +6,18 @@ $header-font-family:
 @import "../../../node_modules/foundation-sites/scss/foundation";
 @import "fonts";
 @include foundation-global-styles;
-@include foundation-typography;
 
 .nova {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $header-font-family;
+    font-weight: 400;
+  }
+
   .grid-container {
     @include xy-grid-container;
   }
