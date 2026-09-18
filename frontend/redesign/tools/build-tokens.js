@@ -21,7 +21,7 @@ const CSS_HEADER = [
 const SASS_MAP_HEADER = [
   ...GENERATED_HEADER_BASE,
   "// Sass $tokens map, for anything needing a real value at compile time:",
-  "// map.get($tokens, \"token-name\"). Reading a token at runtime in component",
+  '// map.get($tokens, "token-name"). Reading a token at runtime in component',
   "// CSS instead? Use ../_tokens.scss, not this file.",
 ];
 
@@ -73,7 +73,9 @@ function resolveRefs(tokens) {
 
     const refKey = match[1].replace(/\./g, "-");
     if (seen.has(refKey)) {
-      throw new Error(`Circular token reference: ${[...seen, refKey].join(" -> ")}`);
+      throw new Error(
+        `Circular token reference: ${[...seen, refKey].join(" -> ")}`,
+      );
     }
     if (!(refKey in tokens)) {
       throw new Error(`Unresolved token reference: {${match[1]}}`);
@@ -97,7 +99,9 @@ function resolveRefs(tokens) {
  */
 function loadTokens() {
   const tokens = {};
-  const files = readdirSync(TOKENS_DIR).filter((file) => file.endsWith(".json"));
+  const files = readdirSync(TOKENS_DIR).filter((file) =>
+    file.endsWith(".json"),
+  );
 
   for (const file of files) {
     const json = JSON.parse(readFileSync(path.join(TOKENS_DIR, file), "utf8"));
@@ -153,7 +157,7 @@ function writeCssCustomProperties(tokens) {
 function writeSassMap(tokens) {
   const lines = [
     ...SASS_MAP_HEADER,
-    "@use \"sass:map\";",
+    '@use "sass:map";',
     "",
     "$tokens: (",
     ...Object.keys(tokens)
@@ -163,10 +167,15 @@ function writeSassMap(tokens) {
     "",
   ];
 
-  writeFileSync(path.join(SCSS_DIR, "settings", "_tokens.scss"), lines.join("\n"));
+  writeFileSync(
+    path.join(SCSS_DIR, "settings", "_tokens.scss"),
+    lines.join("\n"),
+  );
 }
 
 const tokens = loadTokens();
 writeCssCustomProperties(tokens);
 writeSassMap(tokens);
-console.log(`Wrote ${Object.keys(tokens).length} tokens to _tokens.scss and settings/_tokens.scss`);
+console.log(
+  `Wrote ${Object.keys(tokens).length} tokens to _tokens.scss and settings/_tokens.scss`,
+);
