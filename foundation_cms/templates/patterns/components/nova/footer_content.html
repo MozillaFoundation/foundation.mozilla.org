@@ -1,0 +1,45 @@
+{% load i18n %}
+<footer class="nova-footer">
+    <div class="grid-container">
+        <p class="nova-label">{% if footer %}{% trans "Footer override · same CMS footer data" %}{% else %}{% trans "Footer override · independent static fallback" %}{% endif %}</p>
+        <div class="nova-footer__columns">
+            <div>
+                <p><strong>{% trans "Support Mozilla Foundation" %}</strong></p>
+                <a class="nova-button" href="?form=donate-footer">{% trans "Donate" %}</a>
+            </div>
+            <nav aria-label="{% trans "Footer" %}">
+                {% if footer %}
+                    <ul>
+                        {% for link in footer.internal_links.all %}<li><a href="{{ link.url }}">{{ link.label }}</a></li>{% endfor %}
+                        {% for link in footer.external_links.all %}<li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a></li>{% endfor %}
+                    </ul>
+                {% else %}
+                    <ul>
+                        <li><a href="https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation">{% trans "Careers" %}</a></li>
+                        <li><a href="https://www.mozilla.org/privacy/websites/">{% trans "Privacy" %}</a></li>
+                        <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/">{% trans "Legal" %}</a></li>
+                    </ul>
+                {% endif %}
+            </nav>
+        </div>
+        <div class="nova-footer__legal">
+            {% if footer %}
+                {{ footer.legal_text|safe }}
+                <ul>
+                    {% for social in footer.social_links.all %}
+                        <li><a href="{{ social.url }}" target="_blank" rel="noopener noreferrer">{{ social.aria_label }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>
+                    {% blocktrans with moco_url='https://www.mozilla.org/' meet_mozilla_url='/meet-mozilla/website-licensing/' trimmed %}
+                        Mozilla Foundation is a global non-profit and parent of the <a href="{{ moco_url }}">Mozilla Corporation</a>. Most content available under a <a href="{{ meet_mozilla_url }}">Creative Commons license</a>.
+                    {% endblocktrans %}
+                </p>
+            {% endif %}
+        </div>
+        <a class="nova-footer__wordmark" href="/">
+            {% trans "Mozilla Foundation" %}
+        </a>
+    </div>
+</footer>

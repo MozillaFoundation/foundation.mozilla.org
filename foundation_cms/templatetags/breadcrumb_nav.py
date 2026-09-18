@@ -49,3 +49,9 @@ def breadcrumb_nav(context, page=None):
         "mobile_show_leading_slash": mobile_show_leading_slash,
         "request": request,
     }
+
+
+@register.simple_tag(takes_context=True)
+def breadcrumb_data(context, page=None):
+    """Expose the existing localized trail to alternate theme templates."""
+    return breadcrumb_nav(context, page)
