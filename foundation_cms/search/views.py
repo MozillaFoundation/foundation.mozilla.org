@@ -37,9 +37,11 @@ def search(request):
     is_zero_results = False
     current_locale = Locale.get_active()
     current_site = Site.find_for_request(request)
+
     # Log submitted searches and filter/sort changes, but not pagination or internal drawer previews.
     is_preview_request = request.headers.get("X-Search-Preview") == "true"
-    is_initial_search_submit = "page" not in request.GET and not is_preview_request
+    is_refinement_request = request.GET.get("is_refinement") == "true"
+    is_loggable_request = "page" not in request.GET and not is_preview_request
 
     # Search
     if search_query:
@@ -139,15 +141,17 @@ def search(request):
             search_results = with_date + without_date
 
         # Log only on initial submission, not on pagination clicks
-        if is_initial_search_submit:
+        if is_loggable_request:
             SearchEvent.objects.create(
                 query_string=search_query.lower(),
                 language_code=current_locale.language_code,
                 results_count=total_search_results,
+                is_refinement=is_refinement_request,
             )
 
-            query = Query.get(search_query)
-            query.add_hit()
+            if not is_refinement_request:
+                query = Query.get(search_query)
+                query.add_hit()
 
     else:
         search_results = Page.objects.none()

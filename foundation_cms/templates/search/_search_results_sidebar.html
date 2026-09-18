@@ -8,6 +8,7 @@
           data-search-filter-mode="immediate">
         <input type="hidden" name="query" value="{{ search_query }}">
         <input type="hidden" name="sort" value="{{ sort|default:'relevance' }}">
+        <input type="hidden" name="is_refinement" value="true">
 
         {% include "search/_search_filter_content_type.html" %}
 

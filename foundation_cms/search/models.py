@@ -5,6 +5,7 @@ class SearchEvent(models.Model):
     query_string = models.CharField(max_length=255, db_index=True)
     language_code = models.CharField(max_length=10, db_index=True)
     results_count = models.PositiveIntegerField(default=0)
+    is_refinement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
