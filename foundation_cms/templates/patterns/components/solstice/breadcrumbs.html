@@ -1,0 +1,19 @@
+{% load breadcrumb_nav wagtailcore_tags i18n %}
+{% breadcrumb_data page as trail %}
+{% if trail.breadcrumbs %}
+    <nav class="solstice-breadcrumbs grid-container" aria-label="{% trans "Breadcrumb" %}">
+        <p class="solstice-label">{% trans "Breadcrumb override · same page hierarchy" %}</p>
+        <ol>
+            {% for ancestor in trail.breadcrumbs %}
+                <li>
+                    {% if forloop.last %}
+                        <span aria-current="page">{{ ancestor.title }}</span>
+                    {% else %}
+                        <a href="{% pageurl ancestor %}">{{ ancestor.title }}</a>
+                        <span aria-hidden="true">›</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+{% endif %}

@@ -1,0 +1,27 @@
+{% load static i18n wagtailsettings_tags navigation_tags %}
+{% get_settings use_default_site=True %}
+{% with menu=menu|default:settings.navigation.SiteNavigationMenu.active_navigation_menu %}
+    {% translated_menu menu as localized_menu %}
+    <header class="solstice-nav">
+        <p class="solstice-label">{% trans "Navigation override · same CMS menu, top-level links only" %}</p>
+        <div class="solstice-nav__bar">
+            <a class="solstice-nav__brand" href="/" aria-label="{% trans "Mozilla Foundation homepage" %}">
+                <img src="{% static 'foundation_cms/_images/primary-nav-wordmark-logo.svg' %}" alt="{% trans "Mozilla Foundation" %}" width="229" height="48">
+            </a>
+            <nav aria-label="{% trans "Main navigation" %}">
+                <ul>
+                    {% for dropdown in localized_menu.dropdowns %}
+                        {% primary_nav_link_is_current request dropdown.value.header as is_current %}
+                        <li>{% include "patterns/components/_link.html" with value=dropdown.value.header aria_current=is_current|yesno:"page," %}</li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            <div class="solstice-nav__actions">
+                <a href="{% url 'search' %}" aria-label="{% trans "Search" %}">
+                    <img src="{% static 'foundation_cms/_images/icons/search-black.svg' %}" alt="" width="24" height="24">
+                </a>
+                <a class="solstice-button" href="?form=donate-header">{% trans "Donate" %}</a>
+            </div>
+        </div>
+    </header>
+{% endwith %}

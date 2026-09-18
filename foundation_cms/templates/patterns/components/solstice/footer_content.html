@@ -1,0 +1,55 @@
+{% load i18n %}
+<footer class="solstice-footer">
+    <div class="grid-container">
+        <p class="solstice-label">{% if footer %}{% trans "Footer override · same CMS footer data" %}{% else %}{% trans "Footer override · independent static fallback" %}{% endif %}</p>
+        <div class="solstice-footer__columns">
+            <div>
+                <p><strong>{% trans "Support Mozilla Foundation" %}</strong></p>
+                <a class="solstice-button" href="?form=donate-footer">{% trans "Donate" %}</a>
+            </div>
+            <nav aria-label="{% trans "Footer" %}">
+                {% if footer %}
+                    <ul>
+                        {% for link in footer.internal_links.all %}<li><a href="{{ link.url }}">{{ link.label }}</a></li>{% endfor %}
+                        {% for link in footer.external_links.all %}<li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a></li>{% endfor %}
+                    </ul>
+                {% else %}
+                    <ul>
+                        <li><a href="https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation">{% trans "Careers" %}</a></li>
+                        <li><a href="https://www.mozilla.org/privacy/websites/">{% trans "Privacy" %}</a></li>
+                        <li><a href="https://www.mozilla.org/about/legal/terms/mozilla/">{% trans "Legal" %}</a></li>
+                    </ul>
+                {% endif %}
+            </nav>
+            <div>
+                {% if footer_newsletter_signup %}
+                    {% include "patterns/components/_newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
+                {% elif settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+                    {% with newsletter=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
+                        {% include "patterns/components/_newsletter_signup_form.html" with newsletter_signup=newsletter.localized %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="solstice-footer__legal">
+            {% if footer %}
+                {{ footer.legal_text|safe }}
+                <ul>
+                    {% for social in footer.social_links.all %}
+                        <li><a href="{{ social.url }}" target="_blank" rel="noopener noreferrer">{{ social.aria_label }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>
+                    {% blocktrans with moco_url='https://www.mozilla.org/' meet_mozilla_url='/meet-mozilla/website-licensing/' trimmed %}
+                        Mozilla Foundation is a global non-profit and parent of the <a href="{{ moco_url }}">Mozilla Corporation</a>. Most content available under a <a href="{{ meet_mozilla_url }}">Creative Commons license</a>.
+                    {% endblocktrans %}
+                </p>
+            {% endif %}
+            {% include "patterns/components/_language_switcher.html" %}
+        </div>
+        <a class="solstice-footer__wordmark" href="/">
+            {% trans "Mozilla Foundation" %}
+        </a>
+    </div>
+</footer>
