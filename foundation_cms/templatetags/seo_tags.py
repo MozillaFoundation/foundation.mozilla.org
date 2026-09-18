@@ -39,7 +39,10 @@ def seo_links(context, page=None):
     site_url = context.get("CANONICAL_SITE_URL")
 
     if page.alias_of_id:
-        canonical_url = _absolute_url(site_url, page.alias_of.get_url(request=request))
+        alias_path = page.get_url(request=request)
+        suffix = _routed_suffix(alias_path, request)
+        source_path = page.alias_of.get_url(request=request)
+        canonical_url = _absolute_url(site_url, source_path + suffix if source_path else None)
         return {
             "canonical_url": canonical_url,
             "hreflang_links": [],

@@ -457,9 +457,24 @@ class SeoLinksTagTests(SimpleTestCase):
 
     def test_alias_page_gets_canonical_to_its_original_and_no_hreflang(self):
         alias_of = SimpleNamespace(get_url=lambda request=None: "/en/about/")
-        page = SimpleNamespace(alias_of_id=1, alias_of=alias_of)
+        page = SimpleNamespace(alias_of_id=1, alias_of=alias_of, get_url=lambda request=None: "/en/about/")
         result = seo_links(self.ctx(page))
         self.assertEqual(result["canonical_url"], "http://testserver/en/about/")
+        self.assertEqual(result["hreflang_links"], [])
+
+    def test_alias_routable_subpath_is_preserved_in_source_canonical(self):
+        # An alias of HomePage inherits HomePage's routes, so /topics/privacy/
+        # under the alias path still needs to resolve to the source's equivalent.
+        request = RequestFactory().get("/en/alias-topic-qa/topics/privacy/")
+        ctx = {"page": None, "request": request, "CANONICAL_SITE_URL": "http://testserver"}
+        source = SimpleNamespace(get_url=lambda request=None: "/en/")
+        page = SimpleNamespace(
+            alias_of_id=1,
+            alias_of=source,
+            get_url=lambda request=None: "/en/alias-topic-qa/",
+        )
+        result = seo_links({**ctx, "page": page})
+        self.assertEqual(result["canonical_url"], "http://testserver/en/topics/privacy/")
         self.assertEqual(result["hreflang_links"], [])
 
     def test_page_with_no_real_translations_gets_canonical_but_no_hreflang(self):
@@ -535,7 +550,7 @@ class SeoLinksTagTests(SimpleTestCase):
 
     def test_unroutable_alias_target_gets_no_canonical_instead_of_crashing(self):
         alias_of = SimpleNamespace(get_url=lambda request=None: None)
-        page = SimpleNamespace(alias_of_id=1, alias_of=alias_of)
+        page = SimpleNamespace(alias_of_id=1, alias_of=alias_of, get_url=lambda request=None: "/en/about/")
         result = seo_links(self.ctx(page))
         self.assertIsNone(result["canonical_url"])
         self.assertEqual(result["hreflang_links"], [])
