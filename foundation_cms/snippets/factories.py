@@ -6,6 +6,7 @@ from wagtail.rich_text import RichText
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.snippets.models import IllustratedNewsletterSignup, NewsletterSignup
 from foundation_cms.snippets.models.newsletter_signup import FooterNewsletterSignup
+from foundation_cms.snippets.models.newsletter_unsubscribe import NewsletterUnsubscribe
 from foundation_cms.snippets.models.notice_banner import NoticeBanner
 
 
@@ -44,6 +45,17 @@ class IllustratedNewsletterSignupFactory(DjangoModelFactory):
     button_text = "Sign Up"
     illustration = factory.SubFactory(ImageFactory)
     newsletter = "mozilla-foundation"
+    locale = factory.LazyFunction(Locale.get_default)
+
+
+class NewsletterUnsubscribeFactory(DjangoModelFactory):
+    class Meta:
+        model = NewsletterUnsubscribe
+
+    name = factory.Faker("sentence", nb_words=3)
+    header = "Unsubscribe from our emails"
+    description = "Unsubscribe from Mozilla Foundation's updates and news."
+    button_text = "Unsubscribe"
     locale = factory.LazyFunction(Locale.get_default)
 
 
