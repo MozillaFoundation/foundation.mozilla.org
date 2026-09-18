@@ -60,6 +60,27 @@ class NovaThemeTests(WagtailpagesTestCase):
             self.assertIn(component, self.render(self.inherited))
             self.assertNotIn(component, self.render(self.overridden))
 
+    def test_nova_replaces_default_assets_for_explicit_and_inherited_themes(self):
+        nova_assets = ("nova.compiled.css", "nova.compiled.js")
+        default_assets = ("redesign_fallback.compiled.css", "redesign_main.compiled.js")
+        for page in (self.nova, self.inherited):
+            with self.subTest(page=page.slug):
+                html = self.render(page)
+                for asset in nova_assets:
+                    self.assertEqual(html.count(asset), 1)
+                for asset in default_assets:
+                    self.assertNotIn(asset, html)
+                self.assertIn("civic_cookie_control/init.compiled.js", html)
+                self.assertNotIn("newsletter-signup__form", html)
+                self.assertNotIn('id="language-switcher-form"', html)
+        for page in (self.default, self.overridden):
+            with self.subTest(page=page.slug):
+                html = self.render(page)
+                for asset in default_assets:
+                    self.assertEqual(html.count(asset), 1)
+                for asset in nova_assets:
+                    self.assertNotIn(asset, html)
+
     def test_unknown_theme_falls_back_for_page_base_and_blocks(self):
         page = GeneralPage.objects.get(pk=self.default.pk)
         page.theme = "missing-theme"

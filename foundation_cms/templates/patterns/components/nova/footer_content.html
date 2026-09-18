@@ -21,15 +21,6 @@
                     </ul>
                 {% endif %}
             </nav>
-            <div>
-                {% if footer_newsletter_signup %}
-                    {% include "patterns/components/_newsletter_signup_form.html" with newsletter_signup=footer_newsletter_signup %}
-                {% elif settings.snippets.FooterNewsletterSignup.newsletter_signup %}
-                    {% with newsletter=settings.snippets.FooterNewsletterSignup.newsletter_signup %}
-                        {% include "patterns/components/_newsletter_signup_form.html" with newsletter_signup=newsletter.localized %}
-                    {% endwith %}
-                {% endif %}
-            </div>
         </div>
         <div class="nova-footer__legal">
             {% if footer %}
@@ -46,7 +37,6 @@
                     {% endblocktrans %}
                 </p>
             {% endif %}
-            {% include "patterns/components/_language_switcher.html" %}
         </div>
         <a class="nova-footer__wordmark" href="/">
             {% trans "Mozilla Foundation" %}
