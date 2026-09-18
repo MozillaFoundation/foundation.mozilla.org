@@ -6,6 +6,7 @@ const RedesignURLs = {
   Homepage: "/",
   "Nothing Personal Home": "/nothing-personal/",
   "Nothing Personal Article": "/nothing-personal/expert-profile-article-1/",
+  "General Page": "/general-page-1/",
 };
 
 export default RedesignURLs;
