@@ -1,3 +1,10 @@
+import { readFileSync, readdirSync } from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const TOKENS_DIR = path.resolve(__dirname, "../tokens");
+
 /**
  * Flattens a token JSON object into a single-level map of hyphenated names to
  * raw values. Skips any key starting with "$" ($description, $meta) since
@@ -59,4 +66,23 @@ function resolveRefs(tokens) {
     tokens[key] = resolve(tokens[key], new Set());
   }
   return tokens;
+}
+
+/**
+ * Reads every JSON file in tokens/, flattens and merges them into one map,
+ * then resolves every "{dot.path}" reference against the merged set. This
+ * is the point where the raw JSON becomes the final, literal token values
+ * both output formats (CSS custom properties and the Sass map) get built
+ * from.
+ */
+function loadTokens() {
+  const tokens = {};
+  const files = readdirSync(TOKENS_DIR).filter((file) => file.endsWith(".json"));
+
+  for (const file of files) {
+    const json = JSON.parse(readFileSync(path.join(TOKENS_DIR, file), "utf8"));
+    flatten(json, "", tokens);
+  }
+
+  return resolveRefs(tokens);
 }
