@@ -4,7 +4,7 @@ from django.urls import reverse
 from wagtail.models import Locale
 
 from foundation_cms.blocks.quote_block import QuoteBlock
-from foundation_cms.core.factories.solstice_demo import demo_body, generate
+from foundation_cms.core.factories.nova_demo import demo_body, generate
 from foundation_cms.core.models import GeneralPage
 from foundation_cms.footer.models import FooterInternalLink, SiteFooter
 from foundation_cms.legacy_apps.wagtailpages.tests.base import WagtailpagesTestCase
@@ -17,10 +17,10 @@ from foundation_cms.navigation.models import NavigationMenu
         "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
     }
 )
-class SolsticeThemeTests(WagtailpagesTestCase):
+class NovaThemeTests(WagtailpagesTestCase):
     def setUp(self):
         super().setUp()
-        self.root, self.default, self.solstice, self.inherited, self.overridden = generate()
+        self.root, self.default, self.nova, self.inherited, self.overridden = generate()
 
     def render(self, page):
         request = RequestFactory().get(page.url)
@@ -34,29 +34,29 @@ class SolsticeThemeTests(WagtailpagesTestCase):
                 return [content(item) for item in value]
             return value
 
-        self.assertEqual(content(self.default.body.get_prep_value()), content(self.solstice.body.get_prep_value()))
+        self.assertEqual(content(self.default.body.get_prep_value()), content(self.nova.body.get_prep_value()))
         default = self.render(self.default)
-        solstice = self.render(self.solstice)
+        nova = self.render(self.nova)
         self.assertIn('<div class="general-page">', default)
-        self.assertIn('<article class="solstice-page">', solstice)
-        self.assertNotIn("solstice.compiled", default)
-        self.assertIn("solstice.compiled.css", solstice)
-        self.assertIn("solstice.compiled.js", solstice)
-        self.assertEqual(solstice.count('class="solstice-quote"'), 2)
-        self.assertIn('class="two-column-container ', solstice)
-        self.assertIn("Two-column container: default fallback", solstice)
-        for component in ("solstice-nav", "solstice-breadcrumbs", "solstice-footer"):
-            self.assertIn(component, solstice)
+        self.assertIn('<article class="nova-page">', nova)
+        self.assertNotIn("nova.compiled", default)
+        self.assertIn("nova.compiled.css", nova)
+        self.assertIn("nova.compiled.js", nova)
+        self.assertEqual(nova.count('class="nova-quote"'), 2)
+        self.assertIn('class="two-column-container ', nova)
+        self.assertIn("Two-column container: default fallback", nova)
+        for component in ("nova-nav", "nova-breadcrumbs", "nova-footer"):
+            self.assertIn(component, nova)
             self.assertNotIn(component, default)
-        self.assertNotIn('class="primary-nav-ns"', solstice)
-        self.assertNotIn('class="site-footer-ns"', solstice)
+        self.assertNotIn('class="primary-nav-ns"', nova)
+        self.assertNotIn('class="site-footer-ns"', nova)
 
     def test_inheritance_and_explicit_default_override(self):
-        self.assertEqual(self.inherited.get_theme(), "solstice")
+        self.assertEqual(self.inherited.get_theme(), "nova")
         self.assertEqual(self.overridden.get_theme(), "default")
-        self.assertIn("solstice.compiled.js", self.render(self.inherited))
-        self.assertNotIn("solstice.compiled", self.render(self.overridden))
-        for component in ("solstice-nav", "solstice-breadcrumbs", "solstice-footer"):
+        self.assertIn("nova.compiled.js", self.render(self.inherited))
+        self.assertNotIn("nova.compiled", self.render(self.overridden))
+        for component in ("nova-nav", "nova-breadcrumbs", "nova-footer"):
             self.assertIn(component, self.render(self.inherited))
             self.assertNotIn(component, self.render(self.overridden))
 
@@ -66,31 +66,31 @@ class SolsticeThemeTests(WagtailpagesTestCase):
         self.assertEqual(select_template(page.get_template(None)).template.name, page.template)
         html = self.render(page)
         self.assertIn('<div class="quote-block">', html)
-        self.assertNotIn("solstice.compiled", html)
+        self.assertNotIn("nova.compiled", html)
 
     def test_preview_uses_the_same_template_resolution(self):
-        self.assertEqual(self.solstice.get_preview_template(None, ""), self.solstice.get_template(None))
+        self.assertEqual(self.nova.get_preview_template(None, ""), self.nova.get_template(None))
 
     def test_page_theme_takes_precedence_over_block_context(self):
         block = QuoteBlock()
         value = block.to_python(demo_body()[1]["value"])
-        html = block.render(value, context={"page": self.solstice, "theme": "default"})
-        self.assertIn('class="solstice-quote"', html)
+        html = block.render(value, context={"page": self.nova, "theme": "default"})
+        self.assertIn('class="nova-quote"', html)
 
     def test_demo_is_repeatable_without_updating_existing_pages(self):
         revisions = [page.latest_revision_id for page in generate()]
         self.assertEqual(
             [page.pk for page in generate()],
-            [self.root.pk, self.default.pk, self.solstice.pk, self.inherited.pk, self.overridden.pk],
+            [self.root.pk, self.default.pk, self.nova.pk, self.inherited.pk, self.overridden.pk],
         )
         self.assertEqual([page.latest_revision_id for page in generate()], revisions)
 
     def render_component(self, name, page=None, **context):
-        page = page or self.solstice
+        page = page or self.nova
         request = RequestFactory().get(page.url)
         request.site = self.site
         return render_to_string(
-            f"patterns/components/solstice/{name}.html",
+            f"patterns/components/nova/{name}.html",
             {"page": page, **context},
             request=request,
         )
@@ -101,14 +101,14 @@ class SolsticeThemeTests(WagtailpagesTestCase):
 
         menu = NavigationMenu.objects.create(
             title="Shared menu",
-            locale=self.solstice.locale,
+            locale=self.nova.locale,
             dropdowns=NavigationMenu.dropdowns.field.stream_block.to_python(
-                [{"type": "dropdown", "value": {"header": link(self.solstice), "items": [link(self.inherited)]}}]
+                [{"type": "dropdown", "value": {"header": link(self.nova), "items": [link(self.inherited)]}}]
             ),
         )
         html = self.render_component("navigation", menu=menu)
         self.assertEqual(html.count('aria-current="page"'), 1)
-        self.assertIn(f'href="{self.solstice.url}"', html)
+        self.assertIn(f'href="{self.nova.url}"', html)
         self.assertNotIn("primary-nav-ns", html)
         self.assertNotIn(f'href="{self.inherited.url}"', html)
         self.assertIn(f'href="{reverse("search")}"', html)
@@ -118,30 +118,28 @@ class SolsticeThemeTests(WagtailpagesTestCase):
     def test_breadcrumbs_reuse_the_full_localized_hierarchy(self):
         html = self.render_component("breadcrumbs", page=self.inherited)
         self.assertIn(f'href="{self.root.url}"', html)
-        self.assertIn(f'href="{self.solstice.url}"', html)
+        self.assertIn(f'href="{self.nova.url}"', html)
         self.assertEqual(html.count('aria-current="page"'), 1)
         self.assertNotIn(f'href="{self.inherited.url}"', html)
-        self.assertNotIn("solstice-breadcrumbs", self.render_component("breadcrumbs", page=self.homepage))
+        self.assertNotIn("nova-breadcrumbs", self.render_component("breadcrumbs", page=self.homepage))
 
     def test_footer_shared_settings_localization_and_static_fallback(self):
-        footer = SiteFooter.objects.create(
-            title="Shared footer", legal_text="Shared legal", locale=self.solstice.locale
-        )
+        footer = SiteFooter.objects.create(title="Shared footer", legal_text="Shared legal", locale=self.nova.locale)
         FooterInternalLink.objects.create(footer=footer, label="Shared link", url="/shared/")
         html = self.render_component("footer", footer=footer, EDITABLE_FOOTER=True)
         self.assertIn("Shared legal", html)
         self.assertIn('href="/shared/"', html)
-        self.assertLess(html.index("Shared legal"), html.index('class="solstice-footer__wordmark"'))
+        self.assertLess(html.index("Shared legal"), html.index('class="nova-footer__wordmark"'))
         french, _ = Locale.objects.get_or_create(language_code="fr")
         translated = footer.copy_for_translation(french)
         translated.legal_text = "Mentions légales"
         translated.save()
-        self.solstice.locale = french
+        self.nova.locale = french
         html = self.render_component("footer", footer=footer, EDITABLE_FOOTER=True)
         self.assertIn("Mentions légales", html)
         for context in ({"footer": footer, "EDITABLE_FOOTER": False}, {"EDITABLE_FOOTER": True}):
             html = self.render_component("footer", **context)
-            self.assertIn('<footer class="solstice-footer">', html)
+            self.assertIn('<footer class="nova-footer">', html)
             self.assertNotIn('<footer class="site-footer-ns">', html)
             self.assertIn("/meet-mozilla/website-licensing/", html)
             self.assertNotIn("Shared legal", html)

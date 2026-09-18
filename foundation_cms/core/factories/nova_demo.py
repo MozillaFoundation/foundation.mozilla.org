@@ -14,16 +14,14 @@ def demo_body():
             "type": "rich_text",
             "value": (
                 "<h2>Rich text: default block fallback</h2><p>Identical content on both pages. "
-                "Solstice changes the page, navigation, breadcrumbs, quote and footer templates; "
+                "Nova changes the page, navigation, breadcrumbs, quote and footer templates; "
                 "this rich-text block keeps its existing template.</p>"
             ),
         },
         {
             "type": "quote",
             "value": {
-                "quote": (
-                    "Solstice moves the attribution before the quote. Default keeps the original block structure."
-                ),
+                "quote": ("Nova moves the attribution before the quote. Default keeps the original block structure."),
                 "attribution": "Quote block override",
             },
         },
@@ -48,7 +46,7 @@ def demo_body():
                         "type": "rich_text",
                         "value": (
                             "<h2>Two-column container: default fallback</h2><p>The container and this rich-text block "
-                            "keep their existing templates. The nested quote uses the Solstice override.</p>"
+                            "keep their existing templates. The nested quote uses the Nova override.</p>"
                         ),
                     }
                 ],
@@ -82,9 +80,9 @@ def generate():
         page.save_revision().publish()
         return page
 
-    root = create(site.root_page, "solstice-demo", "default")
+    root = create(site.root_page, "nova-demo", "default")
     default = create(root, "default", "default")
-    solstice = create(root, "solstice", "solstice")
-    inherited = create(solstice, "inherited", "")
-    overridden = create(solstice, "default-override", "default")
-    return [root, default, solstice, inherited, overridden]
+    nova = create(root, "nova", "nova")
+    inherited = create(nova, "inherited", "")
+    overridden = create(nova, "default-override", "default")
+    return [root, default, nova, inherited, overridden]

@@ -22,8 +22,8 @@ const outDir = "../../foundation_cms/static/compiled/_js";
 // JS entry points for ESBuild.
 // `source` paths are relative to `inDir`. Output preserves directory structure.
 const sources = {
-  solstice: {
-    source: "solstice.js",
+  nova: {
+    source: "nova.js",
     jsx: false,
     bundle: true,
   },

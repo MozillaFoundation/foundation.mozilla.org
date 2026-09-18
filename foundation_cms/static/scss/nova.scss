@@ -1,27 +1,27 @@
 @import "../../../node_modules/foundation-sites/scss/foundation";
 
-.solstice {
-  .solstice-label {
+.nova {
+  .nova-label {
     margin: 0 0 rem-calc(16);
     color: #595959;
     font-size: rem-calc(12);
   }
 
-  .solstice-nav {
+  .nova-nav {
     padding: rem-calc(16 24);
     border-bottom: 1px solid #ddd;
   }
 
-  .solstice-nav__bar,
-  .solstice-nav__actions,
-  .solstice-nav ul,
-  .solstice-breadcrumbs ol {
+  .nova-nav__bar,
+  .nova-nav__actions,
+  .nova-nav ul,
+  .nova-breadcrumbs ol {
     display: flex;
     align-items: center;
     gap: rem-calc(24);
   }
 
-  .solstice-nav__bar {
+  .nova-nav__bar {
     flex-wrap: wrap;
     justify-content: space-between;
 
@@ -31,30 +31,30 @@
     }
   }
 
-  .solstice-nav__brand img {
+  .nova-nav__brand img {
     width: rem-calc(160);
     height: auto;
   }
 
-  .solstice-nav ul,
-  .solstice-breadcrumbs ol,
-  .solstice-footer ul {
+  .nova-nav ul,
+  .nova-breadcrumbs ol,
+  .nova-footer ul {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .solstice-nav ul,
-  .solstice-breadcrumbs ol {
+  .nova-nav ul,
+  .nova-breadcrumbs ol {
     flex-wrap: wrap;
   }
 
-  .solstice-nav a,
-  .solstice-footer a {
+  .nova-nav a,
+  .nova-footer a {
     color: inherit;
   }
 
-  .solstice-nav nav a {
+  .nova-nav nav a {
     text-decoration: none;
   }
 
@@ -63,11 +63,11 @@
     outline-offset: rem-calc(4);
   }
 
-  .solstice-nav [aria-current="page"] {
+  .nova-nav [aria-current="page"] {
     text-decoration: underline;
   }
 
-  a.solstice-button {
+  a.nova-button {
     display: inline-block;
     padding: rem-calc(12 20);
     background: #171717;
@@ -76,27 +76,27 @@
     text-decoration: none;
   }
 
-  .solstice-breadcrumbs,
-  .solstice-page__header,
-  .solstice-page__content {
+  .nova-breadcrumbs,
+  .nova-page__header,
+  .nova-page__content {
     padding-block: rem-calc(24);
   }
 
-  .solstice-breadcrumbs li {
+  .nova-breadcrumbs li {
     display: flex;
     gap: rem-calc(12);
   }
 
-  .solstice-page__header,
-  .solstice-footer {
+  .nova-page__header,
+  .nova-footer {
     background: #f5f5f5;
   }
 
-  .solstice-page__content > .streamfield-block-wrapper {
+  .nova-page__content > .streamfield-block-wrapper {
     margin-bottom: rem-calc(24);
   }
 
-  .solstice-quote {
+  .nova-quote {
     margin: 0;
     padding: rem-calc(24);
     border-inline-start: rem-calc(3) solid #171717;
@@ -114,7 +114,7 @@
     }
   }
 
-  .solstice-footer {
+  .nova-footer {
     padding-block: rem-calc(32);
 
     li {
@@ -122,12 +122,12 @@
     }
   }
 
-  .solstice-footer__columns {
+  .nova-footer__columns {
     display: grid;
     gap: rem-calc(32);
   }
 
-  .solstice-footer__legal {
+  .nova-footer__legal {
     margin-block: rem-calc(32);
     font-size: rem-calc(12);
 
@@ -136,7 +136,7 @@
     }
   }
 
-  .solstice-footer__wordmark {
+  .nova-footer__wordmark {
     font-size: clamp(rem-calc(28), 6vw, rem-calc(80));
     font-weight: 700;
     line-height: 1.1;
@@ -144,7 +144,7 @@
   }
 
   @include breakpoint(large) {
-    .solstice-nav__bar {
+    .nova-nav__bar {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
 
@@ -153,11 +153,11 @@
       }
     }
 
-    .solstice-nav__actions {
+    .nova-nav__actions {
       justify-content: flex-end;
     }
 
-    .solstice-footer__columns {
+    .nova-footer__columns {
       grid-template-columns: 1fr 1fr 1.5fr;
     }
   }

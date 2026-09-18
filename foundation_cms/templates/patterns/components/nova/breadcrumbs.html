@@ -1,8 +1,8 @@
 {% load breadcrumb_nav wagtailcore_tags i18n %}
 {% breadcrumb_data page as trail %}
 {% if trail.breadcrumbs %}
-    <nav class="solstice-breadcrumbs grid-container" aria-label="{% trans "Breadcrumb" %}">
-        <p class="solstice-label">{% trans "Breadcrumb override · same page hierarchy" %}</p>
+    <nav class="nova-breadcrumbs grid-container" aria-label="{% trans "Breadcrumb" %}">
+        <p class="nova-label">{% trans "Breadcrumb override · same page hierarchy" %}</p>
         <ol>
             {% for ancestor in trail.breadcrumbs %}
                 <li>

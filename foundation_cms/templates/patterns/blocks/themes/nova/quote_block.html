@@ -1,9 +1,9 @@
 {% load i18n %}
-<figure class="solstice-quote">
+<figure class="nova-quote">
     {% if value.attribution %}
-        <figcaption class="solstice-quote__attribution">{{ value.attribution }}</figcaption>
+        <figcaption class="nova-quote__attribution">{{ value.attribution }}</figcaption>
     {% endif %}
-    <blockquote class="solstice-quote__text">
+    <blockquote class="nova-quote__text">
         <p>{% blocktrans with quote=value.quote %}“{{ quote }}”{% endblocktrans %}</p>
     </blockquote>
 </figure>

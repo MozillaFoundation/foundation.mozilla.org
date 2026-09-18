@@ -2,8 +2,8 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-    <article class="solstice-page">
-        <header class="solstice-page__header">
+    <article class="nova-page">
+        <header class="nova-page__header">
             {% if page.show_hero %}
                 {% include "patterns/components/_hero.html" %}
             {% else %}
@@ -15,7 +15,7 @@
         {% if horizontal_link_block %}
             {% include "patterns/components/navigation/_horizontal_link_block.html" with block=horizontal_link_block %}
         {% endif %}
-        <div class="solstice-page__content">
+        <div class="nova-page__content">
             {% include "patterns/components/_streamfield.html" with streamfield=page.body %}
         </div>
     </article>
