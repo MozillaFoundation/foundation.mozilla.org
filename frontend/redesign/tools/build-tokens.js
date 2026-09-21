@@ -149,6 +149,20 @@ function writeCssCustomProperties(tokens) {
 }
 
 /**
+ * A bare comma-separated value (a font stack like 'Mozilla Text', system-ui,
+ * sans-serif) is indistinguishable, to Sass's map parser, from the commas
+ * that separate one "key: value" pair from the next. Wrapping it in
+ * parentheses turns it into a single list value instead. A value that's
+ * already a single function call, like rgba(0, 0, 0, 0.2), doesn't need
+ * this (its own parens already scope those commas), but wrapping it anyway
+ * is harmless, so this checks for any comma rather than trying to tell the
+ * two cases apart.
+ */
+function sassValue(value) {
+  return value.includes(",") ? `(${value})` : value;
+}
+
+/**
  * Writes the resolved tokens as a Sass map, for anything that needs a real
  * value at compile time instead of a runtime CSS variable, e.g. a media
  * query breakpoint or a Foundation settings override:
@@ -162,7 +176,7 @@ function writeSassMap(tokens) {
     "$tokens: (",
     ...Object.keys(tokens)
       .sort()
-      .map((name) => `  "${name}": ${tokens[name]},`),
+      .map((name) => `  "${name}": ${sassValue(tokens[name])},`),
     ");",
     "",
   ];
@@ -177,5 +191,5 @@ const tokens = loadTokens();
 writeCssCustomProperties(tokens);
 writeSassMap(tokens);
 console.log(
-  `Wrote ${Object.keys(tokens).length} tokens to _tokens.scss and settings/_tokens.scss`,
+  `Wrote ${Object.keys(tokens).length} tokens to _tokens.scss and settings/_tokens.scss.`,
 );
