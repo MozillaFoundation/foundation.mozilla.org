@@ -1,4 +1,6 @@
+import json
 import re
+import uuid
 
 from django.apps import apps
 from django.core.management.base import BaseCommand
@@ -42,6 +44,17 @@ def rewrite_stream_data(data):
     if isinstance(data, dict):
         return {key: rewrite_stream_data(value) for key, value in data.items()}
     return data
+
+
+def rewrite_json_text(text):
+    """Rewrite a JSON document held in a text column.
+
+    content_json nests JSON inside JSON, so the HTML arrives double-escaped and the
+    class regex, which tolerates a single backslash, will not match the raw text.
+    """
+    data = json.loads(text)
+    new_data = rewrite_stream_data(data)
+    return text if new_data == data else json.dumps(new_data)
 
 
 def fix_latest_revision(obj, field_names, dry_run):
@@ -88,6 +101,65 @@ class Command(BaseCommand):
             action="store_true",
             help="Report what would change without saving anything.",
         )
+
+    def _fix_translation_memory(self, dry_run):
+        """Rewrite wagtail-localize's rich text templates and source snapshots.
+
+        Both are plain TextFields, so the RichTextField/StreamField scan never reaches
+        them, and a stale template reintroduces the legacy class when a translation is
+        republished.
+        """
+        try:
+            Template = apps.get_model("wagtail_localize", "Template")
+            TemplateSegment = apps.get_model("wagtail_localize", "TemplateSegment")
+            TranslationSource = apps.get_model("wagtail_localize", "TranslationSource")
+        except LookupError:
+            return 0
+
+        changed = 0
+        template_pks = list(Template.objects.values_list("pk", flat=True))
+
+        for start in range(0, len(template_pks), CHUNK_SIZE):
+            for template in Template.objects.filter(pk__in=template_pks[start : start + CHUNK_SIZE]):
+                new_template = replace_legacy_classes(template.template)
+                if new_template == template.template:
+                    continue
+
+                # uuid is a content hash under a unique constraint, so it has to move with
+                # the template. If a row already holds the rewritten content, repoint the
+                # segments at it and drop this duplicate instead of colliding.
+                namespace = uuid.uuid5(Template.BASE_UUID_NAMESPACE, template.template_format)
+                new_uuid = uuid.uuid5(namespace, new_template)
+                existing = Template.objects.filter(uuid=new_uuid).exclude(pk=template.pk).first()
+
+                changed += 1
+                if existing:
+                    verb = "Would merge" if dry_run else "Merging"
+                    self.stdout.write(f"{verb} wagtail_localize.Template pk={template.pk} into pk={existing.pk}")
+                    if not dry_run:
+                        TemplateSegment.objects.filter(template=template).update(template=existing)
+                        template.delete()
+                else:
+                    verb = "Would update" if dry_run else "Updating"
+                    self.stdout.write(f"{verb} wagtail_localize.Template pk={template.pk}")
+                    if not dry_run:
+                        Template.objects.filter(pk=template.pk).update(template=new_template, uuid=new_uuid)
+
+        source_pks = list(TranslationSource.objects.values_list("pk", flat=True))
+
+        for start in range(0, len(source_pks), CHUNK_SIZE):
+            for source in TranslationSource.objects.filter(pk__in=source_pks[start : start + CHUNK_SIZE]):
+                new_json = rewrite_json_text(source.content_json)
+                if new_json == source.content_json:
+                    continue
+
+                changed += 1
+                verb = "Would update" if dry_run else "Updating"
+                self.stdout.write(f"{verb} wagtail_localize.TranslationSource pk={source.pk}")
+                if not dry_run:
+                    TranslationSource.objects.filter(pk=source.pk).update(content_json=new_json)
+
+        return changed
 
     def handle(self, *args, **options):
         dry_run = options["dry_run"]
@@ -150,7 +222,16 @@ class Command(BaseCommand):
                         # StreamField drops blocks whose type is gone from the code.
                         model._default_manager.filter(pk=obj.pk).update(**updates)
 
+        translation_memory_changed = self._fix_translation_memory(dry_run)
+
         summary = (
             f"{'Would update' if dry_run else 'Updated'} {total_fields} field(s) across {total_objects} object(s)."
         )
         self.stdout.write(self.style.SUCCESS(summary))
+        if translation_memory_changed:
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"{'Would update' if dry_run else 'Updated'} {translation_memory_changed} "
+                    "wagtail-localize translation memory row(s)."
+                )
+            )
