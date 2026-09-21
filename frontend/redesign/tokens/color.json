@@ -1,0 +1,488 @@
+{
+  "$description": "Primitives mirror the Figma variable names so a value can be traced back to the file. Components reference semantics only.",
+  "color": {
+    "gray": {
+      "0": {
+        "value": "#ffffff",
+        "description": "Figma gray/0. Paper, and the fill of primary-white."
+      },
+      "100": {
+        "value": "#f7f7f7",
+        "description": "Figma gray/100. Panel, and primary-white on hover."
+      },
+      "200": {
+        "value": "#dcdcdc",
+        "description": "Figma gray/200. The rule under a row of tabs, and a placeholder behind a live caret."
+      },
+      "300": {
+        "value": "#b6b6b6",
+        "description": "Figma gray/300. The rule that stands a metadata pair off from the one beside it."
+      },
+      "400": {
+        "value": "#9d9d9d",
+        "description": "Figma gray/400. A tab nobody has chosen, and the count beside a list header label."
+      },
+      "500": {
+        "value": "#878787",
+        "description": "Figma gray/500. Placeholder text and field metadata."
+      },
+      "600": {
+        "value": "#707070",
+        "description": "Figma gray/600. A tab under the pointer, and the count beside a tab."
+      },
+      "700": {
+        "value": "#5a5a5a",
+        "description": "Figma gray/700. The label on a white tag."
+      },
+      "800": {
+        "value": "#434343",
+        "description": "Figma gray/800. The label on a warm gray tag."
+      },
+      "900": {
+        "value": "#2d2d2d",
+        "description": "Figma gray/900. A small link under the pointer."
+      },
+      "1000": {
+        "value": "#161616",
+        "description": "Figma gray/1000. Ink: text, primary fill, every stroke."
+      },
+      "2000": {
+        "value": "#000000",
+        "description": "Figma gray/2000. Hover only. Nothing rests on it."
+      },
+      "alpha-500": {
+        "value": "#16161680",
+        "description": "Figma gray-alpha/500. Ink at half strength, drawn as a real fill rather than as an opacity on the node."
+      }
+    },
+    "warm-neutrals": {
+      "200": {
+        "value": "#eeebe8",
+        "description": "Figma warm/200. The fill behind a tag on an index item row. One step lighter than warm-neutrals/300, which is the standalone tag's fill."
+      },
+      "300": {
+        "value": "#e8e4e1",
+        "description": "Figma warm-neutrals/300. Nav hover, and the warm gray tag."
+      },
+      "400": {
+        "value": "#ccc7c4",
+        "description": "Figma warm-neutrals/400. The warm gray notification fill, one step darker than the warm gray tag."
+      },
+      "600": {
+        "value": "#807d70",
+        "description": "Figma warm-neutrals/600. A small link at rest."
+      },
+      "800": {
+        "value": "#38362d",
+        "description": "Figma warm/800. The mark drawn inside a section banner's apricot panel. The same hex is already carried raw by color.card.warm-dark; that entry predates this ramp step."
+      },
+      "900": {
+        "value": "#222018",
+        "description": "Figma warm-neutrals/900. The heading and the link inside an editorial card."
+      },
+      "1000": {
+        "value": "#18160e",
+        "description": "Figma warm-neutrals/1000. The rule under the current tab."
+      }
+    },
+    "spectrum": {
+      "blue-400": {
+        "value": "#50c9f0",
+        "description": "Figma blue/400. Notification fill."
+      },
+      "green-500": {
+        "value": "#20c376",
+        "description": "Figma green/500. Notification fill."
+      },
+      "yellow-600": {
+        "value": "#eec700",
+        "description": "Figma yellow/600. Notification fill. Core-Yellow on the color page."
+      },
+      "orange-400": {
+        "value": "#f6863a",
+        "description": "Figma orange/400. Notification fill."
+      },
+      "orange-600": {
+        "value": "#eb5824",
+        "description": "Figma orange/600. The ten pixel square that marks an action card. Two steps darker than orange/400."
+      },
+      "forest": {
+        "value": "#00733d",
+        "description": "Figma spectrum/forest. The running tally under an action card's subtitle."
+      },
+      "red": {
+        "value": "#e44024",
+        "description": "Figma spectrum/red. The square that marks a category on a base card."
+      },
+      "pink": {
+        "value": "#ffc4ff",
+        "description": "Figma spectrum/pink. The panel behind the second editorial card."
+      },
+      "cyan": {
+        "value": "#7dedf6",
+        "description": "Figma spectrum/cyan. The fill behind an editorial card."
+      },
+      "lemon": {
+        "value": "#f7ec50",
+        "description": "Figma spectrum/lemon. The third card carousel slide fill."
+      },
+      "lime": {
+        "value": "#acee48",
+        "description": "Figma spectrum/lime. The fourth card carousel slide fill."
+      },
+      "apricot": {
+        "value": "#ff944a",
+        "description": "Figma spectrum/apricot. The panel behind a callout. Not the second editorial card, which is spectrum/pink."
+      },
+      "crimson": {
+        "value": "#a02e21",
+        "description": "Figma spectrum/crimson. The only error color in the library."
+      },
+      "violet": {
+        "value": "#4e00d4",
+        "description": "Figma spectrum/violet. One of the squares that marks a story in a mega menu."
+      }
+    },
+    "accent": {
+      "blue": {
+        "value": "#23a5e9",
+        "description": "Brand blue. In the wordmark artwork."
+      },
+      "orange": {
+        "value": "#f06c13",
+        "description": "Brand orange. In the wordmark artwork."
+      },
+      "yellow": {
+        "value": "#eec700",
+        "description": "Brand yellow. In the wordmark artwork, and the yellow notification fill."
+      },
+      "green": {
+        "value": "#00a43d",
+        "description": "Brand green. In the wordmark artwork."
+      },
+      "magenta": {
+        "value": "#ea5699",
+        "description": "Brand magenta. In the wordmark artwork, and the pink notification fill."
+      }
+    },
+    "text": {
+      "tally": {
+        "value": "{color.spectrum.forest}",
+        "description": "A running count of people who have already acted, under an action card's subtitle. Green because it reports progress, not because it reports success."
+      },
+      "count": {
+        "value": "{color.gray.400}",
+        "description": "The count beside a list header label. Figma draws gray/400 here, a step lighter than the count beside a tab."
+      },
+      "default": {
+        "value": "{color.gray.1000}",
+        "description": "Body, headings, and any control on a light fill."
+      },
+      "inverse": {
+        "value": "{color.gray.0}",
+        "description": "Text on an ink fill."
+      },
+      "subtle": {
+        "value": "{color.gray.500}",
+        "description": "Placeholder text and field metadata."
+      },
+      "muted": {
+        "value": "{color.gray.700}",
+        "description": "The label on a white tag."
+      },
+      "quiet": {
+        "value": "{color.gray.800}",
+        "description": "The label on a warm gray tag."
+      },
+      "link": {
+        "value": "{color.gray.600}",
+        "description": "A small link at rest. The handoff file binds gray/600 on 7056:2718, not the warm gray the old library used."
+      },
+      "link-hover": {
+        "value": "{color.gray.900}",
+        "description": "A small link under the pointer."
+      },
+      "placeholder-focus": {
+        "value": "{color.gray.200}",
+        "description": "The placeholder behind a live caret. Lighter than the resting placeholder on purpose."
+      },
+      "error": {
+        "value": "{color.spectrum.crimson}",
+        "description": "The message under a field that failed."
+      },
+      "heading": {
+        "value": "#1c1b1a",
+        "description": "A heading inside a banner. Drawn as a flat fill in the design file, a shade off the ink used for body text."
+      },
+      "warm": {
+        "value": "{color.warm-neutrals.1000}",
+        "description": "A link inside a banner. Warmer than the ink around it."
+      },
+      "inactive": {
+        "value": "{color.gray.400}",
+        "description": "A tab nobody has chosen."
+      },
+      "heading-quiet": {
+        "value": "{color.gray.900}",
+        "description": "Figma gray/900. The subheading under a text-group heading, and the category name on an intro card. One step off ink, because the heading above it is what carries the page."
+      },
+      "warm-heading": {
+        "value": "{color.warm-neutrals.900}",
+        "description": "The heading and the link inside an editorial card, which sits on a saturated fill rather than on paper."
+      },
+      "meta": {
+        "value": "{color.gray.600}",
+        "description": "A tab under the pointer, and the count beside a tab."
+      },
+      "inverse-quiet": {
+        "value": "{color.gray.200}",
+        "description": "The subheading under an inverse heading on media. A step down from white so the heading still leads."
+      },
+      "quote-mark": {
+        "value": "{color.accent.blue}",
+        "description": "The opening and closing quotation marks around a pull quote. Figma spectrum/core-blue on 9888:42732, the only place a run of body ink is broken by a brand color."
+      },
+      "unread": {
+        "value": "{color.gray.alpha-500}",
+        "description": "The run of a statement the reader has not reached yet, in meet-mozilla. Half-strength ink beside the same ink at full, so the two read as one sentence filling in."
+      }
+    },
+    "surface": {
+      "default": {
+        "value": "{color.gray.0}",
+        "description": "Page background."
+      },
+      "raised": {
+        "value": "{color.gray.100}",
+        "description": "Panels above the page."
+      },
+      "raised-hover": {
+        "value": "#f0f0f0",
+        "description": "A gray panel or control under the pointer. Drawn as a raw hex in the design file, one step under gray/100, with no variable behind it."
+      },
+      "inverse": {
+        "value": "{color.gray.1000}",
+        "description": "Ink fill under inverse text."
+      },
+      "inverse-hover": {
+        "value": "{color.gray.2000}",
+        "description": "An ink fill under the pointer."
+      },
+      "quiet-hover": {
+        "value": "{color.warm-neutrals.300}",
+        "description": "A transparent control under the pointer."
+      },
+      "field": {
+        "value": "{color.gray.0}",
+        "description": "The inside of an input."
+      },
+      "selected": {
+        "value": "rgba(35, 165, 233, 0.15)",
+        "description": "The fill behind a chosen choice chip. Brand blue at 15 percent, drawn as a flat fill in the design file."
+      },
+      "media": {
+        "value": "#00943d",
+        "description": "The backing behind a thumbnail image. Drawn as a flat fill in the design file, one step off the brand green."
+      },
+      "ghost": {
+        "value": "rgba(255, 255, 255, 0.2)",
+        "description": "The fill of a ghost icon button. White at 20 percent, drawn as a flat fill in the design file, so the surface underneath reads through it."
+      },
+      "ghost-hover": {
+        "value": "rgba(255, 255, 255, 0.4)",
+        "description": "A ghost icon button under the pointer. White at 40 percent, drawn as a flat fill in the design file."
+      },
+      "scrim": {
+        "value": "rgba(0, 0, 0, 0.3)",
+        "description": "The darkening laid over pre-footer media so white text holds against it. Black at 30 percent, drawn as a second flat fill above the media fill in the design file."
+      }
+    },
+    "tag": {
+      "warm-grey-soft": {
+        "value": "{color.warm-neutrals.200}",
+        "description": "Figma warm/200. The fill behind a tag drawn on an index item row."
+      },
+      "white": {
+        "value": "{color.gray.0}",
+        "description": "Tag fill on a colored or photographic background."
+      },
+      "warm-grey": {
+        "value": "{color.warm-neutrals.300}",
+        "description": "Tag fill on paper."
+      },
+      "warm-grey-loud": {
+        "value": "{color.warm-neutrals.400}",
+        "description": "Notification fill on paper. A step darker than the warm gray tag fill, because a notification is not quiet."
+      },
+      "yellow": {
+        "value": "{color.accent.yellow}",
+        "description": "Notification fill. Figma spectrum/core-yellow."
+      },
+      "blue": {
+        "value": "{color.accent.blue}",
+        "description": "Notification fill. Figma spectrum/core-blue."
+      },
+      "green": {
+        "value": "{color.accent.green}",
+        "description": "Notification fill. Figma spectrum/core-green."
+      },
+      "orange": {
+        "value": "{color.accent.orange}",
+        "description": "Notification fill. Figma spectrum/core-orange."
+      },
+      "pink": {
+        "value": "{color.accent.magenta}",
+        "description": "Notification fill. Figma spectrum/core-magenta."
+      },
+      "marker-highlight": {
+        "value": "{color.accent.green}",
+        "description": "Figma spectrum/core-green on 9957:7. The ten pixel square that marks a highlight in a big label."
+      }
+    },
+    "card": {
+      "cyan": {
+        "value": "{color.spectrum.cyan}",
+        "description": "Editorial card fill."
+      },
+      "apricot": {
+        "value": "{color.spectrum.apricot}",
+        "description": "The panel behind a callout block. Named for the card group it sits in; no editorial card uses it."
+      },
+      "lime": {
+        "value": "{color.spectrum.lime}",
+        "description": "Figma spectrum/lime. A card carousel slide fill. Was a raw hex; the file binds the variable."
+      },
+      "lemon": {
+        "value": "{color.spectrum.lemon}",
+        "description": "Figma spectrum/lemon. A card carousel slide fill."
+      },
+      "pink": {
+        "value": "{color.spectrum.pink}",
+        "description": "Figma spectrum/pink. The panel behind the second editorial card, and an article carousel slide fill."
+      },
+      "ochre": {
+        "value": "#ee9d00",
+        "description": "Article carousel slide fill."
+      },
+      "warm-dark": {
+        "value": "#38362d",
+        "description": "Article carousel slide fill for inverse text."
+      },
+      "marker": {
+        "value": "{color.accent.blue}",
+        "description": "Figma spectrum/core-blue. The ten pixel square beside a featured item inside an expanded index item, and beside a story in a mega menu."
+      },
+      "marker-category": {
+        "value": "{color.spectrum.red}",
+        "description": "Figma spectrum/red. The ten pixel chip beside a base card's headline, which is what turns that card into a category intro."
+      },
+      "marker-action": {
+        "value": "{color.accent.orange}",
+        "description": "Figma spectrum/core-orange. The ten pixel square above a CTA card's headline."
+      },
+      "marker-campaign": {
+        "value": "{color.spectrum.orange-600}",
+        "description": "Figma orange/600. The ten pixel square beside an action card's title. A fourth marker ink: darker than the CTA card's core-orange."
+      },
+      "meta-rule": {
+        "value": "{color.spectrum.orange-400}",
+        "description": "Figma spectrum/orange-400. The one pixel vertical rule that leads the meta line on a portrait card."
+      },
+      "image-ground": {
+        "value": "{color.warm-neutrals.300}",
+        "description": "Figma warm/300. The ground a portrait card's image multiplies against, which warms the photograph."
+      }
+    },
+    "icon": {
+      "quiet": {
+        "value": "{color.gray.300}",
+        "description": "The chevron on a mobile menu row. Quiet enough that the row title carries the weight."
+      }
+    },
+    "footer": {
+      "ink-soft": {
+        "value": "{color.gray.900}",
+        "description": "Figma gray/900. The footer draws three things one step off ink: the Donate fill, the ten pixel organization marker and the five social glyphs. Every other primary button in the system is drawn on gray/1000."
+      }
+    },
+    "border": {
+      "default": {
+        "value": "{color.gray.1000}",
+        "description": "Every stroke in the library is ink at one width."
+      },
+      "focus": {
+        "value": "{color.gray.1000}",
+        "description": "Focus ring."
+      },
+      "selected": {
+        "value": "{color.accent.blue}",
+        "description": "The stroke around a chosen choice chip."
+      },
+      "error": {
+        "value": "{color.spectrum.crimson}",
+        "description": "The underline of a field that failed."
+      },
+      "rule": {
+        "value": "{color.warm-neutrals.1000}",
+        "description": "The hairline under the current tab. Warmer and darker than the ink used for strokes on controls."
+      },
+      "meta": {
+        "value": "{color.gray.300}",
+        "description": "The upright rule beside a metadata pair. Darker than subtle, because it stands beside text rather than under it."
+      },
+      "subtle": {
+        "value": "{color.gray.200}",
+        "description": "The hairline under a whole row of tabs. It runs behind the current tab's own rule."
+      }
+    },
+    "banner": {
+      "ground": {
+        "value": "{color.spectrum.apricot}",
+        "description": "The apricot ground of a section banner. Type=Modular Image Fill draws it as the mark panel; Type=Multicolor Collage draws it behind the whole banner."
+      },
+      "mark": {
+        "value": "{color.warm-neutrals.800}",
+        "description": "The mark inside a section banner's apricot panel. Recorded for the system; the shipped value lives inside banner/assets/mark.svg."
+      },
+      "band": {
+        "value": "{color.accent.orange}",
+        "description": "Figma spectrum/core-orange. The two bands of the Multicolor Collage banner. Recorded for the system; the shipped value lives inside banner/assets/collage-band.svg."
+      },
+      "band-overlap": {
+        "value": "{color.spectrum.red}",
+        "description": "Where the collage banner's two bands cross. Recorded for the system; the shipped value lives inside banner/assets/collage-overlap.svg."
+      }
+    },
+    "orbit": {
+      "ground": {
+        "value": "{color.gray.100}",
+        "description": "Figma gray/100. The ground of an orbit section, drawn on both breakpoint symbols of 10279:37928. Named rather than taken from surface.raised, because this is a full-bleed band and not a panel above the page."
+      }
+    },
+    "section": {
+      "ground": {
+        "value": "{color.gray.100}",
+        "description": "Figma gray/100. The ground of a section band, drawn on all ten variant cells of layout/section-master 9470:11913. Named rather than taken from surface.raised for the reason orbit.ground gives: a full-bleed band is not a panel above the page."
+      }
+    },
+    "hero-secondary-2": {
+      "motif-lime": {
+        "value": "{color.spectrum.lime}",
+        "description": "The larger of the two diamonds in the secondary-2 hero motif. Figma spectrum/lime. Recorded for the system; the shipped value lives inside heros/secondary-2/assets/diamonds.svg."
+      },
+      "motif-green": {
+        "value": "{color.accent.green}",
+        "description": "The smaller, leading diamond in the secondary-2 hero motif. Figma spectrum/core-green. Recorded for the system; the shipped value lives inside heros/secondary-2/assets/diamonds.svg."
+      },
+      "motif-overlap": {
+        "value": "{color.spectrum.forest}",
+        "description": "Where the secondary-2 hero's two diamonds cross. Figma spectrum/forest, drawn as a third boolean shape rather than a blend of the two fills. Recorded for the system; the shipped value lives inside heros/secondary-2/assets/diamonds.svg."
+      }
+    }
+  },
+  "$meta": {
+    "provenance": "figma 4LGXunuoHeSygfrdHwr8D3, variables on nodes 8704:26909 (button), 7056:2720 (link), 7666:4533 (tag), 7666:4776 (thumbnail), 7714:3363 (notification-banner), 7224:378 (wordmark), 9377:10398 (input), 8704:24780 (tab-link), 9474:13372 (tab-divider), 9565:47358 (radio), 9565:47413 (button primary-grey), 8642:18812 (cards), 9687:21588 (icon-button)",
+    "verified": true,
+    "note": "Values added or corrected during the 2026-09-10 re-extraction come from the handoff file T23KVRqZcCFU8MZxPnVDqD, not from the library file named above. The gray ramp lists the steps the components use. The remaining steps are drawn on the color page in the design file and are not part of the token layer yet."
+  }
+}
