@@ -167,8 +167,17 @@ class Command(BaseCommand):
         total_fields = 0
 
         for model in apps.get_models():
-            richtext_fields = [f.name for f in model._meta.get_fields() if isinstance(f, RichTextField)]
-            streamfield_fields = [f.name for f in model._meta.get_fields() if isinstance(f, StreamField)]
+            # Only fields stored in this model's own table. A field declared on a concrete
+            # ancestor is handled when that ancestor is iterated, whose queryset already
+            # returns every descendant row, so skipping it here drops duplicate visits
+            # without losing coverage.
+            fields = [
+                f
+                for f in model._meta.get_fields()
+                if isinstance(f, (RichTextField, StreamField)) and f.model._meta.db_table == model._meta.db_table
+            ]
+            richtext_fields = [f.name for f in fields if isinstance(f, RichTextField)]
+            streamfield_fields = [f.name for f in fields if isinstance(f, StreamField)]
 
             if not richtext_fields and not streamfield_fields:
                 continue
