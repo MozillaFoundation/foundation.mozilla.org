@@ -1,23 +1,37 @@
+import re
+
 from django.apps import apps
 from django.core.management.base import BaseCommand
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import RevisionMixin
 
-# Order matters: the combined-class variants must be replaced before the
-# single-class ones, otherwise a combined match leaves a stray "rich-text-large"
-# plus a leftover single legacy class behind.
-REPLACEMENTS = [
-    ("tw-body-large body-text-large", "rich-text-large"),
-    ("body-text-large tw-body-large", "rich-text-large"),
-    ("tw-body-large", "rich-text-large"),
-    ("body-text-large", "rich-text-large"),
-]
+CHUNK_SIZE = 500
+
+LEGACY_CLASSES = {"tw-body-large", "body-text-large"}
+NEW_CLASS = "rich-text-large"
+
+# Anchored to class attributes so the legacy names are left alone in body copy. The
+# optional backslash covers StreamField values stored as JSON strings in revision
+# content, where the surrounding quotes arrive escaped.
+CLASS_ATTR_RE = re.compile(r"""(class=)(\\?["'])(.*?)\2""")
+
+
+def _rewrite_class_attr(match):
+    prefix, quote, class_list = match.groups()
+    tokens = class_list.split()
+    if not any(token in LEGACY_CLASSES for token in tokens):
+        return match.group(0)
+
+    rewritten = []
+    for token in tokens:
+        token = NEW_CLASS if token in LEGACY_CLASSES else token
+        if token not in rewritten:
+            rewritten.append(token)
+    return f"{prefix}{quote}{' '.join(rewritten)}{quote}"
 
 
 def replace_legacy_classes(text):
-    for old, new in REPLACEMENTS:
-        text = text.replace(old, new)
-    return text
+    return CLASS_ATTR_RE.sub(_rewrite_class_attr, text)
 
 
 def rewrite_stream_data(data):
@@ -87,44 +101,54 @@ class Command(BaseCommand):
             if not richtext_fields and not streamfield_fields:
                 continue
 
+            queryset = model._default_manager.all()
+            if issubclass(model, RevisionMixin):
+                # get_latest_revision() just reads this FK, so join it instead of
+                # querying once per object.
+                queryset = queryset.select_related("latest_revision")
+
             # Collect pks up front, as a finished query, instead of streaming rows with
             # .iterator() while we write to the same table from inside the loop.
             pks = list(model._default_manager.all().values_list("pk", flat=True))
 
-            for pk in pks:
-                obj = model._default_manager.get(pk=pk)
-                changed_fields = []
+            for start in range(0, len(pks), CHUNK_SIZE):
+                chunk = pks[start : start + CHUNK_SIZE]
 
-                for field_name in richtext_fields:
-                    value = getattr(obj, field_name)
-                    if not value:
+                for obj in queryset.filter(pk__in=chunk):
+                    updates = {}
+
+                    for field_name in richtext_fields:
+                        value = getattr(obj, field_name)
+                        if not value:
+                            continue
+                        new_value = replace_legacy_classes(value)
+                        if new_value != value:
+                            updates[field_name] = new_value
+
+                    for field_name in streamfield_fields:
+                        # raw_data is a RawDataView, not a list, so materialize it before
+                        # rewriting or nothing matches and nothing compares unequal.
+                        raw_data = list(getattr(obj, field_name).raw_data)
+                        new_raw_data = rewrite_stream_data(raw_data)
+                        if new_raw_data != raw_data:
+                            updates[field_name] = new_raw_data
+
+                    revision_changed = fix_latest_revision(obj, richtext_fields + streamfield_fields, dry_run)
+
+                    if not updates and not revision_changed:
                         continue
-                    new_value = replace_legacy_classes(value)
-                    if new_value != value:
-                        setattr(obj, field_name, new_value)
-                        changed_fields.append(field_name)
 
-                for field_name in streamfield_fields:
-                    stream = getattr(obj, field_name)
-                    raw_data = stream.raw_data
-                    new_raw_data = rewrite_stream_data(raw_data)
-                    if new_raw_data != raw_data:
-                        setattr(obj, field_name, new_raw_data)
-                        changed_fields.append(field_name)
+                    total_objects += 1
+                    total_fields += len(updates)
+                    verb = "Would update" if dry_run else "Updating"
+                    detail = ", ".join(updates) or "(latest revision only)"
+                    self.stdout.write(f"{verb} {model._meta.label} pk={obj.pk}: {detail}")
 
-                revision_changed = fix_latest_revision(obj, richtext_fields + streamfield_fields, dry_run)
-
-                if not changed_fields and not revision_changed:
-                    continue
-
-                total_objects += 1
-                total_fields += len(changed_fields)
-                verb = "Would update" if dry_run else "Updating"
-                detail = ", ".join(changed_fields) or "(latest revision only)"
-                self.stdout.write(f"{verb} {model._meta.label} pk={obj.pk}: {detail}")
-
-                if not dry_run and changed_fields:
-                    obj.save(update_fields=changed_fields)
+                    if not dry_run and updates:
+                        # Writes the column directly: Page.save() would run full_clean() and
+                        # abort the run on any page that no longer validates, and assigning a
+                        # StreamField drops blocks whose type is gone from the code.
+                        model._default_manager.filter(pk=obj.pk).update(**updates)
 
         summary = (
             f"{'Would update' if dry_run else 'Updated'} {total_fields} field(s) across {total_objects} object(s)."
