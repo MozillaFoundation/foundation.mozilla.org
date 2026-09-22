@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "sass:meta";
+@import "settings/tokens";
 
 @mixin image-hover-zoom($scale: 1.05, $duration: 0.3s) {
   overflow: hidden;
@@ -185,6 +186,20 @@
 
 @mixin block-wrapper($block-type) {
   .streamfield-block-wrapper[data-block-type="#{$block-type}"] {
+    @content;
+  }
+}
+
+// ===================================
+// Redesign Token Mixins
+// ===================================
+
+// New/reskinned redesign components are authored desktop-first, matching LP's
+// design system: base rules are the desktop styling, this mixin wraps the
+// mobile override. calc() defers the unit math to the browser since Sass
+// can't subtract px from the token's rem value directly.
+@mixin mobile-only {
+  @media (width <= calc(#{map.get($tokens, "size-breakpoint-mobile")} - 1px)) {
     @content;
   }
 }
