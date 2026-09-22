@@ -481,7 +481,7 @@
     }
   },
   "$meta": {
-    "provenance": "figma 4LGXunuoHeSygfrdHwr8D3, variables on nodes 8704:26909 (button), 7056:2720 (link), 7666:4533 (tag), 7666:4776 (thumbnail), 7714:3363 (notification-banner), 7224:378 (wordmark), 9377:10398 (input), 8704:24780 (tab-link), 9474:13372 (tab-divider), 9565:47358 (radio), 9565:47413 (button primary-grey), 8642:18812 (cards), 9687:21588 (icon-button)",
+    "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, variables on nodes 8704:26909 (button), 7056:2720 (link), 7666:4533 (tag), 7666:4776 (thumbnail), 7714:3363 (notification-banner), 7224:378 (wordmark), 9377:10398 (input), 8704:24780 (tab-link), 9474:13372 (tab-divider), 9565:47358 (radio), 9565:47413 (button primary-grey), 9918:36934 (editorial card), 9687:21588 (icon-button)",
     "verified": true,
     "note": "Values added or corrected during the 2026-09-10 re-extraction come from the handoff file T23KVRqZcCFU8MZxPnVDqD, not from the library file named above. The gray ramp lists the steps the components use. The remaining steps are drawn on the color page in the design file and are not part of the token layer yet."
   }

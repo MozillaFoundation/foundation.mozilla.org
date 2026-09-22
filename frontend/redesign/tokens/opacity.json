@@ -3,5 +3,5 @@
     "disabled": { "value": "0.38", "description": "The whole control fades. Fill, text and stroke are unchanged, which is why every variant disables the same way." },
     "quiet": { "value": "0.4", "description": "Figma 9957:3. The number in a big label, set back from the word beside it." }
   },
-  "$meta": { "provenance": "figma 4LGXunuoHeSygfrdHwr8D3, node 9364:22 and siblings", "verified": true }
+  "$meta": { "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, node 9364:22 and siblings", "verified": true }
 }
