@@ -1,6 +1,5 @@
 @use "sass:map";
 @use "sass:meta";
-
 @import "settings/tokens";
 
 @mixin image-hover-zoom($scale: 1.05, $duration: 0.3s) {
@@ -200,7 +199,7 @@
 // mobile override. calc() defers the unit math to the browser since Sass
 // can't subtract px from the token's rem value directly.
 @mixin mobile-only {
-  @media (max-width: calc(#{map.get($tokens, "size-breakpoint-mobile")} - 1px)) {
+  @media (width <= calc(#{map.get($tokens, "size-breakpoint-mobile")} - 1px)) {
     @content;
   }
 }
