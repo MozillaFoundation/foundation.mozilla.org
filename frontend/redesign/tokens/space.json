@@ -20,5 +20,5 @@
     "148": { "value": "148px", "description": "Figma section/horz. Inline padding on a section at desktop width." },
     "200": { "value": "200px", "description": "Figma section/vert-large. Block padding on a section at desktop width when padding is large." }
   },
-  "$meta": { "provenance": "figma 4LGXunuoHeSygfrdHwr8D3, variables on nodes 8704:26909, 7666:4533, 9377:10398, 7878:2341; steps 72, 148 and 200 from figma T23KVRqZcCFU8MZxPnVDqD, node 9470:11913", "verified": true }
+  "$meta": { "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, variables on nodes 8704:26909, 7666:4533, 9377:10398, 7878:2341; steps 72, 148 and 200 from node 9470:11913", "verified": true }
 }
