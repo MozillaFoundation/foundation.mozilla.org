@@ -69,9 +69,21 @@
         "value": "215px",
         "description": "The portrait image on a carousel portrait slide under the pointer."
       },
+      "editorial-portrait-block": {
+        "value": "511.33px",
+        "description": "Figma 10032:2. The height the second editorial card is drawn at. Its column is space-between against this, so the height is what sets the spacing rather than a gap."
+      },
+      "editorial-portrait-block-mobile": {
+        "value": "408px",
+        "description": "Figma 10032:37. The height the second editorial card is drawn at below the mobile breakpoint."
+      },
       "editorial-overscan": {
         "value": "1.0425",
         "description": "How far an editorial card's image grows past its box under the pointer. The file draws 335 inside 321.33."
+      },
+      "editorial-grow": {
+        "value": "13.67px",
+        "description": "How much the first editorial card grows its image box under the pointer. Figma 9918:36934 draws 335 against the resting 321.33. The headline gives up the same amount above the link, so the card and the link do not move."
       },
       "portrait-image-mobile": {
         "value": "80px",
@@ -132,10 +144,6 @@
       "section-block-mobile": {
         "value": "120px",
         "description": "Vertical padding on a carousel section below the mobile breakpoint."
-      },
-      "image-overscan": {
-        "value": "7px",
-        "description": "How far an editorial carousel slide's image grows past its box under the pointer."
       }
     },
     "blockquote": {
@@ -194,6 +202,12 @@
       "dot": {
         "value": "4px",
         "description": "The square separating the title from the link on the engagement banner. Figma 9381:16871, drawn 4 by 4 with no corner radius. Desktop only."
+      }
+    },
+    "content": {
+      "max": {
+        "value": "1144px",
+        "description": "The widest a section's content is drawn. The handoff file draws every desktop screen on a 1440 frame with section/horz 148 on each side, so 1440 minus 296 is the content column every desktop block is measured inside, including the 1144 the primary hero's 800px headline maximum sits in. Above 1440 the file draws nothing, so the section holds the content at this width and lets the margins take the surplus."
       }
     },
     "breakpoint": {
@@ -478,7 +492,7 @@
     }
   },
   "$meta": {
-    "provenance": "figma 4LGXunuoHeSygfrdHwr8D3, nodes 8704:26909 (button), 7666:4776 (thumbnail), 7714:3363 (notification-banner), 8704:28131 (logo), 7224:378 (wordmark), 8556:12262 (accordion), 9687:21588 (icon-button); group orbit from figma T23KVRqZcCFU8MZxPnVDqD, node 10279:37928",
+    "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, nodes 8704:26909 (button), 7666:4776 (thumbnail), 7714:3363 (notification-banner), 8704:28131 (logo), 7224:378 (wordmark), 8556:12262 (accordion), 9687:21588 (icon-button); group orbit from node 10279:37928",
     "verified": true
   }
 }
