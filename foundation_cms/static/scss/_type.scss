@@ -13,7 +13,7 @@ $font-weights: (
   light: map.get($tokens, "font-weight-light"),
   regular: map.get($tokens, "font-weight-regular"),
   semibold: map.get($tokens, "font-weight-semibold"),
-  bold: map.get($tokens, "font-weight-bold"),
+  bold: map.get($tokens, "font-weight-bold")
 );
 
 /* stylelint-disable-next-line scss/dollar-variable-colon-space-after --
