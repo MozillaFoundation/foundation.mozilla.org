@@ -28,6 +28,8 @@ jobs:
         run: yarn workspace legacy lint
       - name: Run JS/SCSS linting for redesigned site
         run: yarn workspace redesign lint
+      - name: Verify generated token files are up to date
+        run: yarn workspace redesign check:tokens
       - name: Check JS/SCSS formatting for redesigned site
         run: yarn workspace redesign check-format
 

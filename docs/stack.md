@@ -24,6 +24,18 @@ All new CSS work should try to replace all use of Bootstrap and custom classes b
 For more complex components, there is also `tailwind-plugins/components.js`.
 We are also using `tailwind-plugins/components.js` to define Tailwind equivalents of Bootstrap classes (e.g. `.container` and `.row`).
 
+## Design tokens (redesign frontend)
+
+The redesign frontend's colors, type, spacing, and other design values come from `frontend/redesign/tokens/*.json`, vendored from the design team's token deliverable.
+Run `yarn build:tokens` (from `frontend/redesign`) to generate two committed files from that JSON:
+
+- `foundation_cms/static/scss/_tokens.scss`: CSS custom properties, for runtime use in component CSS.
+- `foundation_cms/static/scss/settings/_tokens.scss`: a Sass `$tokens` map, for anything needing a real value at compile time, like a breakpoint.
+
+This does not run automatically. `docker compose up`, and `yarn dev`/`watch:css` within it, never call `build:tokens`, they just compile whatever `.scss` is already checked out. Since the two generated files are committed, a normal `git pull` keeps them current without needing to regenerate anything.
+
+If you edit a token JSON file, run `yarn build:tokens` yourself and commit the regenerated output alongside your JSON change. CI's `check:tokens` check regenerates and diffs against what's committed, so a JSON change without a matching regeneration fails the build.
+
 ## React
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
