@@ -38,7 +38,6 @@ CODE_REPO="foundation_cms/"
 FOLDERS=(
   "locale/"
   "legacy_apps/locale/"
-  "legacy_apps/templates/pages/buyersguide/about/locale/"
   "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale/"
   "legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2021/locale/"
   "legacy_apps/wagtailpages/templates/wagtailpages/pages/youtube-regrets-2022/locale/"
