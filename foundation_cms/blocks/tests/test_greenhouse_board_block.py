@@ -6,10 +6,13 @@ from wagtail.blocks import StreamBlockValidationError
 from foundation_cms.base.models.abstract_base_page import BASE_BLOCK_NAMES
 from foundation_cms.base.models.abstract_general_page import GENERAL_PAGE_BLOCK_NAMES
 from foundation_cms.blocks.greenhouse import (
+    CAREERS_PAGE_URL,
+    CORP_CAREERS_URL,
     STATE_BOARD,
     STATE_DEGRADED,
     STATE_EMPTY,
     STATE_UNAVAILABLE,
+    get_careers_url,
 )
 from foundation_cms.blocks.greenhouse_board_block import GreenhouseBoardBlock
 from foundation_cms.core.models import GeneralPage
@@ -27,7 +30,7 @@ COPY = {
 }
 
 
-@override_settings(GREENHOUSE_BOARD_TOKEN="mozilla")
+@override_settings(GREENHOUSE_BOARD_ENABLED=True, GREENHOUSE_BOARD_TOKEN="mozilla")
 @patch("foundation_cms.blocks.greenhouse_board_block.get_greenhouse_board_state")
 class GreenhouseBoardBlockRenderTests(TestCase):
     def render(self, copy=None, **context):
@@ -151,3 +154,42 @@ class GreenhouseBoardBlockConfigurationTests(TestCase):
             stream_block.clean(two_boards)
 
         self.assertIn("maximum number of items is 1", raised.exception.non_block_errors.as_text())
+
+
+@override_settings(GREENHOUSE_BOARD_TOKEN="mozilla")
+@patch("foundation_cms.blocks.greenhouse_board_block.get_greenhouse_board_state")
+class GreenhouseBoardDisabledTests(TestCase):
+    def render(self):
+        block = GreenhouseBoardBlock()
+        return block.render(block.to_python(COPY), context={"theme": "default"})
+
+    @override_settings(GREENHOUSE_BOARD_ENABLED=False)
+    def test_the_block_renders_nothing_while_the_integration_is_off(self, mock_state):
+        html = self.render()
+
+        self.assertNotIn("greenhouse-board-block", html)
+        self.assertEqual(html.strip(), "")
+
+    @override_settings(GREENHOUSE_BOARD_ENABLED=False)
+    def test_greenhouse_is_never_called_while_the_integration_is_off(self, mock_state):
+        self.render()
+
+        mock_state.assert_not_called()
+
+    def test_the_block_renders_once_the_integration_is_on(self, mock_state):
+        mock_state.return_value = STATE_BOARD
+
+        with override_settings(GREENHOUSE_BOARD_ENABLED=True):
+            html = self.render()
+
+        self.assertIn("greenhouse-board-block", html)
+
+
+class CareersUrlTests(TestCase):
+    @override_settings(GREENHOUSE_BOARD_ENABLED=False)
+    def test_careers_links_point_at_corp_while_the_integration_is_off(self):
+        self.assertEqual(get_careers_url(), CORP_CAREERS_URL)
+
+    @override_settings(GREENHOUSE_BOARD_ENABLED=True)
+    def test_careers_links_point_at_our_page_once_the_integration_is_on(self):
+        self.assertEqual(get_careers_url(), CAREERS_PAGE_URL)

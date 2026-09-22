@@ -54,6 +54,7 @@ env = environ.Env(
     GITHUB_TOKEN=(str, ""),
     GREENHOUSE_BOARD_CACHE_TIMEOUT=(int, 60 * 5),
     GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT=(int, 60),
+    GREENHOUSE_BOARD_ENABLED=(bool, False),
     GREENHOUSE_BOARD_TOKEN=(str, ""),
     HEROKU_APP_NAME=(str, ""),
     HEROKU_BRANCH=(str, ""),
@@ -405,6 +406,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
                         "foundation_cms.context_processor.editable_footer",
+                        "foundation_cms.context_processor.careers_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -824,6 +826,7 @@ PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
 INDEX_PAGE_CACHE_TIMEOUT = env("INDEX_PAGE_CACHE_TIMEOUT")
 
 # Greenhouse job board settings
+GREENHOUSE_BOARD_ENABLED = env("GREENHOUSE_BOARD_ENABLED")
 GREENHOUSE_BOARD_TOKEN = env("GREENHOUSE_BOARD_TOKEN")
 GREENHOUSE_BOARD_CACHE_TIMEOUT = env("GREENHOUSE_BOARD_CACHE_TIMEOUT")
 GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT = env("GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT")

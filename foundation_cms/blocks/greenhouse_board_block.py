@@ -58,6 +58,10 @@ class GreenhouseBoardBlock(BaseBlock):
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
 
+        context["greenhouse_board_enabled"] = settings.GREENHOUSE_BOARD_ENABLED
+        if not settings.GREENHOUSE_BOARD_ENABLED:
+            return context
+
         # The token stays a setting rather than a block field: a typo would take
         # the page down, and a text field in this page's translatable body would
         # reach translators as a string to translate.

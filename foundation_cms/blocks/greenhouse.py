@@ -12,6 +12,11 @@ API_URL = "https://boards-api.greenhouse.io/v1/boards/{token}/jobs"
 EMBED_SCRIPT_URL = "https://boards.greenhouse.io/embed/job_board/js?for={token}"
 HOSTED_BOARD_URL = "https://job-boards.greenhouse.io/{token}"
 
+# Until GREENHOUSE_BOARD_ENABLED is on, Careers links keep pointing at Corp's
+# board, because our own page is not published yet.
+CAREERS_PAGE_URL = "/careers/"
+CORP_CAREERS_URL = "https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation"
+
 STATE_BOARD = "board"
 STATE_EMPTY = "empty"
 STATE_DEGRADED = "degraded"
@@ -67,3 +72,7 @@ def get_greenhouse_board_state(token):
     )
     cache.set(cache_key, state, timeout)
     return state
+
+
+def get_careers_url():
+    return CAREERS_PAGE_URL if settings.GREENHOUSE_BOARD_ENABLED else CORP_CAREERS_URL

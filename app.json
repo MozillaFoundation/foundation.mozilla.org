@@ -20,6 +20,7 @@
     "SSL_REDIRECT": "True",
     "X_FRAME_OPTIONS": "DENY",
     "USE_S3": "True",
+    "GREENHOUSE_BOARD_ENABLED": "True",
     "GREENHOUSE_BOARD_TOKEN": "mozillafoundation",
     "CSP_CHILD_SRC": "'self' https://www.youtube.com https://www.youtube-nocookie.com https://job-boards.greenhouse.io",
     "CSP_CONNECT_SRC": "*",
