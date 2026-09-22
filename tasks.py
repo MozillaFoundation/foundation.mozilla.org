@@ -468,7 +468,8 @@ def lint_html(ctx):
 @task
 def lint_css(ctx):
     """Run CSS linting."""
-    yarn(ctx, "run lint:css")
+    yarn(ctx, "run lint:css")  # stylelint, both legacy and redesign
+    yarn(ctx, "run check-format:css")  # prettier, redesign only
 
 
 @task
@@ -510,7 +511,8 @@ def format_html(ctx):
 @task
 def format_css(ctx):
     """Run css formatting."""
-    yarn(ctx, "run fix:css")
+    yarn(ctx, "run fix:css")  # stylelint --fix, both legacy and redesign
+    yarn(ctx, "run format:css")  # prettier --write, redesign only
 
 
 @task
