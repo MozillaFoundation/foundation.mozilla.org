@@ -6,6 +6,7 @@ from django.template.response import TemplateResponse
 from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import Locale, Page, Site
 from wagtail.search.query import PlainText
+from wagtail.search.utils import normalise_query_string
 
 from foundation_cms.base.models.abstract_base_page import PageTopic
 from foundation_cms.search.models import SearchEvent
@@ -143,7 +144,7 @@ def search(request):
         # Log only on initial submission, not on pagination clicks
         if is_loggable_request:
             SearchEvent.objects.create(
-                query_string=search_query.lower(),
+                query_string=normalise_query_string(search_query),
                 language_code=current_locale.language_code,
                 results_count=total_search_results,
                 is_refinement=is_refinement_request,
