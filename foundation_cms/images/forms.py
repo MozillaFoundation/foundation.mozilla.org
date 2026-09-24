@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 def normalise_extension(file):
     """
     Lowercase the upload's file extension, in place.
-    
     """
     if file is None:
         return file
