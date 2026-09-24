@@ -10,7 +10,7 @@ ARG CI=true
 WORKDIR /app
 
 # Copy root workspace definitions
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 
 # Copy all workspace packages
 COPY frontend/ ./frontend/
