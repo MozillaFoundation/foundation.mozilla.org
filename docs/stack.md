@@ -32,6 +32,8 @@ Run `yarn build:tokens` (from `frontend/redesign`) to generate two committed fil
 - `foundation_cms/static/scss/_tokens.scss`: CSS custom properties, for runtime use in component CSS.
 - `foundation_cms/static/scss/settings/_tokens.scss`: a Sass `$tokens` map, for anything needing a real value at compile time, like a breakpoint.
 
+Motion tokens (`tokens/motion.json`) are the one exception to the naming: they're generated with an `mzf-` prefix, e.g. `--mzf-motion-duration-base`, to match the names LP's own token build writes and its component CSS reads. Every other category is unprefixed, e.g. `--space-32`.
+
 This does not run automatically. `docker compose up`, and `yarn dev`/`watch:css` within it, never call `build:tokens`, they just compile whatever `.scss` is already checked out. Since the two generated files are committed, a normal `git pull` keeps them current without needing to regenerate anything.
 
 If you edit a token JSON file, run `yarn build:tokens` yourself and commit the regenerated output alongside your JSON change. CI's `check:tokens` check regenerates and diffs against what's committed, so a JSON change without a matching regeneration fails the build.

@@ -108,7 +108,21 @@ function loadTokens() {
     flatten(json, "", tokens);
   }
 
-  return resolveRefs(tokens);
+  return prefixMotionTokens(resolveRefs(tokens));
+}
+
+/**
+ * Adds an `mzf-` prefix to motion tokens (--mzf-motion-duration-base), because
+ * that's the name LP's CSS uses for them. Other token categories stay
+ * unprefixed (--space-32). Runs after resolveRefs, because references in the
+ * JSON point at the unprefixed names.
+ */
+function prefixMotionTokens(tokens) {
+  const out = {};
+  for (const [name, value] of Object.entries(tokens)) {
+    out[name.startsWith("motion-") ? `mzf-${name}` : name] = value;
+  }
+  return out;
 }
 
 /**
