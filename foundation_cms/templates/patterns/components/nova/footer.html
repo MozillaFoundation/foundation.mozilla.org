@@ -1,0 +1,10 @@
+{% load wagtailsettings_tags footer_tags %}
+{% get_settings use_default_site=True %}
+{% if EDITABLE_FOOTER %}
+    {% with footer=footer|default:settings.footer.SiteFooterSettings.active_footer %}
+        {% translated_footer footer as localized_footer %}
+        {% include "patterns/components/nova/footer_content.html" with footer=localized_footer %}
+    {% endwith %}
+{% else %}
+    {% include "patterns/components/nova/footer_content.html" with footer=None %}
+{% endif %}

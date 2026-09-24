@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'foundation_cms/_css/nova.compiled.css' %}">
+{% endblock extra_css %}
+
+{% block main_js %}
+    <script src="{% static 'foundation_cms/_js/nova.compiled.js' %}" defer></script>
+{% endblock main_js %}
+
+{% block editable_nav %}
+    {% include "patterns/components/nova/navigation.html" %}
+{% endblock editable_nav %}
+
+{% block breadcrumbs %}
+    {% include "patterns/components/nova/breadcrumbs.html" %}
+{% endblock breadcrumbs %}
+
+{% block footer_block %}
+    {% include "patterns/components/nova/footer.html" %}
+{% endblock footer_block %}
