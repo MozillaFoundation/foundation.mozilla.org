@@ -10,6 +10,7 @@ from wagtail.images.forms import BaseImageForm
 
 from foundation_cms.images.forms import (
     FoundationImageForm,
+    normalise_extension,
     validate_gif_frame_volume,
     validate_gif_upload_size,
 )
@@ -280,3 +281,79 @@ class ScreensBeforeFieldValidationTests(SimpleTestCase):
             form.full_clean()
 
         parent.assert_called_once()
+
+
+class NormaliseExtensionTests(SimpleTestCase):
+    """
+    S3 notification suffix filters are case-sensitive while this app lowercases
+    before comparing, so a `.GIF` reads as a GIF here but never triggers the
+    conversion Lambda.
+    """
+
+    def test_lowercases_a_shouty_extension(self):
+        upload = SimpleUploadedFile("Party.GIF", b"x", content_type="image/gif")
+
+        normalise_extension(upload)
+
+        self.assertEqual(upload.name, "Party.gif")
+
+    def test_leaves_the_stem_alone(self):
+        """Only the extension is matched against; the rest is the editor's."""
+        upload = SimpleUploadedFile("MoFo Party 2026.GIF", b"x")
+
+        normalise_extension(upload)
+
+        self.assertEqual(upload.name, "MoFo Party 2026.gif")
+
+    def test_leaves_a_lowercase_name_untouched(self):
+        upload = SimpleUploadedFile("party.gif", b"x")
+
+        normalise_extension(upload)
+
+        self.assertEqual(upload.name, "party.gif")
+
+    def test_tolerates_a_name_with_no_extension(self):
+        upload = SimpleUploadedFile("party", b"x")
+
+        normalise_extension(upload)
+
+        self.assertEqual(upload.name, "party")
+
+    def test_tolerates_none(self):
+        self.assertIsNone(normalise_extension(None))
+
+
+@override_settings(GIF_MAX_UPLOAD_SIZE=5 * ONE_MB, GIF_MAX_FRAME_VOLUME=10 * ONE_MB)
+class FormNormalisesExtensionTests(SimpleTestCase):
+    """
+    The rename has to happen before the field stores the file, which is the
+    only point at which the storage key -- and so the S3 event -- is decided.
+    """
+
+    def _bind(self, upload):
+        # Same shortcut as ScreensBeforeFieldValidationTests: BaseImageForm's
+        # __init__ wants a collection and a database, and neither matters here.
+        form = FoundationImageForm.__new__(FoundationImageForm)
+        form.is_bound = True
+        form.data = {}
+        form.files = {"file": upload}
+        form.auto_id = "id_%s"
+        form.prefix = None
+        form.initial = {}
+        form.error_class = ErrorList
+        form.label_suffix = ":"
+        form.empty_permitted = False
+        form._errors = None
+        form.fields = {"file": FileField()}
+        form.renderer = get_default_renderer()
+        form._bound_fields_cache = {}
+        return form
+
+    def test_uppercase_upload_is_normalised_before_field_validation(self):
+        upload = _gif_upload("Party.GIF", width=8, height=8, frames=2)
+        form = self._bind(upload)
+
+        with mock.patch.object(BaseImageForm, "full_clean", create=True):
+            form.full_clean()
+
+        self.assertEqual(upload.name, "Party.gif")

@@ -206,3 +206,83 @@ class ConvertedWebpExistsTests(SimpleTestCase):
             webp_utils.converted_webp_exists("images/converted_webp/a.webp")
 
         self.assertEqual(mock_exists.call_count, 2)
+
+
+class DeleteConvertedWebpTests(SimpleTestCase):
+    """
+    The Lambda's output has to be removable without the model knowing about it,
+    because animated_webp is only populated lazily, by a render.
+    """
+
+    @patch.object(webp_utils, "cache")
+    @patch.object(webp_utils, "default_storage")
+    def test_deletes_the_derived_key(self, storage, cache):
+        webp_utils.delete_converted_webp("images/original_images/party.gif")
+
+        storage.delete.assert_called_once_with("images/converted_webp/party.webp")
+
+    @patch.object(webp_utils, "cache")
+    @patch.object(webp_utils, "default_storage")
+    def test_forgets_the_cached_existence_answer(self, storage, cache):
+        webp_utils.delete_converted_webp("party.gif")
+
+        cache.delete.assert_called_once_with("converted-webp-exists:images/converted_webp/party.webp")
+
+    @patch.object(webp_utils, "cache")
+    @patch.object(webp_utils, "default_storage")
+    def test_storage_failure_is_logged_not_raised(self, storage, cache):
+        """A delete must not be blocked by trouble cleaning up after it."""
+        storage.delete.side_effect = OSError("bucket on fire")
+
+        with self.assertLogs("foundation_cms.images.webp.utils", level="WARNING") as logs:
+            webp_utils.delete_converted_webp("party.gif")
+
+        self.assertIn("bucket on fire", logs.output[0])
+        cache.delete.assert_called_once()
+
+
+class ForgetConvertedWebpTests(SimpleTestCase):
+    @patch.object(webp_utils, "cache")
+    def test_drops_the_key_for_the_derived_name(self, cache):
+        webp_utils.forget_converted_webp("images/original_images/party.gif")
+
+        cache.delete.assert_called_once_with("converted-webp-exists:images/converted_webp/party.webp")
+
+
+class ServeOrCreateWebpDimensionTests(SimpleTestCase):
+    """
+    Rendition width and height are NOT NULL. The caller that serves the WebP
+    whole passes neither, which used to write NULL and raise IntegrityError for
+    any spec that is not fill-WxH.
+    """
+
+    def _serve(self, image, **kwargs):
+        fallback = MagicMock()
+        fallback.name = "images/converted_webp/x.webp"
+        fallback.open.return_value.__enter__.return_value.read.return_value = b"webp bytes"
+
+        with (
+            patch.object(webp_utils, "default_storage") as storage,
+            patch.object(webp_utils, "get_or_create_rendition") as create,
+            patch.object(webp_utils, "cache_rendition"),
+        ):
+            storage.exists.return_value = True
+            webp_utils.serve_or_create_webp(image, "original-webp", fallback, **kwargs)
+
+        return create
+
+    def test_falls_back_to_the_source_dimensions(self):
+        image = MagicMock(width=800, height=600)
+        image.renditions.filter.return_value.first.return_value = None
+
+        create = self._serve(image)
+
+        self.assertEqual(create.call_args.args[3:], (800, 600))
+
+    def test_explicit_dimensions_win(self):
+        image = MagicMock(width=800, height=600)
+        image.renditions.filter.return_value.first.return_value = None
+
+        create = self._serve(image, width=100, height=50)
+
+        self.assertEqual(create.call_args.args[3:], (100, 50))

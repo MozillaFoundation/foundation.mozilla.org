@@ -32,6 +32,10 @@ def derive_webp_name(source_name):
     return f"{CONVERTED_WEBP_PREFIX}{stem}.webp"
 
 
+def _exists_cache_key(name):
+    return f"converted-webp-exists:{name}"
+
+
 def converted_webp_exists(name):
     """
     Results are cached to keep a page of GIFs from issuing one S3 HEAD per
@@ -40,7 +44,7 @@ def converted_webp_exists(name):
     Never raises an error: a storage failure reads as "not ready", and the caller falls
     back to serving the unconverted GIF.
     """
-    cache_key = f"converted-webp-exists:{name}"
+    cache_key = _exists_cache_key(name)
     cached = cache.get(cache_key)
     if cached is not None:
         return cached
@@ -56,6 +60,28 @@ def converted_webp_exists(name):
         ttl = getattr(settings, "GIF_WEBP_MISSING_CACHE_SECONDS", 30)
     cache.set(cache_key, exists, ttl)
     return exists
+
+
+def forget_converted_webp(source_name):
+    """
+    Drop the cached existence answer for a source file's derived WebP.
+    """
+    cache.delete(_exists_cache_key(derive_webp_name(source_name)))
+
+
+def delete_converted_webp(source_name):
+    """
+    Delete the WebP the Lambda derives from `source_name`, if it is there.
+
+    Never raises an error -- a failure here must not stop a delete or a save.
+    """
+    name = derive_webp_name(source_name)
+    try:
+        default_storage.delete(name)
+    except Exception as e:
+        logger.warning(f"Could not delete converted WebP {name}: {e}")
+    finally:
+        cache.delete(_exists_cache_key(name))
 
 
 def is_animated_webp(file):
@@ -241,6 +267,12 @@ def serve_or_create_webp(image, spec_str, fallback_file, width=None, height=None
     existing = image.renditions.filter(filter_spec=spec_str).first()
     if existing and existing.file.name.endswith(".webp"):
         return existing
+
+    # A rendition's width and height are NOT NULL. Callers that serve the WebP
+    # whole rather than resizing it have no dimensions to pass, and the source
+    # is the right answer for them: the conversion preserves the GIF's canvas.
+    if width is None or height is None:
+        width, height = image.width, image.height
 
     if not fallback_file or not fallback_file.name or not default_storage.exists(fallback_file.name):
         raise SourceImageIOError(f"WebP fallback file not ready: {fallback_file}")

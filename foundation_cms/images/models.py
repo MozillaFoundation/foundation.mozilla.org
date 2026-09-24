@@ -97,14 +97,86 @@ class FoundationCustomImage(AbstractImage):
     class Meta:
         app_label = "images"
 
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        """
+        Record the file this row was loaded with.
+
+        """
+        instance = super().from_db(db, field_names, values)
+        instance._loaded_file_name = instance.file.name if "file" in field_names else None
+        return instance
+
+    def _delete_file_quietly(self, fieldfile):
+        """Delete a derived file without letting storage trouble break the save."""
+        try:
+            fieldfile.delete(save=False)
+        except Exception as e:
+            logger.warning(f"Could not delete {fieldfile.name} for image {self.pk}: {e}")
+
+    def _delete_path_quietly(self, name):
+        """Delete a storage object by name, for a file no field points at any more."""
+        try:
+            self.file.storage.delete(name)
+        except Exception as e:
+            logger.warning(f"Could not delete {name} for image {self.pk}: {e}")
+
+    def _reset_derived_state_if_file_replaced(self):
+        """
+        Drop everything derived from the previous file when the file changes.
+
+        """
+        previous = getattr(self, "_loaded_file_name", None)
+        if not previous or previous == self.file.name:
+            return ()
+
+        cleared = []
+
+        if self.original_gif:
+            self._delete_file_quietly(self.original_gif)
+            self.original_gif = None
+            cleared.append("original_gif")
+
+        if self.animated_webp:
+            self._delete_file_quietly(self.animated_webp)
+            self.animated_webp = None
+            cleared.append("animated_webp")
+
+        # The Lambda's output for the old GIF may exist even though the field
+        # above was empty, because that field is only populated by a render.
+        if previous.lower().endswith(".gif"):
+            webp_utils.delete_converted_webp(previous)
+
+        self._delete_path_quietly(previous)
+
+        # Renditions of the old file would otherwise be served for the new one.
+        if self.pk:
+            self.renditions.all().delete()
+
+        self.__dict__.pop("animated_webp_ready", None)
+
+        return tuple(cleared)
+
     def save(self, *args, **kwargs):
         """
         Custom self.save() method for when the image is an animated gif.
         Save the image the wagtail way first then extend to generate a .webp file.
         """
+        update_fields = kwargs.get("update_fields")
+
+        # The internal saves below pass update_fields and go straight to
+        # super(), so this only runs for a caller saving the image itself.
+        if update_fields is None or "file" in update_fields:
+            cleared = self._reset_derived_state_if_file_replaced()
+            if cleared and update_fields is not None:
+                kwargs["update_fields"] = list(dict.fromkeys(list(update_fields) + list(cleared)))
 
         # wagtail image save
         super().save(*args, **kwargs)
+
+        if self.file and getattr(self, "_loaded_file_name", None) != self.file.name:
+            webp_utils.forget_converted_webp(self.file.name)
+            self._loaded_file_name = self.file.name
 
         is_gif = self.file and self.file.name.lower().endswith(".gif")
         is_webp = self.file and self.file.name.lower().endswith(".webp")
@@ -192,11 +264,15 @@ class FoundationCustomImage(AbstractImage):
 
             # Conversion failed, or the WebP is not ready.
 
+        # A GIF reaching this point has no WebP to serve.
+        if self.file.name.lower().endswith(".gif"):
+            return PassthroughRendition(self)
+
         try:
             return super().get_rendition(filter_spec)
         except (FileNotFoundError, SourceImageIOError):
             # Gracefully display a missing image if file not found, useful for local w/ prod db
-            return NullRendition(self)
+            return PassthroughRendition(self)
 
     def get_focal_point_key(self):
         """
@@ -217,10 +293,20 @@ class FoundationCustomRendition(AbstractRendition):
         unique_together = (("image", "filter_spec", "focal_point_key"),)
 
 
-class NullRendition:
+class PassthroughRendition:
     """
-    A dummy rendition returned when the actual image file is missing.
-    Prevents Wagtail from crashing on {% image %} tags.
+    A stand-in rendition that points at the source file instead of a resized copy.
+
+    Used for the two cases where Wagtail must not process the source:
+
+    - the file is missing (useful locally against a production database), and
+    - the source is a GIF with no WebP yet, where resizing it in the request is
+      the decode that has to be avoided.
+
+    Dimensions come from the database columns, so nothing here opens the file.
+    The trade-off in the second case is that the browser receives the GIF at
+    its natural size rather than the requested one; it lasts only until the
+    conversion lands.
     """
 
     def __init__(self, image):
@@ -239,6 +325,9 @@ class NullRendition:
 # Receive the pre_delete signal and delete the file associated with the model instance.
 @receiver(pre_delete, sender=FoundationCustomImage)
 def image_delete(sender, instance, **kwargs):
+    # Read before deleting: FieldFile.delete() clears the name it just removed.
+    source_name = instance.file.name or ""
+
     # Pass false so FileField doesn't save the model.
     instance.file.delete(False)
     # Check and also delete derived files
@@ -246,6 +335,13 @@ def image_delete(sender, instance, **kwargs):
         instance.animated_webp.delete(False)
     if instance.original_gif:
         instance.original_gif.delete(False)
+
+    # animated_webp is not a complete record of what the Lambda wrote: on the
+    # async path it is filled in lazily, by a render. An image uploaded and
+    # deleted before anything rendered it has an empty field and a real object
+    # in storage, so ask for the derived key directly.
+    if source_name.lower().endswith(".gif"):
+        webp_utils.delete_converted_webp(source_name)
 
 
 # Receive the pre_delete signal and delete the file associated with the model instance.

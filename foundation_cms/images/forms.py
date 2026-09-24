@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -10,6 +11,22 @@ from wagtail.images.forms import BaseImageForm
 from . import gif
 
 logger = logging.getLogger(__name__)
+
+
+def normalise_extension(file):
+    """
+    Lowercase the upload's file extension, in place.
+    
+    """
+    if file is None:
+        return file
+
+    name = getattr(file, "name", "") or ""
+    stem, ext = os.path.splitext(name)
+    if ext and ext != ext.lower():
+        file.name = stem + ext.lower()
+
+    return file
 
 
 def validate_gif_upload_size(file):
@@ -121,6 +138,7 @@ class FoundationImageForm(BaseImageForm):
         """
         upload = self._uploaded_file()
         if upload is not None:
+            normalise_extension(upload)
             try:
                 validate_gif_upload_size(upload)
                 validate_gif_frame_volume(upload)
@@ -137,5 +155,6 @@ class FoundationImageForm(BaseImageForm):
         # can only see uploads that arrive through self.files; this covers a
         # form driven programmatically. Both validators are idempotent and
         # rewind the file, so running them twice is safe.
-        file = validate_gif_upload_size(self.cleaned_data.get("file"))
+        file = normalise_extension(self.cleaned_data.get("file"))
+        file = validate_gif_upload_size(file)
         return validate_gif_frame_volume(file)
