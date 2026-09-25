@@ -24,6 +24,28 @@ All new CSS work should try to replace all use of Bootstrap and custom classes b
 For more complex components, there is also `tailwind-plugins/components.js`.
 We are also using `tailwind-plugins/components.js` to define Tailwind equivalents of Bootstrap classes (e.g. `.container` and `.row`).
 
+## Design tokens (redesign frontend)
+
+The redesign frontend's colors, type, spacing, and other design values come from `frontend/redesign/tokens/*.json`, vendored from the design team's token deliverable.
+Run `yarn build:tokens` (from `frontend/redesign`) to generate two committed files from that JSON:
+
+- `foundation_cms/static/scss/_tokens.scss`: CSS custom properties, for runtime use in component CSS.
+- `foundation_cms/static/scss/settings/_tokens.scss`: a Sass `$tokens` map, for anything needing a real value at compile time, like a breakpoint.
+
+Motion tokens (`tokens/motion.json`) are the one exception to the naming: they're generated with an `mzf-` prefix, e.g. `--mzf-motion-duration-base`, to match the names LP's own token build writes and its component CSS reads. Every other category is unprefixed, e.g. `--space-32`.
+
+This does not run automatically. `docker compose up`, and `yarn dev`/`watch:css` within it, never call `build:tokens`, they just compile whatever `.scss` is already checked out. Since the two generated files are committed, a normal `git pull` keeps them current without needing to regenerate anything.
+
+If you edit a token JSON file, run `yarn build:tokens` yourself and commit the regenerated output alongside your JSON change. CI's `check:tokens` check regenerates and diffs against what's committed, so a JSON change without a matching regeneration fails the build.
+
+### Using tokens in a reskin
+
+- In component CSS, read a token at runtime with `var(--token-name)`, e.g. `color: var(--color-accent-blue);`.
+- Anywhere that needs a real value at compile time instead of a runtime CSS variable (a Foundation setting override, a media query), use `map.get($tokens, "token-name")`. This requires the file to have its own `@use "sass:map";` and `@import` of the generated `settings/_tokens.scss`, `@use` module access doesn't carry across files the way a plain `@import` does. See `_colors.scss` or `_type.scss` for the pattern.
+- There is one breakpoint, `size-breakpoint-mobile` (768px). Don't route it through Foundation's `breakpoint()` mixin or add it to the `$breakpoints` map, that map's key order is load-bearing for existing `only`/`down` range queries elsewhere in the codebase, and inserting into it can silently change what they resolve to.
+- New and reskinned components should follow LP's design system directly rather than Foundation's grid. After discussing with designers, the 12-column grid isn't part of the site refresh going forward, so there's no grid/token reconciliation to do, just build against the tokens and LP's own component reference.
+- New and reskinned components are authored desktop-first, matching LP's own CSS: unconditional base rules are the desktop styling, and the mobile-specific override is wrapped in the `mobile-only` mixin from `_mixins.scss`. This is the opposite direction from the rest of the codebase, which is mobile-first via Foundation's `breakpoint()` mixin, that's expected since this is new/reskinned work following LP's system rather than an edit to an existing mobile-first component. The mobile-first, Foundation-based implementation is legacy at this point and will go away as components get reskinned.
+
 ## React
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
