@@ -1,74 +1,145 @@
-@use "sass:math";
+// Accordion, reskinned to the Cosmos handoff (Figma 16866:28545, standard
+// variant). Keeps our own markup and JS (a <button> with aria-expanded that
+// animates the panel height), so this is a restyle rather than a port of
+// LP's elements/accordion/item, which is built on <details>/<summary>.
 
-@include block-wrapper("accordion_block") {
-  .rich-text-block {
-    @include breakpoint(large up) {
-      @include grid-column(8);
+// Desktop-first like the rest of Cosmos. The handoff draws the mobile row
+// with the same padding, type and icon sizes as desktop, so there is no
+// mobile override.
+
+.accordion-item {
+  // Raw values from the Figma layer: the plus is drawn 18px wide inside the
+  // 48px box (15px inset each side) with a 2.25px stroke. No token matches.
+  --accordion-glyph-inset: 15px;
+  --accordion-glyph-weight: 2.25px;
+
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+  background-color: transparent;
+  transition: background-color var(--mzf-motion-duration-index-cards-hover-out)
+    var(--mzf-motion-easing-index-cards-collapse);
+
+  // Closed rows sit on whatever is behind them; hover and open lift the row
+  // onto white.
+  &:hover,
+  &:has(.accordion-item__button[aria-expanded="true"]) {
+    background-color: var(--color-surface-default);
+    transition: background-color var(--mzf-motion-duration-index-cards-hover-in)
+      var(--mzf-motion-easing-index-cards-expand);
+  }
+
+  // The padding lives on the button rather than the row, so the whole header
+  // row is clickable and the focus ring outlines all of it.
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-12);
+    inline-size: 100%;
+    padding: var(--space-32);
+    cursor: pointer;
+    text-align: start;
+
+    &:focus-visible {
+      outline: var(--border-width-focus) solid var(--color-border-focus);
+      outline-offset: calc(-1 * var(--border-width-focus));
+    }
+
+    &-text {
+      min-inline-size: 0;
+      color: var(--color-text-default);
+      font-family: var(--font-family-text);
+      font-size: var(--font-size-h4);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-heading);
+    }
+  }
+
+  // Plus drawn from two strokes. The horizontal bar stays put; the vertical
+  // bar turns flat and fades on open, leaving a minus. Gray while closed and
+  // at rest, full ink on hover or open.
+  &__icon {
+    flex: none;
+    position: relative;
+    inline-size: var(--size-icon-xlarge);
+    block-size: var(--size-icon-xlarge);
+    color: var(--color-text-inactive);
+    transition: color var(--mzf-motion-duration-index-cards-hover-out)
+      var(--mzf-motion-easing-index-cards-collapse);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset-block-start: calc(50% - var(--accordion-glyph-weight) / 2);
+      inset-inline: var(--accordion-glyph-inset);
+      border-block-start: var(--accordion-glyph-weight) solid currentcolor;
+    }
+
+    &::after {
+      transform: rotate(-90deg);
+      transition:
+        transform var(--mzf-motion-duration-index-cards-collapse)
+          var(--mzf-motion-easing-index-cards-collapse),
+        opacity var(--mzf-motion-duration-index-cards-collapse)
+          var(--mzf-motion-easing-index-cards-collapse);
+    }
+  }
+
+  &:hover &__icon,
+  &__button[aria-expanded="true"] &__icon {
+    color: var(--color-text-default);
+    transition: color var(--mzf-motion-duration-index-cards-hover-in)
+      var(--mzf-motion-easing-index-cards-expand);
+  }
+
+  &__button[aria-expanded="true"] &__icon::after {
+    opacity: 0;
+    transform: rotate(0deg);
+    transition:
+      transform var(--mzf-motion-duration-index-cards-expand)
+        var(--mzf-motion-easing-index-cards-expand),
+      opacity var(--mzf-motion-duration-index-cards-expand)
+        var(--mzf-motion-easing-index-cards-expand);
+  }
+
+  // Height is animated by accordion_block.js.
+  &__panel {
+    overflow: hidden;
+    height: 0;
+  }
+
+  // The handoff draws 48px between the title and the description. The
+  // button already contributes its 32px bottom padding, so the panel adds
+  // the difference.
+  &__panel-inner {
+    padding: calc(var(--space-48) - var(--space-32)) var(--space-32)
+      var(--space-32);
+    color: var(--color-gray-900);
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-body);
+
+    // The panel sets the type; the nested rich text block shouldn't reset it.
+    .rich-text-block {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    p {
+      margin: 0 0 var(--space-16);
+
+      &:last-child {
+        margin-block-end: 0;
+      }
     }
   }
 }
 
-.accordion-item {
-  $accordion-border: color(neutral, "300");
-
-  border-top: 1px solid $accordion-border;
-
-  &__button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-
-    &-text {
-      @include mofo-text-style($body-text-styles, "xlarge");
-
-      @include breakpoint(small up) {
-        font-weight: 700;
-      }
-
-      @include breakpoint(large up) {
-        font-weight: 700;
-      }
-
-      text-align: left;
-      padding: 2rem 0;
-    }
-  }
-
-  &__panel {
-    overflow: hidden;
-    height: 0;
-
-    &-inner p {
-      margin: 0 0 2rem;
-    }
-  }
-
-  &__icon {
-    width: 2.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    font-weight: normal;
-    padding: 2rem 0;
-    margin-left: 2rem;
-
-    &::after {
-      content: "";
-      display: block;
-      width: 1.6rem;
-      height: 0.9rem;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      background-image: url("data:image/svg+xml,%3Csvg width='24' height='15' viewBox='0 0 24 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.9602 0.949951L12.0002 10.91L2.04019 0.949951L0.450195 2.53995L12.0002 14.09L23.5502 2.53995L21.9602 0.949951Z' fill='%23141414'/%3E%3C/svg%3E%0A");
-      transition: transform 0.3s ease-in-out;
-    }
-  }
-
-  &__button[aria-expanded="true"] .accordion-item__icon::after {
-    transform: rotate(-180deg);
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item,
+  .accordion-item__icon,
+  .accordion-item__icon::after {
+    transition-duration: var(--mzf-motion-duration-instant);
   }
 }

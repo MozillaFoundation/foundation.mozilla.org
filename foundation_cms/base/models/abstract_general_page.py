@@ -8,7 +8,9 @@ from foundation_cms.base.models.abstract_base_page import (
 from foundation_cms.blocks.block_registry import BlockRegistry
 
 # General page-specific blocks that extend the base blocks
-GENERAL_PAGE_BLOCK_NAMES = sorted(
+# Wagtail orders the block chooser's groups by each group's first block, so
+# section_start goes first to put the Sections group at the top.
+GENERAL_PAGE_BLOCK_NAMES = ["section_start"] + sorted(
     BASE_BLOCK_NAMES
     + [
         "custom_media",
