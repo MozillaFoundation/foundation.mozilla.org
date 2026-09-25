@@ -109,7 +109,6 @@
           position: absolute;
           top: 0;
           left: 0;
-          background-color: color(orange, "200");
         }
 
         .grid-container {
@@ -166,9 +165,27 @@
       }
     }
 
+    &.hero__wrapper--orange-200 {
+      .hero__text::before {
+        background-color: color(orange, "200");
+      }
+    }
+
     &.hero__wrapper--yellow-200 {
       .hero__text::before {
         background-color: color(yellow, "200");
+      }
+    }
+
+    // Without a colour band the hero is just the text, so the generous padding
+    // that gives the band its height would read as empty space.
+    &.hero__wrapper--transparent {
+      .hero__text {
+        padding: 2rem 0;
+
+        @include breakpoint(large up) {
+          padding: 3rem 0;
+        }
       }
     }
   }
