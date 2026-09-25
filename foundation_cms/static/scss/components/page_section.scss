@@ -1,0 +1,14 @@
+// Section wrappers rendered from `section_start` markers
+// (see templates/patterns/components/_sectioned_streamfield.html).
+.page-section {
+  padding-block: var(--space-64);
+  background-color: var(--color-surface-default);
+
+  &--ground {
+    background-color: var(--color-section-ground);
+  }
+
+  @include mobile-only {
+    padding-block: var(--space-40);
+  }
+}
