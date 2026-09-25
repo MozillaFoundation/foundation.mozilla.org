@@ -7,6 +7,7 @@
       data-search-filter-mode="immediate">
     <input type="hidden" name="query" value="{{ search_query }}">
     <input type="hidden" name="content_type" value="{{ content_type|default:'all' }}">
+    <input type="hidden" name="is_refinement" value="true">
     {% if selected_topic %}
         <input type="hidden" name="topic" value="{{ selected_topic }}">
     {% endif %}
