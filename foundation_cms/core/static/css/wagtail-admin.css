@@ -24,3 +24,29 @@ label[for="id_search_description"]::after {
   color: var(--w-color-critical-200);
   font-weight: 600;
 }
+
+/*
+ * Group the editor minimap by page section, as three levels:
+ * panels (Title, Body, ...) > section markers (SectionStartBlock) > blocks in a section.
+ * Every StreamField block is a flat `--h3` item in the minimap, so section
+ * markers are identified by their dedicated icon instead.
+ * Relies on Wagtail's internal minimap markup (ol > li > a.w-minimap-item > svg > use)
+ * and its expanded-state 2rem start padding; recheck after Wagtail upgrades.
+ */
+.w-minimap--expanded {
+  /* Icon width + gap, so each level's icon lines up with the parent level's label. */
+  --section-indent-step: 1.625rem;
+}
+
+.w-minimap--expanded .w-minimap__list li:has(use[href="#icon-section-marker"]) .w-minimap-item {
+  margin-block-start: 0.75rem;
+  font-weight: 700;
+}
+
+.w-minimap--expanded
+  .w-minimap__list
+  li:has(use[href="#icon-section-marker"])
+  ~ li:not(:has(use[href="#icon-section-marker"]))
+  .w-minimap-item--h3 {
+  padding-inline-start: calc(2rem + var(--section-indent-step));
+}
