@@ -12,6 +12,9 @@
 @import "../scss/utilities";
 @import "../scss/layout";
 
+// Cosmos, the new brand for the site refresh, ported from LP's design system
+@import "../scss/cosmos/index";
+
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
 @import "../scss/blocks/themes/default/donor_help_contact_us_form_block";

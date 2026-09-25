@@ -1,14 +1,12 @@
-// Section wrappers rendered from `section_start` markers
+// Sections rendered from `section_start` markers
 // (see templates/patterns/components/_sectioned_streamfield.html).
-.page-section {
-  padding-block: var(--space-64);
-  background-color: var(--color-surface-default);
+// Layout, padding and rhythm come from the Cosmos section master
+// (`mzf-c-section`); this only maps the marker's background color onto
+// its `--mzf-section-surface` knob.
+.page-section--default {
+  --mzf-section-surface: var(--color-surface-default);
+}
 
-  &--ground {
-    background-color: var(--color-section-ground);
-  }
-
-  @include mobile-only {
-    padding-block: var(--space-40);
-  }
+.page-section--ground {
+  --mzf-section-surface: var(--color-section-ground);
 }

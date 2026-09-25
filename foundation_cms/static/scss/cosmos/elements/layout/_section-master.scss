@@ -1,0 +1,126 @@
+// Ported from LP components/elements/layout/section-master/styles.css
+// Figma 9470:11913
+
+// Kept as close to LP's source as possible so it can be diffed against
+// upstream. The only change is the breakpoint: LP's `@media (max-width: 48rem)`
+// is written with our `mobile-only` mixin (see docs/stack.md).
+
+/* Section — Figma 9470:11913
+   The band every template section is built from. It owns the page margins
+   and the rhythm between the things placed inside it, plus the ground it is
+   drawn on. It owns no border and no type.
+
+   Three axes. Breakpoint switches the padding pair. padding chooses between
+   the two vertical steps at desktop. rhythm chooses the gap from the file's
+   content scale, and BOTH the padding pair and the rhythm move with the
+   breakpoint.
+
+   The rhythm is drawn on the `content` SLOT inside each variant cell, not on
+   the cell itself: every one of the ten cells binds its own itemSpacing to
+   `spacing/spacing-8`, which is inert and is not the rhythm. Read the slot.
+
+   The variant names lag the token names by one step, which is the trap here.
+   `rhythm=large` binds `content/xlarge`, not `content/large`. The three cells
+   and what their slots bind:
+
+     rhythm=large    content/xlarge   10062:71     / 10062:79
+     rhythm=xlarge   content/2xlarge  9470:11909    / 9470:11915
+     rhythm=2xlarge  content/3xlarge  10062:73      / 10062:81
+
+   Each of those aliases the breakpoint-aware `layout/content/*`, so every
+   step is a pair rather than one number:
+
+     rhythm=large     48 desktop   32 mobile
+     rhythm=xlarge    72 desktop   48 mobile   (the file's default cell)
+     rhythm=2xlarge  120 desktop   64 mobile
+
+   The band carries a ground. All ten variant cells of 9470:11913 are filled
+   gray/100, so the fill is the element's own drawn value and not something a
+   holder adds. It is a knob rather than a fixed rule, because a page that
+   wants a white band or an accent band sets one property instead of writing
+   a holder selector into this file.
+
+   The knob is written as a fallback rather than declared on this root. A root
+   declaration would shadow a value a holder set on an ancestor and inherited
+   in, which is the trap sections/pre-footer hit on text-group's ink knobs.
+   The padding and rhythm knobs stay root-declared because the variant classes
+   redefine them on this same element, where a root default is what they need.
+
+   The measure is a fallback for the same reason: a page that runs every band
+   wide sets --mzf-section-measure once on an ancestor rather than on each
+   section. A single band goes full width with --mzf-section-measure: 100%. */
+
+.mzf-c-section {
+  /* Defaults are the file's own: padding=large, rhythm=xlarge, gray/100. */
+  --mzf-section-padding-block: var(--space-200);
+  --mzf-section-rhythm: var(--space-72);
+
+  display: grid;
+
+  /* One column, held to the measure. The band itself stays as wide as it is
+     given, because the ground is full bleed and a capped band would stop the
+     fill short of the screen edge. The content inside it stops instead, and
+     the surplus goes to the margins.
+
+     min() rather than a width, so the cap only ever reduces: under the
+     measure the column is the full content box and the 148 margins are the
+     whole inset, and the two meet exactly at the 1440 frame the file draws.
+     Nothing moves at any width the design covers. */
+  grid-template-columns: min(
+    100%,
+    var(--mzf-section-measure, var(--size-content-max))
+  );
+  place-content: center center;
+
+  /* Every one of the ten variant cells aligns its content CENTER on both
+     axes. It is inert while the band hugs its content, which is every
+     placement in the file but one: blocks/heros/primary gives the band a
+     block size, and the centering is then the thing that draws. */
+  gap: var(--mzf-section-rhythm);
+  padding-inline: var(--space-148);
+  padding-block: var(--mzf-section-padding-block);
+  background-color: var(--mzf-section-surface, var(--color-section-ground));
+}
+
+/* ---------- padding ---------- */
+.mzf-c-section--padding-small {
+  --mzf-section-padding-block: var(--space-120);
+}
+
+/* ---------- rhythm ----------
+   Desktop column. The mobile column is in the width query below. */
+.mzf-c-section--rhythm-large {
+  --mzf-section-rhythm: var(--space-48);
+}
+
+.mzf-c-section--rhythm-2xlarge {
+  --mzf-section-rhythm: var(--space-120);
+}
+
+/* ---------- below the mobile breakpoint ----------
+   Both padding values collapse to one pair, so padding=small changes
+   nothing here.
+
+   The rhythm DOES change. Each rhythm cell's slot binds a `content/*`
+   variable, and those alias the breakpoint-aware `layout/content/*`, which
+   carries a Desktop and a Mobile mode. The mobile column is read off the
+   five mobile cells, not inferred from the desktop one. */
+@include mobile-only {
+  .mzf-c-section {
+    padding-inline: var(--space-20);
+    padding-block: var(--space-64);
+
+    /* rhythm=xlarge, the default cell: 9470:11915 draws 48. */
+    --mzf-section-rhythm: var(--space-48);
+  }
+
+  /* 10062:79 draws 32. */
+  .mzf-c-section--rhythm-large {
+    --mzf-section-rhythm: var(--space-32);
+  }
+
+  /* 10062:81 draws 64. */
+  .mzf-c-section--rhythm-2xlarge {
+    --mzf-section-rhythm: var(--space-64);
+  }
+}

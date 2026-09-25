@@ -168,9 +168,62 @@ describe("AccordionBlock", () => {
 
     initAllAccordionBlocks();
 
-    expect(first.panels[0].style.transition).toBe("height 300ms ease-in-out");
+    first.triggers[1].click();
+    document.querySelectorAll(".accordion-item__button")[3].click();
+
+    expect(first.triggers[1].getAttribute("aria-expanded")).toBe("true");
     expect(
-      document.querySelectorAll(".accordion-item__panel")[2].style.transition,
-    ).toBe("height 300ms ease-in-out");
+      document
+        .querySelectorAll(".accordion-item__button")[3]
+        .getAttribute("aria-expanded"),
+    ).toBe("true");
+  });
+
+  it("times the height transition with the Cosmos motion tokens", () => {
+    const { root, triggers, panels } = createAccordion();
+    panels.forEach((panel) => {
+      panel.style.setProperty(
+        "--mzf-motion-duration-index-cards-expand",
+        "500ms",
+      );
+      panel.style.setProperty(
+        "--mzf-motion-duration-index-cards-collapse",
+        "400ms",
+      );
+      panel.style.setProperty(
+        "--mzf-motion-easing-index-cards-expand",
+        "cubic-bezier(0.16, 1, 0.3, 1)",
+      );
+      panel.style.setProperty(
+        "--mzf-motion-easing-index-cards-collapse",
+        "ease-out",
+      );
+    });
+    const accordion = new AccordionBlock(root);
+
+    accordion.openAccordion(triggers[1], panels[1]);
+    accordion.closeAccordion(triggers[0], panels[0]);
+
+    expect(panels[1].style.transition).toBe(
+      "height 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+    );
+    expect(panels[0].style.transition).toBe("height 400ms ease-out");
+  });
+
+  it("opens and closes instantly when reduced motion is preferred", () => {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({ matches: true })),
+    );
+    const { root, triggers, panels } = createAccordion();
+    const accordion = new AccordionBlock(root);
+
+    accordion.openAccordion(triggers[1], panels[1]);
+    accordion.closeAccordion(triggers[0], panels[0]);
+
+    expect(panels[1].hidden).toBe(false);
+    expect(panels[1].style.height).toBe("auto");
+    expect(panels[0].hidden).toBe(true);
+    expect(panels[0].style.height).toBe("0px");
   });
 });

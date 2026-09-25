@@ -1,18 +1,20 @@
 {% load section_tags %}
 {% comment %}
   Renders a flat StreamField as sections split at each `section_start` marker.
-  Blocks before the first marker render without a section wrapper, so pages
-  with no markers render exactly as they do with _streamfield.html.
+  Each marked section is a Cosmos section master (`mzf-c-section`), which owns
+  the padding and rhythm for the blocks in it. Blocks before the first marker
+  render without a section wrapper, so pages with no markers render exactly
+  as they do with _streamfield.html.
 {% endcomment %}
-
 {% get_sections streamfield as sections %}
 {% for section in sections %}
-  {% if section.is_implicit %}
-    {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
-  {% else %}
-    <section class="page-section page-section--{{ section.settings.surface|default:'default' }}"{% if section.settings.anchor_id %} id="{{ section.settings.anchor_id }}"{% endif %}>
-      {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
-    </section>
-  {% endif %}
+    {% if section.is_implicit %}
+        {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
+    {% else %}
+        <section class="mzf-c-section page-section page-section--{{ section.settings.surface|default:'default' }}"
+                 {% if section.settings.anchor_id %}id="{{ section.settings.anchor_id }}"{% endif %}>
+            {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
+        </section>
+    {% endif %}
 {% endfor %}
 zgb

@@ -46,6 +46,14 @@ If you edit a token JSON file, run `yarn build:tokens` yourself and commit the r
 - New and reskinned components should follow LP's design system directly rather than Foundation's grid. After discussing with designers, the 12-column grid isn't part of the site refresh going forward, so there's no grid/token reconciliation to do, just build against the tokens and LP's own component reference.
 - New and reskinned components are authored desktop-first, matching LP's own CSS: unconditional base rules are the desktop styling, and the mobile-specific override is wrapped in the `mobile-only` mixin from `_mixins.scss`. This is the opposite direction from the rest of the codebase, which is mobile-first via Foundation's `breakpoint()` mixin, that's expected since this is new/reskinned work following LP's system rather than an edit to an existing mobile-first component. The mobile-first, Foundation-based implementation is legacy at this point and will go away as components get reskinned.
 
+### Cosmos
+
+Cosmos is the site refresh brand. Its SCSS lives in `foundation_cms/static/scss/cosmos/`, imported once through `cosmos/_index.scss` from `_redesign_base.scss`.
+
+- Files mirror LP's `components/` tree, with the last folder flattened into the file name: LP's `components/<path>/<name>/styles.css` lives at `cosmos/<path>/_<name>.scss`. For example, `components/elements/layout/section-master/styles.css` is `cosmos/elements/layout/_section-master.scss`. Keep the tier/group folders (`elements/layout`, `blocks/collections`), since some LP names only make sense or stay unique with their path (`blocks/sections/banner` vs `blocks/engagement/banner`, `elements/accordion/item`).
+- Only LP's `styles.css` is ported. Its `index.html` (demo markup), `README.md` and `meta.json` stay in LP's repo as the reference; start each ported file with a comment naming its LP source path and Figma node instead.
+- Keep LP's class names and `mzf-c-` prefix, and keep the ported CSS as close to LP's as possible, so a file can be diffed against upstream. Swap LP's `@media (max-width: 48rem)` for the `mobile-only` mixin.
+
 ## React
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.

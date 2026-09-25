@@ -5,7 +5,34 @@ const SELECTORS = {
   panel: ".accordion-item__panel",
 };
 
-const TRANSITION_MS = 300;
+// Used when the Cosmos motion tokens aren't loaded on the page.
+const FALLBACK_MOTION = { duration: 300, easing: "ease-in-out" };
+
+/**
+ * Reads the height transition for opening ("expand") or closing ("collapse")
+ * from LP's index-cards motion tokens, so the panel moves in step with the
+ * row's background and icon transitions in accordion_block.scss.
+ * Reduced motion gets a duration of 0.
+ */
+function getPanelMotion(panel, phase) {
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    return { duration: 0, easing: FALLBACK_MOTION.easing };
+  }
+
+  const styles = getComputedStyle(panel);
+  const duration = parseFloat(
+    styles.getPropertyValue(`--mzf-motion-duration-index-cards-${phase}`),
+  );
+  const easing = styles
+    .getPropertyValue(`--mzf-motion-easing-index-cards-${phase}`)
+    .trim();
+
+  return {
+    duration: Number.isFinite(duration) ? duration : FALLBACK_MOTION.duration,
+    easing: easing || FALLBACK_MOTION.easing,
+  };
+}
+
 export class AccordionBlock {
   constructor(root) {
     this.root = root;
@@ -16,9 +43,6 @@ export class AccordionBlock {
     this.triggers.forEach((trigger) => {
       const panel = this.getPanelForTrigger(trigger);
       if (!panel) return;
-
-      // set transition
-      panel.style.transition = `height ${TRANSITION_MS}ms ease-in-out`;
 
       trigger.addEventListener("click", () => this.toggle(trigger, panel));
     });
@@ -49,6 +73,15 @@ export class AccordionBlock {
     // If it was hidden, unhide it before measuring
     panel.hidden = false;
 
+    const { duration, easing } = getPanelMotion(panel, "expand");
+    panel.style.transition = `height ${duration}ms ${easing}`;
+
+    // No transition means no transitionend, so finish immediately
+    if (duration === 0) {
+      panel.style.height = "auto";
+      return;
+    }
+
     // Start from 0 for a clean animation
     panel.style.height = "0px";
 
@@ -72,6 +105,16 @@ export class AccordionBlock {
     if (trigger.getAttribute("aria-expanded") === "false") return;
 
     trigger.setAttribute("aria-expanded", "false");
+
+    const { duration, easing } = getPanelMotion(panel, "collapse");
+    panel.style.transition = `height ${duration}ms ${easing}`;
+
+    // No transition means no transitionend, so finish immediately
+    if (duration === 0) {
+      panel.style.height = "0px";
+      panel.hidden = true;
+      return;
+    }
 
     // If height is auto, lock it to a pixel value so we can animate to 0
     const currentHeight =
