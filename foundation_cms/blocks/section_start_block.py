@@ -64,4 +64,8 @@ class SectionStartBlock(BaseBlock):
         # Dedicated icon: the admin CSS keys off it to group the minimap by section.
         icon = "section-marker"
         label = "Section Start"
+        # Title the block by its name only. Without this, Wagtail falls back to
+        # the first child with a value, so a new, unnamed marker is titled by
+        # its background color in the block header and minimap.
+        label_format = "{name}"
         form_classname = "section-start-block"
