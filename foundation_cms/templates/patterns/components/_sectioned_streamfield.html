@@ -11,7 +11,7 @@
     {% if section.is_implicit %}
         {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
     {% else %}
-        <section class="mzf-c-section page-section page-section--{{ section.settings.surface|default:'default' }}"
+        <section class="mzf-c-section mzf-c-section--rhythm-{{ section.settings.rhythm|default:'xlarge' }} mzf-c-section--padding-{{ section.settings.padding|default:'large' }} page-section page-section--{{ section.settings.surface|default:'default' }}"
                  {% if section.settings.anchor_id %}id="{{ section.settings.anchor_id }}"{% endif %}>
             {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
         </section>

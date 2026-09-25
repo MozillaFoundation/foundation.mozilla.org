@@ -26,6 +26,27 @@ class SectionStartBlock(BaseBlock):
         default="default",
         label="Background color",
     )
+    # LP section master variants. Values are LP's variant names, which map to
+    # the `mzf-c-section--*` modifier classes; LP's defaults (xlarge, large)
+    # have no modifier class.
+    rhythm = ChoiceBlock(
+        choices=[
+            ("large", "Compact (Large)"),
+            ("xlarge", "Standard (XLarge)"),
+            ("2xlarge", "Spacious (2XLarge)"),
+        ],
+        default="xlarge",
+        label="Spacing between blocks",
+    )
+    padding = ChoiceBlock(
+        choices=[
+            ("large", "Standard (Large)"),
+            ("small", "Compact (Small)"),
+        ],
+        default="large",
+        label="Spacing above and below",
+        help_text="Compact only applies on desktop. Both options are the same on mobile.",
+    )
     anchor_id = RegexBlock(
         regex=r"^[a-z0-9]+(?:-[a-z0-9]+)*$",
         required=False,

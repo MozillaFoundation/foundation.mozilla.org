@@ -96,6 +96,12 @@ class TestSectionStartBlock(SimpleTestCase):
 
         block.clean(block.to_python({"name": "One", "surface": "default", "anchor_id": "get-involved"}))
 
+    def test_spacing_defaults_to_lp_defaults_for_markers_saved_without_it(self):
+        value = SectionStartBlock().to_python({"name": "One", "surface": "default", "anchor_id": ""})
+
+        self.assertEqual(value["rhythm"], "xlarge")
+        self.assertEqual(value["padding"], "large")
+
     def test_name_is_required(self):
         block = SectionStartBlock()
 
