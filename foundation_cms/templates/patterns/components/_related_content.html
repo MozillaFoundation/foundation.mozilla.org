@@ -12,6 +12,8 @@
                         {% responsive_image item.hero_image ratio=image_ratio %}
                     {% elif item.search_image %}
                         {% responsive_image item.search_image ratio=image_ratio %}
+                    {% elif item.hero_image %}
+                        {% responsive_image item.hero_image ratio=image_ratio %}
                     {% endif %}
                 </a>
                 <div class="content-card__topics">
