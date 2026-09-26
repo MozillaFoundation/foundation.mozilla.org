@@ -1,0 +1,19 @@
+{% load wagtailimages_tags %}
+
+<div class="callout-card">
+    {% if self.image %}
+        {% image self.image fill-600x600 as img %}
+        <div class="callout-card__image-container">
+            <img src="{{ img.url }}"
+                 alt="{{ self.subheading }}"
+                 class="callout-card__image"
+                 width="100%"
+                 height="100%">
+        </div>
+    {% endif %}
+    <div class="callout-card__content">
+        {% if self.headline %}<div class="callout-card__headline">{{ self.headline }}</div>{% endif %}
+        <h3 class="callout-card__subheading">{{ self.subheading }}</h3>
+        {% if self.body %}<div class="callout-card__body">{{ self.body }}</div>{% endif %}
+    </div>
+</div>
