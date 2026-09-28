@@ -32,13 +32,18 @@ def group_into_sections(stream_value):
     current = Section()
 
     for child in stream_value or []:
+        # A marker closes the open section (kept only if it has blocks) and opens
+        # a new one with the marker's settings. The marker itself isn't added.
         if child.block_type == SECTION_START_BLOCK_TYPE:
             if current.blocks:
                 sections.append(current)
             current = Section(settings=child.value)
+        # Any other block joins the open section.
         else:
             current.blocks.append(child)
 
+    # The last open section is never closed by a marker, so keep it here,
+    # unless it's empty because the page ends with a marker.
     if current.blocks:
         sections.append(current)
 
