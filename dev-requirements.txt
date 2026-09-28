@@ -42,7 +42,7 @@ honcho==2.0.0
     # via -r dev-requirements.in
 iniconfig==2.3.0
     # via pytest
-isort==8.0.1
+isort==9.0.1
     # via -r dev-requirements.in
 jsbeautifier==1.15.4
     # via
@@ -57,6 +57,7 @@ mypy==1.10.1
 mypy-extensions==1.1.0
     # via
     #   black
+    #   isort
     #   mypy
 packaging==23.1
     # via
