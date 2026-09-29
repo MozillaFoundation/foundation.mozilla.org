@@ -234,14 +234,6 @@ module.exports = {
         80: "#9a0146",
         100: "#66012f",
       },
-      pni: {
-        blue: "#1808f2",
-        "blue-purple": "#4a17d4",
-        purple: "#7f28b7",
-        "purple-pink": "#b0379b",
-        pink: "#e4487d",
-        yellow: "#fbd545",
-      },
       festival: {
         blue: {
           DEFAULT: "#0e11bf",
