@@ -1,7 +1,7 @@
 name: Navigation Item
 context:
     value:
-        label: Mozilla Festival
-        description: A gathering for the open internet movement
-        url: https://www.mozillafestival.org
+        label: External link
+        description: An example external resource
+        url: https://example.com
         is_external: True
