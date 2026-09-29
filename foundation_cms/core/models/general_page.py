@@ -10,6 +10,7 @@ from foundation_cms.base.models.abstract_general_page import (
     general_page_block_options,
 )
 from foundation_cms.blocks import LinkBlock
+from foundation_cms.blocks.section_master_block import SectionMasterBlock
 from foundation_cms.core.panels.media_panel import MediaPanel
 from foundation_cms.mixins.hero_media import HeroMediaMixin
 
@@ -81,7 +82,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
     )
 
     body = StreamField(
-        general_page_block_options,
+        general_page_block_options + [("section_master", SectionMasterBlock(skip_default_wrapper=True))],
         block_counts={"donor_help_contact_us_form": {"max_num": 1}, "greenhouse_board": {"max_num": 1}},
         use_json_field=True,
         blank=True,

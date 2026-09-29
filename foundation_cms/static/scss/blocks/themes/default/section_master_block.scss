@@ -1,0 +1,28 @@
+// Page-level separation stays global; padding and inner rhythm belong to sections.
+.general-page .container:has(> [data-block-type="section_master"]) {
+  display: flex;
+  flex-direction: column;
+  gap: rem-calc(48);
+}
+
+.section-master {
+  display: flex;
+  flex-direction: column;
+  gap: rem-calc(32);
+
+  &--padding-regular {
+    padding-block: rem-calc(32);
+  }
+
+  &--padding-generous {
+    padding-block: rem-calc(64);
+  }
+
+  &--rhythm-compact {
+    gap: rem-calc(16);
+  }
+
+  &--rhythm-relaxed {
+    gap: rem-calc(48);
+  }
+}
