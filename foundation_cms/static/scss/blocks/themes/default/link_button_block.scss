@@ -4,11 +4,11 @@
     justify-content: center;
 
     a {
-      width: 100%;
+      width: auto;
       justify-content: center;
 
-      @include breakpoint(medium up) {
-        width: auto;
+      @include mobile-only {
+        width: 100%;
       }
     }
   }

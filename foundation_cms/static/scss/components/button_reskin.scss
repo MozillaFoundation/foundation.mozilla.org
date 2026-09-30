@@ -1,0 +1,101 @@
+// Explicit adoption keeps existing shared-button consumers on their current skin.
+.button-reskin {
+  --button-content-height: var(--size-icon-medium);
+  --button-inset: calc(
+    (var(--size-control-height) - var(--button-content-height)) / 2
+  );
+
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-0);
+  width: fit-content;
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--size-control-height);
+  margin: var(--space-16) 0;
+
+  // Honor the shared 38px control token; allow wrapped labels to grow naturally.
+  padding-block: calc(var(--button-inset) - var(--border-width-thin));
+  padding-inline: var(--space-20) var(--space-12);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-none);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  &__label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  &::after {
+    content: "";
+    flex: 0 0 var(--size-icon-medium);
+    width: var(--size-icon-medium);
+    height: var(--size-icon-medium);
+    background-color: currentcolor;
+    mask: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg")
+      center / var(--size-icon-glyph) var(--size-icon-glyph) no-repeat;
+  }
+
+  &--btn-primary {
+    color: var(--color-text-inverse);
+    background-color: var(--color-surface-inverse);
+
+    &:hover:not(:disabled) {
+      color: var(--color-text-inverse);
+      background-color: var(--color-surface-inverse-hover);
+    }
+  }
+
+  &--btn-secondary {
+    color: var(--color-text-default);
+    background-color: transparent;
+    border-color: var(--color-border-default);
+
+    &:hover:not(:disabled) {
+      color: var(--color-text-default);
+      background-color: var(--color-surface-raised);
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-focus) solid var(--color-border-focus);
+    outline-offset: var(--space-2);
+  }
+
+  &:disabled {
+    opacity: var(--opacity-disabled);
+    cursor: default;
+  }
+
+  &.btn-primary--no-arrow,
+  &.btn-secondary--no-arrow {
+    --button-content-height: calc(
+      var(--font-size-control) * var(--line-height-control)
+    );
+
+    padding-inline: var(--space-20);
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &.link-type-icon.external::after {
+    mask-image: url("/static/foundation_cms/_images/icons/link-external-black.svg");
+  }
+
+  &.link-type-icon.email::after {
+    mask-image: url("/static/foundation_cms/_images/icons/email.svg");
+    mask-size: contain;
+  }
+}
