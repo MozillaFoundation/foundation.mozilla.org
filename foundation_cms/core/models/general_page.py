@@ -56,6 +56,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         choices=[
             ("orange-200", "Orange"),
             ("yellow-200", "Yellow"),
+            ("transparent", "Transparent"),
         ],
         blank=True,
         default="",
