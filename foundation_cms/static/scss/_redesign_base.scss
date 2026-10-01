@@ -1,5 +1,6 @@
 @import "../scss/foundation-framework-styles";
 @import "../scss/fonts";
+@import "../scss/tokens";
 
 // Our custom variables and base styles
 @import "../scss/variables";
@@ -10,6 +11,9 @@
 @import "../scss/dividers";
 @import "../scss/utilities";
 @import "../scss/layout";
+
+// Cosmos, the new brand for the site refresh, ported from LP's design system
+@import "../scss/cosmos/index";
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
