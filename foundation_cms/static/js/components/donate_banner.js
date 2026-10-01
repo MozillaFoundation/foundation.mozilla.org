@@ -14,11 +14,6 @@ const LEGACY_SELECTORS = {
   skipTarget: "main",
 };
 
-const PNI_SELECTORS = {
-  ctaButton: ".donate-banner__cta-button",
-  skipTarget: ".primary-nav-container-wrapper",
-};
-
 /**
  * Legacy-style dismiss helpers
  */
@@ -56,9 +51,6 @@ export function initDonateBanner() {
   if (siteType === "legacy") {
     ctaButton = banner.querySelector(LEGACY_SELECTORS.ctaButton);
     skipTargetSelector = LEGACY_SELECTORS.skipTarget;
-  } else if (siteType === "pni") {
-    ctaButton = banner.querySelector(PNI_SELECTORS.ctaButton);
-    skipTargetSelector = PNI_SELECTORS.skipTarget;
   }
 
   // Handle legacy banner visibility based on dismissal date.

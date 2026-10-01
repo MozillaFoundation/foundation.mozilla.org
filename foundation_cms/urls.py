@@ -70,8 +70,8 @@ crawl-delay: 10
 def csrf_response(request):
     # Mints the per-user `csrftoken` cookie (via @ensure_csrf_cookie) so JS can read it
     # and send it as the X-CSRFToken header / csrfmiddlewaretoken field. The HTML body
-    # (a single hidden input rendered by {% csrf_token %}) is preserved because the legacy
-    # buyers-guide vote JS parses the token out of it.
+    # (a single hidden input rendered by {% csrf_token %}) is preserved, though current JS
+    # only reads the cookie.
     #
     # NOTE: the Cloudflare Worker overrides origin Cache-Control, so this `no-cache` is only
     # defense-in-depth — `/api/csrf` must also be in the Worker's URI_BYPASS_SUBSTRINGS or the
