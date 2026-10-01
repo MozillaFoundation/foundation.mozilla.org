@@ -31,7 +31,7 @@ class AppInstallPageFactory(PageFactory):
 def generate(seed):
     reseed(seed)
 
-    print("Generating PNI Homepage")
+    print("Generating App Install Page")
     AppInstallPageFactory.create(
         parent=pagemodels.Homepage.objects.first(),
         title="App Install Page",
