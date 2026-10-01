@@ -41,5 +41,5 @@ fi
 # Django Migrations
 python ./manage.py migrate --no-input
 
-# Clear cache for BuyersGuide
+# Clear cache
 python ./manage.py clear_cache
