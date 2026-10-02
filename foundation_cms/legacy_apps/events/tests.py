@@ -1,13 +1,10 @@
 import json
-from unittest import mock
 
-from django.test import RequestFactory, TestCase
+from django.test import TestCase
 from django.urls import reverse
 from wagtail.models import Page, Site
 
 from foundation_cms.legacy_apps.events.factory import TitoEventFactory
-from foundation_cms.legacy_apps.events.utils import sign_tito_request
-from foundation_cms.legacy_apps.events.views import tito_ticket_completed
 from foundation_cms.legacy_apps.mozfest.factory import MozfestHomepageFactory
 
 
@@ -50,62 +47,6 @@ class TitoTicketCompletedTest(TestCase):
         )
         self.assertEqual(response.status_code, 400)
         self.assertEqual(json.loads(response.content)["error"], "Payload verification failed")
-
-    @mock.patch("foundation_cms.legacy_apps.events.views.basket")
-    def test_calls_basket_api(self, mock_basket):
-        secret = bytes(self.tito_event.security_token, "utf-8")
-        data = {
-            "answers": [
-                {
-                    "question": {"id": self.tito_event.newsletter_question_id},
-                    "response": ["yes"],
-                },
-            ],
-            "email": "rich@test.com",
-        } | self._webhook_data()
-
-        factory = RequestFactory()
-        request = factory.post(
-            self.url,
-            data=data,
-            content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed",
-        )
-        request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
-
-        response = tito_ticket_completed(request)
-
-        self.assertEqual(response.status_code, 202)
-        mock_basket.subscribe.assert_called_once_with("rich@test.com", "mozilla-festival")
-
-    def test_logs_basket_exception(self):
-        # Using `failure@example.com` as the email causes an exception, see:
-        # https://github.com/mozilla/basket-example#tips
-
-        secret = bytes(self.tito_event.security_token, "utf-8")
-        data = {
-            "answers": [
-                {
-                    "question": {"id": self.tito_event.newsletter_question_id},
-                    "response": ["yes"],
-                },
-            ],
-            "email": "failure@example.com",
-        } | self._webhook_data()
-
-        factory = RequestFactory()
-        request = factory.post(
-            self.url,
-            data=json.dumps(data),
-            content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed",
-        )
-        request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
-
-        with self.assertLogs(logger="foundation_cms.legacy_apps.events.views", level="ERROR") as cm:
-            response = tito_ticket_completed(request)
-            self.assertEqual(response.status_code, 202)
-            self.assertIn("Subscription from Tito webhook failed", cm.output[0])
 
 
 class TitoWidgetBlockLocalizationTest(TestCase):

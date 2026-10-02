@@ -123,6 +123,14 @@ test.describe("Blog body newsletter signup form", () => {
     }) => {
       // wait for the request before submitting the form
       const apiUrl = await moduleContainer.getAttribute("data-api-url");
+      // stub the signup API's success response to verify thank you screen loads
+      await page.route(apiUrl, (route) =>
+        route.fulfill({
+          status: 201,
+          contentType: "application/json",
+          body: "{}",
+        })
+      );
       const fetchRequest = page.waitForRequest(apiUrl);
 
       await submitButton.dispatchEvent("click");
@@ -160,6 +168,14 @@ test.describe("Blog body newsletter signup form", () => {
 
       // wait for the request before submitting the form
       const apiUrl = await moduleContainer.getAttribute("data-api-url");
+      // stub the signup API's success response to verify thank you screen loads
+      await page.route(apiUrl, (route) =>
+        route.fulfill({
+          status: 201,
+          contentType: "application/json",
+          body: "{}",
+        })
+      );
       const fetchRequest = page.waitForRequest(apiUrl);
 
       await submitButton.dispatchEvent("click");

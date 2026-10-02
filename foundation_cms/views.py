@@ -1,7 +1,6 @@
 import json
 import logging
 
-import basket
 import requests
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -153,27 +152,7 @@ def newsletter_signup_submission(request, newsletter):
         "last_name": "",
     }
 
-    newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
-
-    if newsletter_signup_method == "BASKET":
-        return subscribe_to_basket_newsletter(data)
-
-    else:
-        return subscribe_to_camo_newsletter(data)
-
-
-def subscribe_to_basket_newsletter(data):
-    # Subscribing to newsletter using basket.
-    # https://basket-client.readthedocs.io/en/latest/usage.html
-    basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
-    if data["country"] != "":
-        basket_additional["country"] = data["country"]
-
-    response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
-
-    if response["status"] == "ok":
-        return JsonResponse(data, status=status.HTTP_201_CREATED)
-    return error_json_response("There was an error subscribing to the newsletter", status.HTTP_400_BAD_REQUEST)
+    return subscribe_to_camo_newsletter(data)
 
 
 def subscribe_to_camo_newsletter(data):

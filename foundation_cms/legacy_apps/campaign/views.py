@@ -1,17 +1,13 @@
 import json
 import logging
 
-from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from rest_framework import status
 
 from foundation_cms.legacy_apps.wagtailpages.models import Signup
-from foundation_cms.views import (
-    subscribe_to_basket_newsletter,
-    subscribe_to_camo_newsletter,
-)
+from foundation_cms.views import subscribe_to_camo_newsletter
 
 
 def process_lang_code(lang):
@@ -90,9 +86,4 @@ def signup_submission(request, signup):
     if cid is not None and cid != "":
         data["campaign_id"] = cid
 
-    newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
-
-    if newsletter_signup_method == "BASKET":
-        return subscribe_to_basket_newsletter(data)
-    else:
-        return subscribe_to_camo_newsletter(data)
+    return subscribe_to_camo_newsletter(data)
