@@ -1,8 +1,6 @@
 import json
 import logging
 
-import basket
-from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -41,29 +39,19 @@ def tito_ticket_completed(request):
 
     if email and has_signed_up_to_newsletter(data):
         try:
-            newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
-
-            # retain codeblock for basket subscribe
-            if newsletter_signup_method == "BASKET":
-                basket.subscribe(email, "mozilla-festival")
-
-            # rewrite to camo based on foundation_cms/views.py
-            # @TODO remove basket code, make this more DRY w/ views.py
+            # @TODO make this more DRY w/ foundation_cms/views.py
             # @TODO we should have a separate ENV variable for dev CAMO endpoint
-            else:
-                # rewrite payload
-                data = {
-                    "email": email,
-                    "format": "html",
-                    "source_url": request.source,
-                    "newsletters": "tito",
-                    "lang": process_lang_code(request.get("lang", "en")),
-                    "country": request.get("country", ""),
-                    # Empty string instead of None due to Basket issues
-                    "first_name": "",
-                    "last_name": "",
-                }
-                return subscribe_to_camo_newsletter(data)
+            data = {
+                "email": email,
+                "format": "html",
+                "source_url": request.source,
+                "newsletters": "tito",
+                "lang": process_lang_code(request.get("lang", "en")),
+                "country": request.get("country", ""),
+                "first_name": "",
+                "last_name": "",
+            }
+            return subscribe_to_camo_newsletter(data)
 
         except Exception as error:
             logger.exception(f"Subscription from Tito webhook failed: {str(error)}")
