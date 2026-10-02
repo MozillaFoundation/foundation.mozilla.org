@@ -12,7 +12,7 @@
     {% if section.is_implicit %}
         {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
     {% else %}
-        <div class="mzf-c-section mzf-c-section--rhythm-{{ section.settings.rhythm|default:'xlarge' }} mzf-c-section--padding-{{ section.settings.padding|default:'large' }} page-section page-section--{{ section.settings.surface|default:'default' }}"
+        <div class="mzf-c-section mzf-c-section--rhythm-{{ section.settings.rhythm|default:'xlarge' }} mzf-c-section--padding-{{ section.settings.padding|default:'large' }}"
              {% if section.settings.anchor_id %}id="{{ section.settings.anchor_id }}"{% endif %}>
             {% include "patterns/components/_streamfield.html" with streamfield=section.blocks %}
         </div>

@@ -17,15 +17,6 @@ class SectionStartBlock(BaseBlock):
         max_length=100,
         help_text="Labels this section in the CMS and its minimap. This is not shown on the page.",
     )
-    # Maps to LP section/surface tokens, not the legacy background palette.
-    surface = ChoiceBlock(
-        choices=[
-            ("default", "White (Default)"),
-            ("ground", "Light grey (Ground)"),
-        ],
-        default="default",
-        label="Background color",
-    )
     # LP section master variants. Values are LP's variant names, which map to
     # the `mzf-c-section--*` modifier classes; LP's defaults (xlarge, large)
     # have no modifier class.
@@ -36,7 +27,8 @@ class SectionStartBlock(BaseBlock):
             ("2xlarge", "Spacious (2XLarge)"),
         ],
         default="xlarge",
-        label="Spacing between blocks",
+        label="Rhythm",
+        help_text="The spacing (or gap) between blocks in a section.",
     )
     padding = ChoiceBlock(
         choices=[
@@ -44,8 +36,11 @@ class SectionStartBlock(BaseBlock):
             ("small", "Compact (Small)"),
         ],
         default="large",
-        label="Spacing above and below",
-        help_text="Compact only applies on desktop. Both options are the same on mobile.",
+        label="Padding",
+        help_text=(
+            "The spacing above and below the content of a section. Padding selection only applies to desktop. "
+            "Mobile spacing is one size only."
+        ),
     )
     anchor_id = RegexBlock(
         regex=r"^[a-z0-9]+(?:-[a-z0-9]+)*$",

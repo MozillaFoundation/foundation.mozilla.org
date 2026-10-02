@@ -12,8 +12,8 @@ stream_block = blocks.StreamBlock(
 )
 
 
-def marker(name, surface="default"):
-    return {"type": "section_start", "value": {"name": name, "surface": surface, "anchor_id": ""}}
+def marker(name, rhythm="xlarge"):
+    return {"type": "section_start", "value": {"name": name, "rhythm": rhythm, "anchor_id": ""}}
 
 
 def text(value):
@@ -52,7 +52,7 @@ class TestGroupIntoSections(SimpleTestCase):
     def test_each_marker_starts_a_new_section_in_order(self):
         sections = group_into_sections(
             build_stream(
-                marker("One", surface="ground"),
+                marker("One", rhythm="2xlarge"),
                 text("a"),
                 text("b"),
                 marker("Two"),
@@ -61,7 +61,7 @@ class TestGroupIntoSections(SimpleTestCase):
         )
 
         self.assertEqual([s.settings["name"] for s in sections], ["One", "Two"])
-        self.assertEqual(sections[0].settings["surface"], "ground")
+        self.assertEqual(sections[0].settings["rhythm"], "2xlarge")
         self.assertEqual([texts(s) for s in sections], [["a", "b"], ["c"]])
 
     def test_marker_blocks_are_not_included_in_section_blocks(self):
@@ -84,7 +84,7 @@ class TestGroupIntoSections(SimpleTestCase):
 
 class TestSectionStartBlock(SimpleTestCase):
     def test_renders_nothing_when_rendered_directly(self):
-        value = SectionStartBlock().to_python({"name": "One", "surface": "default", "anchor_id": ""})
+        value = SectionStartBlock().to_python({"name": "One", "anchor_id": ""})
 
         self.assertEqual(SectionStartBlock().render(value), "")
 
@@ -92,12 +92,12 @@ class TestSectionStartBlock(SimpleTestCase):
         block = SectionStartBlock()
 
         with self.assertRaises(blocks.StructBlockValidationError):
-            block.clean(block.to_python({"name": "One", "surface": "default", "anchor_id": "Not A Slug"}))
+            block.clean(block.to_python({"name": "One", "anchor_id": "Not A Slug"}))
 
-        block.clean(block.to_python({"name": "One", "surface": "default", "anchor_id": "get-involved"}))
+        block.clean(block.to_python({"name": "One", "anchor_id": "get-involved"}))
 
     def test_spacing_defaults_to_lp_defaults_for_markers_saved_without_it(self):
-        value = SectionStartBlock().to_python({"name": "One", "surface": "default", "anchor_id": ""})
+        value = SectionStartBlock().to_python({"name": "One", "anchor_id": ""})
 
         self.assertEqual(value["rhythm"], "xlarge")
         self.assertEqual(value["padding"], "large")
@@ -106,4 +106,4 @@ class TestSectionStartBlock(SimpleTestCase):
         block = SectionStartBlock()
 
         with self.assertRaises(blocks.StructBlockValidationError):
-            block.clean(block.to_python({"name": "", "surface": "default", "anchor_id": ""}))
+            block.clean(block.to_python({"name": "", "anchor_id": ""}))
