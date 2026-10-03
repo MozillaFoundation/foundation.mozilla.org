@@ -1,13 +1,59 @@
 .quote-block {
   figure {
     margin: 0;
+  }
 
-    blockquote {
-      margin: 0;
+  blockquote {
+    margin: 0;
 
-      p {
-        margin: 0 0 rem-calc(24);
-      }
+    p {
+      margin: 0 0 rem-calc(24);
     }
+  }
+
+  &__layout {
+    display: grid;
+    gap: rem-calc(24);
+  }
+
+  &--with-image &__layout {
+    @include breakpoint(medium up) {
+      grid-template-columns: minmax(0, 1fr) 120px;
+      grid-template-areas: "content image";
+      align-items: center;
+    }
+  }
+
+  &__content {
+    @include breakpoint(medium up) {
+      grid-area: content;
+    }
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @include breakpoint(medium up) {
+      grid-area: image;
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+  &__mark {
+    color: color(orange, "600");
+  }
+
+  &__attribution {
+    display: grid;
+    gap: rem-calc(4);
   }
 }

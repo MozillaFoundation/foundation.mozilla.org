@@ -1,11 +1,32 @@
-{% load i18n l10n %}
-<div class="quote-block">
-  <figure>
-    <blockquote>
-      <p class="{% block quote_classes %}quote-text-regular{% endblock quote_classes %}">{% blocktrans with quote=value.quote %}“{{ quote }}”{% endblocktrans %}</p>
-    </blockquote>
-    {% if value.attribution %}
-      <figcaption>{{ value.attribution }}</figcaption>
+{% load i18n l10n wagtailimages_tags %}
+<div class="quote-block{% if value.image %} quote-block--with-image{% endif %}">
+  <div class="quote-block__layout">
+    {% if value.image %}
+      {% image value.image fill-240x240 as quote_image %}
+      <div class="quote-block__image">
+        <img
+          src="{{ quote_image.url }}"
+          alt="{% if not value.image.decorative %}{{ value.image.contextual_alt_text }}{% endif %}"
+          width="{{ quote_image.width }}"
+          height="{{ quote_image.height }}"
+          loading="lazy"
+        >
+      </div>
     {% endif %}
-  </figure>
+
+    <figure class="quote-block__content">
+      <blockquote>
+        <p class="{% block quote_classes %}quote-text-regular{% endblock quote_classes %}">
+          <span class="quote-block__mark" aria-hidden="true">“</span>{% blocktrans with quote=value.quote %}{{ quote }}{% endblocktrans %}<span class="quote-block__mark" aria-hidden="true">”</span>
+        </p>
+      </blockquote>
+
+      {% if value.attribution or value.attribution_subtitle %}
+        <figcaption class="quote-block__attribution">
+          {% if value.attribution %}<span>{{ value.attribution }}</span>{% endif %}
+          {% if value.attribution_subtitle %}<span class="quote-block__subtitle">{{ value.attribution_subtitle }}</span>{% endif %}
+        </figcaption>
+      {% endif %}
+    </figure>
+  </div>
 </div>
