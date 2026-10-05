@@ -29,7 +29,7 @@ from foundation_cms.blocks.image_grid_block import (
     ImageGridSectionBlock,
 )
 from foundation_cms.blocks.impact_number_block import ImpactNumberBlock, ImpactStatBlock
-from foundation_cms.blocks.link_block import LinkBlock
+from foundation_cms.blocks.link_block import LinkBlock, LinkValue
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
 from foundation_cms.blocks.list_block import ListBlock
 from foundation_cms.blocks.media_block import CustomMediaBlock
@@ -66,6 +66,14 @@ from foundation_cms.snippets.factories import (
 class LinkBlockFactory(wagtail_factories.StructBlockFactory):
     class Meta:
         model = LinkBlock
+
+    @classmethod
+    def _construct_struct_value(cls, block_class, params):
+        """Use LinkValue so tests can read `url` off the built block."""
+        return LinkValue(
+            block_class(),
+            [(name, value) for name, value in params.items()],
+        )
 
     label = factory.Faker("sentence", nb_words=3)
     link_to = "external_url"
