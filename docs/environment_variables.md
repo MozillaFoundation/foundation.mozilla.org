@@ -65,8 +65,8 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `GITHUB_TOKEN` | `""` | GitHub token for review app automation |
 | `SLACK_WEBHOOK_RA` | `""` | Slack webhook for review app notifications |
 | `PETITION_TEST_CAMPAIGN_ID` | `""` | Salesforce campaign ID for petition testing |
-| `CAMO_ENDPOINT_KEY` | `""` | Camo image proxy key |
-| `CAMO_NEWSLETTER_ENDPOINT` | `""` | Camo newsletter endpoint |
+| `SAILTHRU_ENDPOINT_KEY` | `""` | API key sent with newsletter unsubscribe requests |
+| `SAILTHRU_NEWSLETTER_ENDPOINT` | `""` | Sailthru newsletter subscribe endpoint |
 | `UNSUBSCRIBE_NEWSLETTER_ENDPOINT` | `""` | Newsletter unsubscribe endpoint |
 | `SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL` | `""` | Redirect after successful unsubscribe |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION` | `""` | Apple Pay domain key for Foundation |

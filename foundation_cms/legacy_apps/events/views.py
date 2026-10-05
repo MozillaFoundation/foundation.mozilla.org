@@ -9,7 +9,7 @@ from rest_framework import status
 from foundation_cms.views import (
     error_json_response,
     process_lang_code,
-    subscribe_to_camo_newsletter,
+    subscribe_to_sailthru_newsletter,
 )
 
 from .utils import has_signed_up_to_newsletter, is_valid_tito_request
@@ -40,7 +40,7 @@ def tito_ticket_completed(request):
     if email and has_signed_up_to_newsletter(data):
         try:
             # @TODO make this more DRY w/ foundation_cms/views.py
-            # @TODO we should have a separate ENV variable for dev CAMO endpoint
+            # @TODO we should have a separate ENV variable for dev Sailthru endpoint
             data = {
                 "email": email,
                 "format": "html",
@@ -51,7 +51,7 @@ def tito_ticket_completed(request):
                 "first_name": "",
                 "last_name": "",
             }
-            return subscribe_to_camo_newsletter(data)
+            return subscribe_to_sailthru_newsletter(data)
 
         except Exception as error:
             logger.exception(f"Subscription from Tito webhook failed: {str(error)}")

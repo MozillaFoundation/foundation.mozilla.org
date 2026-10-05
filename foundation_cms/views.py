@@ -152,14 +152,14 @@ def newsletter_signup_submission(request, newsletter):
         "last_name": "",
     }
 
-    return subscribe_to_camo_newsletter(data)
+    return subscribe_to_sailthru_newsletter(data)
 
 
-def subscribe_to_camo_newsletter(data):
+def subscribe_to_sailthru_newsletter(data):
     # New endpoint doesn't want "newsletters" in data.
     # We can just tell it what newsletter to subscribe to based on the endpoint URL.
     newsletter = data.pop("newsletters", None)
-    endpoint_url = f"{settings.CAMO_NEWSLETTER_ENDPOINT}/{newsletter}"
+    endpoint_url = f"{settings.SAILTHRU_NEWSLETTER_ENDPOINT}/{newsletter}"
 
     resp = requests.post(
         endpoint_url,
@@ -187,7 +187,7 @@ def newsletter_unsubscribe_view(request):
     unsubscribe_request = requests.post(
         settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
         json={"email": email, "unsubscribe_all": True},
-        headers={"X-API-Key": settings.CAMO_ENDPOINT_KEY},
+        headers={"X-API-Key": settings.SAILTHRU_ENDPOINT_KEY},
     )
 
     if unsubscribe_request.status_code == 200:
