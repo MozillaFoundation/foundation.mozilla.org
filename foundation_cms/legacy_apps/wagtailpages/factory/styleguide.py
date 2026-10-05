@@ -37,9 +37,7 @@ class StyleguideFactory(PageFactory):
     body = factory.Faker("streamfield", fields=styleguide_streamfield_fields)
     emoji_image = factory.SubFactory(
         ImageFactory,
-        file=factory.django.ImageField(
-            from_path=settings.BASE_DIR + "/legacy_apps/static/images/buyers-guide/heart-emoji.png"
-        ),
+        file=factory.django.ImageField(from_path=settings.BASE_DIR + "/legacy_apps/static/images/heart-emoji.png"),
     )
 
 

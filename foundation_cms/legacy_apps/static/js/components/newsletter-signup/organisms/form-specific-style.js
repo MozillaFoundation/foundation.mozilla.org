@@ -98,20 +98,6 @@ export const FORM_STYLE = {
     headingLevel: 3,
     headingClass: `tw-h3-heading medium:tw-w-4/5`,
   },
-  "pni-creep-vote": {
-    buttonPosition: "bottom",
-    buttonStyle: "primary",
-    buttonWidthClasses: "tw-w-1/2",
-    descriptionClass: "tw-text-center",
-    fieldStyle: "filled",
-    headingLevel: 2,
-    headingClass: "tw-h3-heading tw-text-center",
-  },
-  "pni-product-quiz": {
-    fieldStyle: "filled",
-    headingLevel: 4,
-    headingClass: `tw-h5-heading`,
-  },
   "youtube-regrets-reporter:2-col": {
     buttonStyle: "primary",
     buttonWidthClasses: "tw-w-full",

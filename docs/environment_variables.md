@@ -66,7 +66,6 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `GITHUB_TOKEN` | `""` | GitHub token for review app automation |
 | `SLACK_WEBHOOK_RA` | `""` | Slack webhook for review app notifications |
 | `PETITION_TEST_CAMPAIGN_ID` | `""` | Salesforce campaign ID for petition testing |
-| `PNI_STATS_DB_URL` | `None` | \*Privacy Not Included stats database URL |
 | `CAMO_ENDPOINT_KEY` | `""` | Camo image proxy key |
 | `CAMO_NEWSLETTER_ENDPOINT` | `""` | Camo newsletter endpoint |
 | `NEWSLETTER_SIGNUP_METHOD` | `""` | Newsletter signup method |

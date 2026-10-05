@@ -17,10 +17,6 @@ http://legacy.localhost:8000/en/publication-page-with-child-article-pages
 http://legacy.localhost:8000/en/publication-page-with-chapter-pages
 http://legacy.localhost:8000/en/publication-page-with-chapter-pages/fixed-title-chapter-page
 http://legacy.localhost:8000/en/publication-page-with-chapter-pages/fixed-title-chapter-page/fixed-title-article-page
-http://legacy.localhost:8000/en/privacynotincluded/
-http://legacy.localhost:8000/en/privacynotincluded/categories/toys-games/
-http://legacy.localhost:8000/en/privacynotincluded/general-percy-product/
-http://legacy.localhost:8000/en/privacynotincluded/software-percy-product/
 http://legacy.localhost:8000/en/style-guide/
 http://legacy.localhost:8000/en/campaigns/youtube-regrets/
 http://legacy.localhost:8000/en/campaigns/regrets-reporter/
