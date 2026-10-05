@@ -17,9 +17,9 @@
   margin: var(--space-16) 0;
 
   // Honor the shared 38px control token; allow wrapped labels to grow naturally.
-  padding-block: calc(var(--button-inset) - var(--border-width-thin));
+  padding-block: var(--button-inset);
   padding-inline: var(--space-20) var(--space-12);
-  border: var(--border-width-thin) solid transparent;
+  border: 0;
   border-radius: var(--radius-none);
   font-family: var(--font-family-text);
   font-size: var(--font-size-control);
@@ -29,6 +29,8 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
 
   &__label {
     min-width: 0;
@@ -44,6 +46,24 @@
     background-color: currentcolor;
     mask: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg")
       center / var(--size-icon-glyph) var(--size-icon-glyph) no-repeat;
+    transition: transform var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard);
+  }
+
+  &--btn-primary:hover:not(:disabled)::after,
+  &--btn-secondary:hover:not(:disabled)::after {
+    transform: translateX(var(--space-4));
+  }
+
+  // Mirror directional arrows, preserving the contextual email/external glyphs.
+  [dir="rtl"] &:not(.external, .email)::after {
+    transform: scaleX(-1);
+  }
+
+  [dir="rtl"] &--btn-primary:not(.external, .email):hover:not(:disabled)::after,
+  [dir="rtl"]
+    &--btn-secondary:not(.external, .email):hover:not(:disabled)::after {
+    transform: scaleX(-1) translateX(calc(-1 * var(--space-4)));
   }
 
   &--btn-primary {
@@ -59,7 +79,7 @@
   &--btn-secondary {
     color: var(--color-text-default);
     background-color: transparent;
-    border-color: var(--color-border-default);
+    box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-border-default);
 
     &:hover:not(:disabled) {
       color: var(--color-text-default);
@@ -69,7 +89,7 @@
 
   &:focus-visible {
     outline: var(--border-width-focus) solid var(--color-border-focus);
-    outline-offset: var(--space-2);
+    outline-offset: var(--space-10);
   }
 
   &:disabled {
@@ -97,5 +117,12 @@
   &.link-type-icon.email::after {
     mask-image: url("/static/foundation_cms/_images/icons/email.svg");
     mask-size: contain;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    &::after {
+      transition-duration: var(--mzf-motion-duration-instant);
+    }
   }
 }
