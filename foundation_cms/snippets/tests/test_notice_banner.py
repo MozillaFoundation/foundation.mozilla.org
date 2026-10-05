@@ -147,7 +147,7 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
 
                 # The banner positions its own CTA, so no alignment class is emitted.
                 self.assertContains(response, 'class="link-button-block"')
-                self.assertContains(response, f'class="{style}')
+                self.assertContains(response, f'class="button-reskin button-reskin--{style}')
                 self.assertContains(response, "link-button link-type-icon")
                 self.assertContains(response, f"link-type-icon {icon_class}")
                 expected_href = f"mailto:{link_value}" if link_type == "email" else link_value

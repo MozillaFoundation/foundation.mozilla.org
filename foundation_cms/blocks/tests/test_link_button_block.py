@@ -1,7 +1,10 @@
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase
 
-from foundation_cms.blocks.link_button_block import FixedAlignmentLinkButtonBlock, LinkButtonBlock
+from foundation_cms.blocks.link_button_block import (
+    FixedAlignmentLinkButtonBlock,
+    LinkButtonBlock,
+)
 
 
 class LinkButtonRenderingTests(SimpleTestCase):
