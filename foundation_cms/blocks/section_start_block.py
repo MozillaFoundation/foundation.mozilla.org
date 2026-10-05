@@ -1,4 +1,4 @@
-from wagtail.blocks import CharBlock, ChoiceBlock, RegexBlock
+from wagtail.blocks import BooleanBlock, CharBlock, ChoiceBlock, RegexBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
@@ -41,6 +41,12 @@ class SectionStartBlock(BaseBlock):
             "The spacing above and below the content of a section. Padding selection only applies to desktop. "
             "Mobile spacing is one size only."
         ),
+    )
+    divider = BooleanBlock(
+        required=False,
+        default=False,
+        label="Divider",
+        help_text="Adds a line along the top of this section.",
     )
     anchor_id = RegexBlock(
         regex=r"^[a-z0-9]+(?:-[a-z0-9]+)*$",
