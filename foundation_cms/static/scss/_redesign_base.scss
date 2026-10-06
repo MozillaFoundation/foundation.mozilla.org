@@ -14,7 +14,6 @@
 
 // Cosmos, the new brand for the site refresh, ported from LP's design system
 @import "../scss/cosmos/index";
-@import "../scss/components/button_reskin";
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
@@ -54,6 +53,7 @@
 @import "../scss/blocks/themes/default/icon_info_grid_block";
 
 // Site-wide Components
+@import "../scss/components/button";
 @import "../scss/components/donate_banner/donate_banner";
 @import "../scss/components/donate_banner/donate_lightbox";
 @import "../scss/components/primary_nav";
