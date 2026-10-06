@@ -21,6 +21,8 @@ class AccordionBlockItem(BaseBlock):
 
 
 class AccordionBlock(BaseBlock):
+    is_cosmos_block = True
+
     accordion_items = ListBlock(AccordionBlockItem(), min_num=1)
 
     class Meta:
