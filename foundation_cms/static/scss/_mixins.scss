@@ -196,10 +196,10 @@
 
 // New/reskinned redesign components are authored desktop-first, matching LP's
 // design system: base rules are the desktop styling, this mixin wraps the
-// mobile override. calc() defers the unit math to the browser since Sass
-// can't subtract px from the token's rem value directly.
+// mobile override. Inclusive of the breakpoint itself, like LP's own
+// `@media (max-width: 48rem)`, so ported Cosmos files switch at the same width.
 @mixin mobile-only {
-  @media (width <= calc(#{map.get($tokens, "size-breakpoint-mobile")} - 1px)) {
+  @media (width <= #{map.get($tokens, "size-breakpoint-mobile")}) {
     @content;
   }
 }
