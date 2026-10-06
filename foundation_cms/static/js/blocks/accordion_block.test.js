@@ -18,12 +18,13 @@ const ROW = `
   </details>
 `;
 
-function createAccordion(rows = 2) {
-  document.body.innerHTML = `
+function createAccordion(rows = 2, groups = 1) {
+  const group = `
     <div class="mzf-c-accordion-group">
       <div class="mzf-c-accordion-group__items">${ROW.repeat(rows)}</div>
     </div>
   `;
+  document.body.innerHTML = group.repeat(groups);
 
   return [...document.querySelectorAll(".mzf-c-accordion-item")].map(
     (details) => {
@@ -165,17 +166,53 @@ describe("accordion rows", () => {
     expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
   });
 
-  it("lets several rows be open at once", () => {
+  it("closes the open row in the same group when another opens", () => {
     const [first, second] = createAccordion();
     initAllAccordionBlocks();
 
     click(first.summary);
     dispatchTransitionEnd(first.reveal);
     click(second.summary);
+
+    // The first row closes with its own animation while the second opens.
+    expect(first.details.classList).toContain(
+      "mzf-c-accordion-item--collapsing",
+    );
+    expect(second.details.open).toBe(true);
+
+    dispatchTransitionEnd(first.reveal);
     dispatchTransitionEnd(second.reveal);
 
-    expect(first.details.open).toBe(true);
+    expect(first.details.open).toBe(false);
     expect(second.details.open).toBe(true);
+  });
+
+  it("closes a row that is still opening when another opens", () => {
+    const [first, second] = createAccordion();
+    initAllAccordionBlocks();
+
+    click(first.summary);
+    click(second.summary);
+
+    expect(first.details.classList).not.toContain(
+      "mzf-c-accordion-item--expanding",
+    );
+    expect(first.details.classList).toContain(
+      "mzf-c-accordion-item--collapsing",
+    );
+  });
+
+  it("leaves rows in other accordion groups open", () => {
+    const [first, , third] = createAccordion(2, 2);
+    initAllAccordionBlocks();
+
+    click(first.summary);
+    dispatchTransitionEnd(first.reveal);
+    click(third.summary);
+    dispatchTransitionEnd(third.reveal);
+
+    expect(first.details.open).toBe(true);
+    expect(third.details.open).toBe(true);
   });
 
   it("leaves the toggle to the browser when reduced motion is on", () => {
@@ -188,6 +225,20 @@ describe("accordion rows", () => {
     expect(event.defaultPrevented).toBe(false);
     expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
     expect(reveal.style.height).toBe("");
+  });
+
+  it("closes the open row instantly when reduced motion is on", () => {
+    stubReducedMotion(true);
+    const [first, second] = createAccordion();
+    initAllAccordionBlocks();
+    second.details.open = true;
+
+    click(first.summary);
+
+    expect(second.details.open).toBe(false);
+    expect(second.details.classList).not.toContain(
+      "mzf-c-accordion-item--collapsing",
+    );
   });
 
   it("wires each row only once", () => {

@@ -1,14 +1,15 @@
 // Smooth open and close for Cosmos accordion rows (<details class="mzf-c-accordion-item">).
 // Ported from the behavior script in LP's components/elements/accordion/item/index.html,
-// LP commit d9c715e96d. Same behavior and motion as LP's script, restructured as an
-// ES module: pending animations are tracked in WeakMaps instead of properties on the
-// element, the two transitionend/fallback blocks share one helper, and LP's unused
+// LP commit d9c715e96d. Same motion as LP's script, restructured as an ES module:
+// pending animations are tracked in WeakMaps instead of properties on the element,
+// the two transitionend/fallback blocks share one helper, and LP's unused
 // motionTokens/closeDurationMs helpers are dropped.
 //
 // Without this script the rows still open and close, instantly, because <details>
-// does that itself. Several rows can be open at once, which is LP's default.
+// does that itself.
 
 const SELECTORS = {
+  group: ".mzf-c-accordion-group",
   item: ".mzf-c-accordion-item",
   summary: ".mzf-c-accordion-item__summary",
   reveal: ".mzf-c-accordion-item__reveal",
@@ -148,6 +149,19 @@ export function collapse(details, reveal) {
   pendingCollapse.set(details, done);
 }
 
+// The other rows in the same group that are open, or opening, and not already closing.
+function openSiblings(details) {
+  const group = details.closest(SELECTORS.group);
+  if (!group) return [];
+
+  return [...group.querySelectorAll(SELECTORS.item)].filter(
+    (row) =>
+      row !== details &&
+      row.open &&
+      !row.classList.contains(CLASSES.collapsing),
+  );
+}
+
 export function initAccordionItem(details) {
   if (details.dataset.mzfAccordionWired) return;
   details.dataset.mzfAccordionWired = "1";
@@ -158,7 +172,15 @@ export function initAccordionItem(details) {
 
   summary.addEventListener("click", (event) => {
     // Leave it to the browser's instant toggle; CSS drops every transition too.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // The click lands before the toggle, so a closed row here is about to open.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (!details.open) {
+        openSiblings(details).forEach((row) => {
+          row.open = false;
+        });
+      }
+      return;
+    }
 
     event.preventDefault();
     if (details.classList.contains(CLASSES.collapsing)) return;
@@ -166,6 +188,14 @@ export function initAccordionItem(details) {
     if (details.open) {
       collapse(details, reveal);
     } else {
+      openSiblings(details).forEach((row) => {
+        const rowReveal = row.querySelector(SELECTORS.reveal);
+        if (rowReveal) {
+          collapse(row, rowReveal);
+        } else {
+          row.open = false;
+        }
+      });
       expand(details, reveal);
     }
   });
