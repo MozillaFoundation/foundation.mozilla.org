@@ -7,9 +7,14 @@
 // yet keep the legacy rich text styles, so nothing changes until a block opts in.
 // Desktop-first, like the Cosmos files (see docs/stack.md).
 
-// $line-height   Body line height. Headings keep LP's heading line height.
-// $gap           Space between paragraphs, lists, headings and dividers.
-// $gap-mobile    The same, below the mobile breakpoint.
+// Body text is LP's body copy as its tokens define it: Body Large on desktop and
+// Body below the mobile breakpoint (font.size.body-mobile, "Body copy below the
+// mobile breakpoint"), the same step down LP's own accordion makes.
+
+// $line-height          Body line height. Headings keep LP's heading line height.
+// $line-height-mobile   Body line height below the mobile breakpoint.
+// $gap                  Space between paragraphs, lists, headings and dividers.
+// $gap-mobile           The same, below the mobile breakpoint.
 
 // Body text inherits its color from the component; headings use the default ink.
 
@@ -20,6 +25,7 @@ $cosmos-rich-text-blocks: "p, ul, ol, h2, h3, h4, h5, h6, hr";
 
 @mixin cosmos-rich-text(
   $line-height: var(--line-height-body),
+  $line-height-mobile: $line-height,
   $gap: var(--space-24),
   $gap-mobile: var(--space-12)
 ) {
@@ -146,7 +152,9 @@ $cosmos-rich-text-blocks: "p, ul, ol, h2, h3, h4, h5, h6, hr";
     body.redesign & {
       --mzf-rich-text-gap: #{$gap-mobile};
 
-      font-size: var(--font-size-body-large-mobile);
+      font-size: var(--font-size-body-mobile);
+      line-height: $line-height-mobile;
+      letter-spacing: var(--letter-spacing-body);
 
       h2 {
         font-size: var(--font-size-h2-mobile);

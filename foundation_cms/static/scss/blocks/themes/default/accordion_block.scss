@@ -1,35 +1,13 @@
-// Our rich text inside LP's accordion description (cosmos/elements/accordion/_item.scss).
-// LP's `__body` styles a single paragraph; ours holds a content stream of rich text
-// blocks, which can carry several paragraphs and lists. The type itself comes from
-// `__body`; this only stops the legacy rich text styles from overriding it and spaces
-// the pieces, using the description's own gap (24px, 12px below the mobile breakpoint).
-// Desktop-first, like the Cosmos files it sits on (see docs/stack.md).
+// Rich text inside LP's accordion description (cosmos/elements/accordion/_item.scss)
+// uses LP's text styles through the shared cosmos-rich-text mixin, keeping LP's
+// accordion line heights (1.4, 1.5 on mobile) and its description gap (24px, 12px
+// on mobile).
 
 .mzf-c-accordion-item__body {
-  --mzf-accordion-body-gap: var(--space-24);
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--mzf-accordion-body-gap);
-
-  // The rich text block's own styles (rich_text_block.scss) set a fixed 18px
-  // size and line height, which would override LP's body type set on __body.
-  .rich-text-block {
-    font-size: inherit;
-    line-height: inherit;
-
-    > * {
-      margin-block: 0;
-    }
-
-    > * + * {
-      margin-block-start: var(--mzf-accordion-body-gap);
-    }
-  }
-}
-
-@include mobile-only {
-  .mzf-c-accordion-item__body {
-    --mzf-accordion-body-gap: var(--space-12);
-  }
+  @include cosmos-rich-text(
+    $line-height: var(--line-height-prose),
+    $line-height-mobile: var(--line-height-body),
+    $gap: var(--space-24),
+    $gap-mobile: var(--space-12)
+  );
 }
