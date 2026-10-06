@@ -1,4 +1,4 @@
-{% if button_style == "btn-primary" or button_style == "btn-secondary" %}
+{% if button_style == "btn-primary" or button_style == "btn-secondary" or reskin and button_style == "btn-primary-no-icon" or reskin and button_style == "btn-secondary-no-icon" or reskin and button_style == "btn-nav" or reskin and button_style == "btn-primary-white" or reskin and button_style == "btn-primary-grey" %}
   {% with tag=tag|default:"a" %}
     {% if tag == "button" %}
       <button
@@ -13,8 +13,8 @@
             data-{{ key }}="{{ value }}"
           {% endfor %}
         {% endif %}
-        class="{% if reskin %}button-reskin button-reskin--{{ button_style }}{% else %}{{ button_style }}{% endif %} {{ button_alignment }} {{ classnames }}">
-        {% if reskin %}<span class="button-reskin__label">{{ label }}</span>{% else %}{% include "patterns/components/_button_roller.html" %}{% endif %}
+        class="{% if reskin %}{% include "patterns/components/_button_reskin_classes.html" %}{% else %}{{ button_style }}{% endif %} {{ button_alignment }} {{ classnames }}">
+        {% if reskin %}{% include "patterns/components/_button_reskin_content.html" %}{% else %}{% include "patterns/components/_button_roller.html" %}{% endif %}
       </button>
     {% else %}
       <a href="{{ url }}"
@@ -26,8 +26,8 @@
            {% endfor %}
          {% endif %}
          {% if "hidden" in classnames %}tabindex="-1"{% endif %}
-         class="{% if reskin %}button-reskin button-reskin--{{ button_style }}{% else %}{{ button_style }}{% endif %} {{ button_alignment }} {{ classnames }}{% if render_link_type_icon %} link-type-icon{% if link_type == 'external_url' %} external{% elif link_type == 'email' %} email{% else %} link{% endif %}{% endif %}">
-        {% if reskin %}<span class="button-reskin__label">{{ label }}</span>{% else %}{% include "patterns/components/_button_roller.html" %}{% endif %}
+         class="{% if reskin %}{% include "patterns/components/_button_reskin_classes.html" %}{% else %}{{ button_style }}{% endif %} {{ button_alignment }} {{ classnames }}{% if render_link_type_icon %} link-type-icon{% if link_type == 'external_url' %} external{% elif link_type == 'email' %} email{% else %} link{% endif %}{% endif %}">
+        {% if reskin %}{% include "patterns/components/_button_reskin_content.html" %}{% else %}{% include "patterns/components/_button_roller.html" %}{% endif %}
       </a>
     {% endif %}
   {% endwith %}

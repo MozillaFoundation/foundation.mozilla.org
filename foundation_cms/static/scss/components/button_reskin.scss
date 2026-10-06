@@ -1,102 +1,43 @@
-// Explicit adoption keeps existing shared-button consumers on their current skin.
+// Site adaptations of cosmos/elements/buttons/primary. Opt-in at the template.
 .button-reskin {
-  --button-content-height: var(--size-icon-medium);
+  --button-content-height: calc(
+    var(--font-size-control) * var(--line-height-control)
+  );
   --button-inset: calc(
     (var(--size-control-height) - var(--button-content-height)) / 2
   );
 
-  display: inline-flex;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-0);
   width: fit-content;
   min-width: 0;
   max-width: 100%;
   min-height: var(--size-control-height);
   margin: var(--space-16) 0;
 
-  // Honor the shared 38px control token; allow wrapped labels to grow naturally.
+  // Honor the approved 38px control token and let wrapped labels grow.
   padding-block: var(--button-inset);
-  padding-inline: var(--space-20) var(--space-12);
-  border: 0;
-  border-radius: var(--radius-none);
-  font-family: var(--font-family-text);
-  font-size: var(--font-size-control);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-control);
-  letter-spacing: var(--letter-spacing-control);
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color var(--mzf-motion-duration-feedback)
-    var(--mzf-motion-easing-standard);
+  white-space: normal;
+
+  &.mzf-c-button--primary-icon,
+  &.mzf-c-button--cta-stroke-icon {
+    --button-content-height: var(--size-icon-medium);
+  }
 
   &__label {
     min-width: 0;
     overflow-wrap: anywhere;
-    white-space: normal;
   }
 
-  &::after {
-    content: "";
-    flex: 0 0 var(--size-icon-medium);
-    width: var(--size-icon-medium);
-    height: var(--size-icon-medium);
-    background-color: currentcolor;
-    mask: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg")
-      center / var(--size-icon-glyph) var(--size-icon-glyph) no-repeat;
-    transition: transform var(--mzf-motion-duration-feedback)
-      var(--mzf-motion-easing-standard);
-  }
-
-  &--btn-primary:hover:not(:disabled)::after,
-  &--btn-secondary:hover:not(:disabled)::after {
-    transform: translateX(var(--space-4));
-  }
-
-  // Mirror directional arrows, preserving the contextual email/external glyphs.
-  [dir="rtl"] &:not(.external, .email)::after {
-    transform: scaleX(-1);
-  }
-
-  [dir="rtl"] &--btn-primary:not(.external, .email):hover:not(:disabled)::after,
-  [dir="rtl"]
-    &--btn-secondary:not(.external, .email):hover:not(:disabled)::after {
-    transform: scaleX(-1) translateX(calc(-1 * var(--space-4)));
-  }
-
-  &--btn-primary {
-    color: var(--color-text-inverse);
-    background-color: var(--color-surface-inverse);
-
-    &:hover:not(:disabled) {
-      color: var(--color-text-inverse);
-      background-color: var(--color-surface-inverse-hover);
-    }
-  }
-
-  &--btn-secondary {
+  // Preserve label colors against the site's global anchor hover styling.
+  &:hover {
     color: var(--color-text-default);
-    background-color: transparent;
-    box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-border-default);
-
-    &:hover:not(:disabled) {
-      color: var(--color-text-default);
-      background-color: var(--color-surface-raised);
-    }
   }
 
-  &:focus-visible {
-    outline: var(--border-width-focus) solid var(--color-border-focus);
-    outline-offset: var(--space-10);
+  &.mzf-c-button--primary:hover,
+  &.mzf-c-button--primary-icon:hover {
+    color: var(--color-text-inverse);
   }
 
-  &:disabled {
-    opacity: var(--opacity-disabled);
-    cursor: default;
-  }
-
+  // Existing shared-template consumers may explicitly suppress their arrow.
   &.btn-primary--no-arrow,
   &.btn-secondary--no-arrow {
     --button-content-height: calc(
@@ -105,24 +46,40 @@
 
     padding-inline: var(--space-20);
 
-    &::after {
+    .mzf-c-button__icon {
       display: none;
     }
   }
 
-  &.link-type-icon.external::after {
-    mask-image: url("/static/foundation_cms/_images/icons/link-external-black.svg");
+  // Contextual glyphs share LP's icon box and motion, but are not directional.
+  &.link-type-icon.external .mzf-c-button__icon,
+  &.link-type-icon.email .mzf-c-button__icon {
+    svg {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: currentcolor;
+      mask: url("/static/foundation_cms/_images/icons/link-external-black.svg")
+        center / var(--size-icon-glyph) var(--size-icon-glyph) no-repeat;
+    }
   }
 
-  &.link-type-icon.email::after {
+  &.link-type-icon.email .mzf-c-button__icon::before {
     mask-image: url("/static/foundation_cms/_images/icons/email.svg");
     mask-size: contain;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    &,
-    &::after {
-      transition-duration: var(--mzf-motion-duration-instant);
-    }
+  [dir="rtl"] &.link-type-icon:is(.external, .email) .mzf-c-button__icon {
+    transform: none;
+  }
+
+  [dir="rtl"]
+    &.link-type-icon:is(.external, .email):hover:not(:disabled)
+    .mzf-c-button__icon {
+    transform: translateX(var(--space-4));
   }
 }

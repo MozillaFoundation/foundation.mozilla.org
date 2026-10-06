@@ -8,13 +8,13 @@
 @import "../scss/type";
 @import "../scss/mixins";
 @import "../scss/buttons";
-@import "../scss/components/button_reskin";
 @import "../scss/dividers";
 @import "../scss/utilities";
 @import "../scss/layout";
 
 // Cosmos, the new brand for the site refresh, ported from LP's design system
 @import "../scss/cosmos/index";
+@import "../scss/components/button_reskin";
 
 // Site-wide Blocks
 @import "../scss/blocks/themes/default/divider_block";
