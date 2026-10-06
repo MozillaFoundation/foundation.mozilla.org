@@ -1,46 +1,45 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { AccordionBlock, initAllAccordionBlocks } from "./accordion_block.js";
+import {
+  initAccordionItem,
+  initAllAccordionBlocks,
+} from "./accordion_block.js";
 
-function createAccordion() {
-  document.body.innerHTML = `
-    <div class="accordion-block__items">
-      <div class="accordion-item">
-        <button
-          class="accordion-item__button"
-          aria-controls="first-panel"
-          aria-expanded="true"
-        >
-          First
-        </button>
-        <div
-          id="first-panel"
-          class="accordion-item__panel"
-          style="height: auto"
-        ></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-item__button" aria-expanded="false">
-          Second
-        </button>
-        <div class="accordion-item__panel" hidden></div>
-      </div>
-      <button
-        class="accordion-item__button accordion-item__button--missing"
-        aria-expanded="false"
-      >
-        Missing panel
-      </button>
+const ROW = `
+  <details class="mzf-c-accordion-item">
+    <summary class="mzf-c-accordion-item__summary">
+      <span class="mzf-c-accordion-item__title">
+        <span class="mzf-c-accordion-item__label">Row</span>
+      </span>
+      <span class="mzf-c-accordion-item__expand" aria-hidden="true"></span>
+    </summary>
+    <div class="mzf-c-accordion-item__reveal">
+      <div class="mzf-c-accordion-item__description"><p>Body</p></div>
+    </div>
+  </details>
+`;
+
+function createAccordion(rows = 2, groups = 1) {
+  const group = `
+    <div class="mzf-c-accordion-group">
+      <div class="mzf-c-accordion-group__items">${ROW.repeat(rows)}</div>
     </div>
   `;
+  document.body.innerHTML = group.repeat(groups);
 
-  const root = document.querySelector(".accordion-block__items");
-  const triggers = root.querySelectorAll(".accordion-item__button");
-  const panels = root.querySelectorAll(".accordion-item__panel");
+  return [...document.querySelectorAll(".mzf-c-accordion-item")].map(
+    (details) => {
+      const summary = details.querySelector(".mzf-c-accordion-item__summary");
+      const reveal = details.querySelector(".mzf-c-accordion-item__reveal");
+      Object.defineProperty(reveal, "scrollHeight", { value: 120 });
+      return { details, summary, reveal };
+    },
+  );
+}
 
-  Object.defineProperty(panels[0], "scrollHeight", { value: 120 });
-  Object.defineProperty(panels[1], "scrollHeight", { value: 80 });
-
-  return { root, triggers, panels };
+function click(summary) {
+  const event = new MouseEvent("click", { bubbles: true, cancelable: true });
+  summary.dispatchEvent(event);
+  return event;
 }
 
 function dispatchTransitionEnd(element, propertyName = "height") {
@@ -49,9 +48,17 @@ function dispatchTransitionEnd(element, propertyName = "height") {
   element.dispatchEvent(event);
 }
 
-describe("AccordionBlock", () => {
+function stubReducedMotion(matches) {
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn(() => ({ matches })),
+  );
+}
+
+describe("accordion rows", () => {
   beforeEach(() => {
-    vi.stubGlobal("CSS", { escape: vi.fn((value) => value) });
+    vi.useFakeTimers();
+    stubReducedMotion(false);
     vi.stubGlobal(
       "requestAnimationFrame",
       vi.fn((callback) => callback()),
@@ -59,118 +66,200 @@ describe("AccordionBlock", () => {
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
     document.body.innerHTML = "";
   });
 
-  it("finds panels by aria-controls or the surrounding accordion item", () => {
-    const { root, triggers, panels } = createAccordion();
-    const accordion = new AccordionBlock(root);
-
-    expect(accordion.getPanelForTrigger(triggers[0])).toBe(panels[0]);
-    expect(accordion.getPanelForTrigger(triggers[1])).toBe(panels[1]);
-    expect(accordion.getPanelForTrigger(triggers[2])).toBeUndefined();
-  });
-
-  it("initializes panels and switches the expanded item on click", () => {
-    const { root, triggers, panels } = createAccordion();
-    const accordion = new AccordionBlock(root);
-
-    accordion.init();
-    triggers[1].click();
-
-    expect(panels[0].style.transition).toBe("height 300ms ease-in-out");
-    expect(panels[1].style.transition).toBe("height 300ms ease-in-out");
-    expect(triggers[0].getAttribute("aria-expanded")).toBe("false");
-    expect(panels[0].style.height).toBe("0px");
-    expect(triggers[1].getAttribute("aria-expanded")).toBe("true");
-    expect(panels[1].hidden).toBe(false);
-    expect(panels[1].style.height).toBe("80px");
-
-    dispatchTransitionEnd(panels[0]);
-    dispatchTransitionEnd(panels[1]);
-
-    expect(panels[0].hidden).toBe(true);
-    expect(panels[1].style.height).toBe("auto");
-
-    triggers[1].click();
-    dispatchTransitionEnd(panels[1]);
-
-    expect(triggers[1].getAttribute("aria-expanded")).toBe("false");
-    expect(panels[1].hidden).toBe(true);
-  });
-
-  it("leaves panels unchanged when they already have the requested state", () => {
-    const { root, triggers, panels } = createAccordion();
-    const accordion = new AccordionBlock(root);
-    panels[1].hidden = false;
-    panels[1].style.height = "42px";
-
-    accordion.openAccordion(triggers[0], panels[0]);
-    accordion.closeAccordion(triggers[1], panels[1]);
-
-    expect(requestAnimationFrame).not.toHaveBeenCalled();
-    expect(panels[0].style.height).toBe("auto");
-    expect(panels[1].hidden).toBe(false);
-    expect(panels[1].style.height).toBe("42px");
-  });
-
-  it("uses the rendered height when closing a panel mid-open", () => {
-    const { root, triggers, panels } = createAccordion();
-    const accordion = new AccordionBlock(root);
-    const offsetHeightSpy = vi
-      .spyOn(panels[1], "offsetHeight", "get")
-      .mockReturnValue(64);
-
-    accordion.openAccordion(triggers[1], panels[1]);
-    accordion.closeAccordion(triggers[1], panels[1]);
-
-    expect(offsetHeightSpy).toHaveBeenCalled();
-    expect(triggers[1].getAttribute("aria-expanded")).toBe("false");
-    expect(panels[1].style.height).toBe("0px");
-
-    dispatchTransitionEnd(panels[1]);
-
-    expect(panels[1].hidden).toBe(true);
-  });
-
-  it("only completes height transitions dispatched by the panel itself", () => {
-    const { root, triggers, panels } = createAccordion();
-    const accordion = new AccordionBlock(root);
-    const child = document.createElement("span");
-    panels[1].appendChild(child);
-
-    accordion.openAccordion(triggers[1], panels[1]);
-    dispatchTransitionEnd(panels[1], "opacity");
-    dispatchTransitionEnd(child);
-
-    expect(panels[1].style.height).toBe("80px");
-
-    dispatchTransitionEnd(panels[1]);
-
-    expect(panels[1].style.height).toBe("auto");
-  });
-
-  it("initializes every accordion block on the page", () => {
-    const first = createAccordion();
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      `
-        <div class="accordion-block__items">
-          <div class="accordion-item">
-            <button class="accordion-item__button" aria-expanded="false"></button>
-            <div class="accordion-item__panel"></div>
-          </div>
-        </div>
-      `,
-    );
-
+  it("opens a closed row by animating the reveal to its content height", () => {
+    const [{ details, summary, reveal }] = createAccordion();
     initAllAccordionBlocks();
 
-    expect(first.panels[0].style.transition).toBe("height 300ms ease-in-out");
-    expect(
-      document.querySelectorAll(".accordion-item__panel")[2].style.transition,
-    ).toBe("height 300ms ease-in-out");
+    const event = click(summary);
+
+    // The script takes over the native toggle so it can animate.
+    expect(event.defaultPrevented).toBe(true);
+    expect(details.open).toBe(true);
+    expect(details.classList).toContain("mzf-c-accordion-item--expanding");
+    expect(reveal.style.height).toBe("120px");
+
+    dispatchTransitionEnd(reveal);
+
+    expect(details.open).toBe(true);
+    expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
+    expect(reveal.style.height).toBe("");
+  });
+
+  it("keeps an open row open until the close animation finishes", () => {
+    const [{ details, summary, reveal }] = createAccordion();
+    initAllAccordionBlocks();
+    details.open = true;
+
+    click(summary);
+
+    // [open] stays set while the height animates to 0, so the copy stays visible.
+    expect(details.open).toBe(true);
+    expect(details.classList).toContain("mzf-c-accordion-item--collapsing");
+    expect(reveal.style.height).toBe("0px");
+
+    dispatchTransitionEnd(reveal);
+
+    expect(details.open).toBe(false);
+    expect(details.classList).not.toContain("mzf-c-accordion-item--collapsing");
+    expect(reveal.style.height).toBe("");
+  });
+
+  it("ignores clicks while a row is closing", () => {
+    const [{ details, summary, reveal }] = createAccordion();
+    initAllAccordionBlocks();
+    details.open = true;
+    click(summary);
+
+    const event = click(summary);
+
+    expect(event.defaultPrevented).toBe(true);
+    expect(details.classList).toContain("mzf-c-accordion-item--collapsing");
+
+    dispatchTransitionEnd(reveal);
+
+    expect(details.open).toBe(false);
+  });
+
+  it("closes a row that is still opening, settling the open first", () => {
+    const [{ details, summary, reveal }] = createAccordion();
+    initAllAccordionBlocks();
+
+    click(summary);
+    click(summary);
+
+    expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
+    expect(details.classList).toContain("mzf-c-accordion-item--collapsing");
+
+    dispatchTransitionEnd(reveal);
+
+    expect(details.open).toBe(false);
+  });
+
+  it("finishes on a timeout when transitionend never fires", () => {
+    const [{ details, summary }] = createAccordion();
+    initAllAccordionBlocks();
+
+    click(summary);
+    vi.advanceTimersByTime(500 + 48);
+
+    expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
+  });
+
+  it("only finishes on the reveal's own height transition", () => {
+    const [{ details, summary, reveal }] = createAccordion();
+    initAllAccordionBlocks();
+
+    click(summary);
+    dispatchTransitionEnd(reveal, "opacity");
+    dispatchTransitionEnd(reveal.firstElementChild);
+
+    expect(details.classList).toContain("mzf-c-accordion-item--expanding");
+
+    dispatchTransitionEnd(reveal);
+
+    expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
+  });
+
+  it("closes the open row in the same group when another opens", () => {
+    const [first, second] = createAccordion();
+    initAllAccordionBlocks();
+
+    click(first.summary);
+    dispatchTransitionEnd(first.reveal);
+    click(second.summary);
+
+    // The first row closes with its own animation while the second opens.
+    expect(first.details.classList).toContain(
+      "mzf-c-accordion-item--collapsing",
+    );
+    expect(second.details.open).toBe(true);
+
+    dispatchTransitionEnd(first.reveal);
+    dispatchTransitionEnd(second.reveal);
+
+    expect(first.details.open).toBe(false);
+    expect(second.details.open).toBe(true);
+  });
+
+  it("closes a row that is still opening when another opens", () => {
+    const [first, second] = createAccordion();
+    initAllAccordionBlocks();
+
+    click(first.summary);
+    click(second.summary);
+
+    expect(first.details.classList).not.toContain(
+      "mzf-c-accordion-item--expanding",
+    );
+    expect(first.details.classList).toContain(
+      "mzf-c-accordion-item--collapsing",
+    );
+  });
+
+  it("leaves rows in other accordion groups open", () => {
+    const [first, , third] = createAccordion(2, 2);
+    initAllAccordionBlocks();
+
+    click(first.summary);
+    dispatchTransitionEnd(first.reveal);
+    click(third.summary);
+    dispatchTransitionEnd(third.reveal);
+
+    expect(first.details.open).toBe(true);
+    expect(third.details.open).toBe(true);
+  });
+
+  it("leaves the toggle to the browser when reduced motion is on", () => {
+    stubReducedMotion(true);
+    const [{ details, summary, reveal }] = createAccordion();
+    initAllAccordionBlocks();
+
+    const event = click(summary);
+
+    expect(event.defaultPrevented).toBe(false);
+    expect(details.classList).not.toContain("mzf-c-accordion-item--expanding");
+    expect(reveal.style.height).toBe("");
+  });
+
+  it("closes the open row instantly when reduced motion is on", () => {
+    stubReducedMotion(true);
+    const [first, second] = createAccordion();
+    initAllAccordionBlocks();
+    second.details.open = true;
+
+    click(first.summary);
+
+    expect(second.details.open).toBe(false);
+    expect(second.details.classList).not.toContain(
+      "mzf-c-accordion-item--collapsing",
+    );
+  });
+
+  it("wires each row only once", () => {
+    const [{ details, summary }] = createAccordion(1);
+    initAllAccordionBlocks();
+    initAllAccordionBlocks();
+
+    click(summary);
+
+    // A second listener would see the row already open and start closing it.
+    expect(details.classList).toContain("mzf-c-accordion-item--expanding");
+    expect(details.classList).not.toContain("mzf-c-accordion-item--collapsing");
+  });
+
+  it("skips a row that is missing its reveal", () => {
+    const [{ details, summary, reveal }] = createAccordion(1);
+    reveal.remove();
+    initAccordionItem(details);
+
+    const event = click(summary);
+
+    expect(event.defaultPrevented).toBe(false);
   });
 });
