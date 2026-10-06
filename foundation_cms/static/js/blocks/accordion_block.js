@@ -8,6 +8,10 @@
 // Without this script the rows still open and close, instantly, because <details>
 // does that itself.
 
+/**
+ * CSS selectors for the accordion group and its rows (LP's Cosmos classes).
+ * @constant {Object}
+ */
 const SELECTORS = {
   group: ".mzf-c-accordion-group",
   item: ".mzf-c-accordion-item",
@@ -15,25 +19,46 @@ const SELECTORS = {
   reveal: ".mzf-c-accordion-item__reveal",
 };
 
+/**
+ * State classes LP's row CSS reads while a row animates open or closed.
+ * @constant {Object}
+ */
 const CLASSES = {
   expanding: "mzf-c-accordion-item--expanding",
   collapsing: "mzf-c-accordion-item--collapsing",
 };
 
-// Extra time after the transition before finishing anyway, in case transitionend
-// never fires (e.g. the row is hidden mid-animation).
+/**
+ * Extra time after the transition before finishing anyway, in case transitionend
+ * never fires (e.g. the row is hidden mid-animation).
+ * @constant {number}
+ */
 const FALLBACK_BUFFER_MS = 48;
 
-// Pending finish callbacks per row, so a click mid-animation can settle the one
-// in flight before starting the next.
+/**
+ * Pending finish callbacks per row, so a click mid-animation can settle the one
+ * in flight before starting the next.
+ * @type {WeakMap<HTMLDetailsElement, Function>}
+ */
 const pendingExpand = new WeakMap();
 const pendingCollapse = new WeakMap();
 
+/**
+ * Parses a duration custom property such as "500ms" into milliseconds.
+ * @param {string} value - The custom property's computed value
+ * @param {number} fallback - Milliseconds to use when the value is missing or not a number
+ * @returns {number} The duration in milliseconds
+ */
 function ms(value, fallback) {
   const n = parseFloat(String(value || "").trim());
   return Number.isFinite(n) ? n : fallback;
 }
 
+/**
+ * Reads the open animation's duration and easing from the row's custom properties.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @returns {{expandMs: number, expandEase: string}} The duration in ms and the easing
+ */
 function expandMotion(details) {
   const styles = getComputedStyle(details);
   return {
@@ -46,6 +71,11 @@ function expandMotion(details) {
   };
 }
 
+/**
+ * Reads the close animation's duration and easing from the row's custom properties.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @returns {{collapseMs: number, collapseEase: string}} The duration in ms and the easing
+ */
 function collapseMotion(details) {
   const styles = getComputedStyle(details);
   return {
@@ -58,6 +88,10 @@ function collapseMotion(details) {
   };
 }
 
+/**
+ * Removes the inline styles an animation set, handing the reveal back to the CSS.
+ * @param {HTMLElement} reveal - The row's reveal element
+ */
 function clearRevealInlineStyles(reveal) {
   reveal.style.transition = "";
   reveal.style.gridTemplateRows = "";
@@ -65,6 +99,12 @@ function clearRevealInlineStyles(reveal) {
   reveal.style.overflow = "";
 }
 
+/**
+ * Finishes any open or close animation still running on the row, so a new one
+ * starts from a settled state.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @param {HTMLElement} reveal - The row's reveal element
+ */
 function cancelPendingMotion(details, reveal) {
   pendingExpand.get(details)?.();
   pendingCollapse.get(details)?.();
@@ -73,8 +113,14 @@ function cancelPendingMotion(details, reveal) {
   details.classList.remove(CLASSES.expanding);
 }
 
-// Calls finish once, on the reveal's own height transitionend or after the
-// fallback timeout, whichever comes first.
+/**
+ * Calls finish once, on the reveal's own height transitionend or after the
+ * fallback timeout, whichever comes first.
+ * @param {HTMLElement} reveal - The row's reveal element
+ * @param {number} durationMs - The transition's duration, used for the fallback timeout
+ * @param {Function} finish - Called once the transition ends
+ * @returns {Function} Calls finish early, e.g. to settle an animation that gets interrupted
+ */
 function onHeightTransitionEnd(reveal, durationMs, finish) {
   let finished = false;
   let fallback;
@@ -96,6 +142,11 @@ function onHeightTransitionEnd(reveal, durationMs, finish) {
   return done;
 }
 
+/**
+ * Opens a row, animating the reveal's height from 0 to its content height.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @param {HTMLElement} reveal - The row's reveal element
+ */
 export function expand(details, reveal) {
   cancelPendingMotion(details, reveal);
   details.classList.add(CLASSES.expanding);
@@ -123,6 +174,12 @@ export function expand(details, reveal) {
   pendingExpand.set(details, done);
 }
 
+/**
+ * Closes a row, animating the reveal's height to 0. The row keeps [open] until the
+ * animation ends, so its content stays visible while it closes.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @param {HTMLElement} reveal - The row's reveal element
+ */
 export function collapse(details, reveal) {
   cancelPendingMotion(details, reveal);
   const { collapseMs, collapseEase } = collapseMotion(details);
@@ -149,7 +206,12 @@ export function collapse(details, reveal) {
   pendingCollapse.set(details, done);
 }
 
-// The other rows in the same group that are open, or opening, and not already closing.
+/**
+ * Finds the other rows in the same accordion group that are open or opening, and
+ * not already closing.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @returns {HTMLDetailsElement[]} The other open rows, or none if the row has no group
+ */
 function openSiblings(details) {
   const group = details.closest(SELECTORS.group);
   if (!group) return [];
@@ -162,6 +224,11 @@ function openSiblings(details) {
   );
 }
 
+/**
+ * Wires a row's summary so clicks animate it open or closed, and close the open row
+ * in the same group. Safe to call more than once; a row is only wired once.
+ * @param {HTMLDetailsElement} details - The accordion row
+ */
 export function initAccordionItem(details) {
   if (details.dataset.mzfAccordionWired) return;
   details.dataset.mzfAccordionWired = "1";
@@ -201,6 +268,9 @@ export function initAccordionItem(details) {
   });
 }
 
+/**
+ * Wires every accordion row on the page.
+ */
 export function initAllAccordionBlocks() {
   document.querySelectorAll(SELECTORS.item).forEach(initAccordionItem);
 }
