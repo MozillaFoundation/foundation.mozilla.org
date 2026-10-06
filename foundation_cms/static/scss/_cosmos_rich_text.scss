@@ -1,0 +1,167 @@
+// Cosmos rich text: maps CMS rich text onto LP's text styles (LP docs, Foundations >
+// Tokens > typography). LP has no rich text or body copy component, since each LP
+// component sets its own type from the tokens, so this is ours, not a port.
+
+// Reskinned blocks that hold rich text include it on the element wrapping the rich
+// text, passing their own body line height and spacing. Blocks that aren't reskinned
+// yet keep the legacy rich text styles, so nothing changes until a block opts in.
+// Desktop-first, like the Cosmos files (see docs/stack.md).
+
+// $line-height   Body line height. Headings keep LP's heading line height.
+// $gap           Space between paragraphs, lists, headings and dividers.
+// $gap-mobile    The same, below the mobile breakpoint.
+
+// Body text inherits its color from the component; headings use the default ink.
+
+// Every rule is prefixed with `body.redesign`, so it is more specific than the
+// legacy heading styles in _type.scss (`body.redesign h2`) and wins over them.
+
+$cosmos-rich-text-blocks: "p, ul, ol, h2, h3, h4, h5, h6, hr";
+
+@mixin cosmos-rich-text(
+  $line-height: var(--line-height-body),
+  $gap: var(--space-24),
+  $gap-mobile: var(--space-12)
+) {
+  body.redesign & {
+    --mzf-rich-text-gap: #{$gap};
+
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-body-large);
+    font-weight: var(--font-weight-medium);
+    line-height: $line-height;
+    letter-spacing: var(--letter-spacing-none);
+
+    // The rich text block's own styles (rich_text_block.scss) set a fixed 18px
+    // size and line height, which would override the body style set above.
+    .rich-text-block {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    // ---------- spacing ----------
+    // No element brings its own margins; the gap goes between siblings, and between
+    // stacked rich text blocks when a stream holds more than one. :where() keeps the
+    // reset below the gap rules while still outranking the legacy margins.
+    :where(#{$cosmos-rich-text-blocks}) {
+      margin-block: 0;
+    }
+
+    > * + *,
+    .rich-text-block > * + * {
+      margin-block-start: var(--mzf-rich-text-gap);
+    }
+
+    // ---------- headings ----------
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--color-text-default);
+      line-height: var(--line-height-heading);
+    }
+
+    h2 {
+      font-family: var(--font-family-headline);
+      font-size: var(--font-size-h2);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: var(--letter-spacing-h2);
+    }
+
+    h3 {
+      font-family: var(--font-family-headline);
+      font-size: var(--font-size-h3);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--letter-spacing-none);
+    }
+
+    // TODO: LP defines no h5/h6 text style, so they reuse H4 for now. Revisit once
+    // design specs them (h5/h6 are in live GeneralPage and Nothing Personal content).
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-family-text);
+      font-size: var(--font-size-h4);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: var(--letter-spacing-none);
+    }
+
+    // ---------- inline ----------
+    b,
+    strong {
+      font-weight: var(--font-weight-bold);
+    }
+
+    // TODO: LP has no style for links inside body copy (its only link style is the
+    // standalone "Link, small" element). Interim: the text color, underlined.
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--color-text-link-hover);
+      }
+    }
+
+    // TODO: our editor's "large" text has no LP equivalent inside a body style. The
+    // legacy rule (_type.scss) sets 20px, smaller than Body Large, so it follows the
+    // surrounding text for now.
+    .rich-text-large {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    // ---------- lists and dividers ----------
+    // TODO: LP has no list or divider style for body copy. Interim values below.
+    ul,
+    ol {
+      margin-inline-start: 0;
+      padding-inline-start: 1.25em;
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    li + li {
+      margin-block-start: var(--space-8);
+    }
+
+    hr {
+      max-inline-size: none;
+      block-size: 0;
+      margin-inline: 0;
+      border: 0;
+      border-block-start: var(--border-width-thin) solid
+        var(--color-border-subtle);
+    }
+  }
+
+  @include mobile-only {
+    body.redesign & {
+      --mzf-rich-text-gap: #{$gap-mobile};
+
+      font-size: var(--font-size-body-large-mobile);
+
+      h2 {
+        font-size: var(--font-size-h2-mobile);
+        letter-spacing: var(--letter-spacing-h2-mobile);
+      }
+
+      h3 {
+        font-size: var(--font-size-h3-mobile);
+      }
+
+      h4,
+      h5,
+      h6 {
+        font-size: var(--font-size-h4-mobile);
+      }
+    }
+  }
+}
