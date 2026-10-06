@@ -1,0 +1,399 @@
+// Ported from LP components/elements/accordion/item/styles.css
+// LP commit d9c715e96d
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Accordion Item — Figma 8556:12262
+   A header row that opens a description under it.
+
+   One class, `mzf-c-accordion-item`. A row works on its own. Several rows
+   stack onto the accordion group, which is a separate component and adds no
+   behavior of its own.
+
+   Built on <details> and <summary>, so it opens and closes with no
+   JavaScript and reaches the keyboard on its own. The design draws three
+   states: closed, hover and open. Closed and open are the element's own
+   states, and hover is a real pseudo-class, so nothing here needs a class
+   to be swapped at runtime.
+
+   Reveal height uses grid-template-rows at rest. The optional behavior
+   script in index.html drives height for open and close so every row
+   animates consistently on first open. See README.md Motion.
+
+   The design draws the row twice, once at 803px and once at 402px.
+   That is one component with a media query, not two components. */
+
+/* ---------- the item ---------- */
+.mzf-c-accordion-item {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  padding: var(--space-32);
+  background: transparent;
+  overflow: clip;
+  overflow-anchor: none;
+  transition: background var(--mzf-motion-duration-index-cards-hover-out)
+    var(--mzf-motion-easing-index-cards-collapse);
+
+  --mzf-accordion-expand-duration: var(
+    --mzf-motion-duration-index-cards-expand
+  );
+  --mzf-accordion-collapse-duration: var(
+    --mzf-motion-duration-index-cards-collapse
+  );
+  --mzf-accordion-expand-ease: var(--mzf-motion-easing-index-cards-expand);
+  --mzf-accordion-collapse-ease: var(--mzf-motion-easing-index-cards-collapse);
+  --mzf-accordion-content-out-duration: var(--mzf-motion-duration-base);
+  --mzf-accordion-content-in-start-delay: 55ms;
+}
+
+/* Native <details> drops its content from layout when closed, so the row
+   shrinks to the summary and snaps wider on open. Keep the slot in layout
+   for width and motion; the reveal clips height instead. */
+.mzf-c-accordion-item::details-content {
+  display: block;
+  overflow: visible;
+}
+
+/* Hover and open both lift the row onto a white card. Closed sits on
+   whatever is behind it. `--hover` mirrors `:hover` for static state previews. */
+.mzf-c-accordion-item:hover,
+.mzf-c-accordion-item.mzf-c-accordion-item--hover,
+.mzf-c-accordion-item[open] {
+  background: var(--color-surface-default);
+}
+
+.mzf-c-accordion-item:hover,
+.mzf-c-accordion-item.mzf-c-accordion-item--hover {
+  transition: background var(--mzf-motion-duration-index-cards-hover-in)
+    var(--mzf-motion-easing-index-cards-expand);
+}
+
+.mzf-c-accordion-item[open] {
+  transition: background var(--mzf-motion-duration-index-cards-expand)
+    var(--mzf-motion-easing-index-cards-expand);
+}
+
+/* Keep the lifted surface through the close animation, even after open drops. */
+.mzf-c-accordion-item.mzf-c-accordion-item--collapsing {
+  background: var(--color-surface-default);
+  transition: background var(--mzf-motion-duration-index-cards-hover-out)
+    var(--mzf-motion-easing-index-cards-collapse);
+}
+
+/* ---------- the header row ---------- */
+.mzf-c-accordion-item__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  min-inline-size: 0;
+  cursor: pointer;
+  list-style: none;
+  overflow-anchor: none;
+}
+
+.mzf-c-accordion-item__summary::-webkit-details-marker {
+  display: none;
+}
+
+.mzf-c-accordion-item__summary::marker {
+  content: "";
+}
+
+.mzf-c-accordion-item__summary:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+.mzf-c-accordion-item__title {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-12);
+  min-inline-size: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+/* The year is the quiet half of the title. It is inactive gray until you
+   read past it. */
+.mzf-c-accordion-item__year {
+  color: var(--color-text-inactive);
+}
+
+.mzf-c-accordion-item__label {
+  color: var(--color-text-default);
+}
+
+/* ---------- the expand glyph ----------
+   One 48px box with a plus drawn from two CSS strokes. The horizontal bar
+   stays fixed; only the vertical bar rotates 90° on open to read as a minus.
+   Below the mobile breakpoint the box is 32px and the glyph 12px wide.
+
+   The glyph is gray while the row is closed and at rest, and goes to full
+   ink the moment the row is under the pointer or open. */
+.mzf-c-accordion-item__expand {
+  flex: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-icon-xlarge);
+  block-size: var(--size-icon-xlarge);
+  color: var(--color-text-inactive);
+
+  --mzf-accordion-glyph-inset: 15px; /* allow-raw: Figma draws the plus 18px wide inside the 48px expand box, which lands inset 15px on each side. No spacing token sits at 15. */
+  --mzf-accordion-glyph-weight: 2.25px; /* allow-raw: Figma stroke weight on the expand glyph at desktop. The file binds it on the layer, not to border.width. */
+
+  transition: color var(--mzf-motion-duration-index-cards-hover-out)
+    var(--mzf-motion-easing-index-cards-collapse);
+}
+
+.mzf-c-accordion-item:hover .mzf-c-accordion-item__expand,
+.mzf-c-accordion-item.mzf-c-accordion-item--hover .mzf-c-accordion-item__expand,
+.mzf-c-accordion-item[open] .mzf-c-accordion-item__expand {
+  color: var(--color-text-default);
+}
+
+.mzf-c-accordion-item:hover .mzf-c-accordion-item__expand,
+.mzf-c-accordion-item.mzf-c-accordion-item--hover
+  .mzf-c-accordion-item__expand {
+  transition: color var(--mzf-motion-duration-index-cards-hover-in)
+    var(--mzf-motion-easing-index-cards-expand);
+}
+
+.mzf-c-accordion-item[open] .mzf-c-accordion-item__expand {
+  transition: color var(--mzf-motion-duration-index-cards-expand)
+    var(--mzf-motion-easing-index-cards-expand);
+}
+
+.mzf-c-accordion-item__expand::before,
+.mzf-c-accordion-item__expand::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline: var(--mzf-accordion-glyph-inset);
+  border-block-start: var(--mzf-accordion-glyph-weight) solid currentcolor;
+  transform-origin: center;
+}
+
+.mzf-c-accordion-item__expand::before {
+  transition: transform var(--mzf-motion-duration-index-cards-collapse)
+    var(--mzf-motion-easing-index-cards-collapse);
+}
+
+.mzf-c-accordion-item__expand::after {
+  opacity: 1;
+  transform: rotate(-90deg);
+  transition:
+    transform var(--mzf-motion-duration-index-cards-collapse)
+      var(--mzf-motion-easing-index-cards-collapse),
+    opacity var(--mzf-motion-duration-index-cards-collapse)
+      var(--mzf-motion-easing-index-cards-collapse);
+}
+
+.mzf-c-accordion-item[open]:not(.mzf-c-accordion-item--collapsing)
+  .mzf-c-accordion-item__expand::before {
+  transition: transform var(--mzf-motion-duration-index-cards-expand)
+    var(--mzf-motion-easing-index-cards-expand);
+}
+
+.mzf-c-accordion-item[open]:not(.mzf-c-accordion-item--collapsing)
+  .mzf-c-accordion-item__expand::after {
+  opacity: 0;
+  transform: rotate(0deg);
+  transition:
+    transform var(--mzf-motion-duration-index-cards-expand)
+      var(--mzf-motion-easing-index-cards-expand),
+    opacity var(--mzf-motion-duration-index-cards-expand)
+      var(--mzf-motion-easing-index-cards-expand);
+}
+
+.mzf-c-accordion-item.mzf-c-accordion-item--collapsing
+  .mzf-c-accordion-item__expand::before {
+  transition: transform var(--mzf-motion-duration-index-cards-collapse)
+    var(--mzf-motion-easing-index-cards-collapse);
+}
+
+.mzf-c-accordion-item.mzf-c-accordion-item--collapsing
+  .mzf-c-accordion-item__expand::after {
+  opacity: 1;
+  transform: rotate(-90deg);
+  transition:
+    transform var(--mzf-motion-duration-index-cards-collapse)
+      var(--mzf-motion-easing-index-cards-collapse),
+    opacity var(--mzf-motion-duration-index-cards-collapse)
+      var(--mzf-motion-easing-index-cards-collapse);
+}
+
+/* ---------- the description ----------
+   Content stays mounted at its final position with fixed padding. Inner
+   panels stay overflow-visible while a row is open so copy is never sheared;
+   only the row and group clip at the component edge. */
+.mzf-c-accordion-item__reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-inline-size: 0;
+  overflow: clip;
+  interpolate-size: allow-keywords;
+  transition: grid-template-rows var(--mzf-accordion-collapse-duration)
+    var(--mzf-accordion-collapse-ease);
+}
+
+.mzf-c-accordion-item:not([open]) .mzf-c-accordion-item__reveal {
+  grid-template-rows: 0fr;
+}
+
+/* Inner panels stay overflow-visible during open; the row clips at its edge. */
+.mzf-c-accordion-item--expanding .mzf-c-accordion-item__reveal {
+  transition: none;
+  overflow: visible;
+}
+
+.mzf-c-accordion-item--expanding .mzf-c-accordion-item__description {
+  overflow: visible;
+}
+
+.mzf-c-accordion-item[open]:not(.mzf-c-accordion-item--collapsing)
+  .mzf-c-accordion-item__reveal {
+  grid-template-rows: 1fr;
+  overflow: visible;
+  transition: grid-template-rows var(--mzf-accordion-expand-duration)
+    var(--mzf-accordion-expand-ease);
+}
+
+.mzf-c-accordion-item__description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: clip;
+
+  /* Fixed at final position inside the clip — never toggles with [open]. */
+  padding-block-start: var(--space-64);
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-accordion-collapse-duration)
+      var(--mzf-accordion-collapse-ease) 0s,
+    transform var(--mzf-accordion-collapse-duration)
+      var(--mzf-accordion-collapse-ease) 0s;
+}
+
+.mzf-c-accordion-item[open]:not(.mzf-c-accordion-item--collapsing)
+  .mzf-c-accordion-item__description {
+  overflow: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--mzf-motion-duration-base) var(--mzf-accordion-expand-ease)
+      var(--mzf-accordion-content-in-start-delay),
+    transform var(--mzf-accordion-expand-duration)
+      var(--mzf-accordion-expand-ease)
+      var(--mzf-accordion-content-in-start-delay);
+}
+
+.mzf-c-accordion-item.mzf-c-accordion-item--collapsing
+  .mzf-c-accordion-item__reveal,
+.mzf-c-accordion-item.mzf-c-accordion-item--collapsing
+  .mzf-c-accordion-item__description {
+  overflow: clip;
+}
+
+/* Content fades and lifts in sync with the nav mega menu reveal-inner pattern. */
+.mzf-c-accordion-item.mzf-c-accordion-item--collapsing
+  .mzf-c-accordion-item__description {
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-accordion-content-out-duration)
+      var(--mzf-accordion-collapse-ease) 0s,
+    transform var(--mzf-accordion-content-out-duration)
+      var(--mzf-accordion-collapse-ease) 0s;
+}
+
+.mzf-c-accordion-item__heading {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-headline);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+/* The paragraph is set at 1.4, which is tighter than the body line height
+   everywhere else in the system. The design draws it that way. */
+.mzf-c-accordion-item__body {
+  margin: 0;
+  color: var(--color-text-quiet);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-prose);
+  letter-spacing: var(--letter-spacing-none);
+  overflow-wrap: break-word;
+}
+
+/* ---------- below the mobile breakpoint ----------
+   Padding and both gaps come in, and all three type sizes step down. The
+   structure does not change. The threshold is size.breakpoint.mobile;
+   a media query cannot read a custom property, so the value is repeated
+   here and the token is the place it is recorded. */
+@include mobile-only {
+  .mzf-c-accordion-item {
+    padding: var(--space-20);
+  }
+
+  .mzf-c-accordion-item__expand {
+    inline-size: var(--size-icon-large);
+    block-size: var(--size-icon-large);
+
+    --mzf-accordion-glyph-inset: var(--space-10);
+    --mzf-accordion-glyph-weight: 1.5px; /* allow-raw: Figma stroke weight on the expand glyph at mobile. The file binds it on the layer, not to border.width.thin. */
+  }
+
+  .mzf-c-accordion-item__title {
+    font-size: var(--font-size-h4-mobile);
+  }
+
+  .mzf-c-accordion-item__description {
+    padding-block-start: var(--space-40);
+  }
+
+  .mzf-c-accordion-item[open]:not(.mzf-c-accordion-item--collapsing)
+    .mzf-c-accordion-item__description {
+    gap: var(--space-12);
+  }
+
+  .mzf-c-accordion-item__heading {
+    font-size: var(--font-size-h3-mobile);
+  }
+
+  .mzf-c-accordion-item__body {
+    font-size: var(--font-size-body-mobile);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-accordion-item,
+  .mzf-c-accordion-item__expand,
+  .mzf-c-accordion-item__expand::before,
+  .mzf-c-accordion-item__expand::after,
+  .mzf-c-accordion-item__reveal,
+  .mzf-c-accordion-item__description {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}
