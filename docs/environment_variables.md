@@ -67,7 +67,6 @@ Environment variables are loaded from a `.env` file in the project root (gitigno
 | `PETITION_TEST_CAMPAIGN_ID` | `""` | Salesforce campaign ID for petition testing |
 | `SAILTHRU_ENDPOINT_KEY` | `""` | API key sent with newsletter unsubscribe requests |
 | `SAILTHRU_NEWSLETTER_ENDPOINT` | `""` | Sailthru newsletter subscribe endpoint |
-| `SAILTHRU_X_API_KEY` | `""` | API key sent with newsletter subscribe requests to bypass rate limiting; header omitted when unset |
 | `UNSUBSCRIBE_NEWSLETTER_ENDPOINT` | `""` | Newsletter unsubscribe endpoint |
 | `SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL` | `""` | Redirect after successful unsubscribe |
 | `APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION` | `""` | Apple Pay domain key for Foundation |
