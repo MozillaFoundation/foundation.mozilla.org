@@ -161,11 +161,15 @@ def subscribe_to_sailthru_newsletter(data):
     newsletter = data.pop("newsletters", None)
     endpoint_url = f"{settings.SAILTHRU_NEWSLETTER_ENDPOINT}/{newsletter}"
 
+    headers = {"Content-Type": "application/json"}
+    if settings.SAILTHRU_ENDPOINT_KEY:
+        headers["X-API-Key"] = settings.SAILTHRU_ENDPOINT_KEY
+
     resp = requests.post(
         endpoint_url,
         json=data,
         timeout=8,
-        headers={"Content-Type": "application/json"},
+        headers=headers,
     )
 
     if resp.status_code == 200:
