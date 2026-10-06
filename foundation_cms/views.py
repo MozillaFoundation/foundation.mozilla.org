@@ -162,8 +162,8 @@ def subscribe_to_sailthru_newsletter(data):
     endpoint_url = f"{settings.SAILTHRU_NEWSLETTER_ENDPOINT}/{newsletter}"
 
     headers = {"Content-Type": "application/json"}
-    if settings.SAILTHRU_ENDPOINT_KEY:
-        headers["X-API-Key"] = settings.SAILTHRU_ENDPOINT_KEY
+    if settings.SAILTHRU_X_API_KEY:
+        headers["X-API-Key"] = settings.SAILTHRU_X_API_KEY
 
     resp = requests.post(
         endpoint_url,
