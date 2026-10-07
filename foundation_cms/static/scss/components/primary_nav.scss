@@ -365,6 +365,11 @@ $primary-nav-margin: 0.7rem;
     outline-offset: 2px;
   }
 
+  // The wordmark cell clips overflow, so draw its ring inside the link.
+  &__wordmark a:focus-visible {
+    outline-offset: -2px;
+  }
+
   a:not(.btn-primary):hover,
   a:not(.btn-primary):focus-visible {
     color: color(orange, "600");
