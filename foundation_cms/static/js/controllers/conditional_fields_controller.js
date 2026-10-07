@@ -4,8 +4,12 @@
  *
  * Usage notes
  * - values.triggerField: the name of the input/select/textarea to watch.
+ * - values.disableHidden: disable inputs in hidden targets (default true).
+ *   Turn off when a target holds a StreamField, which errors on save if its
+ *   inputs are missing from POST data.
  * - targets.field: elements that will be toggled. Each must include a
- *   data-condition attribute whose value is compared to the trigger value.
+ *   data-condition attribute listing the trigger values (space-separated)
+ *   that show it.
  *
  * Event strategy
  * - A single delegated 'change' listener is attached to `this.element`.
@@ -15,7 +19,10 @@
  */
 export default class extends window.StimulusModule.Controller {
   static targets = ["field"];
-  static values = { triggerField: String };
+  static values = {
+    triggerField: String,
+    disableHidden: { type: Boolean, default: true },
+  };
 
   /**
    * Stimulus lifecycle: runs when the controller is added to the DOM.
@@ -111,9 +118,9 @@ export default class extends window.StimulusModule.Controller {
 
   /**
    * Shows/hides and enables/disables each field target based on the current
-   * trigger value. When the `data-condition` attribute of a field target
-   * equals the trigger's value, that target is made visible and enabled; all
-   * others are hidden and disabled.
+   * trigger value. When the space-separated `data-condition` attribute of a
+   * field target includes the trigger's value, that target is made visible and
+   * enabled; all others are hidden and, if `disableHidden` is set, disabled.
    */
   updateFieldVisibility() {
     if (!this.triggerElement) return;
@@ -122,9 +129,11 @@ export default class extends window.StimulusModule.Controller {
 
     // Toggle visibility and disabled state for target field containers.
     this.fieldTargets.forEach((field) => {
-      const shouldShow = field.dataset.condition === selectedValue;
+      const conditions = (field.dataset.condition || "").split(/\s+/);
+      const shouldShow = conditions.includes(selectedValue);
       field.style.display = shouldShow ? "block" : "none";
       field.classList.toggle("hidden", !shouldShow);
+      if (!this.disableHiddenValue) return;
       field
         .querySelectorAll("input, select, textarea, button")
         .forEach((input) => (input.disabled = !shouldShow));
