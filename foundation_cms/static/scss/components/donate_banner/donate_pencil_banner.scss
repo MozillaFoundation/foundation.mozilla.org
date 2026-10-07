@@ -2,6 +2,10 @@
 
 .donate-pencil-banner {
   $close-size: rem-calc(24);
+  $padding-y: rem-calc(3);
+  $mobile-padding-top: rem-calc(8);
+  $mobile-padding-bottom: rem-calc(6);
+  $line-height: rem-calc(19.5);
 
   background: color(blue, "100");
   color: color(neutral, "600");
@@ -30,7 +34,11 @@
     align-items: center;
     justify-content: center;
     min-height: rem-calc(30);
-    padding: rem-calc(3) calc(#{$close-size} + #{rem-calc(16)});
+    padding: $padding-y calc(#{$close-size} + #{rem-calc(16)});
+
+    @include breakpoint(small only) {
+      padding-block: $mobile-padding-top $mobile-padding-bottom;
+    }
   }
 
   &__content {
@@ -43,13 +51,12 @@
     color: inherit;
     font-family: $body-font-family;
     font-size: rem-calc(13);
-    line-height: 1.5;
+    line-height: $line-height;
     letter-spacing: 0.01em;
     text-align: center;
 
     @include breakpoint(small only) {
       flex-direction: column;
-      padding-block: rem-calc(8);
     }
   }
 
@@ -82,8 +89,14 @@
 
   &__close {
     position: absolute;
-    top: rem-calc(3);
+    top: $padding-y;
     right: rem-calc(5);
+
+    // Stacked on mobile, so center on the title's first line instead.
+    @include breakpoint(small only) {
+      top: calc(#{$mobile-padding-top} + (#{$line-height} - #{$close-size}) / 2);
+    }
+
     display: flex;
     width: $close-size;
     height: $close-size;
