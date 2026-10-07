@@ -85,6 +85,7 @@
         {% endblock extended_head %}
 
         {% wagtail_ab_testing_script %}
+        {% include "patterns/components/donate_banner/_pencil_banner_head.html" %}
     </head>
 
     <body class="{% block body_class %}{% endblock body_class %} redesign {{ theme_class_bem }}" data-site-type="redesign">

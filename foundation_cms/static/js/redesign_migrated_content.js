@@ -7,11 +7,13 @@ import {
 } from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
 import { initDonateLightbox } from "./components/donate_lightbox.js";
+import { initDonatePencilBanner } from "./components/donate_pencil_banner.js";
 let foundationSiteURL = window.location.origin;
 
 initPrimaryNav();
 initDonateBanner();
 initDonateLightbox();
+initDonatePencilBanner();
 injectNewsletterSignups(foundationSiteURL);
 injectNewsletterUnsubscribes(foundationSiteURL);
 initWordmarkVisibilityOnScroll();
