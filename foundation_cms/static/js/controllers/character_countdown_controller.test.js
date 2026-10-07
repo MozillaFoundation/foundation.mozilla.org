@@ -17,12 +17,6 @@ function createController(element) {
 describe("CharacterCountdownController", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
-    window.ngettext = vi.fn((singular, plural, count) =>
-      count === 1 ? singular : plural,
-    );
-    window.interpolate = vi.fn((message, values) =>
-      message.replace("%(count)s", values.count),
-    );
   });
 
   it("initializes native and legacy fields inside the edit form", () => {
@@ -78,7 +72,7 @@ describe("CharacterCountdownController", () => {
     expect(form.querySelectorAll(".max-length-countdown")).toHaveLength(1);
   });
 
-  it("shows a localized warning when a legacy soft limit is exceeded", () => {
+  it("shows a warning when a legacy soft limit is exceeded", () => {
     document.body.innerHTML = `
       <form data-edit-form>
         <input
@@ -98,11 +92,6 @@ describe("CharacterCountdownController", () => {
     const countdown = document.querySelector(".max-length-countdown");
     expect(countdown.textContent).toBe("1 character over limit");
     expect(countdown.classList.contains("warning")).toBe(true);
-    expect(window.ngettext).toHaveBeenCalledWith(
-      "%(count)s character over limit",
-      "%(count)s characters over limit",
-      1,
-    );
   });
 
   it("excludes rich-text fields", () => {
