@@ -1,13 +1,21 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from wagtail.admin.panels import FieldPanel, HelpPanel, MultiFieldPanel
+from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import PreviewableMixin, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
+from foundation_cms.blocks.link_block import LinkWithDynamicLabelBlock
 from foundation_cms.constants import url_or_query_regex
+from foundation_cms.core.panels.conditional_fields_panel import ConditionalFieldsPanel
+
+
+def default_pencil_link():
+    return [("link", {"label": "Support Mozilla", "link_to": "relative_url", "relative_url": "?form=donate"})]
 
 
 @register_snippet
@@ -55,13 +63,24 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     foreground_image = models.ForeignKey(
         get_image_model_string(),
         models.PROTECT,
+        null=True,
+        blank=True,
         related_name="+",
+        help_text="Required for every banner style except Pencil.",
+    )
+    pencil_link = StreamField(
+        [("link", LinkWithDynamicLabelBlock(label_max_length=50))],
+        blank=True,
+        max_num=1,
+        default=default_pencil_link,
+        help_text="Required for the Pencil banner style.",
     )
 
     BANNER_STYLES = [
         ("legacy", "Legacy"),
         ("lightbox", "Lightbox"),
         ("pushdown", "Pushdown"),
+        ("pencil", "Pencil"),
     ]
 
     banner_style = models.CharField(
@@ -86,22 +105,39 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         help_text="Text used to describe the FRU Stat Counter Number (e.g. 'donors so far').",
     )
 
+    IMAGE_BANNER_STYLES = ("legacy", "lightbox", "pushdown")
+
     panels = [
         HelpPanel(content="To enable banner on site, visit the DonateBannerPage that is a child of the Homepage."),
         FieldPanel("name"),
-        FieldPanel("banner_style"),
-        FieldPanel("title"),
-        FieldPanel("subtitle"),
-        FieldPanel("cta_button_text"),
-        FieldPanel("cta_link"),
-        FieldPanel("foreground_image"),
-        MultiFieldPanel(
+        ConditionalFieldsPanel(
             [
-                FieldPanel("fru_thermometer_embed_code"),
-                FieldPanel("fru_stat_counter_embed_code"),
-                FieldPanel("fru_stat_counter_caption"),
+                FieldPanel("banner_style"),
+                FieldPanel("title"),
+                FieldPanel("subtitle", attrs=ConditionalFieldsPanel.show_when(*IMAGE_BANNER_STYLES)),
+                FieldPanel("cta_button_text", attrs=ConditionalFieldsPanel.show_when(*IMAGE_BANNER_STYLES)),
+                FieldPanel("cta_link", attrs=ConditionalFieldsPanel.show_when(*IMAGE_BANNER_STYLES)),
+                FieldPanel(
+                    "pencil_link",
+                    attrs={
+                        **ConditionalFieldsPanel.show_when("pencil"),
+                        "data-controller": "max-blocks",
+                        "data-max-blocks-max-value": "1",
+                    },
+                ),
+                FieldPanel("foreground_image", attrs=ConditionalFieldsPanel.show_when(*IMAGE_BANNER_STYLES)),
+                MultiFieldPanel(
+                    [
+                        FieldPanel("fru_thermometer_embed_code"),
+                        FieldPanel("fru_stat_counter_embed_code"),
+                        FieldPanel("fru_stat_counter_caption"),
+                    ],
+                    heading="FundraiseUp Elements",
+                    attrs=ConditionalFieldsPanel.show_when(*IMAGE_BANNER_STYLES),
+                ),
             ],
-            heading="FundraiseUp Elements",
+            trigger_field="banner_style",
+            heading="Banner",
         ),
     ]
 
@@ -111,6 +147,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
         TranslatableField("subtitle"),
         TranslatableField("cta_button_text"),
         SynchronizedField("cta_link"),
+        TranslatableField("pencil_link"),
         SynchronizedField("foreground_image"),
         SynchronizedField("fru_thermometer_embed_code"),
         SynchronizedField("fru_stat_counter_embed_code"),
@@ -129,6 +166,14 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        super().clean()
+        if self.banner_style == "pencil":
+            if not self.pencil_link:
+                raise ValidationError({"pencil_link": "A link is required for the Pencil banner style."})
+        elif not self.foreground_image_id:
+            raise ValidationError({"foreground_image": "An image is required for this banner style."})
 
     def get_preview_template(self, request, mode_name):
         return "patterns/components/previews/donate_banner.html"

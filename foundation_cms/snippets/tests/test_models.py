@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from wagtail.models import Locale, Page, Site
 
@@ -45,6 +46,31 @@ class SnippetModelTests(TestCase):
 
         self.assertEqual(donate_banner_page.get_site(), site)
         self.assertTrue(banner.is_active())
+
+    def test_pencil_donate_banner_defaults_to_a_valid_link_and_needs_no_image(self):
+        banner = DonateBanner(name="Pencil", banner_style="pencil", locale=Locale.get_default())
+
+        banner.full_clean()
+        link = banner.pencil_link[0].value
+        self.assertEqual(link["label"], "Support Mozilla")
+        self.assertEqual(link.url, "?form=donate")
+
+    def test_pencil_donate_banner_requires_link(self):
+        banner = DonateBanner(name="Pencil", banner_style="pencil", pencil_link=[], locale=Locale.get_default())
+
+        with self.assertRaises(ValidationError) as context:
+            banner.full_clean()
+        self.assertIn("pencil_link", context.exception.message_dict)
+        self.assertNotIn("foreground_image", context.exception.message_dict)
+
+    def test_image_donate_banner_styles_require_image(self):
+        for style in DonateBanner.IMAGE_BANNER_STYLES:
+            with self.subTest(style=style):
+                banner = DonateBanner(name=style, banner_style=style, locale=Locale.get_default())
+
+                with self.assertRaises(ValidationError) as context:
+                    banner.full_clean()
+                self.assertIn("foreground_image", context.exception.message_dict)
 
     def test_illustrated_newsletter_signup_can_be_saved(self):
         signup = IllustratedNewsletterSignup.objects.create(
