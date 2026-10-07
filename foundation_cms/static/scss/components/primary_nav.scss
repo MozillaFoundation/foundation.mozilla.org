@@ -40,7 +40,9 @@ $primary-nav-margin: 0.7rem;
   width: 100%;
   margin: 0;
   max-width: 100vw;
-  top: 0;
+
+  // Set by donate_pencil_banner.js so the nav sticks below the pencil banner.
+  top: var(--donate-pencil-banner-height, 0);
   z-index: 10;
   background-color: $white;
   height: $primary-nav-height;

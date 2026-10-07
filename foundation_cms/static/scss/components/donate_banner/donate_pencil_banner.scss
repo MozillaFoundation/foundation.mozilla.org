@@ -1,0 +1,105 @@
+@use "sass:map";
+
+.donate-pencil-banner {
+  $close-size: rem-calc(24);
+
+  background: color(blue, "100");
+  color: color(neutral, "600");
+  position: sticky;
+  top: 0;
+
+  // Above .primary-nav-ns, which sticks just below it.
+  z-index: 11;
+  overflow: hidden;
+
+  .donate-pencil-banner-dismissed & {
+    display: none;
+  }
+
+  &--collapsing {
+    transition: height 0.2s ease-in-out;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: rem-calc(30);
+    padding: rem-calc(3) calc(#{$close-size} + #{rem-calc(16)});
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: rem-calc(8);
+    margin: 0;
+    color: inherit;
+    font-family: $body-font-family;
+    font-size: rem-calc(13);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    text-align: center;
+
+    @include breakpoint(small only) {
+      flex-direction: column;
+      padding-block: rem-calc(8);
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__separator {
+    width: rem-calc(4);
+    height: rem-calc(4);
+    flex-shrink: 0;
+    background: currentcolor;
+
+    @include breakpoint(small only) {
+      display: none;
+    }
+  }
+
+  &__link.cta-link {
+    // Figma gray/900, which has no match in our palette.
+    color: #2d2d2d;
+
+    // Match the banner's type rather than the default CTA link style.
+    font: inherit;
+    font-weight: 400;
+    letter-spacing: inherit;
+    text-decoration: none;
+    gap: rem-calc(4);
+  }
+
+  &__close {
+    position: absolute;
+    top: rem-calc(3);
+    right: rem-calc(5);
+    display: flex;
+    width: $close-size;
+    height: $close-size;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// Legacy templates wrap the nav in a Bootstrap .sticky-top.
+.main-content-wrapper > .sticky-top {
+  top: var(--donate-pencil-banner-height, 0);
+}

@@ -1,0 +1,32 @@
+{% load i18n static %}
+
+{% with link=banner.pencil_link.0.value %}
+    <div class="donate-pencil-banner"
+         role="region"
+         aria-label="{% trans "Donate" %}"
+         data-banner-id="{{ banner.id }}"
+         data-banner-title="{{ banner.title }}"
+         data-banner-name="{{ banner.name }}"
+         data-banner-variant-version="{{ banner.variant_version }}"
+         data-banner-active-ab-test="{{ banner.active_ab_test }}"
+         data-banner-style="{{ banner.banner_style }}"
+         data-dismiss-key="{{ banner.translation_key }}"
+    >
+        <div class="donate-pencil-banner__inner">
+            <p class="donate-pencil-banner__content">
+                <span class="donate-pencil-banner__title">{{ banner.title }}</span>
+                {% if link %}
+                    <span class="donate-pencil-banner__separator" aria-hidden="true"></span>
+                    <a href="{{ link.url }}"
+                       class="cta-link donate-pencil-banner__link"
+                       {% if link.new_window %}target="_blank" rel="noopener noreferrer"{% endif %}
+                       {% for key, value in cta_button_data.items %}data-{{ key }}="{{ value }}" {% endfor %}
+                    >{{ link.label }}</a>
+                {% endif %}
+            </p>
+            <button type="button" class="donate-pencil-banner__close" data-donate-pencil-banner-close aria-label="{% trans "Close" %}">
+                <img src="{% static 'foundation_cms/_images/icons/x.svg' %}" alt="" width="24" height="24" />
+            </button>
+        </div>
+    </div>
+{% endwith %}
