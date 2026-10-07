@@ -12,7 +12,7 @@ const RICH_TEXT_SELECTOR = [
 ].join(", ");
 
 /**
- * Adds localized character countdowns to limited, non-rich-text fields in a
+ * Adds character countdowns to limited, non-rich-text fields in a
  * Wagtail edit form.
  *
  * Uses a scoped MutationObserver to initialize counters for fields added

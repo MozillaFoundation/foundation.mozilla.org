@@ -3,7 +3,7 @@ from django.db.models.functions import Coalesce
 from django.urls import path, reverse
 from wagtail import hooks
 from wagtail.admin.menu import AdminOnlyMenuItem
-from wagtail.admin.ui.tables import NumberColumn
+from wagtail.admin.ui.tables import Column, NumberColumn
 from wagtail.contrib.search_promotions.models import Query, QueryDailyHits
 from wagtail.contrib.search_promotions.views.reports import SearchTermsReportView
 
@@ -18,11 +18,19 @@ class SearchTermsWithEngagementReportView(SearchTermsReportView):
     Adds a secondary "refinements" column, separate from raw search hits.
     """
 
-    columns = SearchTermsReportView.columns + [
+    page_title = "Search terms"
+
+    columns = [
+        Column("query_string", label="Search term(s)", sort_key="query_string"),
+        NumberColumn("_hits", label="Views", sort_key="_hits"),
         NumberColumn("_refinements", label=REFINEMENTS_LABEL, sort_key="_refinements"),
     ]
-    export_headings = {**SearchTermsReportView.export_headings, "_refinements": REFINEMENTS_LABEL}
-    list_export = SearchTermsReportView.list_export + ["_refinements"]
+    export_headings = {
+        "query_string": "Search term(s)",
+        "_hits": "Views",
+        "_refinements": REFINEMENTS_LABEL,
+    }
+    list_export = ["query_string", "_hits", "_refinements"]
     index_url_name = "foundation_search_terms_report"
     index_results_url_name = "foundation_search_terms_report_results"
 
