@@ -28,6 +28,7 @@ from foundation_cms.views import (
     newsletter_unsubscribe_view,
 )
 
+from .prototype_views import meteor_hero_preview
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
 from .views import (
@@ -168,6 +169,8 @@ urlpatterns += i18n_patterns(
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
     path("blog/atom/", AtomFeed()),
+    # TODO: Remove this temporary preview once the Our Work page type (TP1-4395) renders the Meteor hero
+    path("prototype/meteor-hero/", meteor_hero_preview, name="meteor_hero_preview"),
     # Redirects
     *foundation_redirects(),
     # wagtail-managed data
