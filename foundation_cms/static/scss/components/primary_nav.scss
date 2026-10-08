@@ -376,7 +376,8 @@ $primary-nav-margin: 0.7rem;
   }
 
   &.open {
-    height: 100vh;
+    // The fallback needs a unit: calc() rejects a unitless 0 in subtraction.
+    height: calc(100vh - var(--donate-pencil-banner-height, 0px));
 
     .primary-nav-ns__wordmark.hidden img {
       transform: translateY(0%);
