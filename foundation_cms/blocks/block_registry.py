@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from .accordion_block import AccordionBlock
+from .call_to_action_block import CallToActionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
@@ -114,6 +115,11 @@ class BlockRegistry:
             "group": BlockGroups.DATA,
         },
         # Engagement
+        "call_to_action": {
+            "class": CallToActionBlock,
+            "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.ENGAGEMENT,
+        },
         "fru_element_block": {
             "class": FruElementBlock,
             "group": BlockGroups.ENGAGEMENT,
