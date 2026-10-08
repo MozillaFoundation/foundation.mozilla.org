@@ -117,7 +117,6 @@ export class MeteorHero {
 
   start() {
     if (this.frameId !== null) return;
-    this.lastFrameAt = null;
     // The canvas may be showing the still frame, so always paint first.
     this.paintedStep = null;
     this.frameId = requestAnimationFrame(this.tick);
