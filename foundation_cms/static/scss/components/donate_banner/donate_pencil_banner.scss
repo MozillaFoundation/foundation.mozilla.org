@@ -94,7 +94,9 @@
 
     // Stacked on mobile, so center on the title's first line instead.
     @include breakpoint(small only) {
-      top: calc(#{$mobile-padding-top} + (#{$line-height} - #{$close-size}) / 2);
+      top: calc(
+        #{$mobile-padding-top} + (#{$line-height} - #{$close-size}) / 2
+      );
     }
 
     display: flex;
