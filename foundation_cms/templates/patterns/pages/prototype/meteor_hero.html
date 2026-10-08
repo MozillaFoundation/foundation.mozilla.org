@@ -10,6 +10,9 @@
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'foundation_cms/_css/pages/our_work_page.compiled.css' %}">
 {% endblock extra_css %}
+{% block extra_js %}
+    <script src="{% static 'foundation_cms/_js/pages/our_work_page.compiled.js' %}"></script>
+{% endblock extra_js %}
 {# There's no Wagtail page object here, so skip metadata tags that require one. #}
 {% block wagtail_metadata %}{% endblock wagtail_metadata %}
 {% block breadcrumbs %}{% endblock breadcrumbs %}
