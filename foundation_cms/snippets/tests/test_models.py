@@ -63,6 +63,33 @@ class SnippetModelTests(TestCase):
         self.assertIn("pencil_link", context.exception.message_dict)
         self.assertNotIn("foreground_image", context.exception.message_dict)
 
+    def test_pencil_donate_banner_ignores_hidden_fields(self):
+        banner = DonateBanner(
+            name="Pencil",
+            banner_style="pencil",
+            subtitle="",
+            cta_button_text="",
+            cta_link="not a url",
+            locale=Locale.get_default(),
+        )
+
+        banner.full_clean()
+
+    def test_image_donate_banner_styles_require_subtitle_and_cta(self):
+        banner = DonateBanner(
+            name="Pushdown",
+            banner_style="pushdown",
+            subtitle="",
+            cta_button_text="",
+            cta_link="",
+            foreground_image=ImageFactory(),
+            locale=Locale.get_default(),
+        )
+
+        with self.assertRaises(ValidationError) as context:
+            banner.full_clean()
+        self.assertEqual(set(context.exception.message_dict), {"subtitle", "cta_button_text", "cta_link"})
+
     def test_image_donate_banner_styles_require_image(self):
         for style in DonateBanner.IMAGE_BANNER_STYLES:
             with self.subTest(style=style):

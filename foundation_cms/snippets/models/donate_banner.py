@@ -31,6 +31,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
     subtitle = models.CharField(
         max_length=200,
+        blank=True,
         help_text="Banner subtitle - Recommended max character count of 60",
         default=(
             "We're proudly nonprofit, working to keep the web healthy. "
@@ -39,11 +40,13 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
     cta_button_text = models.CharField(
         max_length=500,
+        blank=True,
         help_text="CTA button text",
         default="Support Mozilla",
     )
     cta_link = models.CharField(
         max_length=255,
+        blank=True,
         default="?form=donate",
         validators=[
             RegexValidator(
@@ -106,6 +109,7 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     )
 
     IMAGE_BANNER_STYLES = ("legacy", "lightbox", "pushdown")
+    PENCIL_HIDDEN_FIELDS = ("subtitle", "cta_button_text", "cta_link")
 
     panels = [
         HelpPanel(content="To enable banner on site, visit the DonateBannerPage that is a child of the Homepage."),
@@ -167,13 +171,24 @@ class DonateBanner(TranslatableMixin, PreviewableMixin, models.Model):
     def __str__(self):
         return self.name
 
+    def clean_fields(self, exclude=None):
+        # Pencil hides these fields, so an editor could not see or fix an error in them.
+        if self.banner_style == "pencil":
+            exclude = {*(exclude or ()), *self.PENCIL_HIDDEN_FIELDS}
+        super().clean_fields(exclude=exclude)
+
     def clean(self):
         super().clean()
         if self.banner_style == "pencil":
             if not self.pencil_link:
                 raise ValidationError({"pencil_link": "A link is required for the Pencil banner style."})
-        elif not self.foreground_image_id:
-            raise ValidationError({"foreground_image": "An image is required for this banner style."})
+            return
+
+        errors = {name: "This field is required." for name in self.PENCIL_HIDDEN_FIELDS if not getattr(self, name)}
+        if not self.foreground_image_id:
+            errors["foreground_image"] = "An image is required for this banner style."
+        if errors:
+            raise ValidationError(errors)
 
     def get_preview_template(self, request, mode_name):
         return "patterns/components/previews/donate_banner.html"
