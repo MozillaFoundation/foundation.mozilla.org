@@ -1,8 +1,10 @@
 {% if donate_banner.banner_style == "pencil" %}
-    {# Hides a dismissed pencil banner before first paint. Cookie is set by donate_pencil_banner.js. #}
+    {# Hides a banner dismissed earlier today before first paint. Stored by donate_pencil_banner.js. #}
     <script nonce="{{ request.csp_nonce }}">
-        if (document.cookie.split("; ").indexOf("donate_pencil_banner_dismissed={{ donate_banner.translation_key|escapejs }}") !== -1) {
-            document.documentElement.classList.add("donate-pencil-banner-dismissed");
-        }
+        try {
+            if (localStorage.getItem("donate pencil banner dismiss day") === "{{ donate_banner.translation_key|escapejs }}|" + new Date().toDateString()) {
+                document.documentElement.classList.add("donate-pencil-banner-dismissed");
+            }
+        } catch (e) {}
     </script>
 {% endif %}

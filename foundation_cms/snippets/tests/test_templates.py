@@ -46,7 +46,8 @@ class PencilBannerTemplateTests(TestCase):
 
     def test_head_script_only_renders_for_pencil_banners(self):
         html = render_to_string(HEAD_TEMPLATE, {"donate_banner": self.banner, "request": self.request})
-        self.assertIn(f"donate_pencil_banner_dismissed={escapejs(str(self.banner.translation_key))}", html)
+        self.assertIn(f'"{escapejs(str(self.banner.translation_key))}|"', html)
+        self.assertIn("localStorage", html)
         self.assertIn('nonce="test-nonce"', html)
 
         self.banner.banner_style = "pushdown"

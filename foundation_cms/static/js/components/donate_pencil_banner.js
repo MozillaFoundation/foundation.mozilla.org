@@ -13,7 +13,7 @@ const SELECTORS = {
 };
 
 // Also read by _pencil_banner_head.html to hide the banner before first paint.
-export const DISMISS_COOKIE = "donate_pencil_banner_dismissed";
+export const DISMISS_STORAGE_KEY = "donate pencil banner dismiss day";
 export const DISMISSED_CLASS = "donate-pencil-banner-dismissed";
 const HEIGHT_PROPERTY = "--donate-pencil-banner-height";
 const COLLAPSING_CLASS = "donate-pencil-banner--collapsing";
@@ -21,11 +21,17 @@ const COLLAPSING_CLASS = "donate-pencil-banner--collapsing";
 const COLLAPSE_TIMEOUT_MS = 300;
 
 /**
- * Remembers the dismissal for the browser session only, so the banner returns on the next visit.
+ * Hides this banner for the rest of the local day, matching the legacy banner.
  */
-function setDismissCookie(key) {
-  const secure = window.location.protocol === "https:" ? "; Secure" : "";
-  document.cookie = `${DISMISS_COOKIE}=${key}; path=/; SameSite=Lax${secure}`;
+function storeDismissal(key) {
+  try {
+    localStorage.setItem(
+      DISMISS_STORAGE_KEY,
+      `${key}|${new Date().toDateString()}`,
+    );
+  } catch {
+    // Storage can be blocked; the banner then just returns on the next page load.
+  }
 }
 
 /**
@@ -98,7 +104,7 @@ export function initDonatePencilBanner() {
   banner.querySelector(SELECTORS.closeButton)?.addEventListener(
     "click",
     () => {
-      setDismissCookie(banner.dataset.dismissKey);
+      storeDismissal(banner.dataset.dismissKey);
       // The close button is about to be removed, so keep focus in the page.
       firstFocusableOutside(banner)?.focus({ preventScroll: true });
       collapse(banner, () => {

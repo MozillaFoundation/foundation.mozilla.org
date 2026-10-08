@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  DISMISS_COOKIE,
+  DISMISS_STORAGE_KEY,
   DISMISSED_CLASS,
   initDonatePencilBanner,
 } from "./donate_pencil_banner.js";
@@ -50,7 +50,7 @@ describe("initDonatePencilBanner", () => {
     Element.prototype.getClientRects = originalGetClientRects;
     document.documentElement.className = "";
     document.documentElement.removeAttribute("style");
-    document.cookie = `${DISMISS_COOKIE}=; path=/; max-age=0`;
+    localStorage.clear();
   });
 
   it("does nothing when there is no pencil banner", () => {
@@ -78,13 +78,15 @@ describe("initDonatePencilBanner", () => {
     expect(heightVar()).toBe("30px");
   });
 
-  it("sets a session cookie, moves focus to the first focusable element and collapses when closed", () => {
+  it("remembers the dismissal for today, moves focus to the first focusable element and collapses when closed", () => {
     const banner = buildBannerMarkup();
     initDonatePencilBanner();
 
     banner.querySelector("[data-donate-pencil-banner-close]").click();
 
-    expect(document.cookie).toContain(`${DISMISS_COOKIE}=${DISMISS_KEY}`);
+    expect(localStorage.getItem(DISMISS_STORAGE_KEY)).toBe(
+      `${DISMISS_KEY}|${new Date().toDateString()}`,
+    );
     expect(document.activeElement).toBe(document.querySelector(".hamburger"));
     expect(banner.style.height).toBe("0px");
 
@@ -125,6 +127,22 @@ describe("initDonatePencilBanner", () => {
     expect(document.activeElement).toBe(
       document.querySelector(".primary-nav-ns__wordmark a"),
     );
+  });
+
+  it("still dismisses when storage is blocked", () => {
+    const setItem = vi
+      .spyOn(Storage.prototype, "setItem")
+      .mockImplementation(() => {
+        throw new DOMException("blocked", "SecurityError");
+      });
+    const banner = buildBannerMarkup();
+    initDonatePencilBanner();
+
+    banner.querySelector("[data-donate-pencil-banner-close]").click();
+    vi.runAllTimers();
+
+    expect(document.querySelector(".donate-pencil-banner")).toBeNull();
+    setItem.mockRestore();
   });
 
   it("tracks CTA clicks for A/B testing", () => {
