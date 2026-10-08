@@ -2,7 +2,14 @@ const SELECTORS = {
   banner: ".donate-pencil-banner",
   closeButton: "[data-donate-pencil-banner-close]",
   ctaButton: "[data-donate-banner-cta-button]",
-  navLogo: ".primary-nav-ns__wordmark a",
+  focusable: [
+    "a[href]",
+    "button:not([disabled])",
+    'input:not([disabled]):not([type="hidden"])',
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(", "),
 };
 
 // Also read by _pencil_banner_head.html to hide the banner before first paint.
@@ -33,6 +40,18 @@ function trackHeight(banner) {
   const observer = new ResizeObserver(update);
   observer.observe(banner);
   return observer;
+}
+
+/**
+ * Returns the first element a keyboard user would reach if the banner weren't on the page.
+ */
+function firstFocusableOutside(banner) {
+  return [...document.querySelectorAll(SELECTORS.focusable)].find(
+    (el) =>
+      !banner.contains(el) &&
+      el.getClientRects().length > 0 &&
+      getComputedStyle(el).visibility !== "hidden",
+  );
 }
 
 function collapse(banner, onDone) {
@@ -81,7 +100,7 @@ export function initDonatePencilBanner() {
     () => {
       setDismissCookie(banner.dataset.dismissKey);
       // The close button is about to be removed, so keep focus in the page.
-      document.querySelector(SELECTORS.navLogo)?.focus({ preventScroll: true });
+      firstFocusableOutside(banner)?.focus({ preventScroll: true });
       collapse(banner, () => {
         heightObserver.disconnect();
         root.style.removeProperty(HEIGHT_PROPERTY);

@@ -14,6 +14,7 @@ function buildBannerMarkup() {
       <button data-donate-pencil-banner-close type="button">Close</button>
     </div>
     <nav class="primary-nav-ns">
+      <button class="hamburger" type="button">Menu</button>
       <div class="primary-nav-ns__wordmark"><a href="/">Mozilla Foundation</a></div>
     </nav>
   `;
@@ -31,8 +32,12 @@ const heightVar = () =>
   );
 
 describe("initDonatePencilBanner", () => {
+  const originalGetClientRects = Element.prototype.getClientRects;
+
   beforeEach(() => {
     vi.useFakeTimers();
+    // jsdom has no layout, so treat every element as rendered unless a test says otherwise.
+    Element.prototype.getClientRects = () => [{}];
     window.ResizeObserver = class {
       observe() {}
       disconnect() {}
@@ -42,6 +47,7 @@ describe("initDonatePencilBanner", () => {
 
   afterEach(() => {
     vi.useRealTimers();
+    Element.prototype.getClientRects = originalGetClientRects;
     document.documentElement.className = "";
     document.documentElement.removeAttribute("style");
     document.cookie = `${DISMISS_COOKIE}=; path=/; max-age=0`;
@@ -72,16 +78,14 @@ describe("initDonatePencilBanner", () => {
     expect(heightVar()).toBe("30px");
   });
 
-  it("sets a session cookie, moves focus to the nav logo and collapses when closed", () => {
+  it("sets a session cookie, moves focus to the first focusable element and collapses when closed", () => {
     const banner = buildBannerMarkup();
     initDonatePencilBanner();
 
     banner.querySelector("[data-donate-pencil-banner-close]").click();
 
     expect(document.cookie).toContain(`${DISMISS_COOKIE}=${DISMISS_KEY}`);
-    expect(document.activeElement).toBe(
-      document.querySelector(".primary-nav-ns__wordmark a"),
-    );
+    expect(document.activeElement).toBe(document.querySelector(".hamburger"));
     expect(banner.style.height).toBe("0px");
 
     vi.runAllTimers();
@@ -108,6 +112,19 @@ describe("initDonatePencilBanner", () => {
 
     transitionEnd(banner, "height");
     expect(document.querySelector(".donate-pencil-banner")).toBeNull();
+  });
+
+  it("skips elements that are not rendered when moving focus", () => {
+    const banner = buildBannerMarkup();
+    const hamburger = document.querySelector(".hamburger");
+    hamburger.getClientRects = () => [];
+    initDonatePencilBanner();
+
+    banner.querySelector("[data-donate-pencil-banner-close]").click();
+
+    expect(document.activeElement).toBe(
+      document.querySelector(".primary-nav-ns__wordmark a"),
+    );
   });
 
   it("tracks CTA clicks for A/B testing", () => {
