@@ -85,7 +85,7 @@
       }
     }
 
-    a[class*="btn-"] {
+    a.mzf-c-button {
       margin-block: 0;
       width: 100%;
       justify-content: center;
@@ -194,45 +194,6 @@ body.legacy .notice-banner {
       font-weight: inherit;
       line-height: inherit;
       color: inherit;
-    }
-  }
-
-  &__cta {
-    a[class*="btn-"] {
-      font-weight: 400;
-
-      &:hover,
-      &:focus,
-      &.focus {
-        box-shadow: none;
-      }
-
-      &.disabled,
-      &:disabled {
-        opacity: 1;
-      }
-    }
-
-    a.btn-secondary {
-      background-color: transparent;
-
-      &:hover,
-      &:focus,
-      &.focus {
-        background-color: transparent;
-      }
-    }
-
-    a.btn-primary {
-      background-color: color(neutral, "600");
-      color: color(neutral, "100");
-
-      &:hover,
-      &:focus,
-      &.focus {
-        background-color: color(neutral, "600");
-        color: color(neutral, "100");
-      }
     }
   }
 }

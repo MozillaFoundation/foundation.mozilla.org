@@ -1,5 +1,5 @@
-// Site adaptations of cosmos/elements/buttons/primary. Opt-in at the template.
-.button-reskin {
+// Site adaptations of cosmos/elements/buttons/primary.
+.mzf-c-button {
   --button-content-height: calc(
     var(--font-size-control) * var(--line-height-control)
   );
@@ -27,28 +27,18 @@
     overflow-wrap: anywhere;
   }
 
-  // Preserve label colors against the site's global anchor hover styling.
-  &:hover {
+  // Preserve label styles against the site's global anchor interaction styling.
+  &:hover,
+  &:focus {
     color: var(--color-text-default);
+    text-decoration: none;
   }
 
   &.mzf-c-button--primary:hover,
-  &.mzf-c-button--primary-icon:hover {
+  &.mzf-c-button--primary:focus,
+  &.mzf-c-button--primary-icon:hover,
+  &.mzf-c-button--primary-icon:focus {
     color: var(--color-text-inverse);
-  }
-
-  // Existing shared-template consumers may explicitly suppress their arrow.
-  &.btn-primary--no-arrow,
-  &.btn-secondary--no-arrow {
-    --button-content-height: calc(
-      var(--font-size-control) * var(--line-height-control)
-    );
-
-    padding-inline: var(--space-20);
-
-    .mzf-c-button__icon {
-      display: none;
-    }
   }
 
   // Contextual glyphs share LP's icon box and motion, but are not directional.
@@ -81,5 +71,14 @@
     &.link-type-icon:is(.external, .email):hover:not(:disabled)
     .mzf-c-button__icon {
     transform: translateX(var(--space-4));
+  }
+}
+
+.link-button-block--center .mzf-c-button {
+  display: flex;
+  margin-inline: auto;
+
+  @include mobile-only {
+    width: 100%;
   }
 }

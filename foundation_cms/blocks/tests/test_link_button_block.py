@@ -1,11 +1,13 @@
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase
+from wagtail import blocks
 
 from foundation_cms.blocks.link_button_block import (
     FixedAlignmentLinkButtonBlock,
     LinkButtonBlock,
 )
+from foundation_cms.blocks.section_start_block import SectionStartBlock
 
 
 class LinkButtonRenderingTests(SimpleTestCase):
@@ -19,7 +21,7 @@ class LinkButtonRenderingTests(SimpleTestCase):
         "btn-primary-grey": "primary-grey",
     }
 
-    def test_block_adopts_reskin_without_changing_link_behavior(self):
+    def test_block_renders_cosmos_without_changing_link_behavior(self):
         for style in ("btn-primary", "btn-secondary"):
             for link_to, field, destination, href in (
                 ("external_url", "external_url", "https://example.com/", "https://example.com/"),
@@ -83,27 +85,40 @@ class LinkButtonRenderingTests(SimpleTestCase):
                     with self.assertRaises(ValidationError):
                         style_field.clean(style)
 
-    def test_shared_component_family_preserves_anchor_behavior(self):
-        for style in self.component_styles:
-            with self.subTest(style=style):
-                html = render_to_string(
-                    "patterns/components/_button.html",
-                    {
-                        "reskin": True,
-                        "button_style": style,
-                        "label": "Read <more>",
-                        "url": "/stories/",
-                        "value": {"new_window": True},
+    def test_cosmos_block_skips_grid_wrapper_without_changing_serialization(self):
+        for block_class in (LinkButtonBlock, FixedAlignmentLinkButtonBlock):
+            with self.subTest(block=block_class.__name__):
+                block = block_class()
+                self.assertTrue(block.is_cosmos_block)
+                self.assertTrue(block.skip_default_wrapper)
+                self.assertNotIn("is_cosmos_block", block.deconstruct()[2])
+                self.assertNotIn("skip_default_wrapper", block.deconstruct()[2])
+
+    def test_section_supplies_layout_without_a_nested_foundation_grid(self):
+        stream = blocks.StreamBlock(
+            [
+                ("section_start", SectionStartBlock()),
+                ("link_button", LinkButtonBlock()),
+            ]
+        ).to_python(
+            [
+                {"type": "section_start", "value": {"name": "Buttons"}},
+                {
+                    "type": "link_button",
+                    "value": {
+                        "label": "Read more",
+                        "style": "btn-primary",
+                        "link_to": "relative_url",
+                        "relative_url": "/stories/",
                     },
-                )
-                self.assertIn(f"mzf-c-button--{self.component_styles[style]}", html)
-                self.assertEqual(
-                    'class="mzf-c-button__icon" aria-hidden="true"' in html, style in ("btn-primary", "btn-secondary")
-                )
-                self.assertIn('href="/stories/"', html)
-                self.assertIn('target="_blank"', html)
-                self.assertEqual(html.count("Read &lt;more&gt;"), 1)
-                self.assertNotIn("disabled", html)
+                },
+            ]
+        )
+        html = render_to_string("patterns/components/_sectioned_streamfield.html", {"streamfield": stream})
+        self.assertIn("mzf-c-section", html)
+        self.assertIn("mzf-c-button--primary-icon", html)
+        self.assertNotIn("grid-container", html)
+        self.assertNotIn("grid-x", html)
 
     def test_existing_shared_consumers_keep_rolling_labels(self):
         for style in ("btn-primary", "btn-secondary"):
@@ -112,43 +127,14 @@ class LinkButtonRenderingTests(SimpleTestCase):
                     "patterns/components/_button.html",
                     {"button_style": style, "label": "Read more", "url": "/stories/"},
                 )
-                self.assertNotIn("button-reskin", html)
+                self.assertNotIn("mzf-c-button", html)
                 self.assertIn(f"{style}__roller", html)
                 self.assertEqual(html.count("Read more"), 2)
 
-    def test_reskinned_native_button_preserves_disabled_and_form_attributes(self):
-        for style in self.component_styles:
-            with self.subTest(style=style):
-                html = render_to_string(
-                    "patterns/components/_button.html",
-                    {
-                        "reskin": True,
-                        "tag": "button",
-                        "button_type": "submit",
-                        "button_style": style,
-                        "label": "Send",
-                        "disabled": True,
-                        "name": "action",
-                        "button_value": "send",
-                        "aria_label": "Send message",
-                    },
-                )
-                self.assertIn('type="submit"', html)
-                self.assertIn("disabled", html)
-                self.assertIn('name="action"', html)
-                self.assertIn('value="send"', html)
-                self.assertIn('aria-label="Send message"', html)
-                self.assertIn(f"mzf-c-button--{self.component_styles[style]}", html)
-                self.assertEqual(
-                    'class="mzf-c-button__icon" aria-hidden="true"' in html, style in ("btn-primary", "btn-secondary")
-                )
-                self.assertEqual(html.count(">Send<"), 1)
-
-    def test_existing_no_arrow_opt_in_is_preserved(self):
+    def test_existing_native_button_preserves_disabled_form_and_no_arrow_attributes(self):
         html = render_to_string(
             "patterns/components/_button.html",
             {
-                "reskin": True,
                 "tag": "button",
                 "button_type": "submit",
                 "button_style": "btn-primary",
@@ -156,23 +142,18 @@ class LinkButtonRenderingTests(SimpleTestCase):
                 "disabled": True,
                 "name": "action",
                 "button_value": "send",
+                "aria_label": "Send message",
                 "classnames": "btn-primary--no-arrow",
             },
         )
-        self.assertIn('type="submit"', html)
-        self.assertIn("disabled", html)
-        self.assertIn('name="action"', html)
-        self.assertIn('value="send"', html)
-        self.assertIn("btn-primary--no-arrow", html)
-        self.assertEqual(html.count(">Send<"), 1)
-
-    def test_new_styles_require_explicit_reskin_adoption(self):
-        for style in self.component_styles:
-            if style in ("btn-primary", "btn-secondary"):
-                continue
-            with self.subTest(style=style):
-                html = render_to_string(
-                    "patterns/components/_button.html",
-                    {"button_style": style, "label": "Read more", "url": "/stories/"},
-                )
-                self.assertNotIn("<a", html)
+        for attribute in (
+            'type="submit"',
+            "disabled",
+            'name="action"',
+            'value="send"',
+            'aria-label="Send message"',
+            "btn-primary--no-arrow",
+        ):
+            self.assertIn(attribute, html)
+        self.assertNotIn("mzf-c-button", html)
+        self.assertIn("btn-primary__roller", html)
