@@ -12,13 +12,18 @@ from foundation_cms.legacy_apps.wagtailpages.validators import AnchorLinkValidat
 
 class LinkValue(BaseLinkValue):
     def get_email_link(self):
-        return f"mailto:{self.get('email')}"
+        email = self.get("email")
+        return f"mailto:{email}" if email else None
 
     def get_anchor_link(self):
-        return f"#{self.get('anchor')}"
+        # AnchorLinkValidator requires the stored value to start with "#", but anchors
+        # saved before that validator existed did not, so accept both shapes.
+        anchor = self.get("anchor")
+        return f"#{anchor.lstrip('#')}" if anchor else None
 
     def get_phone_link(self):
-        return "tel:{}".format(self.get("phone"))
+        phone = self.get("phone")
+        return f"tel:{phone}" if phone else None
 
     def get_file_link(self):
         file = self.get("file")
