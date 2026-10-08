@@ -90,6 +90,26 @@ describe("initDonatePencilBanner", () => {
     expect(heightVar()).toBe("");
   });
 
+  it("only finishes the collapse on the banner's own height transition", () => {
+    const banner = buildBannerMarkup();
+    initDonatePencilBanner();
+    const transitionEnd = (target, propertyName) => {
+      const event = new Event("transitionend", { bubbles: true });
+      Object.defineProperty(event, "propertyName", { value: propertyName });
+      target.dispatchEvent(event);
+    };
+
+    banner.querySelector("[data-donate-pencil-banner-close]").click();
+    transitionEnd(
+      banner.querySelector("[data-donate-banner-cta-button]"),
+      "transform",
+    );
+    expect(document.querySelector(".donate-pencil-banner")).not.toBeNull();
+
+    transitionEnd(banner, "height");
+    expect(document.querySelector(".donate-pencil-banner")).toBeNull();
+  });
+
   it("tracks CTA clicks for A/B testing", () => {
     window.wagtailAbTesting = { triggerEvent: vi.fn() };
     const banner = buildBannerMarkup();

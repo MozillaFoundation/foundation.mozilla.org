@@ -48,7 +48,10 @@ function collapse(banner, onDone) {
   // Flush the starting height so the change to 0 transitions.
   void banner.offsetHeight;
   banner.style.height = "0px";
-  banner.addEventListener("transitionend", finish, { once: true });
+  // Ignore transitions bubbling up from children, like the CTA arrow's hover slide.
+  banner.addEventListener("transitionend", (event) => {
+    if (event.target === banner && event.propertyName === "height") finish();
+  });
   setTimeout(finish, COLLAPSE_TIMEOUT_MS);
 }
 
