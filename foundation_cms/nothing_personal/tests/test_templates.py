@@ -1,7 +1,8 @@
 from types import SimpleNamespace
 
 from django.template.loader import render_to_string
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, TestCase
+from wagtail.models import Page
 
 
 class HomePageHeroItemTemplateTests(SimpleTestCase):
@@ -139,3 +140,120 @@ class ArticlePageHeaderTemplateTests(SimpleTestCase):
         self.assertIn('alt="Article hero artwork"', html)
         self.assertIn('loading="lazy"', html)
         self.assertIn('<p class="article-header__hero-caption">Hero caption</p>', html)
+
+
+class ListingItemTemplateTests(SimpleTestCase):
+    def render_item(self, **overrides):
+        context = {
+            "first_published_at": None,
+            "hero_image": None,
+            "search_description": "Card description.",
+            "search_image": None,
+            "title": "A listed article",
+            "topics": SimpleNamespace(all=lambda: []),
+            "url": "/nothing-personal/a-listed-article/",
+        }
+        context.update(overrides)
+
+        return render_to_string(
+            "patterns/components/listing_page/_item.html",
+            {"page": SimpleNamespace(**context)},
+        )
+
+    @staticmethod
+    def webp_image(name):
+        return SimpleNamespace(
+            file=SimpleNamespace(name=f"{name}.webp", url=f"/media/{name}.webp"),
+            height=900,
+            title=f"{name} title",
+            width=1600,
+        )
+
+    def test_share_image_is_preferred_when_both_are_set(self):
+        html = self.render_item(
+            hero_image=self.webp_image("hero"),
+            search_image=self.webp_image("share"),
+        )
+
+        self.assertIn('src="/media/share.webp"', html)
+        self.assertNotIn("/media/hero.webp", html)
+
+    def test_hero_image_is_used_when_share_image_is_missing(self):
+        html = self.render_item(hero_image=self.webp_image("hero"))
+
+        self.assertIn('src="/media/hero.webp"', html)
+
+    def test_no_image_is_rendered_when_both_are_missing(self):
+        html = self.render_item()
+
+        self.assertNotIn("<img", html)
+
+
+class RelatedContentTemplateTests(TestCase):
+    @staticmethod
+    def related_page(**attrs):
+        # `{% pageurl %}` rejects anything that is not a real Page, so stub get_url instead of building a page tree.
+        page = Page(title="A related article")
+        page.get_url = lambda *args, **kwargs: "/nothing-personal/a-related-article/"
+        page.author = None
+        page.hero_image = None
+        page.search_image = None
+        page.topics = SimpleNamespace(all=lambda: [])
+        for name, value in attrs.items():
+            setattr(page, name, value)
+        return page
+
+    @staticmethod
+    def webp_image(name):
+        return SimpleNamespace(
+            file=SimpleNamespace(name=f"{name}.webp", url=f"/media/{name}.webp"),
+            height=900,
+            title=f"{name} title",
+            width=1600,
+        )
+
+    def render_related_content(self, image_field, **attrs):
+        return render_to_string(
+            "patterns/components/_related_content.html",
+            {
+                "heading": "More Stories",
+                "image_field": image_field,
+                "image_ratio": "3:2",
+                "items": [self.related_page(**attrs)],
+            },
+        )
+
+    def test_share_image_is_used_when_requested_and_set(self):
+        html = self.render_related_content(
+            "search_image",
+            hero_image=self.webp_image("hero"),
+            search_image=self.webp_image("share"),
+        )
+
+        self.assertIn('src="/media/share.webp"', html)
+        self.assertNotIn("/media/hero.webp", html)
+
+    def test_hero_image_is_used_when_share_image_is_missing(self):
+        html = self.render_related_content("search_image", hero_image=self.webp_image("hero"))
+
+        self.assertIn('src="/media/hero.webp"', html)
+
+    def test_hero_image_is_preferred_when_requested(self):
+        html = self.render_related_content(
+            "hero_image",
+            hero_image=self.webp_image("hero"),
+            search_image=self.webp_image("share"),
+        )
+
+        self.assertIn('src="/media/hero.webp"', html)
+        self.assertNotIn("/media/share.webp", html)
+
+    def test_share_image_still_backs_up_a_requested_hero(self):
+        html = self.render_related_content("hero_image", search_image=self.webp_image("share"))
+
+        self.assertIn('src="/media/share.webp"', html)
+
+    def test_no_image_is_rendered_when_both_are_missing(self):
+        html = self.render_related_content("search_image")
+
+        self.assertNotIn("<img", html)

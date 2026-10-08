@@ -1,0 +1,7 @@
+{# Shared base for snippet preview templates. `page` is a stand-in homepage for #}
+{# preview chrome, not the content being previewed, so its SEO tags are blanked here. #}
+{% extends "base/base.html" %}
+
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+
+{% block canonical_hreflang %}{% endblock canonical_hreflang %}

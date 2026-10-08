@@ -23,10 +23,6 @@
     border-bottom: none;
   }
 
-  @at-root #pni-mobile-category-nav &#{&}.active {
-    border-bottom: none;
-  }
-
   @at-root .vertical-nav #{&} {
     font-size: 17px;
     line-height: calc(27 / 17);

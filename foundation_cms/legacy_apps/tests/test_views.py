@@ -1,5 +1,4 @@
-from django.conf import settings
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from wagtail.models import Site
 
 from foundation_cms.legacy_apps.mozfest.factory import MozfestHomepageFactory
@@ -17,12 +16,12 @@ class TestApplePayDomainAssociationView(TestCase):
         self.blog_page = BlogPageFactory()
         self.view_url = "/.well-known/apple-developer-merchantid-domain-association"
 
+    @override_settings(APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION="test_foundation_key")
     def test_foundation_site_request(self):
         """
         Make sure the view returns the foundation specific key,
         when a request is made from the foundation site.
         """
-        settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION = "test_foundation_key"
         self.site.root_page = self.foundation_homepage
         self.site.save()
 
@@ -31,12 +30,12 @@ class TestApplePayDomainAssociationView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content.decode(), "test_foundation_key")
 
+    @override_settings(APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION=None)
     def test_foundation_site_request_with_no_key_set(self):
         """
         If no foundation site key is set, the view should return a
         'key not found' error message.
         """
-        settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_FOUNDATION = None
         self.site.root_page = self.foundation_homepage
         self.site.save()
 
@@ -45,12 +44,12 @@ class TestApplePayDomainAssociationView(TestCase):
         self.assertEqual(response.status_code, 501)
         self.assertEqual(response.content.decode(), "Key not found. Please check environment variables.")
 
+    @override_settings(APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST="test_mozfest_key")
     def test_mozfest_site_request(self):
         """
         Make sure the view returns the mozfest specific key,
         when a request is made from the mozfest site.
         """
-        settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST = "test_mozfest_key"
         self.site.root_page = self.mozfest_homepage
         self.site.save()
 
@@ -59,12 +58,12 @@ class TestApplePayDomainAssociationView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content.decode(), "test_mozfest_key")
 
+    @override_settings(APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST=None)
     def test_mozfest_site_request_with_no_key_set(self):
         """
         If no mozfest site key is set, the view should return a
         'key not found' error message.
         """
-        settings.APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST = None
         self.site.root_page = self.foundation_homepage
         self.site.save()
 

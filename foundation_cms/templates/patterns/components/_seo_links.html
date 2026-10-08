@@ -1,0 +1,6 @@
+{% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+{% endif %}
+{% for link in hreflang_links %}
+    <link rel="alternate" hreflang="{{ link.hreflang }}" href="{{ link.url }}">
+{% endfor %}

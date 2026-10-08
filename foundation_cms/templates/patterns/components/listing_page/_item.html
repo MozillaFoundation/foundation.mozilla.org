@@ -9,6 +9,8 @@
       <a href="{{ page.url }}" class="page-card__image-wrapper">
         {% if page.search_image %}
           {% responsive_image page.search_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
+        {% elif page.hero_image %}
+          {% responsive_image page.hero_image ratio="3:2" base_width=600 sizes="(max-width: 639px) 100vw, 33vw" %}
         {% endif %}
       </a>
     </div>

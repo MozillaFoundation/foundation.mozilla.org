@@ -1,6 +1,6 @@
-{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav %}
+{% load static wagtailcore_tags wagtailmetadata_tags wagtailuserbar wagtail_ab_testing_tags wagtailcustom_tags i18n localization breadcrumb_nav seo_tags %}
 
-{% get_current_language as lang_code %}
+{% content_language page as lang_code %}
 
 <!DOCTYPE html>
 <html lang="{{ lang_code }}">
@@ -22,6 +22,10 @@
         </title>
         {% if page.search_description %}
             <meta name="description" content="{{ page.search_description }}" />{% endif %}
+
+        {% block canonical_hreflang %}
+            {% seo_links page %}
+        {% endblock canonical_hreflang %}
 
         {% block wagtail_metadata %}
             {% meta_tags %}

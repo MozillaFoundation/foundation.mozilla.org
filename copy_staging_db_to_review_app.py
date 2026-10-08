@@ -10,10 +10,19 @@ def execute_command(ctx, command: str, custom_error: str = ""):
     try:
         result = ctx.run(command, hide=False, warn=True, **PLATFORM_ARG)
         if result.failed:
-            raise Exception(f"{custom_error}: {result.stderr}")
+            raise Exception(f"{custom_error}: {result.stderr or result.stdout}")
         return result.stdout.strip()
     except Exception as e:
         raise Exception(f"{custom_error}: {e}") from e
+
+
+def last_line(output: str) -> str:
+    """Returns the value a command printed, dropping any notices above it.
+
+    On *nix PLATFORM_ARG sets pty=True, which merges stderr into stdout, so notices such
+    as Heroku's "update available" warning arrive ahead of the value we asked for.
+    """
+    return output.splitlines()[-1].strip() if output else ""
 
 
 def log_step(message: str):
@@ -39,7 +48,7 @@ def main(ctx, review_app_name):
     sleep(5)
 
     log_step("Verifying if logged in Heroku")
-    heroku_user = execute_command(ctx, "heroku whoami", "Verify that you are logged in Heroku CLI")
+    heroku_user = last_line(execute_command(ctx, "heroku whoami", "Verify that you are logged in Heroku CLI"))
     print(f"Heroku user: {heroku_user}\n", flush=True)
     log_step_completed("Heroku login verification")
 
@@ -69,14 +78,14 @@ def main(ctx, review_app_name):
         log_step_completed("Review App DB has been reset")
 
         log_step("Restoring the latest Staging backup to Review App")
-        backup_staging_url = execute_command(ctx, f"heroku pg:backups:url -a {STAGING_APP}")
+        backup_staging_url = last_line(execute_command(ctx, f"heroku pg:backups:url -a {STAGING_APP}"))
         execute_command(
             ctx, f"heroku pg:backups:restore --confirm {review_app_name} -a {review_app_name} '{backup_staging_url}'"
         )
         log_step_completed("Staging backup restoration to Review App")
 
         log_step("Executing cleanup SQL script")
-        review_app_db_url = execute_command(ctx, f"heroku config:get -a {review_app_name} DATABASE_URL")
+        review_app_db_url = last_line(execute_command(ctx, f"heroku config:get -a {review_app_name} DATABASE_URL"))
 
         # Replace placeholders and write to a temporary file
         sql_content = replace_placeholders_in_sql(review_app_name, "./cleanup.sql")

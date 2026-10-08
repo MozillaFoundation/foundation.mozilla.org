@@ -3,6 +3,8 @@ import re
 from django.conf import settings
 from django.utils import translation
 
+from foundation_cms.blocks.greenhouse import get_careers_url
+
 
 # Used to export env variable to Django templates
 def review_app(request):
@@ -25,3 +27,7 @@ def mozfest_schedule_url(request):
 
 def editable_footer(request):
     return {"EDITABLE_FOOTER": settings.EDITABLE_FOOTER}
+
+
+def careers_url(request):
+    return {"CAREERS_URL": get_careers_url()}

@@ -70,8 +70,8 @@ crawl-delay: 10
 def csrf_response(request):
     # Mints the per-user `csrftoken` cookie (via @ensure_csrf_cookie) so JS can read it
     # and send it as the X-CSRFToken header / csrfmiddlewaretoken field. The HTML body
-    # (a single hidden input rendered by {% csrf_token %}) is preserved because the legacy
-    # buyers-guide vote JS parses the token out of it.
+    # (a single hidden input rendered by {% csrf_token %}) is preserved, though current JS
+    # only reads the cookie.
     #
     # NOTE: the Cloudflare Worker overrides origin Cache-Control, so this `no-cache` is only
     # defense-in-depth — `/api/csrf` must also be in the Worker's URI_BYPASS_SUBSTRINGS or the
@@ -136,7 +136,6 @@ urlpatterns = list(
             # set up set language redirect view
             # (CSRF token is supplied by the language-switcher inline JS from the cookie)
             path("i18n/setlang/", set_language, name="set_language"),
-            path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
             # Wagtail Footnotes package
             path("footnotes/", include(footnotes_urls)),
             # Wagtail A/B Testing package
@@ -163,6 +162,10 @@ urlpatterns = list(
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
+    # Locale-prefixed so each language gets its own cacheable catalog. Served from a
+    # single unprefixed URL, a shared cache hands every visitor whichever language it
+    # happened to store first.
+    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("search/", search_views.search, name="search"),
     path("search/autocomplete/", search_views.search_autocomplete, name="search_autocomplete"),
     # Blog RSS feed
