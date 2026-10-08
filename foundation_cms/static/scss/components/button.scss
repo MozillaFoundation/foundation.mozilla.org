@@ -1,0 +1,84 @@
+// Site adaptations of cosmos/elements/buttons/primary.
+.mzf-c-button {
+  --button-content-height: calc(
+    var(--font-size-control) * var(--line-height-control)
+  );
+  --button-inset: calc(
+    (var(--size-control-height) - var(--button-content-height)) / 2
+  );
+
+  width: fit-content;
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--size-control-height);
+  margin: var(--space-16) 0;
+
+  // Honor the approved 38px control token and let wrapped labels grow.
+  padding-block: var(--button-inset);
+  white-space: normal;
+
+  &.mzf-c-button--primary-icon,
+  &.mzf-c-button--cta-stroke-icon {
+    --button-content-height: var(--size-icon-medium);
+  }
+
+  &__label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  // Preserve label styles against the site's global anchor interaction styling.
+  &:hover,
+  &:focus {
+    color: var(--color-text-default);
+    text-decoration: none;
+  }
+
+  &.mzf-c-button--primary:hover,
+  &.mzf-c-button--primary:focus,
+  &.mzf-c-button--primary-icon:hover,
+  &.mzf-c-button--primary-icon:focus {
+    color: var(--color-text-inverse);
+  }
+
+  // Contextual glyphs share LP's icon box and motion, but are not directional.
+  &.link-type-icon.external .mzf-c-button__icon,
+  &.link-type-icon.email .mzf-c-button__icon {
+    svg {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: currentcolor;
+      mask: url("/static/foundation_cms/_images/icons/link-external-black.svg")
+        center / var(--size-icon-glyph) var(--size-icon-glyph) no-repeat;
+    }
+  }
+
+  &.link-type-icon.email .mzf-c-button__icon::before {
+    mask-image: url("/static/foundation_cms/_images/icons/email.svg");
+    mask-size: contain;
+  }
+
+  [dir="rtl"] &.link-type-icon:is(.external, .email) .mzf-c-button__icon {
+    transform: none;
+  }
+
+  [dir="rtl"]
+    &.link-type-icon:is(.external, .email):hover:not(:disabled)
+    .mzf-c-button__icon {
+    transform: translateX(var(--space-4));
+  }
+}
+
+.link-button-block--center .mzf-c-button {
+  display: flex;
+  margin-inline: auto;
+
+  @include mobile-only {
+    width: 100%;
+  }
+}

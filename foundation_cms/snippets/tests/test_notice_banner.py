@@ -8,6 +8,7 @@ from foundation_cms.blocks.link_button_block import (
     FixedAlignmentLinkButtonBlock,
     LinkButtonBlock,
 )
+from foundation_cms.core.factories.general_page import GeneralPageFactory
 from foundation_cms.legacy_apps.wagtailpages.factory import blog as blog_factory
 from foundation_cms.legacy_apps.wagtailpages.factory.primary_page import (
     PrimaryPageFactory,
@@ -96,6 +97,7 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
         cls.blog_index = blog_factory.BlogIndexPageFactory(parent=cls.homepage)
         cls.blog_page = blog_factory.BlogPageFactory(parent=cls.blog_index)
         cls.primary_page = PrimaryPageFactory(parent=cls.homepage)
+        cls.general_page = GeneralPageFactory(parent=cls.homepage)
 
     def test_get_notice_banner_returns_none_when_unset(self):
         self.assertIsNone(self.blog_page.notice_banner_id)
@@ -140,19 +142,25 @@ class NoticeBannerPageIntegrationTest(test_base.WagtailpagesTestCase):
                         )
                     ],
                 )
-                self.blog_page.notice_banner = banner
-                self.blog_page.save_revision().publish()
+                for page, bundle in (
+                    (self.blog_page, "redesign_migrated_content"),
+                    (self.general_page, "redesign_fallback"),
+                ):
+                    page.notice_banner = banner
+                    page.save_revision().publish()
 
-                response = self.client.get(self.blog_page.url)
+                    response = self.client.get(page.url)
 
-                # The banner positions its own CTA, so no alignment class is emitted.
-                self.assertContains(response, 'class="link-button-block"')
-                self.assertContains(response, f'class="{style}')
-                self.assertContains(response, "link-button link-type-icon")
-                self.assertContains(response, f"link-type-icon {icon_class}")
-                expected_href = f"mailto:{link_value}" if link_type == "email" else link_value
-                self.assertContains(response, f'href="{expected_href}"')
-                self.assertContains(response, "Learn more")
+                    # The banner positions its own CTA, so no alignment class is emitted.
+                    self.assertContains(response, 'class="link-button-block"')
+                    lp_style = {"btn-primary": "primary-icon", "btn-secondary": "cta-stroke-icon"}[style]
+                    self.assertContains(response, f'class="mzf-c-button mzf-c-button--{lp_style}')
+                    self.assertContains(response, "link-button link-type-icon")
+                    self.assertContains(response, f"link-type-icon {icon_class}")
+                    expected_href = f"mailto:{link_value}" if link_type == "email" else link_value
+                    self.assertContains(response, f'href="{expected_href}"')
+                    self.assertContains(response, "Learn more")
+                    self.assertRegex(response.content.decode(), rf"{bundle}\.compiled(?:\.[a-f0-9]+)?\.css")
 
     def test_page_without_notice_banner_does_not_render_markup(self):
         response = self.client.get(self.primary_page.url)
