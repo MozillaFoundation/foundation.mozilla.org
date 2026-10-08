@@ -8,12 +8,18 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     PageChooserPanel,
 )
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from foundation_cms.base.models.abstract_base_page import AbstractBasePage
+from foundation_cms.base.models.abstract_base_page import (
+    BASE_BLOCK_NAMES,
+    AbstractBasePage,
+)
+from foundation_cms.blocks.block_registry import BlockRegistry
 from foundation_cms.profiles.models.expert_directory_page import ExpertDirectoryPage
+
+expert_hub_body_block_options = BlockRegistry.get_blocks(sorted(BASE_BLOCK_NAMES + ["call_to_action"]))
 
 
 # `title` lives on Wagtail's base `wagtailcore_page` table, not on this model's
@@ -53,6 +59,11 @@ class ExpertHubPage(AbstractBasePage):
     max_count = 1
     base_form_class = ExpertHubPageAdminForm
 
+    body = StreamField(
+        expert_hub_body_block_options,
+        use_json_field=True,
+        blank=True,
+    )
     description = RichTextField(
         blank=True,
         max_length=120,
