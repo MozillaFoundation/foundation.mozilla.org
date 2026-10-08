@@ -4,12 +4,10 @@
  *
  * Usage notes
  * - values.triggerField: the name of the input/select/textarea to watch.
- * - values.disableHidden: disable inputs in hidden targets (default true).
- *   Turn off when a target holds a StreamField, which errors on save if its
- *   inputs are missing from POST data.
- * - targets.field: elements that will be toggled. Each must include a
- *   data-condition attribute listing the trigger values (space-separated)
- *   that show it.
+ * - values.disableHidden: disable inputs in hidden targets (default true). Turn
+ *   off for StreamFields, which error on save when their inputs are missing.
+ * - targets.field: elements to toggle, each with a data-condition listing the
+ *   space-separated trigger values that show it.
  *
  * Event strategy
  * - A single delegated 'change' listener is attached to `this.element`.
