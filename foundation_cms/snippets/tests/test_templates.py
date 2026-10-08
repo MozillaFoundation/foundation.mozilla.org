@@ -34,6 +34,16 @@ class PencilBannerTemplateTests(TestCase):
         self.assertIn(f'data-dismiss-key="{self.banner.translation_key}"', html)
         self.assertNotIn("donate-banner__inner-wrapper", html)
 
+    def test_omits_link_without_a_url(self):
+        # A page link resolves to None once the page is unpublished or deleted.
+        self.banner.pencil_link = [("link", {"label": "Donate", "link_to": "page", "page": None})]
+
+        html = render_to_string(BANNER_TEMPLATE, {"banner": self.banner, "cta_button_data": {}})
+
+        self.assertIn("Make a Giving Tuesday gift", html)
+        self.assertNotIn("<a ", html)
+        self.assertNotIn("donate-pencil-banner__separator", html)
+
     def test_head_script_only_renders_for_pencil_banners(self):
         html = render_to_string(HEAD_TEMPLATE, {"donate_banner": self.banner, "request": self.request})
         self.assertIn(f"donate_pencil_banner_dismissed={escapejs(str(self.banner.translation_key))}", html)
