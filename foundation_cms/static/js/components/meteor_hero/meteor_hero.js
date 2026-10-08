@@ -19,12 +19,12 @@ const STILL_FRAME_MS = 1320;
 const MAX_PIXEL_RATIO = 2;
 
 /**
- * LP's Logo heat ladder, hottest to coolest: CSS token and fallback.
+ * LP's Logo heat ladder, hottest to coolest, read from our colour tokens.
  */
 const HEAT_TOKENS = [
-  ["--color-accent-orange", "#f06c13"],
-  ["--color-spectrum-yellow-600", "#eec700"],
-  ["--color-spectrum-blue-400", "#50c9f0"],
+  "--color-accent-orange",
+  "--color-spectrum-yellow-600",
+  "--color-spectrum-blue-400",
 ];
 
 const SELECTORS = {
@@ -67,10 +67,19 @@ export class MeteorHero {
     }
     this.root.dataset.meteorHeroInitialized = "true";
 
+    // A missing token would make the canvas fall back to black squares, so
+    // leave the hero without its shower and say which token is missing.
     const styles = getComputedStyle(this.root);
-    this.heat = HEAT_TOKENS.map(
-      ([token, fallback]) => styles.getPropertyValue(token).trim() || fallback,
+    this.heat = HEAT_TOKENS.map((token) =>
+      styles.getPropertyValue(token).trim(),
     );
+    const missing = HEAT_TOKENS.filter((_token, i) => !this.heat[i]);
+    if (missing.length) {
+      console.warn(
+        `Meteor hero: missing colour tokens ${missing.join(", ")}, so the meteor shower won't be drawn.`,
+      );
+      return;
+    }
 
     this.resize();
 

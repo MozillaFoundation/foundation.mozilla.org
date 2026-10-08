@@ -3,6 +3,12 @@ import { CONFIG, createShower, sampleShower } from "./meteor_shower.js";
 import { initMeteorHeroes } from "./meteor_hero.js";
 
 const FRAME_MS = 1000 / 60;
+const HEAT_TOKENS = [
+  "--color-accent-orange",
+  "--color-spectrum-yellow-600",
+  "--color-spectrum-blue-400",
+];
+const HEAT = ["#f06c13", "#eec700", "#50c9f0"];
 
 function buildHeroMarkup() {
   document.body.innerHTML = `
@@ -10,10 +16,12 @@ function buildHeroMarkup() {
       <canvas class="meteor-hero__canvas" aria-hidden="true"></canvas>
     </div>
   `;
+  const root = document.querySelector("[data-meteor-hero]");
+  HEAT.forEach((colour, i) => root.style.setProperty(HEAT_TOKENS[i], colour));
   const canvas = document.querySelector("canvas");
   Object.defineProperty(canvas, "clientWidth", { value: 1440 });
   Object.defineProperty(canvas, "clientHeight", { value: 812 });
-  return { root: document.querySelector("[data-meteor-hero]"), canvas };
+  return { root, canvas };
 }
 
 describe("initMeteorHeroes", () => {
@@ -110,7 +118,7 @@ describe("initMeteorHeroes", () => {
     expect(context.setTransform).toHaveBeenCalledWith(2, 0, 0, 2, 0, 0);
   });
 
-  it("paints with the fallback colours when the tokens aren't set", () => {
+  it("paints with the colour tokens", () => {
     buildHeroMarkup();
     reducedMotion.matches = true;
 
@@ -119,12 +127,23 @@ describe("initMeteorHeroes", () => {
     const colours = new Set(
       context.fillRect.mock.contexts.map((ctx) => ctx.fillStyle),
     );
-    expect([...colours].length).toBeGreaterThan(0);
-    expect(
-      [...colours].every((colour) =>
-        ["#f06c13", "#eec700", "#50c9f0"].includes(colour),
-      ),
-    ).toBe(true);
+    expect(colours.size).toBeGreaterThan(0);
+    expect([...colours].every((colour) => HEAT.includes(colour))).toBe(true);
+  });
+
+  it("draws nothing and warns when a colour token is missing", () => {
+    const { root } = buildHeroMarkup();
+    root.style.removeProperty("--color-spectrum-yellow-600");
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    initMeteorHeroes();
+
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining("--color-spectrum-yellow-600"),
+    );
+    expect(context.fillRect).not.toHaveBeenCalled();
+    // It never starts watching the screen, so it can never start animating.
+    expect(intersectionCallback).toBeNull();
   });
 
   it("waits until the hero is on screen to animate", () => {
