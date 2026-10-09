@@ -213,6 +213,8 @@ if (!COOKIE_CONTROL_API_KEY) {
         // Django csrftoken/sessionid cookies — required for logged-in editing
         "csrftoken",
         "sessionid",
+        // Remembers a dismissed pencil donate banner for the session.
+        "donate_pencil_banner_dismissed",
         "OptanonConsent",
         "OptanonAlertBoxClosed",
         "OptanonControl",

@@ -40,7 +40,9 @@ $primary-nav-margin: 0.7rem;
   width: 100%;
   margin: 0;
   max-width: 100vw;
-  top: 0;
+
+  // Set by donate_pencil_banner.js so the nav sticks below the pencil banner.
+  top: var(--donate-pencil-banner-height, 0);
   z-index: 10;
   background-color: $white;
   height: $primary-nav-height;
@@ -363,13 +365,19 @@ $primary-nav-margin: 0.7rem;
     outline-offset: 2px;
   }
 
+  // The wordmark cell clips overflow, so draw its ring inside the link.
+  &__wordmark a:focus-visible {
+    outline-offset: -2px;
+  }
+
   a:not(.btn-primary):hover,
   a:not(.btn-primary):focus-visible {
     color: color(orange, "600");
   }
 
   &.open {
-    height: 100vh;
+    // The fallback needs a unit: calc() rejects a unitless 0 in subtraction.
+    height: calc(100vh - var(--donate-pencil-banner-height, 0px));
 
     .primary-nav-ns__wordmark.hidden img {
       transform: translateY(0%);

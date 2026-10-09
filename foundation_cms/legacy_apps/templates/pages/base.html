@@ -73,6 +73,7 @@
         {% endblock %}
 
         {% wagtail_ab_testing_script %}
+        {% include "patterns/components/donate_banner/_pencil_banner_head.html" %}
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{% static "legacy_apps/_css/main.compiled.css" %}">

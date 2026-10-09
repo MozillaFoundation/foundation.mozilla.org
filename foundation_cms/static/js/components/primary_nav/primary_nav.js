@@ -279,23 +279,40 @@ export function initWordmarkVisibilityOnScroll() {
   }
 
   const navHeight = nav.offsetHeight;
+  const pencilBanner = document.querySelector(SELECTORS.pencilBanner);
+  let pencilBannerHeight = pencilBanner?.offsetHeight ?? 0;
+  let observer;
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        wordmark.classList.add(CLASSNAMES.hidden);
-        grid.classList.add(CLASSNAMES.hiddenWordmark);
-      } else {
-        wordmark.classList.remove(CLASSNAMES.hidden);
-        grid.classList.remove(CLASSNAMES.hiddenWordmark);
-      }
-    },
-    {
-      root: null, // viewport
-      rootMargin: `-${navHeight}px  0px 0px 0px`,
-      threshold: 0.01, // as soon as even 1% is visible/invisible
-    },
-  );
+  // rootMargin is fixed per observer, so rebuild it whenever the covered strip changes.
+  const observeKineticTypeWordmark = () => {
+    observer?.disconnect();
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          wordmark.classList.add(CLASSNAMES.hidden);
+          grid.classList.add(CLASSNAMES.hiddenWordmark);
+        } else {
+          wordmark.classList.remove(CLASSNAMES.hidden);
+          grid.classList.remove(CLASSNAMES.hiddenWordmark);
+        }
+      },
+      {
+        root: null, // viewport
+        rootMargin: `-${navHeight + pencilBannerHeight}px  0px 0px 0px`,
+        threshold: 0.01, // as soon as even 1% is visible/invisible
+      },
+    );
+    observer.observe(kineticTypeWordmark);
+  };
 
-  observer.observe(kineticTypeWordmark);
+  observeKineticTypeWordmark();
+
+  // The nav sticks below the pencil banner, which can wrap, resize or be dismissed.
+  if (pencilBanner) {
+    new ResizeObserver(() => {
+      if (pencilBanner.offsetHeight === pencilBannerHeight) return;
+      pencilBannerHeight = pencilBanner.offsetHeight;
+      observeKineticTypeWordmark();
+    }).observe(pencilBanner);
+  }
 }

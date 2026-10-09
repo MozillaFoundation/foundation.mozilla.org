@@ -1,5 +1,6 @@
 import CharacterCountdownController from "./controllers/character_countdown_controller.js";
-import MediaController from "./controllers/media_controller.js";
+import ConditionalFieldsController from "./controllers/conditional_fields_controller.js";
+import MaxBlocksController from "./controllers/max_blocks_controller.js";
 
 if (window.StimulusModule) {
   window.stimulusApp =
@@ -10,7 +11,9 @@ if (window.StimulusModule) {
       name: "character-countdown",
       controller: CharacterCountdownController,
     },
-    { name: "media", controller: MediaController },
+    { name: "media", controller: ConditionalFieldsController },
+    { name: "conditional-fields", controller: ConditionalFieldsController },
+    { name: "max-blocks", controller: MaxBlocksController },
   ];
 
   adminControllers.forEach(({ name, controller }) => {
