@@ -1,0 +1,62 @@
+{
+  "$description": "Motion is data. Components reference these, they never inline a duration.",
+  "motion": {
+    "duration": {
+      "instant": { "value": "0ms", "description": "Reduced motion target." },
+      "feedback": { "value": "120ms", "description": "Control hover, press, and focus feedback." },
+      "base": { "value": "200ms", "description": "Most state changes." },
+      "index-cards": {
+        "expand": { "value": "500ms", "description": "Index Cards opening: marker growth, row padding, row height, media reveal, and content reveal move as one deliberate disclosure." },
+        "collapse": { "value": "400ms", "description": "Index Cards closing: shorter than opening so the expanded state clears without feeling like a reversed entrance." },
+        "hover-in": { "value": "{motion.duration.index-cards.expand}", "description": "Index Cards desktop hover-in from idle to intermediate: matches the component's deliberate geometry pace by default." },
+        "hover-out": { "value": "{motion.duration.index-cards.collapse}", "description": "Index Cards desktop hover-out from intermediate to idle: matches the component's collapse pace by default." }
+      },
+      "carousel": {
+        "slide": { "value": "450ms", "description": "Carousel track advance." }
+      },
+      "wordmark": {
+        "shape-in": { "value": "200ms", "description": "Wordmark colored shape appearing on hover." },
+        "shape-out": { "value": "160ms", "description": "Wordmark colored shape leaving on hover exit." },
+        "stagger": { "value": "40ms", "description": "Delay between each wordmark shape in the stagger." }
+      },
+      "notification-banner": {
+        "hover-in": { "value": "225ms", "description": "Notification banner arrow travel on hover." },
+        "hover-out": { "value": "375ms", "description": "Notification banner arrow return on hover exit." }
+      },
+      "dropdown": {
+        "open": { "value": "250ms", "description": "Dropdown menu opening: scale and opacity in." },
+        "close": { "value": "150ms", "description": "Dropdown menu closing: quicker than open so it clears without lingering." }
+      },
+      "scroll-reminder": {
+        "bob": { "value": "1400ms", "description": "Scroll reminder arrow: one leg of its drift down and back. The loop alternates, so a full breath is twice this. Set in the studio, not read from the file, which draws the chip still." }
+      }
+    },
+    "easing": {
+      "standard": { "value": "cubic-bezier(0, 0, 0.18, 1)", "description": "Default. Anything moving within the viewport. The curve the design file authors on every custom-eased prototype interaction.", "node": "8025:2714" },
+      "index-cards": {
+        "expand": { "value": "cubic-bezier(0.16, 1, 0.3, 1)", "description": "Index Cards opening: soft acceleration with a confident settle for large in-row geometry changes." },
+        "collapse": { "value": "{motion.easing.index-cards.expand}", "description": "Index Cards closing: currently shares the opening curve; kept semantic so close timing can diverge later without selector changes." }
+      },
+      "carousel": {
+        "slide": { "value": "{motion.easing.index-cards.expand}", "description": "Carousel track advance and slide image overscan." }
+      },
+      "wordmark": {
+        "shape": { "value": "cubic-bezier(0.22, 1, 0.36, 1)", "description": "Wordmark colored shapes scaling into place on hover." }
+      },
+      "notification-banner": {
+        "hover": { "value": "cubic-bezier(0.22, 1, 0.36, 1)", "description": "Notification banner arrow travel curve." }
+      },
+      "dropdown": {
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "description": "Dropdown menu scale and caret rotation."
+      },
+      "scroll-reminder": {
+        "bob": { "value": "cubic-bezier(0.45, 0, 0.55, 1)", "description": "Scroll reminder arrow: a symmetric ease, so a loop that reverses has no corner at either end." }
+      }
+    }
+  },
+  "$meta": {
+    "provenance": "checked against the design file's prototype interactions on the R4 Design page 8025:2714, which carries 1820 reactions, 754 of them with a real transition across 15 distinct signatures. The file authors exactly one custom curve, cubic-bezier(0, 0, 0.18, 1), and motion.easing.standard now holds it. duration.instant, duration.feedback, and duration.base are repo scaffold global scale tokens adopted across components; the file specifies no global durations. Every token under a component name was extracted during that component's motion pass and is sourced.",
+    "verified": true
+  }
+}

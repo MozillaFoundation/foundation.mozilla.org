@@ -1,0 +1,9 @@
+{
+  "radius": {
+    "none": { "value": "0", "description": "The system default. Square corners everywhere." }
+  },
+  "$meta": {
+    "provenance": "confirmed by absence across all 24 ported components: every border-radius in components/ is zero, and no component rounds a corner by any other means. radio/styles.css records the file drawing a choice chip and no circle.",
+    "verified": true
+  }
+}

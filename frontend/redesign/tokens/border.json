@@ -1,0 +1,10 @@
+{
+  "border": {
+    "width": {
+      "thin": { "value": "1px", "description": "Every stroke on a control at rest. Buttons, and a field holding a value." },
+      "thick": { "value": "2px", "description": "Figma. A field underline that wants attention: focused, or failed." },
+      "focus": { "value": "2px", "description": "Focus ring. Two pixels of ink, offset from the control." }
+    }
+  },
+  "$meta": { "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, nodes 8704:26909 and 9377:10398", "verified": true }
+}

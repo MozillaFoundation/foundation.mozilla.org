@@ -1,0 +1,24 @@
+{
+  "$description": "The scale is the Figma spacing variable set. Steps are named by their pixel value because that is how the design file names them.",
+  "space": {
+    "0": { "value": "0", "description": "Figma spacing/0. Icon variants set gap to zero and let padding do the work." },
+    "2": { "value": "2px", "description": "Figma spacing/2. The only step under 4. It holds the text off the top and bottom of its own box inside a banner." },
+    "4": { "value": "4px", "description": "Figma spacing/4. Bottom padding on a tag. The uppercase label sits high in its box, so the bottom is tighter than the top." },
+    "6": { "value": "6px", "description": "Figma spacing/6. Top padding on a tag. Gap between a field unit and its chevron." },
+    "8": { "value": "8px", "description": "Figma spacing/8. Horizontal padding on a tag. Gap between a small link and its arrow." },
+    "10": { "value": "10px", "description": "Figma spacing/10. Vertical padding on a 38px control and on a field. Nav gap. Gap between a field label and its box." },
+    "12": { "value": "12px", "description": "Figma spacing/12. Gap between label and icon. Nav vertical padding. Trailing padding beside an icon. Horizontal padding inside a field." },
+    "16": { "value": "16px", "description": "Figma spacing/16. Nav horizontal padding." },
+    "20": { "value": "20px", "description": "Figma spacing/20. Horizontal padding on every non-nav button." },
+    "24": { "value": "24px", "description": "Figma spacing/24. The gap between an accordion's open heading and its paragraph." },
+    "32": { "value": "32px", "description": "Figma spacing/32. Padding inside an accordion at desktop width. The gap between tabs on a work index, where the row is the whole page width." },
+    "40": { "value": "40px", "description": "Figma spacing/40. The gap between an accordion's header row and its description at mobile width." },
+    "48": { "value": "48px", "description": "Figma spacing/48. The gap between the choices and the payment block inside a donate modal." },
+    "64": { "value": "64px", "description": "Figma spacing/64. The gap between an accordion's header row and its description at desktop width." },
+    "72": { "value": "72px", "description": "Figma content/2xlarge. The widest rhythm between children placed in a section." },
+    "120": { "value": "120px", "description": "Figma spacing/120. The gap between an editorial carousel's section head and its track at desktop width." },
+    "148": { "value": "148px", "description": "Figma section/horz. Inline padding on a section at desktop width." },
+    "200": { "value": "200px", "description": "Figma section/vert-large. Block padding on a section at desktop width when padding is large." }
+  },
+  "$meta": { "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, variables on nodes 8704:26909, 7666:4533, 9377:10398, 7878:2341; steps 72, 148 and 200 from node 9470:11913", "verified": true }
+}

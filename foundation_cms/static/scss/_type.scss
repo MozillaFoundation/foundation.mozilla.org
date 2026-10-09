@@ -1,15 +1,19 @@
 @use "sass:map";
+@import "settings/tokens";
 
 // ===================================
 // Variables
 // ===================================
 
+// extralight has no LP token equivalent, kept as a literal. The rest are
+// verified byte-identical to LP's font.weight tokens.
 $font-weights: (
+  // TODO: check whether anything still uses extralight; if not, remove it.
   extralight: 200,
-  light: 300,
-  regular: 400,
-  semibold: 600,
-  bold: 700,
+  light: map.get($tokens, "font-weight-light"),
+  regular: map.get($tokens, "font-weight-regular"),
+  semibold: map.get($tokens, "font-weight-semibold"),
+  bold: map.get($tokens, "font-weight-bold")
 );
 
 /* stylelint-disable-next-line scss/dollar-variable-colon-space-after --

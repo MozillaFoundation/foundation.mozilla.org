@@ -18,6 +18,9 @@ on:
   push:
     branches:
       - "main"
+      # Temporary: builds a Percy baseline for the site refresh feature branch.
+      # Remove when site-refresh-2026 is merged into main.
+      - "site-refresh-2026"
     paths:
       - 'foundation_cms/static/**'
       - 'foundation_cms/core/**'
@@ -68,7 +71,7 @@ jobs:
     # For pull_request_review, we additionally gate on the redesign output from check-files-on-approval.
     if: |
       always() && (
-        (github.event_name == 'push' && github.event.ref == 'refs/heads/main') ||
+        (github.event_name == 'push' && (github.event.ref == 'refs/heads/main' || github.event.ref == 'refs/heads/site-refresh-2026')) ||
         (github.event_name == 'pull_request' && github.event.label.name == 'run:visual-regression:redesign') ||
         (github.event_name == 'pull_request_review' && github.event.review.state == 'approved' && needs.check-files-on-approval.outputs.redesign == 'true')
       )

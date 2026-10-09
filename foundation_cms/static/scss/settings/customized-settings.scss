@@ -61,6 +61,8 @@
 //  57. Xy Grid
 
 @use "sass:color";
+@use "sass:map";
+@import "tokens";
 @import  "../../../../node_modules/foundation-sites/scss/util/util";
 
 // 1. Global
@@ -91,7 +93,7 @@ $global-padding: 1rem;
 $global-position: 1rem;
 $global-weight-normal: normal;
 $global-weight-bold: bold;
-$global-radius: 0;
+$global-radius: map.get($tokens, "radius-none");
 $global-menu-padding: 0.7rem 1rem;
 $global-menu-nested-margin: 1rem;
 $global-text-direction: ltr;

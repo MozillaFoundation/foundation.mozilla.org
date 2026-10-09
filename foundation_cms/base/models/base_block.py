@@ -9,6 +9,13 @@ class BaseBlock(blocks.StructBlock):
     `skip_default_wrapper` argument (default False).
     """
 
+    # Cosmos (reskinned) blocks set this to skip the Foundation grid wrapper.
+    # They render full bleed, and get LP's section master (`mzf-c-section`) only
+    # from the Section Start marker they sit under; see _sectioned_streamfield.html.
+    # A class attribute rather than a constructor argument, so it isn't
+    # serialized by deconstruct() and needs no migration.
+    is_cosmos_block = False
+
     def __init__(self, *args, skip_default_wrapper: bool = False, **kwargs):
         self._skip_default_wrapper = bool(skip_default_wrapper)
         super().__init__(*args, **kwargs)
@@ -34,7 +41,7 @@ class BaseBlock(blocks.StructBlock):
 
     @property
     def skip_default_wrapper(self):
-        return self._skip_default_wrapper
+        return self._skip_default_wrapper or self.is_cosmos_block
 
     def deconstruct(self):
         """

@@ -24,6 +24,37 @@ All new CSS work should try to replace all use of Bootstrap and custom classes b
 For more complex components, there is also `tailwind-plugins/components.js`.
 We are also using `tailwind-plugins/components.js` to define Tailwind equivalents of Bootstrap classes (e.g. `.container` and `.row`).
 
+## Design tokens (redesign frontend)
+
+The redesign frontend's colors, type, spacing, and other design values come from `frontend/redesign/tokens/*.json`, vendored from the design team's token deliverable.
+Run `yarn build:tokens` (from `frontend/redesign`) to generate two committed files from that JSON:
+
+- `foundation_cms/static/scss/_tokens.scss`: CSS custom properties, for runtime use in component CSS.
+- `foundation_cms/static/scss/settings/_tokens.scss`: a Sass `$tokens` map, for anything needing a real value at compile time, like a breakpoint.
+
+Motion tokens (`tokens/motion.json`) are the one exception to the naming: they're generated with an `mzf-` prefix, e.g. `--mzf-motion-duration-base`, to match the names LP's own token build writes and its component CSS reads. Every other category is unprefixed, e.g. `--space-32`.
+
+This does not run automatically. `docker compose up`, and `yarn dev`/`watch:css` within it, never call `build:tokens`, they just compile whatever `.scss` is already checked out. Since the two generated files are committed, a normal `git pull` keeps them current without needing to regenerate anything.
+
+If you edit a token JSON file, run `yarn build:tokens` yourself and commit the regenerated output alongside your JSON change. CI's `check:tokens` check regenerates and diffs against what's committed, so a JSON change without a matching regeneration fails the build.
+
+### Using tokens in a reskin
+
+- In component CSS, read a token at runtime with `var(--token-name)`, e.g. `color: var(--color-accent-blue);`.
+- Anywhere that needs a real value at compile time instead of a runtime CSS variable (a Foundation setting override, a media query), use `map.get($tokens, "token-name")`. This requires the file to have its own `@use "sass:map";` and `@import` of the generated `settings/_tokens.scss`, `@use` module access doesn't carry across files the way a plain `@import` does. See `_colors.scss` or `_type.scss` for the pattern.
+- There is one breakpoint, `size-breakpoint-mobile` (768px). Don't route it through Foundation's `breakpoint()` mixin or add it to the `$breakpoints` map, that map's key order is load-bearing for existing `only`/`down` range queries elsewhere in the codebase, and inserting into it can silently change what they resolve to.
+- New and reskinned components should follow LP's design system directly rather than Foundation's grid. After discussing with designers, the 12-column grid isn't part of the site refresh going forward, so there's no grid/token reconciliation to do, just build against the tokens and LP's own component reference.
+- New and reskinned components are authored desktop-first, matching LP's own CSS: unconditional base rules are the desktop styling, and the mobile-specific override is wrapped in the `mobile-only` mixin from `_mixins.scss`. This is the opposite direction from the rest of the codebase, which is mobile-first via Foundation's `breakpoint()` mixin, that's expected since this is new/reskinned work following LP's system rather than an edit to an existing mobile-first component. The mobile-first, Foundation-based implementation is legacy at this point and will go away as components get reskinned.
+
+### Cosmos
+
+Cosmos is the site refresh brand. Its SCSS lives in `foundation_cms/static/scss/cosmos/`, imported once through `cosmos/_index.scss` from `_redesign_base.scss`.
+
+- Files mirror LP's `components/` tree, with the last folder flattened into the file name: LP's `components/<path>/<name>/styles.css` lives at `cosmos/<path>/_<name>.scss`. For example, `components/elements/layout/section-master/styles.css` is `cosmos/elements/layout/_section-master.scss`. Keep the tier/group folders (`elements/layout`, `blocks/collections`), since some LP names only make sense or stay unique with their path (`blocks/sections/banner` vs `blocks/engagement/banner`, `elements/accordion/item`).
+- Only port LP's `styles.css`, as the whole file. The rest of the folder stays in LP as the reference: `index.html` is demo markup (our markup comes from our own templates), `README.md` has the usage rules, and `meta.json` is LP's metadata. Start each ported file with a comment naming its LP source path and the LP commit it came from.
+- Keep LP's class names and `mzf-c-` prefix, and keep the ported CSS the same as LP's apart from the breakpoint and our formatting. Swap LP's `@media (max-width: 48rem)` for the `mobile-only` mixin, which matches it exactly.
+- Prefer changing a Cosmos component from our own SCSS, through the settings LP's CSS exposes (e.g. `--mzf-section-surface`), over editing the ported file.
+
 ## React
 
 React is used _à la carte_ for isolated component instances (eg: a tab switcher) since the site is not designed as a single page application. This precludes the need for Flux architecture, or such libraries as React Router.
