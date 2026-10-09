@@ -1,0 +1,219 @@
+// Ported from components/blocks/text/text-group/styles.css
+
+/* Text group — Figma 9888:40576
+   Three nested columns and one action slot. The file draws 16 symbols:
+   Breakpoint (Desktop, Mobile) x heading-level (h1..h4) x action-type
+   (button, link). Breakpoint is a media query, heading-level is a root
+   modifier, and action-type is a root modifier, because both modifiers
+   change more than one child.
+
+   Every gap is a flex gap and every slot is optional, which is how the file
+   draws it: 9888:40575 carries hasLabel, hasHeading, hasSubheading and
+   hasActions as booleans. Omit a slot in the markup and the gap above it
+   closes on its own. */
+
+.mzf-c-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  inline-size: 100%;
+  box-sizing: border-box;
+  padding: var(--space-0);
+}
+
+.mzf-c-text-group *,
+.mzf-c-text-group *::before,
+.mzf-c-text-group *::after {
+  box-sizing: border-box;
+}
+
+/* The inner column, named `text-group` on 9888:40539. Figma content/small:
+   16 at desktop, 12 at mobile.
+
+   The gap is a knob, written as a fallback on each drawn value rather than
+   declared on this element, so a holder can set it once on its own box and
+   let it inherit in. Two holders set it, and they found it independently.
+   `heros/donate` 10225:34312 draws 16 at both breakpoints. `heros/program`
+   binds spacing/spacing-16 in both symbols rather than content/small. Both
+   hold 16 below the breakpoint where this column steps to 12. */
+.mzf-c-text-group__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  inline-size: 100%;
+  gap: var(--mzf-text-group-text-gap, var(--space-16));
+}
+
+/* 9888:40540. Figma content/xsmall, which is 8 in both modes. */
+.mzf-c-text-group__heading-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  inline-size: 100%;
+  gap: var(--space-8);
+}
+
+/* ---------- root gap ----------
+   The action type sets the distance between the text and the action. A
+   button takes Figma content/xlarge, 48 desktop and 32 mobile. A link takes
+   content/large, 32 desktop and 16 mobile. A group with no action carries
+   neither modifier and needs no gap, because it has one child. */
+.mzf-c-text-group--action-button {
+  gap: var(--space-48);
+}
+
+.mzf-c-text-group--action-link {
+  gap: var(--space-32);
+}
+
+/* The file draws exactly one action in every symbol, so the distance between
+   two of them is not drawn anywhere. The slot takes the 12px the button
+   already uses between its own label and icon. */
+.mzf-c-text-group__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+/* Three ink knobs, each declared as a fallback rather than on the root, so a
+   holder can set them once on its own box and let them inherit. Every default
+   is the ink 9888:40576 draws. `sections/pre-footer` is the first holder to
+   set them: 10232:126021 draws a white label, a white heading and a gray/200
+   subheading over a scrim.
+
+   ---------- label ----------
+   9888:40542 is an instance of chips/label, whose `label` type is bare
+   uppercase ink with no fill and no padding. It is reproduced here rather
+   than composed, because the instance steps to 10px below the breakpoint
+   and the element has no mobile step of its own. */
+.mzf-c-text-group__label {
+  margin: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  color: var(--mzf-text-group-label-color, var(--color-text-default));
+}
+
+/* ---------- heading ----------
+   Color and margin are shared. Family, weight, size, line height and
+   tracking all move with the level, so each level sets its own. */
+.mzf-c-text-group__heading {
+  margin: 0;
+  color: var(--mzf-text-group-heading-color, var(--color-text-default));
+}
+
+/* h1 and h2 bind the desktop/h1 and desktop/h2 styles at both breakpoints
+   and only swap the size variable's mode, so both keep their desktop
+   tracking below the breakpoint. 10172:42288 draws 38px at minus 0.76,
+   which is minus 2 percent, and 10172:42295 draws 28px at minus 0.28,
+   which is minus 1 percent. Neither takes the type sheet's mobile tracking. */
+.mzf-c-text-group--h1 .mzf-c-text-group__heading {
+  font-family: var(--font-family-headline);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+  font-variation-settings: "wdth" 100;
+}
+
+.mzf-c-text-group--h2 .mzf-c-text-group__heading {
+  font-family: var(--font-family-headline);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-h2);
+  font-variation-settings: "wdth" 100;
+}
+
+/* h3 is the first level to go semibold, and the first to drop tracking to
+   zero. desktop/h3 carries letterSpacing 0. */
+.mzf-c-text-group--h3 .mzf-c-text-group__heading {
+  font-family: var(--font-family-headline);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+  font-variation-settings: "wdth" 100;
+}
+
+/* h4 leaves the headline family. desktop/h4 binds h4/font-family, which is
+   Mozilla Text, at Bold. It carries no width axis, so it sets no
+   font-variation-settings. */
+.mzf-c-text-group--h4 .mzf-c-text-group__heading {
+  font-family: var(--font-family-text);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+/* ---------- subheading ----------
+   gray/900, a step off ink, at every level. h1, h2 and h3 set it in
+   desktop/body-large, which tracks at zero. */
+.mzf-c-text-group__subheading {
+  margin: 0;
+  inline-size: 100%;
+  font-family: var(--font-family-text);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body-large);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-none);
+  color: var(
+    --mzf-text-group-subheading-color,
+    var(--color-text-heading-quiet)
+  );
+}
+
+/* h4 steps the subheading down with the heading, from desktop/body-large to
+   desktop/body: 16px rather than 21, and 1 percent tracking rather than
+   zero. 9888:40572 measures 174 with it and would measure 182 without. */
+.mzf-c-text-group--h4 .mzf-c-text-group__subheading {
+  font-size: var(--font-size-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+@media (width <= 48rem) {
+  .mzf-c-text-group--action-button {
+    gap: var(--space-32);
+  }
+
+  .mzf-c-text-group--action-link {
+    gap: var(--space-16);
+  }
+
+  .mzf-c-text-group__text {
+    gap: var(--mzf-text-group-text-gap, var(--space-12));
+  }
+
+  .mzf-c-text-group__label {
+    font-size: var(--font-size-label-mobile);
+  }
+
+  .mzf-c-text-group--h1 .mzf-c-text-group__heading {
+    font-size: var(--font-size-h1-mobile);
+  }
+
+  .mzf-c-text-group--h2 .mzf-c-text-group__heading {
+    font-size: var(--font-size-h2-mobile);
+  }
+
+  .mzf-c-text-group--h3 .mzf-c-text-group__heading {
+    font-size: var(--font-size-h3-mobile);
+  }
+
+  .mzf-c-text-group--h4 .mzf-c-text-group__heading {
+    font-size: var(--font-size-h4-mobile);
+  }
+
+  .mzf-c-text-group__subheading {
+    font-size: var(--font-size-body-large-mobile);
+  }
+
+  .mzf-c-text-group--h4 .mzf-c-text-group__subheading {
+    font-size: var(--font-size-body-mobile);
+  }
+}
