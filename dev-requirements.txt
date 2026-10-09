@@ -36,7 +36,7 @@ editorconfig==0.17.1
     #   jsbeautifier
 execnet==2.1.2
     # via pytest-xdist
-flake8==7.3.0
+flake8==7.4.1
     # via -r dev-requirements.in
 honcho==2.0.0
     # via -r dev-requirements.in
@@ -75,9 +75,9 @@ pluggy==1.6.0
     #   pytest-cov
 ptvsd==4.3.2
     # via -r dev-requirements.in
-pycodestyle==2.14.0
+pycodestyle==2.15.0
     # via flake8
-pyflakes==3.4.0
+pyflakes==4.0.1
     # via flake8
 pygments==2.20.0
     # via pytest
