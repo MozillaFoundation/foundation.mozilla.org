@@ -2,7 +2,7 @@ import json
 from unittest.mock import patch
 
 from django.http import JsonResponse
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from foundation_cms.blocks.illustrated_newsletter_signup_block import (
@@ -90,7 +90,6 @@ class IllustratedNewsletterSignupBlockTests(TestCase):
         )
 
 
-@override_settings(NEWSLETTER_SIGNUP_METHOD="BASKET")
 class IllustratedNewsletterSignupSubmissionTests(TestCase):
     def setUp(self):
         self.request_factory = RequestFactory()
@@ -110,7 +109,7 @@ class IllustratedNewsletterSignupSubmissionTests(TestCase):
             "newsletter": "untrusted-client-value",
         }
 
-    @patch("foundation_cms.views.subscribe_to_basket_newsletter")
+    @patch("foundation_cms.views.subscribe_to_sailthru_newsletter")
     def test_uses_the_selected_snippets_newsletter(self, subscribe):
         subscribe.return_value = JsonResponse({}, status=201)
 
@@ -125,7 +124,7 @@ class IllustratedNewsletterSignupSubmissionTests(TestCase):
         submitted_data = subscribe.call_args.args[0]
         self.assertEqual(submitted_data["newsletters"], "mozillafestivalorg")
 
-    @patch("foundation_cms.views.subscribe_to_basket_newsletter")
+    @patch("foundation_cms.views.subscribe_to_sailthru_newsletter")
     def test_rejects_an_unknown_snippet(self, subscribe):
         request = self.request_factory.post(
             "/newsletter-signup/illustrated/999999/",
@@ -137,7 +136,7 @@ class IllustratedNewsletterSignupSubmissionTests(TestCase):
         self.assertEqual(response.status_code, 404)
         subscribe.assert_not_called()
 
-    @patch("foundation_cms.views.subscribe_to_basket_newsletter")
+    @patch("foundation_cms.views.subscribe_to_sailthru_newsletter")
     def test_rejects_invalid_json(self, subscribe):
         response = self.client.post(
             self.url,

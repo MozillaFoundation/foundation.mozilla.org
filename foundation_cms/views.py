@@ -1,7 +1,6 @@
 import json
 import logging
 
-import basket
 import requests
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -153,34 +152,14 @@ def newsletter_signup_submission(request, newsletter):
         "last_name": "",
     }
 
-    newsletter_signup_method = getattr(settings, "NEWSLETTER_SIGNUP_METHOD", "BASKET")
-
-    if newsletter_signup_method == "BASKET":
-        return subscribe_to_basket_newsletter(data)
-
-    else:
-        return subscribe_to_camo_newsletter(data)
+    return subscribe_to_sailthru_newsletter(data)
 
 
-def subscribe_to_basket_newsletter(data):
-    # Subscribing to newsletter using basket.
-    # https://basket-client.readthedocs.io/en/latest/usage.html
-    basket_additional = {"lang": data["lang"], "source_url": data["source_url"]}
-    if data["country"] != "":
-        basket_additional["country"] = data["country"]
-
-    response = basket.subscribe(data["email"], data["newsletters"], **basket_additional)
-
-    if response["status"] == "ok":
-        return JsonResponse(data, status=status.HTTP_201_CREATED)
-    return error_json_response("There was an error subscribing to the newsletter", status.HTTP_400_BAD_REQUEST)
-
-
-def subscribe_to_camo_newsletter(data):
+def subscribe_to_sailthru_newsletter(data):
     # New endpoint doesn't want "newsletters" in data.
     # We can just tell it what newsletter to subscribe to based on the endpoint URL.
     newsletter = data.pop("newsletters", None)
-    endpoint_url = f"{settings.CAMO_NEWSLETTER_ENDPOINT}/{newsletter}"
+    endpoint_url = f"{settings.SAILTHRU_NEWSLETTER_ENDPOINT}/{newsletter}"
 
     resp = requests.post(
         endpoint_url,
@@ -208,7 +187,7 @@ def newsletter_unsubscribe_view(request):
     unsubscribe_request = requests.post(
         settings.UNSUBSCRIBE_NEWSLETTER_ENDPOINT,
         json={"email": email, "unsubscribe_all": True},
-        headers={"X-API-Key": settings.CAMO_ENDPOINT_KEY},
+        headers={"X-API-Key": settings.SAILTHRU_ENDPOINT_KEY},
     )
 
     if unsubscribe_request.status_code == 200:

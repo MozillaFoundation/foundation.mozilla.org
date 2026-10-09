@@ -31,7 +31,6 @@ env = environ.Env(
     APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST=(str, ""),
     ASSET_DOMAIN=(str, ""),
     AWS_LOCATION=(str, ""),
-    BASKET_URL=(str, ""),
     CONTENT_TYPE_NO_SNIFF=bool,
     CAMO_ENDPOINT_KEY=(str, ""),
     CAMO_NEWSLETTER_ENDPOINT=(str, ""),
@@ -63,12 +62,13 @@ env = environ.Env(
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     MOZFEST_SCHEDULE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
-    NEWSLETTER_SIGNUP_METHOD=(str, ""),
     PROD_HOSTNAMES=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
     REVIEW_APP=(bool, False),
+    SAILTHRU_ENDPOINT_KEY=(str, ""),
+    SAILTHRU_NEWSLETTER_ENDPOINT=(str, ""),
     SEARCH_AUTOCOMPLETE_MIN_CHARS=(int, 5),
     SENTRY_DSN=(str, None),
     SENTRY_ENVIRONMENT=(str, None),
@@ -150,9 +150,6 @@ APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
-
-# Basket client configuration
-BASKET_URL = env("BASKET_URL")
 
 APP_DIR = app()
 
@@ -905,14 +902,10 @@ EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
 # This variable is used internally in Wagtail's native logic.
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = env("WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS")
 
-# Newsletter subscription method and endpoints
-
-# Choices are "BASKET" or "CAMO"
-NEWSLETTER_SIGNUP_METHOD = env("NEWSLETTER_SIGNUP_METHOD")
-
 # Endpoints for subscribing users to our newsletters
-CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
-CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
+# CAMO_* fallbacks cover environments whose config predates the Sailthru rename. Remove once renamed.
+SAILTHRU_NEWSLETTER_ENDPOINT = env("SAILTHRU_NEWSLETTER_ENDPOINT") or env("CAMO_NEWSLETTER_ENDPOINT")
+SAILTHRU_ENDPOINT_KEY = env("SAILTHRU_ENDPOINT_KEY") or env("CAMO_ENDPOINT_KEY")
 UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
 SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
 

@@ -15,8 +15,6 @@ asgiref==3.11.1
     #   scout-apm
 async-timeout==4.0.2
     # via redis
-basket-client==1.0.0
-    # via -r requirements.in
 beautifulsoup4==4.15.0
     # via
     #   -r requirements.in
@@ -206,7 +204,6 @@ redis==4.5.4
 requests==2.34.2
     # via
     #   -r requirements.in
-    #   basket-client
     #   heroku3
     #   requests-oauthlib
     #   social-auth-core
@@ -225,7 +222,6 @@ sentry-sdk==2.63.0
     # via -r requirements.in
 six==1.16.0
     # via
-    #   basket-client
     #   ecdsa
     #   python-dateutil
 smmap==5.0.3
