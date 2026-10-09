@@ -44,7 +44,7 @@ class BaseLinkValue(blocks.StructValue):
         # Missing link_to field fallback (i.e. translated pages)
         # If link_to not found try to find the value
         # Since self is in memory, this should be efficient.
-        for link_type in ["page", "external_url", "relative_url", "phone", "email", "file"]:
+        for link_type in ["page", "external_url", "relative_url", "anchor", "phone", "email", "file"]:
             method = getattr(self, f"get_{link_type}_link", None)
             if method:
                 result = method()  # Call the method

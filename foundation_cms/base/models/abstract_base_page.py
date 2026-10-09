@@ -4,6 +4,8 @@ from django.apps import apps
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.loader import select_template
+from django.utils.functional import cached_property
+from django.utils.text import slugify
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
@@ -261,6 +263,16 @@ class AbstractBasePage(FoundationMetadataPageMixin, Page):
 
     def get_preview_template(self, request, mode_name):
         return self.get_template(request)
+
+    @cached_property
+    def title_anchor_ids(self):
+        # Translations keep the block ids of the default locale page, so taking the slug from
+        # there keeps anchors identical in every locale and English anchor links still resolve.
+        default_locale = Locale.get_default()
+        source = self
+        if self.locale_id != default_locale.id:
+            source = self.get_translation_or_none(default_locale) or self
+        return {block.id: slugify(block.value["title"]) for block in source.body.blocks_by_name("title_block")}
 
     def get_notice_banner(self):
         """Return the notice banner in the active locale, or None if unset."""

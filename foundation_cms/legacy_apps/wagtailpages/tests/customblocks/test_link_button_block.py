@@ -56,7 +56,7 @@ class TestLinkButtonBlock(TestCase):
 
         anchor = block["anchor"]
         self.assertNotEqual(anchor, "")
-        self.assertEqual(block.url, f"#{anchor}")
+        self.assertEqual(block.url, anchor)
 
     def test_email_link(self):
         """Create a LinkButtonBlockFactory with an email link."""
