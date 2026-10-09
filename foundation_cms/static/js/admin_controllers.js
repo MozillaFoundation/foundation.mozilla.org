@@ -1,4 +1,5 @@
 import CharacterCountdownController from "./controllers/character_countdown_controller.js";
+import FlywheelBannerController from "./controllers/flywheel_banner_controller.js";
 import MediaController from "./controllers/media_controller.js";
 
 if (window.StimulusModule) {
@@ -10,6 +11,7 @@ if (window.StimulusModule) {
       name: "character-countdown",
       controller: CharacterCountdownController,
     },
+    { name: "flywheel-banner", controller: FlywheelBannerController },
     { name: "media", controller: MediaController },
   ];
 
