@@ -52,6 +52,7 @@ export class MeteorHero {
     this.heat = [];
     this.width = 0;
     this.height = 0;
+    this.pixelRatio = 1;
     this.elapsedMs = 0;
     this.lastFrameAt = null;
     this.paintedStep = null;
@@ -114,7 +115,7 @@ export class MeteorHero {
   update() {
     if (this.prefersReducedMotion()) {
       this.stop();
-      this.drawStill();
+      this.redraw();
       return;
     }
     if (this.isOnScreen && !document.hidden) {
@@ -165,22 +166,41 @@ export class MeteorHero {
   }
 
   /**
-   * Matches the canvas to its displayed size, then redraws, since resizing a
-   * canvas clears it.
+   * Repaints what should be showing now: the still frame under reduced motion,
+   * otherwise the shower at its current time.
    */
-  resize() {
-    const ratio = Math.min(MAX_PIXEL_RATIO, window.devicePixelRatio || 1);
-    this.width = this.canvas.clientWidth;
-    this.height = this.canvas.clientHeight;
-    this.canvas.width = Math.round(this.width * ratio);
-    this.canvas.height = Math.round(this.height * ratio);
-    this.context.setTransform(ratio, 0, 0, ratio, 0, 0);
-
+  redraw() {
     if (this.prefersReducedMotion()) {
       this.drawStill();
     } else {
       this.draw(this.shower, this.elapsedMs);
     }
+  }
+
+  /**
+   * Matches the canvas to its displayed size, then redraws, since resizing a
+   * canvas clears it.
+   */
+  resize() {
+    this.pixelRatio = Math.min(MAX_PIXEL_RATIO, window.devicePixelRatio || 1);
+    this.width = this.canvas.clientWidth;
+    this.height = this.canvas.clientHeight;
+    this.canvas.width = Math.round(this.width * this.pixelRatio);
+    this.canvas.height = Math.round(this.height * this.pixelRatio);
+    this.context.setTransform(this.pixelRatio, 0, 0, this.pixelRatio, 0, 0);
+    this.redraw();
+  }
+
+  /**
+   * Rounds a position to the nearest whole screen pixel. At display scaling
+   * like 125% or 150%, cell edges otherwise land between screen pixels, which
+   * blurs them and leaves faint seams where two cells touch.
+   *
+   * @param {number} value - A position in CSS px.
+   * @returns {number}
+   */
+  snapToScreenPixel(value) {
+    return Math.round(value * this.pixelRatio) / this.pixelRatio;
   }
 
   /**
@@ -200,9 +220,13 @@ export class MeteorHero {
       this.heat,
     );
     for (const rect of rects) {
+      const left = this.snapToScreenPixel(rect.x);
+      const top = this.snapToScreenPixel(rect.y);
+      const right = this.snapToScreenPixel(rect.x + rect.w);
+      const bottom = this.snapToScreenPixel(rect.y + rect.h);
       context.globalAlpha = rect.a;
       context.fillStyle = rect.color;
-      context.fillRect(rect.x, rect.y, rect.w, rect.h);
+      context.fillRect(left, top, right - left, bottom - top);
     }
     context.globalAlpha = 1;
   }

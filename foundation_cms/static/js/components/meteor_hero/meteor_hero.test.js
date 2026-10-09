@@ -118,6 +118,25 @@ describe("initMeteorHeroes", () => {
     expect(context.setTransform).toHaveBeenCalledWith(2, 0, 0, 2, 0, 0);
   });
 
+  it("paints cell edges on whole screen pixels at 150% display scaling", () => {
+    vi.stubGlobal("devicePixelRatio", 1.5);
+    buildHeroMarkup();
+    reducedMotion.matches = true;
+
+    initMeteorHeroes();
+
+    const edges = context.fillRect.mock.calls.flatMap(([x, y, w, h]) => [
+      x,
+      y,
+      x + w,
+      y + h,
+    ]);
+    const onScreenPixel = (cssPx) =>
+      Math.abs(cssPx * 1.5 - Math.round(cssPx * 1.5)) < 1e-6;
+    expect(edges.length).toBeGreaterThan(0);
+    expect(edges.every(onScreenPixel)).toBe(true);
+  });
+
   it("paints with the colour tokens", () => {
     buildHeroMarkup();
     reducedMotion.matches = true;
