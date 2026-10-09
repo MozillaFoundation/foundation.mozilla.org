@@ -8,6 +8,7 @@ from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
+from .flywheel_banner_block import FlywheelBannerBlock
 from .fru_element_block import FruElementBlock
 from .greenhouse_board_block import GreenhouseBoardBlock
 from .icon_info_grid_block import IconInfoGridBlock
@@ -38,6 +39,7 @@ from .video_block import VideoBlock
 
 
 class BlockGroups:
+    BANNERS = "Banners"
     CARDS = "Card Collections"
     DATA = "Data Display"
     ENGAGEMENT = "Engagement & Buttons"
@@ -60,6 +62,12 @@ class BlockRegistry:
     """
 
     BLOCKS = {
+        # Banners
+        "flywheel_banner": {
+            "class": FlywheelBannerBlock,
+            "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.BANNERS,
+        },
         # Card Collections
         "featured_card_block": {
             "class": FeaturedCardBlock,
