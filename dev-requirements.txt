@@ -8,7 +8,7 @@ asgiref==3.11.1
     # via
     #   -c requirements.txt
     #   django
-black==26.5.1
+black==26.10.0
     # via -r dev-requirements.in
 click==8.3.2
     # via
