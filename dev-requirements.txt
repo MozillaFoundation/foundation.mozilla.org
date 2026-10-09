@@ -125,7 +125,7 @@ tqdm==4.63.0
     #   djlint
 types-python-slugify==8.0.2.20240310
     # via -r dev-requirements.in
-types-requests==2.33.0.20260712
+types-requests==2.33.0.20260906
     # via -r dev-requirements.in
 typing-extensions==4.16.0
     # via
