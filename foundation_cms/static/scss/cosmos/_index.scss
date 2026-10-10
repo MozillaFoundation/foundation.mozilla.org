@@ -4,3 +4,8 @@
 
 // Elements
 @import "elements/layout/section-master";
+
+// Quote dependencies, in LP's required load order
+@import "blocks/text/text-group";
+@import "elements/media/aspect-ratios";
+@import "blocks/text/blockquote";

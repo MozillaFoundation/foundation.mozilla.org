@@ -1,13 +1,4 @@
-.quote-block {
-  figure {
-    margin: 0;
-
-    blockquote {
-      margin: 0;
-
-      p {
-        margin: 0 0 rem-calc(24);
-      }
-    }
-  }
+// LP draws the marks in core-blue; custom override to use spectrum red instead.
+.mzf-c-blockquote__mark {
+  color: var(--color-spectrum-red);
 }

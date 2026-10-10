@@ -1,0 +1,171 @@
+// Ported from LP components/blocks/text/blockquote/styles.css
+// @media (max-width: 48rem) is replaced with @include mobile-only() mixin matching
+// the same breakpoint based on docs/stack.md
+
+/* Blockquote — Figma 10172:42319
+   One pull quote, the person who said it, and a square portrait of them. The
+   file draws two symbols and the only axis is Breakpoint: 9888:42736 Desktop
+   and 10172:42312 Mobile. This is a block, so the breakpoint is a media query
+   and the block ships no variant class.
+
+   Only one of the three children is an instance. The portrait is
+   `media/aspect-ratios` at 1:1 and is not restyled here. The quote is a bare
+   text node bound to the `desktop/h2` named style, and every value on it, the
+   Mozilla Headline family, the regular weight, the 1.2 line height and the
+   minus one percent tracking, is what `text-group --h2` already draws, so the
+   quote composes a text-group rather than retyping it. The attribution is two
+   bare text nodes at `desktop/body-small` that no element in the system
+   draws, so the block owns that type.
+
+   The root is a grid rather than a flex row because `figcaption` has to be a
+   direct child of `figure`. A flex row would need a wrapper around the quote
+   and the caption, and that wrapper would put an element between them that
+   the spec does not allow.
+
+   The file draws no rule. Neither symbol carries a stroke on any side, on any
+   box, so there is no border and no inset shadow here. The quote's left edge
+   is set by the hanging quotation mark, not by a vertical line.
+
+   The Figma "Color wash" shader sits on the portrait instance, as it does on
+   every aspect-ratios symbol. It is not ported, the same call every other
+   holder of that element made. */
+
+.mzf-c-blockquote {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  inline-size: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--space-0);
+
+  /* Figma content/3xlarge between the quote group and the portrait. */
+  gap: var(--space-24) var(--space-120);
+
+  /* Figma spacing/spacing-24 between the quote and the attribution. The same
+     24 at both breakpoints. */
+}
+
+.mzf-c-blockquote *,
+.mzf-c-blockquote *::before,
+.mzf-c-blockquote *::after {
+  box-sizing: border-box;
+}
+
+/* The second column exists only when a portrait does. Declaring it
+   unconditionally would leave a zero-width track with a 120px gap in front of
+   it on a quote that ships without one. */
+.mzf-c-blockquote:has(.mzf-c-blockquote__portrait) {
+  grid-template-columns: 1fr auto;
+}
+
+/* The quote group is drawn flex-[1 0 0] in the 1200 row, which is how it
+   measures 960: 1200 less the 120 gap and the 120 portrait. It is a track
+   here rather than a flex child, so the 1fr does that arithmetic instead. */
+.mzf-c-blockquote__quote,
+.mzf-c-blockquote__attribution {
+  grid-column: 1;
+  min-inline-size: 0;
+}
+
+/* `blockquote` carries a UA margin of 1em 40px. The file draws neither. */
+.mzf-c-blockquote__quote {
+  margin: 0;
+}
+
+/* Figma hangs the opening quotation mark outside the measure, so the first
+   word of the quote lines up with the name under it rather than with the
+   mark. The file draws it as a paragraph indent of minus 0.45 times the font
+   size, which is minus 18.9 at 42 and minus 12.6 at 28, so one em-relative
+   value covers both breakpoints.
+
+   `text-indent` is start-relative, so the mark hangs off the inline start
+   under `dir="rtl"` as well. */
+.mzf-c-blockquote__text {
+  text-indent: -0.45em;
+}
+
+/* The marks are typography, not content. They are spectrum/core-blue while
+   the words between them are ink, and that is the only color decision in the
+   component. */
+.mzf-c-blockquote__mark {
+  color: var(--color-text-quote-mark);
+}
+
+/* ---------- attribution ----------
+   Two text nodes bound to `desktop/body-small`, stacked with no gap:
+   spacing/spacing-0 on 9888:42733, and the two 20px line boxes stack to the
+   drawn 40. The name is gray/1000 and the role is gray/600. */
+.mzf-c-blockquote__attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-0);
+  padding: var(--space-0);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+.mzf-c-blockquote__name {
+  color: var(--color-text-default);
+}
+
+.mzf-c-blockquote__role {
+  color: var(--color-text-meta);
+}
+
+/* ---------- portrait ----------
+   The aspect-ratio element sets no width of its own, so the holder gives it
+   one. It spans both rows and centers against them, which is what the file
+   draws: the 120 box sits at y 22 in a 164 row. */
+.mzf-c-blockquote__portrait {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  inline-size: var(--size-blockquote-portrait);
+}
+
+/* It spans the caption's row too, so it centers against the quote and the
+   attribution together rather than against the quote alone. The span is
+   conditional because a quote with no caption has no second row to span, and
+   asking for one would add an empty row and a 24px gap under the quote.
+
+   `grid-row: 1 / -1` will not do this. Every row here is implicit, so the
+   explicit grid has one line and `-1` resolves back to line 1. */
+.mzf-c-blockquote:has(.mzf-c-blockquote__attribution)
+  .mzf-c-blockquote__portrait {
+  grid-row: 1 / span 2;
+}
+
+@include mobile-only {
+  /* 10172:42312 draws one column with the portrait above the quote. */
+  .mzf-c-blockquote,
+  .mzf-c-blockquote:has(.mzf-c-blockquote__portrait) {
+    grid-template-columns: 1fr;
+  }
+
+  /* The desktop span is written with `:has()`, so unwinding it below the
+     breakpoint takes the same selector. A bare class here would lose. */
+  .mzf-c-blockquote__portrait,
+  .mzf-c-blockquote:has(.mzf-c-blockquote__attribution)
+    .mzf-c-blockquote__portrait {
+    grid-column: 1;
+    grid-row: auto;
+    place-self: auto start;
+    inline-size: var(--size-blockquote-portrait-mobile);
+
+    /* The portrait leads the column in the mobile symbol while the markup
+       keeps it last, so it is ordered rather than moved. Auto placement reads
+       `order` before document order, which puts it in the first row without
+       an explicit row on every child. */
+    order: -1;
+
+    /* Figma draws content/xlarge, 32, between the portrait and the quote, and
+       keeps spacing-24 between the quote and the attribution. One grid has one
+       row gap, so the 24 stays on the grid and the extra 8 sits here. */
+    margin-block-end: var(--space-8);
+  }
+}

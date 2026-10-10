@@ -1,11 +1,24 @@
-{% load i18n l10n %}
-<div class="quote-block">
-  <figure>
-    <blockquote>
-      <p class="{% block quote_classes %}quote-text-regular{% endblock quote_classes %}">{% blocktrans with quote=value.quote %}“{{ quote }}”{% endblocktrans %}</p>
-    </blockquote>
-    {% if value.attribution %}
-      <figcaption>{{ value.attribution }}</figcaption>
-    {% endif %}
-  </figure>
-</div>
+{% load wagtailimages_tags %}
+
+<figure class="mzf-c-blockquote">
+  <blockquote class="mzf-c-text-group mzf-c-text-group--h2 mzf-c-blockquote__quote">
+    <div class="mzf-c-text-group__text">
+      <div class="mzf-c-text-group__heading-group">
+        <p class="mzf-c-text-group__heading mzf-c-blockquote__text"><span class="mzf-c-blockquote__mark" aria-hidden="true">“</span>{{ value.quote }}<span class="mzf-c-blockquote__mark" aria-hidden="true">”</span></p>
+      </div>
+    </div>
+  </blockquote>
+
+  {% if value.attribution or value.attribution_subtitle %}
+    <figcaption class="mzf-c-blockquote__attribution">
+      {% if value.attribution %}<span class="mzf-c-blockquote__name">{{ value.attribution }}</span>{% endif %}
+      {% if value.attribution_subtitle %}<span class="mzf-c-blockquote__role">{{ value.attribution_subtitle }}</span>{% endif %}
+    </figcaption>
+  {% endif %}
+
+  {% if value.image %}
+    <div class="mzf-c-aspect-ratio mzf-c-aspect-ratio--1-1 mzf-c-blockquote__portrait">
+      {% image value.image fill-240x240 class="mzf-c-aspect-ratio__media" loading="lazy" %}
+    </div>
+  {% endif %}
+</figure>
