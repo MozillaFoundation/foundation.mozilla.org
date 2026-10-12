@@ -11,7 +11,6 @@
   min-width: 0;
   max-width: 100%;
   min-height: var(--size-control-height);
-  margin: var(--space-16) 0;
 
   // Honor the approved 38px control token and let wrapped labels grow.
   padding-block: var(--button-inset);
@@ -42,12 +41,7 @@
   }
 
   // Contextual glyphs share LP's icon box and motion, but are not directional.
-  &.link-type-icon.external .mzf-c-button__icon,
-  &.link-type-icon.email .mzf-c-button__icon {
-    svg {
-      display: none;
-    }
-
+  &__icon[data-link-type] {
     &::before {
       content: "";
       width: 100%;
@@ -58,27 +52,40 @@
     }
   }
 
-  &.link-type-icon.email .mzf-c-button__icon::before {
+  &__icon[data-link-type="email"]::before {
     mask-image: url("/static/foundation_cms/_images/icons/email.svg");
     mask-size: contain;
   }
 
-  [dir="rtl"] &.link-type-icon:is(.external, .email) .mzf-c-button__icon {
+  [dir="rtl"] &__icon[data-link-type] {
     transform: none;
   }
 
-  [dir="rtl"]
-    &.link-type-icon:is(.external, .email):hover:not(:disabled)
-    .mzf-c-button__icon {
+  [dir="rtl"] &:hover:not(:disabled) .mzf-c-button__icon[data-link-type] {
     transform: translateX(var(--space-4));
   }
 }
 
-.link-button-block--center .mzf-c-button {
+// Alignment is a site/editor concern, separate from LP's visual variants.
+// Render saved alignment values as data, without exposing old layout classes.
+.mzf-c-button[data-alignment] {
   display: flex;
+}
+
+.mzf-c-button[data-alignment="center"] {
   margin-inline: auto;
 
   @include mobile-only {
     width: 100%;
   }
+}
+
+// Unreskinned holders still need their existing vertical spacing. A Cosmos
+// section supplies its own rhythm and must not gain another button margin.
+.streamfield-block-wrapper > .mzf-c-button {
+  margin-block: var(--space-16);
+}
+
+.mzf-c-section > .streamfield-block-wrapper > .mzf-c-button {
+  margin-block: 0;
 }

@@ -73,20 +73,14 @@
   &__cta {
     flex-shrink: 0;
     width: 100%;
+    display: flex;
 
-    // FixedAlignmentLinkButtonBlock, so no `link-button-block--*` class is emitted.
-    .link-button-block {
-      width: 100%;
-
-      // Right-aligned once `__inner` is two columns; left while stacked.
-      @include breakpoint(xlarge up) {
-        display: flex;
-        justify-content: flex-end;
-      }
+    // Right-aligned once `__inner` is two columns; left while stacked.
+    @include breakpoint(xlarge up) {
+      justify-content: flex-end;
     }
 
     a.mzf-c-button {
-      margin-block: 0;
       width: 100%;
       justify-content: center;
 

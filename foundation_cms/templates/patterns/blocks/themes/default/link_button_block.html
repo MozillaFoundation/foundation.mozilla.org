@@ -1,12 +1,17 @@
-<div class="link-button-block{% if value.alignment %} {{ value.alignment }}{% endif %}">
-  <a href="{{ value.url }}"
-     {% if value.new_window %}target="_blank"{% endif %}
-     class="mzf-c-button {% if value.style == 'btn-secondary' %}mzf-c-button--cta-stroke-icon{% else %}mzf-c-button--primary-icon{% endif %} link-button{% if render_link_type_icon %} link-type-icon{% if value.link_to == 'external_url' %} external{% elif value.link_to == 'email' %} email{% else %} link{% endif %}{% endif %}">
-    <span class="mzf-c-button__label">{{ value.label }}</span>
+<a href="{{ value.url }}"
+   {% if value.new_window %}target="_blank"{% endif %}
+   {% if value.alignment %}data-alignment="{% if value.alignment == 'link-button-block--center' %}center{% else %}left{% endif %}"{% endif %}
+   class="mzf-c-button {% if value.style == 'btn-secondary' %}mzf-c-button--cta-stroke-icon{% else %}mzf-c-button--primary-icon{% endif %}">
+  <span class="mzf-c-button__label">{{ value.label }}</span>
+  {% if render_link_type_icon and value.link_to == 'external_url' %}
+    <span class="mzf-c-button__icon" data-link-type="external" aria-hidden="true"></span>
+  {% elif render_link_type_icon and value.link_to == 'email' %}
+    <span class="mzf-c-button__icon" data-link-type="email" aria-hidden="true"></span>
+  {% else %}
     <span class="mzf-c-button__icon" aria-hidden="true">
       <svg width="12" height="11.55" viewBox="0 0 12 11.55" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M5.43 0.795L9.8475 5.2125H0V6.3375H9.8475L5.43 10.755L6.225 11.55L12 5.775L6.225 0L5.43 0.795Z" fill="currentColor" />
       </svg>
     </span>
-  </a>
-</div>
+  {% endif %}
+</a>

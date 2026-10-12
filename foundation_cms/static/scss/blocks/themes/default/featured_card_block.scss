@@ -81,11 +81,5 @@ body.redesign {
     &__description {
       @include mofo-text-style($body-text-styles, "large");
     }
-
-    &__button {
-      .link-button {
-        margin: 0;
-      }
-    }
   }
 }
