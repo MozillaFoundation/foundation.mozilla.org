@@ -1,5 +1,6 @@
 from .accordion_block import AccordionBlock
 from .base_card_block import BaseCardBlock
+from .call_to_action_block import CallToActionBlock
 from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
@@ -55,6 +56,7 @@ __all__ = [
     "AccordionBlock",
     "BaseCardBlock",
     "BackgroundColorChoiceBlock",
+    "CallToActionBlock",
     "DividerBlock",
     "DonorHelpContactUsFormBlock",
     "CalloutBlock",
