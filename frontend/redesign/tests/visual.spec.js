@@ -1,10 +1,8 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import percySnapshot from "@percy/playwright";
 import waitForImagesToLoad from "./wait-for-images.js";
 import { foundationBaseUrl } from "./base-urls.js";
 import RedesignURLs from "./redesign-urls.js";
-
-const runTime = Date.now();
 
 function testFoundationURL(path) {
   return async ({ page }, testInfo) => {
@@ -14,11 +12,16 @@ function testFoundationURL(path) {
     // indefinitely, which means networkidle may never resolve even though the
     // page is fully rendered. waitForImagesToLoad below is our actual
     // readiness check before snapshotting.
-    await page.goto(`${foundationBaseUrl()}${path}`);
+    const response = await page.goto(`${foundationBaseUrl()}${path}`);
+    expect(response?.status(), "Expected a successful redesign page").toBe(200);
+    await expect(page.locator("body")).toHaveAttribute(
+      "data-site-type",
+      "redesign",
+    );
     await waitForImagesToLoad(page);
     await percySnapshot(page, testInfo.title);
     await page.screenshot({
-      path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
+      path: testInfo.outputPath(`${testInfo.title}.png`),
       fullPage: true,
     });
   };

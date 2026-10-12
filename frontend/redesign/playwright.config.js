@@ -2,6 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  outputDir: process.env.PLAYWRIGHT_OUTPUT_DIR || "./test-results",
   timeout: 60000,
   use: {
     headless: true,
