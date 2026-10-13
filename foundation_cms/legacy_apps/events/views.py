@@ -6,11 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from rest_framework import status
 
-from foundation_cms.views import (
-    error_json_response,
-    process_lang_code,
-    subscribe_to_sailthru_newsletter,
-)
+from foundation_cms.views import error_json_response, subscribe_to_sailthru_newsletter
 
 from .utils import has_signed_up_to_newsletter, is_valid_tito_request
 
@@ -39,19 +35,21 @@ def tito_ticket_completed(request):
 
     if email and has_signed_up_to_newsletter(data):
         try:
-            # @TODO make this more DRY w/ foundation_cms/views.py
-            # @TODO we should have a separate ENV variable for dev Sailthru endpoint
-            data = {
-                "email": email,
-                "format": "html",
-                "source_url": request.source,
-                "newsletters": "tito",
-                "lang": process_lang_code(request.get("lang", "en")),
-                "country": request.get("country", ""),
-                "first_name": "",
-                "last_name": "",
-            }
-            return subscribe_to_sailthru_newsletter(data)
+            # Tito's payload has no page source or locale, so those are fixed.
+            response = subscribe_to_sailthru_newsletter(
+                {
+                    "email": email,
+                    "format": "html",
+                    "source_url": request.build_absolute_uri(),
+                    "newsletters": "tito",
+                    "lang": "en",
+                    "country": "",
+                    "first_name": data.get("first_name") or "",
+                    "last_name": data.get("last_name") or "",
+                }
+            )
+            if response.status_code != status.HTTP_201_CREATED:
+                logger.error(f"Subscription from Tito webhook failed with status {response.status_code}")
 
         except Exception as error:
             logger.exception(f"Subscription from Tito webhook failed: {str(error)}")
