@@ -1,0 +1,19 @@
+<div class="call-to-action-block">
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-12 large-offset-1 large-10 xlarge-offset-2 xlarge-8">
+                <div class="call-to-action-block__card">
+                    <div class="call-to-action-block__inner">
+                        <div>
+                            <h2 class="call-to-action-block__heading">{{ value.heading }}</h2>
+                            {% if value.body %}
+                                <p class="call-to-action-block__body">{{ value.body }}</p>
+                            {% endif %}
+                        </div>
+                        {% include "patterns/components/_button.html" with button_style="btn-primary" url=value.button.url label=value.button.label value=value.button classnames="call-to-action-block__button" only %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
