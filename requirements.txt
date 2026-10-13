@@ -156,7 +156,7 @@ numpy==2.4.6
     # via
     #   scipy
     #   wagtail-ab-testing
-oauthlib==3.2.2
+oauthlib==4.0.0
     # via
     #   requests-oauthlib
     #   social-auth-core
