@@ -351,21 +351,32 @@ describe("initWordmarkVisibilityOnScroll", () => {
       expect(ResizeObserver).not.toHaveBeenCalled();
     });
 
-    it("includes the banner height and rebuilds the observer when it changes", () => {
+    it("includes the banner height and rebuilds the observer once it settles", () => {
+      vi.useFakeTimers();
       setUpPage({ withBanner: true });
 
       initWordmarkVisibilityOnScroll();
       expect(rootMargin(0)).toMatch(/^-118px /);
 
       resizeCallback();
+      vi.runAllTimers();
       expect(IntersectionObserver).toHaveBeenCalledTimes(1);
 
-      bannerHeight = 0;
-      resizeCallback();
+      // An animated collapse reports a new height every frame.
+      for (const height of [24, 16, 8, 0]) {
+        bannerHeight = height;
+        resizeCallback();
+        vi.advanceTimersByTime(16);
+      }
+      expect(IntersectionObserver).toHaveBeenCalledTimes(1);
+
+      vi.runAllTimers();
+      expect(IntersectionObserver).toHaveBeenCalledTimes(2);
       expect(
         IntersectionObserver.mock.results[0].value.disconnect,
       ).toHaveBeenCalled();
       expect(rootMargin(1)).toMatch(/^-88px /);
+      vi.useRealTimers();
     });
   });
 });

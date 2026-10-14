@@ -257,6 +257,8 @@ export function initPrimaryNav() {
   });
 }
 
+const PENCIL_BANNER_SETTLE_MS = 100;
+
 /**
  * Initializes the visibility of the wordmark based on scroll position.
  * Hides the navigation wordmark when the kinetic type wordmark is visible in the viewport.
@@ -308,11 +310,16 @@ export function initWordmarkVisibilityOnScroll() {
   observeKineticTypeWordmark();
 
   // The nav sticks below the pencil banner, which can wrap, resize or be dismissed.
+  // Wait for the height to settle so an animated collapse rebuilds once, not every frame.
   if (pencilBanner) {
+    let settleTimer;
     new ResizeObserver(() => {
-      if (pencilBanner.offsetHeight === pencilBannerHeight) return;
-      pencilBannerHeight = pencilBanner.offsetHeight;
-      observeKineticTypeWordmark();
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        if (pencilBanner.offsetHeight === pencilBannerHeight) return;
+        pencilBannerHeight = pencilBanner.offsetHeight;
+        observeKineticTypeWordmark();
+      }, PENCIL_BANNER_SETTLE_MS);
     }).observe(pencilBanner);
   }
 }
