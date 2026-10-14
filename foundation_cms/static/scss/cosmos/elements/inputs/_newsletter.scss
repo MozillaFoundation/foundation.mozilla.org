@@ -1,0 +1,132 @@
+// LP source: components/elements/inputs/newsletter/styles.css
+// Public Content Studio snapshot, 2026-10-12; upstream commit unavailable.
+
+/* Newsletter — Figma 10088:63898
+   A sign-up form built from three elements the system already ships: the
+   field, the primary-white button and the dropdown. This component owns the
+   two frames that hold them and nothing else.
+
+   The file draws two cells, `state=default` 10088:63897 and
+   `state=expanded` 10088:63931. Expanded is not a second component. It is
+   the same form after the reader moves into it: the field is focused and a
+   country and a language choice have appeared under the row. */
+
+.mzf-c-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  margin: 0;
+  padding: var(--space-0);
+  inline-size: 100%;
+  min-inline-size: 0;
+  box-sizing: border-box;
+}
+
+/* 10088:63890. The `mobile/navigation` text style: Mozilla Text 600 at
+   13.5 on 1.5, tracking 1 percent, in `gray/1000`. That style carries the
+   same numbers as `desktop/navigation`, which is what the button beside it
+   binds, so nothing about this line steps at any width.
+
+   It is set in sentence case and drawn capitalized, so the transform is the
+   component's and the string stays readable in the markup. */
+.mzf-c-newsletter__heading {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+  text-transform: capitalize;
+}
+
+/* 10088:63952. Only the expanded cell draws this frame, and it exists to
+   hold the 8px between the row and the two choices. The row keeps the 16px
+   under the heading either way. */
+.mzf-c-newsletter__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-inline-size: 0;
+}
+
+/* 10088:63891 "Container". Field and button sit flush: the gap is
+   `spacing-0` and the button's own inline padding is the whole separation.
+   The field takes the rest of the line, which is how one element renders at
+   the 362 the symbol draws and at the 231 the Footer places. */
+.mzf-c-newsletter__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0);
+  min-inline-size: 0;
+}
+
+.mzf-c-newsletter__row .mzf-c-field {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.mzf-c-newsletter__row .mzf-c-button {
+  flex: none;
+}
+
+/* 10088:63940. Two equal choices, 8px apart.
+
+   The dropdowns are drawn a step smaller than the dropdown element's own
+   symbol: `spacing-6` of block padding against `spacing-10`, and
+   `body-small` regular against `body` medium. That step belongs to this
+   holder rather than to the dropdown, so it is set through the knobs the
+   dropdown exposes and never by restyling the dropdown's own parts. */
+.mzf-c-newsletter__more {
+  display: flex;
+  gap: var(--space-8);
+  min-inline-size: 0;
+}
+
+.mzf-c-newsletter__more .mzf-c-dropdown {
+  flex: 1 1 0;
+  min-inline-size: 0;
+
+  --mzf-dropdown-padding-block: var(--space-6);
+  --mzf-dropdown-font-size: var(--font-size-body-small);
+  --mzf-dropdown-font-weight: var(--font-weight-regular);
+}
+
+/* ---------- the reveal ----------
+   The drawn sequence, expressed without script. The two choices are out of
+   the document until somebody moves into the form, and `:focus-within`
+   keeps them there while the reader is inside one of them.
+
+   It is a modifier rather than the default, because a form that always
+   shows all three controls is the more predictable thing and the Footer
+   places the default cell. */
+.mzf-c-newsletter--reveal .mzf-c-newsletter__more {
+  display: none;
+}
+
+.mzf-c-newsletter--reveal:focus-within .mzf-c-newsletter__more {
+  display: flex;
+}
+
+// Figma newsletter variants override the LP browser approximation here.
+// 10088:63897: 40px resting row; 10088:63931 / 10088:63952: 43px expanded row.
+// Keep these measurements local: the shared control-height token stays 38px.
+.mzf-c-newsletter__row .mzf-c-button {
+  --mzf-button-block-size: #{rem-calc(40)};
+}
+
+.mzf-c-newsletter__row .mzf-c-field__control {
+  min-block-size: rem-calc(40);
+}
+
+.mzf-c-newsletter--expanded .mzf-c-field__control {
+  min-block-size: rem-calc(43);
+}
+
+// Figma's newsletter Focus instance disables the field's focus underline.
+// Error remains the shared field state, including its red underline.
+.mzf-c-newsletter--expanded
+  .mzf-c-field:not(.mzf-c-field--error)
+  .mzf-c-field__control:focus {
+  border-block-end-width: 0;
+}

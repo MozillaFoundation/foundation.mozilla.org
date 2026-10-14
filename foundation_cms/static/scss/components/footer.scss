@@ -31,98 +31,13 @@
     }
   }
 
-  &__newsletter-form {
-    .newsletter-signup {
-      background-color: transparent;
-      padding: 0;
+  &__newsletter-form:has([data-newsletter-signup]) {
+    background-color: var(--color-surface-raised);
+    color: var(--color-text-default);
+    padding: 1rem;
 
-      &::before {
-        display: none;
-      }
-
-      .newsletter-signup__form {
-        @include breakpoint(xlarge up) {
-          flex-direction: column;
-          align-items: start;
-          gap: 0;
-        }
-      }
-
-      .newsletter-signup__form-grid {
-        width: 100%;
-      }
-
-      .newsletter-signup {
-        &__cta-wrapper {
-          margin-bottom: 0.5rem;
-
-          @include breakpoint(xlarge up) {
-            margin-bottom: 1rem;
-            align-self: normal;
-          }
-        }
-
-        &__cta-header,
-        &__cta-description {
-          @include mofo-text-style($body-text-styles, "large");
-        }
-      }
-
-      .newsletter-signup__input {
-        &:hover {
-          border-color: $white;
-        }
-
-        &:focus-visible {
-          outline: 1px solid $white;
-          outline-offset: 2px;
-        }
-
-        @include breakpoint(large up) {
-          width: 100%;
-        }
-      }
-
-      .newsletter-signup__field label {
-        color: $white;
-
-        input[type="checkbox"] {
-          border: 1px solid $white;
-          background-color: transparent;
-
-          &:checked {
-            background-image: url("/static/foundation_cms/_images/icons/checkbox-stripe-white.svg");
-          }
-
-          &:hover {
-            border: 1px solid $white;
-            box-shadow: 1px 1px 0 0 $white;
-          }
-        }
-      }
-
-      .newsletter-signup__button {
-        border: 1px solid $white;
-        background-color: transparent;
-        font-weight: 700;
-
-        &:focus-visible {
-          outline: 1px solid $white;
-          outline-offset: 2px;
-        }
-      }
-
-      .newsletter-signup__success-title {
-        padding-left: 0;
-
-        &::before {
-          display: none;
-        }
-      }
-
-      .newsletter-signup__success-media {
-        display: none;
-      }
+    [data-newsletter-signup] {
+      margin-bottom: 0;
     }
   }
 
