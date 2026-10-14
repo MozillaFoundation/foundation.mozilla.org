@@ -39,8 +39,12 @@ function storeDismissal(key) {
  */
 function trackHeight(banner) {
   const root = document.documentElement;
+  // offsetHeight rounds, which leaves a sub-pixel gap above the nav at fractional heights.
   const update = () =>
-    root.style.setProperty(HEIGHT_PROPERTY, `${banner.offsetHeight}px`);
+    root.style.setProperty(
+      HEIGHT_PROPERTY,
+      `${banner.getBoundingClientRect().height}px`,
+    );
 
   update();
   const observer = new ResizeObserver(update);
@@ -68,7 +72,7 @@ function collapse(banner, onDone) {
     onDone();
   };
 
-  banner.style.height = `${banner.offsetHeight}px`;
+  banner.style.height = `${banner.getBoundingClientRect().height}px`;
   banner.classList.add(COLLAPSING_CLASS);
   // Flush the starting height so the change to 0 transitions.
   void banner.offsetHeight;

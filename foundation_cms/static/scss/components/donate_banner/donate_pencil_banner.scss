@@ -2,8 +2,9 @@
 
 .donate-pencil-banner {
   $close-size: rem-calc(24);
+  $close-offset: rem-calc(16);
   $icon-size: map.get($cta-link-icon-sizes, regular);
-  $padding-y: rem-calc(12);
+  $padding-y: rem-calc(10);
   $line-height: rem-calc(19.5);
   $text-color: color(gray, "1000");
   $link-color: color(gray, "800");
@@ -35,7 +36,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: $padding-y calc(#{$close-size} + #{rem-calc(16)});
+
+    // Matching side padding keeps the content centered while clearing the close button.
+    padding: $padding-y calc(#{$close-offset} + #{$close-size} + #{rem-calc(8)});
   }
 
   &__content {
@@ -100,7 +103,7 @@
 
     // Center on the title's first line, which wraps on mobile.
     top: calc(#{$padding-y} + (#{$line-height} - #{$close-size}) / 2);
-    right: rem-calc(5);
+    right: $close-offset;
     display: flex;
     align-items: center;
     justify-content: center;

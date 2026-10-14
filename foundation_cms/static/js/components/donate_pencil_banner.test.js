@@ -19,10 +19,8 @@ function buildBannerMarkup() {
     </nav>
   `;
   const banner = document.querySelector(".donate-pencil-banner");
-  Object.defineProperty(banner, "offsetHeight", {
-    configurable: true,
-    value: 30,
-  });
+  // A fractional height, as the 19.5px line height produces in browsers.
+  banner.getBoundingClientRect = () => ({ height: 39.5 });
   return banner;
 }
 
@@ -75,7 +73,7 @@ describe("initDonatePencilBanner", () => {
 
     initDonatePencilBanner();
 
-    expect(heightVar()).toBe("30px");
+    expect(heightVar()).toBe("39.5px");
   });
 
   it("remembers the dismissal for today, moves focus to the first focusable element and collapses when closed", () => {
