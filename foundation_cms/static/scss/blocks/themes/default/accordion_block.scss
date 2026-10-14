@@ -3,6 +3,12 @@
 // accordion line heights (1.4, 1.5 on mobile) and its description gap (24px, 12px
 // on mobile).
 
+// Room for the sticky primary nav, plus a small gap, when the accordion script
+// scrolls an opened row into view.
+.mzf-c-accordion-item {
+  scroll-margin-top: calc(#{$primary-nav-height} + var(--space-16));
+}
+
 .mzf-c-accordion-item__body {
   @include cosmos-rich-text(
     $line-height: var(--line-height-prose),

@@ -48,6 +48,11 @@ function dispatchTransitionEnd(element, propertyName = "height") {
   element.dispatchEvent(event);
 }
 
+// Where the row's top sits in the viewport, in px. jsdom has no layout.
+function placeRow(details, top) {
+  vi.spyOn(details, "getBoundingClientRect").mockReturnValue({ top });
+}
+
 function stubReducedMotion(matches) {
   vi.stubGlobal(
     "matchMedia",
@@ -63,12 +68,15 @@ describe("accordion rows", () => {
       "requestAnimationFrame",
       vi.fn((callback) => callback()),
     );
+    // jsdom doesn't implement scrolling.
+    Element.prototype.scrollIntoView = vi.fn();
   });
 
   afterEach(() => {
     vi.useRealTimers();
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
+    delete Element.prototype.scrollIntoView;
     document.body.innerHTML = "";
   });
 
@@ -239,6 +247,72 @@ describe("accordion rows", () => {
     expect(second.details.classList).not.toContain(
       "mzf-c-accordion-item--collapsing",
     );
+  });
+
+  it("scrolls an opened row back into view if its top ended up off screen", () => {
+    const [first, second] = createAccordion();
+    initAllAccordionBlocks();
+    click(first.summary);
+    dispatchTransitionEnd(first.reveal);
+
+    // The first row closing shifts the second one up, past the top of the viewport.
+    placeRow(second.details, -200);
+    click(second.summary);
+    dispatchTransitionEnd(first.reveal);
+
+    expect(second.details.scrollIntoView).not.toHaveBeenCalled();
+
+    dispatchTransitionEnd(second.reveal);
+
+    expect(second.details.scrollIntoView).toHaveBeenCalledWith({
+      block: "start",
+      behavior: "smooth",
+    });
+  });
+
+  it("doesn't scroll when the opened row's top is still in view", () => {
+    const [{ details, summary, reveal }] = createAccordion(1);
+    initAllAccordionBlocks();
+    placeRow(details, 300);
+
+    click(summary);
+    dispatchTransitionEnd(reveal);
+
+    expect(details.scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it("doesn't scroll when the row is closed before it finishes opening", () => {
+    const [{ details, summary, reveal }] = createAccordion(1);
+    initAllAccordionBlocks();
+    placeRow(details, -200);
+
+    click(summary);
+    click(summary);
+    dispatchTransitionEnd(reveal);
+
+    expect(details.scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it("jumps an opened row into view when reduced motion is on", () => {
+    stubReducedMotion(true);
+    const frames = [];
+    vi.stubGlobal(
+      "requestAnimationFrame",
+      vi.fn((callback) => frames.push(callback)),
+    );
+    const [{ details, summary }] = createAccordion(1);
+    initAllAccordionBlocks();
+    placeRow(details, -200);
+
+    // The browser toggles the row open after the click, before the next frame.
+    click(summary);
+    frames.forEach((callback) => callback());
+
+    expect(details.open).toBe(true);
+    expect(details.scrollIntoView).toHaveBeenCalledWith({
+      block: "start",
+      behavior: "instant",
+    });
   });
 
   it("wires each row only once", () => {

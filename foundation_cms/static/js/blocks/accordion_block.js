@@ -118,36 +118,42 @@ function cancelPendingMotion(details, reveal) {
  * fallback timeout, whichever comes first.
  * @param {HTMLElement} reveal - The row's reveal element
  * @param {number} durationMs - The transition's duration, used for the fallback timeout
- * @param {Function} finish - Called once the transition ends
+ * @param {Function} finish - Called once, with true if the transition ran to the end
+ *   and false if it was cut short
  * @returns {Function} Calls finish early, e.g. to settle an animation that gets interrupted
  */
 function onHeightTransitionEnd(reveal, durationMs, finish) {
   let finished = false;
   let fallback;
 
-  const done = () => {
+  const done = (completed = false) => {
     if (finished) return;
     finished = true;
     reveal.removeEventListener("transitionend", onEnd);
     window.clearTimeout(fallback);
-    finish();
+    finish(completed);
   };
   const onEnd = (event) => {
     if (event.target !== reveal || event.propertyName !== "height") return;
-    done();
+    done(true);
   };
 
   reveal.addEventListener("transitionend", onEnd);
-  fallback = window.setTimeout(done, durationMs + FALLBACK_BUFFER_MS);
-  return done;
+  fallback = window.setTimeout(
+    () => done(true),
+    durationMs + FALLBACK_BUFFER_MS,
+  );
+  return () => done(false);
 }
 
 /**
  * Opens a row, animating the reveal's height from 0 to its content height.
  * @param {HTMLDetailsElement} details - The accordion row
  * @param {HTMLElement} reveal - The row's reveal element
+ * @param {Function} [onOpen] - Called once the row has fully opened; not called if
+ *   the open is cut short
  */
-export function expand(details, reveal) {
+export function expand(details, reveal, onOpen) {
   cancelPendingMotion(details, reveal);
   details.classList.add(CLASSES.expanding);
   const { expandMs, expandEase } = expandMotion(details);
@@ -166,10 +172,11 @@ export function expand(details, reveal) {
   reveal.style.transition = `height ${expandMs}ms ${expandEase}`;
   reveal.style.height = `${targetHeight}px`;
 
-  const done = onHeightTransitionEnd(reveal, expandMs, () => {
+  const done = onHeightTransitionEnd(reveal, expandMs, (completed) => {
     clearRevealInlineStyles(reveal);
     details.classList.remove(CLASSES.expanding);
     pendingExpand.delete(details);
+    if (completed) onOpen?.();
   });
   pendingExpand.set(details, done);
 }
@@ -207,6 +214,20 @@ export function collapse(details, reveal) {
 }
 
 /**
+ * Scrolls an opened row so its top is in view, if it ended up above the viewport or
+ * under the sticky nav. That happens when an open row above it closes and the page
+ * shifts up while it opens. The row's scroll-margin-top leaves room for the nav.
+ * @param {HTMLDetailsElement} details - The accordion row
+ * @param {ScrollBehavior} behavior - "smooth", or "instant" to jump with reduced motion
+ *   ("auto" would follow the page's CSS scroll-behavior, which is smooth)
+ */
+function scrollRowIntoView(details, behavior) {
+  const offset = parseFloat(getComputedStyle(details).scrollMarginTop) || 0;
+  if (details.getBoundingClientRect().top >= offset) return;
+  details.scrollIntoView({ block: "start", behavior });
+}
+
+/**
  * Finds the other rows in the same accordion group that are open or opening, and
  * not already closing.
  * @param {HTMLDetailsElement} details - The accordion row
@@ -225,8 +246,9 @@ function openSiblings(details) {
 }
 
 /**
- * Wires a row's summary so clicks animate it open or closed, and close the open row
- * in the same group. Safe to call more than once; a row is only wired once.
+ * Wires a row's summary so clicks animate it open or closed, close the open row in
+ * the same group, and bring an opened row's top back into view if the page shifted.
+ * Safe to call more than once; a row is only wired once.
  * @param {HTMLDetailsElement} details - The accordion row
  */
 export function initAccordionItem(details) {
@@ -244,6 +266,10 @@ export function initAccordionItem(details) {
       if (!details.open) {
         openSiblings(details).forEach((row) => {
           row.open = false;
+        });
+        // After the browser's toggle, which follows this click.
+        requestAnimationFrame(() => {
+          if (details.open) scrollRowIntoView(details, "instant");
         });
       }
       return;
@@ -263,7 +289,7 @@ export function initAccordionItem(details) {
           row.open = false;
         }
       });
-      expand(details, reveal);
+      expand(details, reveal, () => scrollRowIntoView(details, "smooth"));
     }
   });
 }
