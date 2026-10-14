@@ -18,7 +18,7 @@ class NewsletterSignupFactory(DjangoModelFactory):
     cta_header = factory.Faker("sentence", nb_words=6)
     cta_description = factory.Faker("sentence", nb_words=10)
     button_text = "Sign Up"
-    newsletter = "mozilla-foundation"
+    newsletter = "mozillafoundationorg"
     layout = "expand_on_focus"
     locale = factory.LazyFunction(Locale.get_default)
 
@@ -44,7 +44,7 @@ class IllustratedNewsletterSignupFactory(DjangoModelFactory):
     heading = factory.Faker("sentence", nb_words=6)
     button_text = "Sign Up"
     illustration = factory.SubFactory(ImageFactory)
-    newsletter = "mozilla-foundation"
+    newsletter = "mozillafoundationorg"
     locale = factory.LazyFunction(Locale.get_default)
 
 
@@ -75,7 +75,7 @@ def ensure_homepage_newsletters(site):
             "cta_header": "The internet we deserve starts with you",
             "cta_description": "Join the movement now",
             "button_text": "Sign Up",
-            "newsletter": "mozilla-foundation",
+            "newsletter": "mozillafoundationorg",
             "layout": "expand_on_focus",
         },
     )
@@ -87,7 +87,7 @@ def ensure_homepage_newsletters(site):
             "cta_header": "Stay updated with our newsletter",
             "cta_description": "",
             "button_text": "Sign Up",
-            "newsletter": "mozilla-foundation",
+            "newsletter": "mozillafoundationorg",
             "layout": "expand_on_focus",
         },
     )
