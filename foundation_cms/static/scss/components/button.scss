@@ -1,30 +1,8 @@
 // Site adaptations of cosmos/elements/buttons/primary.
 .mzf-c-button {
-  --button-content-height: calc(
-    var(--font-size-control) * var(--line-height-control)
-  );
-  --button-inset: calc(
-    (var(--size-control-height) - var(--button-content-height)) / 2
-  );
-
   width: fit-content;
   min-width: 0;
   max-width: 100%;
-  min-height: var(--size-control-height);
-
-  // Honor the approved 38px control token and let wrapped labels grow.
-  padding-block: var(--button-inset);
-  white-space: normal;
-
-  &.mzf-c-button--primary-icon,
-  &.mzf-c-button--cta-stroke-icon {
-    --button-content-height: var(--size-icon-medium);
-  }
-
-  &__label {
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
 
   // Preserve label styles against the site's global anchor interaction styling.
   &:hover,
