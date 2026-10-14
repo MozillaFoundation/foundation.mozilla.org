@@ -1,0 +1,134 @@
+@use "sass:map";
+
+.donate-pencil-banner {
+  $close-size: rem-calc(24);
+  $close-offset: rem-calc(16);
+  $icon-size: map.get($cta-link-icon-sizes, regular);
+  $padding-y: rem-calc(10);
+  $line-height: rem-calc(19.5);
+  $text-color: color(gray, "1000");
+  $link-color: color(gray, "800");
+  $link-hover-color: color(gray, "2000");
+
+  background: color(blue, "100");
+  color: $text-color;
+  position: sticky;
+  top: 0;
+
+  // Above .primary-nav-ns, which sticks just below it.
+  z-index: 11;
+  overflow: hidden;
+
+  .donate-pencil-banner-dismissed & {
+    display: none;
+  }
+
+  &--collapsing {
+    transition: height 0.2s ease-in-out;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // Matching side padding keeps the content centered while clearing the close button.
+    padding: $padding-y calc(#{$close-offset} + #{$close-size} + #{rem-calc(8)});
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: rem-calc(8);
+    margin: 0;
+    color: inherit;
+    font-family: $body-font-family;
+    font-size: rem-calc(13);
+    line-height: $line-height;
+    letter-spacing: 0.01em;
+    text-align: center;
+
+    @include breakpoint(small only) {
+      flex-direction: column;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__separator {
+    width: rem-calc(4);
+    height: rem-calc(4);
+    flex-shrink: 0;
+    background: currentcolor;
+
+    @include breakpoint(small only) {
+      display: none;
+    }
+  }
+
+  &__link.cta-link {
+    color: $link-color;
+
+    // Match the banner's type rather than the default CTA link style.
+    font: inherit;
+    font-weight: 400;
+    letter-spacing: inherit;
+    text-decoration: none;
+    gap: rem-calc(4);
+
+    // Mask the arrow so it follows the link color.
+    &::after {
+      background: currentcolor;
+      mask: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg")
+        center / contain no-repeat;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $link-hover-color;
+    }
+  }
+
+  &__close {
+    position: absolute;
+
+    // Center on the title's first line, which wraps on mobile.
+    top: calc(#{$padding-y} + (#{$line-height} - #{$close-size}) / 2);
+    right: $close-offset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $close-size;
+    height: $close-size;
+    padding: 0;
+    color: $link-color;
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: $link-hover-color;
+    }
+
+    // Glyph matches the CTA arrow; the button keeps a 24px hit area.
+    svg {
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+}
+
+// Legacy templates wrap the nav in a Bootstrap .sticky-top.
+.main-content-wrapper > .sticky-top {
+  top: var(--donate-pencil-banner-height, 0);
+}

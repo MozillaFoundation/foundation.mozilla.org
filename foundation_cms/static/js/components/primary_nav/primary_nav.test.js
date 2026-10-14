@@ -299,4 +299,84 @@ describe("initWordmarkVisibilityOnScroll", () => {
     expect(wordmark.classList.contains(CLASSNAMES.hidden)).toBe(false);
     expect(grid.classList.contains(CLASSNAMES.hiddenWordmark)).toBe(false);
   });
+
+  describe("with a pencil banner above the nav", () => {
+    let resizeCallback;
+    let bannerHeight;
+
+    const setUpPage = ({ withBanner }) => {
+      document.body.innerHTML = `
+        ${withBanner ? '<div class="donate-pencil-banner"></div>' : ""}
+        <nav class="primary-nav-ns">
+          <div class="primary-nav-ns__grid"></div>
+          <div class="primary-nav-ns__wordmark"></div>
+        </nav>
+        <div class="kinetic-type-wordmark"></div>
+      `;
+      Object.defineProperty(
+        document.querySelector(".primary-nav-ns"),
+        "offsetHeight",
+        {
+          value: 88,
+        },
+      );
+      const banner = document.querySelector(".donate-pencil-banner");
+      if (banner) {
+        Object.defineProperty(banner, "offsetHeight", {
+          get: () => bannerHeight,
+        });
+      }
+    };
+    const rootMargin = (call) =>
+      IntersectionObserver.mock.calls[call][1].rootMargin;
+
+    beforeEach(() => {
+      resizeCallback = null;
+      bannerHeight = 30;
+      vi.stubGlobal(
+        "ResizeObserver",
+        vi.fn((callback) => {
+          resizeCallback = callback;
+          return { observe: vi.fn(), disconnect: vi.fn() };
+        }),
+      );
+    });
+
+    it("only offsets by the nav when there is no pencil banner", () => {
+      setUpPage({ withBanner: false });
+
+      initWordmarkVisibilityOnScroll();
+
+      expect(rootMargin(0)).toMatch(/^-88px /);
+      expect(ResizeObserver).not.toHaveBeenCalled();
+    });
+
+    it("includes the banner height and rebuilds the observer once it settles", () => {
+      vi.useFakeTimers();
+      setUpPage({ withBanner: true });
+
+      initWordmarkVisibilityOnScroll();
+      expect(rootMargin(0)).toMatch(/^-118px /);
+
+      resizeCallback();
+      vi.runAllTimers();
+      expect(IntersectionObserver).toHaveBeenCalledTimes(1);
+
+      // An animated collapse reports a new height every frame.
+      for (const height of [24, 16, 8, 0]) {
+        bannerHeight = height;
+        resizeCallback();
+        vi.advanceTimersByTime(16);
+      }
+      expect(IntersectionObserver).toHaveBeenCalledTimes(1);
+
+      vi.runAllTimers();
+      expect(IntersectionObserver).toHaveBeenCalledTimes(2);
+      expect(
+        IntersectionObserver.mock.results[0].value.disconnect,
+      ).toHaveBeenCalled();
+      expect(rootMargin(1)).toMatch(/^-88px /);
+      vi.useRealTimers();
+    });
+  });
 });

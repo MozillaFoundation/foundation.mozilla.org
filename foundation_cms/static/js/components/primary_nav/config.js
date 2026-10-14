@@ -10,6 +10,7 @@ export const SELECTORS = {
   dropdown: ".primary-nav-ns__dropdown",
   toggle: ".primary-nav-ns__dropdown-toggle",
   kineticTypeWordmark: ".kinetic-type-wordmark",
+  pencilBanner: ".donate-pencil-banner",
   searchToggle: ".primary-nav-ns__search-icon .search-toggle",
   searchInputContainer: ".search-input-container",
   searchInput: ".search-input-container input",

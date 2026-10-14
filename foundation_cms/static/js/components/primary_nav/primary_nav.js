@@ -257,6 +257,8 @@ export function initPrimaryNav() {
   });
 }
 
+const PENCIL_BANNER_SETTLE_MS = 100;
+
 /**
  * Initializes the visibility of the wordmark based on scroll position.
  * Hides the navigation wordmark when the kinetic type wordmark is visible in the viewport.
@@ -279,23 +281,45 @@ export function initWordmarkVisibilityOnScroll() {
   }
 
   const navHeight = nav.offsetHeight;
+  const pencilBanner = document.querySelector(SELECTORS.pencilBanner);
+  let pencilBannerHeight = pencilBanner?.offsetHeight ?? 0;
+  let observer;
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        wordmark.classList.add(CLASSNAMES.hidden);
-        grid.classList.add(CLASSNAMES.hiddenWordmark);
-      } else {
-        wordmark.classList.remove(CLASSNAMES.hidden);
-        grid.classList.remove(CLASSNAMES.hiddenWordmark);
-      }
-    },
-    {
-      root: null, // viewport
-      rootMargin: `-${navHeight}px  0px 0px 0px`,
-      threshold: 0.01, // as soon as even 1% is visible/invisible
-    },
-  );
+  // rootMargin is fixed per observer, so rebuild it whenever the covered strip changes.
+  const observeKineticTypeWordmark = () => {
+    observer?.disconnect();
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          wordmark.classList.add(CLASSNAMES.hidden);
+          grid.classList.add(CLASSNAMES.hiddenWordmark);
+        } else {
+          wordmark.classList.remove(CLASSNAMES.hidden);
+          grid.classList.remove(CLASSNAMES.hiddenWordmark);
+        }
+      },
+      {
+        root: null, // viewport
+        rootMargin: `-${navHeight + pencilBannerHeight}px  0px 0px 0px`,
+        threshold: 0.01, // as soon as even 1% is visible/invisible
+      },
+    );
+    observer.observe(kineticTypeWordmark);
+  };
 
-  observer.observe(kineticTypeWordmark);
+  observeKineticTypeWordmark();
+
+  // The nav sticks below the pencil banner, which can wrap, resize or be dismissed.
+  // Wait for the height to settle so an animated collapse rebuilds once, not every frame.
+  if (pencilBanner) {
+    let settleTimer;
+    new ResizeObserver(() => {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        if (pencilBanner.offsetHeight === pencilBannerHeight) return;
+        pencilBannerHeight = pencilBanner.offsetHeight;
+        observeKineticTypeWordmark();
+      }, PENCIL_BANNER_SETTLE_MS);
+    }).observe(pencilBanner);
+  }
 }
