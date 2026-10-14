@@ -12,7 +12,11 @@ class Command(BaseCommand):
         site = Site.objects.filter(is_default_site=True).first()
         if not site or not isinstance(site.root_page.specific, HomePage):
             raise CommandError("The default site must already have a redesign HomePage. Run load_redesign_data first.")
-        for page in generate(parent=site.root_page.specific):
+        try:
+            pages = generate(parent=site.root_page.specific)
+        except ValueError as error:
+            raise CommandError(str(error)) from error
+        for page in pages:
             self.stdout.write(
                 self.style.SUCCESS(f"Visual fixture ready: {page.slug} (id={page.pk}, live={page.live})")
             )

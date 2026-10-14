@@ -104,7 +104,14 @@ This covers the redesign frontend. The legacy frontend has its own separate Play
 ### Run Playwright locally (no Percy)
 
 Takes screenshots and saves them to Playwright's `test-results/` directory.
-Set `PLAYWRIGHT_OUTPUT_DIR` to an absolute path to keep artifacts elsewhere.
+Set `PLAYWRIGHT_OUTPUT_DIR` to an absolute **parent** path to keep artifacts
+elsewhere; the suite writes into its `redesign-playwright/` child directory.
+
+**Playwright deletes the entire output directory before every run**, including
+files unrelated to that run. This is `test-results/` by default, or exactly
+`$PLAYWRIGHT_OUTPUT_DIR/redesign-playwright/` when the variable is set. Reserve
+that directory for disposable test output. Copy any results you want to keep
+to a separate archive outside it before starting another run.
 
 ```sh
 yarn workspace redesign playwright test ./tests/visual.spec.js
@@ -135,6 +142,9 @@ includes these pages. If the default site already has a redesign homepage,
 `python manage.py load_visual_regression_data` creates only the two missing
 pages. It never changes existing pages, navigation, footer, users or images.
 It scopes lookup to the parent and locale, and refuses a conflicting page type.
+An existing unpublished fixture stops generation with an error naming its slug;
+review and publish it manually before retrying. No existing content or revisions
+are changed, and any new fixture created in that attempt is rolled back.
 Existing edited fixtures are preserved; a failed smoke assertion should be
 investigated instead of silently overwriting their content.
 
@@ -168,6 +178,9 @@ Run the focused smoke/capture suite without a Percy token:
 ```sh
 PLAYWRIGHT_OUTPUT_DIR=/absolute/path/to/artifacts yarn workspace redesign visual:reskin
 ```
+
+This clears and recreates `/absolute/path/to/artifacts/redesign-playwright/`.
+Keep archives outside that child directory.
 
 Local runs check readiness and behavior and save diagnostic PNGs. They do not
 compare images or create visual baselines. Percy handles visual comparison

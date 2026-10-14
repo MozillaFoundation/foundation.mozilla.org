@@ -73,6 +73,11 @@ def generate(parent):
         if existing:
             if not isinstance(existing.specific, GeneralPage):
                 raise ValueError(f"Refusing to reuse a non-GeneralPage at {slug}.")
+            if not existing.live:
+                raise ValueError(
+                    f"Visual fixture {slug} is unpublished. Review and publish it manually before retrying; "
+                    "existing content has been left unchanged."
+                )
             pages.append(existing.specific)
             continue
 
