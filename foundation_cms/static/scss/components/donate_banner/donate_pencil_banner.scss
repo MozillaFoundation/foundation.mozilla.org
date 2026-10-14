@@ -2,13 +2,15 @@
 
 .donate-pencil-banner {
   $close-size: rem-calc(24);
-  $padding-y: rem-calc(3);
-  $mobile-padding-top: rem-calc(8);
-  $mobile-padding-bottom: rem-calc(6);
+  $icon-size: map.get($cta-link-icon-sizes, regular);
+  $padding-y: rem-calc(12);
   $line-height: rem-calc(19.5);
+  $text-color: color(gray, "1000");
+  $link-color: color(gray, "800");
+  $link-hover-color: color(gray, "2000");
 
   background: color(blue, "100");
-  color: color(neutral, "600");
+  color: $text-color;
   position: sticky;
   top: 0;
 
@@ -33,12 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: rem-calc(30);
     padding: $padding-y calc(#{$close-size} + #{rem-calc(16)});
-
-    @include breakpoint(small only) {
-      padding-block: $mobile-padding-top $mobile-padding-bottom;
-    }
   }
 
   &__content {
@@ -76,8 +73,7 @@
   }
 
   &__link.cta-link {
-    // Figma gray/900, which has no match in our palette.
-    color: #2d2d2d;
+    color: $link-color;
 
     // Match the banner's type rather than the default CTA link style.
     font: inherit;
@@ -85,31 +81,46 @@
     letter-spacing: inherit;
     text-decoration: none;
     gap: rem-calc(4);
+
+    // Mask the arrow so it follows the link color.
+    &::after {
+      background: currentcolor;
+      mask: url("/static/foundation_cms/_images/icons/button-arrow-right-black.svg")
+        center / contain no-repeat;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $link-hover-color;
+    }
   }
 
   &__close {
     position: absolute;
-    top: $padding-y;
+
+    // Center on the title's first line, which wraps on mobile.
+    top: calc(#{$padding-y} + (#{$line-height} - #{$close-size}) / 2);
     right: rem-calc(5);
-
-    // Stacked on mobile, so center on the title's first line instead.
-    @include breakpoint(small only) {
-      top: calc(
-        #{$mobile-padding-top} + (#{$line-height} - #{$close-size}) / 2
-      );
-    }
-
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: $close-size;
     height: $close-size;
     padding: 0;
+    color: $link-color;
     background: none;
     border: 0;
     cursor: pointer;
 
-    img {
-      width: 100%;
-      height: 100%;
+    &:hover,
+    &:focus-visible {
+      color: $link-hover-color;
+    }
+
+    // Glyph matches the CTA arrow; the button keeps a 24px hit area.
+    svg {
+      width: $icon-size;
+      height: $icon-size;
     }
   }
 }

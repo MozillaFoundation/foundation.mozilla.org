@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n %}
 
 {% with link=banner.pencil_link.0.value %}
     <div class="donate-pencil-banner"
@@ -25,7 +25,10 @@
                 {% endif %}
             </p>
             <button type="button" class="donate-pencil-banner__close" data-donate-pencil-banner-close aria-label="{% trans "Close" %}">
-                <img src="{% static 'foundation_cms/_images/icons/x.svg' %}" alt="" width="24" height="24" />
+                {# x.svg's glyph, cropped to its bounds so CSS can size it to match the CTA arrow. #}
+                <svg viewBox="10.52 10.52 10.96 10.96" aria-hidden="true" focusable="false">
+                    <path d="m11.5795 21.48 4.42-4.42 4.42 4.42 1.06-1.06-4.42-4.42 4.42-4.42-1.06-1.06-4.42 4.42-4.42-4.42-1.06 1.06 4.42 4.42-4.42 4.42z" fill="currentColor" />
+                </svg>
             </button>
         </div>
     </div>
