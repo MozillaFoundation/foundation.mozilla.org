@@ -3,5 +3,9 @@
 // lives at cosmos/<path>/_<name>.scss. See docs/stack.md.
 
 // Elements
+@import "elements/accordion/item";
 @import "elements/layout/section-master";
 @import "elements/buttons/primary";
+
+// Blocks
+@import "blocks/collections/accordion";
