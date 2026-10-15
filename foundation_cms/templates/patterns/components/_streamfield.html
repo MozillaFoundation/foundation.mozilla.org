@@ -7,17 +7,17 @@
         <div class="grid-x">
           {% if streamchild.block_type == 'custom_media' %}
             <div class="cell {% if classnames %}{{ classnames }}{% else %}medium-7 body-text-large{% endif %}">
-              {% include_block streamchild %}
+              {% include_block streamchild with block_id=streamchild.id %}
             </div>
           {% else %}
             <div class="cell {% if classnames %} {{ classnames }}{% endif %}">
-              {% include_block streamchild %}
+              {% include_block streamchild with block_id=streamchild.id %}
             </div>
           {% endif %}
         </div>
       </div>
     {% else %}
-      {% include_block streamchild %}
+      {% include_block streamchild with block_id=streamchild.id %}
     {% endif %}
   </div>
 
