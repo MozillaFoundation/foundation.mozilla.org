@@ -9,6 +9,18 @@
   scroll-margin-top: calc(#{$primary-nav-height} + var(--space-16));
 }
 
+// LP's reduced-motion rule in _item.scss only shortens transition durations, and its
+// more specific hover, open and closing rules set their own transitions (with delays)
+// that win over it. Turn off every transition in the row instead.
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-accordion-item,
+  .mzf-c-accordion-item *,
+  .mzf-c-accordion-item *::before,
+  .mzf-c-accordion-item *::after {
+    transition: none !important;
+  }
+}
+
 .mzf-c-accordion-item__body {
   @include cosmos-rich-text(
     $line-height: var(--line-height-prose),
