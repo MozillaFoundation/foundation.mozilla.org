@@ -1,0 +1,61 @@
+// Ported from LP components/foundations/logo/footer-logo/styles.css
+// Source: https://mozilla-design-system.vercel.app/#content
+// Embedded Footer Wordmark files["styles.css"], captured 2026-10-14.
+// The public frontend does not expose a verified upstream commit.
+
+// Kept the same as LP's file apart from formatting: the file follows our
+// Prettier and stylelint rules, which does not change how it behaves.
+
+/* Mozilla Foundation wordmark — Figma 7224:378
+   The name set large, and a hover that gives the letters their colors.
+
+   One inline SVG: colored shapes sit behind the ink letterforms. Hover motion
+   is wired by the behavior script in index.html. */
+
+.mzf-c-wordmark {
+  --mzf-wordmark-scale: 1;
+
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  cursor: pointer;
+}
+
+.mzf-c-wordmark__svg {
+  display: block;
+  inline-size: 100%;
+  block-size: calc(var(--size-logo-wordmark-large) * var(--mzf-wordmark-scale));
+  overflow: visible;
+}
+
+.mzf-c-wordmark__ink {
+  pointer-events: none;
+}
+
+.mzf-c-wordmark__shape {
+  opacity: 0;
+  transform: scale(0.88);
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+
+.mzf-c-wordmark__shape--anchor-bottom {
+  transform-origin: center bottom;
+}
+
+.mzf-c-wordmark__shape--anchor-top {
+  transform-origin: center top;
+}
+
+.mzf-c-wordmark__shape--anchor-top-left {
+  transform-origin: left top;
+}
+
+/* `mzf-c-wordmark__shape--m` marks the three shapes tied to M. It carries no
+   styles: wordmark.js reads it to lock their fill. LP ships it as an empty
+   rule, dropped here for stylelint's block-no-empty. */
+
+.mzf-c-wordmark:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-8);
+}
