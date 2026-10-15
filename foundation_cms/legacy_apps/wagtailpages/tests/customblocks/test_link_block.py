@@ -95,6 +95,9 @@ class TestLinkBlock(TestCase):
         anchor = block["anchor"]
         self.assertNotEqual(anchor, "")
 
+        # The stored anchor already starts with "#", so the URL must not gain a second one
+        self.assertEqual(block.url, anchor)
+
         # Assert that other fields are empty
         self.assertIsNone(block["page"])
         self.assertIsNone(block["file"])
@@ -134,6 +137,12 @@ class TestLinkBlock(TestCase):
         self.assertEqual(block["relative_url"], "")
         self.assertEqual(block["anchor"], "")
         self.assertEqual(block["email"], "")
+
+    def test_anchor_link_resolves_without_link_to(self):
+        """Translated pages can come through without `link_to`; the fallback must find the anchor."""
+        block = customblock_factories.LinkBlockFactory(link_to="", anchor="#section-1")
+
+        self.assertEqual(block.url, "#section-1")
 
     def test_new_window(self):
         """Create a LinkBlock with new_window set to True."""
