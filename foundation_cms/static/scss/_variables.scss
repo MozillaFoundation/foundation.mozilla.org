@@ -4,3 +4,7 @@ $image-hover-scale: 1.05;
 // Button transition and timing function
 $button-transition-duration: 0.5s;
 $button-transition-function: ease;
+
+// Height of the sticky primary nav. Shared so other components can leave room for
+// it, e.g. as a scroll-margin-top.
+$primary-nav-height: rem-calc(88);
