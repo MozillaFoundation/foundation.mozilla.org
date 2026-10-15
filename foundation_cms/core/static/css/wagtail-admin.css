@@ -24,3 +24,25 @@ label[for="id_search_description"]::after {
   color: var(--w-color-critical-200);
   font-weight: 600;
 }
+
+/*
+ * Minimap: indent the blocks after each section marker, found by its icon.
+ * Relies on Wagtail's internal minimap markup; recheck after Wagtail upgrades.
+ */
+.w-minimap--expanded {
+  /* Icon width + gap */
+  --section-indent-step: 1.625rem;
+}
+
+.w-minimap--expanded .w-minimap__list li:has(use[href="#icon-section-marker"]) .w-minimap-item {
+  margin-block-start: 0.75rem;
+  font-weight: 700;
+}
+
+.w-minimap--expanded
+  .w-minimap__list
+  li:has(use[href="#icon-section-marker"])
+  ~ li:not(:has(use[href="#icon-section-marker"]))
+  .w-minimap-item--h3 {
+  padding-inline-start: calc(2rem + var(--section-indent-step));
+}

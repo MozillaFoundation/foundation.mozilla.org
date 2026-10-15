@@ -1,0 +1,9 @@
+<svg id="icon-section-marker" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <!-- A shoebill, just for fun. -->
+    <path fill-rule="evenodd" d="M13.5 2.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 1 1 0-9zM13 5.5a1 1 0 1 0 0 2a1 1 0 1 0 0-2zM17.4 4.3l2.6-.3l-1.9 2.2z"/>
+    <path d="M10 4C6.5 4.2 3.2 5.4 1.5 7.6c-.5.7-.2 1.5.5 1.4l.6-.3c.2 1-.1 1.8-.8 2.3c2.6 1 6.5 1 10-.6z"/>
+    <path d="M11 9.5c0 3 2 5 4 6.5l4.5-2c-2-1-3-2.8-2.7-5z"/>
+    <ellipse cx="21" cy="16" rx="7" ry="4.5" transform="rotate(25 21 16)"/>
+    <path d="M25.5 18.5l4.5 5l-5.5-2.2z"/>
+    <path d="M19.3 19h1.2v11.5h-1.2zM22.5 19.8h1.2v10.7h-1.2zM17.5 30h4v1h-4zM21 30h4.5v1H21z"/>
+</svg>

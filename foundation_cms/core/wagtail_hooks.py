@@ -14,6 +14,11 @@ def wagtail_admin_css():
     return format_html('<link rel="stylesheet" href="{}">', static("css/wagtail-admin.css"))
 
 
+@hooks.register("register_icons")
+def register_icons(icons):
+    return icons + ["icons/section-marker.svg"]
+
+
 # Load Stimulus controllers used by the Wagtail editing interface.
 @hooks.register("insert_global_admin_js", order=100)
 def wagtail_admin_js():

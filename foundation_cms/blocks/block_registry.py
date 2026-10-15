@@ -28,6 +28,7 @@ from .podcast_block import PodcastBlock
 from .portrait_card_set_block import PortraitCardSetBlock
 from .project_block import ProjectBlock
 from .quote_block import QuoteBlock
+from .section_start_block import SectionStartBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
@@ -45,6 +46,7 @@ class BlockGroups:
     ENGAGEMENT = "Engagement & Buttons"
     LAYOUT = "Layout"
     MEDIA = "Media & Embeds"
+    SECTIONS = "Sections"
     TEXT = "Text"
 
 
@@ -62,6 +64,11 @@ class BlockRegistry:
     """
 
     BLOCKS = {
+        # Sections
+        "section_start": {
+            "class": SectionStartBlock,
+            "group": BlockGroups.SECTIONS,
+        },
         # Banners
         "flywheel_banner": {
             "class": FlywheelBannerBlock,
