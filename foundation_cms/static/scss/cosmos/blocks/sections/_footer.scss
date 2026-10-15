@@ -1,0 +1,386 @@
+// Ported from LP components/blocks/sections/footer/styles.css
+// Source: https://mozilla-design-system.vercel.app/#content
+// Embedded Footer files["styles.css"], captured 2026-10-14.
+// The public frontend does not expose a verified upstream commit.
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Footer — Figma 8757:47796
+   The page's last band. Two symbols, one axis, Breakpoint, so the block ships
+   no variant class and one width query.
+
+   Almost nothing here is new. The newsletter is the shipped `newsletter`
+   element placed at 231. The Donate control is the shipped `primary` button.
+   The closing mark is the shipped `wordmark` foundation. What the block owns
+   is the band, the two link columns, the language choice, the five social
+   glyphs and the gaps between all of them. */
+
+.mzf-c-footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* The container and the wordmark, 12 apart. 30 + 493 + 12 + 115 - 2 lands
+     on the 648 the desktop symbol draws. */
+  gap: var(--space-12);
+  box-sizing: border-box;
+  padding: var(--size-footer-inset);
+  padding-block-end: var(--space-0);
+  background: var(--color-surface-raised);
+
+  /* The wordmark hangs two pixels past the block end and the band cuts it. */
+  overflow: clip;
+}
+
+.mzf-c-footer__container {
+  display: flex;
+  flex-direction: column;
+
+  /* 8757:47516 draws this unbound rather than as a spacing variable. */
+  gap: var(--size-footer-top-gap);
+  min-inline-size: 0;
+}
+
+/* ---------- the top bar ----------
+   The organization mark on the reading side, the language choice on the other,
+   with the whole width between them. */
+.mzf-c-footer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  min-inline-size: 0;
+}
+
+.mzf-c-footer__org {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin: var(--space-0);
+}
+
+/* 8757:47519. The same ten pixel square the cards group uses as a marker,
+   here in the footer's soft ink rather than in a category color. */
+.mzf-c-footer__org-marker {
+  flex: none;
+  inline-size: var(--size-card-marker);
+  block-size: var(--size-card-marker);
+  background: var(--color-footer-ink-soft);
+}
+
+/* 8757:47521. The file hides this text node and leaves its 131 reserved, so
+   the band renders as a square with nothing beside it. The name is kept for
+   anything reading the page rather than looking at it. */
+.mzf-c-footer__org-name {
+  position: absolute;
+
+  /* The clip idiom needs real pixels. These two are not design values. */
+  inline-size: 1px; /* allow-raw */
+  block-size: 1px; /* allow-raw */
+  padding: var(--space-0);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.mzf-c-footer__language {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  min-inline-size: 0;
+}
+
+.mzf-c-footer__language-label,
+.mzf-c-footer__language-choice {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.mzf-c-footer__language-label {
+  color: var(--color-text-subtle);
+}
+
+.mzf-c-footer__language-value {
+  display: inline-flex;
+}
+
+.mzf-c-footer__language-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin: var(--space-0);
+  padding: var(--space-0);
+  border: 0;
+  background: none;
+  color: var(--color-text-default);
+  cursor: pointer;
+}
+
+.mzf-c-footer__language-choice:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* 8757:47527. Exported geometry, and the glyph is symmetrical, so it does not
+   flip with the reading direction. */
+.mzf-c-footer__language-chevron {
+  flex: none;
+  display: inline-flex;
+  inline-size: var(--size-footer-chevron);
+}
+
+.mzf-c-footer__language-chevron svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/* ---------- the content ----------
+   Three columns, 148 apart, all three aligned to the block start. The row is
+   not space-between: 323, 442 and 231 with two 148 gaps leaves 88 of slack at
+   the end of the 1380 container, which is what the file draws. */
+.mzf-c-footer__content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-148);
+  min-inline-size: 0;
+}
+
+/* ---------- donate ---------- */
+.mzf-c-footer__donate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-20);
+  inline-size: var(--size-footer-donate-column);
+  max-inline-size: 100%;
+  flex: none;
+}
+
+/* 8757:47530 binds desktop/h4 at desktop and mobile/h4 directly at mobile,
+   which is callout's pattern rather than text-group's: the size comes off the
+   mobile sheet instead of from a mode swap. Both sheets track at zero, so
+   nothing else moves. */
+.mzf-c-footer__donate-line {
+  margin: var(--space-0);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+/* 8757:47531 is a raw frame with no button instance behind it, and its inline
+   inset, block inset, gap, family, size and weight are the primary button's
+   value for value. So the port composes the real button and moves the three
+   values the frame draws differently, each through a knob the button element
+   exposes with its own drawn value as the default: a gray/900 ground rather
+   than ink, a fixed 38 rather than the 40.25 the padding gives, and minus one
+   percent of tracking rather than plus one. `cards/action` is the precedent. */
+.mzf-c-footer__donate-button {
+  --mzf-button-surface: var(--color-footer-ink-soft);
+  --mzf-button-block-size: var(--size-control-height);
+  --mzf-button-letter-spacing: var(--letter-spacing-control-tight);
+}
+
+/* ---------- the link columns ---------- */
+.mzf-c-footer__nav {
+  display: flex;
+  gap: var(--space-32);
+  min-inline-size: 0;
+}
+
+.mzf-c-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin: var(--space-0);
+  padding: var(--space-0);
+  inline-size: var(--size-footer-nav-column);
+  max-inline-size: 100%;
+  list-style: none;
+}
+
+.mzf-c-footer__link-item {
+  display: flex;
+}
+
+.mzf-c-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+  text-decoration: none;
+}
+
+.mzf-c-footer__link:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* 8757:47540. The second column is the one that leaves the site, and the file
+   draws it a step quieter than the first. */
+.mzf-c-footer__links--external .mzf-c-footer__link {
+  color: var(--color-text-muted);
+}
+
+/* 8757:47543. Drawn in gray/500, a step quieter again than the label it
+   follows. It points away along the reading direction, so it flips. */
+.mzf-c-footer__link-arrow {
+  flex: none;
+  display: inline-flex;
+  inline-size: var(--size-footer-link-arrow);
+  block-size: var(--size-footer-link-arrow);
+  color: var(--color-text-subtle);
+}
+
+.mzf-c-footer__link-arrow svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+[dir="rtl"] .mzf-c-footer__link-arrow {
+  transform: scaleX(-1);
+}
+
+/* ---------- newsletter and social ----------
+   8757:47556 is drawn 240 high with the two children at its ends. That
+   distance is the same 148 the columns are apart, so it is a gap rather than
+   space-between, and a taller form pushes the row down instead of stretching
+   the column. */
+.mzf-c-footer__signup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-148);
+  min-inline-size: 0;
+}
+
+/* The element draws itself at 362 and the footer places it at 231. Nothing
+   inside it is a fixed width, so the field simply takes what the Sign up
+   button leaves. */
+.mzf-c-footer__newsletter {
+  inline-size: var(--size-footer-newsletter);
+  max-inline-size: 100%;
+}
+
+.mzf-c-footer__social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  margin: var(--space-0);
+  padding: var(--space-0);
+  list-style: none;
+}
+
+.mzf-c-footer__social-item {
+  display: flex;
+}
+
+/* Each glyph is drawn in its own 16 box in gray/900. The assets carry
+   currentColor, so the ink is the link's own. */
+.mzf-c-footer__social-link {
+  display: inline-flex;
+  inline-size: var(--size-footer-social-icon);
+  block-size: var(--size-footer-social-icon);
+  color: var(--color-footer-ink-soft);
+}
+
+.mzf-c-footer__social-link svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.mzf-c-footer__social-link:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* ---------- the closing wordmark ----------
+   Desktop is the `wordmark` foundation at its own drawn size: 1380 across the
+   1380 container, 115.06 tall, hanging two pixels past the band's block end.
+
+   Mobile is a different lockup, two lines rather than one, drawn at 8757:47780
+   as bare vectors rather than as an instance. It ships inside this block
+   rather than as a second variant of the foundation, because nothing else in
+   the file draws it. Promote it into `foundations/logo/footer-logo` the day a
+   second component does. It carries no color shapes and therefore no hover:
+   the mobile symbol draws none. */
+.mzf-c-footer__wordmark {
+  margin-block-end: calc(-1 * var(--space-2));
+}
+
+.mzf-c-footer__wordmark-stacked {
+  display: none;
+}
+
+/* ---------- mobile ----------
+   8757:47794. One column at 20 of padding, with 64 between every group:
+   20 + 13 + 64 + 714 + 64 + 96.917 + 20 lands on the drawn 991.917.
+
+   Three things change besides the gaps. The content becomes a column, the two
+   link columns stack at the same 32 they sat apart at, and the donate line and
+   the language label each step down a size. */
+@include mobile-only {
+  .mzf-c-footer {
+    gap: var(--space-64);
+    padding: var(--space-20);
+  }
+
+  .mzf-c-footer__container {
+    gap: var(--space-64);
+  }
+
+  /* `label/font-size` swaps mode, 11 to 10, while the bound style stays
+     desktop/label, so the 5 percent tracking holds. */
+  .mzf-c-footer__language-label,
+  .mzf-c-footer__language-choice {
+    font-size: var(--font-size-label-mobile);
+  }
+
+  .mzf-c-footer__content {
+    flex-direction: column;
+    gap: var(--space-64);
+  }
+
+  .mzf-c-footer__donate-line {
+    font-size: var(--font-size-h4-mobile);
+  }
+
+  .mzf-c-footer__nav {
+    flex-direction: column;
+  }
+
+  .mzf-c-footer__signup {
+    gap: var(--space-64);
+  }
+
+  .mzf-c-footer__wordmark {
+    margin-block-end: var(--space-0);
+  }
+
+  .mzf-c-footer__wordmark .mzf-c-wordmark__svg {
+    display: none;
+  }
+
+  .mzf-c-footer__wordmark-stacked {
+    display: block;
+    inline-size: var(--size-footer-wordmark-stacked);
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+}

@@ -2,6 +2,12 @@
 // Each file mirrors its LP source path: components/<path>/<name>/styles.css
 // lives at cosmos/<path>/_<name>.scss. See docs/stack.md.
 
+// Foundations
+@import "foundations/logo/footer-logo";
+
 // Elements
 @import "elements/layout/section-master";
 @import "elements/buttons/primary";
+
+// Blocks
+@import "blocks/sections/footer";

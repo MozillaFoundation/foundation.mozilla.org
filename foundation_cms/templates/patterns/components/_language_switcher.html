@@ -3,26 +3,29 @@
 {% get_current_language as current_language %}
 {% get_local_language_names as languages %}
 
-<form id="language-switcher-form" action="{% url 'set_language' %}" method="post">
+<form id="language-switcher-form" class="mzf-c-footer__language" action="{% url 'set_language' %}" method="post">
   {# CSRF token is populated by the inline script from the cookie; baking it would be cached by the CDN and 403. #}
   <input type="hidden" name="csrfmiddlewaretoken" id="language-csrftoken" value="" />
   <input type="hidden" name="next" id="language-next" value="" />
 
-  <label for="language-switcher">{% trans "Language" %}</label>
-  <select name="language" id="language-switcher">
-    {% for language_code, language_name in languages %}
-      {% language language_code %}
-        {% if page and page.localized %}
-          {% pageurl page.localized as localized_url %}
-        {% else %}
-          {% localized_url request.get_full_path language_code as localized_url %}
-        {% endif %}
-        <option value="{{ language_code }}"
-                data-url="{{ localized_url }}"
-                {% if language_code == current_language %}selected{% endif %}>
-          {{ language_name | capfirst }}
-        </option>
-      {% endlanguage %}
-    {% endfor %}
-  </select>
+  <label for="language-switcher" class="mzf-c-footer__language-label">{% trans "Language" %}</label>
+  <span class="site-footer__language-select">
+    <select name="language" id="language-switcher">
+      {% for language_code, language_name in languages %}
+        {% language language_code %}
+          {% if page and page.localized %}
+            {% pageurl page.localized as localized_url %}
+          {% else %}
+            {% localized_url request.get_full_path language_code as localized_url %}
+          {% endif %}
+          <option value="{{ language_code }}"
+                  data-url="{{ localized_url }}"
+                  {% if language_code == current_language %}selected{% endif %}>
+            {{ language_name | capfirst }}
+          </option>
+        {% endlanguage %}
+      {% endfor %}
+    </select>
+    <span class="mzf-c-footer__language-chevron"><svg viewBox="0 0 10.101 5.89226" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M10.101 0.876978L4.98255 5.89226L0 0.870637L0.932682 0.00634166L4.99549 4.10104L9.18095 0L10.101 0.876978Z" fill="currentColor"/></svg></span>
+  </span>
 </form>
