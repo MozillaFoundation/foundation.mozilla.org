@@ -1,221 +1,27 @@
-@import "../colors";
-
 .site-footer-ns {
-  background-color: color(neutral, "600");
-  color: color(neutral, "100");
-  padding: 3rem 0;
+  // Placeholder until the complete Cosmos footer lands in TP1-4299.
+  background-color: var(--color-surface-raised);
+  color: var(--color-text-default);
+  padding: rem-calc(20);
 
-  &__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 3rem;
-    }
-  }
-
-  &__grid-cell:has(> .site-footer-ns__logo) {
-    @include breakpoint(large up) {
-      width: rem-calc(440);
-    }
-  }
-
-  &__logo {
-    margin-bottom: 3rem;
-
-    a {
-      display: block;
-    }
-  }
-
-  &__newsletter-form:has([data-newsletter-signup]) {
-    background-color: var(--color-surface-raised);
-    color: var(--color-text-default);
-    padding: 1rem;
+  &__newsletter-form {
+    width: rem-calc(362);
+    max-width: 100%;
 
     [data-newsletter-signup] {
       margin-bottom: 0;
     }
   }
 
-  &__links {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
+  @media (width > 48rem) {
+    display: grid;
 
-    ul {
-      width: 50%;
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    // The desktop reference leaves 88px after its newsletter column.
+    grid-template-columns: minmax(0, 1fr) rem-calc(362) rem-calc(88);
+    padding: rem-calc(30);
 
-      li {
-        padding: 0.5rem 0;
-      }
-
-      a {
-        color: color(neutral, "100");
-        text-decoration: none;
-
-        &:hover {
-          color: color(orange, "100");
-        }
-      }
-
-      &.external {
-        a {
-          &::after {
-            display: inline-block;
-            content: "";
-            width: rem-calc(12px);
-            height: rem-calc(12px);
-            background-image: url("/static/foundation_cms/_images/icons/link-external-white.svg");
-            margin-left: 0.5rem;
-          }
-
-          &:hover {
-            &::after {
-              background-image: url("/static/foundation_cms/_images/icons/link-external-orange.svg");
-            }
-          }
-        }
-      }
-    }
-
-    @include breakpoint(large up) {
-      width: 33%;
-    }
-  }
-
-  &__cta {
-    .btn-primary {
-      width: 100%;
-      justify-content: center;
-      font-weight: 700;
-
-      @include breakpoint(large up) {
-        width: auto;
-      }
-    }
-
-    #language-switcher-form {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 1rem;
-
-      #language-switcher {
-        @include custom-select-dropdown("dark");
-      }
-    }
-  }
-
-  &__legals {
-    background: url("/static/foundation_cms/_images/footer-separator.svg")
-      no-repeat center top;
-    background-size: 100% auto;
-    padding-top: 3rem;
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      justify-content: space-between;
-      padding-top: 4rem;
-    }
-
-    p {
-      margin: 0;
-      color: $white;
-    }
-
-    .site-footer-ns__legal-text {
-      a {
-        color: color(neutral, "100");
-        text-decoration: underline;
-        text-underline-offset: 2px;
-      }
-    }
-
-    .site-footer-ns__link--legal {
-      color: color(neutral, "100");
-      text-decoration: underline;
-    }
-
-    .social-links {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      justify-content: center;
-
-      .site-footer-ns__social-link {
-        display: block;
-        height: rem-calc(24px);
-        width: rem-calc(24px);
-
-        &:hover {
-          svg path {
-            fill: color(orange, "100");
-          }
-        }
-
-        [class*="icon-"] {
-          width: 100%;
-          height: 100%;
-          display: block;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-        }
-
-        .icon-bluesky {
-          background-image: url("/static/foundation_cms/_images/icons/social-bluesky-white.svg");
-
-          &:hover {
-            background-image: url("/static/foundation_cms/_images/icons/social-bluesky-orange.svg");
-          }
-        }
-
-        .icon-instagram {
-          background-image: url("/static/foundation_cms/_images/icons/social-instagram-white.svg");
-
-          &:hover {
-            background-image: url("/static/foundation_cms/_images/icons/social-instagram-orange.svg");
-          }
-        }
-
-        .icon-linkedin {
-          background-image: url("/static/foundation_cms/_images/icons/social-linkedin-white.svg");
-
-          &:hover {
-            background-image: url("/static/foundation_cms/_images/icons/social-linkedin-orange.svg");
-          }
-        }
-
-        .icon-spotify {
-          background-image: url("/static/foundation_cms/_images/icons/social-spotify-white.svg");
-
-          &:hover {
-            background-image: url("/static/foundation_cms/_images/icons/social-spotify-orange.svg");
-          }
-        }
-
-        .icon-tiktok {
-          background-image: url("/static/foundation_cms/_images/icons/social-tiktok-white.svg");
-
-          &:hover {
-            background-image: url("/static/foundation_cms/_images/icons/social-tiktok-orange.svg");
-          }
-        }
-      }
+    &__newsletter-form {
+      grid-column: 2;
     }
   }
 }
