@@ -1,0 +1,62 @@
+.flywheel-banner {
+  --flywheel-banner-artwork: none;
+  --flywheel-banner-text-color: #{$white};
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: rem-calc(442);
+  overflow: hidden;
+  padding: rem-calc(200) rem-calc(20);
+  gap: rem-calc(8);
+  background-color: color(neutral, "600");
+
+  @media (width > 48rem) {
+    min-height: rem-calc(472);
+    padding-inline: rem-calc(148);
+  }
+
+  &--imagine {
+    --flywheel-banner-artwork: url("/static/foundation_cms/_images/flywheel_banner/imagine.png");
+  }
+
+  &--co-create {
+    --flywheel-banner-artwork: url("/static/foundation_cms/_images/flywheel_banner/co-create.png");
+  }
+
+  &--mobilize {
+    --flywheel-banner-artwork: url("/static/foundation_cms/_images/flywheel_banner/mobilize.png");
+    --flywheel-banner-text-color: #{color(neutral, "600")};
+  }
+
+  &__artwork {
+    position: absolute;
+    inset: 0;
+    background-image: var(--flywheel-banner-artwork);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  & &__heading {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+    color: var(--flywheel-banner-text-color);
+    font-family: $header-font-family;
+    font-size: rem-calc(38);
+    font-variation-settings: "wdth" 100;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    text-align: center;
+
+    @media (width > 48rem) {
+      font-size: rem-calc(65);
+    }
+  }
+}
