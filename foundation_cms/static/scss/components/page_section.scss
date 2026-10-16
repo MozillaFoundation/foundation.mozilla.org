@@ -1,0 +1,7 @@
+// Additions to the Cosmos section master (`mzf-c-section`) for sections
+// rendered from Section Start markers; see _sectioned_streamfield.html.
+// LP's mockups show a divider on some sections, but its section master CSS
+// has no option for it, so we add it in our own stylesheet.
+.page-section--divider {
+  border-block-start: var(--border-width-thin) solid var(--color-border-subtle);
+}
