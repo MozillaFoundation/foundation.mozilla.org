@@ -1,0 +1,106 @@
+// Ported from LP components/blocks/heros/primary/styles.css
+// LP commit a50ccd7446
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Hero / primary — Figma 10225:34225
+   The home page's opening statement. Two Breakpoint symbols, 10225:34217 at
+   1440 and 10225:34221 at 402, and no other axis.
+
+   The frame reads as empty through a metadata listing. It is not: the Plugin
+   API returns a COMPONENT_SET with two children, each holding a
+   layout/section-master instance and a chips/scroll-reminder instance. The
+   node ids below all come from that read.
+
+   The hero owns three things. It owns the band's block size, because both
+   symbols are drawn 800 tall and both set their section-master instance to
+   FILL vertically rather than to its own HUG. It owns the headline, because
+   the file draws a bare text node in the content slot rather than a
+   text/text-group instance. It owns the reminder's place, because the
+   reminder is absolutely positioned against the symbol root rather than
+   parented into the band.
+
+   It paints no ground. The section-master instance is bound to gray/100 on
+   both symbols, which is that element's own drawn value on all ten of its
+   variant cells, so no `--mzf-section-surface` is set here. It restyles
+   neither composed component. */
+
+/* ---------- the band ----------
+   10225:34217 and 10225:34221 are both fixed at 800 block, and the single
+   section-master child of each is FILL on both axes. One grid item stretches
+   to its track by default, so the band takes the whole height without a rule
+   of its own.
+
+   The height is a minimum rather than a fixed size. The file draws 800 around
+   a headline whose own column is 144 desktop and 126 mobile, so 800 is the
+   number at every drawn width, and a longer headline grows the band instead
+   of overflowing a box the section already clips. */
+.mzf-c-hero-primary {
+  position: relative;
+  display: grid;
+  min-block-size: var(--size-hero-primary-block);
+}
+
+/* ---------- the headline ----------
+   10225:34220 and 10225:34224 bind desktop/h1 at both breakpoints and swap
+   only the size variable's mode, 65 to 38, so the 110 percent leading and the
+   minus 2 percent tracking carry over unchanged. That is the same pair
+   text-group's own h1 level takes, and these are the same tokens.
+
+   It is drawn here rather than composed because the file draws a text node
+   and not a text/text-group instance. Wrapping it in one would add three
+   boxes the file does not draw, and the group's label, subheading and action
+   slots have nothing to hold.
+
+   The centering is the band's, not the headline's: every variant cell of
+   layout/section-master aligns its content CENTER on both axes, which is
+   inert while the band hugs and live once the hero gives it a height. The
+   text is centered on its own lines by textAlignHorizontal CENTER. */
+.mzf-c-hero-primary__headline {
+  margin: 0;
+  margin-inline: auto;
+  max-inline-size: var(--size-hero-primary-headline);
+  font-family: var(--font-family-headline);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+  font-variation-settings: "wdth" 100;
+  color: var(--color-text-default);
+  text-align: center;
+}
+
+/* ---------- the scroll reminder ----------
+   10279:32412 and 10332:95002 both sit ABSOLUTE against the symbol root, on
+   constraints CENTER and MAX, at y=717 in an 800 box for a 26 by 35 chip.
+   That is 48 clear of the foot at both breakpoints, which is space-48.
+
+   It is centered with an auto inline margin against a zeroed inline inset
+   rather than with a transform, so the box stays whole under dir=rtl and
+   nothing physical is written. The chip itself is unrestyled. */
+.mzf-c-hero-primary__reminder {
+  position: absolute;
+  inset-block-end: var(--space-48);
+  inset-inline: 0;
+  inline-size: fit-content;
+  margin-inline: auto;
+}
+
+/* ---------- below the mobile breakpoint ----------
+   The size variable's Mobile mode steps the headline to 38, and the mobile
+   text carries no maxWidth where the desktop one carries 800, so the cap is
+   lifted rather than restated. The band's height and the reminder's offset
+   are the same number at both widths and are not repeated.
+
+   The threshold is size.breakpoint.mobile; a media query cannot read a custom
+   property, so the value is repeated here and the token is the place it is
+   recorded. */
+@include mobile-only {
+  .mzf-c-hero-primary__headline {
+    max-inline-size: none;
+    font-size: var(--font-size-h1-mobile);
+  }
+}

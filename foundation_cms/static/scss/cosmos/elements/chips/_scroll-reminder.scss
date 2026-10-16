@@ -1,0 +1,79 @@
+// Ported from LP components/elements/chips/scroll-reminder/styles.css
+// LP commit e738a8b839
+
+// Kept the same as LP's file apart from formatting: it follows our Prettier and
+// stylelint rules, which doesn't change how it behaves. LP's file has no width
+// query, so there is no breakpoint to swap.
+
+/* Scroll reminder — Figma 9872:111005
+   A small bordered chip with an arrow that drifts down and back, standing
+   at the foot of a hero to say the page continues below it.
+
+   The file draws it 26 by 35: the medium icon box plus a hairline border
+   on each side across; 2px of air, the icon box, 7px of air and the two
+   borders down. The width is derived from those tokens; the height is the
+   file's own number, because 7 is not a spacing step.
+
+   The border is drawn inside the 26 by 35 box: the icon box starts at x=1,
+   y=3, so the stroke costs no size. An explicit border-box size plus a
+   border reproduces that, and the box stays 26 by 35.
+
+   The two symbols are the two ends of the drift. Default puts the icon box
+   2px below the top border, Variant2 puts it 2px above the bottom one, and
+   the 33px of content between the borders leaves 5px of travel. */
+
+.mzf-c-scroll-reminder {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  inline-size: calc(var(--size-icon-medium) + 2 * var(--border-width-thin));
+  block-size: 35px; /* allow-raw: the file's box; the 7px below the icon is not a spacing step */
+  padding-block-start: var(--space-2);
+  border: var(--border-width-thin) solid var(--color-gray-2000);
+  color: var(--color-text-default);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mzf-c-scroll-reminder:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* ---------- the arrow ----------
+   The 12px glyph, centered in its 24px box, drifting from the file's
+   Default position to its Variant2 position and back. The travel is the
+   gap between the two symbols, so the arrow never crosses the border. */
+.mzf-c-scroll-reminder__icon {
+  display: grid;
+  place-items: center;
+  inline-size: var(--size-icon-medium);
+  block-size: var(--size-icon-medium);
+  animation: mzf-scroll-reminder-bob
+    var(--mzf-motion-duration-scroll-reminder-bob)
+    var(--mzf-motion-easing-scroll-reminder-bob) infinite alternate;
+}
+
+.mzf-c-scroll-reminder__icon svg {
+  display: block;
+  inline-size: var(--size-icon-glyph);
+  block-size: var(--size-icon-glyph);
+}
+
+@keyframes mzf-scroll-reminder-bob {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    /* allow-raw: the gap between the file's two symbols, 33 - 24 - 2 - 2 */
+    transform: translateY(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-scroll-reminder__icon {
+    animation: none;
+  }
+}

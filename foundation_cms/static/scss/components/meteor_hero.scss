@@ -1,0 +1,43 @@
+// Meteor hero: LP's primary hero (cosmos/blocks/heros/_primary.scss) at full
+// viewport height, with a pixel meteor shower drawn on a canvas behind the
+// headline by meteor_hero.js. Without JS, or before it runs, it's the primary
+// hero on its usual paper ground.
+.meteor-hero {
+  // Fill the screen below the sticky nav, replacing the primary hero's 800px.
+  // svh rather than dvh, so the scroll reminder stays on screen while the iOS
+  // Safari toolbar is showing and the hero doesn't resize when it hides.
+  min-block-size: calc(100svh - #{$primary-nav-height});
+
+  // The section paints no ground here so the canvas behind it shows through,
+  // and the hero paints the same paper instead. `isolation` keeps the canvas's
+  // negative z-index inside the hero, above its ground and below the headline.
+  --mzf-section-surface: transparent;
+
+  isolation: isolate;
+  background-color: var(--color-section-ground);
+
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    pointer-events: none;
+  }
+}
+
+// Match the global `body.redesign h1` specificity (_type.scss) so its legacy
+// size, leading and weight don't override LP's headline type from
+// cosmos/blocks/heros/_primary.scss. Same values, restated so they win.
+// TODO: Remove this block once the legacy heading rule stops outranking Cosmos
+// components sitewide.
+body.redesign .meteor-hero .mzf-c-hero-primary__headline {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-h1);
+
+  @include mobile-only {
+    font-size: var(--font-size-h1-mobile);
+  }
+}
