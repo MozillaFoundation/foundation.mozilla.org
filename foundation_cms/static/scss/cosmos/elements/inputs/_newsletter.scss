@@ -107,26 +107,3 @@
 .mzf-c-newsletter--reveal:focus-within .mzf-c-newsletter__more {
   display: flex;
 }
-
-// Figma newsletter variants override the LP browser approximation here.
-// 10088:63897: 40px resting row; 10088:63931 / 10088:63952: 43px expanded row.
-// Keep these measurements local: the shared control-height token stays 38px.
-.mzf-c-newsletter__row .mzf-c-button {
-  --mzf-button-block-size: #{rem-calc(40)};
-}
-
-.mzf-c-newsletter__row .mzf-c-field__control {
-  min-block-size: rem-calc(40);
-}
-
-.mzf-c-newsletter--expanded .mzf-c-field__control {
-  min-block-size: rem-calc(43);
-}
-
-// Figma's newsletter Focus instance disables the field's focus underline.
-// Error remains the shared field state, including its red underline.
-.mzf-c-newsletter--expanded
-  .mzf-c-field:not(.mzf-c-field--error)
-  .mzf-c-field__control:focus {
-  border-block-end-width: 0;
-}
