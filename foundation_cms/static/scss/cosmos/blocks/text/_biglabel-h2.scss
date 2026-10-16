@@ -1,0 +1,56 @@
+// Ported from LP components/blocks/text/biglabel-h2/styles.css
+// LP commit 3a0aaa317d
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Big label and h2 — Figma 10172:42323
+   A numbered big label over one h2 statement. The file draws two symbols and
+   one axis, Breakpoint: 9769:25395 Desktop and 10172:42320 Mobile. This is a
+   block, so the breakpoint is a media query.
+
+   The symbol holds two children. The first is a `chips/big-label` instance.
+   The second is a text node bound to the `desktop/h2` named style, and every
+   value on it, the Mozilla Headline family, the regular weight, the 1.2 line
+   height and the minus one percent tracking, is what `text-group --h2`
+   already draws. So the description is composed as a text-group rather than
+   retyped here. Neither composed component is restyled.
+
+   The block owns two things: the column with its content/small gap, and the
+   big label's size step below the breakpoint. */
+
+.mzf-c-biglabel-h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  inline-size: 100%;
+  box-sizing: border-box;
+  padding: var(--space-0);
+
+  /* Figma content/small: 16 at desktop, 12 at mobile. Measured on both
+     symbols as 41 - 25 and 34 - 22. */
+  gap: var(--space-16);
+}
+
+.mzf-c-biglabel-h2 *,
+.mzf-c-biglabel-h2 *::before,
+.mzf-c-biglabel-h2 *::after {
+  box-sizing: border-box;
+}
+
+@include mobile-only {
+  .mzf-c-biglabel-h2 {
+    gap: var(--space-12);
+  }
+
+  /* 10172:42321 binds the same `kind=number` cell the desktop instance binds,
+     source nodes 9957:3 and 9957:4, and reaches 18px through the
+     `h4/font-size` variable's mobile mode rather than through a different
+     variant. So the step is big-label's own knob, set here because the block
+     owns the breakpoint. The element itself is never restyled. */
+  .mzf-c-biglabel-h2 .mzf-c-big-label {
+    --mzf-big-label-size: var(--font-size-h4-mobile);
+  }
+}

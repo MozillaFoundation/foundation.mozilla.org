@@ -1,0 +1,207 @@
+// Ported from LP components/blocks/sections/meet-mozilla/styles.css
+// LP commit a9c4fd7d57
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Meet Mozilla — Figma 7857:2638
+   A scroll-length section: one intro that stays put while three numbered
+   statements pass it, and a background that changes color as each statement
+   arrives.
+
+   Eight symbols, two axes, Breakpoint x state, and every cell is drawn.
+   `state` is not an interaction state. The mobile master carries the
+   designer's note on it: "Background color changes when each description
+   (Imagine, Co-create, Build) comes into vertical 80% center of viewport.
+   Core yellow. Core blue. Core green. Core orange." So the four cells are
+   four background colors in reading order and nothing else. Every other
+   value is identical across the four, which is why `state` is one custom
+   property here rather than four rules.
+
+   The section owns four things: the band, the top rule, the two-column
+   sticky arrangement, and the scroll runway around the statements. It owns
+   no type. The header is a `text-group --h1`, the intro is a
+   `text-group --h3 --action-link`, and each statement is a `biglabel-h2`.
+   None of the three is restyled and none needed a knob.
+
+   It deliberately does NOT compose `layout/section-master`. The inset and
+   the block-start padding agree with it because both read the same Figma
+   `section/horz` and `section/vert-small` variables, but this band's block
+   padding is asymmetric, 0 at the end on desktop and 200 at the end on
+   mobile, and the distance between the header and the body is zero where
+   section-master's smallest rhythm is 32. Two knobs and an override would
+   be most of what that element draws. `card-grid` is the precedent:
+   matching geometry is not a reason to compose. */
+
+.mzf-c-meet-mozilla {
+  /* The drawn default is state=00, the first cell the reader meets. */
+  --mzf-meet-mozilla-surface: var(--color-accent-yellow);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  inline-size: 100%;
+  background-color: var(--mzf-meet-mozilla-surface);
+
+  /* Figma section/horz and section/vert-small on every symbol. The band has
+     no block-end padding at desktop: the last statement's own runway is what
+     closes the section. */
+  padding-inline: var(--space-148);
+  padding-block-start: var(--space-120);
+
+  /* The gray/200 rule on the block start is drawn inside the box. 120 + 101
+     + 2575 is 2796, which is the symbol's own height, so a border would make
+     it 2797. An inset shadow costs no height. */
+  box-shadow: inset 0 var(--border-width-thin) 0 0 var(--color-border-subtle);
+  transition: background-color var(--mzf-motion-duration-base)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-meet-mozilla *,
+.mzf-c-meet-mozilla *::before,
+.mzf-c-meet-mozilla *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- state ----------
+   The names are the file's own, `state=00` through `state=03`. Each one is
+   the background the section carries while its statement is the one being
+   read; `--state-00` is the section before the first statement arrives. */
+.mzf-c-meet-mozilla--state-00 {
+  --mzf-meet-mozilla-surface: var(--color-accent-yellow);
+}
+
+.mzf-c-meet-mozilla--state-01 {
+  --mzf-meet-mozilla-surface: var(--color-accent-blue);
+}
+
+.mzf-c-meet-mozilla--state-02 {
+  --mzf-meet-mozilla-surface: var(--color-accent-green);
+}
+
+.mzf-c-meet-mozilla--state-03 {
+  --mzf-meet-mozilla-surface: var(--color-accent-orange);
+}
+
+/* ---------- the body ----------
+   1144 of content carrying a 440 column and a 675 column, so the 29px
+   between them is space-between slack rather than a drawn gap. Aligned to
+   flex-start so the statement column, which is far taller, does not drag the
+   intro down out of its sticky range. */
+.mzf-c-meet-mozilla__body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  /* Never reached at the drawn width, where the slack is 29. It keeps the
+     columns apart once they shrink. */
+  column-gap: var(--space-24);
+  inline-size: 100%;
+}
+
+/* ---------- the intro ----------
+   Sticky against the block start, with equal block padding above and below.
+   That padding is what parks the copy near the middle of the viewport: the
+   box is taller than its copy, so the copy sits 371 down from wherever the
+   box has stuck. */
+.mzf-c-meet-mozilla__aside {
+  position: sticky;
+  inset-block-start: 0;
+
+  /* The columns hold their drawn widths wherever the band is wide enough
+     and give way together below that, so the band never overflows the page
+     between the desktop width and the mobile query. */
+  flex: 0 1 var(--size-meet-mozilla-intro-inline);
+  min-inline-size: 0;
+  padding-block: var(--size-meet-mozilla-intro-offset);
+}
+
+/* ---------- the statements ---------- */
+.mzf-c-meet-mozilla__list {
+  flex: 0 1 var(--size-meet-mozilla-list-inline);
+  min-inline-size: 0;
+  margin: 0;
+  padding-inline: 0;
+  padding-block: var(--size-meet-mozilla-list-lead)
+    var(--size-meet-mozilla-list-tail);
+  list-style: none;
+}
+
+/* Figma content/3xlarge on every Container, so two neighbours stand 240
+   apart. The first and the last hand their outer edge to the list, which
+   already carries the longer runway there. */
+.mzf-c-meet-mozilla__item {
+  padding-block: var(--space-120);
+}
+
+.mzf-c-meet-mozilla__item:first-child {
+  padding-block-start: 0;
+}
+
+.mzf-c-meet-mozilla__item:last-child {
+  padding-block-end: 0;
+}
+
+/* ---------- the statement type ----------
+   Two decisions live on this class, and both belong to the section rather
+   than to `biglabel-h2`, so the class sits beside the composed heading
+   instead of reaching into it.
+
+   The blend is ported. gray/1000 over core-yellow samples #141100 in the
+   file's own render, not #161616, because multiply takes the blue channel to
+   zero. `callout` made the same call for the same reason; `biglabel-h2` on
+   paper correctly did not. */
+.mzf-c-meet-mozilla__statement {
+  mix-blend-mode: multiply;
+}
+
+/* The half-strength run is a real gray-alpha/500 fill in the file, not an
+   opacity on the node, so it is a color rather than a filter. */
+.mzf-c-meet-mozilla__unread {
+  color: var(--color-text-unread);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-meet-mozilla {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}
+
+/* ---------- below the mobile breakpoint ----------
+   The body is one column, so nothing is sticky and nothing is beside
+   anything. The file draws the intro and the statement column as two
+   overlapping frames on 10131:281 rather than as a stack, which is how a
+   designer draws a sticky column on a mobile board; the render is a plain
+   stack and that is what ships. The overlap is why the runway above the
+   first statement is 328 here against 700 at desktop.
+
+   The threshold is size.breakpoint.mobile. A media query cannot read a
+   custom property, so the value is repeated and the token is the record.
+
+   Every type step below this line is the composed components' own: h1 65 to
+   38, h3 32 to 24, h2 42 to 28, h4 21 to 18. All four are variable modes on
+   bound desktop styles, so the tracking does not take the mobile step. */
+@include mobile-only {
+  .mzf-c-meet-mozilla {
+    padding-inline: var(--space-20);
+    padding-block: var(--space-64) var(--space-200);
+  }
+
+  .mzf-c-meet-mozilla__body {
+    display: block;
+  }
+
+  .mzf-c-meet-mozilla__aside {
+    position: static;
+    inline-size: 100%;
+    padding-block: var(--size-meet-mozilla-intro-offset) 0;
+  }
+
+  .mzf-c-meet-mozilla__list {
+    inline-size: 100%;
+    padding-block-start: var(--size-meet-mozilla-list-lead-mobile);
+  }
+}

@@ -1,0 +1,73 @@
+// Ported from LP components/elements/chips/big-label/styles.css
+// LP commit e26b9577ad
+
+// Kept the same as LP's file apart from formatting: the file follows our
+// Prettier and stylelint rules, which doesn't change how it behaves.
+
+/* Big label — Figma 9957:10
+   A label at heading scale, marked either by a number or by a green square.
+   The file draws four cells: `kind=number`, `kind=highlight`, and the two
+   unnamed `kind3` and `kind4` cells, which are the same two labels a size
+   step down.
+
+   Every cell binds `desktop/h4` and swaps only the `h4/font-size` mode, 21 to
+   18, so the family, the weight, the 1.2 line height and the zero tracking are
+   one style across all four. */
+
+.mzf-c-big-label {
+  display: flex;
+  gap: var(--space-8);
+  margin: 0;
+  padding: var(--space-0);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--mzf-big-label-size, var(--font-size-h4));
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+/* ---------- kind ---------- */
+
+/* The number cell aligns its two words at the top, which is what the file
+   draws. */
+.mzf-c-big-label--number {
+  align-items: flex-start;
+}
+
+/* The highlight cell centers instead, because the file draws the ten pixel
+   square on the middle of the line rather than on its top. */
+.mzf-c-big-label--highlight {
+  align-items: center;
+}
+
+/* ---------- the size step ----------
+   The block that places this element owns the breakpoint, so the step is a
+   class and a knob rather than a width query. A block sets
+   `--mzf-big-label-size` inside its own media query and never overrides the
+   font size directly. */
+.mzf-c-big-label--small {
+  --mzf-big-label-size: var(--font-size-h4-mobile);
+}
+
+/* ---------- parts ---------- */
+
+/* The number is the same ink as the word, set back rather than recolored. */
+.mzf-c-big-label__number {
+  flex: none;
+  opacity: var(--opacity-quiet);
+}
+
+/* The file draws every text node hugging, which is Figma's default and not an
+   authored width. The word is allowed to shrink and wrap here, so a long
+   translation sets rather than overflows. */
+.mzf-c-big-label__label {
+  min-inline-size: 0;
+}
+
+.mzf-c-big-label__marker {
+  flex: none;
+  inline-size: var(--size-chip-big-label-marker);
+  block-size: var(--size-chip-big-label-marker);
+  background: var(--color-tag-marker-highlight);
+}
