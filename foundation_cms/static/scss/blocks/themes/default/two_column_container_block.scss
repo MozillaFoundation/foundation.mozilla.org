@@ -56,6 +56,10 @@
   .two-column-container__column {
     flex: 1;
 
+    > .mzf-c-button {
+      margin-block: var(--space-16);
+    }
+
     > .rich-text-block *:first-child {
       margin-top: 0;
     }

@@ -7,6 +7,8 @@ from foundation_cms.blocks.link_block import LinkBlock
 class BaseLinkButtonBlock(BaseBlock, LinkBlock):
     """A link rendered as a button, without any alignment control."""
 
+    is_cosmos_block = True
+
     style = blocks.ChoiceBlock(
         choices=[
             ("btn-primary", "Primary"),
