@@ -43,3 +43,29 @@ class TestBaseLinkBlockClean(TestCase):
             cm.exception.block_errors["external_url"].message,
             "You need to add a external url link",
         )
+
+
+class TestLinkValueURL(TestCase):
+    def test_stored_hash_is_not_doubled(self):
+        """The editor is made to save "#section-1", so `url` must not prepend a second "#"."""
+        block = LinkBlockFactory(link_to="anchor", anchor="#section-1")
+
+        self.assertEqual(block.url, "#section-1")
+
+    def test_anchor_saved_without_hash_gets_one(self):
+        """Anchors saved before AnchorLinkValidator existed have no leading "#"."""
+        block = LinkBlockFactory(link_to="anchor", anchor="section-1")
+
+        self.assertEqual(block.url, "#section-1")
+
+    def test_anchor_resolves_without_link_to(self):
+        """Translated pages can come through without `link_to`; the fallback must find the anchor."""
+        block = LinkBlockFactory(link_to="", anchor="#section-1", external_url="")
+
+        self.assertEqual(block.url, "#section-1")
+
+    def test_block_with_no_link_has_no_url(self):
+        """An empty block must not resolve to a bare "#", "tel:" or "mailto:"."""
+        block = LinkBlockFactory(link_to="", anchor="", external_url="")
+
+        self.assertIsNone(block.url)
