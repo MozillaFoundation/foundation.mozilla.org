@@ -1,0 +1,197 @@
+// Ported from LP components/elements/buttons/primary/styles.css
+// Source: https://mozilla-design-system.vercel.app/#content
+// Embedded Button files["styles.css"], captured 2026-10-06.
+// The public frontend does not expose a verified upstream commit.
+
+/*
+   Seven variants by three states. State is a pseudo-class, not a class:
+   the design file draws Hover and Disabled as variants because Figma has
+   no other way to draw them. */
+
+.mzf-c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  /* Five knobs, each defaulting to the value this element is drawn at, so
+     a button that sets nothing renders exactly as before. A holder that
+     draws the button a step tighter sets them on its own class.
+     blocks/cards/action is the first holder: its mobile button is drawn at
+     gap 8, inline inset 16 and a fixed 38 high.
+     blocks/sections/footer is the second: its Donate button is a raw frame
+     drawn on gray/900 rather than on the ink every other primary takes, and
+     its label is tracked at minus one percent rather than plus one. */
+  gap: var(--mzf-button-gap, var(--space-12));
+  padding-block: var(--space-10);
+  padding-inline: var(--mzf-button-padding-inline, var(--space-20));
+  block-size: var(--mzf-button-block-size, auto);
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-control);
+  letter-spacing: var(
+    --mzf-button-letter-spacing,
+    var(--letter-spacing-control)
+  );
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-button:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-10);
+}
+
+.mzf-c-button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: default;
+}
+
+/* ---------- the icon ----------
+   24px box, 12px glyph, centered. The glyph inherits color, so one asset
+   serves the ink and the paper variants. It points along the reading
+   direction, so it flips. */
+.mzf-c-button__icon {
+  inline-size: var(--size-icon-medium);
+  block-size: var(--size-icon-medium);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  transition: transform var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-button__icon svg {
+  display: block;
+  inline-size: var(--size-icon-glyph);
+  block-size: auto;
+}
+
+.mzf-c-button--primary-icon:hover:not(:disabled) .mzf-c-button__icon,
+.mzf-c-button--cta-stroke-icon:hover:not(:disabled) .mzf-c-button__icon {
+  transform: translateX(var(--space-4));
+}
+
+[dir="rtl"] .mzf-c-button__icon {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"]
+  .mzf-c-button--primary-icon:hover:not(:disabled)
+  .mzf-c-button__icon,
+[dir="rtl"]
+  .mzf-c-button--cta-stroke-icon:hover:not(:disabled)
+  .mzf-c-button__icon {
+  transform: scaleX(-1) translateX(calc(-1 * var(--space-4)));
+}
+
+/* ---------- primary ---------- */
+.mzf-c-button--primary {
+  background: var(--mzf-button-surface, var(--color-surface-inverse));
+  color: var(--color-text-inverse);
+}
+
+.mzf-c-button--primary:hover:not(:disabled) {
+  background: var(--color-surface-inverse-hover);
+}
+
+/* ---------- primary-white ---------- */
+.mzf-c-button--primary-white {
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+}
+
+.mzf-c-button--primary-white:hover:not(:disabled) {
+  background: var(--color-surface-raised);
+}
+
+/* ---------- primary-grey ----------
+   The quiet fill. Its disabled cell is the one place a variant does not simply fade: the
+   file swaps the gray fill for white before dropping the opacity, so the
+   control leaves the page rather than sitting on it as a ghost. */
+.mzf-c-button--primary-grey {
+  background: var(--color-surface-raised);
+  color: var(--color-text-default);
+}
+
+.mzf-c-button--primary-grey:hover:not(:disabled) {
+  background: var(--color-surface-raised-hover);
+}
+
+.mzf-c-button--primary-grey:disabled {
+  background: var(--color-surface-default);
+}
+
+/* ---------- CTA stroke ----------
+   The file draws the stroke inside the 40px box: a CTA Stroke symbol is the
+   same 40px tall as the primary beside it, not 42. An inset box-shadow is
+   the stroke that takes no layout space, which is what keeps a mixed row of
+   buttons on one baseline. A border would push the control to 42. */
+.mzf-c-button--cta-stroke {
+  box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-border-default);
+  color: var(--color-text-default);
+}
+
+.mzf-c-button--cta-stroke:hover:not(:disabled) {
+  background: var(--color-surface-raised);
+}
+
+/* ---------- icon variants ----------
+   Gap goes to zero and the trailing padding tightens to 12px. The icon box
+   carries its own whitespace, so a 12px gap would read as 24. Block padding
+   drops to 8px because the 24px icon box is taller than the 20.25px line
+   box, and the file holds the control at 40px either way. */
+.mzf-c-button--primary-icon,
+.mzf-c-button--cta-stroke-icon {
+  gap: var(--space-0);
+  padding-block: var(--space-8);
+  padding-inline-end: var(--space-12);
+}
+
+.mzf-c-button--primary-icon {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+}
+
+.mzf-c-button--primary-icon:hover:not(:disabled) {
+  background: var(--color-surface-inverse-hover);
+}
+
+.mzf-c-button--cta-stroke-icon {
+  box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-border-default);
+  color: var(--color-text-default);
+}
+
+.mzf-c-button--cta-stroke-icon:hover:not(:disabled) {
+  background: var(--color-surface-raised);
+}
+
+/* ---------- nav ----------
+   The odd one out. No fill, no stroke, and its own inline padding and gap.
+   Its block padding is the same 10px as every other variant. */
+.mzf-c-button--nav {
+  gap: var(--space-10);
+  padding-inline: var(--space-16);
+  color: var(--color-text-default);
+}
+
+.mzf-c-button--nav:hover:not(:disabled) {
+  background: var(--color-surface-quiet-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-button,
+  .mzf-c-button__icon {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}
