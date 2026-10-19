@@ -128,7 +128,7 @@ describe("initSearchToggle", () => {
     );
   });
 
-  it("repositions the search drawer on resize and scroll", () => {
+  it("repositions the search drawer on resize, scroll and pencil banner height changes", () => {
     buildSearchMarkup();
     const primaryNav = document.querySelector(".primary-nav-ns");
     const searchToggle = document.querySelector(".search-toggle");
@@ -164,6 +164,16 @@ describe("initSearchToggle", () => {
         "--primary-nav-search-top",
       ),
     ).toBe("43px");
+
+    // Dismissing the pencil banner moves the nav without a scroll or resize.
+    navBottom = 88;
+    document.dispatchEvent(new CustomEvent(EVENTS.pencilBannerHeightChange));
+
+    expect(
+      document.documentElement.style.getPropertyValue(
+        "--primary-nav-search-top",
+      ),
+    ).toBe("88px");
   });
 
   it("closes the search drawer when Escape is pressed in the input", () => {

@@ -4,6 +4,7 @@ import {
   DISMISSED_CLASS,
   initDonatePencilBanner,
 } from "./donate_pencil_banner.js";
+import { EVENTS } from "./primary_nav/config.js";
 
 const DISMISS_KEY = "9f1c2d3e-0000-4000-8000-000000000000";
 
@@ -141,6 +142,20 @@ describe("initDonatePencilBanner", () => {
 
     expect(document.querySelector(".donate-pencil-banner")).toBeNull();
     setItem.mockRestore();
+  });
+
+  it("announces height changes so nav-positioned elements can re-measure", () => {
+    const listener = vi.fn();
+    document.addEventListener(EVENTS.pencilBannerHeightChange, listener);
+    const banner = buildBannerMarkup();
+
+    initDonatePencilBanner();
+    expect(listener).toHaveBeenCalledTimes(1);
+
+    banner.querySelector("[data-donate-pencil-banner-close]").click();
+    vi.runAllTimers();
+    expect(listener).toHaveBeenCalledTimes(2);
+    document.removeEventListener(EVENTS.pencilBannerHeightChange, listener);
   });
 
   it("tracks CTA clicks for A/B testing", () => {

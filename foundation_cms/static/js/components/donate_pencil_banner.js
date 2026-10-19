@@ -1,3 +1,5 @@
+import { EVENTS } from "./primary_nav/config.js";
+
 const SELECTORS = {
   banner: ".donate-pencil-banner",
   closeButton: "[data-donate-pencil-banner-close]",
@@ -35,16 +37,25 @@ function storeDismissal(key) {
 }
 
 /**
+ * Lets things positioned off the nav, like the open search drawer, re-measure.
+ */
+function announceHeightChange() {
+  document.dispatchEvent(new CustomEvent(EVENTS.pencilBannerHeightChange));
+}
+
+/**
  * Publishes the banner height as a CSS variable so the sticky nav sits below it.
  */
 function trackHeight(banner) {
   const root = document.documentElement;
   // offsetHeight rounds, which leaves a sub-pixel gap above the nav at fractional heights.
-  const update = () =>
+  const update = () => {
     root.style.setProperty(
       HEIGHT_PROPERTY,
       `${banner.getBoundingClientRect().height}px`,
     );
+    announceHeightChange();
+  };
 
   update();
   const observer = new ResizeObserver(update);
@@ -114,6 +125,7 @@ export function initDonatePencilBanner() {
       collapse(banner, () => {
         heightObserver.disconnect();
         root.style.removeProperty(HEIGHT_PROPERTY);
+        announceHeightChange();
         banner.remove();
       });
     },

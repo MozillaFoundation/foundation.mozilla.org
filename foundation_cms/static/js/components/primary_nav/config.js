@@ -45,4 +45,6 @@ export const DESKTOP_BREAKPOINT = 1024;
 export const EVENTS = {
   primaryNavWillOpen: "primaryNav:willOpen",
   searchWillOpen: "primaryNav:searchWillOpen",
+  // Fired by the pencil donate banner when the nav's sticky offset changes.
+  pencilBannerHeightChange: "donatePencilBanner:heightChange",
 };
