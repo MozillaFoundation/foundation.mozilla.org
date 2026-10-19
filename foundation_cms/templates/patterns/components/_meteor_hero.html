@@ -1,0 +1,18 @@
+{% comment %}
+  Meteor hero: one headline centred over a full-height band, with a pixel
+  meteor shower animating behind it and a scroll reminder at the foot. Built
+  on LP's primary hero (components/blocks/heros/primary). The animation is
+  drawn on the canvas by meteor_hero.js and is decorative only.
+
+  Context:
+    headline    Required. The page's h1, about 60 characters.
+    target_id   Required. The id of the first section below the hero, for the
+                scroll reminder to jump to. That element must exist.
+{% endcomment %}
+<div class="mzf-c-hero-primary meteor-hero" data-meteor-hero>
+  <canvas class="meteor-hero__canvas" aria-hidden="true"></canvas>
+  <section class="mzf-c-section" aria-labelledby="meteor-hero-headline">
+    <h1 class="mzf-c-hero-primary__headline" id="meteor-hero-headline">{{ headline }}</h1>
+  </section>
+  {% include "patterns/components/_scroll_reminder.html" with target_id=target_id classnames="mzf-c-hero-primary__reminder" %}
+</div>
