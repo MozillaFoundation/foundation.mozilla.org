@@ -464,7 +464,7 @@ class MeetMozillaBlockFactory(wagtail_factories.StructBlockFactory):
     eyebrow = "Meet Mozilla"
     heading = factory.Faker("sentence", nb_words=5)
     intro = factory.Faker("sentence", nb_words=7)
-    intro_link = []
+    intro_link: list = []
     steps = wagtail_factories.ListBlockFactory(
         MeetMozillaStepBlockFactory,
         **{"0": "", "1": "", "2": ""},
