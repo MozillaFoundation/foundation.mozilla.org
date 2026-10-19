@@ -29,7 +29,6 @@ HOMEPAGE_IMAGE_SPECS = {
     "pillar_card__1": {"filename": "arrow-up.svg", "alt_text": ""},
     "pillar_card__2": {"filename": "stairs.svg", "alt_text": ""},
     "pillar_card__3": {"filename": "rays.svg", "alt_text": ""},
-    "featured_card": {"filename": "featured_card.jpg", "alt_text": ""},
 }
 
 Image = get_image_model()
