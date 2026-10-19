@@ -1,12 +1,14 @@
 from django.conf import settings
 
 from .accordion_block import AccordionBlock
+from .call_to_action_block import CallToActionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
+from .flywheel_banner_block import FlywheelBannerBlock
 from .fru_element_block import FruElementBlock
 from .greenhouse_board_block import GreenhouseBoardBlock
 from .icon_info_grid_block import IconInfoGridBlock
@@ -38,6 +40,7 @@ from .video_block import VideoBlock
 
 
 class BlockGroups:
+    BANNERS = "Banners"
     CARDS = "Card Collections"
     DATA = "Data Display"
     ENGAGEMENT = "Engagement & Buttons"
@@ -65,6 +68,12 @@ class BlockRegistry:
         "section_start": {
             "class": SectionStartBlock,
             "group": BlockGroups.SECTIONS,
+        },
+        # Banners
+        "flywheel_banner": {
+            "class": FlywheelBannerBlock,
+            "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.BANNERS,
         },
         # Card Collections
         "featured_card_block": {
@@ -121,6 +130,11 @@ class BlockRegistry:
             "group": BlockGroups.DATA,
         },
         # Engagement
+        "call_to_action": {
+            "class": CallToActionBlock,
+            "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.ENGAGEMENT,
+        },
         "fru_element_block": {
             "class": FruElementBlock,
             "group": BlockGroups.ENGAGEMENT,

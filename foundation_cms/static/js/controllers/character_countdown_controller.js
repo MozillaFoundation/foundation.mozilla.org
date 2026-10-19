@@ -12,7 +12,7 @@ const RICH_TEXT_SELECTOR = [
 ].join(", ");
 
 /**
- * Adds localized character countdowns to limited, non-rich-text fields in a
+ * Adds character countdowns to limited, non-rich-text fields in a
  * Wagtail edit form.
  *
  * Uses a scoped MutationObserver to initialize counters for fields added
@@ -143,26 +143,16 @@ export default class extends window.StimulusModule.Controller {
   }
 
   /**
-   * Formats a localized singular or plural countdown message.
+   * Formats a singular or plural countdown message.
    *
    * @param {number} remaining
    * @returns {string}
    */
   formatCount(remaining) {
     const count = Math.abs(remaining);
-    const message =
-      remaining < 0
-        ? window.ngettext(
-            "%(count)s character over limit",
-            "%(count)s characters over limit",
-            count,
-          )
-        : window.ngettext(
-            "%(count)s character remaining",
-            "%(count)s characters remaining",
-            count,
-          );
+    const unit = count === 1 ? "character" : "characters";
+    const status = remaining < 0 ? "over limit" : "remaining";
 
-    return window.interpolate(message, { count }, true);
+    return `${count} ${unit} ${status}`;
   }
 }
