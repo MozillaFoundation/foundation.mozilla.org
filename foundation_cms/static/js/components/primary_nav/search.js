@@ -121,6 +121,10 @@ class PrimaryNavSearchDrawerController {
 
   addViewportListeners() {
     window.addEventListener("resize", this.handleViewportChange);
+    document.addEventListener(
+      EVENTS.pencilBannerHeightChange,
+      this.handleViewportChange,
+    );
     window.addEventListener("scroll", this.handleViewportChange, {
       passive: true,
     });
@@ -128,6 +132,10 @@ class PrimaryNavSearchDrawerController {
 
   removeViewportListeners() {
     window.removeEventListener("resize", this.handleViewportChange);
+    document.removeEventListener(
+      EVENTS.pencilBannerHeightChange,
+      this.handleViewportChange,
+    );
     window.removeEventListener("scroll", this.handleViewportChange);
   }
 }
