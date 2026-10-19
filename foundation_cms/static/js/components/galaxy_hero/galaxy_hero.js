@@ -95,7 +95,7 @@ export class GalaxyHero {
     }
     window.addEventListener("scroll", this.onScroll, { passive: true });
     document.addEventListener("visibilitychange", this.update);
-    this.reducedMotion?.addEventListener("change", this.update);
+    this.reducedMotion?.addEventListener?.("change", this.update);
     this.resize();
     this.update();
     document.fonts?.ready.then(() => {
@@ -187,7 +187,7 @@ export class GalaxyHero {
     this.resizeObserver?.disconnect();
     window.removeEventListener("scroll", this.onScroll);
     document.removeEventListener("visibilitychange", this.update);
-    this.reducedMotion?.removeEventListener("change", this.update);
+    this.reducedMotion?.removeEventListener?.("change", this.update);
     this.root.classList.remove("galaxy-hero--enhanced");
     delete this.root.dataset.galaxyInitialized;
   }

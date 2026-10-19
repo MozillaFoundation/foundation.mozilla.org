@@ -176,4 +176,20 @@ describe("Galaxy lifecycle", () => {
     expect(hero.root.classList.contains("galaxy-hero--enhanced")).toBe(false);
     expect(frames.size).toBe(0);
   });
+
+  it("initializes and cleans up when the media query has no event listener methods", () => {
+    hero.destroy();
+    vi.stubGlobal("matchMedia", () => ({ matches: true }));
+    hero = new GalaxyHero(document.querySelector("[data-galaxy-hero]"));
+    expect(() => hero.init()).not.toThrow();
+    expect(hero.renderer.resize).toHaveBeenCalled();
+    expect(hero.renderer.draw).toHaveBeenLastCalledWith(
+      expect.any(Number),
+      0,
+      true,
+    );
+    expect(frames.size).toBe(0);
+    expect(() => hero.destroy()).not.toThrow();
+    expect(hero.root.classList.contains("galaxy-hero--enhanced")).toBe(false);
+  });
 });
