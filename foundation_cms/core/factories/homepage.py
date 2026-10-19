@@ -10,6 +10,7 @@ from foundation_cms.base.utils.helpers import reseed
 from foundation_cms.core.factories.homepage_data import (
     build_homepage_body,
     build_homepage_hero_accordion,
+    build_homepage_meet_mozilla,
 )
 from foundation_cms.core.models.home_page import HomePage
 from foundation_cms.snippets.factories import ensure_homepage_newsletters
@@ -108,6 +109,7 @@ def generate(parent=None, seed=42, slug="redesign-home"):
         ),
         locale=locale,
         hero_accordion=build_homepage_hero_accordion(images),
+        meet_mozilla=build_homepage_meet_mozilla(),
         body=build_homepage_body(main_newsletter_id=newsletters["main"].id, images=images),
     )
 

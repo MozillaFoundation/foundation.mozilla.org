@@ -33,6 +33,10 @@ from foundation_cms.blocks.link_block import LinkBlock, LinkValue
 from foundation_cms.blocks.link_button_block import LinkButtonBlock
 from foundation_cms.blocks.list_block import ListBlock
 from foundation_cms.blocks.media_block import CustomMediaBlock
+from foundation_cms.blocks.meet_mozilla_block import (
+    MeetMozillaBlock,
+    MeetMozillaStepBlock,
+)
 from foundation_cms.blocks.newsletter_signup_block import NewsletterSignupBlock
 from foundation_cms.blocks.newsletter_unsubscribe_block import (
     NewsletterUnsubscribeBlock,
@@ -442,6 +446,28 @@ class AccordionBlockFactory(wagtail_factories.StructBlockFactory):
     accordion_items = wagtail_factories.ListBlockFactory(
         AccordionBlockItemFactory,
         **{"0": "", "1": ""},
+    )
+
+
+class MeetMozillaStepBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = MeetMozillaStepBlock
+
+    label = factory.Faker("word")
+    statement = factory.Faker("sentence", nb_words=12)
+
+
+class MeetMozillaBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = MeetMozillaBlock
+
+    eyebrow = "Meet Mozilla"
+    heading = factory.Faker("sentence", nb_words=5)
+    intro = factory.Faker("sentence", nb_words=7)
+    intro_link = []
+    steps = wagtail_factories.ListBlockFactory(
+        MeetMozillaStepBlockFactory,
+        **{"0": "", "1": "", "2": ""},
     )
 
 

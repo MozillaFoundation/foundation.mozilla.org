@@ -1,0 +1,9 @@
+// LP's Meet Mozilla (cosmos/blocks/sections/_meet-mozilla.scss) keeps a fixed 148px
+// inset, so wider than its 1440px design the intro and the steps drift apart. Cap the
+// header and the two columns at LP's content width and center them, as LP's section
+// master does, while the colored band stays full width. Nothing changes at 1440px and
+// below, where the content is already 1144px.
+.mzf-c-meet-mozilla > * {
+  max-inline-size: var(--size-content-max);
+  margin-inline: auto;
+}
