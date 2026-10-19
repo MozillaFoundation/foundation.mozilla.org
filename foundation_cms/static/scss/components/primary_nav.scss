@@ -388,10 +388,19 @@ $primary-nav-margin: 0.7rem;
 body.primary-nav-ns-open {
   height: 100vh;
   overflow: hidden;
-  padding-top: $primary-nav-height;
+  padding-top: calc(
+    #{$primary-nav-height} + var(--donate-pencil-banner-height, 0px)
+  );
 
   .primary-nav-ns {
     position: fixed;
+  }
+
+  // Pin the banner above the fixed nav, or the body padding pushes it over the menu controls.
+  .donate-pencil-banner {
+    position: fixed;
+    left: 0;
+    width: 100%;
   }
 }
 
