@@ -27,6 +27,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  galaxy_hero: {
+    source: "pages/galaxy_hero.js",
+    jsx: false,
+    bundle: true,
+  },
   home_page: {
     source: "pages/home_page.js",
     jsx: false,
