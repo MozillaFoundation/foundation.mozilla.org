@@ -1,0 +1,498 @@
+{
+  "size": {
+    "control": {
+      "height": {
+        "value": "38px",
+        "description": "Set explicitly on primary, CTA Stroke and the icon variants. Never on nav or primary-white, which take their height from padding."
+      }
+    },
+    "logo": {
+      "wordmark-large": {
+        "value": "115.06px",
+        "description": "The drawn height of the large wordmark. Exported geometry, not a chosen value."
+      },
+      "mark": {
+        "value": "37.653px",
+        "description": "The drawn height of the M mark. Exported geometry, not a chosen value."
+      },
+      "wordmark": {
+        "value": "37.884px",
+        "description": "The drawn height of the wordmark. A quarter pixel taller than the mark, which is why the two are centered against each other rather than sharing a height."
+      }
+    },
+    "thumbnail": {
+      "condensed": {
+        "value": "10px",
+        "description": "A thumbnail collapsed to a marker. The image is hidden and only the backing shows."
+      },
+      "expanded": {
+        "value": "120px",
+        "description": "A thumbnail showing its image. The default."
+      },
+      "banner": {
+        "value": "80px",
+        "description": "A thumbnail inside a notification banner."
+      },
+      "overscan": {
+        "value": "130px",
+        "description": "The image inside a thumbnail under the pointer, where the holder draws a crop. Figma 7666:4774 draws it at -5, -5 in a 120px box, which is the only size the file crops at, so it is an absolute size rather than a ratio."
+      }
+    },
+    "chip": {
+      "big-label-marker": {
+        "value": "10px",
+        "description": "Figma 9957:7. The square that marks a highlight in a big label."
+      }
+    },
+    "card": {
+      "marker": {
+        "value": "10px",
+        "description": "The square that marks a category on an intro card."
+      },
+      "marker-story": {
+        "value": "8px",
+        "description": "The square that marks a story in a mega menu. Smaller than the one on a card, because it sits beside a link rather than a heading."
+      },
+      "portrait-inline": {
+        "value": "143px",
+        "description": "The portrait image on the second editorial card and on a carousel portrait slide."
+      },
+      "portrait-block": {
+        "value": "179px",
+        "description": "The portrait image on the second editorial card and on a carousel portrait slide."
+      },
+      "portrait-inline-hover": {
+        "value": "172px",
+        "description": "The portrait image on a carousel portrait slide under the pointer."
+      },
+      "portrait-block-hover": {
+        "value": "215px",
+        "description": "The portrait image on a carousel portrait slide under the pointer."
+      },
+      "editorial-portrait-block": {
+        "value": "511.33px",
+        "description": "Figma 10032:2. The height the second editorial card is drawn at. Its column is space-between against this, so the height is what sets the spacing rather than a gap."
+      },
+      "editorial-portrait-block-mobile": {
+        "value": "408px",
+        "description": "Figma 10032:37. The height the second editorial card is drawn at below the mobile breakpoint."
+      },
+      "editorial-overscan": {
+        "value": "1.0425",
+        "description": "How far an editorial card's image grows past its box under the pointer. The file draws 335 inside 321.33."
+      },
+      "editorial-grow": {
+        "value": "13.67px",
+        "description": "How much the first editorial card grows its image box under the pointer. Figma 9918:36934 draws 335 against the resting 321.33. The headline gives up the same amount above the link, so the card and the link do not move."
+      },
+      "portrait-image-mobile": {
+        "value": "80px",
+        "description": "Figma 10165:120. The square image on a portrait card below the breakpoint, where the card becomes a row."
+      },
+      "figure-mobile": {
+        "value": "110px",
+        "description": "The column Figma 9918:36980 draws an impact number's figure in below the mobile breakpoint, so the lines beside a stack of them start on one edge."
+      },
+      "mark": {
+        "value": "13px",
+        "description": "The height every card network mark is drawn at. The five marks are the same 19 by 13 box."
+      }
+    },
+    "index-card": {
+      "marker": {
+        "value": "12px",
+        "description": "The square that marks a closed index card at desktop width. Figma 8726:32289 draws the Thumbnail instance at 12 on desktop and at 10 on mobile, so the row carries its own marker size rather than the shared condensed thumbnail."
+      },
+      "marker-mobile": {
+        "value": "10px",
+        "description": "The square that marks a closed index card at mobile width. Figma 8726:32285 draws the Thumbnail instance at 10, one step down from the 12 the desktop row draws."
+      },
+      "frame-mobile": {
+        "value": "402px",
+        "description": "The width Figma 8726:32289 draws the mobile index card at. The stacked preview is held to this width so it reads at its drawn measure."
+      }
+    },
+    "carousel": {
+      "slide-inline": {
+        "value": "361.333px",
+        "description": "The width of a carousel slide at desktop."
+      },
+      "slide-block": {
+        "value": "511.33px",
+        "description": "The height of a carousel slide at desktop."
+      },
+      "slide-inline-mobile": {
+        "value": "290px",
+        "description": "The width of a carousel slide below the mobile breakpoint."
+      },
+      "peek": {
+        "value": "100px",
+        "description": "How much of the next card carousel slide shows beside the active one below the mobile breakpoint. Figma 10165:18 is 402 wide, draws the first slide flush at x=0 and the second at x=302, so a 290px slide and a 12px gap leave 100px."
+      },
+      "slide-block-mobile": {
+        "value": "408px",
+        "description": "The height of a carousel slide below the mobile breakpoint."
+      },
+      "inset-inline": {
+        "value": "148px",
+        "description": "The inset that aligns a carousel heading and track with the page grid at desktop. Cards intentionally overflow the trailing edge."
+      },
+      "section-block": {
+        "value": "200px",
+        "description": "Vertical padding on a carousel section at desktop."
+      },
+      "section-block-mobile": {
+        "value": "120px",
+        "description": "Vertical padding on a carousel section below the mobile breakpoint."
+      }
+    },
+    "blockquote": {
+      "portrait": {
+        "value": "120px",
+        "description": "The square portrait beside a pull quote at desktop. Figma 9888:42738, an aspect-ratios instance drawn 120 by 120."
+      },
+      "portrait-mobile": {
+        "value": "80px",
+        "description": "The same portrait below the mobile breakpoint. Figma 10172:42318, drawn 80 by 80 above the quote rather than beside it."
+      }
+    },
+    "icon-button": {
+      "box": {
+        "value": "40px",
+        "description": "The whole icon button. The 24px icon box inside 8px of padding on every side."
+      }
+    },
+    "pay": {
+      "button": {
+        "value": "40px",
+        "description": "The height of a pay button. Ten pixels of padding above and below a 20px mark."
+      },
+      "button-inline": {
+        "value": "152.5px",
+        "description": "The width of a pay button. All six symbols on 9565:47494 are drawn at this width, so the three wallets share one box and the narrower marks center themselves inside it."
+      },
+      "mark": {
+        "value": "20px",
+        "description": "The height every payment mark is drawn at. The three marks are different widths and keep their own aspect ratio."
+      }
+    },
+    "icon": {
+      "medium": {
+        "value": "24px",
+        "description": "Figma scale/icon/medium. The icon box, not the glyph inside it."
+      },
+      "glyph": {
+        "value": "12px",
+        "description": "The drawn width of an icon inside the 24px box. Exported geometry, not a chosen value."
+      },
+      "large": {
+        "value": "32px",
+        "description": "Figma scale/icon/large. The expand box on an accordion below the mobile breakpoint. The plus inside it is drawn 12px wide."
+      },
+      "xlarge": {
+        "value": "48px",
+        "description": "Figma scale/icon/xlarge. The expand box on an accordion. The plus inside it is drawn 18px wide."
+      }
+    },
+    "engagement-banner": {
+      "height": {
+        "value": "30px",
+        "description": "The drawn height of the engagement banner at desktop. Figma 9383:10726 fixes it rather than deriving it from padding. Below the breakpoint the band has no fixed height and its padding sets it."
+      },
+      "dot": {
+        "value": "4px",
+        "description": "The square separating the title from the link on the engagement banner. Figma 9381:16871, drawn 4 by 4 with no corner radius. Desktop only."
+      }
+    },
+    "content": {
+      "max": {
+        "value": "1144px",
+        "description": "The widest a section's content is drawn. The handoff file draws every desktop screen on a 1440 frame with section/horz 148 on each side, so 1440 minus 296 is the content column every desktop block is measured inside, including the 1144 the primary hero's 800px headline maximum sits in. Above 1440 the file draws nothing, so the section holds the content at this width and lets the margins take the surplus."
+      }
+    },
+    "breakpoint": {
+      "mobile": {
+        "value": "48rem",
+        "description": "Below this width a component uses its mobile drawing. The Figma library draws mobile frames at 402px and desktop frames at 803px but names no breakpoint variable, so this value is chosen rather than extracted."
+      }
+    },
+    "footer": {
+      "inset": {
+        "value": "30px",
+        "description": "The footer's padding at desktop, on all four sides of the content. Figma 8757:47795 draws it unbound, so it is a measured value rather than a spacing variable. Below the mobile breakpoint the inset is spacing-20."
+      },
+      "top-gap": {
+        "value": "240px",
+        "description": "The distance from the footer's top bar down to its content at desktop. Figma 8757:47516 draws it unbound, not as a spacing variable. Below the mobile breakpoint the same gap is spacing-64."
+      },
+      "donate-column": {
+        "value": "323px",
+        "description": "The width of the footer's donate column. Figma 8757:47529 draws the two-line invitation at this width at both breakpoints, which is what sets the line break."
+      },
+      "nav-column": {
+        "value": "205px",
+        "description": "The width of one footer link column. Figma 8757:47534 draws both columns at this width, so the two sit 32 apart at desktop and stack at mobile."
+      },
+      "newsletter": {
+        "value": "231px",
+        "description": "The width the footer places the newsletter element at. Figma draws the instance 10111:53 at 231 on desktop and 10111:62 at 231 inside a 362 column on mobile, so it is a placed width rather than the element's own."
+      },
+      "social-icon": {
+        "value": "16px",
+        "description": "The box each social glyph is drawn in. Figma 8757:47565. Smaller than scale/icon/medium, because the row sits under a form rather than beside a heading."
+      },
+      "link-arrow": {
+        "value": "7.995px",
+        "description": "The drawn size of the arrow that marks a footer link as leaving the site. Exported geometry, not a chosen value."
+      },
+      "chevron": {
+        "value": "10.101px",
+        "description": "The drawn width of the chevron beside the language choice. Exported geometry, not a chosen value."
+      },
+      "wordmark-stacked": {
+        "value": "330px",
+        "description": "The drawn width of the two-line wordmark the footer uses below the mobile breakpoint. Figma 8757:47780. It is artwork at a fixed size, not a full-width mark, and the 362 column leaves 32 beside it."
+      }
+    },
+    "pre-footer": {
+      "inset-inline": {
+        "value": "148px",
+        "description": "The inset that aligns the pre-footer content with the page grid at desktop. Figma section/horz on 10237:30958."
+      },
+      "inset-inline-mobile": {
+        "value": "20px",
+        "description": "The same inset below the mobile breakpoint. Figma section/horz on 10232:126047."
+      },
+      "section-block": {
+        "value": "200px",
+        "description": "Vertical padding on the pre-footer at desktop. Figma section/vert-large on 10237:30958. The band has no fixed height: this padding plus the content sets it."
+      },
+      "section-block-mobile": {
+        "value": "64px",
+        "description": "Vertical padding on the pre-footer below the mobile breakpoint. Figma section/vert-large on 10232:126047."
+      },
+      "section-block-default": {
+        "value": "180px",
+        "description": "Block-start padding on the pre-footer's Version=default cell at desktop. Figma 8757:48992, which pads 180 at the start and 148 at the end. Its inner frame adds 24 of its own on both sides, so 180+24+69+24+148 is the drawn 445."
+      },
+      "section-block-default-end": {
+        "value": "148px",
+        "description": "Block-end padding on the pre-footer's Version=default cell at desktop. Figma 8757:48992. The band is drawn asymmetrically; Version=new is 200 on both sides."
+      },
+      "control-inset": {
+        "value": "32px",
+        "description": "How far the pause control sits from the block-end and inline-end edges at desktop. Measured on 10237:30991, which is absolutely placed rather than in flow."
+      },
+      "control-inset-mobile": {
+        "value": "20px",
+        "description": "The same inset below the mobile breakpoint. Measured on 10232:126075."
+      }
+    },
+    "super-cta": {
+      "arrow-box": {
+        "value": "80px",
+        "description": "The icon box on a single super CTA at desktop. Figma 10206:41861. It is the box, not the glyph, and it is what sets the height of the row."
+      },
+      "arrow": {
+        "value": "40px",
+        "description": "The drawn width of the arrow glyph on a single super CTA at desktop. Figma 10206:41861 holds it in an 80px icon box and draws the glyph 40 by 38.5."
+      },
+      "arrow-mobile": {
+        "value": "24px",
+        "description": "The drawn width of the same arrow below the mobile breakpoint, and on a multi row. Figma 10206:41851 holds it in a 48px icon box and draws the glyph 24 by 23.1."
+      }
+    },
+    "search-filter": {
+      "search-max": {
+        "value": "360px",
+        "description": "The widest the search box grows. Figma 10159:73146 fills its row with maxWidth 360, so the box grows to 360 and then stops while the filters keep their own widths."
+      },
+      "filter": {
+        "value": "153px",
+        "description": "The drawn width of one filter above the breakpoint. Figma 10159:73150 and 10159:73170 are both fixed at 153. Below the breakpoint the two filters share the row instead."
+      }
+    },
+    "banner": {
+      "height": {
+        "value": "456px",
+        "description": "Figma 8363:4466 and 8363:4462. A section banner of Type=Modular Image Fill or Multicolor Collage is drawn 456 tall at both breakpoints. Type=Image Fill has no fixed height; its box comes from its padding."
+      },
+      "panel": {
+        "value": "421px",
+        "description": "Figma 8363:4260. The apricot mark panel beside the media in a desktop Modular Image Fill banner."
+      },
+      "panel-block-mobile": {
+        "value": "120px",
+        "description": "Figma 8859:65363. The same mark panel at mobile, where it becomes a full-width band above the media."
+      },
+      "mark-inline": {
+        "value": "217.447px",
+        "description": "Figma 8363:4262. The mark's drawn width inside the desktop panel."
+      },
+      "mark-block": {
+        "value": "252.627px",
+        "description": "Figma 8363:4262. The mark's drawn height inside the desktop panel."
+      },
+      "mark-inline-mobile": {
+        "value": "61.98px",
+        "description": "Figma 8859:65365. The mark's drawn width inside the mobile band. The mark is stretched, not scaled: its mobile box is a different aspect ratio to its desktop box."
+      },
+      "mark-block-mobile": {
+        "value": "66.48px",
+        "description": "Figma 8859:65365. The mark's drawn height inside the mobile band."
+      },
+      "collage-band": {
+        "value": "802.921px",
+        "description": "Figma 8783:56264. The width of one band of the Multicolor Collage motif at desktop. Every other measurement in the motif is a fixed ratio of this one, so the whole collage scales from it."
+      },
+      "collage-band-mobile": {
+        "value": "572.626px",
+        "description": "Figma 8859:65835. The same band at mobile. 0.7132 of the desktop band, and the motif is otherwise identical."
+      }
+    },
+    "meet-mozilla": {
+      "intro-inline": {
+        "value": "440px",
+        "description": "The sticky intro column beside the statement list at desktop. Measured on 7857:2529."
+      },
+      "list-inline": {
+        "value": "675px",
+        "description": "The statement column at desktop. Measured on 7857:2532. The 29px between the two columns is space-between slack across a 1144 row, not a gap."
+      },
+      "intro-offset": {
+        "value": "371px",
+        "description": "Block padding above and below the sticky intro, which is what holds it near the middle of the viewport while the statements scroll past. Measured on 7857:2529 at both breakpoints."
+      },
+      "list-lead": {
+        "value": "700px",
+        "description": "The runway above the first statement, so the intro is read alone before a statement arrives. Measured on 7857:2532."
+      },
+      "list-lead-mobile": {
+        "value": "328px",
+        "description": "The same runway below the mobile breakpoint. The file draws it as two overlapping frames on 10131:281, so it is measured from the render: the first statement sits at 797 and the intro copy ends at 469."
+      },
+      "list-tail": {
+        "value": "820px",
+        "description": "The runway below the last statement, so the last background color holds until the section leaves. Measured on 7857:2543."
+      }
+    },
+    "orbit": {
+      "block": {
+        "value": "1398px",
+        "description": "The drawn height of an orbit section at desktop. 10279:37927 is a fixed-height symbol, so the height is a value and not a consequence of the content."
+      },
+      "block-mobile": {
+        "value": "1096px",
+        "description": "The drawn height of an orbit section at mobile. 10279:37926 is fixed the same way."
+      },
+      "column": {
+        "value": "666px",
+        "description": "The width of the text column at desktop. 10279:37914 is FIXED horizontally at 666 inside a 1440 symbol."
+      },
+      "column-mobile": {
+        "value": "362px",
+        "description": "The width of the text column at mobile. 402 less the 20 gutter on each side."
+      },
+      "column-lead": {
+        "value": "250px",
+        "description": "Block padding above the text inside the column. Drawn as a raw 250 on 10279:37914 and 10279:37918, bound to no spacing variable, unlike the 200 below it."
+      },
+      "column-block": {
+        "value": "305px",
+        "description": "The block offset of the text column at desktop. The column is pinned MIN vertically, so this is its distance from the section start. Mobile pins it CENTER instead and needs no value."
+      },
+      "photo-small": {
+        "value": "151px",
+        "description": "The smallest square at desktop, 10279:37911."
+      },
+      "photo-small-mobile": {
+        "value": "75.5px",
+        "description": "The same square at mobile, 10279:37921. Halved."
+      },
+      "photo-medium": {
+        "value": "242px",
+        "description": "The middle square at desktop, 10279:37912."
+      },
+      "photo-medium-mobile": {
+        "value": "75.5px",
+        "description": "The same square at mobile, 10279:37922. Cut to just under a third, not halved, so at mobile it measures the same as the small square."
+      },
+      "photo-large": {
+        "value": "297px",
+        "description": "The largest square at desktop, 10279:37913."
+      },
+      "photo-large-mobile": {
+        "value": "148.5px",
+        "description": "The same square at mobile, 10279:37923. Halved."
+      },
+      "small-inline": {
+        "value": "1047px",
+        "description": "Inline offset of the small square at desktop. Pinned MIN, so it is measured from the inline start."
+      },
+      "small-block": {
+        "value": "1019px",
+        "description": "Block offset of the small square at desktop."
+      },
+      "small-inline-mobile": {
+        "value": "266px",
+        "description": "Inline offset of the small square at mobile. Still pinned MIN."
+      },
+      "small-block-mobile": {
+        "value": "782px",
+        "description": "Block offset of the small square at mobile."
+      },
+      "medium-inline": {
+        "value": "845px",
+        "description": "Inline offset of the middle square at desktop. It sits 31 past the end of the text column."
+      },
+      "medium-block": {
+        "value": "330px",
+        "description": "Block offset of the middle square at desktop."
+      },
+      "medium-block-mobile": {
+        "value": "270px",
+        "description": "Block offset of the middle square at mobile. Its inline offset is zero: at mobile this square is flush to the inline start, which is the one place the composition changes side below the breakpoint."
+      },
+      "large-inline": {
+        "value": "1143px",
+        "description": "Inline offset of the large square at desktop. 1143 plus 297 is 1440, so the square is flush to the section's inline end."
+      },
+      "large-block": {
+        "value": "618px",
+        "description": "Block offset of the large square at desktop."
+      },
+      "large-inline-end-mobile": {
+        "value": "-0.5px",
+        "description": "The large square is the only child pinned MAX horizontally, and at mobile it is drawn half a pixel past the inline end. 254 plus 148.5 is 402.5 in a 402 symbol, and the section clips it."
+      },
+      "large-block-mobile": {
+        "value": "214px",
+        "description": "Block offset of the large square at mobile."
+      }
+    },
+    "hero-donate": {
+      "text-column": {
+        "value": "548px",
+        "description": "The width of the statement column at desktop. 10225:34312 is FIXED horizontally at 548 inside the 1144 content width of 10225:34308. The panel column takes the rest, which is 548 again, but only this one is a drawn value."
+      },
+      "panel": {
+        "value": "357px",
+        "description": "The drawn width of the donate-modal inside the hero at desktop. 10225:34316 is FIXED at 357 in a 548 column, which is the 95.5 of clearance the file draws on each side. Below the breakpoint 10225:34326 FILLs instead, so the cap is lifted rather than restated."
+      }
+    },
+    "hero-primary": {
+      "block": {
+        "value": "800px",
+        "description": "The block size of the hero band. Both symbols of 10225:34225 are drawn 800 tall, 10225:34217 at 1440 and 10225:34221 at 402, and the layout/section-master instance inside each is set to FILL vertically rather than to its own HUG, so the band is given this height rather than taking one from its content. The port applies it as a minimum so a longer headline grows the band instead of overflowing it."
+      },
+      "headline": {
+        "value": "800px",
+        "description": "The drawn maximum width of the headline at desktop. 10225:34220 carries maxWidth 800 inside the 1144 content width, which is the 172 of clearance the file draws on each side. The mobile text 10225:34224 carries no maximum and fills its 362 column, so the cap is lifted below the breakpoint rather than restated."
+      }
+    }
+  },
+  "$meta": {
+    "provenance": "figma T23KVRqZcCFU8MZxPnVDqD, nodes 8704:26909 (button), 7666:4776 (thumbnail), 7714:3363 (notification-banner), 8704:28131 (logo), 7224:378 (wordmark), 8556:12262 (accordion), 9687:21588 (icon-button); group orbit from node 10279:37928",
+    "verified": true
+  }
+}

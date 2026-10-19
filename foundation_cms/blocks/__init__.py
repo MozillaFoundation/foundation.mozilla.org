@@ -7,6 +7,7 @@ from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
+from .flywheel_banner_block import FlywheelBannerBlock
 from .fru_element_block import FruElementBlock
 from .greenhouse_board_block import GreenhouseBoardBlock
 from .hero_accordion import HeroAccordionBlock
@@ -63,6 +64,7 @@ __all__ = [
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
     "FeaturedCardBlock",
+    "FlywheelBannerBlock",
     "IllustratedNewsletterSignupBlock",
     "ProjectBlock",
     "FruElementBlock",

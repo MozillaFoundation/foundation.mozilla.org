@@ -434,6 +434,7 @@ TEMPLATES = [
                     "foundation_cms.legacy_apps" ".wagtailcustomization.templatetags.wagtailcustom_tags"
                 ),
                 "language_switcher_tags": "foundation_cms.templatetags.language_switcher_tags",
+                "section_tags": "foundation_cms.templatetags.section_tags",
                 "seo_tags": "foundation_cms.templatetags.seo_tags",
                 "utility_tags": "foundation_cms.templatetags.utility_tags",
             },
