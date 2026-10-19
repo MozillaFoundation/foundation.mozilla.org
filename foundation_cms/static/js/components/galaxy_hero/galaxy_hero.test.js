@@ -124,4 +124,56 @@ describe("Galaxy lifecycle", () => {
     intersection([{ isIntersecting: true }]);
     expect(frames.size).toBe(1);
   });
+
+  it("animates without optional browser APIs and still pauses in a hidden tab", () => {
+    hero.destroy();
+    delete window.matchMedia;
+    delete window.ResizeObserver;
+    delete window.IntersectionObserver;
+    hero = new GalaxyHero(document.querySelector("[data-galaxy-hero]"));
+    hero.init();
+    expect(hero.renderer.resize).toHaveBeenCalled();
+    expect(hero.renderer.draw).toHaveBeenLastCalledWith(
+      expect.any(Number),
+      0,
+      false,
+    );
+    expect(frames.size).toBe(1);
+    hidden = true;
+    document.dispatchEvent(new Event("visibilitychange"));
+    expect(frames.size).toBe(0);
+    hidden = false;
+    document.dispatchEvent(new Event("visibilitychange"));
+    expect(frames.size).toBe(1);
+    expect(() => hero.destroy()).not.toThrow();
+    expect(frames.size).toBe(0);
+  });
+
+  it("keeps reduced-motion stills when intersection observation is unavailable", () => {
+    hero.destroy();
+    delete window.IntersectionObserver;
+    motion.matches = true;
+    hero = new GalaxyHero(document.querySelector("[data-galaxy-hero]"));
+    hero.init();
+    expect(frames.size).toBe(0);
+    hero.renderer.draw.mockClear();
+    window.dispatchEvent(new Event("scroll"));
+    expect(hero.renderer.draw).toHaveBeenCalledExactlyOnceWith(
+      expect.any(Number),
+      0,
+      true,
+    );
+    hero.destroy();
+    hero.renderer.draw.mockClear();
+    window.dispatchEvent(new Event("scroll"));
+    expect(hero.renderer.draw).not.toHaveBeenCalled();
+  });
+
+  it("leaves the HTML fallback visible when canvas has no context API", () => {
+    hero.destroy();
+    hero.canvas.getContext = undefined;
+    expect(() => hero.init()).not.toThrow();
+    expect(hero.root.classList.contains("galaxy-hero--enhanced")).toBe(false);
+    expect(frames.size).toBe(0);
+  });
 });

@@ -36,7 +36,9 @@ export class GalaxyHero {
     this.root = root;
     this.stage = root.querySelector(SELECTORS.stage);
     this.canvas = root.querySelector(SELECTORS.canvas);
-    this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    this.reducedMotion = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    );
     this.frameId = null;
     this.initialized = false;
     this.lastFrameAt = null;
@@ -48,7 +50,10 @@ export class GalaxyHero {
   }
 
   init() {
-    if (this.root.dataset.galaxyInitialized || !this.canvas?.getContext("2d")) {
+    if (
+      this.root.dataset.galaxyInitialized ||
+      !this.canvas?.getContext?.("2d")
+    ) {
       return;
     }
     const styles = getComputedStyle(this.root);
@@ -75,21 +80,32 @@ export class GalaxyHero {
     this.initialized = true;
     this.root.dataset.galaxyInitialized = "true";
     this.root.classList.add("galaxy-hero--enhanced");
-    this.resizeObserver = new ResizeObserver(() => this.resize());
-    this.resizeObserver.observe(this.stage);
-    this.intersectionObserver = new IntersectionObserver(([entry]) => {
-      this.isOnScreen = entry.isIntersecting;
-      this.update();
-    });
-    this.intersectionObserver.observe(this.stage);
+    if ("ResizeObserver" in window) {
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(this.stage);
+    }
+    if ("IntersectionObserver" in window) {
+      this.intersectionObserver = new IntersectionObserver(([entry]) => {
+        this.isOnScreen = entry.isIntersecting;
+        this.update();
+      });
+      this.intersectionObserver.observe(this.stage);
+    } else {
+      this.isOnScreen = true;
+    }
     window.addEventListener("scroll", this.onScroll, { passive: true });
     document.addEventListener("visibilitychange", this.update);
-    this.reducedMotion.addEventListener("change", this.update);
+    this.reducedMotion?.addEventListener("change", this.update);
     this.resize();
+    this.update();
     document.fonts?.ready.then(() => {
       // Font loading can finish after a dynamically mounted hero is removed.
       if (this.initialized) this.resize();
     });
+  }
+
+  prefersReducedMotion() {
+    return Boolean(this.reducedMotion?.matches);
   }
 
   /** Map the sticky stage's travel to LP's reversible 0–1 progress input. */
@@ -111,7 +127,7 @@ export class GalaxyHero {
     const ink = this.renderer.draw(
       this.progress(),
       this.elapsedMs,
-      this.reducedMotion.matches,
+      this.prefersReducedMotion(),
     );
     if (ink) this.stage.style.setProperty("--galaxy-ink", ink);
   }
@@ -127,13 +143,13 @@ export class GalaxyHero {
   }
 
   onScroll() {
-    if (this.reducedMotion.matches && this.isOnScreen && !document.hidden)
+    if (this.prefersReducedMotion() && this.isOnScreen && !document.hidden)
       this.redraw();
   }
 
   update() {
     if (!this.initialized) return;
-    if (this.reducedMotion.matches) {
+    if (this.prefersReducedMotion()) {
       this.stop();
       this.redraw();
     } else if (this.isOnScreen && !document.hidden) {
@@ -171,7 +187,7 @@ export class GalaxyHero {
     this.resizeObserver?.disconnect();
     window.removeEventListener("scroll", this.onScroll);
     document.removeEventListener("visibilitychange", this.update);
-    this.reducedMotion.removeEventListener("change", this.update);
+    this.reducedMotion?.removeEventListener("change", this.update);
     this.root.classList.remove("galaxy-hero--enhanced");
     delete this.root.dataset.galaxyInitialized;
   }
