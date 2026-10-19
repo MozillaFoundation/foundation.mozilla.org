@@ -52,10 +52,6 @@
 
 .mzf-c-button[data-alignment="center"] {
   margin-inline: auto;
-
-  @include mobile-only {
-    width: 100%;
-  }
 }
 
 // Unreskinned holders still need their existing vertical spacing. A Cosmos
