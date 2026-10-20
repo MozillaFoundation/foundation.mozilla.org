@@ -4,8 +4,8 @@
 // background. We add, per TP1-4382: the heading and statements light up word by word,
 // and on desktop each statement pins beside the intro while it fills.
 //
-// Without this script or with reduced motion, nothing pins and all text stays fully
-// inked.
+// Without this script, nothing pins and all text stays fully inked. With reduced
+// motion it does nothing, and our styles show each step as a static color band.
 
 /**
  * Elements the script reads. Steps without a state attribute are passed over.
@@ -72,19 +72,13 @@ const HOLD_DISTANCE = 0.1;
 const HEADING_FILL_END = 0.5;
 
 /**
- * Whether the steps should pin: only while the intro is sticky (desktop) and the
- * reader hasn't asked for reduced motion.
+ * Whether the steps should pin: only while the intro is sticky (desktop).
  * @param {Element} root - The Meet Mozilla section
- * @param {boolean} reduceMotion - Whether the reader prefers reduced motion
  * @returns {boolean}
  */
-export function shouldPin(root, reduceMotion) {
+export function shouldPin(root) {
   const aside = root.querySelector(SELECTORS.aside);
-  return (
-    !reduceMotion &&
-    Boolean(aside) &&
-    getComputedStyle(aside).position === "sticky"
-  );
+  return Boolean(aside) && getComputedStyle(aside).position === "sticky";
 }
 
 /**
@@ -275,33 +269,31 @@ export function setLength(root, name, value) {
  *   when there is nothing to update
  */
 export function initMeetMozilla(root) {
-  if (typeof IntersectionObserver !== "function") {
+  const reduceMotion = window.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  )?.matches;
+
+  if (reduceMotion || typeof IntersectionObserver !== "function") {
     return null;
   }
 
   const items = [...root.querySelectorAll(SELECTORS.item)];
   const firstLabel = root.querySelector(`${SELECTORS.step} ${SELECTORS.label}`);
-  const reduceMotion = window.matchMedia?.(
-    "(prefers-reduced-motion: reduce)",
-  )?.matches;
-  const fills = reduceMotion
-    ? []
-    : [...root.querySelectorAll(SELECTORS.step)]
-        .map((step) => {
-          const statement = step.querySelector(SELECTORS.statement);
-          return {
-            step,
-            content: step.querySelector(SELECTORS.content) || step,
-            label: step.querySelector(SELECTORS.label) || step,
-            // Read once: the step's top padding doesn't change while scrolling.
-            paddingTop: parseFloat(getComputedStyle(step).paddingTop) || 0,
-            words: statement ? splitIntoWords(statement) : [],
-          };
-        })
-        .filter((fill) => fill.words.length);
+  const fills = [...root.querySelectorAll(SELECTORS.step)]
+    .map((step) => {
+      const statement = step.querySelector(SELECTORS.statement);
+      return {
+        step,
+        content: step.querySelector(SELECTORS.content) || step,
+        label: step.querySelector(SELECTORS.label) || step,
+        // Read once: the step's top padding doesn't change while scrolling.
+        paddingTop: parseFloat(getComputedStyle(step).paddingTop) || 0,
+        words: statement ? splitIntoWords(statement) : [],
+      };
+    })
+    .filter((fill) => fill.words.length);
   const heading = root.querySelector(SELECTORS.heading);
-  const headingWords =
-    reduceMotion || !heading || !firstLabel ? [] : splitIntoWords(heading);
+  const headingWords = heading && firstLabel ? splitIntoWords(heading) : [];
 
   if (!items.length && !fills.length && !headingWords.length) {
     return null;
@@ -316,7 +308,7 @@ export function initMeetMozilla(root) {
     const hold = viewportHeight * HOLD_DISTANCE;
 
     // Layout first (writes skipped when unchanged).
-    const pinned = fills.length > 0 && shouldPin(root, reduceMotion);
+    const pinned = fills.length > 0 && shouldPin(root);
     const pinTop = pinned ? getPinTop(root, fills[0].content) : null;
     root.classList.toggle(PINNED_CLASS, pinned);
     setLength(root, "--mzf-meet-mozilla-pin-top", pinTop);

@@ -157,14 +157,11 @@ describe("Meet Mozilla scroll behavior", () => {
 
   describe("shouldPin", () => {
     it("pins while the intro is sticky", () => {
-      expect(shouldPin(createSection().root, false)).toBe(true);
+      expect(shouldPin(createSection().root)).toBe(true);
     });
 
-    it("doesn't pin when the layout stacks or with reduced motion", () => {
-      expect(shouldPin(createSection({ sticky: false }).root, false)).toBe(
-        false,
-      );
-      expect(shouldPin(createSection().root, true)).toBe(false);
+    it("doesn't pin when the layout stacks", () => {
+      expect(shouldPin(createSection({ sticky: false }).root)).toBe(false);
     });
   });
 
@@ -533,17 +530,18 @@ describe("Meet Mozilla scroll behavior", () => {
       expect(animationFrames).toHaveLength(1);
     });
 
-    it("leaves statements whole, unpinned and fully inked with reduced motion", () => {
+    it("stands down with reduced motion, leaving the styles' static bands", () => {
       prefersReducedMotion = true;
       const { root, steps, statements, heading } = createSection({
         statement: "one two three",
         heading: "We back what others overlook.",
       });
-      placeSteps(steps, [3000, 3000, 3000, 3000]);
-      startOnScreen(root);
-      scroll();
+      placeSteps(steps, [0, 0, 0, 0]);
 
+      expect(initMeetMozilla(root)).toBeNull();
+      expect(IntersectionObserver).not.toHaveBeenCalled();
       expect(root.classList).not.toContain("mzf-c-meet-mozilla--pinned");
+      expect(stateClasses(root)).toEqual(["mzf-c-meet-mozilla--state-00"]);
       expect(statements[0].querySelector("span")).toBeNull();
       expect(statements[0].textContent).toBe("one two three");
       expect(heading.querySelector("span")).toBeNull();
