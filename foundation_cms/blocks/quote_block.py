@@ -13,7 +13,10 @@ class QuoteBlock(BaseBlock):
     image = ImageBlock(
         required=False,
         label="Image",
-        help_text="Portrait of the person quoted, shown as a square. Usually decorative, since the attribution already names them.",
+        help_text=(
+            "Portrait of the person quoted, shown as a square. "
+            "Usually decorative, since the attribution already names them."
+        ),
     )
 
     class Meta:
