@@ -1,4 +1,6 @@
 // Ported from components/blocks/text/text-group/styles.css
+// @media (max-width: 48rem) is replaced with @include mobile-only() mixin matching
+// the same breakpoint based on docs/stack.md
 
 /* Text group — Figma 9888:40576
    Three nested columns and one action slot. The file draws 16 symbols:
@@ -176,7 +178,7 @@
   letter-spacing: var(--letter-spacing-body);
 }
 
-@media (width <= 48rem) {
+@include mobile-only {
   .mzf-c-text-group--action-button {
     gap: var(--space-32);
   }
