@@ -5,10 +5,12 @@
 
 // Stack the portrait variant below 1024px; LP only stacks at the 768px mobile breakpoint and text is quite narrow on tablet view.
 @media (width <= 1024px) {
+  // Override the default layout for the portrait variant on smaller screens
   .mzf-c-blockquote:has(.mzf-c-blockquote__portrait) {
     grid-template-columns: 1fr;
   }
 
+  // Override the default layout for the portrait variant within the attribution container on smaller screens
   .mzf-c-blockquote__portrait,
   .mzf-c-blockquote:has(.mzf-c-blockquote__attribution)
     .mzf-c-blockquote__portrait {
