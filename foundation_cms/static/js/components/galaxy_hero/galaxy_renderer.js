@@ -5,7 +5,15 @@
 import { createGalaxyField } from "./galaxy_field.js";
 // The reduced-motion still uses the settled field, with rotation disabled.
 const SETTLED_GALAXY_TIME_MS = 10_000_000;
-const REDUCED_MOTION_SECOND_BEAT = 0.5;
+// Scroll ranges, as fractions of the sticky stage's travel. LP captures wheel
+// input on a fixed stage; here the page keeps scrolling, so the counters get
+// the first range and the timed cover and galaxy reveal get their own ranges,
+// leaving the settled scene on screen for the rest of the sticky travel.
+const COUNTER_SCROLL_END = 0.4;
+const COVER_SCROLL_RANGE = [0.4, 0.48];
+const REVEAL_SCROLL_RANGE = [0.48, 0.8];
+// Halfway through the counters' range, as before the scroll ranges.
+const REDUCED_MOTION_SECOND_BEAT = COUNTER_SCROLL_END / 2;
 const FIRST_COPY_EXIT_PROGRESS = 0.035;
 const COUNTER_FADE_SECONDS = 0.45;
 const WIPE_GALAXY_START_PROGRESS = 0.68;
@@ -163,7 +171,7 @@ export function createGalaxyRenderer(
     for (let i = 0; i < copyStates.length; i++) {
       if (copyStates[i].key === key) return copyStates[i];
     }
-    const state = { key: key, startedAt: elapsedSeconds, lastDrawn: -1 };
+    const state = { key: key, startedAt: elapsedSeconds, visible: false };
     copyStates.push(state);
     return state;
   }
@@ -225,10 +233,6 @@ export function createGalaxyRenderer(
   ) {
     const out = journeyProgress >= FIRST_COPY_EXIT_PROGRESS;
     const inn = countersConverged && secondCopyReady;
-    if (scene.firstCopyExit === undefined) {
-      scene.firstCopyExit = 0;
-      scene.secondCopyOpacity = 0;
-    }
     // on scroll-back, line one holds offstage until line two has fully
     // left — the two beats never share the stage in either direction
     const outHold = out || scene.secondCopyOpacity > 0.06;
@@ -252,51 +256,44 @@ export function createGalaxyRenderer(
       firstHeadlineLines,
       (1 - scene.firstCopyExit) * gate,
       elapsedSeconds,
-      0,
-      null,
       "beatA",
     );
     drawCopy(
       secondHeadlineLines,
       scene.secondCopyOpacity * gate,
       elapsedSeconds,
-      0,
-      null,
       "beatB",
     );
   }
 
-  function drawCopy(lines, alpha, elapsedSeconds, offsetY, fixedFontSize, key) {
-    offsetY = offsetY || 0;
-    const copy = copyState(key || lines.join("\u0001"), elapsedSeconds);
+  function drawCopy(lines, alpha, elapsedSeconds, key) {
+    const copy = copyState(key, elapsedSeconds);
+    // Replay the stagger each time a beat becomes visible, not after a slow frame.
     if (alpha <= 0.004) {
-      copy.startedAt = elapsedSeconds;
+      copy.visible = false;
       return;
-    } // invisible: rearm
-    if (elapsedSeconds - copy.lastDrawn > 0.3) copy.startedAt = elapsedSeconds; // returning: replay
-    copy.lastDrawn = elapsedSeconds;
+    }
+    if (!copy.visible) copy.startedAt = elapsedSeconds;
+    copy.visible = true;
 
     context.save();
     context.fillStyle = copyInk || defaultInk;
     context.textAlign = "left";
     context.textBaseline = "middle";
-    let fontSize = fixedFontSize || headlineFontSize();
-    if (!fixedFontSize) {
-      lines = fitLines(lines, fontSize);
-      setHeadlineFont(fontSize);
-      let widest = 0;
-      for (let i = 0; i < lines.length; i++)
-        widest = Math.max(widest, context.measureText(lines[i]).width);
-      if (widest > width * 0.86)
-        fontSize = (fontSize * (width * 0.86)) / widest;
-      fontSize = Math.min(
-        fontSize,
-        (height * 0.86) / (lines.length * LINE_HEIGHT),
-      );
-      // the block's top must clear the nav band on short viewports
-      const half = ((lines.length - 1) * LINE_HEIGHT + 1) / 2; // half-height in fs units
-      fontSize = Math.max(12, Math.min(fontSize, (height / 2 - 48) / half));
-    }
+    let fontSize = headlineFontSize();
+    lines = fitLines(lines, fontSize);
+    setHeadlineFont(fontSize);
+    let widest = 0;
+    for (let i = 0; i < lines.length; i++)
+      widest = Math.max(widest, context.measureText(lines[i]).width);
+    if (widest > width * 0.86) fontSize = (fontSize * (width * 0.86)) / widest;
+    fontSize = Math.min(
+      fontSize,
+      (height * 0.86) / (lines.length * LINE_HEIGHT),
+    );
+    // the block's top must clear the nav band on short viewports
+    const half = ((lines.length - 1) * LINE_HEIGHT + 1) / 2; // half-height in fs units
+    fontSize = Math.max(12, Math.min(fontSize, (height / 2 - 48) / half));
     setHeadlineFont(fontSize.toFixed(1));
     const lineHeight = fontSize * LINE_HEIGHT,
       spaceWidth = context.measureText(" ").width;
@@ -311,8 +308,7 @@ export function createGalaxyRenderer(
       }
       total += spaceWidth * (words.length - 1);
       let x = width / 2 - total / 2;
-      const y =
-        height / 2 + offsetY + (i - (lines.length - 1) / 2) * lineHeight;
+      const y = height / 2 + (i - (lines.length - 1) / 2) * lineHeight;
       for (let j = 0; j < words.length; j++) {
         let wordProgress = reducedMotionEnabled
           ? 1
@@ -350,29 +346,22 @@ export function createGalaxyRenderer(
     context.beginPath();
     context.rect(0, 0, 1440, geometry.designHeight);
     context.clip();
-    fn(geometry.scale);
+    fn();
     context.restore();
-    return geometry.scale;
   }
 
-  // Draw one counter with offsets and optional rotation about its centroid.
   function clampCounterOffset(key, dy) {
     // Keep outer bottoms below the stage and the middle top above it.
     if (key === "M") return Math.min(dy, 1634.84);
     return Math.max(dy, geometry.designHeight - 2596.84);
   }
-  function drawCounter(key, dy, opts) {
+  // Draw one counter at its vertical offset, plus any entrance offset.
+  function drawCounter(key, dy, fill) {
     dy = clampCounterOffset(key, dy);
-    opts = opts || {};
     const enter = key === "M" ? entranceOffsets.m : entranceOffsets.lr;
     context.save();
-    context.translate(opts.offsetX || 0, dy + (opts.oy || 0) + enter);
-    if (opts.rot) {
-      context.translate(counterCentroids[key][0], counterCentroids[key][1]);
-      context.rotate(opts.rot);
-      context.translate(-counterCentroids[key][0], -counterCentroids[key][1]);
-    }
-    context.fillStyle = opts.fill;
+    context.translate(0, dy + enter);
+    context.fillStyle = fill;
     context.fill(paths[key]);
     context.restore();
   }
@@ -423,6 +412,7 @@ export function createGalaxyRenderer(
       ink: colorToken("--color-text-inverse"),
     },
   };
+  const scheme = BACKGROUND_SCHEMES[background] || BACKGROUND_SCHEMES.Gray;
   const WIPE_DURATION_SECONDS = 0.7;
   function wipeCoverScale(middleEndOffset) {
     // smallest uniform scale about the mid counter's kiss centroid that
@@ -470,9 +460,9 @@ export function createGalaxyRenderer(
     return hi;
   }
   const LOGO_PALETTE = [
-    { hex: colorToken("--color-spectrum-yellow-600"), w: 30 },
-    { hex: colorToken("--color-accent-blue"), w: 10 },
-    { hex: colorToken("--color-accent-orange"), w: 8 },
+    { hex: colorToken("--color-spectrum-yellow-600"), weight: 30 },
+    { hex: colorToken("--color-accent-blue"), weight: 10 },
+    { hex: colorToken("--color-accent-orange"), weight: 8 },
   ];
   function secondHeadlineBounds() {
     // line two's rendered box, from the shared fit
@@ -508,9 +498,8 @@ export function createGalaxyRenderer(
         6,
     };
   }
-  function buildGalaxy(scene, bg) {
+  function buildGalaxy(scene) {
     const box = secondHeadlineBounds();
-    const scheme = BACKGROUND_SCHEMES[bg] || BACKGROUND_SCHEMES.Gray;
     let palette = null;
     if (scheme.bg) {
       // coloured ground: Spectrum only, with the ground's colour omitted
@@ -518,27 +507,26 @@ export function createGalaxyRenderer(
         return p.hex !== scheme.bg;
       });
     } else palette = LOGO_PALETTE;
-    const mobile = isMobile();
     let place = null;
     // the hole hugs the copy, so the arms fill above and below it
-    if (mobile)
-      place = { rx: width * 0.42, ry: Math.max(box.hy * 1.9, width * 0.62) };
-    scene.field = galaxyField.buildField(
-      GALAXY_SEED,
+    if (isMobile())
+      place = {
+        ellipseRadiusX: width * 0.42,
+        ellipseRadiusY: Math.max(box.hy * 1.9, width * 0.62),
+      };
+    scene.field = galaxyField.buildField({
+      seed: GALAXY_SEED,
       width,
       height,
-      box.hx,
-      box.hy,
+      headlineHalfWidth: box.hx,
+      headlineHalfHeight: box.hy,
       palette,
-      place,
-    );
-    scene.fieldBackground = bg;
-    scene.fieldIsMobile = mobile;
+      placement: place || {},
+    });
   }
 
   function drawCounters(
     scene,
-    scheme,
     entranceSeconds,
     countersConverged,
     counterProgress,
@@ -550,9 +538,7 @@ export function createGalaxyRenderer(
         drawCounter(
           "L",
           geometry.outerRestOffset + geometry.outerTravel * counterProgress,
-          {
-            fill: scheme.fills.L,
-          },
+          scheme.fills.L,
         );
         if (!(scheme.bg && scene.wipeProgress > 0.05))
           drawCounter(
@@ -560,16 +546,12 @@ export function createGalaxyRenderer(
             geometry.middleRestOffset +
               (geometry.middleEndOffset - geometry.middleRestOffset) *
                 counterProgress,
-            {
-              fill: scheme.fills.M,
-            },
+            scheme.fills.M,
           );
         drawCounter(
           "R",
           geometry.outerRestOffset + geometry.outerTravel * counterProgress,
-          {
-            fill: scheme.fills.R,
-          },
+          scheme.fills.R,
         );
       });
     } else {
@@ -586,16 +568,18 @@ export function createGalaxyRenderer(
         context.globalAlpha = hold;
         withDesignCoordinates(function () {
           updateCounterEntrance(entranceSeconds);
-          drawCounter("L", geometry.outerRestOffset + geometry.outerTravel, {
-            fill: scheme.fills.L,
-          });
+          drawCounter(
+            "L",
+            geometry.outerRestOffset + geometry.outerTravel,
+            scheme.fills.L,
+          );
           if (!scheme.bg)
-            drawCounter("M", geometry.middleEndOffset, {
-              fill: scheme.fills.M,
-            });
-          drawCounter("R", geometry.outerRestOffset + geometry.outerTravel, {
-            fill: scheme.fills.R,
-          });
+            drawCounter("M", geometry.middleEndOffset, scheme.fills.M);
+          drawCounter(
+            "R",
+            geometry.outerRestOffset + geometry.outerTravel,
+            scheme.fills.R,
+          );
         });
         context.restore();
       }
@@ -604,13 +588,11 @@ export function createGalaxyRenderer(
 
   function drawBackgroundWipe(
     scene,
-    scheme,
     countersConverged,
     counterProgress,
     convergenceSeconds,
   ) {
     // the wipe: forward on the kiss clock; on scroll-back it recedes
-    if (scene.wipeProgress === undefined) scene.wipeProgress = 0;
     if (scheme.bg) {
       if (countersConverged)
         scene.wipeProgress = reducedMotionEnabled
@@ -662,114 +644,150 @@ export function createGalaxyRenderer(
     copyInk = scheme.bg && scene.wipeProgress > 0.55 ? scheme.ink : null;
   }
 
-  function drawGalaxy(scene, settings, elapsedSeconds, countersConverged) {
-    if (scene.field) {
-      // Rebuild on resize so the field stays centred and its clear area
-      // follows the rewrapped headline. The seed preserves its arrangement.
-      if (
-        scene.fieldBackground !== settings.bg ||
-        scene.fieldIsMobile !== isMobile() ||
-        scene.field.width !== width ||
-        scene.field.height !== height
-      )
-        buildGalaxy(scene, settings.bg);
-      const target =
-        countersConverged && scene.galaxyStartedAt !== null ? 1 : 0;
-      if (reducedMotionEnabled) scene.galaxyOpacity = target;
-      else
-        scene.galaxyOpacity +=
-          (target - scene.galaxyOpacity) * (countersConverged ? 0.25 : 0.22);
-      if (
-        scene.galaxyOpacity > 0.004 &&
-        scene.galaxyFrozenMs === undefined &&
-        scene.galaxyStartedAt === null
-      )
-        scene.galaxyFrozenMs = scene.galaxyLastMs || 0;
-      if (scene.galaxyStartedAt !== null) scene.galaxyFrozenMs = undefined;
-      if (scene.galaxyOpacity > 0.004) {
-        const realMs =
-          scene.galaxyStartedAt !== null
-            ? Math.max(0, (elapsedSeconds - scene.galaxyStartedAt) * 1000)
-            : scene.galaxyFrozenMs || 0;
-        scene.galaxyLastMs = realMs;
-        const settleAt = scene.field.settleAt;
-        if (scene.rotationMs === undefined) {
-          scene.rotationMs = 0;
-          scene.galaxyLastSeconds = elapsedSeconds;
-        }
-        const deltaMs = Math.max(
-          0,
-          (elapsedSeconds - scene.galaxyLastSeconds) * 1000,
+  // Called only while the galaxy is visible. Keep the burst clock separate
+  // from accumulated rotation, so reversing can freeze the departing field.
+  function advanceGalaxyClock(scene, elapsedSeconds) {
+    const burstElapsedMs =
+      scene.galaxyStartedAt !== null
+        ? Math.max(0, (elapsedSeconds - scene.galaxyStartedAt) * 1000)
+        : (scene.galaxyFrozenMs ?? 0);
+    scene.galaxyLastMs = burstElapsedMs;
+    const settledAtMs = scene.field.settledAtMs;
+    const deltaMs = Math.max(
+      0,
+      (elapsedSeconds - scene.galaxyLastSeconds) * 1000,
+    );
+    scene.galaxyLastSeconds = elapsedSeconds;
+    if (burstElapsedMs > settledAtMs) scene.rotationMs += deltaMs;
+    if (reducedMotionEnabled) return SETTLED_GALAXY_TIME_MS;
+    if (burstElapsedMs <= settledAtMs) return burstElapsedMs;
+    return settledAtMs + scene.rotationMs;
+  }
+
+  function drawGalaxy(scene, elapsedSeconds, countersConverged) {
+    if (!scene.field) return;
+    // Rebuild on resize so the field stays centred and its clear area
+    // follows the rewrapped headline. The seed preserves its arrangement.
+    if (scene.field.width !== width || scene.field.height !== height)
+      buildGalaxy(scene);
+    const target = countersConverged && scene.galaxyStartedAt !== null ? 1 : 0;
+    if (reducedMotionEnabled) scene.galaxyOpacity = target;
+    else
+      scene.galaxyOpacity +=
+        (target - scene.galaxyOpacity) * (countersConverged ? 0.25 : 0.22);
+    if (
+      scene.galaxyOpacity > 0.004 &&
+      scene.galaxyFrozenMs === null &&
+      scene.galaxyStartedAt === null
+    )
+      scene.galaxyFrozenMs = scene.galaxyLastMs;
+    if (scene.galaxyStartedAt !== null) scene.galaxyFrozenMs = null;
+    if (scene.galaxyOpacity > 0.004) {
+      const sampleMs = advanceGalaxyClock(scene, elapsedSeconds);
+      const rects = galaxyField.sampleField(
+        scene.field,
+        sampleMs,
+        !reducedMotionEnabled,
+      );
+      context.save();
+      context.globalAlpha = scene.galaxyOpacity;
+      for (let rectIndex = 0; rectIndex < rects.length; rectIndex++) {
+        const rect = rects[rectIndex];
+        context.fillStyle = rect.color;
+        const x = Math.round(rect.x * pixelRatio) / pixelRatio;
+        const y = Math.round(rect.y * pixelRatio) / pixelRatio;
+        context.fillRect(
+          x,
+          y,
+          Math.round((rect.x + rect.w) * pixelRatio) / pixelRatio - x,
+          Math.round((rect.y + rect.h) * pixelRatio) / pixelRatio - y,
         );
-        scene.galaxyLastSeconds = elapsedSeconds;
-        if (realMs > settleAt) scene.rotationMs += deltaMs;
-        const sampleMs = reducedMotionEnabled
-          ? SETTLED_GALAXY_TIME_MS
-          : realMs <= settleAt
-            ? realMs
-            : settleAt + scene.rotationMs;
-        const rects = galaxyField.sampleField(
-          scene.field,
-          sampleMs,
-          !reducedMotionEnabled,
-        );
-        context.save();
-        context.globalAlpha = scene.galaxyOpacity;
-        for (let rectIndex = 0; rectIndex < rects.length; rectIndex++) {
-          const rect = rects[rectIndex];
-          context.fillStyle = rect.color;
-          const x = Math.round(rect.x * pixelRatio) / pixelRatio;
-          const y = Math.round(rect.y * pixelRatio) / pixelRatio;
-          context.fillRect(
-            x,
-            y,
-            Math.round((rect.x + rect.w) * pixelRatio) / pixelRatio - x,
-            Math.round((rect.y + rect.h) * pixelRatio) / pixelRatio - y,
-          );
-        }
-        context.restore();
       }
+      context.restore();
     }
   }
 
   // Frame order matters: retire the first copy, converge the counters, cover
   // the background, then burst the galaxy and reveal the second copy.
+  // Times are scene seconds; null means "not yet" for this pass forward.
   function createSceneState() {
     return {
+      clockOffsetSeconds: 0, // scroll pacing's fast-forward
+      born: null,
+      firstCopyExit: 0,
+      secondCopyOpacity: 0,
       wasConverged: false,
+      convergedAt: null,
+      coveredAt: null,
+      wipeProgress: 0,
+      wipeFullScale: null, // cached for wipeDesignHeight/wipeMiddleOffset
+      wipeDesignHeight: null,
+      wipeMiddleOffset: null,
       field: null,
       galaxyStartedAt: null,
       galaxyOpacity: 0,
-      convergedAt: null,
-      coveredAt: undefined,
+      galaxyFrozenMs: null, // burst time held while reversing
+      galaxyLastMs: 0,
+      galaxyLastSeconds: 0,
+      rotationMs: 0,
     };
   }
 
-  function drawScene(settings, scene, elapsedSeconds) {
-    if (scene.born === undefined) scene.born = elapsedSeconds;
+  function scrollRangeProgress(progress, [start, end]) {
+    return Math.min(1, Math.max(0, (progress - start) / (end - start)));
+  }
+
+  // Continued scrolling fast-forwards, but never rewinds, the timed cover and
+  // galaxy reveal so each finishes within its scroll range. Slower scrolling
+  // or stopping leaves LP's wall-clock timing unchanged.
+  function paceRevealToScroll(scene, progress, elapsedSeconds) {
+    const coverSeconds = scheme.bg
+      ? WIPE_GALAXY_START_PROGRESS * WIPE_DURATION_SECONDS
+      : COUNTER_FADE_SECONDS;
+    let pacedSeconds =
+      scene.convergedAt +
+      coverSeconds * scrollRangeProgress(progress, COVER_SCROLL_RANGE);
+    if (scene.galaxyStartedAt !== null) {
+      // The burst settles after the second headline's word stagger ends.
+      const revealSeconds = scene.field.settledAtMs / 1000;
+      pacedSeconds = Math.max(
+        pacedSeconds,
+        scene.galaxyStartedAt +
+          revealSeconds * scrollRangeProgress(progress, REVEAL_SCROLL_RANGE),
+      );
+    }
+    if (pacedSeconds <= elapsedSeconds) return elapsedSeconds;
+    scene.clockOffsetSeconds += pacedSeconds - elapsedSeconds;
+    return pacedSeconds;
+  }
+
+  function drawScene(progress, scene, clockSeconds) {
+    let elapsedSeconds = clockSeconds + scene.clockOffsetSeconds;
+    if (scene.born === null) scene.born = elapsedSeconds;
     const entranceSeconds = elapsedSeconds - scene.born;
-    const progress = Math.min(1, Math.max(0, settings.progress || 0));
-    const journeyProgress = counterJourney(progress);
+    const journeyProgress = counterJourney(
+      Math.min(1, progress / COUNTER_SCROLL_END),
+    );
     // Hold the counters until the first headline has mostly faded out.
     const copyExitGate = reducedMotionEnabled
       ? 1
-      : Math.max(0, Math.min(1, ((scene.firstCopyExit || 0) - 0.55) / 0.4));
+      : Math.max(0, Math.min(1, (scene.firstCopyExit - 0.55) / 0.4));
     const counterProgress = journeyProgress * copyExitGate;
     const countersConverged = counterProgress >= geometry.convergenceProgress;
     if (countersConverged && !scene.wasConverged) {
       scene.convergedAt = elapsedSeconds;
       // Wait for coverage before starting the burst; reversing resets its clock.
-      if (!scene.field || scene.fieldBackground !== settings.bg)
-        buildGalaxy(scene, settings.bg);
+      if (!scene.field) buildGalaxy(scene);
     }
     scene.wasConverged = countersConverged;
     context.fillStyle = paperColor;
     context.fillRect(0, 0, width, height);
 
+    if (countersConverged && !reducedMotionEnabled)
+      elapsedSeconds = paceRevealToScroll(scene, progress, elapsedSeconds);
     const convergenceSeconds = countersConverged
       ? elapsedSeconds - scene.convergedAt
       : 0;
-    const scheme = BACKGROUND_SCHEMES[settings.bg] || BACKGROUND_SCHEMES.Gray;
 
     // Gray waits for the counters to fade. Coloured backgrounds start the
     // burst near the end of the wipe, at about 93% viewport coverage.
@@ -777,10 +795,9 @@ export function createGalaxyRenderer(
     const covered = scheme.bg
       ? scene.wipeProgress >= WIPE_GALAXY_START_PROGRESS
       : countersConverged && convergenceSeconds >= COUNTER_FADE_SECONDS;
-    if (covered && scene.coveredAt === undefined)
-      scene.coveredAt = elapsedSeconds;
-    if (!covered) scene.coveredAt = undefined;
-    const backgroundCovered = scene.coveredAt !== undefined;
+    if (covered && scene.coveredAt === null) scene.coveredAt = elapsedSeconds;
+    if (!covered) scene.coveredAt = null;
+    const backgroundCovered = scene.coveredAt !== null;
     if (backgroundCovered && scene.galaxyStartedAt === null) {
       scene.galaxyStartedAt = elapsedSeconds;
       scene.rotationMs = 0;
@@ -790,7 +807,6 @@ export function createGalaxyRenderer(
 
     drawCounters(
       scene,
-      scheme,
       entranceSeconds,
       countersConverged,
       counterProgress,
@@ -798,12 +814,11 @@ export function createGalaxyRenderer(
     );
     drawBackgroundWipe(
       scene,
-      scheme,
       countersConverged,
       counterProgress,
       convergenceSeconds,
     );
-    drawGalaxy(scene, settings, elapsedSeconds, countersConverged);
+    drawGalaxy(scene, elapsedSeconds, countersConverged);
 
     const secondCopyReady =
       scene.galaxyStartedAt !== null &&
@@ -829,22 +844,22 @@ export function createGalaxyRenderer(
       }
       reducedMotionEnabled = reducedMotion;
       geometry = computeGeometry();
-      const settings = {
-        progress,
-        bg: background,
-      };
       if (reducedMotionEnabled) {
         // LP reads coverage from the preceding frame. Resolve the entrance,
         // coverage and settled field in order, without scheduling animation.
         // Ten seconds between samples exceeds every entrance/wipe delay.
         state = createSceneState();
         copyStates.length = 0;
-        settings.progress = progress >= REDUCED_MOTION_SECOND_BEAT ? 1 : 0;
-        drawScene(settings, state, 0);
-        drawScene(settings, state, 10);
-        drawScene(settings, state, 20);
+        const beat = progress >= REDUCED_MOTION_SECOND_BEAT ? 1 : 0;
+        drawScene(beat, state, 0);
+        drawScene(beat, state, 10);
+        drawScene(beat, state, 20);
       } else {
-        drawScene(settings, state, elapsedMs / 1000);
+        drawScene(
+          Math.min(1, Math.max(0, progress || 0)),
+          state,
+          elapsedMs / 1000,
+        );
       }
       return copyInk || defaultInk;
     },

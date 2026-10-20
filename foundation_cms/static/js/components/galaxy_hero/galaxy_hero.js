@@ -2,8 +2,6 @@ import { createGalaxyRenderer } from "./galaxy_renderer.js";
 
 // Match Meteor's canvas resolution cap and lifecycle vocabulary.
 const MAX_PIXEL_RATIO = 2;
-// Finish the transition before the sticky stage leaves the viewport.
-const TRANSITION_SCROLL_FRACTION = 0.75;
 const SELECTORS = {
   root: "[data-galaxy-hero]",
   stage: ".galaxy-hero__stage",
@@ -108,18 +106,17 @@ export class GalaxyHero {
     return Boolean(this.reducedMotion?.matches);
   }
 
-  /** Map the sticky stage's travel to LP's reversible 0–1 progress input. */
+  /**
+   * Map the sticky stage's travel to a reversible 0–1 progress input. The
+   * renderer divides it into scroll ranges for each part of the sequence.
+   */
   progress() {
     const stickyTop = parseFloat(getComputedStyle(this.stage).top) || 0;
     const scrollTravel = this.root.offsetHeight - this.stage.offsetHeight;
     const distanceScrolled = stickyTop - this.root.getBoundingClientRect().top;
     return Math.max(
       0,
-      Math.min(
-        1,
-        distanceScrolled /
-          Math.max(1, scrollTravel * TRANSITION_SCROLL_FRACTION),
-      ),
+      Math.min(1, distanceScrolled / Math.max(1, scrollTravel)),
     );
   }
 
@@ -188,6 +185,7 @@ export class GalaxyHero {
     window.removeEventListener("scroll", this.onScroll);
     document.removeEventListener("visibilitychange", this.update);
     this.reducedMotion?.removeEventListener?.("change", this.update);
+    this.stage.style.removeProperty("--galaxy-ink");
     this.root.classList.remove("galaxy-hero--enhanced");
     delete this.root.dataset.galaxyInitialized;
   }

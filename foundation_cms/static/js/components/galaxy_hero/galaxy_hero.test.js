@@ -98,8 +98,12 @@ describe("Galaxy lifecycle", () => {
   it("maps native page movement to reversible progress", () => {
     Object.defineProperty(hero.root, "offsetHeight", { value: 3000 });
     Object.defineProperty(hero.stage, "offsetHeight", { value: 800 });
-    vi.spyOn(hero.root, "getBoundingClientRect").mockReturnValue({ top: -737 });
+    vi.spyOn(hero.root, "getBoundingClientRect").mockReturnValue({
+      top: -1012,
+    });
     expect(hero.progress()).toBe(0.5);
+    hero.root.getBoundingClientRect.mockReturnValue({ top: -3000 });
+    expect(hero.progress()).toBe(1);
     hero.root.getBoundingClientRect.mockReturnValue({ top: 88 });
     expect(hero.progress()).toBe(0);
   });
@@ -113,8 +117,10 @@ describe("Galaxy lifecycle", () => {
 
   it("cleans up listeners, restores HTML copy and allows remounting", () => {
     intersection([{ isIntersecting: true }]);
+    expect(hero.stage.style.getPropertyValue("--galaxy-ink")).toBe("#161616");
     hero.destroy();
     expect(frames.size).toBe(0);
+    expect(hero.stage.style.getPropertyValue("--galaxy-ink")).toBe("");
     expect(hero.root.classList.contains("galaxy-hero--enhanced")).toBe(false);
     expect(hero.root.dataset.galaxyInitialized).toBeUndefined();
     document.dispatchEvent(new Event("visibilitychange"));
