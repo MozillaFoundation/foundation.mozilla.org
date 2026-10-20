@@ -301,15 +301,17 @@ export function initMeetMozilla(root) {
 
   let frame = null;
 
-  const update = () => {
-    frame = null;
+  // Each frame runs in three phases, so every position is read before any class
+  // changes and the browser lays the page out once.
+
+  // Layout: whether to pin and where (writes skipped when unchanged).
+  const layout = () => {
     const viewportHeight = window.innerHeight;
     const distance = viewportHeight * FILL_DISTANCE;
     const hold = viewportHeight * HOLD_DISTANCE;
-
-    // Layout first (writes skipped when unchanged).
     const pinned = fills.length > 0 && shouldPin(root);
     const pinTop = pinned ? getPinTop(root, fills[0].content) : null;
+
     root.classList.toggle(PINNED_CLASS, pinned);
     setLength(root, "--mzf-meet-mozilla-pin-top", pinTop);
     setLength(
@@ -317,10 +319,27 @@ export function initMeetMozilla(root) {
       "--mzf-meet-mozilla-pin-distance",
       pinned ? distance + hold : null,
     );
-    const colorLine =
-      viewportHeight * (pinned ? COLOR_LINE.pinned : COLOR_LINE.stacked);
 
-    // Then read every position, before any class changes.
+    return {
+      viewportHeight,
+      distance,
+      hold,
+      pinned,
+      pinTop,
+      colorLine:
+        viewportHeight * (pinned ? COLOR_LINE.pinned : COLOR_LINE.stacked),
+    };
+  };
+
+  // Measure: read every position and work out the state and fills.
+  const measure = ({
+    viewportHeight,
+    distance,
+    hold,
+    pinned,
+    pinTop,
+    colorLine,
+  }) => {
     const headingProgress = headingWords.length
       ? getHeadingProgress(
           heading.getBoundingClientRect().bottom,
@@ -329,39 +348,44 @@ export function initMeetMozilla(root) {
           viewportHeight,
         )
       : 0;
-    let state = null;
-    let progresses;
 
-    if (pinned) {
-      const steps = fills.map(({ step, label, paddingTop }) => {
-        // Where the content would be if it weren't pinned: the top of the step's
-        // content box. The fill begins when that reaches the pin.
-        const naturalTop = step.getBoundingClientRect().top + paddingTop;
-        const travelled = pinTop - naturalTop;
-        return {
-          label,
-          state: step.dataset.mzfMeetMozillaState || null,
-          travelled,
-          done: travelled >= distance + hold,
-        };
-      });
-      state = getPinnedState(steps, colorLine);
-      progresses = steps.map(({ travelled }) =>
-        getFillProgress(travelled, distance),
-      );
-    } else {
-      if (items.length) {
-        state = getCurrentState(items, colorLine);
-      }
-      progresses = fills.map(({ label }) =>
-        getFillProgress(
-          colorLine - label.getBoundingClientRect().top,
-          distance,
+    if (!pinned) {
+      return {
+        headingProgress,
+        state: items.length ? getCurrentState(items, colorLine) : null,
+        progresses: fills.map(({ label }) =>
+          getFillProgress(
+            colorLine - label.getBoundingClientRect().top,
+            distance,
+          ),
         ),
-      );
+      };
     }
 
-    // Last, apply the classes.
+    const steps = fills.map(({ step, label, paddingTop }) => {
+      // Where the content would be if it weren't pinned: the top of the step's
+      // content box. The fill begins when that reaches the pin.
+      const naturalTop = step.getBoundingClientRect().top + paddingTop;
+      const travelled = pinTop - naturalTop;
+      return {
+        label,
+        state: step.dataset.mzfMeetMozillaState || null,
+        travelled,
+        done: travelled >= distance + hold,
+      };
+    });
+
+    return {
+      headingProgress,
+      state: getPinnedState(steps, colorLine),
+      progresses: steps.map(({ travelled }) =>
+        getFillProgress(travelled, distance),
+      ),
+    };
+  };
+
+  // Apply: change the classes.
+  const apply = ({ headingProgress, state, progresses }) => {
     if (headingWords.length) {
       setFill(headingWords, headingProgress);
     }
@@ -369,6 +393,11 @@ export function initMeetMozilla(root) {
     if (state) {
       setState(root, state);
     }
+  };
+
+  const update = () => {
+    frame = null;
+    apply(measure(layout()));
   };
 
   const scheduleUpdate = () => {
