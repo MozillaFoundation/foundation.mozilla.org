@@ -99,25 +99,37 @@ describe("injectNewsletterSignups", () => {
   });
 
   it.each([
-    ["fr", "fr"],
-    ["unsupported", "en"],
-  ])("selects the supported language for %s", (currentLanguage, expected) => {
-    const root = addSignup({ currentLanguage });
-    injectNewsletterSignups("");
-    const form = root.querySelector("form");
-    expect(form.elements.language.value).toBe(expected);
-    expect(
-      form.querySelectorAll(
-        '[data-newsletter-dropdown="country"] [role="option"]',
-      ).length,
-    ).toBeGreaterThan(200);
-    expect(form.elements.country.value).toBe("");
-    expect(
-      form.querySelector(
-        '[data-newsletter-dropdown="language"] .mzf-c-dropdown__value',
-      ).textContent,
-    ).toBe("language");
-  });
+    ["fr", "fr", "Français"],
+    ["unsupported", "en", "English"],
+  ])(
+    "selects the supported language for %s",
+    (currentLanguage, expected, label) => {
+      const root = addSignup({ currentLanguage });
+      injectNewsletterSignups("");
+      const form = root.querySelector("form");
+      const dropdown = form.querySelector(
+        '[data-newsletter-dropdown="language"]',
+      );
+      const value = dropdown.querySelector(".mzf-c-dropdown__value");
+      expect(form.elements.language.value).toBe(expected);
+      expect(value.textContent).toBe(label);
+      expect(
+        value.classList.contains("mzf-c-dropdown__value--placeholder"),
+      ).toBe(false);
+      expect(
+        [...dropdown.querySelectorAll('[aria-selected="true"]')].map(
+          (option) => option.dataset.value,
+        ),
+      ).toEqual([expected]);
+      expect(document.activeElement).toBe(document.body);
+      expect(
+        form.querySelectorAll(
+          '[data-newsletter-dropdown="country"] [role="option"]',
+        ).length,
+      ).toBeGreaterThan(200);
+      expect(form.elements.country.value).toBe("");
+    },
+  );
 
   it("keeps expanded forms open and reveals collapsed fields on keyboard focus", () => {
     const expanded = addSignup({ layout: "expanded" });
@@ -142,6 +154,53 @@ describe("injectNewsletterSignups", () => {
     expect(collapsed.querySelector("[data-newsletter-expanded]").hidden).toBe(
       true,
     );
+  });
+
+  it("stays open when non-focusable form content is activated and collapses on exit", () => {
+    const expanded = addSignup({ layout: "expanded" });
+    const collapsed = addSignup();
+    const outside = document.createElement("button");
+    document.body.append(outside);
+    injectNewsletterSignups("");
+    const form = collapsed.querySelector("form");
+    const consent = form.elements.privacy.closest("label");
+    const isOpen = () =>
+      [...form.querySelectorAll("[data-newsletter-expanded]")].every(
+        (el) => !el.hidden,
+      );
+    const press = (target) =>
+      target.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+    const exits = [
+      ["outside press", () => press(document.body)],
+      ["outside click without a press", () => outside.click()],
+      [
+        "keyboard focus leaving",
+        () => {
+          form.elements.privacy.focus();
+          outside.focus();
+        },
+      ],
+      ["leaving the page", () => window.dispatchEvent(new Event("blur"))],
+    ];
+    for (const [exit, leave] of exits) {
+      // Pointer activation, then accessibility activation without a press.
+      for (const pointer of [true, false]) {
+        form.elements.email.focus();
+        if (pointer) press(consent);
+        form.elements.email.blur();
+        consent.click();
+        expect(isOpen(), exit).toBe(true);
+        // A drag released outside the form clicks a shared ancestor.
+        if (pointer) document.body.click();
+        expect(isOpen(), exit).toBe(true);
+        leave();
+        expect(isOpen(), exit).toBe(false);
+        expect(
+          expanded.querySelector("[data-newsletter-expanded]").hidden,
+        ).toBe(false);
+      }
+    }
+    expect(form.elements.privacy.checked).toBe(false);
   });
 
   it("associates validation errors with controls and focuses the first invalid field", () => {

@@ -74,23 +74,26 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     emailError.id = `newsletter-email-error-${index}`;
     privacyError.id = `newsletter-privacy-error-${index}`;
 
+    const languageDropdown = initDropdown(
+      form.querySelector('[data-newsletter-dropdown="language"]'),
+      LANGUAGE_OPTIONS,
+      `newsletter-language-${index}`,
+    );
     const dropdowns = [
       initDropdown(
         form.querySelector('[data-newsletter-dropdown="country"]'),
         COUNTRY_OPTIONS.filter(({ value }) => value),
         `newsletter-country-${index}`,
       ),
-      initDropdown(
-        form.querySelector('[data-newsletter-dropdown="language"]'),
-        LANGUAGE_OPTIONS,
-        `newsletter-language-${index}`,
-      ),
+      languageDropdown,
     ];
-    language.value = LANGUAGE_OPTIONS.some(
-      ({ value }) => value === container.dataset.currentLanguage,
-    )
-      ? container.dataset.currentLanguage
-      : "en";
+    languageDropdown.setValue(
+      LANGUAGE_OPTIONS.some(
+        ({ value }) => value === container.dataset.currentLanguage,
+      )
+        ? container.dataset.currentLanguage
+        : "en",
+    );
 
     let pending = false;
     const setExpanded = (expanded) => {
@@ -104,14 +107,27 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     const expand = () => setExpanded(true);
     setExpanded(container.dataset.layout === "expanded");
     form.addEventListener("focusin", expand);
+    // Activating non-focusable form content, such as the consent text, blurs
+    // the active field with no related target, so only focus moving to another
+    // element, an outside press or click, or leaving the page collapses.
+    const collapse = () => {
+      if (container.dataset.layout !== "expanded") setExpanded(false);
+    };
     form.addEventListener("focusout", (event) => {
-      if (
-        container.dataset.layout !== "expanded" &&
-        !form.contains(event.relatedTarget)
-      ) {
-        setExpanded(false);
+      if (event.relatedTarget && !form.contains(event.relatedTarget)) {
+        collapse();
       }
     });
+    document.addEventListener("pointerdown", (event) => {
+      if (!form.contains(event.target)) collapse();
+    });
+    document.addEventListener("click", (event) => {
+      // A drag released outside clicks a shared ancestor of the form.
+      if (!form.contains(event.target) && !event.target.contains(form)) {
+        collapse();
+      }
+    });
+    window.addEventListener("blur", collapse);
 
     const updateEmail = () => {
       email

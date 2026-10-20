@@ -71,7 +71,7 @@ export default function initDropdown(root, choices, id) {
     menu.focus();
   }
 
-  function choose(option) {
+  function select(option) {
     input.value = option.dataset.value;
     value.textContent = option.textContent;
     trigger.setAttribute("aria-describedby", value.id);
@@ -79,8 +79,18 @@ export default function initDropdown(root, choices, id) {
     options.forEach((item) =>
       item.setAttribute("aria-selected", String(item === option)),
     );
+  }
+
+  function choose(option) {
+    select(option);
     input.dispatchEvent(new Event("change", { bubbles: true }));
     close(true);
+  }
+
+  // Preselect a default without moving focus or reporting a user change.
+  function setValue(selected) {
+    const option = options.find((item) => item.dataset.value === selected);
+    if (option) select(option);
   }
 
   trigger.addEventListener("click", () => {
@@ -144,5 +154,5 @@ export default function initDropdown(root, choices, id) {
   document.addEventListener("click", (event) => {
     if (!root.contains(event.target) && !menu.hidden) close();
   });
-  return { close };
+  return { close, setValue };
 }
