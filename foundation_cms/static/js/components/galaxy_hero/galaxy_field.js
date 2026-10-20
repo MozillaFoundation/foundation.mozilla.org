@@ -1,5 +1,10 @@
 // Ported from LP studio/heroes/galaxy.html, final handoff 804c5fd.
 // The seeded field and sampling math stay independent of the browser.
+/**
+ * @param {(name: string) => string} colorToken - Resolves a colour token name,
+ *   such as `--color-accent-blue`, to its colour value.
+ * @returns {{buildField: Function, sampleField: Function, CONFIG: object, PALETTE: {hex: string, weight: number}[]}}
+ */
 export function createGalaxyField(colorToken) {
   // Spectrum weights preserve LP's reference composition.
   const PALETTE = [
@@ -139,6 +144,17 @@ export function createGalaxyField(colorToken) {
    * Width, height and headline half-sizes are CSS pixels. Placement overrides
    * the field/copy centers and inner ellipse radii, also in CSS pixels.
    * Keep random draws in order: changing their order changes the composition.
+   *
+   * @param {object} options
+   * @param {number} options.seed
+   * @param {number} options.width
+   * @param {number} options.height
+   * @param {number} [options.headlineHalfWidth] - Omit to skip headline avoidance.
+   * @param {number} [options.headlineHalfHeight]
+   * @param {{hex: string, weight: number}[]} [options.palette] - Defaults to PALETTE.
+   * @param {{centerX?: number, centerY?: number, copyCenterX?: number, copyCenterY?: number, ellipseRadiusX?: number, ellipseRadiusY?: number}} [options.placement]
+   * @returns {object} The field for sampleField(): its size, cell size,
+   *   centres, clusters, headline bounds (or null) and `settledAtMs`.
    */
   function buildField({
     seed,
@@ -260,7 +276,14 @@ export function createGalaxyField(colorToken) {
     return { gridX, gridY };
   }
 
-  /** Return ordered CSS-pixel rectangles without mutating the seeded field. */
+  /**
+   * Return ordered CSS-pixel rectangles without mutating the seeded field.
+   *
+   * @param {object} field - From buildField().
+   * @param {number} elapsedMs - Time since the burst started.
+   * @param {boolean} hideDelayedClusters - Skip clusters whose delay hasn't passed.
+   * @returns {{x: number, y: number, w: number, h: number, color: string}[]}
+   */
   function sampleField(field, elapsedMs, hideDelayedClusters) {
     const tickTimeMs =
       Math.floor(elapsedMs / CONFIG.tickMs) *

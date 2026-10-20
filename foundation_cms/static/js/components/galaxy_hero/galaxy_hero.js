@@ -30,6 +30,10 @@ const COLOR_TOKENS = [
  * Geometry and drawing stay in galaxy_renderer.js, with no DOM listeners.
  */
 export class GalaxyHero {
+  /**
+   * @param {HTMLElement} root - The hero element, marked `data-galaxy-hero`,
+   *   with the stage, canvas, h1 and second headline from _galaxy_hero.html.
+   */
   constructor(root) {
     this.root = root;
     this.stage = root.querySelector(SELECTORS.stage);
@@ -191,6 +195,9 @@ export class GalaxyHero {
   }
 }
 
+/**
+ * Starts every Galaxy hero on the page.
+ */
 export function initGalaxyHeroes() {
   document
     .querySelectorAll(SELECTORS.root)

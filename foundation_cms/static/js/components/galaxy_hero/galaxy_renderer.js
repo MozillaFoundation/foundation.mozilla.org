@@ -18,6 +18,19 @@ const FIRST_COPY_EXIT_PROGRESS = 0.035;
 const COUNTER_FADE_SECONDS = 0.45;
 const WIPE_GALAXY_START_PROGRESS = 0.68;
 
+/**
+ * Draws LP's two-beat Galaxy scene on a canvas. It has no DOM listeners or
+ * clock of its own; GalaxyHero calls resize() and draw().
+ *
+ * @param {HTMLCanvasElement} canvas
+ * @param {object} options
+ * @param {string} options.headline - The first beat; `\n` sets desktop lines.
+ * @param {string} options.secondHeadline - The second beat.
+ * @param {string} options.background - Gray, Orange, Yellow or Blue; anything
+ *   else draws Gray.
+ * @param {Object<string, string>} options.colors - Colour token values by name.
+ * @returns {{resize: Function, draw: Function}}
+ */
 export function createGalaxyRenderer(
   canvas,
   { headline, secondHeadline, background, colors },
@@ -154,6 +167,11 @@ export function createGalaxyRenderer(
   let width = 0,
     height = 0,
     pixelRatio = 1;
+  /**
+   * @param {number} nextWidth - Stage width, CSS px.
+   * @param {number} nextHeight - Stage height, CSS px.
+   * @param {number} nextPixelRatio - Canvas pixels per CSS px.
+   */
   function resize(nextWidth, nextHeight, nextPixelRatio) {
     width = nextWidth;
     height = nextHeight;
@@ -836,6 +854,13 @@ export function createGalaxyRenderer(
   let state = createSceneState();
   return {
     resize,
+    /**
+     * @param {number} progress - Sticky scroll progress, 0–1.
+     * @param {number} elapsedMs - Animation time, paused while off screen or hidden.
+     * @param {boolean} reducedMotion - Draw the still for this progress.
+     * @returns {string|undefined} The ink colour for HTML over the canvas, or
+     *   undefined before the first non-zero resize.
+     */
     draw(progress, elapsedMs, reducedMotion) {
       if (!width || !height) return;
       if (reducedMotionEnabled !== reducedMotion) {
