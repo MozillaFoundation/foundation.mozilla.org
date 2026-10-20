@@ -7,3 +7,20 @@
   max-inline-size: var(--size-content-max);
   margin-inline: auto;
 }
+
+// Pinned steps. meet_mozilla.js adds the class on desktop (never with reduced motion)
+// and sets both lengths. Each step gets extra scroll room after its content, and the
+// content sticks level with the intro heading while that room scrolls past, so the
+// statement holds still while it lights up, then moves on.
+.mzf-c-meet-mozilla--pinned {
+  .mzf-c-meet-mozilla__item::after {
+    display: block;
+    block-size: var(--mzf-meet-mozilla-pin-distance, 0);
+    content: "";
+  }
+
+  .mzf-c-biglabel-h2 {
+    position: sticky;
+    inset-block-start: var(--mzf-meet-mozilla-pin-top, 0);
+  }
+}

@@ -135,7 +135,7 @@ def build_homepage_meet_mozilla():
             "value": dict(
                 MeetMozillaBlockFactory(
                     eyebrow="Meet Mozilla",
-                    heading="We back what others overlook.",
+                    heading="Mozilla Foundation supports...",
                     intro="Advancing technology that reflects human values.",
                     intro_link=[_external_link("Learn more", "https://example.com")],
                     steps=[
