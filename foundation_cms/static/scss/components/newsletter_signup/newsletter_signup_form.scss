@@ -16,14 +16,6 @@
   min-block-size: rem-calc(43);
 }
 
-// Figma's newsletter Focus instance disables the field's focus underline.
-// Error remains the shared field state, including its red underline.
-.mzf-c-newsletter--expanded
-  .mzf-c-field:not(.mzf-c-field--error)
-  .mzf-c-field__control:focus {
-  border-block-end-width: 0;
-}
-
 [data-newsletter-signup] {
   min-width: 0;
   margin-bottom: 2rem;
