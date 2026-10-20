@@ -1,13 +1,7 @@
-import path from "node:path";
-
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
-  // Playwright clears this directory before every run.
-  outputDir: process.env.PLAYWRIGHT_OUTPUT_DIR
-    ? path.join(process.env.PLAYWRIGHT_OUTPUT_DIR, "redesign-playwright")
-    : "./test-results",
   timeout: 60000,
   use: {
     headless: true,

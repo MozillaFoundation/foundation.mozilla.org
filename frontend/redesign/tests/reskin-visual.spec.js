@@ -2,6 +2,8 @@ import { test, expect } from "@playwright/test";
 import percySnapshot from "@percy/playwright";
 import { foundationBaseUrl } from "./base-urls.js";
 
+const runTime = Date.now();
+
 const fixtures = [
   { slug: "visual-regression-empty", title: "Visual regression: empty page" },
   {
@@ -10,7 +12,7 @@ const fixtures = [
   },
 ];
 
-async function capture(page, testInfo, name) {
+async function capture(page, name) {
   await page.mouse.move(0, 0);
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
@@ -32,7 +34,7 @@ async function capture(page, testInfo, name) {
   // Each state is exercised at its real viewport before Percy serializes it.
   await percySnapshot(page, name, { widths: [page.viewportSize().width] });
   await page.screenshot({
-    path: testInfo.outputPath(`${name}.png`),
+    path: `tests/screenshots/${runTime}/${name}.png`,
     fullPage: true,
     animations: "disabled",
   });
@@ -53,7 +55,7 @@ for (const viewport of [
     });
 
     for (const fixture of fixtures) {
-      test(fixture.slug, async ({ page }, testInfo) => {
+      test(fixture.slug, async ({ page }) => {
         const origin = new URL(foundationBaseUrl()).origin;
         // Exclude third-party widgets/analytics, retaining real first-party
         // markup, styles, scripts, images and fonts. No fixture-body mocking.
@@ -139,7 +141,7 @@ for (const viewport of [
           await expect(
             page.locator(".general-page__body > .container"),
           ).toBeEmpty();
-          await capture(page, testInfo, name);
+          await capture(page, name);
           return;
         }
 
@@ -169,24 +171,28 @@ for (const viewport of [
         await expect(
           section.locator("a.link-button.btn-primary"),
         ).toHaveAttribute("href", "/en/visual-regression-empty/");
-        const triggers = section.locator(".accordion-item__button");
-        await expect(triggers).toHaveCount(2);
-        await expect(triggers.nth(0)).toHaveAttribute("aria-expanded", "false");
-        await expect(triggers.nth(1)).toHaveAttribute("aria-expanded", "false");
-        await capture(page, testInfo, `${name} closed`);
+        const items = section.locator("details.mzf-c-accordion-item");
+        await expect(items).toHaveCount(2);
+        await expect(items.nth(0)).not.toHaveAttribute("open");
+        await expect(items.nth(1)).not.toHaveAttribute("open");
+        await capture(page, `${name} closed`);
 
-        await triggers.nth(0).click();
-        await expect(triggers.nth(0)).toHaveAttribute("aria-expanded", "true");
-        const panel = section.locator(".accordion-item__panel").first();
+        await items
+          .nth(0)
+          .locator("summary.mzf-c-accordion-item__summary")
+          .click();
+        await expect(items.nth(0)).toHaveAttribute("open");
+        const panel = items.nth(0).locator(".mzf-c-accordion-item__reveal");
         await expect(panel).toBeVisible();
-        // Wait for the JS transition finalizer, not a fixed delay.
+        // Wait for the row to settle with its inline height cleared, not a
+        // fixed delay.
         await expect
           .poll(() => panel.evaluate((element) => element.style.height))
-          .toBe("auto");
+          .toBe("");
         await expect(panel).toContainText(
           "Page layout, links and accordion content.",
         );
-        await capture(page, testInfo, `${name} open`);
+        await capture(page, `${name} open`);
       });
     }
   });

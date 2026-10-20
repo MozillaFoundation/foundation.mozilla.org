@@ -17,6 +17,4 @@ class Command(BaseCommand):
         except ValueError as error:
             raise CommandError(str(error)) from error
         for page in pages:
-            self.stdout.write(
-                self.style.SUCCESS(f"Visual fixture ready: {page.slug} (id={page.pk}, live={page.live})")
-            )
+            self.stdout.write(self.style.SUCCESS(f"Visual fixture ready: {page.slug} (id={page.pk})"))

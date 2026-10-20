@@ -4,6 +4,8 @@ import waitForImagesToLoad from "./wait-for-images.js";
 import { foundationBaseUrl } from "./base-urls.js";
 import RedesignURLs from "./redesign-urls.js";
 
+const runTime = Date.now();
+
 function testFoundationURL(path) {
   return async ({ page }, testInfo) => {
     // page.goto() already waits for the "load" event by default. We deliberately
@@ -21,7 +23,7 @@ function testFoundationURL(path) {
     await waitForImagesToLoad(page);
     await percySnapshot(page, testInfo.title);
     await page.screenshot({
-      path: testInfo.outputPath(`${testInfo.title}.png`),
+      path: `tests/screenshots/${runTime}/${testInfo.title}.png`,
       fullPage: true,
     });
   };

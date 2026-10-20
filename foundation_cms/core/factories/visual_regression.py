@@ -8,8 +8,6 @@ from foundation_cms.core.models import GeneralPage
 
 
 def populated_body():
-    # These are the components available on site-refresh-2026. Their existing
-    # styles are exercised without depending on unmerged component reskins.
     return [
         {
             "type": "section_start",
