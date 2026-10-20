@@ -1,0 +1,120 @@
+// Ported from LP components/blocks/collections/accordion/styles.css
+// LP commit 6934923891
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Accordion Group — Figma 9626:50311
+   The surface several accordion rows stack onto, flush with no gap.
+
+   The file draws two variants crossed with a breakpoint, four symbols:
+
+     Variant=timeline, Breakpoint=Desktop  9626:50310   1200 x 601
+     Variant=timeline, Breakpoint=Mobile   10191:98831   402 x 883
+     Variant=faq,      Breakpoint=Desktop  10193:98864  1200 x 483
+     Variant=faq,      Breakpoint=Mobile   10193:98897   402 x 440
+
+   `faq` is the stack on its own, full width. `timeline` pairs the same stack
+   with a square image: beside it at desktop, above it below the mobile
+   breakpoint. So this component is no longer one layout.
+
+   The group is layout only: it draws no fill, holds no state and adds no
+   behavior. Each row owns its own fill and lifts to white on hover or open,
+   so a stack of closed rows reads as the page.
+
+   This stylesheet defines the group and nothing else. Load the accordion row
+   stylesheet alongside it, or the rows inside the group render unstyled.
+
+   The custom properties below are the row's motion contract, declared here
+   too so a row inherits the same values from the group it sits in. */
+.mzf-c-accordion-group {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  background: transparent;
+  overflow: clip;
+
+  --mzf-accordion-expand-duration: var(
+    --mzf-motion-duration-index-cards-expand
+  );
+  --mzf-accordion-collapse-duration: var(
+    --mzf-motion-duration-index-cards-collapse
+  );
+  --mzf-accordion-expand-ease: var(--mzf-motion-easing-index-cards-expand);
+  --mzf-accordion-collapse-ease: var(--mzf-motion-easing-index-cards-collapse);
+  --mzf-accordion-content-out-duration: var(--mzf-motion-duration-base);
+  --mzf-accordion-content-in-start-delay: 55ms;
+}
+
+/* The `Items` slot the file draws in all four symbols. It clips at its own
+   edge so nothing bleeds out of the stack while a reveal animates. */
+.mzf-c-accordion-group__items {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  overflow: clip;
+}
+
+/* ---------- Variant=timeline ----------
+   `9626:50310` lays the stack and the image side by side, each taking half
+   of the 1200 frame: `Items` is 600 wide at x=0 and `Image` is 600 x 600 at
+   x=600, so there is no gap between the two columns and neither is fixed. */
+.mzf-c-accordion-group--timeline {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* The image is a square. `9626:50310` draws it 600 x 600 in a 1200 frame and
+   `10191:98831` draws it 402 x 402 in a 402 frame, which is the same 1:1 box
+   at both widths rather than two sizes. */
+.mzf-c-accordion-group__image {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  aspect-ratio: 1;
+  overflow: clip;
+}
+
+.mzf-c-accordion-group__image img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Variant=faq ----------
+   `10193:98864` and `10193:98897` are the `Items` slot alone at full frame
+   width, with no image beside it, at both widths. That is the column the
+   base class already draws, so `faq` gets no modifier class: writing one
+   would be a class that styles nothing, which is the defect the logo's
+   removed icon modifier was. A variant that is only a markup difference is
+   not a class.
+
+   What `faq` does change is which parts of a row the markup carries. Every
+   row drops the year span from its title and the heading from its
+   description, so the row's own stylesheet needs nothing for it either. */
+
+/* ---------- below the mobile breakpoint ----------
+   `10191:98831` stacks the image above the stack at full width. The DOM
+   keeps the items first, because they are the content, so the image takes
+   `order: -1` here rather than being moved.
+
+   The threshold is size.breakpoint.mobile; a media query cannot read a
+   custom property, so the value is repeated here and the token is the place
+   it is recorded. */
+@include mobile-only {
+  .mzf-c-accordion-group--timeline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mzf-c-accordion-group--timeline .mzf-c-accordion-group__image {
+    order: -1;
+    flex: none;
+    inline-size: 100%;
+  }
+}

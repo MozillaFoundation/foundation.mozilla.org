@@ -57,6 +57,11 @@ const sources = {
     jsx: false,
     bundle: true,
   },
+  our_work_page: {
+    source: "pages/our_work_page.js",
+    jsx: false,
+    bundle: true,
+  },
   project_page: {
     source: "pages/project_page.js",
     jsx: false,

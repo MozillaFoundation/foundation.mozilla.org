@@ -28,6 +28,7 @@ from foundation_cms.views import (
     newsletter_unsubscribe_view,
 )
 
+from .prototype_views import meteor_hero_preview
 from .redirects import foundation_redirects
 from .sitemaps import sitemap, sitemap_index
 from .views import (
@@ -136,7 +137,6 @@ urlpatterns = list(
             # set up set language redirect view
             # (CSRF token is supplied by the language-switcher inline JS from the cookie)
             path("i18n/setlang/", set_language, name="set_language"),
-            path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
             # Wagtail Footnotes package
             path("footnotes/", include(footnotes_urls)),
             # Wagtail A/B Testing package
@@ -163,11 +163,17 @@ urlpatterns = list(
 # url format with /<language_code>/ infixed needs
 # to be wrapped by django's i18n_patterns feature:
 urlpatterns += i18n_patterns(
+    # Locale-prefixed so each language gets its own cacheable catalog. Served from a
+    # single unprefixed URL, a shared cache hands every visitor whichever language it
+    # happened to store first.
+    path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("search/", search_views.search, name="search"),
     path("search/autocomplete/", search_views.search_autocomplete, name="search_autocomplete"),
     # Blog RSS feed
     path("blog/rss/", RSSFeed(), name="rss-feed"),
     path("blog/atom/", AtomFeed()),
+    # TODO: Remove this temporary preview once the Our Work page type (TP1-4395) renders the Meteor hero
+    path("prototype/meteor-hero/", meteor_hero_preview, name="meteor_hero_preview"),
     # Redirects
     *foundation_redirects(),
     # wagtail-managed data
