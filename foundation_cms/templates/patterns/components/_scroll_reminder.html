@@ -1,0 +1,17 @@
+{% load i18n %}
+{% comment %}
+  Cosmos scroll reminder (LP components/elements/chips/scroll-reminder).
+  Place one at the foot of a full-height hero to say the page continues.
+
+  Context:
+    target_id   Required. The id of the first section below the hero. That
+                element must exist, a reminder pointing nowhere is worse than
+                none.
+    classnames  Optional. Extra classes, e.g. a hero's positioning class like
+                "mzf-c-hero-primary__reminder".
+{% endcomment %}
+<a class="mzf-c-scroll-reminder{% if classnames %} {{ classnames }}{% endif %}" href="#{{ target_id }}" aria-label="{% trans "Scroll down to the content" %}">
+  <span class="mzf-c-scroll-reminder__icon" aria-hidden="true">
+    <svg viewBox="-0.225 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M5.2125 0V9.8475L0.795 5.43L0 6.225L5.775 12L11.55 6.225L10.755 5.43L6.3375 9.8475V0H5.2125Z" fill="currentColor"/></svg>
+  </span>
+</a>
