@@ -23,6 +23,8 @@ const PIN_TOP = INTRO_HEADING_TOP - STATEMENT_OFFSET;
 // 35% of the viewport, then a 10% hold with the statement fully lit.
 const FILL_DISTANCE = 350;
 const HOLD_DISTANCE = 100;
+// 20% of the viewport on mobile, so statements finish well before the site nav.
+const STACKED_FILL_DISTANCE = 200;
 // Color lines: LP's 80% when pinned, the middle when stacked.
 const PINNED_COLOR_LINE = 800;
 const STACKED_COLOR_LINE = 500;
@@ -478,7 +480,7 @@ describe("Meet Mozilla scroll behavior", () => {
       startOnScreen(root);
 
       placeSteps(steps, [
-        STACKED_COLOR_LINE - FILL_DISTANCE / 2,
+        STACKED_COLOR_LINE - STACKED_FILL_DISTANCE / 2,
         1000,
         1700,
         2400,
@@ -491,6 +493,25 @@ describe("Meet Mozilla scroll behavior", () => {
       );
       expect(stateClasses(root)).toEqual(["mzf-c-meet-mozilla--state-01"]);
       expect(unreadWords(statements[0])).toEqual([false, false, true, true]);
+    });
+
+    it("finishes each statement 30% down the viewport, clear of the site nav", () => {
+      const { root, steps, statements } = createSection({
+        sticky: false,
+        statement: "one two three four",
+      });
+      placeSteps(steps, [900, 1600, 2300, 3000]);
+      startOnScreen(root);
+
+      placeSteps(steps, [
+        STACKED_COLOR_LINE - STACKED_FILL_DISTANCE,
+        900,
+        1600,
+        2300,
+      ]);
+      scroll();
+
+      expect(unreadWords(statements[0])).toEqual([false, false, false, false]);
     });
   });
 

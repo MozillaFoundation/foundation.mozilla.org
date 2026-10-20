@@ -52,10 +52,12 @@ const COLOR_LINE = { pinned: 0.8, stacked: 0.5 };
 
 /**
  * How far the page scrolls while a statement fills, as a share of the viewport
- * height. On desktop the statement stays pinned for this plus HOLD_DISTANCE.
- * @constant {number}
+ * height.
+ * On desktop the statement stays pinned for this plus HOLD_DISTANCE.
+ * On mobile it's shorter, so the statement is fully lit before it reaches the site nav.
+ * @constant {Object}
  */
-const FILL_DISTANCE = 0.35;
+const FILL_DISTANCE = { pinned: 0.35, stacked: 0.2 };
 
 /**
  * How far the page scrolls with a pinned statement fully lit before the next color
@@ -307,9 +309,10 @@ export function initMeetMozilla(root) {
   // Layout: whether to pin and where (writes skipped when unchanged).
   const layout = () => {
     const viewportHeight = window.innerHeight;
-    const distance = viewportHeight * FILL_DISTANCE;
-    const hold = viewportHeight * HOLD_DISTANCE;
     const pinned = fills.length > 0 && shouldPin(root);
+    const distance =
+      viewportHeight * (pinned ? FILL_DISTANCE.pinned : FILL_DISTANCE.stacked);
+    const hold = viewportHeight * HOLD_DISTANCE;
     const pinTop = pinned ? getPinTop(root, fills[0].content) : null;
 
     root.classList.toggle(PINNED_CLASS, pinned);

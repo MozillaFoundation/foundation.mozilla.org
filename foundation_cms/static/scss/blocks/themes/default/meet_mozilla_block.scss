@@ -25,6 +25,16 @@
   }
 }
 
+@include mobile-only {
+  .mzf-c-meet-mozilla {
+    padding-block-end: 0;
+  }
+
+  .mzf-c-meet-mozilla__list {
+    padding-block-end: 50svh;
+  }
+}
+
 // Reduced motion, as TP1-4382 asks: nothing sticks or lights up (meet_mozilla.js
 // stands down), and instead of the section changing color on scroll, each step shows
 // its color as a static full-width band.
