@@ -1,0 +1,10 @@
+{% if donate_banner.banner_style == "pencil" %}
+    {# Hides a banner dismissed earlier today before first paint. Stored by donate_pencil_banner.js. #}
+    <script nonce="{{ request.csp_nonce }}">
+        try {
+            if (localStorage.getItem("donate pencil banner dismiss day") === "{{ donate_banner.translation_key|escapejs }}|" + new Date().toDateString()) {
+                document.documentElement.classList.add("donate-pencil-banner-dismissed");
+            }
+        } catch (e) {}
+    </script>
+{% endif %}

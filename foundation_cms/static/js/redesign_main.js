@@ -13,6 +13,7 @@ import {
 } from "./components/primary_nav/index.js";
 import { initDonateBanner } from "./components/donate_banner.js";
 import { initDonateLightbox } from "./components/donate_lightbox.js";
+import { initDonatePencilBanner } from "./components/donate_pencil_banner.js";
 import { initLanguageSwitcher } from "./components/language_switcher.js";
 import { initSpotlightCardCarousels } from "./blocks/spotlight_card_carousel.js";
 import { initPillarCardLinks } from "./blocks/pillar_card_set.js";
@@ -28,6 +29,7 @@ let foundationSiteURL = window.location.origin;
 initPrimaryNav();
 initDonateBanner();
 initDonateLightbox();
+initDonatePencilBanner();
 initLanguageSwitcher();
 initImpactNumberStatAnimationsOnScroll();
 initAllHorizontalAccordions();

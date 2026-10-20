@@ -10,6 +10,7 @@ export const SELECTORS = {
   dropdown: ".primary-nav-ns__dropdown",
   toggle: ".primary-nav-ns__dropdown-toggle",
   kineticTypeWordmark: ".kinetic-type-wordmark",
+  pencilBanner: ".donate-pencil-banner",
   searchToggle: ".primary-nav-ns__search-icon .search-toggle",
   searchInputContainer: ".search-input-container",
   searchInput: ".search-input-container input",
@@ -44,4 +45,6 @@ export const DESKTOP_BREAKPOINT = 1024;
 export const EVENTS = {
   primaryNavWillOpen: "primaryNav:willOpen",
   searchWillOpen: "primaryNav:searchWillOpen",
+  // Fired by the pencil donate banner when the nav's sticky offset changes.
+  pencilBannerHeightChange: "donatePencilBanner:heightChange",
 };
