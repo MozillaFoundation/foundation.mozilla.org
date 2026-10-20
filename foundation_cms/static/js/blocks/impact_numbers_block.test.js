@@ -10,18 +10,20 @@ function createStats(values) {
   document.body.innerHTML = values
     .map(
       ({ finalValue, text = finalValue, withValue = true }) => `
-        <div class="impact-stat__number">
-          ${
-            withValue
-              ? `<span data-impact-stat-count-up data-final-value="${finalValue}">${text}</span>`
-              : ""
-          }
+        <div class="mzf-c-card mzf-c-card--statistic" data-impact-stat>
+          <p class="mzf-c-card__figure">
+            ${
+              withValue
+                ? `<span aria-hidden="true" data-impact-stat-count-up data-final-value="${finalValue}">${text}</span>`
+                : ""
+            }
+          </p>
         </div>
       `,
     )
     .join("");
 
-  return document.querySelectorAll(".impact-stat__number");
+  return document.querySelectorAll("[data-impact-stat]");
 }
 
 function enterViewport(target, isIntersecting = true) {

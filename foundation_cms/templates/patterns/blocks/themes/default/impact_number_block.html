@@ -1,33 +1,20 @@
-{% load wagtailcore_tags %}
-
-<div class="impact-number-block">
-    {% with stat_count=self.stats|length %}
-        {% for stat in self.stats %}
-            <div class="impact-stat">
-                <div class="impact-stat__content">
-                    <div
-                        class="impact-stat__number"
-                        aria-label="{{ stat.stat_number }}"
-                    >
-                        <span
-                            class="impact-stat__number-value"
-                            data-impact-stat-count-up
-                            data-final-value="{{ stat.stat_number }}"
-                        >
-                            {{ stat.stat_number }}
-                        </span>
-                    </div>
-
-                    <div class="impact-stat__details">
-                        <h3 class="impact-stat__heading">{{ stat.stat_heading }}</h3>
-                        {% if stat.stat_description %}
-                            <p class="impact-stat__description">
-                                {{ stat.stat_description }}
-                            </p>
-                        {% endif %}
-                    </div>
+{% comment %}
+  LP card-grid (Figma 9991:346) holding impact-number cards (Figma 9918:36982).
+  The figure is read once by assistive tech from the hidden span; the visible
+  span is what the count-up script animates.
+{% endcomment %}
+<ul class="mzf-c-card-grid mzf-c-card-grid--columns-3">
+    {% for stat in self.stats %}
+        <li class="mzf-c-card-grid__item">
+            <div class="mzf-c-card mzf-c-card--statistic" data-impact-stat>
+                <p class="mzf-c-card__figure">
+                    <span class="show-for-sr">{{ stat.stat_number }}</span>
+                    <span aria-hidden="true" data-impact-stat-count-up data-final-value="{{ stat.stat_number }}">{{ stat.stat_number }}</span>
+                </p>
+                <div class="mzf-c-card__body">
+                    <p class="mzf-c-card__description">{{ stat.stat_heading }}</p>
                 </div>
             </div>
-        {% endfor %}
-    {% endwith %}
-</div>
+        </li>
+    {% endfor %}
+</ul>
