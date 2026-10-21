@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from django.test import SimpleTestCase
 
-migration = import_module("foundation_cms.core.migrations.0093_strip_featured_card_blocks")
+migration = import_module("foundation_cms.core.migrations.0094_strip_featured_card_blocks")
 
 
 def page_model_with(rows):

@@ -97,11 +97,11 @@ def strip_featured_card_blocks(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("core", "0092_alter_generalpage_body_alter_homepage_body"),
-        ("campaigns", "0028_alter_campaignpage_body"),
-        ("gallery_hub", "0013_alter_projectpage_body"),
-        ("nothing_personal", "0063_alter_nothingpersonalarticlecollectionpage_body_and_more"),
-        ("profiles", "0016_alter_expertdirectorypage_body_and_more"),
+        ("core", "0093_reskin_quote_block"),
+        ("campaigns", "0029_reskin_quote_block"),
+        ("gallery_hub", "0014_reskin_quote_block"),
+        ("nothing_personal", "0064_reskin_quote_block"),
+        ("profiles", "0017_reskin_quote_block"),
         ("contenttypes", "0001_initial"),
         ("wagtailcore", "0001_initial"),
     ]
