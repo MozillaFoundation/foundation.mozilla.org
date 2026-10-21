@@ -110,22 +110,31 @@ export default function injectNewsletterSignups(foundationSiteURL) {
     // Activating non-focusable form content, such as the consent text, blurs
     // the active field with no related target, so only focus moving to another
     // element, an outside press or click, or leaving the page collapses.
+    // Outside presses and clicks are ignored while a field keeps focus: a
+    // touch scroll presses outside without moving focus.
     const collapse = () => {
       if (container.dataset.layout !== "expanded") setExpanded(false);
     };
+    const isOutside = (target) =>
+      !form.contains(target) && !form.contains(document.activeElement);
     form.addEventListener("focusout", (event) => {
       if (event.relatedTarget && !form.contains(event.relatedTarget)) {
         collapse();
       }
     });
+    // A drag from inside the form released outside clicks a shared ancestor,
+    // so remember where the press started until its click or cancellation.
+    let pressedInForm = false;
     document.addEventListener("pointerdown", (event) => {
-      if (!form.contains(event.target)) collapse();
+      pressedInForm = form.contains(event.target);
+      if (isOutside(event.target)) collapse();
+    });
+    document.addEventListener("pointercancel", () => {
+      pressedInForm = false;
     });
     document.addEventListener("click", (event) => {
-      // A drag released outside clicks a shared ancestor of the form.
-      if (!form.contains(event.target) && !event.target.contains(form)) {
-        collapse();
-      }
+      if (isOutside(event.target) && !pressedInForm) collapse();
+      pressedInForm = false;
     });
     window.addEventListener("blur", collapse);
 

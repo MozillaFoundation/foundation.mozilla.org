@@ -190,8 +190,12 @@ describe("injectNewsletterSignups", () => {
         form.elements.email.blur();
         consent.click();
         expect(isOpen(), exit).toBe(true);
-        // A drag released outside the form clicks a shared ancestor.
-        if (pointer) document.body.click();
+        // A drag from the consent text released outside the form clicks a
+        // shared ancestor instead of the consent text.
+        if (pointer) {
+          press(consent);
+          document.body.click();
+        }
         expect(isOpen(), exit).toBe(true);
         leave();
         expect(isOpen(), exit).toBe(false);
@@ -201,6 +205,53 @@ describe("injectNewsletterSignups", () => {
       }
     }
     expect(form.elements.privacy.checked).toBe(false);
+  });
+
+  it("stays open during an outside touch scroll while the email keeps focus", () => {
+    const root = addSignup();
+    const page = document.createElement("div");
+    const outside = document.createElement("button");
+    document.body.append(page, outside);
+    injectNewsletterSignups("");
+    const form = root.querySelector("form");
+    const button = form.querySelector('[type="submit"]');
+    const isOpen = () =>
+      [...form.querySelectorAll("[data-newsletter-expanded]")].every(
+        (el) => !el.hidden,
+      );
+    form.elements.email.focus();
+    // A finger scroll presses outside and is cancelled without moving focus.
+    for (const type of ["pointerdown", "pointercancel"]) {
+      page.dispatchEvent(new Event(type, { bubbles: true }));
+    }
+    expect(document.activeElement).toBe(form.elements.email);
+    expect(isOpen()).toBe(true);
+    expect(button.disabled).toBe(false);
+    submit(form);
+    expect(root.querySelector("[data-email-error]").hidden).toBe(false);
+    expect(document.activeElement).toBe(form.elements.email);
+    expect(fetch).not.toHaveBeenCalled();
+    outside.focus();
+    expect(isOpen()).toBe(false);
+    expect(button.disabled).toBe(true);
+  });
+
+  it("collapses when blank page content around the form is clicked", () => {
+    const root = addSignup();
+    injectNewsletterSignups("");
+    const form = root.querySelector("form");
+    const isOpen = () =>
+      [...form.querySelectorAll("[data-newsletter-expanded]")].every(
+        (el) => !el.hidden,
+      );
+    form.elements.email.focus();
+    // The press lands before the browser blurs the email with no related
+    // target; the click then targets an ancestor of the form.
+    document.body.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+    form.elements.email.blur();
+    document.body.click();
+    expect(isOpen()).toBe(false);
+    expect(form.querySelector('[type="submit"]').disabled).toBe(true);
   });
 
   it("associates validation errors with controls and focuses the first invalid field", () => {
