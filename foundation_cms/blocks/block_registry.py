@@ -6,7 +6,6 @@ from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
-from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .flywheel_banner_block import FlywheelBannerBlock
 from .fru_element_block import FruElementBlock
@@ -76,11 +75,6 @@ class BlockRegistry:
             "group": BlockGroups.BANNERS,
         },
         # Card Collections
-        "featured_card_block": {
-            "class": FeaturedCardBlock,
-            "kwargs": {"skip_default_wrapper": True},
-            "group": BlockGroups.CARDS,
-        },
         "pillar_card_set": {
             "class": PillarCardSetBlock,
             "group": BlockGroups.CARDS,
