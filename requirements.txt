@@ -162,7 +162,7 @@ openpyxl==3.1.0
     # via wagtail
 packaging==23.1
     # via gunicorn
-pillow==12.3.0
+pillow==13.0.0
     # via
     #   pillow-heif
     #   wagtail
