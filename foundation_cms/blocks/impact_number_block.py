@@ -25,8 +25,6 @@ class ImpactStatBlock(blocks.StructBlock):
 
 
 class ImpactNumberBlock(BaseBlock):
-    is_cosmos_block = True
-
     stats = blocks.ListBlock(
         ImpactStatBlock(),
         min_num=NUM_IMPACT_STATS,

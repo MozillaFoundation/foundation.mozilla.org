@@ -1,0 +1,15 @@
+// The block is LP's card-grid of impact-number cards (cosmos/blocks/cards/
+// _impact-number.scss). This file holds only what LP leaves to the holder.
+
+// LP lets the row set the card height, but the desktop design draws every
+// statistic card at 334px with the figure at the top and the line at the
+// bottom, which only shows when the row is that tall.
+// TODO(TP1-4248): the Figma two-column variant (9991:215) hugs its content
+// at 214px instead. Applied to every column count until design settles it.
+.mzf-c-card--statistic {
+  min-block-size: var(--size-card-statistic-min-height);
+
+  @include mobile-only {
+    min-block-size: 0;
+  }
+}

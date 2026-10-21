@@ -46,5 +46,6 @@ class TestImpactNumberBlock(SimpleTestCase):
         self.assertNotIn("legacy copy", soup.get_text())
         self.assertEqual(len(soup.select(".mzf-c-card--statistic")), 3)
 
-    def test_renders_without_the_foundation_grid_wrapper(self):
-        self.assertTrue(ImpactNumberBlock().skip_default_wrapper)
+    def test_renders_inside_the_default_grid_wrapper(self):
+        """The grid lines up with the heading blocks around it, which sit in the Foundation container."""
+        self.assertFalse(ImpactNumberBlock().skip_default_wrapper)
