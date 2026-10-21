@@ -1,6 +1,7 @@
 from importlib import import_module
 from unittest.mock import Mock
 
+from django.core.exceptions import FieldDoesNotExist
 from django.test import SimpleTestCase
 
 migration = import_module("foundation_cms.core.migrations.0094_strip_featured_card_blocks")
@@ -54,3 +55,25 @@ class FeaturedCardDataMigrationTests(SimpleTestCase):
 
         self.assertEqual(revision.content["body"], expected_body)
         revision.save.assert_called_once_with(update_fields=["content"])
+
+    def test_skips_page_models_without_body_field(self):
+        no_body_model = Mock()
+        no_body_model._meta.get_field.side_effect = FieldDoesNotExist
+
+        revision_model = Mock()
+        revision_model.objects.filter.return_value.iterator.return_value = iter([])
+        content_type_queryset = Mock()
+        content_type_queryset.values_list.return_value = [1]
+        content_type_model = Mock()
+        content_type_model.objects.filter.return_value = content_type_queryset
+
+        models = {
+            ("wagtailcore", "Revision"): revision_model,
+            ("contenttypes", "ContentType"): content_type_model,
+        }
+        historical_apps = Mock()
+        historical_apps.get_model.side_effect = lambda app, model: models.get((app, model), no_body_model)
+
+        migration.strip_featured_card_blocks(historical_apps, schema_editor=None)
+
+        no_body_model.objects.all.assert_not_called()
