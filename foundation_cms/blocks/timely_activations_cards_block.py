@@ -3,6 +3,7 @@ from wagtail.images.blocks import ImageBlock
 
 from foundation_cms.base.models.base_block import BaseBlock
 
+from .callout_card_block import CalloutCardBlock
 from .custom_rich_text_block import CustomRichTextBlock
 from .link_block import LinkBlock
 
@@ -32,6 +33,7 @@ class TimelyActivationsCardsBlock(BaseBlock):
     cards = blocks.StreamBlock(
         [
             ("card", ActivationCardBlock()),
+            ("callout_card", CalloutCardBlock()),
         ],
         min_num=1,
         max_num=3,
