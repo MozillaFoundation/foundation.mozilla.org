@@ -1,0 +1,121 @@
+// Ported from components/elements/media/aspect-ratios/styles.css
+
+/* Aspect ratio — Figma 9783:25468
+   A media box that holds one of eleven drawn proportions. The image fills the
+   box and the box crops it, so a photograph of any size lands on the ratio the
+   layout asked for.
+
+   The element sets no width. It takes the inline size its holder gives it and
+   derives the block size from the ratio, which is why the same eleven
+   modifiers work in a card, a quote and a full-bleed band.
+
+   Orientation is not a second axis to set. Each ratio is drawn in exactly one
+   orientation: five landscape, five portrait, one square. The file draws
+   eleven symbols for that reason, not thirty-three. */
+
+.mzf-c-aspect-ratio {
+  /* 1:1 is the base. Every modifier below replaces this one value, so a
+     holder that wants a ratio the file does not draw sets nothing and
+     composes a drawn one instead. */
+  --mzf-aspect-ratio: 1 / 1;
+
+  display: block;
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: var(--mzf-aspect-ratio);
+  overflow: clip;
+}
+
+/* The file draws no focus state, because Figma draws none. The box becomes
+   focusable the moment a holder makes it a link or a button, and dropping the
+   outline there would break keyboard access, so it is kept. */
+.mzf-c-aspect-ratio:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-2);
+}
+
+/* The media fills the box on both axes and the box does the cropping. Absolute
+   positioning rather than a plain block, because a replaced element left in
+   flow reports its own intrinsic height and pushes the ratio open. */
+.mzf-c-aspect-ratio__media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* ---------- landscape ---------- */
+
+.mzf-c-aspect-ratio--2-1 {
+  --mzf-aspect-ratio: 2 / 1;
+}
+
+.mzf-c-aspect-ratio--16-9 {
+  --mzf-aspect-ratio: 16 / 9;
+}
+
+.mzf-c-aspect-ratio--3-2 {
+  --mzf-aspect-ratio: 3 / 2;
+}
+
+.mzf-c-aspect-ratio--5-4 {
+  --mzf-aspect-ratio: 5 / 4;
+}
+
+.mzf-c-aspect-ratio--4-3 {
+  --mzf-aspect-ratio: 4 / 3;
+}
+
+/* ---------- portrait ---------- */
+
+.mzf-c-aspect-ratio--4-5 {
+  --mzf-aspect-ratio: 4 / 5;
+}
+
+.mzf-c-aspect-ratio--3-4 {
+  --mzf-aspect-ratio: 3 / 4;
+}
+
+.mzf-c-aspect-ratio--2-3 {
+  --mzf-aspect-ratio: 2 / 3;
+}
+
+.mzf-c-aspect-ratio--9-16 {
+  --mzf-aspect-ratio: 9 / 16;
+}
+
+.mzf-c-aspect-ratio--1-2 {
+  --mzf-aspect-ratio: 1 / 2;
+}
+
+/* ---------- square ----------
+   1:1 is the base value, so this modifier exists to be written rather than to
+   change anything. A holder that names the ratio it wants reads better than a
+   holder that relies on a default. */
+.mzf-c-aspect-ratio--1-1 {
+  --mzf-aspect-ratio: 1 / 1;
+}
+
+/* ---------- play ----------
+   Every symbol carries a play glyph as a hidden layer, so the box knows how to
+   mark itself as a video without a second component. It is drawn at the
+   48px icon box, centered on both axes, in ink.
+
+   Centering is inset plus auto margins rather than a translate, because a
+   translate has to pick a direction and this box is used under dir="rtl". */
+.mzf-c-aspect-ratio__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  inline-size: var(--size-icon-xlarge);
+  block-size: var(--size-icon-xlarge);
+  color: var(--color-text-default);
+}
+
+.mzf-c-aspect-ratio__play svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}

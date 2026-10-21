@@ -4,7 +4,6 @@ from django.template.loader import render_to_string
 from django.test import SimpleTestCase
 from wagtail import blocks
 
-from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
 from foundation_cms.blocks.link_button_block import (
     FixedAlignmentLinkButtonBlock,
     LinkButtonBlock,
@@ -129,14 +128,6 @@ class LinkButtonRenderingTests(SimpleTestCase):
                 self.assertIsNotNone(soup.select_one(".streamfield-block-wrapper > a.mzf-c-button"))
                 self.assertEqual(bool(soup.select_one(".mzf-c-section")), marked)
                 self.assertIsNone(soup.select_one(".grid-container, .grid-x, .link-button-block"))
-
-    def test_featured_card_direct_include_renders_the_same_button(self):
-        block = FeaturedCardBlock()
-        value = block.to_python({"heading": "Featured", "description": "", "button": self.button_value()})
-        soup = BeautifulSoup(block.render(value), "html.parser")
-        anchor = soup.select_one(".featured-card__button > a.mzf-c-button")
-        self.assertIsNotNone(anchor)
-        self.assertEqual(anchor["href"], "/stories/")
 
     def test_two_and_three_column_containers_render_direct_button_children(self):
         for block_class, columns in (

@@ -9,7 +9,6 @@ from foundation_cms.blocks.factories import (
     CustomMediaBlockFactory,
     DividerBlockFactory,
     DonorHelpContactUsFormBlockFactory,
-    FeaturedCardBlockFactory,
     FruElementBlockFactory,
     IconInfoGridBlockFactory,
     IconInfoGridItemBlockFactory,
@@ -155,7 +154,6 @@ def build_general_page_body():
                 )
             ),
         },
-        {"type": "featured_card_block", "value": dict(FeaturedCardBlockFactory(image=image_1))},
         {
             "type": "portrait_card_set_block",
             "value": dict(

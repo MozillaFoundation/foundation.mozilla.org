@@ -141,16 +141,6 @@
     }
   }
 
-  .quote-block {
-    .quote-text-regular {
-      @include apply-text-style($quote-text-styles, "regular", "small");
-    }
-
-    figcaption {
-      @include apply-text-style($body-text-styles, "xsmall", "small");
-    }
-  }
-
   .newsletter-signup {
     margin-bottom: 0;
   }

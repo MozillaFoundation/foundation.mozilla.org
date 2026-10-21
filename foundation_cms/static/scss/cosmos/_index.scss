@@ -11,3 +11,8 @@
 // Blocks
 @import "blocks/collections/accordion";
 @import "blocks/heros/primary";
+
+// Quote dependencies, in LP's required load order
+@import "blocks/text/text-group";
+@import "elements/media/aspect-ratios";
+@import "blocks/text/blockquote";

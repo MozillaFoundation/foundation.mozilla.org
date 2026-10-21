@@ -46,7 +46,6 @@ BASE_BLOCK_NAMES = sorted(
         "three_column_container_block",
         "video_block",
         "pillar_card_set",
-        "featured_card_block",
         "flywheel_banner",
         "fru_element_block",
         "divider",
