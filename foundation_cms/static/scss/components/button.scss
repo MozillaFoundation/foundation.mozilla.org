@@ -18,6 +18,12 @@
     color: var(--color-text-inverse);
   }
 
+  // Keep the arrow in a square glyph box to avoid fractional centering during
+  // the hover translation.
+  &__icon svg {
+    block-size: var(--size-icon-glyph);
+  }
+
   // Contextual glyphs share LP's icon box and motion, but are not directional.
   &__icon[data-link-type] {
     &::before {
