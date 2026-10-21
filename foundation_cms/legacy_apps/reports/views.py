@@ -50,8 +50,10 @@ class PageTypesReportFilterSet(WagtailFilterSet):
 
 class PageTypesReportView(ReportView):
     title = "Page types report"
-    template_name = "pages/reports/page_types_report.html"
+    results_template_name = "pages/reports/page_types_report_results.html"
     header_icon = "doc-empty-inverse"
+    index_url_name = "page_types_report"
+    index_results_url_name = "page_types_report_results"
 
     filterset_class = PageTypesReportFilterSet
 
@@ -101,7 +103,10 @@ class PageTypesReportView(ReportView):
 class BlockTypesReportView(ReportView):
     title = "Block types report"
     template_name = "pages/reports/block_types_report.html"
+    results_template_name = "pages/reports/block_types_report_results.html"
     header_icon = "placeholder"
+    index_url_name = "block_types_report"
+    index_results_url_name = "block_types_report_results"
 
     def decorate_paginated_queryset(self, object_list):
         # Build a cache map of PageBlock's block name to content types

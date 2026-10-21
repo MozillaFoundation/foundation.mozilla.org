@@ -47,19 +47,6 @@ const sources = {
     source: "foundation/pages/callpower.js",
     bundle: true,
   },
-  "bg-main": {
-    source: "buyers-guide/bg-main.js",
-    jsx: "automatic",
-    bundle: true,
-  },
-  "bg-search": {
-    source: "buyers-guide/search.js",
-    bundle: true,
-  },
-  "bg-editorial-content-index": {
-    source: "buyers-guide/editorial-content-index.js",
-    bundle: true,
-  },
   "libraries-library-page": {
     source: "foundation/pages/libraries-library-page.js",
     bundle: true,

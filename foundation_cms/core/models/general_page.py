@@ -56,6 +56,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
         choices=[
             ("orange-200", "Orange"),
             ("yellow-200", "Yellow"),
+            ("transparent", "Transparent"),
         ],
         blank=True,
         default="",
@@ -82,7 +83,7 @@ class GeneralPage(AbstractGeneralPage, HeroMediaMixin):
 
     body = StreamField(
         general_page_block_options,
-        block_counts={"donor_help_contact_us_form": {"max_num": 1}},
+        block_counts={"donor_help_contact_us_form": {"max_num": 1}, "greenhouse_board": {"max_num": 1}},
         use_json_field=True,
         blank=True,
     )

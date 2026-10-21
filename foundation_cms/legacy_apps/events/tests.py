@@ -1,13 +1,13 @@
 import json
 from unittest import mock
 
-from django.test import RequestFactory, TestCase
+from django.http import JsonResponse
+from django.test import TestCase
 from django.urls import reverse
 from wagtail.models import Page, Site
 
 from foundation_cms.legacy_apps.events.factory import TitoEventFactory
 from foundation_cms.legacy_apps.events.utils import sign_tito_request
-from foundation_cms.legacy_apps.events.views import tito_ticket_completed
 from foundation_cms.legacy_apps.mozfest.factory import MozfestHomepageFactory
 
 
@@ -51,61 +51,54 @@ class TitoTicketCompletedTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(json.loads(response.content)["error"], "Payload verification failed")
 
-    @mock.patch("foundation_cms.legacy_apps.events.views.basket")
-    def test_calls_basket_api(self, mock_basket):
+    def _post_signed(self, data):
+        body = json.dumps(data | self._webhook_data())
         secret = bytes(self.tito_event.security_token, "utf-8")
-        data = {
-            "answers": [
-                {
-                    "question": {"id": self.tito_event.newsletter_question_id},
-                    "response": ["yes"],
-                },
-            ],
-            "email": "rich@test.com",
-        } | self._webhook_data()
-
-        factory = RequestFactory()
-        request = factory.post(
+        return self.client.post(
             self.url,
-            data=data,
+            data=body,
             content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed",
+            headers={
+                "x-webhook-name": "ticket.completed",
+                "tito-signature": sign_tito_request(secret, body.encode()),
+            },
         )
-        request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
 
-        response = tito_ticket_completed(request)
+    def _newsletter_answer(self):
+        return {"answers": [{"question": {"id": self.tito_event.newsletter_question_id}, "response": ["yes"]}]}
+
+    @mock.patch("foundation_cms.legacy_apps.events.views.subscribe_to_sailthru_newsletter")
+    def test_subscribes_opted_in_ticket_holder(self, subscribe):
+        subscribe.return_value = JsonResponse({}, status=201)
+
+        response = self._post_signed(
+            {"email": "person@example.com", "first_name": "Test", "last_name": "Person"} | self._newsletter_answer()
+        )
 
         self.assertEqual(response.status_code, 202)
-        mock_basket.subscribe.assert_called_once_with("rich@test.com", "mozilla-festival")
+        subscribe.assert_called_once()
+        sent = subscribe.call_args.args[0]
+        self.assertEqual(sent["email"], "person@example.com")
+        self.assertEqual(sent["newsletters"], "tito")
+        self.assertEqual(sent["first_name"], "Test")
+        self.assertEqual(sent["last_name"], "Person")
 
-    def test_logs_basket_exception(self):
-        # Using `failure@example.com` as the email causes an exception, see:
-        # https://github.com/mozilla/basket-example#tips
+    @mock.patch("foundation_cms.legacy_apps.events.views.subscribe_to_sailthru_newsletter")
+    def test_skips_ticket_holder_without_newsletter_opt_in(self, subscribe):
+        response = self._post_signed({"email": "person@example.com", "answers": []})
 
-        secret = bytes(self.tito_event.security_token, "utf-8")
-        data = {
-            "answers": [
-                {
-                    "question": {"id": self.tito_event.newsletter_question_id},
-                    "response": ["yes"],
-                },
-            ],
-            "email": "failure@example.com",
-        } | self._webhook_data()
+        self.assertEqual(response.status_code, 202)
+        subscribe.assert_not_called()
 
-        factory = RequestFactory()
-        request = factory.post(
-            self.url,
-            data=json.dumps(data),
-            content_type="application/json",
-            HTTP_X_WEBHOOK_NAME="ticket.completed",
-        )
-        request.META["HTTP_TITO_SIGNATURE"] = sign_tito_request(secret, request.body)
+    @mock.patch("foundation_cms.legacy_apps.events.views.subscribe_to_sailthru_newsletter")
+    def test_returns_202_and_logs_when_sailthru_rejects(self, subscribe):
+        subscribe.return_value = JsonResponse({}, status=400)
 
         with self.assertLogs(logger="foundation_cms.legacy_apps.events.views", level="ERROR") as cm:
-            response = tito_ticket_completed(request)
-            self.assertEqual(response.status_code, 202)
-            self.assertIn("Subscription from Tito webhook failed", cm.output[0])
+            response = self._post_signed({"email": "person@example.com"} | self._newsletter_answer())
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn("Subscription from Tito webhook failed", cm.output[0])
 
 
 class TitoWidgetBlockLocalizationTest(TestCase):

@@ -11,7 +11,6 @@ on:
 
 env:
   ALLOWED_HOSTS: legacy.localhost,localhost,mozfest.localhost,default-site.com,secondary-site.com
-  BASKET_URL: https://basket-dev.allizom.org
   CONTENT_TYPE_NO_SNIFF: True
   CORS_ALLOWED_ORIGINS: "*"
   DATABASE_URL: postgres://postgres:postgres@localhost:5432/network
@@ -19,7 +18,6 @@ env:
   DJANGO_SECRET_KEY: secret
   DOMAIN_REDIRECT_MIDDLEWARE_ENABLED: False
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NEWSLETTER_SIGNUP_METHOD: "BASKET"
   PIPENV_VERBOSITY: -1
   RANDOM_SEED: 530910203
   SET_HSTS: False

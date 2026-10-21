@@ -16,6 +16,11 @@ def register_page_types_report_menu_item():
 def register_page_types_report_url():
     return [
         path("reports/page-types-report/", PageTypesReportView.as_view(), name="page_types_report"),
+        path(
+            "reports/page-types-report/results/",
+            PageTypesReportView.as_view(results_only=True),
+            name="page_types_report_results",
+        ),
     ]
 
 
@@ -30,4 +35,9 @@ def register_block_types_report_menu_item():
 def register_block_types_report_url():
     return [
         path("reports/block-types-report/", BlockTypesReportView.as_view(), name="block_types_report"),
+        path(
+            "reports/block-types-report/results/",
+            BlockTypesReportView.as_view(results_only=True),
+            name="block_types_report_results",
+        ),
     ]

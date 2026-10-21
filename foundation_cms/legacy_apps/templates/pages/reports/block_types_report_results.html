@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/reports/base_report_results.html" %}
+
+{% block results %}
+    {% include "pages/reports/include/_list_block_types.html" with block_report_items=object_list %}
+{% endblock results %}
+
+{% block no_results_message %}
+    <p>No block types match this report's criteria.</p>
+{% endblock no_results_message %}

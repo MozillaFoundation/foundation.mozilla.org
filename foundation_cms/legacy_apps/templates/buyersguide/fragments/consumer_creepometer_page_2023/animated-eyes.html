@@ -1,7 +1,0 @@
-{% comment %}
-To make this work, remember to set `tw-relative` to the parent container. Script to kick off the animation can be found in creepy-eyes.js
-{% endcomment %}
-{% with shared_class="creepy-eye tw-z-30 tw-absolute tw-block tw-rounded-[50%] tw-bg-white before:tw-content-[''] before:tw-w-[75%] before:tw-h-[75%] before:tw-bg-black before:tw-top-[50%] before:tw-left-[63%] before:tw-absolute before:tw-translate-x-[-50%] before:tw-translate-y-[-50%] before:tw-rounded-[50%]" %}
-  <div class="left-eye  tw-rounded-full {{ shared_class }} {{ eye_base_class }} {{ left_eye_class }}"></div>
-  <div class="right-eye {{ shared_class }} {{ eye_base_class }} {{ right_eye_class }}"></div>
-{% endwith %}

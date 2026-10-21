@@ -1,4 +1,0 @@
-{% load static wagtailcore_tags i18n bg_nav_tags %}
-
-{% trans "Related" as default_heading %}
-{% include "./article_listing_compact.html" with heading=heading|default:default_heading heading_level=heading_level heading_classes=heading_classes articles=articles index_page=index_page short_waves=True show_images=False %}

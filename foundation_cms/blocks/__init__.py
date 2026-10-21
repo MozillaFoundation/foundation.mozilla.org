@@ -1,5 +1,6 @@
 from .accordion_block import AccordionBlock
 from .base_card_block import BaseCardBlock
+from .call_to_action_block import CallToActionBlock
 from .callout_block import CalloutBlock
 from .common.background_color_block import BackgroundColorChoiceBlock
 from .divider_block import DividerBlock
@@ -7,6 +8,7 @@ from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_card_block import FeaturedCardBlock
 from .featured_container_block import FeaturedContainerBlock
 from .fru_element_block import FruElementBlock
+from .greenhouse_board_block import GreenhouseBoardBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
@@ -54,6 +56,7 @@ __all__ = [
     "AccordionBlock",
     "BaseCardBlock",
     "BackgroundColorChoiceBlock",
+    "CallToActionBlock",
     "DividerBlock",
     "DonorHelpContactUsFormBlock",
     "CalloutBlock",
@@ -63,6 +66,7 @@ __all__ = [
     "IllustratedNewsletterSignupBlock",
     "ProjectBlock",
     "FruElementBlock",
+    "GreenhouseBoardBlock",
     "TabbedContentContainerBlock",
     "TabbedContentCardSetBlock",
     "TabbedContentTabBlock",

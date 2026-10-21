@@ -31,8 +31,6 @@ env = environ.Env(
     APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST=(str, ""),
     ASSET_DOMAIN=(str, ""),
     AWS_LOCATION=(str, ""),
-    BASKET_URL=(str, ""),
-    BUYERS_GUIDE_VOTE_RATE_LIMIT=(str, "200/hour"),
     CONTENT_TYPE_NO_SNIFF=bool,
     CAMO_ENDPOINT_KEY=(str, ""),
     CAMO_NEWSLETTER_ENDPOINT=(str, ""),
@@ -58,6 +56,10 @@ env = environ.Env(
     GIF_WEBP_FOUND_CACHE_SECONDS=(int, 60 * 60),
     GIF_WEBP_MISSING_CACHE_SECONDS=(int, 30),
     GITHUB_TOKEN=(str, ""),
+    GREENHOUSE_BOARD_CACHE_TIMEOUT=(int, 60 * 5),
+    GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT=(int, 60),
+    GREENHOUSE_BOARD_ENABLED=(bool, False),
+    GREENHOUSE_BOARD_TOKEN=(str, ""),
     HEROKU_APP_NAME=(str, ""),
     HEROKU_BRANCH=(str, ""),
     HEROKU_PR_NUMBER=(str, ""),
@@ -66,13 +68,13 @@ env = environ.Env(
     MOZFEST_DOMAIN_REDIRECT_ENABLED=(bool, False),
     MOZFEST_SCHEDULE_URL=(str, ""),
     PETITION_TEST_CAMPAIGN_ID=(str, ""),
-    NEWSLETTER_SIGNUP_METHOD=(str, ""),
-    PNI_STATS_DB_URL=(str, None),
     PROD_HOSTNAMES=(str, ""),
     RANDOM_SEED=(int, None),
     REDIS_URL=(str, ""),
     REFERRER_HEADER_VALUE=(str, ""),
     REVIEW_APP=(bool, False),
+    SAILTHRU_ENDPOINT_KEY=(str, ""),
+    SAILTHRU_NEWSLETTER_ENDPOINT=(str, ""),
     SEARCH_AUTOCOMPLETE_MIN_CHARS=(int, 5),
     SENTRY_DSN=(str, None),
     SENTRY_ENVIRONMENT=(str, None),
@@ -154,9 +156,6 @@ APPLE_PAY_DOMAIN_ASSOCIATION_KEY_MOZFEST = env("APPLE_PAY_DOMAIN_ASSOCIATION_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = root()
-
-# Basket client configuration
-BASKET_URL = env("BASKET_URL")
 
 APP_DIR = app()
 
@@ -337,7 +336,9 @@ MIDDLEWARE = list(
             "foundation_cms.legacy_apps.utility.middleware.NormalizeLocaleMiddleware",
             "foundation_cms.legacy_apps.utility.middleware.TargetDomainRedirectMiddleware",
             "django.contrib.sessions.middleware.SessionMiddleware",
-            #
+            # This middleware is used to redirect users to their preferred locale using the language cookie
+            # if locale is not specified in the URL.
+            "foundation_cms.core.middleware.PreferredLocaleRedirectMiddleware",
             # should be after SessionMiddleware and before CommonMiddleware
             "django.middleware.locale.LocaleMiddleware",
             "django.middleware.common.CommonMiddleware",
@@ -408,6 +409,7 @@ TEMPLATES = [
                         "foundation_cms.context_processor.canonical_site_url",
                         "foundation_cms.context_processor.mozfest_schedule_url",
                         "foundation_cms.context_processor.editable_footer",
+                        "foundation_cms.context_processor.careers_url",
                         "wagtail.contrib.settings.context_processors.settings",
                     ],
                 )
@@ -551,7 +553,6 @@ USE_TZ = True
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, "locale"),
     os.path.join(BASE_DIR, "legacy_apps/locale"),
-    os.path.join(BASE_DIR, "legacy_apps/templates/pages/buyersguide/about/locale"),
     os.path.join(BASE_DIR, "legacy_apps/wagtailpages/templates/wagtailpages/pages/locale"),
     os.path.join(
         BASE_DIR,
@@ -814,7 +815,7 @@ LOGGING = {
         "django.template": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.db.backends": {"handlers": ["debug-error"], "level": "ERROR"},
         "django.utils.autoreload": {"handlers": ["debug-error"], "level": "ERROR"},
-        "foundation_cms.legacy_apps": {
+        "foundation_cms": {
             "handlers": ["info"],
             "level": "INFO",
         },
@@ -838,14 +839,14 @@ SLACK_WEBHOOK_RA = env("SLACK_WEBHOOK_RA")
 # Used by legacy_load_fake_data to ensure we have petitions that actually work
 PETITION_TEST_CAMPAIGN_ID = env("PETITION_TEST_CAMPAIGN_ID")
 
-# Buyers Guide Rate Limit Setting
-BUYERS_GUIDE_VOTE_RATE_LIMIT = env("BUYERS_GUIDE_VOTE_RATE_LIMIT")
-
-# privacynotincluded statistics DB
-PNI_STATS_DB_URL = env("PNI_STATS_DB_URL")
-
 # Blog/Campaign index cache setting
 INDEX_PAGE_CACHE_TIMEOUT = env("INDEX_PAGE_CACHE_TIMEOUT")
+
+# Greenhouse job board settings
+GREENHOUSE_BOARD_ENABLED = env("GREENHOUSE_BOARD_ENABLED")
+GREENHOUSE_BOARD_TOKEN = env("GREENHOUSE_BOARD_TOKEN")
+GREENHOUSE_BOARD_CACHE_TIMEOUT = env("GREENHOUSE_BOARD_CACHE_TIMEOUT")
+GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT = env("GREENHOUSE_BOARD_ERROR_CACHE_TIMEOUT")
 
 # RSS / ATOM settings
 FEED_CACHE_TIMEOUT = env("FEED_CACHE_TIMEOUT")
@@ -930,14 +931,10 @@ EMAIL_HOST_PASSWORD = env("WAGTAIL_NOTIFICATION_EMAIL_PASSWORD")
 # This variable is used internally in Wagtail's native logic.
 WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = env("WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS")
 
-# Newsletter subscription method and endpoints
-
-# Choices are "BASKET" or "CAMO"
-NEWSLETTER_SIGNUP_METHOD = env("NEWSLETTER_SIGNUP_METHOD")
-
 # Endpoints for subscribing users to our newsletters
-CAMO_NEWSLETTER_ENDPOINT = env("CAMO_NEWSLETTER_ENDPOINT")
-CAMO_ENDPOINT_KEY = env("CAMO_ENDPOINT_KEY")
+# CAMO_* fallbacks cover environments whose config predates the Sailthru rename. Remove once renamed.
+SAILTHRU_NEWSLETTER_ENDPOINT = env("SAILTHRU_NEWSLETTER_ENDPOINT") or env("CAMO_NEWSLETTER_ENDPOINT")
+SAILTHRU_ENDPOINT_KEY = env("SAILTHRU_ENDPOINT_KEY") or env("CAMO_ENDPOINT_KEY")
 UNSUBSCRIBE_NEWSLETTER_ENDPOINT = env("UNSUBSCRIBE_NEWSLETTER_ENDPOINT")
 SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL = env("SUCCESSFUL_UNSUBSCRIBE_REDIRECT_URL")
 
