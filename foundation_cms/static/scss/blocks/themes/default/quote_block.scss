@@ -2,23 +2,3 @@
 .mzf-c-blockquote {
   --color-text-quote-mark: var(--color-accent-orange);
 }
-
-// Stack the portrait variant below 1024px; LP only stacks at the 768px mobile breakpoint and text is quite narrow on tablet view.
-@media (width <= 1024px) {
-  // Override the default layout for the portrait variant on smaller screens
-  .mzf-c-blockquote:has(.mzf-c-blockquote__portrait) {
-    grid-template-columns: 1fr;
-  }
-
-  // Override the default layout for the portrait variant within the attribution container on smaller screens
-  .mzf-c-blockquote__portrait,
-  .mzf-c-blockquote:has(.mzf-c-blockquote__attribution)
-    .mzf-c-blockquote__portrait {
-    grid-column: 1;
-    grid-row: auto;
-    place-self: auto start;
-    inline-size: var(--size-blockquote-portrait-mobile);
-    order: -1;
-    margin-block-end: var(--space-8);
-  }
-}
