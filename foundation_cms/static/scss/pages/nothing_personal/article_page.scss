@@ -24,8 +24,7 @@ body.nothing-personal.nothing-personal-article-page {
   .image-block,
   .article-share,
   .two-column-container,
-  .callout-box,
-  .quote-block {
+  .callout-box {
     @include block-spacing;
   }
 
@@ -230,12 +229,6 @@ body.nothing-personal.nothing-personal-article-page {
       p:last-child {
         margin-bottom: 0;
       }
-    }
-  }
-
-  .quote-block {
-    figcaption {
-      font-size: get-text-property($body-text-styles, "small", font-size);
     }
   }
 
