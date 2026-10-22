@@ -3,7 +3,7 @@
   The figure is read once by assistive tech from the hidden span; the visible
   span is what the count-up script animates.
 {% endcomment %}
-<ul class="mzf-c-card-grid mzf-c-card-grid--columns-3 impact-number-block">
+<ul class="mzf-c-card-grid mzf-c-card-grid--columns-{{ self.stats|length }} impact-number-block">
     {% for stat in self.stats %}
         <li class="mzf-c-card-grid__item">
             <div class="mzf-c-card mzf-c-card--statistic" data-impact-stat>

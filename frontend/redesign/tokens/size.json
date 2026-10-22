@@ -95,7 +95,7 @@
       },
       "statistic-min-height": {
         "value": "334px",
-        "description": "The height Figma 9918:36973 draws an impact number card at on desktop, so a row of them reads as equal panels with the figure at the top and the line at the bottom. Content-driven below the breakpoint, where the card is a row."
+        "description": "The height Figma 9918:36973 draws an impact number card at on desktop when three or four sit in a row, so the row reads as equal panels with the figure at the top and the line at the bottom. Two across, and every card below the breakpoint, hug their content."
       },
       "mark": {
         "value": "13px",

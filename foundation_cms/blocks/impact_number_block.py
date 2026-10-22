@@ -2,8 +2,9 @@ from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
 
-NUM_IMPACT_STATS = 3
-DEFAULT_IMPACT_STATS = [{"stat_number": "", "stat_heading": ""} for _ in range(NUM_IMPACT_STATS)]
+MIN_IMPACT_STATS = 2
+MAX_IMPACT_STATS = 4
+DEFAULT_IMPACT_STATS = [{"stat_number": "", "stat_heading": ""} for _ in range(3)]
 
 
 class ImpactStatBlock(blocks.StructBlock):
@@ -27,11 +28,11 @@ class ImpactStatBlock(blocks.StructBlock):
 class ImpactNumberBlock(BaseBlock):
     stats = blocks.ListBlock(
         ImpactStatBlock(),
-        min_num=NUM_IMPACT_STATS,
-        max_num=NUM_IMPACT_STATS,
+        min_num=MIN_IMPACT_STATS,
+        max_num=MAX_IMPACT_STATS,
         default=DEFAULT_IMPACT_STATS,
         label="Impact Stats",
-        help_text="Add exactly 3 stats to appear in the Impact Numbers section",
+        help_text="Add 2 to 4 stats. The row shows one column per stat.",
     )
 
     class Meta:
