@@ -22,7 +22,7 @@
           <label class="mzf-c-field__label mzf-c-field__label--visually-hidden" data-newsletter-email-label>{% trans "Email" %}</label>
           <input class="mzf-c-field__control" type="email" name="email" placeholder="{% trans "Email" %}" autocomplete="email" required>
         </div>
-        <button class="mzf-c-button mzf-c-button--primary-white" type="submit" {% if newsletter_signup.layout != "expanded" %}disabled{% endif %}>
+        <button class="mzf-c-button mzf-c-button--primary-white" type="submit">
           <span class="mzf-c-button__label">{{ newsletter_signup.button_text }}</span>
         </button>
       </div>

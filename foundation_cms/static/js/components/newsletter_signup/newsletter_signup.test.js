@@ -131,7 +131,7 @@ describe("injectNewsletterSignups", () => {
     },
   );
 
-  it("keeps expanded forms open and reveals collapsed fields on keyboard focus", () => {
+  it("keeps expanded forms open, reveals collapsed fields on keyboard focus and keeps Sign Up usable", () => {
     const expanded = addSignup({ layout: "expanded" });
     const collapsed = addSignup();
     injectNewsletterSignups("");
@@ -141,16 +141,15 @@ describe("injectNewsletterSignups", () => {
     expect(collapsed.querySelector("[data-newsletter-expanded]").hidden).toBe(
       true,
     );
-    expect(collapsed.querySelector("button").disabled).toBe(true);
-    collapsed.querySelector("input").focus();
     expect(collapsed.querySelector("button").disabled).toBe(false);
+    collapsed.querySelector("input").focus();
     expect(
       [...collapsed.querySelectorAll("[data-newsletter-expanded]")].every(
         (el) => !el.hidden,
       ),
     ).toBe(true);
     expanded.querySelector("input").focus();
-    expect(collapsed.querySelector("button").disabled).toBe(true);
+    expect(collapsed.querySelector("button").disabled).toBe(false);
     expect(collapsed.querySelector("[data-newsletter-expanded]").hidden).toBe(
       true,
     );
@@ -233,7 +232,7 @@ describe("injectNewsletterSignups", () => {
     expect(fetch).not.toHaveBeenCalled();
     outside.focus();
     expect(isOpen()).toBe(false);
-    expect(button.disabled).toBe(true);
+    expect(button.disabled).toBe(false);
   });
 
   it("collapses when blank page content around the form is clicked", () => {
@@ -251,7 +250,26 @@ describe("injectNewsletterSignups", () => {
     form.elements.email.blur();
     document.body.click();
     expect(isOpen()).toBe(false);
-    expect(form.querySelector('[type="submit"]').disabled).toBe(true);
+    expect(form.querySelector('[type="submit"]').disabled).toBe(false);
+  });
+
+  it("expands and validates when the idle Sign Up is activated before focus", () => {
+    const root = addSignup();
+    injectNewsletterSignups("");
+    const form = root.querySelector("form");
+    const button = form.querySelector('[type="submit"]');
+    expect(form.querySelector("[data-newsletter-expanded]").hidden).toBe(true);
+    expect(button.disabled).toBe(false);
+    button.click();
+    expect(
+      [...form.querySelectorAll("[data-newsletter-expanded]")].every(
+        (el) => !el.hidden,
+      ),
+    ).toBe(true);
+    expect(root.querySelector("[data-email-error]").hidden).toBe(false);
+    expect(root.querySelector("[data-privacy-error]").hidden).toBe(false);
+    expect(document.activeElement).toBe(form.elements.email);
+    expect(fetch).not.toHaveBeenCalled();
   });
 
   it("associates validation errors with controls and focuses the first invalid field", () => {
@@ -523,7 +541,7 @@ describe("newsletter LP dropdown integration", () => {
     expect(document.activeElement).not.toBe(trigger);
   });
 
-  it("keeps the submit disabled if focus leaves while the request is pending", async () => {
+  it("disables Sign Up only while pending, even if focus leaves, then restores it", async () => {
     let finish;
     fetch.mockImplementation(
       () =>
@@ -539,14 +557,19 @@ describe("newsletter LP dropdown integration", () => {
     const outside = document.createElement("button");
     document.body.append(outside);
     outside.focus();
+    const button = form.querySelector('[type="submit"]');
+    expect(form.querySelector("[data-newsletter-expanded]").hidden).toBe(true);
+    expect(button.disabled).toBe(true);
+    submit(form);
     await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
     finish({ status: 500 });
     await vi.waitFor(() =>
       expect(root.querySelector("[data-newsletter-error]").hidden).toBe(false),
     );
-    expect(form.querySelector('[type="submit"]').disabled).toBe(true);
-    form.elements.email.focus();
-    expect(form.querySelector('[type="submit"]').disabled).toBe(false);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(form.querySelector("[data-newsletter-expanded]").hidden).toBe(true);
+    expect(button.disabled).toBe(false);
+    expect(button.hasAttribute("aria-busy")).toBe(false);
     expect(form.elements.email.value).toBe("person@example.com");
   });
 });

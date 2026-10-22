@@ -101,7 +101,6 @@ export default function injectNewsletterSignups(foundationSiteURL) {
       form.querySelectorAll("[data-newsletter-expanded]").forEach((element) => {
         element.hidden = !expanded;
       });
-      submit.disabled = !expanded || pending;
       if (!expanded) dropdowns.forEach(({ close }) => close(false, true));
     };
     const expand = () => setExpanded(true);
@@ -152,7 +151,9 @@ export default function injectNewsletterSignups(foundationSiteURL) {
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      if (submit.disabled || form.hidden) return;
+      // Sign Up stays usable while collapsed and is disabled only while a
+      // request is pending, so guard repeat submissions on the request itself.
+      if (pending || form.hidden) return;
       expand();
       serverError.hidden = true;
       email.value = email.value.trim();
@@ -181,7 +182,7 @@ export default function injectNewsletterSignups(foundationSiteURL) {
         },
       );
       pending = false;
-      submit.disabled = !form.classList.contains("mzf-c-newsletter--expanded");
+      submit.disabled = false;
       submit.removeAttribute("aria-busy");
       label.textContent = defaultLabel;
       if (submitted) {

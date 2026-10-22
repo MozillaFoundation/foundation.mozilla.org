@@ -4,16 +4,23 @@
 // Figma newsletter variants override the LP browser approximation here.
 // 10088:63897: 40px resting row; 10088:63931 / 10088:63952: 43px expanded row.
 // Keep these measurements local: the shared control-height token stays 38px.
+// The field and Sign Up share one fixed border-box height, so the focus and
+// error underlines draw inside it instead of growing the field. The field
+// rules are scoped to the signup so they outrank its `height: auto` reset.
 .mzf-c-newsletter__row .mzf-c-button {
   --mzf-button-block-size: #{rem-calc(40)};
 }
 
-.mzf-c-newsletter__row .mzf-c-field__control {
-  min-block-size: rem-calc(40);
+[data-newsletter-signup] .mzf-c-newsletter__row .mzf-c-field__control {
+  block-size: rem-calc(40);
 }
 
-.mzf-c-newsletter--expanded .mzf-c-field__control {
-  min-block-size: rem-calc(43);
+.mzf-c-newsletter--expanded .mzf-c-newsletter__row .mzf-c-button {
+  --mzf-button-block-size: #{rem-calc(43)};
+}
+
+[data-newsletter-signup] .mzf-c-newsletter--expanded .mzf-c-field__control {
+  block-size: rem-calc(43);
 }
 
 [data-newsletter-signup] {

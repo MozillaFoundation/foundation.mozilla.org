@@ -44,7 +44,7 @@ class NewsletterSignupTemplateTest(TestCase):
         self.assertIsNotNone(root.select_one("[data-newsletter-email-label]"))
         self.assertTrue(root.select_one("[name=email]").has_attr("required"))
         self.assertIsNotNone(root.select_one("[name=privacy]").find_parent("label"))
-        self.assertTrue(root.select_one("button[type=submit]").has_attr("disabled"))
+        self.assertFalse(root.select_one("button[type=submit]").has_attr("disabled"))
         for name in ("country", "language"):
             dropdown = root.select_one(f"[data-newsletter-dropdown={name}]")
             self.assertEqual(dropdown.select_one(f"[name={name}]")["type"], "hidden")
