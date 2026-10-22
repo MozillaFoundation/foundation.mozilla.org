@@ -1,5 +1,6 @@
 import json
 
+from django.core.exceptions import FieldDoesNotExist
 from django.db import migrations
 
 BLOCK_TYPE_TO_REMOVE = "featured_card_block"
@@ -58,6 +59,11 @@ def _remove_featured_cards(value):
 def strip_featured_card_blocks(apps, schema_editor):
     for app_label, model_name in AFFECTED_PAGE_MODELS:
         Model = apps.get_model(app_label, model_name)
+
+        try:
+            Model._meta.get_field("body")
+        except FieldDoesNotExist:
+            continue
 
         for page in Model.objects.all().iterator():
             cleaned, removed = _remove_featured_cards(page.body)
