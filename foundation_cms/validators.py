@@ -48,6 +48,28 @@ def validate_vimeo_url(url):
         raise ValidationError(VIMEO_HELP_TEXT)
 
 
+VIMEO_VIDEO_OR_EVENT_HELP_TEXT = (
+    "Please enter a valid Vimeo video or event URL (e.g. https://vimeo.com/123456789, "
+    "https://player.vimeo.com/video/123456789, or https://vimeo.com/event/123456)."
+)
+
+_VIMEO_VIDEO_URL_RE = re.compile(r"^https?://(?:www\.)?(?:vimeo\.com|player\.vimeo\.com/video)/(\d+)")
+_VIMEO_EVENT_URL_RE = re.compile(r"^https?://(?:www\.)?vimeo\.com/event/(\d+)")
+
+
+def get_vimeo_embed_url(url):
+    if match := _VIMEO_EVENT_URL_RE.match(url):
+        return f"https://vimeo.com/event/{match[1]}/embed"
+    if match := _VIMEO_VIDEO_URL_RE.match(url):
+        return f"https://player.vimeo.com/video/{match[1]}"
+    return ""
+
+
+def validate_vimeo_video_or_event_url(url):
+    if not get_vimeo_embed_url(url):
+        raise ValidationError(VIMEO_VIDEO_OR_EVENT_HELP_TEXT)
+
+
 VIMEO_MP4_URL_HELP_TEXT = (
     "Please enter a valid Vimeo mp4 URL (e.g. "
     "https://player.vimeo.com/progressive_redirect/playback/123456789/"
