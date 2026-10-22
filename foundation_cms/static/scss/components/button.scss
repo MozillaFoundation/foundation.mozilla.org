@@ -18,6 +18,16 @@
     color: var(--color-text-inverse);
   }
 
+  // Design review darkens the paper fills' hover past LP's raised surfaces.
+  // CTA stroke keeps LP's raised hover, so the shared tokens stay unchanged.
+  &.mzf-c-button--primary-white:hover:not(:disabled) {
+    background: var(--color-surface-white-control-hover);
+  }
+
+  &.mzf-c-button--primary-grey:hover:not(:disabled) {
+    background: var(--color-surface-grey-control-hover);
+  }
+
   // Keep the arrow in a square glyph box to avoid fractional centering during
   // the hover translation.
   &__icon svg {

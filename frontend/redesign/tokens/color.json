@@ -260,6 +260,14 @@
         "value": "#f0f0f0",
         "description": "A gray panel or control under the pointer. Drawn as a raw hex in the design file, one step under gray/100, with no variable behind it."
       },
+      "white-control-hover": {
+        "value": "{color.gray.200}",
+        "description": "The primary-white button under the pointer. Design review set it to gray/200, darker than the raised panels the CTA stroke still hovers on."
+      },
+      "grey-control-hover": {
+        "value": "{color.gray.300}",
+        "description": "The primary-grey button under the pointer. Design review set it to gray/300."
+      },
       "inverse": {
         "value": "{color.gray.1000}",
         "description": "Ink fill under inverse text."
