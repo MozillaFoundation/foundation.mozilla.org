@@ -53,20 +53,26 @@ VIMEO_VIDEO_OR_EVENT_HELP_TEXT = (
     "https://player.vimeo.com/video/123456789, or https://vimeo.com/event/123456)."
 )
 
-_VIMEO_VIDEO_URL_RE = re.compile(r"^https?://(?:www\.)?(?:vimeo\.com|player\.vimeo\.com/video)/(\d+)")
+# Group 2 is the privacy hash that "Copy Link" puts in the path of unlisted videos.
+_VIMEO_VIDEO_URL_RE = re.compile(
+    r"^https?://(?:www\.)?(?:vimeo\.com|player\.vimeo\.com/video)/(\d+)(?:/([0-9a-f]{10})(?=[/?#]|$))?"
+)
 _VIMEO_EVENT_URL_RE = re.compile(r"^https?://(?:www\.)?vimeo\.com/event/(\d+)")
 
 
 def get_vimeo_embed_url(url):
+    # Keep the query and fragment: they carry the ?h= privacy hash and playback options.
+    parts = urlsplit(url)
+    query = parts.query
     if match := _VIMEO_EVENT_URL_RE.match(url):
         host, path = "vimeo.com", f"/event/{match[1]}/embed"
     elif match := _VIMEO_VIDEO_URL_RE.match(url):
         host, path = "player.vimeo.com", f"/video/{match[1]}"
+        if match[2]:
+            query = f"h={match[2]}&{query}" if query else f"h={match[2]}"
     else:
         return ""
-    # Keep the query and fragment: they carry the ?h= privacy hash and playback options.
-    parts = urlsplit(url)
-    return urlunsplit(("https", host, path, parts.query, parts.fragment))
+    return urlunsplit(("https", host, path, query, parts.fragment))
 
 
 def validate_vimeo_video_or_event_url(url):

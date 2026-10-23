@@ -63,6 +63,22 @@ class TestVideoBlockEmbedUrl(TestCase):
             with self.subTest(url=url):
                 self.assertEqual(get_vimeo_embed_url(url), "https://player.vimeo.com/video/123456789?h=5e2d1c1e6d")
 
+    def test_unlisted_copy_link_moves_path_hash_to_query(self):
+        for url, expected in [
+            ("https://vimeo.com/123456789/5e2d1c1e6d", "https://player.vimeo.com/video/123456789?h=5e2d1c1e6d"),
+            (
+                "https://vimeo.com/123456789/5e2d1c1e6d?share=copy",
+                "https://player.vimeo.com/video/123456789?h=5e2d1c1e6d&share=copy",
+            ),
+        ]:
+            with self.subTest(url=url):
+                self.assertEqual(get_vimeo_embed_url(url), expected)
+
+    def test_non_hash_path_segment_is_not_treated_as_hash(self):
+        for url in ["https://vimeo.com/123456789/1080", "https://vimeo.com/123456789/5e2d1c1e6dxyz"]:
+            with self.subTest(url=url):
+                self.assertEqual(get_vimeo_embed_url(url), "https://player.vimeo.com/video/123456789")
+
     def test_video_keeps_playback_options_and_start_time(self):
         self.assertEqual(
             get_vimeo_embed_url("https://vimeo.com/123456789?autoplay=1&muted=1#t=30s"),
