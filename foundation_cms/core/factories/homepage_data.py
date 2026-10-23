@@ -1,6 +1,5 @@
 from foundation_cms.blocks.factories import (
     ActivationCardBlockFactory,
-    FeaturedCardBlockFactory,
     ImageTextPanelBlockFactory,
     ImpactNumberBlockFactory,
     LinkBlockFactory,
@@ -275,24 +274,6 @@ def build_homepage_body(main_newsletter_id, images):
                             )
                         ),
                     ]
-                )
-            ),
-        },
-        {
-            "type": "featured_card_block",
-            "value": dict(
-                FeaturedCardBlockFactory(
-                    heading="Donate to Mozilla Foundation",
-                    description=(
-                        "Together we have the power to make good on the promise "
-                        "of the Internet. Join our global movement and make a "
-                        "contribution today to shape the future of technology."
-                    ),
-                    image=images["featured_card"],
-                    button=_primary_button(
-                        label="Donate now",
-                        url="https://www.mozillafoundation.org?form=home-donate1",
-                    ),
                 )
             ),
         },

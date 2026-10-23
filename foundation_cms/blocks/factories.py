@@ -7,7 +7,6 @@ from foundation_cms.blocks.divider_block import DividerBlock
 from foundation_cms.blocks.donor_help_contact_us_form_block import (
     DonorHelpContactUsFormBlock,
 )
-from foundation_cms.blocks.featured_card_block import FeaturedCardBlock
 from foundation_cms.blocks.fru_element_block import FruElementBlock
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
 from foundation_cms.blocks.icon_info_grid_block import (
@@ -251,21 +250,6 @@ class SpotlightCardSetBlockFactory(wagtail_factories.StructBlockFactory):
     cards = wagtail_factories.ListBlockFactory(
         SpotlightCardBlockFactory,
         **{"0": "", "1": "", "2": ""},
-    )
-
-
-class FeaturedCardBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = FeaturedCardBlock
-
-    heading = factory.Faker("sentence", nb_words=4)
-    description = factory.Faker("paragraph", nb_sentences=2)
-    image = factory.LazyFunction(lambda: ImageFactory().id)
-    button = factory.SubFactory(
-        LinkButtonBlockFactory,
-        link_to="external_url",
-        style="btn-primary",
-        alignment="link-button-block--left",
     )
 
 
