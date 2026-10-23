@@ -1,0 +1,199 @@
+// LP source: components/elements/inputs/field/styles.css
+// Public Content Studio snapshot, 2026-10-12; upstream commit unavailable.
+
+/* Input — Figma 9377:10398
+   A label above a box. Four states plus the amount field.
+
+   Focus and the resting states are pseudo-classes and attributes, not
+   classes. The file draws them as variants because Figma cannot draw a
+   caret. Only Filled, Error and Amount need a class, and Filled needs one
+   only because CSS cannot ask whether an input has a value. */
+
+.mzf-c-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  inline-size: 100%;
+  min-inline-size: 0;
+  box-sizing: border-box;
+}
+
+.mzf-c-field__label {
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+.mzf-c-field__label--visually-hidden {
+  position: absolute;
+
+  /* The clip idiom needs real pixels. These two are not design values. */
+  inline-size: 1px; /* allow-raw */
+  block-size: 1px; /* allow-raw */
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- the box ----------
+   At rest there is no underline. The white fill against the panel gray is
+   the only thing that says a field is here. */
+.mzf-c-field__control {
+  inline-size: 100%;
+  box-sizing: border-box;
+  padding-block: var(--space-10);
+  padding-inline: var(--space-12);
+  border: 0;
+  border-radius: 0;
+  background: var(--color-surface-field);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties -- Preserve LP source declarations. */
+  border-block-end-style: solid;
+  border-block-end-color: transparent;
+  border-block-end-width: 0;
+  transition:
+    border-block-end-width var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard),
+    border-block-end-color var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-field__control::placeholder {
+  color: var(--color-text-subtle);
+  opacity: 1;
+  transition: color var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+/* A field holding a value earns a hairline under it. */
+.mzf-c-field--filled .mzf-c-field__control {
+  border-block-end: var(--border-width-thin) solid var(--color-border-default);
+}
+
+/* Focus doubles the line rather than drawing a ring around the box, and the
+   placeholder steps back so the caret is the loudest thing in the field. */
+.mzf-c-field__control:focus {
+  outline: none;
+  border-block-end-width: var(--border-width-thick);
+  border-block-end-color: var(--color-border-default);
+}
+
+.mzf-c-field__control:focus::placeholder {
+  color: var(--color-text-placeholder-focus);
+}
+
+/* ---------- error ----------
+   The underline turns and a message appears under the box. The message is
+   part of the state, not an optional extra. */
+.mzf-c-field--error .mzf-c-field__control,
+.mzf-c-field--error .mzf-c-field__control:focus {
+  border-block-end: var(--border-width-thick) solid var(--color-border-error);
+}
+
+.mzf-c-field__message {
+  margin: 0;
+  color: var(--color-text-error);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+/* ---------- amount ----------
+   The one field that is a row rather than a column: a large value on one
+   side and its unit on the other. It sits on the panel gray, not white,
+   because the reader typed the number and is reading it back. */
+.mzf-c-field--amount {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-10);
+  padding-block: var(--space-10);
+  padding-inline: var(--space-12);
+  background: var(--color-surface-raised);
+  box-sizing: border-box;
+  max-inline-size: 100%;
+}
+
+.mzf-c-field--amount .mzf-c-field__control {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  inline-size: 0;
+  padding: 0;
+  background: none;
+  font-size: var(--font-size-body-large);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.mzf-c-field--amount .mzf-c-field__control:focus {
+  border-block-end: 0;
+}
+
+.mzf-c-field__unit {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-subtle);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mzf-c-field__chevron {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.mzf-c-field__chevron svg {
+  display: block;
+}
+
+.mzf-c-field__unit:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* ---------- the mobile type step ----------
+   The only width query on an element outside the layout containers, and the
+   file forces it. `body-large/font-size` and `label/font-size` are mode-bound
+   variables: 9565:47402 draws the amount at 21 with its unit at 11, and
+   10172:42340 draws the same cell at 18 with its unit at 10. Nothing else
+   about the field moves, so this is a type step rather than a mobile layout.
+
+   `tools/check-breakpoints.sh` lists this path as an exception for that
+   reason. */
+@include mobile-only {
+  .mzf-c-field--amount .mzf-c-field__control {
+    font-size: var(--font-size-body-large-mobile);
+  }
+
+  .mzf-c-field__unit {
+    font-size: var(--font-size-label-mobile);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-field__control,
+  .mzf-c-field__control::placeholder {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}

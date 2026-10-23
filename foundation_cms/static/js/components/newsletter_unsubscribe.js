@@ -5,12 +5,12 @@ import { ensureCsrfToken } from "../utils/csrf.js";
  */
 const SELECTORS = {
   container: ".newsletter-unsubscribe__container",
-  form: ".newsletter-signup__form",
+  form: ".newsletter-unsubscribe__form",
   emailInput: "input[name='email']",
   emailErrorMessage: ".email-error-message",
-  successMessage: ".newsletter-signup__success-message",
-  errorMessage: ".newsletter-signup__error-message",
-  submitButton: ".newsletter-signup__button",
+  successMessage: ".newsletter-unsubscribe__success-message",
+  errorMessage: ".newsletter-unsubscribe__error-message",
+  submitButton: ".newsletter-unsubscribe__button",
   loadingMessage: ".loading-message",
   rolltext: ".btn-primary__rolltext",
 };
@@ -19,10 +19,10 @@ const SELECTORS = {
  * CSS class names used to toggle visibility or styling of DOM elements.
  */
 const CLASSNAMES = {
-  formHidden: "newsletter-signup__form--hidden",
-  successHidden: "newsletter-signup__success-message--hidden",
-  errorHidden: "newsletter-signup__error-message--hidden",
-  fieldErrorHidden: "newsletter-signup__field-error--hidden",
+  formHidden: "newsletter-unsubscribe__form--hidden",
+  successHidden: "newsletter-unsubscribe__success-message--hidden",
+  errorHidden: "newsletter-unsubscribe__error-message--hidden",
+  fieldErrorHidden: "newsletter-unsubscribe__field-error--hidden",
 };
 
 /**

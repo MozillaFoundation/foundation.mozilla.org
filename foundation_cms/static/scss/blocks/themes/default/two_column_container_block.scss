@@ -1,5 +1,4 @@
 @use "sass:map";
-@import "../../../components/newsletter_signup/newsletter_signup_mixins";
 
 .two-column-container {
   $two-column-margin-y: (
@@ -69,20 +68,7 @@
     }
   }
 
-  .newsletter-signup {
+  [data-newsletter-signup] {
     margin-bottom: 0;
-  }
-
-  .two-column-container__column > .newsletter-signup-block {
-    @include newsletter-signup-narrow-block-layout;
-  }
-
-  // todo: Implement container queries instead of catching the two column container block
-  .newsletter-signup[data-layout] {
-    .newsletter-signup__success-message {
-      @include breakpoint(medium up) {
-        flex-direction: column;
-      }
-    }
   }
 }

@@ -1,55 +1,11 @@
+import initDropdown from "./dropdown.js";
 import { LANGUAGE_OPTIONS } from "./data/language_options.js";
 import { COUNTRY_OPTIONS } from "./data/country_options.js";
 import { ensureCsrfToken } from "../../utils/csrf.js";
 
-/**
- * CSS selectors used to locate key DOM elements in the newsletter signup component.
- */
-const SELECTORS = {
-  container: ".newsletter-signup__container",
-  form: ".newsletter-signup__form",
-  emailInput: "input[name='email']",
-  countryInput: "select[name='country']",
-  languageInput: "select[name='language']",
-  privacyCheckbox: "input[name='privacy']",
-  emailErrorMessage: ".email-error-message",
-  privacyErrorMessage: ".privacy-error-message",
-  successMessage: ".newsletter-signup__success-message",
-  errorMessage: ".newsletter-signup__error-message",
-  expandableField: ".newsletter-signup__field--hidden",
-  submitButton: ".newsletter-signup__button",
-  loadingMessage: ".loading-message",
-  rolltext: ".btn-primary__rolltext",
-};
-
-/**
- * CSS class names used to toggle visibility or styling of DOM elements.
- */
-const CLASSNAMES = {
-  formHidden: "newsletter-signup__form--hidden",
-  successHidden: "newsletter-signup__success-message--hidden",
-  errorHidden: "newsletter-signup__error-message--hidden",
-  fieldErrorHidden: "newsletter-signup__field-error--hidden",
-  fieldHidden: "newsletter-signup__field--hidden",
-};
-
-/**
- * Submits newsletter signup data to the API endpoint.
- *
- * @param {string} signupUrl - The API URL to send the signup data to.
- * @param {Object} formData - An object containing email, country, and language values.
- * @returns {Promise<boolean>} Resolves to `true` if submission is successful, otherwise `false`.
- */
 async function submitDataToApi(signupUrl, formData) {
-  const payload = {
-    email: formData.email,
-    country: formData.country,
-    lang: formData.language,
-    source: window.location.href,
-  };
-
   try {
-    const res = await fetch(signupUrl, {
+    const response = await fetch(signupUrl, {
       method: "POST",
       credentials: "same-origin",
       headers: {
@@ -57,165 +13,185 @@ async function submitDataToApi(signupUrl, formData) {
         "X-Requested-With": "XMLHttpRequest",
         "X-CSRFToken": await ensureCsrfToken(),
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        email: formData.email,
+        country: formData.country,
+        lang: formData.language,
+        source: window.location.href,
+      }),
     });
-
-    return res.status === 201;
-  } catch (err) {
+    return response.status === 201;
+  } catch {
     return false;
   }
 }
 
-/**
- * Populates a <select> element with provided options.
- *
- * @param {HTMLSelectElement} selectEl - The select element to populate.
- * @param {Array<{value: string, label: string}>} options - An array of option objects.
- */
-function populateSelectOptions(selectEl, options) {
-  selectEl.innerHTML = "";
-  options.forEach(({ value, label }) => {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = label;
-    selectEl.appendChild(option);
-  });
-}
-
-/**
- * Applies layout behavior to reveal additional fields either on focus or immediately.
- *
- * @param {HTMLFormElement} form - The form element containing the fields.
- * @param {string} layout - The layout type ('default' or 'expanded').
- * @param {HTMLInputElement} emailInput - The email input field that triggers expansion.
- */
-function applyLayoutBehavior(form, layout, emailInput) {
-  const expandableFields = form.querySelectorAll(SELECTORS.expandableField);
-
-  const revealHiddenFields = () => {
-    expandableFields.forEach((el) =>
-      el.classList.remove(CLASSNAMES.fieldHidden),
-    );
-  };
-
-  if (layout === "expanded") {
-    revealHiddenFields();
+function setFieldError(input, message, invalid) {
+  message.hidden = !invalid;
+  input
+    .closest(".mzf-c-field")
+    ?.classList.toggle("mzf-c-field--error", invalid);
+  if (invalid) {
+    input.setAttribute("aria-invalid", "true");
+    input.setAttribute("aria-describedby", message.id);
   } else {
-    emailInput.addEventListener("focus", revealHiddenFields, { once: true });
+    input.removeAttribute("aria-invalid");
+    input.removeAttribute("aria-describedby");
   }
 }
 
-/**
- * Validates the newsletter signup form inputs.
- *
- * @param {string} email - The email address to validate.
- * @param {boolean} privacyChecked - Whether the privacy checkbox is checked.
- * @param {HTMLElement} emailErrorMessage - Element to show if email is invalid.
- * @param {HTMLElement} privacyErrorMessage - Element to show if privacy is unchecked.
- * @returns {boolean} `true` if form is valid, otherwise `false`.
- */
-function validateForm({
-  email,
-  privacyChecked,
-  emailErrorMessage,
-  privacyErrorMessage,
-}) {
-  let isValid = true;
-  const emailRegex = /^[^@]+@[^.@]+(\.[^.@]+)+$/;
-
-  if (!email || !emailRegex.test(email)) {
-    emailErrorMessage.classList.remove(CLASSNAMES.fieldErrorHidden);
-    isValid = false;
-  }
-
-  if (!privacyChecked) {
-    privacyErrorMessage.classList.remove(CLASSNAMES.fieldErrorHidden);
-    isValid = false;
-  }
-
-  return isValid;
+function isValidEmail(email) {
+  return email.validity.valid && /^[^@]+@[^.@]+(\.[^.@]+)+$/.test(email.value);
 }
 
-/**
- * Injects newsletter signup form behavior into all instances on the page.
- *
- * @param {string} foundationSiteURL - The base URL of the site, used to construct the API endpoint.
- */
+let nextSignupId = 0;
+
+/** Initialize each signup independently, including repeated uses of one snippet. */
 export default function injectNewsletterSignups(foundationSiteURL) {
-  const formContainers = document.querySelectorAll(SELECTORS.container);
+  document.querySelectorAll("[data-newsletter-signup]").forEach((container) => {
+    if (container.dataset.initialized) return;
+    container.dataset.initialized = "true";
+    const index = nextSignupId++;
 
-  formContainers.forEach((container) => {
-    const form = container.querySelector(SELECTORS.form);
-    const emailInput = form.querySelector(SELECTORS.emailInput);
-    const countryInput = form.querySelector(SELECTORS.countryInput);
-    const languageInput = form.querySelector(SELECTORS.languageInput);
-    const privacyCheckbox = form.querySelector(SELECTORS.privacyCheckbox);
+    const form = container.querySelector("form");
+    const email = form.elements.email;
+    const country = form.elements.country;
+    const language = form.elements.language;
+    const privacy = form.elements.privacy;
+    const emailError = form.querySelector("[data-email-error]");
+    const privacyError = form.querySelector("[data-privacy-error]");
+    const serverError = form.querySelector("[data-newsletter-error]");
+    const success = container.querySelector("[data-newsletter-success]");
+    const submit = form.querySelector('button[type="submit"]');
+    const label = submit.querySelector(".mzf-c-button__label");
+    const defaultLabel = label.textContent;
+    const heading = form.querySelector(".mzf-c-newsletter__heading");
+    heading.id = `newsletter-heading-${index}`;
+    form.setAttribute("aria-labelledby", heading.id);
+    form.removeAttribute("aria-label");
+    email.id = `newsletter-email-${index}`;
+    form.querySelector("[data-newsletter-email-label]").htmlFor = email.id;
+    emailError.id = `newsletter-email-error-${index}`;
+    privacyError.id = `newsletter-privacy-error-${index}`;
 
-    const emailErrorMessage = form.querySelector(SELECTORS.emailErrorMessage);
-    const privacyErrorMessage = form.querySelector(
-      SELECTORS.privacyErrorMessage,
+    const languageDropdown = initDropdown(
+      form.querySelector('[data-newsletter-dropdown="language"]'),
+      LANGUAGE_OPTIONS,
+      `newsletter-language-${index}`,
     );
-    const successMessage = container.querySelector(SELECTORS.successMessage);
-    const errorMessage = container.querySelector(SELECTORS.errorMessage);
+    const dropdowns = [
+      initDropdown(
+        form.querySelector('[data-newsletter-dropdown="country"]'),
+        COUNTRY_OPTIONS.filter(({ value }) => value),
+        `newsletter-country-${index}`,
+      ),
+      languageDropdown,
+    ];
+    languageDropdown.setValue(
+      LANGUAGE_OPTIONS.some(
+        ({ value }) => value === container.dataset.currentLanguage,
+      )
+        ? container.dataset.currentLanguage
+        : "en",
+    );
 
-    const signupId = container.dataset.signupId;
-    const layout = container.dataset.layout;
-    const signupUrl = `${foundationSiteURL}/newsletter-signup/${signupId}/`;
-
-    populateSelectOptions(languageInput, LANGUAGE_OPTIONS);
-    populateSelectOptions(countryInput, COUNTRY_OPTIONS);
-
-    const currentLanguage = container.dataset.currentLanguage;
-    const supportedLanguages = LANGUAGE_OPTIONS.map((opt) => opt.value);
-
-    languageInput.value = supportedLanguages.includes(currentLanguage)
-      ? currentLanguage
-      : "en";
-
-    applyLayoutBehavior(form, layout, emailInput);
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const email = emailInput.value.trim();
-      const country = countryInput?.value || "";
-      const language = languageInput?.value || "";
-      const privacyChecked = privacyCheckbox?.checked || false;
-
-      const isValid = validateForm({
-        email,
-        privacyChecked,
-        emailErrorMessage,
-        privacyErrorMessage,
+    let pending = false;
+    const setExpanded = (expanded) => {
+      form.classList.toggle("mzf-c-newsletter--expanded", expanded);
+      form.querySelectorAll("[data-newsletter-expanded]").forEach((element) => {
+        element.hidden = !expanded;
       });
+      if (!expanded) dropdowns.forEach(({ close }) => close(false, true));
+    };
+    const expand = () => setExpanded(true);
+    setExpanded(container.dataset.layout === "expanded");
+    form.addEventListener("focusin", expand);
+    // Activating non-focusable form content, such as the consent text, blurs
+    // the active field with no related target, so only focus moving to another
+    // element, an outside press or click, or leaving the page collapses.
+    // Outside presses and clicks are ignored while a field keeps focus: a
+    // touch scroll presses outside without moving focus.
+    const collapse = () => {
+      if (container.dataset.layout !== "expanded") setExpanded(false);
+    };
+    const isOutside = (target) =>
+      !form.contains(target) && !form.contains(document.activeElement);
+    form.addEventListener("focusout", (event) => {
+      if (event.relatedTarget && !form.contains(event.relatedTarget)) {
+        collapse();
+      }
+    });
+    // A drag from inside the form released outside clicks a shared ancestor,
+    // so remember where the press started until its click or cancellation.
+    let pressedInForm = false;
+    document.addEventListener("pointerdown", (event) => {
+      pressedInForm = form.contains(event.target);
+      if (isOutside(event.target)) collapse();
+    });
+    document.addEventListener("pointercancel", () => {
+      pressedInForm = false;
+    });
+    document.addEventListener("click", (event) => {
+      if (isOutside(event.target) && !pressedInForm) collapse();
+      pressedInForm = false;
+    });
+    window.addEventListener("blur", collapse);
 
-      if (!isValid) return;
+    const updateEmail = () => {
+      email
+        .closest(".mzf-c-field")
+        .classList.toggle("mzf-c-field--filled", !!email.value);
+      if (isValidEmail(email)) setFieldError(email, emailError, false);
+    };
+    updateEmail();
+    email.addEventListener("input", updateEmail);
+    privacy.addEventListener("change", () => {
+      if (privacy.checked) setFieldError(privacy, privacyError, false);
+    });
 
-      const formData = { email, country, language };
-      const submitBtn = container.querySelector(SELECTORS.submitButton);
-      const loadingEl = submitBtn?.querySelector(SELECTORS.loadingMessage);
-      const rolltextEl = submitBtn?.querySelector(SELECTORS.rolltext);
-
-      if (window.wagtailAbTesting) {
-        wagtailAbTesting.triggerEvent("footer-newsletter-signup-submission");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      // Sign Up stays usable while collapsed and is disabled only while a
+      // request is pending, so guard repeat submissions on the request itself.
+      if (pending || form.hidden) return;
+      expand();
+      serverError.hidden = true;
+      email.value = email.value.trim();
+      const validEmail = isValidEmail(email);
+      setFieldError(email, emailError, !validEmail);
+      setFieldError(privacy, privacyError, !privacy.checked);
+      if (!validEmail || !privacy.checked) {
+        (!validEmail ? email : privacy).focus();
+        return;
       }
 
-      // show loading state
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.setAttribute("aria-busy", "true");
-      }
-      if (loadingEl) loadingEl.style.display = "inline";
-      if (rolltextEl) rolltextEl.style.display = "none";
+      window.wagtailAbTesting?.triggerEvent(
+        "footer-newsletter-signup-submission",
+      );
+      pending = true;
+      submit.disabled = true;
+      submit.setAttribute("aria-busy", "true");
+      label.textContent = container.dataset.loadingLabel;
 
-      submitDataToApi(signupUrl, formData).then((success) => {
-        if (success) {
-          form.classList.add(CLASSNAMES.formHidden);
-          successMessage?.classList.remove(CLASSNAMES.successHidden);
-        } else {
-          errorMessage?.classList.remove(CLASSNAMES.errorHidden);
-        }
-      });
+      const submitted = await submitDataToApi(
+        `${foundationSiteURL}/newsletter-signup/${container.dataset.signupId}/`,
+        {
+          email: email.value,
+          country: country.value,
+          language: language.value,
+        },
+      );
+      pending = false;
+      submit.disabled = false;
+      submit.removeAttribute("aria-busy");
+      label.textContent = defaultLabel;
+      if (submitted) {
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+      } else {
+        serverError.hidden = false;
+      }
     });
   });
 }

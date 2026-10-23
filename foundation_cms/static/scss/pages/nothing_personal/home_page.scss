@@ -260,7 +260,7 @@ body.nothing-personal-home-page {
     }
   }
 
-  main .newsletter-signup {
+  main [data-newsletter-signup] {
     margin-top: 1rem;
     margin-bottom: 0;
     border-bottom-left-radius: 0;
