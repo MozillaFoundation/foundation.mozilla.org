@@ -132,9 +132,9 @@ python manage.py load_visual_regression_data
 Captures six snapshots at 1280px and 375px: the empty fixture page, and the components fixture page with its accordion closed and open. Screenshots are saved to `frontend/redesign/tests/screenshots/`.
 
 ```sh
-yarn workspace redesign visual:reskin
+yarn workspace redesign playwright test ./tests/visual.spec.js -g "Cosmos reskin"
 ```
 
 ### Compare in Percy
 
-Local screenshots are for checking only; Percy compares snapshots and holds the baselines. CI runs both suites with `yarn workspace redesign percy`. A run triggered by the `run:visual-regression:redesign` label does not rerun for later commits, so re-trigger it to check the current head.
+Local screenshots are for checking only; Percy compares snapshots and holds the baselines. CI runs the visual suite with `yarn workspace redesign percy`. A run triggered by the `run:visual-regression:redesign` label does not rerun for later commits, so re-trigger it to check the current head.
