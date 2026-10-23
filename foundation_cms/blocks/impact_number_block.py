@@ -1,6 +1,7 @@
 from wagtail import blocks
 
 from foundation_cms.base.models.base_block import BaseBlock
+from foundation_cms.blocks.common.limited_list_block import LimitedListBlock
 
 MIN_IMPACT_STATS = 2
 MAX_IMPACT_STATS = 4
@@ -26,7 +27,7 @@ class ImpactStatBlock(blocks.StructBlock):
 
 
 class ImpactNumberBlock(BaseBlock):
-    stats = blocks.ListBlock(
+    stats = LimitedListBlock(
         ImpactStatBlock(),
         min_num=MIN_IMPACT_STATS,
         max_num=MAX_IMPACT_STATS,
