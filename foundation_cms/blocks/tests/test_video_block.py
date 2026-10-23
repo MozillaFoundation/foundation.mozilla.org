@@ -55,6 +55,20 @@ class TestVideoBlockEmbedUrl(TestCase):
             "https://vimeo.com/event/6295860/embed",
         )
 
+    def test_unlisted_video_keeps_privacy_hash(self):
+        for url in [
+            "https://vimeo.com/123456789?h=5e2d1c1e6d",
+            "https://player.vimeo.com/video/123456789?h=5e2d1c1e6d",
+        ]:
+            with self.subTest(url=url):
+                self.assertEqual(get_vimeo_embed_url(url), "https://player.vimeo.com/video/123456789?h=5e2d1c1e6d")
+
+    def test_video_keeps_playback_options_and_start_time(self):
+        self.assertEqual(
+            get_vimeo_embed_url("https://vimeo.com/123456789?autoplay=1&muted=1#t=30s"),
+            "https://player.vimeo.com/video/123456789?autoplay=1&muted=1#t=30s",
+        )
+
     def test_render_uses_embed_url(self):
         block = VideoBlock()
         value = block.to_python({"video_url": "https://vimeo.com/event/6295860"})

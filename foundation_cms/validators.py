@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlsplit, urlunsplit
 
 from django.core import validators
 from django.core.exceptions import ValidationError
@@ -59,10 +59,14 @@ _VIMEO_EVENT_URL_RE = re.compile(r"^https?://(?:www\.)?vimeo\.com/event/(\d+)")
 
 def get_vimeo_embed_url(url):
     if match := _VIMEO_EVENT_URL_RE.match(url):
-        return f"https://vimeo.com/event/{match[1]}/embed"
-    if match := _VIMEO_VIDEO_URL_RE.match(url):
-        return f"https://player.vimeo.com/video/{match[1]}"
-    return ""
+        host, path = "vimeo.com", f"/event/{match[1]}/embed"
+    elif match := _VIMEO_VIDEO_URL_RE.match(url):
+        host, path = "player.vimeo.com", f"/video/{match[1]}"
+    else:
+        return ""
+    # Keep the query and fragment: they carry the ?h= privacy hash and playback options.
+    parts = urlsplit(url)
+    return urlunsplit(("https", host, path, parts.query, parts.fragment))
 
 
 def validate_vimeo_video_or_event_url(url):
