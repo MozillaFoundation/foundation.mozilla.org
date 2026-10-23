@@ -202,8 +202,7 @@ class ImpactStatBlockFactory(wagtail_factories.StructBlockFactory):
         model = ImpactStatBlock
 
     stat_number = factory.Iterator(["$25M", "31K", "33M"])
-    stat_heading = factory.Faker("sentence", nb_words=5)
-    stat_description = factory.Faker("sentence", nb_words=8)
+    stat_heading = factory.Faker("sentence", nb_words=6)
 
 
 class ImpactNumberBlockFactory(wagtail_factories.StructBlockFactory):

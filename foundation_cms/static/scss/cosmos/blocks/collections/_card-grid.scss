@@ -1,0 +1,94 @@
+// Ported from LP components/blocks/collections/card-grid/styles.css
+// Source: https://mozilla-design-system.vercel.app/#content
+// Embedded Card Grid files["styles.css"], captured 2026-10-19.
+// The public frontend does not expose a verified upstream commit.
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Card grid — Figma 9991:346
+   A row of base cards on an even grid. The file draws six symbols, a
+   `columns` axis of 2, 3 and 4 crossed with Breakpoint:
+
+     Breakpoint=Desktop, columns=2   9991:215     1200 x 239
+     Breakpoint=Mobile,  columns=2   10193:99779   402 x 360
+     Breakpoint=Desktop, columns=3   9987:110     1200 x 334
+     Breakpoint=Mobile,  columns=3   10193:99916   402 x 548
+     Breakpoint=Desktop, columns=4   9991:345     1200 x 334
+     Breakpoint=Mobile,  columns=4   10193:100016  402 x 736
+
+   Every slot in all six symbols holds one `cards/base-card` instance, and
+   every instance binds the same two variants: `Breakpoint=Desktop,
+   State=Default` 9918:2 at desktop and `Breakpoint=Mobile, State=Default`
+   9918:18 below the breakpoint. So the grid holds one card and the card
+   owns its own two layouts. The grid places them and nothing else.
+
+   The gutter is 32 at desktop, read off the slot offsets: 616 - 584 on the
+   two-column symbol, 410.667 - 378.667 on the three, 308 - 276 on the four.
+   Every desktop symbol is 1200 wide, which is the drawn container rather
+   than a width this grid owns. Nothing here sets a width.
+
+   All three mobile symbols stack into a single column at a 16 gutter:
+   360 = 2 x 172 + 16, 548 = 3 x 172 + 2 x 16, 736 = 4 x 172 + 3 x 16. So
+   the axis collapses below the breakpoint and a mobile grid is one column
+   whichever count it carries.
+
+   The geometry is identical to `elements/layout/two-column-container`,
+   `three-column-container` and `four-column-container`. This block does not
+   compose them. The file draws card-grid's columns as its own slots rather
+   than as instances of those containers, a block owns its breakpoint here,
+   and the count is one modifier on one class instead of three stylesheets a
+   holder swaps between. See README.md. */
+
+.mzf-c-card-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    var(--mzf-card-grid-columns, 3),
+    minmax(0, 1fr)
+  );
+  gap: var(--space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The three drawn counts. A grid carries one of them. The custom property
+   above defaults to 3 so a grid that carries none still renders as a grid
+   rather than as a single column. */
+.mzf-c-card-grid--columns-2 {
+  --mzf-card-grid-columns: 2;
+}
+
+.mzf-c-card-grid--columns-3 {
+  --mzf-card-grid-columns: 3;
+}
+
+.mzf-c-card-grid--columns-4 {
+  --mzf-card-grid-columns: 4;
+}
+
+/* A cell is a slot, and it is a grid so its single child fills it. Every
+   card in a row then measures the tallest card in that row, which is what
+   the file draws: all four cells of 9991:345 are 334 tall. Without this the
+   `<li>` stretches and the card inside it keeps its own content height.
+
+   minmax(0, 1fr) above is what lets a long word or a wide image shrink
+   rather than stretch the track; this repeats the floor for the cell. */
+.mzf-c-card-grid__item {
+  display: grid;
+  min-inline-size: 0;
+}
+
+/* ---------- below the mobile breakpoint ----------
+   All three counts collapse to one column and the gutter drops to 16. The
+   threshold is size.breakpoint.mobile; a media query cannot read a custom
+   property, so the value is repeated here and the token is the place it is
+   recorded. */
+@include mobile-only {
+  .mzf-c-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+}
