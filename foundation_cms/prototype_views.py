@@ -20,3 +20,19 @@ def meteor_hero_preview(request):
             "target_id": "meteor-hero-preview-content",
         },
     )
+
+
+def galaxy_hero_preview(request):
+    """Preview Galaxy independently until homepage assembly (TP1-4385)."""
+    backgrounds = ("Gray", "Orange", "Yellow", "Blue")
+    background = request.GET.get("background", "Gray")
+    return render(
+        request,
+        "patterns/pages/prototype/galaxy_hero.html",
+        {
+            "headline": "Mozilla Foundation expands\nwho shapes technology",
+            "second_headline": "Because the future should be\nin the hands of many.",
+            "background": background if background in backgrounds else "Gray",
+            "target_id": "galaxy-hero-preview-content",
+        },
+    )
