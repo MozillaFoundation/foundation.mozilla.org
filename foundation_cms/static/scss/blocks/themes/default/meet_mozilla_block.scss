@@ -1,0 +1,97 @@
+// LP's Meet Mozilla (cosmos/blocks/sections/_meet-mozilla.scss) keeps a fixed 148px
+// inset, so wider than its 1440px design the intro and the steps drift apart. Cap the
+// header and the two columns at LP's content width and center them, as LP's section
+// master does, while the colored band stays full width. Nothing changes at 1440px and
+// below, where the content is already 1144px.
+.mzf-c-meet-mozilla > * {
+  max-inline-size: var(--size-content-max);
+  margin-inline: auto;
+}
+
+// Pinned steps. meet_mozilla.js adds the class on desktop (never with reduced motion)
+// and sets both lengths. Each step gets extra scroll room after its content, and the
+// content sticks level with the intro heading while that room scrolls past, so the
+// statement holds still while it lights up, then moves on.
+.mzf-c-meet-mozilla--pinned {
+  .mzf-c-meet-mozilla__item::after {
+    display: block;
+    block-size: var(--mzf-meet-mozilla-pin-distance, 0);
+    content: "";
+  }
+
+  .mzf-c-biglabel-h2 {
+    position: sticky;
+    inset-block-start: var(--mzf-meet-mozilla-pin-top, 0);
+  }
+}
+
+@include mobile-only {
+  .mzf-c-meet-mozilla {
+    padding-block-end: 0;
+  }
+
+  .mzf-c-meet-mozilla__aside {
+    padding-block-start: var(--space-120);
+  }
+
+  .mzf-c-meet-mozilla__list {
+    padding-block-end: 50svh;
+  }
+}
+
+// Reduced motion, as TP1-4382 asks: nothing sticks or lights up (meet_mozilla.js
+// stands down), and instead of the section changing color on scroll, each step shows
+// its color as a static full-width band.
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-meet-mozilla {
+    // Lets the bands sit behind the text but in front of the section's own color, and
+    // keeps their full-width overhang from scrolling the page sideways.
+    isolation: isolate;
+    overflow-x: clip;
+    padding-block-end: 0;
+  }
+
+  // Stack the intro above the steps, so the bands don't run behind it.
+  .mzf-c-meet-mozilla__body {
+    display: block;
+  }
+
+  .mzf-c-meet-mozilla__aside {
+    position: static;
+    max-inline-size: var(--size-meet-mozilla-intro-inline);
+    padding-block: var(--space-64) var(--space-120);
+  }
+
+  // LP's long runways only give the scroll effects room to play out. The steps keep
+  // their column on the right.
+  .mzf-c-meet-mozilla__list {
+    max-inline-size: var(--size-meet-mozilla-list-inline);
+    margin-inline-start: auto;
+    padding-block: 0;
+  }
+
+  .mzf-c-meet-mozilla .mzf-c-meet-mozilla__item {
+    --mzf-meet-mozilla-band: var(--color-accent-orange);
+
+    position: relative;
+    padding-block: var(--space-120);
+
+    &::before {
+      position: absolute;
+      z-index: -1;
+      inset-block: 0;
+      inset-inline: -100vw;
+      background-color: var(--mzf-meet-mozilla-band);
+      content: "";
+    }
+  }
+
+  // Each band takes its step's color; a step without one keeps the last, orange.
+  .mzf-c-meet-mozilla [data-mzf-meet-mozilla-state="01"] {
+    --mzf-meet-mozilla-band: var(--color-accent-blue);
+  }
+
+  .mzf-c-meet-mozilla [data-mzf-meet-mozilla-state="02"] {
+    --mzf-meet-mozilla-band: var(--color-accent-green);
+  }
+}

@@ -1,0 +1,93 @@
+// Ported from components/elements/buttons/link/styles.css
+// in MozillaFoundation/mofo-lp-design-system, commit 0db3629dcf
+
+// Kept the same as LP's file apart from formatting: the file follows our
+// Prettier and stylelint rules, which doesn't change how it behaves.
+
+/* Link, small — Figma 7056:2720
+   One axis, `Property 1`, with three values: Default, Hover and primary.
+   Default and Hover are states and become pseudo-classes. `primary` is a
+   variant on the same axis and becomes a class, because the file gives it
+   its own type style and its own ink rather than a state of the other two. */
+
+.mzf-c-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--color-text-link);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+/* Hover darkens the label and brings the arrow up to full strength. The gap
+   does not move: the file draws 4px on all three cells. */
+.mzf-c-link:hover {
+  color: var(--color-text-link-hover);
+}
+
+.mzf-c-link:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* ---------- primary ----------
+   9872:109915. The forward link promoted to the navigation type style:
+   13.5px semibold in full ink, with the arrow already at full strength.
+   Use it where the link is the only route onward. */
+.mzf-c-link--primary {
+  color: var(--color-text-default);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-control);
+}
+
+.mzf-c-link--primary:hover {
+  color: var(--color-text-default);
+}
+
+/* ---------- the arrow ----------
+   The same 24px MoCo icon box the button uses, holding the same 12px
+   arrow-right glyph. At rest the box sits at 40 percent, which is how the
+   file keeps the arrow quieter than the label. Hover and `primary` bring
+   it to full. It inherits color, so one file serves every cell. */
+.mzf-c-link__icon {
+  inline-size: var(--size-icon-medium);
+  block-size: var(--size-icon-medium);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  opacity: 0.4;
+  transition: opacity var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-link__icon svg {
+  display: block;
+  inline-size: var(--size-icon-glyph);
+  block-size: auto;
+}
+
+.mzf-c-link:hover .mzf-c-link__icon,
+.mzf-c-link--primary .mzf-c-link__icon {
+  opacity: 1;
+}
+
+[dir="rtl"] .mzf-c-link__icon {
+  transform: scaleX(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-link,
+  .mzf-c-link__icon {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}

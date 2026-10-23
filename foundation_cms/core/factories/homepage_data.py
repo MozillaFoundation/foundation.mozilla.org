@@ -4,6 +4,7 @@ from foundation_cms.blocks.factories import (
     ImpactNumberBlockFactory,
     LinkBlockFactory,
     LinkButtonBlockFactory,
+    MeetMozillaBlockFactory,
     NewsletterSignupBlockFactory,
     PillarCardBlockFactory,
     PillarCardSetBlockFactory,
@@ -120,6 +121,40 @@ def build_homepage_hero_accordion(images):
                     description=(
                         "The internet is for everyone. Let’s make it good together " "with our community and yours."
                     ),
+                )
+            ),
+        },
+    ]
+
+
+def build_homepage_meet_mozilla():
+    return [
+        {
+            "type": "meet_mozilla",
+            "value": dict(
+                MeetMozillaBlockFactory(
+                    eyebrow="Meet Mozilla",
+                    heading="Mozilla Foundation supports...",
+                    intro="Advancing technology that reflects human values.",
+                    intro_link=[_external_link("Learn more", "https://example.com")],
+                    steps=[
+                        {
+                            "label": "Imagine",
+                            "statement": (
+                                "We search in unlikely places for people imagining tech that works for more of us."
+                            ),
+                        },
+                        {
+                            "label": "Co-create",
+                            "statement": (
+                                "We offer capital and expertise to builders developing tech for their own communities."
+                            ),
+                        },
+                        {
+                            "label": "Mobilize",
+                            "statement": "We connect builders and dreamers so that good ideas can travel.",
+                        },
+                    ],
                 )
             ),
         },

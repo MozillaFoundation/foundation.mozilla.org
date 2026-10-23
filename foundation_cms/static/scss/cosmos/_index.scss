@@ -4,14 +4,18 @@
 
 // Elements
 @import "elements/accordion/item";
+@import "elements/buttons/link";
+@import "elements/chips/big-label";
 @import "elements/chips/scroll-reminder";
 @import "elements/layout/section-master";
 
 // Blocks
 @import "blocks/collections/accordion";
 @import "blocks/heros/primary";
+@import "blocks/sections/meet-mozilla";
 
-// Quote dependencies, in LP's required load order
+// Quote and Meet Mozilla dependencies, in LP's required load order
 @import "blocks/text/text-group";
+@import "blocks/text/biglabel-h2";
 @import "elements/media/aspect-ratios";
 @import "blocks/text/blockquote";
