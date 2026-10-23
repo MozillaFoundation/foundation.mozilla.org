@@ -1,0 +1,65 @@
+{% comment %}
+  LP's Meet Mozilla section (cosmos/blocks/sections/_meet-mozilla.scss), built
+  from LP's text-group, biglabel-h2, big-label and link components.
+
+  Step numbers and background states come from each step's position. LP has
+  three step colors, so a fourth step carries no state and keeps the third
+  color. The heading and statements are inked in full here; meet_mozilla.js
+  dims the words the reader hasn't reached yet.
+{% endcomment %}
+<div class="mzf-c-meet-mozilla mzf-c-meet-mozilla--state-00" data-mzf-meet-mozilla>
+  <div class="mzf-c-text-group mzf-c-text-group--h1">
+    <div class="mzf-c-text-group__text">
+      <div class="mzf-c-text-group__heading-group">
+        {% if value.eyebrow %}
+          <p class="mzf-c-text-group__label">{{ value.eyebrow }}</p>
+        {% endif %}
+        <h2 class="mzf-c-text-group__heading">{{ value.heading }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="mzf-c-meet-mozilla__body">
+    <div class="mzf-c-meet-mozilla__aside">
+      {% with link=value.intro_link.0 %}
+        <div class="mzf-c-text-group mzf-c-text-group--h3{% if link %} mzf-c-text-group--action-link{% endif %}">
+          <div class="mzf-c-text-group__text">
+            <div class="mzf-c-text-group__heading-group">
+              <h3 class="mzf-c-text-group__heading">{{ value.intro }}</h3>
+            </div>
+          </div>
+          {% if link %}
+            <div class="mzf-c-text-group__actions">
+              <a class="mzf-c-link mzf-c-link--primary" href="{{ link.url }}"{% if link.new_window %} target="_blank" rel="noopener"{% endif %}>
+                {{ link.label }}
+                <span class="mzf-c-link__icon" aria-hidden="true">
+                  <svg width="12" height="11.55" viewBox="0 0 12 11.55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.43 0.795L9.8475 5.2125H0V6.3375H9.8475L5.43 10.755L6.225 11.55L12 5.775L6.225 0L5.43 0.795Z" fill="currentColor"/></svg>
+                </span>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endwith %}
+    </div>
+
+    <ol class="mzf-c-meet-mozilla__list">
+      {% for step in value.steps %}
+        <li class="mzf-c-meet-mozilla__item"{% if forloop.counter <= 3 %} data-mzf-meet-mozilla-state="{{ forloop.counter|stringformat:'02d' }}"{% endif %}>
+          <div class="mzf-c-biglabel-h2">
+            <p class="mzf-c-big-label mzf-c-big-label--number">
+              <span class="mzf-c-big-label__number">{{ forloop.counter|stringformat:"02d" }}</span>
+              <span class="mzf-c-big-label__label">{{ step.label }}</span>
+            </p>
+            <div class="mzf-c-text-group mzf-c-text-group--h2">
+              <div class="mzf-c-text-group__text">
+                <div class="mzf-c-text-group__heading-group">
+                  <h3 class="mzf-c-text-group__heading mzf-c-meet-mozilla__statement">{{ step.statement }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>

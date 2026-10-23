@@ -8,7 +8,7 @@ from wagtail_localize.fields import TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import Topic
 from foundation_cms.base.models.abstract_home_page import AbstractHomePage
-from foundation_cms.blocks import HeroAccordionBlock
+from foundation_cms.blocks import HeroAccordionBlock, MeetMozillaBlock
 from foundation_cms.legacy_apps.wagtailpages.utils import get_default_locale
 from foundation_cms.utils import localize_queryset
 
@@ -21,15 +21,23 @@ class HomePage(RoutablePageMixin, AbstractHomePage):
         verbose_name="Hero Accordion",
         blank=True,
     )
+    meet_mozilla = StreamField(
+        [("meet_mozilla", MeetMozillaBlock())],
+        max_num=1,
+        verbose_name="Meet Mozilla",
+        blank=True,
+    )
 
     content_panels = AbstractHomePage.content_panels + [
         FieldPanel("hero_accordion"),
+        FieldPanel("meet_mozilla"),
         FieldPanel("body"),
     ]
 
     translatable_fields = AbstractHomePage.translatable_fields + [
         # Content tab fields
         TranslatableField("hero_accordion"),
+        TranslatableField("meet_mozilla"),
         TranslatableField("body"),
     ]
 
