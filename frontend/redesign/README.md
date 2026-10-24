@@ -119,17 +119,9 @@ const RedesignURLs = {
 
 When adding pages from new sections of the site, also update the workflow trigger paths in [`.github/workflows/visual-regression-testing-redesign.yml`](../../.github/workflows/visual-regression-testing-redesign.yml).
 
-### Prepare the reskin fixtures
-
-On a fresh database, `python manage.py load_redesign_data` creates the reskin fixture pages along with the rest of the redesign data. If your database already has a redesign homepage, run this instead to add only the missing fixture pages without changing existing content:
-
-```sh
-python manage.py load_visual_regression_data
-```
-
 ### Run the reskin suite locally (no Percy)
 
-Captures six snapshots at 1280px and 375px: the empty fixture page, and the components fixture page with its accordion closed and open. Screenshots are saved to `frontend/redesign/tests/screenshots/`.
+Captures the General Page at 1280px and 375px with the accordion in its Cosmos section closed and open (four snapshots). The section is seeded by `load_redesign_data`, which does not update a General Page that already exists. Screenshots are saved to `frontend/redesign/tests/screenshots/`.
 
 ```sh
 yarn workspace redesign playwright test ./tests/visual.spec.js -g "Cosmos reskin"

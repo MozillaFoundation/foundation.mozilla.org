@@ -8,9 +8,6 @@ from foundation_cms.core.factories import (
     generate_general_page,
     generate_homepage,
 )
-from foundation_cms.core.factories.visual_regression import (
-    generate as generate_visual_regression,
-)
 from foundation_cms.footer.factories import generate as generate_footer
 from foundation_cms.gallery_hub.factories import generate as generate_gallery
 from foundation_cms.navigation.factories import generate as generate_navigation
@@ -84,9 +81,6 @@ class Command(BaseCommand):
         self.stdout.write("Generating General Page...")
         general_page = generate_general_page(seed=42)
         self.stdout.write(self.style.SUCCESS(f'General Page active: "{general_page.title}"'))
-
-        self.stdout.write("Generating visual regression fixtures...")
-        generate_visual_regression(parent=homepage)
 
         # Generate Nothing Personal content
         self.stdout.write("Generating Nothing Personal content...")
