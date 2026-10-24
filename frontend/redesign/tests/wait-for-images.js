@@ -1,12 +1,11 @@
 export default async function waitForImagesToLoad(page) {
-  // Trigger lazy images to load by scrolling them into view
-  await page.evaluate(() => {
-    document.querySelectorAll("img").forEach((img) => {
-      if (img.loading === "lazy" && !img.complete && img.offsetParent !== null) {
-        img.scrollIntoView();
-      }
-    });
-  });
+  // Trigger lazy images to load by scrolling them into view one at a time, so
+  // the browser renders each position and starts loading that image
+  for (const img of await page.locator('img[loading="lazy"]').all()) {
+    if (await img.evaluate((el) => !el.complete && el.offsetParent !== null)) {
+      await img.scrollIntoViewIfNeeded();
+    }
+  }
 
   // Wait until all visible images report complete
   await page.waitForFunction(
@@ -15,6 +14,7 @@ export default async function waitForImagesToLoad(page) {
       const visible = imgs.filter((img) => img.offsetParent !== null);
       return visible.every((img) => img.complete);
     },
-    { timeout: 10000, polling: 500 }
+    null,
+    { timeout: 10000, polling: 500 },
   );
 }

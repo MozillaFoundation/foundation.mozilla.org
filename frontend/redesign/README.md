@@ -118,3 +118,15 @@ const RedesignURLs = {
 ```
 
 When adding pages from new sections of the site, also update the workflow trigger paths in [`.github/workflows/visual-regression-testing-redesign.yml`](../../.github/workflows/visual-regression-testing-redesign.yml).
+
+### Run the reskin suite locally (no Percy)
+
+Captures the General Page at 1280px and 375px with the accordion in its Cosmos section closed and open (four snapshots). The section is seeded by `load_redesign_data`, which does not update a General Page that already exists. Screenshots are saved to `frontend/redesign/tests/screenshots/`.
+
+```sh
+yarn workspace redesign playwright test ./tests/visual.spec.js -g "Cosmos reskin"
+```
+
+### Compare in Percy
+
+Local screenshots are for checking only; Percy compares snapshots and holds the baselines. CI runs the visual suite with `yarn workspace redesign percy`. A run triggered by the `run:visual-regression:redesign` label does not rerun for later commits, so re-trigger it to check the current head.
