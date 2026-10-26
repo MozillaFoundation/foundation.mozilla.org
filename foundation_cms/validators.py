@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlsplit, urlunsplit
 
 from django.core import validators
 from django.core.exceptions import ValidationError
@@ -46,6 +46,38 @@ def validate_vimeo_url(url):
     pattern = r"^https?://(www\.)?(vimeo\.com|player\.vimeo\.com/video)/\d+"
     if not re.match(pattern, url):
         raise ValidationError(VIMEO_HELP_TEXT)
+
+
+VIMEO_VIDEO_OR_EVENT_HELP_TEXT = (
+    "Please enter a valid Vimeo video or event URL (e.g. https://vimeo.com/123456789, "
+    "https://player.vimeo.com/video/123456789, or https://vimeo.com/event/123456)."
+)
+
+# Group 2 is the privacy hash that "Copy Link" puts in the path of unlisted videos.
+_VIMEO_VIDEO_URL_RE = re.compile(
+    r"^https?://(?:www\.)?(?:vimeo\.com|player\.vimeo\.com/video)/(\d+)(?:/([0-9a-f]{10})(?=[/?#]|$))?"
+)
+_VIMEO_EVENT_URL_RE = re.compile(r"^https?://(?:www\.)?vimeo\.com/event/(\d+)")
+
+
+def get_vimeo_embed_url(url):
+    # Keep the query and fragment: they carry the ?h= privacy hash and playback options.
+    parts = urlsplit(url)
+    query = parts.query
+    if match := _VIMEO_EVENT_URL_RE.match(url):
+        host, path = "vimeo.com", f"/event/{match[1]}/embed"
+    elif match := _VIMEO_VIDEO_URL_RE.match(url):
+        host, path = "player.vimeo.com", f"/video/{match[1]}"
+        if match[2]:
+            query = f"h={match[2]}&{query}" if query else f"h={match[2]}"
+    else:
+        return ""
+    return urlunsplit(("https", host, path, query, parts.fragment))
+
+
+def validate_vimeo_video_or_event_url(url):
+    if not get_vimeo_embed_url(url):
+        raise ValidationError(VIMEO_VIDEO_OR_EVENT_HELP_TEXT)
 
 
 VIMEO_MP4_URL_HELP_TEXT = (
