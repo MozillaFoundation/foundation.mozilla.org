@@ -40,6 +40,14 @@ class TestImpactNumberBlock(SimpleTestCase):
             with self.subTest(count=len(stats)), self.assertRaises(ValidationError):
                 block.clean(block.to_python({"stats": stats}))
 
+    def test_caps_the_stat_heading_at_85_characters(self):
+        block = ImpactStatBlock()
+
+        block.clean(block.to_python({"stat_number": "$35M", "stat_heading": "x" * 85}))
+
+        with self.assertRaises(ValidationError):
+            block.clean(block.to_python({"stat_number": "$35M", "stat_heading": "x" * 86}))
+
     def test_figure_is_announced_once_and_animated_from_the_hidden_copy(self):
         card = self.render(STATS).select_one("[data-impact-stat]")
 

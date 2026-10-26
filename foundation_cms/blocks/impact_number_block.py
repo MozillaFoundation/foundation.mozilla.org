@@ -19,7 +19,9 @@ class ImpactStatBlock(blocks.StructBlock):
         ),
     )
 
-    stat_heading = blocks.CharBlock(required=True, help_text="The line that says what the number counts")
+    stat_heading = blocks.CharBlock(
+        required=True, max_length=85, help_text="The line that says what the number counts"
+    )
 
     class Meta:
         icon = "plus"
