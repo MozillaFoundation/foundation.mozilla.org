@@ -49,6 +49,7 @@ from foundation_cms.blocks.quote_block import QuoteBlock
 from foundation_cms.blocks.spacer_block import SpacerBlock
 from foundation_cms.blocks.spotlight_card_block import SpotlightCardBlock
 from foundation_cms.blocks.spotlight_card_set_block import SpotlightCardSetBlock
+from foundation_cms.blocks.super_cta_block import SuperCTABlock
 from foundation_cms.blocks.three_column_container_block import (
     ThreeColumnContainerBlock,
 )
@@ -255,6 +256,17 @@ class SpotlightCardSetBlockFactory(wagtail_factories.StructBlockFactory):
         SpotlightCardBlockFactory,
         **{"0": "", "1": "", "2": ""},
     )
+
+
+class SuperCTABlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = SuperCTABlock
+
+    label = "Explore all our work"
+    link_to = "external_url"
+    page = None
+    external_url = factory.Faker("url")
+    relative_url = ""
 
 
 class DividerBlockFactory(wagtail_factories.StructBlockFactory):

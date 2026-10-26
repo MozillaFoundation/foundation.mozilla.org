@@ -34,6 +34,7 @@ from foundation_cms.blocks.factories import (
     SpacerBlockFactory,
     SpotlightCardBlockFactory,
     SpotlightCardSetBlockFactory,
+    SuperCTABlockFactory,
     ThreeColumnContainerBlockFactory,
     TimelyActivationsCardsBlockFactory,
     TitleBlockFactory,
@@ -224,6 +225,7 @@ def build_general_page_body():
         },
         {"type": "fru_element_block", "value": dict(FruElementBlockFactory())},
         {"type": "link_button_block", "value": dict(LinkButtonBlockFactory())},
+        {"type": "super_cta", "value": dict(SuperCTABlockFactory())},
     ]
 
     layout_utilities = [

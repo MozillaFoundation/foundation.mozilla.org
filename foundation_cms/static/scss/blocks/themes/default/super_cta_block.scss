@@ -1,0 +1,47 @@
+// LP's Super CTA draws its own page margins, the same 148/20 the section
+// master uses, but has no measure. These rules keep its label on the section
+// master's content column.
+
+// Past the 1440 frame the surplus goes to the margins, as in the section master.
+.mzf-c-super-cta--single {
+  padding-inline: max(var(--space-148), (100% - var(--size-content-max)) / 2);
+}
+
+// Inside a Section Start section the band would get both paddings, so it takes
+// over the section's: it reaches the section's edges, and as the first or last
+// block it also covers the section's padding above or below it.
+.mzf-c-section .mzf-c-super-cta {
+  inline-size: auto;
+  margin-inline: calc(var(--space-148) * -1);
+}
+
+.mzf-c-section > :first-child .mzf-c-super-cta {
+  margin-block-start: calc(var(--mzf-section-padding-block) * -1);
+}
+
+.mzf-c-section > :last-child .mzf-c-super-cta {
+  margin-block-end: calc(var(--mzf-section-padding-block) * -1);
+}
+
+// The section's divider already draws the band's top rule.
+.page-section--divider > :first-child .mzf-c-super-cta {
+  box-shadow: none;
+}
+
+@include mobile-only {
+  .mzf-c-super-cta--single {
+    padding-inline: var(--space-20);
+  }
+
+  .mzf-c-section .mzf-c-super-cta {
+    margin-inline: calc(var(--space-20) * -1);
+  }
+
+  .mzf-c-section > :first-child .mzf-c-super-cta {
+    margin-block-start: calc(var(--space-64) * -1);
+  }
+
+  .mzf-c-section > :last-child .mzf-c-super-cta {
+    margin-block-end: calc(var(--space-64) * -1);
+  }
+}

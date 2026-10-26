@@ -1,0 +1,240 @@
+// Ported from components/blocks/engagement/super-cta/styles.css
+// in MozillaFoundation/mofo-lp-design-system, commit 0db3629dcf
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Super CTA — Figma 9502:44736
+   Single is one full-width link. Multi is a row of independent links that each
+   carry their own surface, so hovering one never paints the group.
+
+   Every rule in this component is drawn inside its box. 9502:44734 measures 290
+   with its top rule and 120 + 50 + 120 without it, and the three cell rules land
+   on x=399, x=799 and x=1199 of a 1200px box. A CSS border would add a pixel to
+   every one of them, so each rule is an inset box-shadow instead. */
+
+.mzf-c-super-cta {
+  display: flex;
+  align-items: center;
+  inline-size: 100%;
+  box-sizing: border-box;
+  box-shadow: inset 0 var(--border-width-thin) 0 0 var(--color-border-subtle);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.mzf-c-super-cta *,
+.mzf-c-super-cta *::before,
+.mzf-c-super-cta *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- single ----------
+   10206:41858. Section padding at desktop: 148 inline, 120 block. The label
+   takes the free space and the arrow sits at the reading end, 10px clear. */
+.mzf-c-super-cta--single {
+  justify-content: space-between;
+  gap: var(--space-10);
+  padding-block: var(--space-120);
+  padding-inline: var(--space-148);
+  background: var(--color-surface-raised);
+  transition: background var(--mzf-motion-duration-base)
+    var(--mzf-motion-easing-standard);
+}
+
+/* 10206:41862 and 10206:41870. Hover is the only thing that moves, and it moves
+   the fill from panel gray to paper at both breakpoints. */
+.mzf-c-super-cta--single:hover {
+  background: var(--color-surface-default);
+}
+
+.mzf-c-super-cta--single:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+/* Single is set in h1 at both breakpoints, and it keeps the desktop h1 tracking
+   of minus 2 percent when it steps down to 38px. 10206:41872 draws 38px at
+   minus 0.76, which is minus 2 percent and not the minus 1.5 that mobile/h1
+   carries elsewhere. */
+.mzf-c-super-cta__label {
+  font-family: var(--font-family-headline);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+  font-variation-settings: "wdth" 100;
+}
+
+.mzf-c-super-cta--single .mzf-c-super-cta__label {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+/* The icon is a box holding a smaller glyph, and the box is what sets the
+   height of the row: 10206:41858 measures 320 because 120 + 80 + 120, not
+   because of the 38.5px arrow inside. The file draws an 80px box around a 40px
+   glyph at desktop and a 48px box around a 24px glyph at mobile, so both are
+   reproduced. */
+.mzf-c-super-cta__icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+}
+
+.mzf-c-super-cta__icon svg,
+.mzf-c-super-cta__icon img {
+  display: block;
+  block-size: auto;
+}
+
+.mzf-c-super-cta__icon--lg {
+  inline-size: var(--size-super-cta-arrow-box);
+  block-size: var(--size-super-cta-arrow-box);
+}
+
+.mzf-c-super-cta__icon--lg svg,
+.mzf-c-super-cta__icon--lg img {
+  inline-size: var(--size-super-cta-arrow);
+}
+
+.mzf-c-super-cta__icon--sm {
+  display: none;
+  inline-size: var(--size-icon-xlarge);
+  block-size: var(--size-icon-xlarge);
+}
+
+.mzf-c-super-cta__icon--sm svg,
+.mzf-c-super-cta__icon--sm img {
+  inline-size: var(--size-super-cta-arrow-mobile);
+}
+
+[dir="rtl"] .mzf-c-super-cta__icon {
+  transform: scaleX(-1);
+}
+
+/* ---------- multi ----------
+   9502:44734. Three cells, each 400 of a 1200 box, each with its own fill and
+   its own rule at the reading end. The third cell keeps its rule: the file
+   draws it on the last pixel column of the band. No cell carries an arrow at
+   desktop width. */
+.mzf-c-super-cta--multi {
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  background: var(--color-surface-raised);
+}
+
+.mzf-c-super-cta__item {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  padding-block: var(--space-120);
+  padding-inline: 0;
+  box-shadow: inset calc(var(--border-width-thin) * -1) 0 0 0
+    var(--color-border-subtle);
+  background: var(--color-surface-raised);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  z-index: 0;
+  transition: background var(--mzf-motion-duration-base)
+    var(--mzf-motion-easing-standard);
+}
+
+/* An inset box-shadow has no logical form, so the offset is mirrored by hand. */
+[dir="rtl"] .mzf-c-super-cta__item {
+  box-shadow: inset var(--border-width-thin) 0 0 0 var(--color-border-subtle);
+}
+
+.mzf-c-super-cta__item:hover,
+.mzf-c-super-cta__item:focus-visible {
+  z-index: 1;
+  background: var(--color-surface-default);
+}
+
+.mzf-c-super-cta__item:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+/* Multi is a step down the ramp from single: h2 at desktop, and mobile/h1 with
+   mobile/h1 tracking below the breakpoint. 10279:39169 draws 42px at minus 0.42
+   and 10206:41850 draws 38px at minus 0.57. */
+.mzf-c-super-cta--multi .mzf-c-super-cta__label {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-h2);
+  white-space: nowrap;
+}
+
+.mzf-c-super-cta__item .mzf-c-super-cta__icon--sm {
+  display: none;
+}
+
+@include mobile-only {
+  .mzf-c-super-cta--single {
+    gap: var(--space-20);
+    padding-block: var(--space-64);
+    padding-inline: var(--space-20);
+  }
+
+  .mzf-c-super-cta__label {
+    font-size: var(--font-size-h1-mobile);
+  }
+
+  .mzf-c-super-cta__icon--lg {
+    display: none;
+  }
+
+  .mzf-c-super-cta--single .mzf-c-super-cta__icon--sm {
+    display: flex;
+  }
+
+  /* 9502:44735. The band loses its own fill below the breakpoint: each row
+     carries one, and the rows stack with a rule under every one of them. */
+  .mzf-c-super-cta--multi {
+    flex-direction: column;
+    background: transparent;
+  }
+
+  .mzf-c-super-cta--multi .mzf-c-super-cta__label {
+    font-size: var(--font-size-h1-mobile);
+    line-height: var(--line-height-display-mobile);
+    letter-spacing: var(--letter-spacing-display-mobile);
+  }
+
+  .mzf-c-super-cta__item {
+    flex: none;
+    inline-size: 100%;
+    justify-content: space-between;
+    padding-block: var(--space-64);
+    padding-inline: var(--space-20);
+    box-shadow: inset 0 calc(var(--border-width-thin) * -1) 0 0
+      var(--color-border-subtle);
+  }
+
+  [dir="rtl"] .mzf-c-super-cta__item {
+    box-shadow: inset 0 calc(var(--border-width-thin) * -1) 0 0
+      var(--color-border-subtle);
+  }
+
+  .mzf-c-super-cta__item .mzf-c-super-cta__icon--sm {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-super-cta--single,
+  .mzf-c-super-cta__item {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}

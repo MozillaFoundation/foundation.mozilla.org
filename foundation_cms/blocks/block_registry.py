@@ -30,6 +30,7 @@ from .quote_block import QuoteBlock
 from .section_start_block import SectionStartBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
+from .super_cta_block import SuperCTABlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .three_column_container_block import ThreeColumnContainerBlock
 from .timely_activations_cards_block import TimelyActivationsCardsBlock
@@ -155,6 +156,10 @@ class BlockRegistry:
         },
         "newsletter_unsubscribe": {
             "class": NewsletterUnsubscribeBlock,
+            "group": BlockGroups.ENGAGEMENT,
+        },
+        "super_cta": {
+            "class": SuperCTABlock,
             "group": BlockGroups.ENGAGEMENT,
         },
         # Layout
