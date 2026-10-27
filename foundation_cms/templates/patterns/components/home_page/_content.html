@@ -1,3 +1,5 @@
+{% load wagtailcore_tags %}
+
 <div class="grid-container">
     <div class="grid-x">
         <div class="cell small-10 medium-9">
@@ -14,6 +16,10 @@
 
 <!-- Main Content -->
 <main>
+    {% for block in page.meet_mozilla %}
+        {% include_block block %}
+    {% endfor %}
+
     {% if page.body %}
         {% include "patterns/components/_streamfield.html" with streamfield=page.body %}
     {% endif %}

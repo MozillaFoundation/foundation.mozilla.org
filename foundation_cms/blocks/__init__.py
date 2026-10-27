@@ -20,6 +20,7 @@ from .link_block import LinkBlock, OptionalLinkBlock
 from .link_button_block import FixedAlignmentLinkButtonBlock, LinkButtonBlock
 from .list_block import ListBlock
 from .media_block import CustomMediaBlock
+from .meet_mozilla_block import MeetMozillaBlock
 from .newsletter_signup_block import NewsletterSignupBlock
 from .newsletter_unsubscribe_block import NewsletterUnsubscribeBlock
 from .pillar_card_block import PillarCardBlock
@@ -96,6 +97,7 @@ __all__ = [
     "NewsletterUnsubscribeBlock",
     "QuoteBlock",
     "ListBlock",
+    "MeetMozillaBlock",
     "VideoBlock",
     "PillarCardBlock",
     "PillarCardSetBlock",
