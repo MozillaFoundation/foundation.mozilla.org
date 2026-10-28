@@ -88,6 +88,19 @@ def _accordion_item():
     return dict(AccordionBlockItemFactory())
 
 
+def _link_button(label, style):
+    return dict(
+        LinkButtonBlockFactory(
+            label=label,
+            link_to="relative_url",
+            relative_url="/en/",
+            external_url="",
+            style=style,
+            alignment="link-button-block--left",
+        )
+    )
+
+
 def _carousel_item(image_id):
     return {"type": "carousel_item", "value": dict(ImageCarouselItemBlockFactory(image=image_id))}
 
@@ -252,6 +265,19 @@ def build_general_page_body():
         {"type": "iframe_block", "value": dict(iFrameBlockFactory())},
     ]
 
+    cosmos_section = [
+        {
+            "type": "section_start",
+            "value": {
+                "name": "Cosmos section",
+                "anchor_id": "cosmos-section",
+                "rhythm": "xlarge",
+                "padding": "large",
+                "divider": False,
+            },
+        },
+    ]
+
     text_and_headings = [
         {"type": "title_block", "value": dict(TitleBlockFactory(title="General page block coverage"))},
         {"type": "quote", "value": dict(QuoteBlockFactory())},
@@ -260,6 +286,8 @@ def build_general_page_body():
             "value": dict(AccordionBlockFactory(accordion_items=[_accordion_item(), _accordion_item()])),
         },
         {"type": "rich_text", "value": "<p>Sample rich text content.</p>"},
+        {"type": "link_button_block", "value": _link_button("Primary link button", "btn-primary")},
+        {"type": "link_button_block", "value": _link_button("Secondary link button", "btn-secondary")},
     ]
 
-    return cards_and_grids + data_display + engagement + layout_utilities + media + text_and_headings
+    return cards_and_grids + data_display + engagement + layout_utilities + media + cosmos_section + text_and_headings
