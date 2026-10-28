@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
+from factory import random
 from wagtail.admin.viewsets import viewsets as wagtail_admin_viewsets
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import Locale
@@ -8,6 +9,18 @@ from wagtail.test.utils import WagtailTestUtils
 
 from foundation_cms.legacy_apps.donate_banner.factory import DonateBannerFactory
 from foundation_cms.legacy_apps.donate_banner.models import DonateBanner
+
+
+class TestDonateBannerFactory(SimpleTestCase):
+    def test_generated_title_fits_model_field(self):
+        random_state = random.get_random_state()
+        self.addCleanup(random.set_random_state, random_state)
+        # This seed generated a 65-character title with the sentence provider.
+        random.reseed_random(237)
+        banner = DonateBannerFactory.build(name="Christmas", foreground_image=None, background_image=None, locale=None)
+
+        title_field = DonateBanner._meta.get_field("title")
+        title_field.clean(banner.title, banner)
 
 
 class TestDonateBannerSnippetChooser(WagtailTestUtils, TestCase):
