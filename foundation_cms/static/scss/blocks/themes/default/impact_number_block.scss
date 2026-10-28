@@ -1,138 +1,36 @@
+// The block is LP's card-grid of impact-number cards (cosmos/blocks/cards/
+// _impact-number.scss). This file holds only what LP leaves to the holder.
+
 .impact-number-block {
-  $layout-breakpoint: medium;
-
-  // ===================================
-  // Base Styling
-  // ===================================
-
-  display: flex;
-  flex-direction: column;
-
-  @include breakpoint($layout-breakpoint up) {
-    flex-direction: row;
+  // LP's cell is an auto track, so a figure wider than the track pushes the
+  // card over its neighbour between the breakpoint and the full container.
+  .mzf-c-card-grid__item {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .impact-stat {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  .mzf-c-card--statistic {
+    container-type: inline-size;
+    min-inline-size: 0;
+  }
 
-    &__content {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
+  // LP lets the row set the card height, but the desktop design draws three
+  // and four across at 334px with the figure at the top and the line at the
+  // bottom. Two across hugs its content.
+  &:not(.mzf-c-card-grid--columns-2) .mzf-c-card--statistic {
+    min-block-size: var(--size-card-statistic-min-height);
 
-      @include breakpoint($layout-breakpoint up) {
-        flex-direction: column;
-      }
-    }
-
-    &__number {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 85% auto;
-
-      @include breakpoint($layout-breakpoint up) {
-        flex: unset;
-      }
-    }
-
-    &__number-value {
-      @include apply-text-style(
-        $header-styles,
-        "h2",
-        "small",
-        $header-font-family
-      );
-
-      display: block;
-      text-align: center;
-
-      @include breakpoint(large up) {
-        @include apply-text-style(
-          $header-styles,
-          "h2",
-          "large",
-          $header-font-family
-        );
-      }
-    }
-
-    &__details {
-      flex: 1;
-      padding: rem-calc(8);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      @include breakpoint($layout-breakpoint up) {
-        flex: unset;
-      }
-
-      @include breakpoint(large up) {
-        padding: rem-calc(24);
-        justify-content: normal;
-        text-align: center;
-      }
-    }
-
-    &__heading {
-      margin: 0;
-
-      @include apply-text-style(
-        $header-styles,
-        "h6",
-        "small",
-        $header-font-family
-      );
-
-      @include breakpoint(large up) {
-        @include apply-text-style(
-          $header-styles,
-          "h4",
-          "large",
-          $header-font-family
-        );
-      }
-    }
-
-    &__description {
-      margin-top: rem-calc(4);
-      margin-bottom: 0;
-
-      @include apply-text-style($body-text-styles, "xsmall", "small");
-
-      @include breakpoint($layout-breakpoint up) {
-        margin-top: 1rem;
-      }
-
-      @include breakpoint(large up) {
-        @include apply-text-style($body-text-styles, "large", "large");
-      }
+    @include mobile-only {
+      min-block-size: 0;
     }
   }
 
-  .impact-stat:nth-child(3n + 1) {
-    .impact-stat__number {
-      background-image: url("/static/foundation_cms/_images/shapes/orange/orange300-1.svg");
-    }
-  }
+  // 33.1cqi is 112px in the 378.67px card of a 1200px container, so the
+  // figure is LP's display size there and shrinks with the card below it.
+  .mzf-c-card__figure {
+    font-size: min(var(--font-size-display-1), 33.1cqi);
 
-  .impact-stat:nth-child(3n + 2) {
-    .impact-stat__number {
-      background-image: url("/static/foundation_cms/_images/shapes/yellow/yellow300-1.svg");
-    }
-  }
-
-  .impact-stat:nth-child(3n + 3) {
-    .impact-stat__number {
-      background-image: url("/static/foundation_cms/_images/shapes/blue/blue300-1.svg");
+    @include mobile-only {
+      font-size: var(--font-size-h1-mobile);
     }
   }
 }

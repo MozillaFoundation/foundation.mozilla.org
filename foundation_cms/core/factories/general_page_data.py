@@ -190,15 +190,11 @@ def build_general_page_body():
     data_display = [
         {
             "type": "impact_numbers",
-            "value": dict(
-                ImpactNumberBlockFactory(
-                    stats=[
-                        dict(ImpactStatBlockFactory()),
-                        dict(ImpactStatBlockFactory()),
-                        dict(ImpactStatBlockFactory()),
-                    ]
-                )
-            ),
+            "value": dict(ImpactNumberBlockFactory(stats=[dict(ImpactStatBlockFactory()) for _ in range(2)])),
+        },
+        {
+            "type": "impact_numbers",
+            "value": dict(ImpactNumberBlockFactory(stats=[dict(ImpactStatBlockFactory()) for _ in range(4)])),
         },
         {
             "type": "list_block",

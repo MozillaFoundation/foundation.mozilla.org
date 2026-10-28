@@ -93,6 +93,10 @@
         "value": "110px",
         "description": "The column Figma 9918:36980 draws an impact number's figure in below the mobile breakpoint, so the lines beside a stack of them start on one edge."
       },
+      "statistic-min-height": {
+        "value": "334px",
+        "description": "The height Figma 9918:36973 draws an impact number card at on desktop when three or four sit in a row, so the row reads as equal panels with the figure at the top and the line at the bottom. Two across, and every card below the breakpoint, hug their content."
+      },
       "mark": {
         "value": "13px",
         "description": "The height every card network mark is drawn at. The five marks are the same 19 by 13 box."
