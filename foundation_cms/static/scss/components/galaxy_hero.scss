@@ -1,0 +1,60 @@
+// Site integration for LP studio/heroes/galaxy.html (804c5fd).
+// Existing site chrome stays above the stage; the shared Cosmos reminder
+// keeps its own appearance. Native page scrolling drives LP's progress input.
+// Cosmos owns the reminder styling; this file owns only the sticky layout,
+// canvas layering and readable HTML fallback.
+.galaxy-hero {
+  --galaxy-ink: var(--color-text-default);
+
+  background: var(--color-gray-100);
+
+  &__stage {
+    position: relative;
+    min-block-size: calc(100svh - #{$primary-nav-height});
+    display: grid;
+    place-items: center;
+  }
+
+  &__canvas {
+    display: none;
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    pointer-events: none;
+  }
+
+  &__copy {
+    max-inline-size: rem-calc(800);
+    padding: rem-calc(48) rem-calc(24) rem-calc(120);
+    text-align: center;
+    white-space: pre-line;
+  }
+
+  &__reminder {
+    position: absolute;
+    inset-block-end: var(--space-48);
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    border-color: var(--galaxy-ink);
+    color: var(--galaxy-ink);
+  }
+
+  &--enhanced {
+    block-size: 320svh;
+
+    .galaxy-hero__stage {
+      position: sticky;
+      inset-block-start: $primary-nav-height;
+      block-size: calc(100svh - #{$primary-nav-height});
+    }
+
+    .galaxy-hero__canvas {
+      display: block;
+    }
+
+    .galaxy-hero__copy {
+      @include element-invisible;
+    }
+  }
+}
