@@ -7,7 +7,6 @@ from foundation_cms.blocks.factories import (
     ActivationCardBlockFactory,
     CustomImageBlockFactory,
     CustomMediaBlockFactory,
-    DividerBlockFactory,
     DonorHelpContactUsFormBlockFactory,
     FruElementBlockFactory,
     IconInfoGridBlockFactory,
@@ -223,7 +222,6 @@ def build_general_page_body():
     ]
 
     layout_utilities = [
-        {"type": "divider", "value": dict(DividerBlockFactory())},
         {"type": "spacer_block", "value": dict(SpacerBlockFactory())},
         {
             "type": "two_column_container_block",

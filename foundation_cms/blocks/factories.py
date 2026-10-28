@@ -3,7 +3,6 @@ import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.accordion_block import AccordionBlock, AccordionBlockItem
-from foundation_cms.blocks.divider_block import DividerBlock
 from foundation_cms.blocks.donor_help_contact_us_form_block import (
     DonorHelpContactUsFormBlock,
 )
@@ -254,11 +253,6 @@ class SpotlightCardSetBlockFactory(wagtail_factories.StructBlockFactory):
         SpotlightCardBlockFactory,
         **{"0": "", "1": "", "2": ""},
     )
-
-
-class DividerBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = DividerBlock
 
 
 class SpacerBlockFactory(wagtail_factories.StructBlockFactory):
