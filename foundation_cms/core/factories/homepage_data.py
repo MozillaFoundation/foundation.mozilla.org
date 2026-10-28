@@ -212,21 +212,9 @@ def build_homepage_body(main_newsletter_id, images):
             "value": dict(
                 ImpactNumberBlockFactory(
                     stats=[
-                        {
-                            "stat_number": "$25M",
-                            "stat_heading": "Common Voice Audio Clips",
-                            "stat_description": "The world’s largest crowdsourced datasets powered by people.",
-                        },
-                        {
-                            "stat_number": "31K",
-                            "stat_heading": "Nurturing the next generation of responsible technologists",
-                            "stat_description": "Monthly page views.",
-                        },
-                        {
-                            "stat_number": "33M",
-                            "stat_heading": "Awarded in grants",
-                            "stat_description": "Fueling over 800 worldwide tech for good projects.",
-                        },
+                        {"stat_number": "$35M", "stat_heading": "In grants awarded to community-led projects"},
+                        {"stat_number": "6M+", "stat_heading": "People in the movement for a better tech future"},
+                        {"stat_number": "1M+", "stat_heading": "Voices donated to the Common Voice project"},
                     ]
                 )
             ),

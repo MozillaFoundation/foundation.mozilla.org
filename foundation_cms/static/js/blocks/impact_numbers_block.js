@@ -3,7 +3,7 @@
  */
 
 const SELECTORS = {
-  statContainer: ".impact-stat__number",
+  statContainer: "[data-impact-stat]",
   countUpValue: "[data-impact-stat-count-up]",
 };
 
