@@ -11,7 +11,7 @@ class DonateBannerFactory(DjangoModelFactory):
         model = DonateBanner
 
     name = Faker("sentence", nb_words=3)
-    title = Faker("sentence", nb_words=6)
+    title = Faker("text", max_nb_chars=60)
     foreground_image = SubFactory(ImageFactory)
     background_image = SubFactory(ImageFactory)
     locale = LazyFunction(lambda: Locale.get_default())

@@ -1,7 +1,6 @@
 @use "sass:map";
 @use "sass:math";
 @import "../../nothing_personal_base";
-@import "../../components/newsletter_signup/newsletter_signup_mixins";
 @import "../../components/nothing_personal/article_page_header";
 @import "../../components/related_content";
 
@@ -28,7 +27,7 @@ body.nothing-personal.nothing-personal-article-page {
     @include block-spacing;
   }
 
-  main .newsletter-signup[data-layout="expand_on_focus"] {
+  main [data-newsletter-signup][data-layout="expand_on_focus"] {
     @include block-spacing;
   }
 
@@ -122,93 +121,6 @@ body.nothing-personal.nothing-personal-article-page {
   .two-column-container {
     .image-block {
       margin-bottom: 0 !important;
-    }
-  }
-
-  // TODO: Replace this styling with a container query approach
-  main .newsletter-signup[data-layout="expanded"] {
-    @include newsletter-signup-stacked-form-controls;
-  }
-
-  main .newsletter-signup[data-layout="expand_on_focus"] {
-    margin-top: 1rem; // Glyph padding
-
-    @include breakpoint(large down) {
-      .newsletter-signup__form-grid,
-      .newsletter-signup__fieldset {
-        flex-direction: column;
-      }
-
-      .newsletter-signup__button-wrapper {
-        width: 100%;
-        margin-left: 0;
-      }
-    }
-
-    @include breakpoint(xlarge up) {
-      margin-top: 2rem; // Glyph padding
-      display: block;
-      padding: 2rem;
-    }
-
-    &::before {
-      @include breakpoint(xlarge up) {
-        position: absolute;
-        top: -2rem;
-        left: 2rem;
-        flex-shrink: 1;
-        min-height: 0;
-      }
-    }
-
-    .newsletter-signup__cta {
-      @include breakpoint(xlarge up) {
-        margin: 0 0 0.5rem;
-        min-height: 0;
-        display: block;
-        align-items: stretch;
-      }
-    }
-
-    .newsletter-signup__form {
-      @include breakpoint(xlarge up) {
-        flex-direction: column;
-        align-items: stretch;
-        flex: auto;
-        gap: 0.5rem;
-      }
-    }
-
-    .newsletter-signup__form-grid {
-      @include breakpoint(xlarge up) {
-        flex: auto;
-      }
-    }
-
-    .newsletter-signup__fieldset {
-      @include breakpoint(xlarge up) {
-        min-width: 0;
-      }
-    }
-
-    .newsletter-signup__field:has(> label > input[type="checkbox"]) {
-      @include breakpoint(xlarge up) {
-        padding-bottom: 0;
-      }
-    }
-
-    .newsletter-signup__success-message {
-      @include breakpoint(xlarge up) {
-        flex-direction: column;
-      }
-    }
-
-    .newsletter-signup__error-message {
-      @include breakpoint(xlarge up) {
-        order: 0;
-        width: auto;
-        margin-bottom: 1rem;
-      }
     }
   }
 

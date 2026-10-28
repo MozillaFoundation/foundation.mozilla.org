@@ -1,0 +1,196 @@
+// LP source: components/elements/inputs/dropdown/styles.css
+// Public Content Studio snapshot, 2026-10-12; upstream commit unavailable.
+
+/* Component: dropdown — Figma 9701:22822
+   One class prefix. Logical properties only. Token values only. */
+
+.mzf-c-dropdown {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+
+  --mzf-dropdown-open-duration: var(--mzf-motion-duration-dropdown-open);
+  --mzf-dropdown-close-duration: var(--mzf-motion-duration-dropdown-close);
+  --mzf-dropdown-ease: var(--mzf-motion-easing-dropdown);
+}
+
+/* ---------- the size knobs ----------
+   A holder that draws this control a step smaller sets these three, and
+   never restyles the trigger. Each one defaults to what 9701:22784 draws, so
+   a dropdown that sets nothing is unchanged.
+
+   `--mzf-dropdown-padding-block`  block padding on the trigger. Default
+                                   `space.10`, which is the 46px trigger.
+   `--mzf-dropdown-font-size`      the value's size. Default `font.size.body`.
+   `--mzf-dropdown-font-weight`    the value's weight. Default
+                                   `font.weight.medium`.
+
+   `inputs/newsletter` is the first holder to use them: 10088:63941 draws the
+   trigger at `spacing-6` with `body-small` regular, a 38px control. */
+
+/* 9701:22785. The trigger has no fill at rest, so it sits on whatever the
+   page is. Only the hover state paints one. */
+.mzf-c-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  inline-size: 100%;
+  padding-block: var(--mzf-dropdown-padding-block, var(--space-10));
+  padding-inline: var(--space-20) var(--space-12);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-none);
+  background: transparent;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--mzf-dropdown-font-size, var(--font-size-body));
+  font-weight: var(--mzf-dropdown-font-weight, var(--font-weight-medium));
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  text-align: start;
+  cursor: pointer;
+  transition: background var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-dropdown__trigger:hover {
+  background: var(--color-surface-raised);
+}
+
+/* Open, the trigger paints its own ground rather than borrowing the page's.
+   9701:22795 and 9701:22809 both fill it gray/0, which is invisible on a
+   white page and is the whole point on a tinted one. */
+.mzf-c-dropdown__trigger[aria-expanded="true"] {
+  background: var(--color-surface-default);
+}
+
+.mzf-c-dropdown__trigger:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-2);
+}
+
+/* The value takes the line and the caret keeps its box, so a long choice
+   wraps inside the trigger instead of pushing the caret out of it. */
+.mzf-c-dropdown__value {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow-wrap: break-word;
+}
+
+/* A trigger naming what to choose rather than what is chosen. 10088:63941
+   and 10088:63942 draw "Country" and "Language" in `gray/500`, the same ink
+   a field's placeholder takes. The script drops this class the moment
+   somebody picks an option, so the value goes to full ink on its own. */
+.mzf-c-dropdown__value--placeholder {
+  color: var(--color-text-subtle);
+}
+
+.mzf-c-dropdown__icon {
+  flex: 0 0 auto;
+  inline-size: var(--size-icon-medium);
+  block-size: var(--size-icon-medium);
+}
+
+.mzf-c-dropdown__icon svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  transform: rotate(0deg);
+
+  /* Not the box center. The glyph is drawn 8..17 across and 10..16 down in a
+     24px box, so half a turn about (12.5, 13) lands the closed chevron
+     9701:22787 exactly on the open one 9701:22797. About the box center it
+     would land a pixel to the inline-start of it. */
+  transform-origin: 12.5px 13px; /* allow-raw */
+  transition: transform var(--mzf-dropdown-open-duration)
+    var(--mzf-dropdown-ease);
+}
+
+.mzf-c-dropdown--open .mzf-c-dropdown__icon svg,
+.mzf-c-dropdown__trigger[aria-expanded="true"] .mzf-c-dropdown__icon svg {
+  transform: rotate(180deg);
+}
+
+/* 9701:22799 sits 6px under the trigger. The file draws it in the flow,
+   which would shove the page down every time somebody opened a filter, so
+   it is taken out of the flow here and offset by the same 6px. The geometry
+   the file draws is unchanged; only what happens to the page around it is.
+
+   The menu has no stroke. The Expanded symbol is 236px: a 46px trigger, the
+   6px gap, and a 184px menu that is 4px of padding, four 44px items and 4px
+   of padding. A hairline would make it 186. */
+.mzf-c-dropdown__menu {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-6));
+  inset-inline: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding-block: var(--space-4);
+  padding-inline: 0;
+  background: var(--color-surface-default);
+  list-style: none;
+  transform-origin: top center;
+  opacity: 0;
+  transform: scale(0.97);
+  pointer-events: none;
+  transition:
+    opacity var(--mzf-dropdown-close-duration) var(--mzf-dropdown-ease),
+    transform var(--mzf-dropdown-close-duration) var(--mzf-dropdown-ease);
+}
+
+/* display:flex would win over the hidden attribute's own display:none. */
+.mzf-c-dropdown__menu[hidden] {
+  display: none;
+}
+
+.mzf-c-dropdown--open .mzf-c-dropdown__menu,
+.mzf-c-dropdown__trigger[aria-expanded="true"] ~ .mzf-c-dropdown__menu {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  transition:
+    opacity var(--mzf-dropdown-open-duration) var(--mzf-dropdown-ease),
+    transform var(--mzf-dropdown-open-duration) var(--mzf-dropdown-ease);
+}
+
+.mzf-c-dropdown--closing .mzf-c-dropdown__menu {
+  opacity: 0;
+  transform: scale(0.99);
+  pointer-events: none;
+  transition:
+    opacity var(--mzf-dropdown-close-duration) var(--mzf-dropdown-ease),
+    transform var(--mzf-dropdown-close-duration) var(--mzf-dropdown-ease);
+}
+
+.mzf-c-dropdown__option {
+  padding-block: var(--space-10);
+  padding-inline: var(--space-20);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  cursor: pointer;
+  transition: background var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-dropdown__option:hover {
+  background: var(--color-surface-raised);
+}
+
+.mzf-c-dropdown__option:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-dropdown__trigger,
+  .mzf-c-dropdown__icon svg,
+  .mzf-c-dropdown__menu,
+  .mzf-c-dropdown__option {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}

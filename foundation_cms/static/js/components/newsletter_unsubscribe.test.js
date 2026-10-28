@@ -12,18 +12,18 @@ let fetchMock;
 function buildUnsubscribeMarkup() {
   document.body.innerHTML = `
     <div class="newsletter-unsubscribe__container">
-      <form class="newsletter-signup__form">
+      <form class="newsletter-unsubscribe__form">
         <input name="email" type="email" value="" />
-        <p class="email-error-message newsletter-signup__field-error--hidden"></p>
-        <button class="newsletter-signup__button" type="submit">
+        <p class="email-error-message newsletter-unsubscribe__field-error--hidden"></p>
+        <button class="newsletter-unsubscribe__button" type="submit">
           <span class="loading-message" style="display: none">Loading</span>
           <span class="btn-primary__rolltext">Unsubscribe</span>
         </button>
       </form>
-      <p class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
+      <p class="newsletter-unsubscribe__success-message newsletter-unsubscribe__success-message--hidden">
         You have been unsubscribed
       </p>
-      <p class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
+      <p class="newsletter-unsubscribe__error-message newsletter-unsubscribe__error-message--hidden">
         Something went wrong
       </p>
     </div>
@@ -80,7 +80,7 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
 
   it("shows a validation error and skips the API call for invalid email addresses", () => {
     buildUnsubscribeMarkup();
-    const form = document.querySelector(".newsletter-signup__form");
+    const form = document.querySelector(".newsletter-unsubscribe__form");
     const emailError = document.querySelector(".email-error-message");
 
     injectNewsletterSignups("https://foundation.test");
@@ -89,7 +89,9 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
     );
 
     expect(
-      emailError.classList.contains("newsletter-signup__field-error--hidden"),
+      emailError.classList.contains(
+        "newsletter-unsubscribe__field-error--hidden",
+      ),
     ).toBe(false);
     expect(fetchMock).not.toHaveBeenCalled();
     expect(ensureCsrfToken).not.toHaveBeenCalled();
@@ -103,7 +105,7 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
       body: { redirect: "https://foundation.test/unsubscribed/" },
     });
     const { assign, restore } = mockLocationAssign();
-    const form = document.querySelector(".newsletter-signup__form");
+    const form = document.querySelector(".newsletter-unsubscribe__form");
     const emailInput = document.querySelector("input[name='email']");
 
     injectNewsletterSignups("https://foundation.test");
@@ -144,10 +146,10 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
       ok: true,
       body: { status: "ok" },
     });
-    const form = document.querySelector(".newsletter-signup__form");
+    const form = document.querySelector(".newsletter-unsubscribe__form");
     const emailInput = document.querySelector("input[name='email']");
     const successMessage = document.querySelector(
-      ".newsletter-signup__success-message",
+      ".newsletter-unsubscribe__success-message",
     );
 
     injectNewsletterSignups("https://foundation.test");
@@ -159,12 +161,12 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
 
     await vi.waitFor(() => {
       expect(ensureCsrfToken).toHaveBeenCalledTimes(1);
-      expect(form.classList.contains("newsletter-signup__form--hidden")).toBe(
-        true,
-      );
+      expect(
+        form.classList.contains("newsletter-unsubscribe__form--hidden"),
+      ).toBe(true);
       expect(
         successMessage.classList.contains(
-          "newsletter-signup__success-message--hidden",
+          "newsletter-unsubscribe__success-message--hidden",
         ),
       ).toBe(false);
     });
@@ -177,10 +179,10 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
       ok: false,
       body: { status: "error" },
     });
-    const form = document.querySelector(".newsletter-signup__form");
+    const form = document.querySelector(".newsletter-unsubscribe__form");
     const emailInput = document.querySelector("input[name='email']");
     const errorMessage = document.querySelector(
-      ".newsletter-signup__error-message",
+      ".newsletter-unsubscribe__error-message",
     );
 
     injectNewsletterSignups("https://foundation.test");
@@ -193,7 +195,7 @@ describe("injectNewsletterSignups (unsubscribe)", () => {
     await vi.waitFor(() => {
       expect(
         errorMessage.classList.contains(
-          "newsletter-signup__error-message--hidden",
+          "newsletter-unsubscribe__error-message--hidden",
         ),
       ).toBe(false);
     });
