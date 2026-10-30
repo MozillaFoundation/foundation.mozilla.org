@@ -1,6 +1,7 @@
 import CharacterCountdownController from "./controllers/character_countdown_controller.js";
 import FlywheelBannerController from "./controllers/flywheel_banner_controller.js";
 import HeadingTextGroupController from "./controllers/heading_text_group_controller.js";
+import ListLimitController from "./controllers/list_limit_controller.js";
 import MediaController from "./controllers/media_controller.js";
 
 if (window.StimulusModule) {
@@ -14,6 +15,7 @@ if (window.StimulusModule) {
     },
     { name: "flywheel-banner", controller: FlywheelBannerController },
     { name: "heading-text-group", controller: HeadingTextGroupController },
+    { name: "list-limit", controller: ListLimitController },
     { name: "media", controller: MediaController },
   ];
 
