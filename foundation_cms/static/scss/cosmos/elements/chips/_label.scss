@@ -1,0 +1,80 @@
+// Ported from components/elements/chips/label/styles.css
+// in MozillaFoundation/mofo-lp-design-system, commit 0db3629dcf
+
+// Kept the same as LP's file apart from formatting: the file follows our
+// Prettier and stylelint rules, which doesn't change how it behaves.
+
+/* Tag — Figma 7666:4533
+   Three types by seven fills. Type sets the text color, fill sets the
+   background, and the file draws nine cells.
+
+   A tag labels a thing. A notification says something is happening to it
+   right now. That is the whole difference, and it is why one is quiet and
+   the other is not. */
+
+.mzf-c-tag {
+  display: inline-block;
+  padding-block: var(--space-6) var(--space-4);
+  padding-inline: var(--space-8);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+/* ---------- type ---------- */
+.mzf-c-tag--tag {
+  color: var(--color-text-muted);
+}
+
+.mzf-c-tag--notification {
+  color: var(--color-text-default);
+}
+
+/* A bare label. The file draws `Type=label, Color=White` as ink text with no
+   fill and no padding, so it is the type that is not a chip. It takes no
+   fill class. */
+.mzf-c-tag--label {
+  padding-block: var(--space-0);
+  padding-inline: var(--space-0);
+  background: none;
+  color: var(--color-text-default);
+}
+
+/* ---------- fill ---------- */
+.mzf-c-tag--white {
+  background: var(--color-tag-white);
+}
+.mzf-c-tag--warm-grey {
+  background: var(--color-tag-warm-grey);
+}
+.mzf-c-tag--yellow {
+  background: var(--color-tag-yellow);
+}
+.mzf-c-tag--blue {
+  background: var(--color-tag-blue);
+}
+.mzf-c-tag--green {
+  background: var(--color-tag-green);
+}
+.mzf-c-tag--orange {
+  background: var(--color-tag-orange);
+}
+.mzf-c-tag--pink {
+  background: var(--color-tag-pink);
+}
+
+/* The one cell that breaks the rule. A quiet tag on warm gray is a step
+   darker than a quiet tag on white, because the warm fill eats contrast. */
+.mzf-c-tag--tag.mzf-c-tag--warm-grey {
+  color: var(--color-text-quiet);
+}
+
+/* Warm gray is the one fill the two loud types do not share. The file draws
+   the tag on warm-neutrals/300 and the notification on warm-neutrals/400, a
+   step darker, so the notification holds its own against the paper. */
+.mzf-c-tag--notification.mzf-c-tag--warm-grey {
+  background: var(--color-tag-warm-grey-loud);
+}

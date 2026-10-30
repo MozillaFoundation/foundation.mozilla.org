@@ -9,6 +9,7 @@ from foundation_cms.blocks.factories import (
     CustomMediaBlockFactory,
     DonorHelpContactUsFormBlockFactory,
     FruElementBlockFactory,
+    HeadingTextGroupBlockFactory,
     IconInfoGridBlockFactory,
     IconInfoGridItemBlockFactory,
     IllustratedNewsletterSignupBlockFactory,
@@ -264,6 +265,15 @@ def build_general_page_body():
             "value": dict(AccordionBlockFactory(accordion_items=[_accordion_item(), _accordion_item()])),
         },
         {"type": "rich_text", "value": "<p>Sample rich text content.</p>"},
+        {
+            "type": "heading_text_group",
+            "value": dict(
+                HeadingTextGroupBlockFactory(
+                    action_type="button",
+                    action=[dict(LinkBlockFactory(link_to="external_url", label="Our work"))],
+                )
+            ),
+        },
     ]
 
     return cards_and_grids + data_display + engagement + layout_utilities + media + text_and_headings

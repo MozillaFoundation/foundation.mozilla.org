@@ -8,6 +8,7 @@ from .featured_container_block import FeaturedContainerBlock
 from .flywheel_banner_block import FlywheelBannerBlock
 from .fru_element_block import FruElementBlock
 from .greenhouse_board_block import GreenhouseBoardBlock
+from .heading_text_group_block import HeadingTextGroupBlock
 from .hero_accordion import HeroAccordionBlock
 from .icon_info_grid_block import IconInfoGridBlock, IconInfoGridItemBlock
 from .iframe_block import iFrameBlock
@@ -87,6 +88,7 @@ __all__ = [
     "OptionalLinkBlock",
     "PortraitCardBlock",
     "PortraitCardSetBlock",
+    "HeadingTextGroupBlock",
     "ProductReviewCarouselBlock",
     "FixedAlignmentLinkButtonBlock",
     "LinkButtonBlock",
