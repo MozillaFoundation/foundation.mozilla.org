@@ -3,7 +3,7 @@
   text-align: start;
 }
 
-// Not in LP's big-label port (green only); needs LP/design sign-off for these highlight colors.
+// LP draws the tag highlights for green only; custom override for additional highlight colors
 @each $color in yellow, blue, orange, pink {
   .heading-text-group__highlight--#{$color} .mzf-c-big-label__marker {
     background: var(--color-tag-#{$color});
