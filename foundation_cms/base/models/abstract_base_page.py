@@ -48,6 +48,7 @@ BASE_BLOCK_NAMES = sorted(
         "pillar_card_set",
         "flywheel_banner",
         "fru_element_block",
+        "super_cta",
         "title_block",
     ]
 )

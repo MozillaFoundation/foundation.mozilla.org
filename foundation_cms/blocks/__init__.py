@@ -40,6 +40,7 @@ from .quote_block import QuoteBlock
 from .spacer_block import SpacerBlock
 from .spotlight_card_block import SpotlightCardBlock
 from .spotlight_card_set_block import SpotlightCardSetBlock
+from .super_cta_block import SuperCTABlock
 from .tabbed_content_card_set_block import TabbedContentCardSetBlock
 from .tabbed_content_container_block import TabbedContentContainerBlock
 from .tabbed_content_tab_block import TabbedContentTabBlock
@@ -61,6 +62,7 @@ __all__ = [
     "CalloutBlock",
     "SpotlightCardBlock",
     "SpotlightCardSetBlock",
+    "SuperCTABlock",
     "FlywheelBannerBlock",
     "IllustratedNewsletterSignupBlock",
     "ProjectBlock",
