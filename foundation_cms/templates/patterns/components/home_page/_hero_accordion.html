@@ -45,7 +45,7 @@
           <div class="hero-accordion__details">
             <p class="hero-accordion__label">{{ block.value.label }}</p>
             {% if block.value.heading %}
-              <p class="hero-accordion__heading">{{ block.value.heading }}</p>
+              <h2 class="hero-accordion__heading">{{ block.value.heading }}</h2>
             {% endif %}
           </div>
         {% elif block.block_type == 'image_text_panel' %}
@@ -53,7 +53,7 @@
             <div class="hero-accordion__details-inner">
               <p class="hero-accordion__label">{{ block.value.label }}</p>
               <div>
-                <p class="hero-accordion__heading">{{ block.value.heading }}</p>
+                <h2 class="hero-accordion__heading">{{ block.value.heading }}</h2>
                 {% if block.value.description %}
                   <p class="hero-accordion__description">{{ block.value.description }}</p>
                 {% endif %}
