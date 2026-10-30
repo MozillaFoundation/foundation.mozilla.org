@@ -83,7 +83,7 @@
     "autoprefixer": "^10.5.4",
     "axe-core": "^4.13.0",
     "bootstrap": "^4.6.0",
-    "chart.js": "4.5.1",
+    "chart.js": "4.6.1",
     "classnames": "2.5.1",
     "countup.js": "^2.10.1",
     "cssnano": "^8.0.6",
