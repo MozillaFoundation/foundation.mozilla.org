@@ -7,7 +7,6 @@ from foundation_cms.blocks.factories import (
     ActivationCardBlockFactory,
     CustomImageBlockFactory,
     CustomMediaBlockFactory,
-    DividerBlockFactory,
     DonorHelpContactUsFormBlockFactory,
     FruElementBlockFactory,
     IconInfoGridBlockFactory,
@@ -192,15 +191,11 @@ def build_general_page_body():
     data_display = [
         {
             "type": "impact_numbers",
-            "value": dict(
-                ImpactNumberBlockFactory(
-                    stats=[
-                        dict(ImpactStatBlockFactory()),
-                        dict(ImpactStatBlockFactory()),
-                        dict(ImpactStatBlockFactory()),
-                    ]
-                )
-            ),
+            "value": dict(ImpactNumberBlockFactory(stats=[dict(ImpactStatBlockFactory()) for _ in range(2)])),
+        },
+        {
+            "type": "impact_numbers",
+            "value": dict(ImpactNumberBlockFactory(stats=[dict(ImpactStatBlockFactory()) for _ in range(4)])),
         },
         {
             "type": "list_block",
@@ -229,7 +224,6 @@ def build_general_page_body():
     ]
 
     layout_utilities = [
-        {"type": "divider", "value": dict(DividerBlockFactory())},
         {"type": "spacer_block", "value": dict(SpacerBlockFactory())},
         {
             "type": "two_column_container_block",

@@ -4,7 +4,6 @@ from .accordion_block import AccordionBlock
 from .call_to_action_block import CallToActionBlock
 from .callout_block import CalloutBlock
 from .custom_rich_text_block import CustomRichTextBlock
-from .divider_block import DividerBlock
 from .donor_help_contact_us_form_block import DonorHelpContactUsFormBlock
 from .featured_container_block import FeaturedContainerBlock
 from .flywheel_banner_block import FlywheelBannerBlock
@@ -163,10 +162,6 @@ class BlockRegistry:
             "group": BlockGroups.ENGAGEMENT,
         },
         # Layout
-        "divider": {
-            "class": DividerBlock,
-            "group": BlockGroups.LAYOUT,
-        },
         "featured_container": {
             "class": FeaturedContainerBlock,
             "group": BlockGroups.LAYOUT,

@@ -1,0 +1,89 @@
+// Ported from LP components/blocks/cards/impact-number/styles.css
+// Source: https://mozilla-design-system.vercel.app/#content
+// Embedded Impact Number files["styles.css"], captured 2026-10-19.
+// The public frontend does not expose a verified upstream commit.
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Impact number — Figma 9918:36982
+   A number and a line about what it counts. No image, no link, no arrow.
+
+   Load base-card/styles.css before this file. This file holds only the
+   modifier rules; the shell, the title and the description live there.
+
+   The top padding is 32 rather than the shell's 20. The file draws it that
+   way: 9918:36973 is pt 32, px 20, pb 20. */
+
+.mzf-c-card--statistic {
+  padding-block-start: var(--space-32);
+}
+
+.mzf-c-card__figure {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-headline);
+  font-size: var(--font-size-display-1);
+  font-weight: var(--font-weight-light);
+  font-variation-settings: "wdth" 100;
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-display);
+}
+
+.mzf-c-card--statistic .mzf-c-card__body {
+  padding-inline-start: var(--space-2);
+}
+
+.mzf-c-card--statistic .mzf-c-card__description {
+  color: var(--color-text-default);
+  font-size: var(--font-size-body-large);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+/* ---------- mobile ----------
+   The card turns from a column into a row, and the number drops from Light
+   to Regular as well as from 112px to 38px.
+
+   Read the bound style, not the token name. 9918:36978 binds its two text
+   nodes to `mobile/h1` at 38 and `mobile/body` at 15. Neither steps to the
+   `-mobile` counterpart of the desktop token it replaces: the figure runs
+   `display-1` 112 at desktop and `h1-mobile` 38 here, and the description
+   runs `body-large` 21 at desktop and `body-mobile` 15 here. Verified against
+   the mobile symbol 2026-09-11. */
+@include mobile-only {
+  .mzf-c-card--statistic {
+    flex-direction: row;
+    gap: var(--space-16);
+    align-items: center;
+    padding-block-start: var(--space-20);
+  }
+
+  /* The file draws the number in a fixed 110px column so the lines beside a
+     row of these start on one edge. */
+  .mzf-c-card__figure {
+    flex: none;
+    inline-size: var(--size-card-figure-mobile);
+  }
+
+  .mzf-c-card__figure {
+    font-size: var(--font-size-h1-mobile);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-display-mobile);
+    letter-spacing: var(--letter-spacing-display-mobile);
+  }
+
+  /* The row's second cell takes the rest, and the file drops the inset
+     under the number because there is nothing above it to line up with. */
+  .mzf-c-card--statistic .mzf-c-card__body {
+    flex: 1 0 0;
+    min-inline-size: 0;
+    padding-inline-start: 0;
+  }
+
+  .mzf-c-card--statistic .mzf-c-card__description {
+    font-size: var(--font-size-body-mobile);
+    letter-spacing: var(--letter-spacing-body);
+  }
+}

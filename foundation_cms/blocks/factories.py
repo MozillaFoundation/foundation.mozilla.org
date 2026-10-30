@@ -3,7 +3,6 @@ import wagtail_factories
 
 from foundation_cms.base.factories import ImageFactory
 from foundation_cms.blocks.accordion_block import AccordionBlock, AccordionBlockItem
-from foundation_cms.blocks.divider_block import DividerBlock
 from foundation_cms.blocks.donor_help_contact_us_form_block import (
     DonorHelpContactUsFormBlock,
 )
@@ -203,8 +202,7 @@ class ImpactStatBlockFactory(wagtail_factories.StructBlockFactory):
         model = ImpactStatBlock
 
     stat_number = factory.Iterator(["$25M", "31K", "33M"])
-    stat_heading = factory.Faker("sentence", nb_words=5)
-    stat_description = factory.Faker("sentence", nb_words=8)
+    stat_heading = factory.Faker("sentence", nb_words=6)
 
 
 class ImpactNumberBlockFactory(wagtail_factories.StructBlockFactory):
@@ -267,11 +265,6 @@ class SuperCTABlockFactory(wagtail_factories.StructBlockFactory):
     page = None
     external_url = factory.Faker("url")
     relative_url = ""
-
-
-class DividerBlockFactory(wagtail_factories.StructBlockFactory):
-    class Meta:
-        model = DividerBlock
 
 
 class SpacerBlockFactory(wagtail_factories.StructBlockFactory):

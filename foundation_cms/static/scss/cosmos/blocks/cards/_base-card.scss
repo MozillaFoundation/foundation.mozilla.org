@@ -1,0 +1,357 @@
+// Ported from LP components/blocks/cards/base-card/styles.css
+// Source: https://mozilla-design-system.vercel.app/#content
+// Embedded Base Card files["styles.css"], captured 2026-10-19.
+// The public frontend does not expose a verified upstream commit.
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Base card — Figma 9918:32
+   The shared shell every card in this group is built on. A padded panel that
+   pushes its last thing to the bottom.
+
+   Every card here loads this stylesheet. The four other cards in the group
+   ship only their own modifier rules and load this one alongside, so the
+   shared parts are defined once and the cascade order is the load order:
+   this file first, the modifier after.
+
+   The design file draws every card at a fixed height, 334 for the short ones
+   and 511.33 for the two editorial ones, because a row of cards in Figma has
+   to be drawn at some height. Nothing here sets a height. A card grid
+   stretches its items to the tallest one, and space-between then pushes the
+   last block to the bottom of whatever height that is. Same result as the
+   file, and it survives a longer title.
+
+   Hover on a card that has an image grows the image. The base card's own
+   thumbnail grows the image inside a fixed box and crops it, which is what
+   `9918:32` draws. The two editorial cards grow the box instead, so nothing
+   is cropped that was not cropped at rest and the copy below moves down; see
+   their own stylesheets for why they diverge from the file there. */
+
+.mzf-c-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-20);
+  padding: var(--space-20);
+  background: var(--color-surface-default);
+  color: inherit;
+  text-decoration: none;
+}
+
+.mzf-c-card:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* ---------- the base card's own layout ----------
+   Desktop stacks the image above a title and a sentence. Mobile lifts the
+   image up beside the title and leaves the sentence underneath.
+
+   That is one markup on a grid rather than two markups, because the only
+   thing that changes is which cell each part lands in. The card is
+   selected by what it contains, so the base card needs no class of its
+   own. */
+.mzf-c-card:has(.mzf-c-thumbnail) {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: space-between;
+  gap: var(--space-10);
+}
+
+/* The file's text column runs at 10 between every part. The gap from the
+   thumbnail down to it is 20, so the thumbnail carries the other 10 rather
+   than the grid running at 20 and every text row clawing it back. */
+.mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-thumbnail {
+  grid-column: 1 / -1;
+  margin-block-end: calc(var(--space-20) - var(--space-10));
+}
+
+/* 9918:10 binds the thumbnail's Hover variant, so the desktop card grows the
+   image past its box. The card says so rather than the thumbnail guessing:
+   the mobile cell below draws no crop at all. */
+.mzf-c-card:hover .mzf-c-thumbnail {
+  --mzf-thumbnail-hover-size: var(--size-thumbnail-overscan);
+}
+
+.mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__label,
+.mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__heading,
+.mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__description,
+.mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__cta {
+  grid-column: 1;
+}
+
+.mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__arrow {
+  grid-column: 2;
+  grid-row: 2 / -1;
+  align-self: end;
+}
+
+/* ---------- the bottom row ----------
+   The text column and, on some cards, an arrow sitting on the text's last
+   line. Aligned to the end rather than centered, which is what keeps the
+   arrow on the baseline of the description however many lines it runs. */
+.mzf-c-card__body {
+  display: flex;
+  gap: var(--space-10);
+  align-items: flex-end;
+  inline-size: 100%;
+}
+
+.mzf-c-card__text {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--space-10);
+  justify-content: center;
+  min-inline-size: 0;
+}
+
+.mzf-c-card__title {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+}
+
+.mzf-c-card__description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+/* The arrow is the only thing in the card that points, so it flips. It rests
+   quiet and reads at full strength on hover. The travel is shared with every
+   other arrow in the family; see the arrow contract below. */
+.mzf-c-card__arrow {
+  flex: none;
+  display: block;
+  opacity: 0.4;
+  transition:
+    opacity var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard),
+    transform var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-card:hover .mzf-c-card__arrow {
+  opacity: 1;
+  transform: translateX(var(--space-4));
+}
+
+/* A down arrow points down the page, so it travels down rather than along the
+   reading direction. */
+.mzf-c-card:hover .mzf-c-card__arrow--down {
+  transform: translateY(var(--space-4));
+}
+
+[dir="rtl"] .mzf-c-card__arrow {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .mzf-c-card:hover .mzf-c-card__arrow {
+  transform: scaleX(-1) translateX(calc(-1 * var(--space-4)));
+}
+
+/* A down arrow does not point along the reading direction, so it does not
+   flip with it. */
+[dir="rtl"] .mzf-c-card__arrow--down {
+  transform: none;
+}
+
+[dir="rtl"] .mzf-c-card:hover .mzf-c-card__arrow--down {
+  transform: translateY(var(--space-4));
+}
+
+/* ---------- heading and marker ----------
+   The marked heading row. The base card uses it for a category name, and the
+   CTA card uses the marker on its own, so both live here. */
+.mzf-c-card__heading {
+  display: flex;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.mzf-c-card__marker {
+  flex: none;
+  inline-size: var(--size-card-marker);
+  block-size: var(--size-card-marker);
+  background: var(--color-card-marker-category);
+}
+
+/* ---------- the label slot ----------
+   9918:27 on desktop and 9918:29 on mobile. A short bold line above the
+   headline, hidden in every cell the file draws. Give the span content to
+   turn it on. It is the only text in the card the file sets to nowrap. */
+.mzf-c-card__label {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-card-label);
+  font-weight: var(--font-weight-bold);
+  line-height: normal;
+  letter-spacing: var(--letter-spacing-none);
+  white-space: nowrap;
+}
+
+/* ---------- the cta slot ----------
+   9952:27. A quiet forward link at the bottom of the text column, hidden in
+   every cell the file draws. It is the `link` element unchanged, so this rule
+   only places it. */
+.mzf-c-card__cta {
+  align-self: flex-start;
+}
+
+/* ---------- the byline ----------
+   9918:36948 on editorial card 1 and 10032:6 on editorial card 2. Both draw
+   the same label style and the file draws it hidden on both, so it is
+   defined once here. */
+.mzf-c-card__byline {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+/* ---------- the editorial link ----------
+   The small link at the control size and in warm ink. Both editorial cards
+   use it, so it is defined once here. Both classes are named so this outranks
+   the link's own rules by specificity rather than by which stylesheet loaded
+   last. */
+.mzf-c-link.mzf-c-card__link {
+  color: var(--color-text-warm-heading);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-control);
+}
+
+/* ---------- the arrow contract ----------
+   Every arrow in this family behaves the same way: it rests at 40 percent,
+   comes up to full under the pointer, and travels one `space.4` as it does.
+   That covers the bare `__arrow` above, the base card's `__cta`, and the
+   editorial cards' `__link`.
+
+   The handoff file does not draw it this way, and the divergence is
+   deliberate. `9918:36927` draws editorial card 1's desktop link at the link
+   element's `primary` cell, resting at full ink with nothing left to bring up,
+   while `10032:21` draws editorial card 2 with no hover change at all. Read
+   across the family those are slips rather than three intended behaviors, so
+   the kit gives the group one.
+
+   The label does not darken. In a card it already rests dark, at
+   `color.text.warm-heading`, which is further down than the link element's own
+   `color.text.link-hover`. Only the arrow moves. */
+.mzf-c-card__link .mzf-c-link__icon,
+.mzf-c-card__cta .mzf-c-link__icon {
+  transition:
+    opacity var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard),
+    transform var(--mzf-motion-duration-feedback)
+      var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-card:hover .mzf-c-card__link .mzf-c-link__icon,
+.mzf-c-card:hover .mzf-c-card__cta .mzf-c-link__icon {
+  opacity: 1;
+  transform: translateX(var(--space-4));
+}
+
+[dir="rtl"] .mzf-c-card:hover .mzf-c-card__link .mzf-c-link__icon,
+[dir="rtl"] .mzf-c-card:hover .mzf-c-card__cta .mzf-c-link__icon {
+  transform: scaleX(-1) translateX(calc(-1 * var(--space-4)));
+}
+
+/* ---------- mobile ----------
+   One breakpoint, and it does the same two things on every card: the
+   headings step down and the body steps down, and the card stops reserving a
+   fixed shape. On the base card the image also moves up beside the title
+   instead of sitting above everything. */
+@include mobile-only {
+  .mzf-c-card {
+    justify-content: flex-start;
+  }
+
+  .mzf-c-card__title {
+    font-size: var(--font-size-h4-mobile);
+  }
+
+  .mzf-c-card__description {
+    font-size: var(--font-size-body-mobile);
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-20);
+    align-items: center;
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-thumbnail {
+    --mzf-thumbnail-size: var(--size-thumbnail-banner);
+
+    grid-column: 1;
+    grid-row: 1;
+    margin-block-end: 0;
+  }
+
+  /* The file draws no mobile hover cell, and the mobile thumbnail is an 80px
+     box holding an 80px image. Turn the desktop crop back off. */
+  .mzf-c-card:hover .mzf-c-thumbnail {
+    --mzf-thumbnail-hover-size: var(--mzf-thumbnail-size);
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__heading {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__label {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__description {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__cta {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+
+  .mzf-c-card:has(.mzf-c-thumbnail) .mzf-c-card__arrow {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .mzf-c-card__label {
+    font-size: var(--font-size-card-label-mobile);
+  }
+
+  .mzf-c-card__byline {
+    font-size: var(--font-size-label-mobile);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-card__arrow,
+  .mzf-c-card__link .mzf-c-link__icon,
+  .mzf-c-card__cta .mzf-c-link__icon {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}
