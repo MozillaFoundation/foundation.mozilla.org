@@ -1,298 +1,87 @@
-import {
-  CLASSNAMES,
-  DESKTOP_BREAKPOINT,
-  DROPDOWN_DELAY,
-  EVENTS,
-  SELECTORS,
-  TRANSITION_DURATION,
-} from "./config.js";
-
-const dropdownControllers = new WeakMap();
+import { CLASSNAMES, EVENTS, MOBILE_MEDIA_QUERY, SELECTORS } from "./config.js";
+import { initDisclosures } from "./disclosures.js";
+import { NavDrawerController } from "./drawer.js";
+import { NavPanelsController } from "./panels.js";
 
 /**
- * Gets a cached dropdown controller for a menu, creating it if needed.
- *
- * @param {{ menuEl: HTMLElement, dropdownEl: HTMLElement, toggleEl: HTMLElement }} options
- * @returns {PrimaryNavDropdownController}
- */
-function getDropdownController({ menuEl, dropdownEl, toggleEl }) {
-  const existing = dropdownControllers.get(menuEl);
-  if (existing) return existing;
-
-  const controller = new PrimaryNavDropdownController({
-    menuEl,
-    dropdownEl,
-    toggleEl,
-  });
-  dropdownControllers.set(menuEl, controller);
-  return controller;
-}
-
-function closeDropdownMenu(menuEl) {
-  const existing = dropdownControllers.get(menuEl);
-  if (existing) {
-    existing.close();
-    return;
-  }
-
-  const dropdownEl = menuEl.querySelector(SELECTORS.dropdown);
-  const toggleEl = menuEl.querySelector(SELECTORS.toggle);
-  if (!dropdownEl || !toggleEl) return;
-  new PrimaryNavDropdownController({ menuEl, dropdownEl, toggleEl }).close();
-}
-
-/**
- * Controls the open/close state of the mobile primary nav drawer.
- */
-class PrimaryNavDrawerController {
-  /**
-   * @param {{ navEl: HTMLElement, hamburgerEl: HTMLElement }} options
-   */
-  constructor({ navEl, hamburgerEl }) {
-    this.navEl = navEl;
-    this.hamburgerEl = hamburgerEl;
-  }
-
-  isOpen() {
-    return this.navEl.classList.contains(CLASSNAMES.open);
-  }
-
-  open() {
-    if (this.isOpen()) return;
-    this.navEl.classList.add(CLASSNAMES.open);
-    this.hamburgerEl.classList.add(CLASSNAMES.active);
-    document.body.classList.add(CLASSNAMES.navOpen);
-  }
-
-  close() {
-    if (!this.isOpen()) return;
-    this.navEl.classList.remove(CLASSNAMES.open);
-    this.hamburgerEl.classList.remove(CLASSNAMES.active);
-    setTimeout(() => {
-      document.body.classList.remove(CLASSNAMES.navOpen);
-    }, TRANSITION_DURATION);
-  }
-
-  toggle() {
-    if (this.isOpen()) {
-      this.close();
-      return;
-    }
-
-    document.dispatchEvent(new CustomEvent(EVENTS.primaryNavWillOpen));
-    this.open();
-  }
-}
-
-/**
- * Controls the open/close state of a single primary-nav dropdown.
- */
-class PrimaryNavDropdownController {
-  /**
-   * @param {{ menuEl: HTMLElement, dropdownEl: HTMLElement, toggleEl: HTMLElement }} options
-   */
-  constructor({ menuEl, dropdownEl, toggleEl }) {
-    this.menuEl = menuEl;
-    this.dropdownEl = dropdownEl;
-    this.toggleEl = toggleEl;
-  }
-
-  isOpen() {
-    return this.menuEl.classList.contains(CLASSNAMES.open);
-  }
-
-  open() {
-    if (this.isOpen()) return;
-    this.menuEl.classList.add(CLASSNAMES.open);
-    this.dropdownEl.style.maxHeight = this.dropdownEl.scrollHeight + "px";
-    this.dropdownEl.setAttribute("aria-hidden", "false");
-    this.dropdownEl.removeAttribute("inert");
-    this.toggleEl.setAttribute("aria-expanded", "true");
-  }
-
-  close() {
-    if (!this.isOpen()) return;
-    this.menuEl.classList.remove(CLASSNAMES.open);
-    this.dropdownEl.style.maxHeight = null;
-    this.dropdownEl.setAttribute("aria-hidden", "true");
-    this.dropdownEl.setAttribute("inert", "");
-    this.toggleEl.setAttribute("aria-expanded", "false");
-  }
-}
-
-/**
- * Closes all currently-open dropdown menus, except (optionally) a specific menu.
- *
- * @param {HTMLElement | null} currentMenuEl
- */
-function closeAllOpenDropdownsExcept(currentMenuEl) {
-  document
-    .querySelectorAll(`${SELECTORS.menuItem}.${CLASSNAMES.open}`)
-    .forEach((openMenuEl) => {
-      if (currentMenuEl && openMenuEl === currentMenuEl) return;
-      closeDropdownMenu(openMenuEl);
-    });
-}
-
-/**
- * Initializes a single primary-nav dropdown menu.
- * Adds mobile toggle behavior plus desktop hover behavior.
- *
- * @param {Element} dropdownEl
- */
-function initPrimaryNavDropdown(dropdownEl) {
-  if (!(dropdownEl instanceof HTMLElement)) return;
-
-  const toggle = document.createElement("div");
-  const menu = dropdownEl.parentElement;
-  const anchor = menu?.querySelector("a");
-
-  if (!menu || !anchor) return;
-
-  // Assign a pseudo random id to the dropdown in order to link it with the toggle via aria-controls.
-  const dropdownId =
-    dropdownEl.id || `dropdown-${Math.random().toString(36).slice(2, 8)}`;
-  dropdownEl.id = dropdownId;
-
-  // Mobile toggle
-  toggle.classList.add(SELECTORS.toggle.replace(".", ""));
-
-  toggle.setAttribute("role", "button");
-  toggle.setAttribute("tabindex", "0");
-  toggle.setAttribute("aria-expanded", "false");
-  toggle.setAttribute("aria-controls", dropdownId);
-  dropdownEl.setAttribute("aria-hidden", "true");
-  dropdownEl.setAttribute("inert", "");
-
-  anchor.insertAdjacentElement("afterend", toggle);
-
-  const dropdownController = getDropdownController({
-    menuEl: menu,
-    dropdownEl: dropdownEl,
-    toggleEl: toggle,
-  });
-
-  const openDropdown = () => {
-    if (dropdownController.isOpen()) return;
-
-    closeAllOpenDropdownsExcept(menu);
-    document.dispatchEvent(new CustomEvent(EVENTS.primaryNavWillOpen));
-    dropdownController.open();
-  };
-
-  const toggleDropdown = () => {
-    if (dropdownController.isOpen()) {
-      dropdownController.close();
-      return;
-    }
-
-    openDropdown();
-  };
-
-  toggle.addEventListener("click", () => {
-    toggleDropdown();
-  });
-
-  toggle.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    e.preventDefault();
-
-    toggleDropdown();
-  });
-
-  // Desktop nav mouse enter/leave events with debounce
-  let showTimeout, hideTimeout;
-
-  menu.addEventListener("mouseenter", () => {
-    if (window.innerWidth < DESKTOP_BREAKPOINT) return;
-    clearTimeout(hideTimeout);
-    showTimeout = setTimeout(() => {
-      openDropdown();
-    }, DROPDOWN_DELAY);
-  });
-
-  menu.addEventListener("mouseleave", () => {
-    if (window.innerWidth < DESKTOP_BREAKPOINT) return;
-    clearTimeout(showTimeout);
-    hideTimeout = setTimeout(() => {
-      dropdownController.close();
-    }, DROPDOWN_DELAY);
-  });
-}
-
-/**
- * Initializes the primary navigation component.
- * Sets up mobile and desktop navigation behaviors, including dropdowns and hamburger menu.
+ * Initializes the primary navigation: LP's Nav, with desktop section panels
+ * and a phone drawer of section rows.
  */
 export function initPrimaryNav() {
-  const hamburger = document.querySelector(SELECTORS.hamburger);
-  const nav = document.querySelector(SELECTORS.primaryNav);
-  const dropdowns = document.querySelectorAll(SELECTORS.dropdown);
+  const navEl = document.querySelector(SELECTORS.primaryNav);
+  if (!navEl) return;
 
-  if (!nav || !hamburger) return;
+  const panels = new NavPanelsController(navEl);
+  const drawer = new NavDrawerController(navEl);
 
-  const navDrawer = new PrimaryNavDrawerController({
-    navEl: nav,
-    hamburgerEl: hamburger,
+  const closeMenus = () => {
+    panels.close();
+    drawer.close();
+  };
+
+  panels.triggerEls.forEach((triggerEl) => {
+    triggerEl.addEventListener("click", () => {
+      panels.toggle(triggerEl.dataset.navPanel);
+    });
   });
 
-  // If search intends to open, close mobile nav first.
+  drawer.menuButtonEl?.addEventListener("click", () => {
+    drawer.toggle();
+  });
+
+  if (drawer.drawerEl) initDisclosures(drawer.drawerEl);
+
+  // Search measures the header as it opens, so the drawer goes at once.
   document.addEventListener(EVENTS.searchWillOpen, () => {
-    navDrawer.close();
+    panels.close();
+    drawer.close({ immediate: true });
   });
 
-  // Mobile nav
-  hamburger.addEventListener("click", () => {
-    navDrawer.toggle();
-  });
+  // Lets other overlays, such as gallery modals, dismiss the nav menus.
+  document.addEventListener(EVENTS.closeMenus, closeMenus);
 
-  // Menu dropdowns
-  dropdowns.forEach(initPrimaryNavDropdown);
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
 
-  // Esc key closes all menus
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeAllOpenDropdownsExcept(null);
+    if (drawer.isOpen()) {
+      drawer.close({ returnFocus: true });
+    } else if (panels.isOpen()) {
+      panels.close({ returnFocus: true });
     }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (navEl.contains(event.target)) return;
+    closeMenus();
+  });
+
+  // The panels and the drawer each exist on one side of the mobile boundary.
+  window.matchMedia?.(MOBILE_MEDIA_QUERY)?.addEventListener("change", () => {
+    panels.close();
+    drawer.close({ immediate: true });
   });
 }
 
 /**
- * Initializes the visibility of the wordmark based on scroll position.
- * Hides the navigation wordmark when the kinetic type wordmark is visible in the viewport.
+ * Initializes the visibility of the nav logo based on scroll position.
+ * Hides the logo while the homepage's kinetic type wordmark is visible in the
+ * viewport, so the name is not shown twice.
  */
 export function initWordmarkVisibilityOnScroll() {
-  const nav = document.querySelector(SELECTORS.primaryNav);
-  const grid = document.querySelector(SELECTORS.primaryNavGrid);
-  const wordmark = document.querySelector(SELECTORS.wordmark);
+  const navEl = document.querySelector(SELECTORS.primaryNav);
   const kineticTypeWordmark = document.querySelector(
     SELECTORS.kineticTypeWordmark,
   );
 
-  if (!nav || !grid || !wordmark) return;
-
-  // If kineticTypeWordmark is not present, always show the wordmark
-  if (!kineticTypeWordmark) {
-    wordmark.classList.remove(CLASSNAMES.hidden);
-    grid.classList.remove(CLASSNAMES.hiddenWordmark);
-    return;
-  }
-
-  const navHeight = nav.offsetHeight;
+  if (!navEl || !kineticTypeWordmark) return;
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
-        wordmark.classList.add(CLASSNAMES.hidden);
-        grid.classList.add(CLASSNAMES.hiddenWordmark);
-      } else {
-        wordmark.classList.remove(CLASSNAMES.hidden);
-        grid.classList.remove(CLASSNAMES.hiddenWordmark);
-      }
+      navEl.classList.toggle(CLASSNAMES.logoHidden, entry.isIntersecting);
     },
     {
       root: null, // viewport
-      rootMargin: `-${navHeight}px  0px 0px 0px`,
+      rootMargin: `-${navEl.offsetHeight}px 0px 0px 0px`,
       threshold: 0.01, // as soon as even 1% is visible/invisible
     },
   );

@@ -1,0 +1,33 @@
+{% comment %}
+  LP's Mega menu (cosmos/blocks/sections/_mega-menu.scss) for one dropdown,
+  shared by the desktop panel and the drawer row. A dropdown without link
+  groups shows its items as one unheaded group, and its header link stands in
+  for the intro link so the section's landing page stays reachable.
+{% endcomment %}
+<nav class="mzf-c-mega-menu" aria-label="{{ value.header_value.label }}">
+  <div class="mzf-c-mega-menu__intro">
+    <div class="mzf-c-mega-menu__intro-text">
+      <p class="mzf-c-mega-menu__eyebrow">{{ value.intro_eyebrow|default:value.header_value.label }}</p>
+      {% if value.intro_headline %}
+        <p class="mzf-c-mega-menu__headline">{{ value.intro_headline }}</p>
+      {% endif %}
+    </div>
+    {% include "patterns/components/navigation/_mega_menu_link.html" with link=value.panel_cta_link classnames="mzf-c-link" with_icon=True %}
+  </div>
+
+  <div class="mzf-c-mega-menu__groups{% if value.has_wide_group_spacing %} mzf-c-mega-menu__groups--loose{% endif %}">
+    {% for group in value.link_groups %}
+      <section class="mzf-c-mega-menu__group">
+        <h2 class="mzf-c-mega-menu__eyebrow">{{ group.heading }}</h2>
+        {% include "patterns/components/navigation/_mega_menu_items.html" with links=group.group_links %}
+        {% if group.browse_all_link %}
+          {% include "patterns/components/navigation/_mega_menu_link.html" with link=group.browse_all_link classnames="mzf-c-link" with_icon=True %}
+        {% endif %}
+      </section>
+    {% empty %}
+      <div class="mzf-c-mega-menu__group">
+        {% include "patterns/components/navigation/_mega_menu_items.html" with links=value.dropdown_items %}
+      </div>
+    {% endfor %}
+  </div>
+</nav>

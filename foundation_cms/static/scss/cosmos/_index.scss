@@ -2,9 +2,13 @@
 // Each file mirrors its LP source path: components/<path>/<name>/styles.css
 // lives at cosmos/<path>/_<name>.scss. See docs/stack.md.
 
+// Foundations
+@import "foundations/logo/nav-logo";
+
 // Elements
 @import "elements/accordion/item";
 @import "elements/buttons/link";
+@import "elements/buttons/primary";
 @import "elements/chips/big-label";
 @import "elements/chips/scroll-reminder";
 @import "elements/layout/section-master";
@@ -16,6 +20,10 @@
 @import "blocks/collections/card-grid";
 @import "blocks/heros/primary";
 @import "blocks/sections/meet-mozilla";
+
+// Nav and its mega menu panels; nav sets the drawer rows after mega-menu
+@import "blocks/sections/mega-menu";
+@import "blocks/sections/nav";
 
 // Quote and Meet Mozilla dependencies, in LP's required load order
 @import "blocks/text/text-group";

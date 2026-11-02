@@ -7,6 +7,11 @@
 const PREVIEW_DEBOUNCE_MS = 200;
 const LARGE_VIEWPORT_QUERY = "(min-width: 64em)";
 
+// The drawer sits under the site header, whose bar grows when long or
+// translated section labels wrap. search_page.scss falls back to the shared
+// header height when this is unset.
+const DRAWER_TOP_PROPERTY = "--search-filter-drawer-top";
+
 const CLASSNAMES = {
   drawerScrollLocked: "search-filter-drawer-open",
 };
@@ -20,6 +25,7 @@ const SELECTORS = {
   drawerReset: "[data-search-drawer-reset]",
   drawerApply: "[data-search-drawer-apply]",
   topicLabel: "[data-search-topic-label]",
+  primaryNavBar: "[data-primary-nav] .mzf-c-nav__bar",
 };
 
 const DATA_KEYS = {
@@ -245,12 +251,26 @@ export function initSearchPageFilters() {
   }
 
   /**
+   * Places the drawer directly under the site header's bar at its current
+   * height.
+   */
+  function updateDrawerTop() {
+    const navBar = document.querySelector(SELECTORS.primaryNavBar);
+    if (!drawer || !navBar) return;
+
+    const navBarHeight = Math.round(navBar.getBoundingClientRect().height);
+    drawer.style.setProperty(DRAWER_TOP_PROPERTY, `${navBarHeight}px`);
+  }
+
+  /**
    * Opens the filter drawer and moves focus to the close button.
    */
   function openDrawer() {
     if (!drawer || !drawerOpen) return;
 
     lastFocusedElement = document.activeElement;
+    updateDrawerTop();
+    window.addEventListener("resize", updateDrawerTop);
     drawer.hidden = false;
     drawerOpen.setAttribute("aria-expanded", "true");
     setDrawerScrollLock(true);
@@ -263,6 +283,7 @@ export function initSearchPageFilters() {
   function closeDrawer() {
     if (!drawer || !drawerOpen) return;
 
+    window.removeEventListener("resize", updateDrawerTop);
     drawer.hidden = true;
     drawerOpen.setAttribute("aria-expanded", "false");
     setDrawerScrollLock(false);

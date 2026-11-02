@@ -13,11 +13,7 @@ import {
   GALLERY_HUB_SELECTORS,
   GALLERY_HUB_VIEW_MODES,
 } from "./config";
-import {
-  CLASSNAMES as PRIMARY_NAV_CLASSNAMES,
-  EVENTS as PRIMARY_NAV_EVENTS,
-  SELECTORS as PRIMARY_NAV_SELECTORS,
-} from "../primary_nav/config.js";
+import { EVENTS as PRIMARY_NAV_EVENTS } from "../primary_nav/config.js";
 import {
   getGalleryHubState,
   setGalleryHubState,
@@ -43,34 +39,17 @@ const modalCloseTimers = new WeakMap();
 let lastFocusedElement = null;
 
 /**
- * Close primary-nav dropdowns that may otherwise layer above gallery modals.
+ * Close primary-nav panels that may otherwise layer above gallery modals.
  */
-function closePrimaryNavDropdowns() {
-  document
-    .querySelectorAll(
-      `${PRIMARY_NAV_SELECTORS.menuItem}.${PRIMARY_NAV_CLASSNAMES.open}`,
-    )
-    .forEach((menu) => {
-      const dropdown = menu.querySelector(PRIMARY_NAV_SELECTORS.dropdown);
-      const toggle = menu.querySelector(PRIMARY_NAV_SELECTORS.toggle);
-
-      menu.classList.remove(PRIMARY_NAV_CLASSNAMES.open);
-
-      if (dropdown) {
-        dropdown.style.maxHeight = null;
-        dropdown.setAttribute("aria-hidden", "true");
-        dropdown.setAttribute("inert", "");
-      }
-
-      toggle?.setAttribute("aria-expanded", "false");
-    });
+function closePrimaryNavMenus() {
+  document.dispatchEvent(new CustomEvent(PRIMARY_NAV_EVENTS.closeMenus));
 }
 
 /**
  * Close global nav/search UI before opening a gallery modal.
  */
 function closePrimaryNavOverlays() {
-  closePrimaryNavDropdowns();
+  closePrimaryNavMenus();
 
   if (getGalleryHubState().modalOpen) return;
 
@@ -426,8 +405,6 @@ export function initGalleryHubOverlay() {
     PRIMARY_NAV_EVENTS.searchWillOpen,
   ].forEach((eventName) => {
     document.addEventListener(eventName, () => {
-      closePrimaryNavDropdowns();
-
       if (!getGalleryHubState().modalOpen) return;
 
       closeOpenModal(modals);

@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% comment %}
+  Preview of the site navigation on its own (foundation_cms/prototype_views.py):
+  the real header and active menu, over an empty page.
+  TODO: Remove once design review of the Cosmos navigation (TP1-4298) no longer
+  needs a page without content.
+{% endcomment %}
+
+{% block title %}Navigation preview{% endblock title %}
+{# There's no Wagtail page object here, so skip metadata tags that require one. #}
+{% block wagtail_metadata %}{% endblock wagtail_metadata %}
+{# A temporary review page, so keep it out of search results. #}
+{% block extended_head %}
+    <meta name="robots" content="noindex">
+{% endblock extended_head %}
+{# Only the header is under review, so leave out the banners and footer. #}
+{% block donate_banner %}{% endblock donate_banner %}
+{% block notice_banner %}{% endblock notice_banner %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+{% block content %}
+    <main>
+        <h1 class="show-for-sr">Navigation preview</h1>
+    </main>
+{% endblock content %}
+{% block footer_block %}{% endblock footer_block %}

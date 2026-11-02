@@ -109,8 +109,7 @@ def horizontal_link_active_link(request, links):
 
 def _iter_dropdown_links(dropdowns):
     for dropdown in dropdowns or []:
-        yield dropdown.value.header_value
-        yield from dropdown.value.dropdown_items
+        yield from dropdown.value.iter_links()
 
 
 @register.simple_tag
@@ -149,7 +148,4 @@ def primary_nav_link_is_current(request, link):
 
 @register.simple_tag
 def primary_nav_dropdown_is_active(active_link, dropdown):
-    if navigation_link_is_active(active_link, dropdown.header_value):
-        return True
-
-    return any(navigation_link_is_active(active_link, item) for item in dropdown.dropdown_items)
+    return any(navigation_link_is_active(active_link, link) for link in dropdown.iter_links())

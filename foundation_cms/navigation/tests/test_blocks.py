@@ -314,3 +314,57 @@ class TestNavigationMenuFactory(TestCase):
                 "/what-we-do/mobilize/",
             ],
         )
+
+
+def _relative_link(label, url):
+    return {"label": label, "link_to": "relative_url", "page": None, "external_url": "", "relative_url": url}
+
+
+class TestNavDropdownBlock(TestCase):
+    def test_saved_dropdown_without_new_fields_keeps_its_links(self):
+        """Dropdowns saved before intros and groups existed render their header and items."""
+        block = nav_blocks.NavDropdown()
+        value = block.to_python(
+            {
+                "header": _relative_link("What We Do", "/what-we-do/"),
+                "items": [_relative_link("Imagine", "/what-we-do/imagine/")],
+            }
+        )
+
+        block.clean(value)
+        self.assertTrue(value.has_panel)
+        self.assertEqual(list(value.link_groups), [])
+        self.assertIsNone(value.intro_cta_link)
+        self.assertIs(value.panel_cta_link, value.header_value)
+        self.assertEqual(value["group_spacing"], "standard")
+        self.assertFalse(value.has_wide_group_spacing)
+        self.assertEqual([link.label for link in value.iter_links()], ["What We Do", "Imagine"])
+
+    def test_header_only_dropdown_is_a_plain_link(self):
+        value = nav_blocks.NavDropdown().to_python({"header": _relative_link("Join Us", "/join-us/"), "items": []})
+
+        self.assertFalse(value.has_panel)
+
+    def test_groups_replace_items_and_the_intro_link_replaces_the_header(self):
+        value = nav_blocks.NavDropdown().to_python(
+            {
+                "header": _relative_link("Our Work", "/our-work/"),
+                "items": [_relative_link("Legacy item", "/legacy/")],
+                "intro_cta": [_relative_link("Get the overview", "/our-work/overview/")],
+                "groups": [
+                    {
+                        "heading": "Featured programs",
+                        "links": [_relative_link("Program", "/our-work/program/")],
+                        "browse_all": [_relative_link("Browse all", "/our-work/all/")],
+                    }
+                ],
+            }
+        )
+
+        self.assertTrue(value.has_panel)
+        self.assertEqual(value.panel_cta_link.label, "Get the overview")
+        self.assertEqual(value.link_groups[0].browse_all_link.label, "Browse all")
+        self.assertEqual(
+            [link.label for link in value.iter_links()],
+            ["Our Work", "Get the overview", "Program", "Browse all"],
+        )

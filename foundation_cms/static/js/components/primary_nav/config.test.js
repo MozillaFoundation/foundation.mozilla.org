@@ -1,34 +1,24 @@
 import { describe, expect, it } from "vitest";
-import {
-  CLASSNAMES,
-  DESKTOP_BREAKPOINT,
-  DROPDOWN_DELAY,
-  EVENTS,
-  SELECTORS,
-  TRANSITION_DURATION,
-} from "./config.js";
+import { CLASSNAMES, EVENTS, MOBILE_MEDIA_QUERY, SELECTORS } from "./config.js";
 
 describe("primary nav config", () => {
   it("exports stable selectors for nav elements", () => {
-    expect(SELECTORS.primaryNav).toBe(".primary-nav-ns");
-    expect(SELECTORS.hamburger).toBe(".primary-nav-ns .hamburger");
-    expect(SELECTORS.dropdown).toBe(".primary-nav-ns__dropdown");
-    expect(SELECTORS.searchToggle).toBe(
-      ".primary-nav-ns__search-icon .search-toggle",
-    );
+    expect(SELECTORS.primaryNav).toBe("[data-primary-nav]");
+    expect(SELECTORS.panelTrigger).toBe("[data-nav-panel]");
+    expect(SELECTORS.menuButton).toBe(".mzf-c-nav__menu");
+    expect(SELECTORS.searchToggle).toBe("[data-primary-nav-search-toggle]");
   });
 
-  it("exports class names and timing constants used by nav behavior", () => {
-    expect(CLASSNAMES.open).toBe("open");
+  it("exports LP's state classes and mobile boundary", () => {
+    expect(CLASSNAMES.panelOpen).toBe("mzf-c-nav__panel--open");
+    expect(CLASSNAMES.drawerOpen).toBe("mzf-c-nav--drawer-open");
     expect(CLASSNAMES.searchOpen).toBe("search-open");
-    expect(CLASSNAMES.navOpen).toBe("primary-nav-ns-open");
-    expect(TRANSITION_DURATION).toBe(300);
-    expect(DROPDOWN_DELAY).toBe(200);
-    expect(DESKTOP_BREAKPOINT).toBe(1024);
+    expect(MOBILE_MEDIA_QUERY).toBe("(max-width: 48rem)");
   });
 
   it("exports cross-module coordination events", () => {
     expect(EVENTS.primaryNavWillOpen).toBe("primaryNav:willOpen");
     expect(EVENTS.searchWillOpen).toBe("primaryNav:searchWillOpen");
+    expect(EVENTS.closeMenus).toBe("primaryNav:closeMenus");
   });
 });

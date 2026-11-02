@@ -495,12 +495,19 @@ body.template-search-results {
     background: $selected-topic-color;
   }
 
+  // filter_controls.js measures the header bar while the drawer is open, as
+  // long section labels can wrap it taller than the shared height.
+  $search-filter-drawer-top: var(
+    --search-filter-drawer-top,
+    #{$primary-nav-height}
+  );
+
   .search-filter-drawer {
     position: fixed;
-    inset: $primary-nav-height 0 auto;
+    inset: $search-filter-drawer-top 0 auto;
     z-index: 100;
-    height: calc(100vh - #{$primary-nav-height});
-    height: calc(100dvh - #{$primary-nav-height});
+    height: calc(100vh - #{$search-filter-drawer-top});
+    height: calc(100dvh - #{$search-filter-drawer-top});
     overflow: hidden;
     background: $white;
 

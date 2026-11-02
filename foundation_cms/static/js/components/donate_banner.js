@@ -6,7 +6,7 @@ const SELECTORS = {
   ctaButton: "[data-donate-banner-cta-button]",
   closeButton: "[data-donate-banner-close-button]",
   skipButton: "[data-donate-banner-skip-button]",
-  skipTarget: "nav.primary-nav-ns",
+  skipTarget: "[data-primary-nav]",
 };
 
 const LEGACY_SELECTORS = {

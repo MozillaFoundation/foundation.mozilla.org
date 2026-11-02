@@ -8,7 +8,7 @@ function buildBannerMarkup({
   siteType = "redesign",
 } = {}) {
   document.body.innerHTML = `
-    <nav class="primary-nav-ns"></nav>
+    <header class="mzf-c-nav primary-nav-ns" data-primary-nav></header>
     <main></main>
     <div class="primary-nav-container-wrapper"></div>
     <div class="donate-banner" data-banner-style="${bannerStyle}">
@@ -97,7 +97,7 @@ describe("initDonateBanner", () => {
 
   it("scrolls to the redesign skip target for pushdown banners", () => {
     buildBannerMarkup({ bannerStyle: "pushdown", siteType: "redesign" });
-    const skipTarget = document.querySelector("nav.primary-nav-ns");
+    const skipTarget = document.querySelector("[data-primary-nav]");
     skipTarget.scrollIntoView = vi.fn();
 
     initDonateBanner();

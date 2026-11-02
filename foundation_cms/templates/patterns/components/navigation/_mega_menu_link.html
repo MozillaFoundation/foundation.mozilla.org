@@ -1,0 +1,8 @@
+{% load navigation_tags %}
+{% comment %}
+  A navigation link that marks itself as the current page, or as the section
+  holding it, from the menu's most specific active link.
+{% endcomment %}
+{% navigation_link_is_active active_link link as link_is_active %}
+{% primary_nav_link_is_current request link as link_is_current %}
+<a class="{{ classnames }}" href="{{ link.url }}"{% if link_is_active %} aria-current="{{ link_is_current|yesno:"page,true" }}"{% endif %}>{{ link.label }}{% if with_icon %}<span class="mzf-c-link__icon" aria-hidden="true"><svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.9775 0.688311L9.02687 4.51299H0L5.05762e-07 5.48701H9.02687L4.9775 9.31169L5.70625 10L11 5L5.70625 0L4.9775 0.688311Z" fill="currentColor"/></svg></span>{% endif %}</a>

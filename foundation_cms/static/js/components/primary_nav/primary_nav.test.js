@@ -3,14 +3,10 @@ import {
   initPrimaryNav,
   initWordmarkVisibilityOnScroll,
 } from "./primary_nav.js";
-import {
-  CLASSNAMES,
-  DESKTOP_BREAKPOINT,
-  DROPDOWN_DELAY,
-  EVENTS,
-} from "./config.js";
+import { CLASSNAMES, EVENTS } from "./config.js";
 
 let eventListenerCleanups;
+let reducedMotion;
 
 /**
  * Tracks listeners added to shared event targets so tests can remove them.
@@ -33,206 +29,275 @@ function trackEventListeners(targets) {
 
 function buildPrimaryNavMarkup() {
   document.body.innerHTML = `
-    <nav class="primary-nav-ns">
-      <button class="hamburger" type="button"></button>
-      <div class="primary-nav-ns__grid">
-        <div class="primary-nav-ns__wordmark"></div>
+    <header class="mzf-c-nav primary-nav-ns" data-primary-nav>
+      <div class="mzf-c-nav__bar">
+        <nav class="mzf-c-nav__links">
+          <button type="button" data-nav-panel="section-1" aria-expanded="false">About us</button>
+          <button type="button" data-nav-panel="section-2" aria-expanded="false">Our Work</button>
+          <a href="/festival/">Festival</a>
+        </nav>
+        <button type="button" class="mzf-c-nav__menu" aria-expanded="false"
+                aria-label="Open menu" data-label-open="Open menu" data-label-close="Close menu"></button>
       </div>
-      <ul>
-        <li class="primary-nav-ns__menu-item">
-          <a href="/topics">Topics</a>
-          <div class="primary-nav-ns__dropdown">
-            <a href="/topic-one">Topic one</a>
+      <div class="mzf-c-nav__panel" hidden>
+        <div class="mzf-c-nav__panel-reveal">
+          <div class="mzf-c-nav__panel-inner">
+            <div class="mzf-c-nav__panel-stage">
+              <div data-nav-panel-content="section-1" hidden><a href="/a/">A</a></div>
+              <div data-nav-panel-content="section-2" hidden><a href="/b/">B</a></div>
+            </div>
           </div>
-        </li>
-      </ul>
-    </nav>
+        </div>
+      </div>
+      <div class="mzf-c-nav__drawer" hidden>
+        <div class="mzf-c-nav__drawer-reveal">
+          <div class="mzf-c-nav__drawer-inner">
+            <details class="mzf-c-mega-menu__disclosure" name="sections">
+              <summary class="mzf-c-mega-menu__summary">About us</summary>
+              <div class="mzf-c-mega-menu__reveal"></div>
+            </details>
+            <details class="mzf-c-mega-menu__disclosure" name="sections">
+              <summary class="mzf-c-mega-menu__summary">Our Work</summary>
+              <div class="mzf-c-mega-menu__reveal"></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main><button type="button" class="outside">Outside</button></main>
   `;
+
+  return {
+    nav: document.querySelector("[data-primary-nav]"),
+    panel: document.querySelector(".mzf-c-nav__panel"),
+    triggers: [...document.querySelectorAll("[data-nav-panel]")],
+    contents: [...document.querySelectorAll("[data-nav-panel-content]")],
+    menuButton: document.querySelector(".mzf-c-nav__menu"),
+    drawer: document.querySelector(".mzf-c-nav__drawer"),
+    disclosures: [...document.querySelectorAll("details")],
+  };
+}
+
+function pressEscape() {
+  document.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+  );
 }
 
 describe("initPrimaryNav", () => {
   beforeEach(() => {
     document.body.replaceWith(document.createElement("body"));
-    document.documentElement.style.removeProperty("--primary-nav-search-top");
     eventListenerCleanups = [];
-    trackEventListeners([document, document.body]);
+    trackEventListeners([document, window]);
+    reducedMotion = true;
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn((query) => ({
+        matches: query.includes("reduced-motion") ? reducedMotion : false,
+        addEventListener: vi.fn(),
+      })),
+    );
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+      callback(0);
+      return 1;
+    });
     vi.useFakeTimers();
   });
 
   afterEach(() => {
     eventListenerCleanups.reverse().forEach((cleanup) => cleanup());
-    document.documentElement.style.removeProperty("--primary-nav-search-top");
     vi.useRealTimers();
+    vi.unstubAllGlobals();
     vi.restoreAllMocks();
   });
 
-  it("does nothing when required nav elements are missing", () => {
-    document.body.innerHTML = `<nav class="primary-nav-ns"></nav>`;
+  it("does nothing when the nav is missing", () => {
+    document.body.innerHTML = `<main></main>`;
 
     expect(() => initPrimaryNav()).not.toThrow();
-    expect(document.querySelector(".hamburger")).toBeNull();
   });
 
-  it("toggles the mobile nav drawer when the hamburger is clicked", () => {
-    buildPrimaryNavMarkup();
-    const nav = document.querySelector(".primary-nav-ns");
-    const hamburger = document.querySelector(".hamburger");
+  it("opens a section's panel and announces it", () => {
+    const { panel, triggers, contents } = buildPrimaryNavMarkup();
+    const willOpen = vi.fn();
+    document.addEventListener(EVENTS.primaryNavWillOpen, willOpen);
 
     initPrimaryNav();
+    triggers[0].click();
 
-    hamburger.click();
-    expect(nav.classList.contains(CLASSNAMES.open)).toBe(true);
-    expect(hamburger.classList.contains(CLASSNAMES.active)).toBe(true);
-    expect(document.body.classList.contains(CLASSNAMES.navOpen)).toBe(true);
-
-    hamburger.click();
-    expect(nav.classList.contains(CLASSNAMES.open)).toBe(false);
-    expect(hamburger.classList.contains(CLASSNAMES.active)).toBe(false);
-
-    vi.advanceTimersByTime(300);
-    expect(document.body.classList.contains(CLASSNAMES.navOpen)).toBe(false);
+    expect(willOpen).toHaveBeenCalledTimes(1);
+    expect(panel.hidden).toBe(false);
+    expect(panel.classList.contains(CLASSNAMES.panelOpen)).toBe(true);
+    expect(contents[0].hidden).toBe(false);
+    expect(contents[1].hidden).toBe(true);
+    expect(triggers[0].getAttribute("aria-expanded")).toBe("true");
+    expect(triggers[1].getAttribute("aria-expanded")).toBe("false");
   });
 
-  it("closes the mobile nav drawer when search is about to open", () => {
-    buildPrimaryNavMarkup();
-    const nav = document.querySelector(".primary-nav-ns");
-    const hamburger = document.querySelector(".hamburger");
+  it("switches sections in the open shell and closes on a second click", () => {
+    const { panel, triggers, contents } = buildPrimaryNavMarkup();
 
     initPrimaryNav();
-    hamburger.click();
-    expect(nav.classList.contains(CLASSNAMES.open)).toBe(true);
+    triggers[0].click();
+    triggers[1].click();
 
+    expect(panel.hidden).toBe(false);
+    expect(contents[0].hidden).toBe(true);
+    expect(contents[1].hidden).toBe(false);
+    expect(triggers[0].getAttribute("aria-expanded")).toBe("false");
+    expect(triggers[1].getAttribute("aria-expanded")).toBe("true");
+
+    triggers[1].click();
+
+    expect(panel.hidden).toBe(true);
+    expect(contents[1].hidden).toBe(true);
+    expect(triggers[1].getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("crossfades sections with motion, then settles on the new one", () => {
+    reducedMotion = false;
+    const { nav, triggers, contents } = buildPrimaryNavMarkup();
+
+    initPrimaryNav();
+    triggers[0].click();
+    triggers[1].click();
+
+    expect(nav.classList.contains(CLASSNAMES.switching)).toBe(true);
+    expect(contents[0].classList.contains(CLASSNAMES.contentSwapOut)).toBe(
+      true,
+    );
+    expect(contents[1].classList.contains(CLASSNAMES.contentSwapIn)).toBe(true);
+
+    vi.runAllTimers();
+
+    expect(nav.classList.contains(CLASSNAMES.switching)).toBe(false);
+    expect(contents[0].hidden).toBe(true);
+    expect(contents[1].classList.contains(CLASSNAMES.contentActive)).toBe(true);
+  });
+
+  it("folds the panel away after its content fades on close", () => {
+    reducedMotion = false;
+    const { panel, triggers } = buildPrimaryNavMarkup();
+    Object.defineProperty(
+      document.querySelector(".mzf-c-nav__panel-inner"),
+      "scrollHeight",
+      { value: 300 },
+    );
+
+    initPrimaryNav();
+    triggers[0].click();
+    triggers[0].click();
+
+    expect(panel.classList.contains(CLASSNAMES.panelClosing)).toBe(true);
+    expect(panel.hidden).toBe(false);
+
+    vi.runAllTimers();
+
+    expect(panel.classList.contains(CLASSNAMES.panelClosing)).toBe(false);
+    expect(panel.hidden).toBe(true);
+  });
+
+  it("closes the panel on Escape and returns focus to its trigger", () => {
+    const { panel, triggers } = buildPrimaryNavMarkup();
+    const focusSpy = vi.spyOn(triggers[0], "focus");
+
+    initPrimaryNav();
+    triggers[0].click();
+    pressEscape();
+
+    expect(panel.hidden).toBe(true);
+    expect(focusSpy).toHaveBeenCalled();
+  });
+
+  it("closes the panel on a click outside the nav only", () => {
+    const { panel, triggers, contents } = buildPrimaryNavMarkup();
+
+    initPrimaryNav();
+    triggers[0].click();
+    contents[0]
+      .querySelector("a")
+      .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    expect(panel.hidden).toBe(false);
+
+    document.querySelector(".outside").click();
+    expect(panel.hidden).toBe(true);
+  });
+
+  it("closes the menus when another overlay asks", () => {
+    const { panel, triggers } = buildPrimaryNavMarkup();
+
+    initPrimaryNav();
+    triggers[0].click();
+    document.dispatchEvent(new CustomEvent(EVENTS.closeMenus));
+
+    expect(panel.hidden).toBe(true);
+  });
+
+  it("toggles the drawer from the menu button and keeps its label in step", () => {
+    const { nav, menuButton, drawer } = buildPrimaryNavMarkup();
+
+    initPrimaryNav();
+    menuButton.click();
+
+    expect(drawer.hidden).toBe(false);
+    expect(nav.classList.contains(CLASSNAMES.drawerOpen)).toBe(true);
+    expect(menuButton.getAttribute("aria-expanded")).toBe("true");
+    expect(menuButton.getAttribute("aria-label")).toBe("Close menu");
+
+    menuButton.click();
+
+    expect(drawer.hidden).toBe(true);
+    expect(nav.classList.contains(CLASSNAMES.drawerOpen)).toBe(false);
+    expect(menuButton.getAttribute("aria-expanded")).toBe("false");
+    expect(menuButton.getAttribute("aria-label")).toBe("Open menu");
+  });
+
+  it("closes the drawer at once when search is about to open", () => {
+    reducedMotion = false;
+    const { nav, menuButton, drawer } = buildPrimaryNavMarkup();
+    Object.defineProperty(
+      document.querySelector(".mzf-c-nav__drawer-inner"),
+      "scrollHeight",
+      { value: 352 },
+    );
+
+    initPrimaryNav();
+    menuButton.click();
     document.dispatchEvent(new CustomEvent(EVENTS.searchWillOpen));
 
-    expect(nav.classList.contains(CLASSNAMES.open)).toBe(false);
-    vi.advanceTimersByTime(300);
-    expect(document.body.classList.contains(CLASSNAMES.navOpen)).toBe(false);
+    expect(drawer.hidden).toBe(true);
+    expect(nav.classList.contains(CLASSNAMES.drawerOpen)).toBe(false);
   });
 
-  it("creates a mobile dropdown toggle and opens it on click", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
-    const dropdown = document.querySelector(".primary-nav-ns__dropdown");
+  it("closes the drawer on Escape and returns focus to the menu button", () => {
+    const { menuButton, drawer } = buildPrimaryNavMarkup();
+    const focusSpy = vi.spyOn(menuButton, "focus");
 
     initPrimaryNav();
+    menuButton.click();
+    pressEscape();
 
-    const toggle = menu.querySelector(".primary-nav-ns__dropdown-toggle");
-    expect(toggle).not.toBeNull();
-    expect(toggle.getAttribute("aria-expanded")).toBe("false");
-    expect(dropdown.getAttribute("aria-hidden")).toBe("true");
-    expect(dropdown.hasAttribute("inert")).toBe(true);
-
-    toggle.click();
-
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
-    expect(dropdown.style.maxHeight).toBe(`${dropdown.scrollHeight}px`);
-    expect(dropdown.getAttribute("aria-hidden")).toBe("false");
-    expect(dropdown.hasAttribute("inert")).toBe(false);
-    expect(toggle.getAttribute("aria-expanded")).toBe("true");
+    expect(drawer.hidden).toBe(true);
+    expect(focusSpy).toHaveBeenCalled();
   });
 
-  it("toggles dropdowns with Enter and Space keyboard events", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
+  it("closes an open drawer row before opening the next one", () => {
+    reducedMotion = false;
+    const { disclosures } = buildPrimaryNavMarkup();
+    const [about, work] = disclosures;
 
     initPrimaryNav();
+    about.querySelector("summary").click();
+    expect(about.open).toBe(true);
 
-    const toggle = menu.querySelector(".primary-nav-ns__dropdown-toggle");
+    work.querySelector("summary").click();
+    expect(about.classList.contains(CLASSNAMES.disclosureClosing)).toBe(true);
+    expect(work.open).toBe(false);
 
-    toggle.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
-    );
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
+    vi.runAllTimers();
 
-    toggle.dispatchEvent(
-      new KeyboardEvent("keydown", { key: " ", bubbles: true }),
-    );
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
-  });
-
-  it("opens dropdowns on desktop hover after the configured delay", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
-    vi.spyOn(window, "innerWidth", "get").mockReturnValue(1200);
-
-    initPrimaryNav();
-
-    menu.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
-
-    vi.advanceTimersByTime(DROPDOWN_DELAY);
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
-  });
-
-  it("closes an open dropdown on desktop mouseleave", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
-    vi.spyOn(window, "innerWidth", "get").mockReturnValue(1200);
-
-    initPrimaryNav();
-
-    menu.dispatchEvent(new MouseEvent("mouseenter"));
-    vi.advanceTimersByTime(DROPDOWN_DELAY);
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
-
-    menu.dispatchEvent(new MouseEvent("mouseleave"));
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
-
-    vi.advanceTimersByTime(DROPDOWN_DELAY);
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
-  });
-
-  it("cancels a pending desktop hover opening on mouseleave", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
-    vi.spyOn(window, "innerWidth", "get").mockReturnValue(1200);
-
-    initPrimaryNav();
-
-    menu.dispatchEvent(new MouseEvent("mouseenter"));
-    expect(vi.getTimerCount()).toBe(1);
-
-    menu.dispatchEvent(new MouseEvent("mouseleave"));
-    vi.advanceTimersByTime(DROPDOWN_DELAY);
-
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
-  });
-
-  it("ignores hover events below the desktop breakpoint", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
-    vi.spyOn(window, "innerWidth", "get").mockReturnValue(
-      DESKTOP_BREAKPOINT - 1,
-    );
-
-    initPrimaryNav();
-    const timerCountBeforeHover = vi.getTimerCount();
-
-    menu.dispatchEvent(new MouseEvent("mouseenter"));
-    menu.dispatchEvent(new MouseEvent("mouseleave"));
-
-    expect(vi.getTimerCount()).toBe(timerCountBeforeHover);
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
-    expect(
-      menu
-        .querySelector(".primary-nav-ns__dropdown-toggle")
-        .getAttribute("aria-expanded"),
-    ).toBe("false");
-  });
-
-  it("closes open dropdowns when Escape is pressed", () => {
-    buildPrimaryNavMarkup();
-    const menu = document.querySelector(".primary-nav-ns__menu-item");
-
-    initPrimaryNav();
-    menu.querySelector(".primary-nav-ns__dropdown-toggle").click();
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(true);
-
-    document.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
-    );
-
-    expect(menu.classList.contains(CLASSNAMES.open)).toBe(false);
+    expect(about.open).toBe(false);
+    expect(work.open).toBe(true);
   });
 });
 
@@ -241,7 +306,6 @@ describe("initWordmarkVisibilityOnScroll", () => {
 
   beforeEach(() => {
     document.body.replaceWith(document.createElement("body"));
-    document.documentElement.style.removeProperty("--primary-nav-search-top");
     observerCallback = null;
     vi.stubGlobal(
       "IntersectionObserver",
@@ -256,47 +320,36 @@ describe("initWordmarkVisibilityOnScroll", () => {
   });
 
   afterEach(() => {
-    document.documentElement.style.removeProperty("--primary-nav-search-top");
     vi.unstubAllGlobals();
   });
 
-  it("shows the wordmark when the kinetic type wordmark is absent", () => {
-    document.body.innerHTML = `
-      <nav class="primary-nav-ns">
-        <div class="primary-nav-ns__grid"></div>
-        <div class="primary-nav-ns__wordmark hidden"></div>
-      </nav>
-    `;
-    const wordmark = document.querySelector(".primary-nav-ns__wordmark");
-    const grid = document.querySelector(".primary-nav-ns__grid");
+  it("leaves the logo shown when the kinetic type wordmark is absent", () => {
+    document.body.innerHTML = `<header data-primary-nav></header>`;
 
     initWordmarkVisibilityOnScroll();
 
-    expect(wordmark.classList.contains(CLASSNAMES.hidden)).toBe(false);
-    expect(grid.classList.contains(CLASSNAMES.hiddenWordmark)).toBe(false);
+    expect(
+      document
+        .querySelector("[data-primary-nav]")
+        .classList.contains(CLASSNAMES.logoHidden),
+    ).toBe(false);
     expect(IntersectionObserver).not.toHaveBeenCalled();
   });
 
-  it("hides the nav wordmark when the kinetic type wordmark intersects", () => {
+  it("hides the nav logo while the kinetic type wordmark intersects", () => {
     document.body.innerHTML = `
-      <nav class="primary-nav-ns">
-        <div class="primary-nav-ns__grid"></div>
-        <div class="primary-nav-ns__wordmark"></div>
-      </nav>
+      <header data-primary-nav></header>
       <div class="kinetic-type-wordmark"></div>
     `;
-    const wordmark = document.querySelector(".primary-nav-ns__wordmark");
-    const grid = document.querySelector(".primary-nav-ns__grid");
+    const nav = document.querySelector("[data-primary-nav]");
 
     initWordmarkVisibilityOnScroll();
 
     expect(IntersectionObserver).toHaveBeenCalledTimes(1);
     observerCallback([{ isIntersecting: true }]);
-    expect(wordmark.classList.contains(CLASSNAMES.hidden)).toBe(true);
-    expect(grid.classList.contains(CLASSNAMES.hiddenWordmark)).toBe(true);
+    expect(nav.classList.contains(CLASSNAMES.logoHidden)).toBe(true);
 
     observerCallback([{ isIntersecting: false }]);
-    expect(wordmark.classList.contains(CLASSNAMES.hidden)).toBe(false);
-    expect(grid.classList.contains(CLASSNAMES.hiddenWordmark)).toBe(false);
+    expect(nav.classList.contains(CLASSNAMES.logoHidden)).toBe(false);
   });
 });

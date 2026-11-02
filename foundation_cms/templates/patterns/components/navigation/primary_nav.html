@@ -1,77 +1,132 @@
-{% load static i18n l10n wagtailsettings_tags navigation_tags %}
+{% load static i18n wagtailsettings_tags navigation_tags %}
+{% comment %}
+  LP's Nav (cosmos/blocks/sections/_nav.scss): logo, a section control per
+  dropdown, search, Donate and the phone drawer. A dropdown with a panel opens
+  a mega menu (_mega_menu.html) in the shared desktop panel shell and in a
+  drawer row; one with no links to show is a plain link to its header page.
+{% endcomment %}
 
 {% get_settings use_default_site=True %}
 {% with menu=menu|default:settings.navigation.SiteNavigationMenu.active_navigation_menu %}
   {% translated_menu menu as localized_menu %}
+  {% if localized_menu %}
+    {% primary_nav_active_link request localized_menu.dropdowns as active_link %}
+  {% endif %}
+  {% translate "Donate" as localized_donate_label %}
+  {% translate "Search" as localized_search_label %}
 
-  <nav role="navigation" class="primary-nav-ns">
-    <div class="grid-container">
-      <div class="primary-nav-ns__grid hidden-wordmark">
+  <header class="mzf-c-nav primary-nav-ns" data-primary-nav>
+    <div class="mzf-c-nav__shell">
+      <div class="mzf-c-nav__bar">
+        <a class="mzf-c-logo" href="/" aria-label="{% translate "Mozilla Foundation homepage" %}">
+          <img class="mzf-c-logo__mark" src="{% static 'foundation_cms/_images/cosmos/logo-mark.svg' %}" alt="" width="40" height="38">
+          <img class="mzf-c-logo__wordmark" src="{% static 'foundation_cms/_images/cosmos/logo-wordmark.svg' %}" alt="" width="129" height="38">
+        </a>
 
-        <div class="primary-nav-ns__grid-cell primary-nav-ns__hamburger">
-          <button class="hamburger hamburger--collapse"
-                  type="button"
-                  aria-label="{% trans "Toggle navigation" %}"
-                  aria-controls="primary-nav-ns-menu">
-            <div class="inner">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-            </div>
+        {% if localized_menu %}
+          <nav class="mzf-c-nav__links" aria-label="{% translate "Site" %}">
+            {% for dropdown in localized_menu.dropdowns %}
+              {% primary_nav_dropdown_is_active active_link dropdown.value as section_is_active %}
+              {% if dropdown.value.has_panel %}
+                <button type="button"
+                        class="mzf-c-button mzf-c-button--nav"
+                        data-nav-panel="section-{{ forloop.counter }}"
+                        {% if section_is_active %}data-nav-section-active{% endif %}
+                        aria-expanded="false"
+                        aria-controls="primary-nav-panel">{{ dropdown.value.header_value.label }}</button>
+              {% else %}
+                {% include "patterns/components/navigation/_mega_menu_link.html" with link=dropdown.value.header_value classnames="mzf-c-button mzf-c-button--nav" %}
+              {% endif %}
+            {% endfor %}
+          </nav>
+        {% endif %}
+
+        <div class="mzf-c-nav__actions">
+          <button type="button"
+                  class="mzf-c-nav__icon-button mzf-c-nav__search"
+                  aria-label="{{ localized_search_label }}"
+                  aria-expanded="false"
+                  aria-controls="primary-nav-search"
+                  data-primary-nav-search-toggle>
+            {% include "patterns/components/navigation/_search_icon.html" %}
+          </button>
+          <a class="mzf-c-button mzf-c-button--primary" href="?form=donate-header">{{ localized_donate_label }}</a>
+          <button type="button"
+                  class="mzf-c-nav__icon-button mzf-c-nav__menu"
+                  aria-label="{% translate "Open menu" %}"
+                  aria-expanded="false"
+                  aria-controls="primary-nav-drawer"
+                  data-label-open="{% translate "Open menu" %}"
+                  data-label-close="{% translate "Close menu" %}">
+            <svg class="primary-nav-ns__menu-icon--open" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 4H15M1 8H15M1 12H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <svg class="primary-nav-ns__menu-icon--close" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </button>
         </div>
+      </div>
 
-        <div class="primary-nav-ns__grid-cell primary-nav-ns__wordmark hidden">
-          <a href="/" aria-label="{% trans "Mozilla Foundation homepage" %}">
-            <img data-name="logo"
-                 src="{% static 'foundation_cms/_images/primary-nav-wordmark-logo.svg' %}"
-                 alt="{% trans "Mozilla Foundation Logo" %}"
-                 width="229" height="48" />
-            <img data-name="symbol"
-                 src="{% static 'foundation_cms/_images/primary-nav-wordmark-symbol.svg' %}"
-                 alt="{% trans "Mozilla Foundation Symbol" %}"
-                 width="29" height="28" />
-          </a>
-        </div>
-
-        <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
-          <div class="primary-nav-ns__menu" id="primary-nav-ns-menu">
-            {% if localized_menu %}
-              {% primary_nav_active_link request localized_menu.dropdowns as active_link %}
-              {% for dropdown in localized_menu.dropdowns %}
-                {% include "patterns/components/navigation/_dropdown.html" with value=dropdown.value active_link=active_link %}
-              {% endfor %}
-            {% endif %}
+      {% if localized_menu %}
+        <div class="mzf-c-nav__panels">
+          <div class="mzf-c-nav__panel" id="primary-nav-panel" hidden>
+            <div class="mzf-c-nav__panel-reveal">
+              <div class="mzf-c-nav__panel-inner">
+                <div class="mzf-c-nav__panel-stage">
+                  {% for dropdown in localized_menu.dropdowns %}
+                    {% if dropdown.value.has_panel %}
+                      <div class="mzf-c-nav__panel-content" data-nav-panel-content="section-{{ forloop.counter }}" hidden>
+                        {% include "patterns/components/navigation/_mega_menu.html" with value=dropdown.value %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      {% endif %}
+    </div>
 
-        <div class="primary-nav-ns__grid-cell primary-nav-ns__search-icon">
-          <a href="#primary-nav-search"
-             class="search-toggle"
-             aria-label="{% trans "Toggle search input" %}"
-             aria-controls="primary-nav-search"
-             aria-expanded="false">
-            <div class="search-toggle__inner">
-              <img class="search-toggle__open"
-                   src="{% static 'foundation_cms/_images/icons/search-black.svg' %}"
-                   alt="{% trans "Search" %}"
-                   width="24" height="24" />
-              <img class="search-toggle__close"
-                   src="{% static 'foundation_cms/_images/icons/search-close.svg' %}"
-                   alt="{% trans "Close" %}"
-                   width="24" height="24" />
-            </div>
-          </a>
+    <div class="mzf-c-nav__drawer" id="primary-nav-drawer" hidden>
+      <div class="mzf-c-nav__drawer-reveal">
+        <div class="mzf-c-nav__drawer-inner">
+          <button type="button"
+                  class="mzf-c-nav__drawer-search"
+                  aria-expanded="false"
+                  aria-controls="primary-nav-search"
+                  data-primary-nav-search-toggle>
+            <span class="mzf-c-nav__drawer-search-label">{{ localized_search_label }}</span>
+            <span class="mzf-c-nav__drawer-search-icon" aria-hidden="true">
+              {% include "patterns/components/navigation/_search_icon.html" %}
+            </span>
+          </button>
+
+          {% for dropdown in localized_menu.dropdowns %}
+            {% primary_nav_dropdown_is_active active_link dropdown.value as section_is_active %}
+            {% if dropdown.value.has_panel %}
+              <details class="mzf-c-mega-menu__disclosure" name="primary-nav-sections"{% if section_is_active %} data-nav-section-active{% endif %}>
+                <summary class="mzf-c-mega-menu__summary">
+                  {{ dropdown.value.header_value.label }}
+                  <span class="mzf-c-mega-menu__chevron" aria-hidden="true">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M33.96 19.95L24 29.91L14.04 19.95L12.45 21.54L24 33.09L35.55 21.54L33.96 19.95Z" fill="currentColor"/></svg>
+                  </span>
+                </summary>
+                <div class="mzf-c-mega-menu__reveal">
+                  <div class="mzf-c-mega-menu__reveal-inner">
+                    {% include "patterns/components/navigation/_mega_menu.html" with value=dropdown.value %}
+                  </div>
+                </div>
+              </details>
+            {% else %}
+              {% include "patterns/components/navigation/_mega_menu_link.html" with link=dropdown.value.header_value classnames="mzf-c-mega-menu__summary primary-nav-ns__drawer-link" %}
+            {% endif %}
+          {% endfor %}
         </div>
-
-        <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
-          {% translate "Donate" as localized_donate_label %}
-          {% include "patterns/components/_button.html" with classnames="btn-primary--heart" url="?form=donate-header" label=localized_donate_label button_style="btn-primary" %}
-        </div>
-
       </div>
     </div>
-  </nav>
+  </header>
 
   {% include "patterns/components/navigation/_search_drawer.html" with search_topic_links=localized_menu.search_topic_links search_quick_links=localized_menu.search_quick_links %}
 {% endwith %}
