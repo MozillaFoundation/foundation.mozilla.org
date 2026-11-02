@@ -5,6 +5,7 @@ $image-hover-scale: 1.05;
 $button-transition-duration: 0.5s;
 $button-transition-function: ease;
 
-// Height of the sticky primary nav. Shared so other components can leave room for
-// it, e.g. as a scroll-margin-top.
-$primary-nav-height: rem-calc(88);
+// Height of the sticky primary nav, LP's 80px bar (8704:29095 draws the mobile
+// drawer's rows under it). Shared so other components can leave room for it,
+// e.g. as a scroll-margin-top.
+$primary-nav-height: rem-calc(80);

@@ -25,10 +25,13 @@ function trackEventListeners(targets) {
 
 function buildSearchMarkup() {
   document.body.innerHTML = `
-    <nav class="primary-nav-ns"></nav>
-    <div class="primary-nav-ns__search-icon">
-      <button class="search-toggle" type="button">Search</button>
-    </div>
+    <header class="primary-nav-ns" data-primary-nav>
+      <button class="search-toggle" type="button" data-primary-nav-search-toggle>Search</button>
+      <button class="mzf-c-nav__menu" type="button">Menu</button>
+      <div class="mzf-c-nav__drawer">
+        <button class="drawer-search" type="button" data-primary-nav-search-toggle>Search</button>
+      </div>
+    </header>
     <div class="search-input-container" aria-hidden="true" inert>
       <input type="search" />
     </div>
@@ -206,6 +209,45 @@ describe("initSearchToggle", () => {
     expect(searchInputContainer.classList.contains(CLASSNAMES.searchOpen)).toBe(
       false,
     );
+    expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true });
+  });
+
+  it("marks every search control expanded, whichever one opened search", () => {
+    buildSearchMarkup();
+    const searchToggle = document.querySelector(".search-toggle");
+    const drawerSearch = document.querySelector(".drawer-search");
+
+    initSearchToggle();
+    drawerSearch.click();
+
+    expect(searchToggle.getAttribute("aria-expanded")).toBe("true");
+    expect(drawerSearch.getAttribute("aria-expanded")).toBe("true");
+
+    drawerSearch.click();
+
+    expect(searchToggle.getAttribute("aria-expanded")).toBe("false");
+    expect(drawerSearch.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("returns focus to the menu button when the drawer's Search row is gone", () => {
+    buildSearchMarkup();
+    const searchToggle = document.querySelector(".search-toggle");
+    const drawerSearch = document.querySelector(".drawer-search");
+    const menuButton = document.querySelector(".mzf-c-nav__menu");
+    const searchInput = document.querySelector(".search-input-container input");
+    const focusSpy = vi.spyOn(menuButton, "focus");
+
+    initSearchToggle();
+    drawerSearch.click();
+
+    // On a phone the desktop search button is not shown, and the drawer
+    // closes as search opens.
+    searchToggle.style.display = "none";
+    document.querySelector(".mzf-c-nav__drawer").hidden = true;
+    searchInput.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+    );
+
     expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true });
   });
 });

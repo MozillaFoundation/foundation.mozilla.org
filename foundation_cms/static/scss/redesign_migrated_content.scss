@@ -1,5 +1,6 @@
 @import "../scss/foundation-framework-styles";
 @import "../scss/fonts";
+@import "../scss/tokens";
 
 // Our custom variables and base styles
 @import "../scss/variables";
@@ -8,6 +9,13 @@
 @import "../scss/mixins";
 @import "../scss/buttons";
 @import "../scss/layout";
+
+// The site header: LP's Nav and the Cosmos components it composes
+@import "../scss/cosmos/foundations/logo/nav-logo";
+@import "../scss/cosmos/elements/buttons/link";
+@import "../scss/cosmos/elements/buttons/primary";
+@import "../scss/cosmos/blocks/sections/mega-menu";
+@import "../scss/cosmos/blocks/sections/nav";
 
 // Site-wide Components
 @import "../scss/components/donate_banner/donate_banner";
@@ -20,8 +28,11 @@
 @import "../scss/components/notice_banner";
 
 /* Overriding legacy SCSS that was targeting these elements */
-.site-footer-ns,
-.primary-nav-ns {
+.primary-nav-ns li {
+  margin: 0;
+}
+
+.site-footer-ns {
   ul,
   ol,
   p {
@@ -51,11 +62,5 @@
 .site-footer-ns {
   p {
     color: inherit;
-  }
-}
-
-.primary-nav-ns {
-  a[class*="btn"] {
-    font-weight: 400;
   }
 }

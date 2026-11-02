@@ -1,0 +1,42 @@
+// Ported from components/foundations/logo/nav-logo/styles.css
+// in MozillaFoundation/mofo-lp-design-system, commit e3377efe09
+
+// Kept the same as LP's file apart from formatting: the file follows our
+// Prettier and stylelint rules, which doesn't change how it behaves.
+
+/* Logo — Figma 8704:28131
+   The M mark and the Mozilla Foundation wordmark, side by side.
+
+   Both are shipped as exported vectors. The wordmark is artwork, not text:
+   it is never set from a font, at any size, for any reason. */
+
+.mzf-c-logo {
+  /* One number scales the whole lockup, so the mark and the wordmark cannot
+     drift apart. */
+  --mzf-logo-scale: 1;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.mzf-c-logo__mark {
+  display: block;
+  block-size: calc(var(--size-logo-mark) * var(--mzf-logo-scale));
+  inline-size: auto;
+  flex: none;
+}
+
+/* A quarter pixel taller than the mark in the design file. The two are
+   centered against each other rather than forced to one height. */
+.mzf-c-logo__wordmark {
+  display: block;
+  block-size: calc(var(--size-logo-wordmark) * var(--mzf-logo-scale));
+  inline-size: auto;
+  flex: none;
+}
+
+.mzf-c-logo:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-8);
+}

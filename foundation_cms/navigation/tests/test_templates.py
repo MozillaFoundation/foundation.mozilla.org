@@ -189,9 +189,98 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         self.assertIn('href="/what-we-do/imagine/"', html)
         self.assertIn('href="/join-us/"', html)
         self.assertIn('href="/nothing-personal/"', html)
-        self.assertIn('id="primary-nav-ns-menu"', html)
-        self.assertIn('class="search-toggle"', html)
+        self.assertIn('id="primary-nav-panel"', html)
+        self.assertIn('id="primary-nav-drawer"', html)
+        self.assertEqual(html.count("data-primary-nav-search-toggle"), 2)
         self.assertIn('class="search-input-container"', html)
+        self.assertIn('href="?form=donate-header"', html)
+
+    def test_legacy_dropdowns_fall_back_to_links_and_flat_panels(self):
+        html = self.render_primary_navigation()
+
+        # A dropdown without items stays a plain link, in the bar and the drawer.
+        self.assertInHTML('<a class="mzf-c-button mzf-c-button--nav" href="/join-us/">Join Us</a>', html)
+        self.assertInHTML(
+            '<a class="mzf-c-mega-menu__summary primary-nav-ns__drawer-link" href="/join-us/">Join Us</a>',
+            html,
+        )
+        # A dropdown with items opens a panel holding its items as one unheaded
+        # group, with the header link as the intro link.
+        self.assertInHTML(
+            """
+            <button type="button" class="mzf-c-button mzf-c-button--nav" data-nav-panel="section-2"
+                    aria-expanded="false" aria-controls="primary-nav-panel">What We Do</button>
+            """,
+            html,
+        )
+        self.assertInHTML(
+            '<a class="mzf-c-mega-menu__link" href="/what-we-do/imagine/">Imagine</a>',
+            html,
+            count=2,
+        )
+        self.assertIn('<a class="mzf-c-link" href="/what-we-do/">What We Do<span class="mzf-c-link__icon"', html)
+        self.assertNotIn('<h2 class="mzf-c-mega-menu__eyebrow"', html)
+        self.assertNotIn('<section class="mzf-c-mega-menu__group"', html)
+        self.assertEqual(html.count('<div class="mzf-c-mega-menu__group">'), 2)
+        self.assertNotIn("mzf-c-mega-menu__groups--loose", html)
+        self.assertEqual(html.count('data-nav-panel="'), 1)
+        self.assertEqual(html.count("<details"), 1)
+
+    def test_link_groups_render_intro_and_headed_groups(self):
+        groups_page = self.create_page(self.homepage, "Our work", "our-work")
+        program_page = self.create_page(groups_page, "Program", "program")
+        raw_dropdowns = [
+            {
+                "type": "dropdown",
+                "value": {
+                    "header": self.page_link("Our Work", groups_page),
+                    "items": [self.page_link("Legacy item", program_page)],
+                    "intro_eyebrow": "What we do",
+                    "intro_headline": "We fund people building better technology.",
+                    "intro_cta": [self.page_link("Get the overview", groups_page)],
+                    "group_spacing": "wide",
+                    "groups": [
+                        {
+                            "heading": "Featured programs",
+                            "links": [self.page_link("Program", program_page)],
+                            "browse_all": [self.page_link("Browse all our work", groups_page)],
+                        }
+                    ],
+                },
+            }
+        ]
+        menu = nav_models.NavigationMenu.objects.create(
+            title="Grouped menu",
+            locale=self.homepage.locale,
+            dropdowns=nav_models.NavigationMenu.dropdowns.field.stream_block.to_python(raw_dropdowns),
+        )
+
+        html = self.render_primary_navigation(
+            urlsplit(program_page.url).path,
+            menu=nav_models.NavigationMenu.objects.get(pk=menu.pk),
+            page=program_page,
+        )
+
+        self.assertInHTML('<p class="mzf-c-mega-menu__eyebrow">What we do</p>', html, count=2)
+        self.assertInHTML(
+            '<p class="mzf-c-mega-menu__headline">We fund people building better technology.</p>',
+            html,
+            count=2,
+        )
+        self.assertInHTML('<h2 class="mzf-c-mega-menu__eyebrow">Featured programs</h2>', html, count=2)
+        self.assertEqual(html.count('class="mzf-c-mega-menu__groups mzf-c-mega-menu__groups--loose"'), 2)
+        self.assertIn(">Get the overview<", html)
+        self.assertIn(">Browse all our work<", html)
+        # Groups replace the legacy items rather than adding to them.
+        self.assertNotIn("Legacy item", html)
+        # The current program is marked in the desktop panel and the drawer, and
+        # its section is marked active in both.
+        self.assertInHTML(
+            f'<a class="mzf-c-mega-menu__link" href="{program_page.localized.url}" aria-current="page">Program</a>',
+            html,
+            count=2,
+        )
+        self.assertEqual(html.count("data-nav-section-active"), 2)
 
     def test_redesign_parent_legacy_template_uses_cms_navigation(self):
         nav_factories.generate(self.site)
@@ -209,7 +298,7 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         )
 
         self.assertIn('href="/meet-mozilla/"', html)
-        self.assertIn('id="primary-nav-ns-menu"', html)
+        self.assertIn("data-primary-nav", html)
 
     def test_navigation_preview_uses_preview_menu_without_an_active_site_menu(self):
         preview_menu = nav_factories.generate(self.site)
@@ -222,46 +311,39 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         html = render_to_string("previews/navigation.html", context, request=request)
 
         self.assertIn('href="/meet-mozilla/"', html)
-        self.assertIn('id="primary-nav-ns-menu"', html)
+        self.assertIn("data-primary-nav", html)
+
+    # Every link renders twice: once for the desktop bar or panel, once for the
+    # phone drawer. Only one of the two is shown at a time.
 
     def test_localized_exact_top_level_link_is_current(self):
         html = self.render_primary_navigation("/de/join-us/")
 
-        self.assertIn("primary-nav-ns__menu-item primary-nav-ns__menu-item--active", html)
         self.assertInHTML(
-            """
-            <a href="/join-us/"
-               class="nav-link primary-nav-ns__link primary-nav-ns__link--active"
-               aria-current="page">Join Us</a>
-            """,
+            '<a class="mzf-c-button mzf-c-button--nav" href="/join-us/" aria-current="page">Join Us</a>',
             html,
         )
-        self.assertEqual(html.count('aria-current="page"'), 1)
+        self.assertEqual(html.count('aria-current="page"'), 2)
 
     def test_exact_dropdown_child_is_current_and_activates_parent(self):
         html = self.render_primary_navigation("/de/what-we-do/imagine/")
 
-        self.assertIn("primary-nav-ns__menu-item primary-nav-ns__menu-item--active", html)
+        self.assertEqual(html.count("data-nav-section-active"), 2)
         self.assertInHTML(
-            """
-            <a href="/what-we-do/imagine/"
-               class="nav-link primary-nav-ns__link primary-nav-ns__link--active"
-               aria-current="page">Imagine</a>
-            """,
+            '<a class="mzf-c-mega-menu__link" href="/what-we-do/imagine/" aria-current="page">Imagine</a>',
             html,
+            count=2,
         )
-        self.assertEqual(html.count('aria-current="page"'), 1)
+        self.assertEqual(html.count('aria-current="page"'), 2)
 
     def test_descendant_activates_section_without_claiming_current_page(self):
         html = self.render_primary_navigation("/de/what-we-do/imagine/article/")
 
-        self.assertIn("primary-nav-ns__menu-item primary-nav-ns__menu-item--active", html)
+        self.assertEqual(html.count("data-nav-section-active"), 2)
         self.assertInHTML(
-            """
-            <a href="/what-we-do/imagine/"
-               class="nav-link primary-nav-ns__link primary-nav-ns__link--active">Imagine</a>
-            """,
+            '<a class="mzf-c-mega-menu__link" href="/what-we-do/imagine/" aria-current="true">Imagine</a>',
             html,
+            count=2,
         )
         self.assertNotIn('aria-current="page"', html)
 
@@ -278,14 +360,13 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
 
         self.assertInHTML(
             f"""
-            <a href="{primary_section.localized.url}"
-               class="nav-link primary-nav-ns__link primary-nav-ns__link--active"
+            <a class="mzf-c-button mzf-c-button--nav" href="{primary_section.localized.url}"
                aria-current="page">Section</a>
             """,
             html,
         )
-        self.assertEqual(html.count("primary-nav-ns__link--active"), 1)
-        self.assertEqual(html.count('aria-current="page"'), 1)
+        self.assertEqual(html.count("aria-current="), 2)
+        self.assertEqual(html.count('aria-current="page"'), 2)
 
     def test_pagechooser_selects_most_specific_child(self):
         primary_section, primary_child, primary_grandchild, _secondary_section, _site = self.create_multisite_pages()
@@ -300,13 +381,14 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
 
         self.assertInHTML(
             f"""
-            <a href="{primary_child.localized.url}"
-               class="nav-link primary-nav-ns__link primary-nav-ns__link--active">Item 1</a>
+            <a class="mzf-c-mega-menu__link" href="{primary_child.localized.url}"
+               aria-current="true">Item 1</a>
             """,
             descendant_html,
+            count=2,
         )
-        self.assertIn("primary-nav-ns__menu-item primary-nav-ns__menu-item--active", descendant_html)
-        self.assertEqual(descendant_html.count("primary-nav-ns__link--active"), 1)
+        self.assertEqual(descendant_html.count("data-nav-section-active"), 2)
+        self.assertEqual(descendant_html.count("aria-current="), 2)
         self.assertNotIn('aria-current="page"', descendant_html)
 
         exact_html = self.render_primary_navigation(
@@ -315,7 +397,7 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
             page=primary_child,
             host="primary.test",
         )
-        self.assertEqual(exact_html.count('aria-current="page"'), 1)
+        self.assertEqual(exact_html.count('aria-current="page"'), 2)
 
     def test_cross_site_pagechooser_with_same_path_is_not_active(self):
         primary_section, _child, _grandchild, secondary_section, _secondary_site = self.create_multisite_pages()
@@ -329,8 +411,7 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
         )
 
         self.assertIn(f'href="{secondary_section.localized.url}"', html)
-        self.assertNotIn("primary-nav-ns__link--active", html)
-        self.assertNotIn("primary-nav-ns__menu-item--active", html)
+        self.assertNotIn("data-nav-section-active", html)
         self.assertNotIn("aria-current", html)
 
     def test_horizontal_pagechooser_is_active_and_prefers_child(self):
@@ -411,5 +492,4 @@ class PrimaryNavigationTemplateTests(test_base.WagtailpagesTestCase):
 
         self.assertIn("Section française", html)
         self.assertNotIn(">Section<", html)
-        self.assertEqual(html.count("primary-nav-ns__link--active"), 1)
-        self.assertEqual(html.count('aria-current="page"'), 1)
+        self.assertEqual(html.count('aria-current="page"'), 2)

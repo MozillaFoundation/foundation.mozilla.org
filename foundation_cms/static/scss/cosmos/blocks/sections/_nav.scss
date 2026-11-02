@@ -1,0 +1,461 @@
+// Ported from components/blocks/sections/nav/styles.css
+// in MozillaFoundation/mofo-lp-design-system, commit e3377efe09
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Site nav — playground handoff
+   The sticky header: logo, centered links, search, donate, and a phone
+   drawer. Composes logo and button. */
+
+.mzf-c-nav {
+  display: block;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  inline-size: 100%;
+  background: var(--color-surface-default);
+
+  --mzf-nav-panel-expand-duration: var(
+    --mzf-motion-duration-index-cards-expand
+  );
+  --mzf-nav-panel-collapse-duration: var(
+    --mzf-motion-duration-index-cards-collapse
+  );
+  --mzf-nav-panel-expand-ease: var(--mzf-motion-easing-index-cards-expand);
+  --mzf-nav-panel-collapse-ease: var(--mzf-motion-easing-index-cards-collapse);
+  --mzf-nav-panel-content-out-duration: var(--mzf-motion-duration-base);
+  --mzf-nav-panel-collapse-start-delay: 55ms;
+  --mzf-nav-panel-swap-duration: var(--mzf-motion-duration-dropdown-open);
+  --mzf-nav-panel-swap-ease: var(--mzf-motion-easing-standard);
+  --mzf-nav-panel-height-duration: var(--mzf-motion-duration-dropdown-open);
+}
+
+.mzf-c-nav__shell {
+  position: relative;
+  inline-size: 100%;
+}
+
+.mzf-c-nav__bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-12);
+  padding-block: var(--space-20);
+  padding-inline: var(--space-32);
+  position: relative;
+  z-index: 2;
+}
+
+.mzf-c-nav__bar > .mzf-c-logo {
+  grid-column: 1;
+  justify-self: start;
+  min-inline-size: 0;
+}
+
+.mzf-c-nav__links {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  grid-column: 2;
+}
+
+.mzf-c-nav__links .mzf-c-button--nav:focus-visible {
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+.mzf-c-nav__links .mzf-c-button--nav[aria-expanded="true"] {
+  position: relative;
+  z-index: 1;
+}
+
+.mzf-c-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  flex: none;
+  justify-self: end;
+  grid-column: 3;
+  min-inline-size: 0;
+}
+
+.mzf-c-nav__icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-icon-large);
+  block-size: var(--size-icon-large);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-default);
+  cursor: pointer;
+  transition: background var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-nav__icon-button:hover {
+  background: var(--color-surface-quiet-hover);
+}
+
+.mzf-c-nav__icon-button:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-2);
+}
+
+.mzf-c-nav__icon-button svg {
+  display: block;
+  inline-size: var(--size-icon-glyph);
+  block-size: var(--size-icon-glyph);
+}
+
+.mzf-c-nav__menu {
+  display: none;
+}
+
+.mzf-c-nav__panels {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mzf-c-nav__panel {
+  pointer-events: none;
+}
+
+.mzf-c-nav__panel[hidden] {
+  display: none;
+}
+
+.mzf-c-nav__panel-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: clip;
+  opacity: 0;
+  background: transparent;
+  transition:
+    grid-template-rows var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    opacity var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    background-color var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav__panel-inner {
+  min-block-size: 0;
+  overflow: clip;
+}
+
+.mzf-c-nav__panel-stage {
+  position: relative;
+}
+
+.mzf-c-nav__panel-content[hidden] {
+  display: none;
+}
+
+.mzf-c-nav__panel-content .mzf-c-mega-menu {
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    transform var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav__panel--open {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.mzf-c-nav__panel--open .mzf-c-nav__panel-reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  background: var(--color-surface-default);
+  transition:
+    grid-template-rows var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease),
+    opacity var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease),
+    background-color var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease);
+}
+
+.mzf-c-nav__panel--open
+  .mzf-c-nav__panel-content--active:not(
+    .mzf-c-nav__panel-content--swap-out,
+    .mzf-c-nav__panel-content--swap-in
+  )
+  .mzf-c-mega-menu {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease),
+    transform var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease);
+}
+
+/* Close like index-cards: content fades out (200ms), shell collapses ~55ms later. */
+.mzf-c-nav__panel--closing .mzf-c-nav__panel-reveal {
+  opacity: 1;
+  background: var(--color-surface-default);
+  transition: background-color var(--mzf-nav-panel-collapse-duration)
+    var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav__panel--closing
+  .mzf-c-nav__panel-content--active:not(
+    .mzf-c-nav__panel-content--swap-out,
+    .mzf-c-nav__panel-content--swap-in
+  )
+  .mzf-c-mega-menu {
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-nav-panel-content-out-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    transform var(--mzf-nav-panel-content-out-duration)
+      var(--mzf-nav-panel-collapse-ease);
+}
+
+/* Content swap: keep one panel shell open and crossfade content wrappers. */
+.mzf-c-nav--switching .mzf-c-nav__panel-stage {
+  overflow: clip;
+  transition: block-size var(--mzf-nav-panel-height-duration)
+    var(--mzf-nav-panel-swap-ease);
+}
+
+.mzf-c-nav--switching .mzf-c-nav__panel-content--swap-out,
+.mzf-c-nav--switching .mzf-c-nav__panel-content--swap-in {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  inline-size: 100%;
+}
+
+.mzf-c-nav--switching .mzf-c-nav__panel-content--swap-out {
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.mzf-c-nav--switching .mzf-c-nav__panel-content--swap-in {
+  z-index: 2;
+  pointer-events: auto;
+  opacity: 0;
+}
+
+.mzf-c-nav--switching .mzf-c-nav__panel-content--swap-out .mzf-c-mega-menu,
+.mzf-c-nav--switching .mzf-c-nav__panel-content--swap-in .mzf-c-mega-menu {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.mzf-c-nav--switching.mzf-c-nav--swap-active
+  .mzf-c-nav__panel-content--swap-out,
+.mzf-c-nav--switching.mzf-c-nav--swap-active
+  .mzf-c-nav__panel-content--swap-in {
+  transition: opacity var(--mzf-nav-panel-swap-duration)
+    var(--mzf-nav-panel-swap-ease);
+}
+
+.mzf-c-nav--switching.mzf-c-nav--swap-active
+  .mzf-c-nav__panel-content--swap-out {
+  opacity: 0;
+}
+
+.mzf-c-nav--switching.mzf-c-nav--swap-active
+  .mzf-c-nav__panel-content--swap-in {
+  opacity: 1;
+}
+
+.mzf-c-nav__drawer {
+  display: block;
+  overflow: clip;
+  background: transparent;
+}
+
+.mzf-c-nav__drawer[hidden] {
+  display: none;
+}
+
+.mzf-c-nav__drawer-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: clip;
+  opacity: 0;
+  background: transparent;
+  transition:
+    grid-template-rows var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    opacity var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    background-color var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav__drawer-inner {
+  min-block-size: 0;
+  overflow: clip;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    transform var(--mzf-nav-panel-collapse-duration)
+      var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav--drawer-open .mzf-c-nav__drawer-reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  background: var(--color-surface-default);
+  transition:
+    grid-template-rows var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease),
+    opacity var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease),
+    background-color var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease);
+}
+
+.mzf-c-nav--drawer-open .mzf-c-nav__drawer-inner {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease),
+    transform var(--mzf-nav-panel-expand-duration)
+      var(--mzf-nav-panel-expand-ease);
+}
+
+.mzf-c-nav__drawer--closing .mzf-c-nav__drawer-inner {
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-nav-panel-content-out-duration)
+      var(--mzf-nav-panel-collapse-ease),
+    transform var(--mzf-nav-panel-content-out-duration)
+      var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav:not(.mzf-c-nav--drawer-open)
+  .mzf-c-nav__drawer--closing
+  .mzf-c-nav__drawer-reveal {
+  opacity: 1;
+  background: var(--color-surface-default);
+  transition: background-color var(--mzf-nav-panel-collapse-duration)
+    var(--mzf-nav-panel-collapse-ease);
+}
+
+.mzf-c-nav__drawer-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-48);
+  inline-size: 100%;
+  min-block-size: calc(var(--space-64) + var(--space-24));
+  padding: var(--space-20);
+  border: 0;
+
+  /* 8709:30700 draws the search row at 88, which is 20 + a 48px glyph box + 20,
+     so its rule sits inside the box and a border would make the row 89. */
+  box-shadow: inset 0 var(--border-width-thin) 0 0 var(--color-border-subtle);
+  background: var(--color-surface-default);
+  color: var(--color-gray-700);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-large-mobile);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  text-align: start;
+  cursor: pointer;
+  transition: background var(--mzf-motion-duration-feedback)
+    var(--mzf-motion-easing-standard);
+}
+
+.mzf-c-nav__drawer-search:hover {
+  background: var(--color-surface-raised);
+}
+
+.mzf-c-nav__drawer-search:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+.mzf-c-nav__drawer-search-label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.mzf-c-nav__drawer-search-icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-icon-xlarge);
+  block-size: var(--size-icon-xlarge);
+  color: var(--color-icon-quiet);
+}
+
+.mzf-c-nav__drawer-search-icon svg {
+  display: block;
+  inline-size: var(--size-icon-medium);
+  block-size: var(--size-icon-medium);
+}
+
+.mzf-c-nav__drawer .mzf-c-mega-menu__summary {
+  min-block-size: calc(var(--space-64) + var(--space-24));
+  gap: var(--space-48);
+}
+
+.mzf-c-nav__drawer .mzf-c-mega-menu {
+  inline-size: 100%;
+}
+
+@include mobile-only {
+  .mzf-c-nav__bar {
+    padding-block: var(--space-20);
+    padding-inline: var(--space-20) var(--space-16);
+  }
+
+  .mzf-c-nav__panels {
+    display: none;
+  }
+
+  .mzf-c-nav .mzf-c-logo__wordmark {
+    display: none;
+  }
+
+  .mzf-c-nav__links,
+  .mzf-c-nav__search {
+    display: none;
+  }
+
+  .mzf-c-nav__menu {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-nav__icon-button,
+  .mzf-c-nav__drawer-search,
+  .mzf-c-nav__drawer-reveal,
+  .mzf-c-nav__drawer-inner,
+  .mzf-c-nav__panel-reveal,
+  .mzf-c-nav__panel-content .mzf-c-mega-menu,
+  .mzf-c-nav--switching .mzf-c-nav__panel-stage {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}

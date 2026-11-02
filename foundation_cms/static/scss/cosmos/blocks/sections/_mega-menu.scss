@@ -1,0 +1,391 @@
+// Ported from components/blocks/sections/mega-menu/styles.css
+// in MozillaFoundation/mofo-lp-design-system, commit e3377efe09
+
+// Kept the same as LP's file apart from the breakpoint and formatting: LP's
+// `@media (max-width: 48rem)` is written with our `mobile-only` mixin, which
+// matches it exactly (see docs/stack.md), and the file follows our Prettier and
+// stylelint rules. Neither changes how it behaves.
+
+/* Mega menu — Figma 8704:27818 and 8709:30662
+   The panel that drops under one item of the site navigation: a statement
+   about the section on one side, and the links into it on the other.
+
+   The two Figma frames are one component. 8709:30662 is this panel with a
+   row above it that opens and closes, which is what the navigation is below
+   the mobile breakpoint. The panel inside it is drawn identically to
+   8704:27818's own mobile frames, so it is drawn once here.
+
+   The breakpoint is not a class. Below 48rem the panel is one column. */
+
+.mzf-c-mega-menu {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-48);
+  inline-size: 100%;
+  padding: var(--space-32);
+
+  /* The rule is drawn inside the box: 10092:247 measures 301 and its content
+     is 32 + 237 + 32, so a CSS border makes the panel 302. */
+  box-shadow: inset 0 var(--border-width-thin) 0 0 var(--color-border-subtle);
+  background: var(--color-surface-default);
+}
+
+/* ---------- the statement ---------- */
+.mzf-c-mega-menu__intro {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
+}
+
+.mzf-c-mega-menu__intro-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Also the heading over each group of links. */
+.mzf-c-mega-menu__eyebrow {
+  margin: 0;
+  color: var(--color-text-subtle);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.mzf-c-mega-menu__headline {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-headline);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-none);
+
+  /* The headline family is variable and the file draws it at its normal
+     width. Without this the browser picks the default instance, which is
+     not the one the design uses. */
+  font-variation-settings: "wdth" 100;
+}
+
+/* The intro CTA is semibold navigation type in the drawing, not the small
+   link treatment used for browse-all rows under a group. */
+.mzf-c-mega-menu__intro .mzf-c-link {
+  color: var(--color-text-default);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+}
+
+/* Browse-all rows sit under a list and stay body-small regular. */
+.mzf-c-mega-menu__group > .mzf-c-link {
+  color: var(--color-text-default);
+}
+
+/* ---------- the groups ---------- */
+.mzf-c-mega-menu__groups {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-32);
+}
+
+/* The rule is the group's own top border rather than a separate element, so
+   a group added or removed cannot leave a rule behind. */
+.mzf-c-mega-menu__group {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-24);
+  padding-block-start: var(--space-20);
+
+  /* Line 14 is a zero-height node offset a pixel above the header box, so it
+     adds nothing: 10092:255 measures 33, which is the 20 gap plus the 13 the
+     eyebrow sets. A border would make the header 34. */
+  box-shadow: inset 0 var(--border-width-thin) 0 0 var(--color-border-subtle);
+}
+
+.mzf-c-mega-menu__items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mzf-c-mega-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* The chip on a row is drawn on warm/200 — 10092:115, 10092:267, 10092:286 on
+   desktop and 10092:934, 10092:2058, 10092:2077 on mobile — which is one step
+   lighter than the tag element's own warm gray fill and two lighter than its
+   notification fill. `index-item` draws the same fill and carries the same
+   local rule. */
+.mzf-c-mega-menu__item .mzf-c-tag {
+  background: var(--color-tag-warm-grey-soft);
+}
+
+/* The file writes these labels in sentence case and title-cases them in the
+   drawing, so the transform is what the reader sees and the strings stay as
+   the file has them. */
+.mzf-c-mega-menu__link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--size-icon-medium);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+.mzf-c-mega-menu__link:hover {
+  text-decoration: underline;
+}
+
+.mzf-c-mega-menu__link:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: var(--space-4);
+}
+
+/* ---------- the row that opens the panel ----------
+   Below the mobile breakpoint the navigation is one of these per section.
+   Native details and summary, so it opens with no script. */
+.mzf-c-mega-menu__disclosure {
+  inline-size: 100%;
+
+  --mzf-mega-menu-disclosure-expand-duration: var(
+    --mzf-motion-duration-index-cards-expand
+  );
+  --mzf-mega-menu-disclosure-collapse-duration: var(
+    --mzf-motion-duration-index-cards-collapse
+  );
+  --mzf-mega-menu-disclosure-expand-ease: var(
+    --mzf-motion-easing-index-cards-expand
+  );
+  --mzf-mega-menu-disclosure-collapse-ease: var(
+    --mzf-motion-easing-index-cards-collapse
+  );
+  --mzf-mega-menu-disclosure-content-out-duration: var(
+    --mzf-motion-duration-base
+  );
+  --mzf-mega-menu-disclosure-collapse-start-delay: 55ms;
+}
+
+.mzf-c-mega-menu__summary {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-20);
+  padding: var(--space-20);
+
+  /* 10092:962 draws the row at 88, which is 20 + a 48px chevron + 20, so the
+     rule sits inside the box and a border would make the row 89. */
+  box-shadow: inset 0 var(--border-width-thin) 0 0 var(--color-border-subtle);
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+  font-family: var(--font-family-headline);
+  font-size: var(--font-size-h1-mobile);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-display-mobile);
+  letter-spacing: var(--letter-spacing-display-mobile);
+  font-variation-settings: "wdth" 100;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Safari draws its own triangle through a pseudo-element that list-style
+   does not reach. */
+.mzf-c-mega-menu__summary::-webkit-details-marker {
+  display: none;
+}
+
+.mzf-c-mega-menu__summary:focus-visible {
+  outline: var(--border-width-focus) solid var(--color-border-focus);
+  outline-offset: calc(var(--border-width-focus) * -1);
+}
+
+/* One chevron, turned over when the row is open. The drawing is symmetric
+   about both axes, so the turn lands on the file's own open state. */
+.mzf-c-mega-menu__chevron {
+  flex: none;
+  inline-size: var(--size-icon-xlarge);
+  block-size: var(--size-icon-xlarge);
+  color: var(--color-icon-quiet);
+  transition: transform var(--mzf-mega-menu-disclosure-collapse-duration)
+    var(--mzf-mega-menu-disclosure-collapse-ease);
+}
+
+.mzf-c-mega-menu__chevron svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.mzf-c-mega-menu__disclosure[open]:not(.mzf-c-mega-menu__disclosure--closing)
+  .mzf-c-mega-menu__chevron {
+  transform: rotate(180deg);
+  transition: transform var(--mzf-mega-menu-disclosure-expand-duration)
+    var(--mzf-mega-menu-disclosure-expand-ease);
+}
+
+/* Return the chevron with the close, not after open drops. */
+.mzf-c-mega-menu__disclosure--closing .mzf-c-mega-menu__chevron {
+  transform: rotate(0deg);
+}
+
+/* The reveal clips height between closed and open. Content fades and lifts
+   in sync with the nav drawer panels. */
+.mzf-c-mega-menu__reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-inline-size: 0;
+  overflow: clip;
+  transition: grid-template-rows
+    var(--mzf-mega-menu-disclosure-collapse-duration)
+    var(--mzf-mega-menu-disclosure-collapse-ease);
+}
+
+.mzf-c-mega-menu__disclosure[open]:not(.mzf-c-mega-menu__disclosure--closing)
+  .mzf-c-mega-menu__reveal {
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--mzf-mega-menu-disclosure-expand-duration)
+    var(--mzf-mega-menu-disclosure-expand-ease);
+}
+
+.mzf-c-mega-menu__disclosure--closing .mzf-c-mega-menu__reveal {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows
+    var(--mzf-mega-menu-disclosure-collapse-duration)
+    var(--mzf-mega-menu-disclosure-collapse-ease)
+    var(--mzf-mega-menu-disclosure-collapse-start-delay);
+}
+
+.mzf-c-mega-menu__reveal-inner {
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: clip;
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-mega-menu-disclosure-collapse-duration)
+      var(--mzf-mega-menu-disclosure-collapse-ease),
+    transform var(--mzf-mega-menu-disclosure-collapse-duration)
+      var(--mzf-mega-menu-disclosure-collapse-ease);
+}
+
+.mzf-c-mega-menu__disclosure[open]:not(.mzf-c-mega-menu__disclosure--closing)
+  .mzf-c-mega-menu__reveal-inner {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--mzf-motion-duration-base)
+      var(--mzf-mega-menu-disclosure-expand-ease),
+    transform var(--mzf-mega-menu-disclosure-expand-duration)
+      var(--mzf-mega-menu-disclosure-expand-ease);
+}
+
+.mzf-c-mega-menu__disclosure--closing .mzf-c-mega-menu__reveal-inner {
+  opacity: 0;
+  transform: translateY(var(--space-2));
+  transition:
+    opacity var(--mzf-mega-menu-disclosure-content-out-duration)
+      var(--mzf-mega-menu-disclosure-collapse-ease),
+    transform var(--mzf-mega-menu-disclosure-content-out-duration)
+      var(--mzf-mega-menu-disclosure-collapse-ease);
+}
+
+/* A row that opens is already carrying the rule, so the panel under it must
+   not draw a second one. The panel is always the mobile drawing — Figma
+   8704:27817, 8704:27816, 8704:27814 — even when the studio previews
+   Interactive + Mobile on a wide viewport. */
+.mzf-c-mega-menu__disclosure .mzf-c-mega-menu {
+  flex-direction: column;
+  padding: var(--space-20);
+  border-block-start: 0;
+}
+
+.mzf-c-mega-menu__disclosure .mzf-c-mega-menu__groups {
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--space-32);
+}
+
+/* 10092:920 draws 32 between the About us groups, 10092:2044 and 10092:2134
+   draw 40 on Our Work and Festival. No property in the file separates them, so
+   the loose gap is a class rather than something inferred from the markup. */
+.mzf-c-mega-menu__disclosure .mzf-c-mega-menu__groups--loose {
+  gap: var(--space-40);
+}
+
+.mzf-c-mega-menu__disclosure .mzf-c-mega-menu__group {
+  padding-block-start: var(--space-10);
+  align-self: stretch;
+}
+
+.mzf-c-mega-menu__disclosure .mzf-c-mega-menu__eyebrow {
+  font-size: var(--font-size-label-mobile);
+}
+
+.mzf-c-mega-menu__disclosure .mzf-c-mega-menu__headline {
+  font-size: var(--font-size-h3-mobile);
+}
+
+/* ---------- below the mobile breakpoint ---------- */
+@include mobile-only {
+  .mzf-c-mega-menu {
+    flex-direction: column;
+    padding: var(--space-20);
+  }
+
+  .mzf-c-mega-menu__groups {
+    flex-direction: column;
+    align-self: stretch;
+    gap: var(--space-32);
+  }
+
+  .mzf-c-mega-menu__groups--loose {
+    gap: var(--space-40);
+  }
+
+  .mzf-c-mega-menu__group {
+    padding-block-start: var(--space-10);
+    align-self: stretch;
+  }
+
+  .mzf-c-mega-menu__eyebrow {
+    font-size: var(--font-size-label-mobile);
+  }
+
+  .mzf-c-mega-menu__headline {
+    font-size: var(--font-size-h3-mobile);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mzf-c-mega-menu__chevron,
+  .mzf-c-mega-menu__reveal,
+  .mzf-c-mega-menu__reveal-inner {
+    transition-duration: var(--mzf-motion-duration-instant);
+  }
+}

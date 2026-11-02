@@ -1,0 +1,7 @@
+<ul class="mzf-c-mega-menu__items">
+  {% for link in links %}
+    <li class="mzf-c-mega-menu__item">
+      {% include "patterns/components/navigation/_mega_menu_link.html" with link=link classnames="mzf-c-mega-menu__link" %}
+    </li>
+  {% endfor %}
+</ul>

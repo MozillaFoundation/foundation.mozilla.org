@@ -1,409 +1,101 @@
-@use "sass:list";
-@import "../colors";
-
-$hamburger-bar-spacing: 0.8rem;
-
-@import "../../../../node_modules/delicious-hamburgers/scss/base";
-@import "../../../../node_modules/delicious-hamburgers/scss/animations/collapse";
-
-$primary-nav-margin: 0.7rem;
-
-// Set max-widths for top-level menu links by item order at a given breakpoint.
-// Usage:
-// @include primary-nav-menu-item-max-widths(large, 7rem, 6rem, 5rem, 8rem);
-// Pass `null` to skip an item index.
-@mixin primary-nav-menu-item-max-widths($bp, $widths...) {
-  @include breakpoint(#{$bp} up) {
-    @for $i from 1 through list.length($widths) {
-      $w: list.nth($widths, $i);
-
-      @if $w {
-        .primary-nav-ns__menu-item:nth-child(#{$i}) > a {
-          max-width: $w;
-        }
-      }
-    }
-  }
-}
-
-@mixin primary-nav-active-link {
-  color: color(orange, "600");
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-skip-ink: none;
-  text-underline-offset: 0.15rem;
-}
+// The site header is LP's Nav (cosmos/blocks/sections/_nav.scss) with its
+// mega menu panels. This file holds only what our header adds around LP's
+// component: its stacking, the homepage logo hand-off, a plain-link drawer
+// row, drawer scrolling, and the existing search drawer.
 
 .primary-nav-ns {
-  position: sticky;
-  width: 100%;
-  margin: 0;
-  max-width: 100vw;
-  top: 0;
+  // Keep the header and its panels above page content, as the legacy header
+  // did, rather than LP's z-index: 2.
   z-index: 10;
-  background-color: $white;
-  height: $primary-nav-height;
-  overflow: hidden;
-  will-change: height;
-  transition: height 0.3s ease-in-out;
 
-  @include breakpoint(large up) {
-    overflow: visible;
+  // LP's bar is `1fr auto 1fr`, so the links stay centered, but its sides can
+  // shrink below the logo and actions and let the links run over them. Each
+  // side keeps at least its own width instead. Where the content fits, as at
+  // 1440, the sides still share the rest equally and the bar is unchanged.
+  // Where it doesn't, such as a long menu or longer translated labels just
+  // above the mobile boundary, the links wrap into rows and the bar grows.
+  .mzf-c-nav__bar {
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(
+        max-content,
+        1fr
+      );
   }
 
-  &__grid {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    gap: 1rem;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-
-    @include breakpoint(large up) {
-      gap: 1.5rem;
-      flex-flow: row nowrap;
-
-      &:not(.hidden-wordmark) {
-        padding-left: calc(229px + 3rem);
-      }
-    }
-  }
-
-  &__hamburger {
-    @include breakpoint(large up) {
-      display: none;
-    }
-  }
-
-  &__wordmark {
-    flex: 1;
-    height: 2rem;
-    margin: 1.5rem 0;
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease-in-out;
-    overflow: hidden;
-
-    @include breakpoint(large up) {
-      flex: 0;
-      position: absolute;
-      left: 0;
-      width: 229px;
-      height: 48px;
-    }
-
-    img {
-      transition: all 0.3s ease-in-out;
-
-      @include breakpoint(large up) {
-        transition-delay: 0.15s;
-      }
-    }
-
-    img[data-name="logo"] {
-      display: none;
-
-      @include breakpoint(large up) {
-        display: block;
-      }
-    }
-
-    img[data-name="symbol"] {
-      display: block;
-
-      @include breakpoint(large up) {
-        display: none;
-      }
-    }
-
-    &.hidden {
-      img {
-        transform: translateY(120%);
-
-        @include breakpoint(large up) {
-          transition-delay: 0ms;
-        }
-      }
-    }
-  }
-
-  &__search-icon {
-    @include breakpoint(large up) {
-      order: 2;
-    }
-
-    .search-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      cursor: pointer;
-
-      &__inner {
-        width: rem-calc(24);
-        height: rem-calc(24);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        overflow: hidden;
-        position: relative;
-
-        img {
-          transition: transform 0.3s ease-in-out;
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
-      }
-
-      &__close {
-        padding: rem-calc(4);
-        transform: translateY(100%);
-      }
-
-      &.search-open {
-        .search-toggle__open {
-          transform: translateY(-100%);
-        }
-
-        .search-toggle__close {
-          transform: translateY(0%);
-        }
-
-        border-bottom: 1px solid color(orange, "300");
-      }
-    }
-  }
-
-  &__donate {
-    order: 1;
-
-    @include breakpoint(large up) {
-      order: 3;
-    }
-  }
-
-  &__menu-wrapper {
-    width: 100%;
-    order: 2;
-
-    @include breakpoint(large up) {
-      width: auto;
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-    }
-  }
-
-  &__dropdown {
-    $side-padding-desktop: 2rem;
-
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-height: 0;
-    will-change: max-height;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    opacity: 0;
-
-    @include breakpoint(large up) {
-      position: absolute;
-      top: calc(100% + 1rem);
-      left: -$side-padding-desktop;
-      width: max-content;
-      max-width: rem-calc(224);
-      background: $white;
-      border: 1px solid color(orange, "100");
-      border-radius: 1rem;
-      padding: 1rem 0;
-      box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
-    }
-
-    & > a {
-      display: block;
-      margin: 0.5rem 2rem;
-      color: $black;
-      font-family: "Mozilla Headline", sans-serif;
-      font-size: 1.2rem;
-
-      @include breakpoint(large up) {
-        margin: 0;
-        padding: 0.5rem $side-padding-desktop;
-        text-decoration: none;
-        font-family: "Mozilla Text", sans-serif;
-        font-size: 1rem;
-      }
-    }
-  }
-
-  &__dropdown-toggle {
-    width: 2.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+  .mzf-c-nav__links {
+    flex-wrap: wrap;
     justify-content: center;
+  }
 
-    @include breakpoint(large up) {
-      width: 1.5rem;
-      margin: 0.7rem 0;
-    }
+  // The mega menu's group headings are real h2s, which the global
+  // `body.redesign h2` rule (_type.scss) and legacy pages' bare heading rules
+  // outrank, turning each eyebrow into a page heading. Outrank them in turn and
+  // restate LP's eyebrow from cosmos/blocks/sections/_mega-menu.scss: same
+  // values, including its mobile label size, which drawer rows always use.
+  // TODO: Remove once the legacy heading rule stops outranking Cosmos
+  // components sitewide, as with the meteor hero.
+  @at-root body #{&} .mzf-c-mega-menu__eyebrow {
+    margin: 0;
+    color: var(--color-text-subtle);
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-label);
+    letter-spacing: var(--letter-spacing-label);
+    text-transform: uppercase;
 
-    &::after {
-      content: "";
-      display: block;
-      width: 1.6rem;
-      height: 0.9rem;
-      background-image: url("data:image/svg+xml,%3Csvg width='24' height='15' viewBox='0 0 24 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.9602 0.949951L12.0002 10.91L2.04019 0.949951L0.450195 2.53995L12.0002 14.09L23.5502 2.53995L21.9602 0.949951Z' fill='%23141414'/%3E%3C/svg%3E%0A");
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      transition: transform 0.3s ease-in-out;
-
-      @include breakpoint(large up) {
-        filter: grayscale(100%);
-        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.0688 6.28888L10.978 6.38068L6.00049 1.40314L5.64697 1.75665L1.021 6.38068L0.930176 6.28888L5.99951 1.21954L11.0688 6.28888Z' fill='%23141414' stroke='%23D13109'/%3E%3C/svg%3E%0A");
-        transform: rotate(180deg);
-        width: 0.9rem;
-        height: 0.6rem;
-      }
+    @include mobile-only {
+      font-size: var(--font-size-label-mobile);
     }
   }
 
-  &__menu {
-    display: flex;
-    flex-direction: column;
-
-    @include breakpoint(large up) {
-      flex-direction: row;
-      justify-content: flex-start;
-      width: auto;
-      gap: 2rem;
-    }
-
-    &-item {
-      display: flex;
-      flex-flow: row wrap;
-      position: relative;
-
-      @include breakpoint(large up) {
-        flex-wrap: nowrap;
-        flex: 0 0 auto;
-        gap: 0.5rem;
-      }
-
-      > a {
-        display: flex;
-        flex: 1;
-        width: 100%;
-        font-family: "Mozilla Headline", sans-serif;
-        color: $black;
-        font-size: 1.75rem;
-        font-weight: 400;
-        padding: 1rem 0;
-
-        @include breakpoint(large up) {
-          width: auto;
-          max-width: 7rem;
-          font-size: 1rem;
-          padding: 0;
-          height: calc($primary-nav-height - #{$primary-nav-margin * 2});
-          margin: $primary-nav-margin 0;
-          flex: none;
-          font-family: "Mozilla Text", sans-serif;
-          text-decoration: none;
-          align-items: center;
-          line-height: 1.2;
-        }
-
-        @include breakpoint(xlarge up) {
-          max-width: none;
-        }
-
-        &:hover {
-          color: color(orange, "600");
-        }
-      }
-
-      &.open {
-        > a {
-          @include breakpoint(large up) {
-            color: color(orange, "600");
-          }
-        }
-
-        & .primary-nav-ns__dropdown {
-          opacity: 1;
-        }
-
-        & .primary-nav-ns__dropdown-toggle::after {
-          transform: rotate(180deg);
-
-          @include breakpoint(large up) {
-            transform: rotate(0deg);
-            filter: none;
-          }
-        }
-      }
-    }
+  @at-root body #{&} .mzf-c-mega-menu__disclosure .mzf-c-mega-menu__eyebrow {
+    font-size: var(--font-size-label-mobile);
   }
 
-  a.primary-nav-ns__link--active,
-  .primary-nav-ns__menu-item--active > a {
-    @include primary-nav-active-link;
+  // On the homepage the kinetic wordmark carries the name until it scrolls
+  // under the header (see initWordmarkVisibilityOnScroll).
+  &--logo-hidden .mzf-c-logo {
+    visibility: hidden;
   }
 
-  a:focus-visible,
-  button:focus-visible,
-  [tabindex]:focus-visible {
-    outline: 2px solid color(orange, "100");
-    outline-offset: 2px;
+  // The menu button shows its close glyph while the drawer is open.
+  .mzf-c-nav__menu .primary-nav-ns__menu-icon--close,
+  &.mzf-c-nav--drawer-open .mzf-c-nav__menu .primary-nav-ns__menu-icon--open {
+    display: none;
   }
 
-  a:not(.btn-primary):hover,
-  a:not(.btn-primary):focus-visible {
-    color: color(orange, "600");
+  &.mzf-c-nav--drawer-open .mzf-c-nav__menu .primary-nav-ns__menu-icon--close {
+    display: block;
   }
 
-  &.open {
-    height: 100vh;
+  // LP sizes the drawer rows as border boxes: 8704:29095 draws each at 88,
+  // its 20px padding inside the min-block-size, like the Search button. Our
+  // summaries and plain-link rows are content boxes, which would make each
+  // closed row 128. Labels can run to 36 characters, more than a phone-width
+  // row holds at the row's display size, so a long word may break anywhere:
+  // unlike `break-word`, that also shrinks the label's min-content, so the
+  // label gives way instead of pushing the chevron (flex: none) off the row.
+  .mzf-c-nav__drawer .mzf-c-mega-menu__summary {
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
 
-    .primary-nav-ns__wordmark.hidden img {
-      transform: translateY(0%);
-    }
+  // A section with no links to show is a plain link row in the drawer.
+  &__drawer-link {
+    text-decoration: none;
+  }
+
+  // The open drawer scrolls on its own, so a long open section never runs
+  // past the viewport, and each row's sticky summary stays in view.
+  &.mzf-c-nav--drawer-open .mzf-c-nav__drawer,
+  .mzf-c-nav__drawer--closing {
+    max-block-size: calc(100dvh - #{$primary-nav-height});
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }
 
-body.primary-nav-ns-open {
-  height: 100vh;
-  overflow: hidden;
-  padding-top: $primary-nav-height;
-
-  .primary-nav-ns {
-    position: fixed;
-  }
-}
-
-// Language-specific max-widths for top-level menu items
-// This is coupled with the order of menu items in each language.
-html[lang="de"] body .primary-nav-ns {
-  @include primary-nav-menu-item-max-widths(large, 6rem, 4rem, 4rem, 5rem);
-  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
-}
-
-html[lang="fr"] body .primary-nav-ns {
-  @include primary-nav-menu-item-max-widths(large, 6rem, 5rem, 5rem, 5rem);
-  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
-}
-
-html[lang="nl"] body .primary-nav-ns {
-  @include primary-nav-menu-item-max-widths(large, 6rem, 5rem, 5rem, 5rem);
-  @include primary-nav-menu-item-max-widths(xlarge, 8rem, 5rem, 7rem, 7rem);
-}
-
-$primary-nav-search-top: var(--primary-nav-search-top, #{$primary-nav-height});
+$primary-nav-search-top: var(--primary-nav-search-top, 0px);
 
 .search-open-backdrop {
   position: fixed;
