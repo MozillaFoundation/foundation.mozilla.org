@@ -7,20 +7,43 @@
   padding-inline: max(var(--space-148), (100% - var(--size-content-max)) / 2);
 }
 
+// LP's label never breaks inside a word, so a long one ran past the arrow.
+.mzf-c-super-cta__label {
+  overflow-wrap: anywhere;
+}
+
 // Inside a Section Start section the band would get both paddings, so it takes
 // over the section's: it reaches the section's edges, and as the first or last
-// block it also covers the section's padding above or below it.
+// block the section drops its own padding above or below it.
+.mzf-c-section:has(.mzf-c-super-cta) {
+  container-type: inline-size;
+}
+
+// The bleed is the section's padding plus the surplus the section master
+// gives its margins past the measure. The column is the section master's own.
 .mzf-c-section .mzf-c-super-cta {
+  --super-cta-column: min(
+    100cqi,
+    var(--mzf-section-measure, var(--size-content-max))
+  );
+  --super-cta-bleed: calc(
+    var(--space-148) + (100cqi - var(--super-cta-column)) / 2
+  );
+
   inline-size: auto;
-  margin-inline: calc(var(--space-148) * -1);
+  margin-inline: calc(var(--super-cta-bleed) * -1);
 }
 
-.mzf-c-section > :first-child .mzf-c-super-cta {
-  margin-block-start: calc(var(--mzf-section-padding-block) * -1);
+.mzf-c-section .mzf-c-super-cta--single {
+  padding-inline: var(--super-cta-bleed);
 }
 
-.mzf-c-section > :last-child .mzf-c-super-cta {
-  margin-block-end: calc(var(--mzf-section-padding-block) * -1);
+.mzf-c-section:has(> :first-child .mzf-c-super-cta) {
+  padding-block-start: 0;
+}
+
+.mzf-c-section:has(> :last-child .mzf-c-super-cta) {
+  padding-block-end: 0;
 }
 
 // The section's divider already draws the band's top rule.
@@ -34,14 +57,6 @@
   }
 
   .mzf-c-section .mzf-c-super-cta {
-    margin-inline: calc(var(--space-20) * -1);
-  }
-
-  .mzf-c-section > :first-child .mzf-c-super-cta {
-    margin-block-start: calc(var(--space-64) * -1);
-  }
-
-  .mzf-c-section > :last-child .mzf-c-super-cta {
-    margin-block-end: calc(var(--space-64) * -1);
+    --super-cta-bleed: var(--space-20);
   }
 }
