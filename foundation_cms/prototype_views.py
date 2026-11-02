@@ -20,3 +20,12 @@ def meteor_hero_preview(request):
             "target_id": "meteor-hero-preview-content",
         },
     )
+
+
+def navigation_preview(request):
+    """
+    Previews the site navigation on its own for design review.
+    """
+    # TODO: Remove this view, its URL, template and tests once design review of
+    # the Cosmos navigation (TP1-4298) no longer needs a page without content.
+    return render(request, "patterns/pages/prototype/navigation.html")

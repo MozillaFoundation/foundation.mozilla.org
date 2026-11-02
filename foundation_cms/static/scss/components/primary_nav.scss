@@ -80,6 +80,13 @@
     overflow-wrap: anywhere;
   }
 
+  // The drawer's mega menu takes LP's full row width plus its 20px padding,
+  // which a content box adds on top, so 402px rows clip its right edge. As a
+  // border box its padding sits inside the row, like the rows above it.
+  .mzf-c-nav__drawer .mzf-c-mega-menu {
+    box-sizing: border-box;
+  }
+
   // A section with no links to show is a plain link row in the drawer.
   &__drawer-link {
     text-decoration: none;
