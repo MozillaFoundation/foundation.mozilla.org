@@ -1,0 +1,23 @@
+{% comment %}
+  Galaxy hero: two statements over LP's converging counters and pixel galaxy.
+  The canvas is decorative; both statements remain accessible as HTML.
+  Page assembly supplies these inputs without coupling this component to a model.
+
+  Context:
+    headline         Required. The page's h1, about 50 characters.
+    second_headline  Required. The statement revealed by the galaxy.
+    background       Gray (default), Orange, Yellow or Blue for the second beat.
+    target_id        Required. The id of the real section following the hero.
+
+  Line breaks control desktop wrapping; mobile reflows the words.
+{% endcomment %}
+<div class="galaxy-hero" data-galaxy-hero data-background="{{ background|default:'Gray' }}">
+    <div class="galaxy-hero__stage">
+        <canvas class="galaxy-hero__canvas" aria-hidden="true"></canvas>
+        <div class="galaxy-hero__copy">
+            <h1>{{ headline }}</h1>
+            <p class="galaxy-hero__second-headline">{{ second_headline }}</p>
+        </div>
+        {% include "patterns/components/_scroll_reminder.html" with target_id=target_id classnames="galaxy-hero__reminder" %}
+    </div>
+</div>

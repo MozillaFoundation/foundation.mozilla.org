@@ -17,6 +17,7 @@ const entries = [
   "pages/expert_profile_page",
   "pages/gallery_hub/gallery_page",
   "pages/home_page",
+  "pages/galaxy_hero",
   "pages/maintenance",
   "pages/our_work_page",
   "pages/password_required",
