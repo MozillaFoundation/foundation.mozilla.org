@@ -195,11 +195,11 @@
         "description": "The label on a warm gray tag."
       },
       "link": {
-        "value": "{color.gray.600}",
-        "description": "A small link at rest. The handoff file binds gray/600 on 7056:2718, not the warm gray the old library used."
+        "value": "{color.gray.700}",
+        "description": "A small link at rest. The finished colors in TP1-4340 move it from gray/600 to gray/700, not the warm gray the old library used."
       },
       "link-hover": {
-        "value": "{color.gray.900}",
+        "value": "{color.gray.1000}",
         "description": "A small link under the pointer."
       },
       "placeholder-focus": {
@@ -260,12 +260,20 @@
         "value": "#f0f0f0",
         "description": "A gray panel or control under the pointer. Drawn as a raw hex in the design file, one step under gray/100, with no variable behind it."
       },
+      "white-control-hover": {
+        "value": "{color.gray.200}",
+        "description": "The primary-white button under the pointer. Design review set it to gray/200, darker than the raised panels the CTA stroke still hovers on."
+      },
+      "grey-control-hover": {
+        "value": "{color.gray.300}",
+        "description": "The primary-grey button under the pointer. Design review set it to gray/300."
+      },
       "inverse": {
         "value": "{color.gray.1000}",
         "description": "Ink fill under inverse text."
       },
       "inverse-hover": {
-        "value": "{color.gray.2000}",
+        "value": "{color.gray.700}",
         "description": "An ink fill under the pointer."
       },
       "quiet-hover": {
