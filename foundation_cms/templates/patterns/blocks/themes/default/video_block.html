@@ -2,18 +2,18 @@
 
 {% block block_content %}
   <div class="video-block">
-    <div class="video-block__wrapper">
-      {% with video_id=self.video_url|cut:"https://vimeo.com/" %}
+    {% if embed_url %}
+      <div class="video-block__wrapper">
         <iframe
           class="video-block__iframe"
-          src="https://player.vimeo.com/video/{{ video_id }}"
+          src="{{ embed_url }}"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture;"
           allowfullscreen
         >
         </iframe>
-      {% endwith %}
-    </div>
+      </div>
+    {% endif %}
 
     {% if value.caption %}
       <p class="video-block__caption">
