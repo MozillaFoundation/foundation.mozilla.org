@@ -9,6 +9,7 @@ from .featured_container_block import FeaturedContainerBlock
 from .flywheel_banner_block import FlywheelBannerBlock
 from .fru_element_block import FruElementBlock
 from .greenhouse_board_block import GreenhouseBoardBlock
+from .heading_text_group_block import HeadingTextGroupBlock
 from .icon_info_grid_block import IconInfoGridBlock
 from .iframe_block import iFrameBlock
 from .illustrated_newsletter_signup_block import IllustratedNewsletterSignupBlock
@@ -202,6 +203,10 @@ class BlockRegistry:
         "callout": {
             "class": CalloutBlock,
             "kwargs": {"skip_default_wrapper": True},
+            "group": BlockGroups.TEXT,
+        },
+        "heading_text_group": {
+            "class": HeadingTextGroupBlock,
             "group": BlockGroups.TEXT,
         },
         "quote": {

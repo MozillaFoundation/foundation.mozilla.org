@@ -1,0 +1,11 @@
+.heading-text-group {
+  max-inline-size: 940px;
+  text-align: start;
+}
+
+// LP draws the tag highlights for green only; custom override for additional highlight colors
+@each $color in yellow, blue, orange, pink {
+  .heading-text-group__highlight--#{$color} .mzf-c-big-label__marker {
+    background: var(--color-tag-#{$color});
+  }
+}

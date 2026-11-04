@@ -7,6 +7,7 @@ from foundation_cms.blocks.donor_help_contact_us_form_block import (
     DonorHelpContactUsFormBlock,
 )
 from foundation_cms.blocks.fru_element_block import FruElementBlock
+from foundation_cms.blocks.heading_text_group_block import HeadingTextGroupBlock
 from foundation_cms.blocks.hero_accordion import ImageTextPanelBlock, VideoPanelBlock
 from foundation_cms.blocks.icon_info_grid_block import (
     IconInfoGridBlock,
@@ -490,3 +491,14 @@ class ThreeColumnContainerBlockFactory(wagtail_factories.StructBlockFactory):
     left_column: list = []
     center_column: list = []
     right_column: list = []
+
+
+class HeadingTextGroupBlockFactory(wagtail_factories.StructBlockFactory):
+    class Meta:
+        model = HeadingTextGroupBlock
+
+    label = factory.Faker("word")
+    heading = factory.Faker("sentence", nb_words=6)
+    subheading = factory.Faker("sentence", nb_words=12)
+    action_type = "link"
+    action: list = []

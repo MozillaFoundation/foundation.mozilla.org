@@ -1,0 +1,60 @@
+<div class="heading-text-group">
+  {% if value.label_type == "big_label" %}
+    <div class="mzf-c-biglabel-h2">
+      {% if value.big_label_style == "number" %}
+        <p class="mzf-c-big-label mzf-c-big-label--number">
+          <span class="mzf-c-big-label__number">{{ value.number }}</span>
+          <span class="mzf-c-big-label__label">{{ value.label }}</span>
+        </p>
+      {% else %}
+        <p class="mzf-c-big-label mzf-c-big-label--highlight heading-text-group__highlight--{{ value.highlight_color }}">
+          <span class="mzf-c-big-label__marker" aria-hidden="true"></span>
+          <span class="mzf-c-big-label__label">{{ value.label }}</span>
+        </p>
+      {% endif %}
+      <div class="mzf-c-text-group mzf-c-text-group--h2">
+        <div class="mzf-c-text-group__text">
+          <div class="mzf-c-text-group__heading-group">
+            <h2 class="mzf-c-text-group__heading">{{ value.heading }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    {% with action=value.action.0 %}
+      <div class="mzf-c-text-group mzf-c-text-group--{{ value.heading_level }}{% if action %} mzf-c-text-group--action-{{ value.action_type }}{% endif %}">
+        <div class="mzf-c-text-group__text">
+          <div class="mzf-c-text-group__heading-group">
+            {% if value.label %}
+              {% if value.label_type == "tag" %}
+                <span class="mzf-c-tag mzf-c-tag--tag mzf-c-tag--{{ value.tag_color }}">{{ value.label }}</span>
+              {% elif value.label_type == "notification" %}
+                <span class="mzf-c-tag mzf-c-tag--notification mzf-c-tag--{{ value.notification_color }}">{{ value.label }}</span>
+              {% else %}
+                <p class="mzf-c-text-group__label">{{ value.label }}</p>
+              {% endif %}
+            {% endif %}
+            {% if value.heading_level == "h1" %}
+              <h1 class="mzf-c-text-group__heading">{{ value.heading }}</h1>
+            {% elif value.heading_level == "h3" %}
+              <h3 class="mzf-c-text-group__heading">{{ value.heading }}</h3>
+            {% elif value.heading_level == "h4" %}
+              <h4 class="mzf-c-text-group__heading">{{ value.heading }}</h4>
+            {% else %}
+              <h2 class="mzf-c-text-group__heading">{{ value.heading }}</h2>
+            {% endif %}
+          </div>
+          {% if value.subheading %}
+            <p class="mzf-c-text-group__subheading">{{ value.subheading }}</p>
+          {% endif %}
+        </div>
+        {% if action %}
+          <div class="mzf-c-text-group__actions">
+            {# mzf-c-link or mzf-c-button; the button adds the primary-icon variant. #}
+            <a class="mzf-c-{{ value.action_type }}{% if value.action_type == 'button' %} mzf-c-button--primary-icon{% endif %}" href="{{ action.url }}"{% if action.new_window %} target="_blank" rel="noopener"{% endif %}>{{ action.label }}<span class="mzf-c-{{ value.action_type }}__icon" aria-hidden="true"><svg width="12" height="11.55" viewBox="0 0 12 11.55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.43 0.795L9.8475 5.2125H0V6.3375H9.8475L5.43 10.755L6.225 11.55L12 5.775L6.225 0L5.43 0.795Z" fill="currentColor"/></svg></span></a>
+          </div>
+        {% endif %}
+      </div>
+    {% endwith %}
+  {% endif %}
+</div>
