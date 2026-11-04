@@ -132,6 +132,10 @@
       }
     }
 
+    > .mzf-c-button {
+      margin-block: var(--space-16);
+    }
+
     > *:last-child {
       margin-bottom: 0;
     }
