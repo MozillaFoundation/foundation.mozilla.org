@@ -63,7 +63,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:15
+    image: postgres:18
     ports:
       - "5678:5432"
     environment:
@@ -72,7 +72,7 @@ services:
       # We're only using this setting for local dev!
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres18_data:/var/lib/postgresql
 
 volumes:
-  postgres_data:
+  postgres18_data:
