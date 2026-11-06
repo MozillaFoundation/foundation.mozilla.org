@@ -5487,10 +5487,10 @@ svgo@^4.0.2:
     picocolors "^1.1.1"
     sax "1.6.1"
 
-swiper@^12.2.0:
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.2.0.tgz#f6daa886465abd1bbc42be2f2ce1827cd03c91ea"
-  integrity sha512-K8uXsBZU6ME97Ia3xbBge8IRCnR1lOmIILzvY/jGVic7dSTQ530s3uO8RvXbPUtkkXLWIwmZLRPbtDxRWVAFdg==
+swiper@^14.4.0:
+  version "14.4.0"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-14.4.0.tgz#9c6a7f787e1afdb52862e3f2c7c0d16bc3652108"
+  integrity sha512-6axnAuBsttFJe0gwsM5tT203/Bts0vcI+FwIX6dqFE4pUFVW6qrdRprNFQVxOYMW7V0S6A/KIqJ6JaPpNN2MCw==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
