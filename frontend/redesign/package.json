@@ -46,7 +46,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "d3-force": "^3.0.0",
+    "d3-force": "^3.0.1",
     "d3-selection": "^3.0.0",
     "delicious-hamburgers": "^1.2.3",
     "esbuild": "^0.28.1",
