@@ -3,6 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.functional import cached_property
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, TaggedItemBase
@@ -291,6 +292,10 @@ class ProjectPage(AbstractArticlePage, HeroMediaMixin):
         context = super().get_context(request)
         context["latest_projects"] = self.get_latest_projects()
         return context
+
+    @cached_property
+    def localized_expert(self):
+        return self.expert.localized if self.expert else None
 
 
 @register_snippet

@@ -8,10 +8,12 @@ from wagtail.admin.panels import (
     PageChooserPanel,
 )
 from wagtail.models import Orderable, Page
+from wagtail_localize.fields import SynchronizedField, TranslatableField
 
 from foundation_cms.base.models.abstract_base_page import AbstractBasePage
 from foundation_cms.gallery_hub.models.project_page import ProjectPage
 from foundation_cms.mixins.hero_image import HeroImageMixin
+from foundation_cms.utils import localize_queryset
 
 
 class FeaturedGalleryProject(Orderable):
@@ -54,6 +56,11 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
         ),
     ]
 
+    translatable_fields = AbstractBasePage.translatable_fields + [
+        TranslatableField("lede_text"),
+        SynchronizedField("featured_projects"),
+    ]
+
     class Meta:
         verbose_name = "Gallery Hub Gallery Page"
 
@@ -76,19 +83,14 @@ class GalleryPage(AbstractBasePage, HeroImageMixin):
     def get_context(self, request):
         context = super().get_context(request)
 
-        featured_project_ids = tuple(
-            self.featured_projects.filter(project_id__isnull=False).values_list("project_id", flat=True)
+        featured_pages = ProjectPage.objects.filter(gallery_page_featured_in__gallery_page=self).order_by(
+            "gallery_page_featured_in__sort_order"
         )
-        featured_by_id = {
-            page.id: page
-            for page in ProjectPage.objects.filter(id__in=featured_project_ids)
+        featured = list(
+            localize_queryset(featured_pages, preserve_order=True)
             .select_related("expert")
-            .prefetch_related(
-                "topics",
-                "program_label",
-            )
-        }
-        featured = [featured_by_id[project_id] for project_id in featured_project_ids if project_id in featured_by_id]
+            .prefetch_related("topics", "program_label", "hero_gallery_media")
+        )
 
         topics = sorted(
             {tag.slug: tag for page in featured for tag in page.topics.all()}.values(),
