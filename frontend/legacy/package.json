@@ -10,7 +10,7 @@
   "scripts": {
     "build": "run-p build:legacy",
     "build:legacy": "run-s build:legacy:clean && run-p build:legacy:common build:legacy:js:prod && npm run postcss:legacy:build",
-    "build:legacy:clean": "shx rm -rf ../../foundation_cms/legacy_apps/static/temp/compiled/legacy && shx rm -rf ../../foundation_cms/legacy_apps/static/compiled && shx mkdir -p ../../foundation_cms/legacy_apps/static/compiled/_js",
+    "build:legacy:clean": "shx rm -rf ../../foundation_cms/legacy_apps/static/temp/compiled/legacy_apps && shx rm -rf ../../foundation_cms/legacy_apps/static/compiled && shx mkdir -p ../../foundation_cms/legacy_apps/static/compiled/_js",
     "build:legacy:common": "run-p build:legacy:images build:legacy:fonts build:legacy:css build:legacy:contribute",
     "build:legacy:contribute": "shx cp ../../contribute.json ../../foundation_cms/legacy_apps/static/",
     "build:legacy:images": "shx rm -rf ../../foundation_cms/legacy_apps/static/compiled/_images && shx cp -r ../../foundation_cms/legacy_apps/static/images ../../foundation_cms/legacy_apps/static/compiled/_images",
