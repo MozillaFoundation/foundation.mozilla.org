@@ -5359,10 +5359,10 @@ stylelint-config-standard@^40.0.0:
   dependencies:
     stylelint-config-recommended "^18.0.0"
 
-stylelint-prettier@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/stylelint-prettier/-/stylelint-prettier-5.0.3.tgz"
-  integrity sha512-B6V0oa35ekRrKZlf+6+jA+i50C4GXJ7X1PPmoCqSUoXN6BrNF6NhqqhanvkLjqw2qgvrS0wjdpeC+Tn06KN3jw==
+stylelint-prettier@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/stylelint-prettier/-/stylelint-prettier-5.1.0.tgz#ba674a37090672e14442be67ac3b435b4db2c952"
+  integrity sha512-YYu3C6AlovZkSUsgyANyxmrzKF6BlK85voexN+iLlh1i1Lgl0IeGhwqFiPHPX8cMSkX0AC2/oHi06j/5iXSWgA==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
