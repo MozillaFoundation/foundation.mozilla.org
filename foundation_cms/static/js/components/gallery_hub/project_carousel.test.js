@@ -1,8 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  GALLERY_HUB_SCROLL_COOLDOWN as COOLDOWN_MS,
+  GALLERY_HUB_SCROLL_LOCK_CLASS as LOCK_CLASS,
+} from "./config";
 
 const BANNER_HEIGHT = 600;
-const COOLDOWN_MS = 700;
-const LOCK_CLASS = "gallery-hub-scroll-locked";
 
 let listeners = [];
 let prefersReducedMotion = true;
