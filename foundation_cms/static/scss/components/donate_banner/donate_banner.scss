@@ -6,11 +6,13 @@
   // Figma "spectrum/apricot"; not yet part of the shared $mofo-colors palette.
   $banner-background: #ff944a;
   $cta-button-background: color(blue, "500");
+  $skip-color: color(neutral, "600");
   $banner-standard-padding-y: (
     medium: rem-calc(48),
   );
 
-  // Leaves room for the absolutely positioned skip control (label + 50px button).
+  // Pushdown only. The 46px skip control (12px label + 4px gap + 30px button)
+  // is centered in this space, leaving 17px above and below it.
   $banner-larger-padding-bottom: (
     small: rem-calc(80),
     medium: rem-calc(80),
@@ -127,21 +129,42 @@
   }
 
   &__skip-button {
-    @include mofo-text-style($body-text-styles, "xsmall");
+    $arrow-nudge: rem-calc(2);
 
-    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem-calc(26);
+    height: rem-calc(30);
+    padding: 0;
+    color: $skip-color;
+    background: transparent;
+    border: 1px solid $skip-color;
     cursor: pointer;
-    height: rem-calc(50);
-    width: rem-calc(50);
 
-    &:hover {
-      filter: invert(100%);
+    &-icon {
+      width: rem-calc(12);
+      height: rem-calc(12);
+      transition: transform 0.2s ease-out;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+    }
+
+    &:hover,
+    &:focus-visible {
+      .donate-banner__skip-button-icon {
+        transform: translateY($arrow-nudge);
+      }
     }
   }
 
   &__skip-button-label {
-    @include mofo-text-style($body-text-styles, "xsmall");
-
+    font-size: rem-calc(10);
+    font-weight: map.get($font-weights, semibold);
+    line-height: 1.2;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
