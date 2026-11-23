@@ -23,6 +23,10 @@ import {
 } from "./config";
 import { isMostlyVerticalGesture, isPastGestureThreshold } from "./gesture";
 import {
+  EVENTS as DONATE_BANNER_EVENTS,
+  SELECTORS as DONATE_BANNER_SELECTORS,
+} from "../donate_banner";
+import {
   getGalleryHubState,
   setGalleryHubState,
   subscribeGalleryHubState,
@@ -118,16 +122,59 @@ function syncViewMode(root, viewMode) {
 }
 
 /**
+ * Scroll instantly. The site sets `scroll-behavior: smooth` on `html`, so
+ * `behavior: "auto"` would animate and leave `window.scrollY` stale while the
+ * page is being pinned.
+ *
+ * @param {number} top - Document scroll position.
+ */
+function scrollInstantlyTo(top) {
+  window.scrollTo({ top, left: 0, behavior: "instant" });
+}
+
+/**
+ * Measure the in-flow donate banner above the page navigation.
+ *
+ * Pushdown (sticky) and legacy (static) banners take up space above the nav,
+ * so the gallery has to pin itself below them instead of at the document top.
+ * Overlay styles (fixed or absolute) and hidden banners take up no space.
+ *
+ * @returns {number} Scroll position that puts the navigation at the top.
+ */
+function getNavigationScrollTop() {
+  const banner = document.querySelector(DONATE_BANNER_SELECTORS.donateBanner);
+
+  if (!banner?.isConnected) return 0;
+
+  const { display, position } = window.getComputedStyle(banner);
+
+  if (display === "none" || position === "fixed" || position === "absolute") {
+    return 0;
+  }
+
+  return banner.getBoundingClientRect().height;
+}
+
+/**
  * Keep the browser scroll position aligned with the JS-controlled gallery.
+ *
+ * While the page is locked, the body is already pinned, so only its offset is
+ * updated (for example after the banner above it resizes or is dismissed).
  */
 function keepNavigationInView() {
-  if (window.scrollY <= 1) return;
+  const top = getNavigationScrollTop();
 
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "auto",
-  });
+  if (isPageScrollLocked()) {
+    if (Math.abs(lockedScrollY - top) <= 1) return;
+
+    lockedScrollY = top;
+    document.body.style.top = `-${top}px`;
+    return;
+  }
+
+  if (Math.abs(window.scrollY - top) <= 1) return;
+
+  scrollInstantlyTo(top);
 }
 
 /**
@@ -145,8 +192,8 @@ function setPageScrollLock(isLocked) {
   if (isLocked === isCurrentlyLocked) return;
 
   if (isLocked) {
-    keepNavigationInView();
-    lockedScrollY = window.scrollY;
+    lockedScrollY = getNavigationScrollTop();
+    scrollInstantlyTo(lockedScrollY);
     body.style.position = "fixed";
     body.style.top = `-${lockedScrollY}px`;
     body.style.left = "0";
@@ -163,7 +210,7 @@ function setPageScrollLock(isLocked) {
     body.style.removeProperty("left");
     body.style.removeProperty("right");
     body.style.removeProperty("width");
-    window.scrollTo({ top: lockedScrollY, left: 0, behavior: "auto" });
+    scrollInstantlyTo(lockedScrollY);
   }
 }
 
@@ -332,7 +379,18 @@ export function initGalleryHubProjectCarousel() {
     GALLERY_HUB_SELECTORS.filterSlot,
   );
   const projectIds = projects.map(getProjectId);
-  let isReleasedToPageScroll = false;
+  /**
+   * Where native page scrolling currently owns the viewport: `"up"` while the
+   * donate banner above the gallery is in view, `"down"` once the user has
+   * scrolled past the final project toward the footer, or `null` while the
+   * gallery is pinned below the navigation and owns vertical gestures.
+   *
+   * @type {?("up"|"down")}
+   */
+  let releaseDirection = null;
+  // Restoring the scroll position on release fires a scroll event at the pin
+  // position itself; only re-pin after the user has actually scrolled away.
+  let hasLeftPinnedPosition = false;
   let lastScrollAt = 0;
   let touchStartX = null;
   let touchStartY = null;
@@ -373,7 +431,7 @@ export function initGalleryHubProjectCarousel() {
       "",
       `${window.location.pathname}${window.location.search}`,
     );
-    window.scrollTo({ top: 0, behavior: "auto" });
+    scrollInstantlyTo(0);
   }
 
   /**
@@ -389,7 +447,17 @@ export function initGalleryHubProjectCarousel() {
    * Store available viewport height so SCSS can size the gallery stage.
    */
   function updateViewportHeight() {
-    const rootTop = Math.max(root.getBoundingClientRect().top, 0);
+    // Measure where the gallery sits once pinned below the navigation, not
+    // where it is now: a pushdown banner may still be in view above it.
+    const currentScrollTop = isPageScrollLocked()
+      ? lockedScrollY
+      : window.scrollY;
+    const rootTop = Math.max(
+      root.getBoundingClientRect().top +
+        currentScrollTop -
+        getNavigationScrollTop(),
+      0,
+    );
     const viewportHeight = getViewportHeight() - rootTop;
     const clampedViewportHeight = Math.max(viewportHeight, 320);
 
@@ -412,36 +480,65 @@ export function initGalleryHubProjectCarousel() {
   }
 
   /**
-   * Check whether a downward gesture should leave the Gallery Hub and continue
-   * to the page footer.
+   * Check whether a gesture should leave the Gallery Hub for native scrolling:
+   * down past the final project to the footer, or up from the intro back to a
+   * donate banner above the navigation.
    *
    * @param {number} delta - Positive for forward/down navigation.
-   * @returns {boolean} Whether native page scrolling should resume.
+   * @returns {?("up"|"down")} Direction native page scrolling should resume.
    */
-  function shouldReleaseNativeScroll(delta) {
+  function getNativeScrollRelease(delta) {
     const state = getGalleryHubState();
     const lastProjectIndex = state.filteredProjectIds.length - 1;
 
-    return (
+    if (
       state.viewMode === GALLERY_HUB_VIEW_MODES.project &&
       delta > 0 &&
       state.activeIndex >= lastProjectIndex
-    );
+    ) {
+      return "down";
+    }
+
+    if (
+      state.viewMode === GALLERY_HUB_VIEW_MODES.intro &&
+      delta < 0 &&
+      getNavigationScrollTop() > 1
+    ) {
+      return "up";
+    }
+
+    return null;
   }
 
   /**
    * Unlock the page and nudge the browser into normal document scrolling.
+   *
+   * @param {"up"|"down"} direction - Which way native scrolling continues.
    */
-  function releaseToPageScroll() {
-    isReleasedToPageScroll = true;
+  function releaseToPageScroll(direction) {
+    releaseDirection = direction;
+    hasLeftPinnedPosition = false;
     setPageScrollLock(false);
     window.requestAnimationFrame(() => {
+      const distance =
+        direction === "down"
+          ? Math.min(getViewportHeight() * 0.72, root.offsetHeight)
+          : -Math.min(getViewportHeight() * 0.72, getNavigationScrollTop());
+
       window.scrollBy({
-        top: Math.min(getViewportHeight() * 0.72, root.offsetHeight),
+        top: distance,
         left: 0,
-        behavior: "smooth",
+        behavior: prefersReducedMotion() ? "instant" : "smooth",
       });
     });
+  }
+
+  /**
+   * Pin the Gallery Hub below the navigation and give it vertical gestures.
+   */
+  function pinGalleryNavigation() {
+    releaseDirection = null;
+    setPageScrollLock(true);
   }
 
   /**
@@ -532,14 +629,44 @@ export function initGalleryHubProjectCarousel() {
   }
 
   /**
-   * Re-pin the Gallery Hub after native page scroll returns to the gallery.
+   * Re-pin the Gallery Hub once native page scroll reaches it again, from the
+   * footer below or from the donate banner above.
    */
   function restoreGalleryNavigation() {
-    if (!isReleasedToPageScroll || window.scrollY > 1) return;
+    if (!releaseDirection) return;
 
-    isReleasedToPageScroll = false;
-    setPageScrollLock(true);
+    const offset = window.scrollY - getNavigationScrollTop();
+
+    if (!hasLeftPinnedPosition) {
+      hasLeftPinnedPosition = Math.abs(offset) > 1;
+      return;
+    }
+
+    const hasReachedGallery =
+      releaseDirection === "down" ? offset <= 1 : offset >= -1;
+
+    if (!hasReachedGallery) return;
+
+    pinGalleryNavigation();
+    // Let the momentum of the gesture that reached the gallery settle before
+    // it can move between projects.
     lastScrollAt = Date.now();
+  }
+
+  /**
+   * Re-measure after the donate banner above the gallery resizes or is
+   * dismissed, so the pinned gallery keeps the navigation at the top of the
+   * viewport without a jump or a stale offset.
+   */
+  function handleBannerLayoutChange() {
+    updateViewportHeight();
+
+    if (releaseDirection) {
+      restoreGalleryNavigation();
+      return;
+    }
+
+    keepNavigationInView();
   }
 
   subscribeGalleryHubState((state) => {
@@ -558,18 +685,28 @@ export function initGalleryHubProjectCarousel() {
     syncProjectMarkers(projectMarkers, state.filteredProjectIds, activeIndex);
     syncControls({ previous, next, projectListToggle, filterToggle }, state);
 
+    // Leave a donate banner the user is reading above the gallery alone.
     if (
+      releaseDirection !== "up" &&
       !state.modalOpen &&
-      !shouldReleaseNativeScroll(1) &&
+      getNativeScrollRelease(1) !== "down" &&
       isGalleryInScrollRange()
     ) {
       keepNavigationInView();
     }
 
-    if (!isReleasedToPageScroll) {
+    if (!releaseDirection) {
       setPageScrollLock(true);
     }
   });
+
+  // A pushdown or legacy donate banner starts in view above the navigation.
+  // Native scrolling (or the banner's Skip Down button) reaches the gallery,
+  // which then pins itself below the banner.
+  if (window.scrollY < getNavigationScrollTop() - 1) {
+    releaseDirection = "up";
+    hasLeftPinnedPosition = true;
+  }
 
   setGalleryHubState({
     activeIndex: 0,
@@ -579,10 +716,9 @@ export function initGalleryHubProjectCarousel() {
   });
 
   updateViewportHeight();
-  keepNavigationInView();
   window.requestAnimationFrame(() => {
     updateViewportHeight();
-    keepNavigationInView();
+    if (!releaseDirection) keepNavigationInView();
   });
   window.addEventListener("resize", updateViewportHeight);
   window.visualViewport?.addEventListener("resize", updateViewportHeight);
@@ -591,7 +727,22 @@ export function initGalleryHubProjectCarousel() {
     passive: true,
   });
 
+  document.addEventListener(
+    DONATE_BANNER_EVENTS.dismiss,
+    handleBannerLayoutChange,
+  );
+
+  const donateBanner = document.querySelector(
+    DONATE_BANNER_SELECTORS.donateBanner,
+  );
+
+  if (donateBanner && "ResizeObserver" in window) {
+    new ResizeObserver(handleBannerLayoutChange).observe(donateBanner);
+  }
+
   enterButton?.addEventListener("click", (event) => {
+    if (releaseDirection === "up") pinGalleryNavigation();
+
     if (isWaitingForIntroAnimation()) {
       event.preventDefault();
       keepNavigationInView();
@@ -622,6 +773,8 @@ export function initGalleryHubProjectCarousel() {
     const state = getGalleryHubState();
 
     if (state.viewMode === GALLERY_HUB_VIEW_MODES.intro) {
+      if (releaseDirection === "up") pinGalleryNavigation();
+
       if (isWaitingForIntroAnimation()) {
         keepNavigationInView();
         return;
@@ -653,22 +806,24 @@ export function initGalleryHubProjectCarousel() {
       return;
     }
 
-    if (isReleasedToPageScroll) return;
-
-    if (isWaitingForIntroAnimation()) {
-      event.preventDefault();
-      keepNavigationInView();
-      return;
-    }
+    if (releaseDirection) return;
 
     if (isNavigationCoolingDown()) {
       event.preventDefault();
       return;
     }
 
-    if (shouldReleaseNativeScroll(event.deltaY)) {
+    const release = getNativeScrollRelease(event.deltaY);
+
+    if (release) {
       event.preventDefault();
-      releaseToPageScroll();
+      releaseToPageScroll(release);
+      return;
+    }
+
+    if (isWaitingForIntroAnimation()) {
+      event.preventDefault();
+      keepNavigationInView();
       return;
     }
 
@@ -724,13 +879,7 @@ export function initGalleryHubProjectCarousel() {
         return;
       }
 
-      if (isReleasedToPageScroll) return;
-
-      if (isWaitingForIntroAnimation()) {
-        event.preventDefault();
-        keepNavigationInView();
-        return;
-      }
+      if (releaseDirection) return;
 
       if (isNavigationCoolingDown()) {
         event.preventDefault();
@@ -738,8 +887,16 @@ export function initGalleryHubProjectCarousel() {
         return;
       }
 
-      if (shouldReleaseNativeScroll(deltaY)) {
-        releaseToPageScroll();
+      const release = getNativeScrollRelease(deltaY);
+
+      if (release) {
+        releaseToPageScroll(release);
+        return;
+      }
+
+      if (isWaitingForIntroAnimation()) {
+        event.preventDefault();
+        keepNavigationInView();
         return;
       }
 
@@ -764,20 +921,22 @@ export function initGalleryHubProjectCarousel() {
 
       if (!isProjectTouchGesture(deltaX, deltaY)) return;
       if (getGalleryHubState().modalOpen) return;
-      if (isReleasedToPageScroll) return;
-
-      if (isWaitingForIntroAnimation()) {
-        keepNavigationInView();
-        return;
-      }
+      if (releaseDirection) return;
 
       if (isNavigationCoolingDown()) {
         keepNavigationInView();
         return;
       }
 
-      if (shouldReleaseNativeScroll(deltaY)) {
-        releaseToPageScroll();
+      const release = getNativeScrollRelease(deltaY);
+
+      if (release) {
+        releaseToPageScroll(release);
+        return;
+      }
+
+      if (isWaitingForIntroAnimation()) {
+        keepNavigationInView();
         return;
       }
 
@@ -800,13 +959,7 @@ export function initGalleryHubProjectCarousel() {
       return;
     }
 
-    if (isReleasedToPageScroll || !isPageScrollLocked()) return;
-
-    if (isWaitingForIntroAnimation()) {
-      event.preventDefault();
-      keepNavigationInView();
-      return;
-    }
+    if (releaseDirection || !isPageScrollLocked()) return;
 
     if (isNavigationCoolingDown()) {
       event.preventDefault();
@@ -814,8 +967,16 @@ export function initGalleryHubProjectCarousel() {
       return;
     }
 
-    if (shouldReleaseNativeScroll(delta)) {
-      releaseToPageScroll();
+    const release = getNativeScrollRelease(delta);
+
+    if (release) {
+      releaseToPageScroll(release);
+      return;
+    }
+
+    if (isWaitingForIntroAnimation()) {
+      event.preventDefault();
+      keepNavigationInView();
       return;
     }
 

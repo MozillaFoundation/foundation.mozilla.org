@@ -1,12 +1,23 @@
 /**
  * CSS selectors for donate banner and elements.
  */
-const SELECTORS = {
+export const SELECTORS = {
   donateBanner: ".donate-banner",
   ctaButton: "[data-donate-banner-cta-button]",
   closeButton: "[data-donate-banner-close-button]",
   skipButton: "[data-donate-banner-skip-button]",
   skipTarget: "nav.primary-nav-ns",
+};
+
+/**
+ * Events other modules can listen for on `document`.
+ *
+ * Pages that measure the layout above their content (like the Gallery Hub,
+ * which pins itself below the banner) use `dismiss` to re-measure once the
+ * banner has been removed.
+ */
+export const EVENTS = {
+  dismiss: "donateBanner:dismiss",
 };
 
 const LEGACY_SELECTORS = {
@@ -85,6 +96,7 @@ export function initDonateBanner() {
         }
 
         banner.remove();
+        document.dispatchEvent(new CustomEvent(EVENTS.dismiss));
       },
       { once: true },
     );
