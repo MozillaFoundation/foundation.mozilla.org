@@ -28,6 +28,7 @@ $mofo-colors: (
     ),
   orange: (
     "100": #ff9e5f,
+    "150": #ff944a,
     "200": #f88539,
     "300": #f06c13,
     "400": #ed550a,
@@ -67,3 +68,10 @@ $mofo-colors: (
 @function color($group, $shade) {
   @return map.get(map.get($mofo-colors, $group), $shade);
 }
+
+// Keyed to DonateBanner.BANNER_COLORS values.
+$donate-banner-colors: (
+  cyan: color(blue, "100"),
+  orange: color(orange, "150"),
+  green: #acee48,
+);

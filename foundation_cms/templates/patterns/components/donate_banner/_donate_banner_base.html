@@ -1,6 +1,6 @@
 {% load settings_value i18n static wagtailimages_tags responsive_image_tags %}
 
-<div class="donate-banner"
+<div class="donate-banner{% if banner.banner_style == "pushdown" %} donate-banner--{{ banner.pushdown_color }}{% endif %}"
      data-banner-id="{{ banner.id }}"
      data-banner-title="{{ banner.title }}"
      data-banner-name="{{ banner.name }}"
