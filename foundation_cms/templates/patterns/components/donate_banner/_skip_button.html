@@ -1,4 +1,4 @@
-{% load static i18n l10n %}
+{% load i18n %}
 
 {% with skip_down_label=_("Skip Down") %}
     <div class="donate-banner__skip">
@@ -8,7 +8,10 @@
             class="donate-banner__skip-button"
             aria-label="{{ skip_down_label }}"
         >
-            <img src="{% static 'foundation_cms/_images/icons/button-scroll-down.svg' %}" alt="" width="50" height="50" />
+            {# button-arrow-top-black.svg's arrow, flipped to point down. #}
+            <svg class="donate-banner__skip-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M10.875 0v19.695L2.04 10.86.45 12.45 12 24l11.55-11.55-1.59-1.59-8.835 8.835V0h-2.25z" fill="currentColor" />
+            </svg>
         </button>
     </div>
 {% endwith %}

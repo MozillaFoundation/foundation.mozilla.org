@@ -1,20 +1,22 @@
 @use "sass:map";
 
 .donate-banner {
-  $white: map.get($mofo-colors, white);
   $black: map.get($mofo-colors, black);
-  $orange: color(orange, "300");
   $cta-button-background: color(blue, "500");
+  $skip-color: color(neutral, "600");
   $banner-standard-padding-y: (
-    medium: calc(map.get($grid-container-padding, large) / 2),
-  );
-  $banner-larger-padding-bottom: (
-    small: rem-calc(100),
-    medium: rem-calc(100),
+    medium: rem-calc(48),
   );
 
-  // A custom property so the mobile inner wrapper inherits the pushdown color.
-  --donate-banner-color: #{$orange};
+  // Pushdown only. The 46px skip control (12px label + 4px gap + 30px button)
+  // is centered in this space, leaving 17px above and below it.
+  $banner-larger-padding-bottom: (
+    small: rem-calc(80),
+    medium: rem-calc(80),
+  );
+
+  // Apricot by default; pushdown banners swap it for their CMS color below.
+  --donate-banner-color: #{color(orange, "150")};
 
   background: var(--donate-banner-color);
   position: relative;
@@ -57,40 +59,16 @@
     }
   }
 
-  &__inner-wrapper {
-    background: var(--donate-banner-color);
-    margin: 0 auto;
-
-    @include breakpoint(medium only) {
-      max-width: 91vw;
-    }
-
-    @include breakpoint(large only) {
-      max-width: 89vw;
-    }
-
-    @include breakpoint(xlarge up) {
-      max-width: calc(#{$global-width} + #{rem-calc(128)});
-    }
-
-    @include breakpoint(medium up) {
-      $border-radius: rem-calc(24);
-
-      background: $white;
-      padding-top: calc(map.get($grid-container-padding, medium) / 2);
-      padding-bottom: calc(map.get($grid-container-padding, medium) / 2);
-      border-radius: $border-radius 0;
-    }
-  }
-
   &__section {
     align-content: center;
-    background: $white;
-    padding: 0 1rem 1rem;
     align-self: center;
 
-    @include breakpoint(medium up) {
-      padding: 0;
+    &--content {
+      padding-bottom: 1rem;
+
+      @include breakpoint(medium up) {
+        padding-bottom: 0;
+      }
     }
   }
 
@@ -157,21 +135,42 @@
   }
 
   &__skip-button {
-    @include mofo-text-style($body-text-styles, "xsmall");
+    $arrow-nudge: rem-calc(2);
 
-    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem-calc(26);
+    height: rem-calc(30);
+    padding: 0;
+    color: $skip-color;
+    background: transparent;
+    border: 1px solid $skip-color;
     cursor: pointer;
-    height: rem-calc(50);
-    width: rem-calc(50);
 
-    &:hover {
-      filter: invert(100%);
+    &-icon {
+      width: rem-calc(12);
+      height: rem-calc(12);
+      transition: transform 0.2s ease-out;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+    }
+
+    &:hover,
+    &:focus-visible {
+      .donate-banner__skip-button-icon {
+        transform: translateY($arrow-nudge);
+      }
     }
   }
 
   &__skip-button-label {
-    @include mofo-text-style($body-text-styles, "xsmall");
-
+    font-size: rem-calc(10);
+    font-weight: map.get($font-weights, semibold);
+    line-height: 1.2;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
@@ -200,6 +199,7 @@
   }
 
   &__subtitle {
+    max-width: rem-calc(600);
     margin-top: 0;
     margin-bottom: 0.5rem;
   }

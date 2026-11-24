@@ -12,7 +12,7 @@
     <div class="donate-banner__inner-wrapper">
         <div class="grid-container">
             <div class="grid-x grid-margin-x">
-                <div class="cell small-12 medium-6 donate-banner__section">
+                <div class="cell small-12 medium-7 large-8 donate-banner__section donate-banner__section--content">
                     <div class="donate-banner__title-wrapper">
                         <h1 class="donate-banner__title">{{ banner.title }}</h1>
                         {% block mobile_top_button_wrapper %}{% endblock mobile_top_button_wrapper %}
@@ -33,7 +33,7 @@
 
                     {% include "patterns/components/_button.html" with url=banner.cta_link label=banner.cta_button_text button_style="btn-primary" classnames="donate-banner__cta-button" data_attrs=cta_button_data %}
                 </div>
-                <div class="cell small-12 medium-6 donate-banner__section">
+                <div class="cell small-12 medium-5 large-4 donate-banner__section">
                     {% responsive_image banner.foreground_image ratio="3:2" base_width=600 %}
                 </div>
             </div>
