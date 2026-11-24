@@ -13,7 +13,10 @@
     medium: rem-calc(100),
   );
 
-  background: $orange;
+  // A custom property so the mobile inner wrapper inherits the pushdown color.
+  --donate-banner-color: #{$orange};
+
+  background: var(--donate-banner-color);
   position: relative;
   padding-top: calc(map.get($grid-container-padding, small) / 2);
   padding-bottom: calc(map.get($grid-container-padding, small) / 2);
@@ -48,8 +51,14 @@
     }
   }
 
+  @each $name, $value in $donate-banner-colors {
+    &--#{$name} {
+      --donate-banner-color: #{$value};
+    }
+  }
+
   &__inner-wrapper {
-    background: $orange;
+    background: var(--donate-banner-color);
     margin: 0 auto;
 
     @include breakpoint(medium only) {

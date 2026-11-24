@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% with link=banner.pencil_link.0.value %}
-    <div class="donate-pencil-banner"
+    <div class="donate-pencil-banner donate-pencil-banner--{{ banner.pencil_color }}"
          role="region"
          aria-label="{% trans "Donate" %}"
          data-banner-id="{{ banner.id }}"

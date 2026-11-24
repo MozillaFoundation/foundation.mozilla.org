@@ -19,6 +19,12 @@
   z-index: 11;
   overflow: hidden;
 
+  @each $name, $value in $donate-banner-colors {
+    &--#{$name} {
+      background: $value;
+    }
+  }
+
   .donate-pencil-banner-dismissed & {
     display: none;
   }
