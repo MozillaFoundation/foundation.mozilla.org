@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { initDonateBanner } from "./donate_banner.js";
+import { EVENTS, initDonateBanner } from "./donate_banner.js";
 
 const DISMISS_KEY = "donate banner dismiss day";
 
@@ -93,6 +93,25 @@ describe("initDonateBanner", () => {
 
     expect(localStorage.setItem).not.toHaveBeenCalled();
     expect(document.querySelector(".donate-banner")).toBeNull();
+  });
+
+  it("announces dismissal after the banner leaves the page", () => {
+    buildBannerMarkup({ bannerStyle: "legacy" });
+    localStorage.getItem.mockReturnValue(null);
+    let bannerOnDismiss;
+    const onDismiss = vi.fn(() => {
+      bannerOnDismiss = document.querySelector(".donate-banner");
+    });
+    document.addEventListener(EVENTS.dismiss, onDismiss);
+
+    initDonateBanner();
+    document
+      .querySelector("[data-donate-banner-close-button]")
+      .dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    document.removeEventListener(EVENTS.dismiss, onDismiss);
+
+    expect(onDismiss).toHaveBeenCalledTimes(1);
+    expect(bannerOnDismiss).toBeNull();
   });
 
   it("scrolls to the redesign skip target for pushdown banners", () => {
