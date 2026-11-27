@@ -122,7 +122,7 @@
     "prettier": "^3.8.4",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
-    "stylelint-prettier": "^5.0.3",
+    "stylelint-prettier": "^5.1.0",
     "wait-on": "^9"
   }
 }
