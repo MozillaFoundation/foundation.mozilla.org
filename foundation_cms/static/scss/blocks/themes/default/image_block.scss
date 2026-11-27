@@ -1,35 +1,27 @@
 @use "sass:math";
-@import "../../../../../../node_modules/foundation-sites/scss/util/util";
 
 // Image block styles
 .image-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
   margin-bottom: 2rem;
 
   &__image {
     width: 100%;
-    border-bottom-left-radius: 2rem;
     object-fit: cover;
     display: block;
   }
 
   &__title {
-    text-align: left;
-    width: 100%;
-    padding-left: 2rem;
-    position: relative;
-
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: -0.25rem;
-      width: rem-calc(27);
-      height: rem-calc(18);
-      background-image: url("/static/foundation_cms/_images/icons/image-caption-arrow-black.svg");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
+    align-self: stretch;
+    margin: 0;
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-body-small);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body);
+    color: var(--color-gray-2000);
   }
 
   &--square {
