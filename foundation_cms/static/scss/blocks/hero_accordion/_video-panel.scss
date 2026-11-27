@@ -135,6 +135,9 @@
     }
 
     .hero-accordion__heading {
+      // Below large this reads as body text, not the global h2 style.
+      font: inherit;
+
       @include breakpoint(large up) {
         @include apply-text-style($body-text-styles, "large", "large");
       }
